@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Electron
+    body
+        #app
+        
+        // The transpiled TypeScript expects CommonJS "exports" to be available in the global namespace
+        script window.exports = module.exports
+        script if (typeof module === 'object') {window.module = module; module = undefined;}
+        script if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+        script(src="ui-bundle.js" defer)

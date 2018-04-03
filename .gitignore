@@ -57,3 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# electron
+src/main/dist/*
+src/renderer/dist/*
+
+# yarn lock
+yarn.lock

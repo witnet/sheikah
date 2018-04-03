@@ -1,0 +1,48 @@
+{
+  "name": "sheikah",
+  "version": "0.1.0",
+  "description": "A Witnet compatible desktop wallet and smart contracts development environment",
+  "main": "src/main/dist/renderrer-bundle.js",
+  "author": "Johann Og <johann@stampery.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm-run-all build run-electron",
+    "build": "webpack --config webpack.config.js",
+    "run-electron": "electron ."
+  },
+  "dependencies": {
+    "electron": "^1.8.2",
+    "typescript": "^2.7.2",
+    "vue": "^2.5.16",
+    "vue-class-component": "^6.2.0",
+    "vue-electron": "^1.0.6",
+    "vuex": "^3.0.1",
+    "vuex-router-sync": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "@types/node": "^9.4.6",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.1.0",
+    "npm-run-all": "^4.1.2",
+    "pug": "^2.0.3",
+    "pug-html-loader": "^1.1.5",
+    "pug-loader": "^2.4.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "ts-loader": "^4.0.0",
+    "tslint": "^5.9.1",
+    "tslint-config-standard": "^7.0.0",
+    "tslint-loader": "^3.6.0",
+    "url-loader": "^1.0.1",
+    "vue-loader": "^14.2.2",
+    "vue-property-decorator": "^6.0.0",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.16",
+    "vue-ts-loader": "^0.0.3",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.9"
+  }
+}
