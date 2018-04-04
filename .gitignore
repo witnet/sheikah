@@ -63,3 +63,6 @@ src/renderer/dist/*
 
 # yarn lock
 yarn.lock
+
+# vscode
+.vscode
