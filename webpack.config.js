@@ -1,10 +1,10 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 
-console.log(__dirname);
+console.log(__dirname)
 let common_config = {
   node: {
-    __dirname: true
+    __dirname: true,
   },
   mode: process.env.ENV || "development",
   module: {
@@ -16,10 +16,10 @@ let common_config = {
           loaders: {
             ts: "ts-loader",
             css: "style!css!stylus",
-            sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax"
+            sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax",
           },
-          esModule: true
-        }
+          esModule: true,
+        },
       },
       {
         test: /\.ts$/,
@@ -27,8 +27,8 @@ let common_config = {
         loader: "tslint-loader",
         options: {
           typeCheck: true,
-          emitErrors: true
-        }
+          emitErrors: true,
+        },
       },
       {
         test: /\.tsx?$/,
@@ -36,60 +36,60 @@ let common_config = {
         use: {
           loader: "ts-loader",
           options: {
-            appendTsSuffixTo: [/\.vue$/]
-          }
-        }
+            appendTsSuffixTo: [/\.vue$/],
+          },
+        },
       },
       {
         test: /\.pug$/,
         exclude: /node_modules/,
-        loader: ["html-loader", "pug-html-loader"]
+        loader: ["html-loader", "pug-html-loader"],
       },
       {
         test: /\.styl$/,
-        loader: ["style-loader", "css-loader", "stylus-loader"]
+        loader: ["style-loader", "css-loader", "stylus-loader"],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: "file-loader",
         query: {
-          name: "[name].[ext]?[hash]"
-        }
-      }
-    ]
+          name: "[name].[ext]?[hash]",
+        },
+      },
+    ],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js", "vue", "pug", "styl"],
     alias: {
-      vue$: "vue/dist/vue.esm.js"
-    }
+      vue$: "vue/dist/vue.esm.js",
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "src/renderer/index.pug"
-    })
-  ]
-};
+      template: "src/renderer/index.pug",
+    }),
+  ],
+}
 
 module.exports = [
   Object.assign({}, common_config, {
     target: "electron-main",
     entry: {
-      renderrer: "./src/main/index.ts"
+      renderrer: "./src/main/index.ts",
     },
     output: {
       filename: "[name]-bundle.js",
-      path: path.resolve(__dirname, "src/main/dist")
-    }
+      path: path.resolve(__dirname, "src/main/dist"),
+    },
   }),
   Object.assign({}, common_config, {
     target: "electron-renderer",
     entry: {
-      ui: "./src/renderer/index.ts"
+      ui: "./src/renderer/index.ts",
     },
     output: {
       filename: "[name]-bundle.js",
-      path: path.resolve(__dirname, "src/renderer/dist")
-    }
-  })
-];
+      path: path.resolve(__dirname, "src/renderer/dist"),
+    },
+  }),
+]

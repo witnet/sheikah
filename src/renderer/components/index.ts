@@ -1,1 +1,1 @@
-export const App = require('./App.vue').default
+export const App = require("./App.vue").default

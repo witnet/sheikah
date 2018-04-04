@@ -1,7 +1,8 @@
 {
   "name": "sheikah",
   "version": "0.1.0",
-  "description": "A Witnet compatible desktop wallet and smart contracts development environment",
+  "description":
+    "A Witnet compatible desktop wallet and smart contracts development environment",
   "main": "src/main/dist/renderrer-bundle.js",
   "author": "Johann Og <johann@stampery.com>",
   "license": "MIT",

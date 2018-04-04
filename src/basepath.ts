@@ -1,3 +1,3 @@
-let __basedir = process.cwd();
+const __basedir = process.cwd()
 
-export default __basedir;
+export default __basedir
