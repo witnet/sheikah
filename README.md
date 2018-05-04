@@ -10,14 +10,14 @@ A Witnet compatible desktop wallet and smart contracts development environment
 # install dependencies
 yarn
 
-# serve with hot reload at localhost:9080
+# serve with hot reload
 yarn dev
 
 # build electron application for production
 yarn build
 
 # run unit & end-to-end tests
-yarn test
+yarn test-all
 
 
 ```
