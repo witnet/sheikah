@@ -179,6 +179,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "semantic-ui-react": "^0.80.0",
     "source-map-support": "^0.5.5"
   },
   "devEngines": {
