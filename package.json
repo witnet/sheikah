@@ -97,6 +97,8 @@
   ],
   "homepage": "https://witnet.io",
   "devDependencies": {
+    "@types/bip39": "^2.4.0",
+    "@types/crypto-js": "^3.1.39",
     "@types/enzyme": "^3.1.1",
     "@types/history": "^4.5.2",
     "@types/jest": "^22.2.3",
@@ -165,6 +167,8 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "bip39": "^2.5.0",
+    "crypto-js": "^3.1.9-1",
     "electron-debug": "^1.1.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.1",
@@ -175,6 +179,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "secp256k1": "^3.5.0",
     "semantic-ui-react": "^0.80.0",
     "source-map-support": "^0.5.5"
   },
