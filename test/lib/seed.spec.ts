@@ -1,4 +1,4 @@
-import { Seed } from "../../app/lib/Crypto"
+import { Seed } from "../../app/lib/seed"
 import * as _ from "lodash"
 
 describe("crypto", () => {
@@ -19,4 +19,5 @@ describe("crypto", () => {
     ])
     expect(_.isEqual(seed.getSeedBuffer(), buffer)).toBeTruthy()
   })
+
 })
