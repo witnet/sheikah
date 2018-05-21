@@ -2,7 +2,7 @@
   "rules": {
     "adjacent-overload-signatures": true,
     "align": [true, "parameters"],
-    "array-type": true,
+    "array-type": [true, "array-simple"],
     "arrow-return-shorthand": true,
     "await-promise": true,
     "binary-expression-operand-order": true,

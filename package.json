@@ -5,29 +5,34 @@
   "description": "A Witnet compatible desktop wallet and smart contracts development environment",
   "main": "main.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test node --trace-warnings ./test/runTests.js",
-    "test-all": "yarn test && yarn build && yarn test-e2e",
-    "test-watch": "yarn test -- --watch",
-    "test-e2e": "cross-env NODE_ENV=test node --trace-warnings ./test/runTests.js e2e",
+    "test": "jest test/app",
+    "test-all": "yarn test && yarn test-e2e",
+    "test-e2e": "yarn build && NODE_ENV=production jest test/e2e",
+    "jest": "jest",
+    "typecheck": "tsc",
     "hot-server": "cross-env NODE_ENV=development node --max_old_space_size=2096 server.js",
     "build-main": "cross-env NODE_ENV=production node ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --progress --profile --colors",
     "build-renderer": "cross-env NODE_ENV=production node ./node_modules/webpack/bin/webpack --config webpack.config.production.js --progress --profile --colors",
     "build": "yarn build-main && yarn build-renderer",
     "start": "cross-env NODE_ENV=production electron ./app/",
-    "start-hot": "cross-env HOT=1 NODE_ENV=development electron ./app/main.development",
+    "start-hot": "cross-env HOT=1 NODE_ENV=development electron ./app/main.electron",
     "postinstall": "yarn build",
     "dev": "yarn hot-server -- --start-hot",
     "package": "yarn build && build --publish never",
     "package-win": "yarn build && build --win --x64",
     "package-linux": "yarn build && build --linux",
     "package-all": "yarn build && build -mwl",
-    "cleanup": "mop -v",
     "lint": "tslint --project tsconfig.json --force",
+    "clean": "rimraf release app/dist",
     "precommit": "lint-staged"
   },
   "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/test/setup.js",
+    "modulePaths": [
+      "<rootDir>/"
+    ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/__mocks__/fileMock.js",
       "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
@@ -40,7 +45,7 @@
       "app/node_modules"
     ],
     "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/test/preprocessor.js"
+      "^.+\\.(ts|tsx)$": "ts-jest"
     },
     "testMatch": [
       "**/?(*.)(spec|test).ts?(x)"
@@ -99,7 +104,7 @@
     "type": "git",
     "url": "git+https://github.com/witnet/sheikah.git"
   },
-  "license": "GNU General Public License v3.0",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/witnet/sheikah/issues"
   },
@@ -128,6 +133,10 @@
     "@types/redux-logger": "^3.0.6",
     "@types/sinon": "^4.3.1",
     "asar": "^0.14.3",
+    "babel-jest": "^22.4.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-typescript": "^7.0.0-alpha.19",
     "boiler-room-custodian": "^0.6.2",
     "concurrently": "^3.5.1",
     "cross-env": "^5.1.4",
@@ -147,6 +156,7 @@
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.4.3",
+    "jest-enzyme": "^6.0.0",
     "json-loader": "^0.5.7",
     "lint-staged": "^7.0.5",
     "node-sass": "^4.9.0",
@@ -154,10 +164,12 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-test-renderer": "^16.3.2",
     "redux-logger": "^3.0.6",
+    "rimraf": "^2.6.2",
     "sass-loader": "^7.0.1",
     "sinon": "^4.5.0",
     "spectron": "^3.8.0",
     "style-loader": "^0.21.0",
+    "ts-jest": "^22.4.6",
     "ts-loader": "^3.5.0",
     "ts-node": "^6.0.1",
     "tslint": "^5.9.1",
