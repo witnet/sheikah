@@ -43,9 +43,15 @@ const composeEnhancers: typeof compose =
     actionCreators
   }) as any
   : compose
+
+const middlewares: any[] = [thunk, router]
+if (process.env.NODE_ENV === "development") {
+  middlewares.push(logger)
+}
+
 /* eslint-enable no-underscore-dangle */
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk, router, logger)
+  applyMiddleware.apply(undefined, middlewares)
 )
 
 export = {

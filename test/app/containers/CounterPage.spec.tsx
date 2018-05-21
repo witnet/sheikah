@@ -1,14 +1,12 @@
-import "../utils/enzymeConfig"
-
 import * as React from "react"
 import { mount } from "enzyme"
 import { Provider } from "react-redux"
 import { ConnectedRouter } from "react-router-redux"
-import CounterPage from "../../app/containers/CounterPage"
-import { IState } from "../../app/reducers"
+import CounterPage from "app/containers/CounterPage"
+import { IState } from "app/reducers"
 
 const CounterPageAny = CounterPage as any
-const { configureStore, history } = require("../../app/store/configureStore")
+const { configureStore, history } = require("app/store/configureStore")
 
 const setup = (initialState?: IState) => {
   const store = configureStore(initialState)
