@@ -2,7 +2,7 @@ const assert = require("assert")
 const crypto = require("crypto")
 
 /**
- * PDKBF2
+ * PBKDF2
  * https://github.com/stayradiated/pbkdf2-sha512
  * @param {string | Buffer} key
  * @param {string | Buffer} salt
