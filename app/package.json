@@ -1,6 +1,6 @@
 {
-  "name": "sheika",
-  "productName": "Sheika",
+  "name": "sheikah",
+  "productName": "Sheikah",
   "version": "0.1.0",
   "description": "A Witnet compatible desktop wallet and smart contracts development environment",
   "main": "./main.js",
