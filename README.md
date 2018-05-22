@@ -36,7 +36,7 @@ To build the application run: `yarn build` and then `yarn start` to launch the b
 
 ### Test
 
-We use [Jest](https://facebook.github.io/jest/) for testing. All test commands are a thing wrapper around jest so with any of them you can use [Jest's CLI options](https://facebook.github.io/jest/docs/en/cli.html)
+We use [Jest](https://facebook.github.io/jest/) for testing. All test commands are a thin wrapper around jest so with any of them you can use [Jest's CLI options](https://facebook.github.io/jest/docs/en/cli.html)
 
 ``` bash
 # run unit/integration tests
