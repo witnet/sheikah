@@ -14,7 +14,7 @@ declare const window: Window & {
 declare const module: NodeModule & {
   hot?: {
     /* tslint:disable-next-line:array-type */
-    accept(...args: any[]): any;
+    accept(...args: Array<any>): any;
   };
 }
 
@@ -44,7 +44,7 @@ const composeEnhancers: typeof compose =
   }) as any
   : compose
 
-const middlewares: any[] = [thunk, router]
+const middlewares: Array<any> = [thunk, router]
 if (process.env.NODE_ENV === "development") {
   middlewares.push(logger)
 }
