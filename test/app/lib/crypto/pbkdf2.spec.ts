@@ -1,4 +1,4 @@
-import { pbkdf2 } from "../../../app/lib/crypto/pbkdf2"
+import { pbkdf2 } from "app/lib/crypto/pbkdf2"
 
 /*
  All these test vectors come from RFC 6070:
@@ -7,8 +7,8 @@ import { pbkdf2 } from "../../../app/lib/crypto/pbkdf2"
  */
 describe("pbkdf2", () => {
   it("should pass RFC6070 test case #1", () => {
-    const password = new Buffer("password")
-    const salt = new Buffer("salt")
+    const password = Buffer.from("password")
+    const salt = Buffer.from("salt")
     const iterations = 1
     const length = 20
     const expected = Buffer
@@ -18,8 +18,8 @@ describe("pbkdf2", () => {
   })
 
   it("should pass RFC6070 test case #2", () => {
-    const password = new Buffer("password")
-    const salt = new Buffer("salt")
+    const password = Buffer.from("password")
+    const salt = Buffer.from("salt")
     const iterations = 2
     const length = 20
     const expected = Buffer
@@ -29,8 +29,8 @@ describe("pbkdf2", () => {
   })
 
   it("should pass RFC6070 test case #3", () => {
-    const password = new Buffer("password")
-    const salt = new Buffer("salt")
+    const password = Buffer.from("password")
+    const salt = Buffer.from("salt")
     const iterations = 4096
     const length = 20
     const expected = Buffer
@@ -42,8 +42,8 @@ describe("pbkdf2", () => {
   // WARNING: this test is rather resource intensive.
   // We may want to go without it.
   it("should pass RFC6070 test case #4", () => {
-    const password = new Buffer("password")
-    const salt = new Buffer("salt")
+    const password = Buffer.from("password")
+    const salt = Buffer.from("salt")
     const iterations = 16777216
     const length = 20
     const expected = Buffer
@@ -53,8 +53,8 @@ describe("pbkdf2", () => {
   })
 
   it("should pass RFC6070 test case #5", () => {
-    const password = new Buffer("passwordPASSWORDpassword")
-    const salt = new Buffer("saltSALTsaltSALTsaltSALTsaltSALTsalt")
+    const password = Buffer.from("passwordPASSWORDpassword")
+    const salt = Buffer.from("saltSALTsaltSALTsaltSALTsaltSALTsalt")
     const iterations = 4096
     const length = 25
     const expected = Buffer
@@ -64,8 +64,8 @@ describe("pbkdf2", () => {
   })
 
   it("should pass RFC6070 test case #6", () => {
-    const password = new Buffer("pass\0word")
-    const salt = new Buffer("sa\0lt")
+    const password = Buffer.from("pass\0word")
+    const salt = Buffer.from("sa\0lt")
     const iterations = 4096
     const length = 16
     const expected = Buffer
