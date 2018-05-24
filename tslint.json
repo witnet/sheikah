@@ -19,7 +19,13 @@
     "jsdoc-format": true,
     "label-position": true,
     "linebreak-style": true,
-    "max-line-length": [true, 100],
+    "max-line-length": [
+      true,
+      {
+        "limit": 100,
+        "ignore-pattern": "^import |^export {(.*?)}| https?://"
+      }
+    ],
     "member-access": true,
     "new-parens": true,
     "newline-before-return": true,
@@ -59,7 +65,7 @@
     "no-unsafe-finally": true,
     "no-unused-expression": true,
     "no-unused-variable": true,
-    "no-use-before-declare": true,
+    "no-use-before-declare": false,
     "no-var-keyword": true,
     "no-var-requires": false,
     "no-void-expression": true,
