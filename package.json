@@ -97,6 +97,7 @@
   ],
   "homepage": "https://witnet.io",
   "devDependencies": {
+    "@types/bignum": "^0.0.29",
     "@types/bip39": "^2.4.0",
     "@types/enzyme": "^3.1.1",
     "@types/history": "^4.5.2",
@@ -167,6 +168,7 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "bignum": "^0.12.5",
     "bip39": "^2.5.0",
     "electron-debug": "^1.1.0",
     "font-awesome": "^4.7.0",
