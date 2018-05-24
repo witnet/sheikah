@@ -20,16 +20,18 @@ export namespace KeyPath {
 
   /**
    * KeyPath from string
-   * @param {string} path a string containing a list of integers separated by a '/'.
-   *  May start with "/" or "m/". A single quote appended at the end means use the
-   *  hardened version of the key index (e.g. m/44'/0'/0'/0)
+   * @param {string} path a string containing a list of integers separated by
+   * a '/'. May start with "/" or "m/". A single quote appended at the end means
+   * use the hardened version of the key index (e.g. m/44'/0'/0'/0)
    * @returns {KeyPath}
    */
   export const fromString = (path: string): KeyPath => {
     const toNumber = (value: string): number => {
       const number = _.endsWith(value, "'") ?
-          hardened(_.parseInt(value.slice(0, -1))) : _.parseInt(value)
-      if (isNaN(number)) {throw Error("Invalid number")}
+        hardened(_.parseInt(value.slice(0, -1))) : _.parseInt(value)
+      if (isNaN(number)) {
+        throw Error("Invalid number")
+      }
 
       return number
     }
@@ -49,7 +51,8 @@ export namespace KeyPath {
    * @returns {string}
    */
   export const childNumberToString = (childNumber: number) => {
-    return isHardened(childNumber) ? `${childNumber - hardenedKeyIndex}'` : `${childNumber}`
+    return isHardened(childNumber) ?
+      `${childNumber - hardenedKeyIndex}'` : `${childNumber}`
   }
 
   export const lastChildNumber = (path: KeyPath): number => {
