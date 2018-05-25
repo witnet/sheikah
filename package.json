@@ -24,7 +24,10 @@
     "package-all": "yarn build && build -mwl",
     "lint": "tslint --project tsconfig.json --force",
     "clean": "rimraf release app/dist",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "fmt-verify": "tsfmt --verify app/**/*.ts test/**/*.ts",
+    "fmt": "tsfmt app/**/*.ts test/**/*.ts",
+    "fmt!": "tsfmt -r app/**/*.ts test/**/*.ts"
   },
   "lint-staged": {
     "*.ts": [
@@ -149,6 +152,7 @@
     "ts-node": "^6.0.1",
     "tslint": "^5.9.1",
     "typescript": "^2.8.3",
+    "typescript-formatter": "^7.2.0",
     "url-loader": "^1.0.1",
     "webpack": "^3.11.0",
     "webpack-dev-middleware": "^2.0.6",

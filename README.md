@@ -34,6 +34,12 @@ yarn dev
 
 To build the application run: `yarn build` and then `yarn start` to launch the build.
 
+### Formatter
+
+* Verify files are correctly formatted with `yarn fmt-verify`
+* See which format errors exist with `yarn fmt`
+* Repair format errors with (**this operation modifies your files!**) `yarn fmt!`
+
 ### Test
 
 We use [Jest](https://facebook.github.io/jest/) for testing. All test commands are a thin wrapper around jest so with any of them you can use [Jest's CLI options](https://facebook.github.io/jest/docs/en/cli.html)
