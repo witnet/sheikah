@@ -1,4 +1,4 @@
-import {KeyPath} from "app/lib/crypto/keyPath"
+import * as KeyPath from "app/lib/crypto/keyPath"
 
 describe("key path", () => {
   const hardened = KeyPath.hardened

@@ -1,4 +1,4 @@
-import { Seed } from "app/lib/crypto/seed"
+import * as Seed from "app/lib/crypto/seed"
 import * as _ from "lodash"
 
 describe("seed", () => {
