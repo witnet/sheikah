@@ -21,7 +21,7 @@ declare const module: NodeModule & {
 /* tslint:disable-next-line:prefer-object-spread */
 const actionCreators = Object.assign({},
   counterActions,
-  {push}
+  { push }
 )
 
 const logger = (createLogger as any)({
@@ -36,13 +36,13 @@ const router = routerMiddleware(history)
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers: typeof compose =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-      /* tslint:disable-next-line:no-void-expression */
-  ?  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    /* tslint:disable-next-line:no-void-expression */
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
       /* tslint:disable-next-line:max-line-length */
-    // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
-    actionCreators
-  }) as any
-  : compose
+      // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
+      actionCreators
+    }) as any
+    : compose
 
 const middlewares: any[] = [thunk, router]
 if (process.env.NODE_ENV === "development") {
@@ -62,7 +62,7 @@ export = {
     if (module.hot) {
       module.hot.accept("../reducers", () => {
         // eslint-disable-line global-require
-         store.replaceReducer(require("../reducers"))
+        store.replaceReducer(require("../reducers"))
       })
     }
 
