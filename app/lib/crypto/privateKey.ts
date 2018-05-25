@@ -70,4 +70,14 @@ export namespace PrivateKey {
       chainCode: IR
     }
   }
+
+  export const deepPrivateKey =
+    (masterKey: PrivateKey, keyPath: KeyPath | string) => {
+      const path =
+        typeof keyPath === "string" ? KeyPath.fromString(keyPath) : keyPath
+
+      return path.reduce((key, childNumber) =>
+        factory(key.keyBytes, key.chainCode, childNumber)
+      , masterKey)
+    }
 }
