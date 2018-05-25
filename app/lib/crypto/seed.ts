@@ -1,5 +1,6 @@
 import {Mnemonic} from "./mnemonic"
 import {Hash} from "./hash"
+import * as assert from "assert"
 
 const bip39 = require("bip39")
 
@@ -13,8 +14,14 @@ export namespace Seed {
     if (Mnemonic.validate(mnemonics)) {
       throw new Error("Invalid mnemonic")
     }
-    const buf = bip39.mnemonicToSeed(mnemonics)
-    const hash = Hash.sha512hmac(buf, Buffer.from("Witnet seed"))
+    const entropy = bip39.mnemonicToSeed(mnemonics)
+
+    return deriveSeedFromEntropy(entropy)
+  }
+
+  export const deriveSeedFromEntropy = (entropy: Buffer): Seed => {
+    assert(entropy.length >= 16 && entropy.length <= 64)
+    const hash = Hash.sha512hmac(entropy, Buffer.from("Witnet seed"))
 
     return {
       masterSecret: hash.slice(0, 32),
