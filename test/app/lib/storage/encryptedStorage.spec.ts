@@ -12,21 +12,15 @@ const globalStorage = new EncryptedStorage(mockedBackend, encryptionSettings)
 
 describe("EncryptedStorage", () => {
   it("should put a string", async () => {
-    expect(async () => {
-      await globalStorage.put("foo", "bar")
-    }).not.toThrow()
+    await globalStorage.put("foo", "bar")
   })
 
   it("should put a number", async () => {
-    expect(async () => {
-      await globalStorage.put("fee", 1234)
-    }).not.toThrow()
+    await globalStorage.put("fee", 1234)
   })
 
   it("should put an object", async () => {
-    expect(async () => {
-      await globalStorage.put("faa", { beer: "cold" })
-    }).not.toThrow()
+    await globalStorage.put("faa", { beer: "cold" })
   })
 
   it("should get a string", async () => {
