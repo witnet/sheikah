@@ -41,6 +41,7 @@ before_script:
 script:
 - node --version
 - yarn package
+- yarn fmt-verify
 - yarn test
 - yarn test-e2e
 

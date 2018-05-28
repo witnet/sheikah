@@ -6,7 +6,7 @@ const { Application } = require("spectron")
 const delay = async (time: number) =>
   new Promise(resolve => setTimeout(resolve, time))
 
-describe("main window",  () => {
+describe("main window", () => {
   let app: any
   beforeAll(async () => {
     app = new Application({
