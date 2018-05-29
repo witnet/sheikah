@@ -6,9 +6,8 @@ import ErrnoException = NodeJS.ErrnoException
  */
 
 /**
- * Checks asynchronously if a certain directory exist. If it does not, creates
- * the directory and all missing parents in the path. This is equivalent to
- * `mkdir -p` in POSIX.
+ * Checks asynchronously if a certain directory exist. If it does not, creates the directory and
+ * all missing parents in the path. This is equivalent to `mkdir -p` in POSIX.
  * @param {string} path
  * @returns {Promise<any>}
  */

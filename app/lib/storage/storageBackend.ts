@@ -1,6 +1,5 @@
 /**
- * This interface abstract away the underlying database backend from the vault
- * logic.
+ * This interface abstract away the underlying database backend from the vault logic.
  */
 export default interface StorageBackend {
 
