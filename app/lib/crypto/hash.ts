@@ -6,7 +6,7 @@ import * as _ from "lodash"
  * @param {Buffer} data to hash
  * @param {Buffer} key to hash the data
  * @param {number} shaBits number of bits of the hash function e.g. "sha512"
- * @param {(buffer: Buffer) => Buffer} hash function
+ * @param {(bytes: Buffer) => Buffer} hash function
  * @returns {Buffer} hmac hashed data
  */
 const hmac = (data: Buffer, key: Buffer, shaBits: number,
