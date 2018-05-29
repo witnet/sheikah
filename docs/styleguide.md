@@ -27,12 +27,12 @@ Sections:
 
 **Bad**
 ```ts
-const FooVar;
+const FooVar
 const BarFunc = () => { }
 ```
 **Good**
 ```ts
-const fooVar;
+const fooVar
 const barFunc = () => { }
 ```
 
@@ -52,8 +52,8 @@ To define function overloads you can use:
 
 ```ts
 const fooFunc: {
-  (number): number;
-  (boolean): boolean;
+  (number): number
+  (boolean): boolean
   // ...
 } = (x: any) => {
   // ...
@@ -82,14 +82,14 @@ class Foo { }
 **Bad**
 ```ts
 class Foo {
-    Bar: number;
+    Bar: number
     Baz() { }
 }
 ```
 **Good**
 ```ts
 class Foo {
-    bar: number;
+    bar: number
     baz() { }
 }
 ```
@@ -102,7 +102,7 @@ class Foo {
 
 ```ts
 class Foo {
-  valueFoo;
+  valueFoo
 
   doSomethingFoo() {}
 }
@@ -112,7 +112,7 @@ class Foo {
 
 ```ts
 class Foo {
-  value;
+  value
 
   doSomething() {}
 }
@@ -182,7 +182,7 @@ namespace Foo {
 ```ts
 // foo.ts
 
-const doSomethingFoo = () => {};
+const doSomethingFoo = () => {}
 ```
 
 **Good**
@@ -190,7 +190,7 @@ const doSomethingFoo = () => {};
 ```ts
 // foo.ts
 
-const doSomething = () => {};
+const doSomething = () => {}
 ```
 
 * Prefer to import modules under an alias and not their members.
@@ -251,28 +251,28 @@ enum Color {
 
 **Bad**
 ```ts
-let foo = {x:123,y:undefined};
+let foo = {x:123,y:undefined}
 ```
 **Good**
 ```ts
-let foo:{x:number,y?:number} = {x:123};
+let foo:{x:number,y?:number} = {x:123}
 ```
 
 * Do not use `undefined` or `null` as return values in general, use instead an object like `{valid:boolean,value?:Foo}` instead.
 
 ***Bad***
 ```ts
-return null;
+return null
 ```
 ```ts
-return undefined;
+return undefined
 ```
 ***Good***
 ```ts
-return {valid: false};
+return {valid: false}
 ```
 ```ts
-return {valid: true, value: "some value"};
+return {valid: true, value: "some value"}
 ```
 
 * Use `null` where its a part of the API or conventional
@@ -324,7 +324,7 @@ Use [`tsfmt`](https://github.com/vvakame/typescript-formatter) to automatically 
 Examples:
 ```ts
 // Space before type i.e. foo:<space>string
-const foo: string = "hello";
+const foo: string = "hello"
 ```
 
 ## Quotes
@@ -376,23 +376,23 @@ type Name = string
 
 ```ts
 interface Foo {
-  foo: string;
+  foo: string
 }
 interface FooBar extends Foo {
-  bar: string;
+  bar: string
 }
 class X implements FooBar {
-  foo: string;
-  bar: string;
+  foo: string
+  bar: string
 }
 ```
 
 ```ts
 interface Foo {
-  type: "foo";
+  type: "foo"
 }
 interface Bar {
-  type: "bar";
+  type: "bar"
 }
 
 const foo(v: Foo): void => {
