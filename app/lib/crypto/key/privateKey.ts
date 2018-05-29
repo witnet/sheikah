@@ -22,8 +22,7 @@ export const SECP256K1_N = BigNum.fromBuffer(
 )
 /**
  * SECP256K1 G  (base point)
- * used to validate that the private key is a valid point in the
- * elliptic curve
+ * used to validate that the private key is a valid point in the elliptic curve
  * @type {BigNum}
  */
 export const SECP256K1_G = BigNum.fromBuffer(

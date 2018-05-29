@@ -19,9 +19,9 @@ export const derive = (path: KeyPath, number: number): KeyPath => {
 
 /**
  * KeyPath from string
- * @param {string} path a string containing a list of integers separated by
- * a '/'. May start with "/" or "m/". A single quote appended at the end means
- * use the hardened version of the key index (e.g. m/44'/0'/0'/0)
+ * @param {string} path a string containing a list of integers separated by a '/'. May start with
+ * "/" or "m/". A single quote appended at the end means use the hardened version of the key index
+ * (e.g. m/44'/0'/0'/0)
  * @returns {KeyPath}
  */
 export const fromString = (path: string): KeyPath => {
