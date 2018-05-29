@@ -6,8 +6,7 @@ export interface PublicKey extends Key {
   type: "public"
 }
 
-export const create =
-  (privateKey: PrivateKey, compressed = true): ExtendedKey<PublicKey> => {
+export const create = (privateKey: PrivateKey, compressed = true): ExtendedKey<PublicKey> => {
     const bytes = publicKeyCreate(privateKey.bytes, compressed)
 
     return {

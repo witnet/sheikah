@@ -10,8 +10,8 @@ const crypto = require("crypto")
  * @param {number} dkLen
  * @returns {Buffer}
  */
-export const pbkdf2 = (key: string | Buffer, salt: string | Buffer,
-                       iterations: number, dkLen: number) => {
+export const pbkdf2 =
+  (key: string | Buffer, salt: string | Buffer, iterations: number, dkLen: number) => {
   const hLen = 64 // SHA512 Mac lenght
   const validKeyLength = dkLen <= (Math.pow(2, 32) - 1) * hLen
   assert(validKeyLength, "requested key length too long")
