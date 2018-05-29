@@ -38,8 +38,8 @@ export default class EncryptedStorage {
   public async put(key: string, value: any): Promise<void> {
     // Keys are hashed for privacy and to allow arbitrary key size
     const hashedKey = Encryption.hash(key)
-    // Dehydrate/deflate and serialize the object to convert it into a typed
-    // JSON that can be rehydrated/inflated afterwards without losing types.
+    // Dehydrate/deflate and serialize the object to convert it into a typed JSON that can be
+    // rehydrated/inflated afterwards without losing types.
     const dehydratedValue = hydra.dehydrate(value)
     const jsonValue = Buffer.from(JSON.stringify(dehydratedValue))
     // Encrypt the serialized object.
@@ -62,16 +62,16 @@ export default class EncryptedStorage {
     // Decrypt the encrypted value from the database.
     const jsonBuffer =
       Encryption.decrypt(encryptedValue, this.encryptionSettings)
-    // Parse the JSON from a Buffer and hydrate/inflate the decrypted value t
-    // recover the original object with types and everything.
+    // Parse the JSON from a Buffer and hydrate/inflate the decrypted value t recover the original
+    // object with types and everything.
     const dehydratedValue = JSON.parse(jsonBuffer.toString())
 
     return hydra.hydrate(dehydratedValue)
   }
 
   /**
-   * Close the vault, the database backend and the underlying storage, freeing
-   *  up any locks and file descriptors.
+   * Close the vault, the database backend and the underlying storage, freeing  up any locks and
+   * file descriptors.
    * @returns {Promise<any>}
    */
   public async close(): Promise<void> {

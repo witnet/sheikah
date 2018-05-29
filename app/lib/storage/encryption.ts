@@ -1,8 +1,7 @@
 import * as crypto from "crypto"
 
 /**
- * This module contains all the functions related to encryption middleware for
- * storage.
+ * This module Contains all the functions related to encryption middleware for storage.
  */
 
 /**
