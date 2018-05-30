@@ -9,7 +9,8 @@ export interface IProps extends RouteComponentProps<any> {
   incrementIfOdd(): void,
   incrementAsync(): void,
   decrement(): void,
-    ping(): void,
+  ping(): void,
+  noResponse(): void
   counter: number
 }
 
