@@ -1,11 +1,5 @@
-console.log(__dirname)
-
 const { app, BrowserWindow, Menu, shell } = require("electron")
 import {loadAsyncHandlers} from "./lib/ipc/ipcBackend"
-
-console.log(__dirname)
-
-console.log("here in main electron!")
 
 let menu: any
 let template: any
@@ -282,15 +276,5 @@ app.on("ready", async () =>
   }
 }))
 
-//ipcMain.on("asynchronous-message", (event: any, args: any) => {
-//    const {chanId, remaining} = args
-//    const chan = channels[chanId]
-//    console.log(chanId)
-//    chan.handler(event, remaining, chan.replyChanId)
-//})
-
+/** Load all asynchronous handlers */
 loadAsyncHandlers()
-//ipcMain.on("ping-message", (event: any, arg: any) => {
-//  console.log("in main process!!!")
-//  event.sender.send("pong-message", "pong")
-//})
