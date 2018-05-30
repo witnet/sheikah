@@ -4,7 +4,7 @@ import * as BigNum from "bignum"
 import {sha512hmac} from "../hash"
 import {integerAsBuffer} from "../../utils/conversions"
 import * as PublicKey from "./publicKey"
-import {ChainCode, ExtendedKey, Key} from "./key"
+import {ChainCode, ExtendedKey, getExtendedKey as getKey, Key} from "./key"
 
 export interface PrivateKey extends Key {
   type: "private"
@@ -81,10 +81,7 @@ export const factory = (
 
   const keyBytes = key.toBuffer().slice(0, 32)
 
-  return {
-    key: {type: "private", bytes: keyBytes},
-    chainCode: IR
-  }
+  return getExtendedKey(keyBytes, IR)
 }
 
 export const deepPrivateKey =
@@ -96,3 +93,7 @@ export const deepPrivateKey =
         factory(key.key, key.chainCode, childNumber)
       , masterKey)
   }
+
+export const getExtendedKey = (bytes: Buffer, chainCode: ChainCode): ExtendedKey<PrivateKey> => {
+  return getKey(bytes, chainCode, "private")
+}
