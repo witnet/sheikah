@@ -27,14 +27,21 @@ const incrementAsync = (delay = 1000) => {
 
 const ping = () => {
   return (dispatch: Function) => {
-      ipcRenderer.send("asynchronous-message", ["ping-message", "sending ping"])
-      dispatch(increment())
+    ipcRenderer.send("asynchronous-msg",
+      ["ping-msg", {content: "sending ping"}])
+    dispatch(increment())
   }
 }
 
-ipcRenderer.on("asynchronous-message",  (event: any, arg: any) => {
-  console.log("in renderer process!")
+const noResponse = () => {
+  return (dispatch: Function) => {
+    ipcRenderer.send("asynchronous-msg",
+      ["no-resp-msg", {content: "sending no-response"}])
+    dispatch(increment())
+  }
+}
+ipcRenderer.on("asynchronous-msg",  (event: any, arg: any) => {
   console.log(arg)
 })
 
-export { incrementIfOdd, incrementAsync, ping }
+export { incrementIfOdd, incrementAsync, ping, noResponse }
