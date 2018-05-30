@@ -9,7 +9,7 @@
     "test-all": "yarn test && yarn test-e2e",
     "test-e2e": "yarn build && NODE_ENV=production jest test/e2e",
     "jest": "jest",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit -p .",
     "hot-server": "cross-env NODE_ENV=development node --max_old_space_size=2096 server.js",
     "build-main": "cross-env NODE_ENV=production node ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --progress --profile --colors",
     "build-renderer": "cross-env NODE_ENV=production node ./node_modules/webpack/bin/webpack --config webpack.config.production.js --progress --profile --colors",
