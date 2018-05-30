@@ -4,7 +4,7 @@ import * as BigNum from "bignum"
 import {sha512hmac} from "../hash"
 import {integerAsBuffer} from "../../utils/conversions"
 import * as PublicKey from "./publicKey"
-import {ChainCode, ExtendedKey, getExtendedKey as getKey, Key} from "./key"
+import {ChainCode, ExtendedKey, getExtendedKey as extendedKey, Key} from "./key"
 
 export interface PrivateKey extends Key {
   type: "private"
@@ -33,15 +33,47 @@ export const SECP256K1_G = BigNum.fromBuffer(
 )
 
 /**
+ * Derive a descendant extended private key from a parent extended private key (likely a master
+ * key), using either a keypath or child index.
+ *
+ * @param {ExtendedKey<PrivateKey>} masterKey
+ * @param {KeyPath | string | number} keyPath  or index
+ * @returns {any}
+ */
+export const derive =
+  (masterKey: ExtendedKey<PrivateKey>, keyPath: KeyPath.KeyPath | string | number) => {
+    let extendedKey: ExtendedKey<PrivateKey>
+    if (typeof keyPath !== "number") {
+      const path =
+        typeof keyPath === "string" ? KeyPath.fromString(keyPath) : keyPath
+      extendedKey = path.reduce(deriveChildKey, masterKey)
+    } else {
+      // with child index
+      extendedKey = deriveChildKey(masterKey, keyPath)
+    }
+
+    return extendedKey
+  }
+
+/**
+ * Extended key from private key bytes and chainCode
+ * @param {Buffer} private key bytes
+ * @param {ChainCode} chainCode
+ * @returns {ExtendedKey<PrivateKey>}
+ */
+export const getExtendedKey = (bytes: Buffer, chainCode: ChainCode): ExtendedKey<PrivateKey> => {
+  return extendedKey(bytes, chainCode, "private")
+}
+
+/**
  * Generate extended private key
  * @param {PrivateKey} parentKey
  * @param {ChainCode} chainCode
  * @param {number} childIndex
  * @returns {ExtendedKey<PrivateKey>}
  */
-export const factory = (
-  parentKey: PrivateKey,
-  chainCode: ChainCode,
+const deriveChildKey = (
+  parentKey: ExtendedKey<PrivateKey>,
   childIndex: number
 ): ExtendedKey<PrivateKey> => {
 
@@ -49,15 +81,15 @@ export const factory = (
   const childIndexBuffer = integerAsBuffer(childIndex)
   if (KeyPath.isHardened(childIndex)) {
     const buf = Buffer.concat(
-      [Buffer.from([0]), parentKey.bytes],
-      parentKey.bytes.length + 1
+      [Buffer.from([0]), parentKey.key.bytes],
+      parentKey.key.bytes.length + 1
     )
     data = Buffer.concat(
       [buf, childIndexBuffer],
       buf.length + childIndexBuffer.length
     )
   } else {
-    const {key: pubkey, chainCode: pubChain} = PublicKey.create(parentKey)
+    const {key: pubkey, chainCode: pubChain} = PublicKey.create(parentKey.key)
     data =
       Buffer.concat(
         [pubkey.bytes, pubChain, childIndexBuffer],
@@ -65,7 +97,7 @@ export const factory = (
       )
   }
 
-  const I: Buffer = sha512hmac(chainCode, data)
+  const I: Buffer = sha512hmac(parentKey.chainCode, data)
 
   const IL = I.slice(0, 32)
   const IR = I.slice(32, 64)
@@ -74,7 +106,7 @@ export const factory = (
   assert(p.ge(SECP256K1_G), "can't generate child private key")
   const key = BigNum
     .fromBuffer(IL)
-    .add(BigNum.fromBuffer(parentKey.bytes))
+    .add(BigNum.fromBuffer(parentKey.key.bytes))
     .mod(SECP256K1_N)
 
   assert(key.eq(0), "can't generate child private key")
@@ -84,16 +116,11 @@ export const factory = (
   return getExtendedKey(keyBytes, IR)
 }
 
-export const deepPrivateKey =
-  (masterKey: ExtendedKey<PrivateKey>, keyPath: KeyPath.KeyPath | string) => {
-    const path =
-      typeof keyPath === "string" ? KeyPath.fromString(keyPath) : keyPath
-
-    return path.reduce((key, childNumber) =>
-        factory(key.key, key.chainCode, childNumber)
-      , masterKey)
-  }
-
-export const getExtendedKey = (bytes: Buffer, chainCode: ChainCode): ExtendedKey<PrivateKey> => {
-  return getKey(bytes, chainCode, "private")
+/**
+ * Wrap private key bytes
+ * @param {Buffer} bytes
+ * @returns {PrivateKey}
+ */
+export const getKey = (bytes: Buffer): PrivateKey => {
+  return {type: "private", bytes}
 }
