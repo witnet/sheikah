@@ -9,7 +9,7 @@ import * as _ from "lodash"
  * @param {(bytes: Buffer) => Buffer} hash function
  * @returns {Buffer} hmac hashed data
  */
-const hmac = (data: Buffer, key: Buffer, shaBits: number, hash: (buffer: Buffer) => Buffer) => {
+const hmac = (key: Buffer, data: Buffer, shaBits: number, hash: (buffer: Buffer) => Buffer) => {
   const blockSize = shaBits / 8
   let newKey = _.clone(key)
   if (newKey.length > blockSize) {
@@ -52,7 +52,7 @@ const shaFunction = (shaBits: string) => {
  * @param {Buffer} key to hash the data
  * @returns {Buffer}
  */
-export const sha512hmac = (data: Buffer, key: Buffer) => {
+export const sha512hmac = (key: Buffer, data: Buffer) => {
 
-  return hmac(data, key, 512, shaFunction("sha512"))
+  return hmac(key, data, 512, shaFunction("sha512"))
 }
