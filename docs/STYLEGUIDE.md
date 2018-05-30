@@ -36,27 +36,75 @@ const fooVar
 const barFunc = () => { }
 ```
 
-* Always use `const` and arrow-function syntax.
+* Always use function declarations in modules/namespaces
+
+> Reason: They play nicer with type signatures and for overloaded functions they are easier to read.
 
 **Bad**
-```ts
-function fooFunc() {
+
+``` ts
+const foo = function() {
+  // ...
+}
+
+namespace Foo {
+  const foo = function() {
+    // ...
+  }
 }
 ```
+
 **Good**
-```ts
-const fooFunc = () => { }
+
+``` ts
+function foo() {
+  // ...
+}
+
+namespace Foo {
+  function foo() {
+    // ...
+  }
+}
 ```
 
-To define function overloads you can use:
+* Always use `const` and arrow-function declaration for function expressions
 
-```ts
-const fooFunc: {
-  (number): number
-  (boolean): boolean
+> Reason: They are more compact syntactically and use lexical this
+
+``` ts
+const foo = function() {
   // ...
-} = (x: any) => {
+}
+```
+
+**Good**
+
+``` ts
+const foo = () => {
   // ...
+}
+```
+
+* Whenever possible use arrow-function syntax for class methods, specially for React components
+
+> Reason: They use lexical this
+
+``` ts
+class Foo extends Component {
+  function sayHello() {
+    // ...
+  }
+}
+```
+
+**Good**
+
+``` ts
+class Foo extends Component {
+  sayHello = () => {
+    // ...
+  }
 }
 ```
 
@@ -260,14 +308,14 @@ let foo:{x:number,y?:number} = {x:123}
 
 * Do not use `undefined` or `null` as return values in general, use instead an object like `{valid:boolean,value?:Foo}` instead.
 
-***Bad***
+**Bad**
 ```ts
 return null
 ```
 ```ts
 return undefined
 ```
-***Good***
+**Good**
 ```ts
 return {valid: false}
 ```
