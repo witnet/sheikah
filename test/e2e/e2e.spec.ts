@@ -11,7 +11,7 @@ describe("main window", () => {
   beforeAll(async () => {
     app = new Application({
       path: electronPath,
-      args: [path.join(__dirname, "..", "..", "app")],
+      args: [path.join(__dirname, "../../dist/main.js")],
     })
 
     return app.start()
