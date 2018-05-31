@@ -7,7 +7,8 @@
   "scripts": {
     "test": "jest -c config/jest.js test/app",
     "test-all": "yarn test && yarn test-e2e",
-    "test-e2e": "yarn build && NODE_ENV=production jest -c config/jest.js test/e2e",
+    "pretest-e2e": "yarn build",
+    "test-e2e": "NODE_ENV=production jest -c config/jest.js test/e2e",
     "jest": "jest",
     "typecheck": "tsc --noEmit -p .",
     "hot-server": "node --max_old_space_size=2096 server.js",
@@ -32,7 +33,7 @@
   },
   "lint-staged": {
     "*.ts": [
-      "tslint -p ."
+      "tslint -p config"
     ]
   },
   "build": {
