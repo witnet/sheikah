@@ -24,6 +24,7 @@
     "package-all": "yarn build && build -mwl",
     "lint": "tslint --project tsconfig.json --force app/**/*.ts typings/**/*.ts test/**/*.ts",
     "clean": "rimraf release app/dist",
+    "commit": "git-cz",
     "precommit": "lint-staged",
     "fmt-verify": "tsfmt --verify app/**/*.ts test/**/*.ts",
     "fmt": "tsfmt app/**/*.ts test/**/*.ts",
