@@ -7,13 +7,13 @@ The keyword here is guidelines, not rules. As such, use your best judgement and 
 
 ## Code of conduct
 
-Everyone participating in this project is governed by the [Witnet Code of Conduct](https://github.com/witnet/sheikah/blob/master/CODE_OF_CONDUCT.md).
+Everyone participating in this project is governed by the [Witnet Code of Conduct][code].
 By participating, you are expected to uphold this code as well.
 
 ## I just have a question
 
 Please don't file an issue with questions.
-It's easier for you and for us if you go directly to [our Gitter chatroom](https://gitter.im/witnet/sheikah), since it will keep our repositories clean and you will get a faster response.
+It's easier for you and for us if you go directly to [our Gitter chatroom][gitter], since it will keep our repositories clean and you will get a faster response.
 
 ## How can I contribute?
 
@@ -25,7 +25,7 @@ Before submitting a bug report, please make sure that you've searched through th
 
 ### How do I submit a good bug report?
 
-Bugs are tracked as [GitHub issues](https://github.com/witnet/sheikah/issues).
+Bugs are tracked as [GitHub issues][issues].
 
 Explain the problem and include additional details to help maintainers reproduce the problem:
 
@@ -69,7 +69,7 @@ Enhancement suggestions are tracked as GitHub issues. Create an issue on that re
 ## Pull Requests
 
 * Do not include issue numbers in the PR title
-* Follow [our TypeScript styleguide](https://github.com/witnet/sheikah/blob/master/docs/styleguide.md)
+* Follow [our TypeScript styleguide][styleguide]
 * Avoid platform-dependent code
 * Place imports in the following order:
 *    External Node modules, referred by package name (such as `os` or `path`)
@@ -79,7 +79,7 @@ Enhancement suggestions are tracked as GitHub issues. Create an issue on that re
 
 Unsure where to begin contributing? You can start by looking through these good first issue issues:
 
-* [Good first issue](https://github.com/witnet/sheikah/labels/good%20first%20issue) - issues which should only require a few lines of code, and a test or two.
+* [Good first issue][first-issue] - issues which should only require a few lines of code, and a test or two.
 
 ## Styleguides
 
@@ -99,7 +99,15 @@ Unsure where to begin contributing? You can start by looking through these good 
 
 ### TypeScript
 
-All TypeScript must adhere to [our TypeScript styleguide](https://github.com/witnet/sheikah/blob/master/docs/styleguide.md).
+All TypeScript must adhere to [our TypeScript styleguide][styleguide].
 
 ## Copyright
-These guidelines are based on the [AragonJS contributing guidelines](https://wiki.aragon.one/submodules/aragon.js/CONTRIBUTING/), published under the [Creative Commons Zero v1.0 Universal License](https://github.com/aragon/aragon-wiki/blob/master/LICENSE).
+These guidelines are based on the [AragonJS contributing guidelines][aragonjs], published under the [Creative Commons Zero v1.0 Universal License][CC0].
+
+[gitter]: https://gitter.im/witnet/sheikah
+[issues]: https://github.com/witnet/sheikah/issues
+[code]: https://github.com/witnet/sheikah/blob/master/docs/CODE_OF_CONDUCT.md
+[styleguide]: https://github.com/witnet/sheikah/blob/master/docs/STYLEGUIDE.md
+[first-issue]: https://github.com/witnet/sheikah/labels/good%20first%20issue
+[aragonjs]: https://wiki.aragon.one/submodules/aragon.js/CONTRIBUTING/
+[CC0]: https://github.com/aragon/aragon-wiki/blob/master/LICENSE

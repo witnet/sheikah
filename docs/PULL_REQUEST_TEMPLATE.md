@@ -17,5 +17,5 @@ the brackets) _before_ filing your PR:**
 
 [Please explain **in detail** why the changes in this PR are needed.]
 
-[code]: https://github.com/witnet/sheikah/blob/master/CODE_OF_CONDUCT.md
-[style]: https://github.com/witnet/sheikah/blob/master/docs/styleguide.md
+[code]: https://github.com/witnet/sheikah/blob/master/docs/CODE_OF_CONDUCT.md
+[style]: https://github.com/witnet/sheikah/blob/master/docs/STYLEGUIDE.md
