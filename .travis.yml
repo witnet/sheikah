@@ -44,6 +44,7 @@ script:
 - yarn fmt-verify
 - yarn test
 - yarn test-e2e
+- commitlint-travis
 
 after_script: greenkeeper-lockfile-upload
 
