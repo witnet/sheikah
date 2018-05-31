@@ -1,6 +1,6 @@
 # Contributing to Sheikah
 
-:tada: Thank you for being interested in contributing to an Sheikah! :tada:
+:tada: Thank you for being interested in contributing to Sheikah! :tada:
 
 The following is a set of guidelines and helpful pointers for contributing to Sheikah.
 The keyword here is guidelines, not rules. As such, use your best judgement and feel free to propose changes to even this document.
