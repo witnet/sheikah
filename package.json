@@ -122,6 +122,7 @@
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "css-modules-require-hook": "^4.2.3",
+    "cz-conventional-changelog": "^2.1.0",
     "devtron": "^1.4.0",
     "electron": "1.8.6",
     "electron-builder": "^19.8.0",
@@ -181,5 +182,10 @@
   "devEngines": {
     "node": ">=6.x",
     "yarn": ">=1.x"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
