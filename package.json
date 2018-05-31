@@ -3,31 +3,32 @@
   "productName": "Sheikah",
   "version": "0.1.0",
   "description": "A Witnet compatible desktop wallet and smart contracts development environment",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
-    "test": "jest test/app",
+    "test": "jest -c config/jest.js test/app",
     "test-all": "yarn test && yarn test-e2e",
-    "test-e2e": "yarn build && NODE_ENV=production jest test/e2e",
+    "test-e2e": "yarn build && NODE_ENV=production jest -c config/jest.js test/e2e",
     "jest": "jest",
     "typecheck": "tsc --noEmit -p .",
-    "hot-server": "cross-env NODE_ENV=development node --max_old_space_size=2096 server.js",
-    "build-main": "cross-env NODE_ENV=production node ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --progress --profile --colors",
-    "build-renderer": "cross-env NODE_ENV=production node ./node_modules/webpack/bin/webpack --config webpack.config.production.js --progress --profile --colors",
+    "hot-server": "node --max_old_space_size=2096 server.js",
+    "build-main": "webpack --config config/webpack.config.electron.js --progress --profile --colors",
+    "build-renderer": "webpack --config config/webpack.config.production.js --progress --profile --colors",
     "build": "yarn build-main && yarn build-renderer",
-    "start": "cross-env NODE_ENV=production electron ./app/",
+    "start-build": "cross-env NODE_ENV=production electron ./dist/main",
     "start-hot": "cross-env HOT=1 NODE_ENV=development electron ./app/main.electron",
-    "postinstall": "yarn build",
     "dev": "yarn hot-server -- --start-hot",
+    "start": "yarn dev",
     "package": "yarn build && build --publish never",
+    "package-dev": "cross-env NODE_ENV=development yarn package",
     "package-win": "yarn build && build --win --x64",
     "package-linux": "yarn build && build --linux",
     "package-all": "yarn build && build -mwl",
     "lint": "tslint --project tsconfig.json --force app/**/*.ts typings/**/*.ts test/**/*.ts",
-    "clean": "rimraf release app/dist",
+    "clean": "rimraf release dist",
     "precommit": "lint-staged",
-    "fmt-verify": "tsfmt --verify app/**/*.ts test/**/*.ts",
-    "fmt": "tsfmt app/**/*.ts test/**/*.ts",
-    "fmt!": "tsfmt -r app/**/*.ts test/**/*.ts"
+    "fmt-verify": "tsfmt --useTsfmt config/tsfmt.json --verify app/**/*.ts test/**/*.ts",
+    "fmt": "tsfmt --useTsfmt config/tsfmt.json app/**/*.ts test/**/*.ts",
+    "fmt!": "tsfmt --useTsfmt config/tsfmt.json -r app/**/*.ts test/**/*.ts"
   },
   "lint-staged": {
     "*.ts": [
@@ -55,12 +56,10 @@
     "files": [
       "dist/",
       "node_modules/",
-      "app.html",
-      "main.js",
-      "main.js.map",
       "package.json"
     ],
     "directories": {
+      "app": ".",
       "buildResources": "resources",
       "output": "release"
     },

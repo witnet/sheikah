@@ -2,6 +2,7 @@
  * Build config for electron 'Main Process' file
  */
 
+const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.config.base');
@@ -9,12 +10,12 @@ const baseConfig = require('./webpack.config.base');
 module.exports = merge(baseConfig, {
   devtool: 'source-map',
 
-  entry: ['./app/main.electron'],
+  entry: [path.join(__dirname, '../app/main.electron')],
 
   // 'main.js' in root
   output: {
-    path: __dirname,
-    filename: './app/main.js'
+    path: path.join(__dirname, '../dist'),
+    filename: 'main.js'
   },
 
   plugins: [
@@ -26,7 +27,7 @@ module.exports = merge(baseConfig, {
     // ),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production')
       }
     })
   ],

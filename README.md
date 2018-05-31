@@ -27,12 +27,8 @@ cd sheikah
 yarn
 
 # launch development application
-yarn dev
+yarn start # or yarn dev
 ```
-
-### Build
-
-To build the application run: `yarn build` and then `yarn start` to launch the build.
 
 ### Formatter
 
@@ -76,10 +72,22 @@ yarn jest --watch #runs jest -o by default
 yarn jest --watchAll #runs all tests
 ```
 
+### Build
+
+To build the application run: `yarn build`, the build files are written to `dist` directory.
+
 ### Package
 
 To package the application into an executable for your platform (Windows, MacOS, GNU/Linux) run:
 
+#### Production build
+
 ``` bash
 yarn package
+```
+
+#### Development build
+
+``` bash
+yarn package-dev
 ```
