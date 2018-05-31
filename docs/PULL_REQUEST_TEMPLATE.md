@@ -6,6 +6,7 @@ Thank you for contributing to sheikah! :)
 the brackets) _before_ filing your PR:**
 
 - [ ] I have read and understood [CODE_OF_CONDUCT][code] document.
+- [ ] I have read and understood [CONTRIBUTING][cont] document.
 - [ ] I have read and understood [docs/styleguide][style] document.
 - [ ] I have included tests for the changes in my PR. If not, I have included a
   rationale for why I haven't.
@@ -18,4 +19,5 @@ the brackets) _before_ filing your PR:**
 [Please explain **in detail** why the changes in this PR are needed.]
 
 [code]: https://github.com/witnet/sheikah/blob/master/docs/CODE_OF_CONDUCT.md
+[cont]: https://github.com/witnet/sheikah/blob/master/docs/CONTRIBUTING.md
 [style]: https://github.com/witnet/sheikah/blob/master/docs/STYLEGUIDE.md
