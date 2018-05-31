@@ -27,7 +27,7 @@ export const SECP256K1_N = BigNum.fromBuffer(
  */
 export const SECP256K1_G = BigNum.fromBuffer(
   Buffer.from(
-    "0279BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798",
+    "79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798",
     "hex"
   )
 )
@@ -80,14 +80,9 @@ const deriveChildKey = (
   let data: Buffer
   const childIndexBuffer = integerAsBuffer(childIndex)
   if (KeyPath.isHardened(childIndex)) {
-    const buf = Buffer.concat(
-      [Buffer.from([0]), parentKey.key.bytes],
-      parentKey.key.bytes.length + 1
-    )
-    data = Buffer.concat(
-      [buf, childIndexBuffer],
-      buf.length + childIndexBuffer.length
-    )
+    const buf =
+      Buffer.concat([Buffer.from([0]), parentKey.key.bytes], parentKey.key.bytes.length + 1)
+    data = Buffer.concat([buf, childIndexBuffer], buf.length + childIndexBuffer.length)
   } else {
     const {key: pubkey, chainCode: pubChain} = PublicKey.create(parentKey.key)
     data =
@@ -96,20 +91,18 @@ const deriveChildKey = (
         pubkey.bytes.length + pubChain.length + childIndexBuffer.length
       )
   }
-
   const I: Buffer = sha512hmac(parentKey.chainCode, data)
-
   const IL = I.slice(0, 32)
   const IR = I.slice(32, 64)
   const p = BigNum.fromBuffer(IL)
-
-  assert(p.ge(SECP256K1_G), "can't generate child private key")
+  // Private point should be less than the secp256k1 order
+  assert(p.cmp(SECP256K1_N) <= 0, "can't generate child private key")
   const key = BigNum
     .fromBuffer(IL)
     .add(BigNum.fromBuffer(parentKey.key.bytes))
     .mod(SECP256K1_N)
-
-  assert(key.eq(0), "can't generate child private key")
+  // The key shouldn't be zero
+  assert(!key.eq(0), "can't generate child private key")
 
   const keyBytes = key.toBuffer().slice(0, 32)
 
