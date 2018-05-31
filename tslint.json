@@ -67,7 +67,7 @@
     "object-literal-key-quotes": [true, "as-needed"],
     "object-literal-shorthand": true,
     "one-line": [true, "check-else", "check-whitespace", "check-open-brace"],
-    "only-arrow-functions": true,
+    "only-arrow-functions": [true, "allow-declarations"],
     "prefer-conditional-expression": true,
     "prefer-const": true,
     "prefer-for-of": true,
