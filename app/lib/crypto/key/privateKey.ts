@@ -84,11 +84,11 @@ const deriveChildKey = (
       Buffer.concat([Buffer.from([0]), parentKey.key.bytes], parentKey.key.bytes.length + 1)
     data = Buffer.concat([buf, childIndexBuffer], buf.length + childIndexBuffer.length)
   } else {
-    const {key: pubkey, chainCode: pubChain} = PublicKey.create(parentKey.key)
+    const pubkey = PublicKey.create(parentKey)
     data =
       Buffer.concat(
-        [pubkey.bytes, pubChain, childIndexBuffer],
-        pubkey.bytes.length + pubChain.length + childIndexBuffer.length
+        [pubkey.key.bytes, childIndexBuffer],
+        pubkey.key.bytes.length + childIndexBuffer.length
       )
   }
   const I: Buffer = sha512hmac(parentKey.chainCode, data)
