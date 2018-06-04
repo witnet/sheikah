@@ -123,6 +123,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-typescript": "^7.0.0-alpha.19",
     "boiler-room-custodian": "^0.6.2",
+    "commitizen": "^2.10.1",
     "concurrently": "^3.5.1",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
