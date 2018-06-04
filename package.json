@@ -124,6 +124,7 @@
     "babel-preset-typescript": "^7.0.0-alpha.19",
     "boiler-room-custodian": "^0.6.2",
     "commitizen": "^2.10.1",
+    "commitlint": "^7.0.0",
     "concurrently": "^3.5.1",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
@@ -172,7 +173,6 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
-    "commitlint": "^6.2.0",
     "electron-debug": "^1.1.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.1",
