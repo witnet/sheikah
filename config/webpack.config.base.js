@@ -5,6 +5,8 @@
 const {join, resolve} = require('path');
 
 module.exports = {
+  mode: 'production',
+
   module: {
     rules: [
       {
