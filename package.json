@@ -26,7 +26,9 @@
     "package-all": "yarn build && build -mwl",
     "lint": "tslint --project tsconfig.json --force app/**/*.ts typings/**/*.ts test/**/*.ts",
     "clean": "rimraf release dist",
+    "commit": "git-cz",
     "precommit": "lint-staged",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
     "fmt-verify": "tsfmt --useTsfmt config/tsfmt.json --verify app/**/*.ts test/**/*.ts",
     "fmt": "tsfmt --useTsfmt config/tsfmt.json app/**/*.ts test/**/*.ts",
     "fmt!": "tsfmt --useTsfmt config/tsfmt.json -r app/**/*.ts test/**/*.ts"
@@ -97,6 +99,8 @@
   ],
   "homepage": "https://witnet.io",
   "devDependencies": {
+    "@commitlint/cli": "^6.2.0",
+    "@commitlint/config-conventional": "^6.1.3",
     "@types/enzyme": "^3.1.1",
     "@types/history": "^4.5.2",
     "@types/jest": "^22.2.3",
@@ -166,6 +170,7 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "commitlint": "^6.2.0",
     "electron-debug": "^1.1.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.1",
