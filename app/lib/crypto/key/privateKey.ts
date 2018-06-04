@@ -5,6 +5,7 @@ import {sha512hmac} from "../hash"
 import {integerAsBuffer} from "../../utils/conversions"
 import * as PublicKey from "./publicKey"
 import {ChainCode, ExtendedKey, getExtendedKey as extendedKey, Key} from "./key"
+import {privateKeyTweakAdd} from "secp256k1"
 
 export interface PrivateKey extends Key {
   type: "private"
@@ -97,14 +98,12 @@ const deriveChildKey = (
   const p = BigNum.fromBuffer(IL)
   // Private point should be less than the secp256k1 order
   assert(p.cmp(SECP256K1_N) <= 0, "can't generate child private key")
-  const key = BigNum
-    .fromBuffer(IL)
-    .add(BigNum.fromBuffer(parentKey.key.bytes))
-    .mod(SECP256K1_N)
-  // The key shouldn't be zero
-  assert(!key.eq(0), "can't generate child private key")
-
-  const keyBytes = key.toBuffer().slice(0, 32)
+  // ki = parse256(IL) + kpar (mod n)
+  const keyBytes = privateKeyTweakAdd(parentKey.key.bytes, IL)
+  if (keyBytes === null) {
+    // In case ki == 0, proceed with the next value for i
+    return deriveChildKey(parentKey, childIndex + 1)
+  }
 
   return getExtendedKey(keyBytes, IR)
 }
