@@ -1,30 +1,31 @@
 /**
  * Base webpack config used across other specific configs
  */
-const path = require('path');
-const {
-  dependencies: externals
-} = require(path.join(__dirname, '../package.json'));
+
+const {join, resolve} = require('path');
 
 module.exports = {
   module: {
-    loaders: [{
-      test: /\.tsx?$/,
-      loaders: ['react-hot-loader/webpack', {
-        loader: 'ts-loader',
-        options: {
-          configFile: path.join(__dirname, 'tsconfig.json')
-        }
-      }],
-      exclude: /node_modules/,
-    }, {
-      test: /\.json$/,
-      loader: 'json-loader'
-    }]
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          'react-hot-loader/webpack',
+          {
+            loader: 'ts-loader',
+            options: { configFile: join(__dirname, 'tsconfig.json') }
+          }]
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      }
+    ]
   },
 
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: join(__dirname, '../dist'),
     filename: 'bundle.js',
 
     // https://github.com/webpack/webpack/issues/1114
@@ -35,15 +36,11 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.json'],
     alias: {
-      app: path.resolve(__dirname, '../app')
+      app: resolve(__dirname, '../app')
     },
     modules: [
-      path.join(__dirname, '../app'),
-      path.join(__dirname, '../node_modules'),
+      join(__dirname, '../app'),
+      join(__dirname, '../node_modules'),
     ]
-  },
-
-  plugins: [],
-
-  externals: Object.keys(externals || {})
+  }
 };
