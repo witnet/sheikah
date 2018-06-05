@@ -6,13 +6,14 @@ describe("seed", () => {
     const seedFromMnemonics = Seed.deriveSeedFromMnemonics(
       "race pact attract approve vivid museum wear cube clown sing heavy sound"
     )
-    const seedBuffer = Buffer.from([250, 112, 98, 135, 181, 177, 103, 219, 17,
-      225, 90, 65, 243, 10, 151, 136, 201, 55, 134, 93, 27, 47, 77, 156, 107,
-      164, 134, 255, 91, 63, 149, 111, 189, 212, 150, 184, 134, 105, 216, 246,
-      241, 203, 63, 88, 185, 184, 146, 156, 61, 38, 114, 27, 151, 79, 22, 19,
-      75, 252, 4, 159, 44, 2, 80, 131])
+    const seedBuffer = Buffer.from([253, 212, 6, 199, 228, 105, 138, 96, 205, 64, 58, 21, 125, 87,
+      24, 169, 248, 76, 224, 102, 117, 60, 13, 18, 16, 111, 125, 35, 14, 32, 103, 217, 132, 52, 79,
+      252, 129, 156, 251, 90, 149, 141, 67, 195, 99, 113, 1, 224, 86, 107, 156, 221, 48, 157, 171,
+      70, 221, 233, 234, 254, 72, 40, 18, 55]
+    )
     const masterSecret = seedBuffer.slice(0, 32)
     const chainCode = seedBuffer.slice(32, 64)
+
     expect(_.isEqual(seedFromMnemonics, {masterSecret, chainCode})).toBeTruthy()
   })
 
