@@ -23,7 +23,7 @@ module.exports = merge(baseConfig, {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.styl$/,
         /* eslint-disable max-len */

@@ -75,7 +75,7 @@ yarn jest --watchAll #runs all tests
 
 ### Build
 
-To build the application run: `yarn build`, the build files are written to `dist` directory.
+To build the application run: `yarn build`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`
 
 ### Package
 

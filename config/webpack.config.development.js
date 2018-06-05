@@ -12,6 +12,7 @@ const baseConfig = require('./webpack.config.base');
 const port = process.env.PORT || 3000;
 
 module.exports = merge(baseConfig, {
+  mode: 'development',
   devtool: 'inline-source-map',
 
   entry: [
@@ -25,20 +26,7 @@ module.exports = merge(baseConfig, {
   },
 
   module: {
-    // preLoaders: [
-    //   {
-    //     test: /\.js$/,
-    //     loader: 'eslint-loader',
-    //     exclude: /node_modules/
-    //   }
-    // ],
-    loaders: [
-      {
-        test: /\.styl$/,
-        /* eslint-disable max-len */
-        loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!stylus-loader'
-        /* eslint-enable max-len */
-      },
+    rules: [
       {
         test: /\.global\.css$/,
         loaders: [
