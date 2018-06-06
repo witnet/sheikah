@@ -21,17 +21,6 @@ export const SECP256K1_N = BigNum.fromBuffer(
     "hex"
   )
 )
-/**
- * SECP256K1 G  (base point)
- * used to validate that the private key is a valid point in the elliptic curve
- * @type {BigNum}
- */
-export const SECP256K1_G = BigNum.fromBuffer(
-  Buffer.from(
-    "79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798",
-    "hex"
-  )
-)
 
 /**
  * Derive a descendant extended private key from a parent extended private key (likely a master
@@ -106,13 +95,4 @@ const deriveChildKey = (
   }
 
   return getExtendedKey(keyBytes, IR)
-}
-
-/**
- * Wrap private key bytes
- * @param {Buffer} bytes
- * @returns {PrivateKey}
- */
-export const getKey = (bytes: Buffer): PrivateKey => {
-  return {type: "private", bytes}
 }
