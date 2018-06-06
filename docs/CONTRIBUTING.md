@@ -92,6 +92,7 @@ Unsure where to begin contributing? You can start by looking through these good 
 * Trim all lines in your commit message to 72 characters
 * Do not include issue numbers in the first line of your commit message
 * Reference issues and pull requests liberally after the first line
+* [Verify your commits][signing-commits] before creating a pull request
 
     A good rule of thumb is that your commit message follows these rules if you can prefix it with "This commit will ..." and it makes sense.
 
@@ -107,6 +108,7 @@ These guidelines are based on the [AragonJS contributing guidelines][aragonjs], 
 [gitter]: https://gitter.im/witnet/sheikah
 [issues]: https://github.com/witnet/sheikah/issues
 [code]: https://github.com/witnet/sheikah/blob/master/docs/CODE_OF_CONDUCT.md
+[signing-commits]: https://help.github.com/articles/signing-commits-with-gpg/
 [styleguide]: https://github.com/witnet/sheikah/blob/master/docs/STYLEGUIDE.md
 [first-issue]: https://github.com/witnet/sheikah/labels/good%20first%20issue
 [aragonjs]: https://wiki.aragon.one/submodules/aragon.js/CONTRIBUTING/
