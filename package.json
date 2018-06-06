@@ -119,6 +119,7 @@
     "@types/react-router-dom": "^4.2.6",
     "@types/react-router-redux": "^5.0.13",
     "@types/redux-logger": "^3.0.6",
+    "@types/secp256k1": "^3.5.0",
     "@types/sinon": "^4.3.1",
     "asar": "^0.14.3",
     "babel-jest": "^22.4.4",
