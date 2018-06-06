@@ -1,11 +1,12 @@
 import {publicKeyCreate, publicKeyTweakAdd} from "secp256k1"
-import {PrivateKey, SECP256K1_N} from "./privateKey"
-import {ChainCode, ExtendedKey, getExtendedKey as extendedKey, Key} from "./key"
+import {PrivateKey} from "./privateKey"
+import {ChainCode, ExtendedKey, Key} from "./key"
 import {sha512hmac} from "../hash"
 import {integerAsBuffer} from "../../utils/conversions"
 import BigNum = require("bignum")
 import * as assert from "assert"
 import * as KeyPath from "../keyPath"
+import {SECP256K1_N} from "../constants"
 
 export interface PublicKey extends Key {
   type: "public"
@@ -27,10 +28,15 @@ export const create =
     }
   }
 
-export const getExtendedKey = (bytes: Buffer, chainCode: ChainCode): ExtendedKey<PublicKey> => {
-  return extendedKey(bytes, chainCode, "public")
+/**
+ * Extended key
+ * @param {PublicKey} public key
+ * @param {ChainCode} chainCode
+ * @returns {ExtendedKey<PublicKey>}
+ */
+export const extend = (key: PublicKey, chainCode: ChainCode): ExtendedKey<PublicKey> => {
+  return {key, chainCode}
 }
-
 /**
  * Derive a descendant extended public key from a parent extended public key, using either a
  * keypath or child index.
@@ -75,5 +81,9 @@ const deriveChildKey = (parentKey: ExtendedKey<PublicKey>,
     return deriveChildKey(parentKey, childIndex + 1)
   }
 
-  return getExtendedKey(Ki, IR)
+  return extend(fromBytes(Ki), IR)
+}
+
+export const fromBytes = (bytes: Buffer): PublicKey => {
+  return {type: "public", bytes}
 }

@@ -9,4 +9,4 @@ describe("hmac 512", () => {
       .toEqual("e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35873df" +
         "f81c02f525623fd1fe5167eac3a55a049de3d314bb42ee227ffed37d508")
   })
-}
+})

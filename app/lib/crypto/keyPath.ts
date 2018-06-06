@@ -1,5 +1,4 @@
-import * as _ from "lodash"
-
+import {HARDENED_KEY_INDEX} from "./constants"
 export type KeyPath = Array<number>
 
 /**
@@ -10,11 +9,10 @@ export type KeyPath = Array<number>
  *
  * Apostrophe in the path indicates that hardened derivation is used
  */
-const hardenedKeyIndex = 0x80000000
 
 /** Path derivation */
 export const derive = (path: KeyPath, number: number): KeyPath => {
-  return _.concat(path, number)
+  return [...path, number]
 }
 
 /**
@@ -26,22 +24,24 @@ export const derive = (path: KeyPath, number: number): KeyPath => {
  */
 export const fromString = (path: string): KeyPath => {
   const toNumber = (value: string): number => {
-    const number = _.endsWith(value, "'") ?
-      hardened(_.parseInt(value.slice(0, -1))) : _.parseInt(value)
+    const number = value.slice(-1) === "'" ?
+      hardened(parseInt(value.slice(0, -1))) : parseInt(value)
     if (isNaN(number)) {
       throw Error("Invalid number")
     }
 
     return number
   }
-  const path1 = _.trimStart(_.trimStart(path, "m"), "/")
+  // const path1 = _.trimStart(_.trimStart(path, "m"), "/")
+  const path1 = path.replace(/^m*\/*/, "")
 
-  return path1.length === 0 ? [] : _.map(path1.split("/"), toNumber)
+  return path1.length === 0 ? [] : path1.split("/").map(toNumber)
 }
 
 /** Key path to string */
 export const toString = (path: KeyPath) => {
-  return _.map(path, childNumberToString).reduce((a, b) => `${a}/${b}`, "m")
+  // return _.map(path, childNumberToString).reduce((a, b) => `${a}/${b}`, "m")
+  return ["m", ...path].map(childNumberToString).join("/")
 }
 
 /**
@@ -51,11 +51,11 @@ export const toString = (path: KeyPath) => {
  */
 export const childNumberToString = (childNumber: number) => {
   return isHardened(childNumber) ?
-    `${childNumber - hardenedKeyIndex}'` : `${childNumber}`
+    `${childNumber - HARDENED_KEY_INDEX}'` : `${childNumber}`
 }
 
 export const lastChildNumber = (path: KeyPath): number => {
-  return _.last(path) || 0
+  return path[path.length - 1] || 0
 }
 
 /**
@@ -64,10 +64,10 @@ export const lastChildNumber = (path: KeyPath): number => {
  * @returns {number}
  */
 export const hardened = (index: number) => {
-  return hardenedKeyIndex + index
+  return HARDENED_KEY_INDEX + index
 }
 
 /** check if index belongs to hardened key path */
 export const isHardened = (index: number) => {
-  return index >= hardenedKeyIndex
+  return index >= HARDENED_KEY_INDEX
 }

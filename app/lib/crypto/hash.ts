@@ -1,12 +1,12 @@
 import * as crypto from "crypto"
 
 /**
- *  Create hmac function for the indicated number of bits
- * @param {string} hmacBits number of bits for the hmac sha function
+ *  Create hmac function for the indicated hash function
+ * @param {string} hashFunctionName name of a hash function
  * @returns {(buf: Buffer) => Buffer} hmac function
  */
-const hmacFunction = (hmacBits: string, key: Buffer) => {
-  return (buf: Buffer) => crypto.createHmac(hmacBits, key).update(buf).digest()
+const hmacFunction = (hashFunctionName: string, key: Buffer) => {
+  return (buf: Buffer) => crypto.createHmac(hashFunctionName, key).update(buf).digest()
 }
 
 /**

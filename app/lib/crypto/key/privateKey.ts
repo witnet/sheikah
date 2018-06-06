@@ -4,23 +4,13 @@ import * as BigNum from "bignum"
 import {sha512hmac} from "../hash"
 import {integerAsBuffer} from "../../utils/conversions"
 import * as PublicKey from "./publicKey"
-import {ChainCode, ExtendedKey, getExtendedKey as extendedKey, Key} from "./key"
+import {ChainCode, ExtendedKey, Key} from "./key"
 import {privateKeyTweakAdd} from "secp256k1"
+import {SECP256K1_N} from "../constants"
 
 export interface PrivateKey extends Key {
   type: "private"
 }
-
-/**
- * SECP256K1 N (order)
- * @type {BigNum}
- */
-export const SECP256K1_N = BigNum.fromBuffer(
-  Buffer.from(
-    "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141",
-    "hex"
-  )
-)
 
 /**
  * Derive a descendant extended private key from a parent extended private key (likely a master
@@ -46,17 +36,17 @@ export const derive =
   }
 
 /**
- * Extended key from private key bytes and chainCode
- * @param {Buffer} private key bytes
+ * Extended key
+ * @param {PrivateKey} private key
  * @param {ChainCode} chainCode
  * @returns {ExtendedKey<PrivateKey>}
  */
-export const getExtendedKey = (bytes: Buffer, chainCode: ChainCode): ExtendedKey<PrivateKey> => {
-  return extendedKey(bytes, chainCode, "private")
+export const extend = (key: PrivateKey, chainCode: ChainCode): ExtendedKey<PrivateKey> => {
+  return {key, chainCode}
 }
 
 /**
- * Generate extended private key
+ * Derive child key
  * @param {PrivateKey} parentKey
  * @param {ChainCode} chainCode
  * @param {number} childIndex
@@ -66,7 +56,8 @@ const deriveChildKey = (
   parentKey: ExtendedKey<PrivateKey>,
   childIndex: number
 ): ExtendedKey<PrivateKey> => {
-
+// This buffer will be populated later and then used as input data for the SHA512HMAC function that
+// calculates the child key and chain code.
   let data: Buffer
   const childIndexBuffer = integerAsBuffer(childIndex)
   if (KeyPath.isHardened(childIndex)) {
@@ -94,5 +85,9 @@ const deriveChildKey = (
     return deriveChildKey(parentKey, childIndex + 1)
   }
 
-  return getExtendedKey(keyBytes, IR)
+  return extend(fromBytes(keyBytes), IR)
+}
+
+export const fromBytes = (bytes: Buffer): PrivateKey => {
+  return {type: "private", bytes}
 }

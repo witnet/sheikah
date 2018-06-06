@@ -39,19 +39,6 @@ describe("pbkdf2", () => {
     expect(pbkdf2(password, salt, iterations, length)).toEqual(expected)
   })
 
-  // WARNING: this test is rather resource intensive.
-  // We may want to go without it.
-  it("should pass RFC6070 test case #4", () => {
-    const password = Buffer.from("password")
-    const salt = Buffer.from("salt")
-    const iterations = 16777216
-    const length = 20
-    const expected = Buffer
-      .from("6180a3ceabab45cc3964112c811e0131bca93a35", "hex")
-
-    expect(pbkdf2(password, salt, iterations, length)).toEqual(expected)
-  })
-
   it("should pass RFC6070 test case #5", () => {
     const password = Buffer.from("passwordPASSWORDpassword")
     const salt = Buffer.from("saltSALTsaltSALTsaltSALTsaltSALTsalt")

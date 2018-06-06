@@ -1,4 +1,4 @@
-import {deriveSeedFromEntropy} from "../../../../app/lib/crypto/seed"
+import {fromEntropy} from "../../../../app/lib/crypto/seed"
 import * as PrivateKey from "../../../../app/lib/crypto/key/privateKey"
 import {ExtendedKey} from "../../../../app/lib/crypto/key/key"
 import {hardened} from "../../../../app/lib/crypto/keyPath"
@@ -254,9 +254,9 @@ function getMasterKey(seedEntropy: string, passPhrase = "Bitcoin seed"):
   ExtendedKey<PrivateKey.PrivateKey> {
 
   const entropy = Buffer.from(seedEntropy, "hex")
-  const {masterSecret, chainCode} = deriveSeedFromEntropy(entropy, passPhrase)
+  const {masterSecret, chainCode} = fromEntropy(entropy, passPhrase)
   const masterKey: ExtendedKey<PrivateKey.PrivateKey> =
-    PrivateKey.getExtendedKey(masterSecret, chainCode)
+    PrivateKey.extend(PrivateKey.fromBytes(masterSecret), chainCode)
 
   return masterKey
 }

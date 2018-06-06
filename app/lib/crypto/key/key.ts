@@ -1,6 +1,3 @@
-import {PublicKey} from "./publicKey"
-import {PrivateKey} from "./privateKey"
-
 /**
  * Key interface
  * The buffer should have a length of 32 bytes
@@ -10,7 +7,7 @@ export interface Key {
 }
 
 /**
- * Extended key
+ * Extended keys, as introduced by BIP-0032, pair a key with a chain code
  */
 export type ExtendedKey<Key> = {
   key: Key
@@ -21,13 +18,3 @@ export type ExtendedKey<Key> = {
  * Chain code (32 bytes)
  */
 export type ChainCode = Buffer
-
-export const getExtendedKey: {
-  (bytes: Buffer, chainCode: ChainCode, type: "public"): ExtendedKey<PublicKey>
-  (bytes: Buffer, chainCode: ChainCode, type: "private"): ExtendedKey<PrivateKey>
-} = (bytes: Buffer, chainCode: ChainCode, type: "private" | "public"): any => {
-  return {
-    key: {type, bytes},
-    chainCode
-  }
-}

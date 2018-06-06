@@ -1,11 +1,11 @@
 const bip39 = require("bip39")
 
 /**
- * Validate mnemonic
+ * Check if a mnemonic is valid
  * @param {string} mnemonics
  * @returns {boolean}
  */
-export const validate = (mnemonics: string): boolean => {
+export const isValid = (mnemonics: string): boolean => {
   return !bip39.validateMnemonic(mnemonics)
 }
 

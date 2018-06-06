@@ -3,7 +3,7 @@ import * as _ from "lodash"
 
 describe("seed", () => {
   it("should generate seed", () => {
-    const seedFromMnemonics = Seed.deriveSeedFromMnemonics(
+    const seedFromMnemonics = Seed.fromMnemonics(
       "race pact attract approve vivid museum wear cube clown sing heavy sound"
     )
     const seedBuffer = Buffer.from([253, 212, 6, 199, 228, 105, 138, 96, 205, 64, 58, 21, 125, 87,
