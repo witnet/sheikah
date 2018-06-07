@@ -1,6 +1,6 @@
 import * as assert from "assert"
 import * as KeyPath from "../keyPath"
-import * as BigNum from "bignum"
+import BigNum = require("bn.js")
 import {sha512hmac} from "../hash"
 import {integerAsBuffer} from "../../utils/conversions"
 import * as PublicKey from "./publicKey"
@@ -75,7 +75,7 @@ const deriveChildKey = (
   const I: Buffer = sha512hmac(parentKey.chainCode, data)
   const IL = I.slice(0, 32)
   const IR = I.slice(32, 64)
-  const p = BigNum.fromBuffer(IL)
+  const p = new BigNum(IL)
   // Private point should be less than the secp256k1 order
   assert(p.cmp(SECP256K1_N) <= 0, "can't generate child private key")
   // ki = parse256(IL) + kpar (mod n)
