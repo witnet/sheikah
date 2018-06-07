@@ -25,7 +25,7 @@
 
     "sourceMap": true,
 
-    "outDir": "dist"
+    "outDir": "../dist"
   },
   "files": [
     "../app/index.tsx"
@@ -39,6 +39,6 @@
     "../typings/**/*.d.ts"
   ],
   "exclude": [
-    "dist"
+    "../dist"
   ]
 }
