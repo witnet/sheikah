@@ -79,16 +79,26 @@ To build the application run: `yarn build`, the build files are written to `dist
 
 ### Package
 
-To package the application into an executable for your platform (Windows, MacOS, GNU/Linux) run:
+To package the application into an executable for your platform (Windows, MacOS, GNU/Linux) run any of the following commands. The packaged application will be written to `release` folder.
 
 #### Production build
 
 ``` bash
 yarn package
+
+# other variants are
+yarn package-linux
+yarn package-win
+yarn package-all # equivalent to yarn package
 ```
 
 #### Development build
 
 ``` bash
 yarn package-dev
+
+# other variants are
+yarn package-linux-dev
+yarn package-win-dev
+yarn package-all-dev # equivalent to yarn package-dev
 ```

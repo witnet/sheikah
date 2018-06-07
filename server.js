@@ -7,18 +7,19 @@ const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const { spawn } = require('child_process');
+const childProcess = require('child_process');
 
-const config = require('./config/webpack.config.development');
+const webpackRenderer = require('./config/webpack.renderer');
 
 const argv = require('minimist')(process.argv.slice(2));
 
 const app = express();
-const compiler = webpack(config);
+const compiler = webpack(webpackRenderer);
 const PORT = process.env.PORT || 3000;
 
 const wdm = webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
+  writeToDisk: true,
+  publicPath: webpackRenderer.output.publicPath,
   stats: {
     colors: true
   }
@@ -30,11 +31,12 @@ app.use(webpackHotMiddleware(compiler));
 
 const server = app.listen(PORT, 'localhost', serverError => {
   if (serverError) {
-    return console.error(serverError);
+    console.error(serverError);
+    process.exit(1);
   }
 
-  if (argv['start-hot']) {
-    spawn('npm', ['run', 'start-hot'], { shell: true, env: process.env, stdio: 'inherit' })
+  if (argv['exec']) {
+    childProcess.exec(argv['exec'], { shell: true, env: process.env, stdio: 'inherit' })
       .on('close', code => process.exit(code))
       .on('error', spawnError => console.error(spawnError));
   }
