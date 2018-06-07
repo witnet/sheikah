@@ -1,7 +1,7 @@
 import { actionCreatorVoid } from "./helpers"
 import * as IPCCommon from "../lib/api/ipc/ipcCommon"
 import * as IPCFrontend from "../lib/api/ipc/ipcFrontend"
-import {ipcRenderer} from "electron"
+import { ipcRenderer } from "electron"
 
 export const increment = actionCreatorVoid("INCREMENT_COUNTER")
 export const decrement = actionCreatorVoid("DECREMENT_COUNTER")
@@ -30,7 +30,7 @@ const ping = () => {
   return (dispatch: Function) => {
     // build request
     const request = IPCCommon.buildChanRequest("ping-msg",
-      JSON.stringify({content: "sending ping"}))
+      JSON.stringify({ content: "sending ping" }))
 
     // send async message
     IPCCommon.sendAsyncMessage(ipcRenderer, JSON.stringify(request))
@@ -43,7 +43,7 @@ const noResponse = () => {
   return (dispatch: Function) => {
     // build request
     const request = IPCCommon.buildChanRequest("no-resp-msg",
-      JSON.stringify({content: "sending no-response"}))
+      JSON.stringify({ content: "sending no-response" }))
 
     // send async message
     IPCCommon.sendAsyncMessage(ipcRenderer, JSON.stringify(request))
