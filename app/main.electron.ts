@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu, shell } = require("electron")
-import {loadAsyncHandlers} from "./lib/ipc/ipcBackend"
+
+import * as IPCBackend from "./lib/api/ipc/ipcBackend"
 
 let menu: any
 let template: any
@@ -13,7 +14,7 @@ if (process.env.NODE_ENV === "production") {
 if (process.env.NODE_ENV === "development") {
   require("electron-debug")() // eslint-disable-line global-require
   const path = require("path") // eslint-disable-line
-  const p = path.join(__dirname, "..", "app", "node_modules")
+  const p = path.join(__dirname, "..", "app", "node_modules") // eslint-disable-line
   require("module").globalPaths.push(p) // eslint-disable-line
 }
 
@@ -21,10 +22,9 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") { app.quit() }
 })
 
-const installExtensions = async () => {
+const installExtensions = () => {
   if (process.env.NODE_ENV === "development") {
-
-    const installer = require("electron-devtools-installer")
+    const installer = require("electron-devtools-installer") // eslint-disable-line global-require
 
     const extensions = [
       "REACT_DEVELOPER_TOOLS",
@@ -32,14 +32,13 @@ const installExtensions = async () => {
     ]
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS
 
-    return Promise.all(extensions.map(
-        name => installer.default(installer[name], forceDownload)))
+    return Promise.all(extensions.map(name => installer.default(installer[name], forceDownload)))
   }
 
   return Promise.resolve([])
 }
 
-app.on("ready", async () =>
+app.on("ready", () =>
   installExtensions()
   .then(() => {
   mainWindow = new BrowserWindow({
@@ -48,7 +47,7 @@ app.on("ready", async () =>
     height: 728
   })
 
-  mainWindow.loadURL(`file://${__dirname}/../app/app.html`)
+  mainWindow.loadURL(`file://${__dirname}/app.html`)
 
   mainWindow.webContents.on("did-finish-load", () => {
     mainWindow.show()
@@ -188,8 +187,7 @@ app.on("ready", async () =>
       }, {
         label: "Documentation",
         click() {
-          shell.openExternal(
-              "https://github.com/atom/electron/tree/master/docs#readme")
+          shell.openExternal("https://github.com/atom/electron/tree/master/docs#readme")
         }
       }, {
         label: "Community Discussions",
@@ -256,8 +254,7 @@ app.on("ready", async () =>
       }, {
         label: "Documentation",
         click() {
-          shell.openExternal(
-              "https://github.com/atom/electron/tree/master/docs#readme")
+          shell.openExternal("https://github.com/atom/electron/tree/master/docs#readme")
         }
       }, {
         label: "Community Discussions",
@@ -276,5 +273,5 @@ app.on("ready", async () =>
   }
 }))
 
-/** Load all asynchronous handlers */
-loadAsyncHandlers()
+// Load IPC channels
+IPCBackend.manageIPCChannels()
