@@ -188,7 +188,7 @@
     "source-map-support": "^0.5.5"
   },
   "devEngines": {
-    "node": ">=6.x",
+    "node": ">=8.x",
     "yarn": ">=1.x"
   },
   "config": {
