@@ -32,9 +32,9 @@
     "commit": "git-cz",
     "precommit": "lint-staged",
     "commitmsg": "commitlint -g config/commitlint.config.js -e $GIT_PARAMS",
-    "fmt-verify": "tsfmt --useTsfmt config/tsfmt.json --verify app/**/*.ts test/**/*.ts",
-    "fmt": "tsfmt --useTsfmt config/tsfmt.json app/**/*.ts test/**/*.ts",
-    "fmt!": "tsfmt --useTsfmt config/tsfmt.json -r app/**/*.ts test/**/*.ts"
+    "fmt-verify": "tsfmt --useTsfmt tsfmt.json --verify app/**/*.ts test/**/*.ts",
+    "fmt": "tsfmt --useTsfmt tsfmt.json app/**/*.ts test/**/*.ts",
+    "fmt!": "tsfmt --useTsfmt tsfmt.json -r app/**/*.ts test/**/*.ts"
   },
   "lint-staged": {
     "*.ts": [
