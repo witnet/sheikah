@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "..",
+    "baseUrl": ".",
     "target": "es5",
     "moduleResolution": "node",
     "module": "commonjs",
@@ -19,26 +19,26 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    
+
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
 
     "sourceMap": true,
 
-    "outDir": "../dist"
+    "outDir": "dist"
   },
   "files": [
-    "../app/index.tsx"
+    "app/index.tsx"
   ],
   "include": [
-    "../app/**/*.ts",
-    "../app/**/*.tsx",
-    "../test/**/*.ts",
-    "../test/**/*.tsx",
-    "../node_modules/@types/**/*.d.ts",
-    "../typings/**/*.d.ts"
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "test/**/*.ts",
+    "test/**/*.tsx",
+    "node_modules/@types/**/*.d.ts",
+    "typings/**/*.d.ts"
   ],
   "exclude": [
-    "../dist"
+    "dist"
   ]
 }
