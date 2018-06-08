@@ -16,6 +16,23 @@ const baseConfig = {
 
   entry: [path.resolve(__dirname, "../app/main.electron")],
 
+  resolve: {
+    extensions: [".js", ".ts", ".json"]
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "ts-loader",
+          options: { configFile: path.resolve(__dirname, "../tsconfig.json") }
+        }
+      }
+    ]
+  },
+
   plugins: [
     // Add source map support for stack traces in node
     // https://github.com/evanw/node-source-map-support
