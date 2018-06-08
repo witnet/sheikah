@@ -28,7 +28,7 @@
     "package-all": "yarn build && build -mwl",
     "package-all-dev": "yarn build-dev && build -mwl",
     "lint": "tslint --project tsconfig.json --force app/**/*.ts typings/**/*.ts test/**/*.ts",
-    "clean": "rimraf release dist",
+    "clean": "rimraf release dist node_modules",
     "commit": "git-cz",
     "precommit": "lint-staged",
     "commitmsg": "commitlint -g config/commitlint.config.js -e $GIT_PARAMS",
