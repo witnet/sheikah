@@ -2,40 +2,40 @@
  * Webpack config used to build the UI used by the Electron renderer
  * process (the react frontend).
  */
-const path = require('path');
-const webpack = require('webpack');
-const webpackMergeConfigs = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const webpackMergeConfigs = require("webpack-merge");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const port = process.env.PORT || 3000;
-const forProduction = process.env.NODE_ENV === 'production';
+const forProduction = process.env.NODE_ENV === "production";
 
 const typeScriptLoader = {
-  loader: 'ts-loader',
-  options: { configFile: path.resolve(__dirname, '../tsconfig.json') }
+  loader: "ts-loader",
+  options: { configFile: path.resolve(__dirname, "../tsconfig.json") }
 };
 
 const baseConfig = {
   // https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
-  target: 'electron-renderer',
+  target: "electron-renderer",
 
   resolve: {
-    extensions: ['.js', '.ts', '.tsx'],
+    extensions: [".js", ".ts", ".tsx"],
     alias: {
-      app: path.resolve(__dirname, '../app')
+      app: path.resolve(__dirname, "../app")
     },
     modules: [
-      path.resolve(__dirname, '../app'),
-      path.resolve(__dirname, '../node_modules'),
+      path.resolve(__dirname, "../app"),
+      path.resolve(__dirname, "../node_modules"),
     ]
   },
 
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, "../dist"),
+    filename: "bundle.js",
     // https://github.com/webpack/webpack/issues/1114
-    libraryTarget: 'commonjs2'
+    libraryTarget: "commonjs2"
   },
 
   module: {
@@ -44,10 +44,10 @@ const baseConfig = {
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: "url-loader",
           options: {
             limit: 10000,
-            mimetype: 'application/font-woff',
+            mimetype: "application/font-woff",
           }
         },
       },
@@ -56,10 +56,10 @@ const baseConfig = {
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: "url-loader",
           options: {
             limit: 10000,
-            mimetype: 'application/font-woff',
+            mimetype: "application/font-woff",
           }
         }
       }
@@ -68,10 +68,10 @@ const baseConfig = {
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: "url-loader",
           options: {
             limit: 10000,
-            mimetype: 'application/octet-stream'
+            mimetype: "application/octet-stream"
           }
         }
       },
@@ -79,17 +79,17 @@ const baseConfig = {
       // EOT Font
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        use: 'file-loader',
+        use: "file-loader",
       },
 
       // SVG Font
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: "url-loader",
           options: {
             limit: 10000,
-            mimetype: 'image/svg+xml',
+            mimetype: "image/svg+xml",
           }
         }
       },
@@ -97,7 +97,7 @@ const baseConfig = {
       // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'url-loader',
+        use: "url-loader",
       }
     ]
   },
@@ -108,19 +108,19 @@ const baseConfig = {
     new webpack.optimize.OccurrenceOrderPlugin(),
 
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(forProduction ? 'production' : 'development')
+      "process.env.NODE_ENV": JSON.stringify(forProduction ? "production" : "development")
     }),
 
-    new ExtractTextPlugin('style.css')
+    new ExtractTextPlugin("style.css")
   ]
 };
 
 const productionConfig = {
-  mode: 'production',
-  devtool: 'cheap-module-source-map',
-  entry: ['app/index'],
+  mode: "production",
+  devtool: "cheap-module-source-map",
+  entry: ["app/index"],
   output: {
-    publicPath: path.resolve(__dirname, '../dist/')
+    publicPath: path.resolve(__dirname, "../dist/")
     // the last slash is important! ------------^
     // if you remove it the asset urls will break!
   },
@@ -137,13 +137,13 @@ const productionConfig = {
         test: /\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
           use: [{
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               //modules: true,
               importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
+              localIdentName: "[name]__[local]__[hash:base64:5]",
             }
-          }, { loader: 'sass-loader' }]
+          }, { loader: "sass-loader" }]
         })
       }
     ]
@@ -151,12 +151,12 @@ const productionConfig = {
 };
 
 const developmentConfig = {
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: "development",
+  devtool: "inline-source-map",
   entry: [
-    'react-hot-loader/patch',
+    "react-hot-loader/patch",
     `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr&reload=true`,
-    'app/index'
+    "app/index"
   ],
   output: {
     publicPath: `http://localhost:${port}/dist/`
@@ -166,14 +166,14 @@ const developmentConfig = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: ['react-hot-loader/webpack', typeScriptLoader]
+        use: ["react-hot-loader/webpack", typeScriptLoader]
       },
 
       {
         test: /^((?!\.global).)*\.css$/,
         loaders: [
-          'style-loader',
-          'css-loader?modules&sourceMap&importLoaders=1'
+          "style-loader",
+          "css-loader?modules&sourceMap&importLoaders=1"
         ]
       },
 
@@ -181,13 +181,13 @@ const developmentConfig = {
         test: /\.global\.scss$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: "style-loader"
           },
           {
-            loader: 'css-loader?sourceMap',
+            loader: "css-loader?sourceMap",
           },
           {
-            loader: 'sass-loader'
+            loader: "sass-loader"
           }
         ]
       },
@@ -196,13 +196,13 @@ const developmentConfig = {
         test: /^((?!\.global).)*\.scss$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: "style-loader"
           },
           {
-            loader: 'css-loader?modules&sourceMap&importLoaders'
+            loader: "css-loader?modules&sourceMap&importLoaders"
           },
           {
-            loader: 'sass-loader'
+            loader: "sass-loader"
           }
         ]
       }
@@ -222,9 +222,9 @@ const developmentConfig = {
 };
 
 if (forProduction) {
-  console.log('Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mPRODUCTION\x1b[0m mode...')
+  console.log("Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mPRODUCTION\x1b[0m mode...")
   module.exports = webpackMergeConfigs(baseConfig, productionConfig);
 } else {
-  console.log('Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mDEVELOPMENT\x1b[0m mode...')
+  console.log("Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mDEVELOPMENT\x1b[0m mode...")
   module.exports = webpackMergeConfigs(baseConfig, developmentConfig);
 }
