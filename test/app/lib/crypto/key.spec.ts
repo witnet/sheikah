@@ -1,8 +1,7 @@
-import {fromEntropy} from "../../../../app/lib/crypto/seed"
 import * as PrivateKey from "../../../../app/lib/crypto/key/privateKey"
-import {ExtendedKey} from "../../../../app/lib/crypto/key/key"
 import {hardened} from "../../../../app/lib/crypto/keyPath"
 import * as PublicKey from "../../../../app/lib/crypto/key/publicKey"
+import {getMasterKey} from "./helpers"
 
 /**
  * The test vectors come from bip32 and the bitcoin-lib scala library
@@ -244,19 +243,3 @@ describe("derive keys (test vector #2)", () => {
   })
 })
 
-/**
- * Helper for testing
- * @param {string} seedEntropy
- * @param {string} passPhrase
- * @returns {ExtendedKey<PrivateKey>}
- */
-function getMasterKey(seedEntropy: string, passPhrase = "Bitcoin seed"):
-  ExtendedKey<PrivateKey.PrivateKey> {
-
-  const entropy = Buffer.from(seedEntropy, "hex")
-  const {masterSecret, chainCode} = fromEntropy(entropy, passPhrase)
-  const masterKey: ExtendedKey<PrivateKey.PrivateKey> =
-    PrivateKey.extend(PrivateKey.fromBytes(masterSecret), chainCode)
-
-  return masterKey
-}
