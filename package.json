@@ -28,7 +28,7 @@
     "package-all": "yarn build && build -mwl",
     "package-all-dev": "yarn build-dev && build -mwl",
     "lint": "tslint --project tsconfig.json --force app/**/*.ts typings/**/*.ts test/**/*.ts",
-    "clean": "rimraf release dist; yarn clean-deps",
+    "clean": "rimraf release dist",
     "clean-deps": "rimraf node_modules",
     "reinstall": "yarn clean-deps; yarn install",
     "commit": "git-cz",
