@@ -3,6 +3,7 @@
 [![Join the chat at https://gitter.im/witnet/sheikah](https://badges.gitter.im/witnet/sheikah.svg)](https://gitter.im/witnet/sheikah?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Build Status](https://travis-ci.org/witnet/sheikah.svg?branch=master)](https://travis-ci.org/witnet/sheikah)
+[![Codacy Badge](https://camo.githubusercontent.com/c38f3e3c5750cbf4aeb4ca06be6a3df02277995d/68747470733a2f2f6170692e636f646163792e636f6d2f70726f6a6563742f62616467652f47726164652f3433333239343435393066383436346639623337323966366137393563653065)](https://www.codacy.com/app/adansdpc/sheikah?utm_source=github.com&utm_medium=referral&utm_content=witnet/sheikah&utm_campaign=Badge_Grade)
 
 A [Witnet](https://witnet.io/) compatible desktop wallet and smart contracts development environment.
 
