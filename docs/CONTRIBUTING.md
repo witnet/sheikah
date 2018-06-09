@@ -95,7 +95,6 @@ Unsure where to begin contributing? You can start by looking through these good 
 * [Verify your commits][signing-commits] before creating a pull request
 * Standardize your commits:
     - use `yarn commit` to write the commit message with the interactive guide
-    - then check the message with `yarn commitmsg`
     - clean up the problem/warnings from check before pushing your commits
 
     A good rule of thumb is that your commit message follows these rules if you can prefix it with "This commit will ..." and it makes sense.
