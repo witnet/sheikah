@@ -1,46 +1,46 @@
-import IpcMain = Electron.IpcMain
-import IpcRenderer = Electron.IpcRenderer
-
 /**
  * This module contains all common types for backend and frontend
  * IPC communication
  */
 
 /** Version of the protocol */
-export const ipcVersion = 1
+export const IPC_VERSION = 1
 
 /** Asynchronous communication channel */
-export const asyncChanId = "async-msg"
+export const IPC_ASYNC_CHAN_NAME = "async-msg"
+
+/** Synchronous communication channel */
+export const IPC_SYNC_CHAN_NAME = "sync-msg"
 
 /**
- * Type representing a handler function in an IPC call
+ * Type representing a method handler function in an IPC call
  */
 export type HandlerFunction = (args: string) => Promise<string>
 
 /**
- * Channel description
+ * Method description
  */
-export type ChanDesc = {
-  /** Id of the channel */
+export type MethodDesc = {
+  /** Method identifier */
   id: string;
 
-  /** Handler function for the reception of a message in the channel */
-  chanHandler: HandlerFunction;
+  /** Method's handler function for the reception of a message */
+  handler: HandlerFunction;
 }
 
 /**
- * Function to check the type for imported channels (they should match ChanDesc
+ * Function to check the type of imported methods (they should match MethodDesc
  * interface)
  * @param elem
  * @returns {boolean}
  */
-export function isValidChanDesc(elem: any): boolean {
+export function isValidMethodDesc(elem: any): boolean {
   // check:
   // (1) if object
-  // (2) if matches the ChanDesc interface (id: string, chanHandler: function)
+  // (2) if matches the MethodDesc interface (id: string, handler: function)
   return (typeof elem === "object") &&
-    ("id" in elem) && ("chanHandler" in elem) &&
-    (typeof elem.id === "string") && (typeof elem.chanHandler === "function")
+    ("id" in elem) && ("handler" in elem) &&
+    (typeof elem.id === "string")  && (typeof elem.handler === "function")
 }
 
 /**
@@ -54,11 +54,11 @@ export interface ChanMessage {
   /** Unique transaction id of the message (for handling retries logic) */
   id: number,
 
-  /** Message id */
-  msgId: string,
+  /** Method id */
+  method: string,
 
-  /** Content of the message (message specific, in JSON format) */
-  msgContent: string
+  /** Params of the method (message specific, in JSON format) */
+  params: string
 }
 
 /**
@@ -80,52 +80,16 @@ export interface ChanResponse extends ChanMessage {
  */
 export enum ChanResCode {
   Ok,
-  ErrNoHandler
-}
-
-/**
- * Function to build a channel request
- * @param {string} reqMsgId
- * @param {string} reqMsgContent
- * @returns {ChanRequest}
- */
-export function buildChanRequest(reqMsgId: string,
-                                 reqMsgContent: string): ChanRequest {
-  return {
-    version: ipcVersion,
-    id: 1,
-    msgId: reqMsgId,
-    msgContent: reqMsgContent
-  }
-}
-
-/**
- * Function to build a channel response
- * @param {ChanResCode} rspCode
- * @param {string} rspMsgId
- * @param {string} rspMsgContent
- * @returns {ChanResponse}
- */
-export function buildChanResponse(rspCode: ChanResCode,
-                                  rspMsgId: string,
-                                  rspMsgContent: string): ChanResponse {
-  return {
-    code: rspCode,
-    version: ipcVersion,
-    id: 1,
-    msgId: rspMsgId,
-    msgContent: rspMsgContent
-  }
+  ErrUnknownMethod
 }
 
 /**
  * Function to check the header in the communication protocol
- * @param {number} version
- * @param {number} id
  * @returns {boolean}
+ * @param chanMsg
  */
 export function isValidChanMessage(chanMsg: ChanMessage): boolean {
-  return (chanMsg.version === ipcVersion)
+  return (chanMsg.version === IPC_VERSION)
 }
 
 /**
@@ -147,99 +111,27 @@ export function isValidChanResponse(chanRsp: ChanResponse): boolean {
 }
 
 /**
- * Function to send an async message to a channel
- * @param eventSender the event used to send the message
- * @param args the information that is sent
+ * Function to get a map of all supported method descriptors
+ * @param {{[p: string]: any}} methodsMap
+ * @returns {{[p: string]: HandlerFunction}}
  */
-export function sendAsyncMessage(eventSender: IpcRenderer, args?: any) {
-  eventSender.send(asyncChanId, args)
-}
+export function getIPCMethodDescs(methodsMap: { [id: string]: any }):
+  { [id: string]: HandlerFunction } {
+  // Build the list of IPC methods
+  const methods = Object.keys(methodsMap)
+    .map(key => methodsMap[key])
 
-/**
- * Function to get an array of all supported channels
- * @returns {Array<ChanDesc>}
- */
-export function getIPCChanDescs(chanMap: { [id: string]: any }): { [id: string]: HandlerFunction } {
-  // Build the list of IPC channels
-  const channels = Object.keys(chanMap)
-    .map(key => chanMap[key])
-
-  let channelsArr: Array<ChanDesc> = []
-  for (const elem of channels) {
-    channelsArr = channelsArr.concat(Object.keys(elem)
+  let methodsArr: Array<MethodDesc> = []
+  for (const elem of methods) {
+    methodsArr = methodsArr.concat(Object.keys(elem)
       .map(key => elem[key])
-      .filter(isValidChanDesc))
+      .filter(isValidMethodDesc))
   }
 
-  const channelsMap: { [id: string]: HandlerFunction } = {}
-
-  for (const elem of channelsArr) {
-    channelsMap[elem.id] = elem.chanHandler
+  const simpleMethodMap: { [id: string]: HandlerFunction } = {}
+  for (const elem of methodsArr) {
+    simpleMethodMap[elem.id] = elem.handler
   }
 
-  return channelsMap
-}
-
-export type IPCEventEmitter = IpcMain | IpcRenderer
-
-/**
- * Function to load request handlers
- * @param eventEmitter
- * @param {Array<ChanDesc>} channels
- */
-export function loadRequestHandlers(eventEmitter: IPCEventEmitter,
-                                    channels: { [id: string]: HandlerFunction }) {
-  // listen to asynchronous channels
-  eventEmitter.on(asyncChanId, async (event: any, args: any) => {
-    // extract request from message
-    const chanReq: ChanRequest = JSON.parse(args)
-
-    // check request
-    if (!isValidChanRequest(chanReq)) {
-      return
-    }
-
-    // check if channel is supported
-    if (chanReq.msgId in channels) {
-      // Call handler to get message specific response
-      const respMsg = await channels[chanReq.msgId](chanReq.msgContent)
-
-      // Wrap message specific response into a generic protocol response
-      const response = buildChanResponse(ChanResCode.Ok, chanReq.msgId, respMsg)
-
-      // Send message back to sender
-      sendAsyncMessage(event.sender, JSON.stringify(response))
-    } else {
-      // Wrap message specific response into a generic protocol response
-      const response = buildChanResponse(ChanResCode.ErrNoHandler, chanReq.msgId, "")
-
-      // Send message back to sender
-      sendAsyncMessage(event.sender, JSON.stringify(response))
-    }
-  })
-}
-
-/**
- * Function to load response handlers
- * @param eventEmitter
- * @param {Array<ChanDesc>} channels
- */
-export function loadResponseHandlers(eventEmitter: IPCEventEmitter,
-                                     channels: { [id: string]: HandlerFunction }) {
-  // listen to asynchronous channels
-  eventEmitter.on(asyncChanId, async (event: any, args: any) => {
-    // extract response from message
-    const chanRsp: ChanResponse = JSON.parse(args)
-
-    // check response
-    if (!isValidChanResponse(chanRsp)) {
-      return
-    }
-
-    // iterate over all valid channels
-    if (chanRsp.msgId in channels) {
-      // Call handler to get message specific response
-      await channels[chanRsp.msgId](chanRsp.msgContent)
-    }
-  })
+  return simpleMethodMap
 }

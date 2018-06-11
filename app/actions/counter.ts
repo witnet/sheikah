@@ -1,7 +1,5 @@
 import { actionCreatorVoid } from "./helpers"
-import * as IPCCommon from "../lib/api/ipc/ipcCommon"
 import * as IPCFrontend from "../lib/api/ipc/ipcFrontend"
-import { ipcRenderer } from "electron"
 
 export const increment = actionCreatorVoid("INCREMENT_COUNTER")
 export const decrement = actionCreatorVoid("DECREMENT_COUNTER")
@@ -27,13 +25,21 @@ const incrementAsync = (delay = 1000) => {
 }
 
 const ping = () => {
-  return (dispatch: Function) => {
-    // build request
-    const request = IPCCommon.buildChanRequest("ping-msg",
+  return async (dispatch: Function) => {
+    //build request
+    const asyncRequest = IPCFrontend.buildChanRequest("ping-msg",
       JSON.stringify({ content: "sending ping" }))
 
-    // send async message
-    IPCCommon.sendAsyncMessage(ipcRenderer, JSON.stringify(request))
+    // send ping message and handle response
+    IPCFrontend.sendAsyncRequest(asyncRequest)
+      .then((response) => console.log("Backend responded", response))
+      .catch((error) => {
+        if (error.name === "TimeoutError") {
+          console.error("Backend timed out", error)
+        } else {
+          console.error(error)
+        }
+      })
 
     dispatch(increment())
   }
@@ -42,11 +48,19 @@ const ping = () => {
 const noResponse = () => {
   return (dispatch: Function) => {
     // build request
-    const request = IPCCommon.buildChanRequest("no-resp-msg",
+    const asyncRequest = IPCFrontend.buildChanRequest("no-resp-msg",
       JSON.stringify({ content: "sending no-response" }))
 
-    // send async message
-    IPCCommon.sendAsyncMessage(ipcRenderer, JSON.stringify(request))
+    // send ping message and handle response
+    IPCFrontend.sendAsyncRequest(asyncRequest)
+      .then((response) => console.log("Backend responded", response))
+      .catch((error) => {
+        if (error.name === "TimeoutError") {
+          console.error("Backend timed out", error)
+        } else {
+          console.error(error)
+        }
+      })
 
     dispatch(increment())
   }
@@ -54,5 +68,5 @@ const noResponse = () => {
 
 export { incrementIfOdd, incrementAsync, ping, noResponse }
 
-// Load IPC channels
-IPCFrontend.manageIPCChannels()
+// Handle async responses
+IPCFrontend.handleAsyncResponses()
