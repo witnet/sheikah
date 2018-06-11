@@ -4,7 +4,15 @@ import {sha256} from "../hash"
 import {ChainType} from "../../chain/chainType"
 
 /**
- * Encode address
+ * Witnet chain prefix
+ */
+enum Prefix {
+  "twit",
+  "wit"
+}
+
+/**
+ * Encode pay-to-public-key-hash (P2PKH) address
  * @param {PublicKey} pubKey public key
  * @param chain
  * @returns {string} address
@@ -17,12 +25,4 @@ export const encode = (pubKey: PublicKey, chain: ChainType): string => {
   const hrp = Prefix[chain]
 
   return Bech32.encode(hrp, b32)
-}
-
-/**
- * Witnet chain prefix
- */
-enum Prefix {
-  "twit",
-  "wit"
 }

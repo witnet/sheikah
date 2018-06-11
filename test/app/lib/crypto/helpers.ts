@@ -8,7 +8,7 @@ import * as PrivateKey from "../../../../app/lib/crypto/key/privateKey"
  * @param {string} passPhrase
  * @returns {ExtendedKey<PrivateKey>}
  */
-export function getMasterKey(seedEntropy: string, passPhrase = "Bitcoin seed"):
+export function getMasterKey(seedEntropy: string, passPhrase = "Witnet seed"):
   ExtendedKey<PrivateKey.PrivateKey> {
 
   const entropy = Buffer.from(seedEntropy, "hex")
