@@ -10,12 +10,12 @@ async function noRespHandlerFunc(args: any): Promise<string> {
 }
 
 /**
- * No response channel descriptor
- * @type {{id: string; chanHandler: (args: any) => Promise<string>}}
+ * No response method descriptor
+ * @type {{id: string; handler: (args: any) => Promise<string>}}
  */
-const noRespHandler: IPCCommon.ChanDesc = {
+const noRespHandler: IPCCommon.MethodDesc = {
   id: "no-resp-msg",
-  chanHandler: noRespHandlerFunc
+  handler: noRespHandlerFunc
 }
 
 export default {noRespHandler}

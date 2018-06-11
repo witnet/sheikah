@@ -1,22 +1,21 @@
 import * as IPCCommon from "../../ipc/ipcCommon"
 
 /**
- * Handler of ping message
- * @param args received message from the channel
+ * Handler of ping method
  * @returns {Promise<string>} message to be returned to the channel
+ * @param params
  */
-
-async function pingHandlerFunc(args: any): Promise<string> {
+async function pingHandlerFunc(params: any): Promise<string> {
   return JSON.stringify({content: "sending pong"})
 }
 
 /**
- * Ping channel descriptor
- * @type {{id: string; chanHandler: (args: any) => Promise<string>}}
+ * Ping method descriptor
+ * @type {{id: string; handler: (params: any) => Promise<string>}}
  */
-const pingHandler: IPCCommon.ChanDesc = {
+const pingHandler: IPCCommon.MethodDesc = {
   id: "ping-msg",
-  chanHandler: pingHandlerFunc
+  handler: pingHandlerFunc
 }
 
 export default {pingHandler}
