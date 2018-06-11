@@ -132,6 +132,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-typescript": "^7.0.0-alpha.19",
+    "bech32": "^1.1.3",
     "boiler-room-custodian": "^0.6.2",
     "commitizen": "^2.10.1",
     "commitlint": "^7.0.0",
