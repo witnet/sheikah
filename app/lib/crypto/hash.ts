@@ -18,3 +18,22 @@ const hmacFunction = (hashFunctionName: string, key: Buffer) => {
 export const sha512hmac = (key: Buffer, data: Buffer) => {
   return hmacFunction("sha512", key)(data)
 }
+
+/**
+ * Wrap crypto.createHash to streamline its worflow without losing parameterization.
+ * @param {string} hashFunctionName name of a hash function
+ * @param {Buffer} bytes
+ * @returns {Buffer} sha function
+ */
+const hash = (hashFunctionName: string, bytes: Buffer) => {
+  return crypto.createHash(hashFunctionName).update(bytes).digest()
+}
+
+/**
+ * sha256
+ * @param {Buffer} bytes
+ * @returns {Buffer}
+ */
+export const sha256 = (bytes: Buffer): Buffer => {
+  return hash("sha256", bytes)
+}

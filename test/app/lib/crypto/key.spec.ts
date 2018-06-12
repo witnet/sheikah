@@ -1,14 +1,13 @@
-import {fromEntropy} from "../../../../app/lib/crypto/seed"
 import * as PrivateKey from "../../../../app/lib/crypto/key/privateKey"
-import {ExtendedKey} from "../../../../app/lib/crypto/key/key"
 import {hardened} from "../../../../app/lib/crypto/keyPath"
 import * as PublicKey from "../../../../app/lib/crypto/key/publicKey"
+import {getMasterKey} from "./helpers"
 
 /**
  * The test vectors come from bip32 and the bitcoin-lib scala library
  */
 describe("basic key derivation", () => {
-  const masterKey = getMasterKey("000102030405060708090a0b0c0d0e0f")
+  const masterKey = getMasterKey("000102030405060708090a0b0c0d0e0f", "Bitcoin seed")
 
   it("should derive child private key", () => {
     const derivedKey = PrivateKey.derive(masterKey, 0)
@@ -46,7 +45,7 @@ describe("basic key derivation", () => {
 })
 
 describe("derive keys (test vector #1)", () => {
-  const masterKey = getMasterKey("000102030405060708090a0b0c0d0e0f")
+  const masterKey = getMasterKey("000102030405060708090a0b0c0d0e0f", "Bitcoin seed")
   const m0h = PrivateKey.derive(masterKey, hardened(0))
   const m0h_pub = PublicKey.create(m0h)
   const m0h_1 = PrivateKey.derive(m0h, 1)
@@ -64,7 +63,6 @@ describe("derive keys (test vector #1)", () => {
       .toEqual("3c6cb8d0f6a264c91ea8b5030fadaa8e538b020f0a387421a12de9319dc93368")
     expect(derivedKey.chainCode.toString("hex"))
       .toEqual("2a7857631386ba23dacac34180dd1983734e444fdbf774041578e9b6adb37c19")
-
   })
 
   it("should derive public key from path m/0'/1/pub", () => {
@@ -81,7 +79,6 @@ describe("derive keys (test vector #1)", () => {
       .toEqual("03501e454bf00751f24b1b489aa925215d66af2234e3891c3b21a52bedb3cd711c")
     expect(m0h_1_pub.chainCode.toString("hex"))
       .toEqual("2a7857631386ba23dacac34180dd1983734e444fdbf774041578e9b6adb37c19")
-
   })
 
   it("should derive private key from path m/0'/1/2'", () => {
@@ -149,7 +146,7 @@ describe("derive keys (test vector #1)", () => {
 
 describe("derive keys (test vector #2)", () => {
   const masterKey = getMasterKey("fffcf9f6f3f0edeae7e4e1dedbd8d5d2cfccc9c6c3c0bdbab7b4b1aeaba8a5" +
-    "a29f9c999693908d8a8784817e7b7875726f6c696663605d5a5754514e4b484542")
+    "a29f9c999693908d8a8784817e7b7875726f6c696663605d5a5754514e4b484542", "Bitcoin seed")
   const m0 = PrivateKey.derive(masterKey, 0)
   const m0_pub = PublicKey.create(m0)
   const m0_2147483647h = PrivateKey.derive(m0, hardened(2147483647))
@@ -243,20 +240,3 @@ describe("derive keys (test vector #2)", () => {
       .toEqual("9452b549be8cea3ecb7a84bec10dcfd94afe4d129ebfd3b3cb58eedf394ed271")
   })
 })
-
-/**
- * Helper for testing
- * @param {string} seedEntropy
- * @param {string} passPhrase
- * @returns {ExtendedKey<PrivateKey>}
- */
-function getMasterKey(seedEntropy: string, passPhrase = "Bitcoin seed"):
-  ExtendedKey<PrivateKey.PrivateKey> {
-
-  const entropy = Buffer.from(seedEntropy, "hex")
-  const {masterSecret, chainCode} = fromEntropy(entropy, passPhrase)
-  const masterKey: ExtendedKey<PrivateKey.PrivateKey> =
-    PrivateKey.extend(PrivateKey.fromBytes(masterSecret), chainCode)
-
-  return masterKey
-}
