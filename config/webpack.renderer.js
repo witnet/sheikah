@@ -16,6 +16,16 @@ const typeScriptLoader = {
   options: { configFile: path.resolve(__dirname, "../tsconfig.json") }
 };
 
+const uiComponentLoader = {
+  loader: 'ui-component-loader',
+  options: {
+    lib: 'antd',
+    libDir: 'es',
+    camel2: '-',
+    style: 'style/index.css'
+  }
+};
+
 const baseConfig = {
   // https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
   target: "electron-renderer",
@@ -40,6 +50,21 @@ const baseConfig = {
 
   module: {
     rules: [
+      {
+        test: /.*\.css$/,
+        exclude: /node_modules/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        ]
+      },
+      {
+        test: /node_modules.*\.css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        ]
+      },
       // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -109,9 +134,7 @@ const baseConfig = {
 
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(forProduction ? "production" : "development")
-    }),
-
-    new ExtractTextPlugin("style.css")
+    })
   ]
 };
 
@@ -129,25 +152,47 @@ const productionConfig = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: typeScriptLoader
+        use: [typeScriptLoader, uiComponentLoader]
       },
 
-      // Extract all .global.css to style.css as is
+      // config for global.(scss|sass) that doesn't use modules
       {
-        test: /\.(scss|sass)$/,
+        test: /\.global\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
-          use: [{
-            loader: "css-loader",
-            options: {
-              //modules: true,
-              importLoaders: 1,
-              localIdentName: "[name]__[local]__[hash:base64:5]",
-            }
-          }, { loader: "sass-loader" }]
+          use: [
+            {
+              loader: "css-loader",
+              options: {
+                modules: false,
+                importLoaders: 1,
+                localIdentName: "[name]__[local]__[hash:base64:5]",
+              }
+            },
+            "sass-loader"
+          ]
+        })
+      },
+
+      {
+        test: /^((?!\.global).)*\.(scss|sass)$/,
+        use: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: "css-loader",
+              options: {
+                modules: true,
+                importLoaders: 1,
+                localIdentName: "[name]__[local]__[hash:base64:5]",
+              }
+            },
+            "sass-loader"
+          ]
         })
       }
     ]
-  }
+  },
+
+  plugins: [new ExtractTextPlugin("style.css")]
 };
 
 const developmentConfig = {
@@ -166,45 +211,17 @@ const developmentConfig = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: ["react-hot-loader/webpack", typeScriptLoader]
+        use: ["react-hot-loader/webpack", typeScriptLoader, uiComponentLoader]
       },
 
+      // config for global.(scss|sass) that doesn't use modules
       {
-        test: /^((?!\.global).)*\.css$/,
-        loaders: [
-          "style-loader",
-          "css-loader?modules&sourceMap&importLoaders=1"
-        ]
+        test: /\.global\.(scss|sass)$/,
+        use: ["style-loader", "css-loader?sourceMap&importLoaders", "sass-loader"]
       },
-
       {
-        test: /\.global\.scss$/,
-        use: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader?sourceMap",
-          },
-          {
-            loader: "sass-loader"
-          }
-        ]
-      },
-
-      {
-        test: /^((?!\.global).)*\.scss$/,
-        use: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader?modules&sourceMap&importLoaders"
-          },
-          {
-            loader: "sass-loader"
-          }
-        ]
+        test: /^((?!\.global).)*\.(scss|sass)$/,
+        use: ["style-loader", "css-loader?modules&sourceMap&importLoaders", "sass-loader"]
       }
     ]
   },
