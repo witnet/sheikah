@@ -27,7 +27,7 @@ const baseConfig = {
         exclude: /node_modules/,
         use: {
           loader: "ts-loader",
-          options: { configFile: path.resolve(__dirname, "../tsconfig.json") }
+          options: { configFile: path.resolve(__dirname, "tsconfig.json") }
         }
       }
     ]
