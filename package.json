@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest -c config/jest.js test/app",
     "test-all": "yarn test && yarn test-e2e",
-    "pretest-e2e": "yarn build",
+    "pretest-e2e": "yarn clean && yarn build",
     "test-e2e": "NODE_ENV=production jest -c config/jest.js test/e2e",
     "jest": "jest -c config/jest.js",
     "typecheck": "tsc --noEmit -p .",
