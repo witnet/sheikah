@@ -7,6 +7,7 @@ import BigNum = require("bn.js")
 import * as assert from "assert"
 import * as KeyPath from "../keyPath"
 import {SECP256K1_N} from "../constants"
+import {Errors} from "../errors"
 
 export interface PublicKey extends Key {
   type: "public"
@@ -70,7 +71,7 @@ const deriveChildKey = (parentKey: ExtendedKey<PublicKey>,
   const IR = I.slice(32, 64)
   const p = new BigNum(IL)
   // Private point should be less than the secp256k1 order
-  assert(p.cmp(SECP256K1_N) <= 0, "can't generate child public key")
+  assert(p.cmp(SECP256K1_N) <= 0, Errors.PUBLIC_KEY_POINT_OUT_OF_RANGE)
 
   // Ki = point(parse256(IL)) + Kpar
   //    = G*IL + Kpar

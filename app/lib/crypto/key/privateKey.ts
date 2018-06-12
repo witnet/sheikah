@@ -7,6 +7,7 @@ import * as PublicKey from "./publicKey"
 import {ChainCode, ExtendedKey, Key} from "./key"
 import {privateKeyTweakAdd} from "secp256k1"
 import {SECP256K1_N} from "../constants"
+import {Errors} from "../errors"
 
 export interface PrivateKey extends Key {
   type: "private"
@@ -77,7 +78,7 @@ const deriveChildKey = (
   const IR = I.slice(32, 64)
   const p = new BigNum(IL)
   // Private point should be less than the secp256k1 order
-  assert(p.cmp(SECP256K1_N) <= 0, "can't generate child private key")
+  assert(p.cmp(SECP256K1_N) <= 0, Errors.PRIVATE_KEY_POINT_OUT_OF_RANGE)
   // ki = parse256(IL) + kpar (mod n)
   const keyBytes = privateKeyTweakAdd(parentKey.key.bytes, IL)
   if (keyBytes === null) {

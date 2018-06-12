@@ -2,6 +2,7 @@ import * as Bech32 from "bech32"
 import {PublicKey} from "../key/publicKey"
 import {sha256} from "../hash"
 import {ChainType} from "../../chain/chainType"
+import {Errors} from "../errors"
 
 /**
  * Witnet chain prefix
@@ -19,7 +20,7 @@ enum Prefix {
  */
 export const encode = (pubKey: PublicKey, chain: ChainType): string => {
   if (!(chain in Prefix)) {
-    throw new Error("Unsupported chain type")
+    throw new Error(Errors.UNSUPPORTED_CHAIN_TYPE)
   }
   const b32 = Bech32.toWords(Buffer.concat([Buffer.from([0]), sha256(pubKey.bytes).slice(20)]))
   const hrp = Prefix[chain]

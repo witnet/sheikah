@@ -1,3 +1,5 @@
+import {Errors} from "./errors"
+
 const assert = require("assert")
 const crypto = require("crypto")
 
@@ -14,7 +16,7 @@ export const pbkdf2 =
   (key: string | Buffer, salt: string | Buffer, iterations: number, dkLen: number) => {
   const hLen = 64 // SHA512 Mac length
   const validKeyLength = dkLen <= (Math.pow(2, 32) - 1) * hLen
-  assert(validKeyLength, "requested key length too long")
+  assert(validKeyLength, Errors.INVALID_KEY_LENGTH)
 
   const saltBuffer = (typeof salt === "string") ? Buffer.from(salt) : salt
   const keyBuffer = (typeof key === "string") ? Buffer.from(key) : key

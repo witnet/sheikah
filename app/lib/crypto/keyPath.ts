@@ -1,4 +1,6 @@
 import {HARDENED_KEY_INDEX} from "./constants"
+import {Errors} from "./errors"
+
 export type KeyPath = Array<number>
 
 /**
@@ -27,7 +29,7 @@ export const fromString = (path: string): KeyPath => {
     const number = value.slice(-1) === "'" ?
       hardened(parseInt(value.slice(0, -1))) : parseInt(value)
     if (isNaN(number)) {
-      throw Error("Invalid number")
+      throw Error(Errors.INVALID_PATH_NUMBER)
     }
 
     return number
