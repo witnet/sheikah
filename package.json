@@ -23,7 +23,7 @@
     "package-dev": "yarn build-dev && build --publish never",
     "travis": "yarn lint && yarn fmt-verify && yarn test-all && yarn package",
     "travisp": "concurrently --names LINT,FMT,TEST,PACK  -c bgBlue,bgMagenta,yellow,bgCyan 'yarn lint' 'yarn fmt-verify' 'yarn test-all' 'yarn package'",
-    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "lint": "tslint --project config/tsconfig.json --config config/tslint.json",
     "clean": "rimraf release dist",
     "clean-deps": "rimraf node_modules",
     "reinstall": "yarn clean-deps; yarn install",
