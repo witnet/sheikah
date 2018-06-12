@@ -5,28 +5,28 @@
 export const bech32 = {
   valid: [
     {
-      prefix: "abcdef",
       string: "abcdef1qpzry9x8gf2tvdw0s3jn54khce6mua7lmqqqxw",
+      hrp: "abcdef",
+      hex: "00443214c74254b635cf84653a56d7c675be77df",
       words: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-        23, 24, 25, 26, 27, 28, 29, 30, 31],
-      hex: "00443214c74254b635cf84653a56d7c675be77df"
+        23, 24, 25, 26, 27, 28, 29, 30, 31]
     },
     {
       string: "a12uel5l",
-      prefix: "a",
+      hrp: "a",
       hex: "",
       words: []
     },
     {
       string: "an83characterlonghumanreadablepartthatcontainsthenumber1andtheexcludedcharactersbi" +
       "o1tt5tgs",
-      prefix: "an83characterlonghumanreadablepartthatcontainsthenumber1andtheexcludedcharactersbio",
+      hrp: "an83characterlonghumanreadablepartthatcontainsthenumber1andtheexcludedcharactersbio",
       hex: "",
       words: []
     },
     {
       string: "abcdef1qpzry9x8gf2tvdw0s3jn54khce6mua7lmqqqxw",
-      prefix: "abcdef",
+      hrp: "abcdef",
       hex: "00443214c74254b635cf84653a56d7c675be77df",
       words: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
         24, 25, 26, 27, 28, 29, 30, 31]
@@ -34,7 +34,7 @@ export const bech32 = {
     {
       string: "11qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq" +
       "qqc8247j",
-      prefix: "1",
+      hrp: "1",
       hex: "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000" +
       "00000000000000000",
       words: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -43,7 +43,7 @@ export const bech32 = {
     },
     {
       string: "split1checkupstagehandshakeupstreamerranterredcaperred2y9e3w",
-      prefix: "split",
+      hrp: "split",
       hex: "c5f38b70305f519bf66d85fb6cf03058f3dde463ecd7918f2dc743918f2d",
       words: [24, 23, 25, 24, 22, 28, 1, 16, 11, 29, 8, 25, 23, 29, 19, 13, 16, 23, 29, 22, 25, 28,
         1, 16, 11, 3, 25, 29, 27, 25, 3, 3, 29, 19, 11, 25, 3, 3, 25, 13, 24, 29, 1, 25, 3, 3, 25,
@@ -52,7 +52,7 @@ export const bech32 = {
     {
       string: "11qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq" +
       "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq978ear",
-      prefix: "1",
+      hrp: "1",
       hex: "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000" +
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" +
       "00000000000000000000000000000",
@@ -72,7 +72,7 @@ export const bech32 = {
       },
       {
         string: " 1nwldj5",
-        exception: "Invalid prefix \\( \\)"
+        exception: "Invalid hrp \\( \\)"
       },
       {
         string: "abc1rzg",
@@ -84,7 +84,7 @@ export const bech32 = {
       },
       {
         string: "1pzry9x0s0muk",
-        exception: "Missing prefix for 1pzry9x0s0muk"
+        exception: "Missing hrp for 1pzry9x0s0muk"
       },
       {
         string: "pzry9x0s0muk",
@@ -92,7 +92,7 @@ export const bech32 = {
       },
       {
         string: "1pzry9x0s0muk",
-        exception: "Missing prefix for 1pzry9x0s0muk"
+        exception: "Missing hrp for 1pzry9x0s0muk"
       },
       {
         string: "abc1rzgt4",
@@ -118,19 +118,19 @@ export const bech32 = {
     ],
     encode: [
       {
-        prefix: "abc",
+        hrp: "abc",
         words: [128],
         exception: "Non 5-bit word"
       },
       {
-        prefix: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
+        hrp: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
         "foobarfoobar",
         words: [128],
         exception: "Exceeds length limit"
       },
       // Modified because length limit is different
       {
-        prefix: "foobar",
+        hrp: "foobar",
         words: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
           20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
           20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
@@ -184,15 +184,15 @@ export const bech32 = {
         exception: "Exceeds length limit"
       },
       {
-        prefix: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
+        hrp: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
         "foobarfoobarfoobarfoobar",
         words: [128],
         exception: "Exceeds length limit"
       },
       {
-        prefix: "abc\u00ff",
+        hrp: "abc\u00ff",
         words: [18],
-        exception: "Invalid prefix \\(abc\u00ff\\)"
+        exception: "Invalid hrp \\(abc\u00ff\\)"
       }
     ],
   }

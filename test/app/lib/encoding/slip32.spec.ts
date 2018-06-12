@@ -10,7 +10,7 @@ describe(`Bech32 lib: decode valid inputs  (${fixtures.bech32.valid.length} test
   fixtures.bech32.valid.forEach((item, index) => {
     it(`should decode bech32 (${index + 1}, string: ${cropString(item.string, 40)})`, () => {
       const decodedStr = exchange.decode(item.string)
-      expect(decodedStr.prefix).toEqual(item.prefix)
+      expect(decodedStr.hrp).toEqual(item.hrp)
       expect(decodedStr.words).toEqual(item.words)
     })
   })
@@ -18,8 +18,11 @@ describe(`Bech32 lib: decode valid inputs  (${fixtures.bech32.valid.length} test
 describe(`Bech32 lib: encode valid inputs  (${fixtures.bech32.valid.length} test vectors)`, () => {
   fixtures.bech32.valid.forEach((item, index) => {
     it(`should encode bech32 (${index + 1}, ` +
-      `prefix: ${cropString(item.prefix, 10)}, hex: ${cropString(item.hex, 20)})`, () => {
-      const encodedStr: string = exchange.encode(item.prefix, Buffer.from(item.words))
+      `prefix: ${cropString(item.hrp, 10)}, hex: ${cropString(item.hex, 20)})`, () => {
+      const encodedStr: string = exchange.encode({
+        hrp: item.hrp,
+        words: Buffer.from(item.words)
+      })
       expect(encodedStr).toEqual(item.string)
     })
   })
@@ -36,8 +39,14 @@ describe("Bech32 lib: encode invalid inputs " +
   `(${fixtures.bech32.invalid.encode.length} test vectors)`, () => {
   fixtures.bech32.invalid.encode.forEach((item, index) => {
     it("should not encode invalid bech32" + ` (${index + 1}, exception: ${item.exception})`, () => {
-      expect(() => exchange.encode(item.prefix, Buffer.from(item.words))).toThrow()
+      expect(() => exchange.encode({hrp: item.hrp, words: Buffer.from(item.words)})).toThrow()
     })
+  })
+})
+
+describe("Slip32 key exchange: maximum data length", () => {
+  it("should have a limit set to 1086 bytes", () => {
+    expect(exchange.computeSlip32Limit()).toEqual(1086)
   })
 })
 
@@ -117,7 +126,10 @@ function getBytesFromHex(hex: string) {
 
 /**
  * Crop long strings to be displayed in the tests
+ * It crops the text from the beginning (default) or from the end of the given string
  * @param {string} text
+ * @param {number} limit
+ * @param {boolean} end
  * @returns {string}
  */
 function cropString(text: string, limit: number, end?: boolean) {
