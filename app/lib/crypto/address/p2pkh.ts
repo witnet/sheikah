@@ -8,8 +8,8 @@ import {Errors} from "../errors"
  * Witnet chain prefix
  */
 enum Prefix {
-  "twit",
-  "wit"
+  twit,
+  wit
 }
 
 /**
@@ -22,7 +22,7 @@ export const encode = (pubKey: PublicKey, chain: ChainType): string => {
   if (!(chain in Prefix)) {
     throw new Error(Errors.UNSUPPORTED_CHAIN_TYPE)
   }
-  const b32 = Bech32.toWords(Buffer.concat([Buffer.from([0]), sha256(pubKey.bytes).slice(20)]))
+  const b32 = Bech32.toWords(Buffer.concat([Buffer.from([0]), sha256(pubKey.bytes).slice(0, 20)]))
   const hrp = Prefix[chain]
 
   return Bech32.encode(hrp, b32)

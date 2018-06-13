@@ -5,10 +5,11 @@ import {ChainType} from "../../../../app/lib/chain/chainType"
 
 describe("p2pkh", () => {
   const masterKey = getMasterKey("000102030405060708090a0b0c0d0e0f", "Bitcoin seed")
+  const publicKey = PublicKey.create(masterKey)
 
   it("should derive a Bech32-encoded P2PKH address from an extended public key", () => {
-    const publicKey = PublicKey.create(masterKey)
+
     expect(encode(publicKey.key, ChainType.main))
-      .toEqual("wit1qrjjds4kvrr95kyydrs2klu8k85")
+      .toEqual("wit1qzmkvfrw4nrk73uppwaaelxupd89f3vc85r9mwjh")
   })
 })
