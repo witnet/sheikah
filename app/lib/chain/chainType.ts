@@ -1,7 +1,7 @@
 /**
  * Chain type
  */
-export enum ChainType {
+export const enum ChainType {
   "test",
   "main"
 }
