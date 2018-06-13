@@ -201,8 +201,9 @@
     "semantic-ui-react": "^0.80.0",
     "source-map-support": "^0.5.5"
   },
-  "devEngines": {
-    "node": ">=8.x",
+  "engineStrict": false,
+  "engines": {
+    "node": ">=8.x.x",
     "yarn": ">=1.x"
   },
   "config": {
