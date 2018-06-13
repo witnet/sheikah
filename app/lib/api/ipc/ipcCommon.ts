@@ -117,21 +117,20 @@ export function isValidChanResponse(chanRsp: ChanResponse): boolean {
  */
 export function getIPCMethodDescs(methodsMap: { [id: string]: any }):
   { [id: string]: HandlerFunction } {
-  // Build the list of IPC methods
-  const methods = Object.keys(methodsMap)
+  // methods are imported following this structure:
+  //  { AMethodDesc: { id: "a", handler: functionA },
+  //    BMethodDesc: { id: "b", handler: functionB }
+  //  }
+  // the desired output format is:
+  //  { "a": functionA, "b": functionB }
+  const reducedMethodMap = Object
+    .keys(methodsMap)
     .map(key => methodsMap[key])
+    .filter(isValidMethodDesc)
+    .reduce((acc: { [id: string]: HandlerFunction },
+             desc: MethodDesc) => {
+      return {...acc, [desc.id]: desc.handler}
+    }, {})
 
-  let methodsArr: Array<MethodDesc> = []
-  for (const elem of methods) {
-    methodsArr = methodsArr.concat(Object.keys(elem)
-      .map(key => elem[key])
-      .filter(isValidMethodDesc))
-  }
-
-  const simpleMethodMap: { [id: string]: HandlerFunction } = {}
-  for (const elem of methodsArr) {
-    simpleMethodMap[elem.id] = elem.handler
-  }
-
-  return simpleMethodMap
+  return reducedMethodMap
 }

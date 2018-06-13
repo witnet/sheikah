@@ -13,9 +13,9 @@ async function noRespHandlerFunc(args: any): Promise<string> {
  * No response method descriptor
  * @type {{id: string; handler: (args: any) => Promise<string>}}
  */
-const noRespHandler: IPCCommon.MethodDesc = {
+const noRespMethodDesc: IPCCommon.MethodDesc = {
   id: "no-resp-msg",
   handler: noRespHandlerFunc
 }
 
-export default {noRespHandler}
+export default noRespMethodDesc

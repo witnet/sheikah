@@ -13,9 +13,9 @@ async function pingHandlerFunc(params: any): Promise<string> {
  * Ping method descriptor
  * @type {{id: string; handler: (params: any) => Promise<string>}}
  */
-const pingHandler: IPCCommon.MethodDesc = {
+const pingMethodDesc: IPCCommon.MethodDesc = {
   id: "ping-msg",
   handler: pingHandlerFunc
 }
 
-export default {pingHandler}
+export default pingMethodDesc
