@@ -1,2 +1,2 @@
-export { default as PingChanDesc } from "./ping"
-export { default as NopChanDesc } from "./nop"
+export { default as PingMethodDesc } from "./ping"
+export { default as NopMethodDesc } from "./nop"
