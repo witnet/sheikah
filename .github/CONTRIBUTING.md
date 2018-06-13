@@ -110,7 +110,7 @@ These guidelines are based on the [AragonJS contributing guidelines][aragonjs], 
 
 [gitter]: https://gitter.im/witnet/sheikah
 [issues]: https://github.com/witnet/sheikah/issues
-[code]: https://github.com/witnet/sheikah/blob/master/docs/CODE_OF_CONDUCT.md
+[code]: https://github.com/witnet/sheikah/blob/master/.github/CODE_OF_CONDUCT.md
 [signing-commits]: https://help.github.com/articles/signing-commits-with-gpg/
 [styleguide]: https://github.com/witnet/sheikah/blob/master/docs/STYLEGUIDE.md
 [first-issue]: https://github.com/witnet/sheikah/labels/good%20first%20issue
