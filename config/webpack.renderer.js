@@ -13,7 +13,7 @@ const forProduction = process.env.NODE_ENV === "production";
 
 const typeScriptLoader = {
   loader: "ts-loader",
-  options: { configFile: path.resolve(__dirname, "../tsconfig.json") }
+  options: { configFile: path.resolve(__dirname, "tsconfig.json") }
 };
 
 const uiComponentLoader = {
