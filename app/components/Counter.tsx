@@ -9,8 +9,6 @@ export interface IProps extends RouteComponentProps<any> {
   incrementIfOdd(): void,
   incrementAsync(): void,
   decrement(): void,
-  ping(): void,
-  noResponse(): void
   counter: number
 }
 
@@ -21,7 +19,7 @@ export class Counter extends React.Component<IProps> {
   /** render */
   public render() {
     const { increment, incrementIfOdd, incrementAsync,
-      decrement, ping, noResponse, counter } = this.props
+      decrement, counter } = this.props
 
       return <div>
           <div className={styles.backButton} data-tid="backButton">
@@ -49,12 +47,6 @@ export class Counter extends React.Component<IProps> {
               <button className={styles.btn} onClick={() => incrementAsync()}
                       data-tclass="btn">async
               </button>
-              <button className={styles.btn} onClick={ping}
-                      data-tclass="btn">ping
-              </button>
-            <button className={styles.btn} onClick={noResponse}
-                    data-tclass="btn">no-resp
-            </button>
           </div>
       </div>
   }
