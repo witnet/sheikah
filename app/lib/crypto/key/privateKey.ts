@@ -81,7 +81,7 @@ const deriveChildKey = (
   assert(p.cmp(SECP256K1_N) <= 0, Errors.PRIVATE_KEY_POINT_OUT_OF_RANGE)
   // ki = parse256(IL) + kpar (mod n)
   const keyBytes = privateKeyTweakAdd(parentKey.key.bytes, IL)
-  if (keyBytes === null) {
+  if (keyBytes.every(b => b === 0)) {
     // In case ki == 0, proceed with the next value for i
     return deriveChildKey(parentKey, childIndex + 1)
   }

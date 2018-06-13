@@ -77,7 +77,7 @@ const deriveChildKey = (parentKey: ExtendedKey<PublicKey>,
   //    = G*IL + Kpar
   const Ki = publicKeyTweakAdd(parentKey.key.bytes, IL)
 
-  if (Ki === null) {
+  if (Ki.every(b => b === 0)) {
     // In case Ki is the point at infinity, proceed with the next value for i
     return deriveChildKey(parentKey, childIndex + 1)
   }
