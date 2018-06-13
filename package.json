@@ -27,6 +27,7 @@
     "package-linux-dev": "yarn build-dev && build --linux",
     "package-all": "yarn build && build -mwl",
     "package-all-dev": "yarn build-dev && build -mwl",
+    "travis": "yarn lint && yarn fmt-verify && yarn test-all && yarn package",
     "lint": "tslint --project tsconfig.json --config tslint.json",
     "clean": "rimraf release dist",
     "clean-deps": "rimraf node_modules",

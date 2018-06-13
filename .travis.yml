@@ -41,11 +41,7 @@ before_script:
 
 script:
 - node --version
-- commitlint-travis
-- yarn lint
-- yarn fmt-verify
-- yarn test-all
-- yarn package
+- commitlint-travis && yarn travis
 
 after_script: greenkeeper-lockfile-upload
 
