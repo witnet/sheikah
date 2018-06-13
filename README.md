@@ -87,20 +87,10 @@ To package the application into an executable for your platform (Windows, MacOS,
 
 ``` bash
 yarn package
-
-# other variants are
-yarn package-linux
-yarn package-win
-yarn package-all # equivalent to yarn package
 ```
 
 #### Development build
 
 ``` bash
 yarn package-dev
-
-# other variants are
-yarn package-linux-dev
-yarn package-win-dev
-yarn package-all-dev # equivalent to yarn package-dev
 ```
