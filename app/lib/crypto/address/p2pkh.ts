@@ -3,14 +3,21 @@ import {PublicKey} from "../key/publicKey"
 import {sha256} from "../hash"
 import {ChainType} from "../../chain/chainType"
 import {Errors} from "../errors"
+import {kvSwap} from "../../utils/utils"
 
 /**
- * Witnet chain prefix
+ * This object maps Witnet address prefixes to chain types.
  */
-enum Prefix {
-  twit = ChainType.test,
-  wit = ChainType.main
+const prefixToChainType: { [key: string]: number } = {
+  twit: ChainType.test,
+  wit: ChainType.main
 }
+
+/**
+ * This object maps chain types to Witnet address prefixes.
+ * @type {{ [key: number]: string }}
+ */
+const chainTypeToPrefix = kvSwap(prefixToChainType)
 
 /**
  * Encode pay-to-public-key-hash (P2PKH) address
@@ -19,11 +26,11 @@ enum Prefix {
  * @returns {string} address
  */
 export const encode = (pubKey: PublicKey, chain: ChainType): string => {
-  if (!(chain in Prefix)) {
+  if (!(chain in chainTypeToPrefix)) {
     throw new Error(Errors.UNSUPPORTED_CHAIN_TYPE)
   }
   const b32 = Bech32.toWords(Buffer.concat([Buffer.from([0]), sha256(pubKey.bytes).slice(0, 20)]))
-  const hrp: string = Prefix[chain]
+  const hrp: string = chainTypeToPrefix[chain]
 
   return Bech32.encode(hrp, b32)
 }
@@ -37,18 +44,10 @@ export const decode = (address: string): [ChainType, Buffer] => {
   const {prefix, words} = Bech32.decode(address)
   const keyHash = Buffer.from(Bech32.fromWords(words))
 
-  let chainType: ChainType
-
-  switch (prefix) {
-    case "twit":
-      chainType = ChainType.test
-      break
-    case "wit":
-      chainType = ChainType.main
-      break
-    default:
-      throw new Error(Errors.UNSUPPORTED_CHAIN_TYPE)
+  if (!(prefix in prefixToChainType)) {
+    throw new Error(Errors.UNSUPPORTED_CHAIN_TYPE)
   }
+  const chainType: ChainType = prefixToChainType[prefix]
 
   return [chainType, keyHash.slice(1)]
 }
