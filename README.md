@@ -1,23 +1,28 @@
-# sheikah
+<div align="center">
+    <h1><img src="https://raw.githubusercontent.com/witnet/sheikah/master/.github/header.png" alt="Sheikah"/></a></h1>
+    <a href="https://gitter.im/witnet/sheikah?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/witnet/sheikah.svg" alt="Join the chat at https://gitter.im/witnet/sheikah" /></a>
+    <a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly" /></a>
+    <a href="https://travis-ci.org/witnet/sheikah"><img src="https://travis-ci.org/witnet/sheikah.svg?branch=master" alt="Build Status" /></a>
+    <a href="https://houndci.com"><img src="https://img.shields.io/badge/code_quality-houndci-a873d1.svg" alt="Protected by HoundCI" /></a>
+    <a href="https://github.com/witnet/sheikah/blob/master/LICENSE"><img src="https://img.shields.io/github/license/witnet/sheikah.svg" alt="GPLv3 Licensed" /></a>
+    <a href="https://github.com/witnet/sheikah/graphs/contributors"><img src="https://img.shields.io/github/contributors/witnet/sheikah.svg" alt="GitHub contributors" /></a>
+    <a href="https://github.com/witnet/sheikah/commits/master"><img src="https://img.shields.io/github/last-commit/witnet/sheikah.svg" alt="Github last commit" /></a>
+    <br /><br />
+    <p><strong>Sheikah</strong> is a <a href="https://witnet.io/">Witnet</a> compatible desktop wallet and smart contracts development environment.</p>
+</div>
 
-[![Join the chat at https://gitter.im/witnet/sheikah](https://badges.gitter.im/witnet/sheikah.svg)](https://gitter.im/witnet/sheikah?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![Build Status](https://travis-ci.org/witnet/sheikah.svg?branch=master)](https://travis-ci.org/witnet/sheikah)
-[![Codacy Badge](https://camo.githubusercontent.com/c38f3e3c5750cbf4aeb4ca06be6a3df02277995d/68747470733a2f2f6170692e636f646163792e636f6d2f70726f6a6563742f62616467652f47726164652f3433333239343435393066383436346639623337323966366137393563653065)](https://www.codacy.com/app/adansdpc/sheikah?utm_source=github.com&utm_medium=referral&utm_content=witnet/sheikah&utm_campaign=Badge_Grade)
 
-A [Witnet](https://witnet.io/) compatible desktop wallet and smart contracts development environment.
-
-## Installation
+<h2 align="center">Installation</h2>
 
 TODO
 
-## Development
+<h2 align="center">Development</h2>
 
 This is a Web/Desktop application built with [Electron](https://electronjs.org/) and uses the [electron-react-typescript](https://github.com/iRath96/electron-react-typescript-boilerplate) template as its base with a few tweaks.
 
 For developing we recommend you use [yarn](https://yarnpkg.com/en/) instead of npm.
 
-### Quickstart
+<h3 align="center">Quickstart</h3>
 
 ``` bash
 # clone the repository
@@ -33,13 +38,13 @@ yarn
 yarn start # or yarn dev
 ```
 
-### Formatter
+<h3 align="center">Formatter</h3>
 
 * Verify files are correctly formatted with `yarn fmt-verify`
 * See which format errors exist with `yarn fmt`
 * Repair format errors with (**this operation modifies your files!**) `yarn fmt!`
 
-### Test
+<h3 align="center">Test</h3>
 
 We use [Jest](https://facebook.github.io/jest/) for testing. All test commands are a thin wrapper around jest so with any of them you can use [Jest's CLI options](https://facebook.github.io/jest/docs/en/cli.html)
 
@@ -75,21 +80,21 @@ yarn jest --watch #runs jest -o by default
 yarn jest --watchAll #runs all tests
 ```
 
-### Build
+<h3 align="center">Build</h3>
 
 To build the application run: `yarn build`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`
 
-### Package
+<h3 align="center">Package</h3>
 
 To package the application into an executable for your platform (Windows, MacOS, GNU/Linux) run any of the following commands. The packaged application will be written to `release` folder.
 
-#### Production build
+<h4 align="center">Production build</h4>
 
 ``` bash
 yarn package
 ```
 
-#### Development build
+<h4 align="center">Development build</h4>
 
 ``` bash
 yarn package-dev
