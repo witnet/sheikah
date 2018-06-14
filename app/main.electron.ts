@@ -22,7 +22,7 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") { app.quit() }
 })
 
-const installExtensions = () => {
+const installExtensions = async () => {
   if (process.env.NODE_ENV === "development") {
     const installer = require("electron-devtools-installer") // eslint-disable-line global-require
 
@@ -38,7 +38,7 @@ const installExtensions = () => {
   return Promise.resolve([])
 }
 
-app.on("ready", () =>
+app.on("ready", async () =>
   installExtensions()
   .then(() => {
   mainWindow = new BrowserWindow({
