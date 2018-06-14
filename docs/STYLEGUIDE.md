@@ -19,6 +19,7 @@ Sections:
 * [Annotate Arrays as `Type[]`](#array)
 * [File Names](#filename)
 * [`type` vs `interface`](#type-vs-interface)
+* [Dependency Policy](#dependency-policy)
 
 ## Variable and Function
 * Use `camelCase` for variable and function names
@@ -453,3 +454,9 @@ foo({type: "bar"}) // => ERROR
 ```
 
 * Otherwise use whatever makes you happy that day.
+
+## Dependency Policy
+* `devDependencies` are for the development-related scripts, e.g. unit testing, packaging scripts, documentation generation, @types, etc. therefore is not part of the logic nor style code or any other aspect of the application while running normally.
+* `dependencies` are required for production use.
+
+> Including `devDependencies` within `dependencies` will cause the install to consume more resources unnecessarily.
