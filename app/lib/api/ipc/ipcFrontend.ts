@@ -34,6 +34,10 @@ export async function sendAsyncRequest(method: string, params: any,
   const promise = new Promise<string>((resolve, reject) => {
     // Create the timeout and get a reference to the timer
     const timer = setTimeout(() => {
+      // Unstore the resolver, rejecter and timer references from the map
+      delete pendingRequests[asyncRequest.method]
+
+      // Create error to be returned
       const error = new Error(`Timed out after ${timeout}ms`)
       error.name = "TimeoutError"
       reject(error)
@@ -93,4 +97,12 @@ export async function handleAsyncMessage(event: any, args: any) {
  */
 export function buildChanRequest(method: string, params: string): IPCCommon.ChanRequest {
   return { version: IPCCommon.IPC_VERSION, id: requestsCount++, method, params }
+}
+
+/**
+ * Function to get number of pending requests
+ * @returns {number}
+ */
+export function getNumPendingRequests() {
+  return Object.keys(pendingRequests).length
 }
