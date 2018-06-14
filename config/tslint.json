@@ -1,7 +1,7 @@
 {
   "rules": {
     "adjacent-overload-signatures": true,
-    "align": [true, "parameters"],
+    "align": false,
     "array-type": [true, "generic"],
     "arrow-return-shorthand": true,
     "await-promise": true,

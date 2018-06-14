@@ -118,9 +118,9 @@ export const hash = (key: string): Buffer => {
  * @returns {Buffer}
  */
 export const encrypt = (data: Buffer,
-                        settings: Settings,
-                        existingIv?: Buffer,
-                        existingSalt?: Buffer): Buffer => {
+  settings: Settings,
+  existingIv?: Buffer,
+  existingSalt?: Buffer): Buffer => {
   const iv = existingIv || ivFactory(settings)
   const salt = existingSalt || saltFactory(settings)
   const key = getCipherKey(settings, salt)
