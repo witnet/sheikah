@@ -18,7 +18,6 @@ const compiler = webpack(webpackRenderer);
 const PORT = process.env.PORT || 3000;
 
 const wdm = webpackDevMiddleware(compiler, {
-  writeToDisk: true,
   publicPath: webpackRenderer.output.publicPath,
   stats: {
     colors: true
