@@ -1,0 +1,10 @@
+:local {
+  .button {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    justify-content: space-between;
+    margin-bottom: .3em;
+    width: 100%;
+  }
+}
