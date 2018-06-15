@@ -1,15 +1,16 @@
 import * as React from "react"
 import { Switch, Route } from "react-router"
+
 import App from "./containers/App"
 import SignupPage from "./ui/containers/SignupPage"
-import CounterPage from "./containers/CounterPage"
-// import HomePage from "./containers/HomePage"
+import HomePage from "./ui/containers/HomePage"
 
 export default () => (
   <App>
     <Switch>
-      <Route path="/counter" component={CounterPage} />
-      <Route path="/" component={SignupPage} />
+      <Route path="/signup" component={SignupPage} />
+      <Route path="/" component={HomePage} />
+      <Route path="/home/:path" component={HomePage} />
     </Switch>
   </App>
 )

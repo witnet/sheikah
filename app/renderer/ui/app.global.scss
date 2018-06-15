@@ -6,7 +6,10 @@
 body {
   position: relative;
   height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
   font-family: Arial, Helvetica, Helvetica Neue, serif;
+}
 
   .ant-card-head {
     align-items: center;
