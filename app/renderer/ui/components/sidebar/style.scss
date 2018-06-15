@@ -1,0 +1,87 @@
+:local {
+  .sidebar {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 60px 1fr 60px;
+  }
+
+  .brand {
+    align-items: center;
+    display: flex;
+    padding: 1em;
+
+    .logo {}
+
+    .name {
+      font-size: 20px;
+      font-weight: bold;
+      padding: .5em;
+    }
+
+    .label {
+      font-size: 10px;
+      font-weight: bold;
+      color: grey;
+    }
+  }
+
+  .current-wallet {
+    color: white;
+    background: #3a75f2;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    padding: 1em;
+  }
+
+  .link-list {
+    display: grid;
+    grid-template-rows: repeat(7, 60px);
+    padding-top: 1em;
+
+
+    .link {
+      display: flex;
+      align-items: center;
+      padding: 1em;
+      font-size: 20px;
+      color: grey;
+
+      .option-icon {
+        padding: .5em;
+      }
+    }
+    .active {
+      border-left: 4px solid #3a75f2;
+      color: #3a75f2;
+    }
+  }
+
+  .settings {
+    border-top: 2px solid #f1f1f1;
+    font-size: 14px;
+    grid-row: 5;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1em;
+    .settings-icon {
+      display: flex;
+      align-self: center;
+      color: grey;
+    }
+    .net-status {
+      color: grey;
+      padding: .5em;
+      .mainnet {
+        color: grey;
+      }
+      .synced {
+        font-weight: bold;
+        padding: .5em;
+      }
+      .status {
+        color: greenyellow;
+      }
+    }
+  }
+}

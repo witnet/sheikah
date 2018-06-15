@@ -1,0 +1,38 @@
+:local {
+  .layout {
+    display: grid;
+    max-width: 100%;
+    grid-template-columns: 275px 1fr;
+    grid-template-rows: minmax(100vh, 100vh);
+    grid-template-areas:
+    "nv mn"
+    "nv mn"
+    "nv mn"
+  }
+
+  .sidebar {
+    grid-area: nv;
+  }
+
+  .main {
+    background: lightcoral;
+    grid-area: mn;
+
+    display: grid;
+
+    grid-template-rows: repeat(2, 60px 1fr);
+    grid-template-areas:
+    "tb"
+    "ct"
+  }
+
+  .top-bar {
+    background: lightgreen;
+    grid-area: tb;
+  }
+
+  .content {
+    background: lightgray;
+    grid-area: ct;
+  }
+}
