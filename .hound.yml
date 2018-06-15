@@ -4,3 +4,9 @@ tslint:
 
 jshint:
   enabled: false
+
+sass-lint:
+  enabled: true
+
+scss:
+  enabled: false
