@@ -1,7 +1,7 @@
 /**
  * Mocked ipc renderer implements the IIpcRenderer for printing to console.
  */
-export const MockedIpcRenderer = {
+export const mockedIpcRenderer = {
   /** Function to receive events */
   on: (channel: string, listener: Function): any => {
     console.log("channel: ", channel)

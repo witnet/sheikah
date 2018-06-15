@@ -1,8 +1,8 @@
 /**
  * This interface abstracts away the underlying IPC communication from the
- * renderer.
+ * renderer process.
  */
-export default interface IfaceIpcRenderer {
+export default interface GenericIpcRenderer {
   /** Function to receive events */
   on(channel: string, listener: Function): any
 

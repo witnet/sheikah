@@ -1,6 +1,7 @@
-import * as IPCCommon from "./ipcCommon"
-import IfaceIpcRenderer from "./ifaceIpcRenderer"
-import {ElectronIpcRenderer} from "./electronIpcRenderer"
+import * as IPCMessages from "../common/messages"
+import * as IPCMethods from "../common/methods"
+import GenericIpcRenderer from "./genericIpcRenderer"
+import {electronIpcRenderer} from "./electronIpcRenderer"
 
 /** Holds promises and timers for each pending request */
 const pendingRequests: {[method: string]: any} = {}
@@ -10,25 +11,25 @@ let requestsCount = 0
 
 /**
  * Function to manage the reception of IPC messages
- * @param {IfaceIpcRenderer} ipcRenderer
+ * @param {GenericIpcRenderer} ipcRenderer
  */
-export function manageIPCChannels(ipcRenderer: IfaceIpcRenderer = ElectronIpcRenderer) {
-  ipcRenderer.on(IPCCommon.IPC_ASYNC_CHAN_NAME, handleAsyncMessage)
+export function loadChannels(ipcRenderer: GenericIpcRenderer = electronIpcRenderer) {
+  ipcRenderer.on(IPCMethods.IPC_ASYNC_CHAN_NAME, handleAsyncMessage)
 }
 
 /**
  * Function to send async request to back-end
  * @param {string} method
- * @param params
- * @param {IfaceIpcRenderer} ipcRenderer
+ * @param data
+ * @param {GenericIpcRenderer} ipcRenderer
  * @param {number} timeout
  * @returns {Promise<string>}
  */
-export async function sendAsyncRequest(method: string, params: any,
-                                       ipcRenderer: IfaceIpcRenderer = ElectronIpcRenderer,
+export async function sendAsyncRequest(method: string, data: any,
+                                       ipcRenderer: GenericIpcRenderer = electronIpcRenderer,
                                        timeout = 5000): Promise<string> {
   // Build async request based on the method id and the content
-  const asyncRequest = buildChanRequest(method, JSON.stringify(params))
+  const asyncRequest = IPCMessages.buildChannelReq(requestsCount++, method, JSON.stringify(data))
 
   // Create a promise for each message
   const promise = new Promise<string>((resolve, reject) => {
@@ -48,7 +49,7 @@ export async function sendAsyncRequest(method: string, params: any,
   })
 
   // Send the asynchronous request
-  ipcRenderer.send(IPCCommon.IPC_ASYNC_CHAN_NAME, JSON.stringify(asyncRequest))
+  ipcRenderer.send(IPCMethods.IPC_ASYNC_CHAN_NAME, JSON.stringify(asyncRequest))
 
   // Return the promise
   return promise
@@ -61,42 +62,43 @@ export async function sendAsyncRequest(method: string, params: any,
  * @returns {Promise<void>}
  */
 export async function handleAsyncMessage(event: any, args: any) {
-  // Reconstruct response from serialized message
-  const asyncResponse: IPCCommon.ChanResponse = JSON.parse(args)
+  // Parse serialized message as JSON
+  const parsedArgs = JSON.parse(args)
 
-  // Check response validity
-  if (!IPCCommon.isValidChanResponse(asyncResponse)) {
-    throw new Error("Malformed IPC request")
+  // Check if received serialized message is a channel response
+  if (!IPCMessages.isChannelRes(parsedArgs)) {
+    throw new Error("Malformed async IPC response")
+  }
+
+  // Reconstruct response from serialized message
+  const response: IPCMessages.ChannelRes = parsedArgs
+
+  // Resolve or reject depending on success or error
+  if (!IPCMessages.isValidChannelRes(response)) {
+    throw new Error("Invalid IPC response")
   }
 
   // Find request for which this is a response
-  if (asyncResponse.method in pendingRequests) {
+  if (response.method in pendingRequests) {
     // Get registered information when pending requests
-    const [resolve, reject, timer] = pendingRequests[asyncResponse.method]
+    const [resolve, reject, timer] = pendingRequests[response.method]
 
     // As we got a response, unset the timer
     clearTimeout(timer)
 
-    // Resolve or reject depending on success or error
-    if (asyncResponse.code !== IPCCommon.ChanResCode.Ok) {
-      reject(asyncResponse.code)
+    // Unstore the resolver, rejecter and timer references from the map
+    delete pendingRequests[response.method]
+
+    // Check if response was successful or not
+    if ("data" in response) {
+      resolve(response.data)
     } else {
-      resolve(asyncResponse.params)
+      reject(response.errorCode)
     }
   } else {
     // ignore it? probably a late response (arrived after timeout)
     // ... or perhaps a request message coming from main
   }
-}
-
-/**
- * Function to build request to be sent in a channel to the back-end
- * @param {string} method
- * @param {string} params
- * @returns {ChanRequest}
- */
-export function buildChanRequest(method: string, params: string): IPCCommon.ChanRequest {
-  return { version: IPCCommon.IPC_VERSION, id: requestsCount++, method, params }
 }
 
 /**

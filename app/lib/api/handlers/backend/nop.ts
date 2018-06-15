@@ -1,20 +1,21 @@
-import * as IPCCommon from "../../ipc/ipcCommon"
+import * as IPCMethods from "../../ipc/common/methods"
 
 /**
- * Handler of Example no response handler function
- * @param args received message from the channel
- * @returns {Promise<string>} message to be returned to the channel
+ * Handler of no response handler function
+ * @param data
+ * @returns {Promise<string>}
  */
-async function noRespHandlerFunc(args: any): Promise<string> {
+async function noRespHandlerFunc(data: any): Promise<string> {
   return JSON.stringify({content: ""})
 }
 
 /**
  * No response method descriptor
- * @type {{id: string; handler: (args: any) => Promise<string>}}
+ * @type {{id: string; type: MethodType; handler: (data: any) => Promise<string>}}
  */
-const noRespMethodDesc: IPCCommon.MethodDesc = {
+const noRespMethodDesc: IPCMethods.MethodDesc = {
   id: "no-resp-msg",
+  type: IPCMethods.MethodType.Async,
   handler: noRespHandlerFunc
 }
 
