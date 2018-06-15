@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Menu, shell } = require("electron")
 
-import * as IPCBackend from "./lib/api/ipc/ipcBackend"
+import * as IPCBackend from "./lib/api/ipc/backend/ipcBackend"
 
 let menu: any
 let template: any
@@ -273,5 +273,5 @@ app.on("ready", async () =>
   }
 }))
 
-// Load IPC channels
-IPCBackend.manageIPCChannels()
+// Load handlers from directory and listen to requests
+IPCBackend.loadChannels()

@@ -1,9 +1,9 @@
 import {ipcRenderer} from "electron"
 
 /**
- * Implements the IfaceIpcRenderer for electron IPC.
+ * Implements the GenericIpcRenderer interface for electron IPC.
  */
-export const ElectronIpcRenderer = {
+export const electronIpcRenderer = {
   /** Function to receive messages */
   on: (channel: string, listener: Function): any => {
     return ipcRenderer.on(channel, listener)
