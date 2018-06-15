@@ -1,31 +1,23 @@
-import * as KeyPath from "appMain/crypto/keyPath"
+import * as KeyPath from "../../../../app/main/crypto/keyPath"
+import * as fixtures from "./keyPathFixtures"
 
 describe("key path", () => {
-  const hardened = KeyPath.hardened
-  it("should parse string-formatted derivation paths", () => {
-    expect( KeyPath.fromString("m/44'/0'/0'/0"))
-      .toMatchObject([hardened(44), hardened(0), hardened(0), 0])
-    expect( KeyPath.fromString("/44'/0'/0'/0"))
-      .toMatchObject([hardened(44), hardened(0), hardened(0), 0])
-    expect( KeyPath.fromString("44'/0'/0'/0"))
-      .toMatchObject([hardened(44), hardened(0), hardened(0), 0])
-    expect( KeyPath.fromString("m/44/0'/0'/0"))
-      .toMatchObject([44, hardened(0), hardened(0), 0])
-    expect( KeyPath.fromString("m"))
-      .toMatchObject([])
-    expect( KeyPath.fromString(""))
-      .toMatchObject([])
-    expect(() => KeyPath.fromString("aa/1/2/3")).toThrow()
-    expect(() => KeyPath.fromString("1/'2/3")).toThrow()
-  })
-  it("should convert to string derivation path", () => {
-    expect(KeyPath.toString([hardened(44), hardened(0), hardened(0), 0]))
-      .toBe("m/44'/0'/0'/0")
-    expect("m/44'/0'/0'/0")
-      .toBe(KeyPath.toString([hardened(44), hardened(0), hardened(0), 0]))
-    expect(KeyPath.toString([hardened(44), hardened(0), hardened(0), 0]))
-      .toBe( "m/44'/0'/0'/0")
-    expect(KeyPath.toString([44, hardened(0), hardened(0), 0]))
-      .toBe( "m/44/0'/0'/0")
-  })
+  fixtures.pathsToString.valid.forEach(test => {
+      it(`should parse derivation path "${test.expected}"`, () => {
+        expect(KeyPath.fromString(test.path)).toMatchObject(test.expected)
+      })
+    }
+  )
+  fixtures.pathsToString.invalid.forEach(test => {
+      it(`shouldn't parse derivation path "${test.path}"`, () => {
+        expect(() => KeyPath.fromString(test.path)).toThrow()
+      })
+    }
+  )
+  fixtures.stringFromPath.valid.forEach(test => {
+      it(`should parse "${test.expected}" from derivation path`, () => {
+        expect(KeyPath.toString(test.path)).toBe(test.expected)
+      })
+    }
+  )
 })
