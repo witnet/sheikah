@@ -1,4 +1,4 @@
-import * as IPCMethods from "app/lib/api/ipc/common/methods"
+import * as IPCMethods from "appCommon/methods"
 
 /*
  * Test vectors for IPCMethods library

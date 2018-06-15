@@ -59,7 +59,7 @@ export function getMethodDescs(rawMethods: { [id: string]: any }, type: MethodTy
   const filterFunc = (type === MethodType.Sync) ? isValidSyncMethodDesc : isValidAsyncMethodDesc
 
   // Reduce map of maps to map
-  return Object
+  const methods = Object
     .keys(rawMethods)
     .map(key => rawMethods[key])
     .filter(filterFunc)
@@ -67,6 +67,8 @@ export function getMethodDescs(rawMethods: { [id: string]: any }, type: MethodTy
              desc: MethodDesc) => {
       return {...acc, [desc.id]: desc.handler}
     }, {})
+
+  return methods
 }
 
 /**

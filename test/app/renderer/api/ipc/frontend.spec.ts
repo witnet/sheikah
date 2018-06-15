@@ -1,5 +1,5 @@
-import * as IPCFrontend from "app/lib/api/ipc/frontend/ipcFrontend"
-import {mockedIpcRenderer} from "app/lib/api/ipc/frontend/mockedIpcRenderer"
+import * as IPCFrontend from "appRenderer/api/ipc/frontend"
+import {mockedIpcRenderer} from "appRenderer/api/ipc/mockedRenderer"
 
 describe(`IPCFrontend lib: function to send async messages`, () => {
   mockedIpcRenderer.send = jest.fn()

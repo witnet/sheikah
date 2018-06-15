@@ -1,4 +1,4 @@
-import * as IPCMessages from "app/lib/api/ipc/common/messages"
+import * as IPCMessages from "appCommon/messages"
 import * as fixtures from "./messagesFixtures"
 
 describe(`IPCMessages lib: validate valid channel messages" +
