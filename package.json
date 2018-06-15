@@ -23,16 +23,18 @@
     "package-dev": "yarn build-dev && build --publish never",
     "travis": "yarn lint && yarn fmt-verify && yarn test-all && yarn package",
     "travisp": "concurrently --names LINT,FMT,TEST,PACK  -c bgBlue,bgMagenta,yellow,bgCyan 'yarn lint' 'yarn fmt-verify' 'yarn test-all' 'yarn package'",
-    "lint": "tslint --project config/tsconfig.json --config config/tslint.json",
+    "prelint": "node scripts/json-merge config/tsconfig.json config/tsconfig.test.json > config/tsconfig.tslint.json",
+    "lint": "tslint --project config/tsconfig.tslint.json --config config/tslint.json",
+    "json-merge": "node scripts/json-merge",
     "clean": "rimraf release dist",
     "clean-deps": "rimraf node_modules",
     "reinstall": "yarn clean-deps; yarn install",
     "commit": "git-cz",
     "precommit": "lint-staged",
     "commitmsg": "commitlint -g config/commitlint.config.js -e $GIT_PARAMS",
-    "fmt-verify": "tsfmt --useTsfmt tsfmt.json --verify app/**/*.ts test/**/*.ts",
-    "fmt": "tsfmt --useTsfmt tsfmt.json app/**/*.ts test/**/*.ts",
-    "fmt!": "tsfmt --useTsfmt tsfmt.json -r app/**/*.ts test/**/*.ts"
+    "fmt-verify": "tsfmt --useTsfmt config/tsfmt.json --verify app/**/**/*.ts test/**/*.ts",
+    "fmt": "tsfmt --useTsfmt config/tsfmt.json app/**/**/*.ts test/**/*.ts",
+    "fmt!": "tsfmt --useTsfmt config/tsfmt.json -r app/**/**/*.ts test/**/*.ts"
   },
   "lint-staged": {
     "*.ts": [
@@ -137,6 +139,7 @@
     "css-loader": "^0.28.11",
     "css-modules-require-hook": "^4.2.3",
     "cz-conventional-changelog": "^2.1.0",
+    "deepmerge": "^2.1.1",
     "devtron": "^1.4.0",
     "electron": "1.8.6",
     "electron-builder": "^19.8.0",

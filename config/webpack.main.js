@@ -5,7 +5,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const webpackMergeConfigs = require("webpack-merge");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpackRenderer = require("./webpack.renderer");
 
 const port = process.env.PORT || 3000;
 const forProduction = process.env.NODE_ENV === "production";
@@ -14,7 +14,7 @@ const baseConfig = {
   devtool: "source-map",
   target: "electron-main",
 
-  entry: [path.resolve(__dirname, "../app/main.electron")],
+  entry: [path.resolve(__dirname, "../app/main/index.js")],
 
   resolve: {
     extensions: [".js", ".ts", ".json"]
@@ -34,20 +34,8 @@ const baseConfig = {
   },
 
   plugins: [
-    // Add source map support for stack traces in node
-    // https://github.com/evanw/node-source-map-support
-    new webpack.BannerPlugin(
-      { banner: "require(\"source-map-support\").install();", raw: true, entryOnly: false }
-    ),
-
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(forProduction ? "production" : "development")
-    }),
-
-    new HtmlWebpackPlugin({
-      filename: path.resolve(__dirname, "../dist/app.html"),
-      template: path.resolve(__dirname, "../app/app.html"),
-      inject: false
     })
   ],
 
@@ -65,7 +53,14 @@ const productionConfig = {
 };
 
 const developmentConfig = {
-  mode: "development"
+  mode: "development",
+  plugins: [
+    // Add source map support for stack traces in node
+    // https://github.com/evanw/node-source-map-support
+    new webpack.BannerPlugin(
+      { banner: "require(\"source-map-support\").install();", raw: true, entryOnly: false }
+    )
+  ]
 };
 
 if (forProduction) {

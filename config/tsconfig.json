@@ -28,13 +28,11 @@
     "outDir": "dist"
   },
   "files": [
-    "../app/index.tsx"
+    "../app/renderer/index.tsx"
   ],
   "include": [
     "../app/**/*.ts",
     "../app/**/*.tsx",
-    "../test/**/*.ts",
-    "../test/**/*.tsx",
     "../node_modules/@types/**/*.d.ts",
     "../typings/**/*.d.ts"
   ],

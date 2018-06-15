@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig",
+  "include": [
+    "../test/**/*.ts",
+    "../test/**/*.tsx"
+  ]
+}
