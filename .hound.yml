@@ -1,0 +1,6 @@
+tslint:
+  enabled: true
+  config_file: config/tslint.json
+
+jshint:
+  enabled: false

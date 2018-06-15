@@ -11,9 +11,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const port = process.env.PORT || 3000;
 const forProduction = process.env.NODE_ENV === "production";
 
+const bundleFilename = "bundle.js";
+const styleFilename = "style.css";
+
 const typeScriptLoader = {
   loader: "ts-loader",
-  options: { configFile: path.resolve(__dirname, "../tsconfig.json") }
+  options: { configFile: path.resolve(__dirname, process.env.TSCONFIG || "tsconfig.json") }
 };
 
 const uiComponentLoader = {
@@ -33,17 +36,18 @@ const baseConfig = {
   resolve: {
     extensions: [".js", ".ts", ".tsx"],
     alias: {
-      app: path.resolve(__dirname, "../app")
+      appCommon: path.resolve(__dirname, "../app/common"),
+      appRenderer: path.resolve(__dirname, "../app/renderer")
     },
     modules: [
-      path.resolve(__dirname, "../app"),
       path.resolve(__dirname, "../node_modules"),
+      path.resolve(__dirname, "../lib"),
     ]
   },
 
   output: {
     path: path.resolve(__dirname, "../dist"),
-    filename: "bundle.js",
+    filename: bundleFilename,
     // https://github.com/webpack/webpack/issues/1114
     libraryTarget: "commonjs2"
   },
@@ -134,6 +138,14 @@ const baseConfig = {
 
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(forProduction ? "production" : "development")
+    }),
+
+    new HtmlWebpackPlugin({
+      filename: path.resolve(__dirname, "../dist/app.html"),
+      template: path.resolve(__dirname, "../app/renderer/ui/app.html"),
+      inject: false,
+      bundleFilename,
+      styleFilename
     })
   ]
 };
@@ -141,7 +153,7 @@ const baseConfig = {
 const productionConfig = {
   mode: "production",
   devtool: "cheap-module-source-map",
-  entry: ["app/index"],
+  entry: path.resolve(__dirname, "../app/renderer/index.tsx"),
   output: {
     publicPath: path.resolve(__dirname, "../dist/")
     // the last slash is important! ------------^
@@ -192,7 +204,7 @@ const productionConfig = {
     ]
   },
 
-  plugins: [new ExtractTextPlugin("style.css")]
+  plugins: [new ExtractTextPlugin(styleFilename)]
 };
 
 const developmentConfig = {
@@ -201,7 +213,7 @@ const developmentConfig = {
   entry: [
     "react-hot-loader/patch",
     `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr&reload=true`,
-    "app/index"
+    path.resolve(__dirname, "../app/renderer/index.tsx")
   ],
   output: {
     publicPath: `http://localhost:${port}/dist/`

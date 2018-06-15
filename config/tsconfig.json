@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "baseUrl": "..",
+    "target": "es5",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2018",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "types": [],
+
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    "sourceMap": true,
+
+    "outDir": "../dist"
+  },
+  "files": [
+    "../app/renderer/index.tsx"
+  ],
+  "include": [
+    "../app/**/*.ts",
+    "../app/**/*.tsx",
+    "../node_modules/@types/**/*.d.ts",
+    "../typings/**/*.d.ts"
+  ],
+  "exclude": [
+    "../dist"
+  ]
+}
