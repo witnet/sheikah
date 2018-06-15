@@ -1,0 +1,41 @@
+:local {
+  @import "../../../../colors";
+
+  .alert {
+    background: linear-gradient(to right, $red-light, $grey-light);
+    color: $red;
+    grid-row-start: 2;
+
+    ul {
+      list-style-position: outside;
+      list-style-type: disc;
+    }
+  }
+
+  .alert-grid {
+    display: grid;
+    grid-column-start: 3;
+    grid-row: 1fr 1fr 1fr;
+    grid-row-start: 2;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .right {
+    align-items: center;
+    display: flex;
+  }
+
+  .seed {
+    border: 1px dashed $grey;
+    border-radius: 2%;
+    height: 60px;
+    padding: 1em;
+    vertical-align: middle;
+  }
+}

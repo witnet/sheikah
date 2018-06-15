@@ -1,0 +1,18 @@
+:local {
+  @import "../../../../colors";
+
+  .alert {
+    background: linear-gradient(to right, $red-light, $grey-light);
+    color: $red;
+    display: grid;
+    grid-row-start: 2;
+    padding-left: 1em;
+  }
+
+  .alert-grid {
+    display: grid;
+    grid-column-start: 3;
+    grid-row-start: 2;
+    grid-template-rows: 35% 1fr 1fr;
+  }
+}

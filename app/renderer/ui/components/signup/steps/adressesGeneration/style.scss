@@ -1,0 +1,14 @@
+:local {
+  @import "../../../../colors";
+
+  .subtitle {
+    color: $blue;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .text {
+    color: $grey;
+    text-align: center;
+  }
+}
