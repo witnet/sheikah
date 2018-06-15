@@ -11,6 +11,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const port = process.env.PORT || 3000;
 const forProduction = process.env.NODE_ENV === "production";
 
+const paths = require("./paths");
+
 const bundleFilename = "bundle.js";
 const styleFilename = "style.css";
 
@@ -141,8 +143,8 @@ const baseConfig = {
     }),
 
     new HtmlWebpackPlugin({
-      filename: path.resolve(__dirname, "../dist/app.html"),
-      template: path.resolve(__dirname, "../app/renderer/ui/app.html"),
+      filename: paths.filenameAppHtml,
+      template: paths.templateAppHtml,
       inject: false,
       bundleFilename,
       styleFilename

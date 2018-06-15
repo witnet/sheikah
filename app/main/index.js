@@ -1,8 +1,14 @@
 const { app, BrowserWindow, Menu, shell } = require('electron');
+const path = require('path'); // eslint-disable-line
+const paths = require('../../config/paths')
 
 let menu;
 let template;
 let mainWindow = null;
+
+const appHtml = process.env.HOT ?
+      `file://${paths.templateAppHtml}` :
+      `file://${paths.filenameAppHtml}`;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
@@ -11,7 +17,6 @@ if (process.env.NODE_ENV === 'production') {
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
-  const path = require('path'); // eslint-disable-line
   const p = path.join(__dirname, '..', 'app', 'node_modules'); // eslint-disable-line
   require('module').globalPaths.push(p); // eslint-disable-line
 }
@@ -45,7 +50,7 @@ app.on('ready', () =>
     height: 728
   });
 
-  mainWindow.loadURL(`file://${__dirname}/app.html`);
+    mainWindow.loadURL(appHtml);
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
