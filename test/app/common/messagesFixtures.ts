@@ -1,4 +1,4 @@
-import * as IPCMessages from "app/lib/api/ipc/common/messages"
+import * as IPCMessages from "appCommon/messages"
 
 /*
  * Test vectors for IPCMessages library
@@ -10,7 +10,7 @@ export const channelMessages = {
 
   invalid: [
     // invalid version
-    { version: IPCMessages.IPC_VERSION + 1, id: 1, method: "test-msg" },
+    { version: 0, id: 1, method: "test-msg" },
   ]
 }
 
@@ -21,7 +21,7 @@ export const channelRequests = {
 
   invalid: [
     // invalid version
-    { version: IPCMessages.IPC_VERSION + 1, id: 1, method: "test-msg", data: "test-data" }
+    { version: 0, id: 1, method: "test-msg", data: "test-data" }
   ]
 }
 
@@ -32,7 +32,7 @@ export const successChannelResponses = {
 
   invalid: [
     // invalid version
-    { version: IPCMessages.IPC_VERSION + 1, id: 1, method: "test-msg", data: "test-data" }
+    { version: 0, id: 1, method: "test-msg", data: "test-data" }
   ]
 }
 
@@ -51,6 +51,6 @@ export const errorChannelResponses = {
     //  version: IPCMessages.IPC_VERSION, id: 1, method: "test-msg", data: "test-data" },
     // invalid version
     { errorCode: IPCMessages.ChannelErrCode.ErrInvalidChannelReq, errorDesc: "test-desc",
-      version: IPCMessages.IPC_VERSION + 1, id: 1, method: "test-msg", data: "test-data" },
+      version: 0, id: 1, method: "test-msg", data: "test-data" },
   ]
 }

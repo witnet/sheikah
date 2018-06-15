@@ -1,4 +1,4 @@
-import * as IPCMethods from "../../ipc/common/methods"
+import * as IPCMethods from "../../../../app/common/methods"
 
 /**
  * Handler of no response handler function

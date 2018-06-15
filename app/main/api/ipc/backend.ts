@@ -1,8 +1,8 @@
-import * as ImportedMethods from "../../handlers/backend/index"
-import * as IPCMessages from "../common/messages"
-import * as IPCMethods from "../common/methods"
-import GenericIpcMain from "./genericIpcMain"
-import {electronIpcMain} from "./electronIpcMain"
+import * as ImportedMethods from "../handlers/index"
+import * as IPCMessages from "../../../../app/common/messages"
+import * as IPCMethods from "../../../../app/common/methods"
+import GenericIpcMain from "./genericMain"
+import {electronIpcMain} from "./electronMain"
 
 /**
  * Raw imported methods from handlers directory

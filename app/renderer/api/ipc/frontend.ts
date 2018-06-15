@@ -1,7 +1,7 @@
-import * as IPCMessages from "../common/messages"
-import * as IPCMethods from "../common/methods"
-import GenericIpcRenderer from "./genericIpcRenderer"
-import {electronIpcRenderer} from "./electronIpcRenderer"
+import * as IPCMessages from "../../../../app/common/messages"
+import * as IPCMethods from "../../../../app/common/methods"
+import GenericIpcRenderer from "./genericRenderer"
+import {electronIpcRenderer} from "./electronRenderer"
 
 /** Holds promises and timers for each pending request */
 const pendingRequests: {[method: string]: any} = {}

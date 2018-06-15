@@ -1,21 +1,26 @@
 const { app, BrowserWindow, Menu, shell } = require("electron")
 
-import * as IPCBackend from "./lib/api/ipc/backend/ipcBackend"
+import * as IPCBackend from "./api/ipc/backend"
 
 let menu: any
 let template: any
 let mainWindow: any
 
 if (process.env.NODE_ENV === "production") {
-  const sourceMapSupport = require("source-map-support") // eslint-disable-line
+  // eslint-disable-line
+  const sourceMapSupport = require("source-map-support")
   sourceMapSupport.install()
 }
 
 if (process.env.NODE_ENV === "development") {
-  require("electron-debug")() // eslint-disable-line global-require
-  const path = require("path") // eslint-disable-line
-  const p = path.join(__dirname, "..", "app", "node_modules") // eslint-disable-line
-  require("module").globalPaths.push(p) // eslint-disable-line
+  // eslint-disable-line global-require
+  require("electron-debug")()
+  // eslint-disable-line
+  const path = require("path")
+  // eslint-disable-line
+  const p = path.join(__dirname, "..", "app", "node_modules")
+  // eslint-disable-line
+  require("module").globalPaths.push(p)
 }
 
 app.on("window-all-closed", () => {
@@ -24,7 +29,8 @@ app.on("window-all-closed", () => {
 
 const installExtensions = async () => {
   if (process.env.NODE_ENV === "development") {
-    const installer = require("electron-devtools-installer") // eslint-disable-line global-require
+    // eslint-disable-line global-require
+    const installer = require("electron-devtools-installer")
 
     const extensions = [
       "REACT_DEVELOPER_TOOLS",
