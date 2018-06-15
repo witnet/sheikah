@@ -1,0 +1,14 @@
+:local {
+  @import "../../../colors";
+
+  .underlined {
+    border: 0;
+    border-bottom: 1px solid $grey;
+    border-radius: 0;
+    display: grid;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
