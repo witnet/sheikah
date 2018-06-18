@@ -1,7 +1,7 @@
 import * as React from "react"
 import { RouteComponentProps } from "react-router"
 import { Link } from "react-router-dom"
-
+import * as _ from "lodash"
 const styles = require("./Counter.scss")
 
 export interface IProps extends RouteComponentProps<any> {
@@ -16,10 +16,12 @@ export interface IProps extends RouteComponentProps<any> {
  * Class counter
  */
 export class Counter extends React.Component<IProps> {
+
   /** render */
   public render() {
     const { increment, incrementIfOdd, incrementAsync,
       decrement, counter } = this.props
+    const incAsync = () => _.curry(incrementAsync)()
 
     return (
       <div>
@@ -38,12 +40,21 @@ export class Counter extends React.Component<IProps> {
           <button className={styles.btn} onClick={decrement} data-tclass="btn">
             <i className="fa fa-minus" />
           </button>
-          <button className={styles.btn} onClick={incrementIfOdd}
-            data-tclass="btn">odd</button>
-            {/* tslint:disable-next-line:
-            no-unnecessary-callback-wrapper no-void-expression */}
-          <button className={styles.btn} onClick={() => incrementAsync()}
-            data-tclass="btn">async</button>
+          <button
+            className={styles.btn}
+            onClick={incrementIfOdd}
+            data-tclass="btn"
+          >
+            odd
+          </button>
+            {/* tslint:disable-next-line: no-unnecessary-callback-wrapper no-void-expression */}
+          <button
+            className={styles.btn}
+            onClick={incAsync}
+            data-tclass="btn"
+          >
+            async
+          </button>
         </div>
       </div>
     )

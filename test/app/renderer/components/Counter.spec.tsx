@@ -12,9 +12,7 @@ const setup = () => {
     incrementAsync: spy(),
     decrement: spy()
   }
-  const component = shallow(<CounterAny
-    counter={1} {...actions}
-  />)
+  const component = shallow(<CounterAny counter={1} {...actions} />)
 
   return {
     component,
