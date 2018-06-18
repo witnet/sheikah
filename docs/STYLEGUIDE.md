@@ -20,6 +20,7 @@ Sections:
 * [File Names](#filename)
 * [`type` vs `interface`](#type-vs-interface)
 * [Dependency Policy](#dependency-policy)
+* [Comments](#comments)
 
 ## Variable and Function
 * Use `camelCase` for variable and function names
@@ -460,3 +461,137 @@ foo({type: "bar"}) // => ERROR
 * `dependencies` are required for production use.
 
 > Including `devDependencies` within `dependencies` will cause the install to consume more resources unnecessarily.
+
+## Comments
+Comments for clarification.
+* Use `//` for single line comments.
+* Use `/*` for multiline comments.
+Examples:
+```ts
+// This is a comment to further explain foo
+const foo: string = "hello" 
+```
+```ts
+/*
+ * This is a comment to further explain foo
+ * in multiple lines
+ */
+const foo: string = "hello" 
+```
+
+Comments for documentation should follow the JSDoc style.
+* JSDoc comments should generally be placed immediately before the code being documented. 
+* Each comment must start with a `/**`.
+* `JSDoc tags` can be used to give more information. For example, the parameters of a function can be indicated by adding a `@param` tag.
+
+Examples:
+```ts
+/** This is a description of the foo function. */
+function foo() {
+}
+
+/**
+* This is the foo function
+* @param {bar} This is the bar parameter
+* @returns returns a string version of bar
+*/
+function foo(bar: number): string {
+    return bar.toString()
+}
+```
+```ts
+/** Class representing a point. */
+class Point {
+    /**
+     * Create a point.
+     * @param {number} x - The x value.
+     * @param {number} y - The y value.
+     */
+    constructor(x: number, y: number) {
+        // ...
+    }
+
+    /**
+     * Get the x value.
+     * @return {number} The x value.
+     */
+    getX(): number {
+        // ...
+    }
+
+    /**
+     * Get the y value.
+     * @return {number} The y value.
+     */
+    getY(): number {
+        // ...
+    }
+
+    /**
+     * Convert a string containing two comma-separated numbers into a point.
+     * @param {string} str - The string containing two comma-separated numbers.
+     * @return {Point} A Point object.
+     */
+    static fromString(str: string): Point {
+        // ...
+    }
+}
+
+/**
+ * Class representing a dot.
+ * @extends Point
+ */
+class Dot extends Point {
+    /**
+     * Create a dot.
+     * @param {number} x - The x value.
+     * @param {number} y - The y value.
+     * @param {number} width - The width of the dot, in pixels.
+     */
+    constructor(x: number, y: number, width: number) {
+        // ...
+    }
+
+    /**
+     * Get the dot's width.
+     * @return {number} The dot's width, in pixels.
+     */
+    getWidth(): number {
+        // ...
+    }
+}
+```
+```ts
+/** @module color/mixer */
+
+/** The name of the module. */
+export const name = 'mixer';
+
+/** The most recent blended color. */
+export let lastColor = undefined;
+
+/**
+ * Blend two colors together.
+ * @param {string} color1 - The first color, in hexadecimal format.
+ * @param {string} color2 - The second color, in hexadecimal format.
+ * @return {string} The blended color.
+ */
+export function blend(color1: string, color2: string) {}
+
+// convert color to array of RGB values (0-255)
+function rgbify(color: string) {}
+
+export {
+    /**
+     * Get the red, green, and blue values of a color.
+     * @function
+     * @param {string} color - A color, in hexadecimal format.
+     * @returns {Array.<number>} An array of the red, green, and blue values,
+     * each ranging from 0 to 255.
+     */
+    rgbify as toRgb
+}
+```
+
+
+> Reasons: JSDoc is the most common comment convention and is supported out of the box by VSCode and Intellij with autocompletion by typing `/**` + Enter.
