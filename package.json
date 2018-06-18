@@ -24,7 +24,8 @@
     "travis": "yarn lint && yarn fmt-verify && yarn test-all && yarn package",
     "travisp": "concurrently --names LINT,FMT,TEST,PACK  -c bgBlue,bgMagenta,yellow,bgCyan 'yarn lint' 'yarn fmt-verify' 'yarn test-all' 'yarn package'",
     "prelint": "node scripts/json-merge config/tsconfig.json config/tsconfig.test.json > config/tsconfig.tslint.json",
-    "lint": "tslint --project config/tsconfig.tslint.json --config config/tslint.json && yarn sass-lint",
+    "lint": "yarn ts-lint && yarn sass-lint",
+    "ts-lint": "tslint --project config/tsconfig.tslint.json --config config/tslint.json",
     "sass-lint": "sass-lint --config config/sass-lint.yml",
     "json-merge": "node scripts/json-merge",
     "clean": "rimraf release dist",
@@ -39,7 +40,10 @@
   },
   "lint-staged": {
     "*.ts": [
-      "yarn lint"
+      "yarn ts-lint"
+    ],
+    "*.scss": [
+      "yarn sass-lint"
     ]
   },
   "build": {
