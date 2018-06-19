@@ -74,7 +74,11 @@ rules:
   nesting-depth: 1
   property-sort-order: 1
   pseudo-element: 1
-  quotes: 1
+  quotes:
+    - 1
+    - style: double
+
+
   shorthand-values: 1
   url-quotes: 1
   variable-for-property: 1
