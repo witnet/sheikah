@@ -10,6 +10,7 @@ module.exports = {
     }
   },
   "moduleNameMapper": {
+    "app\/(.*)$": "<rootDir>/../app/$1",
     "appCommon\/(.*)$": "<rootDir>/../app/common/$1",
     "appMain\/(.*)$": "<rootDir>/../app/main/$1",
     "appRenderer\/(.*)$": "<rootDir>/../app/renderer/$1",
@@ -23,7 +24,8 @@ module.exports = {
   ],
   "moduleDirectories": [
     "<rootDir>/../node_modules",
-    "<rootDir>/../app/lib"
+    "<rootDir>/..",
+    "<rootDir>/../lib"
   ],
   "transform": {
     "^.+\\.(ts|tsx)$": "ts-jest"

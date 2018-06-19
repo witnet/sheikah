@@ -1,22 +1,10 @@
-import * as IPCMethods from "../../../../app/common/methods"
-
 /**
  * Handler of ping method
  * @param data
  * @returns {Promise<string>}
  */
-async function pingHandlerFunc(data: any): Promise<string> {
-  return JSON.stringify({content: "sending pong"})
+async function ping(system: any, data: any) {
+  return "pong"
 }
 
-/**
- * Ping method descriptor
- * @type {{id: string; type: MethodType; handler: (data: any) => Promise<string>}}
- */
-const pingMethodDesc: IPCMethods.MethodDesc = {
-  id: "ping-msg",
-  type: IPCMethods.MethodType.Async,
-  handler: pingHandlerFunc
-}
-
-export default pingMethodDesc
+export default ping

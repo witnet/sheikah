@@ -3805,6 +3805,10 @@ electron-localshortcut@^3.0.0:
     keyboardevent-from-electron-accelerator "^1.1.0"
     keyboardevents-areequal "^0.2.1"
 
+electron-log@^2.2.15:
+  version "2.2.15"
+  resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-2.2.15.tgz#28c2dd65c9437fcf31f09f5f856c338a83daab76"
+
 electron-osx-sign@0.4.8:
   version "0.4.8"
   resolved "https://registry.yarnpkg.com/electron-osx-sign/-/electron-osx-sign-0.4.8.tgz#f0b9fadded9e1e54ec35fa89877b5c6c34c7bc40"
@@ -4654,6 +4658,10 @@ form-data@~2.3.1:
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
+
+fp-ts@^1.0.0:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-1.6.2.tgz#21f3675262d35b507b6e854f68965979e125ff77"
 
 fragment-cache@^0.2.1:
   version "0.2.1"
@@ -5673,6 +5681,12 @@ invariant@^2.0.0, invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.4:
 invert-kv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
+
+io-ts@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-1.1.5.tgz#5a943eeb063eebf27517a559359fd121ba04eaaa"
+  dependencies:
+    fp-ts "^1.0.0"
 
 ipaddr.js@1.6.0:
   version "1.6.0"
