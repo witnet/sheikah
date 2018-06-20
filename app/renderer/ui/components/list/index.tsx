@@ -26,7 +26,7 @@ export default class DefaultList extends React.Component<Iprops> {
   // tslint:disable-next-line: completed-docs
   public render() {
     const isClickable = (item: any) => item.onClick && item.text
-    const renderItem = (item: any) =>
+    const defaultRenderItem = (item: any) =>
       isClickable(item)
         ? (<OptionButton text={item.text} onClick={item.onClick} className={`${this.props.classNameItem} ${styles.option}`}/>)
         : (<List.Item className={`${this.props.classNameItem} ${styles.item}`}>{item}</List.Item>)
@@ -36,7 +36,7 @@ export default class DefaultList extends React.Component<Iprops> {
         bordered
         className={`${this.props.classNameList} ${styles.list}`}
         dataSource={this.props.dataSource}
-        renderItem={renderItem}
+        renderItem={this.props.renderItem || defaultRenderItem}
       />
     )
   }
