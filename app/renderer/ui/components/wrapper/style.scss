@@ -1,0 +1,36 @@
+:local {
+  .layout {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr
+  }
+
+  .header {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: baseline;
+    grid-gap: 1em;
+
+    .title {
+      font-weight: bold;
+      color: grey;
+      font-size: 14px;
+    }
+
+    .caption {
+      font-size: 12px;
+      color: lightgray;
+    }
+
+    .actions {
+      grid-column-start: 4;
+      background: lightgoldenrodyellow;
+    }
+
+  }
+  .content {
+    background: white;
+    border: 1px solid lightgray;
+  }
+}
