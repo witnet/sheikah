@@ -35,8 +35,8 @@
     "precommit": "lint-staged",
     "commitmsg": "commitlint -g config/commitlint.config.js -e $GIT_PARAMS",
     "fmt-verify": "tsfmt --useTsfmt config/tsfmt.json --verify app/**/**/*.ts test/**/*.ts",
-    "fmt": "tsfmt --useTsfmt config/tsfmt.json app/**/**/*.ts test/**/*.ts",
-    "fmt!": "tsfmt --useTsfmt config/tsfmt.json -r app/**/**/*.ts test/**/*.ts"
+    "fmt": "tsfmt --useTsfmt config/tsfmt.json app/**/**/*.ts test/**/*.ts && scssfmt --recursive './app/**/**/*.scss' --diff",
+    "fmt!": "tsfmt --useTsfmt config/tsfmt.json -r app/**/**/*.ts test/**/*.ts && scssfmt --recursive './app/**/**/*.scss'"
   },
   "lint-staged": {
     "*.ts": [
@@ -174,6 +174,7 @@
     "rimraf": "^2.6.2",
     "sass-lint": "^1.12.1",
     "sass-loader": "^7.0.1",
+    "scssfmt": "^1.0.6",
     "sinon": "^4.5.0",
     "spectron": "^3.8.0",
     "style-loader": "^0.21.0",
