@@ -33,7 +33,7 @@ export default class DefaultList extends React.Component<Iprops> {
 
     return (
       <List
-        bordered
+        bordered={this.props.borderer}
         className={`${this.props.classNameList} ${styles.list}`}
         dataSource={this.props.dataSource}
         renderItem={this.props.renderItem || defaultRenderItem}

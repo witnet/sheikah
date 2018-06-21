@@ -1,11 +1,13 @@
 import * as React from "react"
 
+import Popover from '../popover/index';
+
 const styles = require("./style.scss")
 
 export interface Iprops {
   title?: string
   caption?: string
-  actions?: any[]
+  actions?: (string | { text: any; onClick: any })[]
 }
 
 /**
@@ -21,7 +23,8 @@ export default class Wrapper extends React.Component<Iprops> {
   // tslint:disable-next-line: completed-docs
   public render() {
     const actions = this.props.actions
-      ? <div className={styles.actions}>Actions</div>
+      // ? (<div className={styles.actions}></div>)
+      ? (<Popover className={styles.actions} dataSource={this.props.actions} />)
       : ""
 
     return (
