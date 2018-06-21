@@ -9,6 +9,7 @@ export interface Iprops {
   title?: string
   caption?: string
   actions?: (string | { text: any; onClick: any })[]
+  contentClassName?: string
 }
 
 /**
@@ -23,7 +24,7 @@ export default class Wrapper extends React.Component<Iprops> {
 
   // tslint:disable-next-line: completed-docs
   public render() {
-    const actions = this.props.actions
+    const actions = !!this.props.actions
       // ? (<div className={styles.actions}></div>)
       ? (<Popover className={styles.actions} dataSource={this.props.actions} />)
       : ""
