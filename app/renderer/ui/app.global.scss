@@ -15,6 +15,10 @@ body {
     text-decoration: none;
   }
 
+  p {
+    margin: 0;
+  }
+
 .ant-card-head {
   align-items: center;
   background: linear-gradient(to right, $purple, $blue);

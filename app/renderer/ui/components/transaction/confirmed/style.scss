@@ -1,0 +1,72 @@
+:local {
+  .transaction {
+    padding: 2em;
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-rows: auto;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+    grid-gap: .5em;
+  }
+
+  .green {
+    color: lightgreen;
+  }
+
+  .red   {
+    color: lightcoral;
+  }
+  .icon {
+    grid-row:1;
+    grid-column: 1;
+  }
+
+  .amount {
+    grid-row: 1;
+    grid-column: 2;
+
+    .number {
+      font-size: 18px;
+      &.positive {
+        color: lightgreen;
+      }
+
+      &.negative {
+        color: lightcoral;
+      }
+
+    }
+
+    .wit {
+      font-weight: bold;
+      color: lightgray;
+      font-size: 10px;
+    }
+  }
+
+  .address {
+    margin-left: 4em;
+    grid-row:1;
+    grid-column: 3;
+    font-size: 14;
+
+    .origin {
+      color: lightgray;
+    }
+
+    .address-number {
+      color: grey;
+    }
+  }
+
+  .date {
+    text-align: right;
+    font-size: 14;
+    color: grey;
+  }
+
+  .block {
+    color: lightgrey;
+    font-size: 12;
+  }
+}

@@ -1,0 +1,26 @@
+:local {
+  .balances {
+    width: 100%;
+    background: none;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+  .line {
+    margin: 1em;
+    display: flex;
+    flex-flow: row no-wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    .text {
+      color: grey
+    }
+
+    .wit {
+      font-weight: bold;
+      color: lightgray;
+      font-size: 10px;
+    }
+  }
+}

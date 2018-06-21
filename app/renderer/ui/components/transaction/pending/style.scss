@@ -1,0 +1,76 @@
+:local {
+  .transaction {
+    padding: 2em;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: auto;
+    grid-column-gap: 1em;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .status-icon {
+    grid-row: 1;
+    grid-column: 1;
+    font-size: 8px;
+
+    .unconfirmed {
+      color: yellow;
+    }
+
+    .timelocked {
+      color: lightblue;
+    }
+  }
+  .status {
+    grid-row: 1;
+    grid-column: 2;
+    font-weight: bold;
+    color: grey;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .vestingTime {
+    grid-row: 1;
+    grid-column: 3;
+    color: lightgray;
+  }
+
+  .amount {
+    grid-row: 2;
+    grid-column: 2;
+
+    .number {
+      font-size: 18px;
+      &.positive {
+        color: lightgreen;
+      }
+
+      &.negative {
+        color: lightcoral;
+      }
+
+    }
+
+    .wit {
+      font-weight: bold;
+      color: lightgray;
+      font-size: 10px;
+    }
+  }
+
+  .address {
+    grid-row:2;
+    grid-column: 3;
+    font-size: 14;
+
+    .origin {
+      color: lightgray;
+    }
+
+    .address-number {
+      color: grey;
+    }
+  }
+}
