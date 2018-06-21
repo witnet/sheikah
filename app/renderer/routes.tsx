@@ -12,7 +12,6 @@ export default () => (
     <Switch>
       <Route path="/counter" component={CounterPage} />
       <Route path="/" component={TestPage} />
-
       <Route path="/signup" component={SignupPage} />
     </Switch>
   </App>

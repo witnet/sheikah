@@ -5,7 +5,8 @@ import { Button } from "antd"
 export interface Iprops {
   className?: string
   onClick?: any
-  text: string,
+  text: any,
+
 }
 
 /**

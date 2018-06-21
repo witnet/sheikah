@@ -10,7 +10,7 @@
     grid-template-rows: 1fr;
     grid-template-columns: auto auto 1fr auto;
     align-items: baseline;
-    grid-gap: 1em;
+    grid-gap: .5em;
 
     .title {
       font-weight: bold;
@@ -25,7 +25,6 @@
 
     .actions {
       grid-column-start: 4;
-      background: lightgoldenrodyellow;
     }
 
   }
