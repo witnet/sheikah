@@ -1,0 +1,25 @@
+:local {
+  .layout {
+    padding: 3em;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 2em;
+  }
+
+  .pending {
+    margin-bottom: 2em;
+  }
+
+  .confirmed {
+  }
+
+  .balances {
+    margin-bottom: 2em;
+  }
+
+  .vesting {
+    grid-row:2;
+    grid-column: 2;
+    background: lightseagreen;
+  }
+}
