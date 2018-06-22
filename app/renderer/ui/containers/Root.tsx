@@ -1,12 +1,11 @@
 import * as React from "react"
 import * as Redux from "react-redux"
 import { History } from "history"
+import routes from '../../routes';
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'connected-react-router'
 
 // tslint:disable-next-line:no-duplicate-imports
-import { Provider } from "react-redux"
-import { ConnectedRouter } from "react-router-redux"
-import Routes from "../routes"
-
 interface IRootType {
   store: Redux.Store<any>
   history: History
@@ -15,8 +14,10 @@ interface IRootType {
 const Root = ( { store, history }: IRootType) => {
   return (
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Routes />
+      <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */ }
+        <div>
+          {routes}
+        </div>
       </ConnectedRouter>
     </Provider>
   )
