@@ -19,6 +19,10 @@ export const Request = t.type({
  */
 export type Request = t.TypeOf<typeof Request>
 
+export const Metadata = t.Dictionary
+
+export type Metadata = t.TypeOf<typeof Metadata>
+
 /**
  * Runtime type to represent a response in the IPC communication.
  */
@@ -28,11 +32,9 @@ export const Response = t.intersection([
     data: t.any
   }),
   t.partial({
-    meta: t.dictionary(t.string, t.string)
+    meta: Metadata
   })
 ])
-
-type Metadata = {[key: string]: string}
 
 /**
  * Type to represent a response in the IPC communication.
