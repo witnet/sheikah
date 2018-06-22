@@ -1,7 +1,7 @@
 import {Ipc} from "app/common/ipc"
 import {Event} from "./synthetic"
 
-export type Listener = (e: Event, args: any) => void
+export type Listener = (e: Event, message: string) => Promise<void>
 export type Channels = Array<[string, Listener]>
 
 /**

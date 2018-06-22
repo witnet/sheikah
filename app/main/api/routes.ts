@@ -20,9 +20,7 @@ export const routes: Routes<any> = {
  */
 export async function matchRoute<T>(routes: Routes<T>, method: string): Promise<h.Handler<T>> {
   if (!(method in routes)) {
-    throw {
-      message: `No handler associated to method/channel: ${method}`
-    }
+    throw new Error(`No handler associated to method/channel: ${method}`)
   }
 
   return routes[method]

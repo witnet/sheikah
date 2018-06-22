@@ -1,9 +1,11 @@
 import * as api from "app/main/api"
+import {asyncChannel} from "app/common/ipc"
+import {InvalidParamsError} from "app/common/ipc-protocol"
 import {syntheticEvent} from "test/__stubs__/event"
 
 const system = {
   json: {
-    encode: async (v: any) => JSON.stringify(v),
+    encode: async (v: any) => v,
     decode: async (m: string) => JSON.parse(m)
   }
 }
@@ -15,79 +17,103 @@ describe("API", () => {
     })
 
     describe("handler", () => {
-      it("should pass the system and message as params to the handler", async () => {
+      it("should return an error if request json cannot be parsed", async () => {
+        const senderMock = jest.fn()
+        const asyncHandler = api.asyncListenerFactory(system, {})
+        const event = syntheticEvent({ send: senderMock })
+        const message = "invalid request"
+        const expectedResponse = {
+          error: { code: -32700 }
+        }
+
+        await asyncHandler(event, message)
+
+        expect(senderMock.mock.calls[0][1]).toMatchObject(expectedResponse)
+      })
+
+      it("should return an error if request object is not valid", async () => {
+        const senderMock = jest.fn()
+        const asyncHandler = api.asyncListenerFactory(system, {})
+        const event = syntheticEvent({ send: senderMock })
+        const request = JSON.stringify({})
+        const expectedResponse = {
+          error: { code: -32600 }
+        }
+
+        await asyncHandler(event, request)
+
+        expect(senderMock.mock.calls[0][1]).toMatchObject(expectedResponse)
+      })
+
+      it("should return an error if request method has no handler", async () => {
+        const senderMock = jest.fn()
+        const asyncHandler = api.asyncListenerFactory(system, {})
+        const event = syntheticEvent({ send: senderMock })
+        const request = JSON.stringify({jsonrpc: "2.0", method: "ping"})
+        const expectedResponse = {
+          error: { code: -32601 }
+        }
+
+        await asyncHandler(event, request)
+
+        expect(senderMock.mock.calls[0][1]).toMatchObject(expectedResponse)
+      })
+
+      it("should return an error if request params are not accepted by handler", async () => {
+        const senderMock = jest.fn()
+        const handler = async (sys: any, params: any) => {
+          throw new InvalidParamsError("invalid params!")
+        }
+        const asyncHandler = api.asyncListenerFactory(system, {ping: handler})
+        const event = syntheticEvent({ send: senderMock })
+        const request = JSON.stringify({jsonrpc: "2.0", method: "ping"})
+        const expectedResponse = {
+          error: { code: -32602 }
+        }
+
+        await asyncHandler(event, request)
+
+        expect(senderMock.mock.calls[0][1]).toMatchObject(expectedResponse)
+      })
+
+      it("should return an error if an Error occurs within handler", async () => {
+        const senderMock = jest.fn()
+        const handler = async (sys: any, params: any) => { throw new Error("kaboom!") }
+        const asyncHandler = api.asyncListenerFactory(system, {ping: handler})
+        const event = syntheticEvent({ send: senderMock })
+        const request = JSON.stringify({jsonrpc: "2.0", method: "ping"})
+        const expectedResponse = {
+          error: { code: -32603 }
+        }
+
+        await asyncHandler(event, request)
+
+        expect(senderMock.mock.calls[0][1]).toMatchObject(expectedResponse)
+      })
+
+      it("should call the handler and send response using sender.send", async () => {
         const handlerMock = jest.fn()
-        const routes = {"some channel": handlerMock}
-        const handler = api.asyncListenerFactory(system, routes)
-        const event = syntheticEvent()
-        const data = {"some field": "some value"}
+        const senderMock = jest.fn()
+        const routes = {sum: handlerMock}
+        const asyncHandler = api.asyncListenerFactory(system, routes)
+        const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({
+          jsonrpc: "2.0",
           id: "some id",
-          method: "some channel",
-          data
+          method: "sum",
+          params: [1, 2, 3]
         })
+        const expectedResponse = {
+          jsonrpc: "2.0",
+          id: "some id",
+          result: undefined
+        }
 
-        await handler(event, request)
+        await asyncHandler(event, request)
 
-        expect(handlerMock.mock.calls.length).toBe(1)
-        expect(handlerMock.mock.calls[0][0]).toMatchObject(system)
-        expect(handlerMock.mock.calls[0][1]).toMatchObject(data)
+        expect(senderMock).toBeCalledWith(asyncChannel, expectedResponse)
+        expect(handlerMock).toBeCalledWith(system, [1, 2, 3])
       })
-    })
-
-    it("should call event.sender.send with the data returned by the handler", async () => {
-      const send = jest.fn()
-      const routes = {"some channel": async () => "some response"}
-      const handler = api.asyncListenerFactory(system, routes)
-      const event = syntheticEvent({send})
-
-      const request = JSON.stringify({
-        id: "some id",
-        method: "some channel",
-        data: {}
-      })
-
-      await handler(event, request)
-
-      expect(send.mock.calls.length).toBe(1)
-      expect(JSON.parse(send.mock.calls[0][0]).data).toBe("some response")
-    })
-
-    it("should call event.sender.send with the meta taken from the request", async () => {
-      const send = jest.fn()
-      const routes = {"some channel": async () => "some response"}
-      const handler = api.asyncListenerFactory(system, routes)
-      const event = syntheticEvent({send})
-
-      const request = JSON.stringify({
-        id: "some id",
-        method: "some channel",
-        data: {}
-      })
-      const expected = {id: "some id", method: "some channel"}
-
-      await handler(event, request)
-
-      expect(send.mock.calls.length).toBe(1)
-      expect(JSON.parse(send.mock.calls[0][0]).meta).toEqual(expected)
-    })
-
-    it("should call event.sender.send with an error if request is not valid json", async () => {
-      const send = jest.fn()
-      const routes = {"some channel": async () => "some response"}
-      const handler = api.asyncListenerFactory(system, routes)
-      const event = syntheticEvent({send})
-
-      const request = JSON.stringify("invalid json data")
-
-      await handler(event, request)
-
-      const response = JSON.parse(send.mock.calls[0][0])
-
-      expect(send.mock.calls.length).toBe(1)
-      expect(response.status).toEqual("error")
-      expect(response.meta).toMatchObject({request: "\"invalid json data\""})
-      expect(response.data).toBeDefined()
     })
   })
 })

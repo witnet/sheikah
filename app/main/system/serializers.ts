@@ -7,13 +7,6 @@ export type Serializer = {
 }
 
 export const json: Lifecycle<Serializer, void> = pureComponent(f.constant({
-  encode: wrapPromise((v: any) => JSON.stringify(v)),
-  decode: wrapPromise((t: string) => JSON.parse(t))
+  encode: async (v: any) => JSON.stringify(v),
+  decode: async (t: string) => JSON.parse(t)
 }))
-
-/**
- * Helper function for wrapping functions that may throw exceptions in a Promise.
- */
-function wrapPromise<A, B>(f: (a: A) => B): (a: A) => Promise<B> {
-  return async (a: A) => f(a)
-}

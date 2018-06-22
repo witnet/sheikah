@@ -5,6 +5,9 @@ import * as serializers from "./serializers"
 
 export type JsonC = { json: serializers.Serializer }
 
+/**
+ * A component is any object implementing the Lifecycle interface.
+ */
 export type Components = JsonC
 
 /**

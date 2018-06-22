@@ -1,125 +1,237 @@
 /**
  * This module contains all common types for messages sent between
- * backend and frontend IPC communication.
+ * backend and frontend IPC communication. It tries to abide as much
+ * as possible to the JSON-RPC 2.0 Specification.
  */
 import * as t from "io-ts"
 import {PathReporter} from "io-ts/lib/PathReporter"
 
-/**
- * Runtime type to represent a request in the IPC communication.
- */
-export const Request = t.type({
-  id: t.string,
-  method: t.string,
-  data: t.any
-})
+/** Version runtime type */
+const Version = t.literal("2.0")
 
-/**
- * Type to represent a request in the IPC communication.
- */
-export type Request = t.TypeOf<typeof Request>
+/** Version type */
+type Version = t.TypeOf<typeof Version>
 
-export const Metadata = t.Dictionary
+/** Json-RPC version literal */
+export const jsonrpc = Version.value
 
-export type Metadata = t.TypeOf<typeof Metadata>
+/** Id runtime type */
+export const Id = t.union([t.string, t.number, t.nullType])
 
-/**
- * Runtime type to represent a response in the IPC communication.
- */
-export const Response = t.intersection([
+/** Id type */
+export type Id = t.TypeOf<typeof Id>
+
+/** Params runtime type */
+export const Params = t.union([t.Dictionary, t.Array])
+
+/** Params type */
+export type Params = t.TypeOf<typeof Params>
+
+  /** Request runtime type */
+export const Request = t.intersection([
   t.type({
-    status: t.union([t.literal("ok"), t.literal("error")]),
-    data: t.any
+    jsonrpc: Version,
+    method: t.string
   }),
   t.partial({
-    meta: Metadata
+    id: Id,
+    params: Params
   })
 ])
 
+/** Request type */
+export type Request = t.TypeOf<typeof Request>
+
 /**
- * Type to represent a response in the IPC communication.
+ * Check if the given request is a notification. A notification according to the json-rpc
+ * spec is just a normal request that does not contain an id, meaning the server should not
+ * bother in send a request.
  */
+export function isNotification(req: Request): boolean {
+  return !("id" in req)
+}
+
+/** Result runtime type */
+export const Result = t.refinement(t.any, (v) => v !== undefined)
+
+/** Result type */
+export type Result = t.TypeOf<typeof Result>
+
+/** Err runtime type */
+export const Err = t.intersection([
+  t.type({
+    code: t.number,
+    message: t.string
+  }),
+  t.partial({
+    data: t.any
+  })
+])
+
+/** Map of possible error codes and messages */
+export const errors = {
+  /**
+   * Invalid JSON was received by the server.
+   * An error occurred on the server while parsing the JSON text.
+   */
+  parseError: { code: -32700, message: "Parse error" },
+  /**
+   * The JSON sent is not a valid Request object.
+   */
+  invalidRequest: { code: -32600, message: "Invalid request" },
+  /**
+   * The method does not exist / is not available.
+   */
+  methodNotFound: { code: -32601, message: "Method not found" },
+  /**
+   * Invalid method parameter(s).
+   */
+  invalidParams: { code: -32602, message: "Invalid params"},
+  /**
+   * Internal JSON-RPC error.
+   */
+  internalError: { code: -32603, message: "Internal JSON-RPC error"}
+}
+
+/** Err type */
+export type Err = t.TypeOf<typeof Err>
+
+/** Response runtime type */
+export const Response = t.intersection([
+  t.type({
+    jsonrpc: Version,
+    id: Id
+  }),
+  t.union([
+    t.type({ error: Err }),
+    t.type({ result: Result })
+  ])
+])
+
+/** Response type */
 export type Response = t.TypeOf<typeof Response>
 
 /**
- * Factory function to build channel requests.
- *
- * @param {string} id The id that identifies this request. This is
- * used in async communication for matching responses to requests.
- * @param {string} method The method name to invoke.
- * @param {any} data The data to pass to the method when being invoked.
- * @return {Request} The request object.
+ * Check if the given response is successful, that is, it contains a result field.
  */
-  export function request(id: string, method: string, data: any): Request {
-    return {
-      id,
-      method,
-      data
-    }
-  }
+export function isSuccessResponse(res: Response): boolean {
+  return "result" in res
+}
 
 /**
- * Factory function to build successful channel responses.
- *
- * @param {any} data The data of the response.
- * @param {Metadata} meta An optional map of metadata information.
- * @returns {Response} The response object.
+ * Check if the given response is unsuccessful, that is, it contains an error field.
  */
-export function okResponse(data: any, meta?: Metadata): Response {
+export function isErrorResponse(res: Response): boolean {
+  return "error" in res
+}
+
+/**
+ * Factory function to build Request objects.
+ */
+export function request(method: string, id: Id, params?: Params): Request {
   return {
-    status: "ok",
-    meta,
-    data
+    jsonrpc,
+    method,
+    id,
+    params
   }
 }
 
 /**
- * Factory function to build unsuccessful channel responses. This type
- * of response is used to signal errors in the dispatch mechanism of the
- * protocol itself. Business logic errors use a successful response but
- * communicate the error in the data field.
- *
- * @param {any} error The error object that will be used as
- * the data of the response.
- * @param {Metadata} meta An optional map of metadata information.
- * @returns {Response} The response object.
+ * Factory function to build Notification objects (Requests without an id).
  */
-export function errorResponse(error: any, meta?: Metadata): Response {
+export function notification(method: string, params?: Params): Request {
   return {
-    status: "error",
-    data: error,
-    meta
+    jsonrpc,
+    method,
+    params
   }
 }
 
 /**
- * Decoding function that tries to convert an unsafe request coming from
- * a runtime boundary into a safe one.
+ * Factory function to build success Response objects.
+ */
+export function successResponse(result: Result, id: Id): Response {
+  return {
+    jsonrpc,
+    id,
+    result
+  }
+}
+
+/**
+ * Factory function to build unsuccessful Response objects.
+ */
+export function errorResponse(error: Err, id: Id, data?: any): Response {
+  return {
+    jsonrpc,
+    id,
+    error: {data, ...error}
+  }
+}
+
+/**
+ * Decoding function that tries to convert an unsafe object coming from
+ * a runtime boundary into a Request object.
  *
- * @param {any} rawRequest The unsafe request value.
+ * @param {any} request The unsafe object value.
  * @returns {Promise<Request>} A resolved promise with the request object
  * on success, or a rejected object with an array of error messages.
  */
-export async function decodeRequest(rawRequest: any): Promise<Request> {
-  const result = Request.decode(rawRequest)
+export async function decodeRequest(request: any): Promise<Request> {
+  const result = Request.decode(request)
 
   return result.getOrElseL(() => {
-    throw PathReporter.report(result)
+    const message = PathReporter.report(result).join("\n")
+    throw new Error(message)
   })
 }
 
 /**
- * Decoding function that tries to convert an unsafe response coming from
- * a runtime boundary into a safe one.
+ * Encoding function that converts a Request object into a primitive object.
  *
- * @param {any} rawResponse The unsafe response value.
+ * @param {Request} request The request object value.
+ * @returns {any} The primitive object value.
+ */
+export function encodeRequest(request: Request): any {
+  return Request.encode(request)
+}
+
+/**
+ * Decoding function that tries to convert an unsafe object coming from
+ * a runtime boundary into a Response object.
+ *
+ * @param {any} response The unsafe object value.
  * @returns {Promise<Response>} A resolved promise with the response object
  * on success, or a rejected object with an array of error messages.
  */
-export async function decodeResponse(rawResponse: any): Promise<Response> {
-  const result = Response.decode(rawResponse)
+export async function decodeResponse(response: any): Promise<Response> {
+  const result = Response.decode(response)
 
   return result.getOrElseL(() => {
-    throw PathReporter.report(result)
+    const message = PathReporter.report(result).join("\n")
+    throw new Error(message)
   })
+}
+
+/**
+ * Encoding function that converts a Response object into a primitive object.
+ *
+ * @param {Response} response The response object value.
+ * @returns {any} The primitive object value.
+ */
+export function encodeResponse(response: Response): any {
+  return Response.encode(response)
+}
+
+/** Exception to be raised by handlers when params are not valid */
+export class InvalidParamsError {
+  /** name of error */
+  public name: string
+  /** message of error */
+  public message: string
+  constructor(message: string) {
+    this.name = "InvalidParams"
+    this.message = message
+  }
 }
