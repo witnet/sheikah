@@ -12,7 +12,7 @@ import Wallet from "./views/Wallet/index";
 const styles = require("./style.scss")
 
 export interface Iprops {
-  location: any
+  location?: any
 }
 
 export default class Home extends React.Component<Iprops> {

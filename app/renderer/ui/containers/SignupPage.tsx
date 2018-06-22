@@ -11,7 +11,7 @@ import Signup from "../components/signup/index"
  * @extends {React.Component<RouteComponentProps<any>, void>}
  */
 
-export class SignupPage extends React.Component<RouteComponentProps<any>, void> {
+export class HomePage extends React.Component<RouteComponentProps<any>, void> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
@@ -22,5 +22,5 @@ export class SignupPage extends React.Component<RouteComponentProps<any>, void> 
 }
 
 export default (
-  SignupPage as any as React.StatelessComponent<RouteComponentProps<any>>
+  HomePage as any as React.StatelessComponent<RouteComponentProps<any>>
 )
