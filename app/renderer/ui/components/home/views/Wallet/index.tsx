@@ -18,12 +18,6 @@ export interface Iprops {}
 
 export default class Wallet extends React.Component<Iprops> {
   // tslint:disable-next-line: completed-docs
-/*
-  status?: string
-  amount?: string
-  receiver?: boolean
-  address?: string
-   */
   public render() {
     const pendingTransactions = [
       {
@@ -84,6 +78,9 @@ export default class Wallet extends React.Component<Iprops> {
       unconfirmed: "0.1",
       total: "4.241592"
     }
+
+    console.log('HELLO')
+
     return (
       <div className={styles.layout}>
         <div>
@@ -96,7 +93,9 @@ export default class Wallet extends React.Component<Iprops> {
         </div>
         <div>
           <Balances className={styles.balances} {...balanceData} />
-          <div className={styles.vesting}>Vesting</div>
+          <Wrapper title="VESTING SCHEDULE GRAPH" actions={confirmedOptions} className={styles.confirmed}>
+            <p>Comming soon... D3 GRAPH</p>
+          </Wrapper>
         </div>
       </div>
     )

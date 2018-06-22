@@ -1,0 +1,27 @@
+:local {
+  .top-bar {
+    padding-left: 1em;
+    display: grid;
+    grid-template-columns: repeat(6, auto) 1fr;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .link{
+    padding: 0 2em;
+    display: flex;
+    align-items: center;
+    grid-row: 1;
+
+    .active {
+      border-bottom: 2px solid #3a75f2;
+      color: black;
+    }
+  }
+
+  .link-box {
+    color: grey;
+    font-weight: bold;
+
+  }
+
+}
