@@ -71,5 +71,23 @@ describe("API", () => {
       expect(send.mock.calls.length).toBe(1)
       expect(JSON.parse(send.mock.calls[0][0]).meta).toEqual(expected)
     })
+
+    it("should call event.sender.send with an error if request is not valid json", async () => {
+      const send = jest.fn()
+      const routes = {"some channel": async () => "some response"}
+      const handler = api.asyncListenerFactory(system, routes)
+      const event = syntheticEvent({send})
+
+      const request = JSON.stringify("invalid json data")
+
+      await handler(event, request)
+
+      const response = JSON.parse(send.mock.calls[0][0])
+
+      expect(send.mock.calls.length).toBe(1)
+      expect(response.status).toEqual("error")
+      expect(response.meta).toMatchObject({request: "\"invalid json data\""})
+      expect(response.data).toBeDefined()
+    })
   })
 })
