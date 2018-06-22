@@ -1,4 +1,8 @@
-import {Ipc, Channels} from "app/common/ipc"
+import {Ipc} from "app/common/ipc"
+import {Event} from "./synthetic"
+
+export type Listener = (e: Event, args: any) => void
+export type Channels = Array<[string, Listener]>
 
 /**
  * Helper function that wires each channel and listener together using ipc.
@@ -7,7 +11,7 @@ import {Ipc, Channels} from "app/common/ipc"
  * @param {Channels} channels The collection of channel/listener tuples to wire together.
  * @returns {void} Function used only for side-effects.
  */
-export function createChannels<T extends Ipc>(ipc: T, channels: Channels) {
+export function createChannels(ipc: Ipc<Listener>, channels: Channels) {
   channels.forEach(([channel, listener]) => {
     ipc.on(channel, listener)
   })
@@ -20,7 +24,7 @@ export function createChannels<T extends Ipc>(ipc: T, channels: Channels) {
  * @param {Channels} channels The collection of channel/listener tuples to wire together.
  * @returns {void} Function used only for side-effects.
  */
-export function removeChannels<T extends Ipc>(ipc: T, channels: Array<string>) {
+export function removeChannels(ipc: Ipc<Listener>, channels: Array<string>) {
   channels.forEach((channel) => {
     ipc.removeAllListeners(channel)
   })

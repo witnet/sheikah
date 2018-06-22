@@ -2,7 +2,8 @@ const { app, ipcMain } = require("electron")
 
 import {inDevelopment, inDarwin} from "app/common/env"
 import {config} from "app/common/config"
-import {asyncChannel, syncChannel, Channels} from "app/common/ipc"
+import {asyncChannel, syncChannel} from "app/common/ipc"
+import {Channels} from "app/main/ipc"
 import {appSystem} from "./system"
 import * as api from "./api"
 import * as ui from "./ui"
