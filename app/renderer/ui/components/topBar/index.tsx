@@ -22,7 +22,7 @@ export default class TopBar extends React.Component<Iprops> {
   public render() {
     const links = this.props.links
       .map((item) => (
-          <Link className={styles.link}  key={item.text} to={item.link}>
+          <Link className={styles.link} key={item.text} to={item.link}>
             <div className={styles["link-box"]}>
               {item.text}
             </div>
