@@ -1,25 +1,22 @@
 import * as React from "react"
-import * as Redux from "react-redux"
-import { History } from "history"
-import routes from '../../routes';
-import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'connected-react-router'
+import {Provider, Store} from "react-redux"
+import {History} from "history"
+import {ConnectedRouter} from "connected-react-router"
+import routes from "../../routes"
 
-// tslint:disable-next-line:no-duplicate-imports
-interface IRootType {
-  store: Redux.Store<any>
+interface RootProps {
+  store: Store<any>
   history: History
 }
 
-const Root = ( { store, history }: IRootType) => {
+const Root = ({store, history}: RootProps) => {
   return (
     <Provider store={store}>
-      <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */ }
-        <div>
-          {routes}
-        </div>
+      <ConnectedRouter history={history}>
+        {routes}
       </ConnectedRouter>
     </Provider>
   )
 }
+
 export default Root
