@@ -1,10 +1,11 @@
 import * as api from "app/main/api"
-import {asyncChannel} from "app/common/ipc"
-import {InvalidParamsError} from "app/common/ipc-protocol"
-import {syntheticEvent} from "test/__stubs__/event"
+import { asyncChannel } from "app/common/ipc"
+import { InvalidParamsError } from "app/common/ipc-protocol"
+import { syntheticEvent } from "test/__stubs__/event"
 
 const system = {
   json: {
+    // do not encode in order to use object assertions in mocks
     encode: async (v: any) => v,
     decode: async (m: string) => JSON.parse(m)
   }
@@ -49,7 +50,7 @@ describe("API", () => {
         const senderMock = jest.fn()
         const asyncHandler = api.asyncListenerFactory(system, {})
         const event = syntheticEvent({ send: senderMock })
-        const request = JSON.stringify({jsonrpc: "2.0", method: "ping"})
+        const request = JSON.stringify({ jsonrpc: "2.0", method: "ping" })
         const expectedResponse = {
           error: { code: -32601 }
         }
@@ -64,9 +65,9 @@ describe("API", () => {
         const handler = async (sys: any, params: any) => {
           throw new InvalidParamsError("invalid params!")
         }
-        const asyncHandler = api.asyncListenerFactory(system, {ping: handler})
+        const asyncHandler = api.asyncListenerFactory(system, { ping: handler })
         const event = syntheticEvent({ send: senderMock })
-        const request = JSON.stringify({jsonrpc: "2.0", method: "ping"})
+        const request = JSON.stringify({ jsonrpc: "2.0", method: "ping" })
         const expectedResponse = {
           error: { code: -32602 }
         }
@@ -79,9 +80,9 @@ describe("API", () => {
       it("should return an error if an Error occurs within handler", async () => {
         const senderMock = jest.fn()
         const handler = async (sys: any, params: any) => { throw new Error("kaboom!") }
-        const asyncHandler = api.asyncListenerFactory(system, {ping: handler})
+        const asyncHandler = api.asyncListenerFactory(system, { ping: handler })
         const event = syntheticEvent({ send: senderMock })
-        const request = JSON.stringify({jsonrpc: "2.0", method: "ping"})
+        const request = JSON.stringify({ jsonrpc: "2.0", method: "ping" })
         const expectedResponse = {
           error: { code: -32603 }
         }
@@ -94,7 +95,7 @@ describe("API", () => {
       it("should call the handler and send response using sender.send", async () => {
         const handlerMock = jest.fn()
         const senderMock = jest.fn()
-        const routes = {sum: handlerMock}
+        const routes = { sum: handlerMock }
         const asyncHandler = api.asyncListenerFactory(system, routes)
         const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({

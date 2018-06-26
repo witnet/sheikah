@@ -3,7 +3,7 @@ import * as ipc from "app/common/ipc-protocol"
 import { asyncChannel } from "app/common/ipc"
 import { Listener } from "app/main/ipc"
 import { Event } from "app/main/synthetic"
-import { JsonC } from "app/main/system"
+import { Json } from "app/main/system"
 import { Routes, matchRoute } from "./routes"
 
 export { routes } from "./routes"
@@ -14,13 +14,13 @@ type ListenerFactory<T> = (system: T, routes: Routes<T>) => Listener
  * Factory function that given a system and routes returns an ipc-main listener that dispatches
  * events to handlers and sends the response of those handlers asynchronously.
  *
- * @param {T} system A system containing at least a JsonC component in order to (de)serialize the
+ * @param {T} system A system containing at least a Json component in order to (de)serialize the
  * data received.
  * @param {Routes<T>} routes A map of routes that pairs method names to handler functions of
  * type Handler<T>.
  * @returns {(event: Event, req: string) => void} The listener function
  */
-export const asyncListenerFactory: ListenerFactory<JsonC> = genericListenerFactory(
+export const asyncListenerFactory: ListenerFactory<Json> = genericListenerFactory(
   async (event, response) => {
     event.sender.send(asyncChannel, response)
   }
@@ -30,13 +30,13 @@ export const asyncListenerFactory: ListenerFactory<JsonC> = genericListenerFacto
  * Factory function that given a system and routes returns an ipc-main listener that dispatches
  * events to handlers and sends the response of those handlers synchronously.
  *
- * @param {T} system A system containing at least a JsonC component in order
+ * @param {T} system A system containing at least a Json component in order
  * to (de)serialize the data received.
  * @param {Routes<T>} routes A map of routes that pairs method names to handler functions of type
- * Handler<T extends JsonC>.
+ * Handler<T extends Json>.
  * @returns {(event: Event, req: string) => void} The listener function
  */
-export const syncListenerFactory: ListenerFactory<JsonC> = genericListenerFactory(
+export const syncListenerFactory: ListenerFactory<Json> = genericListenerFactory(
   async (event, response) => {
     event.returnValue = response
   }
@@ -51,8 +51,8 @@ export const syncListenerFactory: ListenerFactory<JsonC> = genericListenerFactor
  * @returns {(system: T, routes: Routes<T>) => (event: Event, req: string) => void} The listener
  * factory function.
  */
-function genericListenerFactory(sendResponseMessage: Listener): ListenerFactory<JsonC> {
-  return (system: JsonC, routes: Routes<JsonC>): Listener => {
+function genericListenerFactory(sendResponseMessage: Listener): ListenerFactory<Json> {
+  return (system: Json, routes: Routes<Json>): Listener => {
     return async (event: Event, message: string): Promise<void> => {
       let response
 

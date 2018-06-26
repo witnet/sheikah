@@ -4,8 +4,9 @@ export type Lifecycle<T, C> = {
 }
 
 /**
- * Helper function for creating components (lifecycled objects) that don't do any real
- * initialization when starting, or teardown when stopping.
+ * Helper function for creating components. A component is just an object that implements the
+ * lifecycle protocol. A pure component is just a component that do not need to do any real
+ * initialization/teardown when starting/stopping.
  *
  * @param {(config: C) => T} getValue A function that given an optional config object
  * returns the value of the component.
