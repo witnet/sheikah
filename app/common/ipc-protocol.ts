@@ -4,7 +4,7 @@
  * as possible to the JSON-RPC 2.0 Specification.
  */
 import * as t from "io-ts"
-import {PathReporter} from "io-ts/lib/PathReporter"
+import { PathReporter } from "io-ts/lib/PathReporter"
 
 /** Version runtime type */
 const Version = t.literal("2.0")
@@ -27,7 +27,7 @@ export const Params = t.union([t.Dictionary, t.Array])
 /** Params type */
 export type Params = t.TypeOf<typeof Params>
 
-  /** Request runtime type */
+/** Request runtime type */
 export const Request = t.intersection([
   t.type({
     jsonrpc: Version,
@@ -68,29 +68,37 @@ export const Err = t.intersection([
   })
 ])
 
+export enum ErrCodes {
+  ParseError = -32700,
+  InvalidRequest = -32600,
+  MethodNotFound = -32601,
+  InvalidParams = -32602,
+  InternalError = -32603
+}
+
 /** Map of possible error codes and messages */
 export const errors = {
   /**
    * Invalid JSON was received by the server.
    * An error occurred on the server while parsing the JSON text.
    */
-  parseError: { code: -32700, message: "Parse error" },
+  parseError: { code: ErrCodes.ParseError, message: "Parse error" },
   /**
    * The JSON sent is not a valid Request object.
    */
-  invalidRequest: { code: -32600, message: "Invalid request" },
+  invalidRequest: { code: ErrCodes.InvalidRequest, message: "Invalid request" },
   /**
    * The method does not exist / is not available.
    */
-  methodNotFound: { code: -32601, message: "Method not found" },
+  methodNotFound: { code: ErrCodes.MethodNotFound, message: "Method not found" },
   /**
    * Invalid method parameter(s).
    */
-  invalidParams: { code: -32602, message: "Invalid params"},
+  invalidParams: { code: ErrCodes.InvalidParams, message: "Invalid params" },
   /**
    * Internal JSON-RPC error.
    */
-  internalError: { code: -32603, message: "Internal JSON-RPC error"}
+  internalError: { code: ErrCodes.InternalError, message: "Internal JSON-RPC error" }
 }
 
 /** Err type */
@@ -166,7 +174,7 @@ export function errorResponse(error: Err, id: Id, data?: any): Response {
   return {
     jsonrpc,
     id,
-    error: {data, ...error}
+    error: { data, ...error }
   }
 }
 

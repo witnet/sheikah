@@ -1,6 +1,6 @@
 import * as api from "app/main/api"
 import { asyncChannel } from "app/common/ipc"
-import { InvalidParamsError } from "app/common/ipc-protocol"
+import { InvalidParamsError, ErrCodes } from "app/common/ipc-protocol"
 import { syntheticEvent } from "test/__stubs__/event"
 
 const system = {
@@ -24,7 +24,7 @@ describe("API", () => {
         const event = syntheticEvent({ send: senderMock })
         const message = "invalid request"
         const expectedResponse = {
-          error: { code: -32700 }
+          error: { code: ErrCodes.ParseError }
         }
 
         await asyncHandler(event, message)
@@ -38,7 +38,7 @@ describe("API", () => {
         const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({})
         const expectedResponse = {
-          error: { code: -32600 }
+          error: { code: ErrCodes.InvalidRequest }
         }
 
         await asyncHandler(event, request)
@@ -52,7 +52,7 @@ describe("API", () => {
         const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({ jsonrpc: "2.0", method: "ping" })
         const expectedResponse = {
-          error: { code: -32601 }
+          error: { code: ErrCodes.MethodNotFound }
         }
 
         await asyncHandler(event, request)
@@ -69,7 +69,7 @@ describe("API", () => {
         const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({ jsonrpc: "2.0", method: "ping" })
         const expectedResponse = {
-          error: { code: -32602 }
+          error: { code: ErrCodes.InvalidParams }
         }
 
         await asyncHandler(event, request)
@@ -84,7 +84,7 @@ describe("API", () => {
         const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({ jsonrpc: "2.0", method: "ping" })
         const expectedResponse = {
-          error: { code: -32603 }
+          error: { code: ErrCodes.InternalError }
         }
 
         await asyncHandler(event, request)
