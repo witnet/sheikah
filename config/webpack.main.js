@@ -14,9 +14,12 @@ const baseConfig = {
   devtool: "source-map",
   target: "electron-main",
 
-  entry: [path.resolve(__dirname, "../app/main/index.js")],
+  entry: [path.resolve(__dirname, "../app/main/index.ts")],
 
   resolve: {
+    alias: {
+      app: path.resolve(__dirname, "../app")
+    },
     extensions: [".js", ".ts", ".json"]
   },
 

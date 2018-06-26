@@ -47,7 +47,7 @@ export class Counter extends React.Component<IProps> {
           >
             odd
           </button>
-            {/* tslint:disable-next-line: no-unnecessary-callback-wrapper no-void-expression */}
+          {/* tslint:disable-next-line: no-unnecessary-callback-wrapper no-void-expression */}
           <button
             className={styles.btn}
             onClick={incAsync}

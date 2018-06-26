@@ -37,6 +37,6 @@
     "../typings/**/*.d.ts"
   ],
   "exclude": [
-    "dist"
+    "../dist"
   ]
 }

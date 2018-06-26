@@ -38,6 +38,7 @@ const baseConfig = {
   resolve: {
     extensions: [".js", ".ts", ".tsx"],
     alias: {
+      app: path.resolve(__dirname, "../app"),
       appCommon: path.resolve(__dirname, "../app/common"),
       appRenderer: path.resolve(__dirname, "../app/renderer")
     },
