@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Menu, MenuItemConstructorOptions, shell } from "electron"
-import {inDevelopment, inDarwin} from "app/common/env"
+import { inDevelopment, inHotMode, inDarwin } from "app/common/env"
 
 let menu: Menu
 let template: Array<MenuItemConstructorOptions>
@@ -15,7 +15,11 @@ export function createMainWindow() {
     height: 728
   })
 
-  mainWindow.loadURL(`file://${__dirname}/app.html`)
+  const paths = require("app/../config/paths")
+  const appHtml = inHotMode ?
+    `file://${paths.templateAppHtml}` :
+    `file://${paths.filenameAppHtml}`
+  mainWindow.loadURL(appHtml)
 
   mainWindow.webContents.on("did-finish-load", () => {
     if (mainWindow) {
