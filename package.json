@@ -17,6 +17,7 @@
     "build": "cross-env NODE_ENV=production yarn build-main && cross-env NODE_ENV=production yarn build-renderer",
     "build-dev": "cross-env NODE_ENV=development yarn build-main && cross-env NODE_ENV=development yarn build-renderer",
     "dev": "yarn build-main && yarn hot-server -- --exec 'HOT=1 yarn start-electron'",
+    "prestart": "yarn clean",
     "start": "yarn dev",
     "start-electron": "electron ./dist/main",
     "package": "yarn build && build --publish never",
