@@ -1,4 +1,7 @@
+/**
+ * Serializers must comply with this type.
+ */
 export type Serializer<A, B> = {
-  encode(value: A): Promise<B>;
-  decode(serialized: B): Promise<A>;
+  serialize: (value: A) => Promise<B>
+  deserialize: (serialized: B) => Promise<A>
 }

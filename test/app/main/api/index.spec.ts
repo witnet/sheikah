@@ -6,8 +6,8 @@ import { syntheticEvent } from "test/__stubs__/event"
 const system = {
   json: {
     // do not encode in order to use object assertions in mocks
-    encode: async (v: any) => v,
-    decode: async (m: string) => JSON.parse(m)
+    serialize: async (v: any) => v,
+    deserialize: async (m: string) => JSON.parse(m)
   }
 }
 
