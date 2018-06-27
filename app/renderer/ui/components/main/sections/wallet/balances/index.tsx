@@ -1,10 +1,9 @@
 import * as React from "react"
-import Wrapper from '../../../../wrapper/index';
-
+import Wrapper from "../../../../wrapper/index"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
+export interface BalanceProps {
   className?: string
   availableBalance?: string
   timelocked?: string
@@ -17,10 +16,10 @@ export interface Iprops {
  *
  * @export
  * @class Wallet
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<BalanceProps>}
  */
 
-export default class Balances extends React.Component<Iprops> {
+export default class Balances extends React.Component<BalanceProps> {
   // tslint:disable-next-line: completed-docs
   public render() {
     return (

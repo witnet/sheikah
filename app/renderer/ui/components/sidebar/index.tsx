@@ -1,10 +1,12 @@
 import * as React from "react"
-import { Link } from 'react-router-dom'
+import {SideBarLink, SideBarLinkProps} from "./sideBarLink"
+import {PathNameProp} from "../commonTypes"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
+export interface SidebarProps {
   className?: string
+  linksProps: Array<SideBarLinkProps>
 }
 
 /**
@@ -12,16 +14,17 @@ export interface Iprops {
  *
  * @export
  * @class Sidebar
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<SidebarProps>}
  */
 
-export default class Sidebar extends React.Component<Iprops> {
+export default class Sidebar extends React.Component<SidebarProps & PathNameProp> {
+
   // tslint:disable-next-line: completed-docs
   public render() {
     return (
       <div className={`${this.props.className} ${styles.sidebar}`}>
         <div className={styles.brand}>
-          <i className={`fa fa-bullseye ${styles.logo}`}></i>
+          <i className={`fa fa-bullseye ${styles.logo}`} />
           <span className={styles.name}>Sheikah</span>
           <span className={styles.label}>[TECHNOLOGY PREVIEW]</span>
         </div>
@@ -29,47 +32,23 @@ export default class Sidebar extends React.Component<Iprops> {
           My hot wallet
         </div>
         <div className={styles["link-list"]}>
-          <Link to="/home/wallet">
-            <div className={`${styles.link} ${styles.active}`}>
-              <i className="fa fa-cog"></i>
-              <span className={styles["option-icon"]}>Wallet</span>
-            </div>
-          </Link>
-          <Link to="/home/smart-contracts">
-            <div className={styles.link}>
-              <i className="fa fa-file"></i>
-              <span className={styles["option-icon"]}>Smart contracts</span>
-            </div>
-          </Link>
-          <Link to="/home/attestations">
-            <div className={styles.link}>
-              <i className="fa fa-eye"></i>
-              <span className={styles["option-icon"]}>Attestations</span>
-            </div>
-          </Link>
-          <Link to="/home/block-explorer">
-            <div className={styles.link}>
-              <i className="fa fa-square"></i>
-              <span className={styles["option-icon"]}>Block explorer</span>
-            </div>
-          </Link>
-          <Link to="/home/community">
-            <div className={styles.link}>
-              <i className="fa fa-building"></i>
-              <span className={styles["option-icon"]}>Community</span>
-            </div>
-          </Link>
+          {linksRender(this.props.linksProps, this.props.pathName)}
         </div>
         <div className={styles.settings}>
-          <i className={`fa fa-cog ${styles["settings-icon"]}`}></i>
-
+          <i className={`fa fa-cog ${styles["settings-icon"]}`} />
           <div className={styles["net-status"]}>
             <span className={styles.mainnet}>MAINNET</span>
             <span className={styles.synced}>SYNCED</span>
-            <i className={`fa fa-circle ${styles.status}`}></i>
+            <i className={`fa fa-circle ${styles.status}`} />
           </div>
         </div>
       </div>
     )
   }
+}
+
+const linksRender = (linksProps: Array<SideBarLinkProps>, pathName: string) => {
+  return linksProps.map((props) => {
+    return <SideBarLink key={props.key} {...props} pathName={pathName} />
+  })
 }

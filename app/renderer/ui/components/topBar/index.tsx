@@ -1,12 +1,13 @@
 import * as React from "react"
-
-import { Link } from "react-router-dom"
+import {PathNameProp} from "../commonTypes"
+import {TopBarLink, TopBarLinkProps} from "./topBarLink"
+import {join} from "../../../utils/list"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
+export interface TopBarProps {
   className?: string
-  links: {text: string, link: string}[]
+  linksProps: Array<TopBarLinkProps>
 }
 
 /**
@@ -14,26 +15,22 @@ export interface Iprops {
  *
  * @export
  * @class TopBar
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<TopBarProps>}
  */
 
-export default class TopBar extends React.Component<Iprops> {
+export default class TopBar extends React.Component<TopBarProps & PathNameProp> {
   // tslint:disable-next-line: completed-docs
   public render() {
-    const links = this.props.links
-      .map((item) => (
-          <Link className={styles.link} key={item.text} to={item.link}>
-            <div className={styles["link-box"]}>
-              {item.text}
-            </div>
-          </Link>
-        )
-      )
-
     return (
-      <div className={`${styles["top-bar"]} ${this.props.className}`}>
-        {links}
+      <div className={join([styles["top-bar"], this.props.className])}>
+        {linksRender(this.props.linksProps, this.props.pathName)}
       </div>
     )
   }
+}
+
+const linksRender = (linksProps: Array<TopBarLinkProps>, pathName: string) => {
+  return linksProps.map((props) => {
+    return <TopBarLink key={props.key} {...props} pathName={pathName} />
+  })
 }
