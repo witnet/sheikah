@@ -57,7 +57,7 @@ function genericListenerFactory(sendResponseMessage: Listener): ListenerFactory<
       let response
 
       try {
-        const obj = await system.json.decode(message)
+        const obj = await system.json.deserialize(message)
         try {
           const request = await ipc.decodeRequest(obj)
           const id = request.id ? request.id : null
