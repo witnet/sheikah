@@ -5,6 +5,23 @@
  */
 import * as t from "io-ts"
 import { PathReporter } from "io-ts/lib/PathReporter"
+import { JsonSerializable } from "app/common/serializers"
+
+/**
+ * Json runtime type. This type is intended to replace `any` and hence make function signatures
+ * more strict.
+ */
+const JsonRT = t.recursion<JsonSerializable>(
+  "JsonRT",
+  (self) => t.union([
+    t.nullType,
+    t.number,
+    t.string,
+    t.boolean,
+    t.dictionary(t.string, self),
+    t.array(self)
+  ])
+)
 
 /** Version runtime type */
 const Version = t.literal("2.0")
@@ -22,7 +39,7 @@ export const Id = t.union([t.string, t.number, t.nullType])
 export type Id = t.TypeOf<typeof Id>
 
 /** Params runtime type */
-export const Params = t.union([t.Dictionary, t.Array])
+export const Params = t.array(JsonRT)
 
 /** Params type */
 export type Params = t.TypeOf<typeof Params>
@@ -51,12 +68,6 @@ export function isNotification(req: Request): boolean {
   return !("id" in req)
 }
 
-/** Result runtime type */
-export const Result = t.refinement(t.any, (v) => v !== undefined)
-
-/** Result type */
-export type Result = t.TypeOf<typeof Result>
-
 /** Err runtime type */
 export const Err = t.intersection([
   t.type({
@@ -64,7 +75,7 @@ export const Err = t.intersection([
     message: t.string
   }),
   t.partial({
-    data: t.any
+    data: JsonRT
   })
 ])
 
@@ -112,7 +123,7 @@ export const Response = t.intersection([
   }),
   t.union([
     t.type({ error: Err }),
-    t.type({ result: Result })
+    t.type({ result: JsonRT })
   ])
 ])
 
@@ -131,6 +142,13 @@ export function isSuccessResponse(res: Response): boolean {
  */
 export function isErrorResponse(res: Response): boolean {
   return "error" in res
+}
+
+/**
+ * Factory function to build the name of a reply channel.
+ */
+export function replyChannel(id: Id): string {
+  return `async-reply-chan-${id}`
 }
 
 /**
@@ -159,7 +177,7 @@ export function notification(method: string, params?: Params): Request {
 /**
  * Factory function to build success Response objects.
  */
-export function successResponse(result: Result, id: Id): Response {
+export function successResponse(result: JsonSerializable, id: Id): Response {
   return {
     jsonrpc,
     id,
@@ -240,6 +258,18 @@ export class InvalidParamsError {
   public message: string
   constructor(message: string) {
     this.name = "InvalidParams"
+    this.message = message
+  }
+}
+
+/** Exception to be raised by clients after a timeout */
+export class TimeoutError {
+  /** name of error */
+  public name: string
+  /** message of error */
+  public message: string
+  constructor(message: string) {
+    this.name = "TimeoutError"
     this.message = message
   }
 }

@@ -5,7 +5,7 @@ import { Serializer } from "./types"
  * by Javascript's own JSON library.
  */
 export type JsonSerializable =
-  number | string | boolean | JsonSerializableObject | JsonSerializableArray
+  null | number | string | boolean | JsonSerializableObject | JsonSerializableArray
 export type JsonSerializableObject = { [key: string]: JsonSerializable }
 export interface JsonSerializableArray extends Array<JsonSerializable> { }
 

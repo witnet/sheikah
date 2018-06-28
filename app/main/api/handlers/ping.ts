@@ -1,9 +1,7 @@
 /**
- * Handler of ping method
- * @param data
- * @returns {Promise<string>}
+ * Ping handler
  */
-async function ping(system: any, data: any) {
+async function ping(system: any, params: any) {
   return "pong"
 }
 

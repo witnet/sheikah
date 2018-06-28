@@ -1,12 +1,15 @@
 import * as h from "./handlers"
+import { System } from "app/main/system"
 
 export type Routes<T> = {
   [key: string]: h.Handler<T>
 }
 
-export const routes: Routes<any> = {
+export const routes: Routes<System> = {
   ping: h.ping,
-  nop: h.nop
+  nop: h.nop,
+  echo: h.echo,
+  error: h.error
 }
 
 /**

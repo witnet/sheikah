@@ -1,6 +1,7 @@
 /* tslint:disable:no-null-keyword */
-import * as ipc from "app/common/ipc-protocol"
-import { asyncChannel } from "app/common/ipc"
+import log from "app/common/logging"
+import * as protocol from "app/common/ipc-protocol"
+import { deadLetterChannel } from "app/common/ipc"
 import { Listener } from "app/main/ipc"
 import { Event } from "app/main/synthetic"
 import { Json } from "app/main/system"
@@ -21,8 +22,10 @@ type ListenerFactory<T> = (system: T, routes: Routes<T>) => Listener
  * @returns {(event: Event, req: string) => void} The listener function
  */
 export const asyncListenerFactory: ListenerFactory<Json> = genericListenerFactory(
-  async (event, response) => {
-    event.sender.send(asyncChannel, response)
+  (responseChannel: string) => {
+    return async (event: Event, response: string) => {
+      event.sender.send(responseChannel, response)
+    }
   }
 )
 
@@ -37,10 +40,14 @@ export const asyncListenerFactory: ListenerFactory<Json> = genericListenerFactor
  * @returns {(event: Event, req: string) => void} The listener function
  */
 export const syncListenerFactory: ListenerFactory<Json> = genericListenerFactory(
-  async (event, response) => {
-    event.returnValue = response
+  (responseChannel: string) => {
+    return async (event: Event, response: string) => {
+      event.returnValue = response
+    }
   }
 )
+
+type ResponseFunction = (responseChannel: string) => Listener
 
 /**
  * Helper function that given a event-responding function generates an ipc-main listener
@@ -51,44 +58,79 @@ export const syncListenerFactory: ListenerFactory<Json> = genericListenerFactory
  * @returns {(system: T, routes: Routes<T>) => (event: Event, req: string) => void} The listener
  * factory function.
  */
-function genericListenerFactory(sendResponseMessage: Listener): ListenerFactory<Json> {
+function genericListenerFactory(sendResponseMessage: ResponseFunction): ListenerFactory<Json> {
   return (system: Json, routes: Routes<Json>): Listener => {
     return async (event: Event, message: string): Promise<void> => {
       let response
 
       try {
+        // Step 1/4: Try to deserialize the message string into an object with the Json serializer
+        log.debug(`[IPC Main] Received message: ${message}`)
         const obj = await system.json.deserialize(message)
         try {
-          const request = await ipc.decodeRequest(obj)
-          const id = request.id ? request.id : null
+          // Step 2/4: Validate if the deserialized object is a valid request
+          const request = await protocol.decodeRequest(obj)
           try {
-            const handler = await matchRoute(routes, request.method)
+            // Step 3/4: Try to find a handler in `routes` for the method specified in
+            // `request.method`
+            const methodHandler = await matchRoute(routes, request.method)
             try {
-              const result = await handler(system, request.params)
-              response = id ? ipc.successResponse(result, id) : undefined
-            } catch (e) {
-              response = ipc.errorResponse(
-                e instanceof ipc.InvalidParamsError ?
-                  ipc.errors.invalidParams :
-                  ipc.errors.internalError,
-                id,
-                e
+              // Step 4/4: Invoke the method handler for `request.method` and try to invoke it
+              // with `request.params`
+              const params = request.params || []
+              const result = await methodHandler(system, params)
+              response = protocol.successResponse(
+                result === undefined ? null : result,
+                request.id || null
+              )
+            } catch (error) {
+              // Step 4/4 (ERROR): If the invocation of the method handler fails with an
+              // `InvalidParamsError` JSON-RPC says we must return an "invalid params" error
+              // response. In case of any other error, it is treated as an unkown error and
+              // JSON-RPC says we must return an "internal error" error response
+              response = protocol.errorResponse(
+                error instanceof protocol.InvalidParamsError ?
+                  protocol.errors.invalidParams :
+                  protocol.errors.internalError,
+                request.id || null,
+                { error, message }
               )
             }
-          } catch (e) {
-            response = ipc.errorResponse(ipc.errors.methodNotFound, id, e)
+          } catch (error) {
+            // Step 3/4 (ERROR): If no handler is found JSON-RPC says we must return a
+            // "method not found" error response
+            response = protocol.errorResponse(
+              protocol.errors.methodNotFound, request.id || null, { error, message })
           }
-        } catch (e) {
-          response = ipc.errorResponse(ipc.errors.invalidRequest, null, e)
+        } catch (error) {
+          // Step 2/4 (ERROR): If the deserialized object is NOT a valid request JSON-RPC says we
+          // must return an "invalid request" error response
+          response = protocol.errorResponse(
+            protocol.errors.invalidRequest, null, { error, message })
         }
-      } catch (e) {
-        response = ipc.errorResponse(ipc.errors.parseError, null, e)
+      } catch (error) {
+        // Step 1/4 (ERROR): If the deserialization fails JSON-RPC says we must return a
+        // "parse error" error response
+        response = protocol.errorResponse(protocol.errors.parseError, null, { error, message })
       }
 
-      if (response) {
-        const message = await ipc.encodeResponse(response)
-        await sendResponseMessage(event, message)
-      }
+      const responseObj = await protocol.encodeResponse(response)
+      const responseMessage = await system.json.serialize(responseObj)
+
+      log.debug(`[IPC Main] Created reponse message: ${responseMessage})`)
+
+      const replyChannel = response.id ? protocol.replyChannel(response.id) : deadLetterChannel
+
+      log.debug(`[IPC Main] Sending response message (${replyChannel})`)
+      await sendResponseMessage(replyChannel)(event, responseMessage)
     }
   }
+}
+
+/**
+ * Listener intended to be used only with dead letters channel. For every message it receives it
+ * logs it as a warning.
+ */
+export async function deadLetterListener(event: Event, message: string): Promise<void> {
+  log.warn(`[Dead Letter] Received message: ${message}`)
 }

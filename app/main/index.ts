@@ -1,10 +1,10 @@
 const { app, ipcMain } = require("electron")
 
-import {inDevelopment, inDarwin} from "app/common/env"
-import {config} from "app/common/config"
-import {asyncChannel, syncChannel} from "app/common/ipc"
-import {Channels} from "app/main/ipc"
-import {appSystem} from "./system"
+import { inDevelopment, inDarwin } from "app/common/env"
+import { config } from "app/common/config"
+import { asyncChannel, syncChannel, deadLetterChannel } from "app/common/ipc"
+import { Channels } from "app/main/ipc"
+import { appSystem } from "./system"
 import * as api from "./api"
 import * as ui from "./ui"
 import * as ipc from "./ipc"
@@ -43,7 +43,8 @@ async function startApplication() {
   ])
   channels = [
     [asyncChannel, api.asyncListenerFactory(system, api.routes)],
-    [syncChannel, api.syncListenerFactory(system, api.routes)]
+    [syncChannel, api.syncListenerFactory(system, api.routes)],
+    [deadLetterChannel, api.deadLetterListener]
   ]
   ipc.createChannels(ipcMain, channels)
   ui.createMainWindow()
