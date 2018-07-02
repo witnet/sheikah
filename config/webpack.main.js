@@ -50,7 +50,8 @@ const baseConfig = {
   },
 
   externals: {
-    "leveldown": "require('leveldown')"
+    "leveldown": "require('leveldown')",
+    "electron-debug": "require('electron-debug')"
   }
 };
 
