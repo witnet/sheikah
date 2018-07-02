@@ -1,11 +1,12 @@
 /* tslint:disable:no-null-keyword */
-import log from "app/common/logging"
-import * as protocol from "app/common/ipc-protocol"
+
 import { deadLetterChannel } from "app/common/ipc"
+import * as protocol from "app/common/ipc-protocol"
+import log from "app/common/logging"
 import { Listener } from "app/main/ipc"
 import { Event } from "app/main/synthetic"
-import { Json } from "app/main/system"
-import { Routes, matchRoute } from "./routes"
+import { SubSystems } from "app/main/system"
+import { matchRoute, Routes } from "./routes"
 
 export { routes } from "./routes"
 
@@ -21,7 +22,7 @@ type ListenerFactory<T> = (system: T, routes: Routes<T>) => Listener
  * type Handler<T>.
  * @returns {(event: Event, req: string) => void} The listener function
  */
-export const asyncListenerFactory: ListenerFactory<Json> = genericListenerFactory(
+export const asyncListenerFactory: ListenerFactory<SubSystems> = genericListenerFactory(
   (responseChannel: string) => {
     return async (event: Event, response: string) => {
       event.sender.send(responseChannel, response)
@@ -39,7 +40,7 @@ export const asyncListenerFactory: ListenerFactory<Json> = genericListenerFactor
  * Handler<T extends Json>.
  * @returns {(event: Event, req: string) => void} The listener function
  */
-export const syncListenerFactory: ListenerFactory<Json> = genericListenerFactory(
+export const syncListenerFactory: ListenerFactory<SubSystems> = genericListenerFactory(
   (responseChannel: string) => {
     return async (event: Event, response: string) => {
       event.returnValue = response
@@ -58,8 +59,9 @@ type ResponseFunction = (responseChannel: string) => Listener
  * @returns {(system: T, routes: Routes<T>) => (event: Event, req: string) => void} The listener
  * factory function.
  */
-function genericListenerFactory(sendResponseMessage: ResponseFunction): ListenerFactory<Json> {
-  return (system: Json, routes: Routes<Json>): Listener => {
+function genericListenerFactory(sendResponseMessage: ResponseFunction)
+  : ListenerFactory<SubSystems> {
+  return (system: SubSystems, routes: Routes<SubSystems>): Listener => {
     return async (event: Event, message: string): Promise<void> => {
       let response
 
