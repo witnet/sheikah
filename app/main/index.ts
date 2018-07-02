@@ -1,13 +1,13 @@
 const { app, ipcMain } = require("electron")
 
-import { inDevelopment, inDarwin } from "app/common/env"
 import { config } from "app/common/config"
-import { asyncChannel, syncChannel, deadLetterChannel } from "app/common/ipc"
+import { inDarwin, inDevelopment } from "app/common/env"
+import { asyncChannel, deadLetterChannel, syncChannel } from "app/common/ipc"
 import { Channels } from "app/main/ipc"
-import { appSystem } from "./system"
 import * as api from "./api"
-import * as ui from "./ui"
 import * as ipc from "./ipc"
+import { appSystem } from "./system"
+import * as ui from "./ui"
 
 let channels: Channels
 
