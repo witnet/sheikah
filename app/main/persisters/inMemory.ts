@@ -3,7 +3,7 @@ import Persister from "./index"
 /**
  * InMemoryBackend implements a mocked in-memory StorageBackend.
  */
-export default class InMemoryPersister implements Persister<Buffer> {
+export default class InMemoryPersister implements Persister<string, Buffer> {
 
   constructor(private memory: { [key: string]: Buffer } = {}) { }
 
@@ -20,8 +20,8 @@ export default class InMemoryPersister implements Persister<Buffer> {
    * @param {Buffer} key
    * @returns {Promise<Buffer>}
    */
-  public get = async (key: Buffer): Promise<Buffer> => {
-    return Promise.resolve(this.memory[key.toString("utf8")])
+  public get = async (key: string): Promise<Buffer> => {
+    return Promise.resolve(this.memory[key])
   }
 
   /**
@@ -30,8 +30,8 @@ export default class InMemoryPersister implements Persister<Buffer> {
    * @param {Buffer} value
    * @returns {Promise<boolean>}
    */
-  public put = async (key: Buffer, value: Buffer): Promise<void> => {
-    this.memory[key.toString("utf8")] = value
+  public put = async (key: string, value: Buffer): Promise<void> => {
+    this.memory[key] = value
 
     return Promise.resolve()
   }

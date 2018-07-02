@@ -4,7 +4,7 @@ import Persister from "./index"
 /**
  * LevelBackend implements the IStorageBackend for LevelDB.
  */
-export default class LevelPersister implements Persister<Buffer> {
+export class LevelPersister implements Persister<Buffer, Buffer> {
 
   /**
    * The LevelBackend constructor takes a reference to a LevelUp backend.
