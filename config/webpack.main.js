@@ -5,7 +5,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const webpackMergeConfigs = require("webpack-merge");
-const webpackRenderer = require("./webpack.renderer");
 
 const port = process.env.PORT || 3000;
 const forProduction = process.env.NODE_ENV === "production";
