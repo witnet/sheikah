@@ -1,6 +1,5 @@
 import { SubSystems } from "app/main/system"
 import * as h from "./handlers"
-import { System } from "app/main/system"
 
 export type Routes<T> = {
   [key: string]: h.Handler<T>
