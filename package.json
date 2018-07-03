@@ -12,7 +12,7 @@
     "jest": "jest -c config/jest.js",
     "typecheck": "tsc --noEmit -p config",
     "hot-server": "node --max_old_space_size=2096 server.js",
-    "build-main": "yarn rebuild-native && webpack --config config/webpack.main.js --progress --profile --colors",
+    "build-main": "webpack --config config/webpack.main.js --progress --profile --colors",
     "build-renderer": "webpack --config config/webpack.renderer.js --progress --profile --colors",
     "build": "cross-env NODE_ENV=production yarn build-main && cross-env NODE_ENV=production yarn build-renderer",
     "build-dev": "cross-env NODE_ENV=development yarn build-main && cross-env NODE_ENV=development yarn build-renderer",
@@ -31,14 +31,14 @@
     "json-merge": "node scripts/json-merge",
     "clean": "rimraf release dist",
     "clean-deps": "rimraf node_modules",
-    "rebuild-native": "electron-rebuild -m node_modules/leveldown",
     "reinstall": "yarn clean-deps; yarn install",
     "commit": "git-cz",
     "precommit": "lint-staged",
     "commitmsg": "commitlint -g config/commitlint.config.js -e $GIT_PARAMS",
     "fmt-verify": "tsfmt --useTsfmt config/tsfmt.json --verify app/**/**/*.ts test/**/*.ts",
     "fmt": "tsfmt --useTsfmt config/tsfmt.json app/**/**/*.ts test/**/*.ts && scssfmt --recursive './app/**/**/*.scss' --diff",
-    "fmt!": "tsfmt --useTsfmt config/tsfmt.json -r app/**/**/*.ts test/**/*.ts && scssfmt --recursive './app/**/**/*.scss'"
+    "fmt!": "tsfmt --useTsfmt config/tsfmt.json -r app/**/**/*.ts test/**/*.ts && scssfmt --recursive './app/**/**/*.scss'",
+    "postinstall": "electron-builder install-app-deps"
   },
   "lint-staged": {
     "*.ts": [
@@ -154,7 +154,6 @@
     "electron-debug": "^1.1.0",
     "electron-devtools-installer": "^2.2.3",
     "electron-log": "^2.2.15",
-    "electron-rebuild": "^1.7.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "express": "^4.16.3",
@@ -206,6 +205,7 @@
     "font-awesome": "^4.7.0",
     "history": "^4.6.1",
     "io-ts": "^1.1.5",
+    "leveldown": "^4.0.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
