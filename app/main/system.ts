@@ -3,7 +3,7 @@ import log from "app/common/logging"
 import { JsonSerializer } from "app/common/serializers"
 import { Lifecycle } from "./lifecycle"
 import { jsonSubSystem } from "./subsystems/json"
-import { JsonPlainLevel, JsonPlainLevelStorage } from "./subsystems/storages/jsonPlainLevel"
+import { JsonPlainLevel, JsonPlainLevelStorage } from "./subsystems/jsonPlainLevel"
 
 /**
  * Type of the system object returned by system.start()

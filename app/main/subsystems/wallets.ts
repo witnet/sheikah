@@ -1,10 +1,10 @@
 import { Config } from "app/common/config"
+import { Storage } from "app/main/storage"
 import { Lifecycle } from "app/main/lifecycle"
-import Storage from "./index"
 
 type WalletStorage = Storage<string, Buffer, Buffer, Buffer>
 
-type WalletStorageCollection = {[name: string]: WalletStorage}
+type WalletStorageCollection = { [name: string]: WalletStorage }
 
 /**
  * This is a very simple subsystem containing a collection of WalletStorage objects that can be
@@ -33,7 +33,7 @@ export class WalletStorageCollectionSubSystem
    */
   public async stop() {
     const promises = Object.values(this.items)
-      .map((storage: WalletStorage) => storage.close())
+      .map(async (storage: WalletStorage) => storage.close())
     await Promise.all(promises)
     this.items = {}
 

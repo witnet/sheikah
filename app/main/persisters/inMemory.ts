@@ -1,9 +1,9 @@
-import Persister from "./index"
+import { Persister } from "./index"
 
 /**
  * InMemoryBackend implements a mocked in-memory StorageBackend.
  */
-export default class InMemoryPersister implements Persister<string, Buffer> {
+export class InMemoryPersister implements Persister<string, Buffer> {
 
   constructor(private memory: { [key: string]: Buffer } = {}) { }
 

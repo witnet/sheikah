@@ -1,13 +1,13 @@
-import Cipher from "app/main/ciphers"
-import Persister from "app/main/persisters"
-import { Hasher } from "app/main/hashers"
 import { Serializer } from "app/common/serializers"
+import { Cipher } from "app/main/ciphers"
+import { Hasher } from "app/main/hashers"
+import { Persister } from "app/main/persisters"
 
 /**
  * A generic class that ties together all the pieces of a storage subsystem (serializer, cipher and
  * backend) and implements the data flow for getting and putting data from/into the store.
  */
-export default class Storage<KeyOut, Data, Serialized, Ciphered> {
+export class Storage<KeyOut, Data, Serialized, Ciphered> {
 
   constructor(
     private keyHasher: Hasher<string, KeyOut>,

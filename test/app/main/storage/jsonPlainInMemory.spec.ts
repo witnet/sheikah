@@ -1,8 +1,8 @@
 import { jsonSerializer } from "app/common/serializers"
 import { PlainCipher } from "app/main/ciphers/plain"
 import { noHasher } from "app/main/hashers/no"
-import InMemoryPersister from "app/main/persisters/inMemory"
-import Storage from "app/main/subsystems/storages"
+import { InMemoryPersister } from "app/main/persisters/inMemory"
+import { Storage } from "app/main/storage"
 
 const keyHasher = noHasher
 const serializer = jsonSerializer

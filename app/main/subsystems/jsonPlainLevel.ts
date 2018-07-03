@@ -1,16 +1,16 @@
 import * as level from "level"
 import { homedir } from "os"
 import * as path from "path"
-import Storage from "."
 import log from "app/common/logging"
+import { Storage } from "app/main/storage"
 import { JsonSerializable } from "app/common/serializers"
-import Cipher from "app/main/ciphers"
+import { Cipher } from "app/main/ciphers"
 import { PlainCipher } from "app/main/ciphers/plain"
 import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 import { Lifecycle } from "app/main/lifecycle"
 import { LevelPersister } from "app/main/persisters/level"
 import { jsonBufferSerializer } from "app/main/serializers/jsonBuffer"
-import { ensurePath } from "./utils"
+import { ensurePath } from "../storage/utils"
 
 type Config = {
   name: string

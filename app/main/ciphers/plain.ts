@@ -1,4 +1,4 @@
-import Cipher from "./index"
+import { Cipher } from "./index"
 
 /**
  * An identity async function returns a Promise that resolves to the input data.

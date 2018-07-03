@@ -1,5 +1,5 @@
 import * as crypto from "crypto"
-import Cipher from "./index"
+import { Cipher } from "./index"
 
 /**
  * Cipher implementation for AES encryption/decryption

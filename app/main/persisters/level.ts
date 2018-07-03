@@ -1,5 +1,5 @@
 import { LevelUp } from "levelup"
-import Persister from "./index"
+import { Persister } from "./index"
 
 /**
  * LevelBackend implements the IStorageBackend for LevelDB.
