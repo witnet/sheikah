@@ -6,7 +6,7 @@ import log from "app/common/logging"
 import { JsonSerializable } from "app/common/serializers"
 import Cipher from "app/main/ciphers"
 import { PlainCipher } from "app/main/ciphers/plain"
-import { sha256Hasher } from "app/main/hashers/sha256"
+import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 import { Lifecycle } from "app/main/lifecycle"
 import { LevelPersister } from "app/main/persisters/level"
 import { jsonBufferSerializer } from "app/main/serializers/jsonBuffer"
@@ -60,7 +60,7 @@ export class JsonPlainLevel implements Lifecycle<JsonPlainLevelStorage, Config> 
       valueEncoding: "binary"
     })
 
-    const keyHasher = sha256Hasher
+    const keyHasher = sha256BufferHasher
     const serializer = jsonBufferSerializer
     const cipher: Cipher<Buffer, Buffer> = new PlainCipher()
     const backend = new LevelPersister(connection)
