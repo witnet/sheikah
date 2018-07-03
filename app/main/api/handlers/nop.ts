@@ -1,10 +1,10 @@
+import log from "app/common/logging"
+
 /**
- * Handler of no response handler function
- * @param data
- * @returns {Promise<string>}
+ * Void handler
  */
-async function nop(system: any, data: any) {
-  return ""
+async function nop(system: any, params: Array<any>) {
+  log.info(`[NOP Handler] Ignoring message: ${params.join(", ")}`)
 }
 
 export default nop

@@ -4,7 +4,6 @@ import { createHashHistory } from "history"
 import { routerMiddleware, push } from "react-router-redux"
 import { createLogger } from "redux-logger"
 import rootReducer from "../reducers"
-
 import * as counterActions from "../actions/counter"
 
 declare const window: Window & {
@@ -56,8 +55,8 @@ const enhancer = composeEnhancers(
 
 export = {
   history,
-  configureStore(initialState: Object | void) {
-    const store = createStore(rootReducer, initialState, enhancer)
+  configureStore(initialState: {} | void) {
+    const store = createStore<{}>(rootReducer, initialState || {}, enhancer)
 
     if (module.hot) {
       module.hot.accept("../reducers", () => {

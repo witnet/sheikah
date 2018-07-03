@@ -1,6 +1,6 @@
+/* tslint:disable:no-null-keyword */
 import * as api from "app/main/api"
-import { asyncChannel } from "app/common/ipc"
-import { InvalidParamsError, ErrCodes } from "app/common/ipc-protocol"
+import { InvalidParamsError, ErrCodes, replyChannel } from "app/common/ipc-protocol"
 import { syntheticEvent } from "test/__stubs__/event"
 
 const system = {
@@ -107,12 +107,12 @@ describe("API", () => {
         const expectedResponse = {
           jsonrpc: "2.0",
           id: "some id",
-          result: undefined
+          result: null
         }
 
         await asyncHandler(event, request)
 
-        expect(senderMock).toBeCalledWith(asyncChannel, expectedResponse)
+        expect(senderMock).toBeCalledWith(replyChannel(expectedResponse.id), expectedResponse)
         expect(handlerMock).toBeCalledWith(system, [1, 2, 3])
       })
     })

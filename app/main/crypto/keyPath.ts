@@ -43,7 +43,9 @@ export const fromString = (path: string): KeyPath => {
 /** Key path to string */
 export const toString = (path: KeyPath) => {
   // return _.map(path, childNumberToString).reduce((a, b) => `${a}/${b}`, "m")
-  return ["m", ...path].map(childNumberToString).join("/")
+  const stringPath = path.map(childNumberToString).join("/")
+
+  return `m/${stringPath}`
 }
 
 /**

@@ -15,6 +15,7 @@
 
     "alwaysStrict": true,
     "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -28,7 +29,8 @@
     "outDir": "dist"
   },
   "files": [
-    "../app/renderer/index.tsx"
+    "../app/renderer/index.tsx",
+    "../app/main/index.ts"
   ],
   "include": [
     "../app/**/*.ts",
