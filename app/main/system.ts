@@ -1,16 +1,21 @@
 import { Config } from "app/common/config"
 import log from "app/common/logging"
 import { JsonSerializer } from "app/common/serializers"
+import {
+  WalletStorageCollection,
+  WalletStorageCollectionSubSystem
+} from "app/main/subsystems/wallets"
 import { Lifecycle } from "./lifecycle"
 import { jsonSubSystem } from "./subsystems/json"
-import { JsonPlainLevel, JsonPlainLevelStorage } from "./subsystems/jsonPlainLevel"
+import { JsonPlainLevelSubSystem, JsonPlainLevelStorage } from "./subsystems/jsonPlainLevel"
 
 /**
  * Type of the system object returned by system.start()
  */
 export type SubSystems = {
   json: JsonSerializer,
-  appStorage: JsonPlainLevelStorage
+  appStorage: JsonPlainLevelStorage,
+  walletStorage: WalletStorageCollection
 }
 
 /**
@@ -26,7 +31,8 @@ export type Builders = {
  */
 const builders: Builders = {
   json: [jsonSubSystem, {}],
-  appStorage: [new JsonPlainLevel(), { name: "appStorage" }]
+  appStorage: [new JsonPlainLevelSubSystem(), { name: "appStorage" }],
+  walletStorage: [new WalletStorageCollectionSubSystem(), {}]
 }
 
 /**

@@ -1,10 +1,10 @@
 import { Config } from "app/common/config"
-import { Storage } from "app/main/storage"
 import { Lifecycle } from "app/main/lifecycle"
+import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
 
-type WalletStorage = Storage<string, Buffer, Buffer, Buffer>
+type WalletStorage = JsonAesLevelStorage
 
-type WalletStorageCollection = { [name: string]: WalletStorage }
+export type WalletStorageCollection = { [name: string]: WalletStorage }
 
 /**
  * This is a very simple subsystem containing a collection of WalletStorage objects that can be

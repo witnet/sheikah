@@ -1,31 +1,31 @@
-import * as level from "level"
-import { homedir } from "os"
-import * as path from "path"
 import log from "app/common/logging"
-import { Storage } from "app/main/storage"
 import { JsonSerializable } from "app/common/serializers"
-import { Cipher } from "app/main/ciphers"
-import { PlainCipher } from "app/main/ciphers/plain"
+import { AesCipher, AesCipherSettings, defaultAesCipherSettings } from "app/main/ciphers/aes"
 import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 import { Lifecycle } from "app/main/lifecycle"
 import { LevelPersister } from "app/main/persisters/level"
 import { jsonBufferSerializer } from "app/main/serializers/jsonBuffer"
-import { ensurePath } from "../storage/utils"
+import { Storage } from "app/main/storage"
+import { ensurePath } from "app/main/storage/utils"
+import * as level from "level"
+import { homedir } from "os"
+import * as path from "path"
 
 type Config = {
-  name: string
+  name: string,
+  password: string
 }
 
-export type JsonPlainLevelStorage = Storage<Buffer, JsonSerializable, Buffer, Buffer>
+export type JsonAesLevelStorage = Storage<Buffer, JsonSerializable, Buffer, Buffer>
 
 /**
- * JsonPlainLevel implements the Lifecycle of a Storage with:
+ * JsonAesLevel implements the Lifecycle of a Storage with:
  *  - SHA as key hashing function
  *  - JSON as serializer
- *  - Plain cipher (no ciphering at all)
+ *  - AES cipher in CBC operation mode
  *  - LevelDB storage backend as persister
  */
-export class JsonPlainLevelSubSystem implements Lifecycle<JsonPlainLevelStorage, Config> {
+export class JsonAesLevelSubSystem implements Lifecycle<JsonAesLevelStorage, Config> {
 
   /**
    * Name of the storage.
@@ -37,7 +37,7 @@ export class JsonPlainLevelSubSystem implements Lifecycle<JsonPlainLevelStorage,
    * The storage object itself.
    * It exposes the Storage API (get, put, close).
    */
-  private storage: JsonPlainLevelStorage
+  private storage: JsonAesLevelStorage
 
   /**
    * Start the Storage lifecycle.
@@ -46,7 +46,7 @@ export class JsonPlainLevelSubSystem implements Lifecycle<JsonPlainLevelStorage,
   public async start(config: Config) {
     this.name = config.name
 
-    log.debug(`Starting "${this.name}" storage subsystem...`)
+    log.debug(`Starting "${this.name}" encrypted storage subsystem...`)
 
     // Compose the absolute path of the LevelDB directory
     const dbPath = path.normalize(`${homedir()}/.sheikah/storage/${this.name}`)
@@ -60,13 +60,18 @@ export class JsonPlainLevelSubSystem implements Lifecycle<JsonPlainLevelStorage,
       valueEncoding: "binary"
     })
 
+    const aesSettings: AesCipherSettings = {
+      ...defaultAesCipherSettings,
+      pbkdPassword: config.password
+    }
+
     const keyHasher = sha256BufferHasher
     const serializer = jsonBufferSerializer
-    const cipher: Cipher<Buffer, Buffer> = new PlainCipher()
+    const cipher = new AesCipher(aesSettings)
     const backend = new LevelPersister(connection)
 
     this.storage = new Storage(keyHasher, serializer, cipher, backend)
-    log.debug(`"${this.name}" storage subsystem started`)
+    log.debug(`"${this.name}" encrypted storage subsystem started`)
 
     return this.storage
   }
