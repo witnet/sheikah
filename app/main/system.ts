@@ -1,10 +1,10 @@
-import { Config } from "app/common/config"
-import log from "app/common/logging"
 import * as serializers from "app/common/serializers"
-import { Lifecycle } from "app/main/lifecycle"
-import * as components from "app/main/components"
+import * as components from "app/main/subsystems"
+import log from "app/common/logging"
+import {Config} from "app/common/config"
+import {Lifecycle} from "./lifecycle"
 
-export type Json = { json: serializers.Json }
+export type Json = { json: serializers.JsonSerializer }
 
 /**
  * A type representing all the values returned when the system starts.

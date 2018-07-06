@@ -1,0 +1,44 @@
+:local {
+  .new-transaction {
+    display: grid;
+    grid-template-columns: auto repeat(5, 1fr) auto;
+    padding: 2em;
+    grid-gap: .5em 1em;
+    align-items: center;
+  }
+
+  .label {
+    grid-column: 1;
+  }
+
+  .input {
+    grid-column: 2;
+  }
+
+  .large-input {
+    grid-column-start: 2;
+    grid-column-end: 7;
+  }
+
+  .small-input {
+    grid-column-start: 2;
+    grid-column-end: 5;
+  }
+
+  .submit {
+    grid-row: 6;
+    grid-column: 2;
+    box-sizing: border-box;
+  }
+
+  .info {
+    color: grey;
+    font-size: 12px;
+    font-weight: 200;
+    font-style: italic;
+  }
+
+  .icon {
+    padding: .5em;
+  }
+}

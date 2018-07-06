@@ -1,4 +1,4 @@
-import {RouterState} from "connected-react-router"
+import { RouterState } from "connected-react-router"
 
 const rootReducer = (state: State) => state
 // combineReducers({})

@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import Main from "../components/main"
 import {RouteComponentProps} from "react-router"
 
@@ -12,6 +11,7 @@ import {RouteComponentProps} from "react-router"
  */
 
 export class MainUI extends React.Component<RouteComponentProps<any>> {
+
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {

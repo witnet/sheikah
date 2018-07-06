@@ -1,5 +1,5 @@
 import * as React from "react"
-import Wrapper from "../../../../wrapper/index"
+import Wrapper from "../../../../../../wrapper/index"
 
 const styles = require("./style.scss")
 

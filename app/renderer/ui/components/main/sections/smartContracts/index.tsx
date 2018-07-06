@@ -1,20 +1,44 @@
 import * as React from "react"
-import {SectionInfo, SectionProps} from "../index"
+import {Route, Switch} from "react-router"
+import { RouteComponentProps } from "react-router"
 
-/**
- * SmartContracts UI component
- *
- * @export
- * @class SmartContracts
- * @extends {React.Component<SectionProps>}
- */
-export class SmartContracts extends React.Component<SectionProps> {
+import { TabMyContracts, TabEasyComposer, TabProEditor, TabMarketplace } from "./tabs"
+import TopBar from '../../../topBar/index';
+import { TopBarLinkProps } from '../../../topBar/topBarLink';
+import { SectionInfo } from "../index"
+
+
+const mainStyles = require('../../style.scss')
+const styles = require('./style.scss')
+
+interface SmartContractsProps { }
+
+class SmartContracts extends React.Component<SmartContractsProps & RouteComponentProps<any>> {
+
   // tslint:disable-next-line: completed-docs
   public render() {
+    const tabs = [TabMyContracts, TabEasyComposer, TabProEditor, TabMarketplace]
+    const topBarlinkProps: TopBarLinkProps[] = tabs.map(tab => (
+      {
+        key: tab.key,
+        caption: tab.caption,
+        link: `/main/smartcontracts/${tab.key}`
+      }
+    ))
+
     return (
-      <div className={this.props.className}>
-        SmartContracts
-      </div>
+      <>
+        <TopBar className={mainStyles["top-bar"]} pathName="" linksProps={topBarlinkProps} />
+        <Switch>
+          <div className={styles.layout}>
+            <Route path="/main/smartcontracts/mycontracts" component={TabEasyComposer.component} />
+            <Route path="/main/smartcontracts/easycomposer" component={TabMyContracts.component} />
+            <Route path="/main/smartcontracts/proeditor" component={TabProEditor.component} />
+            <Route path="/main/smartcontracts/marketplace" component={TabMarketplace.component} />
+            <Route path="/main" component={TabMyContracts.component} />
+          </div>
+        </Switch>
+      </>
     )
   }
 }

@@ -2,7 +2,7 @@
   @import "../../../../colors";
 
   .alert {
-    background: linear-gradient(to right, $red-light, $grey-light);
+    background: linear-gradient(to right, $red-light, $lightgrey);
     color: $red;
     display: grid;
     grid-row-start: 2;

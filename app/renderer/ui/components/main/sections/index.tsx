@@ -12,12 +12,10 @@ export class SectionComponent<Props> extends React.Component<SectionProps & Path
   public topBarProps: TopBarProps
 
   public topBarRender() {
-    console.log(this)
     return (this.topBarProps ? this.topBarProps.linksProps : []).map((props) => {
       return <TopBarLink key={props.key} {...props} pathName={this.props.pathName} />
     })
   }
-
 }
 
 export interface SectionInfo {
