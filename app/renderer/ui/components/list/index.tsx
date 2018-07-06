@@ -8,9 +8,11 @@ import OptionButton from '../button/option/index';
 const styles = require("./style.scss")
 
 export interface Iprops {
+  grid?: {} | undefined
   classNameList?: string
   classNameItem?: string
   dataSource: (string | { text: any; onClick: any } | any)[]
+ // dataSource: (string | { text: any; onClick: any })[]
   borderer?: boolean
   renderItem?: any
 }
@@ -44,6 +46,7 @@ export default class DefaultList extends React.Component<Iprops> {
       }
     return (
       <List
+        grid={this.props.grid}
         bordered={this.props.borderer}
         className={`${this.props.classNameList} ${styles.list}`}
         dataSource={this.props.dataSource}

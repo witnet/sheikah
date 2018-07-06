@@ -1,8 +1,10 @@
 :local {
+  @import "../../colors";
+
   .layout {
     display: grid;
     grid-template-rows: auto 1fr;
-    grid-template-columns: 1fr
+    grid-template-columns: 1fr;
   }
 
   .header {
@@ -15,22 +17,21 @@
 
     .title {
       font-weight: bold;
-      color: grey;
+      color: $grey;
       font-size: 14px;
     }
 
     .caption {
       font-size: 12px;
-      color: lightgray;
+      color: $lightgrey;
     }
 
     .actions {
       grid-column: 4;
     }
-
   }
   .content {
-    background: white;
-    border: 1px solid lightgray;
+    background: $white;
+    border: 1px solid $lightgrey;
   }
 }

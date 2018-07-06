@@ -21,7 +21,9 @@ export interface Iprops {
  */
 export default class CardDefault extends React.Component<Iprops> {
   // tslint:disable-next-line: completed-docs
+
   public render() {
+    console.log(this.props)
     return (
       <div className={this.props.className}>
         <Card title={this.props.title}>

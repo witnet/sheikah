@@ -1,0 +1,44 @@
+:local {
+
+  .header {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    background: lightblue;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: 180px;
+    color: white;
+    background: pink;
+
+    .sheikah {
+      color: purple;
+    }
+  }
+
+  .title {
+    text-align: center;
+    grid-column: 1;
+    font-weight: 600;
+    font-size: 64px;
+  }
+
+  .subtitle {
+    grid-column: 2;
+    font-style: italic;
+    font-size: 24px;
+    text-align: center;
+  }
+
+
+
+  .featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .search {
+
+  }
+}

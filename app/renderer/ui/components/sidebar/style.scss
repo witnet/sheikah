@@ -1,8 +1,11 @@
 :local {
+  @import "../../colors";
+
   .sidebar {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 60px 60px 1fr 60px;
+    max-height: 100vh;
   }
 
   .brand {
@@ -10,7 +13,8 @@
     display: flex;
     padding: 1em;
 
-    .logo {}
+    .logo {
+    }
 
     .name {
       font-size: 20px;
@@ -21,13 +25,13 @@
     .label {
       font-size: 10px;
       font-weight: bold;
-      color: grey;
+      color: $grey;
     }
   }
 
   .current-wallet {
-    color: white;
-    background: #3a75f2;
+    color: $white;
+    background: $blue;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -45,20 +49,20 @@
       align-items: center;
       padding: 1em;
       font-size: 20px;
-      color: grey;
+      color: $grey;
 
       .option-icon {
         padding: .5em;
       }
     }
     .active {
-      border-left: 4px solid #3a75f2;
-      color: #3a75f2;
+      border-left: 4px solid $blue;
+      color: $blue;
     }
   }
 
   .settings {
-    border-top: 2px solid #f1f1f1;
+    border-top: 2px solid $white2;
     font-size: 14px;
     grid-row: 5;
     display: grid;
@@ -67,20 +71,20 @@
     .settings-icon {
       display: flex;
       align-self: center;
-      color: grey;
+      color: $grey;
     }
     .net-status {
-      color: grey;
+      color: $grey;
       padding: .5em;
       .mainnet {
-        color: grey;
+        color: $grey;
       }
       .synced {
         font-weight: bold;
         padding: .5em;
       }
       .status {
-        color: greenyellow;
+        color: $greenyellow;
       }
     }
   }

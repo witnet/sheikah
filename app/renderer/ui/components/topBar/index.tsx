@@ -1,7 +1,7 @@
 import * as React from "react"
-import {PathNameProp} from "../commonTypes"
-import {TopBarLink, TopBarLinkProps} from "./topBarLink"
-import {join} from "../../../utils/list"
+import { PathNameProp } from "../commonTypes"
+import { TopBarLink, TopBarLinkProps } from "./topBarLink"
+import { join } from "../../../utils/list"
 
 const styles = require("./style.scss")
 

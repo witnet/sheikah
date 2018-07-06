@@ -1,13 +1,14 @@
 import * as React from "react"
+import { RouteComponentProps } from "react-router"
 
 import Sidebar from "../sidebar"
-import {RouteComponentProps} from "react-router"
 import SmartContractsSection from "./sections/smartContracts"
 import AttestationsSection from "./sections/attestations"
 import BlockExplorerSection from "./sections/blockExplorer"
 import CommunitySection from "./sections/community"
 import WalletSection from "./sections/wallet"
-import {SectionInfo} from "./sections"
+
+import { SectionInfo } from "./sections"
 
 const styles = require("./style.scss")
 
@@ -26,11 +27,10 @@ const sidebarProps = {
   }))
 }
 
-const sectionRender = (pathName: string) => {
+const sectionRender = (pathName: string, props: {}) => {
   const sectionKey = pathName.split("/")[2] || sections[0].key
   const Component = router[sectionKey].component
-
-  return <Component />
+  return <Component {...props} />
 }
 
 export default class Main extends React.Component<RouteComponentProps<any>> {
@@ -41,7 +41,7 @@ export default class Main extends React.Component<RouteComponentProps<any>> {
       <div className={styles.layout}>
         <Sidebar {...sidebarProps} pathName={this.props.location.pathname} />
         <div className={styles.main}>
-          {sectionRender(this.props.location.pathname)}
+          {sectionRender(this.props.location.pathname, this.props)}
         </div>
       </div>
     )

@@ -1,23 +1,25 @@
 :local {
+  @import "../../../colors";
+
   .transaction {
     padding: 2em;
     display: grid;
     grid-template-columns: auto auto 1fr auto;
     grid-template-rows: auto;
     align-items: center;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid $lightgrey;
     grid-gap: .5em;
   }
 
   .green {
-    color: lightgreen;
+    color: $lightgreen;
   }
 
-  .red   {
-    color: lightcoral;
+  .red {
+    color: $lightcoral;
   }
   .icon {
-    grid-row:1;
+    grid-row: 1;
     grid-column: 1;
   }
 
@@ -28,45 +30,44 @@
     .number {
       font-size: 18px;
       &.positive {
-        color: lightgreen;
+        color: $lightgreen;
       }
 
       &.negative {
-        color: lightcoral;
+        color: $lightcoral;
       }
-
     }
 
     .wit {
       font-weight: bold;
-      color: lightgray;
+      color: $lightgrey;
       font-size: 10px;
     }
   }
 
   .address {
     margin-left: 4em;
-    grid-row:1;
+    grid-row: 1;
     grid-column: 3;
     font-size: 14;
 
     .origin {
-      color: lightgray;
+      color: $lightgrey;
     }
 
     .address-number {
-      color: grey;
+      color: $grey;
     }
   }
 
   .date {
     text-align: right;
     font-size: 14;
-    color: grey;
+    color: $grey;
   }
 
   .block {
-    color: lightgrey;
+    color: $lightgrey;
     font-size: 12;
   }
 }

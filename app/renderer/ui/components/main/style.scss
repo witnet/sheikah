@@ -1,38 +1,41 @@
 :local {
+  @import "../../colors";
+
   .layout {
     display: grid;
     max-width: 100%;
+    max-height: 100vh;
     grid-template-columns: 275px 1fr;
     grid-template-rows: minmax(100vh, 100vh);
-    grid-template-areas:
+    grid-template-areas: "nv mn"
     "nv mn"
-    "nv mn"
-    "nv mn"
+    "nv mn";
   }
 
   .sidebar {
     grid-area: nv;
+    max-height: 100vh;
   }
 
   .main {
-    background: #f9f9f9;
+    background: $white3;
     grid-area: mn;
 
     display: grid;
 
     grid-template-rows: repeat(2, 60px 1fr);
-    grid-template-areas:
-    "tb"
-    "ct"
+    grid-template-areas: "tb"
+    "ct";
+    max-height: 100vh;
   }
 
   .top-bar {
-    background: white;
+    background: $white;
     grid-area: tb;
   }
 
   .content {
-    background: lightgray;
+    background: $lightgrey;
     grid-area: ct;
   }
 }

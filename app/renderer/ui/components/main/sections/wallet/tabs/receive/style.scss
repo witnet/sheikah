@@ -1,0 +1,67 @@
+:local {
+  @import "../../../../../../colors";
+
+  .left {
+    display: grid;
+    grid-gap: 2em;
+    grid-column: 1;
+  }
+
+  .right {
+    grid-column: 2;
+
+    .title {
+      font-weight: 800;
+      margin-bottom: 1.5em;
+    }
+
+    .text {
+      font-weight: 300;
+      color: $grey;
+      font-size: 14px;
+      margin-bottom: 1.5em;
+      font-style: italic;
+      line-height: 1.5;
+    }
+  }
+
+  .new-payment-request {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 3em 4em;
+
+    .form {
+      border-right: 1px solid $lightgrey;
+
+      display: grid;
+      grid-template-columns: auto auto .5fr;
+      grid-template-rows: auto auto auto auto;
+      grid-gap: .5em 0;
+      padding: .5em;
+      padding-right: 4em;
+
+
+      .label-input {
+        grid-column: 2 / 4;
+      }
+
+      .label {
+        padding: .5em;
+        text-align: right;
+        grid-column: 1;
+      }
+
+      .submit {
+        grid-column: 3;
+        grid-row: 4;
+      }
+    }
+
+    .qr {
+      display: grid;
+      align-content: center;
+      text-align: center;
+      padding: 4em;
+    }
+  }
+}
