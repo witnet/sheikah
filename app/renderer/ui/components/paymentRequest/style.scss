@@ -1,0 +1,30 @@
+:local {
+  .payment-request {
+    display: grid;
+    padding: 2em;
+    grid-gap: 2em;
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .creation-date {
+    font-size: 12px;
+  }
+
+  .expiration-date {
+    font-size: 12px;
+  }
+
+  .green {
+    color: lightgreen;
+  }
+
+  .red {
+    color: red;
+  }
+
+
+  .actions {
+    display: grid;
+    align-items: center;
+  }
+}
