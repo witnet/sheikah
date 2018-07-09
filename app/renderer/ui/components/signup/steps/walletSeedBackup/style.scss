@@ -2,8 +2,8 @@
   @import "../../../../colors";
 
   .alert {
-    background: linear-gradient(to right, $red-light, $grey-light);
-    color: $red;
+    background: linear-gradient(to right, $red-2, $grey-3);
+    color: $red-6;
     grid-row-start: 2;
 
     ul {
@@ -32,7 +32,7 @@
   }
 
   .seed {
-    border: 1px dashed $grey;
+    border: 1px dashed $grey-8;
     border-radius: 2%;
     height: 60px;
     padding: 1em;

@@ -9,14 +9,14 @@ body {
 
   .ant-card-head {
     align-items: center;
-    background: linear-gradient(to right, $purple, $blue);
-    color: $white;
+    background: linear-gradient(to right, $purple-6, $blue-6);
+    color: $grey-1;
     display: flex;
     height: 100px;
   }
 
   .ant-card-head-title {
-    color: $white;
+    color: $grey-1;
     font-size: 22px;
   }
 
