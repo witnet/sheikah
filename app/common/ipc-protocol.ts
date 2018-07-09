@@ -18,8 +18,8 @@ const JsonRT = t.recursion<JsonSerializable>(
     t.number,
     t.string,
     t.boolean,
-    t.dictionary(t.string, self),
-    t.array(self)
+    t.array(self),
+    t.dictionary(t.string, self)
   ])
 )
 
