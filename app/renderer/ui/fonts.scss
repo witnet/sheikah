@@ -1,0 +1,71 @@
+$font-size-12: 12px;
+$font-size-14: 14px;
+$font-size-16: 16px;
+$font-size-20: 20px;
+$font-size-24: 24px;
+$font-size-30: 30px;
+$font-size-38: 38px;
+$font-size-46: 46px;
+$font-size-56: 56px;
+$font-size-68: 68px;
+
+$font-line-height-20: 20px;
+$font-line-height-22: 22px;
+$font-line-height-24: 24px;
+$font-line-height-28: 28px;
+$font-line-height-32: 32px;
+$font-line-height-38: 38px;
+$font-line-height-46: 46px;
+$font-line-height-54: 54px;
+$font-line-height-64: 64px;
+$font-line-height-76: 76px;
+
+%font12 {
+  font-size: $font-size-12;
+  line-height: $font-line-height-20;
+}
+
+%font14 {
+  font-size: $font-size-14;
+  line-height: $font-line-height-22;
+}
+
+%font16 {
+  font-size: $font-size-16;
+  line-height: $font-line-height-24;
+}
+
+%font20 {
+  font-size: $font-size-20;
+  line-height: $font-line-height-28;
+}
+
+%font24 {
+  font-size: $font-size-24;
+  line-height: $font-line-height-32;
+}
+
+%font30 {
+  font-size: $font-size-30;
+  line-height: $font-line-height-38;
+}
+
+%font38 {
+  font-size: $font-size-38;
+  line-height: $font-line-height-46;
+}
+
+%font46 {
+  font-size: $font-size-46;
+  line-height: $font-line-height-54;
+}
+
+%font56 {
+  font-size: $font-size-56;
+  line-height: $font-line-height-64;
+}
+
+%font68 {
+  font-size: $font-size-68;
+  line-height: $font-line-height-76;
+}
