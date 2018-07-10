@@ -1,0 +1,18 @@
+{
+  "presets": [
+      "env"
+  ],
+  "plugins": [
+      ["import", {
+          "libraryName": "antd",
+          "style": true
+      }]
+  ],
+  "env": {
+      "production": {
+          "plugins": [
+              "transform-remove-console"
+          ]
+      }
+  }
+}

@@ -6,7 +6,6 @@ export interface Iprops {
   className?: string
   onClick?: any
   text: string,
-
 }
 
 /**
