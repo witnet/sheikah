@@ -236,7 +236,6 @@
     "slip32": "^1.0.1",
     "source-map-support": "^0.5.5",
     "yarn": "^1.7.0"
-    "slip32": "^1.0.1",
   },
   "engineStrict": false,
   "engines": {
