@@ -1,12 +1,11 @@
 import *  as React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from '@storybook/addon-actions';
+import { ButtonDefault } from '../../app/renderer/ui/components/button';
 
-import { ButtonLink } from '../../app/renderer/ui/components/button';
-
-storiesOf("ButtonLink", module)
+storiesOf("ButtonDefault", module)
   .add("Default", () => (
-    <ButtonLink
+    <ButtonDefault
       text="Click!"
       onClick={action('button-click')}
     />
