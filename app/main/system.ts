@@ -1,13 +1,15 @@
 import { Config } from "app/common/config"
 import log from "app/common/logging"
 import { JsonSerializer } from "app/common/serializers"
+import { AppStateManager } from "app/main/appState"
+import { appStorageInitializer } from "app/main/storage/initializers"
+import { AppStateSubSystem } from "app/main/subsystems/appState"
 import {
-  WalletStorageCollection,
-  WalletStorageCollectionSubSystem
+  WalletStorageCollection, WalletStorageCollectionSubSystem
 } from "app/main/subsystems/wallets"
 import { Lifecycle } from "./lifecycle"
 import { jsonSubSystem } from "./subsystems/json"
-import { JsonPlainLevelSubSystem, JsonPlainLevelStorage } from "./subsystems/jsonPlainLevel"
+import { JsonPlainLevelStorage, JsonPlainLevelSubSystem } from "./subsystems/jsonPlainLevel"
 
 /**
  * Type of the system object returned by system.start()
@@ -15,14 +17,15 @@ import { JsonPlainLevelSubSystem, JsonPlainLevelStorage } from "./subsystems/jso
 export type SubSystems = {
   json: JsonSerializer,
   appStorage: JsonPlainLevelStorage,
-  walletStorage: WalletStorageCollection
+  walletStorage: WalletStorageCollection,
+  appStateManager: AppStateManager
 }
 
 /**
  * Type of the "builders" object defined down below
  */
 export type Builders = {
-  [K in keyof SubSystems]: [Lifecycle<SubSystems[K], Partial<Config>>, Partial<Config>]
+  [K in keyof SubSystems]: Lifecycle<SubSystems[K], Partial<Config>>
 }
 
 /**
@@ -30,10 +33,13 @@ export type Builders = {
  * @type Builders
  */
 const builders: Builders = {
-  json: [jsonSubSystem, {}],
-  appStorage: [new JsonPlainLevelSubSystem(), { name: "appStorage" }],
-  walletStorage: [new WalletStorageCollectionSubSystem(), {}]
+  json: jsonSubSystem,
+  appStorage: new JsonPlainLevelSubSystem("appStorage", appStorageInitializer),
+  walletStorage: new WalletStorageCollectionSubSystem(),
+  appStateManager: new AppStateSubSystem()
 }
+
+log.debug(`builders: ${JSON.stringify(builders)}`)
 
 /**
  * Application wide system that starts all its components when started.
@@ -67,9 +73,8 @@ export class System implements Lifecycle<SubSystems, Partial<Config>> {
       log.info("Starting system...")
 
       const promises: Array<Promise<SubSystems[keyof SubSystems]>> = Object.entries(builders)
-        .map(async ([name, [cycle, config]]) => {
+        .map(async ([name, cycle]) => {
           log.info(`\tStarting subsystem "${name}"...`)
-          log.debug(`\t\tConfig options are: ${JSON.stringify(config)}`)
 
           return cycle.start(config)
         })
@@ -96,7 +101,7 @@ export class System implements Lifecycle<SubSystems, Partial<Config>> {
       log.info("Stopping system...")
 
       const promises: Array<Promise<void>> = Object.entries(builders)
-        .map(async ([name, [cycle]]) => {
+        .map(async ([name, cycle]) => {
           log.info(`\tStopping subsystem "${name}"...`)
 
           return cycle.stop()
