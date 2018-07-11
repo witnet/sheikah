@@ -3,8 +3,7 @@ import thunk from "redux-thunk"
 import { createHashHistory } from "history"
 import { routerMiddleware, push } from "react-router-redux"
 import { createLogger } from "redux-logger"
-import rootReducer from "../reducers"
-import * as counterActions from "../actions/counter"
+import rootReducer, { StoreState } from "app/renderer/reducers"
 
 declare const window: Window & {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?(a: any): void;
@@ -19,7 +18,6 @@ declare const module: NodeModule & {
 
 /* tslint:disable-next-line:prefer-object-spread */
 const actionCreators = Object.assign({},
-  counterActions,
   { push }
 )
 
@@ -55,13 +53,13 @@ const enhancer = composeEnhancers(
 
 export = {
   history,
-  configureStore(initialState: {} | void) {
-    const store = createStore<{}>(rootReducer, initialState || {}, enhancer)
+  configureStore(initialState: StoreState) {
+    const store = createStore<StoreState>(rootReducer, initialState, enhancer)
 
     if (module.hot) {
-      module.hot.accept("../reducers", () => {
+      module.hot.accept("app/renderer/reducers", () => {
         // eslint-disable-line global-require
-        store.replaceReducer(require("../reducers"))
+        store.replaceReducer(require("app/renderer/reducers"))
       })
     }
 

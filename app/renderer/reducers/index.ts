@@ -1,14 +1,16 @@
+import { walletsReducer, WalletsState } from "app/renderer/reducers/wallets"
+import { routerReducer, RouterState } from "react-router-redux"
 import { combineReducers, Reducer } from "redux"
-import { routerReducer as routing } from "react-router-redux"
-import counter, { TState as TCounterState } from "./counter"
 
+// Combine all the relevant Redux reducers
 const rootReducer = combineReducers({
-  counter,
-  routing: routing as Reducer<any>
-})
+  wallets: walletsReducer,
+  routing: routerReducer
+}) as Reducer<StoreState>
 
-export interface IState {
-  counter: TCounterState
+export interface StoreState {
+  wallets: WalletsState
+  routing: RouterState
 }
 
 export default rootReducer
