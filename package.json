@@ -11,7 +11,7 @@
     "test-e2e": "NODE_ENV=production jest -c config/jest.js test/e2e",
     "jest": "jest -c config/jest.js",
     "typecheck": "tsc --noEmit -p config",
-    "hot-server": "node --max_old_space_size=2096 server.js",
+    "hot-server": "node $NODE_DEBUG_OPTION --max_old_space_size=2096 server.js",
     "build-main": "webpack --config config/webpack.main.js --progress --profile --colors",
     "build-renderer": "webpack --config config/webpack.renderer.js --progress --profile --colors",
     "build": "cross-env NODE_ENV=production yarn build-main && cross-env NODE_ENV=production yarn build-renderer",
