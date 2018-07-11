@@ -18,6 +18,7 @@ app.on("will-quit", stopApplication)
 if (inDevelopment) {
   const log = require("electron-log")
   log.transports.console.level = log.transports.file.level = "debug"
+  app.commandLine.appendSwitch("remote-debugging-port", "9222")
 } else {
   const sourceMapSupport = require("source-map-support")
   sourceMapSupport.install()
