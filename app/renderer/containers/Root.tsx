@@ -16,7 +16,7 @@ const Root = ( { store, history }: IRootType) => {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Routes />
+        <Routes store={store} />
       </ConnectedRouter>
     </Provider>
   )
