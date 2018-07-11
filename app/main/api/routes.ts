@@ -6,6 +6,8 @@ export type Routes<T> = {
 }
 
 export const routes: Routes<SubSystems> = {
+  getState: h.getState,
+  getWallets: h.getWallets,
   ping: h.ping,
   nop: h.nop,
   echo: h.echo,
