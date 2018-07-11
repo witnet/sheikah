@@ -1,4 +1,12 @@
 import { inDevelopment } from "app/common/env"
-export { Config } from "./common"
+import { AppInfo } from "app/common/runtimeTypes/storage/app"
+import { ChainType } from "app/main/chain/chainType"
 
-export const config = inDevelopment ? require("./development") : require("./production")
+export type Config = {
+  appInfo: AppInfo
+  chainType: ChainType
+}
+
+export const config: Config = inDevelopment
+  ? require("./development").default
+  : require("./production").default
