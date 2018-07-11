@@ -16,7 +16,7 @@ export class LevelPersister implements Persister<Buffer, Buffer> {
    * Database closing method implementation for LevelDB.
    * @returns {Promise<void>}
    */
-  public async close(): Promise<void> {
+  public close = async (): Promise<void> => {
     this.connection.close()
   }
 
@@ -25,7 +25,7 @@ export class LevelPersister implements Persister<Buffer, Buffer> {
    * @param {Buffer} key
    * @returns {Promise<Buffer>}
    */
-  public async get(key: Buffer): Promise<Buffer> {
+  public get = async (key: Buffer): Promise<Buffer> => {
     return new Promise<Buffer>((resolve, reject) => {
       this.connection.get(key, (error, value) => {
         if (error) {
@@ -43,7 +43,7 @@ export class LevelPersister implements Persister<Buffer, Buffer> {
    * @param {Buffer} value
    * @returns {Promise<boolean>}
    */
-  public async put(key: Buffer, value: Buffer): Promise<void> {
+  public put = async (key: Buffer, value: Buffer): Promise<void> => {
     this.connection.put(key, value)
   }
 
