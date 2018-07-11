@@ -1,3 +1,4 @@
+import log from "app/common/logging"
 import { Serializer } from "app/common/serializers"
 import { Cipher } from "app/main/ciphers"
 import { Hasher } from "app/main/hashers"
@@ -9,11 +10,20 @@ import { Persister } from "app/main/persisters"
  */
 export class Storage<KeyOut, Data, Serialized, Ciphered> {
 
+  /**
+   * The logtag is used in log lines to identify which storage is writing the logs.
+   */
+  private logtag: string
+
   constructor(
     private keyHasher: Hasher<string, KeyOut>,
     private serializer: Serializer<Data, Serialized>,
     private cipher: Cipher<Serialized, Ciphered>,
-    private persister: Persister<KeyOut, Ciphered>) { }
+    private persister: Persister<KeyOut, Ciphered>) {
+
+    this.logtag = `[${this.constructor.name} (${this.cipher.constructor.name}+`
+      + `${this.persister.constructor.name})]`
+  }
 
   /**
    * Storage closing function.
@@ -27,6 +37,8 @@ export class Storage<KeyOut, Data, Serialized, Ciphered> {
    * @param key
    */
   public get = async (key: string): Promise<Data> => {
+    log.debug(`${this.logtag}: getting "${key}"`)
+
     return Promise.resolve(key)
       .then(this.keyHasher)
       .then(this.persister.get)
@@ -40,6 +52,8 @@ export class Storage<KeyOut, Data, Serialized, Ciphered> {
    * @param value
    */
   public put = async (key: string, value: Data): Promise<void> => {
+    log.debug(`${this.logtag}: putting "${key}\nValue: ${JSON.stringify(value)}"`)
+
     return Promise.all([
       Promise.resolve(key)
         .then(this.keyHasher),
