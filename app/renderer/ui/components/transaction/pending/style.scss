@@ -8,7 +8,7 @@
     grid-template-rows: auto;
     grid-column-gap: 1em;
     align-items: center;
-    border-bottom: 1px solid $lightgrey;
+    border-bottom: 1px solid $grey-2;
   }
 
   .status-icon {
@@ -17,18 +17,18 @@
     font-size: 8px;
 
     .unconfirmed {
-      color: $yellow;
+      color: $yellow-2;
     }
 
     .timelocked {
-      color: $lightblue;
+      color: $blue-2;
     }
   }
   .status {
     grid-row: 1;
     grid-column: 2;
     font-weight: bold;
-    color: $grey;
+    color: $grey-6;
     font-size: 14px;
     text-transform: uppercase;
   }
@@ -36,7 +36,7 @@
   .vestingTime {
     grid-row: 1;
     grid-column: 3;
-    color: $lightgrey;
+    color: $grey-2;
   }
 
   .amount {
@@ -46,17 +46,17 @@
     .number {
       font-size: 18px;
       &.positive {
-        color: $lightgreen;
+        color: $green-2;
       }
 
       &.negative {
-        color: $lightcoral;
+        color: $red-2;
       }
     }
 
     .wit {
       font-weight: bold;
-      color: $lightgrey;
+      color: $grey-2;
       font-size: 10px;
     }
   }
@@ -67,11 +67,11 @@
     font-size: 14;
 
     .origin {
-      color: $lightgrey;
+      color: $grey-2;
     }
 
     .address-number {
-      color: $grey;
+      color: $grey-6;
     }
   }
 }

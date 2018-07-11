@@ -1,5 +1,11 @@
 :local {
+  @import "./../../../colors";
   .button {
     height: 100%;
+    border: 1px solid $grey-6;
+    background: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 0;
   }
 }

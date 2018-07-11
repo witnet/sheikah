@@ -6,9 +6,6 @@ const styles = require("./style.scss")
 
 export interface Iprops {
   className?: string
-  navigation?: boolean
-  nextStep?: any
-  previousStep?: any
   title: string
 }
 
@@ -23,7 +20,6 @@ export default class CardDefault extends React.Component<Iprops> {
   // tslint:disable-next-line: completed-docs
 
   public render() {
-    console.log(this.props)
     return (
       <div className={this.props.className}>
         <Card title={this.props.title}>

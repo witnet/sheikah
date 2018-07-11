@@ -18,7 +18,7 @@
   }
 
   .main {
-    background: $white3;
+    background: $white-3;
     grid-area: mn;
 
     display: grid;
@@ -35,7 +35,7 @@
   }
 
   .content {
-    background: $lightgrey;
+    background: $grey-6;
     grid-area: ct;
   }
 }

@@ -4,7 +4,6 @@ import { Input } from "antd"
 
 export interface Iprops {
   className?: string
-  type?: string
 }
 
 /**

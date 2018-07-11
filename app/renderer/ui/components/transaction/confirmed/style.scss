@@ -7,16 +7,16 @@
     grid-template-columns: auto auto 1fr auto;
     grid-template-rows: auto;
     align-items: center;
-    border-bottom: 1px solid $lightgrey;
+    border-bottom: 1px solid $grey-2;
     grid-gap: .5em;
   }
 
   .green {
-    color: $lightgreen;
+    color: $green-6;
   }
 
   .red {
-    color: $lightcoral;
+    color: $red-2;
   }
   .icon {
     grid-row: 1;
@@ -30,17 +30,17 @@
     .number {
       font-size: 18px;
       &.positive {
-        color: $lightgreen;
+        color: $green-6;
       }
 
       &.negative {
-        color: $lightcoral;
+        color: $red-2;
       }
     }
 
     .wit {
       font-weight: bold;
-      color: $lightgrey;
+      color: $grey-6;
       font-size: 10px;
     }
   }
@@ -52,22 +52,22 @@
     font-size: 14;
 
     .origin {
-      color: $lightgrey;
+      color: $grey-6;
     }
 
     .address-number {
-      color: $grey;
+      color: $grey-8;
     }
   }
 
   .date {
     text-align: right;
     font-size: 14;
-    color: $grey;
+    color: $grey-8;
   }
 
   .block {
-    color: $lightgrey;
+    color: $grey-6;
     font-size: 12;
   }
 }
