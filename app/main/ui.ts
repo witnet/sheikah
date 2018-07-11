@@ -46,7 +46,7 @@ export function createMainWindow() {
             mainWindow.webContents.inspectElement(x, y)
           }
         }
-      }]).popup(mainWindow)
+      }]).popup(props)
     })
   }
 
