@@ -1,10 +1,12 @@
 import { applyMiddleware, compose, createStore } from "redux"
 import thunk from "redux-thunk"
-import { createLogger } from "redux-logger"
-import rootReducer from "../reducers"
-import * as counterActions from "../actions/counter"
-import { connectRouter, push, routerMiddleware } from "connected-react-router"
+import { push, routerMiddleware } from "react-router-redux"
 import createHashHistory from "history/createHashHistory"
+import { createLogger } from "redux-logger"
+
+import { inDevelopment } from "app/common/env"
+import { State, rootReducer } from "app/renderer/reducers"
+import * as counterActions from "app/renderer/actions/counter"
 
 declare const window: Window & {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?(a: any): void;
@@ -18,18 +20,13 @@ declare const module: NodeModule & {
 }
 
 /* tslint:disable-next-line:prefer-object-spread */
-const actionCreators = Object.assign({},
-  counterActions,
-  { push }
-)
+
+const actionCreators = Object.assign({}, counterActions, { push })
 
 const logger = (createLogger as any)({
   level: "info",
   collapsed: true
 })
-
-const history = createHashHistory({ basename: "/" })
-const router = routerMiddleware(history)
 
 // If Redux DevTools Extension is installed use it, otherwise use Redux compose
 /* eslint-disable no-underscore-dangle */
@@ -43,28 +40,25 @@ const composeEnhancers: typeof compose =
     }) as any
     : compose
 
-const middlewares: Array<any> = [thunk, router]
-if (process.env.NODE_ENV === "development") {
-  middlewares.push(logger)
-}
+export const history = inDevelopment ?
+  createHashHistory({ basename: "/" }) :
+  createHashHistory()
 
-/* eslint-enable no-underscore-dangle */
-const enhancer = composeEnhancers(
-  applyMiddleware.apply(undefined, middlewares)
-)
+const enhancer = inDevelopment ?
+  composeEnhancers(
+    applyMiddleware(thunk, routerMiddleware(history), logger)
+  ) :
+  applyMiddleware(thunk, routerMiddleware(history))
 
-export = {
-  history,
-  configureStore(initialState: {} | void) {
-    const store = createStore<{}>(rootReducer, initialState || {}, enhancer)
+export function configureStore(initialState: State) {
+  const store = createStore(rootReducer, initialState, enhancer)
 
-    if (module.hot) {
-      module.hot.accept("../reducers", () => {
-        // eslint-disable-line global-require
-        store.replaceReducer(require("../reducers"))
-      })
-    }
-
-    return store
+  if (module.hot) {
+    module.hot.accept("../reducers", () => {
+      // eslint-disable-line global-require
+      store.replaceReducer(require("../reducers"))
+    })
   }
+
+  return store
 }

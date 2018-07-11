@@ -25,6 +25,8 @@ export default class ButtonOption extends React.Component<Iprops> {
   // tslint:disable-next-line: completed-docs
   public render() {
     const recommendedStyle = _.get(this, "props.recommended", "")
+      ? styles.recommended
+      : ""
 
     const className = `${styles.button} ${recommendedStyle} ${this.props.className}`
     const text = (

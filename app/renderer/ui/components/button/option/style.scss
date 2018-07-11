@@ -1,10 +1,28 @@
 :local {
+  @import "../../../colors";
+  @import "../../../fonts";
+
   .button {
+    @extend %font20;
+
+    background: none;
+    border: 1px solid $grey-8;
+    color: $grey-8;
+    cursor: pointer;
     display: flex;
     flex-direction: row;
+    font: inherit;
     height: 50px;
     justify-content: space-between;
     margin-bottom: .3em;
+    outline: inherit;
+    padding: 16px;
     width: 100%;
+  }
+
+  .recommended {
+    border-color: $blue-6;
+    color: $blue-6;
+    height: 70px;
   }
 }

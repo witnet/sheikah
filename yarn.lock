@@ -719,6 +719,12 @@
   version "22.2.3"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.3.tgz#0157c0316dc3722c43a7b71de3fdf3acbccef10d"
 
+"@types/leveldown@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@types/leveldown/-/leveldown-1.7.0.tgz#e778273d9a08ea67308947a2d2196778b84bf26c"
+  dependencies:
+    "@types/node" "*"
+
 "@types/levelup@^0.0.30":
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/levelup/-/levelup-0.0.30.tgz#869dd7a82cdbe5983e737006a1ff4e42fac97ca7"
@@ -742,10 +748,6 @@
 "@types/node@^8.0.24":
   version "8.10.21"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.21.tgz#12b3f2359b27aa05a45d886c8ba1eb8d1a77e285"
-
-"@types/prop-types@^15.5.3":
-  version "15.5.3"
-  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.3.tgz#bef071852dca2a2dbb65fecdb7bfb30cedae2de2"
 
 "@types/react-dom@16.0.5":
   version "16.0.5"
@@ -1038,6 +1040,10 @@ add-dom-event-listener@1.x:
   resolved "https://registry.yarnpkg.com/add-dom-event-listener/-/add-dom-event-listener-1.0.2.tgz#8faed2c41008721cf111da1d30d995b85be42bed"
   dependencies:
     object-assign "4.x"
+
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
 
 address@1.0.3, address@^1.0.1:
   version "1.0.3"
