@@ -17,8 +17,13 @@ export function pureSubsystem<T, C>(getValue: (config?: C) => T): Lifecycle<T, C
     async start(config?: C) {
       return getValue(config)
     },
-    async stop() {
-      return
-    }
+    stop: dummyStop
   }
+}
+
+/**
+ * A dummy stopper for use in lightweight lifecycle implementations.
+ */
+export async function dummyStop(): Promise<void> {
+  return
 }
