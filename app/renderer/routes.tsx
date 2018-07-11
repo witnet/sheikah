@@ -1,15 +1,27 @@
+import { StoreState } from "app/renderer/reducers"
+import SignupPage from "app/renderer/ui/containers/SignupPage"
+import { GuardedRoute, ifWallets } from "app/renderer/utils/guardedRoute"
 import * as React from "react"
-import { Switch, Route } from "react-router"
+import { Route, Switch } from "react-router"
+import { Store } from "redux"
 import App from "./containers/App"
-import SignupPage from "./ui/containers/SignupPage"
-import CounterPage from "./containers/CounterPage"
-// import HomePage from "./containers/HomePage"
 
-export default () => (
-  <App>
-    <Switch>
-      <Route path="/counter" component={CounterPage} />
-      <Route path="/" component={SignupPage} />
-    </Switch>
-  </App>
-)
+import HomePage from "./containers/HomePage"
+
+type RoutesProps = {
+  store: Store<StoreState>
+}
+
+export default (props: RoutesProps) => {
+  const { store } = props
+
+  return(
+    <App>
+      <Switch>
+        <GuardedRoute path="/" guard={ifWallets(store)} aCompo={HomePage} bCompo={SignupPage} />
+        <GuardedRoute path="/main" guard={ifWallets(store)} aCompo={HomePage} bCompo={SignupPage} />
+        <Route path="/wallets/new" component={SignupPage} />
+      </Switch>
+    </App>
+  )
+}
