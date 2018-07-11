@@ -2,12 +2,10 @@ const { app, ipcMain } = require("electron")
 
 import { config } from "app/common/config"
 import { inDarwin, inDevelopment } from "app/common/env"
-import { asyncChannel, deadLetterChannel, syncChannel } from "app/common/ipc"
 import { Channels } from "app/main/ipc"
-import * as api from "./api"
+import startupRoutine from "app/main/routines/startup"
 import * as ipc from "./ipc"
 import { appSystem } from "./system"
-import * as ui from "./ui"
 
 let channels: Channels
 
@@ -41,13 +39,8 @@ async function startApplication() {
     appSystem.start(config),
     installExtensions()
   ])
-  channels = [
-    [asyncChannel, api.asyncListenerFactory(system, api.routes)],
-    [syncChannel, api.syncListenerFactory(system, api.routes)],
-    [deadLetterChannel, api.deadLetterListener]
-  ]
-  ipc.createChannels(ipcMain, channels)
-  ui.createMainWindow()
+  const {channels: _channels} = await startupRoutine(system)
+  channels = _channels
 }
 
 /**
