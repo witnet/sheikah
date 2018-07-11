@@ -1,10 +1,10 @@
 import * as React from "react"
 import { RouteComponentProps } from "react-router"
 
-import Signup from "../components/signup/index"
+import Signup from "app/renderer/ui/components/signup/index"
 
 /**
- * Sigup page UI component
+ * Signup page UI component
  *
  * @export
  * @class SignupPage
