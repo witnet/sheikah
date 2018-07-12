@@ -1,8 +1,8 @@
+import { InvalidParamsError } from "app/common/ipc-protocol"
 import * as t from "io-ts"
 
 export const enum Contexts {
   STORAGE = "storage",
-  STATE = "state",
   IPC = "ipc",
 }
 
@@ -12,10 +12,11 @@ export const enum Contexts {
  * @param runtimeType
  * @param context
  */
-export function asRuntimeType<T>(input: t.mixed, runtimeType: t.Type<T>, context?: Contexts) {
+export function asRuntimeType<T>(input: t.mixed, runtimeType: t.Type<T>, context?: Contexts): T {
   return runtimeType.decode(input).getOrElseL(() => {
     const ctx = context ? ` from ${context}` : ""
-    throw new Error(`Got a non-compliant ${runtimeType.name}${ctx}: ${JSON.stringify(input)}`)
+    const errorMessage = `Got a non-compliant ${runtimeType.name}${ctx}: ${JSON.stringify(input)}`
+    throw new InvalidParamsError(errorMessage)
   })
 }
 
