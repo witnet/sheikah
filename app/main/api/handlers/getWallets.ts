@@ -1,4 +1,4 @@
-import { Contexts, asRuntimeType } from "app/common/runtimeTypes"
+import { asObject } from "app/common/runtimeTypes"
 import { Wallets } from "app/common/runtimeTypes/storage/wallets"
 import { SubSystems } from "app/main/system"
 
@@ -9,7 +9,5 @@ import { SubSystems } from "app/main/system"
  * @param params
  */
 export default async function getWallets(system: SubSystems, params: any) {
-  const _wallets = system.appStateManager.get("wallets")
-
-  return asRuntimeType(_wallets, Wallets, Contexts.STATE)
+  return asObject(system.appStateManager.state.wallets, Wallets)
 }

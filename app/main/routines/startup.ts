@@ -35,7 +35,6 @@ async function stateStart(system: SubSystems) {
   // Get and parse wallets from storage
   const _wallets = system.appStorage.get("wallets")
   const wallets = asRuntimeType(_wallets, Wallets, Contexts.STORAGE)
-  console.log(wallets)
 
   system.appStateManager.update({ appInfo: config.appInfo })
 }
