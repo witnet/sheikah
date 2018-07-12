@@ -4,9 +4,9 @@ import { GuardedRoute, ifWallets } from "app/renderer/utils/guardedRoute"
 import * as React from "react"
 import { Route, Switch } from "react-router"
 import { Store } from "redux"
-import App from "./containers/App"
+import App from "./ui/containers/App"
 
-import HomePage from "./containers/HomePage"
+import HomePage from "./ui/containers/HomePage"
 
 type RoutesProps = {
   store: Store<StoreState>

@@ -1,14 +1,12 @@
-import * as React from "react"
-import * as Redux from "react-redux"
+import Routes from "app/renderer/routes"
 import { History } from "history"
-
-// tslint:disable-next-line:no-duplicate-imports
+import * as React from "react"
 import { Provider } from "react-redux"
 import { ConnectedRouter } from "react-router-redux"
-import Routes from "../routes"
+import { Store } from "redux"
 
 interface IRootType {
-  store: Redux.Store<any>
+  store: Store<any>
   history: History
 }
 
