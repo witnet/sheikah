@@ -7,6 +7,7 @@ const styles = require("./style.scss")
 export interface Iprops {
   className?: string
   title: string
+  style?: React.CSSProperties
 }
 
 /**
@@ -22,7 +23,7 @@ export default class CardDefault extends React.Component<Iprops> {
   public render() {
     return (
       <div className={this.props.className}>
-        <Card title={this.props.title}>
+        <Card className={styles.card} style={this.props.style} title={this.props.title}>
           <div className={styles.content}>
             {this.props.children}
           </div>
