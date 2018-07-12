@@ -36,7 +36,7 @@ async function stateStart(system: SubSystems) {
   const _wallets = system.appStorage.get("wallets")
   const wallets = asRuntimeType(_wallets, Wallets, Contexts.STORAGE)
 
-  system.appStateManager.update({ appInfo: config.appInfo })
+  system.appStateManager.update({ appInfo: config.appInfo, wallets })
 }
 
 /**
