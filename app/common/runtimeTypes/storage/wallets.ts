@@ -1,7 +1,7 @@
 import * as t from "io-ts"
 
 export const WalletInfo = t.type({
-  name: t.string,
+  id: t.string,
   caption: t.string
 }, "WalletInfo")
 export type WalletInfo = t.TypeOf<typeof WalletInfo>
