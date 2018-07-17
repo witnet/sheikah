@@ -1,43 +1,63 @@
-import { Config } from "app/common/config"
-import { Lifecycle } from "app/main/lifecycle"
-import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
-
-type WalletStorage = JsonAesLevelStorage
-
-export type WalletStorageCollection = { [name: string]: WalletStorage }
+import {Config} from "app/common/config"
+import {Lifecycle} from "app/main/lifecycle"
+import {JsonAesLevelStorage} from "app/main/subsystems/jsonAesLevel"
 
 /**
- * This is a very simple subsystem containing a collection of WalletStorage objects that can be
- * easily accessed by name.
+ * This is a wrapper for JsonAESLevelStorage that provides the replace and close methods.
+ * It is intended to be used as a singleton inside the WalletStorageSubsystem
  */
-export class WalletStorageCollectionSubSystem
-  implements Lifecycle<WalletStorageCollection, Partial<Config>> {
+export class WalletStorage {
+  /** The JsonAesLevelStorage */
+  private storage: JsonAesLevelStorage | undefined = undefined
 
   /**
-   * This is the actual collection where references to the WalletStorage objects are stored.
-   * @type WalletStorageCollection
+   * Replace the storage of the wallet and closes the previous storage.
+   * @param {JsonAesLevelStorage} storage
+   * @returns {Promise<void>}
    */
-  private items: WalletStorageCollection = {}
+  public async replace(storage: JsonAesLevelStorage): Promise<void> {
+    await this.close()
+    this.storage = storage
+  }
+
+  /**
+   * Closes the wallet storage and cleans after itself.
+   * @returns {Promise<void>}
+   */
+  public async close(): Promise<void> {
+    if (this.storage !== undefined) {
+      await this.storage.close()
+      this.storage = undefined
+    }
+  }
+}
+
+/**
+ * This is a very simple subsystem containing a WalletStorage object.
+ */
+export class WalletStorageSubSystem
+  implements Lifecycle<WalletStorage, Partial<Config>> {
+
+  /**
+   * The actual Wallet storage.
+   * @type WalletStorage
+   */
+  private item: WalletStorage = new WalletStorage()
 
   /**
    * Lifecycle start function.
-   * It simply returns a reference to the internal WalletStorage collection.
+   * It simply returns the internal WalletStorage.
    */
-  public async start(): Promise<WalletStorageCollection> {
-    return this.items
+  public async start(): Promise<WalletStorage> {
+    return this.item
   }
 
   /**
    * Lifecycle stop function.
-   * It closes all referenced WalletStorages and cleans after itself.
+   * It closes the wallet storage.
    */
   public async stop() {
-    const promises = Object.values(this.items)
-      .map(async (storage: WalletStorage) => storage.close())
-    await Promise.all(promises)
-    this.items = {}
-
-    return
+    return this.item.close()
   }
 
 }

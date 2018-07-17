@@ -5,7 +5,7 @@ import { AppStateManager } from "app/main/appState"
 import { appStorageInitializer } from "app/main/storage/initializers"
 import { AppStateSubSystem } from "app/main/subsystems/appState"
 import {
-  WalletStorageCollection, WalletStorageCollectionSubSystem
+  WalletStorage, WalletStorageSubSystem
 } from "app/main/subsystems/wallets"
 import { Lifecycle } from "./lifecycle"
 import { jsonSubSystem } from "./subsystems/json"
@@ -18,7 +18,7 @@ import { JsonPlainLevelStorage, JsonPlainLevelSubSystem } from "./subsystems/jso
  */
 export type JsonS = { json: JsonSerializer }
 export type AppStorageS = { appStorage: JsonPlainLevelStorage }
-export type WalletStorageS = { walletStorage: WalletStorageCollection }
+export type WalletStorageS = { walletStorage: WalletStorage }
 export type AppStateS = { appStateManager: AppStateManager }
 
 /**
@@ -41,7 +41,7 @@ export type Builders = {
 const builders: Builders = {
   json: jsonSubSystem,
   appStorage: new JsonPlainLevelSubSystem("appStorage", appStorageInitializer),
-  walletStorage: new WalletStorageCollectionSubSystem(),
+  walletStorage: new WalletStorageSubSystem(),
   appStateManager: new AppStateSubSystem()
 }
 
