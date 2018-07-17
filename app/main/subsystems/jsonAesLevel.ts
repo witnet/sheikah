@@ -31,13 +31,13 @@ export class JsonAesLevelSubSystem implements Lifecycle<JsonAesLevelStorage, Con
    * Name of the storage.
    * This is used when constructing the filesystem path where the data will be written to.
    */
-  private name: string
+  private name: string | undefined
 
   /**
    * The storage object itself.
    * It exposes the Storage API (get, put, close).
    */
-  private storage: JsonAesLevelStorage
+  private storage: JsonAesLevelStorage | undefined
 
   /**
    * Start the Storage lifecycle.
@@ -80,7 +80,9 @@ export class JsonAesLevelSubSystem implements Lifecycle<JsonAesLevelStorage, Con
    * Stop the Storage lifecycle.
    */
   public async stop() {
-    await this.storage.close()
+    if (this.storage !== undefined) {
+      await this.storage.close()
+    }
 
     return
   }
