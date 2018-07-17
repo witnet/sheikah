@@ -71,3 +71,14 @@ export type GetWalletError = t.TypeOf<typeof GetWalletError>
 
 export const GetWalletResponse = t.taggedUnion("kind", [GetWalletSuccess, GetWalletError])
 export type GetWalletResponse = t.TypeOf<typeof GetWalletResponse>
+export const EncryptWalletParams = t.intersection([
+  t.type({
+    id: t.string,
+    password: t.string
+  }),
+  t.partial({
+    caption: t.string
+  })
+])
+
+export type EncryptWalletParams = t.TypeOf<typeof EncryptWalletParams>
