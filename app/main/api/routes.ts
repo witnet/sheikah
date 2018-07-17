@@ -11,7 +11,8 @@ export const routes: Routes<SubSystems> = {
   ping: h.ping,
   nop: h.nop,
   echo: h.echo,
-  error: h.error
+  error: h.error,
+  newMnemonics: h.newMnemonics
 }
 
 /**
