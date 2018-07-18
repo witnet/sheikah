@@ -11,9 +11,10 @@ describe("NewMnemonics Handler", () => {
       }
     }
 
+    // Call the new mnemonics handler and wait for the response
     const result = await newMnemonics(system, {})
 
-    // Check that the return value is an unconsolidated wallet
+    // Check that the return value is a new mnemonics response runtime type
     const mnemonicsResponse = asRuntimeType(result, NewMnemonicsResponse)
 
     // Check that new mnemonic response contains a non-empty string
@@ -41,6 +42,7 @@ describe("NewMnemonics Handler", () => {
       }
     }
 
+    // Call the new mnemonics handler and wait for the response
     const result = await newMnemonics(system, {})
 
     // Check that updateMock function has been called with an unconsolidatedWallet as argument

@@ -25,7 +25,7 @@ describe("NewMnemonics API", () => {
     expect(response).toMatchObject(mnemonics)
   })
 
-  it("should send a correct routed JSON-RPC request", async () => {
+  it("should send a routable JSON-RPC request", async () => {
     const expected = {
       jsonrpc: "2.0",
       id: "some generated id",
@@ -33,9 +33,10 @@ describe("NewMnemonics API", () => {
       params: []
     }
 
+    // Call newMnemonics renderer function to trigger a JSON-RPC request and wait for the response
     await newMnemonics(client)
 
-    // Check that the request method is in the routes of the main process
+    // Check that the requested method is in the routes of the main process
     expect(messageHandler.mock.calls[0][1].method in routes).toBe(true)
 
     // Check that the message handler function has been called correctly
