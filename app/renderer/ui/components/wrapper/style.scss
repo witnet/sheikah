@@ -1,0 +1,38 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .layout {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    align-items: baseline;
+    display: grid;
+    grid-gap: .5em;
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-rows: 1fr;
+    margin-bottom: .5em;
+
+    .title {
+      color: $grey-6;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .caption {
+      color: $grey-2;
+      font-size: 12px;
+    }
+
+    .actions {
+      grid-column: 4;
+    }
+  }
+
+  .content {
+    background: $grey-1;
+    border: 1px solid $grey-3;
+  }
+}
