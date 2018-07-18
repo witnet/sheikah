@@ -1,4 +1,4 @@
-import { ChainType } from "app/main/chain/chainType"
+import { ChainType } from "app/common/chain/chainType"
 import { commonConfig } from "./common"
 
 export default {
