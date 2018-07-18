@@ -7,7 +7,6 @@ const styles = require("./style.scss")
 export interface Iprops {
   className?: string
   onClick?: any
-  text: string
 }
 
 /**
@@ -23,7 +22,7 @@ export default class ButtonLink extends React.Component<Iprops> {
   public render() {
     return (
       <Button className={`${styles.button} ${this.props.className}`} onClick={this.props.onClick}>
-        {this.props.text}
+        {this.props.children}
       </Button>
     )
   }

@@ -10,7 +10,6 @@ export interface Iprops {
   onClick?: any
   recommended?: boolean
   secondaryText?: string
-  text: any,
 }
 
 /**
@@ -29,7 +28,7 @@ export default class ButtonOption extends React.Component<Iprops> {
     const className = `${styles.button} ${recommendedStyle} ${this.props.className}`
     const text = (
       <>
-        <span>{this.props.text}</span> <span>{_.get(this, "props.secondaryText", "")}</span>
+        <span>{this.props.children}</span> <span>{_.get(this, "props.secondaryText", "")}</span>
       </>
     )
 

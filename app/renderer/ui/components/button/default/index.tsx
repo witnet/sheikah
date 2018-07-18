@@ -5,7 +5,6 @@ import { Button } from "antd"
 export interface Iprops {
   className?: string
   onClick?: any
-  text: string,
 }
 
 /**
@@ -21,7 +20,7 @@ export default class ButtonDefault extends React.Component<Iprops> {
   public render() {
     return (
       <Button className={this.props.className} onClick={this.props.onClick}>
-        {this.props.text}
+        {this.props.children}
       </Button>
     )
   }
