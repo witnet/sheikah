@@ -1,4 +1,5 @@
 import * as React from "react"
+import { RouteComponentProps } from "react-router"
 
 import AddressesGeneration from "./steps/adressesGeneration/index"
 import WalletEncryptionPassword from "./steps/walletEncryptionPassword/index"
@@ -10,16 +11,16 @@ import Welcome from "./steps/welcome/index"
 const styles = require("./style.scss")
 
 /**
- * Singup component
+ * SingupPage component
  *
  * @export
  * @class Signup
  * @extends {React.Component}
  */
-export default class Signup extends React.Component {
+  export class SignupPage extends React.Component<RouteComponentProps<any>> {
 
   /**
-   * Local state for Singup component
+   * Local state for SingupPage component
    *
    * @memberof Signup
    */
@@ -105,7 +106,7 @@ export default class Signup extends React.Component {
   }
 
   /** render */
-  // tslint:disable-next-line:prefer-function-over-method
+  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
       <div className={styles.layout}>

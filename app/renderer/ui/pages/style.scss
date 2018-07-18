@@ -1,0 +1,9 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .external-layout {
+    background: $grey-4;
+    height: 500px;
+    width: 700px;
+  }
+}

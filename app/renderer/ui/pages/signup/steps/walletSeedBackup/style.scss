@@ -1,5 +1,5 @@
 :local {
-  @import "../../../../colors";
+  @import "app/renderer/ui/colors";
 
   .alert {
     background: linear-gradient(to right, $red-2, $grey-3);

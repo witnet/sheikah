@@ -1,7 +1,7 @@
 import * as React from "react"
 
-import { ButtonLink } from "../../../button/index"
-import { CardDefault } from "../../../card/index"
+import { ButtonLink } from "app/renderer/ui/components/button"
+import { CardDefault } from "app/renderer/ui/components/card"
 
 const styles = require("./style.scss")
 
@@ -35,7 +35,7 @@ export default class Welcome extends React.Component<Iprops> {
           smart contracts.
         </p>
         <div className={styles.link}>
-          <ButtonLink text="Let's do this" onClick={this.props.nextStep}/>
+          <ButtonLink onClick={this.props.nextStep}>Let's do this</ButtonLink>
         </div>
       </CardDefault>
     )

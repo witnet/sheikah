@@ -1,7 +1,7 @@
 import * as React from "react"
 
-import { CardNavigation } from "../../../card/index"
-import Alert from "../../../alert/index"
+import { CardNavigation } from "app/renderer/ui/components/card"
+import Alert from "app/renderer/ui/components/alert"
 
 const styles = require("./style.scss")
 

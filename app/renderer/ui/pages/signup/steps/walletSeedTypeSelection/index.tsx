@@ -1,7 +1,7 @@
 import * as React from "react"
 
-import { ButtonOption } from "../../../button/index"
-import { CardDefault } from "../../../card/index"
+import { ButtonOption } from "app/renderer/ui/components/button"
+import { CardDefault } from "app/renderer/ui/components/card"
 
 const styles = require("./style.scss")
 
@@ -20,7 +20,7 @@ export interface Iprops {
 
 export default class WalletSeedTypeSelection extends React.Component<Iprops> {
   /** render */
-  // tslint:disable-next-line:prefer-function-over-method
+  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return(
       <CardDefault className={this.props.className} title="Wallet seed creation">
@@ -32,19 +32,26 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
         <div>
           <ButtonOption
             className={styles.recommended}
-            text="Create a new seed"
             secondaryText="RECOMMENDED"
             onClick={this.props.nextStep}
-          />
+          >
+            Create a new seed
+          </ButtonOption>
         </div>
         <div>
-          <ButtonOption text="I already have a seed" onClick={this.props.nextStep} />
+          <ButtonOption onClick={this.props.nextStep}>
+            I already have a seed
+          </ButtonOption>
         </div>
         <div>
-          <ButtonOption text="Use a master key" onClick={this.props.nextStep} />
+          <ButtonOption onClick={this.props.nextStep} >
+            Use a master key
+          </ButtonOption>
         </div>
         <div>
-          <ButtonOption text="Use a hardware device" onClick={this.props.nextStep} />
+          <ButtonOption onClick={this.props.nextStep} >
+            Use a hardware device
+          </ButtonOption>
         </div>
       </CardDefault>
     )

@@ -1,7 +1,7 @@
 import * as React from "react"
 
-import { CardNavigation } from "../../../card/index"
-import { InputUnderlined } from "../../../input/index"
+import { CardNavigation } from "app/renderer/ui/components/card"
+import { InputUnderlined } from "app/renderer/ui/components/input"
 
 const styles = require("./style.scss")
 

@@ -1,8 +1,9 @@
 import * as React from "react"
 
-import Alert from "../../../alert/index"
-import { CardNavigation } from "../../../card/index"
-import { InputBig } from "../../../input/index"
+import Alert from "app/renderer/ui/components/alert"
+import { CardNavigation } from "app/renderer/ui/components/card"
+
+import { InputBig } from "app/renderer/ui/components/input"
 
 const styles = require("./style.scss")
 

@@ -1,5 +1,5 @@
 import { StoreState } from "app/renderer/reducers"
-import SignupPage from "app/renderer/ui/containers/SignupPage"
+import { SignupPage } from "app/renderer/ui/pages/signup"
 import { GuardedRoute, ifWallets } from "app/renderer/utils/guardedRoute"
 import * as React from "react"
 import { Route, Switch } from "react-router"

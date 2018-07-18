@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { CardDefault } from "../../../card/index"
+import { CardDefault } from "app/renderer/ui/components/card"
 
 const styles = require("./style.scss")
 
