@@ -125,6 +125,7 @@
     "@types/enzyme": "^3.1.1",
     "@types/history": "^4.5.2",
     "@types/jest": "^22.2.3",
+    "@types/leveldown": "^1.7.0",
     "@types/levelup": "^0.0.30",
     "@types/lodash": "^4.14.108",
     "@types/mkdirp": "^0.5.2",
