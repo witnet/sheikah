@@ -1,0 +1,32 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .payment-request {
+    display: grid;
+    padding: 2em;
+    grid-gap: 2em;
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .creation-date {
+    font-size: 12px;
+  }
+
+  .expiration-date {
+    font-size: 12px;
+  }
+
+  .green {
+    color: $green-4;
+  }
+
+  .red {
+    color: $red-6;
+  }
+
+
+  .actions {
+    display: grid;
+    align-items: center;
+  }
+}
