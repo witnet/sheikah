@@ -1,7 +1,7 @@
 import * as Bech32 from "bech32"
 import {PublicKey} from "../key/publicKey"
 import {sha256} from "../hash"
-import {ChainType} from "../../chain/chainType"
+import {ChainType} from "app/common/chain/chainType"
 import {Errors} from "../errors"
 import {kvSwap} from "../../utils/utils"
 

@@ -1,7 +1,7 @@
 import {getMasterKey} from "./helpers"
 import * as PublicKey from "../../../../app/main/crypto/key/publicKey"
 import {decode, encode} from "../../../../app/main/crypto/address/p2pkh"
-import {ChainType} from "../../../../app/main/chain/chainType"
+import {ChainType} from "../../../../app/common/chain/chainType"
 import * as fixtures from "./addressFixtures"
 import {sha256} from "../../../../app/main/crypto/hash"
 

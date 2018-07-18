@@ -1,5 +1,5 @@
 import {kvSwap} from "appMain/utils/utils"
-import {ChainType} from "appMain/chain/chainType"
+import {ChainType} from "appCommon/chain/chainType"
 
 describe("Utils", () => {
   const prefixToChainType = {

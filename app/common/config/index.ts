@@ -1,6 +1,6 @@
 import { inDevelopment } from "app/common/env"
 import { AppInfo } from "app/common/runtimeTypes/storage/app"
-import { ChainType } from "app/main/chain/chainType"
+import { ChainType } from "app/common/chain/chainType"
 
 export type Config = {
   appInfo: AppInfo
