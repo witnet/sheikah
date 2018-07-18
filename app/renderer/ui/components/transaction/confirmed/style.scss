@@ -1,0 +1,73 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .transaction {
+    padding: 2em;
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-rows: auto;
+    align-items: center;
+    border-bottom: 1px solid $grey-2;
+    grid-gap: .5em;
+  }
+
+  .green {
+    color: $green-6;
+  }
+
+  .red {
+    color: $red-2;
+  }
+  .icon {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .amount {
+    grid-row: 1;
+    grid-column: 2;
+
+    .number {
+      font-size: 18px;
+      &.positive {
+        color: $green-6;
+      }
+
+      &.negative {
+        color: $red-2;
+      }
+    }
+
+    .wit {
+      font-weight: bold;
+      color: $grey-6;
+      font-size: 10px;
+    }
+  }
+
+  .address {
+    margin-left: 4em;
+    grid-row: 1;
+    grid-column: 3;
+    font-size: 14;
+
+    .origin {
+      color: $grey-6;
+    }
+
+    .address-number {
+      color: $grey-8;
+    }
+  }
+
+  .date {
+    color: $grey-8;
+    font-size: 14;
+    text-align: right;
+  }
+
+  .block {
+    color: $grey-6;
+    font-size: 12;
+  }
+}
