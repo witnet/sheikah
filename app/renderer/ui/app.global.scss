@@ -1,12 +1,16 @@
-@import "~font-awesome/css/font-awesome.css";
-@import "colors";
-@import "reset";
-@import "fonts";
+:global {
+  @import "~font-awesome/css/font-awesome.css";
+  @import "colors";
+  @import "reset";
+  @import "fonts";
 
-body {
-  position: relative;
-  height: 100vh;
-  font-family: Arial, Helvetica, Helvetica Neue, serif;
+  body {
+    position: relative;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    font-family: Arial, Helvetica, Helvetica Neue, serif;
+  }
 
   .ant-card-head {
     align-items: center;
