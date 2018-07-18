@@ -1,0 +1,23 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .top-bar {
+    padding-left: 1em;
+    display: grid;
+    grid-template-columns: repeat(6, auto) 1fr;
+    border-bottom: 1px solid $grey-6;
+  }
+
+  .link-box {
+    padding: 0 2em;
+    display: flex;
+    align-items: center;
+    grid-row: 1;
+    color: $grey-6;
+    font-weight: bold;
+    .active {
+      border-bottom: 2px solid $blue-6;
+      color: $grey-9;
+    }
+  }
+}
