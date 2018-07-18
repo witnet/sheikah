@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { Card } from "antd"
 
-import { ButtonNavigation } from "../../button/index"
+import { ButtonNavigation } from "app/renderer/ui/components/button"
 
 const styles = require("./style.scss")
 
