@@ -1,3 +1,4 @@
+import { Services } from "app/renderer/services"
 import { createStore, applyMiddleware, compose } from "redux"
 import thunk from "redux-thunk"
 import { createHashHistory } from "history"
@@ -41,32 +42,36 @@ const composeEnhancers: typeof compose =
     }) as any
     : compose
 
-const middlewares: Array<any> = [thunk, router]
-if (process.env.NODE_ENV === "development") {
-  middlewares.push(logger)
-}
+/**
+ * This function is exposed to the renderer process' index in order to let it create the store with
+ * all the needed services or enhancers passed to it using dependency injection.
+ * @param initialState
+ * @param services
+ */
+function configureStore(initialState: StoreState, services: Services) {
 
-/* eslint-enable no-underscore-dangle */
-const enhancer = composeEnhancers(
-  applyMiddleware.apply(undefined, middlewares)
-)
+  const middlewares: Array<any> = [thunk.withExtraArgument(services), router]
+  if (process.env.NODE_ENV === "development") {
+    middlewares.push(logger)
+  }
+
+  const enhancer = composeEnhancers(
+    applyMiddleware.apply(undefined, middlewares)
+  )
+
+  const store = createStore<StoreState>(connectRouter(history)(rootReducer), initialState, enhancer)
+
+  if (module.hot) {
+    module.hot.accept("app/renderer/reducers", () => {
+      // eslint-disable-line global-require
+      store.replaceReducer(require("app/renderer/reducers"))
+    })
+  }
+
+  return store
+}
 
 export = {
   history,
-  configureStore(initialState: StoreState) {
-    const store = createStore<StoreState>(
-      connectRouter(history)(rootReducer),
-      initialState,
-      enhancer
-    )
-
-    if (module.hot) {
-      module.hot.accept("app/renderer/reducers", () => {
-        // eslint-disable-line global-require
-        store.replaceReducer(require("app/renderer/reducers"))
-      })
-    }
-
-    return store
-  }
+  configureStore
 }
