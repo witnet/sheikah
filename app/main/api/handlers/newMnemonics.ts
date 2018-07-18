@@ -1,7 +1,7 @@
 import { asObject } from "app/common/runtimeTypes"
 import { SubSystems } from "app/main/system"
-import { generate } from "app/main/crypto/mnemonic"
 import { NewMnemonicsResponse } from "app/common/runtimeTypes/storage/wallets"
+import * as mnemonic from "app/main/crypto/mnemonic"
 
 /**
  * Handler function for "newMnemonics" method.
@@ -11,7 +11,7 @@ import { NewMnemonicsResponse } from "app/common/runtimeTypes/storage/wallets"
  */
 export default async function newMnemonics(system: SubSystems, params: any) {
   // Get mnemonics from crypto library
-  const mnemonicsResponse = { mnemonics: generate() }
+  const mnemonicsResponse: NewMnemonicsResponse = { mnemonics: mnemonic.generate() }
 
   // Update app state with unconsolidated wallet entry
   system.appStateManager.update({ unconsolidatedWallet: mnemonicsResponse })
