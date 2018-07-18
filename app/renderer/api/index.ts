@@ -5,8 +5,13 @@
  */
 import log from "app/common/logging"
 import * as protocol from "app/common/ipc-protocol"
-import * as ipc from "./ipc"
+import * as ipc from "app/renderer/ipc"
 import { jsonSerializer, JsonSerializer } from "app/common/serializers"
+
+/**
+ * Exports API renderer functions
+ */
+export { newMnemonics } from "./newMnemonics"
 
 /** Options type expected by `Client` */
 export type Options = {

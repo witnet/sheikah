@@ -1,7 +1,6 @@
-import * as api from "app/renderer/api"
 import {ipcRendererFactory} from "test/__stubs__/ipcRenderer"
 import {jsonSerializer} from "test/__stubs__/serializers"
-import {newMnemonics} from "app/renderer/api/newMnemonics"
+import * as api from "app/renderer/api"
 import {routes} from "app/main/api"
 
 describe("NewMnemonics API", () => {
@@ -21,7 +20,7 @@ describe("NewMnemonics API", () => {
   const client = new api.Client(options)
 
   it("should return valid mnemonics", async () => {
-    const response = await newMnemonics(client)
+    const response = await api.newMnemonics(client)
     expect(response).toMatchObject(mnemonics)
   })
 
@@ -34,7 +33,7 @@ describe("NewMnemonics API", () => {
     }
 
     // Call newMnemonics renderer function to trigger a JSON-RPC request and wait for the response
-    await newMnemonics(client)
+    await api.newMnemonics(client)
 
     // Check that the requested method is in the routes of the main process
     expect(messageHandler.mock.calls[0][1].method in routes).toBe(true)
