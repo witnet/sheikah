@@ -1,0 +1,77 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .transaction {
+    padding: 2em;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: auto;
+    grid-column-gap: 1em;
+    align-items: center;
+    border-bottom: 1px solid $grey-2;
+  }
+
+  .status-icon {
+    grid-row: 1;
+    grid-column: 1;
+    font-size: 8px;
+
+    .unconfirmed {
+      color: $yellow-2;
+    }
+
+    .timelocked {
+      color: $blue-2;
+    }
+  }
+  .status {
+    grid-row: 1;
+    grid-column: 2;
+    font-weight: bold;
+    color: $grey-6;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .vestingTime {
+    grid-row: 1;
+    grid-column: 3;
+    color: $grey-2;
+  }
+
+  .amount {
+    grid-row: 2;
+    grid-column: 2;
+
+    .number {
+      font-size: 18px;
+      &.positive {
+        color: $green-2;
+      }
+
+      &.negative {
+        color: $red-2;
+      }
+    }
+
+    .wit {
+      font-weight: bold;
+      color: $grey-2;
+      font-size: 10px;
+    }
+  }
+
+  .address {
+    grid-row: 2;
+    grid-column: 3;
+    font-size: 14;
+
+    .origin {
+      color: $grey-2;
+    }
+
+    .address-number {
+      color: $grey-6;
+    }
+  }
+}
