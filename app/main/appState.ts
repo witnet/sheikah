@@ -1,6 +1,4 @@
-import { AppInfo } from "app/common/runtimeTypes/storage/app"
-import { Wallets, UnconsolidatedWallet } from "app/common/runtimeTypes/storage/wallets"
-import * as t from "io-ts"
+import { AppState } from "app/common/runtimeTypes/ipc/state"
 
 /**
  * An AppstateManager maintains app state and manages its access and update.
@@ -45,15 +43,3 @@ export const emptyAppState: AppState = {
   _seq: 0,
   wallets: []
 }
-
-export const AppState = t.intersection([
-  t.type({
-    _seq: t.number,
-    wallets: Wallets,
-  }),
-  t.partial({
-    appInfo: AppInfo,
-    unconsolidatedWallet: UnconsolidatedWallet
-  })
-], "AppState")
-export type AppState = t.TypeOf<typeof AppState>

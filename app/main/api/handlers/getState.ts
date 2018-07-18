@@ -1,6 +1,6 @@
 import { asObject } from "app/common/runtimeTypes"
-import { AppState } from "app/main/appState"
 import { SubSystems } from "app/main/system"
+import { AppState } from "app/common/runtimeTypes/ipc/state"
 
 /**
  * AppInfo handler
