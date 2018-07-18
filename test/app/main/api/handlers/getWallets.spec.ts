@@ -1,7 +1,8 @@
 import { asRuntimeType } from "app/common/runtimeTypes"
 import { getWallets } from "app/main/api/handlers"
 import { Wallets } from "app/common/runtimeTypes/storage/wallets"
-import { emptyAppState, AppState } from "app/main/appState"
+import { emptyAppState } from "app/main/appState"
+import { AppState } from "app/common/runtimeTypes/ipc/state"
 
 describe("GetWallets Handler", () => {
 
