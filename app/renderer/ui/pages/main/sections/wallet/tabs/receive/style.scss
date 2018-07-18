@@ -1,0 +1,66 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .left {
+    display: grid;
+    grid-column: 1;
+    grid-gap: 2em;
+  }
+
+  .right {
+    grid-column: 2;
+
+    .title {
+      font-weight: 800;
+      margin-bottom: 1.5em;
+    }
+
+    .text {
+      color: $grey-6;
+      font-size: 14px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.5;
+      margin-bottom: 1.5em;
+    }
+  }
+
+  .new-payment-request {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 3em 4em;
+
+    .form {
+      border-right: 1px solid $grey-6;
+      display: grid;
+      grid-gap: .5em 0;
+      grid-template-columns: auto auto .5fr;
+      grid-template-rows: auto auto auto auto;
+      padding-right: 4em;
+      padding: .5em;
+
+
+      .label-input {
+        grid-column: 2 / 4;
+      }
+
+      .label {
+        grid-column: 1;
+        padding: .5em;
+        text-align: right;
+      }
+
+      .submit {
+        grid-column: 3;
+        grid-row: 4;
+      }
+    }
+
+    .qr {
+      align-content: center;
+      display: grid;
+      padding: 4em;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+:local {
+  .left {
+    grid-column: 1;
+  }
+
+  .right {
+    grid-column: 2;
+  }
+
+  .pending {
+    margin-bottom: 2em;
+  }
+
+  //.confirmed {
+  //}
+
+  .balances {
+    margin-bottom: 2em;
+  }
+
+  //.vesting-graph {
+  //}
+}

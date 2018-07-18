@@ -1,0 +1,43 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .header {
+    align-items: center;
+    background: $blue-4;
+    color: $grey-1;
+    display: grid;
+    grid-column-end: 6;
+    grid-column-start: 1;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: 180px;
+
+    .sheikah {
+      color: $purple-6;
+    }
+  }
+
+  .title {
+    font-size: 64px;
+    font-weight: 600;
+    grid-column: 1;
+    text-align: center;
+  }
+
+  .subtitle {
+    font-size: 24px;
+    font-style: italic;
+    grid-column: 2;
+    text-align: center;
+  }
+
+
+
+  .featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  //.search {
+  //}
+}
