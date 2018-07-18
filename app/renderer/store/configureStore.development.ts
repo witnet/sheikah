@@ -1,19 +1,19 @@
 import { createStore, applyMiddleware, compose } from "redux"
 import thunk from "redux-thunk"
 import { createHashHistory } from "history"
-import { routerMiddleware, push } from "react-router-redux"
+import { connectRouter, push, routerMiddleware } from "connected-react-router"
 import { createLogger } from "redux-logger"
 import rootReducer, { StoreState } from "app/renderer/reducers"
 
 declare const window: Window & {
-  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?(a: any): void;
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?(a: any): void
 }
 
 declare const module: NodeModule & {
   hot?: {
     /* tslint:disable-next-line:array-type */
-    accept(...args: Array<any>): any;
-  };
+    accept(...args: Array<any>): any
+  }
 }
 
 /* tslint:disable-next-line:prefer-object-spread */
@@ -54,7 +54,11 @@ const enhancer = composeEnhancers(
 export = {
   history,
   configureStore(initialState: StoreState) {
-    const store = createStore<StoreState>(rootReducer, initialState, enhancer)
+    const store = createStore<StoreState>(
+      connectRouter(history)(rootReducer),
+      initialState,
+      enhancer
+    )
 
     if (module.hot) {
       module.hot.accept("app/renderer/reducers", () => {
