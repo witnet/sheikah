@@ -6,11 +6,11 @@ import { ConnectedRouter } from "react-router-redux"
 import { Store } from "redux"
 
 interface IRootType {
-  store: Store<any>
+  store: Store,
   history: History
 }
 
-const Root = ( { store, history }: IRootType) => {
+const Root = ({ store, history }: IRootType) => {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>

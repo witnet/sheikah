@@ -1,8 +1,8 @@
-import {getMasterKey} from "./helpers"
+import { getMasterKey } from "test/__helpers__/crypto"
 import * as fixtures from "./keyFixtures"
 import * as PrivateKey from "../../../../app/main/crypto/key/privateKey"
 import * as PublicKey from "../../../../app/main/crypto/key/publicKey"
-import {hardened} from "../../../../app/main/crypto/keyPath"
+import { hardened } from "../../../../app/main/crypto/keyPath"
 
 /**
  * The test vectors come from bip32 and the bitcoin-lib scala library

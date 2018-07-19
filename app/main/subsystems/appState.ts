@@ -1,12 +1,12 @@
 import { AppStateManager } from "app/main/appState"
 import { dummyStop, Lifecycle } from "app/main/lifecycle"
-import { SubSystems } from "app/main/system"
+import { AppStateS } from "app/main/system"
 
 /**
  * App state subsystem.
  * This simply initializes and returns an app state manager.
  */
-export class AppStateSubSystem implements Lifecycle<AppStateManager, SubSystems> {
+export class AppStateSubSystem implements Lifecycle<AppStateManager, AppStateS> {
 
   /**
    * A reference to the app state manager object itself.

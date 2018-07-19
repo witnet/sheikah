@@ -12,14 +12,20 @@ import { jsonSubSystem } from "./subsystems/json"
 import { JsonPlainLevelStorage, JsonPlainLevelSubSystem } from "./subsystems/jsonPlainLevel"
 
 /**
+ * Individual sub-systems that composed together form `SubSystems`.
+ * This is intended to let handlers depend on specific sub-systems and not on the
+ * too-big `SubSystems` type.
+ */
+export type JsonS = { json: JsonSerializer }
+export type AppStorageS = { appStorage: JsonPlainLevelStorage }
+export type WalletStorageS = { walletStorage: WalletStorageCollection }
+export type AppStateS = { appStateManager: AppStateManager }
+
+/**
  * Type of the system object returned by system.start()
  */
-export type SubSystems = {
-  json: JsonSerializer,
-  appStorage: JsonPlainLevelStorage,
-  walletStorage: WalletStorageCollection,
-  appStateManager: AppStateManager
-}
+export type SubSystems =
+  JsonS & AppStorageS & WalletStorageS & AppStateS
 
 /**
  * Type of the "builders" object defined down below
@@ -82,7 +88,7 @@ export class System implements Lifecycle<SubSystems, Partial<Config>> {
       const values = await Promise.all(promises)
       this.subSystems = Object.keys(builders)
         .reduce((acc, name, index) => {
-          return {...acc, [name]: values[index]}
+          return { ...acc, [name]: values[index] }
         }, {} as SubSystems)
 
       this.started = true

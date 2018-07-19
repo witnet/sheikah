@@ -59,7 +59,7 @@ function configureStore(initialState: StoreState, services: Services) {
     applyMiddleware.apply(undefined, middlewares)
   )
 
-  const store = createStore<StoreState>(connectRouter(history)(rootReducer), initialState, enhancer)
+  const store = createStore(connectRouter(history)(rootReducer), initialState, enhancer)
 
   if (module.hot) {
     module.hot.accept("app/renderer/reducers", () => {

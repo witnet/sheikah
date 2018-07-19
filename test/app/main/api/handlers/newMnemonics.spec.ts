@@ -1,16 +1,20 @@
-import {newMnemonics} from "app/main/api/handlers"
-import {asRuntimeType} from "app/common/runtimeTypes"
-import {NewMnemonicsResponse} from "app/common/runtimeTypes/storage/wallets"
+import { newMnemonics } from "app/main/api/handlers"
+import { AppStateManager } from "app/main/appState"
+import { asRuntimeType } from "app/common/runtimeTypes"
+import { NewMnemonicsResponse } from "app/common/runtimeTypes/storage/wallets"
+
+jest.mock("app/main/crypto/mnemonic", () => {
+  return {
+    generate: () => "some mnemonic"
+  }
+})
 
 describe("NewMnemonics Handler", () => {
 
   it("should return a non-empty mnemonics as response", async () => {
     const system = {
-      appStateManager: {
-        update: () => undefined
-      }
+      appStateManager: new AppStateManager()
     }
-
     // Call the new mnemonics handler and wait for the response
     const result = await newMnemonics(system, {})
 
@@ -21,35 +25,15 @@ describe("NewMnemonics Handler", () => {
     expect(mnemonicsResponse.mnemonics).toBeTruthy()
   })
 
-  it("should have called the app state manager update function", async () => {
-    const updateMock = jest.fn()
+  it("should call state manager's update with generated mnemonic", async () => {
     const system = {
-      appStateManager: {
-        update: updateMock
-      }
+      appStateManager: new AppStateManager()
     }
+    const expectedMnemonic = { mnemonics: "some mnemonic" }
 
     // Check that updateMock function has been called once
+    expect(system.appStateManager.state.unconsolidatedWallet).toBeUndefined()
     await newMnemonics(system, {})
-    expect(updateMock.mock.calls.length).toBe(1)
+    expect(system.appStateManager.state.unconsolidatedWallet).toEqual(expectedMnemonic)
   })
-
-  it("should have called update() with the unconsolidated wallet with mnemonics", async () => {
-    const updateMock = jest.fn()
-    const system = {
-      appStateManager: {
-        update: updateMock
-      }
-    }
-
-    // Call the new mnemonics handler and wait for the response
-    const result = await newMnemonics(system, {})
-
-    // Check that updateMock function has been called with an unconsolidatedWallet as argument
-    expect("unconsolidatedWallet" in updateMock.mock.calls[0][0]).toBeTruthy()
-
-    // Check that updateMock function update was called with the same mnemonics
-    expect(updateMock.mock.calls[0][0].unconsolidatedWallet).toBe(result)
-  })
-
 })

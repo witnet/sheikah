@@ -1,6 +1,6 @@
 import { asObject } from "app/common/runtimeTypes"
 import { Wallets } from "app/common/runtimeTypes/storage/wallets"
-import { SubSystems } from "app/main/system"
+import { AppStateS } from "app/main/system"
 
 /**
  * Handler function for "getWallets" methods.
@@ -8,6 +8,6 @@ import { SubSystems } from "app/main/system"
  * @param system
  * @param params
  */
-export default async function getWallets(system: SubSystems, params: any) {
+export default async function getWallets(system: AppStateS, params: any) {
   return asObject(system.appStateManager.state.wallets, Wallets)
 }

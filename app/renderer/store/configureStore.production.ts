@@ -20,7 +20,7 @@ function configureStore(initialState: StoreState, services: Services) {
 
   const enhancer = compose(applyMiddleware.apply(undefined, middlewares))
 
-  return createStore<StoreState>(connectRouter(history)(rootReducer), initialState, enhancer)
+  return createStore(connectRouter(history)(rootReducer), initialState, enhancer)
 }
 
 export = {

@@ -1,6 +1,6 @@
 declare module "level" {
 
-  import {LevelUp} from "levelup"
+  import { LevelUp } from "levelup"
 
   const level: (
     location: string,
