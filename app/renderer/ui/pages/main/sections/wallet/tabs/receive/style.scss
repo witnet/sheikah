@@ -33,12 +33,11 @@
     .form {
       border-right: 1px solid $grey-6;
       display: grid;
-      grid-gap: .5em 0;
-      grid-template-columns: auto auto .5fr;
+      grid-gap: 0.5em 0;
+      grid-template-columns: auto auto 0.5fr;
       grid-template-rows: auto auto auto auto;
+      padding: 0.5em;
       padding-right: 4em;
-      padding: .5em;
-
 
       .label-input {
         grid-column: 2 / 4;
@@ -46,7 +45,7 @@
 
       .label {
         grid-column: 1;
-        padding: .5em;
+        padding: 0.5em;
         text-align: right;
       }
 

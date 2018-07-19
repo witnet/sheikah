@@ -2,19 +2,20 @@
   @import "app/renderer/ui/colors";
 
   .top-bar {
-    padding-left: 1em;
+    border-bottom: 1px solid $grey-6;
     display: grid;
     grid-template-columns: repeat(6, auto) 1fr;
-    border-bottom: 1px solid $grey-6;
+    padding-left: 1em;
   }
 
   .link-box {
-    padding: 0 2em;
-    display: flex;
     align-items: center;
-    grid-row: 1;
     color: $grey-6;
+    display: flex;
     font-weight: bold;
+    grid-row: 1;
+    padding: 0 2em;
+
     .active {
       border-bottom: 2px solid $blue-6;
       color: $grey-9;

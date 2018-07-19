@@ -3,17 +3,17 @@
 
   .layout {
     display: grid;
-    grid-template-rows: auto 1fr;
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
   }
 
   .header {
     align-items: baseline;
     display: grid;
-    grid-gap: .5em;
+    grid-gap: 0.5em;
     grid-template-columns: auto auto 1fr auto;
     grid-template-rows: 1fr;
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
 
     .title {
       color: $grey-6;

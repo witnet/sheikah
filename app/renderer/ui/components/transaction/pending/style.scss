@@ -2,19 +2,19 @@
   @import "app/renderer/ui/colors";
 
   .transaction {
-    padding: 2em;
-    display: grid;
-    grid-template-columns: auto auto 1fr;
-    grid-template-rows: auto;
-    grid-column-gap: 1em;
     align-items: center;
     border-bottom: 1px solid $grey-2;
+    display: grid;
+    grid-column-gap: 1em;
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: auto;
+    padding: 2em;
   }
 
   .status-icon {
-    grid-row: 1;
-    grid-column: 1;
     font-size: 8px;
+    grid-column: 1;
+    grid-row: 1;
 
     .unconfirmed {
       color: $yellow-2;
@@ -24,27 +24,29 @@
       color: $blue-2;
     }
   }
+
   .status {
-    grid-row: 1;
-    grid-column: 2;
-    font-weight: bold;
     color: $grey-6;
     font-size: 14px;
+    font-weight: bold;
+    grid-column: 2;
+    grid-row: 1;
     text-transform: uppercase;
   }
 
   .vestingTime {
-    grid-row: 1;
-    grid-column: 3;
     color: $grey-2;
+    grid-column: 3;
+    grid-row: 1;
   }
 
   .amount {
-    grid-row: 2;
     grid-column: 2;
+    grid-row: 2;
 
     .number {
       font-size: 18px;
+
       &.positive {
         color: $green-2;
       }
@@ -55,16 +57,16 @@
     }
 
     .wit {
-      font-weight: bold;
       color: $grey-2;
       font-size: 10px;
+      font-weight: bold;
     }
   }
 
   .address {
-    grid-row: 2;
-    grid-column: 3;
     font-size: 14;
+    grid-column: 3;
+    grid-row: 2;
 
     .origin {
       color: $grey-2;

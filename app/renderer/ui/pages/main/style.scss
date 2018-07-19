@@ -3,9 +3,10 @@
 
   .layout {
     display: grid;
-    grid-template-areas: "nv mn"
-    "nv mn"
-    "nv mn";
+    grid-template-areas:
+      "nv mn"
+      "nv mn"
+      "nv mn";
     grid-template-columns: 275px 1fr;
     grid-template-rows: minmax(100vh, 100vh);
     max-height: 100vh;
@@ -21,8 +22,9 @@
     background: $grey-4;
     display: grid;
     grid-area: mn;
-    grid-template-areas: "tb"
-    "ct";
+    grid-template-areas:
+      "tb"
+      "ct";
     grid-template-rows: repeat(2, 60px 1fr);
     max-height: 100vh;
   }

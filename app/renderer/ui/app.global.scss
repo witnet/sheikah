@@ -5,11 +5,11 @@
   @import "fonts";
 
   body {
-    position: relative;
-    height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
     font-family: Arial, Helvetica, Helvetica Neue, serif;
+    height: 100vh;
+    max-height: 100vh;
+    max-width: 100vw;
+    position: relative;
   }
 
   .ant-card-head {

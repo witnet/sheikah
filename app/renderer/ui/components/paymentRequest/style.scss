@@ -3,9 +3,9 @@
 
   .payment-request {
     display: grid;
-    padding: 2em;
     grid-gap: 2em;
     grid-template-columns: auto 1fr auto;
+    padding: 2em;
   }
 
   .creation-date {
@@ -24,9 +24,8 @@
     color: $red-6;
   }
 
-
   .actions {
-    display: grid;
     align-items: center;
+    display: grid;
   }
 }

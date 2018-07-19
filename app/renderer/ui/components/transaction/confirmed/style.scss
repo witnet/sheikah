@@ -2,13 +2,13 @@
   @import "app/renderer/ui/colors";
 
   .transaction {
-    padding: 2em;
-    display: grid;
-    grid-template-columns: auto auto 1fr auto;
-    grid-template-rows: auto;
     align-items: center;
     border-bottom: 1px solid $grey-2;
-    grid-gap: .5em;
+    display: grid;
+    grid-gap: 0.5em;
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-rows: auto;
+    padding: 2em;
   }
 
   .green {
@@ -18,17 +18,19 @@
   .red {
     color: $red-2;
   }
+
   .icon {
-    grid-row: 1;
     grid-column: 1;
+    grid-row: 1;
   }
 
   .amount {
-    grid-row: 1;
     grid-column: 2;
+    grid-row: 1;
 
     .number {
       font-size: 18px;
+
       &.positive {
         color: $green-6;
       }
@@ -39,17 +41,17 @@
     }
 
     .wit {
-      font-weight: bold;
       color: $grey-6;
       font-size: 10px;
+      font-weight: bold;
     }
   }
 
   .address {
-    margin-left: 4em;
-    grid-row: 1;
-    grid-column: 3;
     font-size: 14;
+    grid-column: 3;
+    grid-row: 1;
+    margin-left: 4em;
 
     .origin {
       color: $grey-6;

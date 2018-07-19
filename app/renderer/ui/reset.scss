@@ -122,8 +122,8 @@ q {
   content: none;
   quotes: none;
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     // sass-lint:disable no-duplicate-properties
     content: "";
     content: none;
