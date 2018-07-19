@@ -1,5 +1,5 @@
 import { asObject } from "app/common/runtimeTypes"
-import { SubSystems } from "app/main/system"
+import { AppStateS } from "app/main/system"
 import { NewMnemonicsResponse } from "app/common/runtimeTypes/storage/wallets"
 import * as mnemonic from "app/main/crypto/mnemonic"
 
@@ -9,7 +9,7 @@ import * as mnemonic from "app/main/crypto/mnemonic"
  * @param system
  * @param params
  */
-export default async function newMnemonics(system: SubSystems, params: any) {
+export default async function newMnemonics(system: AppStateS, params: any) {
   // Get mnemonics from crypto library
   const mnemonicsResponse: NewMnemonicsResponse = { mnemonics: mnemonic.generate() }
 

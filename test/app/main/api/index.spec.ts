@@ -3,15 +3,9 @@ import * as api from "app/main/api"
 import { InvalidParamsError, ErrCodes, replyChannel } from "app/common/ipc-protocol"
 import { syntheticEvent } from "test/__stubs__/event"
 
-const system = {
-  json: {
-    // do not encode in order to use object assertions in mocks
-    serialize: async (v: any) => v,
-    deserialize: async (m: string) => JSON.parse(m)
-  }
-}
-
 describe("API", () => {
+  const system = {}
+
   describe("asyncListenerFactory", () => {
     it("should return a handler", () => {
       expect(api.asyncListenerFactory(system, {})).toBeInstanceOf(Function)
@@ -29,7 +23,7 @@ describe("API", () => {
 
         await asyncHandler(event, message)
 
-        expect(senderMock.mock.calls[0][1]).toMatchObject(expectedResponse)
+        expect(JSON.parse(senderMock.mock.calls[0][1])).toMatchObject(expectedResponse)
       })
 
       it("should return an error if request object is not valid", async () => {
@@ -43,7 +37,7 @@ describe("API", () => {
 
         await asyncHandler(event, request)
 
-        expect(senderMock.mock.calls[0][1]).toMatchObject(expectedResponse)
+        expect(JSON.parse(senderMock.mock.calls[0][1])).toMatchObject(expectedResponse)
       })
 
       it("should return an error if request method has no handler", async () => {
@@ -57,7 +51,7 @@ describe("API", () => {
 
         await asyncHandler(event, request)
 
-        expect(senderMock.mock.calls[0][1]).toMatchObject(expectedResponse)
+        expect(JSON.parse(senderMock.mock.calls[0][1])).toMatchObject(expectedResponse)
       })
 
       it("should return an error if request params are not accepted by handler", async () => {
@@ -74,7 +68,7 @@ describe("API", () => {
 
         await asyncHandler(event, request)
 
-        expect(senderMock.mock.calls[0][1]).toMatchObject(expectedResponse)
+        expect(JSON.parse(senderMock.mock.calls[0][1])).toMatchObject(expectedResponse)
       })
 
       it("should return an error if an Error occurs within handler", async () => {
@@ -89,7 +83,7 @@ describe("API", () => {
 
         await asyncHandler(event, request)
 
-        expect(senderMock.mock.calls[0][1]).toMatchObject(expectedResponse)
+        expect(JSON.parse(senderMock.mock.calls[0][1])).toMatchObject(expectedResponse)
       })
 
       it("should call the handler and send response using sender.send", async () => {
@@ -112,7 +106,10 @@ describe("API", () => {
 
         await asyncHandler(event, request)
 
-        expect(senderMock).toBeCalledWith(replyChannel(expectedResponse.id), expectedResponse)
+        expect(senderMock).toBeCalledWith(
+          replyChannel(expectedResponse.id),
+          JSON.stringify(expectedResponse)
+        )
         expect(handlerMock).toBeCalledWith(system, [1, 2, 3])
       })
     })

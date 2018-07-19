@@ -1,28 +1,25 @@
 /* tslint:disable:no-null-keyword */
 
+import { jsonSerializer } from "app/common/serializers"
 import { deadLetterChannel } from "app/common/ipc"
 import * as protocol from "app/common/ipc-protocol"
 import log from "app/common/logging"
 import { Listener } from "app/main/ipc"
 import { Event } from "app/main/synthetic"
-import { SubSystems } from "app/main/system"
 import { matchRoute, Routes } from "./routes"
 
 export { routes } from "./routes"
-
-type ListenerFactory<T> = (system: T, routes: Routes<T>) => Listener
 
 /**
  * Factory function that given a system and routes returns an ipc-main listener that dispatches
  * events to handlers and sends the response of those handlers asynchronously.
  *
- * @param {T} system A system containing at least a Json component in order to (de)serialize the
- * data received.
+ * @param {T} system A system.
  * @param {Routes<T>} routes A map of routes that pairs method names to handler functions of
  * type Handler<T>.
  * @returns {(event: Event, req: string) => void} The listener function
  */
-export const asyncListenerFactory: ListenerFactory<SubSystems> = genericListenerFactory(
+export const asyncListenerFactory = genericListenerFactory(
   (responseChannel: string) => {
     return async (event: Event, response: string) => {
       event.sender.send(responseChannel, response)
@@ -34,13 +31,12 @@ export const asyncListenerFactory: ListenerFactory<SubSystems> = genericListener
  * Factory function that given a system and routes returns an ipc-main listener that dispatches
  * events to handlers and sends the response of those handlers synchronously.
  *
- * @param {T} system A system containing at least a Json component in order
- * to (de)serialize the data received.
+ * @param {T} system A system.
  * @param {Routes<T>} routes A map of routes that pairs method names to handler functions of type
- * Handler<T extends Json>.
+ * Handler<T>.
  * @returns {(event: Event, req: string) => void} The listener function
  */
-export const syncListenerFactory: ListenerFactory<SubSystems> = genericListenerFactory(
+export const syncListenerFactory = genericListenerFactory(
   (responseChannel: string) => {
     return async (event: Event, response: string) => {
       event.returnValue = response
@@ -59,16 +55,15 @@ type ResponseFunction = (responseChannel: string) => Listener
  * @returns {(system: T, routes: Routes<T>) => (event: Event, req: string) => void} The listener
  * factory function.
  */
-function genericListenerFactory(sendResponseMessage: ResponseFunction)
-  : ListenerFactory<SubSystems> {
-  return (system: SubSystems, routes: Routes<SubSystems>): Listener => {
+function genericListenerFactory(sendResponseMessage: ResponseFunction) {
+  return <T>(system: T, routes: Routes<T>): Listener => {
     return async (event: Event, message: string): Promise<void> => {
       let response
 
       try {
         // Step 1/4: Try to deserialize the message string into an object with the Json serializer
         log.debug(`[IPC Main] Received message: ${message}`)
-        const obj = await system.json.deserialize(message)
+        const obj = await jsonSerializer.deserialize(message)
         try {
           // Step 2/4: Validate if the deserialized object is a valid request
           const request = await protocol.decodeRequest(obj)
@@ -117,7 +112,7 @@ function genericListenerFactory(sendResponseMessage: ResponseFunction)
       }
 
       const responseObj = await protocol.encodeResponse(response)
-      const responseMessage = await system.json.serialize(responseObj)
+      const responseMessage = await jsonSerializer.serialize(responseObj)
 
       log.debug(`[IPC Main] Created reponse message: ${responseMessage})`)
 

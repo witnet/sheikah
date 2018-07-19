@@ -1,16 +1,13 @@
 import { asRuntimeType } from "app/common/runtimeTypes"
 import { getWallets } from "app/main/api/handlers"
 import { Wallets } from "app/common/runtimeTypes/storage/wallets"
-import { emptyAppState } from "app/main/appState"
-import { AppState } from "app/common/runtimeTypes/ipc/state"
+import { AppStateManager } from "app/main/appState"
 
 describe("GetWallets Handler", () => {
 
   it("should return no wallets when an empty state", async () => {
     const system = {
-      appStateManager: {
-        get state() { return emptyAppState }
-      }
+      appStateManager: new AppStateManager()
     }
 
     // Call handler method to get wallets from system
@@ -24,16 +21,16 @@ describe("GetWallets Handler", () => {
   })
 
   it("should return initialized wallets when non empty state", async () => {
-    const nonEmptyAppState: AppState = {
-      _seq: 0,
-      wallets: [{id: "w1", caption: "i1"}, {id: "w2", caption: "i2"}]
+    const system = {
+      appStateManager: new AppStateManager()
     }
 
-    const system = {
-      appStateManager: {
-        get state() { return nonEmptyAppState }
-      }
-    }
+    system.appStateManager.update({
+      wallets: [
+        { id: "w1", caption: "i1" },
+        { id: "w2", caption: "i2" }
+      ]
+    })
 
     // Call handler method to get wallets from system
     const result = await getWallets(system, {})
@@ -42,6 +39,6 @@ describe("GetWallets Handler", () => {
     const wallets = asRuntimeType(result, Wallets)
 
     // Check that there are no wallets (app state is empty)
-    expect(wallets).toMatchObject(nonEmptyAppState.wallets)
+    expect(wallets).toMatchObject(system.appStateManager.state.wallets)
   })
 })

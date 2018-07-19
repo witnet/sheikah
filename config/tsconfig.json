@@ -25,18 +25,15 @@
 
     "sourceMap": true,
 
-    "outDir": "dist"
+    "outDir": "dist",
+
+    "typeRoots": ["../node_modules/@types", "../@types"]
   },
   "files": [
     "../app/renderer/index.tsx",
     "../app/main/index.ts"
   ],
-  "include": [
-    "../app/**/*.ts",
-    "../app/**/*.tsx",
-    "../node_modules/@types/**/*.d.ts",
-    "../typings/**/*.d.ts"
-  ],
+  "include": [],
   "exclude": [
     "../dist"
   ]

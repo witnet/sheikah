@@ -31,10 +31,10 @@ export class AppStateManager {
    * @param updater
    */
   public update(updater: Partial<AppState>): Partial<AppState> {
-    const newSeq = this._state._seq as number + 1
+    const newSeq = (this._state._seq as number) + 1
     this._state = { ...this._state, ...updater, _seq: newSeq }
 
-    return {...updater, _seq: this._state._seq}
+    return { ...updater, _seq: this._state._seq }
   }
 
 }
