@@ -1,3 +1,5 @@
+/* tslint:disable:no-null-keyword */
+
 import {ipcRendererFactory} from "test/__stubs__/ipcRenderer"
 import {jsonSerializer} from "test/__stubs__/serializers"
 import * as api from "app/renderer/api"
@@ -29,7 +31,7 @@ describe("NewMnemonics API", () => {
       jsonrpc: "2.0",
       id: "some generated id",
       method: "newMnemonics",
-      params: []
+      params: null
     }
 
     // Call newMnemonics renderer function to trigger a JSON-RPC request and wait for the response

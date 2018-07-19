@@ -39,7 +39,7 @@ export const Id = t.union([t.string, t.number, t.nullType])
 export type Id = t.TypeOf<typeof Id>
 
 /** Params runtime type */
-export const Params = t.array(JsonRT)
+export const Params = JsonRT
 
 /** Params type */
 export type Params = t.TypeOf<typeof Params>

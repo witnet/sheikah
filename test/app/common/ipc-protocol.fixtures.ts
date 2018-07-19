@@ -5,7 +5,9 @@ export const requests = {
     { jsonrpc: "2.0", id: null, method: "sum" },
     { jsonrpc: "2.0", id: "123", method: "sum" },
     { jsonrpc: "2.0", id: 123, method: "sum" },
-    { jsonrpc: "2.0", id: 123, method: "sum", params: [1, 2, 3] }
+    { jsonrpc: "2.0", id: 123, method: "sum", params: [1, 2, 3] },
+    { jsonrpc: "2.0", method: "sum", params: "1 2 3" },
+    { jsonrpc: "2.0", id: 123, method: "sum", params: { a: 1, b: 2, c: 3 } }
   ],
 
   invalid: [
@@ -13,11 +15,6 @@ export const requests = {
     { jsonrpc: "3.0", method: "sum" },
     { jsonrpc: "2.0", id: true, method: "sum" },
     { jsonrpc: "2.0", id: 123, method: 123 },
-    { jsonrpc: "2.0", method: "sum", params: "1 2 3" },
-    // This is a valid request in JSON-RPC, but since all requests are going to be behind a function
-    // signature wich is translated always into a list of parameters, we are forbidding this type
-    // of requests to make the implementation simpler
-    { jsonrpc: "2.0", id: 123, method: "sum", params: { a: 1, b: 2, c: 3 } }
   ]
 }
 

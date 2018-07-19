@@ -73,7 +73,7 @@ describe("api", () => {
           method: "someMethod",
           params: [1, 2, 3]
         }
-        await client.request("someMethod", 1, 2, 3)
+        await client.request("someMethod", [1, 2, 3])
 
         expect(messageHandler).toBeCalledWith(jsonSerializer, expected)
       })
@@ -145,7 +145,7 @@ describe("api", () => {
           ipc: ipcRendererFactory()
         })
         clientWithHandler.options.ipc.once("chan", messageHandler)
-        await clientWithHandler.notify("someMethod", 1, 2, 3)
+        await clientWithHandler.notify("someMethod", [1, 2, 3])
 
         expect(messageHandler).toBeCalledWith("event", expected)
       })

@@ -8,4 +8,4 @@ export { default as error } from "./error"
 export { default as newMnemonics } from "./newMnemonics"
 
 export type Handler<T> =
-  (system: T, params: Array<JsonSerializable>) => Promise<JsonSerializable | void>
+  (system: T, params: JsonSerializable) => Promise<JsonSerializable | void>

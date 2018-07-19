@@ -74,7 +74,7 @@ function genericListenerFactory(sendResponseMessage: ResponseFunction) {
             try {
               // Step 4/4: Invoke the method handler for `request.method` and try to invoke it
               // with `request.params`
-              const params = request.params || []
+              const params = request.params || null
               const result = await methodHandler(system, params)
               response = protocol.successResponse(
                 result === undefined ? null : result,

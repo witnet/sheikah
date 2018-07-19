@@ -6,7 +6,11 @@
 import log from "app/common/logging"
 import * as protocol from "app/common/ipc-protocol"
 import * as ipc from "app/renderer/ipc"
-import { jsonSerializer, JsonSerializer } from "app/common/serializers"
+import {
+  JsonSerializable,
+  jsonSerializer,
+  JsonSerializer
+} from "app/common/serializers"
 
 /**
  * Exports API renderer functions
@@ -83,8 +87,8 @@ export class Client implements ApiClient {
    * value in case of success, or a rejected Promise in case of any error in
    * preparing the payload of the request.
    */
-  public async notify(method: string, ...args: Array<any>): Promise<void> {
-    return this.send(method, args).then((result) => undefined)
+  public async notify(method: string, params: JsonSerializable = null): Promise<void> {
+    return this.send(method, params).then((result) => undefined)
   }
 
   /** Invokes `method` asynchronously in IPC Main process as a request.
@@ -93,15 +97,16 @@ export class Client implements ApiClient {
    * a response doesn't arrive in `ipc.timeout` milliseconds (by default) or if
    * any error ocurrs preparing the payload of the request.
    */
-  public async request(method: string, ...args: Array<any>): Promise<any> {
-    return this.send(method, args, this.options.idGen())
+  public async request(method: string, params: JsonSerializable = null): Promise<any> {
+    return this.send(method, params, this.options.idGen())
   }
 
   /** Helper method that contains the common logic for sending requests or notifications. */
-  private async send(method: string, args: Array<any>, id?: string | number): Promise<any> {
+  private async send(method: string, params: JsonSerializable, id?: string | number): Promise<any> {
     const { channel, timeout, ipc, json, messageHandler } = this.options
     const replyChannel = id ? protocol.replyChannel(id) : null
-    const request = id ? protocol.request(method, id, args) : protocol.notification(method, args)
+    const request = id ? protocol.request(method, id, params) :
+      protocol.notification(method, params)
 
     return new Promise((resolve, reject) => {
       if (replyChannel) {
