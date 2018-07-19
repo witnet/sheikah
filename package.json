@@ -28,6 +28,7 @@
     "lint": "yarn ts-lint && yarn stylelint",
     "ts-lint": "tslint --project config/tsconfig.tslint.json --config config/tslint.json",
     "stylelint": "stylelint './**/*.scss' --config config/.stylelintrc",
+    "stylelint!": "yarn stylelint --fix",
     "json-merge": "node scripts/json-merge",
     "clean": "rimraf release dist",
     "clean-deps": "rimraf node_modules",
