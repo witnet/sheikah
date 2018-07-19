@@ -22,7 +22,7 @@ const actionCreators = Object.assign({},
   { push }
 )
 
-const logger = (createLogger as any)({
+const logger = createLogger({
   level: "info",
   collapsed: true
 })
