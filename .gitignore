@@ -43,6 +43,7 @@ main.js
 main.js.map
 /tsconfig.json
 /tslint.json
+/.stylelintrc
 
 .idea
 .vscode

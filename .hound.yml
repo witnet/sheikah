@@ -6,8 +6,7 @@ jshint:
   enabled: false
 
 sass-lint:
-  enabled: true
-  config_file: config/sass-lint.yml
+  enabled: false
 
 scss:
   enabled: false

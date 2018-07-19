@@ -25,9 +25,9 @@
     "travis": "yarn lint && yarn fmt-verify && yarn test-all && yarn package",
     "travisp": "concurrently --names LINT,FMT,TEST,PACK  -c bgBlue,bgMagenta,yellow,bgCyan 'yarn lint' 'yarn fmt-verify' 'yarn test-all' 'yarn package'",
     "prelint": "node scripts/json-merge config/tsconfig.json config/tsconfig.test.json > config/tsconfig.tslint.json",
-    "lint": "yarn ts-lint && yarn sass-lint",
+    "lint": "yarn ts-lint && yarn stylelint",
     "ts-lint": "tslint --project config/tsconfig.tslint.json --config config/tslint.json",
-    "sass-lint": "sass-lint --config config/sass-lint.yml",
+    "stylelint": "stylelint './**/*.scss' --config config/.stylelintrc",
     "json-merge": "node scripts/json-merge",
     "clean": "rimraf release dist",
     "clean-deps": "rimraf node_modules",
@@ -47,7 +47,7 @@
       "yarn ts-lint"
     ],
     "*.scss": [
-      "yarn sass-lint"
+      "yarn stylelint"
     ]
   },
   "build": {
@@ -194,12 +194,16 @@
     "react-test-renderer": "^16.3.2",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.2",
-    "sass-lint": "^1.12.1",
     "sass-loader": "^7.0.1",
-    "scssfmt": "^1.0.6",
     "sinon": "^4.5.0",
     "spectron": "^3.8.0",
     "style-loader": "^0.21.0",
+    "stylelint": "^9.3.0",
+    "stylelint-config-concentric-order": "^3.3.2",
+    "stylelint-config-css-modules": "^1.3.0",
+    "stylelint-config-recommended-scss": "^3.2.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-scss": "^3.1.3",
     "ts-jest": "^22.4.6",
     "ts-loader": "^4.3.1",
     "ts-node": "^6.0.1",
