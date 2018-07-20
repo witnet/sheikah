@@ -102,13 +102,13 @@ export const Account = t.type({
 }, "EpochsInfo")
 export type Account = t.TypeOf<typeof Account>
 
-export const Wip3SeedInfoRT = t.type({
+export const Wip3SeedInfo = t.type({
   kind: t.literal("Wip3"),
   mnemonics: Mnemonics,
   xprv: t.string,
   xpub: t.string
 }, "Wip3SeedInfo")
-export type Wip3SeedInfoRT = t.TypeOf<typeof Wip3SeedInfoRT>
+export type Wip3SeedInfoRT = t.TypeOf<typeof Wip3SeedInfo>
 
 export type Wip3SeedInfo = {
   kind: "Wip3",
@@ -119,10 +119,14 @@ export type Wip3SeedInfo = {
 export const HexByteArray = t.string
 export type HexByteArray = t.TypeOf<typeof HexByteArray>
 
-export const ByteArrayCodec = new t.Type<ByteArray, HexByteArray>(
-  "ByteArrayCodec",
+/**
+ * Custom type to encode/decode bytearray to hexstring
+ * @type {Type<ByteArray, HexByteArray>}
+ */
+export const SerializableByteArray = new t.Type<ByteArray, HexByteArray>(
+  "SerializableByteArray",
   /** is: a custom type guard */
-  t.array(Uint8).is, //mixed instanceof Array
+  t.array(Uint8).is,
   /** validate: succeeds if a value of type t.mixed can be decoded to a value of type ByteArray */
   (input: t.mixed, context: t.Context): t.Validation<ByteArray> =>
     t.string.validate(input, context).chain(inputString => {
@@ -135,16 +139,17 @@ export const ByteArrayCodec = new t.Type<ByteArray, HexByteArray>(
 
       return res
     }),
+  /** encode: converts a value of type ByteArray to a value of type HexString */
   toHexString
 )
 
 export const Seed = t.type({
-  masterSecret: ByteArrayCodec,
-  chainCode: ByteArrayCodec
+  masterSecret: SerializableByteArray,
+  chainCode: SerializableByteArray
 }, "Seed")
 export type Seed = t.TypeOf<typeof Seed>
 
-export const SeedInfo = t.union([Wip3SeedInfoRT], "SeedInfo") // , TrezorSeedInfo, LedgerSeedInfo])
+export const SeedInfo = t.union([Wip3SeedInfo], "SeedInfo") // , TrezorSeedInfo, LedgerSeedInfo])
 export type SeedInfo = t.TypeOf<typeof SeedInfo>
 
 export const Wallet = t.union([
@@ -165,8 +170,8 @@ export type Wallet = t.TypeOf<typeof Wallet>
  */
 function toHexString(byteArray: ByteArray): HexByteArray {
   return byteArray.map((byte) => {
-    if (byte > 0xFF) {
-      throw new Error("Invalid u8")
+    if (byte > 0xFF || byte < 0) {
+      throw new Error("Invalid u8 found in ByteArray (value out of [0, 255] range)")
     }
 
     return (`0${(byte & 0xFF).toString(16)}`).slice(-2)
@@ -179,16 +184,12 @@ function toHexString(byteArray: ByteArray): HexByteArray {
  * @returns {Array<number>}
  */
 function toByteArray(hexString: string) {
-  let hexStr = hexString
-  const result: Array<number> = []
-  while (hexStr.length >= 2) {
-    const byte = parseInt(hexStr.substring(0, 2), 16)
-    if (!byte) {
-      throw new Error("Invalid u8 hex")
-    }
-    result.push(byte)
-    hexStr = hexStr.substring(2, hexStr.length)
-  }
+  return (hexString
+    .match(/.{1,2}/g ) || [])
+    .map((x) => {
+      const val = parseInt(x, 16)
+      if (isNaN(val)) {throw new Error("Invalid hex value found in hexString")}
 
-  return result
+      return val
+    })
 }
