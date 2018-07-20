@@ -1,6 +1,6 @@
-import {Config} from "app/common/config"
-import {Lifecycle} from "app/main/lifecycle"
-import {JsonAesLevelStorage} from "app/main/subsystems/jsonAesLevel"
+import { Config } from "app/common/config"
+import { Lifecycle } from "app/main/lifecycle"
+import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
 
 /**
  * This is a wrapper for JsonAESLevelStorage that provides the replace and close methods.
@@ -42,14 +42,14 @@ export class WalletStorageSubSystem
    * The actual Wallet storage.
    * @type WalletStorage
    */
-  private item: WalletStorage = new WalletStorage()
+  private walletStorage: WalletStorage = new WalletStorage()
 
   /**
    * Lifecycle start function.
    * It simply returns the internal WalletStorage.
    */
   public async start(): Promise<WalletStorage> {
-    return this.item
+    return this.walletStorage
   }
 
   /**
@@ -57,7 +57,7 @@ export class WalletStorageSubSystem
    * It closes the wallet storage.
    */
   public async stop() {
-    return this.item.close()
+    return this.walletStorage.close()
   }
 
 }
