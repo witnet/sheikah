@@ -3,7 +3,7 @@ import log from "app/common/logging"
 import { JsonSerializer } from "app/common/serializers"
 import { AppStateManager } from "app/main/appState"
 import { appStorageInitializer } from "app/main/storage/initializers"
-import { AppStateSubSystem } from "app/main/subsystems/appState"
+import { appStateSubSystem } from "app/main/subsystems/appState"
 import {
   WalletStorage, WalletStorageSubSystem
 } from "app/main/subsystems/wallets"
@@ -42,7 +42,7 @@ const builders: Builders = {
   json: jsonSubSystem,
   appStorage: new JsonPlainLevelSubSystem("appStorage", appStorageInitializer),
   walletStorage: new WalletStorageSubSystem(),
-  appStateManager: new AppStateSubSystem()
+  appStateManager: appStateSubSystem
 }
 
 log.debug(`builders: ${JSON.stringify(builders)}`)
