@@ -54,7 +54,7 @@ log.debug(`builders: ${JSON.stringify(builders)}`)
  * by other parts of the application. Any part of the application can explicitly ask for all the
  * `SubSystems` or just a subset of it, e.g.: `json & appStorage`.
  */
-export class System implements Lifecycle<SubSystems, Partial<Config>> {
+export class System implements Lifecycle<SubSystems, Config> {
 
   /**
    * Flag indicating whether the system has been started or not
@@ -65,7 +65,7 @@ export class System implements Lifecycle<SubSystems, Partial<Config>> {
   /**
    * Object containing all the started subsystems.
    */
-  public subSystems: SubSystems
+  public subSystems: SubSystems | undefined
 
   /**
    * System start function.
@@ -73,29 +73,26 @@ export class System implements Lifecycle<SubSystems, Partial<Config>> {
    * @param config
    */
   public async start(config?: Partial<Config>) {
-    if (this.started) {
-      log.error("System already started!")
-    } else {
-      log.info("Starting system...")
+    log.info("Starting system...")
 
-      const promises: Array<Promise<SubSystems[keyof SubSystems]>> = Object.entries(builders)
-        .map(async ([name, cycle]) => {
-          log.info(`\tStarting subsystem "${name}"...`)
+    const promises: Array<Promise<SubSystems[keyof SubSystems]>> = Object.entries(builders)
+      .map(async ([name, cycle]) => {
+        log.info(`\tStarting subsystem "${name}"...`)
 
-          return cycle.start(config)
-        })
+        return cycle.start(config || {})
+      })
 
-      const values = await Promise.all(promises)
-      this.subSystems = Object.keys(builders)
-        .reduce((acc, name, index) => {
-          return { ...acc, [name]: values[index] }
-        }, {} as SubSystems)
+    const values = await Promise.all(promises)
+    const subSystems = Object.keys(builders)
+      .reduce((acc, name, index) => {
+        return { ...acc, [name]: values[index] }
+      }, {} as SubSystems)
 
-      this.started = true
-      log.info("System started")
-    }
+    this.started = true
+    log.info("System started")
+    this.subSystems = subSystems
 
-    return this.subSystems
+    return subSystems
   }
 
   /**
@@ -103,22 +100,18 @@ export class System implements Lifecycle<SubSystems, Partial<Config>> {
    * It stops the system and all its subsystems.
    */
   public async stop() {
-    if (this.started) {
-      log.info("Stopping system...")
+    log.info("Stopping system...")
 
-      const promises: Array<Promise<void>> = Object.entries(builders)
-        .map(async ([name, cycle]) => {
-          log.info(`\tStopping subsystem "${name}"...`)
+    const promises: Array<Promise<void>> = Object.entries(builders)
+      .map(async ([name, cycle]) => {
+        log.info(`\tStopping subsystem "${name}"...`)
 
-          return cycle.stop()
-        })
+        return cycle.stop()
+      })
 
-      await Promise.all(promises)
-      this.subSystems = {} as SubSystems
-      log.info("System stopped")
-    } else {
-      log.error("System already stopped!")
-    }
+    await Promise.all(promises)
+    this.subSystems = undefined
+    log.info("System stopped")
   }
 
 }

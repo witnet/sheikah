@@ -11,7 +11,7 @@ export class AppStateSubSystem implements Lifecycle<AppStateManager, AppStateS> 
   /**
    * A reference to the app state manager object itself.
    */
-  private manager: AppStateManager
+  private manager: AppStateManager | undefined
 
   /**
    * Life cycle start function.

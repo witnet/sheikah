@@ -1,7 +1,7 @@
 import * as React from "react"
 
-import {TopBarLink} from "app/renderer/ui/components/topBar/topBarLink"
-import {PathNameProp, TopBarProps} from "app/renderer/ui/components/commonTypes"
+import { TopBarLink } from "app/renderer/ui/components/topBar/topBarLink"
+import { PathNameProp, TopBarProps } from "app/renderer/ui/components/commonTypes"
 
 /**
  * @export
@@ -27,7 +27,7 @@ export class SectionComponent<Props> extends React.Component<SectionProps & Path
    * @type {TopBarProps}
    * @memberof SectionComponent
    */
-  public topBarProps: TopBarProps
+  public topBarProps: TopBarProps | undefined
 
   /**
    * Method that creates TopBarLink components for each link received
@@ -73,7 +73,7 @@ export interface TabProps {
  * @extends {(React.Component<TabProps & PathNameProp & Props>)}
  * @template Props
  */
-export class TabComponent<Props> extends React.Component<TabProps & PathNameProp & Props> {}
+export class TabComponent<Props> extends React.Component<TabProps & PathNameProp & Props> { }
 
 /**
  * TabInfo's interface
