@@ -1,9 +1,9 @@
 import * as Slip32 from "slip32"
 
-import { ExtendedKey } from "../crypto/key/key"
-import { KeyPath } from "../crypto/keyPath"
-import { PrivateKey } from "../crypto/key/privateKey"
-import { PublicKey } from "../crypto/key/publicKey"
+import { ExtendedKey } from "app/main/crypto/key/key"
+import { KeyPath } from "app/main/crypto/keyPath"
+import { PrivateKey } from "app/main/crypto/key/privateKey"
+import { PublicKey } from "app/main/crypto/key/publicKey"
 
 /**
  * Export key to slip32 format

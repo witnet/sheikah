@@ -11,7 +11,7 @@ import { Storage } from "app/main/storage"
 import * as level from "level"
 import { homedir } from "os"
 import * as path from "path"
-import { ensurePath } from "../storage/utils"
+import { ensurePath } from "app/main/storage/utils"
 
 export type JsonPlainLevelStorage = Storage<Buffer, JsonSerializable, Buffer, Buffer>
 

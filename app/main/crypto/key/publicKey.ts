@@ -1,13 +1,13 @@
-import {publicKeyCreate, publicKeyTweakAdd} from "secp256k1"
-import {PrivateKey} from "./privateKey"
-import {ChainCode, ExtendedKey, Key} from "./key"
-import {sha512hmac} from "../hash"
-import {integerAsBuffer} from "../../utils/conversions"
+import { publicKeyCreate, publicKeyTweakAdd } from "secp256k1"
+import { PrivateKey} from "./privateKey"
+import { ChainCode, ExtendedKey, Key } from "./key"
+import { sha512hmac } from "app/main/crypto/hash"
+import { integerAsBuffer } from "app/main/utils/conversions"
 import BigNum = require("bn.js")
 import * as assert from "assert"
-import * as KeyPath from "../keyPath"
-import {SECP256K1_N} from "../constants"
-import {Errors} from "../errors"
+import * as KeyPath from "app/main/crypto/keyPath"
+import { SECP256K1_N } from "app/main/crypto/constants"
+import { Errors } from "app/main/crypto/errors"
 
 export interface PublicKey extends Key {
   type: "public"

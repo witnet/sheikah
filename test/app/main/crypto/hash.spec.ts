@@ -1,5 +1,5 @@
-import {hash as fixture} from "./hashFixtures"
-import {sha512hmac} from "../../../../app/main/crypto/hash"
+import { hash as fixture } from "./hashFixtures"
+import { sha512hmac } from "app/main/crypto/hash"
 
 describe("hmac 512", () => {
   it("should encrypt using hmacSha512", () => {

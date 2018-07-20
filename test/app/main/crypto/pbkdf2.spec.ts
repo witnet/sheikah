@@ -1,5 +1,5 @@
-import {pbkdf2Data as fixtures} from "./pbkdf2Fixtures"
-import {pbkdf2} from "../../../../app/main/crypto/pbkdf2"
+import { pbkdf2Data as fixtures } from "./pbkdf2Fixtures"
+import { pbkdf2 } from "app/main/crypto/pbkdf2"
 /*
  All these test vectors come from RFC 6070:
  <https://tools.ietf.org/html/rfc6070>

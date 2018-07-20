@@ -1,5 +1,5 @@
-import {seedData as fixture} from "./seedFixture"
-import * as Seed from "../../../../app/main/crypto/seed"
+import { seedData as fixture } from "./seedFixture"
+import * as Seed from "app/main/crypto/seed"
 
 describe("seed", () => {
   it("should generate seedData", () => {

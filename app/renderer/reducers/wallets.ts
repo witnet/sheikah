@@ -1,5 +1,5 @@
 import { Wallets } from "app/common/runtimeTypes/storage/wallets"
-import { IAction } from "../actions/helpers"
+import { IAction } from "app/renderer/actions/helpers"
 
 export type WalletsState = Wallets
 

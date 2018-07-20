@@ -1,4 +1,4 @@
-import * as KeyPath from "../../../../app/main/crypto/keyPath"
+import * as KeyPath from "app/main/crypto/keyPath"
 import * as fixtures from "./keyPathFixtures"
 
 describe("key path", () => {

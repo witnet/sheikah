@@ -1,9 +1,9 @@
 import * as Bech32 from "bech32"
-import {PublicKey} from "../key/publicKey"
-import {sha256} from "../hash"
-import {ChainType} from "app/common/chain/chainType"
-import {Errors} from "../errors"
-import {kvSwap} from "../../utils/utils"
+import { PublicKey } from "app/main/crypto/key/publicKey"
+import { sha256 } from "app/main/crypto/hash"
+import { ChainType } from "app/common/chain/chainType"
+import { Errors } from "app/main/crypto/errors"
+import { kvSwap } from "app/main/utils/utils"
 
 /**
  * This object maps Witnet address prefixes to chain types.

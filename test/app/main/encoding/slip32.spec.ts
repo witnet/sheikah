@@ -1,8 +1,8 @@
-import * as Slip32 from "../../../../app/main/encoding/slip32"
-import {KeyPath} from "../../../../app/main/crypto/keyPath"
-import {ExtendedKey} from "../../../../app/main/crypto/key/key"
-import {PrivateKey} from "../../../../app/main/crypto/key/privateKey"
-import {PublicKey} from "../../../../app/main/crypto/key/publicKey"
+import * as Slip32 from "app/main/encoding/slip32"
+import { KeyPath } from "app/main/crypto/keyPath"
+import { ExtendedKey } from "app/main/crypto/key/key"
+import { PrivateKey } from "app/main/crypto/key/privateKey"
+import { PublicKey } from "app/main/crypto/key/publicKey"
 
 import * as fixtures from "./fixtures"
 

@@ -1,4 +1,4 @@
-import { sha256 } from "../crypto/hash"
+import { sha256 } from "app/main/crypto/hash"
 import { Hasher } from "./index"
 
 export type Sha256BufferHasher = Hasher<string, Buffer>

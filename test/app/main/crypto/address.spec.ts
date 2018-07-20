@@ -1,9 +1,9 @@
 import { getMasterKey } from "test/__helpers__/crypto"
-import * as PublicKey from "../../../../app/main/crypto/key/publicKey"
-import { decode, encode } from "../../../../app/main/crypto/address/p2pkh"
-import { ChainType } from "../../../../app/common/chain/chainType"
+import * as PublicKey from "app/main/crypto/key/publicKey"
+import { decode, encode } from "app/main/crypto/address/p2pkh"
+import { ChainType } from "app/common/chain/chainType"
 import * as fixtures from "./addressFixtures"
-import { sha256 } from "../../../../app/main/crypto/hash"
+import { sha256 } from "app/main/crypto/hash"
 
 describe("p2pkh", () => {
   const masterKey = getMasterKey(fixtures.p2pkh.seedEntropy, fixtures.p2pkh.passPhrase)

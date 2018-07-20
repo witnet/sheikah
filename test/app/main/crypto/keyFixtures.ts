@@ -1,4 +1,4 @@
-import {hardened} from "../../../../app/main/crypto/keyPath"
+import { hardened } from "app/main/crypto/keyPath"
 
 export const passPhrase = "Bitcoin seed"
 export const encoding = "hex"
