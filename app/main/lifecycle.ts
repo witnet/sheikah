@@ -1,5 +1,5 @@
 export interface Lifecycle<T, C> {
-  start(config?: Partial<C>): Promise<T>
+  start(config?: C): Promise<T>
   stop(): Promise<void>
 }
 
