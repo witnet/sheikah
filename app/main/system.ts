@@ -1,4 +1,6 @@
+import { JsonSerializable } from "app/common/serializers/json"
 import { Config } from "app/common/config"
+import { Storage } from "app/main/storage"
 import log from "app/common/logging"
 import { JsonSerializer } from "app/common/serializers"
 import { AppStateManager } from "app/main/appState"
@@ -10,6 +12,7 @@ import {
 import { Lifecycle } from "./lifecycle"
 import { jsonSubSystem } from "./subsystems/json"
 import { JsonPlainLevelStorage, JsonPlainLevelSubSystem } from "./subsystems/jsonPlainLevel"
+import { storageSubsystem } from "app/main/subsystems/storageFactory"
 
 /**
  * Individual sub-systems that composed together form `SubSystems`.
@@ -18,7 +21,10 @@ import { JsonPlainLevelStorage, JsonPlainLevelSubSystem } from "./subsystems/jso
  */
 export type JsonS = { json: JsonSerializer }
 export type AppStorageS = { appStorage: JsonPlainLevelStorage }
-export type WalletStorageS = { walletStorage: WalletStorage }
+export type WalletStorageS = {
+  walletStorage: WalletStorage,
+  storageFactory: (args: any) => Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>>
+}
 export type AppStateS = { appStateManager: AppStateManager }
 
 /**
@@ -42,6 +48,7 @@ const builders: Builders = {
   json: jsonSubSystem,
   appStorage: new JsonPlainLevelSubSystem("appStorage", appStorageInitializer),
   walletStorage: new WalletStorageSubSystem(),
+  storageFactory: storageSubsystem,
   appStateManager: appStateSubSystem
 }
 

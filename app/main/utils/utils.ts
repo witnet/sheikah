@@ -17,3 +17,18 @@ export function kvSwap(obj: stringToNumber | numberToString | stringToString): a
       return { ...acc, [value]: key }
     }, {})
 }
+
+/**
+ * Add argument to a function keeping their types
+ *
+ * @export
+ * @template T
+ * @template U
+ * @template V
+ * @param {(arg: T, injected: V) => U} fn
+ * @param {V} injected
+ * @returns
+ */
+export function inject<T, U, V>(fn: (arg: T, injected: V) => U, injected: V) {
+  return (arg: T): U => fn(arg, injected)
+}

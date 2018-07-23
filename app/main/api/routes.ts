@@ -7,6 +7,7 @@ export type Routes<T> = {
 
 export const routes: Routes<SubSystems> = {
   getState: h.getState,
+  getWallet: h.getWallet,
   getWallets: h.getWallets,
   ping: h.ping,
   nop: h.nop,

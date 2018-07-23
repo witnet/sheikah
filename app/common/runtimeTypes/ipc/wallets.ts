@@ -1,5 +1,5 @@
 import { Empty } from "app/common/runtimeTypes/index"
-import { Wallets } from "app/common/runtimeTypes/storage/wallets"
+import { Wallets, Wallet } from "app/common/runtimeTypes/storage/wallets"
 import * as t from "io-ts"
 
 export const GetWalletsParams = Empty
@@ -51,3 +51,34 @@ export const ValidateMnemonicsResponse = t.taggedUnion("tag", [
   ValidateMnemonicsResponses.MatchError
 ], "ValidateMnemonicsResponse")
 export type ValidateMnemonicsResponse = t.TypeOf<typeof ValidateMnemonicsResponse>
+
+export const GetWalletParams = t.type({
+  id: t.string,
+  password: t.string
+})
+export type GetWalletParams = t.TypeOf<typeof GetWalletParams>
+
+export const GetWalletSuccess = t.type({
+  kind: t.literal("success"),
+  wallet: Wallet
+})
+export type GetWalletSucccess = t.TypeOf<typeof GetWalletSuccess>
+
+export const getWalletErrors = {
+  INVALID_PARAMS_TYPE: t.literal("INVALID_PARAMS_TYPE"),
+  INVALID_WALLET_TYPE: t.literal("INVALID_WALLET_TYPE"),
+  WALLET_NOT_FOUND: t.literal("WALLET_NOT_FOUND"),
+  INSUFFICIENT_PERMISSIONS: t.literal("INSUFFICIENT_PERMISSIONS")
+}
+
+export const GetWalletErrors = t.union(Object.values(getWalletErrors))
+export type GetWalletErrors = t.TypeOf<typeof GetWalletErrors>
+
+export const GetWalletError = t.type({
+  kind: t.literal("error"),
+  error: GetWalletErrors
+})
+export type GetWalletError = t.TypeOf<typeof GetWalletError>
+
+export const GetWalletResponse = t.taggedUnion("kind", [GetWalletSuccess, GetWalletError])
+export type GetWalletResponse = t.TypeOf<typeof GetWalletResponse>

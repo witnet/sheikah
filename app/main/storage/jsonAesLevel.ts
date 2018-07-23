@@ -1,7 +1,9 @@
+import { asRuntimeType } from "app/common/runtimeTypes"
 import * as level from "level"
 import { homedir } from "os"
 import * as path from "path"
 
+import { JsonAesLevelStorageParams } from "app/common/runtimeTypes/storage/jsonAesLevel"
 import { AesCipher, AesCipherSettings, defaultAesCipherSettings } from "app/main/ciphers/aes"
 import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 import { LevelPersister } from "app/main/persisters/level"
@@ -21,24 +23,30 @@ const createAesSettings = (pbkdPassword: string): AesCipherSettings => ({
  * @param {string} id
  * @returns Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>>
  */
-export async function createAesLevelStorage(id: string, password: string) {
-  const keyHasher = sha256BufferHasher
-  const serializer = jsonBufferSerializer
-  const cipher = new AesCipher(createAesSettings(password))
-  const dbPath = path.normalize(`${homedir()}/.sheikah/storage/${id}`)
+export async function createJsonAesLevelStorage(args: any) {
+  try {
+    const { id, password } = asRuntimeType(args, JsonAesLevelStorageParams)
 
-  // Ensure the path exists
-  await ensurePath(dbPath)
+    const keyHasher = sha256BufferHasher
+    const serializer = jsonBufferSerializer
+    const cipher = new AesCipher(createAesSettings(password))
+    const dbPath = path.normalize(`${homedir()}/.sheikah/storage/${id}`)
 
-  // Create the LevelDB connection
-  const connection = level(dbPath, {
-    keyEncoding: "binary",
-    valueEncoding: "binary"
-  })
+    // Ensure the path exists
+    await ensurePath(dbPath)
 
-  const backend = new LevelPersister(connection)
+    // Create the LevelDB connection
+    const connection = level(dbPath, {
+      keyEncoding: "binary",
+      valueEncoding: "binary"
+    })
 
-  return new Storage(keyHasher, serializer, cipher, backend)
+    const persister = new LevelPersister(connection)
+
+    return new Storage(keyHasher, serializer, cipher, persister)
+  } catch (err) {
+    return err
+  }
 }
 
-export default createAesLevelStorage
+export default createJsonAesLevelStorage
