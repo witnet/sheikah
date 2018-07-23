@@ -152,7 +152,7 @@ export type Seed = t.TypeOf<typeof Seed>
 export const SeedInfo = t.union([Wip3SeedInfo], "SeedInfo") // , TrezorSeedInfo, LedgerSeedInfo])
 export type SeedInfo = t.TypeOf<typeof SeedInfo>
 
-export const Wallet = t.union([
+export const Wallet = t.intersection([
   WalletInfo,
   t.type({
     seed: SeedInfo,
