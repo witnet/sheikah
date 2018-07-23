@@ -9,8 +9,11 @@ export type Seed = {
   chainCode: Buffer
 }
 
-export const fromMnemonics = (mnemonics: string): Seed => {
-  if (Mnemonic.isValid(mnemonics)) {
+/**
+ * Generates a `Seed` given a mnemonics `string`.
+ */
+export function fromMnemonics(mnemonics: string): Seed {
+  if (!Mnemonic.isValid(mnemonics)) {
     throw new Error(Errors.INVALID_MNEMONIC)
   }
   const entropy = bip39.mnemonicToSeed(mnemonics)
@@ -18,7 +21,10 @@ export const fromMnemonics = (mnemonics: string): Seed => {
   return fromEntropy(entropy)
 }
 
-export const fromEntropy = (entropy: Buffer, hmacKey = "Witnet seed"): Seed => {
+/**
+ * Generates a `Seed` given a `Buffer` of entropy and an HMAC key as a `string`.
+ */
+export function fromEntropy(entropy: Buffer, hmacKey = "Witnet seed"): Seed {
   assert(entropy.length >= 16 && entropy.length <= 64, Errors.INVALID_ENTROPY_LENGTH)
   const hash = Hash.sha512hmac(Buffer.from(hmacKey), entropy)
 
