@@ -11,6 +11,10 @@ export class AppStateManager {
    */
   private _state: AppState = emptyAppState
 
+  constructor(initialState: Partial<AppState> = {}) {
+    this.update(initialState)
+  }
+
   /**
    * Get a copy of the state object.
    */
