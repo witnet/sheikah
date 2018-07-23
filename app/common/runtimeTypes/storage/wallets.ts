@@ -140,20 +140,6 @@ export const Account = t.type({
 }, "EpochsInfo")
 export type Account = t.TypeOf<typeof Account>
 
-export const Wip3SeedInfo = t.type({
-  kind: t.literal("Wip3"),
-  mnemonics: Mnemonics,
-  xprv: t.string,
-  xpub: t.string
-}, "Wip3SeedInfo")
-export type Wip3SeedInfoRT = t.TypeOf<typeof Wip3SeedInfo>
-
-export type Wip3SeedInfo = {
-  kind: "Wip3",
-  mnemonics: string,
-  seed: Seed
-}
-
 export const HexByteArray = t.string
 export type HexByteArray = t.TypeOf<typeof HexByteArray>
 
@@ -186,6 +172,13 @@ export const Seed = t.type({
   chainCode: SerializableByteArray
 }, "Seed")
 export type Seed = t.TypeOf<typeof Seed>
+
+export const Wip3SeedInfo = t.type({
+  kind: t.literal("Wip3"),
+  mnemonics: Mnemonics,
+  seed: Seed
+}, "Wip3SeedInfo")
+export type Wip3SeedInfo = t.TypeOf<typeof Wip3SeedInfo>
 
 export const SeedInfo = t.union([Wip3SeedInfo], "SeedInfo") // , TrezorSeedInfo, LedgerSeedInfo])
 export type SeedInfo = t.TypeOf<typeof SeedInfo>
