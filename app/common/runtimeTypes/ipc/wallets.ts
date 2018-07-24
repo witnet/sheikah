@@ -83,5 +83,19 @@ export const EncryptWalletParams = t.intersection([
 
 export type EncryptWalletParams = t.TypeOf<typeof EncryptWalletParams>
 
-export const EncryptWalletResponse = t.voidType
+const EncryptWalletSuccess = t.type({
+  kind: t.literal("SUCCESS"),
+  wallet: Wallet
+}, "EncryptWalletSuccess")
+
+const EncryptWalletError = t.type({
+  kind: t.literal("ERROR"),
+  error: t.string
+}, "EncryptWalletError")
+
+export const EncryptWalletResponse = t.taggedUnion(
+  "kind",
+  [EncryptWalletSuccess, EncryptWalletError],
+  "EncryptWalletResponse"
+)
 export type EncryptWalletResponse = t.TypeOf<typeof EncryptWalletResponse>
