@@ -147,16 +147,20 @@ export type HexByteArray = t.TypeOf<typeof HexByteArray>
  * Custom type to encode/decode bytearray to hexstring
  * @type {Type<ByteArray, HexByteArray>}
  */
-export const SerializableByteArray = new t.Type<ByteArray, HexByteArray>(
+export const SerializableByteArray = new t.Type<Buffer, HexByteArray>(
   "SerializableByteArray",
   /** is: a custom type guard */
-  t.array(Uint8).is,
+  (m): m is Buffer => m instanceof Buffer,
   /** validate: succeeds if a value of type t.mixed can be decoded to a value of type ByteArray */
-  (input: t.mixed, context: t.Context): t.Validation<ByteArray> =>
+  (input: t.mixed, context: t.Context): t.Validation<Buffer> =>
     t.string.validate(input, context).chain(inputString => {
-      let res: t.Validation<ByteArray>
+      let res: t.Validation<Buffer>
       try {
-        res = t.success(toByteArray(inputString))
+        const buf = Buffer.from(inputString, "hex")
+        if (inputString.length !== 0 && buf.length === 0) {
+          throw new Error("Invalid hex value found in hexString")
+        }
+        res = t.success(buf)
       } catch (e) {
         res = t.failure(inputString, context)
       }
@@ -164,7 +168,7 @@ export const SerializableByteArray = new t.Type<ByteArray, HexByteArray>(
       return res
     }),
   /** encode: converts a value of type ByteArray to a value of type HexString */
-  toHexString
+  (a) => a.toString("hex")
 )
 
 export const Seed = t.type({
@@ -173,11 +177,13 @@ export const Seed = t.type({
 }, "Seed")
 export type Seed = t.TypeOf<typeof Seed>
 
-export const Wip3SeedInfo = t.type({
-  kind: t.literal("Wip3"),
-  mnemonics: Mnemonics,
-  seed: Seed
-}, "Wip3SeedInfo")
+export const Wip3SeedInfo = t.intersection([
+  Mnemonics,
+  t.type({
+    kind: t.literal("Wip3"),
+    seed: Seed
+  })], "Wip3SeedInfo")
+
 export type Wip3SeedInfo = t.TypeOf<typeof Wip3SeedInfo>
 
 export const SeedInfo = t.union([Wip3SeedInfo], "SeedInfo") // , TrezorSeedInfo, LedgerSeedInfo])
@@ -194,34 +200,3 @@ export const Wallet = t.intersection([
   }, "Wallet"),
 ])
 export type Wallet = t.TypeOf<typeof Wallet>
-
-/**
- * Encode byte array to hex string.
- * @param {ByteArray} byteArray
- * @returns {HexByteArray}
- */
-function toHexString(byteArray: ByteArray): HexByteArray {
-  return byteArray.map((byte) => {
-    if (byte > 0xFF || byte < 0) {
-      throw new Error("Invalid u8 found in ByteArray (value out of [0, 255] range)")
-    }
-
-    return (`0${(byte & 0xFF).toString(16)}`).slice(-2)
-  }).join("")
-}
-
-/**
- * Decode byte array from hex string
- * @param {string} hexString
- * @returns {Array<number>}
- */
-function toByteArray(hexString: string) {
-  return (hexString
-    .match(/.{1,2}/g) || [])
-    .map((x) => {
-      const val = parseInt(x, 16)
-      if (isNaN(val)) { throw new Error("Invalid hex value found in hexString") }
-
-      return val
-    })
-}

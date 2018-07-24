@@ -1,5 +1,5 @@
 import { Seed } from "app/common/runtimeTypes/storage/wallets"
-import { encodedSeed, seed, wrongEncodedSeed, wrongSeed } from "./seed.fixtures"
+import { encodedSeed, seed, wrongEncodedSeed } from "./seed.fixtures"
 
 describe("Wallet runtime types encoding ", () => {
   it("should encode", () => {
@@ -11,10 +11,6 @@ describe("Wallet runtime types encoding ", () => {
     expect(Seed.decode(encodedSeed).getOrElseL(() => {
       throw new Error()
     })).toEqual(seed)
-  })
-
-  it("should fail encode", () => {
-    expect(() => Seed.encode(wrongSeed)).toThrow()
   })
 
   it("should fail decode", () => {
