@@ -5,6 +5,7 @@
     "../app/**/*.tsx",
     "../test/**/*.ts",
     "../test/**/*.tsx",
+    "../@types/**/*.d.ts",
     "../node_modules/@types/**/*.d.ts"
   ]
 }
