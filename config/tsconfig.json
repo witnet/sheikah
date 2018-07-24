@@ -34,7 +34,10 @@
     "../app/renderer/index.tsx",
     "../app/main/index.ts"
   ],
-  "include": [],
+  "include": [
+    "../@types/**/*.d.ts",
+    "../node_modules/@types/**/*.d.ts"
+  ],
   "exclude": [
     "../dist"
   ]
