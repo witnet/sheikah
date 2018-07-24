@@ -49,5 +49,5 @@ export const ValidateMnemonicsResponse = t.taggedUnion("tag", [
   ValidateMnemonicsResponses.Id,
   ValidateMnemonicsResponses.Invalid,
   ValidateMnemonicsResponses.MatchError
-])
+], "ValidateMnemonicsResponse")
 export type ValidateMnemonicsResponse = t.TypeOf<typeof ValidateMnemonicsResponse>

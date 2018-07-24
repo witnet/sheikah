@@ -1,6 +1,6 @@
 import * as crypto from "crypto"
 import { config } from "app/common/config"
-import { asObject, asRuntimeType, Contexts } from "app/common/runtimeTypes"
+import { asRuntimeType, Contexts } from "app/common/runtimeTypes"
 import {
   ValidateMnemonicsParams,
   ValidateMnemonicsResponse,
@@ -34,7 +34,7 @@ export default async function validateMnemonics({ appStateManager }: AppStateS, 
     response = ValidateMnemonicsResponses.invalid()
   }
 
-  return asObject(response, ValidateMnemonicsResponse)
+  return ValidateMnemonicsResponse.encode(response)
 }
 
 /**
