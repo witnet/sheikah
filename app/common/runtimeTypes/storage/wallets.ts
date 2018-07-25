@@ -1,4 +1,5 @@
 import * as t from "io-ts"
+import * as CryptoKeyPath from "app/main/crypto/keyPath"
 
 export const CURRENT_WALLETS_VERSION = 0
 export const CURRENT_WALLET_VERSION = 0
@@ -86,7 +87,26 @@ export const Output = t.type({
 }, "Output")
 export type Output = t.TypeOf<typeof Output>
 
-export const KeyPath = t.array(t.number)
+// export const KeyPath = t.array(t.number)
+export const KeyPath = new t.Type<Array<number>, string>(
+  "KeyPath",
+  /** is: a custom type guard */
+  t.array(t.number).is,
+  /** validate: succeeds if a value of type t.mixed can be decoded into Array<number> */
+  (input: t.mixed, context: t.Context): t.Validation<Array<number>> =>
+  t.string.validate(input, context).chain(keyPath => {
+    let res: t.Validation<Array<number>>
+    try {
+      res = t.success(CryptoKeyPath.fromString(keyPath))
+    } catch (e) {
+      res = t.failure(keyPath, context)
+    }
+
+    return res
+  }),
+  /** encode: converts a value of type Array<number> to string */
+  (a) => CryptoKeyPath.toString(a)
+)
 export type KeyPath = t.TypeOf<typeof KeyPath>
 
 export const Uint8 = t.refinement(t.number, n => n >= 0 && n <= 0xFF)
