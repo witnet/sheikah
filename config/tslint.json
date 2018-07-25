@@ -15,7 +15,7 @@
     "eofline": false,
     "forin": true,
     "import-spacing": true,
-    "indent": [true, "spaces"],
+    "indent": [true, "spaces", 2],
     "interface-name": false,
     "jsdoc-format": true,
     "label-position": true,

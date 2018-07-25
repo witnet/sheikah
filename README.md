@@ -40,7 +40,7 @@ yarn start # or yarn dev
 
 <h3 align="center">Formatter</h3>
 
-* Verify files are correctly formatted with `yarn fmt-verify`
+* Verify files are correctly formatted with `yarn fmt`
 * See which format errors exist with `yarn fmt`
 * Repair format errors with (**this operation modifies your files!**) `yarn fmt!`
 
