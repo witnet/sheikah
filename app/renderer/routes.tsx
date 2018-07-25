@@ -15,11 +15,11 @@ type RoutesProps = {
 export default (props: RoutesProps) => {
   const { store } = props
 
-  return(
+  return (
     <App>
       <Switch>
         <GuardedRoute path="/" guard={ifWallets(store)} aCompo={MainPage} bCompo={SignupPage} />
-        <GuardedRoute path="/main" guard={ifWallets(store)} aCompo={MainPage} bCompo={SignupPage}/>
+        <GuardedRoute path="/main" guard={ifWallets(store)} aCompo={MainPage} bCompo={SignupPage} />
         <Route path="/wallets/new" component={SignupPage} />
       </Switch>
     </App>

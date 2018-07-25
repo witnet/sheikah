@@ -25,7 +25,7 @@ export default class CardMarketPlaceProduct extends React.Component<Iprops> {
     return (
       <Card
         style={{ width: 240 }}
-        cover={<img style={{ height: 100}} alt={this.props.alt} src={this.props.cover} />}
+        cover={<img style={{ height: 100 }} alt={this.props.alt} src={this.props.cover} />}
       >
         <div className={styles.content}>
           <p>{this.props.title}</p>

@@ -41,7 +41,7 @@ export const encode = (pubKey: PublicKey, chain: ChainType): string => {
  * @returns {[ChainType , Buffer]}
  */
 export const decode = (address: string): [ChainType, Buffer] => {
-  const {prefix, words} = Bech32.decode(address)
+  const { prefix, words } = Bech32.decode(address)
   const keyHash = Buffer.from(Bech32.fromWords(words))
 
   if (!(prefix in prefixToChainType)) {

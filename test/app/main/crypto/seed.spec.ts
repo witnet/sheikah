@@ -8,7 +8,7 @@ describe("seed", () => {
     const chainCode = seedBuffer.slice(32, 64)
 
     expect(Seed.fromMnemonics(fixture.mnemonics))
-      .toEqual({masterSecret, chainCode})
+      .toEqual({ masterSecret, chainCode })
   })
 
 })

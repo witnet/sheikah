@@ -22,7 +22,7 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-    return(
+    return (
       <CardDefault className={this.props.className} title="Wallet seed creation">
         <p className={styles.text}>
           Seeds are secret codes used to generate your credentials.

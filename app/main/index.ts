@@ -40,7 +40,7 @@ async function startApplication() {
     appSystem.start(config),
     installExtensions()
   ])
-  const {channels: _channels} = await startupRoutine(system)
+  const { channels: _channels } = await startupRoutine(system)
   channels = _channels
 }
 

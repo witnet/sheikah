@@ -42,7 +42,7 @@ export default class DefaultList extends React.Component<Iprops> {
       >
         {item.text}
       </ButtonOption>
-      )
+    )
   }
 
   /**
@@ -56,7 +56,7 @@ export default class DefaultList extends React.Component<Iprops> {
   private createStaticOption = (item: any) => {
     return (
       this.props.renderItem
-        ? <this.props.renderItem {...item}/>
+        ? <this.props.renderItem {...item} />
         : (<List.Item className={`${this.props.classNameItem} ${styles.item}`} />)
     )
   }

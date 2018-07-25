@@ -24,25 +24,25 @@ export interface Iprops {
 class MarketPlace extends TabComponent<any> {
 
   // tslint:disable-next-line:prefer-function-over-method completed-docs
-    public render() {
-      const createMarketPlaceProduct = () => marketplaceProducts
-        .map((product) => <CardMarketplaceProduct key={product.title} {...product} />)
+  public render() {
+    const createMarketPlaceProduct = () => marketplaceProducts
+      .map((product) => <CardMarketplaceProduct key={product.title} {...product} />)
 
-      return (
-        <>
-          <div className={styles.header}>
-            <p className={styles.title}>
-              <span className={styles.sheikah}>Sheikah</span> Marketplace
+    return (
+      <>
+        <div className={styles.header}>
+          <p className={styles.title}>
+            <span className={styles.sheikah}>Sheikah</span> Marketplace
             </p>
-            <p className={styles.subtitle}>
-              hundred of smart contracts, ready to be deployed
+          <p className={styles.subtitle}>
+            hundred of smart contracts, ready to be deployed
             </p>
-          </div>
-          <div className={styles.featured}>
-            {createMarketPlaceProduct()}
-          </div>
-          {/* <div className={styles.search}> </div> */}
-        </>
+        </div>
+        <div className={styles.featured}>
+          {createMarketPlaceProduct()}
+        </div>
+        {/* <div className={styles.search}> </div> */}
+      </>
     )
   }
 }

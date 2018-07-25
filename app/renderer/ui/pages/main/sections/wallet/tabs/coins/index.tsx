@@ -10,12 +10,12 @@ import { TabInfo, TabComponent } from "app/renderer/ui/pages/main/sections"
  */
 class TabCoins extends TabComponent<any> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
-    public render() {
-      return (
-        <div>
-          Coins Tab
+  public render() {
+    return (
+      <div>
+        Coins Tab
         </div>
-      )
+    )
   }
 }
 

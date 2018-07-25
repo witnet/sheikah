@@ -1,7 +1,7 @@
 import { AesCipher, defaultAesCipherSettings } from "app/main/ciphers/aes"
 import aesFixtures from "./aes.fixtures"
 
-const encryptionSettings = {...defaultAesCipherSettings, pbkdPassword: aesFixtures.pbkdPassword}
+const encryptionSettings = { ...defaultAesCipherSettings, pbkdPassword: aesFixtures.pbkdPassword }
 
 const AES = new AesCipher(encryptionSettings)
 

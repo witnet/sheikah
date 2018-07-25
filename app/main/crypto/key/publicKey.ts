@@ -1,5 +1,5 @@
 import { publicKeyCreate, publicKeyTweakAdd } from "secp256k1"
-import { PrivateKey} from "./privateKey"
+import { PrivateKey } from "./privateKey"
 import { ChainCode, ExtendedKey, Key } from "./key"
 import { sha512hmac } from "app/main/crypto/hash"
 import { integerAsBuffer } from "app/main/utils/conversions"
@@ -24,7 +24,7 @@ export const create =
     const bytes: Buffer = publicKeyCreate(privateExtendedKey.key.bytes, compressed)
 
     return {
-      key: {type: "public", bytes},
+      key: { type: "public", bytes },
       chainCode: privateExtendedKey.chainCode
     }
   }
@@ -36,7 +36,7 @@ export const create =
  * @returns {ExtendedKey<PublicKey>}
  */
 export const extend = (key: PublicKey, chainCode: ChainCode): ExtendedKey<PublicKey> => {
-  return {key, chainCode}
+  return { key, chainCode }
 }
 /**
  * Derive a descendant extended public key from a parent extended public key, using either a
@@ -62,7 +62,7 @@ export const derive =
   }
 
 const deriveChildKey = (parentKey: ExtendedKey<PublicKey>,
-                        childIndex: number): ExtendedKey<PublicKey> => {
+  childIndex: number): ExtendedKey<PublicKey> => {
   const childIndexBuffer = integerAsBuffer(childIndex)
   const data = Buffer.concat([parentKey.key.bytes, childIndexBuffer],
     parentKey.key.bytes.length + childIndexBuffer.length)
@@ -86,5 +86,5 @@ const deriveChildKey = (parentKey: ExtendedKey<PublicKey>,
 }
 
 export const fromBytes = (bytes: Buffer): PublicKey => {
-  return {type: "public", bytes}
+  return { type: "public", bytes }
 }

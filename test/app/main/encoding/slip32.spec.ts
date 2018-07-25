@@ -11,15 +11,15 @@ describe(`Slip32 key exchange: import private key (${fixtures.slip32.valid.lengt
     fixtures.slip32.valid.forEach((item, index) => {
       it("should import private key from Slip32 " +
         `(${index + 1}, key: ${cropString(item.prvBech32, 15, true)})`, () => {
-        const importedKey = Slip32.importKeyFromSlip32(item.prvBech32)
-        // Compare key path
-        const keyPath = keyPathFromString(item.keyPath)
-        expect(importedKey.keyPath).toEqual(keyPath)
-        // Compare hex to imported key data
-        const { key, chainCode } = getKeysFromHex(item.prvHex)
-        expect(importedKey.extendedKey.key.bytes).toEqual(key)
-        expect(importedKey.extendedKey.chainCode).toEqual(chainCode)
-      })
+          const importedKey = Slip32.importKeyFromSlip32(item.prvBech32)
+          // Compare key path
+          const keyPath = keyPathFromString(item.keyPath)
+          expect(importedKey.keyPath).toEqual(keyPath)
+          // Compare hex to imported key data
+          const { key, chainCode } = getKeysFromHex(item.prvHex)
+          expect(importedKey.extendedKey.key.bytes).toEqual(key)
+          expect(importedKey.extendedKey.chainCode).toEqual(chainCode)
+        })
     })
   })
 describe(`Slip32 key exchange: import public key (${fixtures.slip32.valid.length} test vectors)`,
@@ -27,15 +27,15 @@ describe(`Slip32 key exchange: import public key (${fixtures.slip32.valid.length
     fixtures.slip32.valid.forEach((item, index) => {
       it("should import public key from Slip32 " +
         `(${index + 1}, key: ${cropString(item.pubBech32, 15, true)})`, () => {
-        const importedKey = Slip32.importKeyFromSlip32(item.pubBech32)
-        // Compare key path
-        const keyPath = keyPathFromString(item.keyPath)
-        expect(importedKey.keyPath).toEqual(keyPath)
-        // Compare hex to imported key data
-        const { key, chainCode } = getKeysFromHex(item.pubHex)
-        expect(importedKey.extendedKey.key.bytes).toEqual(key)
-        expect(importedKey.extendedKey.chainCode).toEqual(chainCode)
-      })
+          const importedKey = Slip32.importKeyFromSlip32(item.pubBech32)
+          // Compare key path
+          const keyPath = keyPathFromString(item.keyPath)
+          expect(importedKey.keyPath).toEqual(keyPath)
+          // Compare hex to imported key data
+          const { key, chainCode } = getKeysFromHex(item.pubHex)
+          expect(importedKey.extendedKey.key.bytes).toEqual(key)
+          expect(importedKey.extendedKey.chainCode).toEqual(chainCode)
+        })
     })
   })
 describe(`Slip32 key exchange: export private key (${fixtures.slip32.valid.length} test vectors)`,
@@ -43,14 +43,14 @@ describe(`Slip32 key exchange: export private key (${fixtures.slip32.valid.lengt
     fixtures.slip32.valid.forEach((item, index) => {
       it("should export private key as Slip32 " +
         `(${index + 1}, hex: ${cropString(item.prvHex, 15, true)})`, () => {
-        const keyPath = keyPathFromString(item.keyPath)
-        const { key, chainCode } = getKeysFromHex(item.prvHex)
-        const extendedKey: ExtendedKey<PrivateKey> = {
-          key: { type: "private", bytes: key }, chainCode
-        }
-        const exportedKey = Slip32.exportKeyToSlip32(keyPath, extendedKey)
-        expect(exportedKey).toEqual(item.prvBech32)
-      })
+          const keyPath = keyPathFromString(item.keyPath)
+          const { key, chainCode } = getKeysFromHex(item.prvHex)
+          const extendedKey: ExtendedKey<PrivateKey> = {
+            key: { type: "private", bytes: key }, chainCode
+          }
+          const exportedKey = Slip32.exportKeyToSlip32(keyPath, extendedKey)
+          expect(exportedKey).toEqual(item.prvBech32)
+        })
     })
   })
 describe(`Slip32 key exchange: export public key (${fixtures.slip32.valid.length} test vectors)`,
@@ -58,14 +58,14 @@ describe(`Slip32 key exchange: export public key (${fixtures.slip32.valid.length
     fixtures.slip32.valid.forEach((item, index) => {
       it("should export public key as Slip32 " +
         `(${index + 1}, hex: ${cropString(item.pubHex, 15, true)})`, () => {
-        const keyPath = keyPathFromString(item.keyPath)
-        const { key, chainCode } = getKeysFromHex(item.pubHex)
-        const extendedKey: ExtendedKey<PublicKey> = {
-          key: { type: "public", bytes: key }, chainCode
-        }
-        const exportedKey = Slip32.exportKeyToSlip32(keyPath, extendedKey)
-        expect(exportedKey).toEqual(item.pubBech32)
-      })
+          const keyPath = keyPathFromString(item.keyPath)
+          const { key, chainCode } = getKeysFromHex(item.pubHex)
+          const extendedKey: ExtendedKey<PublicKey> = {
+            key: { type: "public", bytes: key }, chainCode
+          }
+          const exportedKey = Slip32.exportKeyToSlip32(keyPath, extendedKey)
+          expect(exportedKey).toEqual(item.pubBech32)
+        })
     })
   })
 
@@ -79,7 +79,7 @@ function getKeysFromHex(hex: string) {
   const key = buffer.slice(buffer.length - 33)
   const chainCode = buffer.slice(buffer.length - 33 - 32, buffer.length - 33)
 
-  return {key, chainCode}
+  return { key, chainCode }
 }
 
 /**

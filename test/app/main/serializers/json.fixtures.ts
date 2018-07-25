@@ -11,7 +11,7 @@ export const jsonFixtures = {
       value: {
         number: 1337,
         string: "Hello World",
-        array: [1337, "Hello World", {foo: "bar"}],
+        array: [1337, "Hello World", { foo: "bar" }],
         object: {
           foo: "bar"
         }

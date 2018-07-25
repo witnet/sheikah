@@ -1,4 +1,4 @@
-import {error, warn, info, debug} from "electron-log"
+import { error, warn, info, debug } from "electron-log"
 
 type LogFunction = (arg: any) => void
 

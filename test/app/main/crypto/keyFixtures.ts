@@ -86,7 +86,7 @@ export const vector1 = {
 
 export const vector2 = {
   seedEntropy: "fffcf9f6f3f0edeae7e4e1dedbd8d5d2cfccc9c6c3c0bdbab7b4b1aeaba8a5a29f9c99969" +
-  "3908d8a8784817e7b7875726f6c696663605d5a5754514e4b484542",
+    "3908d8a8784817e7b7875726f6c696663605d5a5754514e4b484542",
   m0: {
     keyPath: "m/0",
     derivedKeyBytes: "abe74a98f6c7eabee0428f53798f0ab8aa1bd37873999041703c742f15ac7e1e",

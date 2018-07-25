@@ -15,6 +15,7 @@ describe("NewMnemonics Handler", () => {
     const system = {
       appStateManager: new AppStateManager()
     }
+
     // Call the new mnemonics handler and wait for the response
     const result = await newMnemonics(system, {})
 

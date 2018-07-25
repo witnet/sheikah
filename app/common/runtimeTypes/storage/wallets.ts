@@ -185,10 +185,10 @@ function toHexString(byteArray: ByteArray): HexByteArray {
  */
 function toByteArray(hexString: string) {
   return (hexString
-    .match(/.{1,2}/g ) || [])
+    .match(/.{1,2}/g) || [])
     .map((x) => {
       const val = parseInt(x, 16)
-      if (isNaN(val)) {throw new Error("Invalid hex value found in hexString")}
+      if (isNaN(val)) { throw new Error("Invalid hex value found in hexString") }
 
       return val
     })

@@ -38,10 +38,10 @@
     "commit": "git-cz",
     "precommit": "lint-staged",
     "commitmsg": "commitlint -g config/commitlint.config.js -e $GIT_PARAMS",
-    "fmt-verify": "tsfmt --useTsfmt config/tsfmt.json --verify app/**/**/*.ts test/**/*.ts",
+    "fmt-verify": "tsfmt --useTsfmt=config/tsfmt.json --verify",
     "postinstall": "electron-builder install-app-deps",
-    "fmt": "tsfmt --useTsfmt config/tsfmt.json app/**/**/*.ts test/**/*.ts",
-    "fmt!": "tsfmt --useTsfmt config/tsfmt.json -r app/**/**/*.ts test/**/*.ts",
+    "fmt": "tsfmt --useTsfmt=config/tsfmt.json --verify --verbose",
+    "fmt!": "tsfmt --useTsfmt=config/tsfmt.json -r",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

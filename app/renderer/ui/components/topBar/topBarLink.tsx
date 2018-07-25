@@ -1,5 +1,5 @@
 import * as React from "react"
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import { join } from "app/renderer/utils/list"
 import { PathNameProp, TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
 
@@ -25,7 +25,7 @@ export class TopBarLink extends React.Component<TopBarLinkProps & PathNameProp> 
   }
 
   // tslint:disable-next-line:prefer-function-over-method completed-docs
-  public render () {
+  public render() {
     return (
       <Link className={join([styles["link-box"], this.active])} to={this.props.link}>
         {this.props.caption}

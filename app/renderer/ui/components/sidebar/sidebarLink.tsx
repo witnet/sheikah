@@ -1,5 +1,5 @@
 import * as React from "react"
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 import { SectionInfo } from "app/renderer/ui/pages/main/sections"
 import { join } from "app/renderer/utils/list"
@@ -50,7 +50,7 @@ export class SideBarLink extends React.Component<SideBarLinkProps & PathNameProp
   }
 
   // tslint:disable-next-line:prefer-function-over-method completed-docs
-  public render () {
+  public render() {
     return (
       <Link className={join([styles.link, this.active])} to={this.props.link}>
         <i className={join(["fa", this.icon])} />

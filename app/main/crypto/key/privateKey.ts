@@ -43,7 +43,7 @@ export const derive =
  * @returns {ExtendedKey<PrivateKey>}
  */
 export const extend = (key: PrivateKey, chainCode: ChainCode): ExtendedKey<PrivateKey> => {
-  return {key, chainCode}
+  return { key, chainCode }
 }
 
 /**
@@ -57,8 +57,8 @@ const deriveChildKey = (
   parentKey: ExtendedKey<PrivateKey>,
   childIndex: number
 ): ExtendedKey<PrivateKey> => {
-// This buffer will be populated later and then used as input data for the SHA512HMAC function that
-// calculates the child key and chain code.
+  // This buffer will be populated later and then used as input data for the SHA512HMAC function
+  // that calculates the child key and chain code.
   let data: Buffer
   const childIndexBuffer = integerAsBuffer(childIndex)
   if (KeyPath.isHardened(childIndex)) {
@@ -90,5 +90,5 @@ const deriveChildKey = (
 }
 
 export const fromBytes = (bytes: Buffer): PrivateKey => {
-  return {type: "private", bytes}
+  return { type: "private", bytes }
 }

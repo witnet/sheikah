@@ -17,7 +17,7 @@ const styles = require("./style.scss")
  * @class Signup
  * @extends {React.Component}
  */
-  export class SignupPage extends React.Component<RouteComponentProps<any>> {
+export class SignupPage extends React.Component<RouteComponentProps<any>> {
 
   /**
    * Local state for SingupPage component
@@ -37,7 +37,7 @@ const styles = require("./style.scss")
 
   public nextStep = () => {
     this.setState({
-      step : this.state.step + 1
+      step: this.state.step + 1
     })
   }
 
@@ -59,7 +59,7 @@ const styles = require("./style.scss")
    * @returns Step component
    * @memberof Signup
    */
-  public showStep () {
+  public showStep() {
 
     const enum steps {
       welcome = 1,
@@ -72,7 +72,7 @@ const styles = require("./style.scss")
 
     switch (this.state.step) {
       case steps.welcome:
-        return <Welcome className={styles.centered} nextStep={this.nextStep}/>
+        return <Welcome className={styles.centered} nextStep={this.nextStep} />
       case steps.walletSeedTypeSelection:
         return <WalletSeedTypeSelection className={styles.centered} nextStep={this.nextStep} />
       case steps.walletSeedBackup:
@@ -101,7 +101,7 @@ const styles = require("./style.scss")
       case steps.addressesGeneration:
         return <AddressesGeneration className={styles.centered} />
       default:
-        return <Welcome className={styles.centered} nextStep={this.nextStep}/>
+        return <Welcome className={styles.centered} nextStep={this.nextStep} />
     }
   }
 

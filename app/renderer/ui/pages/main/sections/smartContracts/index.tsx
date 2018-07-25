@@ -1,5 +1,5 @@
 import * as React from "react"
-import {Route, Switch} from "react-router"
+import { Route, Switch } from "react-router"
 
 import { TabMyContracts, TabEasyComposer, TabProEditor, TabMarketplace } from "./tabs"
 import TopBar from "app/renderer/ui/components/topBar/index"
