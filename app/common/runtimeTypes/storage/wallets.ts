@@ -123,8 +123,8 @@ export const ExtendedKey = t.type({
 export type ExtendedKey = t.TypeOf<typeof ExtendedKey>
 
 export const FinalKey = t.intersection([
-  ExtendedKey,
   t.type({
+    extendedKey: ExtendedKey,
     keyPath: KeyPath,
     pkh: t.string,
   }),
