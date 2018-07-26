@@ -87,7 +87,6 @@ export const Output = t.type({
 }, "Output")
 export type Output = t.TypeOf<typeof Output>
 
-// export const KeyPath = t.array(t.number)
 export const KeyPath = new t.Type<Array<number>, string>(
   "KeyPath",
   /** is: a custom type guard */
@@ -109,16 +108,38 @@ export const KeyPath = new t.Type<Array<number>, string>(
 )
 export type KeyPath = t.TypeOf<typeof KeyPath>
 
-export const Uint8 = t.refinement(t.number, n => n >= 0 && n <= 0xFF)
-export type Uint8 = t.TypeOf<typeof Uint8>
+/**
+ * Custom type to encode/decode Buffer to hex string
+ * @type {Type<Buffer, string>}
+ */
+export const SerializableBuffer = new t.Type<Buffer, string>(
+  "SerializableBuffer",
+  /** is: a custom type guard */
+  (m): m is Buffer => m instanceof Buffer,
+  /** validate: succeeds if a value of type t.mixed can be decoded to a value of type Buffer */
+  (input: t.mixed, context: t.Context): t.Validation<Buffer> =>
+    t.string.validate(input, context).chain(inputString => {
+      let res: t.Validation<Buffer>
+      try {
+        const buf = Buffer.from(inputString, "hex")
+        if (inputString.length !== 0 && buf.length === 0) {
+          throw new Error("Invalid hex value found in hexString")
+        }
+        res = t.success(buf)
+      } catch (e) {
+        res = t.failure(inputString, context)
+      }
 
-export const ByteArray = t.array(Uint8)
-export type ByteArray = t.TypeOf<typeof ByteArray>
+      return res
+    }),
+  /** encode: converts a value of type Buffer to a value of type hex string */
+  (a) => a.toString("hex")
+)
 
 export const ExtendedKey = t.type({
   type: t.union([t.literal("private"), t.literal("public")], "type"),
-  key: t.array(Uint8, "key"),
-  chainCode: t.array(Uint8, "ChainCode")
+  key: SerializableBuffer,
+  chainCode: SerializableBuffer
 }, "ExtendedKey")
 export type ExtendedKey = t.TypeOf<typeof ExtendedKey>
 
@@ -160,40 +181,9 @@ export const Account = t.type({
 }, "EpochsInfo")
 export type Account = t.TypeOf<typeof Account>
 
-export const HexByteArray = t.string
-export type HexByteArray = t.TypeOf<typeof HexByteArray>
-
-/**
- * Custom type to encode/decode bytearray to hexstring
- * @type {Type<ByteArray, HexByteArray>}
- */
-export const SerializableByteArray = new t.Type<Buffer, HexByteArray>(
-  "SerializableByteArray",
-  /** is: a custom type guard */
-  (m): m is Buffer => m instanceof Buffer,
-  /** validate: succeeds if a value of type t.mixed can be decoded to a value of type ByteArray */
-  (input: t.mixed, context: t.Context): t.Validation<Buffer> =>
-    t.string.validate(input, context).chain(inputString => {
-      let res: t.Validation<Buffer>
-      try {
-        const buf = Buffer.from(inputString, "hex")
-        if (inputString.length !== 0 && buf.length === 0) {
-          throw new Error("Invalid hex value found in hexString")
-        }
-        res = t.success(buf)
-      } catch (e) {
-        res = t.failure(inputString, context)
-      }
-
-      return res
-    }),
-  /** encode: converts a value of type ByteArray to a value of type HexString */
-  (a) => a.toString("hex")
-)
-
 export const Seed = t.type({
-  masterSecret: SerializableByteArray,
-  chainCode: SerializableByteArray
+  masterSecret: SerializableBuffer,
+  chainCode: SerializableBuffer
 }, "Seed")
 export type Seed = t.TypeOf<typeof Seed>
 
