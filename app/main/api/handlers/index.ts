@@ -8,6 +8,7 @@ export { default as echo } from "./echo"
 export { default as error } from "./error"
 export { default as newMnemonics } from "./newMnemonics"
 export { default as validateMnemonics } from "./validateMnemonics"
+export { default as encryptWallet } from "./encryptWallet"
 
 export type Handler<T> =
   (system: T, params: JsonSerializable) => Promise<JsonSerializable | void>

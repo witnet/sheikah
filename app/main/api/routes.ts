@@ -13,7 +13,8 @@ export const routes: Routes<SubSystems> = {
   nop: h.nop,
   echo: h.echo,
   error: h.error,
-  newMnemonics: h.newMnemonics
+  newMnemonics: h.newMnemonics,
+  encryptWallet: h.encryptWallet
 }
 
 /**

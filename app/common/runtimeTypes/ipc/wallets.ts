@@ -88,9 +88,21 @@ const EncryptWalletSuccess = t.type({
   wallet: Wallet
 }, "EncryptWalletSuccess")
 
+export const encryptWalletErrors = {
+  STORAGE_CREATION_FAILURE: t.literal("STORAGE_CREATION_FAILURE"),
+  WRONG_TYPE_PARAMS: t.literal("WRONG_METHOD_PARAMS"),
+  INVALID_KEY: t.literal("INVALID_KEY"),
+  INVALID_WALLET_ID: t.literal("INVALID_WALLET_ID"),
+  WALLET_CREATION_FAILURE: t.literal("WALLET_CREATION_FAILURE"),
+  ENCODE_FAILURE: t.literal("ENCODE_FAILURE"),
+  WALLET_STORE_FAILURE: t.literal("WALLET_STORE_FAILURE"),
+  WALLET_REPLACE_FAILURE: t.literal("WALLET_REPLACE_FAILURE"),
+  WRONG_UNCONSOLIDATED_WALLET: t.literal("WRONG_UNCONSOLIDATED_WALLET"),
+}
+
 const EncryptWalletError = t.type({
   kind: t.literal("ERROR"),
-  error: t.string
+  error: t.union(Object.values(encryptWalletErrors))
 }, "EncryptWalletError")
 
 export const EncryptWalletResponse = t.taggedUnion(
