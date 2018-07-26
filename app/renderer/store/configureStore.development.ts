@@ -4,7 +4,8 @@ import thunk from "redux-thunk"
 import { createHashHistory } from "history"
 import { connectRouter, push, routerMiddleware } from "connected-react-router"
 import { createLogger } from "redux-logger"
-import rootReducer, { StoreState } from "app/renderer/reducers"
+import rootReducer from "app/renderer/reducers"
+import { StoreState } from "./index"
 
 declare const window: Window & {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?(a: any): void
@@ -64,7 +65,7 @@ function configureStore(initialState: StoreState, services: Services) {
   if (module.hot) {
     module.hot.accept("app/renderer/reducers", () => {
       // eslint-disable-line global-require
-      store.replaceReducer(require("app/renderer/reducers"))
+      store.replaceReducer(require("app/renderer/reducers").default)
     })
   }
 

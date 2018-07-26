@@ -1,9 +1,10 @@
-import rootReducer, { StoreState } from "app/renderer/reducers"
+import rootReducer from "app/renderer/reducers"
 import { Services } from "app/renderer/services"
 import { connectRouter, routerMiddleware } from "connected-react-router"
 import createHashHistory from "history/createHashHistory"
 import { applyMiddleware, compose, createStore } from "redux"
 import thunk from "redux-thunk"
+import { StoreState } from "./index"
 
 const history = createHashHistory()
 const router = routerMiddleware(history)

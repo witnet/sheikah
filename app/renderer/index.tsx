@@ -20,7 +20,7 @@ new Promise(async () => {
 
   // Configure and initialize Redux store
   const { configureStore, history } = require("./store/configureStore")
-  const store = configureStore({ wallets }, services)
+  const store = configureStore({ wallets, wallet: false, forms: { softLogin: {} } }, services)
 
   // Root component rendering
   render(
