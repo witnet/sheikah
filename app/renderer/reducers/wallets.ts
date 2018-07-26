@@ -1,7 +1,7 @@
 import { Wallets, CURRENT_WALLETS_VERSION } from "app/common/runtimeTypes/storage/wallets"
 import { IAction } from "app/renderer/actions/helpers"
 
-export type WalletsState = Wallets
+const defaultWalletsState: Wallets = []
 
 const defaultWalletsState: WalletsState = { _v: CURRENT_WALLETS_VERSION, infos: [] }
 
