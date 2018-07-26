@@ -1,0 +1,8 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .step {
+    background: $grey-1;
+    grid-column: 2;
+  }
+}
