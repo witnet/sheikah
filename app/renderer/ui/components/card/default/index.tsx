@@ -6,7 +6,7 @@ const styles = require("./style.scss")
 
 export interface Iprops {
   className?: string
-  title: string
+  title?: string
   style?: React.CSSProperties
 }
 
