@@ -61,7 +61,7 @@ class Transactions extends TabComponent<any> {
             actions={confirmedOptions}
             className={styles["vesting-graph"]}
           >
-            <p>Comming soon... D3 GRAPH</p>
+            <p>Coming soon... D3 GRAPH</p>
           </Wrapper>
         </div>
       </>

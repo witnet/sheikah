@@ -11,7 +11,7 @@ import Welcome from "./steps/welcome/index"
 const styles = require("./style.scss")
 
 /**
- * SingupPage component
+ * SignupPage component
  *
  * @export
  * @class Signup

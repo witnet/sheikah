@@ -22,7 +22,7 @@ export default class AddressGeneration extends React.Component<Iprops> {
   public render() {
     return (
       <CardDefault className={this.props.className} title="Address generation">
-        <p className={styles.subtitle}>Sheika is now generating your addresses</p>
+        <p className={styles.subtitle}>Sheikah is now generating your addresses</p>
         <p className={styles.text}>This will take a few seconds</p>
       </CardDefault>
     )
