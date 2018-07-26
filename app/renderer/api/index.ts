@@ -16,6 +16,8 @@ import {
  * Exports API renderer functions
  */
 export { newMnemonics } from "./newMnemonics"
+export { getWallets } from "./getWallets"
+export { getWallet } from "./getWallet"
 
 /** Options type expected by `Client` */
 export type Options = {

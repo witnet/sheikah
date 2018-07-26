@@ -1,18 +1,15 @@
-import { asRuntimeType, Contexts } from "app/common/runtimeTypes"
 import { Wallets } from "app/common/runtimeTypes/storage/wallets"
-import { Client } from "app/renderer/api"
+import * as api from "app/renderer/api"
 import * as React from "react"
 import { render } from "react-dom"
 import Root from "./ui/containers/Root"
 import "./ui/app.global.scss"
 
-const apiClient = new Client()
+const apiClient = new api.Client()
 
 new Promise(async () => {
   // Query and parse wallets from main process
-  // TODO: replace these two lines with with `const wallets = await api.getWallets(apiClient)`
-  const _wallets = await apiClient.request("getWallets")
-  const wallets = asRuntimeType(_wallets, Wallets, Contexts.IPC)
+  const wallets: Wallets = await api.getWallets(apiClient)
 
   // This object holds resources that are shared among different parts of the app and unifies
   // dependency injection.
