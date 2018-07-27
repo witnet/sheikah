@@ -1,9 +1,10 @@
 import { SubSystems } from "app/main/system"
-import { asRuntimeType } from "app/common/runtimeTypes"
+import { asRuntimeType, asObject } from "app/common/runtimeTypes"
 import {
   EncryptWalletParams,
   EncryptWalletResponse,
-  encryptWalletErrors
+  encryptWalletErrors,
+  EncryptWalletError
 } from "app/common/runtimeTypes/ipc/wallets"
 import { AesCipher, AesCipherSettings, defaultAesCipherSettings } from "app/main/ciphers/aes"
 import { jsonBufferSerializer } from "app/main/serializers/jsonBuffer"
@@ -23,13 +24,16 @@ import {
   Seed,
   Wip3SeedInfo,
   KeyPath,
+  KeyChain,
+  Account
 } from "app/common/runtimeTypes/storage/wallets"
-import * as assert from "assert"
 import * as CryptoSeed from "app/main/crypto/seed"
 import * as PrivateKey from "app/main/crypto/key/privateKey"
 import { ExtendedKey as CryptoExtendedKey } from "app/main/crypto/key/key"
 import * as AccountFactory from "app/common/factories/account"
 import { JsonSerializable } from "app/common/serializers"
+import * as t from "io-ts"
+import { inject, asType } from "app/main/utils/utils"
 
 /**
  * Handler function for "encryptWallet" method.
@@ -42,92 +46,97 @@ export default async function encryptWallet(system: SubSystems, params: any):
 
   return Promise.all([
     Promise.resolve(params)
-      .then((p) => {
-        try {
-          return asRuntimeType(params, EncryptWalletParams)
-        } catch (error) {
-          throw encryptWalletErrors.WRONG_TYPE_PARAMS.value
-        }
-      })
-      .then(async (encryptWalletParams) => {
-        try {
-          return {encryptWalletParams, walletStorage: await newWalletStorage(encryptWalletParams)}
-        } catch (error) {
-          throw encryptWalletErrors.STORAGE_CREATION_FAILURE.value
-        }
-      }),
-    Promise.resolve()
-      .then(() => {
-        try {
-          return system.appStateManager.get("unconsolidatedWallet")
-        } catch (error) {
-          throw encryptWalletErrors.INVALID_KEY.value
-        }
-      })
-      .then((unconsolidatedWallet) => {
-        try {
-          return asRuntimeType(unconsolidatedWallet, UnconsolidatedWallet)
-        } catch (error) {
-          throw encryptWalletErrors.WRONG_UNCONSOLIDATED_WALLET.value
-        }
-    })
-  ]).then(([vars, unconsolidatedWallet]) => {
-    try {
-      assert(vars.encryptWalletParams.id === unconsolidatedWallet.id, "Invalid encrypted wallet ID")
+      .then((p) => asType(p, EncryptWalletParams, encryptWalletErrors.WRONG_TYPE_PARAMS))
+      .then(newWalletStorage),
+    Promise.resolve(params)
+      .then(inject(updateUnconsolidatedWallet, system))
+      .then(inject(newWallet, system))
+  ])
+  .then(storeWallet)
+  .then(inject(replaceWallet, system))
+  .then(buildSuccessResponse)
+  .catch(buildErrorResponse)
+  .then(encodeResponse)
+}
 
-      return {...vars, unconsolidatedWallet}
-    } catch (error) {
-      throw encryptWalletErrors.INVALID_WALLET_ID.value
-    }
-  }).then((vars) => {
-    try {
-      return {
-        ...vars,
-        wallet: newWallet(system, vars.encryptWalletParams, vars.unconsolidatedWallet)
-      }
-    } catch (error) {
-      throw encryptWalletErrors.WALLET_CREATION_FAILURE.value
-    }
-  }).then((vars) => {
-    try {
-      return {...vars, storage: Wallet.encode(vars.wallet)}
-    } catch (error) {
-      throw encryptWalletErrors.ENCODE_FAILURE.value
-    }
-  }).then(async (vars) => Promise.all([
-    Promise.resolve(vars)
-      .then(async (vars) => {
-        try {
-          await vars.walletStorage.put("wallet", vars.storage)
+/**
+ * Update and validate unconsolidated wallet
+ * @param params
+ * @param system
+ */
+function updateUnconsolidatedWallet(params: EncryptWalletParams, system: SubSystems):
+  UnconsolidatedWallet {
 
-          return vars
-        } catch (error) {
-          throw encryptWalletErrors.WALLET_STORE_FAILURE.value
-        }
-    }),
-    Promise.resolve(vars)
-      .then(async (vars) => {
-        try {
-          await system.walletStorage.replace(vars.walletStorage)
-        } catch (error) {
-            throw encryptWalletErrors.WALLET_REPLACE_FAILURE.value
-        }
-    })
-    ])).then(([ vars ]) => {
-      system.appStateManager.update({unconsolidatedWallet: {} as UnconsolidatedWallet})
+  const unconsolidatedWallet = system.appStateManager.state.unconsolidatedWallet
+  if (!unconsolidatedWallet) { throw encryptWalletErrors.UNCONSONSOLIDATEDWALLET_UNAVAILABLE }
+  if (unconsolidatedWallet.id !== params.id) { throw encryptWalletErrors.INVALID_WALLET_ID }
+  unconsolidatedWallet.caption = params.caption
 
-      return vars
-    }).then((vars) => {
-      return {
-        kind: "SUCCESS",
-        wallet: vars.wallet
-      } as EncryptWalletResponse
-  }).catch((e) => {
-      return {
-        kind: "ERROR",
-        error: e
-      } as EncryptWalletResponse
-  })
+  return unconsolidatedWallet
+}
+
+/**
+ * Stores wallet in WalletStorage.
+ */
+async function storeWallet([walletStorage, wallet]: [JsonAesLevelStorage, Wallet]) {
+  try {
+    const storage = Wallet.encode(wallet)
+    await walletStorage.put("wallet", storage)
+
+    return { walletStorage, wallet }
+  } catch (error) {
+    throw encryptWalletErrors.WALLET_STORE_FAILURE
+  }
+}
+
+/**
+ * Replaces the walletStorage and remove the unconsolidated wallet.
+ */
+async function replaceWallet(
+  { walletStorage, wallet }: { walletStorage: JsonAesLevelStorage, wallet: Wallet },
+  system: SubSystems): Promise<Wallet> {
+
+  try {
+    await system.walletStorage.replace(walletStorage)
+    // as the wallet has been stored with success the unconsolidated wallet is removed
+    system.appStateManager.update({unconsolidatedWallet: {} as UnconsolidatedWallet})
+
+    return wallet
+  } catch  {
+    throw encryptWalletErrors.WALLET_REPLACE_FAILURE
+  }
+}
+
+/**
+ * Builds a success response.
+ * @param wallet
+ */
+function buildSuccessResponse(wallet: Wallet): EncryptWalletResponse {
+  return {
+    kind: "SUCCESS",
+    wallet
+  }
+}
+
+/**
+ * Builds an error response.
+ * @param error
+ */
+function buildErrorResponse(error: t.LiteralType<EncryptWalletError["error"]>):
+  EncryptWalletResponse {
+
+  return {
+    kind: "ERROR",
+    error: error.value
+  }
+}
+
+/**
+ * Encodes a response as JsonSerializable.
+ * @param response
+ */
+function encodeResponse(response: EncryptWalletResponse): JsonSerializable {
+  return asObject(response, EncryptWalletResponse)
 }
 
 /**
@@ -136,14 +145,13 @@ export default async function encryptWallet(system: SubSystems, params: any):
  * @param encryptWalletParams
  * @param unconsolidatedWallet
  */
-function newWallet(system: SubSystems,
-  encryptWalletParams: EncryptWalletParams,
-  unconsolidatedWallet: UnconsolidatedWallet): Wallet {
+function newWallet(unconsolidatedWallet: UnconsolidatedWallet, system: SubSystems): Wallet {
 
   const privateKey = newPrivateKey(unconsolidatedWallet.mnemonics)
+  if (!unconsolidatedWallet.id) { throw encryptWalletErrors.INVALID_WALLET_ID }
   const walletInfo: WalletInfo = {
-    id: encryptWalletParams.id,
-    caption: encryptWalletParams.caption || newCaption(system)
+    id: unconsolidatedWallet.id,
+    caption: unconsolidatedWallet.caption || newCaption(system)
   }
   const seed: Seed = {
     masterSecret: privateKey.key.bytes,
@@ -189,7 +197,7 @@ function newPrivateKey(mnemonics: string): CryptoExtendedKey<PrivateKey.PrivateK
  * @param {SubSystems} system
  * @returns {string}
  */
-function newCaption(system: SubSystems) {
+function newCaption(system: SubSystems): string {
   const index = system.appStateManager.state.wallets.length as number + 1
 
   return `Wallet #${index}`
@@ -200,7 +208,7 @@ function newCaption(system: SubSystems) {
  * @param keyPath
  * @param extendedKey
  */
-function createAccount(keyPath: string, extendedKey: ExtendedKey) {
+function createAccount(keyPath: string, extendedKey: ExtendedKey): Account {
   const externalKeyChain = createKeyChain(`${keyPath}/0`)
   const internalKeyChain = createKeyChain(`${keyPath}/1`)
   // rad => retrieve, attest, deliver
@@ -214,7 +222,7 @@ function createAccount(keyPath: string, extendedKey: ExtendedKey) {
  * Create key chain.
  * @param keyPath
  */
-function createKeyChain(keyPath: string) {
+function createKeyChain(keyPath: string): KeyChain {
   return AccountFactory.createKeyChain(asKeyPath(keyPath), [])
 }
 
@@ -222,7 +230,7 @@ function createKeyChain(keyPath: string) {
  * Wrapper around asRuntimeType for KeyPath.
  * @param keyPath
  */
-function asKeyPath(keyPath: string) {
+function asKeyPath(keyPath: string): KeyPath {
   return asRuntimeType(keyPath, KeyPath)
 }
 
@@ -232,18 +240,22 @@ function asKeyPath(keyPath: string) {
  * @returns {Promise<JsonAesLevelStorage>}
  */
 async function newWalletStorage(params: EncryptWalletParams): Promise<JsonAesLevelStorage> {
-  const aesSettings: AesCipherSettings = {
-    ...defaultAesCipherSettings,
-    pbkdPassword: params.password
+  try {
+    const aesSettings: AesCipherSettings = {
+      ...defaultAesCipherSettings,
+      pbkdPassword: params.password
+    }
+    const connection = await getConnection(params.id)
+
+    return new Storage(
+      sha256BufferHasher,
+      jsonBufferSerializer,
+      new AesCipher(aesSettings),
+      new LevelPersister(connection)
+    )
+  } catch {
+    throw encryptWalletErrors.STORAGE_CREATION_FAILURE
   }
-
-  const connection = await getConnection(params.id)
-  const keyHasher = sha256BufferHasher
-  const serializer = jsonBufferSerializer
-  const cipher = new AesCipher(aesSettings)
-  const persister = new LevelPersister(connection)
-
-  return new Storage(keyHasher, serializer, cipher, persister)
 }
 
 /**
