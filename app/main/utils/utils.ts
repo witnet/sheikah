@@ -1,3 +1,6 @@
+import * as t from "io-ts"
+import { asRuntimeType } from "app/common/runtimeTypes"
+
 type stringToNumber = { [key: string]: number }
 type numberToString = { [key: number]: string }
 type stringToString = { [key: string]: string }
@@ -33,6 +36,19 @@ export function inject<T, U, V>(fn: (arg: T, injected: V) => U, injected: V) {
   return (arg: T): U => fn(arg, injected)
 }
 
+/**
+ * Wrapper of asRuntimeType that replaces the thrown error with a custom error
+ * @param input
+ * @param runtimeType
+ * @param error error to throw in case of failure
+ */
+export function asType<T, U, V>(input: t.mixed, runtimeType: t.Type<T, U>, error: V): T {
+  try {
+    return asRuntimeType(input, runtimeType)
+  } catch {
+    throw error
+  }
+}
 /**
  * Converts a list of homogeneous functions into an asynchronous function that feeds a single input
  * argument to all the listed functions and returns a list with the matching outputs.
