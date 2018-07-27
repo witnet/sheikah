@@ -22,23 +22,19 @@ enum Step {
  */
 export class SoftLogin extends React.Component<StateProps & DispatchProps> {
   /**
-   * Method to get current step from state
-   * @returns {any}
+   * Method to deduce step from state
    */
-  private getStepFromState = (): Step => {
-    // Check if unlock is in progress
-    if (("unlockInProgress" in this.props.loginForm) && (this.props.loginForm.unlockInProgress)) {
-      return Step.walletUnlockInProgress
-    }
-
-    // Check if there is no password
-    if ("id" in this.props.loginForm) {
-      return Step.walletPasswordRequest
-    }
-
-    // Default case
-    return Step.walletSelection
-  }
+  private guessStepFromState = (): Step =>
+    // If unlock is in progress
+    this.props.loginForm.unlockInProgress ?
+      // Show walletUnlockInProgress
+      Step.walletUnlockInProgress :
+      // Else if there's a selected wallet ID
+      this.props.loginForm.id ?
+        // Show walletPasswordRequest
+        Step.walletPasswordRequest :
+        // Else show walletSelection
+        Step.walletSelection
 
   /**
    * Method to go to request password step
@@ -86,7 +82,7 @@ export class SoftLogin extends React.Component<StateProps & DispatchProps> {
   public showStep() {
 
     // Get current state (from the information in the store)
-    const step = this.getStepFromState()
+    const step = this.guessStepFromState()
 
     switch (step) {
       case Step.walletSelection:
