@@ -1,4 +1,4 @@
-import { SubSystems } from "app/main/system"
+import { AppStateS, WalletStorageS } from "app/main/system"
 import { asRuntimeType, asObject } from "app/common/runtimeTypes"
 import {
   EncryptWalletParams,
@@ -34,6 +34,7 @@ import * as AccountFactory from "app/common/factories/account"
 import { JsonSerializable } from "app/common/serializers"
 import * as t from "io-ts"
 import { inject, asType } from "app/main/utils/utils"
+import { AppStateManager } from "app/main/appState"
 
 /**
  * Handler function for "encryptWallet" method.
@@ -41,16 +42,15 @@ import { inject, asType } from "app/main/utils/utils"
  * @param params
  * @returns {Promise<void>}
  */
-export default async function encryptWallet(system: SubSystems, params: any):
+export default async function encryptWallet(system: AppStateS & WalletStorageS, params: any):
   Promise<JsonSerializable> {
 
   return Promise.all([
     Promise.resolve(params)
       .then((p) => asType(p, EncryptWalletParams, encryptWalletErrors.WRONG_TYPE_PARAMS))
       .then(newWalletStorage),
-    Promise.resolve(params)
-      .then(inject(updateUnconsolidatedWallet, system))
-      .then(inject(newWallet, system))
+    Promise.resolve(updateUnconsolidatedWallet(params, system.appStateManager))
+      .then(inject(newWallet, system.appStateManager))
   ])
   .then(storeWallet)
   .then(inject(replaceWallet, system))
@@ -62,12 +62,12 @@ export default async function encryptWallet(system: SubSystems, params: any):
 /**
  * Update and validate unconsolidated wallet
  * @param params
- * @param system
+ * @param appStateManager
  */
-function updateUnconsolidatedWallet(params: EncryptWalletParams, system: SubSystems):
+function updateUnconsolidatedWallet(params: EncryptWalletParams, appStateManager: AppStateManager):
   UnconsolidatedWallet {
 
-  const unconsolidatedWallet = system.appStateManager.state.unconsolidatedWallet
+  const unconsolidatedWallet = appStateManager.state.unconsolidatedWallet
   if (!unconsolidatedWallet) { throw encryptWalletErrors.UNCONSONSOLIDATEDWALLET_UNAVAILABLE }
   if (unconsolidatedWallet.id !== params.id) { throw encryptWalletErrors.INVALID_WALLET_ID }
   unconsolidatedWallet.caption = params.caption
@@ -94,7 +94,7 @@ async function storeWallet([walletStorage, wallet]: [JsonAesLevelStorage, Wallet
  */
 async function replaceWallet(
   { walletStorage, wallet }: { walletStorage: JsonAesLevelStorage, wallet: Wallet },
-  system: SubSystems): Promise<Wallet> {
+  system: AppStateS & WalletStorageS): Promise<Wallet> {
 
   try {
     await system.walletStorage.replace(walletStorage)
@@ -141,17 +141,18 @@ function encodeResponse(response: EncryptWalletResponse): JsonSerializable {
 
 /**
  * Generate a new wallet.
- * @param system
+ * @param appStateManager
  * @param encryptWalletParams
  * @param unconsolidatedWallet
  */
-function newWallet(unconsolidatedWallet: UnconsolidatedWallet, system: SubSystems): Wallet {
+function newWallet(unconsolidatedWallet: UnconsolidatedWallet, appStateManager: AppStateManager):
+  Wallet {
 
   const privateKey = newPrivateKey(unconsolidatedWallet.mnemonics)
   if (!unconsolidatedWallet.id) { throw encryptWalletErrors.INVALID_WALLET_ID }
   const walletInfo: WalletInfo = {
     id: unconsolidatedWallet.id,
-    caption: unconsolidatedWallet.caption || newCaption(system)
+    caption: unconsolidatedWallet.caption || newCaption(appStateManager)
   }
   const seed: Seed = {
     masterSecret: privateKey.key.bytes,
@@ -197,8 +198,8 @@ function newPrivateKey(mnemonics: string): CryptoExtendedKey<PrivateKey.PrivateK
  * @param {SubSystems} system
  * @returns {string}
  */
-function newCaption(system: SubSystems): string {
-  const index = system.appStateManager.state.wallets.length as number + 1
+function newCaption(appStateManager: AppStateManager): string {
+  const index = appStateManager.state.wallets.length as number + 1
 
   return `Wallet #${index}`
 }
