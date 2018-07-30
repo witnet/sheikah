@@ -1,28 +1,17 @@
-import { jsonSerializer } from "app/common/serializers"
 import { JsonSerializable } from "app/common/serializers/json"
 import { PlainCipher } from "app/main/ciphers/plain"
-import { noHasher } from "app/main/hashers/no"
 import { InMemoryPersister } from "app/main/persisters/inMemory"
 import { Storage } from "app/main/storage"
+import { jsonBufferSerializer } from "app/main/serializers/jsonBuffer"
+import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 
-const keyHasher = noHasher
-const serializer = {
-  async serialize(value: JsonSerializable) {
-    const str = await jsonSerializer.serialize(value)
-
-    return Buffer.from(str)
-  },
-  async deserialize(value: Buffer) {
-    const data = await jsonSerializer.deserialize(value.toString())
-
-    return data
-  }
-}
+const keyHasher = sha256BufferHasher
+const serializer = jsonBufferSerializer
 const cipher = new PlainCipher<Buffer>()
-const backend = new InMemoryPersister()
+const persister = new InMemoryPersister()
 
-const storage = new Storage<string, JsonSerializable, Buffer, Buffer>(
-  keyHasher, serializer, cipher, backend)
+const storage = new Storage<Buffer, JsonSerializable, Buffer, Buffer>(
+  keyHasher, serializer, cipher, persister)
 
 describe("jsonPlainInMemory", () => {
   it("should put a string", async () => {

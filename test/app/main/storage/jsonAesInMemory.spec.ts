@@ -1,20 +1,20 @@
 import { AesCipher, AesCipherSettings, defaultAesCipherSettings } from "app/main/ciphers/aes"
-import { sha256StringHasher } from "app/main/hashers/sha256String"
 import { InMemoryPersister } from "app/main/persisters/inMemory"
 import { jsonBufferSerializer } from "app/main/serializers/jsonBuffer"
 import { Storage } from "app/main/storage"
+import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 
 const pbkdPassword = "password"
 const aesSettings: AesCipherSettings = {
   ...defaultAesCipherSettings,
   pbkdPassword
 }
-const keyHasher = sha256StringHasher
+const keyHasher = sha256BufferHasher
 const serializer = jsonBufferSerializer
 const cipher = new AesCipher(aesSettings)
-const backend = new InMemoryPersister()
+const persister = new InMemoryPersister()
 
-const storage = new Storage(keyHasher, serializer, cipher, backend)
+const storage = new Storage(keyHasher, serializer, cipher, persister)
 
 describe("jsonAesInMemory", () => {
   it("should put a string", async () => {
