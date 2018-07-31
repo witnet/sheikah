@@ -1,5 +1,4 @@
 import { InvalidParamsError } from "app/common/ipc-protocol"
-import { JsonSerializable } from "app/common/serializers"
 import * as t from "io-ts"
 
 export const enum Contexts {
@@ -13,7 +12,8 @@ export const enum Contexts {
  * @param runtimeType
  * @param context
  */
-export function asRuntimeType<T>(input: t.mixed, runtimeType: t.Type<T>, context?: Contexts): T {
+export function asRuntimeType<T, U>
+  (input: t.mixed, runtimeType: t.Type<T, U>, context?: Contexts): T {
   return runtimeType.decode(input).getOrElseL(() => {
     const ctx = context ? ` from ${context}` : ""
     const errorMessage = `Got a non-compliant ${runtimeType.name}${ctx}: ${JSON.stringify(input)}`
@@ -26,8 +26,7 @@ export function asRuntimeType<T>(input: t.mixed, runtimeType: t.Type<T>, context
  * @param input
  * @param runtimeType
  */
-export function asObject<T extends JsonSerializable>
-  (input: T, runtimeType: t.Type<T>): JsonSerializable {
+export function asObject<T, U>(input: T, runtimeType: t.Type<T, U>): U {
   return runtimeType.encode(input)
 }
 
