@@ -27,11 +27,11 @@ export default class Welcome extends React.Component<Iprops> {
     return (
       <CardDefault className={classNameCard} title="Hey, listen!">
         <p className={styles.subtitle}>
-          This assistant wil guide you through the process of creating your own Witnet wallet.
+          This assistant will guide you through the process of creating your own Witnet wallet.
         </p>
         <p className={styles.text}>
           A wallet is an app that keeps your credentials safe and lets you interface with the
-          Witnet blockchain in may ways: from transferring Wit to someone else to creating
+          Witnet blockchain in many ways: from transferring Wit to someone else to creating
           smart contracts.
         </p>
         <div className={styles.link}>
