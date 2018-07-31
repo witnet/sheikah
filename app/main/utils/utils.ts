@@ -46,3 +46,12 @@ export function fanOut<I, O>(fns: Array<(arg: I) => O>) {
     fns.map(async (fn) => Promise.resolve(arg).then(fn))
   )
 }
+
+/**
+ * Picks a certain value by key from a map.
+ * This is a very simple yet quite convenient helper when used in promise chains.
+ * @param key
+ */
+export function pick<M, K extends keyof M>(key: K) {
+  return (map: M) => map[key]
+}
