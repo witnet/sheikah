@@ -13,42 +13,31 @@ export const ValidateMnemonicsParams = t.type({
 })
 export type ValidateMnemonicsParams = t.TypeOf<typeof ValidateMnemonicsParams>
 
-export namespace ValidateMnemonicsResponses {
-  // Success case
-  export const Id = t.type({
-    tag: t.literal("id"),
-    id: t.string
-  })
-  export type Id = t.TypeOf<typeof Id>
+const ValidateMnemonicsSuccess = t.type({
+  kind: t.literal("SUCCESS"),
+  id: t.string
+})
 
-  /** Factory function for `Id` response */
-  export function id(id: string): Id {
-    return { tag: "id", id }
-  }
-
-  // Error due to invalid mnemonic
-  export const Invalid = t.type({ tag: t.literal("invalid") })
-  export type Invalid = t.TypeOf<typeof Invalid>
-
-  /** Factory function for `Invalid` response */
-  export function invalid(): Invalid {
-    return { tag: "invalid" }
-  }
-
-  // Error due to mnemonic not matching the one in the unconsolidated wallet in the app state
-  export const MatchError = t.type({ tag: t.literal("matcherr") })
-  export type MatchError = t.TypeOf<typeof MatchError>
-
-  /** Factory function for `MatchError` response */
-  export function matchError(): MatchError {
-    return { tag: "matcherr" }
-  }
+export const validateMnemonicsErrors = {
+  INVALID_METHOD_PARAMS: t.literal("INVALID_METHOD_PARAMS"),
+  ID_GENERATION_ERROR: t.literal("ID_GENERATION_ERROR"),
+  INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS"),
+  MISMATCHING_MNEMONICS: t.literal("MISMATCHING_MNEMONICS"),
+  UNCONSOLIDATED_UPDATE_FAILURE: t.literal("UNCONSOLIDATED_UPDATE_FAILURE")
 }
 
-export const ValidateMnemonicsResponse = t.taggedUnion("tag", [
-  ValidateMnemonicsResponses.Id,
-  ValidateMnemonicsResponses.Invalid,
-  ValidateMnemonicsResponses.MatchError
+export const ValidateMnemonicsErrors = t.union(Object.values(validateMnemonicsErrors))
+export type ValidateMnemonicsErrors = t.TypeOf<typeof ValidateMnemonicsErrors>
+
+export const ValidateMnemonicsError = t.type({
+  kind: t.literal("ERROR"),
+  error: ValidateMnemonicsErrors
+})
+export type ValidateMnemonicsError = t.TypeOf<typeof ValidateMnemonicsError>
+
+export const ValidateMnemonicsResponse = t.taggedUnion("kind", [
+  ValidateMnemonicsSuccess,
+  ValidateMnemonicsError,
 ], "ValidateMnemonicsResponse")
 export type ValidateMnemonicsResponse = t.TypeOf<typeof ValidateMnemonicsResponse>
 
