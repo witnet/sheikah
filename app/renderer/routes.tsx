@@ -3,13 +3,13 @@ import * as React from "react"
 import { Route } from "react-router"
 import { Store } from "redux"
 
-import App from "./ui/containers/App"
-import { MainPage } from "./ui/pages/main"
-import { StoreState } from "./store"
+import App from "app/renderer/ui/containers/App"
+import { MainPage } from "app/renderer/ui/pages/main"
+import { StoreState } from "app/renderer/store"
 
 import { RedirectedRoute } from "app/renderer/utils/redirectedRoute"
 import { ifWallet, ifWallets } from "app/renderer/utils/guards"
-import SoftLoginPage from "app/renderer/ui/containers/SoftLoginPage"
+import LoginFormContainer from "app/renderer/ui/containers/LoginForm"
 
 type RoutesProps = {
   store: Store<StoreState>
@@ -29,7 +29,7 @@ export default (props: RoutesProps) => {
       <RedirectedRoute
         path="/login"
         guard={ifWallets(store)}
-        aCompo={SoftLoginPage}
+        aCompo={LoginFormContainer}
         redirect="/wallets/new"
       />
       <Route
