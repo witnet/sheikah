@@ -10,6 +10,7 @@ import { LevelPersister } from "app/main/persisters/level"
 import { jsonBufferSerializer } from "app/main/serializers/jsonBuffer"
 import { Storage } from "app/main/storage"
 import { ensurePath } from "app/main/storage/utils"
+import { JsonSerializable } from "app/common/serializers"
 
 const createAesSettings = (pbkdPassword: string): AesCipherSettings => ({
   ...defaultAesCipherSettings,
@@ -23,7 +24,9 @@ const createAesSettings = (pbkdPassword: string): AesCipherSettings => ({
  * @param {string} id
  * @returns Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>>
  */
-export async function createJsonAesLevelStorage(args: any) {
+export async function createJsonAesLevelStorage(
+  args: any
+): Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>> {
   try {
     const { id, password } = asRuntimeType(args, JsonAesLevelStorageParams)
 
@@ -45,7 +48,7 @@ export async function createJsonAesLevelStorage(args: any) {
 
     return new Storage(keyHasher, serializer, cipher, persister)
   } catch (err) {
-    return err
+    throw err
   }
 }
 
