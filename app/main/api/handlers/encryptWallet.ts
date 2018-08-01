@@ -6,16 +6,8 @@ import {
   encryptWalletErrors,
   EncryptWalletError
 } from "app/common/runtimeTypes/ipc/wallets"
-import { AesCipher, AesCipherSettings, defaultAesCipherSettings } from "app/main/ciphers/aes"
-import { jsonBufferSerializer } from "app/main/serializers/jsonBuffer"
-import { LevelPersister } from "app/main/persisters/level"
-import * as path from "path"
-import { homedir } from "os"
-import { ensurePath } from "app/main/storage/utils"
-import * as level from "level"
 import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
 import { Storage } from "app/main/storage"
-import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 import {
   ExtendedKey,
   Wallet,
@@ -48,8 +40,9 @@ export default async function encryptWallet(system: AppStateS & WalletStorageS, 
   return Promise.all([
     Promise.resolve(params)
       .then((p) => asType(p, EncryptWalletParams, encryptWalletErrors.WRONG_TYPE_PARAMS))
-      .then(newWalletStorage),
-    Promise.resolve(updateUnconsolidatedWallet(params, system.appStateManager))
+      .then(inject(newWalletStorage, system.storageFactory)),
+    Promise.resolve(params)
+      .then(inject(updateUnconsolidatedWallet, system.appStateManager))
       .then(inject(newWallet, system.appStateManager))
   ])
   .then(storeWallet)
@@ -80,8 +73,8 @@ function updateUnconsolidatedWallet(params: EncryptWalletParams, appStateManager
  */
 async function storeWallet([walletStorage, wallet]: [JsonAesLevelStorage, Wallet]) {
   try {
-    const storage = Wallet.encode(wallet)
-    await walletStorage.put("wallet", storage)
+    const storableWallet = Wallet.encode(wallet)
+    await walletStorage.put("wallet", storableWallet)
 
     return { walletStorage, wallet }
   } catch (error) {
@@ -93,8 +86,9 @@ async function storeWallet([walletStorage, wallet]: [JsonAesLevelStorage, Wallet
  * Replaces the walletStorage and remove the unconsolidated wallet.
  */
 async function replaceWallet(
-  { walletStorage, wallet }: { walletStorage: JsonAesLevelStorage, wallet: Wallet },
-  system: AppStateS & WalletStorageS): Promise<Wallet> {
+    { walletStorage, wallet }: { walletStorage: JsonAesLevelStorage, wallet: Wallet },
+    system: AppStateS & WalletStorageS
+  ): Promise<Wallet> {
 
   try {
     await system.walletStorage.replace(walletStorage)
@@ -147,8 +141,8 @@ function encodeResponse(response: EncryptWalletResponse): JsonSerializable {
  */
 function newWallet(unconsolidatedWallet: UnconsolidatedWallet, appStateManager: AppStateManager):
   Wallet {
-
   const privateKey = newPrivateKey(unconsolidatedWallet.mnemonics)
+
   if (!unconsolidatedWallet.id) { throw encryptWalletErrors.INVALID_WALLET_ID }
   const walletInfo: WalletInfo = {
     id: unconsolidatedWallet.id,
@@ -244,40 +238,14 @@ function asKeyPath(keyPath: string): KeyPath {
  * @param {EncryptWalletParams} params
  * @returns {Promise<JsonAesLevelStorage>}
  */
-async function newWalletStorage(params: EncryptWalletParams): Promise<JsonAesLevelStorage> {
-  try {
-    const aesSettings: AesCipherSettings = {
-      ...defaultAesCipherSettings,
-      pbkdPassword: params.password
-    }
-    const connection = await getConnection(params.id)
+async function newWalletStorage(
+    params: EncryptWalletParams,
+    storageFactory: WalletStorageS["storageFactory"]
+  ): Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>> {
 
-    return new Storage(
-      sha256BufferHasher,
-      jsonBufferSerializer,
-      new AesCipher(aesSettings),
-      new LevelPersister(connection)
-    )
+  try {
+    return storageFactory(params)
   } catch {
     throw encryptWalletErrors.STORAGE_CREATION_FAILURE
   }
-}
-
-/**
- * Create a new connection to level db.
- * @param {string} id
- * @returns {Promise<levelup.LevelUp>}
- */
-async function getConnection(id: string) {
-  // Compose the absolute path of the LevelDB directory
-  const dbPath = path.normalize(`${homedir()}/.sheikah/storage/${id}`)
-
-  // Ensure the path exists
-  await ensurePath(dbPath)
-
-  // Create the LevelDB connection
-  return level(dbPath, {
-    keyEncoding: "binary",
-    valueEncoding: "binary"
-  })
 }
