@@ -25,11 +25,35 @@ export const Wallets = t.intersection([
 ])
 export type Wallets = t.TypeOf<typeof Wallets>
 
-const Mnemonics = t.type({
+export const Mnemonics = t.type({
   mnemonics: t.string
 })
+export type Mnemonics = t.TypeOf<typeof Mnemonics>
+// export const NewMnemonicsResponse = t.exact(Mnemonics)
+// export type NewMnemonicsResponse = t.TypeOf<typeof NewMnemonicsResponse>
 
-export const NewMnemonicsResponse = t.exact(Mnemonics)
+export const NewMnemonicsSuccess = t.intersection([
+  t.type({kind: t.literal("success")}),
+  Mnemonics
+])
+export type NewMnemonicsSuccess = t.TypeOf<typeof NewMnemonicsSuccess>
+
+export const newMnemonicsErrors = {
+  DEPENDENCY_ERROR_GENERATE_MNEMONICS: t.literal("DEPENDENCY_ERROR_GENERATE_MNEMONICS"),
+  INVALID_MNEMONICS_TYPE: t.literal("INVALID_MNEMONICS_TYPE"),
+  ERROR_UPDATING_UNCONSOLIDATED_WALLET: t.literal("ERROR_UPDATING_UNCONSOLIDATED_WALLET")
+}
+
+export const NewMnemonicsErrors = t.union(Object.values(newMnemonicsErrors))
+export type NewMnemonicsErrors = t.TypeOf<typeof NewMnemonicsErrors>
+
+export const NewMnemonicsError = t.type({
+  kind: t.literal("error"),
+  error: NewMnemonicsErrors
+})
+export type NewMnemonicsError = t.TypeOf<typeof NewMnemonicsError>
+
+export const NewMnemonicsResponse = t.taggedUnion("kind", [NewMnemonicsSuccess, NewMnemonicsError])
 export type NewMnemonicsResponse = t.TypeOf<typeof NewMnemonicsResponse>
 
 // UnconsolidatedWallet represents a transient wallet which is being created

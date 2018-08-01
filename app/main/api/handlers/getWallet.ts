@@ -104,18 +104,14 @@ async function replaceStorage(
  */
 async function searchWallet(
   { storage, id }: { storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }
-): Promise<GetWalletSucccess> {
+) {
   // Search wallet in db
   const wallet = await storage.get(id)
 
   // Check run time type
   try {
-    const resultSuccess: GetWalletSucccess = {
-      kind: "success",
-      wallet: asRuntimeType(wallet, Wallet)
-    }
+      wallet
 
-    return resultSuccess
   } catch (error) {
     throw getWalletErrors.INVALID_WALLET_TYPE
   }

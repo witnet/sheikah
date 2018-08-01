@@ -6,11 +6,12 @@ import * as api from "app/renderer/api"
 import { routes } from "app/main/api"
 
 describe("NewMnemonics API", () => {
-  const mnemonics = {
+  const mnemonicsResponse = {
+    kind: "SUCCESS",
     mnemonics: "narrow flavor sense humble radar rail rail cactus radar broom oyster gym"
   }
   const messageHandler = jest.fn()
-  messageHandler.mockResolvedValue(mnemonics)
+  messageHandler.mockResolvedValue(mnemonicsResponse)
   const options = {
     ...api.defaultOptions,
     timeout: 0,
@@ -23,7 +24,7 @@ describe("NewMnemonics API", () => {
 
   it("should return valid mnemonics", async () => {
     const response = await api.newMnemonics(client)
-    expect(response).toMatchObject(mnemonics)
+    expect(response).toMatchObject(mnemonicsResponse)
   })
 
   it("should send a routable JSON-RPC request", async () => {

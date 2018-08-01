@@ -1,7 +1,7 @@
 import { newMnemonics } from "app/main/api/handlers"
 import { AppStateManager } from "app/main/appState"
 import { asRuntimeType } from "app/common/runtimeTypes"
-import { NewMnemonicsResponse } from "app/common/runtimeTypes/storage/wallets"
+import { NewMnemonicsSuccess } from "app/common/runtimeTypes/storage/wallets"
 
 jest.mock("app/main/crypto/mnemonic", () => {
   return {
@@ -20,10 +20,13 @@ describe("NewMnemonics Handler", () => {
     const result = await newMnemonics(system, {})
 
     // Check that the return value is a new mnemonics response runtime type
-    const mnemonicsResponse = asRuntimeType(result, NewMnemonicsResponse)
+    const mnemonicsResponse = asRuntimeType(result, NewMnemonicsSuccess)
+
+    // Check that new mnemonic response contains a kind success
+    expect(mnemonicsResponse.kind).toBe("SUCCESS")
 
     // Check that new mnemonic response contains a non-empty string
-    expect(mnemonicsResponse.mnemonics).toBeTruthy()
+    expect(mnemonicsResponse.mnemonics).toBe("some mnemonic")
   })
 
   it("should call state manager's update with generated mnemonic", async () => {
