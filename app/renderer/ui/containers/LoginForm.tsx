@@ -4,9 +4,9 @@ import { Route, Switch } from "react-router"
 import { push, goBack } from "react-router-redux"
 import { bindActionCreators, Dispatch } from "redux"
 
-import { Wallets } from "app/common/runtimeTypes/storage/wallets"
+import { Wallets, Wallet } from "app/common/runtimeTypes/storage/wallets"
 
-import * as actionCreators from "app/renderer/actions/softLogin"
+import * as actionCreators from "app/renderer/actions/loginForm"
 import { IAction } from "app/renderer/actions/helpers"
 import { LoginForm } from "app/renderer/ui/components/loginForm"
 import { StoreState } from "app/renderer/store"
@@ -35,10 +35,8 @@ export interface StateProps {
  */
 export interface DispatchProps {
   actions: any,
-  goBack: any,
-  goToWalletSelection: any,
-  goToWalletPasswordRequest: any,
-  goToWalletUnlockInProgress: any
+  goTo: (path: string) => void,
+  goBack: () => void,
 }
 
 /**
@@ -66,10 +64,8 @@ const mapStateToProps = (state: StoreState): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
   return {
     actions: bindActionCreators(actionCreators, dispatch),
+    goTo: (path: string) => dispatch(push(path)),
     goBack: () => dispatch(goBack()),
-    goToWalletSelection: () => dispatch(push(PATHS.WALLET_SELECTION)),
-    goToWalletPasswordRequest: () => dispatch(push(PATHS.WALLET_PASSWORD_REQUEST)),
-    goToWalletUnlockInProgress: () => dispatch(push(PATHS.WALLET_UNLOCK_IN_PROGRESS))
   }
 }
 
@@ -95,7 +91,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
     await new Promise((resolve) => { this.setState({ id }, resolve) })
 
     // Dispatch action to go to next route
-    this.props.goToWalletPasswordRequest()
+    this.props.goTo(PATHS.WALLET_PASSWORD_REQUEST)
   }
 
   /**
@@ -112,16 +108,24 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
    */
   private walletPasswordRequestNext = (password: string) => {
     // Dispatch action to go to next route
-    this.props.goToWalletUnlockInProgress()
+    this.props.goTo(PATHS.WALLET_UNLOCK_IN_PROGRESS)
 
     // Dispatch action to unlock wallet and catch error
     this.props.actions.unlockWallet(this.state.id, password)
+      .then((wallet: Wallet) => {
+        // Save wallet
+        this.props.actions.saveWallet(wallet)
+
+        // Dispatch action to go to next route
+        // TODO dispatch(push("/")) needs to be replaced by dispatch(push(MAIN_PATHS.MAIN)
+        this.props.goTo("/")
+      })
       .catch((errorMessage: string) => {
         // Set error message in the state
         this.setState({ errorMessage })
 
-        // Dispatch action to go to next route in the case of an error
-        this.props.goToWalletSelection()
+        // Dispatch action to go to next route
+        this.props.goTo(PATHS.WALLET_PASSWORD_REQUEST)
       })
   }
 
