@@ -1,5 +1,3 @@
-import { LiteralType } from "io-ts"
-
 import { asRuntimeType, asObject } from "app/common/runtimeTypes"
 import { inject } from "app/main/utils/utils"
 import { SubSystems } from "app/main/system"
@@ -7,8 +5,9 @@ import { JsonSerializable } from "app/common/serializers/json"
 import { WalletInfo, Wallet } from "app/common/runtimeTypes/storage/wallets"
 import { Storage } from "app/main/storage"
 import {
-  GetWalletError, GetWalletParams, GetWalletResponse, GetWalletSucccess, getWalletErrors,
-  GetWalletErrors
+  GetWalletParams, GetWalletResponse,
+  GetWalletSuccess, getWalletErrors,
+  buildGetWalletError
 } from "app/common/runtimeTypes/ipc/wallets"
 
 /**
@@ -33,7 +32,7 @@ export default async function getWallet(
     .then(searchWallet)
     // create response steps
     .then(buildSuccess)
-    .catch(buildError)
+    .catch(buildGetWalletError)
     .then(encodeResponse)
 }
 
@@ -139,22 +138,9 @@ function encodeResponse(response: GetWalletResponse): JsonSerializable {
  * @param {Wallet} wallet
  * @returns {GetWalletSucccess}
  */
-function buildSuccess(wallet: Wallet): GetWalletSucccess {
+function buildSuccess(wallet: Wallet): GetWalletSuccess {
   return {
     kind: "SUCCESS",
     wallet
-  }
-}
-
-/**
- * build handler error response
- *
- * @param {LiteralType<GetWalletErrors>} error
- * @returns
- */
-function buildError(error: LiteralType<GetWalletErrors>): GetWalletError {
-  return {
-    kind: "ERROR",
-    error: error.value
   }
 }

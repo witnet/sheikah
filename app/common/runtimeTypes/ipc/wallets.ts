@@ -51,7 +51,7 @@ export const GetWalletSuccess = t.type({
   kind: t.literal("SUCCESS"),
   wallet: Wallet
 })
-export type GetWalletSucccess = t.TypeOf<typeof GetWalletSuccess>
+export type GetWalletSuccess = t.TypeOf<typeof GetWalletSuccess>
 
 export const getWalletErrors = {
   INVALID_PARAMS_TYPE: t.literal("INVALID_PARAMS_TYPE"),
@@ -71,6 +71,14 @@ export type GetWalletError = t.TypeOf<typeof GetWalletError>
 
 export const GetWalletResponse = t.taggedUnion("kind", [GetWalletSuccess, GetWalletError])
 export type GetWalletResponse = t.TypeOf<typeof GetWalletResponse>
+
+/** Factory function for `GetWalletError` */
+export function buildGetWalletError(error: t.LiteralType<GetWalletErrors>) {
+  const walletError: GetWalletError = { kind: "ERROR", error: error.value }
+
+  return walletError
+}
+
 export const EncryptWalletParams = t.intersection([
   t.type({
     id: t.string,
