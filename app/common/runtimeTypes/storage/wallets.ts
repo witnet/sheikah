@@ -1,12 +1,28 @@
 import * as t from "io-ts"
 
+export const CURRENT_WALLETS_VERSION = 0
+export const CURRENT_WALLET_VERSION = 0
+
+export const Version = t.type({
+  _v: t.number
+}, "Version")
+export type Version = t.TypeOf<typeof Version>
+
 export const WalletInfo = t.type({
   id: t.string,
   caption: t.string
 }, "WalletInfo")
 export type WalletInfo = t.TypeOf<typeof WalletInfo>
 
-export const Wallets = t.array(WalletInfo)
+export const WalletInfoCollection = t.array(WalletInfo)
+export type WalletInfoCollection = t.TypeOf<typeof WalletInfoCollection>
+
+export const Wallets = t.intersection([
+  Version,
+  t.type({
+    infos: WalletInfoCollection
+  }, "Wallets"),
+])
 export type Wallets = t.TypeOf<typeof Wallets>
 
 const Mnemonics = t.type({
@@ -153,6 +169,7 @@ export const SeedInfo = t.union([Wip3SeedInfo], "SeedInfo") // , TrezorSeedInfo,
 export type SeedInfo = t.TypeOf<typeof SeedInfo>
 
 export const Wallet = t.intersection([
+  Version,
   WalletInfo,
   t.type({
     seed: SeedInfo,

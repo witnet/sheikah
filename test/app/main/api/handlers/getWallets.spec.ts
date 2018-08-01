@@ -1,6 +1,6 @@
 import { asRuntimeType } from "app/common/runtimeTypes"
 import { getWallets } from "app/main/api/handlers"
-import { Wallets } from "app/common/runtimeTypes/storage/wallets"
+import { Wallets, CURRENT_WALLETS_VERSION } from "app/common/runtimeTypes/storage/wallets"
 import { AppStateManager } from "app/main/appState"
 
 describe("GetWallets Handler", () => {
@@ -26,10 +26,13 @@ describe("GetWallets Handler", () => {
     }
 
     system.appStateManager.update({
-      wallets: [
-        { id: "w1", caption: "i1" },
-        { id: "w2", caption: "i2" }
-      ]
+      wallets: {
+        _v: CURRENT_WALLETS_VERSION,
+        infos: [
+          { id: "w1", caption: "i1" },
+          { id: "w2", caption: "i2" }
+        ]
+      }
     })
 
     // Call handler method to get wallets from system
