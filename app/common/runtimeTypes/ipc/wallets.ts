@@ -83,7 +83,7 @@ export const EncryptWalletParams = t.intersection([
 
 export type EncryptWalletParams = t.TypeOf<typeof EncryptWalletParams>
 
-const EncryptWalletSuccess = t.type({
+export const EncryptWalletSuccess = t.type({
   kind: t.literal("SUCCESS"),
   wallet: Wallet
 }, "EncryptWalletSuccess")
@@ -98,6 +98,7 @@ export const encryptWalletErrors = {
   WALLET_STORE_FAILURE: t.literal("WALLET_STORE_FAILURE"),
   WALLET_REPLACE_FAILURE: t.literal("WALLET_REPLACE_FAILURE"),
   WRONG_UNCONSOLIDATED_WALLET: t.literal("WRONG_UNCONSOLIDATED_WALLET"),
+  INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS")
 }
 
 export const EncryptWalletError = t.type({

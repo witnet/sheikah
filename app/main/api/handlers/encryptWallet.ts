@@ -188,9 +188,13 @@ function newWallet(unconsolidatedWallet: UnconsolidatedWallet, appStateManager: 
  * @param mnemonics
  */
 function newPrivateKey(mnemonics: string): CryptoExtendedKey<PrivateKey.PrivateKey> {
+  try {
   const {masterSecret, chainCode} = CryptoSeed.fromMnemonics(mnemonics)
 
   return PrivateKey.extend(PrivateKey.fromBytes(masterSecret), chainCode)
+  } catch {
+    throw encryptWalletErrors.INVALID_MNEMONICS
+  }
 }
 
 /**
