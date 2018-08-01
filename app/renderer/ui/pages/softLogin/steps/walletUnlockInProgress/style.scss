@@ -1,0 +1,19 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .step {
+    background: $grey-1;
+    grid-column: 2;
+  }
+
+  .subtitle {
+    color: $blue-6;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .text {
+    color: $grey-8;
+    text-align: center;
+  }
+}

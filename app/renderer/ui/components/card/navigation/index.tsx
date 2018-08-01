@@ -10,7 +10,9 @@ export interface Iprops {
   className?: string
   nextStep?: any
   previousStep?: any
-  title: string
+  title?: string
+  backText?: string
+  nextText?: string
 }
 
 /**
@@ -32,8 +34,14 @@ export default class Cardnavigation extends React.Component<Iprops> {
             {this.props.children}
           </div>
           <div className={styles.navigation}>
-            <ButtonNavigation text="Back" onClick={this.props.previousStep} />
-            <ButtonNavigation text="Next" onClick={this.props.nextStep} />
+            <ButtonNavigation
+              text={this.props.backText ? this.props.backText : "Back"}
+              onClick={this.props.previousStep}
+            />
+            <ButtonNavigation
+              text={this.props.nextText ? this.props.nextText : "Next"}
+              onClick={this.props.nextStep}
+            />
           </div>
         </Card>
       </div>

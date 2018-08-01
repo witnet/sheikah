@@ -1,0 +1,52 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .step {
+    background: $grey-1;
+    grid-column: 2;
+  }
+
+  .text {
+    color: $grey-9;
+    margin-bottom: 20px;
+  }
+
+  .links {
+    height: 265px;
+    overflow: auto;
+    padding-right: 10px;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .link {
+    height: 60px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+
+  .highlighted {
+    border-color: $blue-6;
+    color: $blue-6;
+  }
+}

@@ -36,7 +36,7 @@ export default class WalletSeedBackup extends React.Component<Iprops> {
             <p>invite cover trim climb actress carbon only laptop loyal feel edit away</p>
           </div>
           <p>Please save this 12 words on paper (order is important). This seed will allow you to
-            recover your wallet in cse of computer failure.</p>
+            recover your wallet in case of computer failure.</p>
         </CardNavigation>
         <Alert className={styles["alert-grid"]}>
           <div className={styles.alert}>

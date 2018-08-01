@@ -39,8 +39,8 @@ export default class WalletSeedConfirmation extends React.Component<Iprops> {
         <Alert className={styles["alert-grid"]}>
           <div className={styles.alert}>
             <p>Your seed is important!</p>
-            <p>If you loose your seed, your coins will be permanently lost.</p>
-            <p>To confirm that you have properly saved your seed, please retyped it here.</p>
+            <p>If you lose your seed, your coins will be permanently lost.</p>
+            <p>To confirm that you have properly saved your seed, please retype it here.</p>
           </div>
         </Alert>
       </>
