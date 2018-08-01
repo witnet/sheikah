@@ -1,4 +1,5 @@
 import { AppState } from "app/common/runtimeTypes/ipc/state"
+import { CURRENT_WALLETS_VERSION } from "app/common/runtimeTypes/storage/wallets"
 
 /**
  * An AppstateManager maintains app state and manages its access and update.
@@ -45,5 +46,8 @@ export class AppStateManager {
 
 export const emptyAppState: AppState = {
   _seq: 0,
-  wallets: []
+  wallets: {
+    _v: CURRENT_WALLETS_VERSION,
+    infos: []
+  }
 }

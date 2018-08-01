@@ -65,7 +65,7 @@ function parseParams({ params }: { params: any }): GetWalletParams {
  */
 function checkWalletInfo(params: GetWalletParams, system: SubSystems): GetWalletParams {
   const { id } = params
-  const wallets: Array<WalletInfo> = system.appStateManager.state.wallets
+  const wallets: Array<WalletInfo> = system.appStateManager.state.wallets.infos
   const walletInfo: WalletInfo | undefined = searchWalletInfo(wallets, id)
   if (walletInfo) {
     return params
