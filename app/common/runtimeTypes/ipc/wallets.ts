@@ -57,7 +57,10 @@ export const getWalletErrors = {
   INVALID_PARAMS_TYPE: t.literal("INVALID_PARAMS_TYPE"),
   INVALID_WALLET_TYPE: t.literal("INVALID_WALLET_TYPE"),
   WALLET_NOT_FOUND: t.literal("WALLET_NOT_FOUND"),
-  INSUFFICIENT_PERMISSIONS: t.literal("INSUFFICIENT_PERMISSIONS")
+  INSUFFICIENT_PERMISSIONS: t.literal("INSUFFICIENT_PERMISSIONS"),
+
+  // Internal renderer error to abstract UI from IPC errors
+  GENERIC_IPC_ERROR: t.literal("GENERIC_IPC_ERROR")
 }
 
 export const GetWalletErrors = t.union(Object.values(getWalletErrors))
