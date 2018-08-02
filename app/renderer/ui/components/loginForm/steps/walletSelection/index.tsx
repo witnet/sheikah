@@ -1,7 +1,6 @@
 import * as React from "react"
 
 import { ButtonOption } from "app/renderer/ui/components/button"
-import { CardDefault } from "app/renderer/ui/components/card"
 import { Wallets } from "app/common/runtimeTypes/storage/wallets"
 
 const styles = require("./style.scss")
@@ -10,54 +9,60 @@ export interface Iprops {
   className?: any
   wallets: Wallets
   nextStep: (id: string) => void
+  newWallet: () => void
 }
 
 /**
- * Step welcome UI component
+ * Step wallet selection UI component
  *
  * @export
- * @class Welcome
+ * @class WalletSelection
  * @extends {React.Component<Iprops>}
  */
 
 export default class WalletSelection extends React.Component<Iprops> {
+
+  /**
+   * Method that calls next step function inside props
+   */
+  private nextStep = (id: string) => () => { this.props.nextStep(id) }
+
+  /**
+   * Method to render links to wallets
+   */
+  private linksRender = () => {
+    return this.props.wallets.infos.map((wallet) => {
+      return (
+        <ButtonOption
+          key={wallet.id}
+          className={`${styles.link} ${styles.listItem}`}
+          secondaryText=">"
+          onClick={this.nextStep(wallet.id)}
+        >
+          {wallet.caption}
+        </ButtonOption>)
+    })
+  }
+
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
     return (
-      <CardDefault className={styles.step}>
+      <div className={styles.content}>
         <p className={styles.text}>
           Select which wallet you want to unlock:
         </p>
         <div className={styles.links}>
-          {linksRender(this.props)}
+          {this.linksRender()}
         </div>
         <ButtonOption
           className={styles.link}
           secondaryText=">"
-          onClick={this.props.nextStep}
+          onClick={this.props.newWallet}
         >
           Create, import or recover a wallet
         </ButtonOption>
-      </CardDefault>
+      </div>
     )
   }
-}
-
-// Function that calls next step function inside props
-const nextStep = (props: Iprops, id: string) => () => { props.nextStep(id) }
-
-// Function to render links to wallets
-const linksRender = (props: Iprops) => {
-  return props.wallets.map((wallet) => {
-    return (
-      <ButtonOption
-        key={wallet.id}
-        className={`${styles.link} ${styles.highlighted}`}
-        secondaryText=">"
-        onClick={nextStep(props, wallet.id)}
-      >
-        {wallet.caption}
-      </ButtonOption>)
-  })
 }

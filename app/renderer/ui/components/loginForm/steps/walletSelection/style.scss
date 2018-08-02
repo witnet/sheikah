@@ -1,18 +1,18 @@
 :local {
   @import "app/renderer/ui/colors";
 
-  .step {
-    background: $grey-1;
-    grid-column: 2;
+  .content {
+    padding: 25px;
   }
 
   .text {
     color: $grey-9;
-    margin-bottom: 20px;
+    padding: 5px 0 5px 0;
   }
 
   .links {
-    height: 265px;
+    height: 270px;
+    margin: 10px 0 30px 0;
     overflow: auto;
     padding-right: 10px;
   }
@@ -24,29 +24,30 @@
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    background: $grey-2;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: $grey-6;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: $grey-7;
   }
 
   .link {
     height: 60px;
-    margin-bottom: 5px;
-    margin-top: 5px;
   }
 
-  .highlighted {
+  .listItem {
     border-color: $blue-6;
     color: $blue-6;
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
