@@ -29,5 +29,6 @@ module.exports = {
   },
   "testMatch": [
     "**/?(*.)(spec|test).ts?(x)"
-  ]
+  ],
+  "testURL": "http://localhost"
 }
