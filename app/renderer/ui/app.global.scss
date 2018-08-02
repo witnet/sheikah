@@ -4,8 +4,12 @@
   @import "reset";
   @import "fonts";
 
+  html {
+    box-sizing: border-box;
+  }
+
   body {
-    font-family: Arial, Helvetica, Helvetica Neue, serif;
+    font-family: "Monospaced Number", sans-serif;
     height: 100vh;
     max-height: 100vh;
     max-width: 100vw;
