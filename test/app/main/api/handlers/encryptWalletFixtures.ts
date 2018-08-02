@@ -26,7 +26,6 @@ export const wallet: Wallet = {
   // SeedInfo
   seed: {
     kind: "Wip3",
-    mnemonics: defaultMnemonics,
     seed: {
       chainCode: Buffer.from(
         [152, 8, 159, 246, 221, 27, 159, 171, 139, 98, 82, 232, 229, 140, 201, 2, 78, 113, 141, 104,

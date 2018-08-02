@@ -43,7 +43,7 @@ export default async function encryptWallet(system: AppStateS & WalletStorageS, 
       .then((p) => asType(p, EncryptWalletParams, encryptWalletErrors.WRONG_TYPE_PARAMS))
       .then(inject(newWalletStorage, system.storageFactory)),
     Promise.resolve(params)
-      .then(inject(updateUnconsolidatedWallet, system.appStateManager))
+      .then(inject(getUnconsolidatedData, system.appStateManager))
       .then(inject(newWallet, system.appStateManager))
   ])
     .then(storeWallet)
@@ -53,20 +53,26 @@ export default async function encryptWallet(system: AppStateS & WalletStorageS, 
     .then(encodeResponse)
 }
 
+/** Data required to build a wallet, union of WalletParams and UnconsolidatedWallet */
+type UnconsolidatedData = { id: string, password: string, caption: string, mnemonics: string }
 /**
  * Update and validate unconsolidated wallet
  * @param params
  * @param appStateManager
  */
-function updateUnconsolidatedWallet(params: EncryptWalletParams, appStateManager: AppStateManager):
-  UnconsolidatedWallet {
+function getUnconsolidatedData(params: EncryptWalletParams, appStateManager: AppStateManager):
+  UnconsolidatedData {
 
   const unconsolidatedWallet = appStateManager.state.unconsolidatedWallet
   if (!unconsolidatedWallet) { throw encryptWalletErrors.UNAVAILABLE_UNCONSOLIDATED_WALLET }
   if (unconsolidatedWallet.id !== params.id) { throw encryptWalletErrors.INVALID_WALLET_ID }
   unconsolidatedWallet.caption = params.caption
 
-  return unconsolidatedWallet
+  return {
+    ...params,
+    caption: params.caption || newCaption(appStateManager),
+    mnemonics: appStateManager.state.unconsolidatedWallet.mnemonics
+  }
 }
 
 /**
@@ -135,18 +141,18 @@ function encodeResponse(response: EncryptWalletResponse): JsonSerializable {
 
 /**
  * Generate a new wallet.
- * @param appStateManager
+ * @param appStateManage
  * @param encryptWalletParams
  * @param unconsolidatedWallet
  */
-function newWallet(unconsolidatedWallet: UnconsolidatedWallet, appStateManager: AppStateManager):
-  Wallet {
-  const privateKey = newPrivateKey(unconsolidatedWallet.mnemonics)
+function newWallet(
+  { id, password, caption, mnemonics }: UnconsolidatedData,
+  appStateManager: AppStateManager): Wallet {
 
-  if (!unconsolidatedWallet.id) { throw encryptWalletErrors.INVALID_WALLET_ID }
+  const privateKey = newPrivateKey(mnemonics)
   const walletInfo: WalletInfo = {
-    id: unconsolidatedWallet.id,
-    caption: unconsolidatedWallet.caption || newCaption(appStateManager)
+    id,
+    caption
   }
   const seed: Seed = {
     masterSecret: privateKey.key.bytes,
@@ -154,7 +160,6 @@ function newWallet(unconsolidatedWallet: UnconsolidatedWallet, appStateManager: 
   }
   const seedInfo: Wip3SeedInfo = {
     kind: "Wip3",
-    mnemonics: unconsolidatedWallet.mnemonics,
     seed
   }
   const extendedKey: ExtendedKey = {

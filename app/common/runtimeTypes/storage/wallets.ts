@@ -55,16 +55,6 @@ export type NewMnemonicsError = t.TypeOf<typeof NewMnemonicsError>
 export const NewMnemonicsResponse = t.taggedUnion("kind", [NewMnemonicsSuccess, NewMnemonicsError])
 export type NewMnemonicsResponse = t.TypeOf<typeof NewMnemonicsResponse>
 
-// UnconsolidatedWallet represents a transient wallet which is being created
-export const UnconsolidatedWallet = t.intersection([
-  Mnemonics,
-  t.partial({
-    id: t.string,
-    caption: t.string
-  })
-])
-export type UnconsolidatedWallet = t.TypeOf<typeof UnconsolidatedWallet>
-
 export const Input = t.type({}, "Input")
 export type Input = t.TypeOf<typeof Input>
 
@@ -187,12 +177,10 @@ export const Seed = t.type({
 }, "Seed")
 export type Seed = t.TypeOf<typeof Seed>
 
-export const Wip3SeedInfo = t.intersection([
-  Mnemonics,
-  t.type({
-    kind: t.literal("Wip3"),
-    seed: Seed
-  })], "Wip3SeedInfo")
+export const Wip3SeedInfo = t.type({
+  kind: t.literal("Wip3"),
+  seed: Seed
+}, "Wip3SeedInfo")
 
 export type Wip3SeedInfo = t.TypeOf<typeof Wip3SeedInfo>
 
@@ -210,3 +198,13 @@ export const Wallet = t.intersection([
   }, "Wallet"),
 ])
 export type Wallet = t.TypeOf<typeof Wallet>
+
+// UnconsolidatedWallet represents a transient wallet which is being created
+export const UnconsolidatedWallet = t.intersection([
+  Mnemonics,
+  t.partial({
+    id: t.string,
+    seed: Seed
+  })
+])
+export type UnconsolidatedWallet = t.TypeOf<typeof UnconsolidatedWallet>
