@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { CardNavigation } from "app/renderer/ui/components/card"
-import Alert from "app/renderer/ui/components/alert"
+import { AlertDefault } from "app/renderer/ui/components/alert"
 
 const styles = require("./style.scss")
 
@@ -38,7 +38,7 @@ export default class WalletSeedBackup extends React.Component<Iprops> {
           <p>Please save this 12 words on paper (order is important). This seed will allow you to
             recover your wallet in case of computer failure.</p>
         </CardNavigation>
-        <Alert className={styles["alert-grid"]}>
+        <AlertDefault className={styles["alert-grid"]}>
           <div className={styles.alert}>
             <p>Remeber!</p>
             <ul>
@@ -47,7 +47,7 @@ export default class WalletSeedBackup extends React.Component<Iprops> {
               <li>Do not store electronically</li>
             </ul>
           </div>
-        </Alert>
+        </AlertDefault>
       </>
     )
   }

@@ -1,8 +1,7 @@
 import * as React from "react"
 
-import Alert from "app/renderer/ui/components/alert"
+import { AlertDefault } from "app/renderer/ui/components/alert"
 import { CardNavigation } from "app/renderer/ui/components/card"
-
 import { InputBig } from "app/renderer/ui/components/input"
 
 const styles = require("./style.scss")
@@ -36,13 +35,13 @@ export default class WalletSeedConfirmation extends React.Component<Iprops> {
           <p>Please type here your seed to confirm it:</p>
           <InputBig />
         </CardNavigation>
-        <Alert className={styles["alert-grid"]}>
+        <AlertDefault className={styles["alert-grid"]}>
           <div className={styles.alert}>
             <p>Your seed is important!</p>
             <p>If you lose your seed, your coins will be permanently lost.</p>
             <p>To confirm that you have properly saved your seed, please retype it here.</p>
           </div>
-        </Alert>
+        </AlertDefault>
       </>
     )
   }
