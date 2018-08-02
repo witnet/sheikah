@@ -93,16 +93,16 @@ export const KeyPath = new t.Type<Array<number>, string>(
   t.array(t.number).is,
   /** validate: succeeds if a value of type t.mixed can be decoded into Array<number> */
   (input: t.mixed, context: t.Context): t.Validation<Array<number>> =>
-  t.string.validate(input, context).chain(keyPath => {
-    let res: t.Validation<Array<number>>
-    try {
-      res = t.success(CryptoKeyPath.fromString(keyPath))
-    } catch (e) {
-      res = t.failure(keyPath, context)
-    }
+    t.string.validate(input, context).chain(keyPath => {
+      let res: t.Validation<Array<number>>
+      try {
+        res = t.success(CryptoKeyPath.fromString(keyPath))
+      } catch (e) {
+        res = t.failure(keyPath, context)
+      }
 
-    return res
-  }),
+      return res
+    }),
   /** encode: converts a value of type Array<number> to string */
   (a) => CryptoKeyPath.toString(a)
 )

@@ -5,7 +5,7 @@ import { asRuntimeType } from "app/common/runtimeTypes"
 import * as fixture from "./encryptWalletFixtures"
 
 describe("EncryptWallet Handler", () => {
-  let system:  AppStateS & WalletStorageS
+  let system: AppStateS & WalletStorageS
   beforeEach(() => {
     system = fixture.systemFactory()
   })

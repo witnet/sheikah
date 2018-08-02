@@ -12,13 +12,13 @@ import { Lifecycle } from "app/main/lifecycle"
 export class WalletStorage {
 
   /** The JsonAesLevelStorage */
-  private _storage: Storage<Buffer, JsonSerializable, Buffer, Buffer> | undefined = undefined
+  private storageRef: Storage<Buffer, JsonSerializable, Buffer, Buffer> | undefined = undefined
 
   /**
    * Get storage
    */
   public get storage() {
-    return this._storage
+    return this.storageRef
   }
   /**
    * Replace the storage of the wallet and closes the previous storage.
@@ -28,7 +28,7 @@ export class WalletStorage {
 
   public async replace(storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>): Promise<void> {
     await this.close()
-    this._storage = storage
+    this.storageRef = storage
   }
 
   /**
@@ -38,7 +38,7 @@ export class WalletStorage {
   public async close(): Promise<void> {
     if (this.storage !== undefined) {
       await this.storage.close()
-      this._storage = undefined
+      this.storageRef = undefined
     }
   }
 }

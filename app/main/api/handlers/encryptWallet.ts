@@ -45,11 +45,11 @@ export default async function encryptWallet(system: AppStateS & WalletStorageS, 
       .then(inject(updateUnconsolidatedWallet, system.appStateManager))
       .then(inject(newWallet, system.appStateManager))
   ])
-  .then(storeWallet)
-  .then(inject(replaceWallet, system))
-  .then(buildSuccessResponse)
-  .catch(buildErrorResponse)
-  .then(encodeResponse)
+    .then(storeWallet)
+    .then(inject(replaceWallet, system))
+    .then(buildSuccessResponse)
+    .catch(buildErrorResponse)
+    .then(encodeResponse)
 }
 
 /**
@@ -61,7 +61,7 @@ function updateUnconsolidatedWallet(params: EncryptWalletParams, appStateManager
   UnconsolidatedWallet {
 
   const unconsolidatedWallet = appStateManager.state.unconsolidatedWallet
-  if (!unconsolidatedWallet) { throw encryptWalletErrors.UNCONSONSOLIDATEDWALLET_UNAVAILABLE }
+  if (!unconsolidatedWallet) { throw encryptWalletErrors.UNAVAILABLE_UNCONSOLIDATED_WALLET }
   if (unconsolidatedWallet.id !== params.id) { throw encryptWalletErrors.INVALID_WALLET_ID }
   unconsolidatedWallet.caption = params.caption
 
@@ -86,14 +86,14 @@ async function storeWallet([walletStorage, wallet]: [JsonAesLevelStorage, Wallet
  * Replaces the walletStorage and remove the unconsolidated wallet.
  */
 async function replaceWallet(
-    { walletStorage, wallet }: { walletStorage: JsonAesLevelStorage, wallet: Wallet },
-    system: AppStateS & WalletStorageS
-  ): Promise<Wallet> {
+  { walletStorage, wallet }: { walletStorage: JsonAesLevelStorage, wallet: Wallet },
+  system: AppStateS & WalletStorageS
+): Promise<Wallet> {
 
   try {
     await system.walletStorage.replace(walletStorage)
     // as the wallet has been stored with success the unconsolidated wallet is removed
-    system.appStateManager.update({unconsolidatedWallet: {} as UnconsolidatedWallet})
+    system.appStateManager.update({ unconsolidatedWallet: {} as UnconsolidatedWallet })
 
     return wallet
   } catch  {
@@ -118,7 +118,6 @@ function buildSuccessResponse(wallet: Wallet): EncryptWalletResponse {
  */
 function buildErrorResponse(error: t.LiteralType<EncryptWalletError["error"]>):
   EncryptWalletResponse {
-
   return {
     kind: "ERROR",
     error: error.value
@@ -183,9 +182,9 @@ function newWallet(unconsolidatedWallet: UnconsolidatedWallet, appStateManager: 
  */
 function newPrivateKey(mnemonics: string): CryptoExtendedKey<PrivateKey.PrivateKey> {
   try {
-  const {masterSecret, chainCode} = CryptoSeed.fromMnemonics(mnemonics)
+    const { masterSecret, chainCode } = CryptoSeed.fromMnemonics(mnemonics)
 
-  return PrivateKey.extend(PrivateKey.fromBytes(masterSecret), chainCode)
+    return PrivateKey.extend(PrivateKey.fromBytes(masterSecret), chainCode)
   } catch {
     throw encryptWalletErrors.INVALID_MNEMONICS
   }
@@ -239,9 +238,9 @@ function asKeyPath(keyPath: string): KeyPath {
  * @returns {Promise<JsonAesLevelStorage>}
  */
 async function newWalletStorage(
-    params: EncryptWalletParams,
-    storageFactory: WalletStorageS["storageFactory"]
-  ): Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>> {
+  params: EncryptWalletParams,
+  storageFactory: WalletStorageS["storageFactory"]
+): Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>> {
 
   try {
     return storageFactory(params)

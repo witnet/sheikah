@@ -1,5 +1,5 @@
 import { EncryptWalletParams, EncryptWalletResponse } from "app/common/runtimeTypes/ipc/wallets"
-import {Client} from "app/renderer/api"
+import { Client } from "app/renderer/api"
 
 /**
  * Encrypt Wallet.
@@ -10,7 +10,7 @@ import {Client} from "app/renderer/api"
  */
 export const encryptWallet = async (client: Client, id: string, password: string, caption?: string):
   Promise<EncryptWalletResponse> => {
-  const encryptedWalletParams: EncryptWalletParams = {id, password, caption}
+  const encryptedWalletParams: EncryptWalletParams = { id, password, caption }
 
   return client.request("encryptWallet", encryptedWalletParams)
 }

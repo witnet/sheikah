@@ -29,10 +29,10 @@ export const wallet: Wallet = {
     seed: {
       chainCode: Buffer.from(
         [152, 8, 159, 246, 221, 27, 159, 171, 139, 98, 82, 232, 229, 140, 201, 2, 78, 113, 141, 104,
-        187, 192, 191, 147, 91, 108, 192, 174, 214, 251, 100, 79]),
-      masterSecret:  Buffer.from(
+          187, 192, 191, 147, 91, 108, 192, 174, 214, 251, 100, 79]),
+      masterSecret: Buffer.from(
         [196, 188, 49, 56, 180, 80, 166, 118, 177, 247, 66, 74, 173, 113, 48, 127, 194, 4, 164, 0,
-        70, 14, 21, 211, 113, 209, 238, 121, 124, 251, 139, 168]),
+          70, 14, 21, 211, 113, 209, 238, 121, 124, 251, 139, 168]),
     },
   },
   // EpochsInfo
@@ -46,12 +46,13 @@ export const wallet: Wallet = {
     {
       balance: 0,
       keyChains: [
-        {finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 0]},
-        {finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 1]},
-        {finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 2]}
+        { finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 0] },
+        { finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 1] },
+        { finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 2] }
       ],
-      keyPath: [2147483651, 2147488567, 2147483648]}
-    ],
+      keyPath: [2147483651, 2147488567, 2147483648]
+    }
+  ],
 }
 
 /// helpers
@@ -73,7 +74,7 @@ export async function inMemoryStorage(args: any):
 }
 
 /** Build error message */
-export function buildError(error: string)  {
+export function buildError(error: string) {
   return {
     kind: "ERROR",
     error
