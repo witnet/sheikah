@@ -2,7 +2,7 @@ import Routes from "app/renderer/routes"
 import { History } from "history"
 import * as React from "react"
 import { Provider } from "react-redux"
-import { ConnectedRouter } from "react-router-redux"
+import { ConnectedRouter } from "connected-react-router"
 import { Store } from "redux"
 
 interface IRootType {
