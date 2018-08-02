@@ -1,4 +1,4 @@
-import { Wallet } from "app/common/runtimeTypes/storage/wallets"
+import { Wallet, CURRENT_WALLET_VERSION } from "app/common/runtimeTypes/storage/wallets"
 import { EncryptWalletParams } from "app/common/runtimeTypes/ipc/wallets"
 import { WalletStorage } from "app/main/subsystems/wallets"
 import { JsonSerializable } from "app/common/serializers/json"
@@ -19,6 +19,7 @@ export const defaultMnemonics =
   "gun illegal rough meat planet public weasel pact pipe few bitter burst arm good choice"
 
 export const wallet: Wallet = {
+  _v: CURRENT_WALLET_VERSION,
   // walletInfo
   id: "42",
   caption: "Hello World",

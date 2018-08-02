@@ -17,7 +17,8 @@ import {
   Wip3SeedInfo,
   KeyPath,
   KeyChain,
-  Account
+  Account,
+  CURRENT_WALLET_VERSION
 } from "app/common/runtimeTypes/storage/wallets"
 import * as CryptoSeed from "app/main/crypto/seed"
 import * as PrivateKey from "app/main/crypto/key/privateKey"
@@ -166,6 +167,7 @@ function newWallet(unconsolidatedWallet: UnconsolidatedWallet, appStateManager: 
 
   return {
     ...walletInfo,
+    _v: CURRENT_WALLET_VERSION,
     seed: seedInfo,
     epochs: {
       last: 0,
@@ -196,7 +198,7 @@ function newPrivateKey(mnemonics: string): CryptoExtendedKey<PrivateKey.PrivateK
  * @returns {string}
  */
 function newCaption(appStateManager: AppStateManager): string {
-  const index = appStateManager.state.wallets.length as number + 1
+  const index = appStateManager.state.wallets.infos.length as number + 1
 
   return `Wallet #${index}`
 }
