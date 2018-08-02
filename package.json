@@ -18,7 +18,7 @@
     "build-renderer": "webpack --config config/webpack.renderer.js --progress --profile --colors",
     "build": "cross-env NODE_ENV=production yarn build-main && cross-env NODE_ENV=production yarn build-renderer",
     "build-dev": "cross-env NODE_ENV=development yarn build-main && cross-env NODE_ENV=development yarn build-renderer",
-    "dev": "yarn build-main && yarn hot-server --exec 'HOT=1 yarn start-electron'",
+    "dev": "yarn build-main && yarn hot-server --exec 'UPGRADE_EXTENSIONS=1 HOT=1 yarn start-electron'",
     "prestart": "yarn clean",
     "start": "yarn dev",
     "start-electron": "electron ./dist/main",
