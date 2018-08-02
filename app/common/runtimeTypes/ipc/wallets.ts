@@ -9,17 +9,17 @@ export type GetWalletsParams = t.TypeOf<typeof GetWalletsParams>
 export const GetWalletsResponse = Wallets
 export type GetWalletsResponse = t.TypeOf<typeof GetWalletsResponse>
 
-export const ValidateMnemonicsParams = t.type({
+export const ImportSeedParams = t.type({
   mnemonics: t.string
 })
-export type ValidateMnemonicsParams = t.TypeOf<typeof ValidateMnemonicsParams>
+export type ImportSeedParams = t.TypeOf<typeof ImportSeedParams>
 
-const ValidateMnemonicsSuccess = t.type({
+const ImportSeedSuccess = t.type({
   kind: t.literal("SUCCESS"),
   id: t.string
 })
 
-export const validateMnemonicsErrors = {
+export const importSeedErrors = {
   INVALID_METHOD_PARAMS: t.literal("INVALID_METHOD_PARAMS"),
   ID_GENERATION_ERROR: t.literal("ID_GENERATION_ERROR"),
   INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS"),
@@ -27,20 +27,20 @@ export const validateMnemonicsErrors = {
   UNCONSOLIDATED_UPDATE_FAILURE: t.literal("UNCONSOLIDATED_UPDATE_FAILURE")
 }
 
-export const ValidateMnemonicsErrors = t.union(Object.values(validateMnemonicsErrors))
-export type ValidateMnemonicsErrors = t.TypeOf<typeof ValidateMnemonicsErrors>
+export const ImportSeedErrors = t.union(Object.values(importSeedErrors))
+export type importSeedErrors = t.TypeOf<typeof ImportSeedErrors>
 
-export const ValidateMnemonicsError = t.type({
+export const ImportSeedError = t.type({
   kind: t.literal("ERROR"),
-  error: ValidateMnemonicsErrors
+  error: ImportSeedErrors
 })
-export type ValidateMnemonicsError = t.TypeOf<typeof ValidateMnemonicsError>
+export type ImportSeedError = t.TypeOf<typeof ImportSeedError>
 
-export const ValidateMnemonicsResponse = t.taggedUnion("kind", [
-  ValidateMnemonicsSuccess,
-  ValidateMnemonicsError,
-], "ValidateMnemonicsResponse")
-export type ValidateMnemonicsResponse = t.TypeOf<typeof ValidateMnemonicsResponse>
+export const ImportSeedResponse = t.taggedUnion("kind", [
+  ImportSeedSuccess,
+  ImportSeedError,
+], "ImportSeedResponse")
+export type ImportSeedResponse = t.TypeOf<typeof ImportSeedResponse>
 
 export const GetWalletParams = t.type({
   id: t.string,

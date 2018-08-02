@@ -1,10 +1,10 @@
 import { config } from "app/common/config"
 import { asObject, asRuntimeType, Contexts } from "app/common/runtimeTypes"
 import {
-  ValidateMnemonicsError,
-  validateMnemonicsErrors,
-  ValidateMnemonicsParams,
-  ValidateMnemonicsResponse
+  ImportSeedError,
+  importSeedErrors,
+  ImportSeedParams,
+  ImportSeedResponse
 } from "app/common/runtimeTypes/ipc/wallets"
 import { JsonSerializable } from "app/common/serializers"
 import { AppStateManager } from "app/main/appState"
@@ -16,14 +16,14 @@ import * as crypto from "crypto"
 import { LiteralType } from "io-ts"
 
 /**
- * Handler function for `validateMnemonics` method.
+ * Handler function for `importSeed` method.
  * It receives a param with the mnemonic words and check they are valid.
  * If there is an `UnconsolidatedWallet` in the app state it will also validate that they are the
  * same.
  * If there is no `UnconsolidatedWallet` in the app state, it will create one with the mnemonics.
  * In both cases it will also generate a wallet ID and return it.
  */
-export default async function validateMnemonics
+export default async function importSeed
   ({ appStateManager }: AppStateS, params: any): Promise<JsonSerializable> {
 
   // First of all, parse method parameters
@@ -48,9 +48,9 @@ export default async function validateMnemonics
  * Parse handler parameters as ValidateMnemonicsParams runtime type.
  * @param params
  */
-async function parseParams(params: any): Promise<ValidateMnemonicsParams> {
-  try { return asRuntimeType(params, ValidateMnemonicsParams, Contexts.IPC) }
-  catch { throw validateMnemonicsErrors.INVALID_METHOD_PARAMS }
+async function parseParams(params: any): Promise<ImportSeedParams> {
+  try { return asRuntimeType(params, ImportSeedParams, Contexts.IPC) }
+  catch { throw importSeedErrors.INVALID_METHOD_PARAMS }
 }
 
 /**
@@ -66,7 +66,7 @@ function generateId(mnemonics: string): string {
       config.mnemonicsIdGeneration.keyByteLength,
       config.mnemonicsIdGeneration.hashFunctionName
     ).toString("hex")
-  } catch { throw validateMnemonicsErrors.ID_GENERATION_ERROR }
+  } catch { throw importSeedErrors.ID_GENERATION_ERROR }
 }
 
 /**
@@ -75,7 +75,7 @@ function generateId(mnemonics: string): string {
  */
 function validateMnemonicsString(mnemonics: string): string {
   if (!mnemonic.isValid(mnemonics)) {
-    throw validateMnemonicsErrors.INVALID_MNEMONICS
+    throw importSeedErrors.INVALID_MNEMONICS
   }
 
   return mnemonics
@@ -89,7 +89,7 @@ function validateMnemonicsString(mnemonics: string): string {
 function matchMnemonics(mnemonics: string, appStateManager: AppStateManager): string {
   if (appStateManager.state.unconsolidatedWallet
     && mnemonics !== appStateManager.state.unconsolidatedWallet.mnemonics) {
-    throw validateMnemonicsErrors.MISMATCHING_MNEMONICS
+    throw importSeedErrors.MISMATCHING_MNEMONICS
   }
 
   return mnemonics
@@ -107,7 +107,7 @@ function upsertUnconsolidated
 
     return id
   } catch {
-    throw validateMnemonicsErrors.UNCONSOLIDATED_UPDATE_FAILURE
+    throw importSeedErrors.UNCONSOLIDATED_UPDATE_FAILURE
   }
 }
 
@@ -115,7 +115,7 @@ function upsertUnconsolidated
  * Build success response.
  * @param id
  */
-function buildSuccessResponse(id: string): ValidateMnemonicsResponse {
+function buildSuccessResponse(id: string): ImportSeedResponse {
   return { kind: "SUCCESS", id }
 }
 
@@ -124,7 +124,7 @@ function buildSuccessResponse(id: string): ValidateMnemonicsResponse {
  * @param error
  */
 function buildErrorResponse
-  (error: LiteralType<ValidateMnemonicsError["error"]>): ValidateMnemonicsResponse {
+  (error: LiteralType<ImportSeedError["error"]>): ImportSeedResponse {
   return { kind: "ERROR", error: error.value }
 }
 
@@ -132,6 +132,6 @@ function buildErrorResponse
  * Encode final response as a serializable object.
  * @param response
  */
-function encodeResponse(response: ValidateMnemonicsResponse): JsonSerializable {
-  return asObject(response, ValidateMnemonicsResponse)
+function encodeResponse(response: ImportSeedResponse): JsonSerializable {
+  return asObject(response, ImportSeedResponse)
 }

@@ -1,4 +1,4 @@
-import { ValidateMnemonicsError } from "app/common/runtimeTypes/ipc/wallets"
+import { ImportSeedError } from "app/common/runtimeTypes/ipc/wallets"
 import { validateMnemonics } from "app/main/api/handlers"
 import { AppStateManager } from "app/main/appState"
 import { AppStateS } from "app/main/system"
@@ -7,11 +7,11 @@ import * as crypto from "crypto"
 /**
  * Common factory for any of the mnemonics validation errors.
  * This is 100% equivalent to `buildErrorResponse` in "app/common/runtimeTypes/ipc/wallets", but we
- * are not using that because it belongs to the internal data flow of the `validateMnemonics`
+ * are not using that because it belongs to the internal data flow of the `importSeed`
  * handler—if `buildErrorResponse` failed, all these tests would fail too.
  * @param error
  */
-function error(error: ValidateMnemonicsError["error"]): ValidateMnemonicsError {
+function error(error: ImportSeedError["error"]): ImportSeedError {
   return { kind: "ERROR", error }
 }
 
@@ -29,7 +29,7 @@ function systemFactory() {
   }
 }
 
-describe("validateMnemonics Handler", () => {
+describe("importSeed Handler", () => {
   let system: AppStateS
 
   beforeEach(() => {
