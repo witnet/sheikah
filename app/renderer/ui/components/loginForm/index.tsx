@@ -25,7 +25,7 @@ export class LoginForm extends React.Component<Iprops> {
         <div className={styles.centered}>
           <LoadingModal
             active={this.props.unlockInProgress}
-            title="Sheikah is now retrieving your wallet"
+            title="Sheikah is now unlocking your wallet"
             description="This will take a few seconds"
           />
           <SidebarLayout title="Welcome back" menuIcon="fa fa-cog" menuText="App Settings">
