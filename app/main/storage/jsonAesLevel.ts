@@ -24,9 +24,8 @@ const createAesSettings = (pbkdPassword: string): AesCipherSettings => ({
  * @param {string} id
  * @returns Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>>
  */
-export async function createJsonAesLevelStorage(
-  args: any
-): Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>> {
+export async function createJsonAesLevelStorage(args: any)
+  : Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>> {
   try {
     const { id, password } = asRuntimeType(args, JsonAesLevelStorageParams)
 
