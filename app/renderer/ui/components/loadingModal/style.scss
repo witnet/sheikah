@@ -1,0 +1,39 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .modal {
+    align-items: center;
+    background: rgba(255, 255, 255, 1);
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+
+    .title {
+      color: $blue-6;
+      font-size: 20px;
+      grid-row: 2;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .description {
+      color: $grey-8;
+      font-size: 16px;
+      grid-row: 4;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+
+  .spinner {
+    grid-row: 3;
+    margin: 0 auto;
+  }
+
+  .hidden {
+    display: none;
+  }
+}
