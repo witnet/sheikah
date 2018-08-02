@@ -29,11 +29,9 @@ export const Mnemonics = t.type({
   mnemonics: t.string
 })
 export type Mnemonics = t.TypeOf<typeof Mnemonics>
-// export const NewMnemonicsResponse = t.exact(Mnemonics)
-// export type NewMnemonicsResponse = t.TypeOf<typeof NewMnemonicsResponse>
 
 export const NewMnemonicsSuccess = t.intersection([
-  t.type({kind: t.literal("success")}),
+  t.type({ kind: t.literal("SUCCESS") }),
   Mnemonics
 ])
 export type NewMnemonicsSuccess = t.TypeOf<typeof NewMnemonicsSuccess>
@@ -48,7 +46,7 @@ export const NewMnemonicsErrors = t.union(Object.values(newMnemonicsErrors))
 export type NewMnemonicsErrors = t.TypeOf<typeof NewMnemonicsErrors>
 
 export const NewMnemonicsError = t.type({
-  kind: t.literal("error"),
+  kind: t.literal("ERROR"),
   error: NewMnemonicsErrors
 })
 export type NewMnemonicsError = t.TypeOf<typeof NewMnemonicsError>

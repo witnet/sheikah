@@ -48,7 +48,7 @@ export const GetWalletParams = t.type({
 export type GetWalletParams = t.TypeOf<typeof GetWalletParams>
 
 export const GetWalletSuccess = t.type({
-  kind: t.literal("success"),
+  kind: t.literal("SUCCESS"),
   wallet: Wallet
 })
 export type GetWalletSucccess = t.TypeOf<typeof GetWalletSuccess>
@@ -64,7 +64,7 @@ export const GetWalletErrors = t.union(Object.values(getWalletErrors))
 export type GetWalletErrors = t.TypeOf<typeof GetWalletErrors>
 
 export const GetWalletError = t.type({
-  kind: t.literal("error"),
+  kind: t.literal("ERROR"),
   error: GetWalletErrors
 })
 export type GetWalletError = t.TypeOf<typeof GetWalletError>

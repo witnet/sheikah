@@ -33,7 +33,7 @@ export default async function newMnemonics(system: AppStateS, params: any) {
  *
  * @returns {Mnemonics}
  */
-function generateMnemonics (): Mnemonics {
+function generateMnemonics(): Mnemonics {
   try {
     return { mnemonics: mnemonic.generate() }
   } catch (err) {
@@ -48,9 +48,7 @@ function generateMnemonics (): Mnemonics {
  * @param {AppStateS} system
  * @returns {Mnemonics}
  */
-function updateUnconsolidatedWallet(
-  mnemonics: Mnemonics, system: AppStateS
-): Mnemonics {
+function updateUnconsolidatedWallet(mnemonics: Mnemonics, system: AppStateS): Mnemonics {
   try {
     system.appStateManager.update({ unconsolidatedWallet: mnemonics })
 
@@ -69,7 +67,7 @@ function updateUnconsolidatedWallet(
 function buildSuccess(mnemonics: Mnemonics): NewMnemonicsSuccess {
   try {
     return {
-      kind: "success",
+      kind: "SUCCESS",
       mnemonics: mnemonics.mnemonics
     }
   } catch (error) {
@@ -85,7 +83,7 @@ function buildSuccess(mnemonics: Mnemonics): NewMnemonicsSuccess {
  */
 function buildError(error: t.LiteralType<NewMnemonicsErrors>): NewMnemonicsError {
   return {
-    kind: "error",
+    kind: "ERROR",
     error: error.value
   }
 }
@@ -96,6 +94,6 @@ function buildError(error: t.LiteralType<NewMnemonicsErrors>): NewMnemonicsError
  * @param {NewMnemonicsResponse} response
  * @returns {JsonSerializable}
  */
-function encodeResponse (response: NewMnemonicsResponse): JsonSerializable {
+function encodeResponse(response: NewMnemonicsResponse): JsonSerializable {
   return asObject(response, NewMnemonicsResponse)
 }

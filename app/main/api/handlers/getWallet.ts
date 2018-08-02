@@ -23,12 +23,18 @@ export default async function getWallet(
   system: SubSystems, params: any
 ): Promise<JsonSerializable> {
   return Promise.resolve({ params })
+    //check if params type matches GetWalletParams runtime type
     .then(parseParams)
+    // check if there exists a wallet with chosen id
     .then(inject(checkWalletInfo, system))
+    // create a new storage and replace app storage with it
     .then(inject(replaceStorage, system))
+    // search wallet in db
     .then(searchWallet)
-    .then(encodeResponse)
+    // create response steps
+    .then(buildSuccess)
     .catch(buildError)
+    .then(encodeResponse)
 }
 
 /**
@@ -81,9 +87,8 @@ function checkWalletInfo(params: GetWalletParams, system: SubSystems): GetWallet
  * @param {SubSystems} system
  * @returns {Promise<{ storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }>}
  */
-async function replaceStorage(
-  params: GetWalletParams, system: SubSystems
-): Promise<{ storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }> {
+async function replaceStorage(params: GetWalletParams, system: SubSystems)
+  : Promise<{ storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }> {
   const { id, password } = params
 
   try {
@@ -100,18 +105,15 @@ async function replaceStorage(
  * search wallet in db
  *
  * @param {{ storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }}
- * @returns {Promise<GetWalletSucccess>}
+ * @returns {Promise<Wallet>}
  */
 async function searchWallet(
   { storage, id }: { storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }
-) {
-  // Search wallet in db
+): Promise<Wallet> {
   const wallet = await storage.get(id)
 
-  // Check run time type
   try {
-      wallet
-
+    return asRuntimeType(wallet, Wallet)
   } catch (error) {
     throw getWalletErrors.INVALID_WALLET_TYPE
   }
@@ -132,16 +134,27 @@ function encodeResponse(response: GetWalletResponse): JsonSerializable {
 }
 
 /**
+ * build handler success response
+ *
+ * @param {Wallet} wallet
+ * @returns {GetWalletSucccess}
+ */
+function buildSuccess(wallet: Wallet): GetWalletSucccess {
+  return {
+    kind: "SUCCESS",
+    wallet
+  }
+}
+
+/**
  * build handler error response
  *
  * @param {LiteralType<GetWalletErrors>} error
  * @returns
  */
-function buildError(error: LiteralType<GetWalletErrors>) {
-  const resultErrror: GetWalletError = {
-    kind: "error",
+function buildError(error: LiteralType<GetWalletErrors>): GetWalletError {
+  return {
+    kind: "ERROR",
     error: error.value
   }
-
-  return resultErrror
 }
