@@ -1,7 +1,8 @@
 import * as React from "react"
 
-import { CardNavigation } from "app/renderer/ui/components/card"
-import InputDefault from "app/renderer/ui/components/input/default"
+import { AlertMessage } from "app/renderer/ui/components/alert"
+import { ButtonNavigation } from "app/renderer/ui/components/button"
+import { InputDefault } from "app/renderer/ui/components/input"
 
 const styles = require("./style.scss")
 
@@ -9,6 +10,7 @@ export interface Iprops {
   className?: any
   prevStep: () => void
   nextStep: (password: string) => void
+  errorMessage?: string
 }
 
 /**
@@ -49,21 +51,34 @@ export default class WalletPasswordRequest extends React.Component<Iprops> {
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
     return (
-      <>
-        <CardNavigation
-          className={styles.step}
-          previousStep={this.prevStep}
-          nextStep={this.nextStep}
-          backText="Cancel"
-          nextText="Unlock"
-        >
-          <p>Please type here the password to unlock your wallet:</p>
+      <div className={styles.layout}>
+        <div className={styles.content}>
+          <p className={styles.text}>
+            Please type here the password to unlock your wallet:
+          </p>
           <InputDefault
+            className={styles.input}
             type="password"
             onBlur={this.handlePassword}
           />
-        </CardNavigation>
-      </>
+          <AlertMessage
+            className={styles.error}
+            type="error"
+            title="Error"
+            description={this.props.errorMessage}
+          />
+        </div>
+        <div className={styles.navigation}>
+          <ButtonNavigation
+            text="Cancel"
+            onClick={this.prevStep}
+          />
+          <ButtonNavigation
+            text="Unlock"
+            onClick={this.nextStep}
+          />
+        </div>
+      </div>
     )
   }
 }
