@@ -20,10 +20,10 @@ export const unlockWallet = (id: string, password: string) => {
         .then((walletResponse: GetWalletResponse) => {
           // Check wallet response type
           switch (walletResponse.kind) {
-            case "success":
+            case "SUCCESS":
               resolve(walletResponse.wallet)
               break
-            case "error":
+            case "ERROR":
               reject(walletResponse.error)
               break
             default:

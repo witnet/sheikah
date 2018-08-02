@@ -12,7 +12,7 @@ describe("GetWallet API", () => {
   }
 
   const wallet: GetWalletSuccess = {
-    kind: "success",
+    kind: "SUCCESS",
     wallet: {
       _v: CURRENT_WALLET_VERSION,
       id: "test",
