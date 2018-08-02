@@ -1,0 +1,22 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .spinner {
+    animation: spin 1s infinite linear;
+    border: 2px dotted $grey-6;
+    border-radius: 100%;
+    border-top: 3px solid $purple-6;
+    height: 80px;
+    width: 80px;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
