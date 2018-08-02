@@ -1,29 +1,36 @@
 import * as React from "react"
+import { LoadingModal } from "app/renderer/ui/components/loadingModal"
+import { SidebarLayout } from "app/renderer/ui/components/layout"
 
 const styles = require("./style.scss")
 
+export interface Iprops {
+  unlockInProgress: boolean
+}
+
 /**
- * SoftLogin component
+ * Login form UI component with loading modal
+ * Layout: sidebar layout
  *
  * @export
- * @class SoftLogin
- * @extends {React.Component}
+ * @class LoginForm
+ * @extends {React.Component<Iprops>}
  */
-export class LoginForm extends React.Component {
+export class LoginForm extends React.Component<Iprops> {
   /** render */
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
+  // tslint:disable-next-line:prefer-function-over-method
   public render() {
     return (
       <div className={styles.layout}>
         <div className={styles.centered}>
-          <div className={styles.sidebar}>
-            <p className={styles.titleText}>Welcome back</p>
-            <div className={styles.settings}>
-              <i className={`fa fa-cog ${styles.icon}`} />
-              <span className={styles.label}>App Settings</span>
-            </div>
-          </div>
-          {this.props.children}
+          <LoadingModal
+            active={this.props.unlockInProgress}
+            title="Sheikah is now retrieving your wallet"
+            description="This will take a few seconds"
+          />
+          <SidebarLayout title="Welcome back" menuIcon="fa fa-cog" menuText="App Settings">
+            {this.props.children}
+          </SidebarLayout>
         </div>
       </div>
     )
