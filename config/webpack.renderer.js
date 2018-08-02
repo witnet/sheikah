@@ -226,7 +226,7 @@ const developmentConfig = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: ["react-hot-loader/webpack", typeScriptLoader, uiComponentLoader]
+        use: [typeScriptLoader, uiComponentLoader]
       },
 
       // config for global.(scss|sass) that doesn't use modules

@@ -3,7 +3,6 @@ import { Wallets } from "app/common/runtimeTypes/storage/wallets"
 import { Client } from "app/renderer/api"
 import * as React from "react"
 import { render } from "react-dom"
-import { AppContainer } from "react-hot-loader"
 import Root from "./ui/containers/Root"
 import "./ui/app.global.scss"
 
@@ -27,24 +26,10 @@ new Promise(async () => {
 
   // Root component rendering
   render(
-    <AppContainer>
-      <Root store={store} history={history} />
-    </AppContainer>,
+    <Root store={store} history={history} />,
     document.getElementById("root")
   )
 
-  // Hot-reload functionality
-  if ((module as any).hot) {
-    (module as any).hot.accept("./ui/containers/Root", () => {
-      const NextRoot = require("./ui/containers/Root").default
-      render(
-        <AppContainer>
-          <NextRoot store={store} history={history} />
-        </AppContainer>,
-        document.getElementById("root")
-      )
-    })
-  }
 }).catch((error) => {
   console.error("Unhandled renderer process boot up error", error)
 })
