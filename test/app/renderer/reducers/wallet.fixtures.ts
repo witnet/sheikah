@@ -1,5 +1,5 @@
 import { SaveWalletAction } from "app/renderer/actions/actionTypes"
-import { Wallet } from "app/common/runtimeTypes/storage/wallets"
+import { Wallet, CURRENT_WALLET_VERSION } from "app/common/runtimeTypes/storage/wallets"
 import { WalletOption } from "app/renderer/store"
 
 // Empty state
@@ -7,6 +7,7 @@ export const emptyState: WalletOption = false
 
 // Non empty state
 export const nonEmptyState: WalletOption = {
+  _v: CURRENT_WALLET_VERSION,
   id: "initial wallet",
   caption: "initial wallet",
   seed: { kind: "Wip3", mnemonics: { mnemonics: "" }, xprv: "", xpub: "" },
@@ -17,6 +18,7 @@ export const nonEmptyState: WalletOption = {
 
 // Create dummy wallet
 export const newWallet: Wallet = {
+  _v: CURRENT_WALLET_VERSION,
   id: "test wallet",
   caption: "test wallet",
   seed: { kind: "Wip3", mnemonics: { mnemonics: "" }, xprv: "", xpub: "" },

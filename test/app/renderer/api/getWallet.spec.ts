@@ -1,8 +1,9 @@
 import { ipcRendererFactory } from "test/__stubs__/ipcRenderer"
 import { jsonSerializer } from "test/__stubs__/serializers"
 import * as api from "app/renderer/api"
-//import { routes } from "app/main/api"
-import { Wallet } from "app/common/runtimeTypes/storage/wallets"
+import { routes } from "app/main/api"
+import { GetWalletSuccess } from "app/common/runtimeTypes/ipc/wallets"
+import { CURRENT_WALLET_VERSION } from "app/common/runtimeTypes/storage/wallets"
 
 describe("GetWallet API", () => {
   const getWalletParams = {
@@ -10,13 +11,17 @@ describe("GetWallet API", () => {
     password: "test-pwd"
   }
 
-  const wallet: Wallet = {
-    id: "test",
-    caption: "test wallet",
-    seed: { kind: "Wip3", mnemonics: { mnemonics: "" }, xprv: "", xpub: "" },
-    epochs: { last: 0 },
-    purpose: 0x80000003,
-    accounts: []
+  const wallet: GetWalletSuccess = {
+    kind: "success",
+    wallet: {
+      _v: CURRENT_WALLET_VERSION,
+      id: "test",
+      caption: "test wallet",
+      seed: { kind: "Wip3", mnemonics: { mnemonics: "" }, xprv: "", xpub: "" },
+      epochs: { last: 0 },
+      purpose: 0x80000003,
+      accounts: []
+    }
   }
 
   const messageHandler = jest.fn()
@@ -49,8 +54,7 @@ describe("GetWallet API", () => {
     await api.getWallet(client, getWalletParams.id, getWalletParams.password)
 
     // Check that the requested method is in the routes of the main process
-    // TODO: uncomment when handler is implemented in main
-    //expect(messageHandler.mock.calls[0][1].method in routes).toBe(true)
+    expect(messageHandler.mock.calls[0][1].method in routes).toBe(true)
 
     // Check that the message handler function has been called correctly
     expect(messageHandler).toBeCalledWith(jsonSerializer, expected)

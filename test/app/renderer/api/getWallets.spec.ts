@@ -4,12 +4,17 @@ import { ipcRendererFactory } from "test/__stubs__/ipcRenderer"
 import { jsonSerializer } from "test/__stubs__/serializers"
 import * as api from "app/renderer/api"
 import { routes } from "app/main/api"
+import { CURRENT_WALLETS_VERSION } from "app/common/runtimeTypes/storage/wallets"
 
 describe("GetWallets API", () => {
-  const wallets = [
-    { id: "1", caption: "My hot wallet" },
-    { id: "2", caption: "My TREZOR cold wallet" }
-  ]
+  const wallets = {
+    _v: CURRENT_WALLETS_VERSION,
+    infos:
+      [
+        { id: "1", caption: "My hot wallet" },
+        { id: "2", caption: "My TREZOR cold wallet" }
+      ]
+  }
   const messageHandler = jest.fn()
   messageHandler.mockResolvedValue(wallets)
   const options = {
