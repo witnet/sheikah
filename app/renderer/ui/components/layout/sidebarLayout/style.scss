@@ -1,0 +1,42 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .grid {
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    height: 100%;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1;
+    justify-content: space-between;
+  }
+
+  .titleText {
+    color: $grey-1;
+    font-size: 22px;
+    padding: 20px;
+  }
+
+  .settings {
+    display: flex;
+    padding: 20px;
+
+    .icon {
+      color: $grey-1;
+      display: flex;
+      margin-right: 10px;
+    }
+
+    .label {
+      color: $grey-1;
+    }
+  }
+
+  .content {
+    background: $grey-1;
+    grid-column: 2;
+  }
+}
