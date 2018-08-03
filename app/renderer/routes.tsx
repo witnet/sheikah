@@ -23,13 +23,13 @@ export default (props: RoutesProps) => {
       <RedirectedRoute
         path="/"
         guard={ifWallet(store)}
-        aCompo={MainPage}
+        component={MainPage}
         redirect="/login"
       />
       <RedirectedRoute
         path="/login"
         guard={ifWallets(store)}
-        aCompo={LoginFormContainer}
+        component={LoginFormContainer}
         redirect="/wallets/new"
       />
       <Route

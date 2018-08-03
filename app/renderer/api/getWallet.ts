@@ -13,8 +13,8 @@ import {
  * Function to request the unlock of a wallet through the API Client
  * @param client
  */
-export async function getWallet(client: ApiClient, id: string,
-  password: string): Promise<GetWalletResponse> {
+export async function getWallet(client: ApiClient, id: string, password: string)
+  : Promise<GetWalletResponse> {
   return client.request("getWallet", { id, password })
     .then(parseResponse)
     .catch(buildError)

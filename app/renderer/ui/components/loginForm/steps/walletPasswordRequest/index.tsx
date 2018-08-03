@@ -14,7 +14,7 @@ export interface Iprops {
 }
 
 /**
- * Step walled password request UI component
+ * UI component prompting the user to set a wallet encryption password
  *
  * @export
  * @class WalletPasswordRequest

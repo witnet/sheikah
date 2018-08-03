@@ -13,7 +13,7 @@ export interface Iprops {
 }
 
 /**
- * Step wallet selection UI component
+ * UI component prompting the user to select which wallet to unlock
  *
  * @export
  * @class WalletSelection

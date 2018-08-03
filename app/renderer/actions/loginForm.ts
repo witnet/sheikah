@@ -11,7 +11,7 @@ import { GetWalletResponse } from "app/common/runtimeTypes/ipc/wallets"
 // Function to assert a never value
 const assertNever = (x: never) => undefined
 
-// Action creator to unlock a wallet
+// Function to return a function which allows a async conditional dispatch to unlock a wallet
 export const unlockWallet = (id: string, password: string) => {
   return async (dispatch: any, getState: any, services: Services) => {
     return new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ export const unlockWallet = (id: string, password: string) => {
           }
         })
         .catch((error) => {
-          reject("UNKNOWN ERROR")
+          reject(`UNLOCK_WALLET_UNEXPECTED_ERROR ${error.message}`)
         })
     })
   }

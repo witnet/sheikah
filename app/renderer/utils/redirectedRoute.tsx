@@ -11,7 +11,7 @@ export class RedirectedRoute extends React.Component<any> {
    * Guarded route render function.
    */
   public render() {
-    const { aCompo: A, redirect: location, guard, ...props } = this.props
+    const { component: A, redirect: location, guard, ...props } = this.props
 
     const renderer = (props: any) => {
       return guard(props) ? <A {...props} /> : location ? <Redirect to={{ pathname: location }} /> :

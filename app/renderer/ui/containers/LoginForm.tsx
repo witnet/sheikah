@@ -93,7 +93,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
   }
 
   /**
-   * Method to go to the next step in WalletSelection step
+   * Method to go to the selected wallet (given an identifier)
    * @param id
    */
   private walletSelectNext = async (id: string) => {
@@ -105,7 +105,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
   }
 
   /**
-   * Method to go to the next step in WalletSelection step
+   * Method to go to the create new wallet route
    * @param id
    */
   private walletSelectNewWallet = async () => {
@@ -130,7 +130,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
    * @param password
    */
   private walletPasswordRequestNext = async (password: string) => {
-    // Dispatch action to go to next route
+    // Set unlock in progress to activate loading modal component
     await this.changeState({ unlockInProgress: true })
 
     // Dispatch action to unlock wallet and catch error
