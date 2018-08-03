@@ -10,7 +10,11 @@ export const nonEmptyState: WalletOption = {
   _v: CURRENT_WALLET_VERSION,
   id: "initial wallet",
   caption: "initial wallet",
-  seed: { kind: "Wip3", mnemonics: { mnemonics: "" }, xprv: "", xpub: "" },
+  seed: {
+    mnemonics: "",
+    kind: "Wip3",
+    seed: { masterSecret: Buffer.from(""), chainCode: Buffer.from("") }
+  },
   epochs: { last: 0 },
   purpose: 0x80000003,
   accounts: []
@@ -21,7 +25,11 @@ export const newWallet: Wallet = {
   _v: CURRENT_WALLET_VERSION,
   id: "test wallet",
   caption: "test wallet",
-  seed: { kind: "Wip3", mnemonics: { mnemonics: "" }, xprv: "", xpub: "" },
+  seed: {
+    mnemonics: "",
+    kind: "Wip3",
+    seed: { masterSecret: Buffer.from(""), chainCode: Buffer.from("") }
+  },
   epochs: { last: 1 },
   purpose: 0x80000003,
   accounts: []
