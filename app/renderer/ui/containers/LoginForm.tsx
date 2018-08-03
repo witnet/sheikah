@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import * as React from "react"
 import { Route, Switch } from "react-router"
-import { push, goBack } from "react-router-redux"
+import { push, goBack } from "connected-react-router"
 import { bindActionCreators, Dispatch } from "redux"
 
 import { Wallets, Wallet } from "app/common/runtimeTypes/storage/wallets"
