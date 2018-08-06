@@ -20,9 +20,6 @@ import {
   Account,
   CURRENT_WALLET_VERSION
 } from "app/common/runtimeTypes/storage/wallets"
-import * as CryptoSeed from "app/main/crypto/seed"
-import * as PrivateKey from "app/main/crypto/key/privateKey"
-import { ExtendedKey as CryptoExtendedKey } from "app/main/crypto/key/key"
 import * as AccountFactory from "app/common/factories/account"
 import { JsonSerializable } from "app/common/serializers"
 import * as t from "io-ts"
@@ -38,14 +35,14 @@ import { AppStateManager } from "app/main/appState"
 export default async function encryptWallet(system: AppStateS & WalletStorageS, params: any):
   Promise<JsonSerializable> {
 
-  return Promise.all([
-    Promise.resolve(params)
-      .then((p) => asType(p, EncryptWalletParams, encryptWalletErrors.WRONG_TYPE_PARAMS))
-      .then(inject(newWalletStorage, system.storageFactory)),
-    Promise.resolve(params)
-      .then(inject(getUnconsolidatedData, system.appStateManager))
-      .then(inject(newWallet, system.appStateManager))
-  ])
+  return parseParams(params)
+    .then(async (p) => Promise.all([
+      Promise.resolve(p)
+        .then(inject(newWalletStorage, system.storageFactory)),
+      Promise.resolve(p)
+        .then(inject(getUnconsolidatedData, system.appStateManager))
+        .then(inject(newWallet, system.appStateManager))
+    ]))
     .then(storeWallet)
     .then(inject(replaceWallet, system))
     .then(buildSuccessResponse)
@@ -53,8 +50,15 @@ export default async function encryptWallet(system: AppStateS & WalletStorageS, 
     .then(encodeResponse)
 }
 
+/**
+ * Wrapper around asType to parse params as EncryptWalletParams
+ */
+async function parseParams(params: any): Promise<EncryptWalletParams> {
+  return asType(params, EncryptWalletParams, encryptWalletErrors.WRONG_TYPE_PARAMS)
+}
+
 /** Data required to build a wallet, union of WalletParams and UnconsolidatedWallet */
-type UnconsolidatedData = { id: string, password: string, caption: string, mnemonics: string }
+type UnconsolidatedData = { id: string, password: string, caption: string, seed: Seed }
 /**
  * Update and validate unconsolidated wallet
  * @param params
@@ -63,15 +67,18 @@ type UnconsolidatedData = { id: string, password: string, caption: string, mnemo
 function getUnconsolidatedData(params: EncryptWalletParams, appStateManager: AppStateManager):
   UnconsolidatedData {
 
-  const unconsolidatedWallet = appStateManager.state.unconsolidatedWallet
-  if (!unconsolidatedWallet) { throw encryptWalletErrors.UNAVAILABLE_UNCONSOLIDATED_WALLET }
-  if (unconsolidatedWallet.id !== params.id) { throw encryptWalletErrors.INVALID_WALLET_ID }
-  unconsolidatedWallet.caption = params.caption
+  if (!appStateManager.state.unconsolidatedWallet) {
+    throw encryptWalletErrors.UNAVAILABLE_UNCONSOLIDATED_WALLET
+  }
+  // TODO: replace error with missing seed
+  if (appStateManager.state.unconsolidatedWallet.seed === undefined) {
+    throw encryptWalletErrors.INVALID_MNEMONICS
+  }
 
   return {
     ...params,
     caption: params.caption || newCaption(appStateManager),
-    mnemonics: appStateManager.state.unconsolidatedWallet.mnemonics
+    seed: appStateManager.state.unconsolidatedWallet.seed
   }
 }
 
@@ -146,17 +153,12 @@ function encodeResponse(response: EncryptWalletResponse): JsonSerializable {
  * @param unconsolidatedWallet
  */
 function newWallet(
-  { id, password, caption, mnemonics }: UnconsolidatedData,
+  { id, password, caption, seed }: UnconsolidatedData,
   appStateManager: AppStateManager): Wallet {
 
-  const privateKey = newPrivateKey(mnemonics)
   const walletInfo: WalletInfo = {
     id,
     caption
-  }
-  const seed: Seed = {
-    masterSecret: privateKey.key.bytes,
-    chainCode: privateKey.chainCode
   }
   const seedInfo: Wip3SeedInfo = {
     kind: "Wip3",
@@ -164,8 +166,8 @@ function newWallet(
   }
   const extendedKey: ExtendedKey = {
     type: "private",
-    key: privateKey.key.bytes,
-    chainCode: privateKey.chainCode
+    key: seed.masterSecret,
+    chainCode: seed.chainCode
   }
   const path = "m/3'/4919'/0'"
   const account = createAccount(path, extendedKey)
@@ -180,20 +182,6 @@ function newWallet(
     },
     purpose: 0x80000003,
     accounts: [account]
-  }
-}
-
-/**
- * Generate private key from mnemonics.
- * @param mnemonics
- */
-function newPrivateKey(mnemonics: string): CryptoExtendedKey<PrivateKey.PrivateKey> {
-  try {
-    const { masterSecret, chainCode } = CryptoSeed.fromMnemonics(mnemonics)
-
-    return PrivateKey.extend(PrivateKey.fromBytes(masterSecret), chainCode)
-  } catch {
-    throw encryptWalletErrors.INVALID_MNEMONICS
   }
 }
 
