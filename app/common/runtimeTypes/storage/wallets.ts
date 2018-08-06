@@ -200,11 +200,9 @@ export const Wallet = t.intersection([
 export type Wallet = t.TypeOf<typeof Wallet>
 
 // UnconsolidatedWallet represents a transient wallet which is being created
-export const UnconsolidatedWallet = t.intersection([
-  Mnemonics,
-  t.partial({
-    id: t.string,
-    seed: Seed
-  })
-])
+export const UnconsolidatedWallet = t.partial({
+  id: t.string,
+  seed: Seed,
+  mnemonics: t.string
+})
 export type UnconsolidatedWallet = t.TypeOf<typeof UnconsolidatedWallet>
