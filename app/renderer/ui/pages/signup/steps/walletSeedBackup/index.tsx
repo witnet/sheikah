@@ -40,7 +40,7 @@ export default class WalletSeedBackup extends React.Component<Iprops> {
         </CardNavigation>
         <AlertDefault className={styles["alert-grid"]}>
           <div className={styles.alert}>
-            <p>Remeber!</p>
+            <p>Remember!</p>
             <ul>
               <li>Never disclose your seed.</li>
               <li>Never type on a website</li>
