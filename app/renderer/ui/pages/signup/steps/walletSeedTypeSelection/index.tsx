@@ -40,7 +40,7 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
         </div>
         <div>
           <ButtonOption onClick={this.props.nextStep}>
-            I already have a seed
+            Import my own seed
           </ButtonOption>
         </div>
         <div>
