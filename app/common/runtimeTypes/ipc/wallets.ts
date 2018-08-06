@@ -108,9 +108,11 @@ export const encryptWalletErrors = {
   INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS")
 }
 
+export const EncryptWalletErrors = t.union(Object.values(encryptWalletErrors))
+export type EncryptWalletErrors = t.TypeOf<typeof EncryptWalletErrors>
 export const EncryptWalletError = t.type({
   kind: t.literal("ERROR"),
-  error: t.union(Object.values(encryptWalletErrors))
+  error: EncryptWalletErrors
 }, "EncryptWalletError")
 export type EncryptWalletError = t.TypeOf<typeof EncryptWalletError>
 
