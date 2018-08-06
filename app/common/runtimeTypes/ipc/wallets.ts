@@ -9,9 +9,17 @@ export type GetWalletsParams = t.TypeOf<typeof GetWalletsParams>
 export const GetWalletsResponse = Wallets
 export type GetWalletsResponse = t.TypeOf<typeof GetWalletsResponse>
 
-export const ImportSeedParams = t.type({
-  mnemonics: t.string
-})
+export const ImportSeedParams = t.taggedUnion(
+  "kind", [
+    t.type({
+      kind: t.literal("mnemonics"),
+      mnemonics: t.string
+    }, "mnemonics"),
+    t.type({
+      kind: t.literal("xprv"),
+      xprv: t.string
+    }, "xprv")
+  ], "ImportSeedParams")
 export type ImportSeedParams = t.TypeOf<typeof ImportSeedParams>
 
 const ImportSeedSuccess = t.type({
@@ -23,6 +31,7 @@ export const importSeedErrors = {
   INVALID_METHOD_PARAMS: t.literal("INVALID_METHOD_PARAMS"),
   ID_GENERATION_ERROR: t.literal("ID_GENERATION_ERROR"),
   INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS"),
+  INVALID_XPRV: t.literal("INVALID_XPRV"),
   MISMATCHING_MNEMONICS: t.literal("MISMATCHING_MNEMONICS"),
   UNCONSOLIDATED_UPDATE_FAILURE: t.literal("UNCONSOLIDATED_UPDATE_FAILURE")
 }
