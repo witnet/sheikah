@@ -4,6 +4,7 @@ import { AppStateManager } from "app/main/appState"
 import { AppStateS } from "app/main/system"
 import * as crypto from "crypto"
 import { fromMnemonics } from "app/main/crypto/seed"
+import * as Slip32 from "slip32"
 
 /**
  * Common factory for any of the mnemonics validation errors.
@@ -69,15 +70,39 @@ describe("importSeed Handler", () => {
       kind: "mnemonics",
       mnemonics: "fence recall half science actual limit wise pupil fish history cement oak"
     }
-    const {chainCode, masterSecret} = fromMnemonics(params.mnemonics)
-    const hash = crypto.pbkdf2Sync(
-      Buffer.concat([chainCode, masterSecret]),
-      "sheikah mnemonics", 4096, 32, "sha256")
-    const id = hash.toString("hex")
+    const { chainCode, masterSecret } = fromMnemonics(params.mnemonics)
     const result = await importSeed(system, params)
-
+    const id = generateId(chainCode, masterSecret)
     expect(result).toMatchObject({ kind: "SUCCESS", id })
     expect(system.appStateManager.state.unconsolidatedWallet).toMatchObject({ id })
   })
 
+  it("should generate a wallet from xprv", async () => {
+    const params = {
+      kind: "xprv",
+      xprv: "xprv1qxqqqqqq78qr7hlewyyfzt74vasa87k63pu7g9e6hfzlzrdyh0v5k8zfw9sqpsyv7vcejeyz" +
+        "cpkm85jel7vmujlhpquzf4f3sh3nry0w0n4jh7t0jhc039"
+    }
+
+    const { extendedKey } = Slip32.importKeyFromSlip32(params.xprv)
+    const seed = {
+      chainCode: Buffer.from(extendedKey.chainCode),
+      masterSecret: Buffer.from(extendedKey.key.bytes)
+    }
+    const id = generateId(seed.chainCode, seed.masterSecret)
+
+    const result = await importSeed(system, params)
+
+    expect(result).toMatchObject({ kind: "SUCCESS", id })
+    expect(system.appStateManager.state.unconsolidatedWallet).toMatchObject({ id, seed })
+  })
 })
+
+/** Generate ID for testing */
+function generateId(chainCode: Buffer, masterSecret: Buffer): string {
+  const hash = crypto.pbkdf2Sync(
+    Buffer.concat([chainCode, masterSecret]),
+    "sheikah mnemonics", 4096, 32, "sha256")
+
+  return hash.toString("hex")
+}
