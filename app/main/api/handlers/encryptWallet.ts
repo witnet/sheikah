@@ -72,7 +72,7 @@ function getUnconsolidatedData(params: EncryptWalletParams, appStateManager: App
   }
   // TODO: replace error with missing seed
   if (appStateManager.state.unconsolidatedWallet.seed === undefined) {
-    throw encryptWalletErrors.INVALID_MNEMONICS
+    throw encryptWalletErrors.INVALID_SEED
   }
 
   return {

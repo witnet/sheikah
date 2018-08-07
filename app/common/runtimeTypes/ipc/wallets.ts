@@ -114,7 +114,8 @@ export const encryptWalletErrors = {
   INVALID_WALLET_ID: t.literal("INVALID_WALLET_ID"),
   WALLET_STORE_FAILURE: t.literal("WALLET_STORE_FAILURE"),
   WALLET_REPLACE_FAILURE: t.literal("WALLET_REPLACE_FAILURE"),
-  INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS")
+  INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS"),
+  INVALID_SEED: t.literal("INVALID_SEED")
 }
 
 export const EncryptWalletErrors = t.union(Object.values(encryptWalletErrors))
