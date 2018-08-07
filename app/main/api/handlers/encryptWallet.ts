@@ -70,9 +70,12 @@ function getUnconsolidatedData(params: EncryptWalletParams, appStateManager: App
   if (!appStateManager.state.unconsolidatedWallet) {
     throw encryptWalletErrors.UNAVAILABLE_UNCONSOLIDATED_WALLET
   }
-  // TODO: replace error with missing seed
   if (appStateManager.state.unconsolidatedWallet.seed === undefined) {
     throw encryptWalletErrors.INVALID_SEED
+  }
+
+  if (appStateManager.state.unconsolidatedWallet.id !== params.id) {
+    throw encryptWalletErrors.INVALID_WALLET_ID
   }
 
   return {
