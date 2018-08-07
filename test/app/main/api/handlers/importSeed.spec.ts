@@ -1,8 +1,9 @@
 import { ImportSeedError } from "app/common/runtimeTypes/ipc/wallets"
-import { validateMnemonics } from "app/main/api/handlers"
+import { importSeed } from "app/main/api/handlers"
 import { AppStateManager } from "app/main/appState"
 import { AppStateS } from "app/main/system"
 import * as crypto from "crypto"
+import { fromMnemonics } from "app/main/crypto/seed"
 
 /**
  * Common factory for any of the mnemonics validation errors.
@@ -38,36 +39,42 @@ describe("importSeed Handler", () => {
 
   it("should reject malformed requests", async () => {
     const params = "invalid request"
-    const result = await validateMnemonics(system, params)
+    const result = await importSeed(system, params)
 
     expect(result).toMatchObject(error("INVALID_METHOD_PARAMS"))
   })
 
   it("should reject invalid mnemonics", async () => {
     const params = {
+      kind: "mnemonics",
       mnemonics: "foo bar baz"
     }
-    const result = await validateMnemonics(system, params)
+    const result = await importSeed(system, params)
 
     expect(result).toMatchObject(error("INVALID_MNEMONICS"))
   })
 
   it("should reject valid mnemonics not matching unconsolidated wallet", async () => {
     const params = {
+      kind: "mnemonics",
       mnemonics: "control enroll cancel obey join cup vault jazz brush pledge raven huge"
     }
-    const result = await validateMnemonics(system, params)
+    const result = await importSeed(system, params)
 
     expect(result).toMatchObject(error("MISMATCHING_MNEMONICS"))
   })
 
   it("should generate a wallet id if mnemonics is fine", async () => {
     const params = {
+      kind: "mnemonics",
       mnemonics: "fence recall half science actual limit wise pupil fish history cement oak"
     }
-    const hash = crypto.pbkdf2Sync(params.mnemonics, "sheikah mnemonics", 4096, 32, "sha256")
+    const {chainCode, masterSecret} = fromMnemonics(params.mnemonics)
+    const hash = crypto.pbkdf2Sync(
+      Buffer.concat([chainCode, masterSecret]),
+      "sheikah mnemonics", 4096, 32, "sha256")
     const id = hash.toString("hex")
-    const result = await validateMnemonics(system, params)
+    const result = await importSeed(system, params)
 
     expect(result).toMatchObject({ kind: "SUCCESS", id })
     expect(system.appStateManager.state.unconsolidatedWallet).toMatchObject({ id })
