@@ -17,16 +17,6 @@ describe("EncryptWallet Handler", () => {
     expect(result.wallet).toEqual(fixture.wallet)
   })
 
-  it("should fail on non matching ID", async () => {
-    const params = {
-      ...fixture.walletParams,
-      id: "45"
-    }
-    const result = await encryptWallet(system, params)
-
-    expect(result).toEqual(fixture.buildError("INVALID_WALLET_ID"))
-  })
-
   it("should have removed the unconsolidated wallet", async () => {
     await encryptWallet(system, fixture.walletParams)
     expect(system.appStateManager.state.unconsolidatedWallet).toEqual({})
@@ -38,13 +28,15 @@ describe("EncryptWallet Handler", () => {
     await encryptWallet(system, fixture.walletParams)
     expect(system.walletStorage.storage).toBeDefined()
   })
-})
 
-describe("EncryptWallet mnemonic", () => {
-  it("should fail on invalid mnemonics", async () => {
-    const system = fixture.systemFactory("hey there")
-    const result = await encryptWallet(system, fixture.walletParams)
+  it("should have a wallet in storage", async () => {
+    await encryptWallet(system, fixture.walletParams)
 
-    expect(result).toEqual(fixture.buildError("INVALID_MNEMONICS"))
+    if (system.walletStorage.storage === undefined) {
+      throw new Error("storage missing")
+    }
+
+    const storage = await system.walletStorage.storage.get("wallet")
+    expect(storage).toBeDefined()
   })
 })

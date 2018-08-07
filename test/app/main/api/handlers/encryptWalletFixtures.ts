@@ -9,6 +9,7 @@ import { Storage } from "app/main/storage"
 import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 import { AppStateManager } from "app/main/appState"
 import { AppStateS, WalletStorageS } from "app/main/system"
+import { fromMnemonics } from "app/main/crypto/seed"
 
 export const walletParams: EncryptWalletParams = {
   id: "42",
@@ -83,10 +84,15 @@ export function buildError(error: string) {
 
 /** system factory */
 export function systemFactory(mnemonics?: string): AppStateS & WalletStorageS {
+  const { chainCode, masterSecret } = fromMnemonics(mnemonics || defaultMnemonics)
+
   return {
     appStateManager: new AppStateManager({
       unconsolidatedWallet: {
-        mnemonics: mnemonics || defaultMnemonics,
+        seed: {
+          chainCode,
+          masterSecret
+        },
         id: walletParams.id
       }
     }),
