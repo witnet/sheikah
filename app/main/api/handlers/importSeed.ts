@@ -46,6 +46,9 @@ export default async function importSeed
     .then(encodeResponse)
 }
 
+// Function to assert a never value
+const assertNever = (x: never) => undefined
+
 /**
  * Get seed from params
  * @param params
@@ -62,7 +65,7 @@ async function getSeed(params: ImportSeedParams, appStateManager: AppStateManage
       break
     default:
       // compiler instruction to ensure exhaustiveness
-      const _never: never = params
+      assertNever(params)
       throw importSeedErrors.INVALID_METHOD_PARAMS
   }
 
