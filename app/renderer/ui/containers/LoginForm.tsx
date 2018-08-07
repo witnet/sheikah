@@ -17,8 +17,9 @@ import WalletPasswordRequest from "app/renderer/ui/components/loginForm/steps/wa
  * Paths of the routes that are used in this container
  */
 export const PATHS = {
-  WALLET_SELECTION: "/login",
-  WALLET_PASSWORD_REQUEST: "/login/walletPasswordRequest",
+  ROOT: "/forms/login",
+  WALLET_SELECTION: "/forms/login/welcome",
+  WALLET_PASSWORD_REQUEST: "/forms/login/password",
 }
 
 /**
@@ -110,8 +111,8 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
    */
   private walletSelectNewWallet = async () => {
     // Dispatch action to go to next route
-    // TODO goTo("/wallets/new") needs to be replaced by goTo(PATH.NEWWALLET)?
-    this.props.goTo("/wallets/new")
+    // TODO: goTo("/forms/wallet") needs to be replaced by goTo(PATH.NEWWALLET)?
+    this.props.goTo("/forms/wallet")
   }
 
   /**
@@ -140,8 +141,8 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
         this.props.actions.saveWallet(wallet)
 
         // Dispatch action to go to next route
-        // TODO goTo("/") needs to be replaced by goTo(MAIN_PATHS.MAIN)
-        this.props.goTo("/")
+        // TODO: goTo("/main") needs to be replaced by goTo(MAIN_PATHS.MAIN)
+        this.props.goTo("/main")
       })
       .catch(async (errorMessage: string) => {
         // Set error message in the state

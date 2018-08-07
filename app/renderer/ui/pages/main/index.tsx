@@ -1,15 +1,12 @@
-import * as React from "react"
-import { Route, RouteComponentProps, Switch } from "react-router"
-
 import Sidebar from "app/renderer/ui/components/sidebar"
-
-import SmartContractsSection from "app/renderer/ui/pages/main/sections/smartContracts"
+import { SectionInfo } from "app/renderer/ui/pages/main/sections"
 import AttestationsSection from "app/renderer/ui/pages/main/sections/attestations"
 import BlockExplorerSection from "app/renderer/ui/pages/main/sections/blockExplorer"
 import CommunitySection from "app/renderer/ui/pages/main/sections/community"
+import SmartContractsSection from "app/renderer/ui/pages/main/sections/smartContracts"
 import WalletSection from "app/renderer/ui/pages/main/sections/wallet"
-
-import { SectionInfo } from "app/renderer/ui/pages/main/sections"
+import * as React from "react"
+import { Route, Switch, RouteComponentProps } from "react-router"
 
 const styles = require("app/renderer/ui/pages/main/style.scss")
 
@@ -32,7 +29,7 @@ const sidebarProps = {
  * @class MainPage
  * @extends {React.Component<RouteComponentProps<any>, void>}
  */
-export class MainPage extends React.Component<RouteComponentProps<any>, void> {
+export class MainPage extends React.Component<RouteComponentProps<any>> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
