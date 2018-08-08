@@ -36,7 +36,7 @@ export const importSeedErrors = {
 }
 
 export const ImportSeedErrors = t.union(Object.values(importSeedErrors))
-export type importSeedErrors = t.TypeOf<typeof ImportSeedErrors>
+export type ImportSeedErrors = t.TypeOf<typeof ImportSeedErrors>
 
 export const ImportSeedError = t.type({
   kind: t.literal("ERROR"),
