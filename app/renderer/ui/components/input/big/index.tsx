@@ -6,6 +6,9 @@ const styles = require("./style.scss")
 
 export interface Iprops {
   className?: string
+  onChange?: (e: React.ChangeEvent) => void
+  value?: string
+  type?: string
 }
 
 /**
@@ -21,7 +24,12 @@ export default class InputBig extends React.Component<Iprops> {
     const className = `${styles.big} ${this.props.className}`
 
     return (
-      <Input className={className} />
+      <Input
+        className={className}
+        type={this.props.type}
+        value={this.props.value}
+        onChange={this.props.onChange}
+      />
     )
   }
 }

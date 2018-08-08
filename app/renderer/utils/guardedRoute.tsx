@@ -14,8 +14,11 @@ export class GuardedRoute extends React.Component<any> {
     const { aCompo: A, bCompo: B, guard, ...props } = this.props
 
     const renderer = (props: any) => {
-      return guard(props) ? <A {...props} /> : B ? <B {...props} /> :
-        <div>The guard of a guarded route failed without a B component</div>
+      return guard(props)
+        ? <A {...props} services={this.props.services} />
+        : B
+          ? <B {...props} services={this.props.services} />
+          : <div>The guard of a guarded route failed without a B component</div>
     }
 
     return <Route {...props} render={renderer} />
