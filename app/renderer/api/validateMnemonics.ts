@@ -12,5 +12,5 @@ export const validateMnemonics = async (client: Client, mnemonics: string):
   Promise<NewMnemonicsResponse> => {
   const validateMnemonicsParams = { mnemonics }
 
-  return client.request("validateMnemonics", validateMnemonicsParams)
+  return client.request("importSeed", validateMnemonicsParams)
 }

@@ -14,7 +14,7 @@ export const routes: Routes<SubSystems> = {
   echo: h.echo,
   error: h.error,
   newMnemonics: h.newMnemonics,
-  validateMnemonics: h.validateMnemonics,
+  importSeed: h.importSeed,
   encryptWallet: h.encryptWallet
 }
 
