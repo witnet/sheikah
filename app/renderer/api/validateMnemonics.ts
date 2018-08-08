@@ -8,8 +8,8 @@ import { Client } from "app/renderer/api"
  * @param password
  * @param caption
  */
-export const validateMnemonics = async (client: Client, mnemonics: string):
-  Promise<NewMnemonicsResponse> => {
+export const validateMnemonics = async (client: Client, mnemonics: string)
+: Promise<NewMnemonicsResponse> => {
   const validateMnemonicsParams = { mnemonics }
 
   return client.request("importSeed", validateMnemonicsParams)

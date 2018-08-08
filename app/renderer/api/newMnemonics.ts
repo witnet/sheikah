@@ -1,15 +1,48 @@
+import * as t from "io-ts"
+
 import { Contexts, asRuntimeType } from "app/common/runtimeTypes"
 import { ApiClient } from "app/renderer/api"
-import { NewMnemonicsResponse } from "app/common/runtimeTypes/storage/wallets"
+import { buildError as buildNewMnemonicsError } from "app/main/api/handlers/newMnemonics"
+import {
+  NewMnemonicsResponse,
+  newMnemonicsErrors,
+  NewMnemonicsErrors
+} from "app/common/runtimeTypes/storage/wallets"
 
 /**
- * Function to request the creation of new mnemonic words through the API Client
- * @param client
+ * request the new mnemonics through the API Client
+ *
+ * @export
+ * @param {ApiClient} client
+ * @returns {Promise<NewMnemonicsResponse>}
  */
 export async function newMnemonics(client: ApiClient): Promise<NewMnemonicsResponse> {
-  // Request the creation of new mnemonics
-  const mnemonicsResponse = await client.request("newMnemonics")
+  return client.request("newMnemonics")
+    .then(parseResponse)
+    .catch(buildError)
+}
 
-  // Cast return value to a new mnemonics response
-  return asRuntimeType(mnemonicsResponse, NewMnemonicsResponse, Contexts.IPC)
+/**
+ * Success request handler
+ *
+ * @param {*} response
+ * @returns
+ */
+function parseResponse(response: any) {
+  try {
+    return asRuntimeType(response, NewMnemonicsResponse, Contexts.IPC)
+  } catch (error) {
+    throw newMnemonicsErrors.GENERIC_ERROR
+  }
+}
+
+/**
+ * Error request handler
+ *
+ * @returns
+ */
+function buildError() {
+  return buildNewMnemonicsError(
+    t.literal<NewMnemonicsErrors>(newMnemonicsErrors.GENERIC_ERROR.value)
+  )
 }

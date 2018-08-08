@@ -81,7 +81,7 @@ function buildSuccess(mnemonics: Mnemonics): NewMnemonicsSuccess {
  * @param {t.LiteralType<NewMnemonicsErrors>} error
  * @returns {NewMnemonicsError}
  */
-function buildError(error: t.LiteralType<NewMnemonicsErrors>): NewMnemonicsError {
+export function buildError(error: t.LiteralType<NewMnemonicsErrors>): NewMnemonicsError {
   return {
     kind: "ERROR",
     error: error.value

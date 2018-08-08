@@ -38,6 +38,7 @@ export const NewMnemonicsSuccess = t.intersection([
 export type NewMnemonicsSuccess = t.TypeOf<typeof NewMnemonicsSuccess>
 
 export const newMnemonicsErrors = {
+  GENERIC_ERROR: t.literal("GENERIC_ERROR"),
   DEPENDENCY_ERROR_GENERATE_MNEMONICS: t.literal("DEPENDENCY_ERROR_GENERATE_MNEMONICS"),
   INVALID_MNEMONICS_TYPE: t.literal("INVALID_MNEMONICS_TYPE"),
   ERROR_UPDATING_UNCONSOLIDATED_WALLET: t.literal("ERROR_UPDATING_UNCONSOLIDATED_WALLET")
