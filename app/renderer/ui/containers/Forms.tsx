@@ -29,4 +29,3 @@ export const Forms = ({ match, store }: Props) => (
 )
 
 export default Forms
-

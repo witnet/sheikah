@@ -39,8 +39,9 @@
     "precommit": "lint-staged",
     "commitmsg": "commitlint -g config/commitlint.config.js -e $GIT_PARAMS",
     "postinstall": "electron-builder install-app-deps",
-    "fmt": "tsfmt --useTsfmt config/tsfmt.json --verify",
-    "fmt!": "tsfmt --useTsfmt config/tsfmt.json -r",
+    "_fmt":"tsfmt --useTsfmt config/tsfmt.json --useTsconfig config/tsconfig.fmt.json",
+    "fmt": "yarn _fmt --verify",
+    "fmt!": "yarn _fmt -r",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
