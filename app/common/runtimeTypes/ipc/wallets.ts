@@ -10,7 +10,8 @@ export const GetWalletsResponse = Wallets
 export type GetWalletsResponse = t.TypeOf<typeof GetWalletsResponse>
 
 export const ImportSeedParams = t.taggedUnion(
-  "kind", [
+  "kind",
+  [
     t.type({
       kind: t.literal("mnemonics"),
       mnemonics: t.string

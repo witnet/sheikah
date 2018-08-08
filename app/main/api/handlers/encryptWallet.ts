@@ -80,7 +80,7 @@ function getUnconsolidatedData(params: EncryptWalletParams, appStateManager: App
 
   return {
     ...params,
-    caption: params.caption || newCaption(appStateManager),
+    caption: params.caption || newCaption(appStateManager.state.wallets.infos.length),
     seed: appStateManager.state.unconsolidatedWallet.seed
   }
 }
@@ -157,7 +157,8 @@ function encodeResponse(response: EncryptWalletResponse): JsonSerializable {
  */
 function newWallet(
   { id, password, caption, seed }: UnconsolidatedData,
-  appStateManager: AppStateManager): Wallet {
+  appStateManager: AppStateManager
+): Wallet {
 
   const walletInfo: WalletInfo = {
     id,
@@ -193,10 +194,8 @@ function newWallet(
  * @param {SubSystems} system
  * @returns {string}
  */
-function newCaption(appStateManager: AppStateManager): string {
-  const index = appStateManager.state.wallets.infos.length as number + 1
-
-  return `Wallet #${index}`
+function newCaption(index: number): string {
+  return `Wallet #${index + 1}`
 }
 
 /**

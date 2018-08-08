@@ -22,7 +22,7 @@ export function asRuntimeType<T, U>
 }
 
 /**
- * Encode a runtime-typed object into a mixed JS objec
+ * Encode a runtime-typed object into a mixed JS object
  * @param input
  * @param runtimeType
  */

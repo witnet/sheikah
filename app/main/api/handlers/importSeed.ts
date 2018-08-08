@@ -34,7 +34,6 @@ export default async function importSeed
     // Get the seed from the params
     .then(inject(getSeed, appStateManager))
     .then(buildUnconsolidatedWallet)
-    // .then(fanOut([validateMnemonicsString, inject(matchMnemonics, appStateManager), generateId]))
     // Update or insert unconsolidated wallet into app state
     .then(inject(upsertUnconsolidated, appStateManager))
     // The handler logic ends here. What follows is response building and encoding.
@@ -80,7 +79,7 @@ async function getSeed(params: ImportSeedParams, appStateManager: AppStateManage
 async function processMnemonics(mnemonics: string, appStateManager: AppStateManager):
   Promise<Seed> {
   return Promise.resolve(mnemonics)
-    // In parallel: validate mnemonic, check mnemonic against unconsolidated wallet and generate id
+    // In parallel: validate mnemonic, check mnemonic against unconsolidated wallet
     .then(fanOut([validateMnemonicsString, inject(matchMnemonics, appStateManager)]))
     .then(seedFromMnemonics)
 }
