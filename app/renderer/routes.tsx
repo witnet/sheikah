@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Store } from "redux"
-import { Route, Switch } from "react-router"
+import { Switch } from "react-router"
 
 import * as urls from "app/renderer/constants/urls"
 import { StoreState } from "app/renderer/store"
@@ -9,23 +9,26 @@ import Forms from "./ui/containers/Forms"
 import MainPage from "./ui/pages/main"
 import { ifWallets } from "./utils/guards"
 import { RedirectedRoute } from "./utils/redirectedRoute"
+import { PropsRoute } from "app/renderer/utils/propsRoute"
+import { Services } from "app/renderer/services"
 
-type RoutesProps = {
-  store: Store<StoreState>
+export type RoutesProps = {
+  store: Store<StoreState>,
+  services: Services
 }
 
 export default (props: RoutesProps) => {
-
   return (
     <App>
       <Switch>
-        <Route
-          // TODO: update with PATHS from Main container
+        <PropsRoute
           path={urls.MAIN}
-          render={mainRenderer}
+          ownProps={props}
+          component={MainPage}
         />
-        <Route
+        <PropsRoute
           path={urls.FORMS}
+          ownProps={props}
           component={Forms}
         />
         <RedirectedRoute
@@ -39,11 +42,4 @@ export default (props: RoutesProps) => {
       </Switch>
     </App>
   )
-}
-
-/**
- * Function to render the Main component (wallet unlocked)
- */
-const mainRenderer = (props: any) => {
-  return <MainPage {...props} />
 }

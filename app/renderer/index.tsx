@@ -2,7 +2,7 @@ import { Wallets } from "app/common/runtimeTypes/storage/wallets"
 import * as api from "app/renderer/api"
 import * as React from "react"
 import { render } from "react-dom"
-import Root from "./ui/containers/Root"
+import Root from "app/renderer/ui/containers/Root"
 import "./ui/app.global.scss"
 
 const apiClient = new api.Client()
@@ -23,7 +23,7 @@ new Promise(async () => {
 
   // Root component rendering
   render(
-    <Root store={store} history={history} />,
+    <Root services={services} store={store} history={history} />,
     document.getElementById("root")
   )
 
