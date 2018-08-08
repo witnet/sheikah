@@ -4,13 +4,12 @@ import { Client } from "app/renderer/api"
 /**
  * Encrypt Wallet.
  * @param client
- * @param id
  * @param password
  * @param caption
  */
-export const encryptWallet = async (client: Client, id: string, password: string, caption?: string):
+export const encryptWallet = async (client: Client, password: string, caption?: string):
   Promise<EncryptWalletResponse> => {
-  const encryptedWalletParams: EncryptWalletParams = { id, password, caption }
+  const encryptedWalletParams: EncryptWalletParams = { password, caption }
 
   return client.request("encryptWallet", encryptedWalletParams)
 }

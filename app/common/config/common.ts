@@ -8,7 +8,7 @@ export const commonConfig: Partial<Config> = {
     env: inDevelopment ? "dev" : "prod"
   },
   mnemonicsIdGeneration: {
-    salt: "sheikah mnemonics",
+    salt: "sheikah seed",
     hashIterations: 4096,
     keyByteLength: 32,
     hashFunctionName: "sha256"

@@ -25,12 +25,10 @@ export type ImportSeedParams = t.TypeOf<typeof ImportSeedParams>
 
 const ImportSeedSuccess = t.type({
   kind: t.literal("SUCCESS"),
-  id: t.string
 })
 
 export const importSeedErrors = {
   INVALID_METHOD_PARAMS: t.literal("INVALID_METHOD_PARAMS"),
-  ID_GENERATION_ERROR: t.literal("ID_GENERATION_ERROR"),
   INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS"),
   INVALID_XPRV: t.literal("INVALID_XPRV"),
   MISMATCHING_MNEMONICS: t.literal("MISMATCHING_MNEMONICS"),
@@ -93,7 +91,6 @@ export function buildGetWalletError(error: t.LiteralType<GetWalletErrors>) {
 
 export const EncryptWalletParams = t.intersection([
   t.type({
-    id: t.string,
     password: t.string
   }),
   t.partial({
@@ -109,14 +106,15 @@ export const EncryptWalletSuccess = t.type({
 }, "EncryptWalletSuccess")
 
 export const encryptWalletErrors = {
-  STORAGE_CREATION_FAILURE: t.literal("STORAGE_CREATION_FAILURE"),
-  WRONG_TYPE_PARAMS: t.literal("WRONG_TYPE_PARAMS"),
-  UNAVAILABLE_UNCONSOLIDATED_WALLET: t.literal("UNAVAILABLE_UNCONSOLIDATED_WALLET"),
-  INVALID_WALLET_ID: t.literal("INVALID_WALLET_ID"),
-  WALLET_STORE_FAILURE: t.literal("WALLET_STORE_FAILURE"),
-  WALLET_REPLACE_FAILURE: t.literal("WALLET_REPLACE_FAILURE"),
+  ID_GENERATION_ERROR: t.literal("ID_GENERATION_ERROR"),
   INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS"),
-  INVALID_SEED: t.literal("INVALID_SEED")
+  INVALID_SEED: t.literal("INVALID_SEED"),
+  INVALID_WALLET_ID: t.literal("INVALID_WALLET_ID"),
+  STORAGE_CREATION_FAILURE: t.literal("STORAGE_CREATION_FAILURE"),
+  UNAVAILABLE_UNCONSOLIDATED_WALLET: t.literal("UNAVAILABLE_UNCONSOLIDATED_WALLET"),
+  WALLET_REPLACE_FAILURE: t.literal("WALLET_REPLACE_FAILURE"),
+  WALLET_STORE_FAILURE: t.literal("WALLET_STORE_FAILURE"),
+  WRONG_TYPE_PARAMS: t.literal("WRONG_TYPE_PARAMS"),
 }
 
 export const EncryptWalletErrors = t.union(Object.values(encryptWalletErrors))

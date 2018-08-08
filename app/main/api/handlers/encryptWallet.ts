@@ -25,6 +25,8 @@ import { JsonSerializable } from "app/common/serializers"
 import * as t from "io-ts"
 import { inject, asType } from "app/main/utils/utils"
 import { AppStateManager } from "app/main/appState"
+import * as crypto from "crypto"
+import { config } from "app/common/config"
 
 /**
  * Handler function for "encryptWallet" method.
@@ -58,7 +60,7 @@ async function parseParams(params: any): Promise<EncryptWalletParams> {
 }
 
 /** Data required to build a wallet, union of WalletParams and UnconsolidatedWallet */
-type UnconsolidatedData = { id: string, password: string, caption: string, seed: Seed }
+type UnconsolidatedData = { password: string, caption: string, seed: Seed }
 /**
  * Update and validate unconsolidated wallet
  * @param params
@@ -72,10 +74,6 @@ function getUnconsolidatedData(params: EncryptWalletParams, appStateManager: App
   }
   if (appStateManager.state.unconsolidatedWallet.seed === undefined) {
     throw encryptWalletErrors.INVALID_SEED
-  }
-
-  if (appStateManager.state.unconsolidatedWallet.id !== params.id) {
-    throw encryptWalletErrors.INVALID_WALLET_ID
   }
 
   return {
@@ -156,12 +154,12 @@ function encodeResponse(response: EncryptWalletResponse): JsonSerializable {
  * @param unconsolidatedWallet
  */
 function newWallet(
-  { id, password, caption, seed }: UnconsolidatedData,
+  { password, caption, seed }: UnconsolidatedData,
   appStateManager: AppStateManager
 ): Wallet {
 
   const walletInfo: WalletInfo = {
-    id,
+    id: generateId(seed),
     caption
   }
   const seedInfo: Wip3SeedInfo = {
@@ -244,4 +242,20 @@ async function newWalletStorage(
   } catch {
     throw encryptWalletErrors.STORAGE_CREATION_FAILURE
   }
+}
+
+/**
+ * Generate an id string given a mnemonics string.
+ * @param mnemonics
+ */
+function generateId(seed: Seed): string {
+  try {
+    return crypto.pbkdf2Sync(
+      Buffer.concat([seed.chainCode, seed.masterSecret]),
+      config.mnemonicsIdGeneration.salt,
+      config.mnemonicsIdGeneration.hashIterations,
+      config.mnemonicsIdGeneration.keyByteLength,
+      config.mnemonicsIdGeneration.hashFunctionName
+    ).toString("hex")
+  } catch { throw encryptWalletErrors.ID_GENERATION_ERROR }
 }
