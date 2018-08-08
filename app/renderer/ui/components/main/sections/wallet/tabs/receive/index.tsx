@@ -4,12 +4,12 @@ import List from "app/renderer/ui/components/list"
 import { InputDefault } from "app/renderer/ui/components/input"
 import { ButtonDefault } from "app/renderer/ui/components/button"
 import PaymentRequest from "app/renderer/ui/components/paymentRequest"
-import { TabInfo, TabComponent } from "app/renderer/ui/pages/main/sections"
+import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 
 import {
   paymentRequest,
   confirmedOptions
-} from "app/renderer/ui/pages/main/sections/wallet/MockData"
+} from "app/renderer/ui/components/main/sections/wallet/MockData"
 
 const styles = require("./style.scss")
 

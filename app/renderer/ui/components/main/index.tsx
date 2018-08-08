@@ -1,14 +1,14 @@
 import Sidebar from "app/renderer/ui/components/sidebar"
-import { SectionInfo } from "app/renderer/ui/pages/main/sections"
-import AttestationsSection from "app/renderer/ui/pages/main/sections/attestations"
-import BlockExplorerSection from "app/renderer/ui/pages/main/sections/blockExplorer"
-import CommunitySection from "app/renderer/ui/pages/main/sections/community"
-import SmartContractsSection from "app/renderer/ui/pages/main/sections/smartContracts"
-import WalletSection from "app/renderer/ui/pages/main/sections/wallet"
-import * as React from "react"
-import { Route, Switch, RouteComponentProps } from "react-router"
 
-const styles = require("app/renderer/ui/pages/main/style.scss")
+import SmartContractsSection from "app/renderer/ui/components/main/sections/smartContracts"
+import AttestationsSection from "app/renderer/ui/components/main/sections/attestations"
+import BlockExplorerSection from "app/renderer/ui/components/main/sections/blockExplorer"
+import CommunitySection from "app/renderer/ui/components/main/sections/community"
+import WalletSection from "app/renderer/ui/components/main/sections/wallet"
+
+import { SectionInfo } from "app/renderer/ui/components/main/sections"
+
+const styles = require("app/renderer/ui/components/main/style.scss")
 
 const sections: Array<SectionInfo> = [
   WalletSection, SmartContractsSection, AttestationsSection, BlockExplorerSection, CommunitySection

@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { TabInfo, TabComponent } from "app/renderer/ui/pages/main/sections"
+import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 
 /**
  * MyContracts component

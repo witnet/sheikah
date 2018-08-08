@@ -1,13 +1,13 @@
 import * as React from "react"
 import { Route, Switch } from "react-router"
 
-import { SectionInfo } from "app/renderer/ui/pages/main/sections"
+import { SectionInfo } from "app/renderer/ui/components/main/sections"
 import { TabCoins, TabReceive, TabSend, TabTransactions } from "./tabs"
 import TopBar from "app/renderer/ui/components/topBar/index"
 import { TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
 
 const styles = require("./style.scss")
-const mainStyles = require("app/renderer/ui/pages/main/style.scss")
+const mainStyles = require("app/renderer/ui/components/main/style.scss")
 
 interface WalletProps { }
 

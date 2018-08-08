@@ -4,9 +4,9 @@ import { Route, Switch } from "react-router"
 import { TabMyContracts, TabEasyComposer, TabProEditor, TabMarketplace } from "./tabs"
 import TopBar from "app/renderer/ui/components/topBar/index"
 import { TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
-import { SectionInfo } from "app/renderer/ui/pages/main/sections"
+import { SectionInfo } from "app/renderer/ui/components/main/sections"
 
-const mainStyles = require("app/renderer/ui/pages/main/style.scss")
+const mainStyles = require("app/renderer/ui/components/main/style.scss")
 const styles = require("./style.scss")
 
 /**

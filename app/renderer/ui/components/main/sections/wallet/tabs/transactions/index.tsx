@@ -8,14 +8,14 @@ import Balances from "./balances"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import List from "app/renderer/ui/components/list"
 
-import { TabInfo, TabComponent } from "app/renderer/ui/pages/main/sections"
+import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 
 import {
   balanceData,
   confirmedTransactions,
   confirmedOptions,
   pendingTransactions
-} from "app/renderer/ui/pages/main/sections/wallet/MockData"
+} from "app/renderer/ui/components/main/sections/wallet/MockData"
 
 const styles = require("./style.scss")
 

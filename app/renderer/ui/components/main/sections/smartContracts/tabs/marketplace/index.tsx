@@ -1,8 +1,8 @@
 import * as React from "react"
 
-import { TabInfo, TabComponent } from "app/renderer/ui/pages/main/sections"
+import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 import { CardMarketplaceProduct } from "app/renderer/ui/components/card"
-import { marketplaceProducts } from "app/renderer/ui/pages/main/sections/wallet/MockData"
+import { marketplaceProducts } from "app/renderer/ui/components/main/sections/wallet/MockData"
 
 const styles = require("./style.scss")
 

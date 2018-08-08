@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
 
-import { SectionInfo } from "app/renderer/ui/pages/main/sections"
+import { SectionInfo } from "app/renderer/ui/components/main/sections"
 import { join } from "app/renderer/utils/list"
 import { PathNameProp } from "app/renderer/ui/components/commonTypes"
 

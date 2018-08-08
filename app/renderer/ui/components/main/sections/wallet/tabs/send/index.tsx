@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { TabInfo, TabComponent } from "app/renderer/ui/pages/main/sections"
+import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import { InputDefault } from "app/renderer/ui/components/input"
 import { ButtonDefault } from "app/renderer/ui/components/button"

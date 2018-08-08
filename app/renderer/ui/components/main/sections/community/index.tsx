@@ -1,5 +1,5 @@
 import * as React from "react"
-import { SectionInfo, SectionProps } from "app/renderer/ui/pages/main/sections"
+import { SectionInfo, SectionProps } from "app/renderer/ui/components/main/sections"
 
 /**
  * Community UI component
