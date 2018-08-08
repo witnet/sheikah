@@ -2,7 +2,7 @@ import * as React from "react"
 import { RouteComponentProps } from "react-router"
 
 /**
- * Signup page UI component
+ * Wallet Form UI component
  *
  * @export
  * @class MainContainer

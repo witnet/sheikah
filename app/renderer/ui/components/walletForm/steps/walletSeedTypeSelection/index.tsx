@@ -31,23 +31,23 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
           <ButtonOption
             className={styles.recommended}
             secondaryText="RECOMMENDED"
-            onClick={this.props.nextStep}
+            onClick={this.props.nextStep.newSeed}
           >
             Create a new seed
           </ButtonOption>
         </div>
         <div>
-          <ButtonOption onClick={this.props.nextStep}>
+          <ButtonOption onClick={this.props.nextStep.newSeed}>
             Import my own seed
           </ButtonOption>
         </div>
         <div>
-          <ButtonOption onClick={this.props.nextStep} >
+          <ButtonOption onClick={this.props.nextStep.newSeed} >
             Use a master key
           </ButtonOption>
         </div>
         <div>
-          <ButtonOption onClick={this.props.nextStep} >
+          <ButtonOption onClick={this.props.nextStep.newSeed} >
             Use a hardware device
           </ButtonOption>
         </div>

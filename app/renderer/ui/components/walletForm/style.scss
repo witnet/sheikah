@@ -1,0 +1,27 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .centered {
+    grid-column-start: 2;
+    grid-row-start: 2;
+  }
+
+  .spinner {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .layout {
+    background: $grey-6;
+    display: grid;
+    grid-template-columns: 1fr 500px 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 100vh;
+    margin: 0 auto;
+    width: 100%;
+  }
+}

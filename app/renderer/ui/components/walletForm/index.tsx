@@ -1,15 +1,20 @@
 import * as React from "react"
+import Spinner from "app/renderer/ui/components/spinner"
 
 const styles = require("./style.scss")
 
+interface Props {
+  spinner: boolean
+}
+
 /**
- * SingupPage component
+ * WalletForm component
  *
  * @export
- * @class Signup
+ * @class WalletForm
  * @extends {React.Component}
  */
-export class Signup extends React.Component {
+export class WalletForm extends React.Component<Props> {
 
   /** render */
   // tslint:disable-next-line:prefer-function-over-method completed-docs
@@ -17,6 +22,7 @@ export class Signup extends React.Component {
     return (
       <div className={styles.layout}>
         <div className={styles.centered}>
+          <Spinner className={styles.spinner} active={this.props.spinner} />
           {this.props.children}
         </div>
       </div>

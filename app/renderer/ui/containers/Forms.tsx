@@ -7,7 +7,7 @@ import { StoreState } from "app/renderer/store"
 import {
   default as LoginFormContainer
 } from "app/renderer/ui/containers/LoginForm"
-import { SignupPage } from "app/renderer/ui/pages/signup"
+import WalletFormContainer from "app/renderer/ui/containers/WalletForm"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 import { Services } from "app/renderer/services"
 import { ifWallets } from "app/renderer/utils/guards"
@@ -29,7 +29,7 @@ export const Forms = (props: Props) => (
       <PropsRoute
         path={urls.NEW_WALLET}
         ownProps={props}
-        component={SignupPage}
+        component={WalletFormContainer}
       />
       <RedirectedRoute
         exact={true}
