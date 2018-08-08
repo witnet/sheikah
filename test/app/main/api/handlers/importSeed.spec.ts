@@ -2,8 +2,6 @@ import { ImportSeedError } from "app/common/runtimeTypes/ipc/wallets"
 import { importSeed } from "app/main/api/handlers"
 import { AppStateManager } from "app/main/appState"
 import { AppStateS } from "app/main/system"
-import * as crypto from "crypto"
-import { fromMnemonics } from "app/main/crypto/seed"
 import * as Slip32 from "slip32"
 
 /**
@@ -65,19 +63,16 @@ describe("importSeed Handler", () => {
     expect(result).toMatchObject(error("MISMATCHING_MNEMONICS"))
   })
 
-  it("should generate a wallet id if mnemonics is fine", async () => {
+  it("should import seed if mnemonics are fine", async () => {
     const params = {
       kind: "mnemonics",
       mnemonics: "fence recall half science actual limit wise pupil fish history cement oak"
     }
-    const { chainCode, masterSecret } = fromMnemonics(params.mnemonics)
     const result = await importSeed(system, params)
-    const id = generateId(chainCode, masterSecret)
-    expect(result).toMatchObject({ kind: "SUCCESS", id })
-    expect(system.appStateManager.state.unconsolidatedWallet).toMatchObject({ id })
+    expect(result).toMatchObject({ kind: "SUCCESS" })
   })
 
-  it("should generate a wallet from xprv", async () => {
+  it("should import seed from xprv", async () => {
     const params = {
       kind: "xprv",
       xprv: "xprv1qxqqqqqq78qr7hlewyyfzt74vasa87k63pu7g9e6hfzlzrdyh0v5k8zfw9sqpsyv7vcejeyz" +
@@ -89,20 +84,10 @@ describe("importSeed Handler", () => {
       chainCode: Buffer.from(extendedKey.chainCode),
       masterSecret: Buffer.from(extendedKey.key.bytes)
     }
-    const id = generateId(seed.chainCode, seed.masterSecret)
 
     const result = await importSeed(system, params)
 
-    expect(result).toMatchObject({ kind: "SUCCESS", id })
-    expect(system.appStateManager.state.unconsolidatedWallet).toMatchObject({ id, seed })
+    expect(result).toMatchObject({ kind: "SUCCESS" })
+    expect(system.appStateManager.state.unconsolidatedWallet).toMatchObject({ seed })
   })
 })
-
-/** Generate ID for testing */
-function generateId(chainCode: Buffer, masterSecret: Buffer): string {
-  const hash = crypto.pbkdf2Sync(
-    Buffer.concat([chainCode, masterSecret]),
-    "sheikah mnemonics", 4096, 32, "sha256")
-
-  return hash.toString("hex")
-}
