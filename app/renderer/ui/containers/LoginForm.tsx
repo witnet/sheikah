@@ -15,11 +15,11 @@ import WalletPasswordRequest from "app/renderer/ui/components/loginForm/steps/wa
 
 /**
  * Paths of the routes that are used in this container
+ * NOTE: root path MUST be "/forms/login"
  */
 export const PATHS = {
-  ROOT: "/forms/login",
-  WALLET_SELECTION: "/forms/login/welcome",
-  WALLET_PASSWORD_REQUEST: "/forms/login/password",
+  WALLET_SELECTION: "/forms/login",
+  WALLET_PASSWORD_PROMPT: "/forms/login/password",
 }
 
 /**
@@ -102,7 +102,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
     await this.changeState({ id })
 
     // Dispatch action to go to next route
-    this.props.goTo(PATHS.WALLET_PASSWORD_REQUEST)
+    this.props.goTo(PATHS.WALLET_PASSWORD_PROMPT)
   }
 
   /**
@@ -180,7 +180,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
       <LoginForm unlockInProgress={this.state.unlockInProgress}>
         <Switch>
           <Route
-            path={PATHS.WALLET_PASSWORD_REQUEST}
+            path={PATHS.WALLET_PASSWORD_PROMPT}
             render={this.renderWalletPasswordRequest}
           />
           <Route

@@ -6,7 +6,7 @@ import { StoreState } from "app/renderer/store"
 import App from "app/renderer/ui/containers/App"
 import {
   default as LoginFormContainer,
-  PATHS as PATHS_LOGIN_FORM
+  PATHS as LOGIN_FORM_PATHS
 } from "app/renderer/ui/containers/LoginForm"
 import MainPage from "./ui/pages/main"
 import { SignupPage } from "./ui/pages/signup"
@@ -23,24 +23,24 @@ export default (props: RoutesProps) => {
     <App>
       <Switch>
         <Route
-          // TODO: update with PATHS from new wallet form container
-          path="/forms/wallet"
-          render={newWalletRenderer}
-        />
-        <Route
           // TODO: update with PATHS from Main container
           path="/main"
           render={mainRenderer}
         />
         <Route
-          path={PATHS_LOGIN_FORM.ROOT}
+          // TODO: update with PATHS from new wallet form container
+          path="/forms/wallet"
+          render={newWalletRenderer}
+        />
+        <Route
+          path={LOGIN_FORM_PATHS.WALLET_SELECTION}
           render={loginRenderer}
         />
         <RedirectedRoute
           exact={true}
           path="/"
           guard={ifWallets(props.store)}
-          locationA={PATHS_LOGIN_FORM.WALLET_SELECTION}
+          locationA={LOGIN_FORM_PATHS.WALLET_SELECTION}
           // TODO: update with PATHS from new wallet form container
           locationB="/forms/wallet"
         />
