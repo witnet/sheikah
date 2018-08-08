@@ -1,0 +1,22 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .alert {
+    background: linear-gradient(to right, $red-2, $grey-3);
+    color: $red-6;
+    display: grid;
+    grid-row-start: 2;
+    padding-left: 1em;
+  }
+
+  .alert-grid {
+    display: grid;
+    grid-column-start: 3;
+    grid-row-start: 2;
+    grid-template-rows: 35% 1fr 1fr;
+  }
+
+  .error {
+    color: $red-4;
+  }
+}
