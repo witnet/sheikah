@@ -6,10 +6,9 @@ import { CardDefault } from "app/renderer/ui/components/card"
 const styles = require("./style.scss")
 
 export interface Iprops {
-  nextStep: any
-  className: any
+  className: string
+  nextStep: () => Promise<void>
 }
-
 /**
  * Step walled seed type selection UI component
  *
@@ -17,7 +16,6 @@ export interface Iprops {
  * @class WalletSeedTypeSelection
  * @extends {React.Component<Iprops>}
  */
-
 export default class WalletSeedTypeSelection extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method completed-docs
