@@ -7,7 +7,7 @@ export const commonConfig: Partial<Config> = {
     version: (process.env.npm_package_version || "0.0.0").split(".").map((n) => parseInt(n, 10)),
     env: inDevelopment ? "dev" : "prod"
   },
-  mnemonicsIdGeneration: {
+  walletIdGeneration: {
     salt: "sheikah seed",
     hashIterations: 4096,
     keyByteLength: 32,

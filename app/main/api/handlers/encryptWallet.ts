@@ -252,10 +252,10 @@ function generateId(seed: Seed): string {
   try {
     return crypto.pbkdf2Sync(
       Buffer.concat([seed.chainCode, seed.masterSecret]),
-      config.mnemonicsIdGeneration.salt,
-      config.mnemonicsIdGeneration.hashIterations,
-      config.mnemonicsIdGeneration.keyByteLength,
-      config.mnemonicsIdGeneration.hashFunctionName
+      config.walletIdGeneration.salt,
+      config.walletIdGeneration.hashIterations,
+      config.walletIdGeneration.keyByteLength,
+      config.walletIdGeneration.hashFunctionName
     ).toString("hex")
   } catch { throw encryptWalletErrors.ID_GENERATION_ERROR }
 }
