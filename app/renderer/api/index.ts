@@ -19,6 +19,8 @@ export { newMnemonics } from "./newMnemonics"
 export { getWallets } from "./getWallets"
 export { getWallet } from "./getWallet"
 
+export { encryptWallet } from "./encryptWallet"
+export { validateMnemonics } from "./validateMnemonics"
 /** Options type expected by `Client` */
 export type Options = {
   /** Channel name used by the client to send requests/notifications */
