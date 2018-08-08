@@ -4,16 +4,16 @@ import { connect } from "react-redux"
 import { bindActionCreators, Dispatch } from "redux"
 
 import log from "app/common/logging"
+import { assertNever } from "app/common/utils"
 import { StoreState } from "app/renderer/store"
 import { Wallets, newMnemonicsErrors } from "app/common/runtimeTypes/storage/wallets"
-import { encryptWalletErrors, validateMnemonicsErrors } from "app/common/runtimeTypes/ipc/wallets"
+import { encryptWalletErrors } from "app/common/runtimeTypes/ipc/wallets"
 import { newMnemonics, encryptWallet, validateMnemonics } from "app/renderer/api"
 import { IAction } from "app/renderer/actions/helpers"
 import { saveWallet } from "app/renderer/actions/loginForm"
 
 import { WalletForm } from "app/renderer/ui/components/walletForm"
 import {
-  AddressesGeneration,
   WalletEncryptionPassword,
   WalletSeedBackup,
   WalletSeedConfirmation,
@@ -353,63 +353,7 @@ class WalletFormContainer extends
    * @private
    * @memberof WalletFormContainer
    */
-  private renderAddressGeneration = () => {
-    const generateAddress = async () => {
-      this.setState({ spinner: true })
 
-      const encryptWalletResponse = await encryptWallet(
-        this.props.services.apiClient,
-        this.state.password
-      )
-      this.setState({ spinner: false })
-
-      if (encryptWalletResponse.kind === "SUCCESS") {
-        await this.props.actions.saveWallet(encryptWalletResponse.wallet)
-        this.to(PATHS.MAIN)()
-      } else {
-        // TODO: improve error handler
-        switch (encryptWalletResponse.error) {
-          case encryptWalletErrors.INVALID_MNEMONICS.value:
-            log.error(encryptWalletResponse)
-            this.to(PATHS.WELCOME)()
-            break
-          case encryptWalletErrors.INVALID_WALLET_ID.value:
-            log.error(encryptWalletResponse)
-            this.to(PATHS.WELCOME)()
-            break
-          case encryptWalletErrors.STORAGE_CREATION_FAILURE.value:
-            log.error(encryptWalletResponse)
-            this.to(PATHS.WELCOME)()
-            break
-          case encryptWalletErrors.UNAVAILABLE_UNCONSOLIDATED_WALLET.value:
-            log.error(encryptWalletResponse)
-            this.to(PATHS.WELCOME)()
-            break
-          case encryptWalletErrors.WALLET_REPLACE_FAILURE.value:
-            log.error(encryptWalletResponse)
-            this.to(PATHS.WELCOME)()
-            break
-          case encryptWalletErrors.WALLET_STORE_FAILURE.value:
-            log.error(encryptWalletResponse)
-            this.to(PATHS.WELCOME)()
-            break
-          case encryptWalletErrors.WRONG_TYPE_PARAMS.value:
-            log.error(encryptWalletResponse)
-            this.to(PATHS.WELCOME)()
-            break
-          default:
-            log.error(encryptWalletResponse)
-            this.to(PATHS.WELCOME)()
-        }
-      }
-    }
-
-    return (
-      <AddressesGeneration
-        generateAddress={generateAddress}
-      />
-    )
-  }
   /** render */
   public render() {
     return (
@@ -432,7 +376,10 @@ class WalletFormContainer extends
               path={WALLET_ENCRYPTION_PASSWORD}
               render={this.renderEncryptionPassword}
             />
-            <Route path={PATHS.WELCOME} render={this.renderWelcome} />
+            <Route
+              path="/"
+              render={this.renderWelcome}
+            />
           </Switch>
         </WalletForm>
       </>

@@ -1,4 +1,4 @@
-import { ValidateMnemonicsResponse } from "app/common/runtimeTypes/ipc/wallets"
+import { NewMnemonicsResponse } from "app/common/runtimeTypes/storage/wallets"
 import { Client } from "app/renderer/api"
 
 /**
@@ -9,7 +9,7 @@ import { Client } from "app/renderer/api"
  * @param caption
  */
 export const validateMnemonics = async (client: Client, mnemonics: string):
-  Promise<ValidateMnemonicsResponse> => {
+  Promise<NewMnemonicsResponse> => {
   const validateMnemonicsParams = { mnemonics }
 
   return client.request("validateMnemonics", validateMnemonicsParams)

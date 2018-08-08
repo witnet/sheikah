@@ -1,6 +1,10 @@
 import * as React from "react"
 import { RouteComponentProps } from "react-router"
 
+export const PATHS = {
+  MAIN: "/main"
+}
+
 /**
  * Wallet Form UI component
  *

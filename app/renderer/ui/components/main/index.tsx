@@ -1,3 +1,6 @@
+import React = require("react")
+import { RouteComponentProps, Switch, Route } from "react-router"
+
 import Sidebar from "app/renderer/ui/components/sidebar"
 
 import SmartContractsSection from "app/renderer/ui/components/main/sections/smartContracts"

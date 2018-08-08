@@ -6,8 +6,9 @@ import { CardDefault } from "app/renderer/ui/components/card"
 const styles = require("./style.scss")
 
 export interface Iprops {
-  className: string
-  nextStep: () => Promise<void>
+  className?: string
+  nextStep: { newSeed: () => Promise<void> }
+
 }
 /**
  * Step walled seed type selection UI component
