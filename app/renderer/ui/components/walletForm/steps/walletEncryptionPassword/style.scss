@@ -1,0 +1,24 @@
+:local {
+  @import "app/renderer/ui/colors";
+
+  .fields {
+    display: inline-block;
+    width: 100%;
+
+    * {
+      display: inline-block;
+    }
+
+    *:nth-child(odd) {
+      width: 50%;
+    }
+
+    *:nth-child(even) {
+      width: 50%;
+    }
+  }
+
+  .error {
+    color: $red-4;
+  }
+}
