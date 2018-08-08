@@ -21,20 +21,20 @@ export default (props: RoutesProps) => {
       <Switch>
         <Route
           // TODO: update with PATHS from Main container
-          path="/main"
+          path={urls.MAIN}
           render={mainRenderer}
         />
         <Route
-          path={urls.forms}
+          path={urls.FORMS}
           component={Forms}
         />
         <RedirectedRoute
           exact={true}
           path="/"
           guard={ifWallets(props.store)}
-          locationA={urls.login}
+          locationA={urls.LOGIN}
           // TODO: update with PATHS from new wallet form container
-          locationB={urls.newWallet}
+          locationB={urls.NEW_WALLET}
         />
       </Switch>
     </App>

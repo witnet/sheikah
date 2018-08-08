@@ -18,11 +18,11 @@ export const Forms = ({ match, store }: Props) => (
   <div>
     <Switch>
       <Route
-        path={urls.login}
+        path={urls.LOGIN}
         component={LoginFormContainer}
       />
       <Route
-        path={urls.newWallet}
+        path={urls.NEW_WALLET}
         component={SignupPage}
       />
     </Switch>

@@ -1,3 +1,5 @@
-export const forms = "/forms"
-export const login = "/forms/login"
-export const newWallet = "/forms/wallet"
+export const FORMS = "/forms"
+export const LOGIN = "/forms/login"
+export const NEW_WALLET = "/forms/wallet"
+
+export const MAIN = "/main"
