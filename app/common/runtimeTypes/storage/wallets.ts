@@ -204,5 +204,5 @@ export const UnconsolidatedWallet = t.partial({
   id: t.string,
   seed: Seed,
   mnemonics: t.string
-})
+}, "UnconsolidatedWallet")
 export type UnconsolidatedWallet = t.TypeOf<typeof UnconsolidatedWallet>

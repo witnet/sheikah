@@ -56,7 +56,7 @@ export default async function encryptWallet(system: AppStateS & WalletStorageS, 
  * Wrapper around asType to parse params as EncryptWalletParams
  */
 async function parseParams(params: any): Promise<EncryptWalletParams> {
-  return asType(params, EncryptWalletParams, encryptWalletErrors.WRONG_TYPE_PARAMS)
+  return asType(params, EncryptWalletParams, encryptWalletErrors.INVALID_METHOD_PARAMS)
 }
 
 /** Data required to build a wallet, union of WalletParams and UnconsolidatedWallet */

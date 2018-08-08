@@ -107,6 +107,7 @@ export const EncryptWalletSuccess = t.type({
 
 export const encryptWalletErrors = {
   ID_GENERATION_ERROR: t.literal("ID_GENERATION_ERROR"),
+  INVALID_METHOD_PARAMS: t.literal("INVALID_METHOD_PARAMS"),
   INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS"),
   INVALID_SEED: t.literal("INVALID_SEED"),
   INVALID_WALLET_ID: t.literal("INVALID_WALLET_ID"),
@@ -114,7 +115,6 @@ export const encryptWalletErrors = {
   UNAVAILABLE_UNCONSOLIDATED_WALLET: t.literal("UNAVAILABLE_UNCONSOLIDATED_WALLET"),
   WALLET_REPLACE_FAILURE: t.literal("WALLET_REPLACE_FAILURE"),
   WALLET_STORE_FAILURE: t.literal("WALLET_STORE_FAILURE"),
-  WRONG_TYPE_PARAMS: t.literal("WRONG_TYPE_PARAMS"),
 }
 
 export const EncryptWalletErrors = t.union(Object.values(encryptWalletErrors))
