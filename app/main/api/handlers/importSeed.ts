@@ -1,4 +1,3 @@
-import { config } from "app/common/config"
 import { asObject, asRuntimeType, Contexts } from "app/common/runtimeTypes"
 import {
   ImportSeedError,
@@ -12,7 +11,6 @@ import * as mnemonic from "app/main/crypto/mnemonic"
 
 import { AppStateS } from "app/main/system"
 import { fanOut, inject } from "app/main/utils/utils"
-import * as crypto from "crypto"
 import { LiteralType } from "io-ts"
 import { Seed } from "app/common/runtimeTypes/storage/wallets"
 import * as Slip32 from "slip32"
@@ -33,7 +31,6 @@ export default async function importSeed
   return parseParams(params)
     // Get the seed from the params
     .then(inject(getSeed, appStateManager))
-    .then(buildUnconsolidatedWallet)
     // Update or insert unconsolidated wallet into app state
     .then(inject(upsertUnconsolidated, appStateManager))
     // The handler logic ends here. What follows is response building and encoding.
@@ -46,7 +43,7 @@ export default async function importSeed
 }
 
 // Function to assert a never value
-const assertNever = (x: never) => undefined
+const assertNever = (_x: never) => undefined
 
 /**
  * Get seed from params
@@ -82,17 +79,6 @@ async function processMnemonics(mnemonics: string, appStateManager: AppStateMana
     // In parallel: validate mnemonic, check mnemonic against unconsolidated wallet
     .then(fanOut([validateMnemonicsString, inject(matchMnemonics, appStateManager)]))
     .then(seedFromMnemonics)
-}
-
-/**
- * Generates an ID and builds and returns an UnconsolidatedWallet
- * @param seed
- */
-async function buildUnconsolidatedWallet(seed: Seed) {
-  return {
-    id: generateId(seed),
-    seed
-  }
 }
 
 /**
@@ -134,22 +120,6 @@ async function parseParams(params: any): Promise<ImportSeedParams> {
 }
 
 /**
- * Generate an id string given a mnemonics string.
- * @param mnemonics
- */
-function generateId(seed: Seed): string {
-  try {
-    return crypto.pbkdf2Sync(
-      Buffer.concat([seed.chainCode, seed.masterSecret]),
-      config.mnemonicsIdGeneration.salt,
-      config.mnemonicsIdGeneration.hashIterations,
-      config.mnemonicsIdGeneration.keyByteLength,
-      config.mnemonicsIdGeneration.hashFunctionName
-    ).toString("hex")
-  } catch { throw importSeedErrors.ID_GENERATION_ERROR }
-}
-
-/**
  * Validate if a string is a valid mnemonics string.
  * @param mnemonics
  */
@@ -176,16 +146,15 @@ function matchMnemonics(mnemonics: string, appStateManager: AppStateManager): st
 }
 
 /**
- * Update or insert unconsolidated wallet into app state.
- * @param appStateManager
+ * Update or insert seed into unconsolidated wallet in app state.
+ * @param seed
  * @param unconsolidated
  */
 function upsertUnconsolidated
-  ({ id, seed }: { id: string, seed: Seed }, appStateManager: AppStateManager): string {
+  (seed: Seed, appStateManager: AppStateManager) {
   try {
-    appStateManager.update({ unconsolidatedWallet: { id, seed } })
+    appStateManager.update({ unconsolidatedWallet: { seed } })
 
-    return id
   } catch {
     throw importSeedErrors.UNCONSOLIDATED_UPDATE_FAILURE
   }
@@ -195,8 +164,8 @@ function upsertUnconsolidated
  * Build success response.
  * @param id
  */
-function buildSuccessResponse(id: string): ImportSeedResponse {
-  return { kind: "SUCCESS", id }
+function buildSuccessResponse(): ImportSeedResponse {
+  return { kind: "SUCCESS" }
 }
 
 /**
