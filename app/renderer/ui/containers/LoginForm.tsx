@@ -12,6 +12,9 @@ import { LoginForm } from "app/renderer/ui/components/loginForm"
 import { StoreState } from "app/renderer/store"
 import WalletSelection from "app/renderer/ui/components/loginForm/steps/walletSelection"
 import WalletPasswordRequest from "app/renderer/ui/components/loginForm/steps/walletPasswordRequest"
+import { Services } from "app/renderer/services"
+import * as api from "app/renderer/api"
+import { GetWalletResponse } from "app/common/runtimeTypes/ipc/wallets"
 
 /**
  * Paths of the routes that are used in this container
@@ -39,10 +42,17 @@ export interface DispatchProps {
 }
 
 /**
+ * Own props
+ */
+export interface OwnProps {
+  services: Services
+}
+
+/**
  * Transitive form state
  */
 export interface FormState {
-  id?: string,
+  id: string,
   errorMessage?: string,
   unlockInProgress: boolean
 }
@@ -70,16 +80,23 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
 }
 
 /**
+ * Function to assert a never value
+ * @param x
+ */
+const assertNever = (x: never) => undefined
+
+/**
  * Login form container UI component
  *
  * @class LoginFormContainer
  * @extends {React.Component<StateProps & DispatchProps & OwnProps>}
  */
-class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
+class LoginFormContainer extends React.Component<StateProps & DispatchProps & OwnProps> {
   /**
    * Container transitive state
    */
   public state: FormState = {
+    id: "",
     unlockInProgress: false
   }
 
@@ -135,7 +152,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
     await this.changeState({ unlockInProgress: true })
 
     // Dispatch action to unlock wallet and catch error
-    this.props.actions.unlockWallet(this.state.id, password)
+    this.unlockWallet(this.state.id, password, this.props.services)
       .then((wallet: Wallet) => {
         // Save wallet
         this.props.actions.saveWallet(wallet)
@@ -148,6 +165,36 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps> {
         // Set error message in the state
         await this.changeState({ errorMessage, unlockInProgress: false })
       })
+  }
+
+  /**
+   * Method to perform an async call to renderer API to unlock a wallet and resolve/reject a promise
+   * depending on the result of that call
+   * @param id
+   * @param password
+   * @param services
+   */
+  private unlockWallet = async (id: string, password: string, services: Services) => {
+    return new Promise<Wallet>((resolve, reject) => {
+      // Try to retrieve wallet from renderer API & dispatch wallet or error
+      api.getWallet(services.apiClient, id, password)
+        .then((walletResponse: GetWalletResponse) => {
+          // Check wallet response type
+          switch (walletResponse.kind) {
+            case "SUCCESS":
+              resolve(walletResponse.wallet)
+              break
+            case "ERROR":
+              reject(walletResponse.error)
+              break
+            default:
+              assertNever(walletResponse)
+          }
+        })
+        .catch((error) => {
+          reject(`UNLOCK_WALLET_UNEXPECTED_ERROR ${error.message}`)
+        })
+    })
   }
 
   /**
