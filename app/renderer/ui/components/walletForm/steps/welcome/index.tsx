@@ -6,8 +6,8 @@ import { CardDefault } from "app/renderer/ui/components/card"
 const styles = require("./style.scss")
 
 export interface Iprops {
-  className?: any
-  nextStep: any
+  className?: string
+  nextStep: () => void
 }
 
 /**
@@ -17,7 +17,6 @@ export interface Iprops {
  * @class Welcome
  * @extends {React.Component<Iprops>}
  */
-
 export default class Welcome extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
