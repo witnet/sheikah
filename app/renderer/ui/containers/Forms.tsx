@@ -2,6 +2,7 @@ import * as React from "react"
 import { Route, Switch, match } from "react-router"
 import { Store } from "redux"
 
+import * as urls from "app/common/constants/urls"
 import { StoreState } from "app/renderer/store"
 import {
   default as LoginFormContainer
@@ -17,11 +18,11 @@ export const Forms = ({ match, store }: Props) => (
   <div>
     <Switch>
       <Route
-        path={`${match.url}/login`}
+        path={urls.login}
         component={LoginFormContainer}
       />
       <Route
-        path={`${match.url}/wallet`}
+        path={urls.newWallet}
         component={SignupPage}
       />
     </Switch>

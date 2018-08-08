@@ -2,6 +2,7 @@ import * as React from "react"
 import { Store } from "redux"
 import { Route, Switch } from "react-router"
 
+import * as urls from "app/common/constants/urls"
 import { StoreState } from "app/renderer/store"
 import App from "app/renderer/ui/containers/App"
 import Forms from "./ui/containers/Forms"
@@ -24,16 +25,16 @@ export default (props: RoutesProps) => {
           render={mainRenderer}
         />
         <Route
-          path="/forms"
+          path={urls.forms}
           component={Forms}
         />
         <RedirectedRoute
           exact={true}
           path="/"
           guard={ifWallets(props.store)}
-          locationA="/forms/login"
+          locationA={urls.login}
           // TODO: update with PATHS from new wallet form container
-          locationB="/forms/wallet"
+          locationB={urls.newWallet}
         />
       </Switch>
     </App>
