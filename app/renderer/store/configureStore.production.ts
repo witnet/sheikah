@@ -1,10 +1,9 @@
-import rootReducer from "app/renderer/reducers"
-import { Services } from "app/renderer/services"
 import { connectRouter, routerMiddleware } from "connected-react-router"
 import createHashHistory from "history/createHashHistory"
 import { applyMiddleware, compose, createStore } from "redux"
-import thunk from "redux-thunk"
-import { StoreState } from "./index"
+
+import rootReducer from "app/renderer/reducers"
+import { StoreState } from "app/renderer/store"
 
 const history = createHashHistory()
 const router = routerMiddleware(history)
@@ -15,9 +14,9 @@ const router = routerMiddleware(history)
  * @param initialState
  * @param services
  */
-function configureStore(initialState: StoreState, services: Services) {
+function configureStore(initialState: StoreState) {
 
-  const middlewares = [thunk.withExtraArgument(services), router]
+  const middlewares = [router]
 
   const enhancer = compose(applyMiddleware.apply(undefined, middlewares))
 

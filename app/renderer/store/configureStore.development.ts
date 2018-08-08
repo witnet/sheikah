@@ -1,11 +1,10 @@
-import { Services } from "app/renderer/services"
 import { createStore, applyMiddleware, compose } from "redux"
-import thunk from "redux-thunk"
 import { createHashHistory } from "history"
 import { connectRouter, push, routerMiddleware } from "connected-react-router"
 import { createLogger } from "redux-logger"
+
 import rootReducer from "app/renderer/reducers"
-import { StoreState } from "./index"
+import { StoreState } from "app/renderer/store"
 
 declare const window: Window & {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?(a: any): void
@@ -49,9 +48,9 @@ const composeEnhancers: typeof compose =
  * @param initialState
  * @param services
  */
-function configureStore(initialState: StoreState, services: Services) {
+function configureStore(initialState: StoreState) {
 
-  const middlewares: Array<any> = [thunk.withExtraArgument(services), router]
+  const middlewares: Array<any> = [router]
   if (process.env.NODE_ENV === "development") {
     middlewares.push(logger)
   }
