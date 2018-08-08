@@ -1,4 +1,4 @@
-import { Wallet, CURRENT_WALLET_VERSION } from "app/common/runtimeTypes/storage/wallets"
+import { Wallet, CURRENT_WALLET_VERSION, Seed } from "app/common/runtimeTypes/storage/wallets"
 import { EncryptWalletParams } from "app/common/runtimeTypes/ipc/wallets"
 import { WalletStorage } from "app/main/subsystems/wallets"
 import { JsonSerializable } from "app/common/serializers/json"
@@ -10,31 +10,33 @@ import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 import { AppStateManager } from "app/main/appState"
 import { AppStateS, WalletStorageS } from "app/main/system"
 import { fromMnemonics } from "app/main/crypto/seed"
+import * as crypto from "crypto"
 
 export const walletParams: EncryptWalletParams = {
-  id: "42",
   caption: "Hello World",
   password: "abc123"
 }
 export const defaultMnemonics =
   "gun illegal rough meat planet public weasel pact pipe few bitter burst arm good choice"
 
+const seed: Seed = {
+  chainCode: Buffer.from(
+    [152, 8, 159, 246, 221, 27, 159, 171, 139, 98, 82, 232, 229, 140, 201, 2, 78, 113, 141, 104,
+      187, 192, 191, 147, 91, 108, 192, 174, 214, 251, 100, 79]),
+  masterSecret: Buffer.from(
+    [196, 188, 49, 56, 180, 80, 166, 118, 177, 247, 66, 74, 173, 113, 48, 127, 194, 4, 164, 0,
+      70, 14, 21, 211, 113, 209, 238, 121, 124, 251, 139, 168]),
+}
+
 export const wallet: Wallet = {
   _v: CURRENT_WALLET_VERSION,
   // walletInfo
-  id: "42",
+  id: generateId(seed),
   caption: "Hello World",
   // SeedInfo
   seed: {
     kind: "Wip3",
-    seed: {
-      chainCode: Buffer.from(
-        [152, 8, 159, 246, 221, 27, 159, 171, 139, 98, 82, 232, 229, 140, 201, 2, 78, 113, 141, 104,
-          187, 192, 191, 147, 91, 108, 192, 174, 214, 251, 100, 79]),
-      masterSecret: Buffer.from(
-        [196, 188, 49, 56, 180, 80, 166, 118, 177, 247, 66, 74, 173, 113, 48, 127, 194, 4, 164, 0,
-          70, 14, 21, 211, 113, 209, 238, 121, 124, 251, 139, 168]),
-    },
+    seed
   },
   // EpochsInfo
   epochs: {
@@ -92,11 +94,19 @@ export function systemFactory(mnemonics?: string): AppStateS & WalletStorageS {
         seed: {
           chainCode,
           masterSecret
-        },
-        id: walletParams.id
+        }
       }
     }),
     walletStorage: new WalletStorage(),
     storageFactory: inMemoryStorage
   }
+}
+
+/** Generate ID for testing */
+export function generateId({ chainCode, masterSecret }: Seed): string {
+  const hash = crypto.pbkdf2Sync(
+    Buffer.concat([chainCode, masterSecret]),
+    "sheikah seed", 4096, 32, "sha256")
+
+  return hash.toString("hex")
 }
