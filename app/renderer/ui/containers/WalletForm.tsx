@@ -7,7 +7,10 @@ import log from "app/common/logging"
 import { assertNever } from "app/common/utils"
 import { StoreState } from "app/renderer/store"
 import { Wallets, newMnemonicsErrors } from "app/common/runtimeTypes/storage/wallets"
-import { encryptWalletErrors } from "app/common/runtimeTypes/ipc/wallets"
+import {
+  encryptWalletErrors,
+  importSeedErrors as validteMnemonicsErrors,
+} from "app/common/runtimeTypes/ipc/wallets"
 import { newMnemonics, encryptWallet, validateMnemonics } from "app/renderer/api"
 import { IAction } from "app/renderer/actions/helpers"
 import { saveWallet } from "app/renderer/actions/loginForm"

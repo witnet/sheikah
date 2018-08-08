@@ -172,7 +172,7 @@ function buildSuccessResponse(): ImportSeedResponse {
  * Build error response.
  * @param error
  */
-function buildErrorResponse
+export function buildErrorResponse
   (error: LiteralType<ImportSeedError["error"]>): ImportSeedResponse {
   return { kind: "ERROR", error: error.value }
 }
