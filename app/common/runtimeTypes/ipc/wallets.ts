@@ -107,6 +107,7 @@ export const EncryptWalletSuccess = t.type({
 
 export const encryptWalletErrors = {
   ID_GENERATION_ERROR: t.literal("ID_GENERATION_ERROR"),
+  INVALID_KEY_PATH: t.literal("INVALID_KEY_PATH"),
   INVALID_METHOD_PARAMS: t.literal("INVALID_METHOD_PARAMS"),
   INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS"),
   INVALID_SEED: t.literal("INVALID_SEED"),

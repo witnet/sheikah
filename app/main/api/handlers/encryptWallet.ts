@@ -1,5 +1,5 @@
 import { AppStateS, WalletStorageS } from "app/main/system"
-import { asRuntimeType, asObject } from "app/common/runtimeTypes"
+import { asObject } from "app/common/runtimeTypes"
 import {
   EncryptWalletParams,
   EncryptWalletResponse,
@@ -7,7 +7,6 @@ import {
   EncryptWalletError
 } from "app/common/runtimeTypes/ipc/wallets"
 import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
-import { Storage } from "app/main/storage"
 import {
   ExtendedKey,
   Wallet,
@@ -38,13 +37,9 @@ export default async function encryptWallet(system: AppStateS & WalletStorageS, 
   Promise<JsonSerializable> {
 
   return parseParams(params)
-    .then(async (p) => Promise.all([
-      Promise.resolve(p)
-        .then(inject(newWalletStorage, system.storageFactory)),
-      Promise.resolve(p)
-        .then(inject(getUnconsolidatedData, system.appStateManager))
-        .then(inject(newWallet, system.appStateManager))
-    ]))
+    .then(inject(getUnconsolidatedData, system.appStateManager))
+    .then(newWallet)
+    .then(inject(newWalletStorage, system.storageFactory))
     .then(storeWallet)
     .then(inject(replaceWallet, system))
     .then(buildSuccessResponse)
@@ -86,7 +81,9 @@ function getUnconsolidatedData(params: EncryptWalletParams, appStateManager: App
 /**
  * Stores wallet in WalletStorage.
  */
-async function storeWallet([walletStorage, wallet]: [JsonAesLevelStorage, Wallet]) {
+async function storeWallet(
+  { walletStorage, wallet }: { walletStorage: JsonAesLevelStorage, wallet: Wallet }
+) {
   try {
     const storableWallet = Wallet.encode(wallet)
     await walletStorage.put("wallet", storableWallet)
@@ -155,8 +152,7 @@ function encodeResponse(response: EncryptWalletResponse): JsonSerializable {
  */
 function newWallet(
   { password, caption, seed }: UnconsolidatedData,
-  appStateManager: AppStateManager
-): Wallet {
+) {
 
   const walletInfo: WalletInfo = {
     id: generateId(seed),
@@ -173,8 +169,7 @@ function newWallet(
   }
   const path = "m/3'/4919'/0'"
   const account = createAccount(path, extendedKey)
-
-  return {
+  const wallet: Wallet = {
     ...walletInfo,
     _v: CURRENT_WALLET_VERSION,
     seed: seedInfo,
@@ -185,6 +180,8 @@ function newWallet(
     purpose: 0x80000003,
     accounts: [account]
   }
+
+  return { wallet, password }
 }
 
 /**
@@ -224,7 +221,7 @@ function createKeyChain(keyPath: string): KeyChain {
  * @param keyPath
  */
 function asKeyPath(keyPath: string): KeyPath {
-  return asRuntimeType(keyPath, KeyPath)
+  return asType(keyPath, KeyPath, encryptWalletErrors.INVALID_KEY_PATH)
 }
 
 /**
@@ -233,12 +230,13 @@ function asKeyPath(keyPath: string): KeyPath {
  * @returns {Promise<JsonAesLevelStorage>}
  */
 async function newWalletStorage(
-  params: EncryptWalletParams,
+  { wallet, password }: { wallet: Wallet, password: string },
   storageFactory: WalletStorageS["storageFactory"]
-): Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>> {
-
+) {
   try {
-    return storageFactory(params)
+    const walletStorage: JsonAesLevelStorage = await storageFactory({ id: wallet.id, password })
+
+    return { walletStorage, wallet }
   } catch {
     throw encryptWalletErrors.STORAGE_CREATION_FAILURE
   }
