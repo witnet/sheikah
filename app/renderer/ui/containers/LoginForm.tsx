@@ -16,14 +16,7 @@ import { Services } from "app/renderer/services"
 import * as api from "app/renderer/api"
 import { GetWalletResponse } from "app/common/runtimeTypes/ipc/wallets"
 
-/**
- * Paths of the routes that are used in this container
- * NOTE: root path MUST be "/forms/login"
- */
-export const PATHS = {
-  WALLET_SELECTION: "/forms/login",
-  WALLET_PASSWORD_PROMPT: "/forms/login/password",
-}
+import * as urls from "app/renderer/constants/urls"
 
 /**
  * Props that match redux store state
@@ -119,7 +112,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
     await this.changeState({ id })
 
     // Dispatch action to go to next route
-    this.props.goTo(PATHS.WALLET_PASSWORD_PROMPT)
+    this.props.goTo(urls.WALLET_PASSWORD_PROMPT)
   }
 
   /**
@@ -128,8 +121,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    */
   private walletSelectNewWallet = async () => {
     // Dispatch action to go to next route
-    // TODO: goTo("/forms/wallet") needs to be replaced by goTo(PATH.NEWWALLET)?
-    this.props.goTo("/forms/wallet")
+    this.props.goTo(urls.NEW_WALLET)
   }
 
   /**
@@ -158,8 +150,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
         this.props.actions.saveWallet(wallet)
 
         // Dispatch action to go to next route
-        // TODO: goTo("/main") needs to be replaced by goTo(MAIN_PATHS.MAIN)
-        this.props.goTo("/main")
+        this.props.goTo(urls.MAIN)
       })
       .catch(async (errorMessage: string) => {
         // Set error message in the state
@@ -227,11 +218,11 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
       <LoginForm unlockInProgress={this.state.unlockInProgress}>
         <Switch>
           <Route
-            path={PATHS.WALLET_PASSWORD_PROMPT}
+            path={urls.WALLET_PASSWORD_PROMPT}
             render={this.renderWalletPasswordRequest}
           />
           <Route
-            path={PATHS.WALLET_SELECTION}
+            path={urls.WALLET_SELECTION}
             render={this.renderWalletSelection}
           />
         </Switch>
