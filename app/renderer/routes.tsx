@@ -1,14 +1,12 @@
 import * as React from "react"
 import { Store } from "redux"
-import { Switch } from "react-router"
+import { Switch, Route, Redirect } from "react-router"
 
 import * as urls from "app/renderer/constants/urls"
 import { StoreState } from "app/renderer/store"
 import App from "app/renderer/ui/containers/App"
-import Forms from "./ui/containers/Forms"
+import FormsContainer from "./ui/containers/Forms"
 import MainPage from "./ui/pages/main"
-import { ifWallets } from "./utils/guards"
-import { RedirectedRoute } from "./utils/redirectedRoute"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 import { Services } from "app/renderer/services"
 
@@ -29,17 +27,17 @@ export default (props: RoutesProps) => {
         <PropsRoute
           path={urls.FORMS}
           ownProps={props}
-          component={Forms}
+          component={FormsContainer}
         />
-        <RedirectedRoute
+        <Route
           exact={true}
           path="/"
-          guard={ifWallets(props.store)}
-          locationA={urls.LOGIN}
-          // TODO: update with PATHS from new wallet form container
-          locationB={urls.NEW_WALLET}
+          render={redirectToForms}
         />
       </Switch>
     </App>
   )
 }
+
+// Function to redirect to forms container
+const redirectToForms = () => <Redirect to={urls.FORMS}/>
