@@ -59,7 +59,6 @@
     "no-unsafe-any": false,
     "no-unsafe-finally": true,
     "no-unused-expression": true,
-    "no-unused-variable": [true, {"ignore-pattern":"^_"}],
     "no-use-before-declare": false,
     "no-var-keyword": true,
     "no-var-requires": false,
