@@ -2,7 +2,7 @@ import * as React from "react"
 import { Route, Switch, match } from "react-router"
 import { Store } from "redux"
 
-import * as urls from "app/common/constants/urls"
+import * as urls from "app/renderer/constants/urls"
 import { StoreState } from "app/renderer/store"
 import {
   default as LoginFormContainer

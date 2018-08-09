@@ -2,7 +2,7 @@ import * as React from "react"
 import { Store } from "redux"
 import { Route, Switch } from "react-router"
 
-import * as urls from "app/common/constants/urls"
+import * as urls from "app/renderer/constants/urls"
 import { StoreState } from "app/renderer/store"
 import App from "app/renderer/ui/containers/App"
 import Forms from "./ui/containers/Forms"
