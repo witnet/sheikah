@@ -184,6 +184,8 @@ class WalletFormContainer extends
         case encryptWalletErrors.INVALID_SEED.value:
         case encryptWalletErrors.INVALID_METHOD_PARAMS.value:
         case encryptWalletErrors.INVALID_KEY_PATH.value:
+        case encryptWalletErrors.UNAVAILABLE_WALLET_INFOS.value:
+        case encryptWalletErrors.WALLET_PLAIN_STORAGE_FAILURE.value:
           log.error(encryptWalletResponse)
           this.to(WELCOME)()
           break
