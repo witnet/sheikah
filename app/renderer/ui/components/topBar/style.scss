@@ -1,8 +1,8 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .top-bar {
-    border-bottom: 1px solid $grey-6;
+    border-bottom: $top_bar-border;
     display: grid;
     grid-template-columns: repeat(6, auto) 1fr;
     padding-left: 1em;
@@ -10,15 +10,15 @@
 
   .link-box {
     align-items: center;
-    color: $grey-6;
+    color: $top_bar-link-default-color;
     display: flex;
     font-weight: bold;
     grid-row: 1;
     padding: 0 2em;
 
     .active {
-      border-bottom: 2px solid $blue-6;
-      color: $grey-9;
+      border-bottom: $top_bar-link-active-border;
+      color: $top_bar-link-active-color;
     }
   }
 }

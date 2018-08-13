@@ -1,13 +1,13 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .spinner {
     animation: spin 1s infinite linear;
-    border: 2px dotted $grey-6;
+    border: $spinner-main-border;
     border-radius: 100%;
-    border-top: 3px solid $purple-6;
-    height: 80px;
-    width: 80px;
+    border-top: $spinner-secondary-border;
+    height: $spinner-height;
+    width: $spinner-width;
   }
 
   @keyframes spin {

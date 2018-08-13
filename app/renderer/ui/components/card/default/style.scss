@@ -1,11 +1,11 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .content {
     padding: 2em;
   }
 
   .card {
-    box-shadow: 0 0 5px 0 $grey-3;
+    box-shadow: $card-default-shadow;
   }
 }

@@ -1,9 +1,9 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .underlined {
     border: 0;
-    border-bottom: 1px solid $grey-8;
+    border-bottom: $input-underlined-border;
     border-radius: 0;
     display: grid;
 

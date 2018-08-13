@@ -1,27 +1,27 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .modal {
     align-items: center;
-    background: rgba(255, 255, 255, 1);
+    background: $loading_modal-background;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    height: 100%;
+    height: $loading_modal-height;
     position: absolute;
-    width: 100%;
+    width: $loading_modal-width;
     z-index: 10;
 
     .title {
-      color: $blue-6;
-      font-size: 20px;
+      color: $loading_modal-title-color;
+      font-size: $loading_modal-title-font_size;
       grid-row: 2;
       text-align: center;
       vertical-align: middle;
     }
 
     .description {
-      color: $grey-8;
-      font-size: 16px;
+      color: $loading_modal-description-color;
+      font-size: $loading_modal-description-font_size;
       grid-row: 4;
       text-align: center;
       vertical-align: middle;

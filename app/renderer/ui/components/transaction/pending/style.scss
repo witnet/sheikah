@@ -1,9 +1,9 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .transaction {
     align-items: center;
-    border-bottom: 1px solid $grey-2;
+    border-bottom: $transaction-pending-border;
     display: grid;
     grid-column-gap: 1em;
     grid-template-columns: auto auto 1fr;
@@ -17,16 +17,16 @@
     grid-row: 1;
 
     .unconfirmed {
-      color: $yellow-2;
+      color: $transaction-pending-unconfirmed-color;
     }
 
     .timelocked {
-      color: $blue-2;
+      color: $transaction-pending-timelocked-color;
     }
   }
 
   .status {
-    color: $grey-6;
+    color: $transaction-pending-status-color;
     font-size: 14px;
     font-weight: bold;
     grid-column: 2;
@@ -35,7 +35,7 @@
   }
 
   .vestingTime {
-    color: $grey-2;
+    color: $transaction-pending-vesting-color;
     grid-column: 3;
     grid-row: 1;
   }
@@ -48,16 +48,16 @@
       font-size: 18px;
 
       &.positive {
-        color: $green-2;
+        color: $transaction-pending-positive-color;
       }
 
       &.negative {
-        color: $red-2;
+        color: $transaction-pending-negative-color;
       }
     }
 
     .wit {
-      color: $grey-2;
+      color: $transaction-pending-wit-color;
       font-size: 10px;
       font-weight: bold;
     }
@@ -69,11 +69,11 @@
     grid-row: 2;
 
     .origin {
-      color: $grey-2;
+      color: $transaction-pending-origin-color;
     }
 
     .address-number {
-      color: $grey-6;
+      color: $transaction-pending-number-color;
     }
   }
 }

@@ -1,15 +1,17 @@
 :local {
+  @import "app/renderer/ui/theme";
+
   .button {
-    height: 20px;
+    height: $popover-height;
     margin: 0;
     padding: 0;
-    width: 40px;
+    width: $popover-width;
   }
 
   // .list {}
 
   .list-item {
-    height: 40px;
+    height: $popover-height;
     margin: -1px;
     width: 100%;
 

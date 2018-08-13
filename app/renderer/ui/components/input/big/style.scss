@@ -1,10 +1,9 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .big {
-    border-color: $grey-8;
-    border-style: dashed;
-    height: 60px;
-    width: 100%;
+    border: $input-big-border;
+    height: $input-big-height;
+    width: $input-big-width;
   }
 }

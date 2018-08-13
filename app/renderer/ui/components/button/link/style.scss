@@ -1,13 +1,13 @@
 :local {
-  @import "app/renderer/ui/colors";
   @import "app/renderer/ui/fonts";
+  @import "app/renderer/ui/theme";
 
   .button {
     @extend %font20;
 
-    background: none;
-    border: 0;
-    color: $blue-6;
+    background: $button-link-background;
+    border: $button-link-border;
+    color: $button-link-color;
     cursor: pointer;
     font: inherit;
     padding: 0;
