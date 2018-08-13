@@ -6,7 +6,7 @@
   "main": "dist/main.js",
   "scripts": {
     "pretest": "tsc -p config/tsconfig.test.json",
-    "test": "jest -c config/jest.js test/app",
+    "test": "jest -c config/jest.js --runInBand test/app",
     "test-all": "yarn test && yarn test-e2e",
     "pretest-e2e": "yarn clean && yarn build",
     "test-e2e": "NODE_ENV=production jest -c config/jest.js test/e2e",
