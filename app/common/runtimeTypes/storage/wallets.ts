@@ -169,7 +169,7 @@ export const Account = t.type({
   keyChains: t.array(KeyChain),
   // how much value is in this branch of the Wip3 key tree
   balance: t.number
-}, "EpochsInfo")
+}, "Account")
 export type Account = t.TypeOf<typeof Account>
 
 export const Seed = t.type({
