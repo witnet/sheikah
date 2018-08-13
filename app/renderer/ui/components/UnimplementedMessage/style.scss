@@ -1,0 +1,12 @@
+:local {
+  @import "app/renderer/ui/theme";
+
+  .text {
+    color: $toast-color;
+    font-size: $toast-font_size;
+  }
+
+  .bold {
+    font-weight: 800;
+  }
+}
