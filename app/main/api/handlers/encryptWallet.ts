@@ -1,4 +1,4 @@
-import { AppStateS, WalletStorageS } from "app/main/system"
+import { AppStateS, WalletStorageS, AppStorageS } from "app/main/system"
 import { asObject } from "app/common/runtimeTypes"
 import {
   EncryptWalletParams,
@@ -10,6 +10,7 @@ import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
 import {
   ExtendedKey,
   Wallet,
+  Wallets,
   WalletInfo,
   UnconsolidatedWallet,
   Seed,
@@ -33,8 +34,9 @@ import { config } from "app/common/config"
  * @param params
  * @returns {Promise<void>}
  */
-export default async function encryptWallet(system: AppStateS & WalletStorageS, params: any):
-  Promise<JsonSerializable> {
+export default async function encryptWallet(
+  system: AppStateS & WalletStorageS & AppStorageS, params: any
+): Promise<JsonSerializable> {
 
   return parseParams(params)
     .then(inject(getUnconsolidatedData, system.appStateManager))
@@ -42,6 +44,7 @@ export default async function encryptWallet(system: AppStateS & WalletStorageS, 
     .then(inject(newWalletStorage, system.storageFactory))
     .then(storeWallet)
     .then(inject(replaceWallet, system))
+    .then(inject(storePlainInfo, system))
     .then(buildSuccessResponse)
     .catch(buildErrorResponse)
     .then(encodeResponse)
@@ -111,6 +114,31 @@ async function replaceWallet(
   } catch  {
     throw encryptWalletErrors.WALLET_REPLACE_FAILURE
   }
+}
+
+/**
+ * Store plain info
+ * @param wallet
+ * @param system
+ */
+async function storePlainInfo(wallet: Wallet, system: AppStorageS & AppStateS) {
+  const walletInfos = asType(
+    system.appStateManager.get("wallets"),
+    Wallets,
+    encryptWalletErrors.UNAVAILABLE_WALLET_INFOS
+  )
+  const infos = {
+    _v: walletInfos._v,
+    infos: walletInfos.infos.concat({ id: wallet.id, caption: wallet.caption })
+  }
+  try {
+    system.appStateManager.update({ wallets: infos })
+    await system.appStorage.put("wallets", infos)
+  } catch {
+    throw encryptWalletErrors.WALLET_PLAIN_STORAGE_FAILURE
+  }
+
+  return wallet
 }
 
 /**
