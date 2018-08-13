@@ -8,6 +8,7 @@
     border-top: $spinner-secondary-border;
     height: $spinner-height;
     width: $spinner-width;
+    z-index: 1;
   }
 
   @keyframes spin {
