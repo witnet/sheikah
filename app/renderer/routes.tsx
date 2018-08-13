@@ -5,7 +5,7 @@ import { Switch, Route, Redirect } from "react-router"
 import * as urls from "app/renderer/constants/urls"
 import { StoreState } from "app/renderer/store"
 import App from "app/renderer/ui/containers/App"
-import FormsContainer from "./ui/containers/Forms"
+// import FormsContainer from "./ui/containers/Forms"
 import MainPage from "./ui/components/main"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 import { Services } from "app/renderer/services"
@@ -27,7 +27,7 @@ export default (props: RoutesProps) => {
         <PropsRoute
           path={urls.FORMS}
           ownProps={props}
-          component={FormsContainer}
+          component={MainPage}
         />
         <Route
           exact={true}

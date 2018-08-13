@@ -1,3 +1,5 @@
+import { Message } from "app/renderer/ui/components/Toast"
+
 export const pendingTransactions = [
   {
     status: "unconfirmed",
@@ -42,9 +44,7 @@ export const confirmedOptions = [
   {
     text: "Option 1",
     onClick: () => {
-      console.log("CLICKED 1")
-
-      return ""
+      Message()
     }
   },
   {
