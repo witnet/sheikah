@@ -3,12 +3,12 @@ import { inject } from "app/main/utils/utils"
 import { SubSystems } from "app/main/system"
 import { JsonSerializable } from "app/common/serializers/json"
 import { WalletInfo, Wallet } from "app/common/runtimeTypes/storage/wallets"
-import { Storage } from "app/main/storage"
 import {
   GetWalletParams, GetWalletResponse,
   GetWalletSuccess, getWalletErrors,
   buildGetWalletError
 } from "app/common/runtimeTypes/ipc/wallets"
+import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
 
 /**
  * Handler function for "getWallet" method.
@@ -87,7 +87,7 @@ function checkWalletInfo(params: GetWalletParams, system: SubSystems): GetWallet
  * @returns {Promise<{ storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }>}
  */
 async function replaceStorage(params: GetWalletParams, system: SubSystems)
-  : Promise<{ storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }> {
+  : Promise<{ storage: JsonAesLevelStorage, id: string }> {
   const { id, password } = params
 
   try {
@@ -107,11 +107,11 @@ async function replaceStorage(params: GetWalletParams, system: SubSystems)
  * @returns {Promise<Wallet>}
  */
 async function searchWallet(
-  { storage, id }: { storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }
+  { storage, id }: { storage: JsonAesLevelStorage, id: string }
 ): Promise<Wallet> {
-  const wallet = await storage.get(id)
-
   try {
+    const wallet = await storage.get("wallet")
+
     return asRuntimeType(wallet, Wallet)
   } catch (error) {
     throw getWalletErrors.INVALID_WALLET_TYPE
