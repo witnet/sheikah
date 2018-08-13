@@ -1,3 +1,4 @@
+import { Cipher } from "app/main/ciphers/index"
 import { Wallet, CURRENT_WALLET_VERSION, Seed } from "app/common/runtimeTypes/storage/wallets"
 import { EncryptWalletParams } from "app/common/runtimeTypes/ipc/wallets"
 import { WalletStorage } from "app/main/subsystems/wallets"
@@ -8,9 +9,10 @@ import { jsonBufferSerializer } from "app/main/serializers/jsonBuffer"
 import { Storage } from "app/main/storage"
 import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 import { AppStateManager } from "app/main/appState"
-import { AppStateS, WalletStorageS } from "app/main/system"
+import { AppStateS, WalletStorageS, AppStorageS } from "app/main/system"
 import { fromMnemonics } from "app/main/crypto/seed"
 import * as crypto from "crypto"
+import { PlainCipher } from "app/main/ciphers/plain"
 
 export const walletParams: EncryptWalletParams = {
   caption: "Hello World",
@@ -59,21 +61,39 @@ export const wallet: Wallet = {
 }
 
 /// helpers
-/** create inmemory storage */
-export async function inMemoryStorage(args: any):
-  Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>> {
+/** Create inmemory storage */
+export function inMemoryStorage(cipher: Cipher<Buffer, Buffer>):
+  Storage<Buffer, JsonSerializable, Buffer, Buffer> {
 
+  const keyHasher = sha256BufferHasher
+  const serializer = jsonBufferSerializer
+  // const cipher = new AesCipher(aesSettings)
+  const backend = new InMemoryPersister()
+
+  return new Storage(keyHasher, serializer, cipher, backend)
+}
+
+/**
+ * Create an inmemory aes storage
+ */
+export async function aesStorage() {
   const pbkdPassword = "password"
   const aesSettings: AesCipherSettings = {
     ...defaultAesCipherSettings,
     pbkdPassword
   }
-  const keyHasher = sha256BufferHasher
-  const serializer = jsonBufferSerializer
   const cipher = new AesCipher(aesSettings)
-  const backend = new InMemoryPersister()
 
-  return new Storage(keyHasher, serializer, cipher, backend)
+  return inMemoryStorage(cipher)
+}
+
+/**
+ * Create an inmemory plainStorage
+ */
+export function plainStorage() {
+  const cipher = new PlainCipher<Buffer>()
+
+  return inMemoryStorage(cipher)
 }
 
 /** Build error message */
@@ -85,7 +105,7 @@ export function buildError(error: string) {
 }
 
 /** system factory */
-export function systemFactory(mnemonics?: string): AppStateS & WalletStorageS {
+export function systemFactory(mnemonics?: string): AppStateS & WalletStorageS & AppStorageS {
   const { chainCode, masterSecret } = fromMnemonics(mnemonics || defaultMnemonics)
 
   return {
@@ -98,7 +118,8 @@ export function systemFactory(mnemonics?: string): AppStateS & WalletStorageS {
       }
     }),
     walletStorage: new WalletStorage(),
-    storageFactory: inMemoryStorage
+    storageFactory: aesStorage,
+    appStorage: plainStorage()
   }
 }
 

@@ -1,11 +1,11 @@
 import { encryptWallet } from "app/main/api/handlers"
-import { AppStateS, WalletStorageS } from "app/main/system"
+import { AppStateS, WalletStorageS, AppStorageS } from "app/main/system"
 import { EncryptWalletSuccess } from "app/common/runtimeTypes/ipc/wallets"
 import { asRuntimeType } from "app/common/runtimeTypes"
 import * as fixture from "./encryptWalletFixtures"
 
 describe("EncryptWallet Handler", () => {
-  let system: AppStateS & WalletStorageS
+  let system: AppStateS & WalletStorageS & AppStorageS
   beforeEach(() => {
     system = fixture.systemFactory()
   })
