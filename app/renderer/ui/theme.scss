@@ -1,5 +1,7 @@
 @import "app/renderer/ui/colors";
 
+$background-color: $grey-2;
+
 $button-navigation-background: none;
 $button-navigation-border: 1px solid $grey-6;
 $button-navigation-color: $grey-9;
@@ -44,6 +46,7 @@ $top_bar-border: 1px solid $grey-6;
 $top_bar-link-default-color: $grey-6;
 $top_bar-link-active-border: 2px solid $blue-6;
 $top_bar-link-active-color: $grey-9;
+$top_bar-background: $grey-1;
 
 $transaction-confirmed-border: 1px solid $grey-2;
 $transaction-confirmed-success-color: $green-6;

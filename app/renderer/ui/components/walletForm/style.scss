@@ -1,5 +1,5 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .centered {
     grid-column-start: 2;
@@ -16,7 +16,7 @@
   }
 
   .layout {
-    background: $grey-6;
+    background: $background-color;
     display: grid;
     grid-template-columns: 1fr 500px 1fr;
     grid-template-rows: 1fr 1fr 1fr;

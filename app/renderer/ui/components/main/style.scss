@@ -1,5 +1,5 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .layout {
     display: grid;
@@ -19,7 +19,7 @@
   }
 
   .main {
-    background: $grey-4;
+    background: $background-color;
     display: grid;
     grid-area: mn;
     grid-template-areas:
@@ -30,12 +30,12 @@
   }
 
   .top-bar {
-    background: $grey-1;
+    background: $top_bar-background;
     grid-area: tb;
   }
 
   .content {
-    background: $grey-6;
+    background: $background-color;
     grid-area: ct;
   }
 }
