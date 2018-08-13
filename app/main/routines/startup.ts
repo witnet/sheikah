@@ -33,7 +33,7 @@ export default async function startupRoutine(system: SubSystems) {
  */
 async function stateStart(system: SubSystems) {
   // Get and parse wallets from storage
-  const _wallets = system.appStorage.get("wallets")
+  const _wallets = await system.appStorage.get("wallets")
   const wallets = asRuntimeType(_wallets, Wallets, Contexts.STORAGE)
 
   system.appStateManager.update({ appInfo: config.appInfo, wallets })
