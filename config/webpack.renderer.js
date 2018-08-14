@@ -18,7 +18,11 @@ const styleFilename = "style.css";
 
 const typeScriptLoader = {
   loader: "ts-loader",
-  options: { configFile: path.resolve(__dirname, process.env.TSCONFIG || "tsconfig.json") }
+  options: {
+    configFile: path.resolve(__dirname, process.env.TSCONFIG || "tsconfig.json"),
+    transpileOnly: true,
+    experimentalWatchApi: true
+  }
 };
 
 const uiComponentLoader = {
