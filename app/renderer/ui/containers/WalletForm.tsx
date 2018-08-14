@@ -27,7 +27,6 @@ import {
   WalletSeedValidation,
   WalletEncryptionPassword,
   WalletSeedBackup,
-  WalletSeedConfirmation,
   WalletSeedTypeSelection,
   Welcome
 } from "app/renderer/ui/components/walletForm/steps"
@@ -106,7 +105,7 @@ class WalletFormContainer extends
   React.Component<RouteComponentProps<any> & Props & StateProps & DispatchProps> {
 
   /**
-   * component state
+   * Component state
    *
    * @memberof WalletFormContainer
    */
@@ -445,13 +444,26 @@ class WalletFormContainer extends
    * @memberof WalletFormContainer
    */
   private renderSeedConfirmation = () => (
-    <WalletSeedConfirmation
+    <WalletSeedValidation
+      title="Wallet seed confirmation"
+      text="Please type here your seed to confirm it:"
       errorMessage={this.state.seedErrorMessage}
       inputValue={this.state.confirmMnemonics}
       onChangeInput={this.onChangeInput}
       nextStep={this.seedConfirmationNextStep}
       previousStep={this.to(WALLET_SEED_BACKUP)}
+      alertNode={this.seedConfirmationAlert}
     />
+  )
+  /**
+   * Property for a seed confirmation alert
+   */
+  private seedConfirmationAlert = (
+    <>
+      <p>Your seed is important!</p>
+      <p>If you lose your seed, your coins will be permanently lost.</p>
+      <p>To confirm that you have properly saved your seed, please retype it here.</p>
+    </>
   )
 
   /**

@@ -2,6 +2,7 @@ import * as React from "react"
 
 import { CardNavigation } from "app/renderer/ui/components/card/index"
 import { InputBig } from "app/renderer/ui/components/input/index"
+import { AlertDefault } from "app/renderer/ui/components/alert"
 
 const styles = require("./style.scss")
 
@@ -28,6 +29,15 @@ export default class WalletSeedValidation extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
+
+    const alert = this.props.alertNode && (
+      <AlertDefault className={styles["alert-grid"]}>
+        <div className={styles.alert}>
+          {this.props.alertNode}
+        </div>
+      </AlertDefault>
+    )
+
     return (
       <>
         <CardNavigation
@@ -44,7 +54,7 @@ export default class WalletSeedValidation extends React.Component<Iprops> {
           />
           <p className={styles.error}>{this.props.errorMessage}</p>
         </CardNavigation>
-        {this.props.alertNode}
+        {alert}
       </>
     )
   }
