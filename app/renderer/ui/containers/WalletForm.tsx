@@ -12,7 +12,13 @@ import {
   importSeedErrors,
   ImportSeedResponse,
 } from "app/common/runtimeTypes/ipc/wallets"
-import { newMnemonics, encryptWallet, validateMnemonics, Client } from "app/renderer/api"
+import {
+  Client,
+  encryptWallet,
+  newMnemonics,
+  validateMnemonics,
+  validateXprv
+} from "app/renderer/api"
 import { IAction } from "app/renderer/actions/helpers"
 import { saveWallet } from "app/renderer/actions/loginForm"
 
@@ -30,6 +36,7 @@ import {
   MAIN,
   WALLET_ENCRYPTION_PASSWORD,
   WALLET_IMPORT_MNEMONICS,
+  WALLET_IMPORT_XPRV,
   WALLET_SEED_BACKUP,
   WALLET_SEED_CONFIRMATION,
   WALLET_SEED_TYPE_SELECTION,
@@ -108,7 +115,7 @@ class WalletFormContainer extends
     confirmMnemonics: "",
     importSeed: "",
     mnemonics: "",
-    mnemonicsErrorMessage: "",
+    seedErrorMessage: "",
     password: "",
     passwordErrorMessage: "",
     repeatPassword: "",
@@ -140,7 +147,7 @@ class WalletFormContainer extends
 
     // Async function to handle the import of xprv
     importXprv: async () => {
-      this.to(WALLET_IMPORT_MNEMONICS)()
+      this.to(WALLET_IMPORT_XPRV)()
     },
 
     // Async function to handle the use of a hardware device
@@ -257,14 +264,14 @@ class WalletFormContainer extends
           case importSeedErrors.INVALID_MNEMONICS.value:
           case importSeedErrors.MISMATCHING_MNEMONICS.value:
           case importSeedErrors.UNCONSOLIDATED_UPDATE_FAILURE.value:
-            this.setState({ mnemonicsErrorMessage: "Invalid mnemonics" })
+            this.setState({ seedErrorMessage: "Invalid mnemonics" })
             break
           default:
             assertNever(mnemonicsValidationResponse.error)
         }
       }
     } else {
-      this.setState({ mnemonicsErrorMessage: "Invalid mnemonics" })
+      this.setState({ seedErrorMessage: "Invalid mnemonics" })
     }
   }
 
@@ -288,19 +295,21 @@ class WalletFormContainer extends
     } else {
       // TODO: improve error handler issue #321
       switch (seedValidationResponse.error) {
-        case importSeedErrors.INVALID_METHOD_PARAMS.value:
-        case importSeedErrors.INVALID_XPRV.value:
-        case importSeedErrors.INVALID_MNEMONICS.value:
         case importSeedErrors.MISMATCHING_MNEMONICS.value:
+        case importSeedErrors.INVALID_MNEMONICS.value:
+          this.setState({ seedErrorMessage: "Invalid mnemonics" })
+          break
+        case importSeedErrors.INVALID_XPRV.value:
+          this.setState({ seedErrorMessage: "Invalid master key" })
+          break
+        case importSeedErrors.INVALID_METHOD_PARAMS.value:
         case importSeedErrors.UNCONSOLIDATED_UPDATE_FAILURE.value:
-          this.setState({ mnemonicsErrorMessage: "Invalid mnemonics" })
+          this.setState({ seedErrorMessage: "Invalid seed" })
           break
         default:
           assertNever(seedValidationResponse.error)
       }
     }
-
-    return
   }
 
   /**
@@ -314,6 +323,16 @@ class WalletFormContainer extends
   }
 
   /**
+   * Xprv validation next step function
+   *
+   * @private
+   * @memberof WalletFormContainer
+   */
+  private xprvValidationNextStep = async () => {
+    await this.seedValidationNextStep(validateXprv)
+  }
+
+  /**
    * On change input for wallet seed confirmation step
    * @param ev
    * @private
@@ -322,7 +341,7 @@ class WalletFormContainer extends
   private onChangeInput = async (ev: any) => {
     this.setState({ confirmMnemonics: ev.target.value })
     if (this.state.mnemonics === this.state.confirmMnemonics) {
-      this.setState({ mnemonicsErrorMessage: "" })
+      this.setState({ seedErrorMessage: "" })
     }
   }
 
@@ -427,7 +446,7 @@ class WalletFormContainer extends
    */
   private renderSeedConfirmation = () => (
     <WalletSeedConfirmation
-      errorMessage={this.state.mnemonicsErrorMessage}
+      errorMessage={this.state.seedErrorMessage}
       inputValue={this.state.confirmMnemonics}
       onChangeInput={this.onChangeInput}
       nextStep={this.seedConfirmationNextStep}
@@ -464,9 +483,27 @@ class WalletFormContainer extends
       title="Import mnemonics"
       text="Please type here your mnemonics:"
       inputValue={this.state.importSeed}
-      errorMessage={this.state.mnemonicsErrorMessage}
+      errorMessage={this.state.seedErrorMessage}
       onChangeInput={this.onChangeImportSeed}
       nextStep={this.mnemonicsValidationNextStep}
+      previousStep={this.to(WALLET_SEED_TYPE_SELECTION)}
+    />
+  )
+
+  /**
+   * Method to render import xprv step
+   *
+   * @private
+   * @memberof WalletFormContainer
+   */
+  private renderImportXprv = () => (
+    <WalletSeedValidation
+      title="Import master key"
+      text="Please type here your master key:"
+      inputValue={this.state.importSeed}
+      errorMessage={this.state.seedErrorMessage}
+      onChangeInput={this.onChangeImportSeed}
+      nextStep={this.xprvValidationNextStep}
       previousStep={this.to(WALLET_SEED_TYPE_SELECTION)}
     />
   )
@@ -503,6 +540,10 @@ class WalletFormContainer extends
             <Route
               path={WALLET_IMPORT_MNEMONICS}
               render={this.renderImportMnemonics}
+            />
+            <Route
+              path={WALLET_IMPORT_XPRV}
+              render={this.renderImportXprv}
             />
             <Route
               path="/"

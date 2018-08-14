@@ -10,7 +10,6 @@ import {
 } from "app/common/runtimeTypes/ipc/wallets"
 
 /**
- * validate mnemonics
  * Validate mnemonics
  *
  * @param client
@@ -25,7 +24,23 @@ export const validateMnemonics = async (client: Client, mnemonics: string)
   return client.request("importSeed", validateMnemonicsParams)
     .then(parseResponse)
     .catch(buildError)
+}
 
+/**
+ * Validate xprv
+ *
+ * @param client
+ * @param mnemonics
+ */
+export const validateXprv = async (client: Client, xprv: string)
+  : Promise<ImportSeedResponse> => {
+  const validateMnemonicsParams: ImportSeedParams = {
+    kind: t.literal("xprv").value, xprv
+  }
+
+  return client.request("importSeed", validateMnemonicsParams)
+    .then(parseResponse)
+    .catch(buildError)
 }
 
 /**
