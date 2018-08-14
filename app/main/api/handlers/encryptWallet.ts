@@ -127,13 +127,13 @@ async function storePlainInfo(wallet: Wallet, system: AppStorageS & AppStateS) {
     Wallets,
     encryptWalletErrors.UNAVAILABLE_WALLET_INFOS
   )
-  const infos = {
+  const walletInfosUpdate = {
     _v: walletInfos._v,
     infos: walletInfos.infos.concat({ id: wallet.id, caption: wallet.caption })
   }
   try {
-    system.appStateManager.update({ wallets: infos })
-    await system.appStorage.put("wallets", infos)
+    system.appStateManager.update({ wallets: walletInfosUpdate })
+    await system.appStorage.put("wallets", walletInfosUpdate)
   } catch {
     throw encryptWalletErrors.WALLET_PLAIN_STORAGE_FAILURE
   }
