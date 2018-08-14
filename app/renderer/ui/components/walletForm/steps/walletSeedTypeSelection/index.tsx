@@ -7,8 +7,9 @@ const styles = require("./style.scss")
 
 export interface Iprops {
   className?: string
-  nextStep: { newSeed: () => Promise<void> }
-
+  nextStep: {
+    newSeed: () => Promise<void>,
+    newSeedPrefilled: () => Promise<void> }
 }
 /**
  * Step walled seed type selection UI component
@@ -35,6 +36,15 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
             onClick={this.props.nextStep.newSeed}
           >
             Create a new seed
+          </ButtonOption>
+        </div>
+        <div>
+          <ButtonOption
+            className={styles.recommended}
+            secondaryText="RECOMMENDED"
+            onClick={this.props.nextStep.newSeedPrefilled}
+          >
+            Create a wallet prefilled with sample data
           </ButtonOption>
         </div>
         <div>

@@ -104,6 +104,7 @@ class WalletFormContainer extends
     passwordErrorMessage: "",
     repeatPassword: "",
     spinner: false,
+    caption: ""
   }
 
   /**
@@ -115,35 +116,46 @@ class WalletFormContainer extends
   private seedTypes = {
     // TODO: add seed type options
     newSeed: async () => {
-      if (!this.state.mnemonics) {
-        this.setState({ spinner: true })
-        const mnemonicsResponse = await newMnemonics(this.props.services.apiClient)
-        this.setState({ spinner: false })
-        if (mnemonicsResponse.kind === "SUCCESS") {
-          const newState = { mnemonics: mnemonicsResponse.mnemonics }
-          this.setState(newState)
-        } else {
-          // TODO: improve error handler issue #321
-          switch (mnemonicsResponse.error) {
-            case newMnemonicsErrors.GENERIC_ERROR.value:
-            case newMnemonicsErrors.DEPENDENCY_ERROR_GENERATE_MNEMONICS.value:
-              this.setState({ mnemonicsErrorMessage: "Error generating mnemonics" })
-              break
-            case newMnemonicsErrors.ERROR_UPDATING_UNCONSOLIDATED_WALLET.value:
-              this.setState({ mnemonicsErrorMessage: "Error generating mnemonics" })
-              break
-            case newMnemonicsErrors.INVALID_MNEMONICS_TYPE.value:
-              this.setState({ mnemonicsErrorMessage: "Error generating mnemonics" })
-              break
-            default:
-              assertNever(mnemonicsResponse.error)
-          }
-        }
-      }
+      await this.createSeed()
+      this.to(WALLET_SEED_BACKUP)()
+    },
+    newSeedPrefilled: async () => {
+      await this.createSeed()
+      this.setState({caption: "Demo wallet with example data"})
       this.to(WALLET_SEED_BACKUP)()
     }
   }
 
+  /**
+   * Create seed
+   */
+  private createSeed = async () => {
+    if (!this.state.mnemonics) {
+      this.setState({ spinner: true })
+      const mnemonicsResponse = await newMnemonics(this.props.services.apiClient)
+      this.setState({ spinner: false })
+      if (mnemonicsResponse.kind === "SUCCESS") {
+        const newState = { mnemonics: mnemonicsResponse.mnemonics }
+        this.setState(newState)
+      } else {
+        // TODO: improve error handler issue #321
+        switch (mnemonicsResponse.error) {
+          case newMnemonicsErrors.GENERIC_ERROR.value:
+          case newMnemonicsErrors.DEPENDENCY_ERROR_GENERATE_MNEMONICS.value:
+            this.setState({ mnemonicsErrorMessage: "Error generating mnemonics" })
+            break
+          case newMnemonicsErrors.ERROR_UPDATING_UNCONSOLIDATED_WALLET.value:
+            this.setState({ mnemonicsErrorMessage: "Error generating mnemonics" })
+            break
+          case newMnemonicsErrors.INVALID_MNEMONICS_TYPE.value:
+            this.setState({ mnemonicsErrorMessage: "Error generating mnemonics" })
+            break
+          default:
+            assertNever(mnemonicsResponse.error)
+        }
+      }
+    }
+  }
   /**
    * method to handle react router navigation
    *
@@ -305,6 +317,13 @@ class WalletFormContainer extends
     />
   )
 
+  /*
+   * Unset the caption when the user returns to seed type selection
+   */
+  private rendererSeedBackupNextStep = () => {
+    this.setState({caption: ""})
+    this.to(WALLET_SEED_TYPE_SELECTION)()
+  }
   /**
    * method to render seed backup step
    *
@@ -315,7 +334,7 @@ class WalletFormContainer extends
     <WalletSeedBackup
       mnemonics={this.state.mnemonics}
       nextStep={this.to(WALLET_SEED_CONFIRMATION)}
-      previousStep={this.to(WALLET_SEED_TYPE_SELECTION)}
+      previousStep={this.rendererSeedBackupNextStep}
     />
   )
 
