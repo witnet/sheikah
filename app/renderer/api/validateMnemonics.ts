@@ -11,6 +11,7 @@ import {
 
 /**
  * validate mnemonics
+ * Validate mnemonics
  *
  * @param client
  * @param mnemonics

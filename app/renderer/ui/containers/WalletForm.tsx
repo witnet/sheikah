@@ -9,14 +9,16 @@ import { StoreState } from "app/renderer/store"
 import { Wallets, newMnemonicsErrors } from "app/common/runtimeTypes/storage/wallets"
 import {
   encryptWalletErrors,
-  importSeedErrors as validteMnemonicsErrors,
+  importSeedErrors,
+  ImportSeedResponse,
 } from "app/common/runtimeTypes/ipc/wallets"
-import { newMnemonics, encryptWallet, validateMnemonics } from "app/renderer/api"
+import { newMnemonics, encryptWallet, validateMnemonics, Client } from "app/renderer/api"
 import { IAction } from "app/renderer/actions/helpers"
 import { saveWallet } from "app/renderer/actions/loginForm"
 
 import { WalletForm } from "app/renderer/ui/components/walletForm"
 import {
+  WalletSeedValidation,
   WalletEncryptionPassword,
   WalletSeedBackup,
   WalletSeedConfirmation,
@@ -27,6 +29,7 @@ import {
 import {
   MAIN,
   WALLET_ENCRYPTION_PASSWORD,
+  WALLET_IMPORT_MNEMONICS,
   WALLET_SEED_BACKUP,
   WALLET_SEED_CONFIRMATION,
   WALLET_SEED_TYPE_SELECTION,
@@ -101,24 +104,25 @@ class WalletFormContainer extends
    * @memberof WalletFormContainer
    */
   public state = {
+    caption: "",
     confirmMnemonics: "",
+    importSeed: "",
     mnemonics: "",
     mnemonicsErrorMessage: "",
     password: "",
     passwordErrorMessage: "",
     repeatPassword: "",
-    spinner: false,
-    caption: ""
+    spinner: false
   }
 
   /**
-   * seed types for seed type selection step
+   * Seed types for seed type selection step
    *
    * @private
    * @memberof WalletFormContainer
    */
   private seedTypes = {
-    // TODO: add seed type options
+    // Async function to handle the creation of a seed
     newSeed: async () => {
       await this.createSeed()
       this.to(WALLET_SEED_BACKUP)()
@@ -127,6 +131,21 @@ class WalletFormContainer extends
       await this.createSeed()
       this.setState({caption: prefilledWalletCaption})
       this.to(WALLET_SEED_BACKUP)()
+    },
+
+    // Async function to handle the import of mnemonics
+    importMnemonics: async () => {
+      this.to(WALLET_IMPORT_MNEMONICS)()
+    },
+
+    // Async function to handle the import of xprv
+    importXprv: async () => {
+      this.to(WALLET_IMPORT_MNEMONICS)()
+    },
+
+    // Async function to handle the use of a hardware device
+    useHardwareDevice: async () => {
+      // TODO: use not implemented notification (after PR is accepted)
     }
   }
 
@@ -161,7 +180,7 @@ class WalletFormContainer extends
     }
   }
   /**
-   * method to handle react router navigation
+   * Method to handle react router navigation
    *
    * @private
    * @memberof WalletFormContainer
@@ -169,7 +188,7 @@ class WalletFormContainer extends
   private to = (string: string) => () => { this.props.history.replace(string) }
 
   /**
-   * wallet encryption step
+   * Wallet encryption step
    *
    * @private
    * @memberof WalletFormContainer
@@ -215,7 +234,7 @@ class WalletFormContainer extends
   }
 
   /**
-   * seed confirmation next step function
+   * Seed confirmation next step function
    *
    * @private
    * @memberof WalletFormContainer
@@ -233,11 +252,11 @@ class WalletFormContainer extends
       } else {
         // TODO: improve error handler issue #321
         switch (mnemonicsValidationResponse.error) {
-          case validteMnemonicsErrors.INVALID_METHOD_PARAMS.value:
-          case validteMnemonicsErrors.INVALID_XPRV.value:
-          case validteMnemonicsErrors.INVALID_MNEMONICS.value:
-          case validteMnemonicsErrors.MISMATCHING_MNEMONICS.value:
-          case validteMnemonicsErrors.UNCONSOLIDATED_UPDATE_FAILURE.value:
+          case importSeedErrors.INVALID_METHOD_PARAMS.value:
+          case importSeedErrors.INVALID_XPRV.value:
+          case importSeedErrors.INVALID_MNEMONICS.value:
+          case importSeedErrors.MISMATCHING_MNEMONICS.value:
+          case importSeedErrors.UNCONSOLIDATED_UPDATE_FAILURE.value:
             this.setState({ mnemonicsErrorMessage: "Invalid mnemonics" })
             break
           default:
@@ -250,7 +269,52 @@ class WalletFormContainer extends
   }
 
   /**
-   * on change input for wallet seed confirmation step
+   * Seed validation next step function
+   *
+   * @private
+   * @memberof WalletFormContainer
+   */
+  private seedValidationNextStep = async (
+    validateSeed: (client: Client, seed: string) => Promise<ImportSeedResponse>
+  ) => {
+    this.setState({ spinner: true })
+    const seedValidationResponse = await validateSeed(
+      this.props.services.apiClient,
+      this.state.importSeed
+    )
+    this.setState({ spinner: false })
+    if (seedValidationResponse.kind === "SUCCESS") {
+      this.to(WALLET_ENCRYPTION_PASSWORD)()
+    } else {
+      // TODO: improve error handler issue #321
+      switch (seedValidationResponse.error) {
+        case importSeedErrors.INVALID_METHOD_PARAMS.value:
+        case importSeedErrors.INVALID_XPRV.value:
+        case importSeedErrors.INVALID_MNEMONICS.value:
+        case importSeedErrors.MISMATCHING_MNEMONICS.value:
+        case importSeedErrors.UNCONSOLIDATED_UPDATE_FAILURE.value:
+          this.setState({ mnemonicsErrorMessage: "Invalid mnemonics" })
+          break
+        default:
+          assertNever(seedValidationResponse.error)
+      }
+    }
+
+    return
+  }
+
+  /**
+   * Mnemonics validation next step function
+   *
+   * @private
+   * @memberof WalletFormContainer
+   */
+  private mnemonicsValidationNextStep = async () => {
+    await this.seedValidationNextStep(validateMnemonics)
+  }
+
+  /**
+   * On change input for wallet seed confirmation step
    * @param ev
    * @private
    * @memberof WalletFormContainer
@@ -263,7 +327,7 @@ class WalletFormContainer extends
   }
 
   /**
-   * on change password function for encryption password step
+   * On change password function for encryption password step
    *
    * @private
    * @memberof WalletFormContainer
@@ -289,6 +353,16 @@ class WalletFormContainer extends
   }
 
   /**
+   * On change input for wallet seed confirmation step
+   * @param ev
+   * @private
+   * @memberof WalletFormContainer
+   */
+  private onChangeImportSeed = async (ev: any) => {
+    this.setState({ importSeed: ev.target.value })
+  }
+
+  /**
    * encryption password next step function
    *
    * @private
@@ -303,7 +377,7 @@ class WalletFormContainer extends
   }
 
   /**
-   * method to render welcome step
+   * Method to render welcome step
    *
    * @private
    * @memberof WalletFormContainer
@@ -313,7 +387,7 @@ class WalletFormContainer extends
   )
 
   /**
-   * method to render seed type selection step
+   * Method to render seed type selection step
    *
    * @private
    * @memberof WalletFormContainer
@@ -332,7 +406,7 @@ class WalletFormContainer extends
     this.to(WALLET_SEED_TYPE_SELECTION)()
   }
   /**
-   * method to render seed backup step
+   * Method to render seed backup step
    *
    * @private
    * @memberof WalletFormContainer
@@ -346,7 +420,7 @@ class WalletFormContainer extends
   )
 
   /**
-   * method to render seed confirmation step
+   * Method to render seed confirmation step
    *
    * @private
    * @memberof WalletFormContainer
@@ -362,7 +436,7 @@ class WalletFormContainer extends
   )
 
   /**
-   * method to render encryption password step
+   * Method to render encryption password step
    *
    * @private
    * @memberof WalletFormContainer
@@ -380,7 +454,25 @@ class WalletFormContainer extends
   )
 
   /**
-   * method to render address generation step
+   * Method to render import mnemonics step
+   *
+   * @private
+   * @memberof WalletFormContainer
+   */
+  private renderImportMnemonics = () => (
+    <WalletSeedValidation
+      title="Import mnemonics"
+      text="Please type here your mnemonics:"
+      inputValue={this.state.importSeed}
+      errorMessage={this.state.mnemonicsErrorMessage}
+      onChangeInput={this.onChangeImportSeed}
+      nextStep={this.mnemonicsValidationNextStep}
+      previousStep={this.to(WALLET_SEED_TYPE_SELECTION)}
+    />
+  )
+
+  /**
+   * Method to render address generation step
    *
    * @private
    * @memberof WalletFormContainer
@@ -407,6 +499,10 @@ class WalletFormContainer extends
             <Route
               path={WALLET_ENCRYPTION_PASSWORD}
               render={this.renderEncryptionPassword}
+            />
+            <Route
+              path={WALLET_IMPORT_MNEMONICS}
+              render={this.renderImportMnemonics}
             />
             <Route
               path="/"

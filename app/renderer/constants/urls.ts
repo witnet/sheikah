@@ -8,6 +8,7 @@ export const WALLET_SEED_TYPE_SELECTION = `${NEW_WALLET}/wallet-seed-type-select
 export const WALLET_SEED_BACKUP = `${NEW_WALLET}/wallet-seed-backup`
 export const WALLET_SEED_CONFIRMATION = `${NEW_WALLET}/wallet-seed-confirmation`
 export const WALLET_ENCRYPTION_PASSWORD = `${NEW_WALLET}/wallet-encryption-password`
+export const WALLET_IMPORT_MNEMONICS = `${NEW_WALLET}/wallet-import-mnemonics`
 
 // LoginForm URLS
 export const LOGIN = `${FORMS}/login`

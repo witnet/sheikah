@@ -9,9 +9,13 @@ export interface Iprops {
   className?: string
   nextStep: {
     newSeed: () => Promise<void>,
-    newPrefilledSeed: () => Promise<void>
+    newPrefilledSeed: () => Promise<void>,
+    importMnemonics: () => Promise<void>,
+    importXprv: () => Promise<void>,
+    useHardwareDevice: () => Promise<void>
   }
 }
+
 /**
  * Step walled seed type selection UI component
  *
@@ -49,17 +53,17 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
           </ButtonOption>
         </div>
         <div>
-          <ButtonOption onClick={this.props.nextStep.newSeed}>
+          <ButtonOption onClick={this.props.nextStep.importMnemonics}>
             Import my own seed
           </ButtonOption>
         </div>
         <div>
-          <ButtonOption onClick={this.props.nextStep.newSeed} >
+          <ButtonOption onClick={this.props.nextStep.importXprv} >
             Use a master key
           </ButtonOption>
         </div>
         <div>
-          <ButtonOption onClick={this.props.nextStep.newSeed} >
+          <ButtonOption onClick={this.props.nextStep.useHardwareDevice}>
             Use a hardware device
           </ButtonOption>
         </div>
