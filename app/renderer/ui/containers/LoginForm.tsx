@@ -124,7 +124,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    */
   private walletSelectNewWallet = async () => {
     // Dispatch action to go to next route
-    this.props.goTo(urls.NEW_WALLET)
+    this.props.goTo(urls.WALLET_SEED_TYPE_SELECTION)
   }
 
   /**
