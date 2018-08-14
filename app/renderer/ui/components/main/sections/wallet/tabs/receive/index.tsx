@@ -8,7 +8,6 @@ import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 
 import {
   paymentRequest,
-  confirmedOptions
 } from "app/renderer/ui/components/main/sections/wallet/MockData"
 
 const styles = require("./style.scss")
@@ -22,6 +21,18 @@ const styles = require("./style.scss")
 class TabReceive extends TabComponent<any> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
+    const confirmedOptions = ["Option 1", "Option 2", "Option 3"].map((opt: string) => (
+      {
+        text: opt,
+        onClick: () => this.props.services.showUnimplementedMessage()
+      }
+    ))
+    const paymentRequestWithToast = paymentRequest.map(paymentRequest => {
+      paymentRequest.actions = confirmedOptions
+
+      return paymentRequest
+    })
+
     return (
       <>
         <div className={styles.left}>
@@ -37,7 +48,12 @@ class TabReceive extends TabComponent<any> {
                 <InputDefault />
                 <label className={styles.label}> Expires </label>
                 <InputDefault />
-                <ButtonDefault className={styles.submit}>SAVE AND GENERATE ADDRESS</ButtonDefault>
+                <ButtonDefault
+                  className={styles.submit}
+                  onClick={this.props.services.showUnimplementedMessage}
+                >
+                  SAVE AND GENERATE ADDRESS
+                </ButtonDefault>
               </div>
               <div className={styles.qr}>
                 Your address and QR code will appear here once the payment request is saved
@@ -50,7 +66,7 @@ class TabReceive extends TabComponent<any> {
             caption="Addresses that were generated but never received funds"
             actions={confirmedOptions}
           >
-            <List dataSource={paymentRequest} renderItem={PaymentRequest} />
+            <List dataSource={paymentRequestWithToast} renderItem={PaymentRequest} />
           </Wrapper>
         </div>
 

@@ -38,7 +38,10 @@ class SmartContracts extends React.Component<SmartContractsProps> {
         <TopBar className={mainStyles["top-bar"]} pathName="" linksProps={topBarlinkProps} />
         <Switch>
           <div className={styles.layout}>
-            <Route path="/main/smartcontracts/mycontracts" component={TabEasyComposer.component} />
+            <Route
+              path="/main/smartcontracts/mycontracts"
+              component={TabEasyComposer.component}
+            />
             <Route path="/main/smartcontracts/easycomposer" component={TabMyContracts.component} />
             <Route path="/main/smartcontracts/proeditor" component={TabProEditor.component} />
             <Route path="/main/smartcontracts/marketplace" component={TabMarketplace.component} />

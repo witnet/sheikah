@@ -8,7 +8,8 @@ import { PathNameProp, TopBarProps } from "app/renderer/ui/components/commonType
  * @interface SectionProps
  */
 export interface SectionProps {
-  className?: string,
+  className?: string
+  services?: { showUnimplementedMessage?: Function }
 }
 
 /**
@@ -52,7 +53,7 @@ export interface SectionInfo {
   key: string
   caption: string
   icon?: string
-  component: React.ComponentClass
+  component: React.ComponentClass<SectionProps>
 }
 
 /**
@@ -63,6 +64,7 @@ export interface SectionInfo {
  */
 export interface TabProps {
   className?: string
+  services?: { showUnimplementedMessage?: Function }
 }
 
 /**
@@ -84,5 +86,5 @@ export class TabComponent<Props> extends React.Component<TabProps & PathNameProp
 export interface TabInfo {
   key: string
   caption: string
-  component: React.ComponentClass
+  component: React.ComponentClass<TabProps>
 }

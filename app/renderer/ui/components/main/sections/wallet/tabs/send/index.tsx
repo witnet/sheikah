@@ -30,7 +30,12 @@ class TabSend extends TabComponent<any> {
           <InputDefault className={`${styles.input} ${styles["small-input"]}`} />
           <label className={styles.label}>Fee</label>
           <InputDefault className={`${styles.input} ${styles["small-input"]}`} />
-          <ButtonDefault className={styles.submit} >SIGN AND SEND</ButtonDefault>
+          <ButtonDefault
+            className={styles.submit}
+            onClick={this.props.services.showUnimplementedMessage}
+          >
+            SIGN AND SEND
+          </ButtonDefault>
         </div>
       </Wrapper>
     )
