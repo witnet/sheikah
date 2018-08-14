@@ -60,6 +60,11 @@ export const wallet: Wallet = {
   ],
 }
 
+export const infos = [{
+  id: wallet.id,
+  caption: wallet.caption
+}]
+
 /// helpers
 /** Create inmemory storage */
 export function inMemoryStorage(cipher: Cipher<Buffer, Buffer>):
@@ -67,7 +72,6 @@ export function inMemoryStorage(cipher: Cipher<Buffer, Buffer>):
 
   const keyHasher = sha256BufferHasher
   const serializer = jsonBufferSerializer
-  // const cipher = new AesCipher(aesSettings)
   const backend = new InMemoryPersister()
 
   return new Storage(keyHasher, serializer, cipher, backend)
