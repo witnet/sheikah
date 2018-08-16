@@ -135,7 +135,7 @@ class WalletFormContainer extends
     },
     newPrefilledSeed: async () => {
       await this.createSeed()
-      this.setState({caption: prefilledWalletCaption})
+      this.setState({ caption: prefilledWalletCaption })
       this.to(WALLET_SEED_BACKUP)()
     },
 
@@ -240,6 +240,14 @@ class WalletFormContainer extends
   }
 
   /**
+   * Seed backup previous step method
+   */
+  private seedBackupPreviousStep = async () => {
+    this.setState({ caption: "", mnemonics: "" })
+    this.to(WALLET_SEED_TYPE_SELECTION)()
+  }
+
+  /**
    * Seed confirmation next step function
    *
    * @private
@@ -258,12 +266,21 @@ class WalletFormContainer extends
       } else {
         // TODO: improve error handler issue #321
         switch (mnemonicsValidationResponse.error) {
-          case importSeedErrors.INVALID_METHOD_PARAMS.value:
           case importSeedErrors.INVALID_XPRV.value:
+            this.setState({ seedErrorMessage: "Invalid xprv" })
+            break
           case importSeedErrors.INVALID_MNEMONICS.value:
-          case importSeedErrors.MISMATCHING_MNEMONICS.value:
-          case importSeedErrors.UNCONSOLIDATED_UPDATE_FAILURE.value:
             this.setState({ seedErrorMessage: "Invalid mnemonics" })
+            break
+          case importSeedErrors.MISMATCHING_MNEMONICS.value:
+            this.setState({ seedErrorMessage: "Mismatching mnemonics" })
+            console.log("state: ", this.state)
+            break
+          case importSeedErrors.INVALID_METHOD_PARAMS.value:
+            this.setState({ seedErrorMessage: "Invalid method params" })
+            break
+          case importSeedErrors.UNCONSOLIDATED_UPDATE_FAILURE.value:
+            this.setState({ seedErrorMessage: "Unconsolidated update failure" })
             break
           default:
             assertNever(mnemonicsValidationResponse.error)
@@ -272,6 +289,17 @@ class WalletFormContainer extends
     } else {
       this.setState({ seedErrorMessage: "Invalid mnemonics" })
     }
+  }
+
+  /**
+   * Seed confirmation previous step method
+   */
+  private seedConfirmationPreviousStep = async () => {
+    this.setState({
+      seedErrorMessage: "",
+      confirmMnemonics: ""
+    })
+    this.to(WALLET_SEED_BACKUP)()
   }
 
   /**
@@ -381,7 +409,7 @@ class WalletFormContainer extends
   }
 
   /**
-   * encryption password next step function
+   * Encryption password next step function
    *
    * @private
    * @memberof WalletFormContainer
@@ -392,6 +420,18 @@ class WalletFormContainer extends
     } else {
       this.setState({ passwordErrorMessage: "Passwords must macth" })
     }
+  }
+
+  /**
+   * Encryption password previous step method
+   */
+  private seedEncryptionPasswordPreviousStep = async () => {
+    this.setState({
+      password: "",
+      passwordErrorMessage: "",
+      repeatPassword: ""
+    })
+    this.to(WALLET_SEED_CONFIRMATION)()
   }
 
   /**
@@ -417,13 +457,6 @@ class WalletFormContainer extends
   )
 
   /**
-   * Unset the caption when the user returns to seed type selection
-   */
-  private rendererSeedBackupPreviousStep = () => {
-    this.setState({caption: ""})
-    this.to(WALLET_SEED_TYPE_SELECTION)()
-  }
-  /**
    * Method to render seed backup step
    *
    * @private
@@ -433,7 +466,7 @@ class WalletFormContainer extends
     <WalletSeedBackup
       mnemonics={this.state.mnemonics}
       nextStep={this.to(WALLET_SEED_CONFIRMATION)}
-      previousStep={this.rendererSeedBackupPreviousStep}
+      previousStep={this.seedBackupPreviousStep}
     />
   )
 
@@ -451,10 +484,11 @@ class WalletFormContainer extends
       inputValue={this.state.confirmMnemonics}
       onChangeInput={this.onChangeInput}
       nextStep={this.seedConfirmationNextStep}
-      previousStep={this.to(WALLET_SEED_BACKUP)}
+      previousStep={this.seedConfirmationPreviousStep}
       alertNode={this.seedConfirmationAlert}
     />
   )
+
   /**
    * Property for a seed confirmation alert
    */
@@ -480,7 +514,7 @@ class WalletFormContainer extends
       repeatPassword={this.state.repeatPassword}
       onChangeRepeatPassword={this.OnChangeRepeatPassword}
       nextStep={this.encryptionPasswordNextStep}
-      previousStep={this.to(WALLET_SEED_CONFIRMATION)}
+      previousStep={this.seedEncryptionPasswordPreviousStep}
     />
   )
 
