@@ -44,10 +44,10 @@ function generatePrefilledWallet(): Wallet {
 }
 
 /**
- * Add prefilled data to a wallet
+ * Extend the wallet if the caption matches a prefilled wallet
  * @param w wallet
  */
-export const addPrefilledWalletData = (w: Wallet): Wallet => {
+export const extendWalletData = (w: Wallet): Wallet => {
   let wallet = w
   if (wallet.caption === prefilledWallet.caption) {
     wallet = {

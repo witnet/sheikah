@@ -18,7 +18,7 @@ import { GetWalletResponse } from "app/common/runtimeTypes/ipc/wallets"
 
 import * as urls from "app/renderer/constants/urls"
 import {
-  addPrefilledWalletData
+  extendWalletData
 } from "app/renderer/prefilledWallet"
 
 /**
@@ -151,7 +151,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
       .then((wallet: Wallet) => {
 
         // Add prefilled data if necessary then save wallet
-        this.props.actions.saveWallet(addPrefilledWalletData(wallet))
+        this.props.actions.saveWallet(extendWalletData(wallet))
 
         // Dispatch action to go to next route
         this.props.goTo(urls.MAIN)

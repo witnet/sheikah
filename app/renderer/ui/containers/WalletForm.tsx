@@ -33,7 +33,7 @@ import {
   WELCOME,
 } from "app/renderer/constants/urls"
 import {
-  addPrefilledWalletData,
+  extendWalletData,
   prefilledWalletCaption
 } from "app/renderer/prefilledWallet"
 
@@ -187,7 +187,7 @@ class WalletFormContainer extends
 
     if (encryptWalletResponse.kind === "SUCCESS") {
       // if is a prefilledWallet add the prefilled data
-      const wallet = addPrefilledWalletData(encryptWalletResponse.wallet)
+      const wallet = extendWalletData(encryptWalletResponse.wallet)
       await this.props.actions.saveWallet(wallet)
       this.to(MAIN)()
     } else {
