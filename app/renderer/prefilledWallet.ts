@@ -3,7 +3,8 @@ import {
   Wallet,
   Account,
   FinalKey,
-  CURRENT_WALLET_VERSION
+  CURRENT_WALLET_VERSION,
+  SeedInfo
 } from "app/common/runtimeTypes/storage/wallets"
 
 export const prefilledWalletCaption = "Demo wallet with example data"
@@ -28,7 +29,7 @@ function generatePrefilledWallet(): Wallet {
   const _v = CURRENT_WALLET_VERSION
   const epochs = {}
 
-  const seedInfo = { seed: { chainCode, masterSecret }, kind: ("Wip3" as "Wip3") }
+  const seedInfo: SeedInfo = { seed: { chainCode, masterSecret }, kind: ("Wip3" as "Wip3") }
 
   const accounts = [generatePrefilledAccount()]
 
