@@ -17,6 +17,9 @@ import * as api from "app/renderer/api"
 import { GetWalletResponse } from "app/common/runtimeTypes/ipc/wallets"
 
 import * as urls from "app/renderer/constants/urls"
+import {
+  addPrefilledWalletData
+} from "app/renderer/prefilledWallet"
 
 /**
  * Props that match redux store state
@@ -146,8 +149,9 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
     // Dispatch action to unlock wallet and catch error
     this.unlockWallet(this.state.id, password, this.props.services)
       .then((wallet: Wallet) => {
-        // Save wallet
-        this.props.actions.saveWallet(wallet)
+
+        // Add prefilled data if necessary then save wallet
+        this.props.actions.saveWallet(addPrefilledWalletData(wallet))
 
         // Dispatch action to go to next route
         this.props.goTo(urls.MAIN)
