@@ -50,7 +50,7 @@ class Wallet extends React.Component<WalletProps> {
 const WalletSection: SectionInfo = {
   key: "wallet",
   caption: "Wallet",
-  icon: "cog",
+  icon: "book",
   component: Wallet
 }
 

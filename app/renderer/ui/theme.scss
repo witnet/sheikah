@@ -78,6 +78,25 @@ $toast-background: $grey-8;
 $toast-color: $grey-1;
 $toast-font_size: 14px;
 
+$sidebar-active-color: $blue-6;
+$sidebar-active-border: 5px solid $sidebar-active-color;
+$sidebar-current_wallet-color: $grey-1;
+$sidebar-label-color: $grey-7;
+$sidebar-label-font_size: 9px;
+$sidebar-link-color: $grey-8;
+$sidebar-logo-height: 30px;
+$sidebar-logo-size: 30px;
+$sidebar-logo-width: 30px;
+$sidebar-name-color: $grey-10;
+$sidebar-name-font_size: 20px;
+$sidebar-net_status-font-size: 12px;
+$sidebar-settings-border: 1px solid $grey-4;
+$sidebar-settings-icon-color: $grey-9;
+$sidebar-settings-icon-size: 20px;
+$sidebar-status-font_size: 8px;
+$sidebar-synced-color: $grey-9;
+$siderbar-mainnet-color: $grey-7;
+
 $dot_indicator-negative-color: $red-5;
 $dot_indicator-neutral-color: $geekblue-4;
 $dot_indicator-positive-color: $green-5;

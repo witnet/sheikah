@@ -1,5 +1,5 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .sidebar {
     display: grid;
@@ -13,25 +13,31 @@
     display: flex;
     padding: 1em;
 
-    // .logo {}
+    .logo {
+      height: $sidebar-logo-height;
+      width: $sidebar-logo-width;
+    }
 
     .name {
-      font-size: 20px;
-      font-weight: bold;
+      color: $sidebar-name-color;
+      font-size: $sidebar-name-font_size;
+      font-weight: 800;
       padding: 0.5em;
     }
 
     .label {
-      color: $grey-6;
-      font-size: 10px;
+      color: $sidebar-label-color;
+      font-size: $sidebar-label-font_size;
       font-weight: bold;
+      padding-left: 2em;
+      padding-top: 1.5em;
     }
   }
 
   .current-wallet {
     align-items: center;
     background: $blue-6;
-    color: $grey-1;
+    color: $sidebar-current_wallet-color;
     display: flex;
     font-weight: bold;
     padding: 1em;
@@ -44,10 +50,12 @@
 
     .link {
       align-items: center;
-      color: $grey-6;
+      color: $sidebar-link-color;
       display: flex;
-      font-size: 20px;
+      font-size: 14px;
+      font-weight: 800;
       padding: 1em;
+      text-decoration: none;
 
       .option-icon {
         padding: 0.5em;
@@ -55,13 +63,19 @@
     }
 
     .active {
-      border-left: 4px solid $blue-6;
-      color: $blue-6;
+      border-left: $sidebar-active-border;
+      color: $sidebar-active-color;
     }
   }
 
+  .hr {
+    border: 0;
+    border-top: $sidebar-settings-border;
+    height: 1px;
+    width: 90%;
+  }
+
   .settings {
-    border-top: 2px solid $grey-8;
     display: grid;
     font-size: 14px;
     grid-row: 5;
@@ -70,25 +84,24 @@
 
     .settings-icon {
       align-self: center;
-      color: $grey-6;
+      color: $sidebar-settings-icon-color;
       display: flex;
+      font-size: $sidebar-settings-icon-size;
     }
 
     .net-status {
-      color: $grey-6;
+      font-size: $sidebar-net_status-font-size;
       padding: 0.5em;
 
       .mainnet {
-        color: $grey-6;
+        color: $siderbar-mainnet-color;
+        font-weight: 800;
       }
 
       .synced {
-        font-weight: bold;
+        color: $sidebar-synced-color;
+        font-weight: 800;
         padding: 0.5em;
-      }
-
-      .status {
-        color: $green-4;
       }
     }
   }

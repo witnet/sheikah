@@ -54,7 +54,7 @@ const SmartContractsSection: SectionInfo = {
   key: "smartcontracts",
   caption: "Smart Contracts",
   component: SmartContracts,
-  icon: "file"
+  icon: "code"
 }
 
 export default SmartContractsSection

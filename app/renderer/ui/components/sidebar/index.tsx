@@ -1,7 +1,9 @@
 import * as React from "react"
+
 import { SideBarLink, SideBarLinkProps } from "./sidebarLink"
 import { PathNameProp } from "app/renderer/ui/components/commonTypes"
-
+import Icon from "app/renderer/ui/components/icons"
+import { DotIndicator } from "app/renderer/ui/components/dotIndicator"
 const styles = require("./style.scss")
 
 export interface SidebarProps {
@@ -24,7 +26,8 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
     return (
       <div className={`${this.props.className} ${styles.sidebar}`}>
         <div className={styles.brand}>
-          <i className={`fa fa-bullseye ${styles.logo}`} />
+          {/* TODO: load svg from their own file #378 */}
+          <Icon className={styles.logo} type="sheikah" />
           <span className={styles.name}>Sheikah</span>
           <span className={styles.label}>[TECHNOLOGY PREVIEW]</span>
         </div>
@@ -34,12 +37,15 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
         <div className={styles["link-list"]}>
           {linksRender(this.props.linksProps, this.props.pathName)}
         </div>
-        <div className={styles.settings}>
-          <i className={`fa fa-cog ${styles["settings-icon"]}`} />
-          <div className={styles["net-status"]}>
-            <span className={styles.mainnet}>MAINNET</span>
-            <span className={styles.synced}>SYNCED</span>
-            <i className={`fa fa-circle ${styles.status}`} />
+        <div>
+          <hr className={styles.hr}/>
+          <div className={styles.settings}>
+            <i className={`fa fa-cog ${styles["settings-icon"]}`} />
+            <div className={styles["net-status"]}>
+              <span className={styles.mainnet}>PROTOTYPE</span>
+              <span className={styles.synced}>SYNCED</span>
+              <DotIndicator mood="warning"/>
+            </div>
           </div>
         </div>
       </div>

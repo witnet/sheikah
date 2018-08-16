@@ -24,7 +24,7 @@ const CommunitySection: SectionInfo = {
   key: "community",
   caption: "Community",
   component: Community,
-  icon: "building"
+  icon: "users"
 }
 
 export default CommunitySection
