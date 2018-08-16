@@ -191,7 +191,7 @@ class WalletFormContainer extends
    * @private
    * @memberof WalletFormContainer
    */
-  private to = (string: string) => () => { this.props.history.replace(string) }
+  private to = (string: string) => () => { this.props.history.push(string) }
 
   /**
    * Wallet encryption step
@@ -244,7 +244,7 @@ class WalletFormContainer extends
    */
   private seedBackupPreviousStep = async () => {
     this.setState({ caption: "", mnemonics: "" })
-    this.to(WALLET_SEED_TYPE_SELECTION)()
+    this.props.history.goBack()
   }
 
   /**
@@ -299,7 +299,7 @@ class WalletFormContainer extends
       seedErrorMessage: "",
       confirmMnemonics: ""
     })
-    this.to(WALLET_SEED_BACKUP)()
+    this.props.history.goBack()
   }
 
   /**
@@ -323,6 +323,8 @@ class WalletFormContainer extends
       // TODO: improve error handler issue #321
       switch (seedValidationResponse.error) {
         case importSeedErrors.MISMATCHING_MNEMONICS.value:
+          this.setState({ seedErrorMessage: "Mismatching mnemonics" })
+          break
         case importSeedErrors.INVALID_MNEMONICS.value:
           this.setState({ seedErrorMessage: "Invalid mnemonics" })
           break
@@ -357,6 +359,17 @@ class WalletFormContainer extends
    */
   private xprvValidationNextStep = async () => {
     await this.seedValidationNextStep(validateXprv)
+  }
+
+  /**
+   * Import seed previous step method, used for mnemonics and xprv
+   */
+  private importSeedPreviousStep = async () => {
+    this.setState({
+      importSeed: "",
+      seedErrorMessage: ""
+    })
+    this.props.history.goBack()
   }
 
   /**
@@ -418,7 +431,7 @@ class WalletFormContainer extends
     if (this.state.password === this.state.repeatPassword && this.state.password) {
       await this.walletEncryption()
     } else {
-      this.setState({ passwordErrorMessage: "Passwords must macth" })
+      this.setState({ passwordErrorMessage: "Passwords must match" })
     }
   }
 
@@ -431,7 +444,7 @@ class WalletFormContainer extends
       passwordErrorMessage: "",
       repeatPassword: ""
     })
-    this.to(WALLET_SEED_CONFIRMATION)()
+    this.props.history.goBack()
   }
 
   /**
@@ -532,7 +545,7 @@ class WalletFormContainer extends
       errorMessage={this.state.seedErrorMessage}
       onChangeInput={this.onChangeImportSeed}
       nextStep={this.mnemonicsValidationNextStep}
-      previousStep={this.to(WALLET_SEED_TYPE_SELECTION)}
+      previousStep={this.importSeedPreviousStep}
     />
   )
 
@@ -550,7 +563,7 @@ class WalletFormContainer extends
       errorMessage={this.state.seedErrorMessage}
       onChangeInput={this.onChangeImportSeed}
       nextStep={this.xprvValidationNextStep}
-      previousStep={this.to(WALLET_SEED_TYPE_SELECTION)}
+      previousStep={this.importSeedPreviousStep}
     />
   )
 
