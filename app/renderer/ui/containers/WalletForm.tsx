@@ -317,10 +317,10 @@ class WalletFormContainer extends
     />
   )
 
-  /*
+  /**
    * Unset the caption when the user returns to seed type selection
    */
-  private rendererSeedBackupNextStep = () => {
+  private rendererSeedBackupPreviousStep = () => {
     this.setState({caption: ""})
     this.to(WALLET_SEED_TYPE_SELECTION)()
   }
@@ -334,7 +334,7 @@ class WalletFormContainer extends
     <WalletSeedBackup
       mnemonics={this.state.mnemonics}
       nextStep={this.to(WALLET_SEED_CONFIRMATION)}
-      previousStep={this.rendererSeedBackupNextStep}
+      previousStep={this.rendererSeedBackupPreviousStep}
     />
   )
 

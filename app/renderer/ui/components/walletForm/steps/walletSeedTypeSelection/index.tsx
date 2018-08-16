@@ -9,7 +9,8 @@ export interface Iprops {
   className?: string
   nextStep: {
     newSeed: () => Promise<void>,
-    newSeedPrefilled: () => Promise<void> }
+    newSeedPrefilled: () => Promise<void>
+  }
 }
 /**
  * Step walled seed type selection UI component
