@@ -1,6 +1,7 @@
 import * as t from "io-ts"
 
 import { Contexts, asRuntimeType } from "app/common/runtimeTypes"
+import { prefilledWallet, prefilledWalletCaption } from "app/renderer/prefilledWallet"
 import { ApiClient } from "app/renderer/api"
 import {
   GetWalletResponse,
@@ -17,6 +18,13 @@ export async function getWallet(client: ApiClient, id: string, password: string)
   : Promise<GetWalletResponse> {
   return client.request("getWallet", { id, password })
     .then(parseResponse)
+    .then((response) => {
+      if (response.kind === "SUCCESS" && response.wallet.caption === prefilledWalletCaption) {
+        return { ...response, wallet: prefilledWallet }
+      } else {
+        return response
+      }
+    })
     .catch(buildError)
 }
 
