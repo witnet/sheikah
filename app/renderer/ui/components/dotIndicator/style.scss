@@ -1,0 +1,24 @@
+:local {
+  @import "app/renderer/ui/theme";
+
+  .dot {
+    font-size: $sidebar-status-font_size;
+    vertical-align: middle;
+  }
+
+  .positive {
+    color: $dot_indicator-positive-color;
+  }
+
+  .neutral {
+    color: $dot_indicator-neutral-color;
+  }
+
+  .warning {
+    color: $dot_indicator-warning-color;
+  }
+
+  .negative {
+    color: $dot_indicator-negative-color;
+  }
+}
