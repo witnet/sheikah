@@ -29,11 +29,11 @@ function generatePrefilledWallet(): Wallet {
   const caption = "Demo wallet with example data"
   const epochs = {}
 
-  const seed = { seed: { chainCode, masterSecret }, kind: ("Wip3" as "Wip3") }
+  const seedInfo = { seed: { chainCode, masterSecret }, kind: ("Wip3" as "Wip3") }
 
   const accounts = [generatePrefilledAccount()]
 
-  return { id, _v, caption, seed, epochs, purpose: 0x80000003, accounts }
+  return { id, _v, caption, seed: seedInfo, epochs, purpose: 0x80000003, accounts }
 }
 
 /**
@@ -42,19 +42,18 @@ function generatePrefilledWallet(): Wallet {
 function generatePrefilledAccount(): Account {
   const balance = 4.24
   const keyPath = [2147483651, 2147488567, 2147483648]
-  const finalKey = generateFinalKey(keyPath, 0)
   const keyChains = [
     {
       keyPath: [...keyPath, 0],
-      finalKeys: [finalKey],
+      finalKeys: [generateFinalKey(keyPath, 0)],
     },
     {
       keyPath: [...keyPath, 1],
-      finalKeys: [finalKey],
+      finalKeys: [generateFinalKey(keyPath, 1)],
     },
     {
       keyPath: [...keyPath, 2],
-      finalKeys: [finalKey],
+      finalKeys: [generateFinalKey(keyPath, 2)],
     }
   ]
 

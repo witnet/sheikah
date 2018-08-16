@@ -9,7 +9,7 @@ export interface Iprops {
   className?: string
   nextStep: {
     newSeed: () => Promise<void>,
-    newSeedPrefilled: () => Promise<void>
+    newPrefilledSeed: () => Promise<void>
   }
 }
 /**
@@ -43,7 +43,7 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
           <ButtonOption
             className={styles.recommended}
             secondaryText="RECOMMENDED"
-            onClick={this.props.nextStep.newSeedPrefilled}
+            onClick={this.props.nextStep.newPrefilledSeed}
           >
             Create a wallet prefilled with sample data
           </ButtonOption>
