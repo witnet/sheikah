@@ -6,7 +6,7 @@ import {
   CURRENT_WALLET_VERSION
 } from "app/common/runtimeTypes/storage/wallets"
 
-export const prefilledWalletCaption = "" // TODO(anler): This needs to be defined
+export const prefilledWalletCaption = "Demo wallet with example data"
 
 export const prefilledWallet = generatePrefilledWallet()
 
@@ -26,14 +26,32 @@ function generatePrefilledWallet(): Wallet {
     "sheikah seed", 4096, 32, "sha256"
   ).toString("hex")
   const _v = CURRENT_WALLET_VERSION
-  const caption = "Demo wallet with example data"
   const epochs = {}
 
   const seedInfo = { seed: { chainCode, masterSecret }, kind: ("Wip3" as "Wip3") }
 
   const accounts = [generatePrefilledAccount()]
 
-  return { id, _v, caption, seed: seedInfo, epochs, purpose: 0x80000003, accounts }
+  return { id, _v, caption: prefilledWalletCaption, seed: seedInfo, epochs, purpose: 0x80000003, accounts }
+}
+
+/**
+ * Add prefilled data to a wallet
+ * @param w wallet
+ */
+export const addPrefilledWalletData = (w: Wallet): Wallet => {
+  let wallet = w
+  if (wallet.caption === prefilledWallet.caption) {
+    wallet = {
+      ...prefilledWallet,
+      // TODO: verify which fields shoulnd't be overriden by the prefilledWallet
+      // and add them after ID or if the ID is the only field required take
+      // the ID and caption as parameter instead of the wallet
+      id: wallet.id,
+    }
+  }
+
+  return wallet
 }
 
 /**

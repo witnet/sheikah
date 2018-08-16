@@ -32,7 +32,10 @@ import {
   WALLET_SEED_TYPE_SELECTION,
   WELCOME,
 } from "app/renderer/constants/urls"
-import { prefilledWallet } from "app/renderer/prefilledWallet"
+import {
+  addPrefilledWalletData,
+  prefilledWalletCaption
+} from "app/renderer/prefilledWallet"
 
 /**
  * Props that match redux store state
@@ -122,7 +125,7 @@ class WalletFormContainer extends
     },
     newPrefilledSeed: async () => {
       await this.createSeed()
-      this.setState({caption: prefilledWallet.caption})
+      this.setState({caption: prefilledWalletCaption})
       this.to(WALLET_SEED_BACKUP)()
     }
   }
@@ -183,15 +186,8 @@ class WalletFormContainer extends
     this.setState({ spinner: false })
 
     if (encryptWalletResponse.kind === "SUCCESS") {
-      let wallet = encryptWalletResponse.wallet
-      if (wallet.caption === prefilledWallet.caption) {
-        wallet = {
-          ...prefilledWallet,
-          // TODO: verify which fields shoulnd't be overriden by the
-          // prefilledWallet and add them after ID
-          id: wallet.id,
-        }
-      }
+      // if is a prefilledWallet add the prefilled data
+      const wallet = addPrefilledWalletData(encryptWalletResponse.wallet)
       await this.props.actions.saveWallet(wallet)
       this.to(MAIN)()
     } else {
