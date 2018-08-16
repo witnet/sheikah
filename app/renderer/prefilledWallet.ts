@@ -42,18 +42,21 @@ function generatePrefilledWallet(): Wallet {
 function generatePrefilledAccount(): Account {
   const balance = 4.24
   const keyPath = [2147483651, 2147488567, 2147483648]
+  const keyPath0 = [...keyPath, 0]
+  const keyPath1 = [...keyPath, 1]
+  const keyPath2 = [...keyPath, 2]
   const keyChains = [
     {
-      keyPath: [...keyPath, 0],
-      finalKeys: [generateFinalKey(keyPath, 0)],
+      keyPath: keyPath0,
+      finalKeys: [generateFinalKey(keyPath0, 0)],
     },
     {
-      keyPath: [...keyPath, 1],
-      finalKeys: [generateFinalKey(keyPath, 1)],
+      keyPath: keyPath1,
+      finalKeys: [generateFinalKey(keyPath1, 0)],
     },
     {
-      keyPath: [...keyPath, 2],
-      finalKeys: [generateFinalKey(keyPath, 2)],
+      keyPath: keyPath2,
+      finalKeys: [generateFinalKey(keyPath2, 0)],
     }
   ]
 
