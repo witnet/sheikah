@@ -1,3 +1,66 @@
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: normal;
+  src: url("~fonts/Titillium_Web/TitilliumWeb-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: bold;
+  src: url("~fonts/Titillium_Web/TitilliumWeb-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Titillium Web";
+  font-style: italic;
+  font-weight: normal;
+  src: url("~fonts/Titillium_Web/TitilliumWeb-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Titillium Web";
+  font-style: italic;
+  font-weight: bold;
+  src: url("~fonts/Titillium_Web/TitilliumWeb-BoldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 600;
+  src: url("~fonts/Titillium_Web/TitilliumWeb-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Titillium Web";
+  font-style: italic;
+  font-weight: 600;
+  src: url("~fonts/Titillium_Web/TitilliumWeb-SemiBoldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: lighter;
+  src: url("~fonts/Titillium_Web/TitilliumWeb-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Titillium Web";
+  font-style: italic;
+  font-weight: lighter;
+  src: url("~fonts/Titillium_Web/TitilliumWeb-LightItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 900;
+  src: url("~fonts/Titillium_Web/TitilliumWeb-Black.ttf") format("truetype");
+}
+
 :global {
   @import "~font-awesome/css/font-awesome.css";
   @import "theme";
@@ -10,7 +73,7 @@
   }
 
   body {
-    font-family: "Monospaced Number", sans-serif;
+    font-family: $font-family;
     height: 100vh;
     max-height: 100vh;
     max-width: 100vw;
