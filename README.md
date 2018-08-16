@@ -14,13 +14,45 @@
 
 <h2 align="center">Installation</h2>
 
-TODO
+<h3 align="center">From Github Releases</h3>
 
-<h2 align="center">Development</h2>
+Go to [releases](https://github.com/witnet/sheikah/releases) section and download the binary suitable for your system.
 
-This is a Web/Desktop application built with [Electron](https://electronjs.org/) and uses the [electron-react-typescript](https://github.com/iRath96/electron-react-typescript-boilerplate) template as its base with a few tweaks.
+<h3 align="center">From Source</h3>
+
+To install from source follow this instructions in a terminal:
+
+``` bash
+git clone https://github.com/witnet/sheikah.git
+cd sheikah
+yarn
+yarn package
+```
+
+Then, copy the appropriate binary written in `release` directory. Just click the file to open Sheikah.
+
+<h2 align="center">Logs</h2>
+
+We are using [Electron Log](https://github.com/megahertz/electron-log/) library and we log to both, console and the file in the following location:
+
+* **on Linux**: `~/.config/Sheikah/log.log`
+* **on MacOS**: `~/Library/Logs/Sheikah/log.log`
+* **on Windows**: `%USERPROFILE%\AppData\Roaming\Sheikah\log.log`
+
+<h3 align="center">Development</h3>
+
+When running in **development** the log level is set to *debug*, *debug*, *info*, *warn*, and *error* messages will be logger.
+
+<h3 align="center">Production</h3>
+When running in **production** the log level is set to *warn*, only *warn* and *error* messages will be logged.
+
+<h2 align="center">Sheikah Development</h2>
+
+This is a Web/Desktop application built with [Electron](https://electronjs.org/) and uses the [electron-react-typescript](https://github.com/iRath96/electron-react-typescript-boilerplate) template as its base.
 
 For developing we recommend you use [yarn](https://yarnpkg.com/en/) instead of npm.
+
+When developing Sheikah, we support **Node versions: 8, 9 and 10**. It might work with another version but we do not guarantee it will do in the future.
 
 <h3 align="center">Quickstart</h3>
 
@@ -41,8 +73,13 @@ yarn start # or yarn dev
 <h3 align="center">Formatter</h3>
 
 * Verify files are correctly formatted with `yarn fmt`
-* See which format errors exist with `yarn fmt`
 * Repair format errors with (**this operation modifies your files!**) `yarn fmt!`
+
+<h3 align="center">Lint</h3>
+
+* Run linters with `yarn lint`. This will run all linters
+* Run TypeScript lint with `yarn ts-lint`
+* Run styles lint with `yarn stylelint`
 
 <h3 align="center">Test</h3>
 
@@ -82,7 +119,38 @@ yarn jest --watchAll #runs all tests
 
 <h3 align="center">Build</h3>
 
+<h4 align="center">Production</h4>
+
 To build the application run: `yarn build`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`
+
+`yarn build` is composed by two sub-tasks:
+
+* `yarn build-renderer`: Build the frontend/ui (React) application that will run in Electron's renderer process
+* `yarn build-main`: Build the backend (Node) application that will run in Electron's main process
+
+<h4 align="center">Development</h4>
+
+To build the application run: `yarn build-dev`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`
+
+<h3 align="center">Type Checking</h3>
+
+We have separated the transpilation and the type-checking phase for development in order to reduce the time the application needs to boot in development mode. Building/running the application for development with `yarn build-dev`/`yarn start` won't do any type-checking, the same happens when running the tests with `yarn test`.
+
+To type-check the project you should run:
+
+``` bash
+yarn typecheck
+# or
+# yarn typecheck --watch
+```
+
+To type-check the project and the tests you should run:
+
+``` bash
+yarn typecheck-test
+# or
+# yarn typecheck-test --watch
+```
 
 <h3 align="center">Package</h3>
 
@@ -99,3 +167,22 @@ yarn package
 ``` bash
 yarn package-dev
 ```
+
+<h3 align="center">Contributing</h3>
+
+<h4 align="center">Commit Messages</h4>
+
+Use the command `yarn commit` when committing changes to follow the same conventions we used for writing commit messages.
+
+<h4 align="center">Travis</h4>
+
+When opening a pull request a job in [Travis](https://travis-ci.com/) will be fired off to check the changes. To avoid wasting time waiting for Travis output we provide the command `yarn travis` that will perform almost the same checks but it'll run in your computer. The command `yarn travisp` does the same but parallelizes some tasks so it'll run faster.
+
+<h3 align="center">Troubleshooting</h3>
+
+* Remember to look at the log file
+* Use `yarn clean` to remove the contents of the build and release directories (`dist` and `release`)
+* Use `yarn clean-deps` to remove all installed dependencies
+* Use `yarn reinstall` to remove all installed dependencies and install them again
+
+If the application doesn't boot correctly and no error is reported in the terminal, try running `yarn reinstall` and try again.
