@@ -184,11 +184,11 @@ class WalletFormContainer extends
 
     if (encryptWalletResponse.kind === "SUCCESS") {
       let wallet = encryptWalletResponse.wallet
-      if (this.state.caption && wallet.caption === this.state.caption) {
+      if (wallet.caption === prefilledWallet.caption) {
         wallet = {
           ...prefilledWallet,
-          // TODO: verify which fields shoulnd't be overriden by the prefilled
-          // wallet and add them after ID
+          // TODO: verify which fields shoulnd't be overriden by the
+          // prefilledWallet and add them after ID
           id: wallet.id,
         }
       }
