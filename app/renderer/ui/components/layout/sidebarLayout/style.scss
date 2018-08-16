@@ -7,6 +7,11 @@
     height: 100%;
   }
 
+  .collapse {
+    // To add transition for grid items read #302
+    grid-template-columns: 10px 1fr;
+  }
+
   .sidebar {
     display: flex;
     flex-direction: column;

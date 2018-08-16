@@ -6,6 +6,7 @@ interface Iprops {
   title: string
   menuIcon?: string
   menuText: string
+  collapeSidebar?: boolean
 }
 
 /**
@@ -21,8 +22,10 @@ export default class SidebarLayout extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
+    const gridStyles = `${styles.grid} ${this.props.collapeSidebar ? styles.collapse : ""}`
+
     return (
-      <div className={styles.grid}>
+      <div className={gridStyles}>
         {/* TODO: Check potential refactor of existing sidebar component */}
         <div className={styles.sidebar}>
           <p className={styles.titleText}>{this.props.title}</p>

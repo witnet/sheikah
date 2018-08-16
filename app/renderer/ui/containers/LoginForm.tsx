@@ -50,7 +50,8 @@ export interface OwnProps {
 export interface FormState {
   id: string,
   errorMessage?: string,
-  unlockInProgress: boolean
+  unlockInProgress: boolean,
+  collapseSidebar: boolean
 }
 
 /**
@@ -93,7 +94,8 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    */
   public state: FormState = {
     id: "",
-    unlockInProgress: false
+    unlockInProgress: false,
+    collapseSidebar: false
   }
 
   /**
@@ -113,7 +115,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
   private walletSelectNext = async (id: string) => {
     // Wait for the id to be set in the state
     await this.changeState({ id })
-
+    await this.changeState({ collapseSidebar: true })
     // Dispatch action to go to next route
     this.props.goTo(urls.WALLET_PASSWORD_PROMPT)
   }
@@ -133,6 +135,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
   private walletPasswordRequestPrev = async () => {
     // Clean possible error
     await this.changeState({ errorMessage: "" })
+    await this.changeState({ collapseSidebar: false })
 
     // Dispatch action to go back to previous route
     this.props.goBack()
@@ -219,7 +222,10 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    */
   public render() {
     return (
-      <LoginForm unlockInProgress={this.state.unlockInProgress}>
+      <LoginForm
+        collapseSidebar={this.state.collapseSidebar}
+        unlockInProgress={this.state.unlockInProgress}
+      >
         <Switch>
           <Route
             path={urls.WALLET_PASSWORD_PROMPT}
