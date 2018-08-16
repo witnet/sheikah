@@ -32,7 +32,15 @@ function generatePrefilledWallet(): Wallet {
 
   const accounts = [generatePrefilledAccount()]
 
-  return { id, _v, caption: prefilledWalletCaption, seed: seedInfo, epochs, purpose: 0x80000003, accounts }
+  return {
+    id,
+    _v,
+    caption: prefilledWalletCaption,
+    seed: seedInfo,
+    epochs,
+    purpose: 0x80000003,
+    accounts
+  }
 }
 
 /**
