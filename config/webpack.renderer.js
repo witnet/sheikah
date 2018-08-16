@@ -16,6 +16,8 @@ const paths = require("./paths");
 const bundleFilename = "bundle.js";
 const styleFilename = "style.css";
 
+const distDir = path.resolve(__dirname, "../dist")
+
 const typeScriptLoader = {
   loader: "ts-loader",
   options: {
@@ -26,12 +28,12 @@ const typeScriptLoader = {
 };
 
 const uiComponentLoader = {
-  loader: 'ui-component-loader',
+  loader: "ui-component-loader",
   options: {
-    lib: 'antd',
-    libDir: 'es',
-    camel2: '-',
-    style: 'style/index.css'
+    lib: "antd",
+    libDir: "es",
+    camel2: "-",
+    style: "style/index.css"
   }
 };
 
@@ -42,18 +44,16 @@ const baseConfig = {
   resolve: {
     extensions: [".js", ".ts", ".tsx"],
     alias: {
-      app: path.resolve(__dirname, "../app"),
-      appCommon: path.resolve(__dirname, "../app/common"),
-      appRenderer: path.resolve(__dirname, "../app/renderer")
+      app: path.resolve(__dirname, "../app")
     },
     modules: [
       path.resolve(__dirname, "../node_modules"),
-      path.resolve(__dirname, "../lib"),
+      path.resolve(__dirname, "../resources")
     ]
   },
 
   output: {
-    path: path.resolve(__dirname, "../dist"),
+    path: distDir,
     filename: bundleFilename,
     // https://github.com/webpack/webpack/issues/1114
     libraryTarget: "commonjs2"
@@ -65,15 +65,15 @@ const baseConfig = {
         test: /.*\.css$/,
         exclude: /node_modules/,
         loaders: [
-          'style-loader',
-          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+          "style-loader",
+          "css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
         ]
       },
       {
         test: /node_modules.*\.css$/,
         loaders: [
-          'style-loader',
-          'css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+          "style-loader",
+          "css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
         ]
       },
       // WOFF Font
@@ -162,9 +162,7 @@ const productionConfig = {
   devtool: "cheap-module-source-map",
   entry: path.resolve(__dirname, "../app/renderer/index.tsx"),
   output: {
-    publicPath: path.resolve(__dirname, "../dist/")
-    // the last slash is important! ------------^
-    // if you remove it the asset urls will break!
+    publicPath: `${distDir}/`
   },
   module: {
     rules: [
