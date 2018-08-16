@@ -120,7 +120,7 @@ class WalletFormContainer extends
       await this.createSeed()
       this.to(WALLET_SEED_BACKUP)()
     },
-    newSeedPrefilled: async () => {
+    newPrefilledSeed: async () => {
       await this.createSeed()
       this.setState({caption: prefilledWallet.caption})
       this.to(WALLET_SEED_BACKUP)()
