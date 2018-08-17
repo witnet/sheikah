@@ -1,0 +1,23 @@
+:local {
+  @import "app/renderer/ui/fonts";
+  @import "app/renderer/ui/theme";
+
+  .button {
+    background: $button-action-background;
+    border: 0;
+    border-radius: $button-action-border_radius;
+    box-shadow: $button-action-shadow;
+    color: $button-action-color;
+    font-weight: $button-action-font_weight;
+
+    &:focus {
+      background: $button-action-background !important;
+      color: $button-action-color;
+    }
+
+    &:disabled {
+      background: $button-action-disabled-background;
+      color: $button-action-color;
+    }
+  }
+}
