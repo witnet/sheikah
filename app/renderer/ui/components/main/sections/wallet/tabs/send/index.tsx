@@ -3,7 +3,7 @@ import * as React from "react"
 import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import { InputDefault } from "app/renderer/ui/components/input"
-import { ButtonDefault } from "app/renderer/ui/components/button"
+import ActionButton from "app/renderer/ui/components/button/action"
 
 const styles = require("./style.scss")
 
@@ -30,12 +30,12 @@ class TabSend extends TabComponent<any> {
           <InputDefault className={`${styles.input} ${styles["small-input"]}`} />
           <label className={styles.label}>Fee</label>
           <InputDefault className={`${styles.input} ${styles["small-input"]}`} />
-          <ButtonDefault
+          <ActionButton
             className={styles.submit}
             onClick={this.props.services.showUnimplementedMessage}
           >
             SIGN AND SEND
-          </ButtonDefault>
+          </ActionButton>
         </div>
       </Wrapper>
     )
