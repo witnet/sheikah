@@ -153,7 +153,7 @@ export const KeyChain = t.type({
 }, "KeyChain")
 export type KeyChain = t.TypeOf<typeof KeyChain>
 
-export const EpochsInfo = t.union([
+export const EpochsInfo = t.intersection([
   t.type({
     last: t.number
   }),
