@@ -52,8 +52,6 @@ const builders: Builders = {
   appStateManager: appStateSubSystem
 }
 
-log.debug(`builders: ${JSON.stringify(builders)}`)
-
 /**
  * Application wide system that starts all its components when started.
  * A system is just stateful object that supports Lifecycle protocol (it can be started and stopped)
@@ -80,6 +78,7 @@ export class System implements Lifecycle<SubSystems, Config> {
    * @param config
    */
   public async start(config?: Partial<Config>) {
+    log.debug(`builders: ${JSON.stringify(builders)}`)
     log.info("Starting system...")
 
     const promises: Array<Promise<SubSystems[keyof SubSystems]>> = Object.entries(builders)

@@ -1,5 +1,6 @@
 const { app, ipcMain } = require("electron")
 
+import * as log from "electron-log"
 import { config } from "app/common/config"
 import { inDarwin, inDevelopment } from "app/common/env"
 import { Channels } from "app/main/ipc"
@@ -16,10 +17,10 @@ app.on("ready", startApplication)
 app.on("will-quit", stopApplication)
 
 if (inDevelopment) {
-  const log = require("electron-log")
   log.transports.console.level = log.transports.file.level = "debug"
   app.commandLine.appendSwitch("remote-debugging-port", "9222")
 } else {
+  log.transports.console.level = log.transports.file.level = "warn"
   const sourceMapSupport = require("source-map-support")
   sourceMapSupport.install()
 }
