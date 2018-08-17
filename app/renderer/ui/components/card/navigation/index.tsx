@@ -26,9 +26,10 @@ export interface Iprops {
 export default class Cardnavigation extends React.Component<Iprops> {
   // tslint:disable-next-line: completed-docs
   public render() {
+    const cardStyle = `${this.props.className} ${styles.card}`
 
     return (
-      <div className={this.props.className}>
+      <div className={cardStyle}>
         <Card title={this.props.title}>
           <div className={styles.content}>
             {this.props.children}
@@ -41,6 +42,7 @@ export default class Cardnavigation extends React.Component<Iprops> {
             <ButtonNavigation
               text={this.props.nextText ? this.props.nextText : "Next"}
               onClick={this.props.nextStep}
+              selected={true}
             />
           </div>
         </Card>

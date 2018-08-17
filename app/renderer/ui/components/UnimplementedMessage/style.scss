@@ -1,9 +1,11 @@
 :local {
   @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/fonts";
 
   .text {
+    @extend %font14;
+
     color: $toast-color;
-    font-size: $toast-font_size;
   }
 
   .bold {

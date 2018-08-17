@@ -28,15 +28,12 @@ export default class ButtonOption extends React.Component<Iprops> {
       : ""
 
     const className = `${styles.button} ${recommendedStyle} ${this.props.className}`
-    const text = (
-      <>
-        <span>{this.props.children}</span> <span>{_.get(this, "props.secondaryText", "")}</span>
-      </>
-    )
 
     return (
       <Button className={className} onClick={this.props.onClick}>
-        {text}
+        <span>
+          {this.props.children}</span> <span>{this.props.secondaryText}
+        </span>
       </Button>
     )
   }

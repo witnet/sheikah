@@ -1,21 +1,27 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/fonts";
+
+  .centered {
+    grid-column-start: 2;
+    grid-row-start: 2;
+  }
 
   .link {
-    color: $blue-6;
     text-align: right;
   }
 
   .subtitle {
-    color: $grey-10;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 1em;
+    @extend %font14;
+
+    color: $font-color-dark;
+    margin-bottom: 30px;
   }
 
   .text {
-    font-size: 16px;
-    font-weight: lighter;
-    margin-bottom: 1em;
+    @extend %font14;
+
+    color: $font-color-light;
+    margin-bottom: 50px;
   }
 }

@@ -24,10 +24,12 @@ export default class WalletSeedBackup extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
+    const cardStyle = `${styles.centered} ${this.props.className}`
+
     return (
       <>
         <CardNavigation
-          className={this.props.className}
+          className={cardStyle}
           title="Wallet seed creation"
           previousStep={this.props.previousStep}
           nextStep={this.props.nextStep}
@@ -36,12 +38,14 @@ export default class WalletSeedBackup extends React.Component<Iprops> {
           <div className={styles.seed}>
             <p>{this.props.mnemonics}</p>
           </div>
-          <p>Please save this 12 words on paper (order is important). This seed will allow you to
-            recover your wallet in case of computer failure.</p>
+          <p className={styles.recommendation}>
+            Please save this 12 words on paper (order is important). This seed will allow you to
+            recover your wallet in case of computer failure.
+          </p>
         </CardNavigation>
         <AlertDefault className={styles["alert-grid"]}>
           <div className={styles.alert}>
-            <p>Remember!</p>
+            <p className={styles.title}>Remember!</p>
             <ul>
               <li>Never disclose your seed.</li>
               <li>Never type on a website</li>

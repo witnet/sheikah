@@ -1,24 +1,47 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/fonts";
 
-  .fields {
-    display: inline-block;
+  .centered {
+    grid-column-start: 2;
+    grid-row-start: 2;
+  }
+
+  .content {
+    padding: 12px;
+  }
+
+  .text {
+    @extend %font14;
+
+    color: $font-color-dark;
+    margin-bottom: 35px;
+  }
+
+  .field {
+    margin-bottom: 20px;
     width: 100%;
+  }
 
-    * {
-      display: inline-block;
-    }
+  .label {
+    @extend %font14;
 
-    *:nth-child(odd) {
-      width: 50%;
-    }
+    color: $font-color-light;
+    display: inline-block;
+    padding-right: 20px;
+    text-align: right;
+    width: 30%;
+  }
 
-    *:nth-child(even) {
-      width: 50%;
-    }
+  .input {
+    display: inline-block;
+    padding-bottom: 5px;
+    text-align: center;
+    width: 60%;
   }
 
   .error {
-    color: $red-4;
+    color: $error-color;
+    margin-bottom: 28px;
   }
 }

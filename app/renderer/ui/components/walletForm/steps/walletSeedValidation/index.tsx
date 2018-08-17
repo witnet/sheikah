@@ -12,7 +12,6 @@ export interface Iprops {
   text: string
   inputValue: string
   errorMessage?: string
-  alertNode?: React.ReactNode
   nextStep: any
   previousStep: any
   onChangeInput?: any
@@ -29,11 +28,18 @@ export default class WalletSeedValidation extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
+    const cardStyle = `${styles.centered} ${this.props.className}`
 
-    const alert = this.props.alertNode && (
+    const alert = (
       <AlertDefault className={styles["alert-grid"]}>
         <div className={styles.alert}>
-          {this.props.alertNode}
+          <p className={styles.title}>Your seed is important!</p>
+          <p className={styles.message}>
+            If you lose your seed, your coins will be permanently lost.
+          </p>
+          <p className={styles.message}>
+            To confirm that you have properly saved your seed, please retype it here.
+          </p>
         </div>
       </AlertDefault>
     )
@@ -41,14 +47,14 @@ export default class WalletSeedValidation extends React.Component<Iprops> {
     return (
       <>
         <CardNavigation
-          className={this.props.className}
+          className={cardStyle}
           title={this.props.title}
           previousStep={this.props.previousStep}
           nextStep={this.props.nextStep}
         >
-          <p>{this.props.text}</p>
+          <p className={styles.text}>{this.props.text}</p>
           <InputBig
-            className={styles.seed}
+            className={styles.input}
             value={this.props.inputValue}
             onChange={this.props.onChangeInput}
           />

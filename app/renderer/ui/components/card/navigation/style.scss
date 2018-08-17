@@ -1,6 +1,12 @@
 :local {
+  @import "app/renderer/ui/theme";
+
+  .card {
+    box-shadow: $card-default-shadow;
+  }
+
   .content {
-    padding: 2em;
+    padding: 50px;
   }
 
   .navigation {
