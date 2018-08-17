@@ -27,7 +27,7 @@ function generatePrefilledWallet(): Wallet {
     "sheikah seed", 4096, 32, "sha256"
   ).toString("hex")
   const _v = CURRENT_WALLET_VERSION
-  const epochs = {}
+  const epochs = { last: 0 }
 
   const seedInfo: SeedInfo = { seed: { chainCode, masterSecret }, kind: ("Wip3" as "Wip3") }
 
