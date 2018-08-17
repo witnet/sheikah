@@ -14,6 +14,14 @@ $button-link-color: $blue-6;
 $button-link-height: auto;
 $button-link-width: auto;
 
+$button-action-background: $blue-6;
+$button-action-border_radius: 2px;
+$button-action-shadow_color: rgba(0, 0, 0, 0.2);
+$button-action-shadow: 0 2px 5px 0 $button-action-shadow_color;
+$button-action-color: $grey-1;
+$button-action-font_weight: 600;
+$button-action-disabled-background: $grey-4;
+
 $card-default-shadow: 0 0 5px 0 $grey-3;
 
 $input-big-border: 1px dashed $grey-8;
