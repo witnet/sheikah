@@ -17,9 +17,7 @@ import * as api from "app/renderer/api"
 import { GetWalletResponse } from "app/common/runtimeTypes/ipc/wallets"
 
 import * as urls from "app/renderer/constants/urls"
-import {
-  extendWalletData
-} from "app/renderer/prefilledWallet"
+import { extendWalletData } from "app/renderer/prefilledWallet"
 
 /**
  * Props that match redux store state
@@ -114,8 +112,8 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    */
   private walletSelectNext = async (id: string) => {
     // Wait for the id to be set in the state
-    await this.changeState({ id })
-    await this.changeState({ collapseSidebar: true })
+    await this.changeState({ id, collapseSidebar: true })
+
     // Dispatch action to go to next route
     this.props.goTo(urls.WALLET_PASSWORD_PROMPT)
   }
@@ -126,7 +124,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    */
   private walletSelectNewWallet = async () => {
     // Dispatch action to go to next route
-    this.props.goTo(urls.WALLET_SEED_TYPE_SELECTION)
+    this.props.goTo(urls.NEW_WALLET)
   }
 
   /**
@@ -134,8 +132,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    */
   private walletPasswordRequestPrev = async () => {
     // Clean possible error
-    await this.changeState({ errorMessage: "" })
-    await this.changeState({ collapseSidebar: false })
+    this.setState({ errorMessage: "", collapseSidebar: false })
 
     // Dispatch action to go back to previous route
     this.props.goBack()
@@ -147,12 +144,11 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    */
   private walletPasswordRequestNext = async (password: string) => {
     // Set unlock in progress to activate loading modal component
-    await this.changeState({ unlockInProgress: true })
+    this.setState({ unlockInProgress: true })
 
     // Dispatch action to unlock wallet and catch error
     this.unlockWallet(this.state.id, password, this.props.services)
       .then((wallet: Wallet) => {
-
         // Add prefilled data if necessary then save wallet
         this.props.actions.saveWallet(extendWalletData(wallet))
 
@@ -161,7 +157,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
       })
       .catch(async (errorMessage: string) => {
         // Set error message in the state
-        await this.changeState({ errorMessage, unlockInProgress: false })
+        this.setState({ errorMessage, unlockInProgress: false })
       })
   }
 
