@@ -2,13 +2,13 @@ import * as React from "react"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import List from "app/renderer/ui/components/list"
 import { InputDefault } from "app/renderer/ui/components/input"
-import { ButtonDefault } from "app/renderer/ui/components/button"
 import PaymentRequest from "app/renderer/ui/components/paymentRequest"
 import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 
 import {
   paymentRequest,
 } from "app/renderer/ui/components/main/sections/wallet/MockData"
+import ActionButton from "app/renderer/ui/components/button/action"
 
 const styles = require("./style.scss")
 
@@ -48,12 +48,12 @@ class TabReceive extends TabComponent<any> {
                 <InputDefault />
                 <label className={styles.label}> Expires </label>
                 <InputDefault />
-                <ButtonDefault
+                <ActionButton
                   className={styles.submit}
                   onClick={this.props.services.showUnimplementedMessage}
                 >
                   SAVE AND GENERATE ADDRESS
-                </ButtonDefault>
+                </ActionButton>
               </div>
               <div className={styles.qr}>
                 Your address and QR code will appear here once the payment request is saved
