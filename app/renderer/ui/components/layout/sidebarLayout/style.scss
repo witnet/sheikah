@@ -17,6 +17,10 @@
     flex-direction: column;
     grid-column: 1;
     justify-content: space-between;
+
+    .collapsed {
+      width: 20px;
+    }
   }
 
   .titleText {

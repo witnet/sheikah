@@ -1,10 +1,14 @@
 :local {
   @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/fonts";
 
   .underlined {
+    @extend %font14;
+
     border: 0;
     border-bottom: $input-underlined-border;
     border-radius: 0;
+    color: $input-underlined-color;
     display: grid;
 
     &:focus {

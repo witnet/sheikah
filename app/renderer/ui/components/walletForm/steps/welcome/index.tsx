@@ -21,10 +21,10 @@ export default class Welcome extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
-    const classNameCard = `${styles.card} ${this.props.className}`
+    const cardStyle = `${styles.centered} ${this.props.className}`
 
     return (
-      <CardDefault className={classNameCard} title="Hey, listen!">
+      <CardDefault className={cardStyle} style={{ width: 513 }}title="Hey, listen!">
         <p className={styles.subtitle}>
           This assistant will guide you through the process of creating your own Witnet wallet.
         </p>
@@ -34,7 +34,7 @@ export default class Welcome extends React.Component<Iprops> {
           smart contracts.
         </p>
         <div className={styles.link}>
-          <ButtonLink onClick={this.props.nextStep}>Let's do this</ButtonLink>
+          <ButtonLink onClick={this.props.nextStep}>Let's do this!</ButtonLink>
         </div>
       </CardDefault>
     )

@@ -27,8 +27,10 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
+    const cardStyle = `${styles.centered} ${this.props.className}`
+
     return (
-      <CardDefault className={this.props.className} title="Wallet seed creation">
+      <CardDefault className={cardStyle} title="Wallet seed creation">
         <p className={styles.text}>
           Seeds are secret codes used to generate your credentials.
           Be very careful with them. If you ever give them away, say bye
@@ -37,7 +39,7 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
         <div>
           <ButtonOption
             className={styles.recommended}
-            secondaryText="RECOMMENDED"
+            recommended={true}
             onClick={this.props.nextStep.newSeed}
           >
             Create a new seed
@@ -46,7 +48,7 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
         <div>
           <ButtonOption
             className={styles.recommended}
-            secondaryText="RECOMMENDED"
+            recommended={true}
             onClick={this.props.nextStep.newPrefilledSeed}
           >
             Create a wallet prefilled with sample data
