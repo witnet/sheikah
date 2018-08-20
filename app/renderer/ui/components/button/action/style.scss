@@ -4,20 +4,32 @@
 
   .button {
     background: $button-action-background;
-    border: 0;
+    border: $button-action-border;
+    border-color: $button-action-border_color;
     border-radius: $button-action-border_radius;
     box-shadow: $button-action-shadow;
     color: $button-action-color;
     font-weight: $button-action-font_weight;
+    line-height: $button-action-line_height;
+    padding: $button-action-padding;
 
-    &:focus {
-      background: $button-action-background !important;
+    &:hover {
+      background: $button-action-background;
+      border-color: $button-action-border_color;
       color: $button-action-color;
     }
 
-    &:disabled {
+    &:focus {
+      background: $button-action-focus-background;
+      border-color: $button-action-focus-border_color;
+      color: $button-action-focus-color;
+    }
+
+    &:disabled,
+    &:disabled:hover {
       background: $button-action-disabled-background;
-      color: $button-action-color;
+      border-color: $button-action-disabled-border_color;
+      color: $button-action-disabled-color;
     }
   }
 }
