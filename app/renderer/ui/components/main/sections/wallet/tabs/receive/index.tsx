@@ -8,7 +8,7 @@ import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 import {
   paymentRequest,
 } from "app/renderer/ui/components/main/sections/wallet/MockData"
-import ActionButton from "app/renderer/ui/components/button/action"
+import { ActionButton } from "app/renderer/ui/components/button"
 
 const styles = require("./style.scss")
 
