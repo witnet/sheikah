@@ -17,6 +17,9 @@ function showUnimplementedMessage() {
   return message.info(<UnimplementedMessage />)
 }
 
+// Related to issue 390
+document.location.hash = "#/"
+
 new Promise(async () => {
   // Query and parse wallets from main process
   const wallets: Wallets = await api.getWallets(apiClient)
