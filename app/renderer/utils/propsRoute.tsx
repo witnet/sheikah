@@ -15,15 +15,15 @@ export class PropsRoute extends React.Component<any> {
    * Function to render a component combining RouteComponentProps with RoutesProps
    * as props
    */
-  private withOwnProps = (A: typeof React.Component, routesProps: RoutesProps) =>
-    (props: RouteComponentProps<any>) => <A {...routesProps} {...props} />
+  private withOwnProps = (A: typeof React.Component, routesProps: RoutesProps, children: any) =>
+    (props: RouteComponentProps<any>) => (<A {...routesProps} {...props}>{children}</A>)
 
   /**
    * PropsRoute render function.
    */
   public render() {
-    const { path, ownProps, component } = this.props
+    const { path, ownProps, component, children } = this.props
 
-    return <Route path={path} render={this.withOwnProps(component, ownProps)} />
+    return <Route path={path} render={this.withOwnProps(component, ownProps, children)}/>
   }
 }
