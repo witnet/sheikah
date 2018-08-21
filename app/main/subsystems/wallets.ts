@@ -4,15 +4,16 @@ import { Storage } from "app/main/storage"
 import { Config } from "app/common/config"
 import { Lifecycle } from "app/main/lifecycle"
 
+type StorageType = Storage<Buffer, JsonSerializable, Buffer, Buffer>
+
 /**
  * This is a wrapper for JsonAESLevelStorage that provides the replace and close methods.
  * It is intended to be used as a singleton inside the WalletStorageSubsystem
  */
-
 export class WalletStorage {
 
   /** The JsonAesLevelStorage */
-  private storageRef: Storage<Buffer, JsonSerializable, Buffer, Buffer> | undefined = undefined
+  private storageRef: StorageType | undefined = undefined
 
   /**
    * Get storage
@@ -20,15 +21,29 @@ export class WalletStorage {
   public get storage() {
     return this.storageRef
   }
+
   /**
    * Replace the storage of the wallet and closes the previous storage.
    * @param {JsonAesLevelStorage} storage
    * @returns {Promise<void>}
    */
-
-  public async replace(storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>): Promise<void> {
+  public async replace(storage: StorageType): Promise<void> {
     await this.close()
     this.storageRef = storage
+  }
+
+  /**
+   * Replace the storage of the wallet with the storage returned by `storageFactory`.
+   * Before creating the new storage the previous one is closed.
+   * @param {() => Promise<JsonAesLevelStorage>} storageFactory Function returning the new storage
+   * @returns {Promise<JsonAesLevelStorage>} The newly created storage
+   */
+  public async replaceWith(storageFactory: () => Promise<StorageType>): Promise<StorageType> {
+    await this.close()
+    const storage = await storageFactory()
+    this.storageRef = storage
+
+    return storage
   }
 
   /**

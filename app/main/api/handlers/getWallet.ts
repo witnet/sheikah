@@ -91,8 +91,8 @@ async function replaceStorage(params: GetWalletParams, system: SubSystems)
   const { id, password } = params
 
   try {
-    const storage = await system.storageFactory({ id, password })
-    await system.walletStorage.replace(storage)
+    const storage = await system.walletStorage.replaceWith(
+      async () => system.storageFactory({ id, password }))
 
     return { storage, id }
   } catch (e) {
@@ -110,11 +110,15 @@ async function searchWallet(
   { storage, id }: { storage: JsonAesLevelStorage, id: string }
 ): Promise<Wallet> {
   try {
-    const wallet = await storage.get("wallet")
+    const data = await storage.get("wallet")
 
-    return asRuntimeType(wallet, Wallet)
+    try {
+      return asRuntimeType(data, Wallet)
+    } catch (error) {
+      throw getWalletErrors.INVALID_WALLET_TYPE
+    }
   } catch (error) {
-    throw getWalletErrors.INVALID_WALLET_TYPE
+    throw getWalletErrors.INVALID_PASSWORD
   }
 }
 
