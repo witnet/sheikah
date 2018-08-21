@@ -1,5 +1,5 @@
 import * as React from "react"
-import Popover from "app/renderer/ui/components/popover"
+import { Dropdown } from "app/renderer/ui/components/dropdown"
 
 const styles = require("./style.scss")
 
@@ -11,7 +11,7 @@ export interface Iprops {
   status: status
   from: string
   amount: string
-  actions: Array<(string | { text: any; onClick: any })>
+  actions: Array<({ text: any; onClick: any })>
 }
 
 /**
@@ -55,7 +55,7 @@ export default class PaymentRequest extends React.Component<Iprops> {
           {createStatus(this.props.status, this.props.expirationDate)}
         </div>
         <div className={styles.actions}>
-          <Popover dataSource={this.props.actions} />
+          <Dropdown dataSource={this.props.actions} />
         </div>
       </div>
     )
