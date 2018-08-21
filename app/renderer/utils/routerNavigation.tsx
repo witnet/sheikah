@@ -16,7 +16,7 @@ function navigateTo (history: History, route: string): void {
 }
 
 /**
- * Wrapper of navigateTo to be pass as prop
+ * Wrapper of navigateTo to be passed as a prop
  *
  * @param {History} history
  * @param {string} route
