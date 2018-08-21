@@ -8,7 +8,6 @@ export interface Iprops {
   className?: string
   onClick?: any
   text: any,
-  selected?: boolean
 }
 
 /**
@@ -24,7 +23,6 @@ export default class ButtonNavigation extends React.Component<Iprops> {
   public render() {
     const navigationClasses = `
       ${styles.button}
-      ${this.props.selected ? styles.selected : ""}
       ${this.props.className}
     `
 

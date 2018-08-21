@@ -2,28 +2,29 @@
   @import "app/renderer/ui/theme";
 
   .button {
-    background: $button-navigation-border;
-    border: $button-navigation-border;
+    background: $button-navigation-background;
+    border-color: $button-navigation-border-color;
     border-radius: 0;
+    border-style: $button-navigation-border-style;
+    border-width: 1px 1px 0 0;
     color: $button-navigation-color;
     cursor: pointer;
     font: inherit;
     height: $button-navigation-height;
     padding: 0;
     width: $button-navigation-width;
-  }
 
-  .selected {
-    color: #377df3;
-  }
+    &:last-of-type {
+      border-right: 0;
+    }
 
-  .button:not(:hover) {
-    border-bottom: 0;
-    border-left: 0;
-  }
+    &:hover,
+    &:focus {
+      border-color: $button-navigation-border-color;
+    }
 
-  .selected:not(:hover) {
-    border-bottom: 0;
-    border-right: 0;
+    &:active {
+      background: $button-navigation-hover-background;
+    }
   }
 }
