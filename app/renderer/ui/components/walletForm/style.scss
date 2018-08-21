@@ -1,9 +1,14 @@
 :local {
   @import "app/renderer/ui/theme";
 
-  .centered {
-    grid-column-start: 2;
-    grid-row-start: 2;
+  .layout {
+    background: $background-color;
+    display: grid;
+    grid-template-columns: 1fr 550px 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 100vh;
+    margin: 0 auto;
+    width: 100%;
   }
 
   .spinner {
@@ -13,15 +18,5 @@
     position: absolute;
     right: 0;
     top: 0;
-  }
-
-  .layout {
-    background: $background-color;
-    display: grid;
-    grid-template-columns: 1fr 550px 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    height: 100vh;
-    margin: 0 auto;
-    width: 100%;
   }
 }

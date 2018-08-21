@@ -1,20 +1,7 @@
 :local {
   @import "app/renderer/ui/theme";
-  @import "app/renderer/ui/fonts";
-
-  .centered {
-    grid-column-start: 2;
-    grid-row-start: 2;
-  }
-
-  .content {
-    padding: 12px;
-  }
 
   .text {
-    @extend %font14;
-
-    color: $font-color-dark;
     margin-bottom: 35px;
   }
 
@@ -24,8 +11,6 @@
   }
 
   .label {
-    @extend %font14;
-
     color: $font-color-light;
     display: inline-block;
     padding-right: 20px;
@@ -41,7 +26,6 @@
   }
 
   .error {
-    color: $error-color;
     margin-bottom: 28px;
   }
 }

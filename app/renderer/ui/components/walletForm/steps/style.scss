@@ -2,21 +2,11 @@
   @import "app/renderer/ui/theme";
   @import "app/renderer/ui/fonts";
 
-  .centered {
-    grid-column-start: 2;
-    grid-row-start: 2;
-  }
-
   .alert {
     background: $alert-gradient;
     color: $alert-color;
     grid-row-start: 2;
     padding: 35px 47px;
-
-    .title {
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
 
     ul {
       list-style-position: inside;
@@ -30,6 +20,18 @@
     }
   }
 
+  .alert-message {
+    @extend %font12;
+
+    color: $alert-color;
+  }
+
+  .alert-title {
+    color: $alert-color;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
   .alert-grid {
     display: grid;
     grid-column-start: 3;
@@ -39,14 +41,20 @@
     grid-template-rows: 1fr auto 1fr;
   }
 
-  .right {
-    align-items: center;
-    display: flex;
+  .centered {
+    grid-column-start: 2;
+    grid-row-start: 2;
+  }
+
+  .error {
+    color: $error-color;
+  }
+
+  .mnemonics {
+    color: $input-big-color;
   }
 
   .seed {
-    @extend %font14;
-
     align-items: center;
     border: $input-big-border;
     border-radius: $input-big-border_radius;
@@ -57,11 +65,5 @@
     margin: 25px 0;
     padding: 25px 30px;
     width: 100%;
-  }
-
-  .recommendation {
-    @extend %font14;
-
-    color: $font-color-dark;
   }
 }

@@ -1,26 +1,15 @@
 :local {
   @import "app/renderer/ui/theme";
-  @import "app/renderer/ui/fonts";
-
-  .centered {
-    grid-column-start: 2;
-    grid-row-start: 2;
-  }
 
   .link {
     text-align: right;
   }
 
   .subtitle {
-    @extend %font14;
-
-    color: $font-color-dark;
     margin-bottom: 30px;
   }
 
   .text {
-    @extend %font14;
-
     color: $font-color-light;
     margin-bottom: 20px;
   }

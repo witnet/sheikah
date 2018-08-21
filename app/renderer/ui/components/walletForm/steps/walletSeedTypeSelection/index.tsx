@@ -3,7 +3,8 @@ import * as React from "react"
 import { ButtonOption } from "app/renderer/ui/components/button"
 import { CardDefault } from "app/renderer/ui/components/card"
 
-const styles = require("./style.scss")
+const stepStyles = require("./style.scss")
+const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
 
 export interface Iprops {
   className?: string
@@ -27,19 +28,18 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-    const cardStyle = `${styles.centered} ${this.props.className}`
+    const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 
     return (
       <CardDefault className={cardStyle} title="Wallet seed creation">
-        <p className={styles.text}>
+        <p className={stepStyles.text}>
           Seeds are secret codes used to generate your credentials.
           Be very careful with them. If you ever give them away, say bye
           to your coins!
         </p>
-        <ul className={styles.options}>
+        <ul className={stepStyles.options}>
           <li>
             <ButtonOption
-              className={styles.recommended}
               recommended={true}
               onClick={this.props.nextStep.newSeed}
             >
@@ -48,7 +48,6 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
           </li>
           <li>
             <ButtonOption
-              className={styles.recommended}
               recommended={true}
               onClick={this.props.nextStep.newPrefilledSeed}
             >

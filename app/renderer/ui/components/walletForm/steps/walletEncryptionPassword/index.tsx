@@ -3,7 +3,8 @@ import * as React from "react"
 import { CardNavigation } from "app/renderer/ui/components/card"
 import { InputUnderlined } from "app/renderer/ui/components/input"
 
-const styles = require("./style.scss")
+const stepStyles = require("./style.scss")
+const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
 
 export interface Iprops {
   className?: string
@@ -27,7 +28,7 @@ export interface Iprops {
 export default class WalletEncryptionPassword extends React.Component<Iprops> {
   /** render */
   public render() {
-    const cardStyle = `${styles.centered} ${this.props.className}`
+    const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 
     return (
       <CardNavigation
@@ -36,30 +37,32 @@ export default class WalletEncryptionPassword extends React.Component<Iprops> {
         previousStep={this.props.previousStep}
         nextStep={this.props.nextStep}
       >
-        <p className={styles.text}>Choose a password to encrypt your wallet.</p>
-        <div className={styles.field}>
-          <label className={`${styles.label} ${styles["password-label"]}`}>Password</label>
+        <p className={stepStyles.text}>Choose a password to encrypt your wallet.</p>
+        <div className={stepStyles.field}>
+          <label className={`${stepStyles.label} ${stepStyles["password-label"]}`}>Password</label>
           <InputUnderlined
-            className={`${styles.input} ${styles["password-input"]}`}
+            className={`${stepStyles.input} ${stepStyles["password-input"]}`}
             type="password"
             onChange={this.props.onChangePassword}
             value={this.props.password}
           />
         </div>
-        <div className={styles.field}>
+        <div className={stepStyles.field}>
           <label
-            className={`${styles.label} ${styles["confirm-password-label"]}`}
+            className={`${stepStyles.label} ${stepStyles["confirm-password-label"]}`}
           >
             Confirm password
           </label>
           <InputUnderlined
-            className={`${styles.input} styles["confirm-password-input"]`}
+            className={`${stepStyles.input} stepStyles["confirm-password-input"]`}
             type="password"
             onChange={this.props.onChangeRepeatPassword}
             value={this.props.repeatPassword}
           />
         </div>
-        <p className={styles.error}>{this.props.errorMessage}</p>
+        <p className={`${commonFormStepStyles.error} ${stepStyles.error}`}>
+          {this.props.errorMessage}
+        </p>
       </CardNavigation>
     )
   }

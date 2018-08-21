@@ -4,7 +4,7 @@ import { CardNavigation } from "app/renderer/ui/components/card/index"
 import { InputBig } from "app/renderer/ui/components/input/index"
 import { AlertDefault } from "app/renderer/ui/components/alert"
 
-const styles = require("./style.scss")
+const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
 
 export interface Iprops {
   className?: string
@@ -28,16 +28,16 @@ export default class WalletSeedValidation extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
-    const cardStyle = `${styles.centered} ${this.props.className}`
+    const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 
     const alert = (
-      <AlertDefault className={styles["alert-grid"]}>
-        <div className={styles.alert}>
-          <p className={styles.title}>Your seed is important!</p>
-          <p className={styles.message}>
+      <AlertDefault className={commonFormStepStyles["alert-grid"]}>
+        <div className={commonFormStepStyles.alert}>
+          <p className={commonFormStepStyles["alert-title"]}>Your seed is important!</p>
+          <p className={commonFormStepStyles["alert-message"]}>
             If you lose your seed, your coins will be permanently lost.
           </p>
-          <p className={styles.message}>
+          <p className={commonFormStepStyles["alert-message"]}>
             To confirm that you have properly saved your seed, please retype it here.
           </p>
         </div>
@@ -52,13 +52,13 @@ export default class WalletSeedValidation extends React.Component<Iprops> {
           previousStep={this.props.previousStep}
           nextStep={this.props.nextStep}
         >
-          <p className={styles.text}>{this.props.text}</p>
+          <p>{this.props.text}</p>
           <InputBig
-            className={styles.input}
+            className={commonFormStepStyles.seed}
             value={this.props.inputValue}
             onChange={this.props.onChangeInput}
           />
-          <p className={styles.error}>{this.props.errorMessage}</p>
+          <p className={commonFormStepStyles.error}>{this.props.errorMessage}</p>
         </CardNavigation>
         {alert}
       </>
