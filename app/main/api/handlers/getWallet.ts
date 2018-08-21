@@ -132,7 +132,7 @@ function encodeResponse(response: GetWalletResponse): JsonSerializable {
   try {
     return asObject(response, GetWalletResponse)
   } catch (err) {
-    throw getWalletErrors.INVALID_WALLET_TYPE
+    throw getWalletErrors.CANNOT_ENCODE_WALLET
   }
 }
 
