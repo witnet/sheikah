@@ -10,7 +10,7 @@ import { AppStateManager } from "app/main/appState"
 import * as mnemonic from "app/main/crypto/mnemonic"
 
 import { AppStateS } from "app/main/system"
-import { fanOut, inject } from "app/main/utils/utils"
+import { inject } from "app/main/utils/utils"
 import { LiteralType } from "io-ts"
 import { Seed } from "app/common/runtimeTypes/storage/wallets"
 import * as Slip32 from "slip32"
@@ -30,7 +30,7 @@ export default async function importSeed
   // First of all, parse method parameters
   return parseParams(params)
     // Get the seed from the params
-    .then(inject(getSeed, appStateManager))
+    .then(getSeed)
     // Update or insert unconsolidated wallet into app state
     .then(inject(upsertUnconsolidated, appStateManager))
     // The handler logic ends here. What follows is response building and encoding.
@@ -50,11 +50,11 @@ const assertNever = (_x: never) => undefined
  * @param params
  * @param appStateManager
  */
-async function getSeed(params: ImportSeedParams, appStateManager: AppStateManager): Promise<Seed> {
+async function getSeed(params: ImportSeedParams): Promise<Seed> {
   let seed: Promise<Seed>
   switch (params.kind) {
     case "mnemonics":
-      seed = processMnemonics(params.mnemonics, appStateManager)
+      seed = processMnemonics(params.mnemonics)
       break
     case "xprv":
       seed = processXprv(params.xprv)
@@ -73,11 +73,10 @@ async function getSeed(params: ImportSeedParams, appStateManager: AppStateManage
  * @param mnemonics
  * @param appStateManager
  */
-async function processMnemonics(mnemonics: string, appStateManager: AppStateManager):
+async function processMnemonics(mnemonics: string):
   Promise<Seed> {
   return Promise.resolve(mnemonics)
-    // In parallel: validate mnemonic, check mnemonic against unconsolidated wallet
-    .then(fanOut([validateMnemonicsString, inject(matchMnemonics, appStateManager)]))
+    .then(validateMnemonicsString)
     .then(seedFromMnemonics)
 }
 
@@ -102,7 +101,7 @@ async function processXprv(xprv: string): Promise<Seed> {
  * Get seed from mnemonics
  * @param param0
  */
-function seedFromMnemonics([mnemonics]: Array<string>): Seed {
+function seedFromMnemonics(mnemonics: string): Seed {
   try {
     return fromMnemonics(mnemonics)
   } catch (error) {
@@ -126,20 +125,6 @@ async function parseParams(params: any): Promise<ImportSeedParams> {
 function validateMnemonicsString(mnemonics: string): string {
   if (!mnemonic.isValid(mnemonics)) {
     throw importSeedErrors.INVALID_MNEMONICS
-  }
-
-  return mnemonics
-}
-
-/**
- * Check if received mnemonics match the mnemonics from a former unconsolidated wallet.
- * @param mnemonics
- * @param appStateManager
- */
-function matchMnemonics(mnemonics: string, appStateManager: AppStateManager): string {
-  if (appStateManager.state.unconsolidatedWallet
-    && mnemonics !== appStateManager.state.unconsolidatedWallet.mnemonics) {
-    throw importSeedErrors.MISMATCHING_MNEMONICS
   }
 
   return mnemonics
