@@ -53,14 +53,14 @@ describe("importSeed Handler", () => {
     expect(result).toMatchObject(error("INVALID_MNEMONICS"))
   })
 
-  it("should reject valid mnemonics not matching unconsolidated wallet", async () => {
+  it("should not reject valid mnemonics not matching unconsolidated wallet", async () => {
     const params = {
       kind: "mnemonics",
       mnemonics: "control enroll cancel obey join cup vault jazz brush pledge raven huge"
     }
     const result = await importSeed(system, params)
 
-    expect(result).toMatchObject(error("MISMATCHING_MNEMONICS"))
+    expect(result).toMatchObject({ kind: "SUCCESS" })
   })
 
   it("should import seed if mnemonics are fine", async () => {
