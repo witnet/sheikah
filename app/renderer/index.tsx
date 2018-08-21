@@ -6,6 +6,7 @@ import { render } from "react-dom"
 import Root from "app/renderer/ui/containers/Root"
 import "./ui/app.global.scss"
 import { UnimplementedMessage } from "app/renderer/ui/components/unimplementedMessage"
+import { Services } from "app/renderer/services"
 const apiClient = new api.Client()
 
 /**
@@ -26,7 +27,7 @@ new Promise(async () => {
 
   // This object holds resources that are shared among different parts of the app and unifies
   // dependency injection.
-  const services = {
+  const services: Services = {
     apiClient,
     showUnimplementedMessage
   }
