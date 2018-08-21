@@ -1,0 +1,51 @@
+:local {
+  @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/colors";
+
+  .button {
+    border-color: $grey-4;
+    color: $grey-4;
+    height: $popover-height;
+    margin: 0;
+    padding: 0;
+    transition-duration: 0.5s;
+    width: $popover-width;
+
+    &:focus {
+      border-color: $blue-6;
+      color: $blue-6;
+    }
+
+    &:hover {
+      border-color: $blue-6;
+      color: $blue-6;
+    }
+  }
+
+  .active {
+    border-color: $blue-6;
+    color: $blue-6;
+  }
+
+  .menu {
+    &::before {
+      background: white;
+      border-left: 1px solid $blue-6;
+      border-right: 1px solid $blue-6;
+      content: "";
+      display: block;
+      height: 4px;
+      position: absolute;
+      right: -1px;
+      top: -4px;
+      width: 38px;
+      z-index: 1000000;
+    }
+  }
+
+  .menuItem {
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(26, 108, 255, 0.2);
+    }
+  }
+}

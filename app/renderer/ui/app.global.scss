@@ -119,5 +119,19 @@
     .ant-card-body {
       padding: 0;
     }
+
+    .ant-dropdown-menu {
+      border: 1px solid $blue-6;
+      border-radius: 4px 0 4px 4px;
+      margin-top: -5px;
+      padding: 0;
+    }
+
+    .ant-dropdown-menu-item {
+      color: $grey-9;
+      font-family: $font-family;
+      font-weight: 600;
+      padding: 10px 20px;
+    }
   }
 }
