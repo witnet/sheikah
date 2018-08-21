@@ -38,7 +38,7 @@ export default class WalletSeedBackup extends React.Component<Iprops> {
           <div className={styles.seed}>
             <p>{this.props.mnemonics}</p>
           </div>
-          <p className={styles.recommendation}>
+          <p>
             Please save this 12 words on paper (order is important). This seed will allow you to
             recover your wallet in case of computer failure.
           </p>
