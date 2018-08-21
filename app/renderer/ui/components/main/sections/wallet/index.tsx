@@ -1,11 +1,9 @@
 import * as React from "react"
-import { Switch } from "react-router"
 
 import { SectionInfo } from "app/renderer/ui/components/main/sections"
 import { TabCoins, TabReceive, TabSend, TabTransactions } from "./tabs"
 import TopBar from "app/renderer/ui/components/topBar/index"
 import { TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
-import { PropsRoute } from "app/renderer/utils/propsRoute"
 
 import * as urls from "app/renderer/constants/urls"
 
@@ -36,33 +34,7 @@ class Wallet extends React.Component<WalletProps> {
       <>
         <TopBar className={mainStyles["top-bar"]} pathName="" linksProps={topBarlinkProps} />
         <div className={styles.layout}>
-          <Switch>
-            <PropsRoute
-              path={urls.TRANSACTIONS_TAB}
-              ownProps={this.props}
-              component={TabTransactions.component}
-            />
-            <PropsRoute
-              path={urls.COINS_TAB}
-              ownProps={this.props}
-              component={TabCoins.component}
-            />
-            <PropsRoute
-              path={urls.SEND_TAB}
-              ownProps={this.props}
-              component={TabSend.component}
-            />
-            <PropsRoute
-              path={urls.RECEIVE_TAB}
-              ownProps={this.props}
-              component={TabReceive.component}
-            />
-            <PropsRoute
-              path="/"
-              ownProps={this.props}
-              component={TabTransactions.component}
-            />
-          </Switch>
+          {this.props.children}
         </div>
       </>
     )
