@@ -36,39 +36,41 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
           Be very careful with them. If you ever give them away, say bye
           to your coins!
         </p>
-        <div>
-          <ButtonOption
-            className={styles.recommended}
-            recommended={true}
-            onClick={this.props.nextStep.newSeed}
-          >
-            Create a new seed
-          </ButtonOption>
-        </div>
-        <div>
-          <ButtonOption
-            className={styles.recommended}
-            recommended={true}
-            onClick={this.props.nextStep.newPrefilledSeed}
-          >
-            Create a wallet prefilled with sample data
-          </ButtonOption>
-        </div>
-        <div>
-          <ButtonOption onClick={this.props.nextStep.importMnemonics}>
-            Import my own seed
-          </ButtonOption>
-        </div>
-        <div>
-          <ButtonOption onClick={this.props.nextStep.importXprv} >
-            Use a master key
-          </ButtonOption>
-        </div>
-        <div>
-          <ButtonOption onClick={this.props.nextStep.useHardwareDevice}>
-            Use a hardware device
-          </ButtonOption>
-        </div>
+        <ul className={styles.options}>
+          <li>
+            <ButtonOption
+              className={styles.recommended}
+              recommended={true}
+              onClick={this.props.nextStep.newSeed}
+            >
+              Create a new seed
+            </ButtonOption>
+          </li>
+          <li>
+            <ButtonOption
+              className={styles.recommended}
+              recommended={true}
+              onClick={this.props.nextStep.newPrefilledSeed}
+            >
+              Create a wallet prefilled with sample data
+            </ButtonOption>
+          </li>
+          <li>
+            <ButtonOption onClick={this.props.nextStep.importMnemonics}>
+              Import my own seed
+            </ButtonOption>
+          </li>
+          <li>
+            <ButtonOption onClick={this.props.nextStep.importXprv} >
+              Use a master key
+            </ButtonOption>
+          </li>
+          <li>
+            <ButtonOption onClick={this.props.nextStep.useHardwareDevice}>
+              Use a hardware device
+            </ButtonOption>
+          </li>
+        </ul>
       </CardDefault>
     )
   }

@@ -3,10 +3,10 @@
   @import "app/renderer/ui/theme";
 
   .grid {
+    box-shadow: $default-box-shadow;
     display: grid;
     grid-template-columns: 30% 1fr;
     height: 100%;
-    box-shadow: $default-box-shadow;
   }
 
   .collapse {

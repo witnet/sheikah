@@ -1,5 +1,6 @@
 :local {
   @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .layout {
     display: flex;
@@ -10,7 +11,7 @@
   }
 
   .content {
-    margin: 25px;
+    padding: $card-default-padding;
   }
 
   .text {
@@ -19,6 +20,7 @@
 
   .input {
     margin-bottom: 20px;
+    padding: $input-padding;
   }
 
   .error {
@@ -30,6 +32,5 @@
     grid-column-gap: 10px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 50px;
-    margin: 10px;
   }
 }

@@ -7,6 +7,12 @@
     grid-row-start: 2;
   }
 
+  .options {
+    li {
+      margin-bottom: 10px;
+    }
+  }
+
   .text {
     @extend %font14;
 

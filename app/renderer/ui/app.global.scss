@@ -97,12 +97,13 @@
       color: $grey-1;
       display: flex;
       height: 100px;
+      padding: 0 40px;
     }
 
     .ant-card-head-title {
       color: $grey-1;
       font-size: 18px;
-      font-weight: lighter;
+      font-weight: normal;
     }
 
     .ant-card-body {
