@@ -27,7 +27,7 @@ describe("GetState Handler", () => {
     }
 
     system.appStateManager.update({
-      wallets: {
+      walletInfos: {
         _v: CURRENT_WALLETS_VERSION,
         infos: [
           { id: "w1", caption: "i1" },

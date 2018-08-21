@@ -1,15 +1,15 @@
 import { Contexts, asRuntimeType } from "app/common/runtimeTypes"
 import { ApiClient } from "app/renderer/api"
-import { Wallets } from "app/common/runtimeTypes/storage/wallets"
+import { WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 
 /**
  * Function to request the unlock of a wallet through the API Client
  * @param client
  */
-export async function getWallets(client: ApiClient): Promise<Wallets> {
+export async function getWalletInfos(client: ApiClient): Promise<WalletInfos> {
   // Request all available wallets
-  const wallets = await client.request("getWallets")
+  const walletInfos = await client.request("getWalletInfos")
 
   // Cast return value to runtime type
-  return asRuntimeType(wallets, Wallets, Contexts.IPC)
+  return asRuntimeType(walletInfos, WalletInfos, Contexts.IPC)
 }

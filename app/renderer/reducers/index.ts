@@ -5,7 +5,7 @@ import { StoreState } from "app/renderer/store"
 
 // Combine all the relevant Redux reducers
 const rootReducer = combineReducers({
-  wallets: walletsReducer,
+  walletInfos: walletsReducer,
   wallet: walletReducer,
 }) as Reducer<StoreState>
 

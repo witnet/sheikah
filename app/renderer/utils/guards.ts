@@ -14,7 +14,7 @@ export const ifWallets: RouteGuard = (store) => {
   const state = store.getState()
 
   return (props: any) => {
-    return state.wallets.infos.length > 0
+    return state.walletInfos.infos.length > 0
   }
 }
 

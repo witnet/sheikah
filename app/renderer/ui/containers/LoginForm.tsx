@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router"
 import { push, goBack } from "connected-react-router"
 import { bindActionCreators, Dispatch } from "redux"
 
-import { Wallets, Wallet } from "app/common/runtimeTypes/storage/wallets"
+import { WalletInfos, Wallet } from "app/common/runtimeTypes/storage/wallets"
 
 import * as actionCreators from "app/renderer/actions/loginForm"
 import { IAction } from "app/renderer/actions/helpers"
@@ -23,7 +23,7 @@ import { extendWalletData } from "app/renderer/prefilledWallet"
  * Props that match redux store state
  */
 export interface StateProps {
-  wallets: Wallets,
+  walletInfos: WalletInfos,
 }
 
 /**
@@ -58,7 +58,7 @@ export interface FormState {
  */
 const mapStateToProps = (state: StoreState): StateProps => {
   return ({
-    wallets: state.wallets,
+    walletInfos: state.walletInfos,
   })
 }
 
@@ -196,7 +196,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    */
   private renderWalletSelection = () => (
     <WalletSelection
-      wallets={this.props.wallets}
+      walletInfos={this.props.walletInfos}
       nextStep={this.walletSelectNext}
       newWallet={this.walletSelectNewWallet}
     />

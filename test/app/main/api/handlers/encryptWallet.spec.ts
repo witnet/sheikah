@@ -2,7 +2,7 @@ import { encryptWallet } from "app/main/api/handlers"
 import { AppStateS, WalletStorageS, AppStorageS } from "app/main/system"
 import { EncryptWalletSuccess } from "app/common/runtimeTypes/ipc/wallets"
 import { asRuntimeType } from "app/common/runtimeTypes"
-import { Wallets } from "app/common/runtimeTypes/storage/wallets"
+import { WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 import * as fixture from "./encryptWalletFixtures"
 
 describe("EncryptWallet Handler", () => {
@@ -33,7 +33,7 @@ describe("EncryptWallet Handler", () => {
   it("should have infos in plain memory", async () => {
     await encryptWallet(system, fixture.walletParams)
     const wallets =
-      asRuntimeType(await system.appStorage.get("wallets"), Wallets)
+      asRuntimeType(await system.appStorage.get("walletInfos"), WalletInfos)
 
     expect(wallets.infos).toEqual(fixture.infos)
   })
