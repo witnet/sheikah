@@ -27,7 +27,7 @@ export class TopBarLink extends React.Component<TopBarLinkProps & PathNameProp> 
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
-      <Link className={join([styles["link-box"], this.active])} to={this.props.link}>
+      <Link className={join([styles["link-box"], this.active])} to={this.props.link} replace={true}>
         {this.props.caption}
       </Link>
     )
