@@ -5,11 +5,11 @@
   .button {
     border-color: $grey-4;
     color: $grey-4;
-    height: $popover-height;
+    height: $dropdown-height;
     margin: 0;
     padding: 0;
     transition-duration: 0.5s;
-    width: $popover-width;
+    width: $dropdown-width;
 
     &:focus {
       border-color: $blue-6;
