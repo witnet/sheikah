@@ -1,11 +1,11 @@
 import { AppInfo } from "app/common/runtimeTypes/storage/app"
-import { Wallets, UnconsolidatedWallet } from "app/common/runtimeTypes/storage/wallets"
+import { WalletInfos, UnconsolidatedWallet } from "app/common/runtimeTypes/storage/wallets"
 import * as t from "io-ts"
 
 export const AppState = t.intersection([
   t.type({
     _seq: t.number,
-    wallets: Wallets,
+    walletInfos: WalletInfos,
   }),
   t.partial({
     appInfo: AppInfo,

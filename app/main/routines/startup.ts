@@ -3,7 +3,7 @@ const { ipcMain } = require("electron")
 import { config } from "app/common/config"
 import { asyncChannel, deadLetterChannel, syncChannel } from "app/common/ipc"
 import { asRuntimeType, Contexts } from "app/common/runtimeTypes"
-import { Wallets } from "app/common/runtimeTypes/storage/wallets"
+import { WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 import * as api from "app/main/api"
 import * as ipc from "app/main/ipc"
 import { SubSystems } from "app/main/system"
@@ -33,10 +33,10 @@ export default async function startupRoutine(system: SubSystems) {
  */
 async function stateStart(system: SubSystems) {
   // Get and parse wallets from storage
-  const _wallets = await system.appStorage.get("wallets")
-  const wallets = asRuntimeType(_wallets, Wallets, Contexts.STORAGE)
+  const _wallets = await system.appStorage.get("walletInfos")
+  const walletInfos = asRuntimeType(_wallets, WalletInfos, Contexts.STORAGE)
 
-  system.appStateManager.update({ appInfo: config.appInfo, wallets })
+  system.appStateManager.update({ appInfo: config.appInfo, walletInfos })
 }
 
 /**

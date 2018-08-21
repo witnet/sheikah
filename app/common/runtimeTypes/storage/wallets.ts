@@ -18,13 +18,13 @@ export type WalletInfo = t.TypeOf<typeof WalletInfo>
 export const WalletInfoCollection = t.array(WalletInfo)
 export type WalletInfoCollection = t.TypeOf<typeof WalletInfoCollection>
 
-export const Wallets = t.intersection([
+export const WalletInfos = t.intersection([
   Version,
   t.type({
     infos: WalletInfoCollection
-  }, "Wallets"),
+  }, "WalletInfos"),
 ])
-export type Wallets = t.TypeOf<typeof Wallets>
+export type WalletInfos = t.TypeOf<typeof WalletInfos>
 
 export const Mnemonics = t.type({
   mnemonics: t.string

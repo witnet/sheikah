@@ -1,13 +1,13 @@
 import * as React from "react"
 
 import { ButtonOption } from "app/renderer/ui/components/button"
-import { Wallets } from "app/common/runtimeTypes/storage/wallets"
+import { WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 
 const styles = require("./style.scss")
 
 export interface Iprops {
   className?: any
-  wallets: Wallets
+  walletInfos: WalletInfos
   nextStep: (id: string) => void
   newWallet: () => void
 }
@@ -31,15 +31,15 @@ export default class WalletSelection extends React.Component<Iprops> {
    * Method to render links to wallets
    */
   private linksRender = () => {
-    return this.props.wallets.infos.map((wallet) => {
+    return this.props.walletInfos.infos.map((walletInfo) => {
       return (
         <ButtonOption
-          key={wallet.id}
+          key={walletInfo.id}
           className={`${styles.link} ${styles.listItem}`}
           secondaryText=">"
-          onClick={this.nextStep(wallet.id)}
+          onClick={this.nextStep(walletInfo.id)}
         >
-          {wallet.caption}
+          {walletInfo.caption}
         </ButtonOption>)
     })
   }

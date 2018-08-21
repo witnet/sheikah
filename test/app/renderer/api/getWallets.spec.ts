@@ -28,7 +28,7 @@ describe("GetWallets API", () => {
   const client = new api.Client(options)
 
   it("should return valid wallets", async () => {
-    const response = await api.getWallets(client)
+    const response = await api.getWalletInfos(client)
     expect(response).toMatchObject(wallets)
   })
 
@@ -36,13 +36,13 @@ describe("GetWallets API", () => {
     const expected = {
       jsonrpc: "2.0",
       id: "some generated id",
-      method: "getWallets",
+      method: "getWalletInfos",
       params: null
     }
 
     // Call getWallets renderer function to trigger a JSON-RPC request and
     // wait for the response
-    await api.getWallets(client)
+    await api.getWalletInfos(client)
 
     // Check that the requested method is in the routes of the main process
     expect(messageHandler.mock.calls[0][1].method in routes).toBe(true)

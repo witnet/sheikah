@@ -1,4 +1,4 @@
-import { Wallets } from "app/common/runtimeTypes/storage/wallets"
+import { WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 import * as api from "app/renderer/api"
 import * as React from "react"
 import { message } from "antd"
@@ -22,7 +22,7 @@ document.location.hash = "#/"
 
 new Promise(async () => {
   // Query and parse wallets from main process
-  const wallets: Wallets = await api.getWallets(apiClient)
+  const walletInfos: WalletInfos = await api.getWalletInfos(apiClient)
 
   // This object holds resources that are shared among different parts of the app and unifies
   // dependency injection.
@@ -33,7 +33,7 @@ new Promise(async () => {
 
   // Configure and initialize Redux store
   const { configureStore, history } = require("./store/configureStore")
-  const store = configureStore({ wallets, wallet: false })
+  const store = configureStore({ walletInfos, wallet: false })
 
   // Root component rendering
   render(

@@ -39,12 +39,12 @@ export default async function getWallet(
 /**
  * search wallet info in state
  *
- * @param {Array<WalletInfo>} wallets
+ * @param {Array<WalletInfo>} walletInfos
  * @param {string} id
  * @returns {(WalletInfo | undefined)}
  */
-function searchWalletInfo(wallets: Array<WalletInfo>, id: string): WalletInfo | undefined {
-  return wallets.find((wallet: WalletInfo) => wallet.id === id)
+function searchWalletInfo(walletInfos: Array<WalletInfo>, id: string): WalletInfo | undefined {
+  return walletInfos.find((wallet: WalletInfo) => wallet.id === id)
 }
 
 /**
@@ -70,8 +70,8 @@ function parseParams({ params }: { params: any }): GetWalletParams {
  */
 function checkWalletInfo(params: GetWalletParams, system: SubSystems): GetWalletParams {
   const { id } = params
-  const wallets: Array<WalletInfo> = system.appStateManager.state.wallets.infos
-  const walletInfo: WalletInfo | undefined = searchWalletInfo(wallets, id)
+  const walletInfos: Array<WalletInfo> = system.appStateManager.state.walletInfos.infos
+  const walletInfo: WalletInfo | undefined = searchWalletInfo(walletInfos, id)
   if (walletInfo) {
     return params
   } else {

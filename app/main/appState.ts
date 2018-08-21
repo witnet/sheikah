@@ -46,7 +46,7 @@ export class AppStateManager {
 
 export const emptyAppState: AppState = {
   _seq: 0,
-  wallets: {
+  walletInfos: {
     _v: CURRENT_WALLETS_VERSION,
     infos: []
   }

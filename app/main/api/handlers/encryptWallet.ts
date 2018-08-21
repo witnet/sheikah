@@ -10,7 +10,7 @@ import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
 import {
   ExtendedKey,
   Wallet,
-  Wallets,
+  WalletInfos,
   WalletInfo,
   UnconsolidatedWallet,
   Seed,
@@ -76,7 +76,7 @@ function getUnconsolidatedData(params: EncryptWalletParams, appStateManager: App
 
   return {
     ...params,
-    caption: params.caption || newCaption(appStateManager.state.wallets.infos.length),
+    caption: params.caption || newCaption(appStateManager.state.walletInfos.infos.length),
     seed: appStateManager.state.unconsolidatedWallet.seed
   }
 }
@@ -123,8 +123,8 @@ async function replaceWallet(
  */
 async function storePlainInfo(wallet: Wallet, system: AppStorageS & AppStateS) {
   const walletInfos = asType(
-    system.appStateManager.get("wallets"),
-    Wallets,
+    system.appStateManager.get("walletInfos"),
+    WalletInfos,
     encryptWalletErrors.UNAVAILABLE_WALLET_INFOS
   )
   const walletInfosUpdate = {
@@ -132,8 +132,8 @@ async function storePlainInfo(wallet: Wallet, system: AppStorageS & AppStateS) {
     infos: walletInfos.infos.concat({ id: wallet.id, caption: wallet.caption })
   }
   try {
-    system.appStateManager.update({ wallets: walletInfosUpdate })
-    await system.appStorage.put("wallets", walletInfosUpdate)
+    system.appStateManager.update({ walletInfos: walletInfosUpdate })
+    await system.appStorage.put("walletInfos", walletInfosUpdate)
   } catch {
     throw encryptWalletErrors.WALLET_PLAIN_STORAGE_FAILURE
   }

@@ -16,7 +16,7 @@ import {
  * Exports API renderer functions
  */
 export { newMnemonics } from "./newMnemonics"
-export { getWallets } from "./getWallets"
+export { getWalletInfos } from "./getWalletInfos"
 export { getWallet } from "./getWallet"
 export { encryptWallet } from "./encryptWallet"
 export { validateMnemonics, validateXprv } from "./validateMnemonics"

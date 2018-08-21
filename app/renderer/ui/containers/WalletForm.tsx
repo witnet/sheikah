@@ -8,7 +8,7 @@ import { lazyNavigateTo, navigateTo } from "app/renderer/utils/routerNavigation"
 
 import { assertNever } from "app/common/utils"
 import { StoreState } from "app/renderer/store"
-import { Wallets, newMnemonicsErrors } from "app/common/runtimeTypes/storage/wallets"
+import { WalletInfos, newMnemonicsErrors } from "app/common/runtimeTypes/storage/wallets"
 import {
   encryptWalletErrors,
   importSeedErrors,
@@ -56,7 +56,7 @@ import {
  * @interface StateProps
  */
 export interface StateProps {
-  wallets: Wallets,
+  walletInfos: WalletInfos,
 }
 
 /**
@@ -94,7 +94,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
  */
 const mapStateToProps = (state: StoreState): StateProps => {
   return ({
-    wallets: state.wallets,
+    walletInfos: state.walletInfos,
   })
 }
 
