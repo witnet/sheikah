@@ -4,11 +4,26 @@
   .button {
     background: $button-navigation-border;
     border: $button-navigation-border;
+    border-radius: 0;
     color: $button-navigation-color;
     cursor: pointer;
     font: inherit;
     height: $button-navigation-height;
     padding: 0;
     width: $button-navigation-width;
+  }
+
+  .selected {
+    color: #377df3;
+  }
+
+  .button:not(:hover) {
+    border-bottom: 0;
+    border-left: 0;
+  }
+
+  .selected:not(:hover) {
+    border-bottom: 0;
+    border-right: 0;
   }
 }

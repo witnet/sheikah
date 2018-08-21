@@ -1,14 +1,32 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/fonts";
+
+  .centered {
+    grid-column-start: 2;
+    grid-row-start: 2;
+  }
 
   .alert {
-    background: linear-gradient(to right, $red-2, $grey-3);
-    color: $red-6;
+    background: $alert-gradient;
+    color: $alert-color;
     grid-row-start: 2;
+    padding: 35px 47px;
+
+    .title {
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
 
     ul {
-      list-style-position: outside;
+      list-style-position: inside;
       list-style-type: disc;
+
+      li {
+        @extend %font12;
+
+        margin-bottom: 10px;
+      }
     }
   }
 
@@ -18,12 +36,7 @@
     grid-row: 1fr 1fr 1fr;
     grid-row-start: 2;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-  }
-
-  .content {
-    display: flex;
-    flex-direction: row;
+    grid-template-rows: 1fr auto 1fr;
   }
 
   .right {
@@ -32,10 +45,23 @@
   }
 
   .seed {
-    border: 1px dashed $grey-8;
-    border-radius: 2%;
-    height: 60px;
-    padding: 1em;
-    vertical-align: middle;
+    @extend %font14;
+
+    align-items: center;
+    border: $input-big-border;
+    border-radius: $input-big-border_radius;
+    box-sizing: border-box;
+    color: $input-big-color;
+    display: inline-flex;
+    height: $input-big-height;
+    margin: 25px 0;
+    padding: 25px 30px;
+    width: 100%;
+  }
+
+  .recommendation {
+    @extend %font14;
+
+    color: $font-color-dark;
   }
 }

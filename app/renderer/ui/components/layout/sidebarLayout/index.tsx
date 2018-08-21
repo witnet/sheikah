@@ -19,6 +19,7 @@ interface Iprops {
  * @extends {React.Component<Iprops>}
  */
 export default class SidebarLayout extends React.Component<Iprops> {
+
   /** render */
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {

@@ -498,19 +498,7 @@ class WalletFormContainer extends
       onChangeInput={this.onChangeInput}
       nextStep={this.seedConfirmationNextStep}
       previousStep={this.seedConfirmationPreviousStep}
-      alertNode={this.seedConfirmationAlert}
     />
-  )
-
-  /**
-   * Property for a seed confirmation alert
-   */
-  private seedConfirmationAlert = (
-    <>
-      <p>Your seed is important!</p>
-      <p>If you lose your seed, your coins will be permanently lost.</p>
-      <p>To confirm that you have properly saved your seed, please retype it here.</p>
-    </>
   )
 
   /**

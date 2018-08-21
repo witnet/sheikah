@@ -21,10 +21,8 @@ export class WalletForm extends React.Component<Props> {
   public render() {
     return (
       <div className={styles.layout}>
-        <div className={styles.centered}>
-          <Spinner className={styles.spinner} active={this.props.spinner} />
-          {this.props.children}
-        </div>
+        <Spinner className={styles.spinner} active={this.props.spinner} />
+        {this.props.children}
       </div>
     )
   }

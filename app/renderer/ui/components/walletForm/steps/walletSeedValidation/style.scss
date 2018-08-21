@@ -1,12 +1,41 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/fonts";
+
+  .centered {
+    grid-column-start: 2;
+    grid-row-start: 2;
+  }
+
+  .text {
+    @extend %font14;
+
+    color: $font-color-dark;
+  }
+
+  .input {
+    @extend %font14;
+
+    border-radius: $input-big-border-radius;
+    box-sizing: border-box;
+    margin: 25px 0;
+    padding: 25px 30px;
+  }
 
   .alert {
-    background: linear-gradient(to right, $red-2, $grey-2);
-    color: $red-6;
-    display: grid;
+    background: $alert-gradient;
+    color: $alert-color;
     grid-row-start: 2;
-    padding-left: 1em;
+    padding: 35px 47px;
+
+    .title {
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      @extend %font12;
+    }
   }
 
   .alert-grid {
@@ -17,6 +46,6 @@
   }
 
   .error {
-    color: $red-4;
+    color: $error-color;
   }
 }

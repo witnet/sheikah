@@ -8,7 +8,7 @@ export interface Iprops {
   className?: string
   onClick?: any
   text: any,
-
+  selected?: boolean
 }
 
 /**
@@ -22,7 +22,11 @@ export interface Iprops {
 export default class ButtonNavigation extends React.Component<Iprops> {
   // tslint:disable-next-line: completed-docs
   public render() {
-    const navigationClasses = `${styles.button} ${this.props.className}`
+    const navigationClasses = `
+      ${styles.button}
+      ${this.props.selected ? styles.selected : ""}
+      ${this.props.className}
+    `
 
     return (
       <Button className={navigationClasses} onClick={this.props.onClick}>

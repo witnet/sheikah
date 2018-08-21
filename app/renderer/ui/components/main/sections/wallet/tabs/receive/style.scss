@@ -16,7 +16,7 @@
     }
 
     .text {
-      color: $grey-6;
+      color: $grey-5;
       font-size: 14px;
       font-style: italic;
       font-weight: 300;
@@ -31,7 +31,7 @@
     padding: 3em 4em;
 
     .form {
-      border-right: 1px solid $grey-6;
+      border-right: 1px solid $grey-5;
       display: grid;
       grid-gap: 0.5em 0;
       grid-template-columns: auto auto 0.5fr;

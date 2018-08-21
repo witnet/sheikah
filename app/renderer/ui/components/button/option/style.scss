@@ -6,23 +6,23 @@
     @extend %font20;
 
     background: none;
-    border: 1px solid $grey-8;
-    color: $grey-8;
+    border: 1px solid $grey-7;
+    color: $grey-7;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     font: inherit;
-    height: 50px;
+    height: 54px;
     justify-content: space-between;
     margin-bottom: 0.3em;
     outline: inherit;
-    padding: 16px;
+    padding: 0 20px;
     width: 100%;
   }
 
   .recommended {
     border-color: $blue-6;
     color: $blue-6;
-    height: 70px;
+    height: 75px;
   }
 }

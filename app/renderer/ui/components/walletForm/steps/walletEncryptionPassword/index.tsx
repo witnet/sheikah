@@ -27,31 +27,39 @@ export interface Iprops {
 export default class WalletEncryptionPassword extends React.Component<Iprops> {
   /** render */
   public render() {
+    const cardStyle = `${styles.centered} ${this.props.className}`
+
     return (
       <CardNavigation
-        className={this.props.className}
+        className={cardStyle}
         title="Wallet encryption password"
         previousStep={this.props.previousStep}
         nextStep={this.props.nextStep}
       >
-        <p>Choose a password to encrypt your wallet.</p>
-        <div className={styles.fields}>
-          <label className={styles["password-label"]}>Password</label>
+        <p className={styles.text}>Choose a password to encrypt your wallet.</p>
+        <div className={styles.field}>
+          <label className={`${styles.label} ${styles["password-label"]}`}>Password</label>
           <InputUnderlined
-            className={styles["password-input"]}
+            className={`${styles.input} ${styles["password-input"]}`}
             type="password"
             onChange={this.props.onChangePassword}
             value={this.props.password}
           />
-          <label className={styles["confirm-password-label"]}>Confirm password</label>
+        </div>
+        <div className={styles.field}>
+          <label
+            className={`${styles.label} ${styles["confirm-password-label"]}`}
+          >
+            Confirm password
+          </label>
           <InputUnderlined
-            className={styles["confirm-password-input"]}
+            className={`${styles.input} styles["confirm-password-input"]`}
             type="password"
             onChange={this.props.onChangeRepeatPassword}
             value={this.props.repeatPassword}
           />
-          <p className={styles.error}>{this.props.errorMessage}</p>
         </div>
+        <p className={styles.error}>{this.props.errorMessage}</p>
       </CardNavigation>
     )
   }
