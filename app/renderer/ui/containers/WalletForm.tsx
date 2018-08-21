@@ -4,6 +4,8 @@ import { connect } from "react-redux"
 import { bindActionCreators, Dispatch } from "redux"
 
 import log from "app/common/logging"
+import { lazyNavigateTo, navigateTo } from "app/renderer/utils/routerNavigation"
+
 import { assertNever } from "app/common/utils"
 import { StoreState } from "app/renderer/store"
 import { Wallets, newMnemonicsErrors } from "app/common/runtimeTypes/storage/wallets"
@@ -41,6 +43,7 @@ import {
   WALLET_SEED_TYPE_SELECTION,
   WELCOME,
 } from "app/renderer/constants/urls"
+
 import {
   extendWalletData,
   prefilledWalletCaption
@@ -131,22 +134,22 @@ class WalletFormContainer extends
     // Async function to handle the creation of a seed
     newSeed: async () => {
       await this.createSeed()
-      this.to(WALLET_SEED_BACKUP)()
+      navigateTo(this.props.history, WALLET_SEED_BACKUP)
     },
     newPrefilledSeed: async () => {
       await this.createSeed()
       this.setState({ caption: prefilledWalletCaption })
-      this.to(WALLET_SEED_BACKUP)()
+      navigateTo(this.props.history, WALLET_SEED_BACKUP)
     },
 
     // Async function to handle the import of mnemonics
     importMnemonics: async () => {
-      this.to(WALLET_IMPORT_MNEMONICS)()
+      navigateTo(this.props.history, WALLET_IMPORT_MNEMONICS)
     },
 
     // Async function to handle the import of xprv
     importXprv: async () => {
-      this.to(WALLET_IMPORT_XPRV)()
+      navigateTo(this.props.history, WALLET_IMPORT_XPRV)
     },
 
     // Async function to handle the use of a hardware device
@@ -185,13 +188,6 @@ class WalletFormContainer extends
       }
     }
   }
-  /**
-   * Method to handle react router navigation
-   *
-   * @private
-   * @memberof WalletFormContainer
-   */
-  private to = (string: string) => () => { this.props.history.push(string) }
 
   /**
    * Wallet encryption step
@@ -214,7 +210,7 @@ class WalletFormContainer extends
       // if is a prefilledWallet add the prefilled data
       const wallet = extendWalletData(encryptWalletResponse.wallet)
       await this.props.actions.saveWallet(wallet)
-      this.to(MAIN)()
+      navigateTo(this.props.history, MAIN)
     } else {
       // TODO: improve error handler issue #321
       switch (encryptWalletResponse.error) {
@@ -231,7 +227,7 @@ class WalletFormContainer extends
         case encryptWalletErrors.UNAVAILABLE_WALLET_INFOS.value:
         case encryptWalletErrors.WALLET_PLAIN_STORAGE_FAILURE.value:
           log.error(encryptWalletResponse)
-          this.to(WELCOME)()
+          navigateTo(this.props.history, WELCOME)
           break
         default:
           assertNever(encryptWalletResponse.error)
@@ -262,7 +258,7 @@ class WalletFormContainer extends
       )
       this.setState({ spinner: false })
       if (mnemonicsValidationResponse.kind === "SUCCESS") {
-        this.to(WALLET_ENCRYPTION_PASSWORD)()
+        navigateTo(this.props.history, WALLET_ENCRYPTION_PASSWORD)
       } else {
         // TODO: improve error handler issue #321
         switch (mnemonicsValidationResponse.error) {
@@ -274,7 +270,6 @@ class WalletFormContainer extends
             break
           case importSeedErrors.MISMATCHING_MNEMONICS.value:
             this.setState({ seedErrorMessage: "Mismatching mnemonics" })
-            console.log("state: ", this.state)
             break
           case importSeedErrors.INVALID_METHOD_PARAMS.value:
             this.setState({ seedErrorMessage: "Invalid method params" })
@@ -318,7 +313,7 @@ class WalletFormContainer extends
     )
     this.setState({ spinner: false })
     if (seedValidationResponse.kind === "SUCCESS") {
-      this.to(WALLET_ENCRYPTION_PASSWORD)()
+      navigateTo(this.props.history, WALLET_ENCRYPTION_PASSWORD)
     } else {
       // TODO: improve error handler issue #321
       switch (seedValidationResponse.error) {
@@ -454,7 +449,7 @@ class WalletFormContainer extends
    * @memberof WalletFormContainer
    */
   private renderWelcome = () => (
-    <Welcome nextStep={this.to(WALLET_SEED_TYPE_SELECTION)} />
+    <Welcome nextStep={lazyNavigateTo(this.props.history, WALLET_SEED_TYPE_SELECTION)} />
   )
 
   /**
@@ -478,7 +473,7 @@ class WalletFormContainer extends
   private renderSeedBackup = () => (
     <WalletSeedBackup
       mnemonics={this.state.mnemonics}
-      nextStep={this.to(WALLET_SEED_CONFIRMATION)}
+      nextStep={lazyNavigateTo(this.props.history, WALLET_SEED_CONFIRMATION)}
       previousStep={this.seedBackupPreviousStep}
     />
   )
@@ -498,19 +493,7 @@ class WalletFormContainer extends
       onChangeInput={this.onChangeInput}
       nextStep={this.seedConfirmationNextStep}
       previousStep={this.seedConfirmationPreviousStep}
-      alertNode={this.seedConfirmationAlert}
     />
-  )
-
-  /**
-   * Property for a seed confirmation alert
-   */
-  private seedConfirmationAlert = (
-    <>
-      <p>Your seed is important!</p>
-      <p>If you lose your seed, your coins will be permanently lost.</p>
-      <p>To confirm that you have properly saved your seed, please retype it here.</p>
-    </>
   )
 
   /**
