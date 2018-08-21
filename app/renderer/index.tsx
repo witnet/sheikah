@@ -5,7 +5,7 @@ import { message } from "antd"
 import { render } from "react-dom"
 import Root from "app/renderer/ui/containers/Root"
 import "./ui/app.global.scss"
-import { UnimplementedMessage } from "app/renderer/ui/components/UnimplementedMessage"
+import { UnimplementedMessage } from "app/renderer/ui/components/unimplementedMessage"
 const apiClient = new api.Client()
 
 /**
