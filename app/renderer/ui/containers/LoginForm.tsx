@@ -14,7 +14,7 @@ import WalletSelection from "app/renderer/ui/components/loginForm/steps/walletSe
 import WalletPasswordRequest from "app/renderer/ui/components/loginForm/steps/walletPasswordRequest"
 import { Services } from "app/renderer/services"
 import * as api from "app/renderer/api"
-import { GetWalletResponse } from "app/common/runtimeTypes/ipc/wallets"
+import { getWalletErrorMessages, GetWalletResponse } from "app/common/runtimeTypes/ipc/wallets"
 
 import * as urls from "app/renderer/constants/urls"
 import { extendWalletData } from "app/renderer/prefilledWallet"
@@ -169,6 +169,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    * @param services
    */
   private unlockWallet = async (id: string, password: string, services: Services) => {
+
     return new Promise<Wallet>((resolve, reject) => {
       // Try to retrieve wallet from renderer API & dispatch wallet or error
       api.getWallet(services.apiClient, id, password)
@@ -179,7 +180,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
               resolve(walletResponse.wallet)
               break
             case "ERROR":
-              reject(walletResponse.error)
+              reject(getWalletErrorMessages[walletResponse.error] || "Unknown error")
               break
             default:
               assertNever(walletResponse)
