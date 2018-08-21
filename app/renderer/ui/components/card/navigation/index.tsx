@@ -42,7 +42,6 @@ export default class Cardnavigation extends React.Component<Iprops> {
             <ButtonNavigation
               text={this.props.nextText ? this.props.nextText : "Next"}
               onClick={this.props.nextStep}
-              selected={true}
             />
           </div>
         </Card>
