@@ -5,6 +5,7 @@ $background-color: $grey-2;
 $error-color: $red-4;
 $font-color-dark: $grey-9;
 $font-color-light: $grey-7;
+$default-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.15);
 
 // ALERT
 $alert-gradient: linear-gradient(to right, $yellow-3, $grey-2);
@@ -30,8 +31,7 @@ $button-action-focus-color: $button-action-background-color;
 $button-action-font_weight: 600;
 $button-action-line_height: 1;
 $button-action-padding: 12px 15px 25px 15px;
-$button-action-shadow_color: rgba(0, 0, 0, 0.2);
-$button-action-shadow: 0 1px 5px 0 $button-action-shadow_color;
+$button-action-shadow: $default-box-shadow;
 
 //BUTTON NAVIGATION
 $button-navigation-background: none;
@@ -50,7 +50,7 @@ $button-link-width: auto;
 //CARD
 
 //CARD DEFAULT
-$card-default-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+$card-default-shadow: $default-box-shadow;
 
 // DOT INDICATOR
 $dot_indicator-negative-color: $red-5;
