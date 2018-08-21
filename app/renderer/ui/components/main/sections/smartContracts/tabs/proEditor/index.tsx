@@ -23,7 +23,7 @@ class TabProEditor extends TabComponent<any> {
 const ProEditorTab: TabInfo = {
   key: "proEditor",
   caption: "PRO Editor",
-  link: urls.PROEDITOR_TAB,
+  path: urls.PROEDITOR_TAB,
   component: TabProEditor
 }
 

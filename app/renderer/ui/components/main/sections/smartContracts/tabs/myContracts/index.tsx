@@ -23,7 +23,7 @@ class MyContracts extends TabComponent<any> {
 const MyContractsTab: TabInfo = {
   key: "mycontracts",
   caption: "My contracts",
-  link: urls.MY_CONTRACTS_TAB,
+  path: urls.MY_CONTRACTS_TAB,
   component: MyContracts
 }
 

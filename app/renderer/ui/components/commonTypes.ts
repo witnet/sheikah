@@ -10,5 +10,5 @@ export type TopBarProps = {
 export type TopBarLinkProps = {
   key: string
   caption: string
-  link: string
+  path: string
 }

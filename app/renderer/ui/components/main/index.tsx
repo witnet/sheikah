@@ -20,10 +20,7 @@ const sections: Array<SectionInfo> = [
 // Props passed to the sidebar component
 const sidebarProps = {
   className: styles.sidebar,
-  linksProps: sections.map((section) => ({
-    ...section,
-    link: `${section.link}`
-  }))
+  linksProps: sections
 }
 
 // Own props for the component

@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { SectionInfo } from "app/renderer/ui/components/main/sections"
+import { SectionInfo, TabInfo } from "app/renderer/ui/components/main/sections"
 import { TabCoins, TabReceive, TabSend, TabTransactions } from "./tabs"
 import TopBar from "app/renderer/ui/components/topBar/index"
 import { TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
@@ -21,12 +21,12 @@ interface WalletProps { }
 class Wallet extends React.Component<WalletProps> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-    const tabs = [TabTransactions, TabReceive, TabSend, TabCoins]
+    const tabs: Array<TabInfo> = [TabTransactions, TabReceive, TabSend, TabCoins]
     const topBarlinkProps: Array<TopBarLinkProps> = tabs.map(tab => (
       {
         caption: tab.caption,
         key: tab.key,
-        link: `${tab.link}`
+        path: `${tab.path}`
       }
     ))
 
@@ -44,7 +44,7 @@ class Wallet extends React.Component<WalletProps> {
 const WalletSection: SectionInfo = {
   key: "wallet",
   caption: "Wallet",
-  link: urls.WALLET_SECTION,
+  path: urls.WALLET_SECTION,
   icon: "book",
   component: Wallet
 }

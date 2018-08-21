@@ -47,7 +47,7 @@ class TabSend extends TabComponent<any> {
 const SendTab: TabInfo = {
   key: "send",
   caption: "Send",
-  link: urls.SEND_TAB,
+  path: urls.SEND_TAB,
   component: TabSend
 }
 

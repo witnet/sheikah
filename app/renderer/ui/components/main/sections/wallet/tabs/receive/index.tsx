@@ -95,7 +95,7 @@ class TabReceive extends TabComponent<any> {
 const ReceiveTab: TabInfo = {
   key: "receive",
   caption: "Receive",
-  link: urls.RECEIVE_TAB,
+  path: urls.RECEIVE_TAB,
   component: TabReceive
 }
 

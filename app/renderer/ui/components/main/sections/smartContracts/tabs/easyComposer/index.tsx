@@ -23,7 +23,7 @@ class EasyComposer extends TabComponent<any> {
 const EasyComposerTab: TabInfo = {
   key: "easycomposer",
   caption: "easy composer",
-  link: urls.EASY_COMPOSER_TAB,
+  path: urls.EASY_COMPOSER_TAB,
   component: EasyComposer
 }
 

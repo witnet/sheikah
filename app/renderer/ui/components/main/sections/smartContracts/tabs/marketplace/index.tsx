@@ -52,7 +52,7 @@ class MarketPlace extends TabComponent<any> {
 const MarketPlaceTab: TabInfo = {
   key: "MarketPlace",
   caption: "Marketplace",
-  link: urls.MARKETPLACE_TAB,
+  path: urls.MARKETPLACE_TAB,
   component: MarketPlace
 }
 

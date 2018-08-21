@@ -21,13 +21,13 @@ export class TopBarLink extends React.Component<TopBarLinkProps & PathNameProp> 
    * @memberof TopBarLink
    */
   private get active() {
-    return this.props.pathName.indexOf(this.props.link) === 0 && styles.active
+    return this.props.pathName.indexOf(this.props.path) === 0 && styles.active
   }
 
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
-      <Link className={join([styles["link-box"], this.active])} to={this.props.link} replace={true}>
+      <Link className={join([styles["link-box"], this.active])} to={this.props.path} replace={true}>
         {this.props.caption}
       </Link>
     )

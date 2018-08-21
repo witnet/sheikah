@@ -52,7 +52,7 @@ export class SectionComponent<Props> extends React.Component<SectionProps & Path
 export interface SectionInfo {
   key: string
   caption: string
-  link: string
+  path: string
   icon?: string
   component: React.ComponentClass<SectionProps>
 }
@@ -87,6 +87,6 @@ export class TabComponent<Props> extends React.Component<TabProps & PathNameProp
 export interface TabInfo {
   key: string
   caption: string
-  link: string
+  path: string
   component: React.ComponentClass<TabProps>
 }

@@ -25,7 +25,7 @@ class Attestations extends React.Component<SectionProps> {
 const AttestationsSection: SectionInfo = {
   key: "attestations",
   caption: "Attestations",
-  link: urls.ATTESTATIONS_SECTION,
+  path: urls.ATTESTATIONS_SECTION,
   component: Attestations,
   icon: "eye"
 }

@@ -80,7 +80,7 @@ class Transactions extends TabComponent<any> {
 const TransactionsTab: TabInfo = {
   key: "transactions",
   caption: "Transactions",
-  link: urls.TRANSACTIONS_TAB,
+  path: urls.TRANSACTIONS_TAB,
   component: Transactions
 }
 

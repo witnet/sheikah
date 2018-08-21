@@ -25,7 +25,7 @@ export class BlockExplorer extends React.Component<SectionProps> {
 const BlockExplorerSection: SectionInfo = {
   key: "blockexplorer",
   caption: "Block Explorer",
-  link: urls.BLOCK_EXPLORER_SECTION,
+  path: urls.BLOCK_EXPLORER_SECTION,
   component: BlockExplorer,
   icon: "square"
 }

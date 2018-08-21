@@ -23,7 +23,7 @@ class TabCoins extends TabComponent<any> {
 const CoinsTab: TabInfo = {
   key: "coins",
   caption: "Coins",
-  link: urls.COINS_TAB,
+  path: urls.COINS_TAB,
   component: TabCoins
 }
 
