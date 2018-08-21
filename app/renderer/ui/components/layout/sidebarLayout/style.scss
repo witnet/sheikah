@@ -1,10 +1,12 @@
 :local {
   @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .grid {
     display: grid;
     grid-template-columns: 30% 1fr;
     height: 100%;
+    box-shadow: $default-box-shadow;
   }
 
   .collapse {

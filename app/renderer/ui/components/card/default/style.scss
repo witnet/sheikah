@@ -1,11 +1,11 @@
 :local {
   @import "app/renderer/ui/theme";
 
-  .content {
-    padding: 2em;
-  }
-
   .card {
     box-shadow: $card-default-shadow;
+  }
+
+  .content {
+    padding: 2em;
   }
 }
