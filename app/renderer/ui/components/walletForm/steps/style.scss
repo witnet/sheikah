@@ -6,22 +6,24 @@
     background: $alert-gradient;
     color: $alert-color;
     grid-row-start: 2;
-    padding: 35px 47px;
+    padding: 35px 45px;
 
     ul {
       list-style-position: inside;
       list-style-type: disc;
+      padding-left: 0;
 
       li {
-        @extend %font12;
+        @extend %font14;
 
-        margin-bottom: 10px;
+        line-height: 1.4em;
+        margin-bottom: 5px;
       }
     }
   }
 
   .alert-message {
-    @extend %font12;
+    @extend %font14;
 
     color: $alert-color;
   }

@@ -73,7 +73,7 @@
   }
 
   p {
-    @extend %font14;
+    @extend %font16;
 
     color: $font-color-dark;
   }
@@ -98,6 +98,7 @@
 
     .ant-card {
       color: $font-color-dark;
+      font: inherit;
     }
 
     // DO NOT REMOVE OUT OF BODY! See issue #203
@@ -111,9 +112,9 @@
     }
 
     .ant-card-head-title {
+      @extend %font20;
+
       color: $grey-1;
-      font-size: 18px;
-      font-weight: normal;
     }
 
     .ant-card-body {
