@@ -30,8 +30,10 @@
   }
 
   .settings {
+    bottom: 0;
     display: flex;
     padding: 20px;
+    position: absolute;
 
     .icon {
       color: $grey-1;
