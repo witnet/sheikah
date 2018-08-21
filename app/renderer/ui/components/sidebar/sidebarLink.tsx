@@ -52,7 +52,7 @@ export class SideBarLink extends React.Component<SideBarLinkProps & PathNameProp
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
-      <Link className={join([styles.link, this.active])} to={this.props.link}>
+      <Link className={join([styles.link, this.active])} to={this.props.link} replace={true}>
         <i className={join(["fa", this.icon])} />
         <span className={styles["option-icon"]}>{this.props.caption}</span>
       </Link>
