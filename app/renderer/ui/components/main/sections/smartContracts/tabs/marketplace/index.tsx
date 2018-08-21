@@ -4,6 +4,8 @@ import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 import { CardMarketplaceProduct } from "app/renderer/ui/components/card"
 import { marketplaceProducts } from "app/renderer/ui/components/main/sections/wallet/MockData"
 
+import * as urls from "app/renderer/constants/urls"
+
 const styles = require("./style.scss")
 
 export interface Iprops {
@@ -50,6 +52,7 @@ class MarketPlace extends TabComponent<any> {
 const MarketPlaceTab: TabInfo = {
   key: "MarketPlace",
   caption: "Marketplace",
+  link: urls.MARKETPLACE_TAB,
   component: MarketPlace
 }
 

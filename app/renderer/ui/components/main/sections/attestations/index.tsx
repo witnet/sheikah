@@ -1,5 +1,7 @@
 import * as React from "react"
+
 import { SectionInfo, SectionProps } from "app/renderer/ui/components/main/sections"
+import * as urls from "app/renderer/constants/urls"
 
 /**
  * Attestations UI component
@@ -23,6 +25,7 @@ class Attestations extends React.Component<SectionProps> {
 const AttestationsSection: SectionInfo = {
   key: "attestations",
   caption: "Attestations",
+  link: urls.ATTESTATIONS_SECTION,
   component: Attestations,
   icon: "eye"
 }

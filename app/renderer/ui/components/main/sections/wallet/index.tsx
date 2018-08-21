@@ -7,6 +7,8 @@ import TopBar from "app/renderer/ui/components/topBar/index"
 import { TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 
+import * as urls from "app/renderer/constants/urls"
+
 const styles = require("./style.scss")
 const mainStyles = require("app/renderer/ui/components/main/style.scss")
 
@@ -26,7 +28,7 @@ class Wallet extends React.Component<WalletProps> {
       {
         caption: tab.caption,
         key: tab.key,
-        link: `/main/wallet/${tab.key}`
+        link: `${tab.link}`
       }
     ))
 
@@ -36,22 +38,22 @@ class Wallet extends React.Component<WalletProps> {
         <div className={styles.layout}>
           <Switch>
             <PropsRoute
-              path="/main/wallet/transactions"
+              path={urls.TRANSACTIONS_TAB}
               ownProps={this.props}
               component={TabTransactions.component}
             />
             <PropsRoute
-              path="/main/wallet/coins"
+              path={urls.COINS_TAB}
               ownProps={this.props}
               component={TabCoins.component}
             />
             <PropsRoute
-              path="/main/wallet/send"
+              path={urls.SEND_TAB}
               ownProps={this.props}
               component={TabSend.component}
             />
             <PropsRoute
-              path="/main/wallet/receive"
+              path={urls.RECEIVE_TAB}
               ownProps={this.props}
               component={TabReceive.component}
             />
@@ -70,6 +72,7 @@ class Wallet extends React.Component<WalletProps> {
 const WalletSection: SectionInfo = {
   key: "wallet",
   caption: "Wallet",
+  link: urls.WALLET_SECTION,
   icon: "book",
   component: Wallet
 }

@@ -560,40 +560,38 @@ class WalletFormContainer extends
   /** render */
   public render() {
     return (
-      <>
-        <WalletForm spinner={this.state.spinner}>
-          <Switch>
-            <Route
-              path={WALLET_SEED_TYPE_SELECTION}
-              render={this.renderSeedTypeSelection}
-            />
-            <Route
-              path={WALLET_SEED_BACKUP}
-              render={this.renderSeedBackup}
-            />
-            <Route
-              path={WALLET_SEED_CONFIRMATION}
-              render={this.renderSeedConfirmation}
-            />
-            <Route
-              path={WALLET_ENCRYPTION_PASSWORD}
-              render={this.renderEncryptionPassword}
-            />
-            <Route
-              path={WALLET_IMPORT_MNEMONICS}
-              render={this.renderImportMnemonics}
-            />
-            <Route
-              path={WALLET_IMPORT_XPRV}
-              render={this.renderImportXprv}
-            />
-            <Route
-              path="/"
-              render={this.renderWelcome}
-            />
-          </Switch>
-        </WalletForm>
-      </>
+      <WalletForm spinner={this.state.spinner}>
+        <Switch>
+          <Route
+            path={WALLET_SEED_TYPE_SELECTION}
+            render={this.renderSeedTypeSelection}
+          />
+          <Route
+            path={WALLET_SEED_BACKUP}
+            render={this.renderSeedBackup}
+          />
+          <Route
+            path={WALLET_SEED_CONFIRMATION}
+            render={this.renderSeedConfirmation}
+          />
+          <Route
+            path={WALLET_ENCRYPTION_PASSWORD}
+            render={this.renderEncryptionPassword}
+          />
+          <Route
+            path={WALLET_IMPORT_MNEMONICS}
+            render={this.renderImportMnemonics}
+          />
+          <Route
+            path={WALLET_IMPORT_XPRV}
+            render={this.renderImportXprv}
+          />
+          <Route
+            path="/"
+            render={this.renderWelcome}
+          />
+        </Switch>
+      </WalletForm>
     )
   }
 }

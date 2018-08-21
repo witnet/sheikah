@@ -8,6 +8,8 @@ import Balances from "./balances"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import List from "app/renderer/ui/components/list"
 
+import * as urls from "app/renderer/constants/urls"
+
 import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 
 import {
@@ -78,6 +80,7 @@ class Transactions extends TabComponent<any> {
 const TransactionsTab: TabInfo = {
   key: "transactions",
   caption: "Transactions",
+  link: urls.TRANSACTIONS_TAB,
   component: Transactions
 }
 

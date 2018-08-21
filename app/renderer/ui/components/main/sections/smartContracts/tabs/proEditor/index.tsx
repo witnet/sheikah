@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
+import * as urls from "app/renderer/constants/urls"
 
 /**
  * TabProEditor component
@@ -19,10 +20,11 @@ class TabProEditor extends TabComponent<any> {
   }
 }
 
-const TransactionsTab: TabInfo = {
+const ProEditorTab: TabInfo = {
   key: "proEditor",
   caption: "PRO Editor",
+  link: urls.PROEDITOR_TAB,
   component: TabProEditor
 }
 
-export default TransactionsTab
+export default ProEditorTab

@@ -1,5 +1,7 @@
 import * as React from "react"
+
 import { SectionInfo, SectionProps } from "app/renderer/ui/components/main/sections"
+import * as urls from "app/renderer/constants/urls"
 
 /**
  * Community UI component
@@ -23,6 +25,7 @@ export class Community extends React.Component<SectionProps> {
 const CommunitySection: SectionInfo = {
   key: "community",
   caption: "Community",
+  link: urls.COMMUNITY_SECTION,
   component: Community,
   icon: "users"
 }

@@ -6,6 +6,8 @@ import TopBar from "app/renderer/ui/components/topBar/index"
 import { TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
 import { SectionInfo } from "app/renderer/ui/components/main/sections"
 
+import * as urls from "app/renderer/constants/urls"
+
 const mainStyles = require("app/renderer/ui/components/main/style.scss")
 const styles = require("./style.scss")
 
@@ -29,7 +31,7 @@ class SmartContracts extends React.Component<SmartContractsProps> {
       {
         key: tab.key,
         caption: tab.caption,
-        link: `/main/smartcontracts/${tab.key}`
+        link: `${tab.link}`
       }
     ))
 
@@ -38,14 +40,11 @@ class SmartContracts extends React.Component<SmartContractsProps> {
         <TopBar className={mainStyles["top-bar"]} pathName="" linksProps={topBarlinkProps} />
         <Switch>
           <div className={styles.layout}>
-            <Route
-              path="/main/smartcontracts/mycontracts"
-              component={TabEasyComposer.component}
-            />
-            <Route path="/main/smartcontracts/easycomposer" component={TabMyContracts.component} />
-            <Route path="/main/smartcontracts/proeditor" component={TabProEditor.component} />
-            <Route path="/main/smartcontracts/marketplace" component={TabMarketplace.component} />
-            <Route path="/main" component={TabMyContracts.component} />
+            <Route path={urls.MY_CONTRACTS_TAB} component={TabMyContracts.component} />
+            <Route path={urls.EASY_COMPOSER_TAB} component={TabEasyComposer.component} />
+            <Route path={urls.PROEDITOR_TAB} component={TabProEditor.component} />
+            <Route path={urls.MARKETPLACE_TAB} component={TabMarketplace.component} />
+            <Route path="/" component={TabMyContracts.component} />
           </div>
         </Switch>
       </>
@@ -56,6 +55,7 @@ class SmartContracts extends React.Component<SmartContractsProps> {
 const SmartContractsSection: SectionInfo = {
   key: "smartcontracts",
   caption: "Smart Contracts",
+  link: urls.SMART_CONTRACTS_SECTION,
   component: SmartContracts,
   icon: "code"
 }

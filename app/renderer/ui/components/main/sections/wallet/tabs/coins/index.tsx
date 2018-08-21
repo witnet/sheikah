@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
+import * as urls from "app/renderer/constants/urls"
 
 /**
  * TabCoins component
@@ -19,10 +20,11 @@ class TabCoins extends TabComponent<any> {
   }
 }
 
-const TransactionsTab: TabInfo = {
+const CoinsTab: TabInfo = {
   key: "coins",
   caption: "Coins",
+  link: urls.COINS_TAB,
   component: TabCoins
 }
 
-export default TransactionsTab
+export default CoinsTab

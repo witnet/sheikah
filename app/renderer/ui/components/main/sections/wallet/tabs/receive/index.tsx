@@ -5,6 +5,8 @@ import { InputDefault } from "app/renderer/ui/components/input"
 import PaymentRequest from "app/renderer/ui/components/paymentRequest"
 import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 
+import * as urls from "app/renderer/constants/urls"
+
 import {
   paymentRequest,
 } from "app/renderer/ui/components/main/sections/wallet/MockData"
@@ -90,10 +92,11 @@ class TabReceive extends TabComponent<any> {
   }
 }
 
-const TransactionsTab: TabInfo = {
+const ReceiveTab: TabInfo = {
   key: "receive",
   caption: "Receive",
+  link: urls.RECEIVE_TAB,
   component: TabReceive
 }
 
-export default TransactionsTab
+export default ReceiveTab

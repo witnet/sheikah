@@ -5,6 +5,8 @@ import Wrapper from "app/renderer/ui/components/wrapper"
 import { InputDefault } from "app/renderer/ui/components/input"
 import { ActionButton } from "app/renderer/ui/components/button"
 
+import * as urls from "app/renderer/constants/urls"
+
 const styles = require("./style.scss")
 
 /**
@@ -42,10 +44,11 @@ class TabSend extends TabComponent<any> {
   }
 }
 
-const TransactionsTab: TabInfo = {
+const SendTab: TabInfo = {
   key: "send",
   caption: "Send",
+  link: urls.SEND_TAB,
   component: TabSend
 }
 
-export default TransactionsTab
+export default SendTab
