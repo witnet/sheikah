@@ -153,8 +153,8 @@ function matchMnemonics(mnemonics: string, appStateManager: AppStateManager): st
 function upsertUnconsolidated
   (seed: Seed, appStateManager: AppStateManager) {
   try {
-    appStateManager.update({ unconsolidatedWallet: { seed } })
-
+    const unconsolidatedWallet = { ...appStateManager.state.unconsolidatedWallet, seed }
+    appStateManager.update({ unconsolidatedWallet })
   } catch {
     throw importSeedErrors.UNCONSOLIDATED_UPDATE_FAILURE
   }
