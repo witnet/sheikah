@@ -22,9 +22,6 @@ function showUnimplementedMessage() {
 document.location.hash = "#/"
 
 new Promise(async () => {
-  // Query and parse wallets from main process
-  const walletInfos: WalletInfos = await api.getWalletInfos(apiClient)
-
   // This object holds resources that are shared among different parts of the app and unifies
   // dependency injection.
   const services: Services = {
@@ -32,9 +29,18 @@ new Promise(async () => {
     showUnimplementedMessage
   }
 
+  // Query and parse wallets from main process
+  const walletInfos: WalletInfos = await api.getWalletInfos(apiClient)
   // Configure and initialize Redux store
   const { configureStore, history } = require("./store/configureStore")
-  const store = configureStore({ walletInfos, wallet: false })
+  // Initial store state
+  const persistedStore = {
+    walletInfos,
+    wallet: false,
+    transactions: {}
+  }
+
+  const store = configureStore(persistedStore)
 
   // Root component rendering
   render(

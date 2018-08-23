@@ -4,7 +4,7 @@ import {
   ConfirmedTransaction,
   PendingTransaction
 } from "app/renderer/ui/components/transaction"
-import Balances from "./balances"
+import Balances from "app/renderer/ui/components/balances"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import List from "app/renderer/ui/components/list"
 
@@ -20,13 +20,18 @@ import {
 
 const styles = require("./style.scss")
 
+interface OwnProps {
+  pendingTransactions: Transactions | {}
+  confirmedTransactions: Transactions | {}
+}
+
 /**
  * Transactions component
  *
  * @class Transactions
  * @extends {TabComponent<any>}
  */
-class Transactions extends TabComponent<any> {
+class Transactions extends TabComponent<any & OwnProps> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const confirmedOptions = ["Option 1", "Option 2", "Option 3"].map((opt: string) => (
@@ -35,30 +40,48 @@ class Transactions extends TabComponent<any> {
         onClick: () => this.props.services.showUnimplementedMessage()
       }
     ))
+    console.log("THIS:PROPS", this.props)
+    const pendingTransactionsList = !!Object.keys(this.props.pendingTransactions).length
+      ? (
+        <List
+          dataSource={pendingTransactions}
+          renderItem={PendingTransaction}
+        />
+      )
+    : (
+      <p>You don't have transactions</p>
+    )
+
+    const confirmedTransactionsList = !!Object.keys(this.props.confirmedTransactions).length
+      ? (
+        <List
+          dataSource={confirmedTransactions}
+          renderItem={ConfirmedTransaction}
+        />
+      )
+      : (
+          <p>You don't have transactions</p>
+        )
 
     return (
       <>
         <div className={styles.left}>
           <Wrapper
             title="PENDING"
-            caption="2 transactions"
+            caption={`${Object.keys(this.props.pendingTransactions).length} transactions`}
             className={styles.pending}
+            empty={!Object.keys(this.props.pendingTransactions).length}
           >
-            <List
-              dataSource={pendingTransactions}
-              renderItem={PendingTransaction}
-            />
+            {pendingTransactionsList}
           </Wrapper>
           <Wrapper
             title="CONFIRMED"
-            caption="3 transactions"
+            caption={`${Object.keys(this.props.confirmedTransactions).length} transactions`}
             actions={confirmedOptions}
             className={styles.confirmed}
+            empty={!Object.keys(this.props.confirmedTransactions).length}
           >
-            <List
-              dataSource={confirmedTransactions}
-              renderItem={ConfirmedTransaction}
-            />
+            {confirmedTransactionsList}
           </Wrapper>
         </div>
 
@@ -68,8 +91,10 @@ class Transactions extends TabComponent<any> {
             title="VESTING SCHEDULE GRAPH"
             actions={confirmedOptions}
             className={styles["vesting-graph"]}
+            empty={true}
+
           >
-            <p>Coming soon... D3 GRAPH</p>
+            <p>VESTING SCHEDULE GRAPH</p>
           </Wrapper>
         </div>
       </>

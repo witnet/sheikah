@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Dispatch } from "redux"
+import { bindActionCreators, Dispatch, Store } from "redux"
 import { RouteComponentProps, Switch, Route } from "react-router"
 import { connect } from "react-redux"
 
@@ -7,15 +7,19 @@ import * as urls from "app/renderer/constants/urls"
 import { Services } from "app/renderer/services"
 import { StoreState } from "app/renderer/store"
 import { IAction } from "app/renderer/actions/helpers"
+import { getTransactions } from "app/renderer/actions/main"
+
+import { Transactions } from "app/common/runtimeTypes/storage/transactions"
 
 import { MainPage } from "app/renderer/ui/components/main"
-
 import WalletSection from "app/renderer/ui/components/main/sections/wallet"
 import SmartContractsSection from "app/renderer/ui/components/main/sections/smartContracts"
 import AttestationsSection from "app/renderer/ui/components/main/sections/attestations"
 import BlockExplorerSection from "app/renderer/ui/components/main/sections/blockExplorer"
 import CommunitySection from "app/renderer/ui/components/main/sections/community"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
+
+import { filterPendingTransactions, filterConfirmedTransactions  } from "app/renderer/selectors"
 
 import {
   TabCoins,
@@ -35,19 +39,23 @@ import {
  * Props that match redux store state
  */
 export interface StateProps {
+  pendingTransactions: Transactions
+  confirmedTransactions: Transactions
 }
 
 /**
  * Props that match redux actions
  */
 export interface DispatchProps {
+  getTransactions: Function
 }
 
 /**
  * Own props
  */
 export interface OwnProps {
-  services: Services
+  services: Services,
+  store: Store
 }
 
 /**
@@ -56,6 +64,7 @@ export interface OwnProps {
  */
 const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
   return {
+    getTransactions: bindActionCreators(getTransactions, dispatch)
   }
 }
 
@@ -65,6 +74,8 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
  */
 const mapStateToProps = (state: StoreState): StateProps => {
   return ({
+    confirmedTransactions: filterConfirmedTransactions(state),
+    pendingTransactions: filterPendingTransactions(state),
   })
 }
 
@@ -78,6 +89,10 @@ const mapStateToProps = (state: StoreState): StateProps => {
 class MainContainer extends
   React.Component<RouteComponentProps<any> & OwnProps & StateProps & DispatchProps> {
 
+  public componentDidMount() {
+    const { pendingTransactions } = this.props
+    getTransactions(pendingTransactions)
+  }
   /**
    * Method to render routing in Wallet Section
    */
