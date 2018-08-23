@@ -56,7 +56,15 @@
     color: $input-big-color;
   }
 
+  .recommendation {
+    @extend %font14;
+
+    color: $font-color-dark;
+  }
+
   .seed {
+    @extend %font14;
+
     align-items: center;
     border: $input-big-border;
     border-radius: $input-big-border-radius;

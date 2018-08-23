@@ -1,15 +1,21 @@
 :local {
   @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/fonts";
 
   .link {
     text-align: right;
   }
 
   .subtitle {
+    @extend %font14;
+
+    color: $font-color-dark;
     margin-bottom: 30px;
   }
 
   .text {
+    @extend %font14;
+
     color: $font-color-light;
     margin-bottom: 20px;
   }
