@@ -25,20 +25,21 @@ export default class Wrapper extends React.Component<Iprops> {
 
   // tslint:disable-next-line: completed-docs
   public render() {
-    const actions = !!this.props.actions
-      // ? (<div className={styles.actions}></div>)
-      ? (<Dropdown className={styles.actions} dataSource={this.props.actions} />)
-      : ""
+    const contentStyles = `${!this.props.empty ? styles.content : styles.empty}
+    ${this.props.contentClassName}`
+    const actions = this.props.actions &&
+      !this.props.empty &&
+      (<Dropdown className={styles.actions} dataSource={this.props.actions} />)
 
     return (
       <div className={`${styles.layout} ${this.props.className}`}>
         <div className={styles.header}>
           <p className={styles.title}>{this.props.title}</p>
-          <p className={styles.caption}>{this.props.caption}</p>
+          {!this.props.empty && <p className={styles.caption}>{this.props.caption}</p>}
           {actions}
         </div>
         <div
-          className={`${!this.props.empty ? styles.content : ""} ${this.props.contentClassName}`}
+          className={contentStyles}
         >
           {this.props.children}
         </div>
