@@ -1,3 +1,4 @@
+import WalletSeedDisclaimer from "./walletDisclaimer"
 import WalletEncryptionPassword from "./walletEncryptionPassword/index"
 import WalletSeedBackup from "./walletSeedBackup/index"
 import WalletSeedTypeSelection from "./walletSeedTypeSelection/index"
@@ -11,7 +12,4 @@ export {
   WalletSeedBackup,
   WalletSeedValidation,
   WalletEncryptionPassword,
-  WalletSeedBackup,
-  WalletSeedTypeSelection,
-  Welcome
 }

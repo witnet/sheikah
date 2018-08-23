@@ -1,37 +1,15 @@
-import * as React from "react"
-import { Route, RouteComponentProps, Switch } from "react-router"
-import { connect } from "react-redux"
-import { bindActionCreators, Dispatch } from "redux"
-
 import log from "app/common/logging"
-import { lazyNavigateTo, navigateTo } from "app/renderer/utils/routerNavigation"
+import {
+  encryptWalletErrors, importSeedErrors, ImportSeedResponse,
+} from "app/common/runtimeTypes/ipc/wallets"
+import { newMnemonicsErrors, WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 
 import { assertNever } from "app/common/utils"
-import { StoreState } from "app/renderer/store"
-import { WalletInfos, newMnemonicsErrors } from "app/common/runtimeTypes/storage/wallets"
-import {
-  encryptWalletErrors,
-  importSeedErrors,
-  ImportSeedResponse,
-} from "app/common/runtimeTypes/ipc/wallets"
-import {
-  Client,
-  encryptWallet,
-  newMnemonics,
-  validateMnemonics,
-  validateXprv
-} from "app/renderer/api"
 import { IAction } from "app/renderer/actions/helpers"
 import { saveWallet } from "app/renderer/actions/loginForm"
-
-import { WalletForm } from "app/renderer/ui/components/walletForm"
 import {
-  WalletSeedValidation,
-  WalletEncryptionPassword,
-  WalletSeedBackup,
-  WalletSeedTypeSelection,
-  Welcome
-} from "app/renderer/ui/components/walletForm/steps"
+  Client, encryptWallet, newMnemonics, validateMnemonics, validateXprv
+} from "app/renderer/api"
 
 import {
   MAIN,
@@ -41,15 +19,19 @@ import {
   WALLET_SEED_ADVANCED_OPTIONS,
   WALLET_SEED_BACKUP,
   WALLET_SEED_CONFIRMATION,
+  WALLET_SEED_DISCLAIMER,
   WALLET_SEED_TYPE_SELECTION,
   WELCOME,
 } from "app/renderer/constants/urls"
 
+import { extendWalletData, prefilledWalletCaption } from "app/renderer/prefilledWallet"
+import { StoreState } from "app/renderer/store"
+import { WalletForm } from "app/renderer/ui/components/walletForm"
 import {
   WalletEncryptionPassword, WalletSeedBackup, WalletSeedTypeSelection, WalletSeedValidation, Welcome
 } from "app/renderer/ui/components/walletForm/steps"
-import WalletAdvancedOptions
-  from "app/renderer/ui/components/walletForm/steps/walletAdvancedOptions"
+import WalletAdvancedOptions from "app/renderer/ui/components/walletForm/steps/walletAdvancedOpts"
+import WalletSeedDisclaimer from "app/renderer/ui/components/walletForm/steps/walletDisclaimer"
 import { lazyNavigateTo, navigateTo } from "app/renderer/utils/routerNavigation"
 import * as React from "react"
 import { connect } from "react-redux"
@@ -128,7 +110,7 @@ class WalletFormContainer extends
     password: "",
     passwordErrorMessage: "",
     repeatPassword: "",
-    spinner: false
+    spinner: false,
   }
 
   /**
@@ -141,12 +123,12 @@ class WalletFormContainer extends
     // Async function to handle the creation of a seed
     newSeed: async () => {
       await this.createSeed()
-      navigateTo(this.props.history, WALLET_SEED_BACKUP)
+      navigateTo(this.props.history, WALLET_SEED_DISCLAIMER)
     },
     newPrefilledSeed: async () => {
       await this.createSeed()
       this.setState({ caption: prefilledWalletCaption })
-      navigateTo(this.props.history, WALLET_SEED_BACKUP)
+      navigateTo(this.props.history, WALLET_SEED_DISCLAIMER)
     },
 
     // Async function to handle advanced seed options
@@ -492,6 +474,18 @@ class WalletFormContainer extends
   )
 
   /**
+   * Method to render seed creation disclaimer
+   * @private
+   * @memberof WalletSeedDisclaimer
+   */
+  private renderSeedDisclaimer = () => (
+    <WalletSeedDisclaimer
+      nextStep={lazyNavigateTo(this.props.history, WALLET_SEED_BACKUP)}
+      previousStep={this.genericBack}
+    />
+  )
+
+  /**
    * Method to render seed backup step
    *
    * @private
@@ -578,6 +572,18 @@ class WalletFormContainer extends
   )
 
   /**
+   * Method to render advanced options screen
+   *
+   * @private
+   * @memberof WalletFormContainer
+   */
+  private renderAdvancedOptions = () => (
+    <WalletAdvancedOptions
+      nextStep={this.seedTypes}
+    />
+  )
+
+  /**
    * Method to render address generation step
    *
    * @private
@@ -592,6 +598,10 @@ class WalletFormContainer extends
           <Route
             path={WALLET_SEED_TYPE_SELECTION}
             render={this.renderSeedTypeSelection}
+          />
+          <Route
+            path={WALLET_SEED_DISCLAIMER}
+            render={this.renderSeedDisclaimer}
           />
           <Route
             path={WALLET_SEED_BACKUP}
@@ -612,6 +622,10 @@ class WalletFormContainer extends
           <Route
             path={WALLET_IMPORT_XPRV}
             render={this.renderImportXprv}
+          />
+          <Route
+            path={WALLET_SEED_ADVANCED_OPTIONS}
+            render={this.renderAdvancedOptions}
           />
           <Route
             path="/"
