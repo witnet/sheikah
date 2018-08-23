@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { CardNavigation } from "app/renderer/ui/components/card"
+import { NavigationCard } from "app/renderer/ui/components/card"
 import { InputUnderlined } from "app/renderer/ui/components/input"
 
 const stepStyles = require("./style.scss")
@@ -31,7 +31,7 @@ export default class WalletEncryptionPassword extends React.Component<Iprops> {
     const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 
     return (
-      <CardNavigation
+      <NavigationCard
         className={cardStyle}
         title="Wallet encryption password"
         previousStep={this.props.previousStep}
@@ -63,7 +63,7 @@ export default class WalletEncryptionPassword extends React.Component<Iprops> {
         <p className={`${commonFormStepStyles.error} ${stepStyles.error}`}>
           {this.props.errorMessage}
         </p>
-      </CardNavigation>
+      </NavigationCard>
     )
   }
 }

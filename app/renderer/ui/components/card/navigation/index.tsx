@@ -19,11 +19,22 @@ export interface Iprops {
  * Card with navigation UI component
  *
  * @export
- * @class Cardnavigation
+ * @class NavigationCard
  * @extends {React.Component<Iprops>}
  */
 
-export default class Cardnavigation extends React.Component<Iprops> {
+export default class NavigationCard extends React.Component<Iprops> {
+
+  /**
+   * For the sake of accessibility, this event handler function captures Enter key pressing and
+   * artificially calls nextStep just as if the Next button was clicked.
+   */
+  private handleKeyUp = (event: { keyCode: number }) => {
+    if (event.keyCode === 13) {
+      this.props.nextStep()
+    }
+  }
+
   // tslint:disable-next-line: completed-docs
   public render() {
     const cardStyle = `${this.props.className} ${styles.card}`

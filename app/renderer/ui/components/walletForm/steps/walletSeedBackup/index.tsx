@@ -1,7 +1,5 @@
+import { NavigationCard } from "app/renderer/ui/components/card"
 import * as React from "react"
-
-import { CardNavigation } from "app/renderer/ui/components/card"
-import { AlertDefault } from "app/renderer/ui/components/alert"
 
 const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
 
@@ -28,7 +26,7 @@ export default class WalletSeedBackup extends React.Component<Iprops> {
 
     return (
       <>
-        <CardNavigation
+        <NavigationCard
           className={cardStyle}
           title="Wallet seed creation"
           previousStep={this.props.previousStep}
@@ -42,17 +40,7 @@ export default class WalletSeedBackup extends React.Component<Iprops> {
             Please save this 12 words on paper (order is important). This seed will allow you to
             recover your wallet in case of computer failure.
           </p>
-        </CardNavigation>
-        <AlertDefault className={commonFormStepStyles["alert-grid"]}>
-          <div className={commonFormStepStyles.alert}>
-            <p className={commonFormStepStyles["alert-title"]}>Remember!</p>
-            <ul>
-              <li>Never disclose your seed.</li>
-              <li>Never type on a website</li>
-              <li>Do not store electronically</li>
-            </ul>
-          </div>
-        </AlertDefault>
+        </NavigationCard>
       </>
     )
   }

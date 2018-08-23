@@ -46,7 +46,7 @@ export default class WalletSeedValidation extends React.Component<Iprops> {
 
     return (
       <>
-        <CardNavigation
+        <NavigationCard
           className={cardStyle}
           title={this.props.title}
           previousStep={this.props.previousStep}
@@ -59,8 +59,7 @@ export default class WalletSeedValidation extends React.Component<Iprops> {
             onChange={this.props.onChangeInput}
           />
           <p className={commonFormStepStyles.error}>{this.props.errorMessage}</p>
-        </CardNavigation>
-        {alert}
+        </NavigationCard>
       </>
     )
   }
