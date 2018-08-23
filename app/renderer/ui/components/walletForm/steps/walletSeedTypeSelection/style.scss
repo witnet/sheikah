@@ -1,5 +1,6 @@
 :local {
   @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/fonts";
 
   .options {
     li {
@@ -8,6 +9,9 @@
   }
 
   .text {
+    @extend %font14;
+
+    color: $font-color-dark;
     margin-bottom: 30px;
   }
 }

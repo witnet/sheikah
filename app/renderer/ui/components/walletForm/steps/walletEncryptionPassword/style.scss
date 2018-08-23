@@ -1,7 +1,9 @@
 :local {
   @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/fonts";
 
   .text {
+    color: $font-color-dark;
     margin-bottom: 35px;
 
     strong {
