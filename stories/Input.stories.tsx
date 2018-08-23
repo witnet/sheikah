@@ -1,6 +1,6 @@
 import *  as React from "react";
 import { storiesOf } from "@storybook/react";
-import { InputBig, InputDefault, InputUnderlined } from '../app/renderer/ui/components/input';
+import { InputBig, DefaultInput, InputUnderlined } from '../app/renderer/ui/components/input';
 
 storiesOf("Input", module)
   .add("Big", () => (
@@ -8,7 +8,7 @@ storiesOf("Input", module)
   ))
 
   .add("Default", () => (
-    <InputDefault />
+    <DefaultInput />
   ))
 
   .add("Underlined", () => (

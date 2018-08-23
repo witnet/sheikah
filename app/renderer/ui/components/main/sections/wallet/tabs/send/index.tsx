@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 import Wrapper from "app/renderer/ui/components/wrapper"
-import { InputDefault } from "app/renderer/ui/components/input"
+import { DefaultInput } from "app/renderer/ui/components/input"
 import { ActionButton } from "app/renderer/ui/components/button"
 
 import * as urls from "app/renderer/constants/urls"
@@ -22,16 +22,16 @@ class TabSend extends TabComponent<any> {
       <Wrapper title="NEW PAYMENT REQUEST" className={styles.pending}>
         <div className={styles["new-transaction"]}>
           <label className={styles.label}>Address</label>
-          <InputDefault className={`${styles.input} ${styles["large-input"]}`} />
+          <DefaultInput className={`${styles.input} ${styles["large-input"]}`} />
           <p className={styles.info}><i className={`fa fa-info ${styles.icon}`} />
             Don't forget to double check the address before pressing 'Send'
           </p>
           <label className={styles.label}>Label</label>
-          <InputDefault className={`${styles.input} ${styles["large-input"]}`} />
+          <DefaultInput className={`${styles.input} ${styles["large-input"]}`} />
           <label className={styles.label}>Amount</label>
-          <InputDefault className={`${styles.input} ${styles["small-input"]}`} />
+          <DefaultInput className={`${styles.input} ${styles["small-input"]}`} />
           <label className={styles.label}>Fee</label>
-          <InputDefault className={`${styles.input} ${styles["small-input"]}`} />
+          <DefaultInput className={`${styles.input} ${styles["small-input"]}`} />
           <ActionButton
             className={styles.submit}
             onClick={this.props.services.showUnimplementedMessage}

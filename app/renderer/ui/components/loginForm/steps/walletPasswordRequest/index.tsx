@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { AlertMessage } from "app/renderer/ui/components/alert"
 import { ButtonNavigation } from "app/renderer/ui/components/button"
-import { InputDefault } from "app/renderer/ui/components/input"
+import { DefaultInput } from "app/renderer/ui/components/input"
 
 const styles = require("./style.scss")
 
@@ -56,7 +56,7 @@ export default class WalletPasswordRequest extends React.Component<Iprops> {
           <p className={styles.text}>
             Please type here the password to unlock your wallet:
           </p>
-          <InputDefault
+          <DefaultInput
             className={styles.input}
             type="password"
             onBlur={this.handlePassword}

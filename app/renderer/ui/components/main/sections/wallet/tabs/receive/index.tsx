@@ -1,7 +1,7 @@
 import * as React from "react"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import List from "app/renderer/ui/components/list"
-import { InputDefault } from "app/renderer/ui/components/input"
+import { DefaultInput } from "app/renderer/ui/components/input"
 import PaymentRequest from "app/renderer/ui/components/paymentRequest"
 import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 
@@ -45,11 +45,11 @@ class TabReceive extends TabComponent<any> {
             <div className={styles["new-payment-request"]}>
               <div className={styles.form}>
                 <label className={styles.label}>Label</label>
-                <InputDefault className={styles["label-input"]} />
+                <DefaultInput className={styles["label-input"]} />
                 <label className={styles.label}>Amount</label>
-                <InputDefault />
+                <DefaultInput />
                 <label className={styles.label}> Expires </label>
-                <InputDefault />
+                <DefaultInput />
                 <ActionButton
                   className={styles.submit}
                   onClick={this.props.services.showUnimplementedMessage}

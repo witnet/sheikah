@@ -13,11 +13,11 @@ export interface Iprops {
  * Default input UI component
  *
  * @export
- * @class InputDefault
+ * @class DefaultInput
  * @extends {React.Component<Iprops>}
  */
 
-export default class InputDefault extends React.Component<Iprops> {
+export default class DefaultInput extends React.Component<Iprops> {
   // tslint:disable-next-line: completed-docs
   public render() {
     return (
