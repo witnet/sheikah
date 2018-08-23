@@ -7,7 +7,7 @@ import {
 import Balances from "app/renderer/ui/components/balances"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import List from "app/renderer/ui/components/list"
-
+import EmptyState from "app/renderer/ui/components/emptyState"
 import * as urls from "app/renderer/constants/urls"
 
 import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
@@ -40,7 +40,6 @@ class Transactions extends TabComponent<any & OwnProps> {
         onClick: () => this.props.services.showUnimplementedMessage()
       }
     ))
-    console.log("THIS:PROPS", this.props)
     const pendingTransactionsList = !!Object.keys(this.props.pendingTransactions).length
       ? (
         <List
@@ -49,7 +48,7 @@ class Transactions extends TabComponent<any & OwnProps> {
         />
       )
     : (
-      <p>You don't have transactions</p>
+      <EmptyState iconName="generic" text="You don't have pending transactions" />
     )
 
     const confirmedTransactionsList = !!Object.keys(this.props.confirmedTransactions).length
@@ -60,8 +59,8 @@ class Transactions extends TabComponent<any & OwnProps> {
         />
       )
       : (
-          <p>You don't have transactions</p>
-        )
+        <EmptyState iconName="generic" text="You don't have confirmed transactions" />
+      )
 
     return (
       <>
@@ -94,7 +93,7 @@ class Transactions extends TabComponent<any & OwnProps> {
             empty={true}
 
           >
-            <p>VESTING SCHEDULE GRAPH</p>
+            <EmptyState iconName="graph" text="Nothing to show" />
           </Wrapper>
         </div>
       </>
