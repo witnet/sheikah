@@ -4,7 +4,9 @@ import {
   Account,
   FinalKey,
   CURRENT_WALLET_VERSION,
-  SeedInfo
+  SeedInfo,
+  Utxo,
+  Stxo
 } from "app/common/runtimeTypes/storage/wallets"
 
 export const prefilledWalletCaption = "Demo wallet with example data"
@@ -103,11 +105,10 @@ function generateFinalKey(parentPath: Array<number>, index: number): FinalKey {
   const extendedKey = { type: ("public" as "public"), key, chainCode }
   const keyPath = [...parentPath, index]
   const pkh = ""
-  const value = 30
   const outpoint = { txid: "some tx id", index: 0 }
-  const output = { type: ("P2PKH" as "P2PKH"), outpoint, value }
-  const utxo = [output]
-  const stxo = [{}]
+  const output = { outpoint }
+  const utxos: Array<Utxo> = [output]
+  const stxos: Array<Stxo> = []
 
-  return { extendedKey, keyPath, pkh, utxo, stxo }
+  return { extendedKey, keyPath, pkh, utxos, stxos }
 }

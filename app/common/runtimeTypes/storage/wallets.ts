@@ -56,27 +56,21 @@ export type NewMnemonicsError = t.TypeOf<typeof NewMnemonicsError>
 export const NewMnemonicsResponse = t.taggedUnion("kind", [NewMnemonicsSuccess, NewMnemonicsError])
 export type NewMnemonicsResponse = t.TypeOf<typeof NewMnemonicsResponse>
 
-export const Input = t.type({}, "Input")
-export type Input = t.TypeOf<typeof Input>
-
-export const OutputTypes = t.union([
-  t.literal("P2PKH"),
-  t.literal("P2SH")
-], "OutputTypes")
-export type OutputTypes = t.TypeOf<typeof OutputTypes>
-
 export const Outpoint = t.type({
   txid: t.string,
   index: t.number // output index
 }, "Outpoint")
 export type Outpoint = t.TypeOf<typeof Outpoint>
 
-export const Output = t.type({
-  type: OutputTypes,
-  outpoint: Outpoint,
-  value: t.number
-}, "Output")
-export type Output = t.TypeOf<typeof Output>
+export const Utxo = t.type({
+  outpoint: Outpoint
+}, "Utxo")
+export type Utxo = t.TypeOf<typeof Utxo>
+
+export const Stxo = t.type({
+  outpoint: Outpoint
+}, "Stxo")
+export type Stxo = t.TypeOf<typeof Stxo>
 
 export const KeyPath = new t.Type<Array<number>, string>(
   "KeyPath",
@@ -141,8 +135,8 @@ export const FinalKey = t.intersection([
     pkh: t.string,
   }),
   t.partial({
-    utxo: t.array(Output),
-    stxo: t.array(Input)
+    utxos: t.array(Utxo),
+    stxos: t.array(Stxo)
   })
 ], "FinalKey")
 export type FinalKey = t.TypeOf<typeof FinalKey>

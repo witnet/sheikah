@@ -4,8 +4,8 @@ import {
   ExtendedKey,
   FinalKey,
   KeyPath,
-  Input,
-  Output
+  Utxo,
+  Stxo
 } from "app/common/runtimeTypes/storage/wallets"
 
 /**
@@ -45,14 +45,14 @@ export function createFinalKey(
   extendedKey: ExtendedKey,
   keyPath: KeyPath,
   pkh: string,
-  utxo?: Array<Output>,
-  stxo?: Array<Input>
+  utxos?: Array<Utxo>,
+  stxos?: Array<Stxo>
 ): FinalKey {
   return {
     extendedKey,
     keyPath,
     pkh,
-    utxo,
-    stxo,
+    utxos,
+    stxos,
   }
 }
