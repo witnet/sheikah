@@ -14,7 +14,10 @@
       }());
     </script>
   </head>
-  <body>
+  <body
+    oncopy="return process.env.HOT"
+    oncut="return process.env.HOT"
+  >
     <div id="root"></div>
     <script>
       {
