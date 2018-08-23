@@ -78,6 +78,11 @@
     color: $font-color-dark;
   }
 
+  pre,
+  .pre-alike {
+    font-family: "Lucida Console", Monaco, monospace;
+  }
+
   body {
     font-family: $font-family;
     height: 100vh;

@@ -3,6 +3,11 @@
 
   .text {
     margin-bottom: 35px;
+
+    strong {
+      color: $gold-7;
+      font-weight: bold;
+    }
   }
 
   .field {
@@ -20,7 +25,8 @@
 
   .input {
     display: inline-block;
-    padding-bottom: 5px;
+    font-size: 1.4em;
+    padding-bottom: 10px;
     text-align: center;
     width: 60%;
   }

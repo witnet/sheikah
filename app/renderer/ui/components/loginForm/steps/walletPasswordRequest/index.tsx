@@ -38,6 +38,17 @@ export default class WalletPasswordRequest extends React.Component<Iprops> {
   }
 
   /**
+   * For the sake of accessibility, this event handler function captures Enter key pressing and
+   * artificially calls nextStep just as if the Next button was clicked.
+   */
+  private handleKeyUp = (event: React.KeyboardEvent) => {
+    if (event.keyCode === 13) {
+      this.handlePassword(event)
+      this.nextStep()
+    }
+  }
+
+  /**
    * Method to move to the next step
    */
   private nextStep = () => { this.props.nextStep(this.state.password) }
@@ -59,7 +70,8 @@ export default class WalletPasswordRequest extends React.Component<Iprops> {
           <DefaultInput
             className={styles.input}
             type="password"
-            onBlur={this.handlePassword}
+            onChange={this.handlePassword}
+            onKeyUp={this.handleKeyUp}
           />
           <AlertMessage
             className={styles.error}

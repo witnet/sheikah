@@ -30,11 +30,9 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
     const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 
     return (
-      <CardDefault className={cardStyle} title="Wallet seed creation">
+      <CardDefault className={cardStyle} title="Create your wallet">
         <p className={stepStyles.text}>
-          Seeds are secret codes used to generate your credentials.
-          Be very careful with them. If you ever give them away, say bye
-          to your coins!
+          We will now help you create a new local wallet.
         </p>
         <ul className={stepStyles.options}>
           <li>
@@ -42,7 +40,7 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
               recommended={true}
               onClick={this.props.nextStep.newSeed}
             >
-              Create a new seed
+              Create new seed phrase
             </ButtonOption>
           </li>
           <li>

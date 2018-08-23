@@ -33,11 +33,15 @@ export default class WalletEncryptionPassword extends React.Component<Iprops> {
     return (
       <NavigationCard
         className={cardStyle}
-        title="Wallet encryption password"
+        title="Encrypt your wallet with a password"
         previousStep={this.props.previousStep}
         nextStep={this.props.nextStep}
       >
-        <p className={stepStyles.text}>Choose a password to encrypt your wallet.</p>
+        <p className={stepStyles.text}>
+          <strong>PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on this
+          computer. This is not your backup and you cannot restore your wallet with this password.
+          Your seed phrase is still your ultimate backup.
+        </p>
         <div className={stepStyles.field}>
           <label className={`${stepStyles.label} ${stepStyles["password-label"]}`}>Password</label>
           <InputUnderlined

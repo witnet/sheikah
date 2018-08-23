@@ -9,6 +9,10 @@
     height: 100vh;
     margin: 0 auto;
     width: 100%;
+
+    p:not(:first-of-type) {
+      margin-top: 10px;
+    }
   }
 
   .spinner {

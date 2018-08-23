@@ -1,15 +1,13 @@
-import * as React from "react"
-
-import { CardNavigation } from "app/renderer/ui/components/card/index"
+import { NavigationCard } from "app/renderer/ui/components/card/index"
 import { InputBig } from "app/renderer/ui/components/input/index"
-import { AlertDefault } from "app/renderer/ui/components/alert"
+import * as React from "react"
 
 const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
 
 export interface Iprops {
   className?: string
   title: string
-  text: string
+  paragraphs: Array<string>
   inputValue: string
   errorMessage?: string
   nextStep: any
@@ -30,20 +28,6 @@ export default class WalletSeedValidation extends React.Component<Iprops> {
   public render() {
     const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 
-    const alert = (
-      <AlertDefault className={commonFormStepStyles["alert-grid"]}>
-        <div className={commonFormStepStyles.alert}>
-          <p className={commonFormStepStyles["alert-title"]}>Your seed is important!</p>
-          <p className={commonFormStepStyles["alert-message"]}>
-            If you lose your seed, your coins will be permanently lost.
-          </p>
-          <p className={commonFormStepStyles["alert-message"]}>
-            To confirm that you have properly saved your seed, please retype it here.
-          </p>
-        </div>
-      </AlertDefault>
-    )
-
     return (
       <>
         <NavigationCard
@@ -52,12 +36,16 @@ export default class WalletSeedValidation extends React.Component<Iprops> {
           previousStep={this.props.previousStep}
           nextStep={this.props.nextStep}
         >
-          <p>{this.props.text}</p>
+          {this.props.paragraphs.map((text, i) => <p key={i}>{text}</p>)}
           <InputBig
-            className={commonFormStepStyles.seed}
+            className={`${commonFormStepStyles.seed} pre-alike`}
             value={this.props.inputValue}
             onChange={this.props.onChangeInput}
           />
+          <p>
+            Please ensure you do not add any extra spaces between words or at the beginning or end
+            of the phrase.
+          </p>
           <p className={commonFormStepStyles.error}>{this.props.errorMessage}</p>
         </NavigationCard>
       </>

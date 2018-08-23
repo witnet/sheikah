@@ -3,8 +3,18 @@
 
   .big {
     border: $input-big-border;
-    border-radius: $input-big-border_radius;
-    height: $input-big-height;
+    border-radius: $input-big-border-radius;
+    min-height: 80px;
+    transition: all 0.1s ease;
     width: $input-big-width;
+
+    &:hover,
+    &:focus {
+      border: $input-big-hover-border;
+      box-shadow: $input-big-hover-box-shadow;
+      outline: 0;
+      outline-color: transparent;
+      outline-style: none;
+    }
   }
 }

@@ -13,27 +13,28 @@ $alert-color: $yellow-8;
 
 // BUTTON
 
-// BUTTON ACTION
+// ACTION BUTTON
 $button-action-background-color: $blue-6;
 $button-action-background: $button-action-background-color;
 $button-action-border_color: $button-action-background-color;
 $button-action-border_radius: 4px;
 $button-action-border: 0;
 $button-action-color: $grey-1;
-$button-action-disabled-background_color: $grey-4;
-$button-action-disabled-background: $button-action-disabled-background_color;
-$button-action-disabled-border_color: $button-action-disabled-background_color;
+$button-action-disabled-background-color: $grey-4;
+$button-action-disabled-background: $button-action-disabled-background-color;
+$button-action-disabled-border_color: $button-action-disabled-background-color;
 $button-action-disabled-color: $button-action-color;
 $button-action-focus-background-color: $button-action-color;
 $button-action-focus-background: $button-action-focus-background-color;
 $button-action-focus-border_color: $button-action-focus-background-color;
 $button-action-focus-color: $button-action-background-color;
+
 $button-action-font_weight: 600;
 $button-action-line_height: 1;
 $button-action-padding: 12px 15px 25px 15px;
 $button-action-shadow: $default-box-shadow;
 
-//BUTTON NAVIGATION
+// NAVIGATION BUTTON
 $button-navigation-background: $grey-1;
 $button-navigation-border-color: $grey-4;
 $button-navigation-border-style: solid;
@@ -43,12 +44,27 @@ $button-navigation-height: 100%;
 $button-navigation-width: auto;
 $button-navigation-hover-background: $grey-2;
 
-//BUTTON LINK
+// LINK BUTTON
 $button-link-background: none;
 $button-link-border: 0;
 $button-link-color: $blue-6;
 $button-link-height: auto;
 $button-link-width: auto;
+
+// OPTION BUTTON
+$button-option-background: $grey-1;
+$button-option-border-width: 1px;
+$button-option-border-style: solid;
+$button-option-border-color: $grey-4;
+$button-option-border: $button-option-border-width $button-option-border-style $button-option-border-color;
+$button-option-color: $grey-8;
+$button-option-hover-border-color: $blue-4;
+$button-option-hover-box-shadow: 0 1px 5px 0 $blue-2;
+$button-option-hover-color: $blue-5;
+$button-option-active-background: $grey-2;
+$button-option-active-border-color: $blue-5;
+$button-option-active-color: $blue-6;
+$button-option-active-box-shadow: 0 1px 5px 0 $blue-3;
 
 //CARD
 
@@ -66,11 +82,12 @@ $dot_indicator-warning-color: $gold-3;
 $input-padding: 22px 15px;
 
 //INPUT BIG
-$input-big-border_radius: 2%;
-$input-big-border: 1px dashed $grey-7;
+$input-big-border-radius: 2px;
+$input-big-border: 2px dashed $grey-4;
 $input-big-color: $font-color-light;
-$input-big-height: 100px;
 $input-big-width: 100%;
+$input-big-hover-border: 2px dashed $blue-4 !important;
+$input-big-hover-box-shadow: $button-option-hover-box-shadow;
 
 // INPUT UNDERLINED
 $input-underlined-border: 1px solid $grey-7;

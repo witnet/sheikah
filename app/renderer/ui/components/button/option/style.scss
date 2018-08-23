@@ -1,27 +1,39 @@
 :local {
-  @import "app/renderer/ui/colors";
   @import "app/renderer/ui/fonts";
+  @import "app/renderer/ui/theme";
 
   .button {
     @extend %font20;
 
-    background: none;
-    border: 1px solid $grey-6;
-    color: $grey-7;
+    background: $button-option-background;
+    border: $button-option-border;
+    color: $button-option-color;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     font: inherit;
-    height: 54px;
+    height: 60px;
     justify-content: space-between;
     outline: inherit;
     padding: 0 20px;
     width: 100%;
+
+    &:hover,
+    &:focus {
+      border-color: $button-option-hover-border-color;
+      box-shadow: $button-option-hover-box-shadow;
+      color: $button-option-hover-color;
+    }
+
+    &:active {
+      background: $button-option-active-background;
+      border-color: $button-option-active-border-color;
+      box-shadow: $button-option-active-box-shadow;
+      color: $button-option-active-color;
+    }
   }
 
   .recommended {
-    border-color: $blue-6;
-    color: $blue-6;
     height: 75px;
   }
 }

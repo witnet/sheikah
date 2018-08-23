@@ -383,7 +383,7 @@ class WalletFormContainer extends
    * @memberof WalletFormContainer
    */
   private onChangeInput = async (ev: any) => {
-    this.setState({ confirmMnemonics: ev.target.value })
+    this.setState({ confirmMnemonics: ev.target.value.replace("\n", "") })
     if (this.state.mnemonics === this.state.confirmMnemonics) {
       this.setState({ seedErrorMessage: "" })
     }
@@ -422,7 +422,7 @@ class WalletFormContainer extends
    * @memberof WalletFormContainer
    */
   private onChangeImportSeed = async (ev: any) => {
-    this.setState({ importSeed: ev.target.value })
+    this.setState({ importSeed: ev.target.value.replace("\n", "") })
   }
 
   /**
@@ -505,17 +505,25 @@ class WalletFormContainer extends
    * @private
    * @memberof WalletFormContainer
    */
-  private renderSeedConfirmation = () => (
-    <WalletSeedValidation
-      title="Wallet seed confirmation"
-      text="Please type here your seed to confirm it:"
-      errorMessage={this.state.seedErrorMessage}
-      inputValue={this.state.confirmMnemonics}
-      onChangeInput={this.onChangeInput}
-      nextStep={this.seedConfirmationNextStep}
-      previousStep={this.seedConfirmationPreviousStep}
-    />
-  )
+  private renderSeedConfirmation = () => {
+    const message = [
+      "Please type your 12 word seed phrase exactly as it was shown to you on the previous " +
+      "screen.",
+      "This step is to confirm that you have copied your seed phrase correctly."
+    ]
+
+    return (
+      <WalletSeedValidation
+        title="Confirm your seed phrase"
+        paragraphs={message}
+        errorMessage={this.state.seedErrorMessage}
+        inputValue={this.state.confirmMnemonics}
+        onChangeInput={this.onChangeInput}
+        nextStep={this.seedConfirmationNextStep}
+        previousStep={this.seedConfirmationPreviousStep}
+      />
+    )
+  }
 
   /**
    * Method to render encryption password step
@@ -544,7 +552,7 @@ class WalletFormContainer extends
   private renderImportMnemonics = () => (
     <WalletSeedValidation
       title="Import mnemonics"
-      text="Please type here your mnemonics:"
+      paragraphs={["Please type here your seed phrase:"]}
       inputValue={this.state.importSeed}
       errorMessage={this.state.seedErrorMessage}
       onChangeInput={this.onChangeImportSeed}
@@ -562,7 +570,7 @@ class WalletFormContainer extends
   private renderImportXprv = () => (
     <WalletSeedValidation
       title="Import master key"
-      text="Please type here your master key:"
+      paragraphs={["Please type here your xprv string:"]}
       inputValue={this.state.importSeed}
       errorMessage={this.state.seedErrorMessage}
       onChangeInput={this.onChangeImportSeed}

@@ -40,7 +40,7 @@ export default class NavigationCard extends React.Component<Iprops> {
     const cardStyle = `${this.props.className} ${styles.card}`
 
     return (
-      <div className={cardStyle}>
+      <div className={cardStyle} onKeyUp={this.handleKeyUp}>
         <Card title={this.props.title}>
           <div className={styles.content}>
             {this.props.children}

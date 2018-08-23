@@ -59,13 +59,15 @@
   .seed {
     align-items: center;
     border: $input-big-border;
-    border-radius: $input-big-border_radius;
+    border-radius: $input-big-border-radius;
     box-sizing: border-box;
     color: $input-big-color;
     display: inline-flex;
-    height: $input-big-height;
-    margin: 25px 0;
-    padding: 25px 30px;
+    font-size: $font-size-16;
+    line-break: auto;
+    line-height: 1.5em;
+    margin: 15px 0;
+    padding: 20px 25px;
     width: 100%;
   }
 }
