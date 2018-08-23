@@ -39,6 +39,7 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
             <ButtonOption
               recommended={true}
               onClick={this.props.nextStep.newSeed}
+              secondaryText="RECOMMENDED"
             >
               Create new seed phrase
             </ButtonOption>
@@ -47,6 +48,7 @@ export default class WalletSeedTypeSelection extends React.Component<Iprops> {
             <ButtonOption
               recommended={true}
               onClick={this.props.nextStep.newPrefilledSeed}
+              secondaryText="RECOMMENDED"
             >
               Create a wallet prefilled with sample data
             </ButtonOption>
