@@ -227,10 +227,10 @@ function newCaption(index: number): string {
  * @param extendedKey
  */
 function createAccount(keyPath: string, extendedKey: ExtendedKey): Account {
-  const externalKeyChain = createKeyChain(`${keyPath}/0`)
-  const internalKeyChain = createKeyChain(`${keyPath}/1`)
+  const externalKeyChain = createKeyChain("external", `${keyPath}/0`)
+  const internalKeyChain = createKeyChain("internal", `${keyPath}/1`)
   // rad => retrieve, attest, deliver
-  const radKeyChain = createKeyChain(`${keyPath}/2`)
+  const radKeyChain = createKeyChain("rad", `${keyPath}/2`)
   const keyChains = [externalKeyChain, internalKeyChain, radKeyChain]
 
   return AccountFactory.createAccount(asKeyPath(keyPath), keyChains)
@@ -240,8 +240,8 @@ function createAccount(keyPath: string, extendedKey: ExtendedKey): Account {
  * Create key chain.
  * @param keyPath
  */
-function createKeyChain(keyPath: string): KeyChain {
-  return AccountFactory.createKeyChain(asKeyPath(keyPath), [])
+function createKeyChain(kind: KeyChain["kind"], keyPath: string): KeyChain {
+  return AccountFactory.createKeyChain(kind, asKeyPath(keyPath), [])
 }
 
 /**

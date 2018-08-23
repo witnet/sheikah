@@ -51,9 +51,9 @@ export const wallet: Wallet = {
     {
       balance: 0,
       keyChains: [
-        { finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 0] },
-        { finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 1] },
-        { finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 2] }
+        { kind: "external", finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 0] },
+        { kind: "internal", finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 1] },
+        { kind: "rad", finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 2] }
       ],
       keyPath: [2147483651, 2147488567, 2147483648]
     }

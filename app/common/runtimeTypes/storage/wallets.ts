@@ -128,7 +128,18 @@ export const ExtendedKey = t.type({
 }, "ExtendedKey")
 export type ExtendedKey = t.TypeOf<typeof ExtendedKey>
 
-export const FinalKey = t.intersection([
+const PositiveNumber = t.refinement(t.number, n => n > 0, "Positive")
+type PositiveNumber = t.TypeOf<typeof PositiveNumber>
+
+export const FinalKeyMetadata = t.partial({
+  label: t.string,
+  creationDate: t.number,
+  expirationDate: t.number,
+  requestedAmount: PositiveNumber
+}, "FinalKeyMetadata")
+export type FinalKeyMetadata = t.TypeOf<typeof FinalKeyMetadata>
+
+const CommonFinalKey = t.intersection([
   t.type({
     extendedKey: ExtendedKey,
     keyPath: KeyPath,
@@ -138,13 +149,76 @@ export const FinalKey = t.intersection([
     utxos: t.array(Utxo),
     stxos: t.array(Stxo)
   })
-], "FinalKey")
+], "CommonFinalKey")
+type CommonFinalKey = t.TypeOf<typeof CommonFinalKey>
+
+export const ExternalFinalKey = t.intersection([
+  t.type({
+    kind: t.literal("external"),
+  }),
+  CommonFinalKey,
+  t.partial({
+    metadata: FinalKeyMetadata
+  })
+], "ExternalFinalKey")
+export type ExternalFinalKey = t.TypeOf<typeof ExternalFinalKey>
+
+export const InternalFinalKey = t.intersection([
+  t.type({
+    kind: t.literal("internal"),
+  }),
+  CommonFinalKey,
+  t.partial({
+    metadata: FinalKeyMetadata
+  })
+], "InternalFinalKey")
+export type InternalFinalKey = t.TypeOf<typeof InternalFinalKey>
+
+export const RadFinalKey = t.intersection([
+  t.type({
+    kind: t.literal("rad"),
+  }),
+  CommonFinalKey,
+  t.partial({
+    metadata: FinalKeyMetadata
+  })
+], "RadFinalKey")
+export type RadFinalKey = t.TypeOf<typeof RadFinalKey>
+
+export const FinalKey = t.taggedUnion("kind", [ExternalFinalKey, InternalFinalKey, RadFinalKey])
 export type FinalKey = t.TypeOf<typeof FinalKey>
 
-export const KeyChain = t.type({
+const CommonKeyChain = t.type({
   keyPath: KeyPath,
   finalKeys: t.array(FinalKey)
-}, "KeyChain")
+}, "CommonKeyChain")
+type CommonKeyChain = t.TypeOf<typeof CommonKeyChain>
+
+export const ExternalKeyChain = t.intersection([
+  t.type({
+    kind: t.literal("external"),
+  }),
+  CommonKeyChain
+], "ExternalKeyChain")
+export type ExternalKeyChain = t.TypeOf<typeof ExternalKeyChain>
+
+export const InternalKeyChain = t.intersection([
+  t.type({
+    kind: t.literal("internal"),
+  }),
+  CommonKeyChain
+], "InternalKeyChain")
+export type InternalKeyChain = t.TypeOf<typeof InternalKeyChain>
+
+export const RadKeyChain = t.intersection([
+  t.type({
+    kind: t.literal("rad"),
+  }),
+  CommonKeyChain
+], "RadKeyChain")
+export type RadKeyChain = t.TypeOf<typeof RadKeyChain>
+
+export const KeyChain = t.taggedUnion("kind", [ExternalKeyChain, InternalKeyChain, RadKeyChain])
 export type KeyChain = t.TypeOf<typeof KeyChain>
 
 export const EpochsInfo = t.intersection([

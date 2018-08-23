@@ -6,7 +6,8 @@ import {
   CURRENT_WALLET_VERSION,
   SeedInfo,
   Utxo,
-  Stxo
+  Stxo,
+  KeyChain
 } from "app/common/runtimeTypes/storage/wallets"
 
 export const prefilledWalletCaption = "Demo wallet with example data"
@@ -76,18 +77,21 @@ function generatePrefilledAccount(): Account {
   const keyPath2 = [...keyPath, 2]
   const keyChains = [
     {
+      kind: "external",
       keyPath: keyPath0,
-      finalKeys: [generateFinalKey(keyPath0, 0)],
+      finalKeys: [generateFinalKey("external", keyPath0, 0)],
     },
     {
+      kind: "internal",
       keyPath: keyPath1,
-      finalKeys: [generateFinalKey(keyPath1, 0)],
+      finalKeys: [generateFinalKey("internal", keyPath1, 0)],
     },
     {
+      kind: "rad",
       keyPath: keyPath2,
-      finalKeys: [generateFinalKey(keyPath2, 0)],
+      finalKeys: [generateFinalKey("rad", keyPath2, 0)],
     }
-  ]
+  ] as Array<KeyChain>
 
   return { balance, keyPath, keyChains }
 }
@@ -95,7 +99,11 @@ function generatePrefilledAccount(): Account {
 /**
  * Internal function that generates a pre-filled final key. Do not use outside of this module.
  */
-function generateFinalKey(parentPath: Array<number>, index: number): FinalKey {
+function generateFinalKey(
+  kind: FinalKey["kind"],
+  parentPath: Array<number>,
+  index: number
+): FinalKey {
   const key = Buffer.from(
     [152, 8, 159, 246, 221, 27, 159, 171, 139, 98, 82, 232, 229, 140, 201, 2, 78, 113, 141, 104,
       187, 192, 191, 147, 91, 108, 192, 174, 214, 251, 100, 79])
@@ -110,5 +118,5 @@ function generateFinalKey(parentPath: Array<number>, index: number): FinalKey {
   const utxos: Array<Utxo> = [output]
   const stxos: Array<Stxo> = []
 
-  return { extendedKey, keyPath, pkh, utxos, stxos }
+  return { kind, extendedKey, keyPath, pkh, utxos, stxos } as FinalKey
 }

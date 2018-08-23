@@ -23,18 +23,25 @@ export function createAccount(keyPath: KeyPath, keyChains: Array<KeyChain>): Acc
 
 /**
  * Create a KeyChain
+ * @param kind
  * @param keyPath
  * @param finalKeys
  */
-export function createKeyChain(keyPath: KeyPath, finalKeys: Array<FinalKey>): KeyChain {
+export function createKeyChain(
+  kind: KeyChain["kind"],
+  keyPath: KeyPath,
+  finalKeys: Array<FinalKey>
+): KeyChain {
   return {
+    kind,
     keyPath,
     finalKeys
-  }
+  } as KeyChain
 }
 
 /**
  * Create a FinalKey
+ * @param kind
  * @param extendedKey
  * @param keyPath
  * @param pkh private key hash
@@ -42,6 +49,7 @@ export function createKeyChain(keyPath: KeyPath, finalKeys: Array<FinalKey>): Ke
  * @param stxo spend transaction outputs
  */
 export function createFinalKey(
+  kind: FinalKey["kind"],
   extendedKey: ExtendedKey,
   keyPath: KeyPath,
   pkh: string,
@@ -49,10 +57,11 @@ export function createFinalKey(
   stxos?: Array<Stxo>
 ): FinalKey {
   return {
+    kind,
     extendedKey,
     keyPath,
     pkh,
     utxos,
     stxos,
-  }
+  } as FinalKey
 }
