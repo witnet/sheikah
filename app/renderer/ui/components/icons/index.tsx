@@ -35,8 +35,8 @@ export default class Icon extends React.Component<Iprops> {
   public render() {
 
     return (
-      <div className={this.props.className}>
+      <>
         {this.selectIcon(this.props.type)}
-      </div>
+      </>
     ) }
 }
