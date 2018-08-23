@@ -2,9 +2,13 @@
 
 // COMMON
 $background-color: $grey-2;
-$error-color: $red-4;
 $font-color-dark: $grey-9;
 $font-color-light: $grey-7;
+
+$success-color: $green-7;
+$warning-color: $gold-3;
+$error-color: $red-5;
+$timelocked-color: $geekblue-4;
 $default-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.15);
 
 // ALERT
@@ -104,8 +108,8 @@ $loading_modal-width: 100%;
 
 // PAYMENT REQUEST
 $payment_request-date-font_size: 12px;
-$payment_request-error-color: $red-6;
-$payment_request-success-color: $green-6;
+$payment_request-error-color: $error-color;
+$payment_request-success-color: $success-color;
 
 // DROPDOWN
 $dropdown-width: 40px;
@@ -150,28 +154,7 @@ $top_bar-link-active-color: $grey-8;
 $top_bar-link-default-color: $grey-5;
 
 // TRANSACTION
-
-// TRANSACTION CONFIRMED
-$transaction-confirmed-address_number-color: $grey-7;
-$transaction-confirmed-block-color: $grey-5;
-$transaction-confirmed-border: 1px solid $grey-2;
-$transaction-confirmed-date-color: $grey-7;
-$transaction-confirmed-error-color: $red-6;
-$transaction-confirmed-origin-color: $grey-5;
-$transaction-confirmed-success-color: $green-6;
-$transaction-confirmed-wit-color: $grey-5;
-
-//TRANSACTION PENDING
-$transaction-pending-border: 1px solid $grey-2;
-$transaction-pending-negative-color: $red-2;
-$transaction-pending-number-color: $grey-5;
-$transaction-pending-origin-color: $grey-2;
-$transaction-pending-positive-color: $green-2;
-$transaction-pending-status-color: $grey-5;
-$transaction-pending-timelocked-color: $blue-4;
-$transaction-pending-unconfirmed-color: $yellow-2;
-$transaction-pending-vesting-color: $grey-2;
-$transaction-pending-wit-color: $grey-2;
+$transaction-border: 1px solid $grey-4;
 
 // WRAPPER
 $wrapper-caption-color: $grey-2;

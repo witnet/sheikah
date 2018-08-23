@@ -30,19 +30,31 @@ export default class Balances extends React.Component<BalanceProps> {
       >
         <div className={styles.line}>
           <p className={styles.text}>Available balance</p>
-          <p>{this.props.availableBalance} <span className={styles.wit}>WIT</span></p>
+          <p>
+            <span className={styles.number}>{this.props.availableBalance} </span>
+            <span className={styles.wit}>WIT</span>
+          </p>
         </div>
         <div className={styles.line}>
           <p className={styles.text}>Timelocked</p>
-          <p>{this.props.timelocked} <span className={styles.wit}>WIT</span></p>
+          <p className={styles.number}>
+            <span className={styles.number}>{this.props.timelocked} </span>
+            <span className={styles.wit}>WIT</span>
+          </p>
         </div>
         <div className={styles.line}>
           <p className={styles.text}>Unconfirmed</p>
-          <p>{this.props.unconfirmed} <span className={styles.wit}>WIT</span></p>
+          <p className={styles.number}>
+            <span className={styles.number}>{this.props.unconfirmed} </span>
+            <span className={styles.wit}>WIT</span>
+          </p>
         </div>
         <div className={styles.line}>
           <p className={styles.text}>Total</p>
-          <p>{this.props.total} <span className={styles.wit}>WIT</span></p>
+          <p className={styles.number}>
+            <span className={styles.number}>{this.props.total} </span>
+            <span className={styles.wit}>WIT</span>
+          </p>
         </div>
       </Wrapper>
     )

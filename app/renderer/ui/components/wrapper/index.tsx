@@ -10,6 +10,7 @@ export interface Iprops {
   caption?: string
   actions?: Array<({ text: any; onClick: any })>
   contentClassName?: string
+  empty?: boolean
 }
 
 /**
@@ -36,7 +37,9 @@ export default class Wrapper extends React.Component<Iprops> {
           <p className={styles.caption}>{this.props.caption}</p>
           {actions}
         </div>
-        <div className={`${styles.content} ${this.props.contentClassName}`}>
+        <div
+          className={`${!this.props.empty ? styles.content : ""} ${this.props.contentClassName}`}
+        >
           {this.props.children}
         </div>
       </div>
