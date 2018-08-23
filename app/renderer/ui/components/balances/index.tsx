@@ -37,21 +37,21 @@ export default class Balances extends React.Component<BalanceProps> {
         </div>
         <div className={styles.line}>
           <p className={styles.text}>Timelocked</p>
-          <p className={styles.number}>
+          <p>
             <span className={styles.number}>{this.props.timelocked} </span>
             <span className={styles.wit}>WIT</span>
           </p>
         </div>
         <div className={styles.line}>
           <p className={styles.text}>Unconfirmed</p>
-          <p className={styles.number}>
+          <p>
             <span className={styles.number}>{this.props.unconfirmed} </span>
             <span className={styles.wit}>WIT</span>
           </p>
         </div>
         <div className={styles.line}>
           <p className={styles.text}>Total</p>
-          <p className={styles.number}>
+          <p>
             <span className={styles.number}>{this.props.total} </span>
             <span className={styles.wit}>WIT</span>
           </p>

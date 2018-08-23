@@ -1,5 +1,7 @@
 import * as React from "react"
 
+import { ComputedTransactions } from "app/renderer/prefilledTransactions"
+
 import {
   ConfirmedTransaction,
   PendingTransaction
@@ -14,15 +16,13 @@ import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 
 import {
   balanceData,
-  confirmedTransactions,
-  pendingTransactions
 } from "app/renderer/ui/components/main/sections/wallet/MockData"
 
 const styles = require("./style.scss")
 
 interface OwnProps {
-  pendingTransactions: Transactions | {}
-  confirmedTransactions: Transactions | {}
+  pendingTransactions: ComputedTransactions
+  confirmedTransactions: ComputedTransactions
 }
 
 /**
@@ -43,7 +43,7 @@ class Transactions extends TabComponent<any & OwnProps> {
 
     const pendingTransactionsList = (
       <List
-        dataSource={pendingTransactions}
+        dataSource={this.props.pendingTransactions}
         renderItem={PendingTransaction}
         emptyIcon="generic"
         emptyText="You don't have pending transactions"
@@ -52,7 +52,7 @@ class Transactions extends TabComponent<any & OwnProps> {
 
     const confirmedTransactionsList = (
       <List
-        dataSource={confirmedTransactions}
+        dataSource={this.props.confirmedTransactions}
         renderItem={ConfirmedTransaction}
         emptyIcon="generic"
         emptyText="You don't have confirmed transactions"
@@ -64,18 +64,18 @@ class Transactions extends TabComponent<any & OwnProps> {
         <div className={styles.left}>
           <Wrapper
             title="PENDING"
-            caption={`${Object.keys(this.props.pendingTransactions).length} transactions`}
+            caption={`${this.props.pendingTransactions.length} transactions`}
             className={styles.pending}
-            empty={!Object.keys(this.props.pendingTransactions).length}
+            empty={!this.props.pendingTransactions.length}
           >
             {pendingTransactionsList}
           </Wrapper>
           <Wrapper
             title="CONFIRMED"
-            caption={`${Object.keys(this.props.confirmedTransactions).length} transactions`}
+            caption={`${this.props.confirmedTransactions.length} transactions`}
             actions={confirmedOptions}
             className={styles.confirmed}
-            empty={!Object.keys(this.props.confirmedTransactions).length}
+            empty={!this.props.confirmedTransactions.length}
           >
             {confirmedTransactionsList}
           </Wrapper>

@@ -1,15 +1,14 @@
 import * as Actions from "app/renderer/actions/actionNames"
-import { TransactionsOption } from "app/renderer/store"
 import { SaveTransactionsAction } from "app/renderer/actions/actionTypes"
+import { ComputedTransactions } from "app/renderer/prefilledTransactions"
 
-const defaultTransactions: TransactionsOption = {}
+const defaultTransactions: ComputedTransactions = []
 
-export const TransactionsReducer = (state: TransactionsOption = defaultTransactions,
-  action: SaveTransactionsAction
-): TransactionsOption => {
+export const transactionsReducer = (state: ComputedTransactions = defaultTransactions,
+  action: SaveTransactionsAction): ComputedTransactions => {
   switch (action.type) {
     case Actions.SAVE_TRANSACTIONS:
-      return action.payload.transactions || {}
+      return action.payload
     default:
       return state
   }

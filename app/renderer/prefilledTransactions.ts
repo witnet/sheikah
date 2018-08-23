@@ -1,3 +1,5 @@
+import { prefilledWalletCaption } from "./prefilledWallet"
+
 /**
  * Transaction type:
  *  Outgoing (to)
@@ -37,8 +39,25 @@ export interface ComputedTransaction {
 export type ComputedTransactions = Array<ComputedTransaction>
 
 /**
+ * Extend transactions for prefilled Transactions
+ *
+ * @export
+ * @param {ComputedTransactions} transactions
+ * @param {string} caption
+ * @returns
+ */
+export const extendTransactionsData = (transactions: ComputedTransactions, caption: string) => {
+  if (caption.trim() === prefilledWalletCaption.trim()) {
+    return [...transactions, ...prefilledTransactions]
+  } else {
+    return transactions
+  }
+}
+
+/**
  * Const with pre-filled transactions to be used in the pre-filled wallet.
  */
+
 export const prefilledTransactions: ComputedTransactions = [
   {
     type: "incoming",

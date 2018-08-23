@@ -9,10 +9,10 @@ const styles = require("./style.scss")
  * @interface ConfirmedTransactionProps
  */
 export interface ConfirmedTransactionProps {
-  amount?: string
+  amount?: number
   receiver?: boolean
   address?: string
-  block: string
+  block?: string
   date?: string
 }
 

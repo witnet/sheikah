@@ -2,7 +2,7 @@ import * as React from "react"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
+export interface PendingTransactionProps {
   status: string
   amount?: string
   receiver?: boolean
@@ -15,10 +15,10 @@ export interface Iprops {
  *
  * @export
  * @class List
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<PendingTransactionProps>}
  */
 
-export default class PendingTransaction extends React.Component<Iprops> {
+export default class PendingTransaction extends React.Component<PendingTransactionProps> {
   // tslint:disable-next-line: completed-docs
   public render() {
     const receiver = this.props.receiver ? "From" : "To"

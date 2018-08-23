@@ -18,7 +18,7 @@ import { getWalletErrorMessages, GetWalletResponse } from "app/common/runtimeTyp
 
 import * as urls from "app/renderer/constants/urls"
 import { extendWalletData } from "app/renderer/prefilledWallet"
-
+import { extendTransactionsData } from "app/renderer/prefilledTransactions"
 /**
  * Props that match redux store state
  */
@@ -39,7 +39,7 @@ export interface DispatchProps {
  * Own props
  */
 export interface OwnProps {
-  services: Services
+  services: Services,
 }
 
 /**
@@ -151,11 +151,12 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
       .then((wallet: Wallet) => {
         // Add prefilled data if necessary then save wallet
         this.props.actions.saveWallet(extendWalletData(wallet))
+        this.props.actions.saveTransactions(extendTransactionsData([], wallet.caption))
 
         // Dispatch action to go to next route
         this.props.goTo(urls.MAIN)
       })
-      .catch(async (errorMessage: string) => {
+      .catch((errorMessage: string) => {
         // Set error message in the state
         this.setState({ errorMessage, unlockInProgress: false })
       })

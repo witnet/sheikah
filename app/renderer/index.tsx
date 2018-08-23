@@ -37,7 +37,7 @@ new Promise(async () => {
   const persistedStore = {
     walletInfos,
     wallet: false,
-    transactions: {}
+    transactions: []
   }
 
   const store = configureStore(persistedStore)
