@@ -5,6 +5,10 @@ import WalletSeedValidation from "./walletSeedValidation"
 import Welcome from "./welcome/index"
 
 export {
+  Welcome,
+  WalletSeedTypeSelection,
+  WalletSeedDisclaimer,
+  WalletSeedBackup,
   WalletSeedValidation,
   WalletEncryptionPassword,
   WalletSeedBackup,

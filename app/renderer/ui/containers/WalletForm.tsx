@@ -38,6 +38,7 @@ import {
   WALLET_ENCRYPTION_PASSWORD,
   WALLET_IMPORT_MNEMONICS,
   WALLET_IMPORT_XPRV,
+  WALLET_SEED_ADVANCED_OPTIONS,
   WALLET_SEED_BACKUP,
   WALLET_SEED_CONFIRMATION,
   WALLET_SEED_TYPE_SELECTION,
@@ -45,9 +46,15 @@ import {
 } from "app/renderer/constants/urls"
 
 import {
-  extendWalletData,
-  prefilledWalletCaption
-} from "app/renderer/prefilledWallet"
+  WalletEncryptionPassword, WalletSeedBackup, WalletSeedTypeSelection, WalletSeedValidation, Welcome
+} from "app/renderer/ui/components/walletForm/steps"
+import WalletAdvancedOptions
+  from "app/renderer/ui/components/walletForm/steps/walletAdvancedOptions"
+import { lazyNavigateTo, navigateTo } from "app/renderer/utils/routerNavigation"
+import * as React from "react"
+import { connect } from "react-redux"
+import { Route, RouteComponentProps, Switch } from "react-router"
+import { bindActionCreators, Dispatch } from "redux"
 
 /**
  * Props that match redux store state
@@ -142,6 +149,11 @@ class WalletFormContainer extends
       navigateTo(this.props.history, WALLET_SEED_BACKUP)
     },
 
+    // Async function to handle advanced seed options
+    advancedOptions: async () => {
+      navigateTo(this.props.history, WALLET_SEED_ADVANCED_OPTIONS)
+    },
+
     // Async function to handle the import of mnemonics
     importMnemonics: async () => {
       navigateTo(this.props.history, WALLET_IMPORT_MNEMONICS)
@@ -155,6 +167,14 @@ class WalletFormContainer extends
     // Async function to handle the use of a hardware device
     useHardwareDevice: async () => {
       // TODO: use not implemented notification (after PR is accepted)
+    },
+
+    backN: async (n: number) => {
+      this.props.history.go(n)
+    },
+
+    back: async () => {
+      this.props.history.goBack()
     }
   }
 
@@ -240,6 +260,13 @@ class WalletFormContainer extends
    */
   private seedBackupPreviousStep = async () => {
     this.setState({ caption: "", mnemonics: "" })
+    this.props.history.go(-2)
+  }
+
+  /**
+   * Seed backup previous step method
+   */
+  private genericBack = async () => {
     this.props.history.goBack()
   }
 

@@ -4,6 +4,7 @@ export const FORMS = "/forms"
 // WalletForm URLs
 export const NEW_WALLET = `${FORMS}/wallet`
 export const WELCOME = `${NEW_WALLET}/welcome`
+export const WALLET_SEED_ADVANCED_OPTIONS = `${NEW_WALLET}/advanced-options`
 export const WALLET_SEED_TYPE_SELECTION = `${NEW_WALLET}/wallet-seed-type-selection`
 export const WALLET_SEED_BACKUP = `${NEW_WALLET}/wallet-seed-backup`
 export const WALLET_SEED_CONFIRMATION = `${NEW_WALLET}/wallet-seed-confirmation`

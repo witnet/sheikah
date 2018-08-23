@@ -9,58 +9,53 @@ const commonFormStepStyles = require("app/renderer/ui/components/walletForm/step
 export interface Iprops {
   className?: string
   nextStep: {
+    back: () => Promise<void>,
     newSeed: () => Promise<void>,
     newPrefilledSeed: () => Promise<void>,
-    advancedOptions: () => Promise<void>,
-    back: () => Promise<void>,
+    importMnemonics: () => Promise<void>,
+    importXprv: () => Promise<void>,
+    useHardwareDevice: () => Promise<void>,
   }
 }
 
 /**
- * Step walled seed type selection UI component
+ * UI component for selecting advanced wallet types
  *
  * @export
- * @class WalletSeedTypeSelection
+ * @class WalletAdvancedOptions
  * @extends {React.Component<Iprops>}
  */
-export default class WalletSeedTypeSelection extends React.Component<Iprops> {
+export default class WalletAdvancedOptions extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 
     return (
-      <CardDefault className={cardStyle} title="Wallet seed creation">
+      <CardDefault className={cardStyle} title="Advanced wallet options">
         <p className={stepStyles.text}>
-          Seeds are secret codes used to generate your credentials.
-          Be very careful with them. If you ever give them away, say bye
-          to your coins!
+          You can import your own master key from a seed phrase, <em>xprv</em> string or hardware
+          device.
         </p>
         <ul className={stepStyles.options}>
           <li>
-            <ButtonOption
-              recommended={true}
-              onClick={this.props.nextStep.newSeed}
-            >
-              Create a new seed
+            <ButtonOption onClick={this.props.nextStep.importMnemonics}>
+              Import my own master key from a seed phrase
             </ButtonOption>
           </li>
           <li>
-            <ButtonOption
-              recommended={true}
-              onClick={this.props.nextStep.newPrefilledSeed}
-            >
-              Create a wallet prefilled with sample data
+            <ButtonOption onClick={this.props.nextStep.importXprv} >
+              Import my own master key from a xprv string
             </ButtonOption>
           </li>
           <li>
-            <ButtonOption onClick={this.props.nextStep.advancedOptions}>
-              Import and advanced options
+            <ButtonOption onClick={this.props.nextStep.useHardwareDevice}>
+              Use a hardware device
             </ButtonOption>
           </li>
           <li>
             <ButtonOption onClick={this.props.nextStep.back}>
-              Cancel
+              Go back
             </ButtonOption>
           </li>
         </ul>
