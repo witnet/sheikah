@@ -1,6 +1,7 @@
-import ActionButton from "app/renderer/ui/components/button/action"
-import { CardDefault } from "app/renderer/ui/components/card"
 import * as React from "react"
+
+import { ButtonLink } from "app/renderer/ui/components/button"
+import { CardDefault } from "app/renderer/ui/components/card"
 
 const stepStyles = require("./style.scss")
 const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
@@ -34,7 +35,7 @@ export default class Welcome extends React.Component<Iprops> {
           smart contracts.
         </p>
         <div className={stepStyles.link}>
-          <ActionButton onClick={this.props.nextStep}>Let's do this!</ActionButton>
+          <ButtonLink onClick={this.props.nextStep}>Let's do this!</ButtonLink>
         </div>
       </CardDefault>
     )

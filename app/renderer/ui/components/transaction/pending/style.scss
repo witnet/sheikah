@@ -3,41 +3,44 @@
 
   .transaction {
     align-items: center;
-    border-bottom: $transaction-pending-border;
+    border-bottom: $transaction-border;
     display: grid;
-    grid-column-gap: 1em;
     grid-template-columns: auto auto 1fr;
     grid-template-rows: auto;
-    padding: 2em;
+    padding: 30px 50px;
   }
 
   .status-icon {
     font-size: 8px;
     grid-column: 1;
     grid-row: 1;
+    margin-right: 10px;
 
     .unconfirmed {
-      color: $transaction-pending-unconfirmed-color;
+      color: $gold-3;
     }
 
     .timelocked {
-      color: $transaction-pending-timelocked-color;
+      color: $timelocked-color;
     }
   }
 
   .status {
-    color: $transaction-pending-status-color;
-    font-size: 14px;
-    font-weight: bold;
+    color: $grey-7;
+    font-size: 11px;
+    font-weight: 600;
     grid-column: 2;
     grid-row: 1;
     text-transform: uppercase;
   }
 
   .vestingTime {
-    color: $transaction-pending-vesting-color;
+    color: #ccc;
+    font-size: 11px;
+    font-weight: 600;
     grid-column: 3;
     grid-row: 1;
+    margin-left: 5px;
   }
 
   .amount {
@@ -45,35 +48,39 @@
     grid-row: 2;
 
     .number {
-      font-size: 18px;
+      font-size: 16px;
+      font-weight: 200;
+      margin-right: 5px;
 
       &.positive {
-        color: $transaction-pending-positive-color;
+        color: $success-color;
       }
 
       &.negative {
-        color: $transaction-pending-negative-color;
+        color: $error-color;
       }
     }
 
     .wit {
-      color: $transaction-pending-wit-color;
-      font-size: 10px;
-      font-weight: bold;
+      color: $grey-6;
+      font-size: 9px;
+      font-weight: 600;
     }
   }
 
   .address {
-    font-size: 14;
     grid-column: 3;
     grid-row: 2;
 
     .origin {
-      color: $transaction-pending-origin-color;
+      color: #999;
+      font-size: 11px;
+      font-weight: 600;
     }
 
     .address-number {
-      color: $transaction-pending-number-color;
+      color: $grey-8;
+      font-size: 13px;
     }
   }
 }

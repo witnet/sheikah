@@ -3,25 +3,27 @@
 
   .transaction {
     align-items: center;
-    border-bottom: $transaction-confirmed-border;
+    border-bottom: $transaction-border;
     display: grid;
     grid-gap: 0.5em;
     grid-template-columns: auto auto 1fr auto;
     grid-template-rows: auto;
-    padding: 2em;
+    padding: 30px 50px;
   }
 
   .green {
-    color: $transaction-confirmed-success-color;
+    color: $success-color;
   }
 
   .red {
-    color: $transaction-confirmed-error-color;
+    color: $error-color;
   }
 
   .icon {
+    font-size: 8px;
     grid-column: 1;
     grid-row: 1;
+    margin-right: 10px;
   }
 
   .amount {
@@ -29,47 +31,52 @@
     grid-row: 1;
 
     .number {
-      font-size: 18px;
+      font-size: 16px;
+      font-weight: 200;
+      margin-right: 5px;
 
       &.positive {
-        color: $transaction-confirmed-success-color;
+        color: $success-color;
       }
 
       &.negative {
-        color: $transaction-confirmed-error-color;
+        color: $error-color;
       }
     }
 
     .wit {
-      color: $transaction-confirmed-wit-color;
-      font-size: 10px;
-      font-weight: bold;
+      color: #b3b3b3;
+      font-size: 9px;
+      font-weight: 600;
     }
   }
 
   .address {
-    font-size: 14;
     grid-column: 3;
     grid-row: 1;
-    margin-left: 4em;
 
     .origin {
-      color: $transaction-confirmed-origin-color;
+      color: #999;
+      font-size: 11px;
+      font-weight: 600;
     }
 
     .address-number {
-      color: $transaction-confirmed-address_number-color;
+      color: $grey-7;
+      font-size: 13px;
     }
   }
 
   .date {
-    color: $transaction-confirmed-date-color;
-    font-size: 14;
+    color: $grey-8;
+    font-size: 11px;
+    font-weight: 600;
     text-align: right;
   }
 
   .block {
-    color: $transaction-confirmed-block-color;
-    font-size: 12;
+    color: #ccc;
+    font-size: 11px;
+    font-weight: 600;
   }
 }

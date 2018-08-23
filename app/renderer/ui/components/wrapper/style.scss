@@ -16,14 +16,15 @@
     margin-bottom: 0.5em;
 
     .title {
-      color: $wrapper-title-color;
-      font-size: 14px;
-      font-weight: bold;
+      color: $grey-8;
+      font-size: 11px;
+      font-weight: 600;
     }
 
     .caption {
-      color: $wrapper-caption-color;
-      font-size: 12px;
+      color: #ccc;
+      font-size: 11px;
+      font-weight: 600;
     }
 
     .actions {
