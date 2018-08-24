@@ -30,6 +30,8 @@ export default async function getWallet(
     .then(inject(replaceStorage, system))
     // search wallet in db
     .then(searchWallet)
+    // validate wallet type
+    .then(parseWallet)
     // create response steps
     .then(buildSuccess)
     .catch(buildGetWalletError)
@@ -103,22 +105,29 @@ async function replaceStorage(params: GetWalletParams, system: SubSystems)
 /**
  * search wallet in db
  *
- * @param {{ storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }}
- * @returns {Promise<Wallet>}
+ * @param {{ storage: JsonAesLevelStorage, id: string }}
+ * @returns {Promise<JsonSerializable>}
  */
 async function searchWallet(
   { storage, id }: { storage: JsonAesLevelStorage, id: string }
-): Promise<Wallet> {
+): Promise<JsonSerializable> {
   try {
-    const data = await storage.get("wallet")
-
-    try {
-      return asRuntimeType(data, Wallet)
-    } catch (error) {
-      throw getWalletErrors.INVALID_WALLET_TYPE
-    }
+    return await storage.get("wallet")
   } catch (error) {
-    throw getWalletErrors.INVALID_PASSWORD
+    throw getWalletErrors.WRONG_PASSWORD
+  }
+}
+
+/**
+ * parse the wallet retrieved from the db
+ * @param {data: JsonSerializable}
+ * @returns {Promise<Wallet>}
+ */
+async function parseWallet(data: JsonSerializable): Promise<Wallet> {
+  try {
+    return asRuntimeType(data, Wallet)
+  } catch (error) {
+    throw getWalletErrors.INVALID_WALLET_TYPE
   }
 }
 

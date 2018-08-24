@@ -66,7 +66,7 @@ export const getWalletErrors = {
   INVALID_PARAMS_TYPE: t.literal("INVALID_PARAMS_TYPE"),
   INVALID_WALLET_TYPE: t.literal("INVALID_WALLET_TYPE"),
   CANNOT_ENCODE_WALLET: t.literal("CANNOT_ENCODE_WALLET"),
-  INVALID_PASSWORD: t.literal("INVALID_PASSWORD"),
+  WRONG_PASSWORD: t.literal("WRONG_PASSWORD"),
   WALLET_NOT_FOUND: t.literal("WALLET_NOT_FOUND"),
   INSUFFICIENT_PERMISSIONS: t.literal("INSUFFICIENT_PERMISSIONS"),
   GENERIC_IPC_ERROR
@@ -76,7 +76,7 @@ export const getWalletErrorMessages = {
   INVALID_PARAMS_TYPE: "Invalid Params Type",
   INVALID_WALLET_TYPE: "Invalid Wallet Type",
   CANNOT_ENCODE_WALLET: "Cannot Encode Wallet",
-  INVALID_PASSWORD: "Invalid Password",
+  WRONG_PASSWORD: "Wrong Password",
   WALLET_NOT_FOUND: "Wallet Not Found",
   INSUFFICIENT_PERMISSIONS: "Insufficient Permissions",
   GENERIC_IPC_ERROR: "Unknown Error"
