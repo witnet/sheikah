@@ -40,27 +40,24 @@ class Transactions extends TabComponent<any & OwnProps> {
         onClick: () => this.props.services.showUnimplementedMessage()
       }
     ))
-    const pendingTransactionsList = !!Object.keys(this.props.pendingTransactions).length
-      ? (
-        <List
-          dataSource={pendingTransactions}
-          renderItem={PendingTransaction}
-        />
-      )
-    : (
-      <EmptyState iconName="generic" text="You don't have pending transactions" />
+
+    const pendingTransactionsList = (
+      <List
+        dataSource={pendingTransactions}
+        renderItem={PendingTransaction}
+        emptyIcon="generic"
+        emptyText="You don't have pending transactions"
+      />
     )
 
-    const confirmedTransactionsList = !!Object.keys(this.props.confirmedTransactions).length
-      ? (
-        <List
-          dataSource={confirmedTransactions}
-          renderItem={ConfirmedTransaction}
-        />
-      )
-      : (
-        <EmptyState iconName="generic" text="You don't have confirmed transactions" />
-      )
+    const confirmedTransactionsList = (
+      <List
+        dataSource={confirmedTransactions}
+        renderItem={ConfirmedTransaction}
+        emptyIcon="generic"
+        emptyText="You don't have confirmed transactions"
+      />
+    )
 
     return (
       <>

@@ -2,6 +2,7 @@ import * as React from "react"
 import { List } from "antd"
 
 import { ButtonOption } from "app/renderer/ui/components/button"
+import EmptyState from "app/renderer/ui/components/emptyState"
 
 const styles = require("./style.scss")
 
@@ -14,6 +15,8 @@ export interface Iprops {
   dataSource: Array<(string | { text: any; onClick: any } | any)>
   borderer?: boolean
   renderItem?: any
+  emptyText?: string
+  emptyIcon?: string
 }
 
 /**
@@ -77,15 +80,22 @@ export default class DefaultList extends React.Component<Iprops> {
 
   // tslint:disable-next-line: completed-docs
   public render() {
-    return (
-      <List
-        grid={this.props.grid}
-        bordered={this.props.borderer}
-        className={`${this.props.classNameList} ${styles.list}`}
-        dataSource={this.props.dataSource}
-        renderItem={this.createRenderItem}
-      />
-    )
+    return this.props.dataSource.length
+      ? (
+          <List
+            grid={this.props.grid}
+            bordered={this.props.borderer}
+            className={`${this.props.classNameList} ${styles.list}`}
+            dataSource={this.props.dataSource}
+            renderItem={this.createRenderItem}
+          />
+      )
+      : (
+          <EmptyState
+            iconName={this.props.emptyIcon || "generic"}
+            text={this.props.emptyText}
+          />
+      )
   }
 }
 

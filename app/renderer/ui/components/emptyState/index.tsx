@@ -3,7 +3,7 @@ import * as React from "react"
 const styles = require("./style.scss")
 
 interface Props {
-  text: string
+  text?: string
   iconName?: string
 }
 
