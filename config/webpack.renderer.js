@@ -61,6 +61,24 @@ const baseConfig = {
 
   module: {
     rules: [
+      // SASS stylesheets
+      {
+        test: /\.global\.(scss|sass)$/,
+        use: [
+          "style-loader",
+          "css-loader?&sourceMap&importLoaders&localIdentName=[name]__[local]___[hash:base64:5]",
+          "sass-loader"
+        ]
+      },
+      {
+        test: /^((?!\.global).)*\.(scss|sass)$/,
+        use: [
+          "style-loader",
+          "css-loader?modules&sourceMap&importLoaders&localIdentName=[name]__[local]___[hash:base64:5]",
+          "sass-loader"
+        ]
+      },
+      // CSS stylesheets
       {
         test: /.*\.css$/,
         exclude: /node_modules/,
@@ -87,7 +105,6 @@ const baseConfig = {
           }
         },
       },
-
       // WOFF2 Font
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
@@ -98,8 +115,7 @@ const baseConfig = {
             mimetype: "application/font-woff",
           }
         }
-      }
-      ,
+      },
       // TTF Font
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
@@ -111,13 +127,11 @@ const baseConfig = {
           }
         }
       },
-
       // EOT Font
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         use: "file-loader",
       },
-
       // SVG Font
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
@@ -129,12 +143,17 @@ const baseConfig = {
           }
         }
       },
-
       // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
         use: "url-loader",
-      }
+      },
+      // TypeScript React modules
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [typeScriptLoader, uiComponentLoader]
+      },
     ]
   },
 
@@ -153,7 +172,9 @@ const baseConfig = {
       inject: false,
       bundleFilename,
       styleFilename
-    })
+    }),
+
+    new ExtractTextPlugin(styleFilename)
   ]
 };
 
@@ -164,52 +185,6 @@ const productionConfig = {
   output: {
     publicPath: `${distDir}/`
   },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        use: [typeScriptLoader, uiComponentLoader]
-      },
-
-      // config for global.(scss|sass) that doesn't use modules
-      {
-        test: /\.global\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                modules: false,
-                importLoaders: 1,
-                localIdentName: "[name]__[local]__[hash:base64:5]",
-              }
-            },
-            "sass-loader"
-          ]
-        })
-      },
-
-      {
-        test: /^((?!\.global).)*\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                modules: true,
-                importLoaders: 1,
-                localIdentName: "[name]__[local]__[hash:base64:5]",
-              }
-            },
-            "sass-loader"
-          ]
-        })
-      }
-    ]
-  },
-
-  plugins: [new ExtractTextPlugin(styleFilename)]
 };
 
 const developmentConfig = {
@@ -223,26 +198,6 @@ const developmentConfig = {
   output: {
     publicPath: `http://localhost:${port}/dist/`
   },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        use: [typeScriptLoader, uiComponentLoader]
-      },
-
-      // config for global.(scss|sass) that doesn't use modules
-      {
-        test: /\.global\.(scss|sass)$/,
-        use: ["style-loader", "css-loader?sourceMap&importLoaders", "sass-loader"]
-      },
-      {
-        test: /^((?!\.global).)*\.(scss|sass)$/,
-        use: ["style-loader", "css-loader?modules&sourceMap&importLoaders", "sass-loader"]
-      }
-    ]
-  },
-
   plugins: [
     // https://webpack.github.io/docs/hot-module-replacement-with-webpack.html
     new webpack.HotModuleReplacementPlugin(),
@@ -256,9 +211,9 @@ const developmentConfig = {
 };
 
 if (forProduction) {
-  console.log("Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mPRODUCTION\x1b[0m mode...")
+  console.log("Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mPRODUCTION\x1b[0m mode...");
   module.exports = webpackMergeConfigs(baseConfig, productionConfig);
 } else {
-  console.log("Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mDEVELOPMENT\x1b[0m mode...")
+  console.log("Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mDEVELOPMENT\x1b[0m mode...");
   module.exports = webpackMergeConfigs(baseConfig, developmentConfig);
 }
