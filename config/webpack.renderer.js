@@ -5,7 +5,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const webpackMergeConfigs = require("webpack-merge");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const port = process.env.PORT || 3000;
@@ -173,8 +172,6 @@ const baseConfig = {
       bundleFilename,
       styleFilename
     }),
-
-    new ExtractTextPlugin(styleFilename)
   ]
 };
 
