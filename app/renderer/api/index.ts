@@ -20,6 +20,7 @@ export { getWalletInfos } from "./getWalletInfos"
 export { getWallet } from "./getWallet"
 export { encryptWallet } from "./encryptWallet"
 export { validateMnemonics, validateXprv } from "./validateMnemonics"
+export { generateAddress } from "./generateAddress"
 
 /** Options type expected by `Client` */
 export type Options = {
