@@ -64,44 +64,4 @@ describe("GetWallet API", () => {
     // Check that the message handler function has been called correctly
     expect(messageHandler).toBeCalledWith(jsonSerializer, expected)
   })
-
-  // it("should be able to do balahablah", async () => {
-
-  //   const walletResponseFixture: GetWalletResponse = {
-  //     kind: "SUCCESS",
-  //     wallet: {
-  //       _v: CURRENT_WALLET_VERSION,
-  //       id: "test",
-  //       caption: "test wallet",
-  //       seed: {
-  //         mnemonics: "",
-  //         kind: "Wip3",
-  //         seed: { masterSecret: Buffer.from(""), chainCode: Buffer.from("") }
-  //       },
-  //       epochs: { last: 0 },
-  //       purpose: 0x80000003,
-  //       accounts: []
-  //     }
-  //   }
-
-  //   const walletResponse = asObject(walletResponseFixture, GetWalletResponse)
-  //   expect(asRuntimeType(walletResponse, GetWalletResponse)).toMatchObject(walletResponseFixture)
-
-  //   const messageHandler = jest.fn()
-  //   messageHandler.mockResolvedValue(walletResponseFixture)
-  //   const options = {
-  //     ...api.defaultOptions,
-  //     timeout: 0,
-  //     idGen: () => "some generated id",
-  //     json: jsonSerializer,
-  //     ipc: ipcRendererFactory(),
-  //     messageHandler
-  //   }
-  //   const client = new api.Client(options)
-  //   const response = await api.getWallet(client, getWalletParams.id, getWalletParams.password)
-  //   // console.log(response)
-  //   expect(response).toMatchObject(walletResponseFixture)
-
-  // })
-
 })
