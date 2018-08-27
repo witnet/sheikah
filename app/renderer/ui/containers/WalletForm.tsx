@@ -38,6 +38,7 @@ import { connect } from "react-redux"
 import { Route, RouteComponentProps, Switch } from "react-router"
 import { bindActionCreators, Dispatch } from "redux"
 import { extendTransactionsData } from "app/renderer/prefilledTransactions"
+import { Services } from "app/renderer/services"
 
 /**
  * Props that match redux store state
@@ -65,7 +66,7 @@ export interface DispatchProps {
  * @interface Props
  */
 interface Props {
-  services: any
+  services: Services
 }
 
 /**
@@ -149,7 +150,7 @@ class WalletFormContainer extends
 
     // Async function to handle the use of a hardware device
     useHardwareDevice: async () => {
-      // TODO: use not implemented notification (after PR is accepted)
+      this.props.services.showUnimplementedMessage()
     },
 
     backN: async (n: number) => {
