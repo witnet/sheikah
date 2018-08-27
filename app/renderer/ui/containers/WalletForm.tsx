@@ -6,7 +6,7 @@ import { newMnemonicsErrors, WalletInfos } from "app/common/runtimeTypes/storage
 
 import { assertNever } from "app/common/utils"
 import { IAction } from "app/renderer/actions/helpers"
-import { saveWallet } from "app/renderer/actions/loginForm"
+import { saveWallet, saveTransactions } from "app/renderer/actions/loginForm"
 import {
   Client, encryptWallet, newMnemonics, validateMnemonics, validateXprv
 } from "app/renderer/api"
@@ -37,6 +37,7 @@ import * as React from "react"
 import { connect } from "react-redux"
 import { Route, RouteComponentProps, Switch } from "react-router"
 import { bindActionCreators, Dispatch } from "redux"
+import { extendTransactionsData } from "app/renderer/prefilledTransactions"
 
 /**
  * Props that match redux store state
@@ -73,7 +74,7 @@ interface Props {
  */
 const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
   return {
-    actions: bindActionCreators({ saveWallet }, dispatch)
+    actions: bindActionCreators({ saveWallet, saveTransactions }, dispatch)
   }
 }
 
@@ -212,6 +213,8 @@ class WalletFormContainer extends
       // if is a prefilledWallet add the prefilled data
       const wallet = extendWalletData(encryptWalletResponse.wallet)
       await this.props.actions.saveWallet(wallet)
+      this.props.actions.saveTransactions(extendTransactionsData([], wallet.caption))
+
       navigateTo(this.props.history, MAIN)
     } else {
       // TODO: improve error handler issue #321

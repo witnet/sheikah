@@ -8,6 +8,7 @@ import { Services } from "app/renderer/services"
 import { StoreState } from "app/renderer/store"
 import { IAction } from "app/renderer/actions/helpers"
 import { saveTransactions } from "app/renderer/actions/loginForm"
+import { Wallet } from "app/common/runtimeTypes/storage/wallets"
 
 import { PendingTransactionProps } from "app/renderer/ui/components/transaction/pending"
 import { ConfirmedTransactionProps } from "app/renderer/ui/components/transaction/confirmed"
@@ -39,6 +40,7 @@ import {
  * Props that match redux store state
  */
 export interface StateProps {
+  wallet: Wallet | false
   pendingTransactions: Array<PendingTransactionProps>
   confirmedTransactions: Array<ConfirmedTransactionProps>
 }
@@ -73,6 +75,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
  */
 const mapStateToProps = (state: StoreState): StateProps => {
   return ({
+    wallet: state.wallet,
     confirmedTransactions: filterConfirmedTransactions(state.transactions),
     pendingTransactions: filterPendingTransactions(state.transactions)
   })
