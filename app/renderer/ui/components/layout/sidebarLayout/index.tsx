@@ -5,6 +5,7 @@ const styles = require("./style.scss")
 interface Iprops {
   title: string
   menuIcon?: string
+  onClickSettings?: () => any
   menuText: string
   collapeSidebar?: boolean
 }
@@ -30,7 +31,7 @@ export default class SidebarLayout extends React.Component<Iprops> {
         {/* TODO: Check potential refactor of existing sidebar component */}
         <div className={styles.sidebar}>
           <p className={styles.titleText}>{this.props.title}</p>
-          <div className={styles.settings}>
+          <div className={styles.settings} onClick={this.props.onClickSettings} >
             <i className={`${this.props.menuIcon} ${styles.icon}`} />
             <span className={styles.label}>{this.props.menuText}</span>
           </div>

@@ -79,12 +79,12 @@
     display: grid;
     font-size: 14px;
     grid-row: 5;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr;
     padding: 1em;
 
     .settings-icon {
-      align-self: center;
       color: $sidebar-settings-icon-color;
+      cursor: pointer;
       display: flex;
       font-size: $sidebar-settings-icon-size;
     }
@@ -92,6 +92,7 @@
     .net-status {
       font-size: $sidebar-net_status-font-size;
       padding: 0.5em;
+      text-align: right;
 
       .mainnet {
         color: $siderbar-mainnet-color;

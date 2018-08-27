@@ -42,7 +42,11 @@ export class MainPage extends React.Component<OwnProps> {
   public render() {
     return (
       <div className={styles.layout}>
-        <Sidebar {...sidebarProps} pathName={this.props.locationPathname}/>
+        <Sidebar
+          {...sidebarProps}
+          pathName={this.props.locationPathname}
+          onClickSettings={this.props.services.showUnimplementedMessage}
+        />
         <div className={styles.main}>
         {this.props.children}
         </div>

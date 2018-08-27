@@ -7,6 +7,7 @@ const styles = require("./style.scss")
 export interface Iprops {
   unlockInProgress: boolean
   collapseSidebar?: boolean
+  showUnimplementedMessage: () => void
 }
 
 /**
@@ -34,6 +35,7 @@ export class LoginForm extends React.Component<Iprops> {
             title="Welcome back"
             menuIcon="fa fa-cog"
             menuText="App Settings"
+            onClickSettings={this.props.showUnimplementedMessage}
           >
             {this.props.children}
           </SidebarLayout>

@@ -8,6 +8,7 @@ const styles = require("./style.scss")
 
 export interface SidebarProps {
   className?: string
+  onClickSettings: () => any
   linksProps: Array<SideBarLinkProps>
 }
 
@@ -40,7 +41,10 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
         <div>
           <hr className={styles.hr}/>
           <div className={styles.settings}>
-            <i className={`fa fa-cog ${styles["settings-icon"]}`} />
+            <i
+              className={`fa fa-cog ${styles["settings-icon"]}`}
+              onClick={this.props.onClickSettings}
+            />
             <div className={styles["net-status"]}>
               <span className={styles.mainnet}>PROTOTYPE</span>
               <span className={styles.synced}>SYNCED</span>

@@ -223,6 +223,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
       <LoginForm
         collapseSidebar={this.state.collapseSidebar}
         unlockInProgress={this.state.unlockInProgress}
+        showUnimplementedMessage={this.props.services.showUnimplementedMessage}
       >
         <Switch>
           <Route
