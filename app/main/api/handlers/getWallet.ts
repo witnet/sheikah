@@ -31,7 +31,7 @@ export default async function getWallet(
     // search wallet in db
     .then(searchWallet)
     // validate wallet type
-    .then(parseWallet)
+    .then(inject(parseWallet, system))
     // create response steps
     .then(buildSuccess)
     .catch(buildGetWalletError)
@@ -123,9 +123,12 @@ async function searchWallet(
  * @param {data: JsonSerializable}
  * @returns {Promise<Wallet>}
  */
-async function parseWallet(data: JsonSerializable): Promise<Wallet> {
+async function parseWallet(data: JsonSerializable, system: SubSystems): Promise<Wallet> {
   try {
-    return asRuntimeType(data, Wallet)
+    const wallet = asRuntimeType(data, Wallet)
+    system.appStateManager.update({ wallet })
+
+    return wallet
   } catch (error) {
     throw getWalletErrors.INVALID_WALLET_TYPE
   }
