@@ -9,6 +9,7 @@ export { default as error } from "./error"
 export { default as newMnemonics } from "./newMnemonics"
 export { default as importSeed } from "./importSeed"
 export { default as encryptWallet } from "./encryptWallet"
+export { default as generateAddress } from "./generateAddress"
 
 export type Handler<T> =
   (system: T, params: JsonSerializable) => Promise<JsonSerializable | void>
