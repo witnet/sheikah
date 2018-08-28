@@ -2,7 +2,6 @@ import * as React from "react"
 
 import { SideBarLink, SideBarLinkProps } from "./sidebarLink"
 import { PathNameProp } from "app/renderer/ui/components/commonTypes"
-import Icon from "app/renderer/ui/components/icons"
 import { DotIndicator } from "app/renderer/ui/components/dotIndicator"
 const styles = require("./style.scss")
 
@@ -24,13 +23,14 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
 
   // tslint:disable-next-line: completed-docs
   public render() {
+    const src = `../../../resources/svg/sheikah.svg`
+
+
     return (
       <div className={`${this.props.className} ${styles.sidebar}`}>
         <div className={styles.brand}>
           {/* TODO: load svg from their own file #378 */}
-          <Icon className={styles.logo} type="sheikah" />
-          <span className={styles.name}>Sheikah</span>
-          <span className={styles.label}>[TECHNOLOGY PREVIEW]</span>
+          <img src={src} />
         </div>
         <div className={styles["current-wallet"]}>
           My hot wallet
