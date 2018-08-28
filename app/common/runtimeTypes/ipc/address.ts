@@ -1,6 +1,6 @@
 import * as t from "io-ts"
 
-import { KeyPath } from "app/common/runtimeTypes/storage/wallets"
+import { ExternalFinalKey } from "app/common/runtimeTypes/storage/wallets"
 import { GENERIC_IPC_ERROR } from "app/common/runtimeTypes/ipc"
 
 export const GenerateAddressParams = t.intersection([
@@ -17,9 +17,7 @@ export type GenerateAddressParams = t.TypeOf<typeof GenerateAddressParams>
 
 export const GenerateAddressSuccess = t.type({
   kind: t.literal("SUCCESS"),
-  keyPath: KeyPath,
-  address: t.string,
-  creationDate: t.number
+  key: ExternalFinalKey
 }, "GenerateAddressSuccess")
 
 export type GenerateAddressSuccess = t.TypeOf<typeof GenerateAddressSuccess>

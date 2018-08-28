@@ -118,5 +118,5 @@ function generateFinalKey(
   const utxos: Array<Utxo> = [output]
   const stxos: Array<Stxo> = []
 
-  return { kind, extendedKey, keyPath, pkh, utxos, stxos } as FinalKey
+  return { kind, extendedKey, keyPath, pkh: Buffer.from(pkh), utxos, stxos } as FinalKey
 }
