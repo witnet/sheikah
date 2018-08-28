@@ -14,8 +14,6 @@
       padding-left: 0;
 
       li {
-        @extend %font14;
-
         line-height: 1.4em;
         margin-bottom: 5px;
       }
@@ -23,8 +21,6 @@
   }
 
   .alert-message {
-    @extend %font14;
-
     color: $alert-color;
   }
 
@@ -57,14 +53,10 @@
   }
 
   .recommendation {
-    @extend %font14;
-
     color: $font-color-dark;
   }
 
   .seed {
-    @extend %font14;
-
     align-items: center;
     border: $input_big-border;
     border-radius: $input_big-border-radius;

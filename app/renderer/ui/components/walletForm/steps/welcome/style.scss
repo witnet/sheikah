@@ -7,15 +7,11 @@
   }
 
   .subtitle {
-    @extend %font14;
-
     color: $font-color-dark;
     margin-bottom: 30px;
   }
 
   .text {
-    @extend %font14;
-
     color: $font-color-light;
     margin-bottom: 20px;
   }

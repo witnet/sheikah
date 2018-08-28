@@ -3,8 +3,6 @@
   @import "app/renderer/ui/fonts";
 
   .underlined {
-    @extend %font14;
-
     border: 0;
     border-bottom: $input_underlined-border;
     border-radius: 0;

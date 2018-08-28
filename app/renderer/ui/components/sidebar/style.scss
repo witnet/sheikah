@@ -52,7 +52,7 @@
       align-items: center;
       color: $sidebar-link-color;
       display: flex;
-      font-size: 16px;
+      font-size: $sidebar-link-font_size;
       font-weight: $sidebar-link-font_weight;
       padding: 1em;
       text-decoration: none;
@@ -96,7 +96,7 @@
 
       .mainnet {
         color: $sidebar-mainnet-color;
-        font-weight: $siderbar-mainnet-font_weight;
+        font-weight: $sidebar-mainnet-font_weight;
       }
 
       .synced {

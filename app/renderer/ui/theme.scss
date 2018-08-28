@@ -17,13 +17,13 @@ $alert-gradient: linear-gradient(to right, $yellow-3, $grey-2);
 
 //BALANCES
 $balances-number-color: $grey-8;
-$balances-number-font_size: 13px;
+$balances-number-font_size: 16px;
 $balances-number-font_weight: 200;
 $balances-text-color: $grey-8;
-$balances-text-font_size: 13px;
+$balances-text-font_size: 16px;
 $balances-text-font_weight: 200;
 $balances-wit-color: $grey-6;
-$balances-wit-font_size: 9px;
+$balances-wit-font_size: 14px;
 $balances-wit-font_weight: 600;
 
 // BUTTON
@@ -101,7 +101,7 @@ $dropdown-menu-border: 1px solid $blue-6;
 $dropdown-width: 40px;
 
 // EMPTY STATE
-$empty_state-font_size: 14px;
+$empty_state-font_size: 16px;
 $empty_state-font_weight: 200;
 $empty_state-height: 200px;
 
@@ -141,7 +141,7 @@ $input_underlined-color: $grey-7;
 // LOADING MODAL
 $loading_modal-background: $grey-1;
 $loading_modal-description-color: $blue-6;
-$loading_modal-description-font_size: $grey-7;
+$loading_modal-description-font_size: 14px;
 $loading_modal-height: 100%;
 $loading_modal-title-color: $blue-6;
 $loading_modal-title-font-size: 20px;
@@ -168,6 +168,7 @@ $sidebar-current_wallet-color: $grey-1;
 $sidebar-label-color: $grey-6;
 $sidebar-label-font_size: 9px;
 $sidebar-link-color: $grey-7;
+$sidebar-link-font_size: 16px;
 $sidebar-link-font_weight: 700;
 $sidebar-logo-height: 30px;
 $sidebar-logo-size: 30px;
@@ -180,9 +181,9 @@ $sidebar-settings-icon-color: $grey-8;
 $sidebar-settings-icon-size: 20px;
 $sidebar-status-font_size: 8px;
 $sidebar-synced-color: $grey-8;
-$sidebar-synced-font_weight: 800;
+$sidebar-synced-font_weight: 700;
 $sidebar-mainnet-color: $grey-6;
-$siderbar-mainnet-font_weight: 800;
+$sidebar-mainnet-font_weight: 700;
 
 // SIDEBAR_LAYOUT
 $sidebar_layout-collapsed-width: 20px;
@@ -234,38 +235,39 @@ $top_bar-link-default-color: $grey-5;
 
 // TRANSACTION
 $transaction-address-color: $grey-8;
-$transaction-address-font_size: 13px;
+$transaction-address-font_size: 16px;
 $transaction-block-color: $grey-5;
-$transaction-block-font_size: 11px;
+$transaction-block-font_size: 14px;
 $transaction-block-font_weight: 600;
 $transaction-border: 1px solid $grey-4;
 $transaction-date-color: $grey-8;
-$transaction-date-font_size: 11px;
+$transaction-date-font_size: 14px;
 $transaction-date-font_weight: 600;
-$transaction-number-font_size: 16px;
-$transaction-number-font_weight: 200;
+$transaction-number-font_size: 18px;
+$transaction-number-font_weight: 500;
 $transaction-origin-color: $grey-7;
-$transaction-origin-font_size: 11px;
+$transaction-origin-font_size: 14px;
 $transaction-origin-font_weight: 600;
-$transaction-status_icon-font_size : 8px;
+$transaction-status_icon-font_size : 11px;
+$transaction-angle_icon-font_size : 18px;
 $transaction-status-color: $grey-7;
-$transaction-status-font_size: 11px;
+$transaction-status-font_size: 15px;
 $transaction-status-font_weight: 600;
 $transaction-timelocked-color: $timelocked-color;
 $transaction-unconfirmed-color: $warning-color;
 $transaction-vesting_time-color: $grey-5;
-$transaction-vesting_time-font_size: 11px;
+$transaction-vesting_time-font_size: 14px;
 $transaction-vesting_time-font_weight: 600;
 $transaction-wit-color: $grey-6;
-$transaction-wit-font_size: 9px;
+$transaction-wit-font_size: 14px;
 $transaction-wit-font_weight: 600;
 
 // WRAPPER
 $wrapper-caption-color: $grey-5;
-$wrapper-caption-font_size: 11px;
+$wrapper-caption-font_size: 15px;
 $wrapper-caption-font_weight: 600;
 $wrapper-content-background: $grey-1;
 $wrapper-content-border: 1px solid $grey-3;
 $wrapper-title-color: $grey-8;
-$wrapper-title-font_size: 11px;
+$wrapper-title-font_size: 15px;
 $wrapper-title-font_weight: 600;

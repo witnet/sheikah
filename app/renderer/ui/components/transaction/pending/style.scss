@@ -27,7 +27,7 @@
 
   .status {
     color: $transaction-status-color;
-    font-size: $transaction-status-color;
+    font-size: $transaction-status-font_size;
     font-weight: $transaction-status-font_weight;
     grid-column: 2;
     grid-row: 1;
@@ -80,7 +80,7 @@
 
     .address-number {
       color: $transaction-address-color;
-      font-size: $transaction-address-color;
+      font-size: $transaction-address-font_size;
     }
   }
 }
