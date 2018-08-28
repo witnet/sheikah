@@ -1,7 +1,7 @@
 import log from "app/common/logging"
 
 import { asRuntimeType, asObject } from "app/common/runtimeTypes"
-import { Wallet, KeyPath } from "app/common/runtimeTypes/storage/wallets"
+import { Wallet, ExternalFinalKey } from "app/common/runtimeTypes/storage/wallets"
 import { ChainType } from "app/common/chain/chainType"
 import { JsonSerializable } from "app/common/serializers/json"
 
@@ -82,7 +82,7 @@ async function validateParams(
 async function createFinalKeyAddress(
   [params, wallet]: [t.GenerateAddressParams, Wallet],
   system: System
-): Promise<[KeyPath, string, number]> {
+): Promise<ExternalFinalKey> {
   try {
     const creationDate = Date.now()
     const account = params.account
@@ -98,19 +98,18 @@ async function createFinalKeyAddress(
     const finalKeyIndex = finalKeys.length
     const path = `m/3'/4919'/${account}'/0/${finalKeyIndex}`
     const extendedFinalPrivateKey = privateKey.derive(masterKey, path)
-    const finalPrivateKeyPath = keyPath.fromString(path)
+    const keyPathStruct = keyPath.fromString(path)
     const extendedFinalPublicKey = publicKey.create(extendedFinalPrivateKey)
     const address = p2pkh.encode(extendedFinalPublicKey.key, ChainType.test)
     const pkh = p2pkh.decode(address)[1]
-
-    finalKeys.push({
+    const externalFinalPrivKey: ExternalFinalKey = {
       kind: "external",
       extendedKey: {
         type: "private",
         chainCode: extendedFinalPrivateKey.chainCode,
         key: extendedFinalPrivateKey.key.bytes
       },
-      keyPath: finalPrivateKeyPath,
+      keyPath: keyPathStruct,
       pkh,
       metadata: {
         label: params.label,
@@ -118,7 +117,25 @@ async function createFinalKeyAddress(
         expirationDate: params.expirationDate,
         creationDate
       }
-    })
+    }
+    const externalFinalPubKey: ExternalFinalKey = {
+      kind: "external",
+      extendedKey: {
+        type: "public",
+        chainCode: extendedFinalPublicKey.chainCode,
+        key: extendedFinalPublicKey.key.bytes
+      },
+      keyPath: keyPathStruct,
+      pkh,
+      metadata: {
+        label: params.label,
+        requestedAmount: params.amount,
+        expirationDate: params.expirationDate,
+        creationDate
+      }
+    }
+
+    finalKeys.push(externalFinalPrivKey)
     system.appStateManager.update({
       wallet
     })
@@ -127,7 +144,7 @@ async function createFinalKeyAddress(
       await storage.put("wallet", asObject(wallet, Wallet))
     }
 
-    return [finalPrivateKeyPath, address, creationDate]
+    return externalFinalPubKey
   } catch (e) {
     log.error(e)
     throw t.generateAddressErrors.GENERIC_IPC_ERROR
@@ -135,13 +152,9 @@ async function createFinalKeyAddress(
 }
 
 /** Build the response GenerateAddressSuccess type  */
-async function resultAsResponse(
-  [keyPath, address, creationDate]: [KeyPath, string, number]
-): Promise<t.GenerateAddressSuccess> {
+async function resultAsResponse(key: ExternalFinalKey): Promise<t.GenerateAddressSuccess> {
   return {
     kind: "SUCCESS",
-    keyPath,
-    address,
-    creationDate
+    key
   }
 }

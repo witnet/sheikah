@@ -1,10 +1,5 @@
 import { Wallet, Account, KeyChain } from "app/common/runtimeTypes/storage/wallets"
-import { ChainType } from "app/common/chain/chainType"
 import { WalletStorage } from "app/main/subsystems/wallets"
-// import createJsonAesLevelStorage from "app/main/storage/jsonAesLevel"
-import * as privKey from "app/main/crypto/key/privateKey"
-import * as pubKey from "app/main/crypto/key/publicKey"
-import * as p2pkh from "app/main/crypto/address/p2pkh"
 import { generateAddress } from "app/main/api/handlers"
 import { AppStateManager } from "app/main/appState"
 
@@ -17,7 +12,6 @@ import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 
 describe("GenerateAddress Handler", () => {
   global.Date.now = jest.fn(() => 0)
-
   const keyChain: KeyChain = {
     kind: "external",
     keyPath: [1, 2, 3],
@@ -130,24 +124,28 @@ describe("GenerateAddress Handler", () => {
 
   it("should respond with the generated address and put it in the storage", async () => {
     const params = { account: 0, amount: 20, expirationDate: 1 }
-    const keyPath = `m/3'/4919'/0'/0/0`
-    const masterKey = {
-      chainCode,
-      key: {
-        type: "private" as "private",
-        bytes: masterSecret
-      }
+    const keyPath = "m/3'/4919'/0'/0/0"
+    const pkh = "1c31abe5cefb699ec7a787d3ad1f1105ee851a2e"
+    const extendedKey = {
+      chainCode: "f55975c2fda883d73495932af3974762003dfd715505ea262b1fa3105e157e04",
+      key: "03c0f6ca4b6e580687b955f49705479e0e59e0072db58abdc465c7628582507d54",
+      type: "public"
     }
-    const address = p2pkh.encode(
-      pubKey.create(privKey.derive(masterKey, keyPath)).key,
-      ChainType.test
-    )
+    const metadata = {
+      creationDate: 0,
+      requestedAmount: 20,
+      expirationDate: 1
+    }
     const expected = {
       kind: "SUCCESS",
-      creationDate: 0,
-      keyPath,
-      address
+      key: {
+        extendedKey,
+        keyPath,
+        pkh,
+        metadata
+      }
     }
+
     await system.walletStorage.replace(plainMemoryStorage)
     const response = await generateAddress(system, params)
 
@@ -171,14 +169,10 @@ describe("GenerateAddress Handler", () => {
                 key: "15ac4f758a96f6606e36db3922432cc3ee81a6c7e23169164e5eeeedfcc5b7a5",
                 type: "private"
               },
-              keyPath: "m/3'/4919'/0'/0/0",
+              keyPath,
               kind: "external",
-              metadata: {
-                creationDate: 0,
-                requestedAmount: 20,
-                expirationDate: 1
-              },
-              pkh: "1c31abe5cefb699ec7a787d3ad1f1105ee851a2e"
+              metadata,
+              pkh
             }]
           }]
         }]
