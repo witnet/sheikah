@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
+
 import { join } from "app/renderer/utils/list"
 import { PathNameProp, TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
 
@@ -21,13 +22,19 @@ export class TopBarLink extends React.Component<TopBarLinkProps & PathNameProp> 
    * @memberof TopBarLink
    */
   private get active() {
-    return this.props.pathName.indexOf(this.props.path) === 0 && styles.active
-  }
+    return this.props.pathName.indexOf(this.props.path) === 0
+      ? styles.active
+      : ""
+    }
 
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
-      <Link className={join([styles["link-box"], this.active])} to={this.props.path} replace={true}>
+      <Link
+        className={join([styles["link-box"], this.active])}
+        to={this.props.path}
+        replace={true}
+      >
         {this.props.caption}
       </Link>
     )

@@ -7,7 +7,7 @@ import { PathNameProp, TopBarProps } from "app/renderer/ui/components/commonType
  * @export
  * @interface SectionProps
  */
-export interface SectionProps {
+export interface SectionProps extends PathNameProp {
   className?: string
   services?: { showUnimplementedMessage?: Function }
 }
@@ -20,7 +20,7 @@ export interface SectionProps {
  * @extends {(React.Component<SectionProps & PathNameProp & Props>)}
  * @template Props
  */
-export class SectionComponent<Props> extends React.Component<SectionProps & PathNameProp & Props> {
+export class SectionComponent<Props> extends React.Component<SectionProps & Props> {
 
   /**
    * TopBar's props
@@ -75,7 +75,7 @@ export interface TabProps {
  * @extends {(React.Component<TabProps & PathNameProp & Props>)}
  * @template Props
  */
-export class TabComponent<Props> extends React.Component<TabProps & PathNameProp & Props> { }
+export class TabComponent<T> extends React.Component<TabProps & T> { }
 
 /**
  * TabInfo's interface
@@ -87,5 +87,6 @@ export interface TabInfo {
   key: string
   caption: string
   path: string
-  component: React.ComponentClass<TabProps>
+  // TODO: Refactor types in #451
+  component: React.ComponentClass<any>
 }

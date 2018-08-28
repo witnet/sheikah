@@ -153,7 +153,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
         this.props.actions.saveTransactions(extendTransactionsData([], wallet.caption))
 
         // Dispatch action to go to next route
-        this.props.goTo(urls.MAIN)
+        this.props.goTo(urls.TRANSACTIONS_TAB)
       })
       .catch((errorMessage: string) => {
         // Set error message in the state

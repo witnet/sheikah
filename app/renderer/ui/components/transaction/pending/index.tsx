@@ -1,4 +1,5 @@
 import * as React from "react"
+import { parseDate } from "app/renderer/utils/parseDate"
 
 const styles = require("./style.scss")
 
@@ -7,7 +8,7 @@ export interface PendingTransactionProps {
   amount?: string
   receiver?: boolean
   address?: string
-  vestingTime?: string
+  vestingTime?: Date
 }
 
 /**
@@ -30,7 +31,9 @@ export default class PendingTransaction extends React.Component<PendingTransacti
           <i className={`fa fa-circle ${styles[this.props.status]}`} />
         </p>
         <p className={styles.status}>{this.props.status}</p>
-        <p className={styles.vestingTime}>{this.props.vestingTime}</p>
+        <p className={styles.vestingTime}>
+          {this.props.vestingTime && `Vesting on ${parseDate(this.props.vestingTime, "day", true)}`}
+        </p>
         <p className={styles.amount}>
           <span className={`${styles.number} ${styles[value]}`}>
           {`${value === "positive" ? "+" : "-"}${this.props.amount}`}

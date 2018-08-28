@@ -12,7 +12,8 @@ export const filterConfirmedTransactions = (transactions: ComputedTransactions)
           receiver: transaction.type === "incoming",
           amount: transaction.value,
           block: `${transaction.epoch}`,
-          date: `${transaction.date}`
+          // From seconds to ms
+          date: transaction.date ? new Date(transaction.date * 1000) : undefined
         }
       ))
     : []
@@ -29,7 +30,10 @@ export const filterPendingTransactions = (transactions: ComputedTransactions)
           address: `${transaction.addresses[0]}`,
           receiver: transaction.type === "incoming",
           amount: `${transaction.value}`,
-          vestingTime: transaction.timelock === 0 ? "" : `Vesting on ${transaction.timelock}`
+          vestingTime: transaction.timelock !== 0
+          // From seconds to ms
+            ? new Date(transaction.timelock * 1000)
+            : undefined
         }
       ))
       : []

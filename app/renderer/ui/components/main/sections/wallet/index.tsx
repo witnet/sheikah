@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { SectionInfo, TabInfo } from "app/renderer/ui/components/main/sections"
+import { SectionInfo, TabInfo, SectionProps } from "app/renderer/ui/components/main/sections"
 import { TabCoins, TabReceive, TabSend, TabTransactions } from "./tabs"
 import TopBar from "app/renderer/ui/components/topBar/index"
 import { TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
@@ -18,7 +18,8 @@ const mainStyles = require("app/renderer/ui/components/main/style.scss")
  * @class Wallet
  * @extends {React.Component<WalletProps>}
  */
-class Wallet extends React.Component<any> {
+
+class Wallet extends React.Component<SectionProps> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const tabs: Array<TabInfo> = [TabTransactions, TabReceive, TabSend, TabCoins]
@@ -32,7 +33,11 @@ class Wallet extends React.Component<any> {
 
     return (
       <>
-        <TopBar className={mainStyles["top-bar"]} pathName="" linksProps={topBarlinkProps} />
+        <TopBar
+          className={mainStyles["top-bar"]}
+          pathName={this.props.pathName}
+          linksProps={topBarlinkProps}
+        />
         <div className={styles.layout}>
           <Switch>
             <PropsRoute

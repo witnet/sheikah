@@ -1,4 +1,5 @@
 import * as React from "react"
+import { parseDate } from "app/renderer/utils/parseDate"
 
 const styles = require("./style.scss")
 
@@ -13,7 +14,7 @@ export interface ConfirmedTransactionProps {
   receiver?: boolean
   address?: string
   block?: string
-  date?: string
+  date?: Date
 }
 
 /**
@@ -45,7 +46,7 @@ export default class ConfirmedTransaction extends React.Component<ConfirmedTrans
           <span className={styles["address-number"]}>{this.props.address}</span>
         </p>
         <div>
-          <p className={styles.date}>{this.props.date}</p>
+          <p className={styles.date}>{this.props.date && parseDate(this.props.date, "min")}</p>
           <p className={styles.block}>Confirmed in block #{this.props.block}</p>
         </div>
       </div>

@@ -11,7 +11,7 @@ import {
 } from "app/renderer/api"
 
 import {
-  MAIN,
+  TRANSACTIONS_TAB,
   WALLET_ENCRYPTION_PASSWORD,
   WALLET_IMPORT_MNEMONICS,
   WALLET_IMPORT_XPRV,
@@ -215,7 +215,7 @@ class WalletFormContainer extends
       await this.props.actions.saveWallet(wallet)
       this.props.actions.saveTransactions(extendTransactionsData([], wallet.caption))
 
-      navigateTo(this.props.history, MAIN)
+      navigateTo(this.props.history, TRANSACTIONS_TAB)
     } else {
       // TODO: improve error handler issue #321
       switch (encryptWalletResponse.error) {

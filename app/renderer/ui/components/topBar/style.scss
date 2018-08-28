@@ -10,15 +10,17 @@
 
   .link-box {
     align-items: center;
+    border-bottom: $top_bar-link-inactive-border;
     color: $top_bar-link-default-color;
     display: flex;
     font-weight: bold;
     grid-row: 1;
     padding: 0 2em;
+    text-decoration: none;
+  }
 
-    .active {
-      border-bottom: $top_bar-link-active-border;
-      color: $top_bar-link-active-color;
-    }
+  .active {
+    border-bottom: $top_bar-link-active-border;
+    color: $top_bar-link-active-color;
   }
 }

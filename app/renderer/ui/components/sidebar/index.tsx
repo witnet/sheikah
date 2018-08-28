@@ -25,7 +25,6 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
   public render() {
     const src = `../../../resources/svg/sheikah.svg`
 
-
     return (
       <div className={`${this.props.className} ${styles.sidebar}`}>
         <div className={styles.brand}>

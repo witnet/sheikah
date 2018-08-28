@@ -12,17 +12,21 @@ import List from "app/renderer/ui/components/list"
 import EmptyState from "app/renderer/ui/components/emptyState"
 import * as urls from "app/renderer/constants/urls"
 
-import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
+import { TabInfo, TabComponent, TabProps } from "app/renderer/ui/components/main/sections"
 
 import {
   balanceData,
 } from "app/renderer/ui/components/main/sections/wallet/MockData"
+import { Services } from "app/renderer/services"
+import { PathNameProp } from "app/renderer/ui/components/commonTypes"
 
 const styles = require("./style.scss")
 
 interface OwnProps {
   pendingTransactions: ComputedTransactions
   confirmedTransactions: ComputedTransactions
+  services: Services
+  pathName: PathNameProp
 }
 
 /**
@@ -31,13 +35,17 @@ interface OwnProps {
  * @class Transactions
  * @extends {TabComponent<any>}
  */
-class Transactions extends TabComponent<any & OwnProps> {
+class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const confirmedOptions = ["Option 1", "Option 2", "Option 3"].map((opt: string) => (
-      {
+    {
         text: opt,
-        onClick: () => this.props.services.showUnimplementedMessage()
+        onClick: () => {
+          this.props.services.showUnimplementedMessage()
+
+          return
+        }
       }
     ))
 

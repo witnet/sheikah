@@ -26,6 +26,12 @@ import {
   TabProEditor,
   TabMarketplace
 } from "app/renderer/ui/components/main/sections/smartContracts/tabs"
+import {
+  TabCoins,
+  TabReceive,
+  TabSend,
+  TabTransactions,
+} from "app/renderer/ui/components/main/sections/wallet/tabs"
 
 /**
  * Props that match redux store state
@@ -146,6 +152,64 @@ class MainContainer extends
   //    </Switch>
   //  )
   //}
+  /**
+   * Props to be passed to tab receive
+   *
+   * @private
+   * @memberof MainContainer
+   */
+  private tabReceiveProps = {
+    selectedAccount: this.props.selectedAccount,
+    services: this.props.services,
+    saveFinalKey: this.props.saveFinalKey
+  }
+
+  /**
+   * props to be passed to tab transactions
+   *
+   * @private
+   * @memberof MainContainer
+   */
+  private tabTransactionsProps = {
+    pendingTransactions: this.props.pendingTransactions,
+    confirmedTransactions: this.props.confirmedTransactions,
+    services: this.props.services,
+    pathName: this.props.location.pathname
+  }
+  /**
+   * Method to render routing in Wallet Section
+   */
+  private routingWalletSection = () => {
+    return (
+      <Switch>
+        <PropsRoute
+          path={urls.TRANSACTIONS_TAB}
+          ownProps={this.tabTransactionsProps}
+          component={TabTransactions.component}
+        />
+        <PropsRoute
+          path={urls.COINS_TAB}
+          ownProps={this.props}
+          component={TabCoins.component}
+        />
+        <PropsRoute
+          path={urls.SEND_TAB}
+          ownProps={this.props}
+          component={TabSend.component}
+        />
+        <PropsRoute
+          path={urls.RECEIVE_TAB}
+          ownProps={this.tabReceiveProps}
+          component={TabReceive.component}
+        />
+        <PropsRoute
+          path="/"
+          ownProps={this.props}
+          component={TabTransactions.component}
+        />
+      </Switch>
+    )
+  }
 
   /**
    * Method to render routing in Smart Contracts section
@@ -165,6 +229,8 @@ class MainContainer extends
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
+    const ownProps = {...this.props, pathName: this.props.location.pathname }
+
     return (
       <MainPage
         services={this.props.services}
@@ -173,33 +239,35 @@ class MainContainer extends
         <Switch>
           <PropsRoute
             path={urls.WALLET_SECTION}
-            ownProps={this.props}
+            ownProps={ownProps}
+            children={this.routingWalletSection()}
             component={WalletSection.component}
           />
           <PropsRoute
             path={urls.SMART_CONTRACTS_SECTION}
-            ownProps={this.props}
+            ownProps={ownProps}
             children={this.routingSmartContractsSection()}
             component={SmartContractsSection.component}
           />
           <PropsRoute
             path={urls.ATTESTATIONS_SECTION}
-            ownProps={this.props}
+            ownProps={ownProps}
             component={AttestationsSection.component}
           />
           <PropsRoute
             path={urls.BLOCK_EXPLORER_SECTION}
-            ownProps={this.props}
+            ownProps={ownProps}
             component={BlockExplorerSection.component}
           />
           <PropsRoute
             path={urls.COMMUNITY_SECTION}
-            ownProps={this.props}
+            ownProps={ownProps}
             component={CommunitySection.component}
           />
           <PropsRoute
             path="/"
-            ownProps={this.props}
+            ownProps={ownProps}
+            children={this.routingWalletSection()}
             component={WalletSection.component}
           />
         </Switch>

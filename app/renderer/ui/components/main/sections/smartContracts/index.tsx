@@ -3,7 +3,7 @@ import * as React from "react"
 import { TabMyContracts, TabEasyComposer, TabProEditor, TabMarketplace } from "./tabs"
 import TopBar from "app/renderer/ui/components/topBar/index"
 import { TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
-import { SectionInfo, TabInfo } from "app/renderer/ui/components/main/sections"
+import { SectionInfo, TabInfo, SectionProps } from "app/renderer/ui/components/main/sections"
 
 import * as urls from "app/renderer/constants/urls"
 
@@ -11,17 +11,12 @@ const mainStyles = require("app/renderer/ui/components/main/style.scss")
 const styles = require("./style.scss")
 
 /**
- * @interface SmartContractsProps
- */
-interface SmartContractsProps { }
-
-/**
  * SmartContracts component
  *
  * @class SmartContracts
  * @extends {React.Component<SmartContractsProps>}
  */
-class SmartContracts extends React.Component<SmartContractsProps> {
+class SmartContracts extends React.Component<SectionProps> {
 
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
@@ -36,7 +31,11 @@ class SmartContracts extends React.Component<SmartContractsProps> {
 
     return (
       <>
-        <TopBar className={mainStyles["top-bar"]} pathName="" linksProps={topBarlinkProps} />
+        <TopBar
+          className={mainStyles["top-bar"]}
+          pathName={this.props.pathName}
+          linksProps={topBarlinkProps}
+        />
         <div className={styles.layout}>
           {this.props.children}
         </div>
