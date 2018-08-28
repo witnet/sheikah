@@ -50,6 +50,7 @@
 
     .link {
       align-items: center;
+      border-left: $sidebar-inactive-border;
       color: $sidebar-link-color;
       display: flex;
       font-size: $sidebar-link-font_size;
@@ -58,7 +59,7 @@
       text-decoration: none;
 
       .option-icon {
-        padding: 0.5em;
+        padding: 1.5em;
       }
     }
 
