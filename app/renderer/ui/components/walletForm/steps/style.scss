@@ -53,7 +53,7 @@
   }
 
   .mnemonics {
-    color: $input-big-color;
+    color: $input_big-color;
   }
 
   .recommendation {
@@ -66,10 +66,10 @@
     @extend %font14;
 
     align-items: center;
-    border: $input-big-border;
-    border-radius: $input-big-border-radius;
+    border: $input_big-border;
+    border-radius: $input_big-border-radius;
     box-sizing: border-box;
-    color: $input-big-color;
+    color: $input_big-color;
     display: inline-flex;
     font-size: $font-size-16;
     line-break: auto;

@@ -52,7 +52,7 @@
       align-items: center;
       color: $sidebar-link-color;
       display: flex;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: $sidebar-link-font_weight;
       padding: 1em;
       text-decoration: none;
@@ -77,7 +77,7 @@
 
   .settings {
     display: grid;
-    font-size: 14px;
+    font-size: $icon-settings-font_size;
     grid-row: 5;
     grid-template-columns: auto 1fr;
     padding: 1em;
@@ -90,18 +90,18 @@
     }
 
     .net-status {
-      font-size: $sidebar-net_status-font-size;
+      font-size: $icon_status-font_size;
       padding: 0.5em;
       text-align: right;
 
       .mainnet {
-        color: $siderbar-mainnet-color;
-        font-weight: 800;
+        color: $sidebar-mainnet-color;
+        font-weight: $siderbar-mainnet-font_weight;
       }
 
       .synced {
         color: $sidebar-synced-color;
-        font-weight: 800;
+        font-weight: $sidebar-synced-font_weight;
         padding: 0.5em;
       }
     }

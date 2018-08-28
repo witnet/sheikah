@@ -2,17 +2,17 @@
   @import "app/renderer/ui/theme";
 
   .button {
-    background: $button-navigation-background;
-    border-color: $button-navigation-border-color;
+    background: $button_navigation-background;
+    border-color: $button_navigation-border-color;
     border-radius: 0;
-    border-style: $button-navigation-border-style;
+    border-style: $button_navigation-border-style;
     border-width: 1px 1px 0 0;
-    color: $button-navigation-color;
+    color: $button_navigation-color;
     cursor: pointer;
     font: inherit;
-    height: $button-navigation-height;
+    height: $button_navigation-height;
     padding: 0;
-    width: $button-navigation-width;
+    width: $button_navigation-width;
 
     &:last-of-type {
       border-right: 0;
@@ -20,11 +20,11 @@
 
     &:hover,
     &:focus {
-      border-color: $button-navigation-border-color;
+      border-color: $button_navigation-border-color;
     }
 
     &:active {
-      background: $button-navigation-hover-background;
+      background: $button_navigation-hover-background;
     }
   }
 }

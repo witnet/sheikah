@@ -2,7 +2,7 @@
   @import "app/renderer/ui/theme";
 
   .content {
-    height: 200px;
+    height: $empty_state-height;
     padding: 20px;
     text-align: center;
   }
@@ -13,8 +13,8 @@
 
   .text {
     color: $font-color-light;
-    font-size: 14px;
+    font-size: $empty_state-font_size;
     font-style: italic;
-    font-weight: 200;
+    font-weight: $empty_state-font_weight;
   }
 }

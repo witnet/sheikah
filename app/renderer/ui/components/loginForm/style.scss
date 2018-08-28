@@ -1,5 +1,4 @@
 :local {
-  @import "app/renderer/ui/colors";
   @import "app/renderer/ui/theme";
 
   .layout {
@@ -13,7 +12,7 @@
   }
 
   .centered {
-    background: linear-gradient(to right, $purple-6, $blue-6);
+    background: $sheikah-gradient;
     grid-column: 2;
     grid-row: 2;
     position: relative;

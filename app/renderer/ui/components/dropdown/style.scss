@@ -1,10 +1,9 @@
 :local {
   @import "app/renderer/ui/theme";
-  @import "app/renderer/ui/colors";
 
   .button {
-    border-color: $grey-4;
-    color: $grey-4;
+    border-color: $dropdown-border-color;
+    color: $dropdown-color;
     height: $dropdown-height;
     margin: 0;
     padding: 0;
@@ -12,26 +11,26 @@
     width: $dropdown-width;
 
     &:focus {
-      border-color: $blue-6;
-      color: $blue-6;
+      border-color: $dropdown-interactive-color;
+      color: $dropdown-interactive-color;
     }
 
     &:hover {
-      border-color: $blue-6;
-      color: $blue-6;
+      border-color: $dropdown-interactive-color;
+      color: $dropdown-interactive-color;
     }
   }
 
   .active {
-    border-color: $blue-6;
-    color: $blue-6;
+    border-color: $dropdown-interactive-color;
+    color: $dropdown-interactive-color;
   }
 
   .menu {
     &::before {
-      background: white;
-      border-left: 1px solid $blue-6;
-      border-right: 1px solid $blue-6;
+      background: $dropdown-menu-background;
+      border-left: $dropdown-menu-border;
+      border-right: $dropdown-menu-border;
       content: "";
       display: block;
       height: 4px;
@@ -45,7 +44,7 @@
 
   .menuItem {
     &:not(:last-child) {
-      border-bottom: 1px solid rgba(26, 108, 255, 0.2);
+      border-bottom: $dropdown-item-border;
     }
   }
 }

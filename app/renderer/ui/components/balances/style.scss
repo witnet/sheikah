@@ -1,5 +1,5 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .balances {
     background: none;
@@ -17,21 +17,21 @@
     margin: 1em;
 
     .text {
-      color: #4d4d4d;
-      font-size: 13px;
-      font-weight: 200;
+      color: $balances-text-color;
+      font-size: $balances-text-font_size;
+      font-weight: $balances-text-font_weight;
     }
 
     .number {
-      color: #4d4d4d;
-      font-size: 13px;
-      font-weight: 200;
+      color: $balances-number-color;
+      font-size: $balances-number-font_size;
+      font-weight: $balances-number-font_weight;
     }
 
     .wit {
-      color: #b3b3b3;
-      font-size: 9px;
-      font-weight: 600;
+      color: $balances-wit-color;
+      font-size: $balances-wit-font_size;
+      font-weight: $balances-wit-font_weight;
     }
   }
 }

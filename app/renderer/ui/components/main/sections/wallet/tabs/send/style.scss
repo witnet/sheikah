@@ -1,5 +1,6 @@
 :local {
   @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .new-transaction {
     align-items: center;
@@ -34,10 +35,10 @@
   }
 
   .info {
-    color: $grey-5;
-    font-size: 12px;
+    color: $tab_send-info-color;
+    font-size: $tab_send-info-font_size;
     font-style: italic;
-    font-weight: 200;
+    font-weight: $tab_send-info-font_weight;
   }
 
   .icon {

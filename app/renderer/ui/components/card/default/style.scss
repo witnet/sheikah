@@ -2,10 +2,10 @@
   @import "app/renderer/ui/theme";
 
   .card {
-    box-shadow: $card-default-shadow;
+    box-shadow: $card_default-shadow;
   }
 
   .content {
-    padding: $card-default-padding;
+    padding: $card_default-padding;
   }
 }

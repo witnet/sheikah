@@ -1,5 +1,5 @@
 :local {
-  @import "app/renderer/ui/colors";
+  @import "app/renderer/ui/theme";
 
   .left {
     display: grid;
@@ -11,15 +11,15 @@
     grid-column: 2;
 
     .title {
-      font-weight: 800;
+      font-weight: $tab_receive-title-font_weight;
       margin-bottom: 1.5em;
     }
 
     .text {
-      color: $grey-5;
-      font-size: 14px;
+      color: $tab_receive-text-color;
+      font-size: $tab_receive-font_size;
       font-style: italic;
-      font-weight: 300;
+      font-weight: $tab_receive-font_weight;
       line-height: 1.5;
       margin-bottom: 1.5em;
     }
@@ -31,7 +31,7 @@
     padding: 3em 4em;
 
     .form {
-      border-right: 1px solid $grey-5;
+      border-right: $tab_receive-form-border;
       display: grid;
       grid-gap: 0.5em 0;
       grid-template-columns: auto auto 0.5fr;

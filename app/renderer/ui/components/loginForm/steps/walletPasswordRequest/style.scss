@@ -1,5 +1,4 @@
 :local {
-  @import "app/renderer/ui/colors";
   @import "app/renderer/ui/theme";
 
   .layout {
@@ -11,7 +10,7 @@
   }
 
   .content {
-    padding: $card-default-padding;
+    padding: $card_default-padding;
   }
 
   .text {

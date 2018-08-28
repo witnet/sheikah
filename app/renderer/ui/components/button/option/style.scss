@@ -5,9 +5,9 @@
   .button {
     @extend %font20;
 
-    background: $button-option-background;
-    border: $button-option-border;
-    color: $button-option-color;
+    background: $button_option-background;
+    border: $button_option-border;
+    color: $button_option-color;
     cursor: pointer;
     display: flex;
     flex-direction: row;
@@ -20,16 +20,16 @@
 
     &:hover,
     &:focus {
-      border-color: $button-option-hover-border-color;
-      box-shadow: $button-option-hover-box-shadow;
-      color: $button-option-hover-color;
+      border-color: $button_option-hover-border-color;
+      box-shadow: $button_option-hover-box-shadow;
+      color: $button_option-hover-color;
     }
 
     &:active {
-      background: $button-option-active-background;
-      border-color: $button-option-active-border-color;
-      box-shadow: $button-option-active-box-shadow;
-      color: $button-option-active-color;
+      background: $button_option-active-background;
+      border-color: $button_option-active-border-color;
+      box-shadow: $button_option-active-box-shadow;
+      color: $button_option-active-color;
     }
   }
 

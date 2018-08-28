@@ -3,33 +3,33 @@
   @import "app/renderer/ui/theme";
 
   .button {
-    background: $button-action-background;
-    border: $button-action-border;
-    border-color: $button-action-border_color;
-    border-radius: $button-action-border_radius;
-    box-shadow: $button-action-shadow;
-    color: $button-action-color;
-    font-weight: $button-action-font_weight;
-    line-height: $button-action-line_height;
-    padding: $button-action-padding;
+    background: $button_action-background;
+    border: $button_action-border;
+    border-color: $button_action-border_color;
+    border-radius: $button_action-border_radius;
+    box-shadow: $button_action-shadow;
+    color: $button_action-color;
+    font-weight: $button_action-font_weight;
+    line-height: $button_action-line_height;
+    padding: $button_action-padding;
 
     &:hover {
-      background: $button-action-background;
-      border-color: $button-action-border_color;
-      color: $button-action-color;
+      background: $button_action-background;
+      border-color: $button_action-border_color;
+      color: $button_action-color;
     }
 
     &:focus {
-      background: $button-action-focus-background;
-      border-color: $button-action-focus-border_color;
-      color: $button-action-focus-color;
+      background: $button_action-focus-background;
+      border-color: $button_action-focus-border_color;
+      color: $button_action-focus-color;
     }
 
     &:disabled,
     &:disabled:hover {
-      background: $button-action-disabled-background;
-      border-color: $button-action-disabled-border_color;
-      color: $button-action-disabled-color;
+      background: $button_action-disabled-background;
+      border-color: $button_action-disabled-border_color;
+      color: $button_action-disabled-color;
     }
   }
 }

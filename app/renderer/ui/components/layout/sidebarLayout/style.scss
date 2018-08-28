@@ -1,5 +1,4 @@
 :local {
-  @import "app/renderer/ui/colors";
   @import "app/renderer/ui/theme";
 
   .grid {
@@ -21,13 +20,13 @@
     justify-content: space-between;
 
     .collapsed {
-      width: 20px;
+      width: $sidebar_layout-collapsed-width;
     }
   }
 
   .titleText {
-    color: $grey-1;
-    font-size: 22px;
+    color: $sidebar_layout-color;
+    font-size: $sidebar_layout-font_size;
     padding: 20px;
   }
 
@@ -39,18 +38,18 @@
     position: absolute;
 
     .icon {
-      color: $grey-1;
+      color: $sidebar_layout-icon-color;
       display: flex;
       margin-right: 10px;
     }
 
     .label {
-      color: $grey-1;
+      color: $sidebar_layout-icon_label-color;
     }
   }
 
   .content {
-    background: $grey-1;
+    background: $sidebar_layout-content-background;
     grid-column: 2;
   }
 }

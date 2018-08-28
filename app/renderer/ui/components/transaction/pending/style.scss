@@ -11,33 +11,33 @@
   }
 
   .status-icon {
-    font-size: 8px;
+    font-size: $transaction-status_icon-font_size;
     grid-column: 1;
     grid-row: 1;
     margin-right: 10px;
 
     .unconfirmed {
-      color: $gold-3;
+      color: $transaction-unconfirmed-color;
     }
 
     .timelocked {
-      color: $timelocked-color;
+      color: $transaction-timelocked-color;
     }
   }
 
   .status {
-    color: $grey-7;
-    font-size: 11px;
-    font-weight: 600;
+    color: $transaction-status-color;
+    font-size: $transaction-status-color;
+    font-weight: $transaction-status-font_weight;
     grid-column: 2;
     grid-row: 1;
     text-transform: uppercase;
   }
 
   .vestingTime {
-    color: #ccc;
-    font-size: 11px;
-    font-weight: 600;
+    color: $transaction-vesting_time-color;
+    font-size: $transaction-vesting_time-font_size;
+    font-weight: $transaction-vesting_time-font_weight;
     grid-column: 3;
     grid-row: 1;
     margin-left: 5px;
@@ -48,8 +48,8 @@
     grid-row: 2;
 
     .number {
-      font-size: 16px;
-      font-weight: 200;
+      font-size: $transaction-number-font_size;
+      font-weight: $transaction-number-font_weight;
       margin-right: 5px;
 
       &.positive {
@@ -62,9 +62,9 @@
     }
 
     .wit {
-      color: $grey-6;
-      font-size: 9px;
-      font-weight: 600;
+      color: $transaction-wit-color;
+      font-size: $transaction-wit-font_size;
+      font-weight: $transaction-wit-font_weight;
     }
   }
 
@@ -73,14 +73,14 @@
     grid-row: 2;
 
     .origin {
-      color: #999;
-      font-size: 11px;
-      font-weight: 600;
+      color: $transaction-origin-color;
+      font-size: $transaction-origin-font_size;
+      font-weight: $transaction-origin-font_weight;
     }
 
     .address-number {
-      color: $grey-8;
-      font-size: 13px;
+      color: $transaction-address-color;
+      font-size: $transaction-address-color;
     }
   }
 }

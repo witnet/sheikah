@@ -1,18 +1,17 @@
 :local {
-  @import "app/renderer/ui/colors";
   @import "app/renderer/ui/theme";
 
   .content {
-    padding: $card-default-padding;
+    padding: $card_default-padding;
   }
 
   .text {
-    color: $grey-8;
+    color: $form_login-text-color;
     padding: 5px 0 5px 0;
   }
 
   .links {
-    height: 240px;
+    height: $form_login-links-height;
     margin: 20px 0 15px 0;
     overflow: auto;
     padding-right: 10px;
@@ -20,26 +19,26 @@
 
   /* width */
   ::-webkit-scrollbar {
-    width: 10px;
+    width: $form_login-scrollbar-width;
   }
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: $grey-2;
+    background: $form_login-scrollbar-track-background;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: $grey-5;
+    background: $form_login-scrollbar-thumb-background;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: $grey-6;
+    background: $form_login-scrollbar-thumb_hover-background;
   }
 
   .link {
-    height: 60px;
+    height: $form_login-link-height;
   }
 
   .listItem {

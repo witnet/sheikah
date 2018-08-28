@@ -2,16 +2,16 @@
   @import "app/renderer/ui/theme";
 
   .big {
-    border: $input-big-border;
-    border-radius: $input-big-border-radius;
+    border: $input_big-border;
+    border-radius: $input_big-border-radius;
     min-height: 80px;
     transition: all 0.1s ease;
-    width: $input-big-width;
+    width: $input_big-width;
 
     &:hover,
     &:focus {
-      border: $input-big-hover-border;
-      box-shadow: $input-big-hover-box-shadow;
+      border: $input_big-hover-border;
+      box-shadow: $input_big-hover-box-shadow;
       outline: 0;
       outline-color: transparent;
       outline-style: none;
