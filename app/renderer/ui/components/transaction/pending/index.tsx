@@ -33,7 +33,7 @@ export default class PendingTransaction extends React.Component<PendingTransacti
         <p className={styles.vestingTime}>{this.props.vestingTime}</p>
         <p className={styles.amount}>
           <span className={`${styles.number} ${styles[value]}`}>
-            {this.props.amount || "+0.1"}
+          {`${value === "positive" ? "+" : "-"}${this.props.amount}`}
           </span>
           <span className={styles.wit}>
             WIT
