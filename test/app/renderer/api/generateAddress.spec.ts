@@ -1,38 +1,38 @@
-import { asObject } from "app/common/runtimeTypes"
+import { asObject, asRuntimeType } from "app/common/runtimeTypes"
 import { ipcRendererFactory } from "test/__stubs__/ipcRenderer"
 import { jsonSerializer } from "test/__stubs__/serializers"
 import * as api from "app/renderer/api"
-//import { routes } from "app/main/api"
+import { routes } from "app/main/api"
 import { GenerateAddressParams, GenerateAddressSuccess } from "app/common/runtimeTypes/ipc/address"
 
 describe("GenerateAddress API", () => {
   // Params
-  const generateAddressParams: GenerateAddressParams = {
+  const generateAddressParams: GenerateAddressParams = asRuntimeType({
     account: 0,
     label: "From Satoshi Nakamoto",
-    amount: 1,
+    requestedAmount: 1,
     expirationDate: 1526342400  // May 15, 2018
-  }
+  }, GenerateAddressParams)
 
   // Response
-  const generateAddressSuccess: GenerateAddressSuccess = {
+  const generateAddressSuccess: GenerateAddressSuccess = asRuntimeType({
     kind: "SUCCESS",
-    key: {
+    finalKey: {
       kind: "external",
       extendedKey: {
-        chainCode: Buffer.from("f55975c2fda883d73495932af3974762003dfd715505ea262b1fa3105e157e04"),
-        key: Buffer.from("03c0f6ca4b6e580687b955f49705479e0e59e0072db58abdc465c7628582507d54"),
+        chainCode: "f55975c2fda883d73495932af3974762003dfd715505ea262b1fa3105e157e04",
+        key: "03c0f6ca4b6e580687b955f49705479e0e59e0072db58abdc465c7628582507d54",
         type: "public"
       },
-      keyPath: [2147483651, 2147488567, 2147483648, 0, 0],
-      pkh: Buffer.from("1c31abe5cefb699ec7a787d3ad1f1105ee851a2e"),
+      keyPath: "m/3'/4919'/0'/0/0",
+      pkh: "1c31abe5cefb699ec7a787d3ad1f1105ee851a2ey",
       metadata: {
         creationDate: 0,
         requestedAmount: 20,
         expirationDate: 1
       }
     }
-  }
+  }, GenerateAddressSuccess)
 
   // Mock response
   const messageHandler = jest.fn()
@@ -54,10 +54,12 @@ describe("GenerateAddress API", () => {
     // JSON-RPC request and wait for the response
     const response = await api.generateAddress(
       client,
-      generateAddressParams.account,
-      generateAddressParams.label,
-      generateAddressParams.amount,
-      generateAddressParams.expirationDate
+      {
+        account: generateAddressParams.account,
+        label: generateAddressParams.label,
+        requestedAmount: generateAddressParams.requestedAmount,
+        expirationDate: generateAddressParams.expirationDate
+      }
     )
 
     // Check that mocked response was returned correctly
@@ -77,15 +79,16 @@ describe("GenerateAddress API", () => {
     // JSON-RPC request and wait for the response
     await api.generateAddress(
       client,
-      generateAddressParams.account,
-      generateAddressParams.label,
-      generateAddressParams.amount,
-      generateAddressParams.expirationDate
+      {
+        account: generateAddressParams.account,
+        label: generateAddressParams.label,
+        requestedAmount: generateAddressParams.requestedAmount,
+        expirationDate: generateAddressParams.expirationDate
+      }
     )
 
     // Check that the requested method is in the routes of the main process
-    // TODO: uncomment when issue #391 is done (backend handler is implemented)
-    //expect(messageHandler.mock.calls[0][1].method in routes).toBe(true)
+    expect(messageHandler.mock.calls[0][1].method in routes).toBe(true)
 
     // Check that the message handler function has been called correctly
     expect(messageHandler).toBeCalledWith(jsonSerializer, expected)
