@@ -65,7 +65,6 @@ export interface SectionInfo {
  */
 export interface TabProps {
   className?: string
-  services?: { showUnimplementedMessage?: Function }
 }
 
 /**

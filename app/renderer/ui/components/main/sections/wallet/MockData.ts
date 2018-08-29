@@ -44,7 +44,7 @@ export const confirmedOptions = [
     onClick: () => {
       console.log("CLICKED 2")
 
-      return ""
+      return
     }
   },
   {
@@ -52,7 +52,7 @@ export const confirmedOptions = [
     onClick: () => {
       console.log("CLICKED 2")
 
-      return ""
+      return
     }
   },
   {
@@ -60,7 +60,7 @@ export const confirmedOptions = [
     onClick: () => {
       console.log("CLICKED 3")
 
-      return ""
+      return
     }
   }
 ]
