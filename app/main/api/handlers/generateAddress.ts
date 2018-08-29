@@ -12,7 +12,15 @@ import * as privateKey from "app/main/crypto/key/privateKey"
 import * as key from "app/main/crypto/key/key"
 import * as p2pkh from "app/main/crypto/address/p2pkh"
 import * as keyPath from "app/main/crypto/keyPath"
-import * as t from "app/common/runtimeTypes/ipc/address"
+import {
+  buildGenerateAddressError,
+  GenerateAddressResponse,
+  GenerateAddressParams,
+  GenerateAddressSuccess,
+  generateAddressErrors
+} from "app/common/runtimeTypes/ipc/address"
+
+export const MAX_EXPIRATION_DATE_DIFF = 63_072_000
 
 type System = AppStateS & WalletStorageS
 
@@ -32,47 +40,47 @@ export default async function generateAddress(
     .then(inject(validateParams, system))
     .then(inject(createFinalKeyAddress, system))
     .then(resultAsResponse)
-    .catch(t.buildGenerateAddressError)
-    .then((response) => asObject(response, t.GenerateAddressResponse))
+    .catch(buildGenerateAddressError)
+    .then((response) => asObject(response, GenerateAddressResponse))
 }
 
 /** Parse params into the GenerateAddressParams type */
-async function parseParams(params: any): Promise<t.GenerateAddressParams> {
+async function parseParams(params: any): Promise<GenerateAddressParams> {
   try {
-    return asRuntimeType(params, t.GenerateAddressParams)
+    return asRuntimeType(params, GenerateAddressParams)
   } catch (e) {
-    throw t.generateAddressErrors.WRONG_PARAMS
+    throw generateAddressErrors.WRONG_PARAMS
   }
 }
 
 /** Validate that the parsed parsed params are semantically correct */
 async function validateParams(
-  params: t.GenerateAddressParams,
+  params: GenerateAddressParams,
   system: System
-): Promise<[t.GenerateAddressParams, Wallet]> {
-  const { account, amount, expirationDate } = params
+): Promise<[GenerateAddressParams, Wallet]> {
+  const { account, requestedAmount, expirationDate } = params
   const wallet = system.appStateManager.state.wallet
-  const now = Date.now()
+  const now = Math.floor(Date.now() / 1000)
 
-  if (amount && amount < 0) {
-    throw t.generateAddressErrors.NEGATIVE_AMOUNT
+  if (requestedAmount && requestedAmount < 0) {
+    throw generateAddressErrors.NEGATIVE_AMOUNT
   }
 
   if (expirationDate) {
     if (expirationDate < now) {
-      throw t.generateAddressErrors.PAST_EXPIRATION_DATE
+      throw generateAddressErrors.PAST_EXPIRATION_DATE
     }
-    if (expirationDate > now + 31_536_000_000) {
-      throw t.generateAddressErrors.TOO_FAR_EXPIRATION_DATE
+    if (expirationDate > now + MAX_EXPIRATION_DATE_DIFF) {
+      throw generateAddressErrors.TOO_FAR_EXPIRATION_DATE
     }
   }
 
   if (!wallet) {
-    throw t.generateAddressErrors.NO_UNLOCKED_WALLET
+    throw generateAddressErrors.NO_UNLOCKED_WALLET
   }
 
   if (!wallet.accounts[account]) {
-    throw t.generateAddressErrors.WRONG_ACCOUNT
+    throw generateAddressErrors.WRONG_ACCOUNT
   }
 
   return [params, wallet]
@@ -80,12 +88,14 @@ async function validateParams(
 
 /** Generate a final key, store it, and return its corresponding address  */
 async function createFinalKeyAddress(
-  [params, wallet]: [t.GenerateAddressParams, Wallet],
+  [params, wallet]: [GenerateAddressParams, Wallet],
   system: System
 ): Promise<ExternalFinalKey> {
   try {
-    const creationDate = Date.now()
-    const account = params.account
+    const { account, ...metadata } = { ...params }
+
+    const creationDate = Math.floor(Date.now() / 1000)
+    // const account = params.account
     const seed = wallet.seed.seed
     const masterKey: key.ExtendedKey<privateKey.PrivateKey> = {
       chainCode: seed.chainCode,
@@ -112,25 +122,7 @@ async function createFinalKeyAddress(
       keyPath: keyPathStruct,
       pkh,
       metadata: {
-        label: params.label,
-        requestedAmount: params.amount,
-        expirationDate: params.expirationDate,
-        creationDate
-      }
-    }
-    const externalFinalPubKey: ExternalFinalKey = {
-      kind: "external",
-      extendedKey: {
-        type: "public",
-        chainCode: extendedFinalPublicKey.chainCode,
-        key: extendedFinalPublicKey.key.bytes
-      },
-      keyPath: keyPathStruct,
-      pkh,
-      metadata: {
-        label: params.label,
-        requestedAmount: params.amount,
-        expirationDate: params.expirationDate,
+        ...metadata,
         creationDate
       }
     }
@@ -144,17 +136,17 @@ async function createFinalKeyAddress(
       await storage.put("wallet", asObject(wallet, Wallet))
     }
 
-    return externalFinalPubKey
+    return externalFinalPrivKey
   } catch (e) {
     log.error(e)
-    throw t.generateAddressErrors.GENERIC_IPC_ERROR
+    throw generateAddressErrors.GENERIC_IPC_ERROR
   }
 }
 
 /** Build the response GenerateAddressSuccess type  */
-async function resultAsResponse(key: ExternalFinalKey): Promise<t.GenerateAddressSuccess> {
+async function resultAsResponse(finalKey: ExternalFinalKey): Promise<GenerateAddressSuccess> {
   return {
     kind: "SUCCESS",
-    key
+    finalKey
   }
 }

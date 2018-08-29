@@ -9,7 +9,7 @@ export const GenerateAddressParams = t.intersection([
   }),
   t.partial({
     label: t.string,
-    amount: t.number,
+    requestedAmount: t.number,
     expirationDate: t.number
   })
 ], "GenerateAddressParams")
@@ -17,9 +17,8 @@ export type GenerateAddressParams = t.TypeOf<typeof GenerateAddressParams>
 
 export const GenerateAddressSuccess = t.type({
   kind: t.literal("SUCCESS"),
-  key: ExternalFinalKey
+  finalKey: ExternalFinalKey
 }, "GenerateAddressSuccess")
-
 export type GenerateAddressSuccess = t.TypeOf<typeof GenerateAddressSuccess>
 
 export const generateAddressErrors = {
@@ -36,6 +35,15 @@ export const generateAddressErrors = {
 }
 
 export const generateAddressErrorMessages = {
+  WRONG_PARAMS: "Wrong parameters",
+  NO_UNLOCKED_WALLET: "No unlocked wallet",
+  WRONG_ACCOUNT: "Wrong account",
+  NEGATIVE_AMOUNT: "Negative amount is forbidden",
+  PAST_EXPIRATION_DATE: "Past expiration date is forbidden",
+  TOO_FAR_EXPIRATION_DATE: "Expiration date is too far",
+  WALLET_UPDATE_FAILURE: "Wallet update failure",
+  WALLET_STORE_FAILURE: "Wallet store failure",
+  ADDRESS_ENCODING_FAILURE: "Address encoding failure",
   GENERIC_IPC_ERROR: "Unknown Error"
 }
 
