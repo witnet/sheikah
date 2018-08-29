@@ -108,7 +108,7 @@ async function replaceWallet(
   try {
     await system.walletStorage.replace(walletStorage)
     // as the wallet has been stored with success the unconsolidated wallet is removed
-    system.appStateManager.update({ unconsolidatedWallet: {} as UnconsolidatedWallet })
+    system.appStateManager.update({ unconsolidatedWallet: {} as UnconsolidatedWallet, wallet })
 
     return wallet
   } catch  {
