@@ -167,10 +167,7 @@ export const InternalFinalKey = t.intersection([
   t.type({
     kind: t.literal("internal"),
   }),
-  CommonFinalKey,
-  t.partial({
-    metadata: FinalKeyMetadata
-  })
+  CommonFinalKey
 ], "InternalFinalKey")
 export type InternalFinalKey = t.TypeOf<typeof InternalFinalKey>
 
@@ -178,10 +175,7 @@ export const RadFinalKey = t.intersection([
   t.type({
     kind: t.literal("rad"),
   }),
-  CommonFinalKey,
-  t.partial({
-    metadata: FinalKeyMetadata
-  })
+  CommonFinalKey
 ], "RadFinalKey")
 export type RadFinalKey = t.TypeOf<typeof RadFinalKey>
 
