@@ -71,6 +71,7 @@ export default class WalletPasswordRequest extends React.Component<Iprops> {
             className={styles.input}
             type="password"
             onChange={this.handlePassword}
+            value={this.state.password}
             onKeyUp={this.handleKeyUp}
           />
           <AlertMessage
