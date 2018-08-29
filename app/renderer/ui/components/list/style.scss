@@ -1,5 +1,7 @@
 :local {
-  // .list {}
+  .list {
+    overflow: scroll;
+  }
 
   .option {
     width: auto;
