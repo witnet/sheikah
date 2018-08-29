@@ -4,9 +4,10 @@ import { Contexts, asRuntimeType } from "app/common/runtimeTypes"
 import { ApiClient } from "app/renderer/api"
 import {
   GenerateAddressResponse,
-  generateAddressErrors,
+  GenerateAddressErrors,
   buildGenerateAddressError,
-  GenerateAddressErrors
+  GenerateAddressParams,
+  generateAddressErrors
 } from "app/common/runtimeTypes/ipc/address"
 
 /**
@@ -19,12 +20,9 @@ import {
  */
 export async function generateAddress(
   client: ApiClient,
-  account: number,
-  label?: string,
-  amount?: number,
-  expirationDate?: number
+  params: GenerateAddressParams
 ): Promise<GenerateAddressResponse> {
-  return client.request("generateAddress", { account, label, amount, expirationDate })
+  return client.request("generateAddress", params)
     .then(parseResponse)
     .catch(buildError)
 }
@@ -44,7 +42,7 @@ function parseResponse(response: any) {
 /**
  * Function to build a generic IPC error that abstracts from IPC errors
  */
-function buildError() {
+function buildError(error: any) {
   return buildGenerateAddressError(
     t.literal<GenerateAddressErrors>(generateAddressErrors.GENERIC_IPC_ERROR.value)
   )
