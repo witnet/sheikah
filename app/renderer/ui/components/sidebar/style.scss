@@ -2,10 +2,12 @@
   @import "app/renderer/ui/theme";
 
   .sidebar {
+    box-shadow: $sidebar-shadow;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 60px 60px 1fr 60px;
     max-height: 100vh;
+    z-index: 5;
   }
 
   .brand {

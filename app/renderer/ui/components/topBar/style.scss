@@ -6,6 +6,7 @@
     display: grid;
     grid-template-columns: repeat(6, auto) 1fr;
     padding-left: 1em;
+    z-index: 6;
   }
 
   .link-box {
