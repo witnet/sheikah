@@ -1,0 +1,18 @@
+:local {
+  @import "app/renderer/ui/theme";
+
+  .option {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .text {
+    color: $select_fees-text-color;
+    font-size: $select_fees-text-font_size;
+  }
+
+  .number {
+    color: $select_fees-number-color;
+    font-size: $select_fees-number-font_size;
+  }
+}

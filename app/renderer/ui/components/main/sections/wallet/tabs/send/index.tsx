@@ -4,8 +4,14 @@ import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import { DefaultInput } from "app/renderer/ui/components/input"
 import { ActionButton } from "app/renderer/ui/components/button"
+import { SelectFees } from "app/renderer/ui/components/select"
 
 import * as urls from "app/renderer/constants/urls"
+import { SelectOptionData } from "app/renderer/ui/components/select/fees"
+
+import {
+  selectFeesData as mockSelectFeesData,
+} from "app/renderer/ui/components/main/sections/wallet/MockData"
 
 const styles = require("./style.scss")
 
@@ -18,6 +24,8 @@ const styles = require("./style.scss")
 class TabSend extends TabComponent<any> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
+    const selectFeesData: Array<SelectOptionData> = mockSelectFeesData
+
     return (
       <Wrapper title="NEW PAYMENT REQUEST" className={styles.pending}>
         <div className={styles["new-transaction"]}>
@@ -31,7 +39,11 @@ class TabSend extends TabComponent<any> {
           <label className={styles.label}>Amount</label>
           <DefaultInput className={`${styles.input} ${styles["small-input"]}`} />
           <label className={styles.label}>Fee</label>
-          <DefaultInput className={`${styles.input} ${styles["small-input"]}`} />
+          <SelectFees
+            className={`${styles.input} ${styles["small-input"]}`}
+            defaultValue={selectFeesData[0].text}
+            dataSource={selectFeesData}
+          />
           <ActionButton
             className={styles.submit}
             onClick={this.props.services.showUnimplementedMessage}
