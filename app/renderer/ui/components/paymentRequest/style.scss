@@ -2,30 +2,67 @@
   @import "app/renderer/ui/theme";
 
   .payment-request {
+    align-items: center;
+    border-bottom: $payment_request-border;
     display: grid;
-    grid-gap: 2em;
-    grid-template-columns: auto 1fr auto;
-    padding: 2em;
-  }
-
-  .creation-date {
-    font-size: $payment_request-date-font_size;
-  }
-
-  .expiration-date {
-    font-size: $payment_request-date-font_size;
+    grid-gap: 20px;
+    grid-template-columns: auto 1fr 2fr auto;
+    grid-template-rows: auto;
+    padding: 30px 50px;
   }
 
   .green {
-    color: $payment_request-success-color;
+    color: $success-color;
   }
 
   .red {
-    color: $payment_request-error-color;
+    color: $error-color;
+  }
+
+  .yellow {
+    color: $warning-color;
+  }
+
+  .date {
+    color: $payment_request-date-color;
+    font-size: $payment_request-date-font_size;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .info {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 275px;
+
+    .label {
+      color: $payment_request-label-color;
+      font-size: $payment_request-label-font_size;
+    }
+
+    .status {
+      color: $payment_request-status-color;
+      font-size: $payment_request-status-font_size;
+    }
+
+    .wit {
+      color: $payment_request-wit-color;
+      font-size: $payment_request-wit-font_size;
+      font-weight: $payment_request-wit-font_weight;
+    }
+  }
+
+  .address {
+    color: $payment_request-address-color;
+    font-size: $payment_request-address-font_size;
+    grid-column: 3;
+    grid-row: 1;
+    min-width: 325px;
+    text-align: right;
   }
 
   .actions {
-    align-items: center;
-    display: grid;
+    grid-column: 4;
+    grid-row: 1;
   }
 }
