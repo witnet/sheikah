@@ -5,8 +5,7 @@ import {
 import { newMnemonicsErrors, WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 
 import { assertNever } from "app/common/utils"
-import { IAction } from "app/renderer/actions/helpers"
-import { saveWallet, saveTransactions } from "app/renderer/actions/loginForm"
+import { saveWallet, saveTransactions } from "app/renderer/actions"
 import {
   Client, encryptWallet, newMnemonics, validateMnemonics, validateXprv
 } from "app/renderer/api"
@@ -36,7 +35,7 @@ import { lazyNavigateTo, navigateTo } from "app/renderer/utils/routerNavigation"
 import * as React from "react"
 import { connect } from "react-redux"
 import { Route, RouteComponentProps, Switch } from "react-router"
-import { bindActionCreators, Dispatch } from "redux"
+import { Action, bindActionCreators, Dispatch } from "redux"
 import { extendTransactionsData } from "app/renderer/prefilledTransactions"
 import { Services } from "app/renderer/services"
 
@@ -73,7 +72,7 @@ interface Props {
  * Function to map the dispatch of actions to props
  * @param dispatch
  */
-const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     actions: bindActionCreators({ saveWallet, saveTransactions }, dispatch)
   }

@@ -1,14 +1,12 @@
 import * as React from "react"
-import { bindActionCreators, Dispatch } from "redux"
+import { Action, bindActionCreators, Dispatch } from "redux"
 import { RouteComponentProps, Switch, Route } from "react-router"
 import { connect } from "react-redux"
 
+import { saveTransactions, saveFinalKey } from "app/renderer/actions"
 import * as urls from "app/renderer/constants/urls"
 import { Services } from "app/renderer/services"
-import { StoreState } from "app/renderer/store"
-import { IAction } from "app/renderer/actions/helpers"
-import { saveTransactions } from "app/renderer/actions/loginForm"
-import { Wallet } from "app/common/runtimeTypes/storage/wallets"
+import { StoreState, AccountOption } from "app/renderer/store"
 
 import { PendingTransactionProps } from "app/renderer/ui/components/transaction/pending"
 import { ConfirmedTransactionProps } from "app/renderer/ui/components/transaction/confirmed"
@@ -20,7 +18,7 @@ import BlockExplorerSection from "app/renderer/ui/components/main/sections/block
 import CommunitySection from "app/renderer/ui/components/main/sections/community"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 
-import { filterPendingTransactions, filterConfirmedTransactions  } from "app/renderer/selectors"
+import { filterPendingTransactions, filterConfirmedTransactions } from "app/renderer/selectors"
 
 import {
   TabCoins,
@@ -40,7 +38,8 @@ import {
  * Props that match redux store state
  */
 export interface StateProps {
-  wallet: Wallet | false
+  selectedAccount: number,
+  account: AccountOption,
   pendingTransactions: Array<PendingTransactionProps>
   confirmedTransactions: Array<ConfirmedTransactionProps>
 }
@@ -49,7 +48,8 @@ export interface StateProps {
  * Props that match redux actions
  */
 export interface DispatchProps {
-  saveTransactions: Function
+  saveTransactions: Function,
+  saveFinalKey: Function
 }
 
 /**
@@ -63,9 +63,10 @@ export interface OwnProps {
  * Function to map the dispatch of actions to props
  * @param dispatch
  */
-const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
-    saveTransactions: bindActionCreators(saveTransactions, dispatch)
+    saveTransactions: bindActionCreators(saveTransactions, dispatch),
+    saveFinalKey: bindActionCreators(saveFinalKey, dispatch)
   }
 }
 
@@ -75,7 +76,9 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
  */
 const mapStateToProps = (state: StoreState): StateProps => {
   return ({
-    wallet: state.wallet,
+    // TODO: Prototype only supports 1 account (i.e. "My hot wallet")
+    selectedAccount: 0,
+    account: state.wallet && state.wallet.accounts.length > 0 ? state.wallet.accounts[0] : false,
     confirmedTransactions: filterConfirmedTransactions(state.transactions),
     pendingTransactions: filterPendingTransactions(state.transactions)
   })
@@ -90,6 +93,19 @@ const mapStateToProps = (state: StoreState): StateProps => {
  */
 class MainContainer extends
   React.Component<RouteComponentProps<any> & OwnProps & StateProps & DispatchProps> {
+
+  /**
+   * Props to be passed to tab receive
+   *
+   * @private
+   * @memberof MainContainer
+   */
+  private tabReceiveProps = {
+    selectedAccount: this.props.selectedAccount,
+    account: this.props.account,
+    services: this.props.services,
+    saveFinalKey: this.props.saveFinalKey
+  }
 
   /**
    * props to be passed to tab transactions
@@ -124,7 +140,7 @@ class MainContainer extends
         />
         <PropsRoute
           path={urls.RECEIVE_TAB}
-          ownProps={this.props}
+          ownProps={this.tabReceiveProps}
           component={TabReceive.component}
         />
         <PropsRoute

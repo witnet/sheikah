@@ -2,12 +2,11 @@ import { connect } from "react-redux"
 import * as React from "react"
 import { Route, Switch } from "react-router"
 import { push, goBack } from "connected-react-router"
-import { bindActionCreators, Dispatch } from "redux"
+import { Action, bindActionCreators, Dispatch } from "redux"
 
 import { WalletInfos, Wallet } from "app/common/runtimeTypes/storage/wallets"
 
-import * as actionCreators from "app/renderer/actions/loginForm"
-import { IAction } from "app/renderer/actions/helpers"
+import * as actionCreators from "app/renderer/actions"
 import { LoginForm } from "app/renderer/ui/components/loginForm"
 import { StoreState } from "app/renderer/store"
 import WalletSelection from "app/renderer/ui/components/loginForm/steps/walletSelection"
@@ -66,7 +65,7 @@ const mapStateToProps = (state: StoreState): StateProps => {
  * Function to map the dispatch of actions to props
  * @param dispatch
  */
-const mapDispatchToProps = (dispatch: Dispatch<IAction>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     actions: bindActionCreators(actionCreators, dispatch),
     goTo: (path: string) => dispatch(push(path)),
