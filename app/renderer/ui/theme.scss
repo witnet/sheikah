@@ -148,9 +148,18 @@ $loading_modal-title-font-size: 20px;
 $loading_modal-width: 100%;
 
 // PAYMENT REQUEST
-$payment_request-date-font_size: 12px;
-$payment_request-error-color: $error-color;
-$payment_request-success-color: $success-color;
+$payment_request-border: 1px solid $grey-4;
+$payment_request-date-color: $grey-7;
+$payment_request-date-font_size: 14px;
+$payment_request-address-color: $grey-7;
+$payment_request-address-font_size: 12px;
+$payment_request-label-color: $grey-8;
+$payment_request-label-font_size: 16px;
+$payment_request-status-color: $grey-7;
+$payment_request-status-font_size: 14px;
+$payment_request-wit-color: $grey-8;
+$payment_request-wit-font_size: 14px;
+$payment_request-wit-font_weight: 600;
 
 // SIDEBAR
 $sidebar-active-border: 5px solid $blue-6;
