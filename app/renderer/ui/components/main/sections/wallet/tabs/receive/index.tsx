@@ -8,14 +8,12 @@ import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 import * as urls from "app/renderer/constants/urls"
 import * as api from "app/renderer/api"
 
-import {
-  paymentRequest,
-} from "app/renderer/ui/components/main/sections/wallet/MockData"
 import { ActionButton } from "app/renderer/ui/components/button"
+
 import Spinner from "app/renderer/ui/components/spinner"
 import { AlertMessage } from "app/renderer/ui/components/alert"
 import { Services } from "app/renderer/services"
-import { FinalKey, Account } from "app/common/runtimeTypes/storage/wallets"
+import { FinalKey, ExternalFinalKey, Wallet } from "app/common/runtimeTypes/storage/wallets"
 import {
   GenerateAddressResponse,
   GenerateAddressParams,
@@ -23,6 +21,14 @@ import {
 } from "app/common/runtimeTypes/ipc/address"
 import { assertNever } from "app/common/utils"
 import { KEYCHAIN_INDICES } from "app/common/constants/wallet"
+
+import { buildComputedPaymentRequest, Action } from "app/renderer/prefilledPaymentRequests"
+import {
+  prefilledFinalKeysFunds,
+  prefilledAddresses,
+  prefilledWallet,
+  prefilledWalletCaption
+} from "app/renderer/prefilledWallet"
 
 const styles = require("./style.scss")
 
@@ -33,7 +39,7 @@ const styles = require("./style.scss")
  */
 interface Props {
   selectedAccount: number,
-  account: Account,
+  wallet: Wallet,
   services: Services,
   saveFinalKey: Function
 }
@@ -42,10 +48,9 @@ interface Props {
  * TabReceive component
  *
  * @class TabReceive
- * @extends {TabComponent<any>}
+ * @extends {TabComponent<any & Props>}
  */
 class TabReceive extends TabComponent<any & Props> {
-
   /**
    * Local state to form inputs and loading state
    */
@@ -157,9 +162,31 @@ class TabReceive extends TabComponent<any & Props> {
       })
   }
 
+  /**
+   * Method to map account to payment requests
+   */
+  private mapAccountToPaymentRequests = (options: Array<Action>) => {
+    // Check if wallet is prefilled or not
+    // Not prefilled wallets will have 0 funds for the time being and the
+    // address shown will be real
+    const isPrefilledWallet = this.props.wallet.caption === prefilledWalletCaption
+
+    return prefilledWallet
+      .accounts[0]
+      .keyChains[0]
+      .finalKeys
+      .map((finalKey: FinalKey, index: number) => {
+        return buildComputedPaymentRequest(
+          finalKey as ExternalFinalKey,
+          isPrefilledWallet ? prefilledAddresses[index] : "",
+          isPrefilledWallet ? prefilledFinalKeysFunds[index] : 0,
+          options
+        )
+      })
+  }
+
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-
     const loading = `${styles.loading} ${this.state.loading ? styles.active : ""}`
 
     const confirmedOptions = ["Option 1", "Option 2", "Option 3"].map((opt: string) => (
@@ -168,11 +195,16 @@ class TabReceive extends TabComponent<any & Props> {
         onClick: () => this.props.services.showUnimplementedMessage()
       }
     ))
-    const paymentRequestWithToast = paymentRequest.map(paymentRequest => {
-      paymentRequest.actions = confirmedOptions
 
-      return paymentRequest
-    })
+    const paymentRequestsList = (
+      <List
+        classNameList={styles.list}
+        dataSource={this.mapAccountToPaymentRequests(confirmedOptions)}
+        renderItem={PaymentRequest}
+        emptyIcon="generic"
+        emptyText="You don't have payment requests"
+      />
+    )
 
     return (
       <>
@@ -232,11 +264,11 @@ class TabReceive extends TabComponent<any & Props> {
           </Wrapper>
 
           <Wrapper
-            title="PENDING AND EXPIRED PAYMENT REQUESTS"
-            caption="Addresses that were generated but never received funds"
+            title="MY PAYMENT REQUESTS"
             actions={confirmedOptions}
+            empty={!prefilledWallet.accounts[0].keyChains[0].finalKeys.length}
           >
-            <List dataSource={paymentRequestWithToast} renderItem={PaymentRequest} />
+            {paymentRequestsList}
           </Wrapper>
         </div>
 
