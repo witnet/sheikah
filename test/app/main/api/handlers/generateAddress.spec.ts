@@ -1,3 +1,7 @@
+import { MAX_EXPIRATION_DATE_DIFF } from "app/main/api/handlers/generateAddress"
+import {
+  GenerateAddressParams
+} from "app/common/runtimeTypes/ipc/address"
 import { Wallet, Account, KeyChain } from "app/common/runtimeTypes/storage/wallets"
 import { WalletStorage } from "app/main/subsystems/wallets"
 import { generateAddress } from "app/main/api/handlers"
@@ -68,7 +72,7 @@ describe("GenerateAddress Handler", () => {
   })
 
   it("should respond with NEGATIVE_AMOUNT if amount < 0", async () => {
-    const params = { account: 0, amount: -1 }
+    const params = { account: 0, requestedAmount: -1 }
     const expected = {
       kind: "ERROR",
       error: "NEGATIVE_AMOUNT"
@@ -90,7 +94,7 @@ describe("GenerateAddress Handler", () => {
   })
 
   it("should respond with TOO_FAR_EXPIRATION_DATE if date not valid", async () => {
-    const params = { account: 0, expirationDate: 31_536_000_001 }
+    const params = { account: 0, expirationDate: MAX_EXPIRATION_DATE_DIFF + 1 }
     const expected = {
       kind: "ERROR",
       error: "TOO_FAR_EXPIRATION_DATE"
@@ -123,13 +127,13 @@ describe("GenerateAddress Handler", () => {
   })
 
   it("should respond with the generated address and put it in the storage", async () => {
-    const params = { account: 0, amount: 20, expirationDate: 1 }
+    const params: GenerateAddressParams = { account: 0, requestedAmount: 20, expirationDate: 1 }
     const keyPath = "m/3'/4919'/0'/0/0"
     const pkh = "1c31abe5cefb699ec7a787d3ad1f1105ee851a2e"
     const extendedKey = {
       chainCode: "f55975c2fda883d73495932af3974762003dfd715505ea262b1fa3105e157e04",
-      key: "03c0f6ca4b6e580687b955f49705479e0e59e0072db58abdc465c7628582507d54",
-      type: "public"
+      key: "15ac4f758a96f6606e36db3922432cc3ee81a6c7e23169164e5eeeedfcc5b7a5",
+      type: "private"
     }
     const metadata = {
       creationDate: 0,
@@ -138,7 +142,8 @@ describe("GenerateAddress Handler", () => {
     }
     const expected = {
       kind: "SUCCESS",
-      key: {
+      finalKey: {
+        kind: "external",
         extendedKey,
         keyPath,
         pkh,
