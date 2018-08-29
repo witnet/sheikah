@@ -8,7 +8,7 @@ export const transactionsReducer = (state: ComputedTransactions = defaultTransac
   action: SaveTransactionsAction): ComputedTransactions => {
   switch (action.type) {
     case Actions.SAVE_TRANSACTIONS:
-      return action.payload
+      return action.payload ? action.payload : state
     default:
       return state
   }

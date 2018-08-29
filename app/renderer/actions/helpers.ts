@@ -1,36 +1,21 @@
 import { Action } from "redux"
+import * as Actions from "./actionNames"
 
-export interface IAction extends Action { }
-export interface IActionWithPayload<T> extends IAction {
-  readonly payload: T
+export interface ActionWithPayload<T extends keyof typeof Actions, P> extends Action {
+  readonly type: T
+  readonly payload?: P
 }
 
-interface IActionCreator<T> {
-  readonly type: string
-  (payload: T): IActionWithPayload<T>
+interface IActionCreator<T extends keyof typeof Actions, P> {
+  (payload: P): ActionWithPayload<T, P>
 
-  test(action: IAction): action is IActionWithPayload<T>
+  test(action: Action): action is ActionWithPayload<T, P>
 }
 
-interface IActionCreatorVoid {
-  readonly type: string
-  (): IAction
-
-  test(action: IAction): action is IAction
-}
-
-export const actionCreator = <T>(type: string): IActionCreator<T> =>
-  Object.assign((payload: T): any => ({ type, payload }), {
+export const actionCreator = <P>(type: keyof typeof Actions): IActionCreator<typeof type, P> =>
+  Object.assign((payload: P): ActionWithPayload<typeof type, P> => ({ type, payload }), {
     type,
-    test(action: IAction): action is IActionWithPayload<T> {
-      return action.type === type
-    }
-  })
-
-export const actionCreatorVoid = (type: string): IActionCreatorVoid =>
-  Object.assign((): any => ({ type }), {
-    type,
-    test(action: IAction): action is IAction {
+    test(action: Action): action is ActionWithPayload<typeof type, P> {
       return action.type === type
     }
   })
