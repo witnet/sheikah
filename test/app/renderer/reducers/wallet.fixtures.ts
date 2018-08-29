@@ -40,9 +40,3 @@ export const validSaveWalletAction: SaveWalletAction = {
   type: "SAVE_WALLET",
   payload: newWallet
 }
-
-// Invalid action to save a new wallet
-export const invalidSaveWalletAction: SaveWalletAction = {
-  type: "UNKNOWN_ACTION",
-  payload: newWallet
-}
