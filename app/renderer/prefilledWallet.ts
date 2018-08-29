@@ -7,7 +7,8 @@ import {
   SeedInfo,
   Utxo,
   Stxo,
-  KeyChain
+  KeyChain,
+  FinalKeyMetadata
 } from "app/common/runtimeTypes/storage/wallets"
 
 export const prefilledWalletCaption = "Demo wallet with example data"
@@ -56,7 +57,7 @@ export const extendWalletData = (w: Wallet): Wallet => {
   if (wallet.caption === prefilledWallet.caption) {
     wallet = {
       ...prefilledWallet,
-      // TODO: verify which fields shoulnd't be overriden by the prefilledWallet
+      // TODO: verify which fields shouldn't be overriden by the prefilledWallet
       // and add them after ID or if the ID is the only field required take
       // the ID and caption as parameter instead of the wallet
       id: wallet.id,
@@ -76,16 +77,53 @@ function generatePrefilledAccount(): Account {
   const keyPath1 = [...keyPath, 1]
   const keyPath2 = [...keyPath, 2]
   const keyChains = [
+    // External key chain
     {
       kind: "external",
       keyPath: keyPath0,
-      finalKeys: [generateFinalKey("external", keyPath0, 0)],
+      finalKeys: [
+        generateFinalKey("external", keyPath0, 0, {
+          label: "Satoshi Nakamoto",
+          creationDate: 1526515200,
+          expirationDate: 1558051200,
+          requestedAmount: 1
+        }),
+        generateFinalKey("external", keyPath0, 1, {
+          label: "Nick Szabo",
+          creationDate: 1526515200,
+          expirationDate: 1526342400,
+          requestedAmount: 1
+        }),
+        generateFinalKey("external", keyPath0, 2, {
+          label: "Hal Finney",
+          creationDate: 1526515200,
+          requestedAmount: 1
+        }),
+        generateFinalKey("external", keyPath0, 3, {
+          label: "Peter Todd",
+          creationDate: 1526515200,
+          requestedAmount: 1
+        }),
+        generateFinalKey("external", keyPath0, 4, {
+          creationDate: 1526515200,
+          requestedAmount: 1
+        }),
+        generateFinalKey("external", keyPath0, 5, {
+          label: "Gavin Wood",
+          creationDate: 1526515200,
+          requestedAmount: 1
+        }),
+      ],
     },
+
+    // Internal key chain
     {
       kind: "internal",
       keyPath: keyPath1,
       finalKeys: [generateFinalKey("internal", keyPath1, 0)],
     },
+
+    // RAD key chain
     {
       kind: "rad",
       keyPath: keyPath2,
@@ -97,12 +135,30 @@ function generatePrefilledAccount(): Account {
 }
 
 /**
+ * Prefilled addresses of the prefilled external final keys
+ */
+export const prefilledAddresses = [
+  "twit1qqwrr2l9emakn8k857ra8tglzyz7apg69cyhm2jd",
+  "twit1qr50fefzyw52dushs6peyla223su56dqqu8cjt28",
+  "twit1qr99gcgt2v6p3q6qsx7dptkwdukrjhjl5v7cyes4",
+  "twit1qqn8f9w9uh0afqeps5jqgk0nxuzk4vuucgfl3mad",
+  "twit1qzm54qfg3570j52pm3gvt7glcdpgpg6rzu58h9rx",
+  "twit1qq6vf6x04d7vczw6e3pzparx73kk9zc6rgsn0snw"
+]
+
+/**
+ * Prefilled funds of the prefilled external final keys
+ */
+export const prefilledFinalKeysFunds = [0, 0, 0, 0.5, 1, 2]
+
+/**
  * Internal function that generates a pre-filled final key. Do not use outside of this module.
  */
 function generateFinalKey(
   kind: FinalKey["kind"],
   parentPath: Array<number>,
-  index: number
+  index: number,
+  metadata?: FinalKeyMetadata
 ): FinalKey {
   const key = Buffer.from(
     [152, 8, 159, 246, 221, 27, 159, 171, 139, 98, 82, 232, 229, 140, 201, 2, 78, 113, 141, 104,
@@ -113,10 +169,8 @@ function generateFinalKey(
   const extendedKey = { type: ("public" as "public"), key, chainCode }
   const keyPath = [...parentPath, index]
   const pkh = ""
-  const outpoint = { txid: "some tx id", index: 0 }
-  const output = { outpoint }
-  const utxos: Array<Utxo> = [output]
+  const utxos: Array<Utxo> = []
   const stxos: Array<Stxo> = []
 
-  return { kind, extendedKey, keyPath, pkh: Buffer.from(pkh), utxos, stxos } as FinalKey
+  return { kind, extendedKey, keyPath, pkh: Buffer.from(pkh), utxos, stxos, metadata } as FinalKey
 }
