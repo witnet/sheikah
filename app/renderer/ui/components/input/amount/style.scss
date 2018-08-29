@@ -1,0 +1,25 @@
+:local {
+  @import "app/renderer/ui/theme";
+  @import "app/renderer/ui/colors";
+
+  .grid {
+    position: relative;
+
+    .units {
+      align-items: center;
+      background: $grey-6;
+      border-radius: 0 4px 4px 0;
+      color: $grey-1;
+      display: flex;
+      font-size: 16px;
+      font-weight: 600;
+      height: 100%;
+      justify-content: center;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 50px;
+    }
+  }
+}
