@@ -60,7 +60,7 @@ export function createFinalKey(
     kind,
     extendedKey,
     keyPath,
-    pkh,
+    pkh: Buffer.from(pkh),
     utxos,
     stxos,
   } as FinalKey

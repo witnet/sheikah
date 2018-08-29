@@ -143,7 +143,7 @@ const CommonFinalKey = t.intersection([
   t.type({
     extendedKey: ExtendedKey,
     keyPath: KeyPath,
-    pkh: t.string,
+    pkh: SerializableBuffer
   }),
   t.partial({
     utxos: t.array(Utxo),

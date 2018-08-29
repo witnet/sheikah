@@ -1,6 +1,6 @@
 import * as t from "io-ts"
 
-import { KeyPath } from "app/common/runtimeTypes/storage/wallets"
+import { ExternalFinalKey } from "app/common/runtimeTypes/storage/wallets"
 import { GENERIC_IPC_ERROR } from "app/common/runtimeTypes/ipc"
 
 export const GenerateAddressParams = t.intersection([
@@ -17,14 +17,21 @@ export type GenerateAddressParams = t.TypeOf<typeof GenerateAddressParams>
 
 export const GenerateAddressSuccess = t.type({
   kind: t.literal("SUCCESS"),
-  keyPath: KeyPath,
-  address: t.string,
-  creationDate: t.number
+  key: ExternalFinalKey
 }, "GenerateAddressSuccess")
 
 export type GenerateAddressSuccess = t.TypeOf<typeof GenerateAddressSuccess>
 
 export const generateAddressErrors = {
+  WRONG_PARAMS: t.literal("WRONG_PARAMS"),
+  NO_UNLOCKED_WALLET: t.literal("NO_UNLOCKED_WALLET"),
+  WRONG_ACCOUNT: t.literal("WRONG_ACCOUNT"),
+  NEGATIVE_AMOUNT: t.literal("NEGATIVE_AMOUNT"),
+  PAST_EXPIRATION_DATE: t.literal("PAST_EXPIRATION_DATE"),
+  TOO_FAR_EXPIRATION_DATE: t.literal("TOO_FAR_EXPIRATION_DATE"),
+  WALLET_UPDATE_FAILURE: t.literal("WALLET_UPDATE_FAILURE"),
+  WALLET_STORE_FAILURE: t.literal("WALLET_STORE_FAILURE"),
+  ADDRESS_ENCODING_FAILURE: t.literal("ADDRESS_ENCODING_FAILURE"),
   GENERIC_IPC_ERROR
 }
 

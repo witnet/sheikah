@@ -17,9 +17,21 @@ describe("GenerateAddress API", () => {
   // Response
   const generateAddressSuccess: GenerateAddressSuccess = {
     kind: "SUCCESS",
-    keyPath: [2147483651, 2147488567, 2147483648, 0, 0],
-    address: "wit1qre9fq64r5jgv0t3m8q3tvnqwphxm9xpacvrdhe5",
-    creationDate: 1525478400    // May 5, 2018
+    key: {
+      kind: "external",
+      extendedKey: {
+        chainCode: Buffer.from("f55975c2fda883d73495932af3974762003dfd715505ea262b1fa3105e157e04"),
+        key: Buffer.from("03c0f6ca4b6e580687b955f49705479e0e59e0072db58abdc465c7628582507d54"),
+        type: "public"
+      },
+      keyPath: [2147483651, 2147488567, 2147483648, 0, 0],
+      pkh: Buffer.from("1c31abe5cefb699ec7a787d3ad1f1105ee851a2e"),
+      metadata: {
+        creationDate: 0,
+        requestedAmount: 20,
+        expirationDate: 1
+      }
+    }
   }
 
   // Mock response
