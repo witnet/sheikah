@@ -22,7 +22,7 @@ describe("GenerateAddress API", () => {
       extendedKey: {
         chainCode: "f55975c2fda883d73495932af3974762003dfd715505ea262b1fa3105e157e04",
         key: "03c0f6ca4b6e580687b955f49705479e0e59e0072db58abdc465c7628582507d54",
-        type: "public"
+        type: "private"
       },
       keyPath: "m/3'/4919'/0'/0/0",
       pkh: "1c31abe5cefb699ec7a787d3ad1f1105ee851a2ey",

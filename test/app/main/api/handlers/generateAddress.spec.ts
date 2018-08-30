@@ -75,7 +75,7 @@ describe("GenerateAddress Handler", () => {
     const params = { account: 0, requestedAmount: -1 }
     const expected = {
       kind: "ERROR",
-      error: "NEGATIVE_AMOUNT"
+      error: "NON_POSITIVE_AMOUNT"
     }
     const response = await generateAddress(system, params)
 
