@@ -112,18 +112,9 @@ class TabReceive extends TabComponent<any & Props> {
   /**
    * Calls API for generating external address
    */
-  private apiGenerateAddress = async (params: {
-    account: number,
-    label?: string,
-    requestedAmount?: number,
-    expirationDate?: number
-  }): Promise<GenerateAddressResponse> => {
-    const apiParams: GenerateAddressParams = {
-      ...params,
-      account: params.account
-    }
-
-    return api.generateAddress(this.props.services.apiClient, apiParams)
+  private apiGenerateAddress = async (params: GenerateAddressParams)
+    : Promise<GenerateAddressResponse> => {
+    return api.generateAddress(this.props.services.apiClient, params)
   }
 
   /**
@@ -162,7 +153,6 @@ class TabReceive extends TabComponent<any & Props> {
       })
       .catch((error) => {
         // Reset loading state and show error
-        console.log("Error: ", error)
         this.setState({ loading: false, errorMessage: error })
       })
   }
