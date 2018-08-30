@@ -6,7 +6,7 @@ import { connect } from "react-redux"
 import { saveTransactions, saveFinalKey } from "app/renderer/actions"
 import * as urls from "app/renderer/constants/urls"
 import { Services } from "app/renderer/services"
-import { StoreState, AccountOption } from "app/renderer/store"
+import { StoreState, WalletOption } from "app/renderer/store"
 
 import { PendingTransactionProps } from "app/renderer/ui/components/transaction/pending"
 import { ConfirmedTransactionProps } from "app/renderer/ui/components/transaction/confirmed"
@@ -39,7 +39,7 @@ import {
  */
 export interface StateProps {
   selectedAccount: number,
-  account: AccountOption,
+  wallet: WalletOption
   pendingTransactions: Array<PendingTransactionProps>
   confirmedTransactions: Array<ConfirmedTransactionProps>
 }
@@ -78,7 +78,7 @@ const mapStateToProps = (state: StoreState): StateProps => {
   return ({
     // TODO: Prototype only supports 1 account (i.e. "My hot wallet")
     selectedAccount: 0,
-    account: state.wallet && state.wallet.accounts.length > 0 ? state.wallet.accounts[0] : false,
+    wallet: state.wallet,
     confirmedTransactions: filterConfirmedTransactions(state.transactions),
     pendingTransactions: filterPendingTransactions(state.transactions)
   })
@@ -102,7 +102,7 @@ class MainContainer extends
    */
   private tabReceiveProps = {
     selectedAccount: this.props.selectedAccount,
-    account: this.props.account,
+    wallet: this.props.wallet,
     services: this.props.services,
     saveFinalKey: this.props.saveFinalKey
   }
@@ -117,6 +117,7 @@ class MainContainer extends
     pendingTransactions: this.props.pendingTransactions,
     confirmedTransactions: this.props.confirmedTransactions
   }
+
   /**
    * Method to render routing in Wallet Section
    */

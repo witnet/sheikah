@@ -225,6 +225,8 @@ export const EpochsInfo = t.intersection([
 ], "EpochsInfo")
 export type EpochsInfo = t.TypeOf<typeof EpochsInfo>
 
+export const EXTERNAL_KEY_CHAIN_IDX = 0
+
 export const Account = t.type({
   keyPath: KeyPath,
   // this will likely contain chain 0 (external), 1 (internal) and 2 (rad<sup>1</sup>)

@@ -22,11 +22,15 @@ import {
 import { assertNever } from "app/common/utils"
 import { KEYCHAIN_INDICES } from "app/common/constants/wallet"
 
-import { buildComputedPaymentRequest, Action } from "app/renderer/prefilledPaymentRequests"
+import {
+  buildComputedPaymentRequest,
+  Action,
+  ComputedPaymentRequest
+} from "app/renderer/prefilledPaymentRequests"
+
 import {
   prefilledFinalKeysFunds,
   prefilledAddresses,
-  prefilledWallet,
   prefilledWalletCaption
 } from "app/renderer/prefilledWallet"
 
@@ -165,15 +169,17 @@ class TabReceive extends TabComponent<any & Props> {
   /**
    * Method to map account to payment requests
    */
-  private mapAccountToPaymentRequests = (options: Array<Action>) => {
+  private mapAccountToPaymentRequests = (
+    options: Array<Action>
+  ): Array<ComputedPaymentRequest> => {
     // Check if wallet is prefilled or not
     // Not prefilled wallets will have 0 funds for the time being and the
     // address shown will be real
     const isPrefilledWallet = this.props.wallet.caption === prefilledWalletCaption
 
-    return prefilledWallet
-      .accounts[0]
-      .keyChains[0]
+    return this.props.wallet
+      .accounts[this.props.selectedAccount]
+      .keyChains[KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL]
       .finalKeys
       .map((finalKey: FinalKey, index: number) => {
         return buildComputedPaymentRequest(
@@ -205,6 +211,10 @@ class TabReceive extends TabComponent<any & Props> {
         emptyText="You don't have payment requests"
       />
     )
+
+    const noPaymentRequests = this.props.wallet
+      .accounts[this.props.selectedAccount]
+      .keyChains[KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL].finalKeys.length === 0
 
     return (
       <>
@@ -266,7 +276,7 @@ class TabReceive extends TabComponent<any & Props> {
           <Wrapper
             title="MY PAYMENT REQUESTS"
             actions={confirmedOptions}
-            empty={!prefilledWallet.accounts[0].keyChains[0].finalKeys.length}
+            empty={noPaymentRequests}
           >
             {paymentRequestsList}
           </Wrapper>
