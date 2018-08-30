@@ -22,7 +22,7 @@ import {
   generateAddressErrorMessages
 } from "app/common/runtimeTypes/ipc/address"
 import { assertNever } from "app/common/utils"
-import { KEYCHAIN_INDICES } from "app/renderer/constants/wallet"
+import { KEYCHAIN_INDICES } from "app/common/constants/wallet"
 
 const styles = require("./style.scss")
 

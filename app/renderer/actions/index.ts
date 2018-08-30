@@ -3,7 +3,7 @@ import { ComputedTransactions } from "app/renderer/prefilledTransactions"
 import * as Actions from "./actionNames"
 
 import { Wallet, FinalKey } from "app/common/runtimeTypes/storage/wallets"
-import { KEYCHAIN_INDICES } from "app/renderer/constants/wallet"
+import { KEYCHAIN_INDICES } from "app/common/constants/wallet"
 
 // Action creator to save wallet
 export const saveWallet = (wallet: Wallet) => {
