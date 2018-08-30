@@ -1,5 +1,3 @@
-import log from "app/common/logging"
-
 import { asRuntimeType, asObject } from "app/common/runtimeTypes"
 import { Wallet, ExternalFinalKey } from "app/common/runtimeTypes/storage/wallets"
 import { ChainType } from "app/common/chain/chainType"
@@ -20,6 +18,7 @@ import {
   generateAddressErrors
 } from "app/common/runtimeTypes/ipc/address"
 
+// Maximum expiration date difference is set to 2 years
 export const MAX_EXPIRATION_DATE_DIFF = 63_072_000
 
 type System = AppStateS & WalletStorageS
@@ -38,7 +37,9 @@ export default async function generateAddress(
   return Promise.resolve(params)
     .then(parseParams)
     .then(inject(validateParams, system))
-    .then(inject(createFinalKeyAddress, system))
+    .then(createFinalKeyAddress)
+    .then(inject(updateWallet, system))
+    .then(inject(storeWallet, system))
     .then(resultAsResponse)
     .catch(buildGenerateAddressError)
     .then((response) => asObject(response, GenerateAddressResponse))
@@ -62,8 +63,8 @@ async function validateParams(
   const wallet = system.appStateManager.state.wallet
   const now = Math.floor(Date.now() / 1000)
 
-  if (requestedAmount && requestedAmount < 0) {
-    throw generateAddressErrors.NEGATIVE_AMOUNT
+  if (requestedAmount !== undefined && requestedAmount <= 0) {
+    throw generateAddressErrors.NON_POSITIVE_AMOUNT
   }
 
   if (expirationDate) {
@@ -88,14 +89,12 @@ async function validateParams(
 
 /** Generate a final key, store it, and return its corresponding address  */
 async function createFinalKeyAddress(
-  [params, wallet]: [GenerateAddressParams, Wallet],
-  system: System
-): Promise<ExternalFinalKey> {
+  [params, wallet]: [GenerateAddressParams, Wallet]
+): Promise<[ExternalFinalKey, Wallet]> {
   try {
     const { account, ...metadata } = { ...params }
 
     const creationDate = Math.floor(Date.now() / 1000)
-    // const account = params.account
     const seed = wallet.seed.seed
     const masterKey: key.ExtendedKey<privateKey.PrivateKey> = {
       chainCode: seed.chainCode,
@@ -112,6 +111,10 @@ async function createFinalKeyAddress(
     const extendedFinalPublicKey = publicKey.create(extendedFinalPrivateKey)
     const address = p2pkh.encode(extendedFinalPublicKey.key, ChainType.test)
     const pkh = p2pkh.decode(address)[1]
+
+    // If label is undefined, then set it to Payment request #${k+1}
+    metadata.label = metadata.label || `Payment request #${finalKeyIndex + 1}`
+
     const externalFinalPrivKey: ExternalFinalKey = {
       kind: "external",
       extendedKey: {
@@ -126,20 +129,46 @@ async function createFinalKeyAddress(
         creationDate
       }
     }
-
     finalKeys.push(externalFinalPrivKey)
+
+    return [externalFinalPrivKey, wallet]
+  } catch (e) {
+    throw generateAddressErrors.ADDRESS_GENERATION_FAILURE
+  }
+}
+
+/** Update the wallet in the app state */
+async function updateWallet(
+  [finalKey, wallet]: [ExternalFinalKey, Wallet],
+  system: System
+): Promise<[ExternalFinalKey, Wallet]> {
+  try {
     system.appStateManager.update({
       wallet
     })
+
+    return [finalKey, wallet]
+  }
+  catch (e) {
+    throw generateAddressErrors.WALLET_UPDATE_FAILURE
+  }
+}
+
+/** Store the wallet in the system storage */
+async function storeWallet(
+  [finalKey, wallet]: [ExternalFinalKey, Wallet],
+  system: System
+): Promise<ExternalFinalKey> {
+  try {
     const storage = system.walletStorage.storage
     if (storage) {
       await storage.put("wallet", asObject(wallet, Wallet))
     }
 
-    return externalFinalPrivKey
-  } catch (e) {
-    log.error(e)
-    throw generateAddressErrors.GENERIC_IPC_ERROR
+    return finalKey
+  }
+  catch (e) {
+    throw generateAddressErrors.WALLET_STORE_FAILURE
   }
 }
 

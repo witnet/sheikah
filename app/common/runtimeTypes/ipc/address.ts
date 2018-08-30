@@ -25,12 +25,12 @@ export const generateAddressErrors = {
   WRONG_PARAMS: t.literal("WRONG_PARAMS"),
   NO_UNLOCKED_WALLET: t.literal("NO_UNLOCKED_WALLET"),
   WRONG_ACCOUNT: t.literal("WRONG_ACCOUNT"),
-  NEGATIVE_AMOUNT: t.literal("NEGATIVE_AMOUNT"),
+  NON_POSITIVE_AMOUNT: t.literal("NON_POSITIVE_AMOUNT"),
   PAST_EXPIRATION_DATE: t.literal("PAST_EXPIRATION_DATE"),
   TOO_FAR_EXPIRATION_DATE: t.literal("TOO_FAR_EXPIRATION_DATE"),
   WALLET_UPDATE_FAILURE: t.literal("WALLET_UPDATE_FAILURE"),
   WALLET_STORE_FAILURE: t.literal("WALLET_STORE_FAILURE"),
-  ADDRESS_ENCODING_FAILURE: t.literal("ADDRESS_ENCODING_FAILURE"),
+  ADDRESS_GENERATION_FAILURE: t.literal("ADDRESS_GENERATION_FAILURE"),
   GENERIC_IPC_ERROR
 }
 
@@ -38,12 +38,12 @@ export const generateAddressErrorMessages = {
   WRONG_PARAMS: "Wrong parameters",
   NO_UNLOCKED_WALLET: "No unlocked wallet",
   WRONG_ACCOUNT: "Wrong account",
-  NEGATIVE_AMOUNT: "Negative amount is forbidden",
+  NON_POSITIVE_AMOUNT: "A non-positive amount is forbidden",
   PAST_EXPIRATION_DATE: "Past expiration date is forbidden",
   TOO_FAR_EXPIRATION_DATE: "Expiration date is too far",
   WALLET_UPDATE_FAILURE: "Wallet update failure",
   WALLET_STORE_FAILURE: "Wallet store failure",
-  ADDRESS_ENCODING_FAILURE: "Address encoding failure",
+  ADDRESS_GENERATION_FAILURE: "Address generation failure",
   GENERIC_IPC_ERROR: "Unknown Error"
 }
 
