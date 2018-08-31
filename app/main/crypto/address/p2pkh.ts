@@ -1,53 +1,40 @@
-import * as Bech32 from "bech32"
 import { PublicKey } from "app/main/crypto/key/publicKey"
 import { sha256 } from "app/main/crypto/hash"
-import { ChainType } from "app/common/chain/chainType"
 import { Errors } from "app/main/crypto/errors"
-import { kvSwap } from "app/main/utils/utils"
+import { encodeBech32, decodeBech32, chainTypeToPrefix } from "app/common/witnet-js/addresses/p2pkh"
+import { ChainType } from "app/common/chain/chainType"
 
 /**
- * This object maps Witnet address prefixes to chain types.
+ * Get first 20 bytes of public-key-hash from public key
+ * @param pubKey
  */
-const prefixToChainType: { [key: string]: number } = {
-  twit: ChainType.test,
-  wit: ChainType.main
+export const computePkh = (pubKey: PublicKey) => {
+  return sha256(pubKey.bytes).slice(0, 20)
 }
 
 /**
- * This object maps chain types to Witnet address prefixes.
- * @type {{ [key: number]: string }}
- */
-const chainTypeToPrefix = kvSwap(prefixToChainType)
-
-/**
- * Encode pay-to-public-key-hash (P2PKH) address
+ * Get pay-to-public-key-hash (P2PKH) address from public key
  * @param {PublicKey} pubKey public key
  * @param chain
  * @returns {string} address
  */
-export const encode = (pubKey: PublicKey, chain: ChainType): string => {
+export const computeAddress = (pubKey: PublicKey, chain: ChainType): string => {
+  // Check chain type prior to crypto ops
   if (!(chain in chainTypeToPrefix)) {
     throw new Error(Errors.UNSUPPORTED_CHAIN_TYPE)
   }
-  const b32 = Bech32.toWords(Buffer.concat([Buffer.from([0]), sha256(pubKey.bytes).slice(0, 20)]))
-  const hrp: string = chainTypeToPrefix[chain]
 
-  return Bech32.encode(hrp, b32)
+  // Compute pkh
+  const pkh: Buffer = computePkh(pubKey)
+
+  return encodeBech32(pkh, chain)
 }
 
 /**
- * Decode the chain type and the hash of the first 20 bytes of the public key
+ * Decode the chain type and the first 20 bytes of the hash of the public key
  * @param {string} address
- * @returns {[ChainType , Buffer]}
+ * @returns {[Buffer, ChainType]}
  */
-export const decode = (address: string): [ChainType, Buffer] => {
-  const { prefix, words } = Bech32.decode(address)
-  const keyHash = Buffer.from(Bech32.fromWords(words))
-
-  if (!(prefix in prefixToChainType)) {
-    throw new Error(Errors.UNSUPPORTED_CHAIN_TYPE)
-  }
-  const chainType: ChainType = prefixToChainType[prefix]
-
-  return [chainType, keyHash.slice(1)]
+export const decodeAddress = (address: string): [Buffer, ChainType] => {
+  return decodeBech32(address)
 }
