@@ -1,6 +1,5 @@
 import { asRuntimeType, asObject } from "app/common/runtimeTypes"
 import { Wallet, ExternalFinalKey } from "app/common/runtimeTypes/storage/wallets"
-import { ChainType } from "app/common/chain/chainType"
 import { JsonSerializable } from "app/common/serializers/json"
 
 import { inject } from "app/main/utils/utils"
@@ -8,7 +7,6 @@ import { AppStateS, WalletStorageS } from "app/main/system"
 import * as publicKey from "app/main/crypto/key/publicKey"
 import * as privateKey from "app/main/crypto/key/privateKey"
 import * as key from "app/main/crypto/key/key"
-import * as p2pkh from "app/main/crypto/address/p2pkh"
 import * as keyPath from "app/main/crypto/keyPath"
 import {
   buildGenerateAddressError,
@@ -17,6 +15,8 @@ import {
   GenerateAddressSuccess,
   generateAddressErrors
 } from "app/common/runtimeTypes/ipc/address"
+
+import { computePkh } from "app/main/crypto/address/p2pkh"
 
 // Maximum expiration date difference is set to 2 years
 export const MAX_EXPIRATION_DATE_DIFF = 63_072_000
@@ -109,8 +109,7 @@ async function createFinalKeyAddress(
     const extendedFinalPrivateKey = privateKey.derive(masterKey, path)
     const keyPathStruct = keyPath.fromString(path)
     const extendedFinalPublicKey = publicKey.create(extendedFinalPrivateKey)
-    const address = p2pkh.encode(extendedFinalPublicKey.key, ChainType.test)
-    const pkh = p2pkh.decode(address)[1]
+    const pkh = computePkh(extendedFinalPublicKey.key)
 
     // If label is undefined, then set it to Payment request #${k+1}
     metadata.label = metadata.label || `Payment request #${finalKeyIndex + 1}`
