@@ -85,15 +85,25 @@ function computeFundedStatus(
   requestedAmount?: number
 ): FundedStatus {
 
-  return (funds === 0)
-    ? "pending"
-    : (!requestedAmount)
-      ? "funded"
-      : (funds === requestedAmount)
+  return (
+    (funds === 0)
+      // No funds were received => PENDING
+      ? "pending"
+      // Funds were received...
+      : (!requestedAmount)
+        // and no amount was requested => FUNDED
         ? "funded"
-        : (funds > requestedAmount)
-          ? "overfunded"
-          : "partially funded"
+        // , an amount was requested...
+        : (funds === requestedAmount)
+          // and the requested amount equals the funds => FUNDED
+          ? "funded"
+          // , the requested amount is different from the funds received...
+          : (funds > requestedAmount)
+            // and it is greater => OVERFUNDED
+            ? "overfunded"
+            // and it is smaller => PARTIALLY FUNDED
+            : "partially funded"
+  )
 }
 
 /**
@@ -106,13 +116,21 @@ function computeExpiredStatus(
 
   const nowTs = Math.floor(Date.now() / 1000)
 
-  return (!expirationDate)
-    ? "unknown"
-    : (nowTs < expirationDate)
-      ? "not expired"
-      : (fundedStatus !== "pending")
-        ? "unknown"
-        : "expired"
+  return (
+    (!expirationDate)
+      // There is no expiration date => UNKNOWN
+      ? "unknown"
+      // There is an expiration date...
+      : (nowTs < expirationDate)
+        // and it has not come yet => NOT EXPIRED
+        ? "not expired"
+        // , the expiration date has already come...
+        : (fundedStatus !== "pending")
+          // but some funds were received => UNKNOWN
+          ? "unknown"
+          // and no funds were received => EXPIRED
+          : "expired"
+  )
 }
 
 /**

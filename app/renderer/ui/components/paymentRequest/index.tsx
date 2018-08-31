@@ -54,11 +54,15 @@ export default class PaymentRequest extends React.Component<OwnProps> {
    */
   private buildLabel = () => {
     const fromSpan = this.props.metadata && this.props.metadata.label
+      // There is a label in the payment request
       ? <span>From {this.props.metadata.label} </span>
+      // No label in the payment request
       : <></>
 
     const witSpan = this.props.metadata && this.props.metadata.label
+      // There is a label in the payment request...
       ? this.props.metadata.requestedAmount
+        // and there is some requested amount
         ? (
           <>
             <span>({this.props.metadata.requestedAmount}</span>
@@ -66,19 +70,32 @@ export default class PaymentRequest extends React.Component<OwnProps> {
             <span>)</span>
           </>
         )
+        // and there is no requested amount
         : (
           <></>
         )
-      : this.props.funds !== 0
+      // No label in the payment request...
+      : this.props.metadata && this.props.metadata.requestedAmount
+        // and there is some requested amount
         ? (
           <>
-            <span>{this.props.funds}</span>
+            <span>{this.props.metadata.requestedAmount}</span>
             {this.getWitSpan()}
           </>
         )
-        : (
-          <></>
-        )
+        // , there is no requested amount...
+        : this.props.funds !== 0
+          // and some funds were received
+          ? (
+            <>
+              <span>{this.props.funds}</span>
+              {this.getWitSpan()}
+            </>
+          )
+          // and no funds were received
+          : (
+            <></>
+          )
 
     return (
       <>
@@ -95,9 +112,11 @@ export default class PaymentRequest extends React.Component<OwnProps> {
     // Funded status
     const fundedStatus = {
       pending: this.props.expiredStatus === "expired"
+        // Pending but expired
         ? (
           <></>
         )
+        // Pending and not expired
         : (
           <span className={styles.yellow}>Pending</span>
         ),
