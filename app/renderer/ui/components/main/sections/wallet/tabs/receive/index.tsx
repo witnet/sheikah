@@ -34,6 +34,9 @@ import {
   prefilledWalletCaption
 } from "app/renderer/prefilledWallet"
 
+import { encodeBech32 } from "app/common/witnet-js/addresses/p2pkh"
+import { ChainType } from "app/common/chain/chainType"
+
 const styles = require("./style.scss")
 
 /**
@@ -184,7 +187,9 @@ class TabReceive extends TabComponent<any & Props> {
       .map((finalKey: FinalKey, index: number) => {
         return buildComputedPaymentRequest(
           finalKey as ExternalFinalKey,
-          isPrefilledWallet ? prefilledAddresses[index] : "",
+          isPrefilledWallet
+            ? prefilledAddresses[index]
+            : encodeBech32(finalKey.pkh, ChainType.test),
           isPrefilledWallet ? prefilledFinalKeysFunds[index] : 0,
           options
         )
