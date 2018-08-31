@@ -10,6 +10,7 @@ import {
   KeyChain,
   FinalKeyMetadata
 } from "app/common/runtimeTypes/storage/wallets"
+import { KEYCHAIN_INDICES } from "app/common/constants/wallet"
 
 export const prefilledWalletCaption = "Demo wallet with example data"
 
@@ -53,15 +54,36 @@ function generatePrefilledWallet(): Wallet {
  * @param w wallet
  */
 export const extendWalletData = (w: Wallet): Wallet => {
-  let wallet = w
-  if (wallet.caption === prefilledWallet.caption) {
+  let wallet: Wallet
+
+  // Check if prefilled wallet
+  if (w.caption === prefilledWallet.caption) {
+    // Concat prefilled final keys with generated final keys
+    const finalKeys = prefilledWallet
+      .accounts[0]
+      .keyChains[KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL]
+      .finalKeys
+      .concat(
+        w.accounts[0]
+          .keyChains[KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL]
+          .finalKeys
+      )
+
     wallet = {
       ...prefilledWallet,
       // TODO: verify which fields shouldn't be overriden by the prefilledWallet
       // and add them after ID or if the ID is the only field required take
       // the ID and caption as parameter instead of the wallet
-      id: wallet.id,
+      id: w.id,
     }
+
+    // Add final keys to prefilled wallet
+    wallet
+      .accounts[0]
+      .keyChains[KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL]
+      .finalKeys = finalKeys
+  } else {
+    wallet = w
   }
 
   return wallet

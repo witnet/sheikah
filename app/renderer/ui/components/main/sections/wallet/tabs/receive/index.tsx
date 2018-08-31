@@ -187,10 +187,12 @@ class TabReceive extends TabComponent<any & Props> {
       .map((finalKey: FinalKey, index: number) => {
         return buildComputedPaymentRequest(
           finalKey as ExternalFinalKey,
-          isPrefilledWallet
+          isPrefilledWallet && index < prefilledAddresses.length
             ? prefilledAddresses[index]
             : encodeBech32(finalKey.pkh, ChainType.test),
-          isPrefilledWallet ? prefilledFinalKeysFunds[index] : 0,
+          isPrefilledWallet && index < prefilledFinalKeysFunds.length
+            ? prefilledFinalKeysFunds[index]
+            : 0,
           options
         )
       })
