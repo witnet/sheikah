@@ -27,6 +27,7 @@
       "ct";
     grid-template-rows: repeat(2, 60px 1fr);
     max-height: 100vh;
+    overflow: scroll;
   }
 
   .top-bar {
