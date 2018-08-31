@@ -1,6 +1,7 @@
 :local {
   .layout {
     display: grid;
+    grid-gap: 3em;
     grid-template-columns: 3fr 1fr;
     padding: 3em;
   }
