@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Action, bindActionCreators, Dispatch } from "redux"
-import { RouteComponentProps, Switch, Route } from "react-router"
+import { RouteComponentProps, Switch } from "react-router"
 import { connect } from "react-redux"
 
 import { saveTransactions, saveFinalKey } from "app/renderer/actions"
@@ -22,9 +22,8 @@ import { PropsRoute } from "app/renderer/utils/propsRoute"
 import { filterPendingTransactions, filterConfirmedTransactions } from "app/renderer/selectors"
 
 import {
-  TabMyContracts,
-  TabEasyComposer,
-  TabProEditor
+  TabHistory,
+  TabEditor
 } from "app/renderer/ui/components/main/sections/smartContracts/tabs"
 
 /**
@@ -148,15 +147,36 @@ class MainContainer extends
   //}
 
   /**
+   * Props to be passed to tab receive
+   *
+   * @private
+   * @memberof MainContainer
+   */
+  private tabSmartContractsProps = {
+    services: this.props.services
+  }
+
+  /**
    * Method to render routing in Smart Contracts section
    */
   private routingSmartContractsSection = () => {
     return (
       <Switch>
-        <Route path={urls.MY_CONTRACTS_TAB} component={TabMyContracts.component} />
-        <Route path={urls.EASY_COMPOSER_TAB} component={TabEasyComposer.component} />
-        <Route path={urls.PROEDITOR_TAB} component={TabProEditor.component} />
-        <Route path="/" component={TabMyContracts.component} />
+        <PropsRoute
+          path={urls.SMART_CONTRACTS_HISTORY_TAB}
+          ownProps={this.tabSmartContractsProps}
+          component={TabHistory.component}
+        />
+        <PropsRoute
+          path={urls.SMART_CONTRACTS_EDITOR_TAB}
+          ownProps={this.tabSmartContractsProps}
+          component={TabEditor.component}
+        />
+        <PropsRoute
+          path="/"
+          ownProps={this.tabSmartContractsProps}
+          component={TabHistory.component}
+        />
       </Switch>
     )
   }
@@ -164,7 +184,7 @@ class MainContainer extends
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
-    const ownProps = {...this.props, pathName: this.props.location.pathname }
+    const ownProps = { ...this.props, pathName: this.props.location.pathname }
 
     return (
       <MainPage
