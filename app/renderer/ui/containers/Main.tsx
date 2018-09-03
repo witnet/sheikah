@@ -20,11 +20,6 @@ import { PropsRoute } from "app/renderer/utils/propsRoute"
 
 import { filterPendingTransactions, filterConfirmedTransactions } from "app/renderer/selectors"
 
-import {
-  TabHistory,
-  TabEditor
-} from "app/renderer/ui/components/main/sections/smartContracts/tabs"
-
 /**
  * Props that match redux store state
  */
@@ -145,41 +140,6 @@ class MainContainer extends
   //  )
   //}
 
-  /**
-   * Props to be passed to tab receive
-   *
-   * @private
-   * @memberof MainContainer
-   */
-  private tabSmartContractsProps = {
-    services: this.props.services
-  }
-
-  /**
-   * Method to render routing in Smart Contracts section
-   */
-  private routingSmartContractsSection = () => {
-    return (
-      <Switch>
-        <PropsRoute
-          path={urls.SMART_CONTRACTS_HISTORY_TAB}
-          ownProps={this.tabSmartContractsProps}
-          component={TabHistory.component}
-        />
-        <PropsRoute
-          path={urls.SMART_CONTRACTS_EDITOR_TAB}
-          ownProps={this.tabSmartContractsProps}
-          component={TabEditor.component}
-        />
-        <PropsRoute
-          path="/"
-          ownProps={this.tabSmartContractsProps}
-          component={TabHistory.component}
-        />
-      </Switch>
-    )
-  }
-
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
@@ -204,7 +164,6 @@ class MainContainer extends
           <PropsRoute
             path={urls.SMART_CONTRACTS_SECTION}
             ownProps={ownProps}
-            children={this.routingSmartContractsSection()}
             component={SmartContractsSection.component}
           />
           <PropsRoute
