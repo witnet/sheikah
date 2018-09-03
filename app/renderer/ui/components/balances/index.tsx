@@ -27,6 +27,7 @@ export default class Balances extends React.Component<BalanceProps> {
         title="BALANCES"
         contentClassName={styles.balances}
         className={`${this.props.className}`}
+        empty={true}
       >
         <div className={styles.line}>
           <p className={styles.text}>Available balance</p>
