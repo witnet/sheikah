@@ -1,9 +1,7 @@
-import TabEasyComposer from "./easyComposer"
-import TabMyContracts from "./myContracts"
-import TabProEditor from "./proEditor"
+import TabEditor from "./editor"
+import TabHistory from "./history"
 
 export {
-  TabEasyComposer,
-  TabMyContracts,
-  TabProEditor
+  TabEditor,
+  TabHistory
 }
