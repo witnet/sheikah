@@ -67,7 +67,7 @@ const SmartContractsSection: SectionInfo = {
   key: "smartcontracts",
   caption: "Smart Contracts",
   sectionPath: urls.SMART_CONTRACTS_SECTION,
-  path: urls.MY_CONTRACTS_TAB,
+  path: urls.SMART_CONTRACTS_HISTORY_TAB,
   component: SmartContracts,
   icon: "code"
 }
