@@ -1,0 +1,25 @@
+:local {
+  @import "app/renderer/ui/theme";
+
+  .left {
+    grid-column: 1;
+  }
+
+  .right {
+    grid-column: 2;
+
+    .title {
+      font-weight: $tab-title-font_weight;
+      margin-bottom: 1.5em;
+    }
+
+    .text {
+      color: $tab-text-color;
+      font-size: $tab-font_size;
+      font-style: italic;
+      font-weight: $tab-font_weight;
+      line-height: 1.5;
+      margin-bottom: 1.5em;
+    }
+  }
+}

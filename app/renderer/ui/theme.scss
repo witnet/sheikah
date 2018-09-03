@@ -205,7 +205,12 @@ $spinner-main-border: 2px dotted $grey-5;
 $spinner-secondary-border: 3px solid $purple-6;
 $spinner-width: 80px;
 
-// TAB
+// TAB default styles
+$tab-font_size: 14px;
+$tab-font_weight: 300;
+$tab-text-color: $grey-5;
+$tab-title-font_weight: 600;
+
 // TAB_MARKETPLACE
 $tab_marketplace-header-background: $blue-4;
 $tab_marketplace-header-color: $grey-1;
@@ -214,12 +219,6 @@ $tab_marketplace-header-literal_sheikah: $purple-6;
 $tab_marketplace-subtitle-font_size: 24px;
 $tab_marketplace-title-font_size: 64px;
 $tab_marketplace-title-font_weight: 600;
-
-// TAB_RECEIVE
-$tab_receive-font_size: 14px;
-$tab_receive-font_weight: 300;
-$tab_receive-text-color: $grey-5;
-$tab_receive-title-font_weight: 800;
 
 //TAB_SEND
 $tab_send-info-color: $grey-5;

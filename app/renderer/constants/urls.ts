@@ -34,6 +34,5 @@ export const SEND_TAB = `${WALLET_SECTION}/send`
 export const RECEIVE_TAB = `${WALLET_SECTION}/receive`
 
 // Main-SmartContractsSection URLs
-export const MY_CONTRACTS_TAB = `${SMART_CONTRACTS_SECTION}/mycontracts`
-export const EASY_COMPOSER_TAB = `${SMART_CONTRACTS_SECTION}/easycomposer`
-export const PROEDITOR_TAB = `${SMART_CONTRACTS_SECTION}/proeditor`
+export const SMART_CONTRACTS_HISTORY_TAB = `${SMART_CONTRACTS_SECTION}/history`
+export const SMART_CONTRACTS_EDITOR_TAB = `${SMART_CONTRACTS_SECTION}/editor`

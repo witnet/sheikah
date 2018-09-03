@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Action, bindActionCreators, Dispatch } from "redux"
-import { RouteComponentProps, Switch, Route } from "react-router"
+import { RouteComponentProps, Switch } from "react-router"
 import { connect } from "react-redux"
 
 import { saveTransactions, saveFinalKey } from "app/renderer/actions"
@@ -20,12 +20,6 @@ import WalletSection from "app/renderer/ui/components/main/sections/wallet"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 
 import { filterPendingTransactions, filterConfirmedTransactions } from "app/renderer/selectors"
-
-import {
-  TabMyContracts,
-  TabEasyComposer,
-  TabProEditor
-} from "app/renderer/ui/components/main/sections/smartContracts/tabs"
 
 /**
  * Props that match redux store state
@@ -147,24 +141,10 @@ class MainContainer extends
   //  )
   //}
 
-  /**
-   * Method to render routing in Smart Contracts section
-   */
-  private routingSmartContractsSection = () => {
-    return (
-      <Switch>
-        <Route path={urls.MY_CONTRACTS_TAB} component={TabMyContracts.component} />
-        <Route path={urls.EASY_COMPOSER_TAB} component={TabEasyComposer.component} />
-        <Route path={urls.PROEDITOR_TAB} component={TabProEditor.component} />
-        <Route path="/" component={TabMyContracts.component} />
-      </Switch>
-    )
-  }
-
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
-    const ownProps = {...this.props, pathName: this.props.location.pathname }
+    const ownProps = { ...this.props, pathName: this.props.location.pathname }
 
     return (
       <MainPage
@@ -185,7 +165,6 @@ class MainContainer extends
           <PropsRoute
             path={urls.SMART_CONTRACTS_SECTION}
             ownProps={ownProps}
-            children={this.routingSmartContractsSection()}
             component={SmartContractsSection.component}
           />
           <PropsRoute

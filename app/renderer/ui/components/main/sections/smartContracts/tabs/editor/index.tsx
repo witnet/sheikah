@@ -4,27 +4,30 @@ import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
 import * as urls from "app/renderer/constants/urls"
 
 /**
- * EasyComposer component
+ * Smart Contracts Editor tab component
  *
- * @class EasyComposer
+ * @class TabEditor
  * @extends {TabComponent<any>}
  */
-class EasyComposer extends TabComponent<any> {
+class TabEditor extends TabComponent<any> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
       <div>
-        Smart contracts section - east composer Tab
+        Smart contracts section - editor tab
       </div>
     )
   }
 }
 
-const EasyComposerTab: TabInfo = {
-  key: "easycomposer",
-  caption: "easy composer",
-  path: urls.EASY_COMPOSER_TAB,
-  component: EasyComposer
+/**
+ * Tab information
+ */
+const EditorTab: TabInfo = {
+  key: "editor",
+  caption: "Editor",
+  path: urls.SMART_CONTRACTS_EDITOR_TAB,
+  component: TabEditor
 }
 
-export default EasyComposerTab
+export default EditorTab
