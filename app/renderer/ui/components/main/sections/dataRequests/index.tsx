@@ -25,6 +25,7 @@ class DataRequests extends React.Component<SectionProps> {
 const DataRequestsSection: SectionInfo = {
   key: "datarequests",
   caption: "Data Requests",
+  sectionPath: urls.DATA_REQUESTS_SECTION,
   path: urls.DATA_REQUESTS_SECTION,
   component: DataRequests,
   icon: "eye"

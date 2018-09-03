@@ -25,6 +25,7 @@ export class Community extends React.Component<SectionProps> {
 const CommunitySection: SectionInfo = {
   key: "community",
   caption: "Community",
+  sectionPath: urls.COMMUNITY_SECTION,
   path: urls.COMMUNITY_SECTION,
   component: Community,
   icon: "users"
