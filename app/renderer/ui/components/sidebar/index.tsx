@@ -23,7 +23,7 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
 
   // tslint:disable-next-line: completed-docs
   public render() {
-    const src = `../../../resources/svg/sheikah.svg`
+    const src = require("svg/sheikah.svg")
 
     return (
       <div className={`${this.props.className} ${styles.sidebar}`}>

@@ -17,7 +17,7 @@ interface Props {
 export default class EmptyState extends React.Component<Props> {
   // tslint:disable-next-line: completed-docs
   public render() {
-    const src = `../../../resources/svg/${this.props.iconName || "generic"}.svg`
+    const src = require(`svg/${this.props.iconName || "generic"}.svg`)
 
     return (
       <div className={styles.content}>
