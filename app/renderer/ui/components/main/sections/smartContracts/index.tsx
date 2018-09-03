@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { TabMyContracts, TabEasyComposer, TabProEditor, TabMarketplace } from "./tabs"
+import { TabMyContracts, TabEasyComposer, TabProEditor } from "./tabs"
 import TopBar from "app/renderer/ui/components/topBar/index"
 import { TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
 import { SectionInfo, TabInfo, SectionProps } from "app/renderer/ui/components/main/sections"
@@ -20,7 +20,7 @@ class SmartContracts extends React.Component<SectionProps> {
 
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-    const tabs: Array<TabInfo> = [TabMyContracts, TabEasyComposer, TabProEditor, TabMarketplace]
+    const tabs: Array<TabInfo> = [TabMyContracts, TabEasyComposer, TabProEditor]
     const topBarlinkProps: Array<TopBarLinkProps> = tabs.map(tab => (
       {
         key: tab.key,

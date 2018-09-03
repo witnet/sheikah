@@ -14,7 +14,7 @@ import { MainPage } from "app/renderer/ui/components/main"
 import WalletSection from "app/renderer/ui/components/main/sections/wallet"
 import SmartContractsSection from "app/renderer/ui/components/main/sections/smartContracts"
 import AttestationsSection from "app/renderer/ui/components/main/sections/attestations"
-import BlockExplorerSection from "app/renderer/ui/components/main/sections/blockExplorer"
+import MarketplaceSection from "app/renderer/ui/components/main/sections/marketplace"
 import CommunitySection from "app/renderer/ui/components/main/sections/community"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 
@@ -23,8 +23,7 @@ import { filterPendingTransactions, filterConfirmedTransactions } from "app/rend
 import {
   TabMyContracts,
   TabEasyComposer,
-  TabProEditor,
-  TabMarketplace
+  TabProEditor
 } from "app/renderer/ui/components/main/sections/smartContracts/tabs"
 import {
   TabCoins,
@@ -220,7 +219,6 @@ class MainContainer extends
         <Route path={urls.MY_CONTRACTS_TAB} component={TabMyContracts.component} />
         <Route path={urls.EASY_COMPOSER_TAB} component={TabEasyComposer.component} />
         <Route path={urls.PROEDITOR_TAB} component={TabProEditor.component} />
-        <Route path={urls.MARKETPLACE_TAB} component={TabMarketplace.component} />
         <Route path="/" component={TabMyContracts.component} />
       </Switch>
     )
@@ -244,20 +242,20 @@ class MainContainer extends
             component={WalletSection.component}
           />
           <PropsRoute
+            path={urls.ATTESTATIONS_SECTION}
+            ownProps={ownProps}
+            component={AttestationsSection.component}
+          />
+          <PropsRoute
             path={urls.SMART_CONTRACTS_SECTION}
             ownProps={ownProps}
             children={this.routingSmartContractsSection()}
             component={SmartContractsSection.component}
           />
           <PropsRoute
-            path={urls.ATTESTATIONS_SECTION}
+            path={urls.MARKETPLACE_SECTION}
             ownProps={ownProps}
-            component={AttestationsSection.component}
-          />
-          <PropsRoute
-            path={urls.BLOCK_EXPLORER_SECTION}
-            ownProps={ownProps}
-            component={BlockExplorerSection.component}
+            component={MarketplaceSection.component}
           />
           <PropsRoute
             path={urls.COMMUNITY_SECTION}

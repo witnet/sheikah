@@ -21,9 +21,9 @@ export const WALLET_PASSWORD_PROMPT = `${LOGIN}/password`
 // Main URLs
 export const MAIN = "/main"
 export const WALLET_SECTION = `${MAIN}/wallet`
-export const SMART_CONTRACTS_SECTION = `${MAIN}/smartcontracts`
 export const ATTESTATIONS_SECTION = `${MAIN}/attestations`
-export const BLOCK_EXPLORER_SECTION = `${MAIN}/blockexplorer`
+export const SMART_CONTRACTS_SECTION = `${MAIN}/smartcontracts`
+export const MARKETPLACE_SECTION = `${MAIN}/marketplace`
 export const COMMUNITY_SECTION = `${MAIN}/community`
 
 // Main-WalletSection URLs
@@ -32,8 +32,7 @@ export const COINS_TAB = `${WALLET_SECTION}/coins`
 export const SEND_TAB = `${WALLET_SECTION}/send`
 export const RECEIVE_TAB = `${WALLET_SECTION}/receive`
 
-// Main-SmartContracts URLs
+// Main-SmartContractsSection URLs
 export const MY_CONTRACTS_TAB = `${SMART_CONTRACTS_SECTION}/mycontracts`
 export const EASY_COMPOSER_TAB = `${SMART_CONTRACTS_SECTION}/easycomposer`
 export const PROEDITOR_TAB = `${SMART_CONTRACTS_SECTION}/proeditor`
-export const MARKETPLACE_TAB = `${SMART_CONTRACTS_SECTION}/marketplace`

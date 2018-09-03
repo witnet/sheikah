@@ -3,18 +3,19 @@ import React = require("react")
 import Sidebar from "app/renderer/ui/components/sidebar"
 import { SectionInfo } from "app/renderer/ui/components/main/sections"
 
-import SmartContractsSection from "app/renderer/ui/components/main/sections/smartContracts"
-import AttestationsSection from "app/renderer/ui/components/main/sections/attestations"
-import BlockExplorerSection from "app/renderer/ui/components/main/sections/blockExplorer"
-import CommunitySection from "app/renderer/ui/components/main/sections/community"
 import WalletSection from "app/renderer/ui/components/main/sections/wallet"
+import AttestationsSection from "app/renderer/ui/components/main/sections/attestations"
+import SmartContractsSection from "app/renderer/ui/components/main/sections/smartContracts"
+import MarketplaceSection from "app/renderer/ui/components/main/sections/marketplace"
+import CommunitySection from "app/renderer/ui/components/main/sections/community"
+
 import { Services } from "app/renderer/services"
 
 const styles = require("app/renderer/ui/components/main/style.scss")
 
 // Array of info for all sections in main page
 const sections: Array<SectionInfo> = [
-  WalletSection, SmartContractsSection, AttestationsSection, BlockExplorerSection, CommunitySection
+  WalletSection, AttestationsSection, SmartContractsSection, MarketplaceSection, CommunitySection
 ]
 
 // Props passed to the sidebar component
