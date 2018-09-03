@@ -1,3 +1,4 @@
+import CardDefault from "app/renderer/ui/components/card/default"
 import * as React from "react"
 
 import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
@@ -45,9 +46,11 @@ class TabHistory extends TabComponent<any & Props> {
           <Wrapper
             title="BY TEMPLATE"
             actions={byTemplateOptions}
-            className={styles.confirmed}
+            className={styles.paddingLess}
           >
-            <img src={svgImage} />
+            <CardDefault>
+              <img src={svgImage} />
+            </CardDefault>
           </Wrapper>
         </div>
 
