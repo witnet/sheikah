@@ -8,6 +8,10 @@
     grid-template-columns: auto auto 1fr;
     grid-template-rows: auto;
     padding: 30px 50px;
+
+    &:last-child {
+      border: none;
+    }
   }
 
   .status-icon {

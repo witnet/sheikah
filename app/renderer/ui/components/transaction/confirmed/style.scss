@@ -9,6 +9,10 @@
     grid-template-columns: auto auto 1fr auto;
     grid-template-rows: auto;
     padding: 30px 50px;
+
+    &:last-child {
+      border: none;
+    }
   }
 
   .green {
