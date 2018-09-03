@@ -203,17 +203,24 @@ class TabReceive extends TabComponent<any & Props> {
   public render() {
     const loading = `${styles.loading} ${this.state.loading ? styles.active : ""}`
 
-    const confirmedOptions = ["Option 1", "Option 2", "Option 3"].map((opt: string) => (
-      {
-        text: opt,
-        onClick: () => this.props.services.showUnimplementedMessage()
-      }
-    ))
+    const listOptions = ["Export all payment requests as CSV"].map((opt: string) => ({
+      text: opt,
+      onClick: () => this.props.services.showUnimplementedMessage()
+    }))
+
+    const itemOptions = [
+      "Copy address",
+      "Generate QR code",
+      "View related transactions in block explorer"
+    ].map((opt: string) => ({
+      text: opt,
+      onClick: () => this.props.services.showUnimplementedMessage()
+    }))
 
     const paymentRequestsList = (
       <List
         classNameList={styles.list}
-        dataSource={this.mapAccountToPaymentRequests(confirmedOptions)}
+        dataSource={this.mapAccountToPaymentRequests(itemOptions)}
         renderItem={PaymentRequest}
         emptyIcon="generic"
         emptyText="You don't have payment requests"
@@ -283,7 +290,7 @@ class TabReceive extends TabComponent<any & Props> {
 
           <Wrapper
             title="MY PAYMENT REQUESTS"
-            actions={confirmedOptions}
+            actions={listOptions}
             empty={noPaymentRequests}
           >
             {paymentRequestsList}

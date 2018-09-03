@@ -38,16 +38,13 @@ interface OwnProps {
 class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-    const confirmedOptions = ["Option 1", "Option 2", "Option 3"].map((opt: string) => (
-    {
+    const listOptions = ["Export all transactions as CSV", "View in block explorer"]
+      .map((opt: string) => ({
         text: opt,
         onClick: () => {
           this.props.services.showUnimplementedMessage()
-
-          return
         }
-      }
-    ))
+      }))
 
     const pendingTransactionsList = (
       <List
@@ -81,7 +78,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
           <Wrapper
             title="CONFIRMED"
             caption={`${this.props.confirmedTransactions.length} transactions`}
-            actions={confirmedOptions}
+            actions={listOptions}
             className={styles.confirmed}
             empty={!this.props.confirmedTransactions.length}
           >
@@ -93,7 +90,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
           <Balances className={styles.balances} {...balanceData} />
           <Wrapper
             title="VESTING SCHEDULE GRAPH"
-            actions={confirmedOptions}
+            actions={listOptions}
             className={styles["vesting-graph"]}
             empty={true}
 
