@@ -56,14 +56,21 @@ class TabHistory extends TabComponent<any & Props> {
 
         <div className={styles.right}>
           <p className={styles.title}>About Smart Contracts</p>
-          {/* TODO: Insert description about Smart Contracts */}
           <p className={styles.text}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            Smart contracts are programs that live in the blockchain. They have their own addresses
+            for receiving Witnet tokens, but the ability to spend those tokens is determined by the
+            code of the programs themselves.
+          </p>
+          <p className={styles.text}>
+            Smart contracts can also read data requests and decide upon their result. For example,
+            a group of people can lock tokens into a virtual safe from which no one can spend until
+            the outcome of some future event in the real world is known. Then, depending on the
+            result, different parties will be able to redeem the tokens.
+          </p>
+          <p className={styles.text}>
+            Sheikah does not manage smart contracts directly but uses parametric smart contract
+            templates instead. These templates can later be deployed to Witnet using specific
+            parameters, so they are really easy to customize for your different use cases.
           </p>
         </div>
       </>
