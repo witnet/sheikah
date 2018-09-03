@@ -9,6 +9,7 @@ export interface SidebarProps {
   className?: string
   onClickSettings: () => any
   linksProps: Array<SideBarLinkProps>
+  walletName: string
 }
 
 /**
@@ -32,7 +33,7 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
           <img src={src} />
         </div>
         <div className={styles["current-wallet"]}>
-          My hot wallet
+          {this.props.walletName}
         </div>
         <div className={styles["link-list"]}>
           {linksRender(this.props.linksProps, this.props.pathName)}

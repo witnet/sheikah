@@ -145,11 +145,15 @@ class MainContainer extends
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
     const ownProps = { ...this.props, pathName: this.props.location.pathname }
+    const activeWalletName = this.props.wallet
+      ? this.props.wallet.caption
+      : ""
 
     return (
       <MainPage
         services={this.props.services}
         locationPathname={this.props.location.pathname}
+        walletName={activeWalletName}
       >
         <Switch>
           <PropsRoute

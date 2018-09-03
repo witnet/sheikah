@@ -28,6 +28,7 @@ const sidebarProps = {
 interface OwnProps {
   locationPathname: string,
   services: Services
+  walletName: string
 }
 
 /**
@@ -47,6 +48,7 @@ export class MainPage extends React.Component<OwnProps> {
           {...sidebarProps}
           pathName={this.props.locationPathname}
           onClickSettings={this.props.services.showUnimplementedMessage}
+          walletName={this.props.walletName}
         />
         <div className={styles.main}>
         {this.props.children}
