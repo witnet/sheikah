@@ -105,24 +105,24 @@ function generatePrefilledAccount(): Account {
       keyPath: keyPath0,
       finalKeys: [
         generateFinalKey("external", keyPath0, 0, {
-          label: "Satoshi Nakamoto",
+          label: "From Satoshi Nakamoto",
           creationDate: 1526515200,
           expirationDate: 1558051200,
           requestedAmount: 1
         }),
         generateFinalKey("external", keyPath0, 1, {
-          label: "Nick Szabo",
+          label: "From Nick Szabo",
           creationDate: 1526515200,
           expirationDate: 1526342400,
           requestedAmount: 1
         }),
         generateFinalKey("external", keyPath0, 2, {
-          label: "Hal Finney",
+          label: "From Hal Finney",
           creationDate: 1526515200,
           requestedAmount: 1
         }),
         generateFinalKey("external", keyPath0, 3, {
-          label: "Peter Todd",
+          label: "From Peter Todd",
           creationDate: 1526515200,
           requestedAmount: 1
         }),
@@ -131,7 +131,7 @@ function generatePrefilledAccount(): Account {
           requestedAmount: 1
         }),
         generateFinalKey("external", keyPath0, 5, {
-          label: "Gavin Wood",
+          label: "From Gavin Wood",
           creationDate: 1526515200,
           requestedAmount: 1
         }),

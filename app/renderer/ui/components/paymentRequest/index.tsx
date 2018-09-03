@@ -55,7 +55,7 @@ export default class PaymentRequest extends React.Component<OwnProps> {
   private buildLabel = () => {
     const fromSpan = this.props.metadata && this.props.metadata.label
       // There is a label in the payment request
-      ? <span>From {this.props.metadata.label} </span>
+      ? <span>{this.props.metadata.label} </span>
       // No label in the payment request
       : <></>
 

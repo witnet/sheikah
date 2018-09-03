@@ -184,6 +184,7 @@ class TabReceive extends TabComponent<any & Props> {
       .accounts[this.props.selectedAccount]
       .keyChains[KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL]
       .finalKeys
+      .sort(byCreationDate)
       .map((finalKey: FinalKey, index: number) => {
         return buildComputedPaymentRequest(
           finalKey as ExternalFinalKey,
@@ -306,6 +307,19 @@ class TabReceive extends TabComponent<any & Props> {
         </div>
       </>
     )
+  }
+}
+
+/**
+ * Function to sort external final keys by creation date
+ * @param a
+ * @param b
+ */
+const byCreationDate = (a: ExternalFinalKey, b: ExternalFinalKey) => {
+  if (a.metadata && b.metadata && a.metadata.creationDate && b.metadata.creationDate) {
+    return b.metadata.creationDate - a.metadata.creationDate
+  } else {
+    return 0
   }
 }
 
