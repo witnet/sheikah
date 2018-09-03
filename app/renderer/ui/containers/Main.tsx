@@ -11,11 +11,12 @@ import { StoreState, WalletOption } from "app/renderer/store"
 import { PendingTransactionProps } from "app/renderer/ui/components/transaction/pending"
 import { ConfirmedTransactionProps } from "app/renderer/ui/components/transaction/confirmed"
 import { MainPage } from "app/renderer/ui/components/main"
-import WalletSection from "app/renderer/ui/components/main/sections/wallet"
-import SmartContractsSection from "app/renderer/ui/components/main/sections/smartContracts"
-import AttestationsSection from "app/renderer/ui/components/main/sections/attestations"
 import MarketplaceSection from "app/renderer/ui/components/main/sections/marketplace"
 import CommunitySection from "app/renderer/ui/components/main/sections/community"
+import DataRequestsSection from "app/renderer/ui/components/main/sections/dataRequests"
+import SmartContractsSection from "app/renderer/ui/components/main/sections/smartContracts"
+import WalletSection from "app/renderer/ui/components/main/sections/wallet"
+
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 
 import { filterPendingTransactions, filterConfirmedTransactions } from "app/renderer/selectors"
@@ -177,9 +178,9 @@ class MainContainer extends
             component={WalletSection.component}
           />
           <PropsRoute
-            path={urls.ATTESTATIONS_SECTION}
+            path={urls.DATA_REQUESTS_SECTION}
             ownProps={ownProps}
-            component={AttestationsSection.component}
+            component={DataRequestsSection.component}
           />
           <PropsRoute
             path={urls.SMART_CONTRACTS_SECTION}

@@ -20,11 +20,12 @@ export const WALLET_PASSWORD_PROMPT = `${LOGIN}/password`
 
 // Main URLs
 export const MAIN = "/main"
-export const WALLET_SECTION = `${MAIN}/wallet`
 export const ATTESTATIONS_SECTION = `${MAIN}/attestations`
-export const SMART_CONTRACTS_SECTION = `${MAIN}/smartcontracts`
-export const MARKETPLACE_SECTION = `${MAIN}/marketplace`
 export const COMMUNITY_SECTION = `${MAIN}/community`
+export const DATA_REQUESTS_SECTION = `${MAIN}/data-requests`
+export const MARKETPLACE_SECTION = `${MAIN}/marketplace`
+export const SMART_CONTRACTS_SECTION = `${MAIN}/smartcontracts`
+export const WALLET_SECTION = `${MAIN}/wallet`
 
 // Main-WalletSection URLs
 export const TRANSACTIONS_TAB = `${WALLET_SECTION}/transactions`
