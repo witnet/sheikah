@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Dropdown } from "app/renderer/ui/components/dropdown"
 import { ComputedPaymentRequest } from "app/renderer/prefilledPaymentRequests"
+import parseDate from "app/renderer/utils/parseDate"
 
 const styles = require("./style.scss")
 
@@ -16,10 +17,14 @@ export type OwnProps = ComputedPaymentRequest
 export default class PaymentRequest extends React.Component<OwnProps> {
   // tslint:disable-next-line: completed-docs
   public render() {
+    const creationDate = this.props.metadata && this.props.metadata.creationDate
+      ? parseDate(new Date(this.props.metadata.creationDate * 1000), "day", false)
+      : ""
+
     return (
       <div className={styles["payment-request"]}>
         <div className={styles.date}>
-          {this.props.metadata && this.props.metadata.creationDate}
+          {creationDate}
         </div>
         <div className={styles.info}>
           <div className={styles.label}>
@@ -141,16 +146,21 @@ export default class PaymentRequest extends React.Component<OwnProps> {
       )
     }
 
+    const expirationDate = this.props.metadata && this.props.metadata.expirationDate
+      ? parseDate(new Date(this.props.metadata.expirationDate * 1000), "day", false)
+      : ""
     // Expiration status
     const expiredStatus = {
       expired: (
         <>
           <span className={styles.red}>Expired </span>
-          <span>on {this.props.metadata && this.props.metadata.expirationDate}</span>
+          <span>
+            on {expirationDate}
+          </span>
         </>
       ),
       "not expired": (
-        <span>, expiring on {this.props.metadata && this.props.metadata.expirationDate}</span>
+        <span>, expiring on {expirationDate}</span>
       ),
       unknown: (
         <></>
