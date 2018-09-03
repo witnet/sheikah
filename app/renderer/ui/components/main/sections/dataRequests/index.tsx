@@ -4,30 +4,30 @@ import { SectionInfo, SectionProps } from "app/renderer/ui/components/main/secti
 import * as urls from "app/renderer/constants/urls"
 
 /**
- * Attestations UI component
+ * Data requests UI component
  *
  * @export
- * @class AttestationsSection
+ * @class DataRequests
  * @extends {React.Component<SectionProps>}
  */
 
-class Attestations extends React.Component<SectionProps> {
+class DataRequests extends React.Component<SectionProps> {
   // tslint:disable-next-line: completed-docs
   public render() {
     return (
       <div className={this.props.className}>
-        Attestations
+        Data requests
       </div>
     )
   }
 }
 
-const AttestationsSection: SectionInfo = {
-  key: "attestations",
-  caption: "Attestations",
-  path: urls.ATTESTATIONS_SECTION,
-  component: Attestations,
+const DataRequestsSection: SectionInfo = {
+  key: "datarequests",
+  caption: "Data Requests",
+  path: urls.DATA_REQUESTS_SECTION,
+  component: DataRequests,
   icon: "eye"
 }
 
-export default AttestationsSection
+export default DataRequestsSection
