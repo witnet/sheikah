@@ -52,6 +52,7 @@ export class SectionComponent<Props> extends React.Component<SectionProps & Prop
 export interface SectionInfo {
   key: string
   caption: string
+  sectionPath: string
   path: string
   icon?: string
   component: React.ComponentClass<SectionProps>

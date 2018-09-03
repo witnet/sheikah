@@ -75,7 +75,8 @@ class Wallet extends React.Component<SectionProps> {
 const WalletSection: SectionInfo = {
   key: "wallet",
   caption: "Wallet",
-  path: urls.WALLET_SECTION,
+  sectionPath: urls.WALLET_SECTION,
+  path: urls.TRANSACTIONS_TAB,
   icon: "book",
   component: Wallet
 }

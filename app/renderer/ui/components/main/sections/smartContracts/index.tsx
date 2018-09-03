@@ -47,7 +47,8 @@ class SmartContracts extends React.Component<SectionProps> {
 const SmartContractsSection: SectionInfo = {
   key: "smartcontracts",
   caption: "Smart Contracts",
-  path: urls.SMART_CONTRACTS_SECTION,
+  sectionPath: urls.SMART_CONTRACTS_SECTION,
+  path: urls.MY_CONTRACTS_TAB,
   component: SmartContracts,
   icon: "code"
 }

@@ -44,6 +44,7 @@ class Marketplace extends React.Component<SectionProps> {
 const MarketplaceSection: SectionInfo = {
   key: "marketplace",
   caption: "Marketplace",
+  sectionPath: urls.MARKETPLACE_SECTION,
   path: urls.MARKETPLACE_SECTION,
   component: Marketplace,
   icon: "shopping-bag"

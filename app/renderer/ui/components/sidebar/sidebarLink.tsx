@@ -33,7 +33,7 @@ export class SideBarLink extends React.Component<SideBarLinkProps & PathNameProp
    * @memberof SideBarLink
    */
   private get active() {
-    return this.props.pathName.indexOf(this.props.path) === 0 && styles.active
+    return this.props.pathName.indexOf(this.props.sectionPath) === 0 && styles.active
   }
 
   /**
