@@ -147,6 +147,15 @@ $loading_modal-title-color: $blue-6;
 $loading_modal-title-font-size: 20px;
 $loading_modal-width: 100%;
 
+// MARKETPLACE
+$marketplace-header-background: $blue-4;
+$marketplace-header-color: $grey-1;
+$marketplace-header-height: 180px;
+$marketplace-header-literal_sheikah: $purple-6;
+$marketplace-subtitle-font_size: 24px;
+$marketplace-title-font_size: 64px;
+$marketplace-title-font_weight: 600;
+
 // PAYMENT REQUEST
 $payment_request-border: 1px solid $grey-4;
 $payment_request-date-color: $grey-7;
@@ -210,15 +219,6 @@ $tab-font_size: 14px;
 $tab-font_weight: 300;
 $tab-text-color: $grey-5;
 $tab-title-font_weight: 600;
-
-// TAB_MARKETPLACE
-$tab_marketplace-header-background: $blue-4;
-$tab_marketplace-header-color: $grey-1;
-$tab_marketplace-header-height: 180px;
-$tab_marketplace-header-literal_sheikah: $purple-6;
-$tab_marketplace-subtitle-font_size: 24px;
-$tab_marketplace-title-font_size: 64px;
-$tab_marketplace-title-font_weight: 600;
 
 //TAB_SEND
 $tab_send-info-color: $grey-5;
