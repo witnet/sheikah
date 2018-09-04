@@ -95,6 +95,16 @@
       padding-top: 3px;
     }
 
+    .ant-select-selection__rendered {
+      align-items: center;
+      display: flex;
+      height: 48px;
+    }
+
+    .ant-select-selection {
+      height: 48px;
+    }
+
     .ant-input {
       font-family: $font-family;
     }

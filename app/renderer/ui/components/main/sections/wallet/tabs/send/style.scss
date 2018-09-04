@@ -16,6 +16,14 @@
 
   .input {
     grid-column: 2;
+    height: 48px;
+  }
+
+  .amount-input {
+    grid-column-end: 2;
+    grid-column-start: 4;
+    padding: 12px 64px 10px 14px;
+    width: 180px;
   }
 
   .large-input {
@@ -42,6 +50,7 @@
   }
 
   .icon {
+    font-size: 16px;
     padding: 0.5em;
   }
 }

@@ -16,6 +16,7 @@ export interface Iprops {
   defaultValue?: string
   onChange?: any
   dataSource: Array<SelectOptionData>
+  value: string
 }
 
 /**
@@ -44,6 +45,7 @@ export default class SelectFees extends React.Component<Iprops> {
         className={this.props.className}
         defaultValue={this.props.defaultValue}
         onChange={this.props.onChange}
+        value={this.props.value}
       >
         {selectOptions}
       </Select>
