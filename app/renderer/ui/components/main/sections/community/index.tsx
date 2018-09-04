@@ -3,6 +3,15 @@ import * as React from "react"
 import { SectionInfo, SectionProps } from "app/renderer/ui/components/main/sections"
 import * as urls from "app/renderer/constants/urls"
 
+const emailLogo = require("svg/social/email.svg")
+const githubLogo = require("svg/social/github.svg")
+const gitterLogo = require("svg/social/gitter.svg")
+const mediumLogo = require("svg/social/medium.svg")
+const redditLogo = require("svg/social/reddit.svg")
+const telegramLogo = require("svg/social/telegram.svg")
+const twitterLogo = require("svg/social/twitter.svg")
+
+const styles = require("./styles.scss")
 /**
  * Community UI component
  *
@@ -12,11 +21,73 @@ import * as urls from "app/renderer/constants/urls"
  */
 
 export class Community extends React.Component<SectionProps> {
-  // tslint:disable-next-line: completed-docs
+  // tslint:disable-next-line: completed-docs prefer-function-over-method
   public render() {
     return (
-      <div className={this.props.className}>
-        Community
+      <div className={styles.content}>
+        <h2 className={styles.title}>Join the Witnet community!</h2>
+        <ul className={styles.channels}>
+          <li className={styles["list-item"]}>
+            <img className={styles.back} src={twitterLogo} />
+            <a href="//twitter.com/witnet_io" target="_blank">
+              Witnet Foundation Twitter account
+            </a>
+            <p>
+              Follow Witnet Foundation on Twitter to get daily updates on the progress of the
+              project.
+            </p>
+          </li>
+          <li className={styles["list-item"]}>
+            <img className={styles.back} src={mediumLogo} />
+            <a href="//medium.com/witnet" target="_blank">
+              Witnet Foundation official blog on Medium
+            </a>
+            <p>
+              Follow Witnet Foundation on Medium to read different articles stating our vision and
+              future roadmap.
+            </p>
+            </li>
+          <li className={styles["list-item"]}>
+            <img className={styles.back} src={telegramLogo} />
+            <a href="//t.me/witnetio" target="_blank"> Witnet Community on Telegram</a>
+            <p>Join other members of the Witnet Community at the official Telegram group.</p>
+          </li>
+          <li className={styles["list-item"]}>
+            <img className={styles.back} src={redditLogo} />
+            <a href="//reddit.com/r/witnet" target="_blank">Witnet Community subreddit</a>
+            <p>The space for linking articles, informal discussion, kitten pictures and occasional
+              memes.
+            </p>
+          </li>
+          <li className={styles["list-item"]}>
+            <img className={styles.back} src={githubLogo} />
+            <a href="//github.com/witnet" target="_blank">Witnet GitHub repository</a>
+            <p>
+              GitHub is where the Witnet protocol development takes place. Are you a programmer?
+              Your contributions are more than welcome!
+            </p>
+          </li>
+          <li className={styles["list-item"]}>
+            <img className={styles.back} src={gitterLogo} />
+              <a href="//gitter.im/witnet/community" target="_blank">
+                Witnet Development Community at Gitter
+              </a>
+              <p>
+                Join the official Witnet community Gitter room to discuss with the rest of the
+                community and get direct support from the developers.
+              </p>
+            </li>
+            <li className={styles["list-item"]}>
+              <img className={styles.back} src={emailLogo} />
+              <a href="mailto:info@witnet.foundation?subject=Witnet project" target="_blank">
+                Witnet Foundation contact email
+              </a>
+              <p>
+                You can write us directly for any inquiry not appropriate for any of the other
+                channels.
+              </p>
+            </li>
+          </ul>
       </div>
     )
   }

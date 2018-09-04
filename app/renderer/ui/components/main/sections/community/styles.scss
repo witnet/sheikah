@@ -1,0 +1,80 @@
+:local {
+  @import "app/renderer/ui/theme";
+
+  .content {
+    padding: 2em;
+  }
+
+  .title {
+    color: $font-color-dark;
+    font-size: 1.5em;
+    font-weight: 500;
+
+    &::after {
+      background: $sheikah-gradient;
+      content: "";
+      display: block;
+      height: 2px;
+      margin-top: 10px;
+      width: 100px;
+    }
+  }
+
+  .channels {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    list-style-type: none;
+    overflow: auto;
+    padding: 30px 5px 5px 5px;
+
+    .list-item {
+      background: $grey-1;
+      box-shadow: $default-box-shadow;
+      overflow: hidden;
+      padding: 35px 40px 30px 40px;
+      position: relative;
+      transition: box-shadow 0.1s ease;
+
+      a {
+        color: $blue-6;
+        font-size: 1.3em;
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      .back {
+        bottom: -25px;
+        filter: invert(100%) blur(1px);
+        height: 100px;
+        opacity: 0.1;
+        position: absolute;
+        right: -25px;
+        transition: transform 0.2s ease;
+        width: 100px;
+      }
+
+      &:hover {
+        box-shadow: $default-box-shadow-active;
+
+        a {
+          text-decoration: underline;
+        }
+
+        img {
+          transform: rotate(-15deg) scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .channels {
+    grid-template-columns: 1fr;
+  }
+
+  .list-item {
+    width: 100%;
+  }
+}
