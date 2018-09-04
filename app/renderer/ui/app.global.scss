@@ -95,6 +95,14 @@
       padding-top: 3px;
     }
 
+    .ant-input {
+      font-family: $font-family;
+    }
+
+    .ant-list {
+      font-family: $font-family;
+    }
+
     .ant-message-notice-content {
       background: $toast-background;
       border-radius: 8% / 50%;
