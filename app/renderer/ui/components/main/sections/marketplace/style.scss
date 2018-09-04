@@ -10,29 +10,29 @@
 
   .header {
     align-items: center;
-    background: $tab_marketplace-header-background;
-    color: $tab_marketplace-header-color;
+    background: $marketplace-header-background;
+    color: $marketplace-header-color;
     display: grid;
     grid-column-end: 6;
     grid-column-start: 1;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    height: $tab_marketplace-header-height;
+    height: $marketplace-header-height;
 
     .sheikah {
-      color: $tab_marketplace-header-literal_sheikah;
+      color: $marketplace-header-literal_sheikah;
     }
   }
 
   .title {
-    font-size: $tab_marketplace-title-font_size;
-    font-weight: $tab_marketplace-title-font_weight;
+    font-size: $marketplace-title-font_size;
+    font-weight: $marketplace-title-font_weight;
     grid-column: 1;
     text-align: center;
   }
 
   .subtitle {
-    font-size: $tab_marketplace-subtitle-font_size;
+    font-size: $marketplace-subtitle-font_size;
     font-style: italic;
     grid-column: 2;
     text-align: center;
