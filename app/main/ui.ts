@@ -23,6 +23,7 @@ export function createMainWindow() {
 
   mainWindow.webContents.on("did-finish-load", () => {
     if (mainWindow) {
+      mainWindow.maximize()
       mainWindow.show()
       mainWindow.focus()
     }
