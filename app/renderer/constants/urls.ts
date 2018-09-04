@@ -20,7 +20,6 @@ export const WALLET_PASSWORD_PROMPT = `${LOGIN}/password`
 
 // Main URLs
 export const MAIN = "/main"
-export const ATTESTATIONS_SECTION = `${MAIN}/attestations`
 export const COMMUNITY_SECTION = `${MAIN}/community`
 export const DATA_REQUESTS_SECTION = `${MAIN}/data-requests`
 export const MARKETPLACE_SECTION = `${MAIN}/marketplace`
@@ -35,3 +34,7 @@ export const RECEIVE_TAB = `${WALLET_SECTION}/receive`
 // Main-SmartContractsSection URLs
 export const SMART_CONTRACTS_HISTORY_TAB = `${SMART_CONTRACTS_SECTION}/history`
 export const SMART_CONTRACTS_EDITOR_TAB = `${SMART_CONTRACTS_SECTION}/editor`
+
+// Main-DataRequestsSection URLs
+export const DATA_REQUESTS_HISTORY_TAB = `${DATA_REQUESTS_SECTION}/history`
+export const DATA_REQUESTS_EDITOR_TAB = `${DATA_REQUESTS_SECTION}/editor`

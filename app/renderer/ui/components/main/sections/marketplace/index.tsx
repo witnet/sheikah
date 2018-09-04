@@ -3,8 +3,8 @@ import * as React from "react"
 import { SectionInfo, SectionProps } from "app/renderer/ui/components/main/sections"
 
 import * as urls from "app/renderer/constants/urls"
-import { marketplaceProducts } from "app/renderer/ui/components/main/sections/wallet/MockData"
 import { CardMarketplaceProduct } from "app/renderer/ui/components/card"
+import { marketplaceProducts } from "app/renderer/ui/components/main/sections/marketplace/MockData"
 
 const styles = require("./style.scss")
 
