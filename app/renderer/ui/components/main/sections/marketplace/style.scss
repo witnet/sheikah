@@ -2,44 +2,6 @@
   @import "app/renderer/ui/theme";
 
   .layout {
-    display: grid;
-    grid-gap: 2em;
-    grid-template-columns: 4fr 1fr;
-    padding: 3em;
-  }
-
-  .header {
-    align-items: center;
-    background: $marketplace-header-background;
-    color: $marketplace-header-color;
-    display: grid;
-    grid-column-end: 6;
-    grid-column-start: 1;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    height: $marketplace-header-height;
-
-    .sheikah {
-      color: $marketplace-header-literal_sheikah;
-    }
-  }
-
-  .title {
-    font-size: $marketplace-title-font_size;
-    font-weight: $marketplace-title-font_weight;
-    grid-column: 1;
-    text-align: center;
-  }
-
-  .subtitle {
-    font-size: $marketplace-subtitle-font_size;
-    font-style: italic;
-    grid-column: 2;
-    text-align: center;
-  }
-
-  .featured {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    padding: 30px;
   }
 }
