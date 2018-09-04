@@ -25,18 +25,11 @@
     grid-template-areas:
       "tb"
       "ct";
-    grid-template-rows: repeat(2, 60px 1fr);
-    max-height: 100vh;
-    overflow: scroll;
+    grid-template-rows: 60px calc(100vh - 60px);
   }
 
   .top-bar {
     background: $top_bar-background;
     grid-area: tb;
-  }
-
-  .content {
-    background: $background-color;
-    grid-area: ct;
   }
 }

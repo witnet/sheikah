@@ -1,8 +1,10 @@
 :local {
   .layout {
     display: grid;
+    grid-area: ct;
     grid-gap: 3em;
     grid-template-columns: 3fr 1fr;
+    overflow: auto;
     padding: 3em;
   }
 }
