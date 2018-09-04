@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { SectionInfo, TabInfo, SectionProps } from "app/renderer/ui/components/main/sections"
-import { TabCoins, TabReceive, TabSend, TabTransactions } from "./tabs"
+import { TabReceive, TabSend, TabTransactions } from "./tabs"
 import TopBar from "app/renderer/ui/components/topBar/index"
 import { TopBarLinkProps } from "app/renderer/ui/components/commonTypes"
 
@@ -22,7 +22,7 @@ const mainStyles = require("app/renderer/ui/components/main/style.scss")
 class Wallet extends React.Component<SectionProps> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-    const tabs: Array<TabInfo> = [TabTransactions, TabReceive, TabSend, TabCoins]
+    const tabs: Array<TabInfo> = [TabTransactions, TabReceive, TabSend]
     const topBarlinkProps: Array<TopBarLinkProps> = tabs.map(tab => (
       {
         caption: tab.caption,
@@ -44,11 +44,6 @@ class Wallet extends React.Component<SectionProps> {
               path={urls.TRANSACTIONS_TAB}
               ownProps={this.props}
               component={TabTransactions.component}
-            />
-            <PropsRoute
-              path={urls.COINS_TAB}
-              ownProps={this.props}
-              component={TabCoins.component}
             />
             <PropsRoute
               path={urls.SEND_TAB}

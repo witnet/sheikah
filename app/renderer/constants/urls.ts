@@ -29,7 +29,6 @@ export const WALLET_SECTION = `${MAIN}/wallet`
 
 // Main-WalletSection URLs
 export const TRANSACTIONS_TAB = `${WALLET_SECTION}/transactions`
-export const COINS_TAB = `${WALLET_SECTION}/coins`
 export const SEND_TAB = `${WALLET_SECTION}/send`
 export const RECEIVE_TAB = `${WALLET_SECTION}/receive`
 
