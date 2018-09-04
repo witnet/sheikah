@@ -55,56 +55,58 @@ class TabSend extends TabComponent<any> {
     const selectFeesData: Array<SelectOptionData> = mockSelectFeesData
 
     return (
-      <Wrapper title="NEW PAYMENT REQUEST" className={styles.pending}>
-        <div className={styles["new-transaction"]}>
-          <label className={styles.label}>Address</label>
-          <DefaultInput
-            className={`${styles.input} ${styles["large-input"]}`}
-            name="address"
-            onChange={this.inputChange}
-            value={this.state.address}
-          />
-          <Popover
-            content={<p>Don't forget to double check the address before pressing 'Send'</p>}
-            trigger="hover"
-            placement="right"
-          >
-            <p className={styles.info}>
-              <i className={`fa fa-info ${styles.icon}`} />
-            </p>
-          </Popover>
-          <label className={styles.label}>Label</label>
-          <DefaultInput
-            className={`${styles.input} ${styles["large-input"]}`}
-            name="label"
-            onChange={this.inputChange}
-            value={this.state.label}
-          />
-          <label className={styles.label}>Amount</label>
-          <InputAmount
-            className={`${styles.input} ${styles["small-input"]} ${styles["amount-input"]}`}
-            type="number"
-            min="0"
-            name="amount"
-            onChange={this.inputChange}
-            value={this.state.amount}
-          />
-          <label className={styles.label}>Fee</label>
-          <SelectFees
-            className={`${styles.input} ${styles["small-input"]}`}
-            dataSource={selectFeesData}
-            defaultValue={selectFeesData[0].text}
-            onChange={this.handleFee}
-            value={this.state.fee}
-          />
-          <ActionButton
-            className={styles.submit}
-            onClick={this.props.services.showUnimplementedMessage}
-          >
-            SIGN AND SEND
-          </ActionButton>
-        </div>
-      </Wrapper>
+      <div className={styles.left}>
+        <Wrapper title="NEW PAYMENT REQUEST" className={styles.pending}>
+            <div className={styles["new-transaction"]}>
+              <label className={styles.label}>Address</label>
+              <DefaultInput
+                className={`${styles.input} ${styles["large-input"]}`}
+                name="address"
+                onChange={this.inputChange}
+                value={this.state.address}
+              />
+              <Popover
+                content={<p>Don't forget to double check the address before pressing 'Send'</p>}
+                trigger="hover"
+                placement="right"
+              >
+                <p className={styles.info}>
+                  <i className={`fa fa-info ${styles.icon}`} />
+                </p>
+              </Popover>
+              <label className={styles.label}>Label</label>
+              <DefaultInput
+                className={`${styles.input} ${styles["large-input"]}`}
+                name="label"
+                onChange={this.inputChange}
+                value={this.state.label}
+              />
+              <label className={styles.label}>Amount</label>
+              <InputAmount
+                className={`${styles.input} ${styles["small-input"]} ${styles["amount-input"]}`}
+                type="number"
+                min="0"
+                name="amount"
+                onChange={this.inputChange}
+                value={this.state.amount}
+              />
+              <label className={styles.label}>Fee</label>
+              <SelectFees
+                className={`${styles.input} ${styles["small-input"]}`}
+                dataSource={selectFeesData}
+                defaultValue={selectFeesData[0].text}
+                onChange={this.handleFee}
+                value={this.state.fee}
+              />
+              <ActionButton
+                className={styles.submit}
+                onClick={this.props.services.showUnimplementedMessage}
+              >
+                SIGN AND SEND
+              </ActionButton>
+            </div>
+        </Wrapper>
+      </div>
     )
   }
 }

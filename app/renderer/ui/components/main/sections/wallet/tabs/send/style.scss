@@ -2,6 +2,11 @@
   @import "app/renderer/ui/colors";
   @import "app/renderer/ui/theme";
 
+  .left {
+    grid-column: 1;
+    grid-gap: 2em;
+  }
+
   .new-transaction {
     align-items: center;
     display: grid;
@@ -37,7 +42,6 @@
   }
 
   .submit {
-    box-sizing: border-box;
     grid-column: 2;
     grid-row: 6;
   }
