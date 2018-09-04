@@ -68,9 +68,14 @@ class TabHistory extends TabComponent<any & Props> {
             result, different parties will be able to redeem the tokens.
           </p>
           <p className={styles.text}>
-            Sheikah does not manage smart contracts directly but uses parametric smart contract
+            Sheikah does not manage smart contracts directly but uses more flexible smart contract
             templates instead. These templates can later be deployed to Witnet using specific
             parameters, so they are really easy to customize for your different use cases.
+          </p>
+          <p className={styles.text}>
+            Note that Witnet's native smart contracts are not as powerful as Ethereum or RChain
+            contracts. If you require that kind of functionality, remember that you can make your
+            data requests report directly to your existing contracts in other blockchain platforms.
           </p>
         </div>
       </>
