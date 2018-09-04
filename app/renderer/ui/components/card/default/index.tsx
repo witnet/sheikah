@@ -8,6 +8,7 @@ export interface Iprops {
   className?: string
   title?: string
   style?: React.CSSProperties
+  contentStyle?: React.CSSProperties
 }
 
 /**
@@ -23,12 +24,12 @@ export default class CardDefault extends React.Component<Iprops> {
     return (
       <div className={this.props.className}>
         <Card
-            className={styles.card}
-            style={this.props.style}
-            title={this.props.title}
-            bordered={false}
+          className={styles.card}
+          style={this.props.style}
+          title={this.props.title}
+          bordered={false}
         >
-          <div className={styles.content}>
+          <div className={`${styles.content} ${this.props.contentStyle}`}>
             {this.props.children}
           </div>
         </Card>

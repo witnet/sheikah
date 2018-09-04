@@ -40,7 +40,7 @@ class TabHistory extends TabComponent<any & Props> {
     ))
 
     return (
-      <>
+      <div className={styles.layout}>
         <div className={styles.left}>
           <Wrapper
             title="BY TEMPLATE"
@@ -78,7 +78,7 @@ class TabHistory extends TabComponent<any & Props> {
             parameters.
           </p>
         </div>
-      </>
+      </div>
     )
   }
 }

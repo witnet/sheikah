@@ -78,6 +78,11 @@
     color: $font-color-dark;
   }
 
+  textarea {
+    font-family: $font-family;
+    outline: none;
+  }
+
   pre,
   .pre-alike {
     font-family: "Lucida Console", Monaco, monospace;
@@ -128,6 +133,10 @@
     .ant-card {
       color: $font-color-dark;
       font: inherit;
+    }
+
+    .ant-input {
+      font-family: $font-family;
     }
 
     // DO NOT REMOVE OUT OF BODY! See issue #203
