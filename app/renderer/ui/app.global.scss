@@ -84,11 +84,12 @@
   }
 
   body {
+    bottom: 0;
     font-family: $font-family;
-    height: 100vh;
-    max-height: 100vh;
-    max-width: 100vw;
-    position: relative;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
 
     .ant-select-selection-selected-value {
       float: none;
