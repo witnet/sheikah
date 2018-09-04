@@ -7,7 +7,10 @@ import Wrapper from "app/renderer/ui/components/wrapper"
 import { Services } from "app/renderer/services"
 
 const svgImage = require("svg/smartContractsHistory.svg")
+
+const layoutStyles = require("app/renderer/ui/components/main/sections/smartContracts/style.scss")
 const styles = require("./style.scss")
+const tabStyles = require("app/renderer/ui/components/main/sections/smartContracts/tabs/style.scss")
 
 /**
  * Props that contain configuration
@@ -41,8 +44,8 @@ class TabHistory extends TabComponent<any & Props> {
     ))
 
     return (
-      <>
-        <div className={styles.left}>
+      <div className={layoutStyles.paddedLayout}>
+        <div className={tabStyles.left}>
           <Wrapper
             title="BY TEMPLATE"
             actions={byTemplateOptions}
@@ -54,7 +57,7 @@ class TabHistory extends TabComponent<any & Props> {
           </Wrapper>
         </div>
 
-        <div className={styles.right}>
+        <div className={tabStyles.right}>
           <p className={styles.title}>About Smart Contracts</p>
           <p className={styles.text}>
             Smart contracts are programs that live in the blockchain. They have their own addresses
@@ -78,7 +81,7 @@ class TabHistory extends TabComponent<any & Props> {
             data requests report directly to your existing contracts in other blockchain platforms.
           </p>
         </div>
-      </>
+      </div>
     )
   }
 }

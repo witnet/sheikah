@@ -1,0 +1,18 @@
+:local {
+  .bar {
+    grid-column-end: 3;
+    grid-column-start: 1;
+  }
+
+  .editor div {
+    padding: 15px !important;
+  }
+
+  .right {
+    padding-right: 3em;
+  }
+
+  .left {
+    padding-left: 3em;
+  }
+}

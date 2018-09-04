@@ -11,8 +11,6 @@ import { Switch } from "react-router"
 
 const mainStyles = require("app/renderer/ui/components/main/style.scss")
 
-const styles = require("./style.scss")
-
 /**
  * SmartContracts component
  *
@@ -39,25 +37,23 @@ class SmartContracts extends React.Component<SectionProps> {
           pathName={this.props.pathName}
           linksProps={topBarlinkProps}
         />
-        <div className={styles.layout}>
-          <Switch>
-            <PropsRoute
-              path={urls.SMART_CONTRACTS_HISTORY_TAB}
-              ownProps={this.props}
-              component={TabHistory.component}
-            />
-            <PropsRoute
-              path={urls.SMART_CONTRACTS_EDITOR_TAB}
-              ownProps={this.props}
-              component={TabEditor.component}
-            />
-            <PropsRoute
-              path=""
-              ownProps={this.props}
-              component={TabHistory.component}
-            />
-          </Switch>
-        </div>
+        <Switch>
+          <PropsRoute
+            path={urls.SMART_CONTRACTS_HISTORY_TAB}
+            ownProps={this.props}
+            component={TabHistory.component}
+          />
+          <PropsRoute
+            path={urls.SMART_CONTRACTS_EDITOR_TAB}
+            ownProps={this.props}
+            component={TabEditor.component}
+          />
+          <PropsRoute
+            path=""
+            ownProps={this.props}
+            component={TabHistory.component}
+          />
+        </Switch>
       </>
     )
   }
