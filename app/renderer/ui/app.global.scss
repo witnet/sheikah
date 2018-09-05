@@ -135,6 +135,10 @@
       font: inherit;
     }
 
+    .ant-input {
+      font-family: $font-family;
+    }
+
     // DO NOT REMOVE OUT OF BODY! See issue #203
     .ant-card-head {
       align-items: center;
