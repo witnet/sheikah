@@ -56,7 +56,7 @@ class TabSend extends TabComponent<any> {
 
     return (
       <div className={styles.left}>
-        <Wrapper title="NEW PAYMENT REQUEST" className={styles.pending}>
+        <Wrapper title="PAY TO" className={styles.pending}>
             <div className={styles["new-transaction"]}>
               <label className={styles.label}>Address</label>
               <DefaultInput
