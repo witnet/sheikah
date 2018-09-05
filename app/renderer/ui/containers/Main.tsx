@@ -159,7 +159,7 @@ class MainContainer extends
         }
       },
       {
-        text: "Close",
+        text: "Close Sheikah",
         onClick: () => {
           remote.getCurrentWindow().close()
         }
