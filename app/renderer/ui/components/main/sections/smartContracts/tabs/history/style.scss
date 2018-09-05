@@ -5,17 +5,19 @@
     padding: 0 !important;
   }
 
-  .text {
-    color: $tab-text-color;
-    font-size: $tab-font_size;
-    font-style: italic;
-    font-weight: $tab-font_weight;
-    line-height: 1.5;
+  .title {
+    color: $tooltip_title-color;
+    font-size: $tooltip_title-font_size;
+    font-weight: $tooltip_title-font_weight;
     margin-bottom: 1.5em;
   }
 
-  .title {
-    font-weight: $tab-title-font_weight;
+  .text {
+    color: $tooltip_text-color;
+    font-size: $tooltip_text-font_size;
+    font-style: italic;
+    font-weight: $tooltip_text-font_size;
+    line-height: 1.5;
     margin-bottom: 1.5em;
   }
 }
