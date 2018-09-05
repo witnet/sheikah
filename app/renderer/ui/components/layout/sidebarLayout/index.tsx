@@ -1,11 +1,13 @@
 import * as React from "react"
+import { SettingsOptions } from "app/renderer/ui/components/sidebar"
+import { Dropdown } from "app/renderer/ui/components/dropdown"
 
 const styles = require("./style.scss")
 
 interface Iprops {
   title: string
   menuIcon?: string
-  onClickSettings?: () => any
+  settingsOptions: SettingsOptions
   menuText: string
   collapeSidebar?: boolean
 }
@@ -31,10 +33,17 @@ export default class SidebarLayout extends React.Component<Iprops> {
         {/* TODO: Check potential refactor of existing sidebar component */}
         <div className={styles.sidebar}>
           <p className={styles.titleText}>{this.props.title}</p>
-          <div className={styles.settings} onClick={this.props.onClickSettings} >
-            <i className={`${this.props.menuIcon} ${styles.icon}`} />
-            <span className={styles.label}>{this.props.menuText}</span>
-          </div>
+          <Dropdown
+            className={styles.settings}
+            trigger={["hover"]}
+            placement="topCenter"
+            dataSource={this.props.settingsOptions}
+          >
+            <div className={styles.settings}  >
+              <i className={`${this.props.menuIcon} ${styles.icon}`} />
+              <span className={styles.label}>{this.props.menuText}</span>
+            </div>
+          </Dropdown>
         </div>
         <div className={styles.content}>
           {this.props.children}

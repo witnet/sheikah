@@ -1,5 +1,6 @@
-import { connect } from "react-redux"
+import { remote } from "electron"
 import * as React from "react"
+import { connect } from "react-redux"
 import { Route, Switch } from "react-router"
 import { push, goBack } from "connected-react-router"
 import { Action, bindActionCreators, Dispatch } from "redux"
@@ -18,6 +19,7 @@ import { getWalletErrorMessages, GetWalletResponse } from "app/common/runtimeTyp
 import * as urls from "app/renderer/constants/urls"
 import { extendWalletData } from "app/renderer/prefilledWallet"
 import { extendTransactionsData } from "app/renderer/prefilledTransactions"
+import { SettingsOptions } from "app/renderer/ui/components/sidebar"
 /**
  * Props that match redux store state
  */
@@ -215,6 +217,22 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
   )
 
   /**
+   * Options for settings button
+   *
+   * @private
+   * @type {SettingsOptions}
+   * @memberof LoginFormContainer
+   */
+  private settingsOptions: SettingsOptions = [
+    {
+      text: "Close",
+      onClick: () => {
+        remote.getCurrentWindow().close()
+      }
+    }
+  ]
+
+  /**
    * Method to render component
    */
   public render() {
@@ -222,7 +240,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
       <LoginForm
         collapseSidebar={this.state.collapseSidebar}
         unlockInProgress={this.state.unlockInProgress}
-        showUnimplementedMessage={this.props.services.showUnimplementedMessage}
+        settingsOptions={this.settingsOptions}
       >
         <Switch>
           <Route

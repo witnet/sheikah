@@ -1,13 +1,14 @@
 import * as React from "react"
 import { LoadingModal } from "app/renderer/ui/components/loadingModal"
 import { SidebarLayout } from "app/renderer/ui/components/layout"
+import { SettingsOptions } from "app/renderer/ui/components/sidebar"
 
 const styles = require("./style.scss")
 
 export interface Iprops {
   unlockInProgress: boolean
   collapseSidebar?: boolean
-  showUnimplementedMessage: () => void
+  settingsOptions: SettingsOptions
 }
 
 /**
@@ -35,7 +36,7 @@ export class LoginForm extends React.Component<Iprops> {
             title="Welcome back"
             menuIcon="fa fa-cog"
             menuText="App Settings"
-            onClickSettings={this.props.showUnimplementedMessage}
+            settingsOptions={this.props.settingsOptions}
           >
             {this.props.children}
           </SidebarLayout>

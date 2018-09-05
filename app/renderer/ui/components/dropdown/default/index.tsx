@@ -10,6 +10,8 @@ export interface Iprops {
   borderer?: boolean
   renderItem?: any
   menu?: JSX.Element
+  menuStyle?: string
+  menuItemStyle?: string
   trigger: Array<("click" | "hover")>
   placement: "topLeft" | "topCenter" | "topRight" | "bottomLeft" | "bottomCenter" | "bottomRight"
 }
@@ -56,7 +58,7 @@ export default class DefaultDropdown extends React.Component<Iprops> {
      */
     const menuItems = (
       this.props.dataSource.map((data: { text: any, onClick: any }, index: number) => (
-        <Menu.Item key={index} className={styles.menuItem}>
+        <Menu.Item key={index} className={this.props.menuItemStyle}>
           {data.text}
         </Menu.Item>
       ))
@@ -67,7 +69,7 @@ export default class DefaultDropdown extends React.Component<Iprops> {
      * The list item key is the position in the data source array
      */
     const menu = (
-      <Menu onClick={this.handleClick} className={styles.menu}>
+      <Menu onClick={this.handleClick} className={this.props.menuStyle}>
         {menuItems}
       </Menu>
     )

@@ -20,6 +20,9 @@ import WalletSection from "app/renderer/ui/components/main/sections/wallet"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 
 import { filterPendingTransactions, filterConfirmedTransactions } from "app/renderer/selectors"
+import { SettingsOptions } from "app/renderer/ui/components/sidebar"
+import { navigateTo } from "app/renderer/utils/routerNavigation"
+import { remote } from "electron"
 
 /**
  * Props that match redux store state
@@ -141,6 +144,28 @@ class MainContainer extends
   //  )
   //}
 
+    /**
+     * Options for settings button
+     *
+     * @private
+     * @type {SettingsOptions}
+     * @memberof MainContainer
+     */
+    private settingsOptions: SettingsOptions = [
+      {
+        text: "Lock wallet",
+        onClick: () => {
+          navigateTo(this.props.history, urls.FORMS)
+        }
+      },
+      {
+        text: "Close",
+        onClick: () => {
+          remote.getCurrentWindow().close()
+        }
+      }
+    ]
+
   /** render */
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
@@ -154,6 +179,7 @@ class MainContainer extends
         services={this.props.services}
         locationPathname={this.props.location.pathname}
         walletName={activeWalletName}
+        settingsOptions={this.settingsOptions}
       >
         <Switch>
           <PropsRoute

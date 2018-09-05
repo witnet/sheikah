@@ -3,11 +3,15 @@ import * as React from "react"
 import { SideBarLink, SideBarLinkProps } from "./sidebarLink"
 import { PathNameProp } from "app/renderer/ui/components/commonTypes"
 import { DotIndicator } from "app/renderer/ui/components/dotIndicator"
+import { Dropdown } from "app/renderer/ui/components/dropdown"
+
 const styles = require("./style.scss")
+
+export type SettingsOptions = Array<{ text: string, onClick: (e: MouseEvent) => void}>
 
 export interface SidebarProps {
   className?: string
-  onClickSettings: () => any
+  setingsOptions: SettingsOptions
   linksProps: Array<SideBarLinkProps>
   walletName: string
 }
@@ -41,10 +45,15 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
         <div>
           <hr className={styles.hr}/>
           <div className={styles.settings}>
-            <i
-              className={`fa fa-cog ${styles["settings-icon"]}`}
-              onClick={this.props.onClickSettings}
-            />
+            <Dropdown
+              trigger={["hover"]}
+              placement="topCenter"
+              dataSource={this.props.setingsOptions}
+            >
+              <i
+                className={`fa fa-cog ${styles["settings-icon"]}`}
+              />
+            </Dropdown>
             <div className={styles["net-status"]}>
               <span className={styles.mainnet}>PROTOTYPE</span>
               <span className={styles.synced}>SYNCED</span>

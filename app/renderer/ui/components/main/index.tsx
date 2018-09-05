@@ -1,6 +1,6 @@
 import React = require("react")
 
-import Sidebar from "app/renderer/ui/components/sidebar"
+import Sidebar, { SettingsOptions } from "app/renderer/ui/components/sidebar"
 import { SectionInfo } from "app/renderer/ui/components/main/sections"
 
 import CommunitySection from "app/renderer/ui/components/main/sections/community"
@@ -29,6 +29,7 @@ interface OwnProps {
   locationPathname: string,
   services: Services
   walletName: string
+  settingsOptions: SettingsOptions
 }
 
 /**
@@ -47,7 +48,7 @@ export class MainPage extends React.Component<OwnProps> {
         <Sidebar
           {...sidebarProps}
           pathName={this.props.locationPathname}
-          onClickSettings={this.props.services.showUnimplementedMessage}
+          setingsOptions={this.props.settingsOptions}
           walletName={this.props.walletName}
         />
         <div className={styles.main}>
