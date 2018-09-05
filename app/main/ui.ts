@@ -52,7 +52,7 @@ export function createMainWindow() {
 
   if (inDarwin) {
     template = [{
-      label: "Sheikah Prototype",
+      label: "Sheikah [Technology Preview]",
       submenu: [{
         label: "About Sheikah"
       }, {

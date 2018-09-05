@@ -1,8 +1,8 @@
 {
   "name": "sheikah",
-  "productName": "Sheikah",
+  "productName": "Sheikah [Technology Preview]",
   "version": "0.1.0",
-  "description": "A Witnet compatible desktop wallet and smart contracts development environment",
+  "description": "A Witnet compatible desktop wallet and data requests development environment.",
   "main": "dist/main.js",
   "scripts": {
     "test": "jest -c config/jest.js --runInBand test/app",
@@ -55,7 +55,7 @@
     ]
   },
   "build": {
-    "productName": "Sheikah",
+    "productName": "Sheikah [Technology Preview]",
     "appId": "io.github.witnet.sheikah",
     "dmg": {
       "contents": [
@@ -95,7 +95,7 @@
   "bin": {
     "electron": "./node_modules/.bin/electron"
   },
-  "author": "Johann Og <johann@witnet.io>",
+  "author": "Witnet Foundation <info@witnet.foundation>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/witnet/sheikah.git"
