@@ -438,7 +438,7 @@ class WalletFormContainer extends
     if (this.state.password === this.state.repeatPassword && this.state.password) {
       await this.walletEncryption()
     } else {
-      this.setState({ passwordErrorMessage: "Passwords must match" })
+      this.setState({ passwordErrorMessage: "Passwords do not match, please retype" })
     }
   }
 
