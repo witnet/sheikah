@@ -130,7 +130,7 @@ To build the application run: `yarn build`, the build files are written to `dist
 
 <h4 align="center">Development</h4>
 
-To build the application run: `yarn build-dev`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`
+To build the application run: `yarn build-dev`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`. Note that in development mode, the application needs a running development server that serves the static assets, this means that you need to run `yarn hot-server` in another terminal in order to view the application with all the assets.
 
 <h3 align="center">Type Checking</h3>
 
