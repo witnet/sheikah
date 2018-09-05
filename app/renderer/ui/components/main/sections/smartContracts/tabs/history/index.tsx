@@ -60,25 +60,26 @@ class TabHistory extends TabComponent<any & Props> {
         <div className={tabStyles.right}>
           <p className={styles.title}>About Smart Contracts</p>
           <p className={styles.text}>
-            Smart contracts are programs that live in the blockchain. They have their own addresses
-            for receiving Witnet tokens, but the ability to spend those tokens is determined by the
-            code of the programs themselves.
+            Smart contracts are programs that live in the Witnet blockchain. They have their own
+            addresses for receiving Witnet tokens, but the ability to spend those tokens is
+            determined by the code of the program itself.
           </p>
           <p className={styles.text}>
-            Smart contracts can also read data requests and decide upon their result. For example,
-            a group of people can lock tokens into a virtual safe from which no one can spend until
-            the outcome of some future event in the real world is known. Then, depending on the
-            result, different parties will be able to redeem the tokens.
+            Smart contracts read data requests and decide upon their result. For example,
+            a group of people can lock tokens into a virtual safe (the smart contract) from which
+            no one can spend until the outcome of some future event in the real world is known.
+            Then, depending on the result, different parties will be able to redeem the tokens.
           </p>
           <p className={styles.text}>
-            Sheikah does not manage smart contracts directly but uses more flexible smart contract
-            templates instead. These templates can later be deployed to Witnet using specific
-            parameters, so they are really easy to customize for your different use cases.
+            Sheikah offers smart contract templates which offer the flexibility for users to add
+            more specific parameters as they see fit, based on their own use case requirements.
           </p>
           <p className={styles.text}>
-            Note that Witnet's native smart contracts are not as powerful as Ethereum or RChain
-            contracts. If you require that kind of functionality, remember that you can make your
-            data requests report directly to your existing contracts in other blockchain platforms.
+            Witnet smart contracts are significantly simpler in terms of their capability
+            compared to more popular smart contract platforms. This is by design to ensure
+            safety and security of the system. Much of the smart contract logic required for
+            more complex processes should be located within the smart contracts requesting the
+            data (on Ethereum or RChain).
           </p>
         </div>
       </div>
