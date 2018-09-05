@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Dropdown } from "app/renderer/ui/components/dropdown"
+import { DropdownBordered } from "app/renderer/ui/components/dropdown"
 import { ComputedPaymentRequest } from "app/renderer/prefilledPaymentRequests"
 import parseDate from "app/renderer/utils/parseDate"
 
@@ -39,7 +39,7 @@ export default class PaymentRequest extends React.Component<OwnProps> {
             {this.props.address}
           </pre>
         </div>
-        <Dropdown
+        <DropdownBordered
           className={styles.actions}
           dataSource={this.props.actions}
         />

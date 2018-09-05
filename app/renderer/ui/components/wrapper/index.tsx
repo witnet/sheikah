@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import Dropdown from "app/renderer/ui/components/dropdown"
+import { DropdownBordered } from "app/renderer/ui/components/dropdown"
 
 const styles = require("./style.scss")
 
@@ -29,7 +29,7 @@ export default class Wrapper extends React.Component<Iprops> {
     ${this.props.contentClassName}`
     const actions = this.props.actions &&
       !this.props.empty &&
-      (<Dropdown className={styles.actions} dataSource={this.props.actions} />)
+      (<DropdownBordered className={styles.actions} dataSource={this.props.actions} />)
 
     return (
       <div className={`${styles.layout} ${this.props.className}`}>
