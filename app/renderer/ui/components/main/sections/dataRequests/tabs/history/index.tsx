@@ -56,28 +56,26 @@ class TabHistory extends TabComponent<any & Props> {
 
         <div className={styles.right}>
           <p className={styles.title}>About data requests</p>
-          {/* TODO: insert description about Data Requests */}
           <p className={styles.text}>
-            Data requests are simple scripts that tell Witnet to retrieve data from websites, APIs
-            or other blockchains and deliver it wherever it is needed. You can think of them as the
-            <em>"if-this-then-that"</em> of blockchains.
+            Data requests are scripts that tell Witnet to retrieve data.
+            You can think of them as the <em>"if-this-then-that"</em> of blockchains.
           </p>
           <p className={styles.text}>
-            Data requests can perform transformations and aggregations on data coming from several
-            sources. When delivering the result, they can also use several targets: from pushing the
-            data to a web server using a secure WebHook to reporting it directly to an Ethereum or
-            RChain smart contract.
+            Data requests perform transformations and aggregations on data coming from several
+            sources. When delivering the results, they can also use several targets: from pushing
+            the data to a web server using a secure WebHook, to reporting it directly to a smart
+            contract.
           </p>
           <p className={styles.text}>
             Every time you deploy a data request, you can choose how many Witnet nodes will be
-            processing the request. That is called "replication factor". The more nodes, the safer
-            but also the more fees you need to pay. It is up to you to decide the right number for
-            your particular use case.
+            processing the request. This is called "replication factor". The more nodes, the higher
+            the fidelity of the request will be. For each additional replication factor, there will
+            be additional costs to the requester.
           </p>
           <p className={styles.text}>
-            Sheikah does not manage data requests directly but uses more flexible data request
-            templates instead. These templates can later be deployed to Witnet using specific
-            parameters, so they are really easy to customize for your different use cases.
+            Sheikah does not manage data requests directly but uses flexible data request
+            templates instead. These templates can later be deployed to Witnet using customizable
+            parameters.
           </p>
         </div>
       </>
