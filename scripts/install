@@ -1,0 +1,11 @@
+#!/bin/env sh
+
+set -e
+
+git clone https://github.com/witnet/sheikah
+cd ./sheikah
+yarn
+
+echo 'Sheikah has been cloned.'
+echo "To start Sheikah in development mode run: yarn start"
+echo "To create a release run: yarn package"
