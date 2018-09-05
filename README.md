@@ -11,10 +11,17 @@
     <p><strong>Sheikah</strong> is a <a href="https://witnet.io/">Witnet</a> compatible desktop wallet, data requests and smart contracts development environment.</p>
 </div>
 
+## Current status
+**Sheikah is still a *Technology Preview***. If you run it, you will find:
 
 <h2 align="center">Installation</h2>
+- **Features that work**: wallets creation, seed phrase export, addresses generation and addresses listing.
+- **Features that are partially implemented**: transactions listing, data requests listing and smart contracts listing.
+- **Features that are mocked for demo purposes**: data requests editor, smart contracts editor, Sheikah Marketplace.
+- **Features that are still missing**: data requests deployment, smart contracts deployment and selection of full node to use as backend.
 
 <h3 align="center">From Github Releases</h3>
+All of these features will be made available along the first Witnet testnet during 2019 Q1.
 
 Go to [releases](https://github.com/witnet/sheikah/releases) section and download the binary suitable for your system.
 
