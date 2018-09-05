@@ -132,28 +132,3 @@ function computeExpiredStatus(
           : "expired"
   )
 }
-
-/**
- * Function to build prefilled confirmed option
- * @param index
- */
-export const prefilledOptions: Array<Action> = [
-  {
-    text: "Option 1",
-    onClick: () => {
-      console.log("CLICKED 1")
-    }
-  },
-  {
-    text: "Option 2",
-    onClick: () => {
-      console.log("CLICKED 2")
-    }
-  },
-  {
-    text: "Option 3",
-    onClick: () => {
-      console.log("CLICKED 3")
-    }
-  }
-]
