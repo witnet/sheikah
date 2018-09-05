@@ -57,7 +57,7 @@ class TabHistory extends TabComponent<any & Props> {
         <div className={styles.right}>
           <p className={styles.title}>About data requests</p>
           <p className={styles.text}>
-            Data requests are scripts that tell Witnet to retrieve data.
+            Data requests are scripts that tell Witnet where to retrieve data.
             You can think of them as the <em>"if-this-then-that"</em> of blockchains.
           </p>
           <p className={styles.text}>
