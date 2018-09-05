@@ -11,15 +11,17 @@
     grid-column: 2;
 
     .title {
-      font-weight: $tab-title-font_weight;
+      color: $tooltip_title-color;
+      font-size: $tooltip_title-font_size;
+      font-weight: $tooltip_title-font_weight;
       margin-bottom: 1.5em;
     }
 
     .text {
-      color: $tab-text-color;
-      font-size: $tab-font_size;
+      color: $tooltip_text-color;
+      font-size: $tooltip_text-font_size;
       font-style: italic;
-      font-weight: $tab-font_weight;
+      font-weight: $tooltip_text-font_size;
       line-height: 1.5;
       margin-bottom: 1.5em;
     }
