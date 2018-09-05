@@ -14,18 +14,20 @@
 ## Current status
 **Sheikah is still a *Technology Preview***. If you run it, you will find:
 
-<h2 align="center">Installation</h2>
 - **Features that work**: wallets creation, seed phrase export, addresses generation and addresses listing.
 - **Features that are partially implemented**: transactions listing, data requests listing and smart contracts listing.
 - **Features that are mocked for demo purposes**: data requests editor, smart contracts editor, Sheikah Marketplace.
 - **Features that are still missing**: data requests deployment, smart contracts deployment and selection of full node to use as backend.
 
-<h3 align="center">From Github Releases</h3>
 All of these features will be made available along the first Witnet testnet during 2019 Q1.
+
+## Installation
+
+### From Github Releases
 
 Go to [releases](https://github.com/witnet/sheikah/releases) section and download the binary suitable for your system.
 
-<h3 align="center">From Source</h3>
+### From Source
 
 To install from source follow this instructions in a terminal:
 
@@ -38,7 +40,7 @@ yarn package
 
 Then, copy the appropriate binary written in `release` directory. Just click the file to open Sheikah.
 
-<h2 align="center">Logs</h2>
+## Logs
 
 We are using [Electron Log](https://github.com/megahertz/electron-log/) library and we log to both, console and the file in the following location:
 
@@ -46,15 +48,15 @@ We are using [Electron Log](https://github.com/megahertz/electron-log/) library 
 * **on MacOS**: `~/Library/Logs/Sheikah/log.log`
 * **on Windows**: `%USERPROFILE%\AppData\Roaming\Sheikah\log.log`
 
-<h3 align="center">Development</h3>
+### Development
 
 When running in **development** the log level is set to *debug*, *debug*, *info*, *warn*, and *error* messages will be logger.
 
-<h3 align="center">Production</h3>
+### Production
 
 When running in **production** the log level is set to *warn*, only *warn* and *error* messages will be logged.
 
-<h2 align="center">Sheikah Development</h2>
+## Sheikah Development
 
 This is a Web/Desktop application built with [Electron](https://electronjs.org/) and uses the [electron-react-typescript](https://github.com/iRath96/electron-react-typescript-boilerplate) template as its base.
 
@@ -62,7 +64,7 @@ For developing we recommend you use [yarn](https://yarnpkg.com/en/) instead of n
 
 When developing Sheikah, we support **Node versions: 8, 9 and 10**. It might work with another version but we do not guarantee it will do in the future.
 
-<h3 align="center">Quickstart</h3>
+### Quickstart
 
 ``` bash
 # clone the repository
@@ -78,18 +80,18 @@ yarn
 yarn start # or yarn dev
 ```
 
-<h3 align="center">Formatter</h3>
+### Formatter
 
 * Verify files are correctly formatted with `yarn fmt`
 * Repair format errors with (**this operation modifies your files!**) `yarn fmt!`
 
-<h3 align="center">Lint</h3>
+### Lint
 
 * Run linters with `yarn lint`. This will run all linters
 * Run TypeScript lint with `yarn ts-lint`
 * Run styles lint with `yarn stylelint`
 
-<h3 align="center">Test</h3>
+### Test
 
 We use [Jest](https://facebook.github.io/jest/) for testing. All test commands are a thin wrapper around jest so with any of them you can use [Jest's CLI options](https://facebook.github.io/jest/docs/en/cli.html)
 
@@ -125,9 +127,9 @@ yarn jest --watch #runs jest -o by default
 yarn jest --watchAll #runs all tests
 ```
 
-<h3 align="center">Build</h3>
+### Build
 
-<h4 align="center">Production</h4>
+#### Production
 
 To build the application run: `yarn build`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`
 
@@ -136,11 +138,11 @@ To build the application run: `yarn build`, the build files are written to `dist
 * `yarn build-renderer`: Build the frontend/ui (React) application that will run in Electron's renderer process
 * `yarn build-main`: Build the backend (Node) application that will run in Electron's main process
 
-<h4 align="center">Development</h4>
+#### Development
 
 To build the application run: `yarn build-dev`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`. Note that in development mode, the application needs a running development server that serves the static assets, this means that you need to run `yarn hot-server` in another terminal in order to view the application with all the assets.
 
-<h3 align="center">Type Checking</h3>
+#### Type Checking
 
 We have separated the transpilation and the type-checking phase for development in order to reduce the time the application needs to boot in development mode. Building/running the application for development with `yarn build-dev`/`yarn start` won't do any type-checking, the same happens when running the tests with `yarn test`.
 
@@ -160,33 +162,33 @@ yarn typecheck-test
 # yarn typecheck-test --watch
 ```
 
-<h3 align="center">Package</h3>
+### Package
 
 To package the application into an executable for your platform (Windows, MacOS, GNU/Linux) run any of the following commands. The packaged application will be written to `release` folder.
 
-<h4 align="center">Production build</h4>
+#### Production build
 
 ``` bash
 yarn package
 ```
 
-<h4 align="center">Development build</h4>
+#### Development build
 
 ``` bash
 yarn package-dev
 ```
 
-<h3 align="center">Contributing</h3>
+### Contributing
 
-<h4 align="center">Commit Messages</h4>
+#### Commit Messages
 
 Use the command `yarn commit` when committing changes to follow the same conventions we used for writing commit messages.
 
-<h4 align="center">Travis</h4>
+#### Travis (continuous integration)
 
 When opening a pull request a job in [Travis](https://travis-ci.com/) will be fired off to check the changes. To avoid wasting time waiting for Travis output we provide the command `yarn travis` that will perform almost the same checks but it'll run in your computer. The command `yarn travisp` does the same but parallelizes some tasks so it'll run faster.
 
-<h3 align="center">Troubleshooting</h3>
+#### Troubleshooting
 
 * Remember to look at the log file
 * Use `yarn clean` to remove the contents of the build and release directories (`dist` and `release`)
