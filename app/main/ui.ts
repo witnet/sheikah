@@ -113,7 +113,7 @@ export function createMainWindow() {
           }
         }
       }, {
-        label: "Toggle Full Screen",
+        label: "Toggle full screen",
         accelerator: "Ctrl+Command+F",
         click() {
           if (mainWindow) {
@@ -129,7 +129,7 @@ export function createMainWindow() {
           }
         }
       }] : [{
-        label: "Toggle Full Screen",
+        label: "Toggle full screen",
         accelerator: "Ctrl+Command+F",
         click() {
           if (mainWindow) {
@@ -155,7 +155,7 @@ export function createMainWindow() {
       submenu: [{
         label: "About Witnet",
         click() {
-          shell.openExternal("https://witnet.io/#/")
+          shell.openExternal("https://witnet.io")
         }
       }, {
         label: "About Sheikah",
@@ -163,12 +163,17 @@ export function createMainWindow() {
           shell.openExternal("https://github.com/witnet/sheikah")
         }
       }, {
-        label: "Community discussions",
+        label: "Community Telegram group",
+        click() {
+          shell.openExternal("https://t.me/witnetio")
+        }
+      }, {
+        label: "Developers discussion chatroom",
         click() {
           shell.openExternal("https://gitter.im/witnet/sheikah")
         }
       }, {
-        label: "Search or report an issue",
+        label: "Report an issue on GitHub",
         click() {
           shell.openExternal("https://github.com/witnet/sheikah/issues")
         }
@@ -229,7 +234,7 @@ export function createMainWindow() {
       submenu: [{
         label: "About Witnet",
         click() {
-          shell.openExternal("https://witnet.io/#/")
+          shell.openExternal("https://witnet.io/")
         }
       }, {
         label: "About Sheikah",
@@ -237,12 +242,17 @@ export function createMainWindow() {
           shell.openExternal("https://github.com/witnet/sheikah")
         }
       }, {
-        label: "Community discussions",
+        label: "Community Telegram group",
+        click() {
+          shell.openExternal("https://t.me/witnetio")
+        }
+      }, {
+        label: "Developers discussion chatroom",
         click() {
           shell.openExternal("https://gitter.im/witnet/sheikah")
         }
       }, {
-        label: "Search or report an issue",
+        label: "Report an issue on GitHub",
         click() {
           shell.openExternal("https://github.com/witnet/sheikah/issues")
         }
