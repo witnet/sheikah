@@ -52,9 +52,9 @@ export function createMainWindow() {
 
   if (inDarwin) {
     template = [{
-      label: "Electron",
+      label: "Sheikah Prototype",
       submenu: [{
-        label: "About ElectronReact"
+        label: "About Sheikah"
       }, {
         type: "separator"
       }, {
@@ -63,7 +63,7 @@ export function createMainWindow() {
       }, {
         type: "separator"
       }, {
-        label: "Hide ElectronReact",
+        label: "Hide Sheikah",
         accelerator: "Command+H"
       }, {
         label: "Hide Others",
@@ -104,7 +104,7 @@ export function createMainWindow() {
       }]
     }, {
       label: "View",
-      submenu: (process.env.NODE_ENV === "development") ? [{
+      submenu: inDevelopment ? [{
         label: "Reload",
         accelerator: "Command+R",
         click() {
@@ -153,24 +153,24 @@ export function createMainWindow() {
     }, {
       label: "Help",
       submenu: [{
-        label: "Learn More",
+        label: "About Witnet",
         click() {
-          shell.openExternal("http://electron.atom.io")
+          shell.openExternal("https://witnet.io/#/")
         }
       }, {
-        label: "Documentation",
+        label: "About Sheikah",
         click() {
-          shell.openExternal("https://github.com/atom/electron/tree/master/docs#readme")
+          shell.openExternal("https://github.com/witnet/sheikah")
         }
       }, {
-        label: "Community Discussions",
+        label: "Community discussions",
         click() {
-          shell.openExternal("https://discuss.atom.io/c/electron")
+          shell.openExternal("https://gitter.im/witnet/sheikah")
         }
       }, {
-        label: "Search Issues",
+        label: "Search or report an issue",
         click() {
-          shell.openExternal("https://github.com/atom/electron/issues")
+          shell.openExternal("https://github.com/witnet/sheikah/issues")
         }
       }]
     }]
@@ -181,9 +181,6 @@ export function createMainWindow() {
     template = [{
       label: "&File",
       submenu: [{
-        label: "&Open",
-        accelerator: "Ctrl+O"
-      }, {
         label: "&Close",
         accelerator: "Ctrl+W",
         click() {
@@ -230,24 +227,24 @@ export function createMainWindow() {
     }, {
       label: "Help",
       submenu: [{
-        label: "Learn More",
+        label: "About Witnet",
         click() {
-          shell.openExternal("http://electron.atom.io")
+          shell.openExternal("https://witnet.io/#/")
         }
       }, {
-        label: "Documentation",
+        label: "About Sheikah",
         click() {
-          shell.openExternal("https://github.com/atom/electron/tree/master/docs#readme")
+          shell.openExternal("https://github.com/witnet/sheikah")
         }
       }, {
-        label: "Community Discussions",
+        label: "Community discussions",
         click() {
-          shell.openExternal("https://discuss.atom.io/c/electron")
+          shell.openExternal("https://gitter.im/witnet/sheikah")
         }
       }, {
-        label: "Search Issues",
+        label: "Search or report an issue",
         click() {
-          shell.openExternal("https://github.com/atom/electron/issues")
+          shell.openExternal("https://github.com/witnet/sheikah/issues")
         }
       }]
     }]
