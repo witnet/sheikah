@@ -44,6 +44,7 @@ We are using [Electron Log](https://github.com/megahertz/electron-log/) library 
 When running in **development** the log level is set to *debug*, *debug*, *info*, *warn*, and *error* messages will be logger.
 
 <h3 align="center">Production</h3>
+
 When running in **production** the log level is set to *warn*, only *warn* and *error* messages will be logged.
 
 <h2 align="center">Sheikah Development</h2>
