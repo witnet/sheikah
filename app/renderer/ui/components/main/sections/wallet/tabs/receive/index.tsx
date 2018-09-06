@@ -166,6 +166,9 @@ class TabReceive extends TabComponent<any & Props> {
           expires: "",
           loading: false
         })
+
+        // Show success message
+        this.props.services.showSuccess("You have successfully created a payment request")
       })
       .catch((error) => {
         // Reset loading state and show error
