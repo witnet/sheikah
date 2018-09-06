@@ -1,0 +1,11 @@
+:local {
+  @import "app/renderer/ui/theme";
+
+  .left {
+    grid-column: 1;
+  }
+
+  .right {
+    grid-column: 2;
+  }
+}

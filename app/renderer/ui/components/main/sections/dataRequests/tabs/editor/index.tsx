@@ -12,9 +12,9 @@ const svgRetrieval = require("svg/dataRequestsEditorRetrieval.svg")
 const svgAttestation = require("svg/dataRequestsEditorAttestation.svg")
 const svgDelivery = require("svg/dataRequestsEditorDelivery.svg")
 
-const layoutStyles = require("app/renderer/ui/components/main/sections/smartContracts/style.scss")
+const layoutStyles = require("app/renderer/ui/components/main/sections/dataRequests/style.scss")
 const styles = require("./style.scss")
-const tabStyles = require("app/renderer/ui/components/main/sections/smartContracts/tabs/style.scss")
+const tabStyles = require("app/renderer/ui/components/main/sections/dataRequests/tabs/style.scss")
 
 /**
  * Props that contain configuration

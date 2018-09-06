@@ -7,7 +7,7 @@ import { Services } from "app/renderer/services"
 import { CardDefault } from "app/renderer/ui/components/card"
 
 const svgImage = require("svg/dataRequestsHistory.svg")
-const layoutStyles = require("app/renderer/ui/components/main/sections/smartContracts/style.scss")
+const layoutStyles = require("app/renderer/ui/components/main/sections/dataRequests/style.scss")
 const styles = require("./style.scss")
 
 /**
