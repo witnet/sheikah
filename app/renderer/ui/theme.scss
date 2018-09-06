@@ -227,10 +227,15 @@ $tab_send-info-font_size: 12px;
 $tab_send-info-font_weight: 200;
 
 // TOAST
-$toast-background: $grey-7;
+$toast-info-background: $grey-7;
+$toast-success-background: $green-7;
 $toast-color: $grey-1;
 $toast-font_size: 14px;
 $toast-font_weight: 800;
+$toast-opacity: 0.8;
+$toast-padding: 25px 50px 25px 50px;
+$toast-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+$toast-display-anticon: none;
 
 // TOOLTIP
 $tooltip_title-color: $font-color-dark;
