@@ -32,6 +32,18 @@ Go to [releases](https://github.com/witnet/sheikah/releases) section and downloa
 To install from source follow this instructions in a terminal:
 
 ``` bash
+sh -c "$(curl https://raw.githubusercontent.com/witnet/sheikah/install-script/scripts/install)"
+```
+
+or if you prefer wget:
+
+``` bash
+sh -c "$(wget https://raw.githubusercontent.com/witnet/sheikah/install-script/scripts/install -O -)"
+```
+
+The above commands are equivalent to running these command separately:
+
+``` bash
 git clone https://github.com/witnet/sheikah.git
 cd sheikah
 yarn
