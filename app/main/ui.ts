@@ -144,7 +144,7 @@ export function createMainWindow() {
         label: "Minimize",
         accelerator: "Command+M"
       }, {
-        label: "Close",
+        label: "Close Sheikah",
         accelerator: "Command+W"
       }, {
         type: "separator"
@@ -187,7 +187,7 @@ export function createMainWindow() {
     template = [{
       label: "&File",
       submenu: [{
-        label: "&Close",
+        label: "&Close Sheikah",
         accelerator: "Ctrl+W",
         click() {
           if (mainWindow) {

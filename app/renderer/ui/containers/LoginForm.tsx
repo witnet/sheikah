@@ -225,7 +225,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    */
   private settingsOptions: SettingsOptions = [
     {
-      text: "Close",
+      text: "Close Sheikah",
       onClick: () => {
         remote.getCurrentWindow().close()
       }
