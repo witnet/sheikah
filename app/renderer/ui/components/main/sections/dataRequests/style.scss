@@ -5,4 +5,11 @@
     grid-template-columns: 3fr 1fr;
     padding: 0;
   }
+
+  .paddedLayout {
+    display: grid;
+    grid-gap: 2em;
+    grid-template-columns: 3fr 1fr;
+    padding: 3em;
+  }
 }
