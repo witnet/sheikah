@@ -6,4 +6,7 @@ export type Services = {
 
   // Method to show a message for a not-yet-implemented functionality
   showUnimplementedMessage: () => void
+
+  // Method to show a success message
+  showSuccess: (message: string) => void
 }
