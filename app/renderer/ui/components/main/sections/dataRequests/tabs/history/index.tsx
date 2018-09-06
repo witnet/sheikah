@@ -7,6 +7,7 @@ import { Services } from "app/renderer/services"
 import { CardDefault } from "app/renderer/ui/components/card"
 
 const svgImage = require("svg/dataRequestsHistory.svg")
+const layoutStyles = require("app/renderer/ui/components/main/sections/smartContracts/style.scss")
 const styles = require("./style.scss")
 
 /**
@@ -40,7 +41,7 @@ class TabHistory extends TabComponent<any & Props> {
     ))
 
     return (
-      <div className={styles.layout}>
+      <div className={layoutStyles.paddedLayout}>
         <div className={styles.left}>
           <Wrapper
             title="BY TEMPLATE"

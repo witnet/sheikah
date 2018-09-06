@@ -28,11 +28,4 @@
   .withPadding div {
     padding: 12px !important;
   }
-
-  .layout {
-    display: grid;
-    grid-gap: 2em;
-    grid-template-columns: 3fr 1fr;
-    padding: 3em;
-  }
 }
