@@ -36,6 +36,7 @@ import {
 
 import { encodeBech32 } from "app/common/witnet-js/addresses/p2pkh"
 import { ChainType } from "app/common/chain/chainType"
+import { sleep } from "app/renderer/utils/sleep"
 
 const styles = require("./style.scss")
 
@@ -146,6 +147,9 @@ class TabReceive extends TabComponent<any & Props> {
     // Set loading state
     this.setState({ loading: true, errorMessage: "" })
 
+    // Add an insignificant delay (1s) to improve user experience
+    await sleep(1000)
+
     // Generate Address for selected account (array index)
     this.generateAddress(this.state.label, this.state.amount, this.state.expires)
       .then((finalKey) => {
@@ -162,6 +166,9 @@ class TabReceive extends TabComponent<any & Props> {
           expires: "",
           loading: false
         })
+
+        // Show success message
+        this.props.services.showSuccess("You have successfully created a payment request")
       })
       .catch((error) => {
         // Reset loading state and show error
