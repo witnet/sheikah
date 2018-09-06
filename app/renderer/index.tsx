@@ -5,8 +5,10 @@ import { message } from "antd"
 import { render } from "react-dom"
 import Root from "app/renderer/ui/containers/Root"
 import "./ui/app.global.scss"
-import { UnimplementedMessage } from "app/renderer/ui/components/unimplementedMessage"
 import { Services } from "app/renderer/services"
+import { UnimplementedMessage } from "app/renderer/ui/components/unimplementedMessage"
+import GenericMessage from "app/renderer/ui/components/genericMessage"
+
 const apiClient = new api.Client()
 
 /**
@@ -18,6 +20,15 @@ function showUnimplementedMessage() {
   return message.info(<UnimplementedMessage />)
 }
 
+/**
+ * Call antd success message to show component configurable by text
+ *
+ * @returns
+ */
+function showSuccess(msg: string) {
+  return message.success(<GenericMessage className="success" msg={msg} />)
+}
+
 // Related to issue 390
 document.location.hash = "#/"
 
@@ -26,7 +37,8 @@ new Promise(async () => {
   // dependency injection.
   const services: Services = {
     apiClient,
-    showUnimplementedMessage
+    showUnimplementedMessage,
+    showSuccess
   }
 
   // Query and parse wallets from main process
