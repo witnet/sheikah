@@ -120,13 +120,38 @@
     }
 
     .ant-message-notice-content {
-      background: $toast-background;
-      border-radius: 8% / 50%;
-      opacity: 0.8;
-      padding: 25px 50px 25px 50px;
+      background: transparent;
+      border-radius: 0;
+      -webkit-box-shadow: 0 0;
+      box-shadow: 0 0;
+      display: inline-block;
+      padding: 0;
+      pointer-events: all;
+    }
+
+    .ant-message-info {
+      background: $toast-info-background;
+      border-radius: 41px / 37px;
+      -webkit-box-shadow: $toast-box-shadow;
+      box-shadow: $toast-box-shadow;
+      opacity: $toast-opacity;
+      padding: $toast-padding;
 
       .anticon {
-        display: none;
+        display: $toast-display-anticon;
+      }
+    }
+
+    .ant-message-success {
+      background: $toast-success-background;
+      border-radius: 41px / 37px;
+      -webkit-box-shadow: $toast-box-shadow;
+      box-shadow: $toast-box-shadow;
+      opacity: $toast-opacity;
+      padding: $toast-padding;
+
+      .anticon {
+        display: $toast-display-anticon;
       }
     }
 
