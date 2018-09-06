@@ -5,6 +5,7 @@
     display: grid;
     grid-column: 1;
     grid-gap: 2em;
+    grid-template-rows: auto 1fr;
   }
 
   .right {
