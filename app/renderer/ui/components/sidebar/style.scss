@@ -70,14 +70,8 @@
     }
   }
 
-  .hr {
-    border: 0;
-    border-top: $sidebar-settings-border;
-    height: 1px;
-    width: 90%;
-  }
-
   .settings {
+    border-top: $sidebar-settings-border;
     display: grid;
     font-size: $icon-settings-font_size;
     grid-row: 5;

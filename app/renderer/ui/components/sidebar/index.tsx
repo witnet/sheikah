@@ -42,23 +42,18 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
         <div className={styles["link-list"]}>
           {linksRender(this.props.linksProps, this.props.pathName)}
         </div>
-        <div>
-          <hr className={styles.hr}/>
-          <div className={styles.settings}>
-            <Dropdown
-              trigger={["hover"]}
-              placement="topCenter"
-              dataSource={this.props.setingsOptions}
-            >
-              <i
-                className={`fa fa-cog ${styles["settings-icon"]}`}
-              />
-            </Dropdown>
-            <div className={styles["net-status"]}>
-              <span className={styles.mainnet}>PROTOTYPE</span>
-              <span className={styles.synced}>SYNCED</span>
-              <DotIndicator mood="warning"/>
-            </div>
+        <div className={styles.settings}>
+          <Dropdown
+            trigger={["hover"]}
+            placement="topCenter"
+            dataSource={this.props.setingsOptions}
+          >
+            <i className={`fa fa-cog ${styles["settings-icon"]}`} />
+          </Dropdown>
+          <div className={styles["net-status"]}>
+            <span className={styles.mainnet}>PROTOTYPE</span>
+            <span className={styles.synced}>SYNCED</span>
+            <DotIndicator mood="warning"/>
           </div>
         </div>
       </div>
