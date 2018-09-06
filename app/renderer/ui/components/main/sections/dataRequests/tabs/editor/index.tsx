@@ -12,6 +12,7 @@ const svgRetrieval = require("svg/dataRequestsEditorRetrieval.svg")
 const svgAttestation = require("svg/dataRequestsEditorAttestation.svg")
 const svgDelivery = require("svg/dataRequestsEditorDelivery.svg")
 
+const layoutStyles = require("app/renderer/ui/components/main/sections/smartContracts/style.scss")
 const styles = require("./style.scss")
 const tabStyles = require("app/renderer/ui/components/main/sections/smartContracts/tabs/style.scss")
 
@@ -33,7 +34,7 @@ class TabEditor extends TabComponent<any & Props> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
-      <div className={styles.layout}>
+      <div className={layoutStyles.layout}>
         <div className={`${styles.bar}`}>
           <img src={svgBar} />
         </div>
