@@ -5,7 +5,7 @@ import {
 import { newMnemonicsErrors, WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 
 import { assertNever } from "app/common/utils"
-import { saveWallet, saveTransactions } from "app/renderer/actions"
+import { saveWallet, saveTransactions, saveWalletInfo } from "app/renderer/actions"
 import {
   Client, encryptWallet, newMnemonics, validateMnemonics, validateXprv
 } from "app/renderer/api"
@@ -74,7 +74,7 @@ interface Props {
  */
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
-    actions: bindActionCreators({ saveWallet, saveTransactions }, dispatch)
+    actions: bindActionCreators({ saveWallet, saveTransactions, saveWalletInfo }, dispatch)
   }
 }
 
@@ -213,6 +213,7 @@ class WalletFormContainer extends
       // if is a prefilledWallet add the prefilled data
       const wallet = extendWalletData(encryptWalletResponse.wallet)
       await this.props.actions.saveWallet(wallet)
+      this.props.actions.saveWalletInfo({id: wallet.id, caption: wallet.caption})
       this.props.actions.saveTransactions(extendTransactionsData([], wallet.caption))
 
       navigateTo(this.props.history, TRANSACTIONS_TAB)
