@@ -24,12 +24,15 @@ import { SettingsOptions } from "app/renderer/ui/components/sidebar"
 import { navigateTo } from "app/renderer/utils/routerNavigation"
 import { remote } from "electron"
 
+import { prefilledWalletCaption } from "app/renderer/prefilledWallet"
+
 /**
  * Props that match redux store state
  */
 export interface StateProps {
-  selectedAccount: number,
+  selectedAccount: number
   wallet: WalletOption
+  isPrefilledWallet: boolean
   pendingTransactions: Array<PendingTransactionProps>
   confirmedTransactions: Array<ConfirmedTransactionProps>
 }
@@ -69,6 +72,7 @@ const mapStateToProps = (state: StoreState): StateProps => {
     // TODO: Prototype only supports 1 account (i.e. "My hot wallet")
     selectedAccount: 0,
     wallet: state.wallet,
+    isPrefilledWallet: state.wallet && state.wallet.caption === prefilledWalletCaption,
     confirmedTransactions: filterConfirmedTransactions(state.transactions),
     pendingTransactions: filterPendingTransactions(state.transactions)
   })
@@ -144,27 +148,27 @@ class MainContainer extends
   //  )
   //}
 
-    /**
-     * Options for settings button
-     *
-     * @private
-     * @type {SettingsOptions}
-     * @memberof MainContainer
-     */
-    private settingsOptions: SettingsOptions = [
-      {
-        text: "Lock wallet",
-        onClick: () => {
-          navigateTo(this.props.history, urls.FORMS)
-        }
-      },
-      {
-        text: "Close Sheikah",
-        onClick: () => {
-          remote.getCurrentWindow().close()
-        }
+  /**
+   * Options for settings button
+   *
+   * @private
+   * @type {SettingsOptions}
+   * @memberof MainContainer
+   */
+  private settingsOptions: SettingsOptions = [
+    {
+      text: "Lock wallet",
+      onClick: () => {
+        navigateTo(this.props.history, urls.FORMS)
       }
-    ]
+    },
+    {
+      text: "Close Sheikah",
+      onClick: () => {
+        remote.getCurrentWindow().close()
+      }
+    }
+  ]
 
   /** render */
   // tslint:disable-next-line:prefer-function-over-method

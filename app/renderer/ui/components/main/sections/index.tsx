@@ -55,6 +55,7 @@ export interface SectionInfo {
   sectionPath: string
   path: string
   icon?: string
+  isPrefilledWallet?: boolean
   component: React.ComponentClass<SectionProps>
 }
 

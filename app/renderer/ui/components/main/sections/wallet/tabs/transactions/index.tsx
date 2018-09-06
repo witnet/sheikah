@@ -1,4 +1,5 @@
 import * as React from "react"
+import * as _ from "lodash"
 
 import { ComputedTransactions } from "app/renderer/prefilledTransactions"
 
@@ -27,6 +28,7 @@ interface OwnProps {
   confirmedTransactions: ComputedTransactions
   services: Services
   pathName: PathNameProp
+  isPrefilledWallet: boolean
 }
 
 /**
@@ -38,6 +40,8 @@ interface OwnProps {
 class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
+    const balances = this.props.isPrefilledWallet ? balanceData : _.mapValues(balanceData, () => 0)
+
     const listOptions = ["Export all transactions as CSV", "View in block explorer"]
       .map((opt: string) => ({
         text: opt,
@@ -87,7 +91,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
         </div>
 
         <div className={styles.right}>
-          <Balances className={styles.balances} {...balanceData} />
+          <Balances className={styles.balances} {...balances} />
           <Wrapper
             title="VESTING SCHEDULE GRAPH"
             actions={listOptions}
