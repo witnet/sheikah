@@ -9,7 +9,6 @@ import TopBar from "app/renderer/ui/components/topBar"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 import { TabHistory, TabEditor } from "app/renderer/ui/components/main/sections/dataRequests/tabs"
 
-const styles = require("./style.scss")
 const mainStyles = require("app/renderer/ui/components/main/style.scss")
 
 /**
@@ -39,25 +38,23 @@ class DataRequests extends React.Component<SectionProps> {
           pathName={this.props.pathName}
           linksProps={topBarlinkProps}
         />
-        <div className={styles.layout}>
-          <Switch>
-            <PropsRoute
-              path={urls.DATA_REQUESTS_HISTORY_TAB}
-              ownProps={this.props}
-              component={TabHistory.component}
-            />
-            <PropsRoute
-              path={urls.DATA_REQUESTS_EDITOR_TAB}
-              ownProps={this.props}
-              component={TabEditor.component}
-            />
-            <PropsRoute
-              path="/"
-              ownProps={this.props}
-              component={TabHistory.component}
-            />
-          </Switch>
-        </div>
+        <Switch>
+          <PropsRoute
+            path={urls.DATA_REQUESTS_HISTORY_TAB}
+            ownProps={this.props}
+            component={TabHistory.component}
+          />
+          <PropsRoute
+            path={urls.DATA_REQUESTS_EDITOR_TAB}
+            ownProps={this.props}
+            component={TabEditor.component}
+          />
+          <PropsRoute
+            path="/"
+            ownProps={this.props}
+            component={TabHistory.component}
+          />
+        </Switch>
       </>
     )
   }
