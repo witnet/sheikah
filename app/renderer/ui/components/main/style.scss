@@ -26,6 +26,7 @@
       "tb"
       "ct";
     grid-template-rows: 60px calc(100vh - 60px);
+    overflow: scroll;
   }
 
   .top-bar {

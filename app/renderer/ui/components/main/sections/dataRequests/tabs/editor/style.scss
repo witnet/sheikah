@@ -10,17 +10,13 @@
     padding: 0;
   }
 
-  .bar {
-    grid-column-end: 3;
-    grid-column-start: 1;
-  }
-
   .editor div {
     padding: 15px !important;
   }
 
   .right {
     font-size: 1em;
+    grid-column: 2;
     padding-right: 3em;
 
     .title {
@@ -46,6 +42,14 @@
 
   .left {
     padding-left: 3em;
+  }
+
+  .layout {
+    display: grid;
+    grid-gap: 2em;
+    grid-template-columns: 1fr 360px;
+    overflow: auto;
+    padding: 0 0 3em 0;
   }
 
   .param {
@@ -83,5 +87,15 @@
 
   .cardContent {
     padding: 20px;
+  }
+
+  .logic {
+    margin-bottom: 20px;
+  }
+
+  .bar {
+    grid-column-end: 3;
+    grid-column-start: 1;
+    width: 100%;
   }
 }

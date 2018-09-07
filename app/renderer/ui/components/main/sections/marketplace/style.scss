@@ -2,6 +2,8 @@
   @import "app/renderer/ui/theme";
 
   .layout {
+    height: 100vh;
+    overflow: auto;
     padding: 30px;
   }
 }

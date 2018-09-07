@@ -6,13 +6,10 @@ import * as urls from "app/renderer/constants/urls"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import { Services } from "app/renderer/services"
 
-const svgBar = require("svg/smartContractsEditorBar.svg")
 const svgComposer = require("svg/smartContractsEditorComposer.svg")
 const svgSideContent = require("svg/smartContractsEditorSideContent.svg")
 
-const layoutStyles = require("app/renderer/ui/components/main/sections/smartContracts/style.scss")
 const styles = require("./style.scss")
-const tabStyles = require("app/renderer/ui/components/main/sections/smartContracts/tabs/style.scss")
 
 /**
  * Props that contain configuration
@@ -32,23 +29,30 @@ class TabEditor extends TabComponent<any & Props> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
-      <div className={layoutStyles.layout}>
-        <div className={`${styles.bar}`}>
-          <img src={svgBar} />
+      <div className={styles.layout}>
+        <div className={styles.bar}>
+          <p className={styles.first}>
+            <span>Editing </span>
+            <span className={styles.semibold}>'Pay to Alice or Bob, based on API response'</span>
+          </p>
+          <p className={styles.triangle} />
+          <p className={styles.second}>New</p>
+          <p className={styles.third}>Open</p>
         </div>
-        <div className={`${tabStyles.left} ${styles.left}`}>
-          <Wrapper
-            title="CONTRACT LOGIC"
-          >
-            <CardDefault
-              className={styles.editor}
+        <div className={styles.content}>
+          <div className={styles.left}>
+            <Wrapper
+              className={styles.contract}
+              title="CONTRACT LOGIC"
             >
-              <img src={svgComposer} />
-            </CardDefault>
-          </Wrapper>
-        </div>
-        <div className={`${tabStyles.right} ${styles.right}`}>
-          <img src={svgSideContent} />
+              <CardDefault
+                className={styles.editor}
+              >
+                <img src={svgComposer} />
+              </CardDefault>
+            </Wrapper>
+          </div>
+          <img className={styles.right} src={svgSideContent} />
         </div>
       </div>
     )

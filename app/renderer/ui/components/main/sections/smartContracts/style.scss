@@ -1,14 +1,18 @@
 :local {
   .layout {
     display: grid;
+    grid-area: ct;
     grid-gap: 2em;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr 360px;
+    overflow: auto;
   }
 
   .paddedLayout {
     display: grid;
+    grid-area: ct;
     grid-gap: 2em;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr 360px;
+    overflow: auto;
     padding: 3em;
   }
 }
