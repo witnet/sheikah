@@ -106,33 +106,32 @@ function generatePrefilledAccount(): Account {
       finalKeys: [
         generateFinalKey("external", keyPath0, 0, {
           label: "From Satoshi Nakamoto",
-          creationDate: 1526515200,
-          expirationDate: 1558051200,
+          creationDate: 1530887445,     // Friday, July 6, 2018 2:30:45 PM
+          expirationDate: 1556323200,   // Saturday, April 27, 2019 00:00:00 AM
           requestedAmount: 1
         }),
         generateFinalKey("external", keyPath0, 1, {
           label: "From Nick Szabo",
-          creationDate: 1526515200,
-          expirationDate: 1526342400,
+          creationDate: 1531912925,     // Wednesday, July 18, 2018 11:22:05 AM
+          expirationDate: 1535382908,   // Monday, August 27, 2018 3:15:08 PM
           requestedAmount: 1
         }),
         generateFinalKey("external", keyPath0, 2, {
           label: "From Hal Finney",
-          creationDate: 1526515200,
+          creationDate: 1532451243,     // Tuesday, July 24, 2018 4:54:03 PM
           requestedAmount: 1
         }),
         generateFinalKey("external", keyPath0, 3, {
           label: "From Peter Todd",
-          creationDate: 1526515200,
+          creationDate: 1532695437,     // Friday, July 27, 2018 12:43:57 PM
           requestedAmount: 1
         }),
         generateFinalKey("external", keyPath0, 4, {
-          creationDate: 1526515200,
-          requestedAmount: 1
+          creationDate: 1533551072      // Monday, August 6, 2018 10:24:32 AM
         }),
         generateFinalKey("external", keyPath0, 5, {
           label: "From Gavin Wood",
-          creationDate: 1526515200,
+          creationDate: 1534447293,     // Thursday, August 16, 2018 7:21:33 PM
           requestedAmount: 1
         }),
       ],
@@ -171,7 +170,7 @@ export const prefilledAddresses = [
 /**
  * Prefilled funds of the prefilled external final keys
  */
-export const prefilledFinalKeysFunds = [0, 0, 0, 0.5, 1, 2]
+export const prefilledFinalKeysFunds = [0, 0, 0, 0.5, 0.1, 2.6]
 
 /**
  * Internal function that generates a pre-filled final key. Do not use outside of this module.

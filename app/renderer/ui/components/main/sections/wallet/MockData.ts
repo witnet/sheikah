@@ -1,8 +1,8 @@
 export const balanceData = {
-  availableBalance: "3.141592",
-  timelocked: "1",
-  unconfirmed: "0.1",
-  total: "4.241592"
+  availableBalance: "3.1",
+  timelocked: "0.1",
+  unconfirmed: "1",
+  total: "4.2"
 }
 
 export const selectFeesData = [
