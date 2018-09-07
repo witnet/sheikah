@@ -3,6 +3,15 @@ import { assertNever } from "app/common/utils"
 export type dateAccuracy = "min" | "day"
 
 /**
+ * Function to pad a number with a leading zero if required to have 2 digits
+ */
+function padNumber(n: number) {
+  return (n < 10)
+    ? `0${n}`
+    : n
+}
+
+/**
  *  Function to parse date to a human redable format
  *
  * @export
@@ -25,7 +34,7 @@ export default function parseDate(date: Date, accuracy: dateAccuracy, ordinal?: 
   let parsedDate = ""
   switch (accuracy) {
     case "min":
-      parsedDate = `${month} ${day} at ${hour}:${min}`
+      parsedDate = `${month} ${day} at ${padNumber(hour)}:${padNumber(min)}`
       break
     case "day":
       parsedDate = `${month} ${day}${ordinalSuffix}, ${year}`
