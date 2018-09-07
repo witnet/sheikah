@@ -33,6 +33,9 @@ interface Props {
 class TabEditor extends TabComponent<any & Props> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
+    const description = "Ask two different APIs for the weather in a certain location " +
+      "at a future point in time, then send result to Ethereum contract."
+
     return (
       <div className={layoutStyles.layout}>
         <div className={`${styles.bar}`}>
@@ -64,6 +67,7 @@ class TabEditor extends TabComponent<any & Props> {
               className={styles.input}
               type="text"
               value="ethereum-weather-reporter.rad"
+              readOnly={true}
             />
 
             <label className={styles.label}>TITLE</label>
@@ -71,13 +75,15 @@ class TabEditor extends TabComponent<any & Props> {
               className={styles.input}
               type="text"
               value="Report weather to Ethereum contract"
+              readOnly={true}
             />
 
             <label className={styles.label}>DESCRIPTION</label>
-            <textarea className={`${styles.textarea} ${styles.input}`}>
-              Ask two different APIs for the weather in a certain location at a future
-              point in time, then send result to Ethereum contract.
-            </textarea>
+            <textarea
+              className={`${styles.textarea} ${styles.input}`}
+              value={description}
+              readOnly={true}
+            />
 
             <p className={styles.title}>PROTOCOL LEVEL PARAMETERS</p>
             <CardDefault contentStyle={styles.cardContent}>

@@ -9,6 +9,7 @@ export interface Iprops {
   className?: string
   onChange?: (e: React.ChangeEvent) => void
   type?: string
+  readOnly?: boolean
 }
 
 /**
@@ -30,6 +31,7 @@ export default class InputUnderlined extends React.Component<Iprops> {
         type={this.props.type}
         value={this.props.value}
         onChange={this.props.onChange}
+        readOnly={this.props.readOnly}
       />
     )
   }
