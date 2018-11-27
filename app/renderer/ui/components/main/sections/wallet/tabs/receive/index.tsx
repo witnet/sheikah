@@ -67,7 +67,8 @@ class TabReceive extends TabComponent<any & Props> {
     amount: "",
     expires: "",
     loading: false,
-    errorMessage: ""
+    errorMessage: "",
+    check: false
   }
 
   /**
@@ -146,6 +147,7 @@ class TabReceive extends TabComponent<any & Props> {
 
     // Set loading state
     this.setState({ loading: true, errorMessage: "" })
+  
 
     // Add an insignificant delay (1s) to improve user experience
     await sleep(1000)
@@ -175,7 +177,14 @@ class TabReceive extends TabComponent<any & Props> {
         this.setState({ loading: false, errorMessage: error })
       })
   }
-
+      private handleCheck = async (e:any) =>{
+        if (!this.state.check){
+          this.setState({check:true})
+        }
+        else{
+          this.setState({check:false})
+        }
+      }
   /**
    * Method to map account to payment requests
    */
@@ -265,13 +274,22 @@ class TabReceive extends TabComponent<any & Props> {
                   value={this.state.amount}
                 />
                 <label className={styles.label}> Expires </label>
-                <DefaultInput
-                  className={styles["date-input"]}
-                  type="datetime-local"
-                  name="expires"
-                  onChange={this.handleChange}
-                  value={this.state.expires}
+                <input
+                className=""
+                type="checkbox"
+                name="expiresCheck"
+                onChange={this.handleCheck}
                 />
+                {this.state.check ?
+                    <DefaultInput
+                      className={styles["date-input"]}
+                      type="datetime-local"
+                      name="expires"
+                      onChange={this.handleChange}
+                      value={this.state.expires}
+                    />
+                  : false
+                }
                 <div className={loading}>
                   <Spinner
                     className={styles.spinner}
