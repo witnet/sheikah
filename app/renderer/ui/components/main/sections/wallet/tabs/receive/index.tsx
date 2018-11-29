@@ -37,6 +37,8 @@ import {
 import { encodeBech32 } from "app/common/witnet-js/addresses/p2pkh"
 import { ChainType } from "app/common/chain/chainType"
 import { sleep } from "app/renderer/utils/sleep"
+import InputCheck from "../../../../../input/checkbox"
+import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
 const styles = require("./style.scss")
 
@@ -67,7 +69,8 @@ class TabReceive extends TabComponent<any & Props> {
     amount: "",
     expires: "",
     loading: false,
-    errorMessage: ""
+    errorMessage: "",
+    check: false
   }
 
   /**
@@ -147,7 +150,7 @@ class TabReceive extends TabComponent<any & Props> {
     // Set loading state
     this.setState({ loading: true, errorMessage: "" })
 
-    // Add an insignificant delay (1s) to improve user experience
+    //Add an insignificant delay (1s) to improve user experience
     await sleep(1000)
 
     // Generate Address for selected account (array index)
@@ -175,7 +178,15 @@ class TabReceive extends TabComponent<any & Props> {
         this.setState({ loading: false, errorMessage: error })
       })
   }
-
+     /**
+      *
+      * Handle checkbox value and show expires input
+      * @private
+      * @memberof TabReceive
+      */
+    private handleCheck = async (e: CheckboxChangeEvent) => {
+      this.setState({check: !this.state.check})
+      }
   /**
    * Method to map account to payment requests
    */
@@ -238,7 +249,18 @@ class TabReceive extends TabComponent<any & Props> {
       .accounts[this.props.selectedAccount]
       .keyChains[KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL].finalKeys.length === 0
 
-    return (
+    const expirationDateInput = this.state.check &&
+      (
+      <DefaultInput
+        className={styles["date-input"]}
+        type="datetime-local"
+        name="expires"
+        onChange={this.handleChange}
+        value={this.state.expires}
+      />
+    )
+
+    return(
       <>
         <div className={styles.left}>
           <Wrapper
@@ -265,13 +287,11 @@ class TabReceive extends TabComponent<any & Props> {
                   value={this.state.amount}
                 />
                 <label className={styles.label}> Expires </label>
-                <DefaultInput
-                  className={styles["date-input"]}
-                  type="datetime-local"
-                  name="expires"
-                  onChange={this.handleChange}
-                  value={this.state.expires}
+                <InputCheck
+                  name="expiresCheck"
+                  onChange={this.handleCheck}
                 />
+                {expirationDateInput}
                 <div className={loading}>
                   <Spinner
                     className={styles.spinner}
