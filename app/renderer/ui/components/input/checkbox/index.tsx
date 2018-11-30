@@ -3,10 +3,11 @@ import * as React from "react"
 import { Checkbox } from "antd"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
+
 export interface Iprops {
     className?: string
-    name?: string
     onChange?: (e: CheckboxChangeEvent) => void
+    name?: string
 
   }
 
@@ -21,10 +22,11 @@ export default class InputCheck extends React.Component<Iprops> {
     // tslint:disable-next-line: completed-docs
     public render() {
         return(
-            <Checkbox
-                className={this.props.className}
-                onChange={this.props.onChange}
-            />
+                <Checkbox
+                    className={this.props.className}
+                    onChange={this.props.onChange}
+                    name={this.props.name}
+                />
         )
     }
 }

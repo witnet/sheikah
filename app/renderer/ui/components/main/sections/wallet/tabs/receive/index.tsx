@@ -286,12 +286,15 @@ class TabReceive extends TabComponent<any & Props> {
                   onChange={this.handleChange}
                   value={this.state.amount}
                 />
-                <label className={styles.label}> Expires </label>
-                <InputCheck
-                  name="expiresCheck"
-                  onChange={this.handleCheck}
-                />
+                <div className={styles['check-wrapper']}>
+                  <label className={styles.label}> Expires </label>
+                  <InputCheck
+                    className={styles['input-check']}
+                    name="expiresCheck"
+                    onChange={this.handleCheck}
+                  />
                 {expirationDateInput}
+                </div>
                 <div className={loading}>
                   <Spinner
                     className={styles.spinner}
