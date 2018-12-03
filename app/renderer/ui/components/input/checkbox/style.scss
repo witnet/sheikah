@@ -1,4 +1,7 @@
 :local {
   @import "app/renderer/ui/theme";
-  // tslint:disable-next-line: completed-docs
+
+  .grid {
+    position: relative;
+  }
 }

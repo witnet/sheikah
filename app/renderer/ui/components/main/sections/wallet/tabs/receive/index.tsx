@@ -293,29 +293,25 @@ class TabReceive extends TabComponent<any & Props> {
               className={`${styles["new-payment-request"]}`}
             >
               <div className={styles.form}>
-                <div className={styles["form-row"]}>
-                  <label className={styles.label}>Label</label>
-                  <DefaultInput
-                    className={styles["label-input"]}
-                    type="text"
-                    name="label"
-                    onChange={this.handleChange}
-                    value={this.state.label}
-                  />
-                </div>
-                <div className={styles["form-row"]}>
-                  <label className={styles.label}>Amount</label>
-                  <InputAmount
-                    className={styles["amount-input"]}
-                    type="number"
-                    min="0"
-                    name="amount"
-                    onChange={this.handleChange}
-                    value={this.state.amount}
-                  />
-                </div>
-                <div className={styles["form-row"]}>
-                  <label className={styles.label}>Expires</label>
+                <label className={styles.label}>Label</label>
+                <DefaultInput
+                  className={styles["label-input"]}
+                  type="text"
+                  name="label"
+                  onChange={this.handleChange}
+                  value={this.state.label}
+                />
+                <label className={styles.label}>Amount</label>
+                <InputAmount
+                  className={styles["amount-input"]}
+                  type="number"
+                  min="0"
+                  name="amount"
+                  onChange={this.handleChange}
+                  value={this.state.amount}
+                />
+                <div className={styles["check-wrapper"]}>
+                  <label className={styles.label}> Expires </label>
                   <InputCheck
                     className={styles["input-check"]}
                     name="expiresCheck"
