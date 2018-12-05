@@ -44,8 +44,7 @@ import {
 import { encodeBech32 } from "app/common/witnet-js/addresses/p2pkh"
 import { ChainType } from "app/common/chain/chainType"
 import { sleep } from "app/renderer/utils/sleep"
-import InputCheck from "app/renderer/ui/components/input/checkbox"
-import { CheckboxChangeEvent } from "antd/lib/checkbox"
+import SwitchSelector from "app/renderer/ui/components/input/switch"
 
 const styles = require("./style.scss")
 const grid = require("app/renderer/ui/components/main/style.scss")
@@ -198,15 +197,15 @@ class TabReceive extends TabComponent<any & Props> {
         this.setState({ loading: false, errorMessage: error })
       })
   }
-  /**
-   *
-   * Handle checkbox value and show expires input
-   * @private
-   * @memberof TabReceive
-   */
-  private handleCheck = async (e: CheckboxChangeEvent) => {
-    this.setState({ check: !this.state.check })
-  }
+     /**
+      *
+      * Handle checkbox value and show expires input
+      * @private
+      * @memberof TabReceive
+      */
+    private handleCheck = async (checked: boolean) => {
+      this.setState({check: !this.state.check})
+      }
   /**
    * Method to map account to payment requests
    */
@@ -274,13 +273,14 @@ class TabReceive extends TabComponent<any & Props> {
         KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL
       ].finalKeys.length === 0
 
-    const expirationDateInput = this.state.check && (
+    const expirationDateInput = (
       <DefaultInput
         className={styles["date-input"]}
         type="datetime-local"
         name="expires"
         onChange={this.handleChange}
         value={this.state.expires}
+        disabled={!this.state.check}
       />
     )
 
@@ -312,10 +312,10 @@ class TabReceive extends TabComponent<any & Props> {
                 />
                 <div className={styles["check-wrapper"]}>
                   <label className={styles.label}> Expires </label>
-                  <InputCheck
-                    className={styles["input-check"]}
-                    name="expiresCheck"
+                  <SwitchSelector
+                    checked={this.state.check}
                     onChange={this.handleCheck}
+                    size={"small"}
                   />
                   {expirationDateInput}
                 </div>

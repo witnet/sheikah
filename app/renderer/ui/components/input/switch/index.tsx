@@ -3,19 +3,26 @@ import * as React from "react"
 import { Switch } from "antd"
 
 export interface Iprops {
+    className?: string
     checked?: boolean
-    onChange?: (e: any) => void 
+    onChange?: (checked: boolean) => any
+    size?: "small" | "default"
     // change type
-
 }
-
+/**
+ * Switch UI Component
+ *
+ * @export
+ * @class SwitchSelector
+ * @extends {React.Component<Iprops>}
+ */
 export default class SwitchSelector extends React.Component<Iprops> {
-    public render(){
+  // tslint:disable-next-line: completed-docs
+    public render() {
         return(
             <Switch
                 checked={this.props.checked}
                 onChange={this.props.onChange}
-                disabled={this.props.disabled}
             />
         )
     }

@@ -89,7 +89,7 @@
       }
 
       .amount-input {
-        grid-column-end: 2;
+        grid-column-end: 1;
         grid-column-start: 4;
         height: 48px;
         padding: 12px 64px 10px 14px;
@@ -97,20 +97,20 @@
       }
 
       .date-input {
-        grid-column-end: 2;
+        grid-column-end: 1;
         grid-column-start: 4;
         height: 48px;
+        margin-left: 5px;
         width: 200px;
       }
 
       .check-wrapper {
         grid-column-end: 1;
         grid-column-start: 4;
-        padding: 10px;
       }
 
-      .input-check {
-        margin: 15px;
+      .expires {
+        padding: 800px;
       }
     }
 

@@ -7,6 +7,7 @@ export interface Iprops {
   type?: string
   name?: string
   value?: any
+  disabled?: boolean
   onChange?: React.ChangeEventHandler
   onBlur?: React.ChangeEventHandler
   onKeyUp?: React.KeyboardEventHandler
@@ -29,6 +30,7 @@ export default class DefaultInput extends React.Component<Iprops> {
         type={this.props.type}
         name={this.props.name}
         value={this.props.value}
+        disabled={this.props.disabled}
         onChange={this.props.onChange}
         onBlur={this.props.onBlur}
         onKeyUp={this.props.onKeyUp}
