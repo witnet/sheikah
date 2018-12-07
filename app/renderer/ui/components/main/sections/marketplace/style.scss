@@ -1,7 +1,68 @@
 :local {
   @import "app/renderer/ui/theme";
 
-  .layout {
-    padding: 30px;
+  .container {
+    display: grid;
+    grid-template-columns: repeat(12, [col-start] 1fr);
+  }
+  .header {
+    grid-column: col-start / span 12;
+    grid-row: 1;
+    padding: 5vh;
+  }
+  .main {
+    grid-column: col-start / span 9;
+    grid-row: 2;
+    padding: 5vh;
+  }
+  .nav {
+    grid-column: col-start 9 / span 2;
+    grid-row: 2;
+    padding: 5vh;
+  }
+  .navbar-categories {
+    width: 30vh;
+    height: 16vh;
+    background-color: lemonchiffon;
+    border: 1px solid grey;
+    border-radius: 1%;
+  }
+  .navbar-item {
+    padding: 2vh;
+  }
+  .tag-categories{
+    margin: 3vh;
+  }
+  .tags{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .tags{
+    padding-right: 0.3em;
+  }
+  .row-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .row-items > h2 {
+    width: 0.5em;
+  }
+  .column-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: flex-start;
+    padding: 2vh 2vh 2vh 0;
+  }
+  .column-label {
+    width: 17vh;
+    padding: 5px;
+  }
+  .square {
+    width: 200px;
+    height: 150px;
+    background-color: blue;
   }
 }
