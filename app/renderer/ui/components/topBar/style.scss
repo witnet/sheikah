@@ -3,19 +3,16 @@
 
   .top-bar {
     border-bottom: $top_bar-border;
-    display: grid;
-    grid-template-columns: repeat(6, auto) 1fr;
-    padding-left: 1em;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
   }
 
   .link-box {
-    align-items: center;
     border-bottom: $top_bar-link-inactive-border;
     color: $top_bar-link-default-color;
-    display: flex;
     font-weight: bold;
-    grid-row: 1;
-    padding: 0 2em;
+    padding: 1.5em 2.5em 1.4em 2.5em;
     text-decoration: none;
   }
 

@@ -17,7 +17,7 @@ export interface Props {
 export default class DotIndicator extends React.Component<Props> {
   // tslint:disable-next-line: completed-docs
   public render() {
-    const dotStyle = `fa fa-circle ${styles[this.props.mood]}`
+    const dotStyle = `fa fa-circle dot ${styles[this.props.mood]}`
 
     return (
       <i className={dotStyle} />

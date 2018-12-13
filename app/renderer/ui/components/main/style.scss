@@ -3,34 +3,23 @@
 
   .layout {
     display: grid;
-    grid-template-areas:
-      "nv mn"
-      "nv mn"
-      "nv mn";
-    grid-template-columns: 320px 1fr;
-    grid-template-rows: minmax(100vh, 100vh);
-    max-height: 100vh;
-    max-width: 100%;
+    grid-template-columns: repeat(12, [col] 1fr);
+    height: 100vh;
+    width: 100vw;
   }
 
   .sidebar {
-    grid-area: nv;
-    max-height: 100vh;
+    grid-column: col / span 3;
   }
 
   .main {
     background: $background-color;
-    display: grid;
-    grid-area: mn;
-    grid-template-areas:
-      "tb"
-      "ct";
-    grid-template-rows: 60px calc(100vh - 60px);
+    grid-column: col 4 / -1;
     overflow: scroll;
   }
 
   .top-bar {
     background: $top_bar-background;
-    grid-area: tb;
+    grid-column: col 4 / -1;
   }
 }
