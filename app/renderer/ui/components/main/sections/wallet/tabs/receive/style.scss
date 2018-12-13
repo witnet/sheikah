@@ -89,27 +89,24 @@
         padding: 12px 64px 10px 14px;
         width: 180px;
       }
-      
+
       .date-input {
-        grid-column-end:2;
-        grid-column-start:4;
+        grid-column-end: 2;
+        grid-column-start: 4;
         height: 48px;
-        width: 200px;
         margin: 0;
-
+        width: 200px;
       }
 
-      .check-wrapper{
-        grid-column-end:1;
-        grid-column-start:4;
-        padding:10px;
+      .check-wrapper {
+        grid-column-end: 1;
+        grid-column-start: 4;
+        padding: 10px;
+      }
 
+      .input-check {
+        margin: 15px;
       }
-      
-      .input-check{
-        margin:15px;
-      }
-      
     }
 
     .error {

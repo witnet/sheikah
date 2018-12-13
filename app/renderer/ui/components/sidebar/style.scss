@@ -1,70 +1,15 @@
 :local {
   @import "app/renderer/ui/theme";
-  @media (max-width: 960px) {
-    .sidebar {
-      box-shadow: $sidebar-shadow;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 60px 60px 1fr 60px;
-      max-height: 100vh;
-      z-index: 5;
-      max-width: 6vh;
-    }
-    .current-wallet {
-      justify-content: center;
-      background: $blue-6;
-      width: 3vh;
-      color: $sidebar-current_wallet-color;
-      display: flex;
-      font-weight: bold;
-    }
-
-    .link {
-      align-items: center;
-      border-left: $sidebar-inactive-border;
-      color: $sidebar-link-color;
-      display: flex;
-      font-size: $sidebar-link-font_size;
-      font-weight: $sidebar-link-font_weight;
-      padding: 1em;
-      text-decoration: none;
-    }
-    .settings {
-      border-top: $sidebar-settings-border;
-      display: grid;
-      font-size: $icon-settings-font_size;
-      grid-row: 5;
-      grid-template-columns: 1fr;
-      padding: 1em;
-      width: 3vh;
-    }
-    .net-status {
-      font-size: $icon_status-font_size;
-      padding: 0.5em;
-      text-align: right;
-      width: 1vh;
-      border: none;
-
-      .mainnet,
-      .synced,
-      .option-icon {
-        display: none;
-      }
-    }
-  }
 
   .sidebar {
     box-shadow: $sidebar-shadow;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 60px 60px 1fr 60px;
-    max-height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100vh;
     z-index: 5;
   }
 
   .brand {
-    align-items: center;
-    display: flex;
     padding: 1em;
 
     .logo {
@@ -88,24 +33,24 @@
   }
 
   .current-wallet {
-    align-items: center;
     background: $blue-6;
     color: $sidebar-current_wallet-color;
-    display: flex;
     font-weight: bold;
     padding: 1em;
   }
 
   .link-list {
-    display: grid;
-    grid-template-rows: repeat(7, 60px);
+    align-content: center;
+    align-items: flex-start;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 35vh;
+    justify-content: space-around;
     padding-top: 1em;
 
     .link {
-      align-items: center;
       border-left: $sidebar-inactive-border;
       color: $sidebar-link-color;
-      display: flex;
       font-size: $sidebar-link-font_size;
       font-weight: $sidebar-link-font_weight;
       padding: 1em;
@@ -124,16 +69,16 @@
 
   .settings {
     border-top: $sidebar-settings-border;
-    display: grid;
+    display: flex;
+    flex-flow: row nowrap;
     font-size: $icon-settings-font_size;
-    grid-row: 5;
-    grid-template-columns: auto 1fr;
+    justify-content: space-between;
+    margin-top: auto;
     padding: 1em;
 
     .settings-icon {
       color: $sidebar-settings-icon-color;
       cursor: pointer;
-      display: flex;
       font-size: $sidebar-settings-icon-size;
     }
 

@@ -3,7 +3,6 @@ import * as React from "react"
 import { Checkbox } from "antd"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
-
 export interface Iprops {
     className?: string
     onChange?: (e: CheckboxChangeEvent) => void
