@@ -1,5 +1,57 @@
 :local {
   @import "app/renderer/ui/theme";
+  @media (max-width: 960px) {
+    .sidebar {
+      box-shadow: $sidebar-shadow;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 60px 60px 1fr 60px;
+      max-height: 100vh;
+      z-index: 5;
+      max-width: 6vh;
+    }
+    .current-wallet {
+      justify-content: center;
+      background: $blue-6;
+      width: 3vh;
+      color: $sidebar-current_wallet-color;
+      display: flex;
+      font-weight: bold;
+    }
+
+    .link {
+      align-items: center;
+      border-left: $sidebar-inactive-border;
+      color: $sidebar-link-color;
+      display: flex;
+      font-size: $sidebar-link-font_size;
+      font-weight: $sidebar-link-font_weight;
+      padding: 1em;
+      text-decoration: none;
+    }
+    .settings {
+      border-top: $sidebar-settings-border;
+      display: grid;
+      font-size: $icon-settings-font_size;
+      grid-row: 5;
+      grid-template-columns: 1fr;
+      padding: 1em;
+      width: 3vh;
+    }
+    .net-status {
+      font-size: $icon_status-font_size;
+      padding: 0.5em;
+      text-align: right;
+      width: 1vh;
+      border: none;
+
+      .mainnet,
+      .synced,
+      .option-icon {
+        display: none;
+      }
+    }
+  }
 
   .sidebar {
     box-shadow: $sidebar-shadow;

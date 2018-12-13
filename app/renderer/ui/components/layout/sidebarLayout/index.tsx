@@ -26,8 +26,7 @@ export default class SidebarLayout extends React.Component<Iprops> {
   /** render */
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-    const gridStyles = `${styles.grid} ${this.props.collapeSidebar ? styles.collapse : ""}`
-
+  const gridStyles = `${styles.grid} ${this.props.collapeSidebar ? styles.collapse : ""}`
     return (
       <div className={gridStyles}>
         {/* TODO: Check potential refactor of existing sidebar component */}
