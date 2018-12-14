@@ -2,14 +2,10 @@
   @import "app/renderer/ui/colors";
   @import "app/renderer/ui/theme";
 
-
   .new-transaction {
-    padding: 2em;
     display: flex;
-    flex-flow:column wrap;
-  }
-
-  .label {
+    flex-flow: column wrap;
+    padding: 2em;
   }
 
   .input {
@@ -19,15 +15,6 @@
   .amount-input {
     padding: 12px 64px 10px 14px;
     width: 180px;
-  }
-
-  .large-input {
-  }
-
-  .small-input {
-  }
-
-  .submit {
   }
 
   .info {

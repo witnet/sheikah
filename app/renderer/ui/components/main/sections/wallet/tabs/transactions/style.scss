@@ -1,18 +1,17 @@
 :local {
-
   .wrapper {
     display: flex;
     flex-flow: row nowrap;
   }
 
   .left {
-    width: 70vw;
     padding: 3em;
+    width: 70vw;
   }
 
   .right {
-    width: 30vw;
     padding: 3em;
+    width: 30vw;
   }
 
   .confirmed {
