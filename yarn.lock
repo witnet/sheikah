@@ -490,6 +490,13 @@
     react-split-pane "^0.1.77"
     react-treebeard "^2.1.0"
 
+"@storybook/codemod@^3.2.6":
+  version "3.4.11"
+  resolved "https://registry.yarnpkg.com/@storybook/codemod/-/codemod-3.4.11.tgz#dec25bbf4294647c5bcc5042d37f7a6af2ee71e8"
+  integrity sha512-KHqUFDgZyFEW3V0+0b8E1hxRhTb0prfKadnlvFv5qRs2tuWnHPww+Hm9v0ro2hft7ZktzuSdna9OMMF4mRLS3w==
+  dependencies:
+    jscodeshift "^0.5.0"
+
 "@types/bech32@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/bech32/-/bech32-1.1.1.tgz#a8574f9519369c91d5e69287551f675621a67f44"

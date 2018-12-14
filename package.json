@@ -176,6 +176,7 @@
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
+    "storybook": "^1.0.0",
     "style-loader": "^0.21.0",
     "stylelint": "^9.4.0",
     "stylelint-config-concentric-order": "^3.3.2",
