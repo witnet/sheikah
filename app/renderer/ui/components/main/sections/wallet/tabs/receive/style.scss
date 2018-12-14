@@ -37,9 +37,9 @@
     }
 
     .form {
-      width: 50%;
       display: flex;
       flex-flow: column nowrap;
+      width: 50%;
 
       .form-row {
         display: flex;
@@ -49,50 +49,52 @@
       }
 
       .label {
+        align-self: center;
         color: $grey-9;
         font-weight: 600;
         justify-self: flex-start;
-        align-self: center;
       }
 
       .label-input {
-        height: 48px;
-        width: 100%;
         align-self: center;
+        height: 48px;
         margin-left: 30px;
+        width: 100%;
       }
 
       .amount-input {
-        height: 48px;
-        width: 180px;
-        margin-left: 12px;
         align-self: center;
+        height: 48px;
+        margin-left: 12px;
+        width: 180px;
       }
 
       .date-input {
+        align-self: center;
         height: 48px;
         width: 200px;
-        align-self: center;
       }
 
       .input-check {
-        margin-left: 13px;
         align-self: center;
+        margin-left: 13px;
       }
     }
+
     .submit {
       margin: 30px 5px 5px 5px;
     }
-    
+
     .qr {
       text-align: center;
     }
   }
-  .payment-requests {
-    margin:20px;
-  }
-  .pending{
-    margin:20px;
 
+  .payment-requests {
+    margin: 20px;
+  }
+
+  .pending {
+    margin: 20px;
   }
 }
