@@ -22,4 +22,14 @@
     background: $top_bar-background;
     grid-column: col 4 / -1;
   }
+
+  .receive-left{
+    grid-column: col / span 6;
+    margin:2em;
+  }
+
+  .receive-right{
+    grid-column: col 7 / span 2;
+    margin:2em;
+  }
 }
