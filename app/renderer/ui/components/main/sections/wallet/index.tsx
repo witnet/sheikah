@@ -9,9 +9,8 @@ import * as urls from "app/renderer/constants/urls"
 import { Switch } from "react-router"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 
-const styles = require("./style.scss")
 const mainStyles = require("app/renderer/ui/components/main/style.scss")
-
+const styles = require("app/renderer/ui/components/main/sections/wallet/tabs/transactions/style.scss")
 /**
  * Wallet component
  *

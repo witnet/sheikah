@@ -70,6 +70,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
 
     return (
       <>
+      <div className={styles.wrapper}>
         <div className={styles.left}>
           <Wrapper
             title="PENDING"
@@ -102,6 +103,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
             <EmptyState iconName="graph" text="Nothing to show" />
           </Wrapper>
         </div>
+      </div>
       </>
     )
   }
