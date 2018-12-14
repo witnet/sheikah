@@ -1,17 +1,25 @@
 :local {
+
+  .wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
   .left {
-    grid-column: 1;
+    width: 70vw;
+    padding: 3em;
   }
 
   .right {
-    grid-column: 2;
+    width: 30vw;
+    padding: 3em;
   }
 
-  .pending {
-    margin-bottom: 2em;
+  .confirmed {
+    margin-top: 1.8em;
   }
 
-  .balances {
-    margin-bottom: 2em;
+  .vesting-graph {
+    margin-top: 2em;
   }
 }
