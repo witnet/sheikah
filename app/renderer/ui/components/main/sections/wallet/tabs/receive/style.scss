@@ -1,45 +1,28 @@
 :local {
   @import "app/renderer/ui/theme";
 
-  .left {
-    display: grid;
-    grid-column: 1;
-    grid-gap: 2em;
-    grid-template-rows: auto 1fr;
+  .title {
+    color: $tooltip_title-color;
+    font-size: $tooltip_title-font_size;
+    font-weight: $tooltip_title-font_weight;
+    margin-bottom: 1.5em;
   }
 
-  .right {
-    grid-column: 2;
-
-    .title {
-      color: $tooltip_title-color;
-      font-size: $tooltip_title-font_size;
-      font-weight: $tooltip_title-font_weight;
-      margin-bottom: 1.5em;
-    }
-
-    .text {
-      color: $tooltip_text-color;
-      font-size: $tooltip_text-font_size;
-      font-style: italic;
-      font-weight: $tooltip_text-font_size;
-      line-height: 1.5;
-      margin-bottom: 1.5em;
-    }
+  .text {
+    color: $tooltip_text-color;
+    font-size: $tooltip_text-font_size;
+    font-style: italic;
+    font-weight: $tooltip_text-font_size;
+    line-height: 1.5;
+    margin-bottom: 1.5em;
   }
 
   .new-payment-request {
-    display: grid;
-    grid-gap: 40px;
-    grid-template-columns: 1fr auto;
-    padding: 40px;
+    padding: 2em 0 0 4em;
 
     .loading {
       background: $grey-1;
-      height: 100%;
       opacity: 0.8;
-      position: absolute;
-      width: 100%;
       z-index: -1;
     }
 
@@ -50,80 +33,68 @@
     .spinner {
       background: $grey-1;
       height: 80px;
-      left: 50%;
-      margin: 0 auto;
-      margin-left: -40px;
-      margin-top: -40px;
-      position: absolute;
-      top: 50%;
       width: 80px;
     }
 
     .form {
-      align-items: center;
-      display: grid;
-      grid-column-end: 3;
-      grid-column-start: 1;
-      grid-gap: 0.5em 1em;
-      grid-template-columns: auto auto 1fr 1fr;
-      position: relative;
+      display: flex;
+      flex-flow: column nowrap;
+      width: 50%;
+
+      .form-row {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        margin: 10px;
+      }
 
       .label {
+        align-self: center;
         color: $grey-9;
         font-weight: 600;
-        grid-column: 1;
-        text-align: right;
+        justify-self: flex-start;
       }
 
       .label-input {
-        grid-column-end: 6;
-        grid-column-start: 2;
+        align-self: center;
         height: 48px;
-        padding: 12px 14px 10px 14px;
+        margin-left: 30px;
+        width: 100%;
       }
 
       .amount-input {
-        grid-column-end: 2;
-        grid-column-start: 4;
+        align-self: center;
         height: 48px;
-        padding: 12px 64px 10px 14px;
+        margin-left: 12px;
         width: 180px;
       }
 
       .date-input {
-        grid-column-end: 2;
-        grid-column-start: 4;
+        align-self: center;
         height: 48px;
-        margin: 0;
         width: 200px;
       }
 
-      .check-wrapper {
-        grid-column-end: 1;
-        grid-column-start: 4;
-        padding: 10px;
-      }
-
       .input-check {
-        margin: 15px;
+        align-self: center;
+        margin-left: 13px;
       }
-    }
-
-    .error {
-      grid-column: 1;
-      grid-row: 2;
     }
 
     .submit {
-      grid-column: 2;
-      grid-row: 2;
+      margin: 30px 5px 5px 5px;
     }
 
     .qr {
-      align-content: center;
-      display: grid;
-      padding: 4em;
       text-align: center;
     }
+  }
+
+  .payment-requests {
+    margin: 20px;
+  }
+
+  .pending {
+    margin: 20px;
   }
 }
