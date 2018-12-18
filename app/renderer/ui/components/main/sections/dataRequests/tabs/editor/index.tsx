@@ -1,20 +1,22 @@
-import * as React from "react"
+import * as React from "react";
 
-import CardDefault from "app/renderer/ui/components/card/default"
-import { InputUnderlined } from "app/renderer/ui/components/input"
-import { TabInfo, TabComponent } from "app/renderer/ui/components/main/sections"
-import * as urls from "app/renderer/constants/urls"
-import Wrapper from "app/renderer/ui/components/wrapper"
-import { Services } from "app/renderer/services"
+import CardDefault from "app/renderer/ui/components/card/default";
+import { InputUnderlined } from "app/renderer/ui/components/input";
+import {
+  TabInfo,
+  TabComponent
+} from "app/renderer/ui/components/main/sections";
+import * as urls from "app/renderer/constants/urls";
+import Wrapper from "app/renderer/ui/components/wrapper";
+import { Services } from "app/renderer/services";
 
-const svgBar = require("svg/dataRequestsEditorBar.svg")
-const svgRetrieval = require("svg/dataRequestsEditorRetrieval.svg")
-const svgAttestation = require("svg/dataRequestsEditorAttestation.svg")
-const svgDelivery = require("svg/dataRequestsEditorDelivery.svg")
+const svgBar = require("svg/dataRequestsEditorBar.svg");
+const svgRetrieval = require("svg/dataRequestsEditorRetrieval.svg");
+const svgAttestation = require("svg/dataRequestsEditorAttestation.svg");
+const svgDelivery = require("svg/dataRequestsEditorDelivery.svg");
 
-const layoutStyles = require("app/renderer/ui/components/main/sections/dataRequests/style.scss")
-const styles = require("./style.scss")
-const tabStyles = require("app/renderer/ui/components/main/sections/dataRequests/tabs/style.scss")
+const styles = require("./style.scss");
+const tabStyles = require("app/renderer/ui/components/main/sections/dataRequests/tabs/style.scss");
 
 /**
  * Props that contain configuration
@@ -22,7 +24,7 @@ const tabStyles = require("app/renderer/ui/components/main/sections/dataRequests
  * @interface Props
  */
 interface Props {
-  services: Services
+  services: Services;
 }
 /**
  * Smart Contracts Editor tab component
@@ -33,35 +35,19 @@ interface Props {
 class TabEditor extends TabComponent<any & Props> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-    const description = "Ask two different APIs for the weather in a certain location " +
-      "at a future point in time, then send result to Ethereum contract."
+    const description =
+      "Ask two different APIs for the weather in a certain location " +
+      "at a future point in time, then send result to Ethereum contract.";
 
     return (
-      <div className={layoutStyles.layout}>
-        <div className={`${styles.bar}`}>
+      <div className={styles.wrapper}>
+        {/* BAR */}
+        <div className={`${styles.nav}`}>
           <img src={svgBar} />
         </div>
-        <div className={`${tabStyles.left} ${styles.left}`}>
-          <Wrapper
-            title="RETRIEVAL LOGIC"
-          >
-            <img src={svgRetrieval} />
-          </Wrapper>
-          <br />
-          <Wrapper
-            title="ATTESTATION LOGIC"
-          >
-            <img src={svgAttestation} />
-          </Wrapper>
-          <br />
-          <Wrapper
-            title="DELIVERY LOGIC"
-          >
-            <img src={svgDelivery} />
-          </Wrapper>
-        </div>
-        <div className={`${tabStyles.right} ${styles.right}`}>
-          <div className={styles.right}>
+        {/* TRANSF INFORMATION */}
+        <div className={`${styles.info}`}>
+          <div className={`${styles["info-row"]}`}>
             <label className={styles.label}>FILE NAME</label>
             <InputUnderlined
               className={styles.input}
@@ -69,7 +55,6 @@ class TabEditor extends TabComponent<any & Props> {
               value="ethereum-weather-reporter.rad"
               readOnly={true}
             />
-
             <label className={styles.label}>TITLE</label>
             <InputUnderlined
               className={styles.input}
@@ -77,49 +62,76 @@ class TabEditor extends TabComponent<any & Props> {
               value="Report weather to Ethereum contract"
               readOnly={true}
             />
-
             <label className={styles.label}>DESCRIPTION</label>
             <textarea
               className={`${styles.textarea} ${styles.input}`}
               value={description}
               readOnly={true}
             />
-
+          </div>
+          <div className={`${styles["info-row"]}`}>
             <p className={styles.title}>PROTOCOL LEVEL PARAMETERS</p>
             <CardDefault contentStyle={styles.cardContent}>
               <table>
                 <tbody>
                   <tr>
-                    <td className={styles.param}><p>datetime</p></td>
-                    <td><p>exec_time</p></td>
+                    <td className={styles.param}>
+                      <p>datetime</p>
+                    </td>
+                    <td>
+                      <p>exec_time</p>
+                    </td>
                   </tr>
                   <tr>
-                    <td className={styles.param}><p>int</p></td>
-                    <td><p>replication_factor</p></td>
+                    <td className={styles.param}>
+                      <p>int</p>
+                    </td>
+                    <td>
+                      <p>replication_factor</p>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </CardDefault>
-
             <p className={styles.title}>TEMPLATE SPECIFIC PARAMETERS</p>
             <CardDefault contentStyle={styles.cardContent}>
               <table>
                 <tbody>
                   <tr>
-                    <td className={styles.param}><p>string</p></td>
-                    <td><p>location</p></td>
+                    <td className={styles.param}>
+                      <p>string</p>
+                    </td>
+                    <td>
+                      <p>location</p>
+                    </td>
                   </tr>
                   <tr>
-                    <td className={styles.param}><p>string</p></td>
-                    <td><p>eth_address</p></td>
+                    <td className={styles.param}>
+                      <p>string</p>
+                    </td>
+                    <td>
+                      <p>eth_address</p>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </CardDefault>
           </div>
+          {/* EDITORS */}
+          <div className={`${styles.editors}`}>
+            <Wrapper title="RETRIEVAL LOGIC" className={`${styles["editor"]}`}>
+              <img src={svgRetrieval} />
+            </Wrapper>
+            <Wrapper title="ATTESTATION LOGIC" className={`${styles["editor"]}`}>
+              <img src={svgAttestation} />
+            </Wrapper>
+            <Wrapper title="DELIVERY LOGIC" className={`${styles["editor"]}`}>
+              <img src={svgDelivery} />
+            </Wrapper>
+          </div>
+          </div>
         </div>
-      </div>
-    )
+    );
   }
 }
 
@@ -131,6 +143,6 @@ const EditorTab: TabInfo = {
   caption: "Editor",
   path: urls.DATA_REQUESTS_EDITOR_TAB,
   component: TabEditor
-}
+};
 
-export default EditorTab
+export default EditorTab;

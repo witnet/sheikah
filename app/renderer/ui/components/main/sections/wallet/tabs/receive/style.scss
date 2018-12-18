@@ -14,84 +14,73 @@
     font-style: italic;
     font-weight: $tooltip_text-font_size;
     line-height: 1.5;
-    margin-bottom: 1.5em;
   }
 
-  .new-payment-request {
-    padding: 2em 0 0 4em;
+  .disabled {
+    display: none;
+  }
 
-    .loading {
-      background: $grey-1;
-      opacity: 0.8;
-      z-index: -1;
-    }
+  .loading {
+    background: $grey-1;
+    opacity: 0.8;
+    z-index: -1;
+  }
 
-    .active {
-      z-index: 1;
-    }
+  .active {
+    z-index: 1;
+  }
 
-    .spinner {
-      background: $grey-1;
-      height: 80px;
-      width: 80px;
-    }
+  .spinner {
+    background: $grey-1;
+    height: 40px;
+    width: 40px;
+  }
 
-    .form {
+  .form {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 2em;
+
+    .form-row {
       display: flex;
-      flex-flow: column nowrap;
-      width: 50%;
-
-      .form-row {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: flex-start;
-        margin: 10px;
-      }
-
-      .label {
-        align-self: center;
-        color: $grey-9;
-        font-weight: 600;
-        justify-self: flex-start;
-      }
-
-      .label-input {
-        align-self: center;
-        height: 48px;
-        margin-left: 30px;
-        width: 100%;
-      }
-
-      .amount-input {
-        align-self: center;
-        height: 48px;
-        margin-left: 12px;
-        width: 180px;
-      }
-
-      .date-input {
-        align-self: center;
-        height: 48px;
-        width: 200px;
-      }
-
-      .input-check {
-        align-self: center;
-        margin-left: 13px;
-      }
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      margin: 10px;
     }
 
     .submit {
-      margin: 30px 5px 5px 5px;
+      align-self: flex-start;
     }
 
-    .qr {
-      text-align: center;
+    .label {
+      align-self: center;
+      color: $grey-9;
+      font-weight: 600;
+      justify-content: flex-start;
+    }
+
+    .label-input {
+      align-self: center;
+      height: 48px;
+      margin-left: 2.5em;
+      width: 60%;
+    }
+
+    .amount-input {
+      height: 48px;
+      margin-left: 1.2em;
+      padding: 1.5em;
+      width: 60%;
+    }
+
+    .date-input {
+      height: 48px;
+      width: 200px;
     }
   }
 
-  .payment-requests {
-    margin: 20px;
+  .qr {
+    text-align: center;
   }
 
   .pending {

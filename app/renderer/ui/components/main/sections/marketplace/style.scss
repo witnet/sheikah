@@ -1,71 +1,38 @@
 :local {
   @import "app/renderer/ui/theme";
 
-  .container {
-    display: grid;
-    grid-template-columns: repeat(12, [col-start] 1fr);
+  .header {
+    grid-column: col 1 / -1;
+    height: 20vh;
   }
 
-  .header {
-    grid-column: col-start / span 12;
-    grid-row: 1;
-    padding: 5vh;
+  .header-text {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+    justify-content: space-around;
   }
 
   .main {
-    grid-column: col-start / span 9;
+    grid-column: col 1 / span 10;
     grid-row: 2;
-    padding: 5vh;
+    height: 80vh;
+  }
+
+  .row {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .item {
+    background: grey;
+    width: 33.3%;
   }
 
   .nav {
-    grid-column: col-start 9 / span 2;
+    grid-column: col 10 / -1;
     grid-row: 2;
-    padding: 5vh;
-  }
-
-  .navbar-categories {
-    background-color: lemonchiffon;
-    border: 1px solid grey;
-    border-radius: 1%;
-    height: 16vh;
-    width: 30vh;
-  }
-
-  .navbar-item {
-    padding: 2vh;
-  }
-
-  .tags {
-    padding-right: 0.3em;
-  }
-
-  .row-items {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-
-  .row-items > h2 {
-    width: 0.5em;
-  }
-
-  .column-item {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    padding: 2vh 2vh 2vh 0;
-  }
-
-  .column-label {
-    padding: 5px;
-    width: 17vh;
-  }
-
-  .square {
-    background-color: blue;
-    height: 150px;
-    width: 200px;
   }
 }

@@ -7,6 +7,7 @@ import {
 
 import * as urls from "app/renderer/constants/urls";
 
+const grid = require("app/renderer/ui/components/main/style.scss");
 const styles = require("./style.scss");
 const svgImage = require("svg/wallet.svg");
 
@@ -62,12 +63,10 @@ class Marketplace extends React.Component<SectionProps> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
-      <div className={styles["container"]}>
+      <div className={grid["layout"]}>
         <header className={styles.header}>
-          <div>
+          <div className={styles["header-text"]}>
             <h1>Sheikah Marketplace</h1>
-          </div>
-          <div>
             <p>
               Hundreds of data request and smart contact templates, ready to be
               deployed
@@ -75,34 +74,28 @@ class Marketplace extends React.Component<SectionProps> {
           </div>
         </header>
         <main className={styles.main}>
-          <div className={styles["row-items"]}>
             <h2>Featured</h2>
+          <div className={styles["row"]}>
             {this.state.featuredItems.map((e, i) => {
               return (
-                <div key={i} className={styles["column-item"]}>
-                  <div className={styles.square} />
-                  <p className={styles["column-label"]}>{e.name}</p>
-                  <p className={styles["column-label"]}>{e.author}</p>
-                  <p className={styles["column-label"]}>{e.rating}</p>
-                  <p className={styles["column-label"]}>
-                    {e.hashtags.map(hashtag => hashtag)}
-                  </p>
+                <div className={styles["item"]}>
+                  <p>{e.name}</p>
+                  <p>{e.author}</p>
+                  <p>{e.rating}</p>
+                  <p>{e.hashtags.map(hashtag => hashtag)}</p>
                 </div>
               );
             })}
           </div>
-          <div className={styles["row-items"]}>
+          <div>
             <h2>Insurance</h2>
             {this.state.insuranceItems.map((e, i) => {
               return (
-                <div key={i} className={styles["column-item"]}>
-                  <div className={styles.square} />
-                  <p className={styles["column-label"]}>{e.name}</p>
-                  <p className={styles["column-label"]}>{e.author}</p>
-                  <p className={styles["column-label"]}>{e.rating}</p>
-                  <p className={styles["column-label"]}>
-                    {e.hashtags.map(hashtag => hashtag)}
-                  </p>
+                <div key={i}>
+                  <p>{e.name}</p>
+                  <p>{e.author}</p>
+                  <p>{e.rating}</p>
+                  <p>{e.hashtags.map(hashtag => hashtag)}</p>
                 </div>
               );
             })}

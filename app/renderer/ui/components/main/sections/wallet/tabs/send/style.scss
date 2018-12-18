@@ -2,30 +2,77 @@
   @import "app/renderer/ui/colors";
   @import "app/renderer/ui/theme";
 
-  .new-transaction {
+  .pending {
+    margin: 2em;
+  }
+
+  .form {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
     padding: 2em;
-  }
 
-  .input {
-    height: 48px;
-  }
+    .form-row {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      margin: 10px;
+    }
 
-  .amount-input {
-    padding: 12px 64px 10px 14px;
-    width: 180px;
-  }
+    .label {
+      align-self: center;
+      color: $grey-9;
+      font-weight: 600;
+      justify-content: flex-start;
+    }
 
-  .info {
-    color: $tab_send-info-color;
-    font-size: $tab_send-info-font_size;
-    font-style: italic;
-    font-weight: $tab_send-info-font_weight;
-  }
+    .address-input {
+      height: 48px;
+      margin-left: 1em;
+      width: 60%;
+    }
 
-  .icon {
-    font-size: 16px;
-    padding: 0.5em;
+    .label-input {
+      align-self: center;
+      height: 48px;
+      margin-left: 2.5em;
+      width: 60%;
+    }
+
+    .amount-input {
+      height: 48px;
+      margin-left: 1.2em;
+      padding: 1.5em;
+      width: 60%;
+    }
+
+    span {
+      margin: 0;
+    }
+
+    .fee-input {
+      margin-left: 3.5em;
+      width: 60%;
+    }
+
+    .info {
+      color: $tab_send-info-color;
+      font-size: $tab_send-info-font_size;
+      font-style: italic;
+      font-weight: $tab_send-info-font_weight;
+    }
+
+    .icon {
+      font-size: 16px;
+      padding: 0.5em;
+    }
+
+    .submit {
+      margin: 30px 5px 5px 5px;
+      width: 10em;
+    }
+
+    .qr {
+      text-align: center;
+    }
   }
 }

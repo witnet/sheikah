@@ -1,20 +1,7 @@
 :local {
   @import "app/renderer/ui/theme";
 
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr;
-  }
-
   .header {
-    align-items: baseline;
-    display: grid;
-    grid-gap: 0.5em;
-    grid-template-columns: auto auto 1fr auto;
-    grid-template-rows: 1fr;
-    margin-bottom: 0.8em;
-
     .title {
       color: $wrapper-title-color;
       font-size: $wrapper-title-font_size;
@@ -25,11 +12,6 @@
       color: $wrapper-caption-color;
       font-size: $wrapper-caption-font_size;
       font-weight: $wrapper-caption-font_weight;
-      margin-left: 0.5em;
-    }
-
-    .actions {
-      grid-column: 4;
     }
   }
 
