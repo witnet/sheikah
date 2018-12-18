@@ -39,7 +39,6 @@
     .form {
       display: flex;
       flex-flow: column nowrap;
-      width: 50%;
 
       .form-row {
         display: flex;
@@ -88,10 +87,6 @@
     .qr {
       text-align: center;
     }
-  }
-
-  .payment-requests {
-    margin: 20px;
   }
 
   .pending {

@@ -286,7 +286,6 @@ class TabReceive extends TabComponent<any & Props> {
 
     return (
       <>
-        <div className={grid.layout}>
           <div className={grid["receive-left"]}>
             <Wrapper title="NEW PAYMENT REQUEST" className={styles.pending}>
               <div className={styles["new-payment-request"]}>
@@ -374,7 +373,6 @@ class TabReceive extends TabComponent<any & Props> {
               device a encrypted database that only you can read
             </p>
           </div>
-        </div>
       </>
     );
   }

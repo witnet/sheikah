@@ -1,31 +1,37 @@
 :local {
   @import "app/renderer/ui/theme";
 
-  .left {
-    grid-column: 1;
+  .wrapper {
+    display: flex;
+    flex-flow: column nowrap;
   }
 
-  .right {
-    grid-column: 2;
-
-    .title {
-      color: $tooltip_title-color;
-      font-size: $tooltip_title-font_size;
-      font-weight: $tooltip_title-font_weight;
-      margin-bottom: 1.5em;
-    }
-
-    .text {
-      color: $tooltip_text-color;
-      font-size: $tooltip_text-font_size;
-      font-style: italic;
-      font-weight: $tooltip_text-font_size;
-      line-height: 1.5;
-      margin-bottom: 1.5em;
-    }
+  .about-data {
+    margin: 1.5em;
+    padding: 0.5em;
   }
 
-  .withPadding div {
-    padding: 12px !important;
+  .templates {
+    margin: 1em;
+  }
+
+  .title {
+    color: $tooltip_title-color;
+    font-size: $tooltip_title-font_size;
+    font-weight: $tooltip_title-font_weight;
+    padding: 5px;
+  }
+
+  .text {
+    color: $tooltip_text-color;
+    font-size: $tooltip_text-font_size;
+    font-style: italic;
+    font-weight: $tooltip_text-font_size;
+    padding: 5px;
+  }
+
+  .with-padding div {
+    padding: 10px !important;
   }
 }
+
