@@ -1,6 +1,6 @@
 import *  as React from "react";
 import { storiesOf } from "@storybook/react";
-import { InputBig, DefaultInput, InputUnderlined } from '../app/renderer/ui/components/input';
+import { InputBig, DefaultInput, InputUnderlined, InputCheck, SwitchSelector } from "../app/renderer/ui/components/input";
 
 storiesOf("Input", module)
   .add("Big", () => (
@@ -13,4 +13,11 @@ storiesOf("Input", module)
 
   .add("Underlined", () => (
     <InputUnderlined />
+  ))
+  .add("Checkbox", () => (
+    <InputCheck />
+  ))
+
+  .add("Switch", () => (
+    <SwitchSelector />
   ))
