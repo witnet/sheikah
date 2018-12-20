@@ -2,6 +2,10 @@
   @import "app/renderer/ui/colors";
   @import "app/renderer/ui/theme";
 
+  .pending {
+    margin: 2em;
+  }
+
   .form {
     display: flex;
     flex-flow: column nowrap;
@@ -64,6 +68,7 @@
 
     .submit {
       margin: 30px 5px 5px 5px;
+      width: 10em;
     }
 
     .qr {

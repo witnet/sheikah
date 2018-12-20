@@ -3,12 +3,6 @@
 
   .layout {
     background: $background-color;
-    display: grid;
-    grid-template-columns: 1fr 550px 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    height: 100vh;
-    margin: 0 auto;
-    width: 100%;
 
     p:not(:first-of-type) {
       margin-top: 10px;

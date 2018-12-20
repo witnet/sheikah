@@ -31,7 +31,7 @@
     .list-item {
       background: $grey-1;
       box-shadow: $default-box-shadow;
-      overflow: hidden;
+      overflow: auto;
       padding: 35px 60px 30px 40px;
       position: relative;
       transition: box-shadow 0.1s ease;

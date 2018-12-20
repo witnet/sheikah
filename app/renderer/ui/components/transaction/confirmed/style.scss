@@ -4,11 +4,6 @@
   .transaction {
     align-items: center;
     border-bottom: $transaction-border;
-    display: grid;
-    grid-gap: 0.5em;
-    grid-template-columns: auto auto 1fr auto;
-    grid-template-rows: auto;
-    padding: 30px 50px;
 
     &:last-child {
       border: none;
@@ -25,15 +20,10 @@
 
   .icon {
     font-size: $transaction-angle_icon-font_size;
-    grid-column: 1;
-    grid-row: 1;
     margin-right: 10px;
   }
 
   .amount {
-    grid-column: 2;
-    grid-row: 1;
-
     .number {
       font-size: $transaction-number-font_size;
       font-weight: $transaction-number-font_weight;
@@ -56,9 +46,6 @@
   }
 
   .address {
-    grid-column: 3;
-    grid-row: 1;
-
     .origin {
       color: $transaction-origin-color;
       font-size: $transaction-origin-font_size;
@@ -75,7 +62,6 @@
     color: $transaction-date-color;
     font-size: $transaction-date-font_size;
     font-weight: $transaction-date-font_weight;
-    text-align: right;
   }
 
   .block {

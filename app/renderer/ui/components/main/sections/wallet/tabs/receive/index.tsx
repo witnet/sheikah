@@ -240,7 +240,7 @@ class TabReceive extends TabComponent<any & Props> {
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const loading = `${styles.loading} ${
-      this.state.loading ? styles.active : ""
+      this.state.loading ? styles.active : styles.disabled
     }`;
 
     const listOptions = ["Export all payment requests as CSV"].map(
@@ -286,9 +286,9 @@ class TabReceive extends TabComponent<any & Props> {
 
     return (
       <>
-          <div className={grid["receive-left"]}>
-            <Wrapper title="NEW PAYMENT REQUEST" className={styles.pending}>
-              <div className={styles["new-payment-request"]}>
+        <div className={grid["layout"]}>
+          <div className={grid["receive-main"]}>
+            <Wrapper title="NEW PAYMENT REQUEST">
                 <div className={styles.form}>
                   <div className={styles["form-row"]}>
                     <label className={styles.label}>Label</label>
@@ -320,7 +320,7 @@ class TabReceive extends TabComponent<any & Props> {
                     />
                     {expirationDateInput}
                   </div>
-                  <div className={styles["form-row"]}>
+                  <div className={`${styles["form-row"]} ${styles["submit"]}`}>
                     <ActionButton
                       className={styles.submit}
                       onClick={this.handleClick}
@@ -330,20 +330,19 @@ class TabReceive extends TabComponent<any & Props> {
                     </ActionButton>
                   </div>
 
+                </div>
                   <div className={loading}>
                     <Spinner
                       className={styles.spinner}
                       active={this.state.loading}
                     />
                   </div>
-                </div>
                 <AlertMessage
                   className={styles.error}
                   type="error"
                   title="Error"
                   description={this.state.errorMessage}
                 />
-              </div>
             </Wrapper>
 
             <Wrapper
@@ -356,7 +355,7 @@ class TabReceive extends TabComponent<any & Props> {
             </Wrapper>
           </div>
 
-          <div className={grid["receive-right"]}>
+          <div className={grid["receive-side"]}>
             <p className={styles.title}>About payment requests</p>
             <p className={styles.text}>
               Every time you generate a receiveng address in Sheikah, you can
@@ -373,6 +372,7 @@ class TabReceive extends TabComponent<any & Props> {
               device a encrypted database that only you can read
             </p>
           </div>
+        </div>
       </>
     );
   }

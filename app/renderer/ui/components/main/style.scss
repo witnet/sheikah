@@ -4,7 +4,6 @@
   .layout {
     display: grid;
     grid-template-columns: repeat(12, [col] 1fr);
-    height: 100vh;
     margin: 0;
     padding: 0;
   }
@@ -24,8 +23,15 @@
     grid-column: col 4 / -1;
   }
 
-  .receive-left {
-    grid-column: col 5 / span 6;
+  .receive-main {
+    grid-column: col / span 10;
+    padding: 2em;
+  }
+
+  .receive-side {
+    grid-column: col 11 / -1;
+    margin-top: 1em;
+    padding: 0.5em;
   }
 }
 

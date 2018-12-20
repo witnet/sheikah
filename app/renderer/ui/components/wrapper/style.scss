@@ -2,34 +2,17 @@
   @import "app/renderer/ui/theme";
 
   .header {
-    align-items: baseline;
-    margin: 2em 2em 1em 2em;
-
     .title {
       color: $wrapper-title-color;
       font-size: $wrapper-title-font_size;
       font-weight: $wrapper-title-font_weight;
     }
 
-    .editor-title {
-      margin: 1em;
-    }
-
     .caption {
       color: $wrapper-caption-color;
       font-size: $wrapper-caption-font_size;
       font-weight: $wrapper-caption-font_weight;
-      margin-left: 0.5em;
     }
-  }
-
-  .template-header {
-    display: flex;
-    flex-flow: row nowrap;
-  }
-
-  .actions {
-    margin-left: 15px;
   }
 
   .content {
