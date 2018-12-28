@@ -9,29 +9,28 @@
   }
 
   .sidebar {
-    grid-column: col / span 3;
+    grid-column: col / span 2.8;
   }
 
   .main {
     background: $background-color;
-    grid-column: col 4 / -1;
+    grid-column: col 2 / -1;
     overflow: scroll;
   }
 
   .top-bar {
     background: $top_bar-background;
-    grid-column: col 4 / -1;
+    grid-column: col 2 / -1;
   }
 
   .receive-main {
-    grid-column: col / span 10;
-    padding: 2em;
+    grid-column: col / span 11;
+    padding: 3em;
   }
 
   .receive-side {
-    grid-column: col 11 / -1;
-    margin-top: 1em;
-    padding: 0.5em;
+    grid-column: col 12;
+    margin: 1em;
+    padding: 1em;
   }
 }
-

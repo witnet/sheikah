@@ -2,6 +2,11 @@
   @import "app/renderer/ui/theme";
 
   .header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin-bottom: 0.8em;
+
     .title {
       color: $wrapper-title-color;
       font-size: $wrapper-title-font_size;

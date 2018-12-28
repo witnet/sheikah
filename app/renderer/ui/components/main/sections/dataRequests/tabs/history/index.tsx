@@ -38,7 +38,14 @@ class TabHistory extends TabComponent<any & Props> {
 
     return (
       <div className={styles.wrapper}>
-        <div className={`${styles["text"]} ${styles["about-data"]}`}>
+        <div className={styles["main"]}>
+          <Wrapper className={styles.template} title="BY TEMPLATE" actions={byTemplateOptions}>
+            <CardDefault className={styles["with-padding"]}>
+              <img src={svgImage} />
+            </CardDefault>
+          </Wrapper>
+        </div>
+        <div className={`${styles["text"]}`}>
           <p className={styles.title}>About data requests</p>
           <p className={styles.text}>
             Data requests are scripts that tell Witnet where to retrieve data.
@@ -64,13 +71,6 @@ class TabHistory extends TabComponent<any & Props> {
             data request templates instead. These templates can later be
             deployed to Witnet using customizable parameters.
           </p>
-        </div>
-        <div className={styles.templates}>
-          <Wrapper title="BY TEMPLATE" actions={byTemplateOptions}>
-            <CardDefault className={styles["with-padding"]}>
-              <img src={svgImage} />
-            </CardDefault>
-          </Wrapper>
         </div>
       </div>
     );

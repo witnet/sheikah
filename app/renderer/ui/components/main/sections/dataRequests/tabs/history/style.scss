@@ -3,23 +3,15 @@
 
   .wrapper {
     display: flex;
-    flex-flow: column nowrap;
-  }
-
-  .about-data {
-    margin: 1.5em;
-    padding: 0.5em;
-  }
-
-  .templates {
-    margin: 1em;
+    flex-flow: row nowrap;
+    overflow: auto;
   }
 
   .title {
     color: $tooltip_title-color;
     font-size: $tooltip_title-font_size;
     font-weight: $tooltip_title-font_weight;
-    padding: 5px;
+    margin-bottom: 1.5em;
   }
 
   .text {
@@ -27,11 +19,16 @@
     font-size: $tooltip_text-font_size;
     font-style: italic;
     font-weight: $tooltip_text-font_size;
-    padding: 5px;
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
   }
 
   .with-padding div {
-    padding: 10px !important;
+    padding: 12px !important;
+  }
+
+  .main {
+    padding: 3em;
   }
 }
 

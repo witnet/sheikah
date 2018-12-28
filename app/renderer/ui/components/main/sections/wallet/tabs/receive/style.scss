@@ -5,7 +5,7 @@
     color: $tooltip_title-color;
     font-size: $tooltip_title-font_size;
     font-weight: $tooltip_title-font_weight;
-    margin-bottom: 1.5em;
+    padding-bottom: 1em;
   }
 
   .text {
@@ -13,7 +13,7 @@
     font-size: $tooltip_text-font_size;
     font-style: italic;
     font-weight: $tooltip_text-font_size;
-    line-height: 1.5;
+    margin-bottom: 1.5em;
   }
 
   .disabled {
@@ -49,7 +49,7 @@
     }
 
     .submit {
-      align-self: flex-start;
+      align-self: flex-end;
     }
 
     .label {
@@ -77,6 +77,12 @@
       height: 48px;
       width: 200px;
     }
+  }
+
+  .payment-requests {
+    align-content: center;
+    display: flex;
+    flex-flow: column wrap;
   }
 
   .qr {
