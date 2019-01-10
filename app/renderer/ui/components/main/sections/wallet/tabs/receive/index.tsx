@@ -288,61 +288,63 @@ class TabReceive extends TabComponent<any & Props> {
       <>
         <div className={grid["layout"]}>
           <div className={grid["receive-main"]}>
-            <Wrapper title="NEW PAYMENT REQUEST">
-                <div className={styles.form}>
-                  <div className={styles["form-row"]}>
-                    <label className={styles.label}>Label</label>
-                    <DefaultInput
-                      className={styles["label-input"]}
-                      type="text"
-                      name="label"
-                      onChange={this.handleChange}
-                      value={this.state.label}
-                    />
-                  </div>
-                  <div className={styles["form-row"]}>
-                    <label className={styles.label}>Amount</label>
-                    <InputAmount
-                      className={styles["amount-input"]}
-                      type="number"
-                      min="0"
-                      name="amount"
-                      onChange={this.handleChange}
-                      value={this.state.amount}
-                    />
-                  </div>
-                  <div className={styles["form-row"]}>
-                    <label className={styles.label}> Expires </label>
-                    <InputCheck
-                      className={styles["input-check"]}
-                      name="expiresCheck"
-                      onChange={this.handleCheck}
-                    />
-                    {expirationDateInput}
-                  </div>
-                  <div className={`${styles["form-row"]} ${styles["submit"]}`}>
-                    <ActionButton
-                      className={styles.submit}
-                      onClick={this.handleClick}
-                      disabled={this.state.loading}
-                    >
-                      SAVE AND GENERATE ADDRESS
-                    </ActionButton>
-                  </div>
-
+            <Wrapper
+              title="NEW PAYMENT REQUEST"
+              className={`${styles["new-payment-request"]}`}
+            >
+              <div className={styles.form}>
+                <div className={styles["form-row"]}>
+                  <label className={styles.label}>Label</label>
+                  <DefaultInput
+                    className={styles["label-input"]}
+                    type="text"
+                    name="label"
+                    onChange={this.handleChange}
+                    value={this.state.label}
+                  />
                 </div>
-                  <div className={loading}>
-                    <Spinner
-                      className={styles.spinner}
-                      active={this.state.loading}
-                    />
-                  </div>
-                <AlertMessage
-                  className={styles.error}
-                  type="error"
-                  title="Error"
-                  description={this.state.errorMessage}
+                <div className={styles["form-row"]}>
+                  <label className={styles.label}>Amount</label>
+                  <InputAmount
+                    className={styles["amount-input"]}
+                    type="number"
+                    min="0"
+                    name="amount"
+                    onChange={this.handleChange}
+                    value={this.state.amount}
+                  />
+                </div>
+                <div className={styles["form-row"]}>
+                  <label className={styles.label}>Expires</label>
+                  <InputCheck
+                    className={styles["input-check"]}
+                    name="expiresCheck"
+                    onChange={this.handleCheck}
+                  />
+                  {expirationDateInput}
+                </div>
+                <div className={`${styles["form-row"]} ${styles["submit"]}`}>
+                  <ActionButton
+                    className={styles.submit}
+                    onClick={this.handleClick}
+                    disabled={this.state.loading}
+                  >
+                    SAVE AND GENERATE ADDRESS
+                  </ActionButton>
+                </div>
+              </div>
+              <div className={loading}>
+                <Spinner
+                  className={styles.spinner}
+                  active={this.state.loading}
                 />
+              </div>
+              <AlertMessage
+                className={styles.error}
+                type="error"
+                title="Error"
+                description={this.state.errorMessage}
+              />
             </Wrapper>
 
             <Wrapper
@@ -353,24 +355,24 @@ class TabReceive extends TabComponent<any & Props> {
             >
               {paymentRequestsList}
             </Wrapper>
-          </div>
 
-          <div className={grid["receive-side"]}>
-            <p className={styles.title}>About payment requests</p>
-            <p className={styles.text}>
-              Every time you generate a receiveng address in Sheikah, you can
-              label and store it as a payment request. This allows you to better
-              trace every payment you receive.
-            </p>
-            <p className={styles.text}>
-              You can generate as many payment requests at once. However,it is
-              advised that you only generate as you need them, instead of
-              creating a lot of them preemptively.
-            </p>
-            <p className={styles.text}>
-              All this data is completely private and it is only stored in your
-              device a encrypted database that only you can read
-            </p>
+            <div className={grid["about-side"]}>
+              <p className={styles.title}>About payment requests</p>
+              <p className={styles.text}>
+                Every time you generate a receiveng address in Sheikah, you can
+                label and store it as a payment request. This allows you to
+                better trace every payment you receive.
+              </p>
+              <p className={styles.text}>
+                You can generate as many payment requests at once. However,it is
+                advised that you only generate as you need them, instead of
+                creating a lot of them preemptively.
+              </p>
+              <p className={styles.text}>
+                All this data is completely private and it is only stored in
+                your device a encrypted database that only you can read
+              </p>
+            </div>
           </div>
         </div>
       </>

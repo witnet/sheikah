@@ -3,19 +3,21 @@
   @import "app/renderer/ui/theme";
 
   .pending {
-    margin: 2em;
+    margin: 3em;
+    width: 50vw;
   }
 
   .form {
     display: flex;
     flex-flow: column nowrap;
     padding: 2em;
+    width: inherit;
 
     .form-row {
       display: flex;
       flex-flow: row nowrap;
       justify-content: flex-start;
-      margin: 10px;
+      margin: 5px;
     }
 
     .label {
@@ -28,14 +30,14 @@
     .address-input {
       height: 48px;
       margin-left: 1em;
-      width: 60%;
+      width: 80%;
     }
 
     .label-input {
       align-self: center;
       height: 48px;
       margin-left: 2.5em;
-      width: 60%;
+      width: 80%;
     }
 
     .amount-input {
@@ -55,7 +57,10 @@
     }
 
     .info {
+      align-self: center;
       color: $tab_send-info-color;
+      display: flex;
+      flex-direction: column;
       font-size: $tab_send-info-font_size;
       font-style: italic;
       font-weight: $tab_send-info-font_weight;
@@ -66,9 +71,16 @@
       padding: 0.5em;
     }
 
-    .submit {
-      margin: 30px 5px 5px 5px;
-      width: 10em;
+    .submit-area {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      margin: 1em;
+      width: 50%;
+    }
+
+    .submit-btn {
+      width: 15em;
     }
 
     .qr {

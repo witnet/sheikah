@@ -8,9 +8,8 @@ import { Services } from "app/renderer/services"
 
 const svgImage = require("svg/smartContractsHistory.svg")
 
-const layoutStyles = require("app/renderer/ui/components/main/sections/smartContracts/style.scss")
+const layout = require("app/renderer/ui/components/main/sections/smartContracts/style.scss")
 const styles = require("./style.scss")
-const tabStyles = require("app/renderer/ui/components/main/sections/smartContracts/tabs/style.scss")
 
 /**
  * Props that contain configuration
@@ -44,8 +43,8 @@ class TabHistory extends TabComponent<any & Props> {
     ))
 
     return (
-      <div className={layoutStyles.paddedLayout}>
-        <div className={tabStyles.left}>
+      <div className={layout.layout}>
+        <div className={styles.templates}>
           <Wrapper
             title="BY TEMPLATE"
             actions={byTemplateOptions}
@@ -57,7 +56,7 @@ class TabHistory extends TabComponent<any & Props> {
           </Wrapper>
         </div>
 
-        <div className={tabStyles.right}>
+        <div className={`${styles.right}`}>
           <p className={styles.title}>About Smart Contracts</p>
           <p className={styles.text}>
             Smart contracts are programs that live in the Witnet blockchain. They have their own

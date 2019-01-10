@@ -21,18 +21,17 @@
   }
 
   .channels {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-flow: row wrap;
     list-style-type: none;
-    overflow: auto;
     padding: 30px 5px 5px 5px;
 
     .list-item {
+      width: 30vw;
       background: $grey-1;
       box-shadow: $default-box-shadow;
-      overflow: auto;
-      padding: 35px 60px 30px 40px;
+      padding: 2em;
+      margin: 0.5em;
       position: relative;
       transition: box-shadow 0.1s ease;
 
@@ -47,7 +46,7 @@
       }
 
       .back {
-        bottom: -25px;
+        bottom: -10px;
         filter: invert(100%) blur(1px);
         height: 100px;
         opacity: 0.1;
@@ -72,14 +71,3 @@
   }
 }
 
-@media (max-width: 1500px) {
-  .channels {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 1000px) {
-  .channels {
-    grid-template-columns: 1fr;
-  }
-}

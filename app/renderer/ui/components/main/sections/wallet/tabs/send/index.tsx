@@ -111,12 +111,14 @@ class TabSend extends TabComponent<any> {
               value={this.state.fee}
             />
           </div>
-          <ActionButton
-            className={styles.submit}
-            onClick={this.props.services.showUnimplementedMessage}
-          >
-            SIGN AND SEND
-          </ActionButton>
+          <div className={styles["submit-area"]}>
+            <ActionButton
+              className={styles["submit-btn"]}
+              onClick={this.props.services.showUnimplementedMessage}
+            >
+              SIGN AND SEND
+            </ActionButton>
+          </div>
         </div>
       </Wrapper>
     );
