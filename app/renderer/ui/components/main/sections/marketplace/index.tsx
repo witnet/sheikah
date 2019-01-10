@@ -6,6 +6,7 @@ import {
 } from "app/renderer/ui/components/main/sections";
 
 import * as urls from "app/renderer/constants/urls";
+import { Link } from "react-router-dom";
 
 const grid = require("app/renderer/ui/components/main/style.scss");
 const styles = require("./style.scss");
@@ -74,31 +75,46 @@ class Marketplace extends React.Component<SectionProps> {
           </div>
         </header>
         <main className={styles.main}>
+          <div className={styles["featured"]}>
             <h2>Featured</h2>
-          <div className={styles["row"]}>
-            {this.state.featuredItems.map((e, i) => {
-              return (
-                <div className={styles["item"]}>
-                  <p>{e.name}</p>
-                  <p>{e.author}</p>
-                  <p>{e.rating}</p>
-                  <p>{e.hashtags.map(hashtag => hashtag)}</p>
-                </div>
-              );
-            })}
+            <div className={styles["row"]}>
+              {this.state.featuredItems.map((e, i) => {
+                return (
+                  <div className={styles["item"]}>
+                    <div className={styles["item-img"]} />
+                    <div className={styles["item-text"]}>
+                      <p>{e.name}</p>
+                      <p>{e.author}</p>
+                      <p>{e.rating}</p>
+                      <p className={styles["hashtag-list"]}>
+                        {e.hashtags.map(hashtag => {
+                          return (
+                            <a href="#" className={styles["hashtag-item"]}>
+                              {hashtag}
+                            </a>
+                          );
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <div>
+          <div className={styles["insurance"]}>
             <h2>Insurance</h2>
-            {this.state.insuranceItems.map((e, i) => {
-              return (
-                <div key={i}>
-                  <p>{e.name}</p>
-                  <p>{e.author}</p>
-                  <p>{e.rating}</p>
-                  <p>{e.hashtags.map(hashtag => hashtag)}</p>
-                </div>
-              );
-            })}
+            <div className={styles.row}>
+              {this.state.insuranceItems.map((e, i) => {
+                return (
+                  <div key={i} className={styles.item}>
+                    <p>{e.name}</p>
+                    <p>{e.author}</p>
+                    <p>{e.rating}</p>
+                    <p>{e.hashtags.map(hashtag => hashtag)}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </main>
         <nav className={styles.nav}>

@@ -3,7 +3,8 @@
 
   .header {
     grid-column: col 1 / -1;
-    height: 20vh;
+    height: 23vh;
+    background: #1a6cfb;
   }
 
   .header-text {
@@ -18,7 +19,11 @@
   .main {
     grid-column: col 1 / span 10;
     grid-row: 2;
-    height: 80vh;
+    margin-top: 1em;
+  }
+
+  .featured, .insurance {
+    margin: 1em;
   }
 
   .row {
@@ -26,9 +31,36 @@
     flex-flow: row wrap;
   }
 
+  
+
   .item {
-    background: grey;
-    width: 33.3%;
+    justify-content: flex-start;
+    background: $wrapper-content-background;
+    box-shadow: $default-box-shadow;
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 10px;
+    width: 16vw;
+  }
+
+  .item-img {
+    background: tomato;
+    width: 100%;
+    height: 10vh;
+  }
+
+  .item-text {
+    padding: 1em;
+  }
+
+  .hashtag-list {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: flex-end;
+  }
+
+  .hashtag-item {
+    margin: 3px;
   }
 
   .nav {
