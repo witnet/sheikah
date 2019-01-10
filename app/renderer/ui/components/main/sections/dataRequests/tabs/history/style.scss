@@ -4,7 +4,6 @@
   .wrapper {
     display: flex;
     flex-flow: row nowrap;
-    overflow: auto;
   }
 
   .title {
@@ -28,7 +27,7 @@
   }
 
   .main {
-    padding: 3em;
+    padding: 2.5em;
   }
 }
 

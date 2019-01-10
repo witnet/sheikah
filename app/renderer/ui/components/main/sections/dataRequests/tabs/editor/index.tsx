@@ -16,7 +16,6 @@ const svgAttestation = require("svg/dataRequestsEditorAttestation.svg");
 const svgDelivery = require("svg/dataRequestsEditorDelivery.svg");
 
 const styles = require("./style.scss");
-const tabStyles = require("app/renderer/ui/components/main/sections/dataRequests/tabs/style.scss");
 
 /**
  * Props that contain configuration
@@ -50,27 +49,28 @@ class TabEditor extends TabComponent<any & Props> {
           <div className={`${styles["info-row"]}`}>
             <label className={styles.label}>FILE NAME</label>
             <InputUnderlined
-              className={styles.input}
+              className={`${styles.input} ${styles["editor-form-row"]}`}
               type="text"
               value="ethereum-weather-reporter.rad"
               readOnly={true}
             />
             <label className={styles.label}>TITLE</label>
             <InputUnderlined
-              className={styles.input}
+              className={`${styles.input} ${styles["editor-form-row"]}`}
               type="text"
               value="Report weather to Ethereum contract"
               readOnly={true}
             />
             <label className={styles.label}>DESCRIPTION</label>
             <textarea
-              className={`${styles.textarea} ${styles.input}`}
+              className={`${styles.textarea} ${styles.input} ${styles["editor-form-row"]}`}
               value={description}
               readOnly={true}
             />
           </div>
           <div className={`${styles["info-row"]}`}>
             <p className={styles.title}>PROTOCOL LEVEL PARAMETERS</p>
+            <br></br>
             <CardDefault contentStyle={styles.cardContent}>
               <table>
                 <tbody>
@@ -93,7 +93,9 @@ class TabEditor extends TabComponent<any & Props> {
                 </tbody>
               </table>
             </CardDefault>
+            <br></br>
             <p className={styles.title}>TEMPLATE SPECIFIC PARAMETERS</p>
+            <br></br>
             <CardDefault contentStyle={styles.cardContent}>
               <table>
                 <tbody>
@@ -116,21 +118,24 @@ class TabEditor extends TabComponent<any & Props> {
                 </tbody>
               </table>
             </CardDefault>
+            </div>
           </div>
           {/* EDITORS */}
           <div className={`${styles.editors}`}>
             <Wrapper title="RETRIEVAL LOGIC" className={`${styles["editor"]}`}>
               <img src={svgRetrieval} />
             </Wrapper>
-            <Wrapper title="ATTESTATION LOGIC" className={`${styles["editor"]}`}>
+            <Wrapper
+              title="ATTESTATION LOGIC"
+              className={`${styles["editor"]}`}
+            >
               <img src={svgAttestation} />
             </Wrapper>
             <Wrapper title="DELIVERY LOGIC" className={`${styles["editor"]}`}>
               <img src={svgDelivery} />
             </Wrapper>
           </div>
-          </div>
-        </div>
+      </div>
     );
   }
 }

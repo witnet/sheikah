@@ -15,7 +15,6 @@
   .main {
     background: $background-color;
     grid-column: col 2 / -1;
-    overflow: scroll;
   }
 
   .top-bar {
@@ -24,13 +23,10 @@
   }
 
   .receive-main {
-    grid-column: col / span 11;
-    padding: 3em;
+    grid-column: col 1 / -1;
   }
 
-  .receive-side {
-    grid-column: col 12;
-    margin: 1em;
-    padding: 1em;
+  .about-side {
+    display: none;
   }
 }

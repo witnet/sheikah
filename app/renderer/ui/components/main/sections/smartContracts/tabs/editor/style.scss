@@ -1,18 +1,20 @@
 :local {
-  .bar {
-    grid-column-end: 3;
-    grid-column-start: 1;
-  }
-
   .editor div {
     padding: 15px !important;
   }
 
-  .right {
-    padding-right: 3em;
+  .wrapper {
+    display: flex;
+    flex-flow: row nowrap;
   }
 
-  .left {
-    padding-left: 3em;
+  .parameters-area {
+    padding: 2em 2em 2em 3em;
+    width: 50vw;
+  }
+
+  .editor-area {
+    padding: 2em 2em 2em 3em;
+    width: 50vw;
   }
 }

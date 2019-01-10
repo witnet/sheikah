@@ -36,16 +36,22 @@
     width: 40px;
   }
 
+  .new-payment-request {
+    margin: 2em;
+    padding: 1em;
+    width: 60vw;
+  }
+
   .form {
     display: flex;
     flex-flow: column nowrap;
-    padding: 2em;
+    padding: 2.5em;
 
     .form-row {
       display: flex;
       flex-flow: row nowrap;
       justify-content: flex-start;
-      margin: 10px;
+      margin: 5px;
     }
 
     .submit {
@@ -63,19 +69,23 @@
       align-self: center;
       height: 48px;
       margin-left: 2.5em;
-      width: 60%;
+      width: 85%;
     }
 
     .amount-input {
       height: 48px;
       margin-left: 1.2em;
       padding: 1.5em;
-      width: 60%;
+      width: 10vw;
     }
 
     .date-input {
       height: 48px;
-      width: 200px;
+      width: 14vw;
+    }
+
+    .input-check {
+      margin: 20px;
     }
   }
 
@@ -83,6 +93,9 @@
     align-content: center;
     display: flex;
     flex-flow: column wrap;
+    margin: 2em;
+    padding: 1em;
+    width: 60vw;
   }
 
   .qr {

@@ -3,6 +3,7 @@
 
   .paddingLess div {
     padding: 0 !important;
+    width: 100%;
   }
 
   .title {
@@ -19,5 +20,13 @@
     font-weight: $tooltip_text-font_size;
     line-height: 1.5;
     margin-bottom: 1.5em;
+  }
+
+  .templates {
+    margin: 2em;
+  }
+
+  .right {
+    display: none;
   }
 }
