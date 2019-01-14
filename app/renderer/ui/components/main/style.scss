@@ -8,19 +8,24 @@
     padding: 0;
   }
 
+  .wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
   .sidebar {
-    grid-column: col / span 2.8;
+    width: 15vw;
   }
 
   .main {
     background: $background-color;
-    grid-column: col 2 / -1;
     height: 100vh;
+    width: 85vw;
   }
 
   .top-bar {
     background: $top_bar-background;
-    grid-column: col 2 / -1;
+    width: 85vw;
   }
 
   .receive-main {

@@ -12,10 +12,10 @@
   }
 
   .info {
-    align-content: center;
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content: space-between;
+    margin: 1em;
   }
 
   .info-row {
@@ -32,18 +32,11 @@
     margin-top: 2em;
   }
 
-  .editors {
-    align-content: flex-start;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    margin: 0 2em 2em 2em;
-  }
-
   .editor {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: flex-start;
+    margin: 0 0 2em 4em;
   }
 
   hr {

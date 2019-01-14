@@ -44,7 +44,7 @@ export class MainPage extends React.Component<OwnProps> {
   // tslint:disable-next-line:prefer-function-over-method
   public render() {
     return (
-      <div className={styles.layout}>
+      <div className={styles.wrapper}>
         <Sidebar
           {...sidebarProps}
           pathName={this.props.locationPathname}
