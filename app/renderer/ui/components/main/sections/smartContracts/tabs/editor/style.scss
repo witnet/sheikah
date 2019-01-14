@@ -6,15 +6,11 @@
   .wrapper {
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-around;
   }
 
+  .editor-area,
   .parameters-area {
-    padding: 2em 2em 2em 3em;
-    width: 50vw;
-  }
-
-  .editor-area {
-    padding: 2em 2em 2em 3em;
-    width: 50vw;
+    padding: 2em;
   }
 }

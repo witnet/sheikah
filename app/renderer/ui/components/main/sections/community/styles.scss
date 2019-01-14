@@ -23,8 +23,9 @@
   .channels {
     display: flex;
     flex-flow: row wrap;
+    justify-content: space-between;
     list-style-type: none;
-    padding: 30px 5px 5px 5px;
+    padding: 0.5em;
 
     .list-item {
       background: $grey-1;
@@ -46,10 +47,10 @@
       }
 
       .back {
-        bottom: -10px;
+        bottom: -20px;
         filter: invert(100%) blur(1px);
         height: 100px;
-        opacity: 0.1;
+        opacity: 0.15;
         position: absolute;
         right: -25px;
         transition: transform 0.2s ease;
