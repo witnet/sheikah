@@ -121,7 +121,7 @@ class TabEditor extends TabComponent<any & Props> {
           </div>
         </div>
         {/* EDITORS */}
-        <div className={`${styles.editors}`}>
+        <div className={styles.editors}>
           <Wrapper title="RETRIEVAL LOGIC" className={styles.editor}>
             <img src={svgRetrieval} />
           </Wrapper>

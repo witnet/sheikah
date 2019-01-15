@@ -20,6 +20,8 @@
   .main {
     background: $background-color;
     height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: 85vw;
   }
 
@@ -30,9 +32,25 @@
 
   .receive-main {
     grid-column: col 1 / -1;
+    height: 100vh;
   }
 
   .about-side {
     display: none;
+  }
+
+  @media screen and (min-width: 500px) and (max-width: 1250px) {
+    .sidebar {
+      transition: width 0.6s ease-in;
+      width: 60px;
+    }
+
+    .main {
+      width: 94vw;
+    }
+
+    .top-bar {
+      width: 94vw;
+    }
   }
 }
