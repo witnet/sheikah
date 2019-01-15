@@ -1,20 +1,19 @@
-import CardDefault from "app/renderer/ui/components/card/default";
-import * as React from "react";
+import CardDefault from "app/renderer/ui/components/card/default"
+import * as React from "react"
 
 import {
   TabInfo,
   TabComponent
-} from "app/renderer/ui/components/main/sections";
-import * as urls from "app/renderer/constants/urls";
-import Wrapper from "app/renderer/ui/components/wrapper";
-import { Services } from "app/renderer/services";
+} from "app/renderer/ui/components/main/sections"
+import * as urls from "app/renderer/constants/urls"
+import Wrapper from "app/renderer/ui/components/wrapper"
+import { Services } from "app/renderer/services"
 
-const svgBar = require("svg/smartContractsEditorBar.svg");
-const svgComposer = require("svg/smartContractsEditorComposer.svg");
-const svgSideContent = require("svg/smartContractsEditorSideContent.svg");
+const svgBar = require("svg/smartContractsEditorBar.svg")
+const svgComposer = require("svg/smartContractsEditorComposer.svg")
+const svgSideContent = require("svg/smartContractsEditorSideContent.svg")
 
-const layoutStyles = require("app/renderer/ui/components/main/sections/smartContracts/style.scss");
-const styles = require("./style.scss");
+const styles = require("./style.scss")
 
 /**
  * Props that contain configuration
@@ -22,7 +21,7 @@ const styles = require("./style.scss");
  * @interface Props
  */
 interface Props {
-  services: Services;
+  services: Services
 }
 /**
  * Smart Contracts Editor tab component
@@ -51,7 +50,7 @@ class TabEditor extends TabComponent<any & Props> {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -63,6 +62,6 @@ const EditorTab: TabInfo = {
   caption: "Editor",
   path: urls.SMART_CONTRACTS_EDITOR_TAB,
   component: TabEditor
-};
+}
 
-export default EditorTab;
+export default EditorTab

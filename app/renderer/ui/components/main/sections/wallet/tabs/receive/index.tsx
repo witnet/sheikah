@@ -1,54 +1,54 @@
-import * as React from "react";
-import Wrapper from "app/renderer/ui/components/wrapper";
-import List from "app/renderer/ui/components/list";
-import { DefaultInput, InputAmount } from "app/renderer/ui/components/input";
-import PaymentRequest from "app/renderer/ui/components/paymentRequest";
+import * as React from "react"
+import Wrapper from "app/renderer/ui/components/wrapper"
+import List from "app/renderer/ui/components/list"
+import { DefaultInput, InputAmount } from "app/renderer/ui/components/input"
+import PaymentRequest from "app/renderer/ui/components/paymentRequest"
 import {
   TabInfo,
   TabComponent
-} from "app/renderer/ui/components/main/sections";
+} from "app/renderer/ui/components/main/sections"
 
-import * as urls from "app/renderer/constants/urls";
-import * as api from "app/renderer/api";
+import * as urls from "app/renderer/constants/urls"
+import * as api from "app/renderer/api"
 
-import { ActionButton } from "app/renderer/ui/components/button";
+import { ActionButton } from "app/renderer/ui/components/button"
 
-import Spinner from "app/renderer/ui/components/spinner";
-import { AlertMessage } from "app/renderer/ui/components/alert";
-import { Services } from "app/renderer/services";
+import Spinner from "app/renderer/ui/components/spinner"
+import { AlertMessage } from "app/renderer/ui/components/alert"
+import { Services } from "app/renderer/services"
 import {
   FinalKey,
   ExternalFinalKey,
   Wallet
-} from "app/common/runtimeTypes/storage/wallets";
+} from "app/common/runtimeTypes/storage/wallets"
 import {
   GenerateAddressResponse,
   GenerateAddressParams,
   generateAddressErrorMessages
-} from "app/common/runtimeTypes/ipc/address";
-import { assertNever } from "app/common/utils";
-import { KEYCHAIN_INDICES } from "app/common/constants/wallet";
+} from "app/common/runtimeTypes/ipc/address"
+import { assertNever } from "app/common/utils"
+import { KEYCHAIN_INDICES } from "app/common/constants/wallet"
 
 import {
   buildComputedPaymentRequest,
   Action,
   ComputedPaymentRequest
-} from "app/renderer/prefilledPaymentRequests";
+} from "app/renderer/prefilledPaymentRequests"
 
 import {
   prefilledFinalKeysFunds,
   prefilledAddresses,
   prefilledWalletCaption
-} from "app/renderer/prefilledWallet";
+} from "app/renderer/prefilledWallet"
 
-import { encodeBech32 } from "app/common/witnet-js/addresses/p2pkh";
-import { ChainType } from "app/common/chain/chainType";
-import { sleep } from "app/renderer/utils/sleep";
-import InputCheck from "../../../../../input/checkbox";
-import { CheckboxChangeEvent } from "antd/lib/checkbox";
+import { encodeBech32 } from "app/common/witnet-js/addresses/p2pkh"
+import { ChainType } from "app/common/chain/chainType"
+import { sleep } from "app/renderer/utils/sleep"
+import InputCheck from "app/renderer/ui/components/input/checkbox"
+import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
-const styles = require("./style.scss");
-const grid = require("app/renderer/ui/components/main/style.scss");
+const styles = require("./style.scss")
+const grid = require("app/renderer/ui/components/main/style.scss")
 
 /**
  * Props that contain configuration
@@ -56,10 +56,10 @@ const grid = require("app/renderer/ui/components/main/style.scss");
  * @interface Props
  */
 interface Props {
-  selectedAccount: number;
-  wallet: Wallet;
-  services: Services;
-  saveFinalKey: Function;
+  selectedAccount: number
+  wallet: Wallet
+  services: Services
+  saveFinalKey: Function
 }
 
 /**
@@ -79,7 +79,7 @@ class TabReceive extends TabComponent<any & Props> {
     loading: false,
     errorMessage: "",
     check: false
-  };
+  }
 
   /**
    * Method to perform an async call to renderer API to generate a Final Key and
@@ -97,22 +97,22 @@ class TabReceive extends TabComponent<any & Props> {
         .then((response: GenerateAddressResponse) => {
           switch (response.kind) {
             case "SUCCESS":
-              resolve(response.finalKey);
-              break;
+              resolve(response.finalKey)
+              break
             case "ERROR":
               reject(
                 generateAddressErrorMessages[response.error] || "Unknown error"
-              );
-              break;
+              )
+              break
             default:
-              assertNever(response);
+              assertNever(response)
           }
         })
         .catch(error => {
-          reject(`GENERATE_ADDRESS_UNEXPECTED_ERROR ${error.message}`);
-        });
-    });
-  };
+          reject(`GENERATE_ADDRESS_UNEXPECTED_ERROR ${error.message}`)
+        })
+    })
+  }
 
   /**
    * Parse generate address params and returns an object with valid params
@@ -122,22 +122,22 @@ class TabReceive extends TabComponent<any & Props> {
     pAmount: string,
     pExpires: string
   ): Promise<GenerateAddressParams> => {
-    let result: GenerateAddressParams = { account: this.props.selectedAccount };
-    const label = pLabel.trim();
+    let result: GenerateAddressParams = { account: this.props.selectedAccount }
+    const label = pLabel.trim()
     if (label.length > 0) {
-      result = { ...result, label };
+      result = { ...result, label }
     }
-    const requestedAmount = Number.parseFloat(pAmount);
+    const requestedAmount = Number.parseFloat(pAmount)
     if (!Number.isNaN(requestedAmount)) {
-      result = { ...result, requestedAmount };
+      result = { ...result, requestedAmount }
     }
-    const expirationDate = new Date(pExpires).getTime() / 1000;
+    const expirationDate = new Date(pExpires).getTime() / 1000
     if (!Number.isNaN(expirationDate)) {
-      result = { ...result, expirationDate: Math.floor(expirationDate) };
+      result = { ...result, expirationDate: Math.floor(expirationDate) }
     }
 
-    return result;
-  };
+    return result
+  }
 
   /**
    * Calls API for generating external address
@@ -145,16 +145,16 @@ class TabReceive extends TabComponent<any & Props> {
   private apiGenerateAddress = async (
     params: GenerateAddressParams
   ): Promise<GenerateAddressResponse> => {
-    return api.generateAddress(this.props.services.apiClient, params);
-  };
+    return api.generateAddress(this.props.services.apiClient, params)
+  }
 
   /**
    * Method to store inputs in the local state by the input name
    * @param {React.FormEvent} event
    */
   private handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
+    this.setState({ [event.target.name]: event.target.value })
+  }
 
   /**
    * List item handle click method
@@ -162,10 +162,10 @@ class TabReceive extends TabComponent<any & Props> {
    */
   private handleClick = async (e: any) => {
     // Set loading state
-    this.setState({ loading: true, errorMessage: "" });
+    this.setState({ loading: true, errorMessage: "" })
 
     //Add an insignificant delay (1s) to improve user experience
-    await sleep(1000);
+    await sleep(1000)
 
     // Generate Address for selected account (array index)
     this.generateAddress(
@@ -179,25 +179,25 @@ class TabReceive extends TabComponent<any & Props> {
           account: this.props.selectedAccount,
           keyChain: KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL,
           finalKey
-        });
+        })
         // Reset loading state
         this.setState({
           label: "",
           amount: "",
           expires: "",
           loading: false
-        });
+        })
 
         // Show success message
         this.props.services.showSuccess(
           "You have successfully created a payment request"
-        );
+        )
       })
       .catch(error => {
         // Reset loading state and show error
-        this.setState({ loading: false, errorMessage: error });
-      });
-  };
+        this.setState({ loading: false, errorMessage: error })
+      })
+  }
   /**
    *
    * Handle checkbox value and show expires input
@@ -205,8 +205,8 @@ class TabReceive extends TabComponent<any & Props> {
    * @memberof TabReceive
    */
   private handleCheck = async (e: CheckboxChangeEvent) => {
-    this.setState({ check: !this.state.check });
-  };
+    this.setState({ check: !this.state.check })
+  }
   /**
    * Method to map account to payment requests
    */
@@ -217,7 +217,7 @@ class TabReceive extends TabComponent<any & Props> {
     // Not prefilled wallets will have 0 funds for the time being and the
     // address shown will be real
     const isPrefilledWallet =
-      this.props.wallet.caption === prefilledWalletCaption;
+      this.props.wallet.caption === prefilledWalletCaption
 
     return this.props.wallet.accounts[this.props.selectedAccount].keyChains[
       KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL
@@ -232,23 +232,23 @@ class TabReceive extends TabComponent<any & Props> {
             ? prefilledFinalKeysFunds[index]
             : 0,
           options
-        );
+        )
       })
-      .reverse();
-  };
+      .reverse()
+  }
 
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const loading = `${styles.loading} ${
       this.state.loading ? styles.active : styles.disabled
-    }`;
+    }`
 
     const listOptions = ["Export all payment requests as CSV"].map(
       (opt: string) => ({
         text: opt,
         onClick: () => this.props.services.showUnimplementedMessage()
       })
-    );
+    )
 
     const itemOptions = [
       "Copy address",
@@ -257,7 +257,7 @@ class TabReceive extends TabComponent<any & Props> {
     ].map((opt: string) => ({
       text: opt,
       onClick: () => this.props.services.showUnimplementedMessage()
-    }));
+    }))
 
     const paymentRequestsList = (
       <List
@@ -267,12 +267,12 @@ class TabReceive extends TabComponent<any & Props> {
         emptyIcon="generic"
         emptyText="You don't have payment requests"
       />
-    );
+    )
 
     const noPaymentRequests =
       this.props.wallet.accounts[this.props.selectedAccount].keyChains[
         KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL
-      ].finalKeys.length === 0;
+      ].finalKeys.length === 0
 
     const expirationDateInput = this.state.check && (
       <DefaultInput
@@ -282,11 +282,11 @@ class TabReceive extends TabComponent<any & Props> {
         onChange={this.handleChange}
         value={this.state.expires}
       />
-    );
+    )
 
     return (
       <>
-        <div className={grid["layout"]}>
+        <div className={grid.layout}>
           <div className={grid["receive-main"]}>
             <Wrapper
               title="NEW PAYMENT REQUEST"
@@ -323,7 +323,7 @@ class TabReceive extends TabComponent<any & Props> {
                   />
                   {expirationDateInput}
                 </div>
-                <div className={`${styles["form-row"]} ${styles["submit"]}`}>
+                <div className={`${styles["form-row"]} ${styles.submit}`}>
                   <ActionButton
                     className={styles.submit}
                     onClick={this.handleClick}
@@ -376,7 +376,7 @@ class TabReceive extends TabComponent<any & Props> {
           </div>
         </div>
       </>
-    );
+    )
   }
 }
 
@@ -385,6 +385,6 @@ const ReceiveTab: TabInfo = {
   caption: "Receive",
   path: urls.RECEIVE_TAB,
   component: TabReceive
-};
+}
 
-export default ReceiveTab;
+export default ReceiveTab
