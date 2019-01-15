@@ -10,7 +10,8 @@ import { Switch } from "react-router"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 
 const mainStyles = require("app/renderer/ui/components/main/style.scss")
-const styles = require("app/renderer/ui/components/main/sections/wallet/tabs/transactions/style.scss")
+const styles =
+  require("app/renderer/ui/components/main/sections/wallet/tabs/transactions/style.scss")
 /**
  * Wallet component
  *

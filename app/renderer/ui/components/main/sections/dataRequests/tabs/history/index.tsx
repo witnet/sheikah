@@ -1,17 +1,17 @@
-import * as React from "react";
-import Wrapper from "app/renderer/ui/components/wrapper";
+import * as React from "react"
+import Wrapper from "app/renderer/ui/components/wrapper"
 
-import * as urls from "app/renderer/constants/urls";
+import * as urls from "app/renderer/constants/urls"
 import {
   TabComponent,
   TabInfo
-} from "app/renderer/ui/components/main/sections";
-import { Services } from "app/renderer/services";
-import { CardDefault } from "app/renderer/ui/components/card";
+} from "app/renderer/ui/components/main/sections"
+import { Services } from "app/renderer/services"
+import { CardDefault } from "app/renderer/ui/components/card"
 
-const svgImage = require("svg/dataRequestsHistory.svg");
-const styles = require("./style.scss");
-const layout = require("app/renderer/ui/components/main/style.scss");
+const svgImage = require("svg/dataRequestsHistory.svg")
+const styles = require("./style.scss")
+const layout = require("app/renderer/ui/components/main/style.scss")
 
 /**
  * Props that contain configuration
@@ -19,7 +19,7 @@ const layout = require("app/renderer/ui/components/main/style.scss");
  * @interface Props
  */
 interface Props {
-  services: Services;
+  services: Services
 }
 
 /**
@@ -35,18 +35,18 @@ class TabHistory extends TabComponent<any & Props> {
     const byTemplateOptions = ["Order by template"].map((opt: string) => ({
       text: opt,
       onClick: () => this.props.services.showUnimplementedMessage()
-    }));
+    }))
 
     return (
       <div className={styles.wrapper}>
-        <div className={styles["main"]}>
+        <div className={styles.main}>
           <Wrapper className={styles.template} title="BY TEMPLATE" actions={byTemplateOptions}>
             <CardDefault className={styles["with-padding"]}>
               <img src={svgImage} />
             </CardDefault>
           </Wrapper>
         </div>
-        <div className={`${styles["text"]} ${layout["about-side"]}`}>
+        <div className={`${styles.text} ${layout["about-side"]}`}>
           <p className={styles.title}>About data requests</p>
           <p className={styles.text}>
             Data requests are scripts that tell Witnet where to retrieve data.
@@ -74,7 +74,7 @@ class TabHistory extends TabComponent<any & Props> {
           </p>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -83,6 +83,6 @@ const HistoryTab: TabInfo = {
   caption: "History",
   path: urls.DATA_REQUESTS_HISTORY_TAB,
   component: TabHistory
-};
+}
 
-export default HistoryTab;
+export default HistoryTab

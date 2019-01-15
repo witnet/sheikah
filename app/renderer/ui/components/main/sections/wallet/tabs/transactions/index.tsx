@@ -1,36 +1,36 @@
-import * as React from "react";
-import * as _ from "lodash";
+import * as React from "react"
+import * as _ from "lodash"
 
-import { ComputedTransactions } from "app/renderer/prefilledTransactions";
+import { ComputedTransactions } from "app/renderer/prefilledTransactions"
 
 import {
   ConfirmedTransaction,
   PendingTransaction
-} from "app/renderer/ui/components/transaction";
-import Balances from "app/renderer/ui/components/balances";
-import Wrapper from "app/renderer/ui/components/wrapper";
-import List from "app/renderer/ui/components/list";
-import EmptyState from "app/renderer/ui/components/emptyState";
-import * as urls from "app/renderer/constants/urls";
+} from "app/renderer/ui/components/transaction"
+import Balances from "app/renderer/ui/components/balances"
+import Wrapper from "app/renderer/ui/components/wrapper"
+import List from "app/renderer/ui/components/list"
+import EmptyState from "app/renderer/ui/components/emptyState"
+import * as urls from "app/renderer/constants/urls"
 
 import {
   TabInfo,
   TabComponent,
   TabProps
-} from "app/renderer/ui/components/main/sections";
+} from "app/renderer/ui/components/main/sections"
 
-import { balanceData } from "app/renderer/ui/components/main/sections/wallet/MockData";
-import { Services } from "app/renderer/services";
-import { PathNameProp } from "app/renderer/ui/components/commonTypes";
+import { balanceData } from "app/renderer/ui/components/main/sections/wallet/MockData"
+import { Services } from "app/renderer/services"
+import { PathNameProp } from "app/renderer/ui/components/commonTypes"
 
-const styles = require("./style.scss");
+const styles = require("./style.scss")
 
 interface OwnProps {
-  pendingTransactions: ComputedTransactions;
-  confirmedTransactions: ComputedTransactions;
-  services: Services;
-  pathName: PathNameProp;
-  isPrefilledWallet: boolean;
+  pendingTransactions: ComputedTransactions
+  confirmedTransactions: ComputedTransactions
+  services: Services
+  pathName: PathNameProp
+  isPrefilledWallet: boolean
 }
 
 /**
@@ -44,7 +44,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
   public render() {
     const balances = this.props.isPrefilledWallet
       ? balanceData
-      : _.mapValues(balanceData, () => 0);
+      : _.mapValues(balanceData, () => 0)
 
     const listOptions = [
       "Export all transactions as CSV",
@@ -52,9 +52,9 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
     ].map((opt: string) => ({
       text: opt,
       onClick: () => {
-        this.props.services.showUnimplementedMessage();
+        this.props.services.showUnimplementedMessage()
       }
-    }));
+    }))
 
     const pendingTransactionsList = (
       <List
@@ -63,7 +63,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
         emptyIcon="generic"
         emptyText="You don't have pending transactions"
       />
-    );
+    )
 
     const confirmedTransactionsList = (
       <List
@@ -72,7 +72,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
         emptyIcon="generic"
         emptyText="You don't have confirmed transactions"
       />
-    );
+    )
 
     return (
       <>
@@ -88,9 +88,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
             </Wrapper>
             <Wrapper
               title="CONFIRMED"
-              caption={`${
-                this.props.confirmedTransactions.length
-              } transactions`}
+              caption={`${this.props.confirmedTransactions.length} transactions`}
               actions={listOptions}
               className={styles.confirmed}
               empty={!this.props.confirmedTransactions.length}
@@ -113,7 +111,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
           </div>
         </div>
       </>
-    );
+    )
   }
 }
 
@@ -122,6 +120,6 @@ const TransactionsTab: TabInfo = {
   caption: "Transactions",
   path: urls.TRANSACTIONS_TAB,
   component: Transactions
-};
+}
 
-export default TransactionsTab;
+export default TransactionsTab
