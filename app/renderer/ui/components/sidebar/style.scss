@@ -40,17 +40,19 @@
   }
 
   .link-list {
-    align-content: center;
     align-items: flex-start;
     display: flex;
     flex-flow: column nowrap;
-    height: 35vh;
+    height: 37vh;
     justify-content: space-around;
     padding-top: 1em;
 
     .link {
+      align-items: center;
       border-left: $sidebar-inactive-border;
       color: $sidebar-link-color;
+      display: flex;
+      flex-flow: row nowrap;
       font-size: $sidebar-link-font_size;
       font-weight: $sidebar-link-font_weight;
       padding: 1em;
@@ -96,6 +98,20 @@
         color: $sidebar-synced-color;
         font-weight: $sidebar-synced-font_weight;
         padding: 0.5em;
+      }
+    }
+  }
+
+  @media screen and (min-width: 500px) and (max-width: 1252px) {
+    .option-icon {
+      opacity: 0;
+      transition: opacity 0.4s ease-in;
+    }
+
+    .settings {
+      .mainnet,
+      .synced {
+        display: none;
       }
     }
   }

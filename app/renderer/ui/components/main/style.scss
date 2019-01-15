@@ -20,6 +20,8 @@
   .main {
     background: $background-color;
     height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: 85vw;
   }
 
@@ -30,6 +32,7 @@
 
   .receive-main {
     grid-column: col 1 / -1;
+    height: 100vh;
   }
 
   .about-side {
