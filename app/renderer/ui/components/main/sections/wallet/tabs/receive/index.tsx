@@ -376,8 +376,8 @@ class TabReceive extends TabComponent<any & Props> {
               </p>
             </div>
           </div>
-        </div>
-      </>
+      </div>
+    </>
     )
   }
 }
