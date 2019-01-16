@@ -82,7 +82,7 @@ class TabReceive extends TabComponent<any & Props> {
   }
 
   /**
-   * Method to perform an async call to renderer API to generate a Final Key and
+   * Method to perform an async call to render API to generate a Final Key and
    * resolve/reject a promise depending on the result of that call
    * @param params
    */
@@ -364,13 +364,13 @@ class TabReceive extends TabComponent<any & Props> {
                 better trace every payment you receive.
               </p>
               <p className={styles.text}>
-                You can generate as many payment requests at once. However,it is
+                You can generate many payment requests at once. However,it is
                 advised that you only generate as you need them, instead of
                 creating a lot of them preemptively.
               </p>
               <p className={styles.text}>
                 All this data is completely private and it is only stored in
-                your device a encrypted database that only you can read
+                your device a encrypted database that only you can read.
               </p>
             </div>
           </div>

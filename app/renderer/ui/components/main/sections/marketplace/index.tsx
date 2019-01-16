@@ -6,9 +6,25 @@ import {
 } from "app/renderer/ui/components/main/sections"
 
 import * as urls from "app/renderer/constants/urls"
+import { marketplaceProducts } from "app/renderer/ui/components/main/sections/marketplace/MockData"
 
 const grid = require("app/renderer/ui/components/main/style.scss")
 const styles = require("./style.scss")
+const items = marketplaceProducts.map((item, i) => (
+    <div className={styles.item} key={i}>
+      <div className={styles["item-img"]}>
+        <img />
+      </div>
+      <div className={styles["item-text"]}>
+        <p>{item.title}</p>
+        <p>@{item.author}</p>
+        <p>{item.rating}</p>
+        <p className={styles["hashtag-list"]}>
+          {item.tags.map(tag => (<a className={styles["hashtag-item"]} href="#" key={i}>{tag}</a>))}
+        </p>
+      </div>
+    </div>
+  ))
 
 /**
  * Marketplace component
@@ -17,7 +33,6 @@ const styles = require("./style.scss")
  * @extends {React.Component<SectionProps>}
  */
 class Marketplace extends React.Component<SectionProps> {
-
   // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
@@ -29,8 +44,8 @@ class Marketplace extends React.Component<SectionProps> {
               <span className={styles.title2}>Marketplace</span>
             </h1>
             <p className={styles.subtitle}>
-              Hundreds of data request and smart contact templates,
-              ready to be deployed
+              Hundreds of data request and smart contact templates, ready to be
+              deployed
             </p>
           </div>
         </header>
@@ -38,36 +53,13 @@ class Marketplace extends React.Component<SectionProps> {
           <div className={styles.featured}>
             <h2 className={styles["section-title"]}>Featured</h2>
             <div className={styles.row}>
-                  <div className={styles.item}>
-                    <div className={styles["item-img"]} />
-                    <div className={styles["item-text"]}>
-                      <p>name</p>
-                      <p>author</p>
-                      <p>rating</p>
-                      <p className={styles["hashtag-list"]}>
-                        <a className={styles["hashtag-item"]} href="#"/>
-                      </p>
-                    </div>
-                  </div>
+            {items}
             </div>
           </div>
           <div className={styles.insurance}>
             <h2 className={styles["section-title"]}>Insurance</h2>
             <div className={styles.row}>
-                  <div className={styles.item}>
-                    <div className={styles["item-img"]} />
-                    <div className={styles["item-text"]}>
-                      <p>name</p>
-                      <p>author</p>
-                      <br />
-                      <p>rating</p>
-                      <p className={styles["hashtag-list"]}>
-                        <a className={styles["hashtag-item"]} href="#"/>
-                      </p>
-                    </div>
-                  </div>
-                )
-              })}
+            {items}
             </div>
           </div>
         </main>
