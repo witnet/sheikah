@@ -35,8 +35,14 @@
   .current-wallet {
     background: $blue-6;
     color: $sidebar-current_wallet-color;
+    display: flex;
+    flex-flow: row wrap;
     font-weight: bold;
     padding: 1em;
+  }
+
+  .current-wallet-name {
+    text-overflow: ellipsis;
   }
 
   .link-list {
@@ -102,10 +108,15 @@
     }
   }
 
-  @media screen and (min-width: 500px) and (max-width: 1252px) {
+  @media screen and (max-width: 1250px) {
+    .current-wallet-name {
+      transform: translateX(-10px);
+      transition: transform;
+    }
+
     .option-icon {
       opacity: 0;
-      transition: opacity 0.4s ease-in;
+      transition: opacity 0.4s linear;
     }
 
     .settings {

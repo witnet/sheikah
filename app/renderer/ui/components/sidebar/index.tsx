@@ -40,7 +40,7 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
           <img src={src} />
         </div>
         <div className={styles["current-wallet"]}>
-          {this.props.walletName}
+         <span className={styles["current-wallet-name"]}>{this.props.walletName}</span>
         </div>
         <div className={styles["link-list"]}>
           {linksRender(this.props.linksProps, this.props.pathName)}
