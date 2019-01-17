@@ -273,11 +273,14 @@ class TabReceive extends TabComponent<any & Props> {
         KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL
       ].finalKeys.length === 0
 
+    const today = new Date().toISOString().slice(0, 16)
+
     const expirationDateInput = (
       <DefaultInput
         className={styles["date-input"]}
         type="datetime-local"
         name="expires"
+        min={today}
         onChange={this.handleChange}
         value={this.state.expires}
         disabled={!this.state.check}

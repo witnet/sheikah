@@ -7,6 +7,7 @@ export interface Iprops {
   type?: string
   name?: string
   value?: any
+  min?: any
   disabled?: boolean
   onChange?: React.ChangeEventHandler
   onBlur?: React.ChangeEventHandler
@@ -29,6 +30,7 @@ export default class DefaultInput extends React.Component<Iprops> {
         className={this.props.className}
         type={this.props.type}
         name={this.props.name}
+        min={this.props.min}
         value={this.props.value}
         disabled={this.props.disabled}
         onChange={this.props.onChange}
