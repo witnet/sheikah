@@ -13,25 +13,25 @@ export const jsonFixtures = {
         string: "Hello World",
         array: [1337, "Hello World", { foo: "bar" }],
         object: {
-          foo: "bar"
-        }
+          foo: "bar",
+        },
       },
-      serialized: `{"number":1337,"string":"Hello World","array":[1337,"Hello World",`
-        + `{"foo":"bar"}],"object":{"foo":"bar"}}`
-    }
+      serialized: "{\"number\":1337,\"string\":\"Hello World\",\"array\":[1337,\"Hello World\"," +
+        "{\"foo\":\"bar\"}],\"object\":{\"foo\":\"bar\"}}",
+    },
   ],
   invalid: [
     {
       serialized: "",
-      error: errorFactory("SyntaxError", "Unexpected end of JSON input")
+      error: errorFactory("SyntaxError", "Unexpected end of JSON input"),
     },
     {
       serialized: "{\"",
-      error: errorFactory("SyntaxError", "Unexpected end of JSON input")
+      error: errorFactory("SyntaxError", "Unexpected end of JSON input"),
     },
     {
       serialized: "{'",
-      error: errorFactory("SyntaxError", "Unexpected token ' in JSON at position 1")
-    }
-  ]
+      error: errorFactory("SyntaxError", "Unexpected token ' in JSON at position 1"),
+    },
+  ],
 }

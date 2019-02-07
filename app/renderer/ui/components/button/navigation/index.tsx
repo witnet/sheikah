@@ -4,9 +4,9 @@ import { Button } from "antd"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  className?: string
-  onClick?: any
+export interface ButtonNavigationProps {
+  className?: string,
+  onClick?: any,
   text: any,
 }
 
@@ -15,11 +15,10 @@ export interface Iprops {
  *
  * @export
  * @class ButtonNavigation
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<ButtonNavigationProps>}
  */
 
-export default class ButtonNavigation extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
+export default class ButtonNavigation extends React.Component<ButtonNavigationProps> {
   public render() {
     const navigationClasses = `
       ${styles.button}

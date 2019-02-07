@@ -3,7 +3,6 @@ import { sha256StringHasher } from "app/main/hashers/sha256String"
 import fixtures from "./sha256.fixtures"
 
 describe("Sha256Hasher", () => {
-
   // Buffer mode
   fixtures.pairs.forEach(([data, expected], index) => {
     it(`should be able to hash input data #${index} as buffer`, async () => {

@@ -4,10 +4,10 @@ const Option = Select.Option
 
 // const styles = require("./style.scss")
 
-export interface Iprops {
-  className?: string
-  defaultValue?: string
-  onChange?: any
+export interface SelectDefaultProps {
+  className?: string,
+  defaultValue?: string,
+  onChange?: any,
 }
 
 /**
@@ -15,10 +15,9 @@ export interface Iprops {
  *
  * @export
  * @class SelectDerfault
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<SelectDefaultProps>}
  */
-export default class SelectDefault extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs prefer-function-over-method
+export default class SelectDefault extends React.Component<SelectDefaultProps> {
   public render() {
     return (
       <Select
@@ -34,5 +33,5 @@ export default class SelectDefault extends React.Component<Iprops> {
 
 export {
   Option,
-  SelectDefault as Select
+  SelectDefault as Select,
 }

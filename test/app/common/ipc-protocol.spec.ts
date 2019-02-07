@@ -1,4 +1,3 @@
-/* tslint:disable:no-null-keyword */
 import * as ipc from "app/common/ipc-protocol"
 import * as fixtures from "./ipc-protocol.fixtures"
 

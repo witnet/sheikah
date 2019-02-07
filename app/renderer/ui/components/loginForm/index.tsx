@@ -5,10 +5,10 @@ import { SettingsOptions } from "app/renderer/ui/components/sidebar"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  unlockInProgress: boolean
-  collapseSidebar?: boolean
-  settingsOptions: SettingsOptions
+export interface LoginFormProps {
+  collapseSidebar?: boolean,
+  settingsOptions: SettingsOptions,
+  unlockInProgress: boolean,
 }
 
 /**
@@ -17,11 +17,9 @@ export interface Iprops {
  *
  * @export
  * @class LoginForm
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<LoginFormProps>}
  */
-export class LoginForm extends React.Component<Iprops> {
-  /** render */
-  // tslint:disable-next-line:prefer-function-over-method
+export class LoginForm extends React.Component<LoginFormProps> {
   public render() {
     return (
       <div className={styles.layout}>

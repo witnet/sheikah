@@ -6,13 +6,13 @@ import { ButtonNavigation } from "app/renderer/ui/components/button"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  className?: string
-  nextStep?: any
-  previousStep?: any
-  title?: string
-  backText?: string
-  nextText?: string
+export interface NavigationCardProps {
+  className?: string,
+  nextStep?: any,
+  previousStep?: any,
+  title?: string,
+  backText?: string,
+  nextText?: string,
 }
 
 /**
@@ -20,11 +20,10 @@ export interface Iprops {
  *
  * @export
  * @class NavigationCard
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<NavigationCardProps>}
  */
 
-export default class NavigationCard extends React.Component<Iprops> {
-
+export default class NavigationCard extends React.Component<NavigationCardProps> {
   /**
    * For the sake of accessibility, this event handler function captures Enter key pressing and
    * artificially calls nextStep just as if the Next button was clicked.
@@ -35,7 +34,6 @@ export default class NavigationCard extends React.Component<Iprops> {
     }
   }
 
-  // tslint:disable-next-line: completed-docs
   public render() {
     const cardStyle = `${this.props.className} ${styles.card}`
 

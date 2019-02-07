@@ -15,7 +15,6 @@ const router = routerMiddleware(history)
  * @param services
  */
 function configureStore(initialState: StoreState) {
-
   const middlewares = [router]
 
   const enhancer = compose(applyMiddleware.apply(undefined, middlewares))
@@ -25,5 +24,5 @@ function configureStore(initialState: StoreState) {
 
 export = {
   history,
-  configureStore
+  configureStore,
 }

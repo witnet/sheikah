@@ -3,5 +3,5 @@ import SelectFees from "./fees"
 
 export {
   Select,
-  SelectFees
+  SelectFees,
 }

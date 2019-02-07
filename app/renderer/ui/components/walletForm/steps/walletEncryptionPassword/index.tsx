@@ -6,15 +6,15 @@ import { InputUnderlined } from "app/renderer/ui/components/input"
 const stepStyles = require("./style.scss")
 const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
 
-export interface Iprops {
-  className?: string
-  errorMessage?: string
-  nextStep: () => void
-  onChangePassword: (ev: React.ChangeEvent) => void
-  onChangeRepeatPassword: (ev: React.ChangeEvent) => void
-  password: string
-  previousStep: () => void
-  repeatPassword: string
+export interface WalletEncryptionPasswordProps {
+  className?: string,
+  errorMessage?: string,
+  nextStep: () => void,
+  onChangePassword: (ev: React.ChangeEvent) => void,
+  onChangeRepeatPassword: (ev: React.ChangeEvent) => void,
+  password: string,
+  previousStep: () => void,
+  repeatPassword: string,
 }
 
 /**
@@ -22,10 +22,10 @@ export interface Iprops {
  *
  * @export
  * @class WalletEncryptionPassword
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<WalletEncryptionPasswordProps>}
  */
-
-export default class WalletEncryptionPassword extends React.Component<Iprops> {
+export default class WalletEncryptionPassword extends
+  React.Component<WalletEncryptionPasswordProps> {
   /** render */
   public render() {
     const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`

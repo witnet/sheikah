@@ -11,7 +11,6 @@ type StorageType = Storage<Buffer, JsonSerializable, Buffer, Buffer>
  * It is intended to be used as a singleton inside the WalletStorageSubsystem
  */
 export class WalletStorage {
-
   /** The JsonAesLevelStorage */
   private storageRef: StorageType | undefined = undefined
 
@@ -62,8 +61,7 @@ export class WalletStorage {
  * This is a very simple subsystem containing a WalletStorage object.
  */
 export class WalletStorageSubSystem
-  implements Lifecycle<WalletStorage, Partial<Config>> {
-
+implements Lifecycle<WalletStorage, Partial<Config>> {
   /**
    * The actual Wallet storage.
    * @type WalletStorage
@@ -85,5 +83,4 @@ export class WalletStorageSubSystem
   public async stop() {
     return this.walletStorage.close()
   }
-
 }

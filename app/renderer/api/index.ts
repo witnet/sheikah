@@ -1,4 +1,3 @@
-/* tslint:disable:no-null-keyword */
 /**
  * This module exports the `Client` class which is used to interact via ipc with Electron main
  * process.
@@ -9,7 +8,7 @@ import * as ipc from "app/renderer/ipc"
 import {
   JsonSerializable,
   jsonSerializer,
-  JsonSerializer
+  JsonSerializer,
 } from "app/common/serializers"
 
 /**
@@ -23,26 +22,26 @@ export { validateMnemonics, validateXprv } from "./validateMnemonics"
 export { generateAddress } from "./generateAddress"
 
 /** Options type expected by `Client` */
-export type Options = {
+export interface Options {
   /** Channel name used by the client to send requests/notifications */
-  channel: string
+  channel: string,
   /** IPC backend used by the client to send requests and to listen for responses  */
-  ipc: ipc.Ipc
+  ipc: ipc.Ipc,
   /** Timeout in milliseconds to wait for a response */
-  timeout: number
+  timeout: number,
   /** Generator of request ids used by the client */
-  idGen: ipc.RequestIdGenerator
+  idGen: ipc.RequestIdGenerator,
   /** Function that handles the message deserialization and interpretation */
-  messageHandler: (json: JsonSerializer, message: string) => Promise<any>
+  messageHandler: (json: JsonSerializer, message: string) => Promise<any>,
   /** Json serializer to use for (de)serializing requests/responses */
-  json: JsonSerializer
+  json: JsonSerializer,
 }
 
 /** ApiClient interface that concrete api clients must implement */
 export interface ApiClient {
-  withOptions(opts: Partial<Options>): ApiClient
-  notify(method: string, ...args: Array<any>): void
-  request(method: string, ...args: Array<any>): Promise<any>
+  withOptions(opts: Partial<Options>): ApiClient,
+  notify(method: string, ...args: Array<any>): void,
+  request(method: string, ...args: Array<any>): Promise<any>,
 }
 
 /** Default `Client` options */
@@ -52,7 +51,7 @@ export const defaultOptions: Options = {
   ipc: ipc.electronIpc,
   idGen: ipc.idGenerator,
   messageHandler: defaultMessageHandler,
-  json: jsonSerializer
+  json: jsonSerializer,
 }
 
 /**
@@ -110,8 +109,8 @@ export class Client implements ApiClient {
   private async send(method: string, params: JsonSerializable, id?: string | number): Promise<any> {
     const { channel, timeout, ipc, json, messageHandler } = this.options
     const replyChannel = id ? protocol.replyChannel(id) : null
-    const request = id ? protocol.request(method, id, params) :
-      protocol.notification(method, params)
+    const request = id ? protocol.request(method, id, params)
+      : protocol.notification(method, params)
 
     return new Promise((resolve, reject) => {
       if (replyChannel) {

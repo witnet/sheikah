@@ -6,13 +6,14 @@ const styles = require("./style.scss")
 const receiveStyles =
   require("app/renderer/ui/components/main/sections/wallet/tabs/receive/style.scss")
 
-export interface Iprops {
-  className?: string
-  title?: string
-  caption?: string
-  actions?: Array<{ text: any; onClick: any }>
-  contentClassName?: string
-  empty?: boolean
+export interface WrapperProps {
+  actions?: Array<{ text: any, onClick: any }>,
+  caption?: string,
+  className?: string,
+  contentClassName?: string,
+  empty?: boolean,
+  title?: string,
+
 }
 
 /**
@@ -20,11 +21,9 @@ export interface Iprops {
  *
  * @export
  * @class Wrapper
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<WrapperProps>}
  */
-
-export default class Wrapper extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
+export default class Wrapper extends React.Component<WrapperProps> {
   public render() {
     const contentStyles = `${!this.props.empty ? styles.content : styles.empty}
     ${this.props.contentClassName}`

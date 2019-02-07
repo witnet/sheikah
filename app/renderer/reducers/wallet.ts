@@ -6,8 +6,7 @@ import * as _ from "lodash"
 const defaultWalletState: WalletOption = false
 
 type saveWalletOptions = SaveWalletAction | SaveFinalKeyAction
-export const walletReducer = (state: WalletOption = defaultWalletState, action: saveWalletOptions)
-  : WalletOption => {
+export const walletReducer = (state: WalletOption = defaultWalletState, action: saveWalletOptions): WalletOption => {
   switch (action.type) {
     case Actions.SAVE_WALLET:
       return action.payload ? action.payload : false

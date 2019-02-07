@@ -5,11 +5,11 @@ import { WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  className?: any
-  walletInfos: WalletInfos
-  nextStep: (id: string) => void
-  newWallet: () => void
+export interface WalletSelectionProps {
+  className?: any,
+  newWallet: () => void,
+  nextStep: (id: string) => void,
+  walletInfos: WalletInfos,
 }
 
 /**
@@ -17,11 +17,10 @@ export interface Iprops {
  *
  * @export
  * @class WalletSelection
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<WalletSelectionProps>}
  */
 
-export default class WalletSelection extends React.Component<Iprops> {
-
+export default class WalletSelection extends React.Component<WalletSelectionProps> {
   /**
    * Method that calls next step function inside props
    */
@@ -44,8 +43,6 @@ export default class WalletSelection extends React.Component<Iprops> {
     })
   }
 
-  /** render */
-  // tslint:disable-next-line:prefer-function-over-method
   public render() {
     return (
       <div className={styles.content}>

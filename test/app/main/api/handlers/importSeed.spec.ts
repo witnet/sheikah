@@ -23,9 +23,9 @@ function systemFactory() {
   return {
     appStateManager: new AppStateManager({
       unconsolidatedWallet: {
-        mnemonics: "fence recall half science actual limit wise pupil fish history cement oak"
-      }
-    })
+        mnemonics: "fence recall half science actual limit wise pupil fish history cement oak",
+      },
+    }),
   }
 }
 
@@ -46,7 +46,7 @@ describe("importSeed Handler", () => {
   it("should reject invalid mnemonics", async () => {
     const params = {
       kind: "mnemonics",
-      mnemonics: "foo bar baz"
+      mnemonics: "foo bar baz",
     }
     const result = await importSeed(system, params)
 
@@ -56,7 +56,7 @@ describe("importSeed Handler", () => {
   it("should accept valid mnemonics not matching unconsolidated wallet", async () => {
     const params = {
       kind: "mnemonics",
-      mnemonics: "control enroll cancel obey join cup vault jazz brush pledge raven huge"
+      mnemonics: "control enroll cancel obey join cup vault jazz brush pledge raven huge",
     }
     const result = await importSeed(system, params)
 
@@ -66,7 +66,7 @@ describe("importSeed Handler", () => {
   it("should import seed if mnemonics are fine", async () => {
     const params = {
       kind: "mnemonics",
-      mnemonics: "fence recall half science actual limit wise pupil fish history cement oak"
+      mnemonics: "fence recall half science actual limit wise pupil fish history cement oak",
     }
     const result = await importSeed(system, params)
     expect(result).toMatchObject({ kind: "SUCCESS" })
@@ -76,13 +76,13 @@ describe("importSeed Handler", () => {
     const params = {
       kind: "xprv",
       xprv: "xprv1qxqqqqqq78qr7hlewyyfzt74vasa87k63pu7g9e6hfzlzrdyh0v5k8zfw9sqpsyv7vcejeyz" +
-        "cpkm85jel7vmujlhpquzf4f3sh3nry0w0n4jh7t0jhc039"
+        "cpkm85jel7vmujlhpquzf4f3sh3nry0w0n4jh7t0jhc039",
     }
 
     const { extendedKey } = Slip32.importKeyFromSlip32(params.xprv)
     const seed = {
       chainCode: Buffer.from(extendedKey.chainCode),
-      masterSecret: Buffer.from(extendedKey.key.bytes)
+      masterSecret: Buffer.from(extendedKey.key.bytes),
     }
 
     const result = await importSeed(system, params)

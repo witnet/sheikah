@@ -1,4 +1,4 @@
-import *  as React from "react"
+import * as React from "react"
 import { action } from "@storybook/addon-actions"
 import { storiesOf } from "@storybook/react"
 import { CardDefault, NavigationCard } from "../app/renderer/ui/components/card"
@@ -13,7 +13,7 @@ storiesOf("Card", module)
     </CardDefault>
   ))
   .add("Navigation", () => (
-    <div style={{width: 500}}>
+    <div style={{ width: 500 }}>
       <NavigationCard
         title="Card With Navigation"
         nextStep={action("Clicked next step")}
@@ -25,4 +25,4 @@ storiesOf("Card", module)
         <p>content</p>
       </NavigationCard>
     </div>
-))
+  ))

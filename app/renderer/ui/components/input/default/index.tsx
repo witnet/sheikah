@@ -2,16 +2,16 @@ import * as React from "react"
 
 import { Input } from "antd"
 
-export interface Iprops {
-  className?: string
-  type?: string
-  name?: string
-  value?: any
-  min?: any
-  disabled?: boolean
-  onChange?: React.ChangeEventHandler
-  onBlur?: React.ChangeEventHandler
-  onKeyUp?: React.KeyboardEventHandler
+export interface DefaultInputProps {
+  className?: string,
+  disabled?: boolean,
+  min?: any,
+  name?: string,
+  onBlur?: React.ChangeEventHandler,
+  onChange?: React.ChangeEventHandler,
+  onKeyUp?: React.KeyboardEventHandler,
+  type?: string,
+  value?: any,
 }
 
 /**
@@ -19,11 +19,10 @@ export interface Iprops {
  *
  * @export
  * @class DefaultInput
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<DefaultInputProps>}
  */
 
-export default class DefaultInput extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
+export default class DefaultInput extends React.Component<DefaultInputProps> {
   public render() {
     return (
       <Input

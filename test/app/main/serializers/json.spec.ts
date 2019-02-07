@@ -2,7 +2,6 @@ import { jsonFixtures } from "./json.fixtures"
 import { jsonSerializer } from "app/common/serializers"
 
 describe("JsonSerializer", () => {
-
   jsonFixtures.valid.forEach(({ value, serialized }, index) => {
     it(`should serialize object #${index}`, async () => {
       const _serialized = await jsonSerializer.serialize(value)
@@ -21,5 +20,4 @@ describe("JsonSerializer", () => {
       })
     })
   })
-
 })

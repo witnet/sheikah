@@ -2,9 +2,9 @@ import * as React from "react"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  active: boolean
-  className?: string
+export interface SpinnerProps {
+  active: boolean,
+  className?: string,
 }
 
 /**
@@ -12,11 +12,10 @@ export interface Iprops {
  *
  * @export
  * @class Spinner
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<SpinnerProps>}
  */
 
-export default class Spinner extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs prefer-function-over-method
+export default class Spinner extends React.Component<SpinnerProps> {
   public render() {
     return (
       <div className={`${this.props.className} ${this.props.active ? styles.spinner : ""}`} />

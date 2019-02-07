@@ -1,5 +1,3 @@
-/* tslint:disable:no-null-keyword */
-
 import { jsonSerializer } from "app/common/serializers"
 import { deadLetterChannel } from "app/common/ipc"
 import * as protocol from "app/common/ipc-protocol"
@@ -86,9 +84,9 @@ function genericListenerFactory(sendResponseMessage: ResponseFunction) {
               // response. In case of any other error, it is treated as an unkown error and
               // JSON-RPC says we must return an "internal error" error response
               response = protocol.errorResponse(
-                error instanceof protocol.InvalidParamsError ?
-                  protocol.errors.invalidParams :
-                  protocol.errors.internalError,
+                error instanceof protocol.InvalidParamsError
+                  ? protocol.errors.invalidParams
+                  : protocol.errors.internalError,
                 request.id || null,
                 { error, message }
               )

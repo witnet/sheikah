@@ -4,7 +4,7 @@ import Wrapper from "app/renderer/ui/components/wrapper"
 import * as urls from "app/renderer/constants/urls"
 import {
   TabComponent,
-  TabInfo
+  TabInfo,
 } from "app/renderer/ui/components/main/sections"
 import { Services } from "app/renderer/services"
 import { CardDefault } from "app/renderer/ui/components/card"
@@ -19,7 +19,7 @@ const layout = require("app/renderer/ui/components/main/style.scss")
  * @interface Props
  */
 interface Props {
-  services: Services
+  services: Services,
 }
 
 /**
@@ -29,13 +29,16 @@ interface Props {
  * @extends {TabComponent<any & Props>}
  */
 class TabHistory extends TabComponent<any & Props> {
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     // Options to be shown in the Dropdown menu
-    const byTemplateOptions = ["Order by template"].map((opt: string) => ({
-      text: opt,
-      onClick: () => this.props.services.showUnimplementedMessage()
-    }))
+    const byTemplateOptions = [
+      "Order by template",
+    ].map((opt: string) => (
+      {
+        text: opt,
+        onClick: () => this.props.services.showUnimplementedMessage(),
+      }
+    ))
 
     return (
       <div className={styles.wrapper}>
@@ -82,7 +85,7 @@ const HistoryTab: TabInfo = {
   key: "history",
   caption: "History",
   path: urls.DATA_REQUESTS_HISTORY_TAB,
-  component: TabHistory
+  component: TabHistory,
 }
 
 export default HistoryTab

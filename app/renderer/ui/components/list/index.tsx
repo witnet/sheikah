@@ -8,15 +8,15 @@ const styles = require("./style.scss")
 
 const isClickableOption = (item: any) => item.onClick && item.text
 
-export interface Iprops {
-  grid?: {}
-  classNameList?: string
-  classNameItem?: string
-  dataSource: Array<(string | { text: any; onClick: any } | any)>
-  borderer?: boolean
-  renderItem?: any
-  emptyText?: string
-  emptyIcon?: string
+export interface DefaultListProps {
+  borderer?: boolean,
+  classNameItem?: string,
+  classNameList?: string,
+  dataSource: Array<(string | { text: any, onClick: any } | any)>,
+  emptyIcon?: string,
+  emptyText?: string,
+  grid?: {},
+  renderItem?: any,
 }
 
 /**
@@ -24,11 +24,10 @@ export interface Iprops {
  *
  * @export
  * @class List
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<DefaultListProps>}
  */
 
-export default class DefaultList extends React.Component<Iprops> {
-
+export default class DefaultList extends React.Component<DefaultListProps> {
   /**
    * Method that create a clickable option to list
    *
@@ -78,23 +77,22 @@ export default class DefaultList extends React.Component<Iprops> {
       : this.createStaticOption(item)
   }
 
-  // tslint:disable-next-line: completed-docs
   public render() {
     return this.props.dataSource.length
       ? (
-          <List
-            grid={this.props.grid}
-            bordered={this.props.borderer}
-            className={`${this.props.classNameList} ${styles.list}`}
-            dataSource={this.props.dataSource}
-            renderItem={this.createRenderItem}
-          />
+        <List
+          grid={this.props.grid}
+          bordered={this.props.borderer}
+          className={`${this.props.classNameList} ${styles.list}`}
+          dataSource={this.props.dataSource}
+          renderItem={this.createRenderItem}
+        />
       )
       : (
-          <EmptyState
-            iconName={this.props.emptyIcon || "generic"}
-            text={this.props.emptyText}
-          />
+        <EmptyState
+          iconName={this.props.emptyIcon || "generic"}
+          text={this.props.emptyText}
+        />
       )
   }
 }

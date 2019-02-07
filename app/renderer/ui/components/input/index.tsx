@@ -9,7 +9,7 @@ export {
   DefaultInput,
   InputAmount,
   InputBig,
-  InputUnderlined,
   InputCheck,
-  SwitchSelector
+  InputUnderlined,
+  SwitchSelector,
 }

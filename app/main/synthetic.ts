@@ -1,8 +1,8 @@
-export type WebContents = {
-  send(channel: string, ...args: Array<any>): void
+export interface WebContents {
+  send(channel: string, ...args: Array<any>): void,
 }
 
-export type Event = {
-  sender: WebContents;
-  returnValue: any;
+export interface Event {
+  sender: WebContents,
+  returnValue: any,
 }

@@ -1,5 +1,5 @@
-export type Options = {
-  fair: boolean
+export interface Options {
+  fair: boolean,
 }
 
 /**
@@ -10,7 +10,7 @@ export type Options = {
 export function ipcRendererFactory(opts?: Partial<Options>) {
   const options = {
     fair: true,
-    ...opts
+    ...opts,
   }
   let currentListener: Function | undefined
 
@@ -36,7 +36,7 @@ export function ipcRendererFactory(opts?: Partial<Options>) {
     },
     removeAllListeners(chan: string) {
       currentListener = undefined
-    }
+    },
   }
 
   return stub

@@ -25,9 +25,8 @@ export class TopBarLink extends React.Component<TopBarLinkProps & PathNameProp> 
     return this.props.pathName.indexOf(this.props.path) === 0
       ? styles.active
       : ""
-    }
+  }
 
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
       <Link

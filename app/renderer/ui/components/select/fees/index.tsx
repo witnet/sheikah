@@ -4,19 +4,19 @@ const Option = Select.Option
 
 const styles = require("./style.scss")
 
-export type SelectOptionData = {
-  fee: string | number
-  text: string
-  unit: string
-  value: string
+export interface SelectOptionData {
+  fee: string | number,
+  text: string,
+  unit: string,
+  value: string,
 }
 
-export interface Iprops {
-  className?: string
-  defaultValue?: string
-  onChange?: any
-  dataSource: Array<SelectOptionData>
-  value: string
+export interface SelectFeesProps {
+  className?: string,
+  dataSource: Array<SelectOptionData>,
+  defaultValue?: string,
+  onChange?: any,
+  value: string,
 }
 
 /**
@@ -24,10 +24,9 @@ export interface Iprops {
  *
  * @export
  * @class SelectFees
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<SelectFeesProps>}
  */
-export default class SelectFees extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs prefer-function-over-method
+export default class SelectFees extends React.Component<SelectFeesProps> {
   public render() {
     const selectOptions = this.props.dataSource.map(item => {
       return (
@@ -54,5 +53,5 @@ export default class SelectFees extends React.Component<Iprops> {
 }
 
 export {
-  SelectFees
+  SelectFees,
 }

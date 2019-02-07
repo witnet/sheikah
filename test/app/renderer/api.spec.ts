@@ -1,4 +1,3 @@
-/* tslint:disable:no-string-throw */
 import { jsonSerializer as json } from "app/common/serializers"
 import * as api from "app/renderer/api"
 import { ipcRendererFactory } from "test/__stubs__/ipcRenderer"
@@ -12,7 +11,7 @@ describe("api", () => {
 
     it("should error if message is not valid Response", async () => {
       const message = JSON.stringify({
-        someField: "some value"
+        someField: "some value",
       })
 
       return expect(api.defaultMessageHandler(json, message)).rejects.toBeTruthy()
@@ -22,7 +21,7 @@ describe("api", () => {
       const message = JSON.stringify({
         jsonrpc: "2.0",
         id: "123",
-        error: { code: -1, message: "Some error" }
+        error: { code: -1, message: "Some error" },
       })
 
       return expect(api.defaultMessageHandler(json, message)).rejects.toBeTruthy()
@@ -32,7 +31,7 @@ describe("api", () => {
       const message = JSON.stringify({
         jsonrpc: "2.0",
         id: "123",
-        result: 123
+        result: 123,
       })
 
       return expect(api.defaultMessageHandler(json, message)).resolves.toEqual(123)
@@ -62,7 +61,7 @@ describe("api", () => {
         idGen: () => "some generated id",
         json: jsonSerializer,
         ipc: ipcRendererFactory(),
-        messageHandler
+        messageHandler,
       }
       const client = new api.Client(options)
 
@@ -71,7 +70,7 @@ describe("api", () => {
           jsonrpc: "2.0",
           id: "some generated id",
           method: "someMethod",
-          params: [1, 2, 3]
+          params: [1, 2, 3],
         }
         await client.request("someMethod", [1, 2, 3])
 
@@ -81,10 +80,10 @@ describe("api", () => {
       it("should timeout if server does not respond in time", async () => {
         const expected = {
           message: "[IPC Renderer] Client request someMethod timed out",
-          name: "TimeoutError"
+          name: "TimeoutError",
         }
         const options = {
-          ipc: ipcRendererFactory({ fair: false })
+          ipc: ipcRendererFactory({ fair: false }),
         }
         const timeoutClient = client.withOptions(options)
 
@@ -109,9 +108,10 @@ describe("api", () => {
           json: {
             ...jsonSerializer,
             async serialize(x: any) {
+              // eslint-disable-next-line no-throw-literal
               throw "kaboom!"
-            }
-          }
+            },
+          },
         })
 
         const error = await errorClient.request("someMethod").catch((e) => e)
@@ -131,7 +131,7 @@ describe("api", () => {
         idGen: () => "some generated id",
         json: jsonSerializer,
         ipc: ipcRendererFactory(),
-        messageHandler
+        messageHandler,
       }
       const client = new api.Client(options)
 
@@ -139,10 +139,10 @@ describe("api", () => {
         const expected = {
           jsonrpc: "2.0",
           method: "someMethod",
-          params: [1, 2, 3]
+          params: [1, 2, 3],
         }
         const clientWithHandler = client.withOptions({
-          ipc: ipcRendererFactory()
+          ipc: ipcRendererFactory(),
         })
         clientWithHandler.options.ipc.once("chan", messageHandler)
         await clientWithHandler.notify("someMethod", [1, 2, 3])

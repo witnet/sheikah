@@ -8,13 +8,13 @@ import { hot } from "react-hot-loader"
 import Routes from "app/renderer/routes"
 import { Services } from "app/renderer/services"
 
-interface IRootType {
+interface RootType {
   store: Store,
   history: History,
-  services: Services
+  services: Services,
 }
 
-const Root = ({ store, history, services }: IRootType) => {
+const Root = ({ store, history, services }: RootType) => {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>

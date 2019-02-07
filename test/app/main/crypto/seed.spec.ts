@@ -10,5 +10,4 @@ describe("seed", () => {
     expect(Seed.fromMnemonics(fixture.mnemonics))
       .toEqual({ masterSecret, chainCode })
   })
-
 })

@@ -4,11 +4,11 @@ import { Card } from "antd"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  className?: string
-  title?: string
-  style?: React.CSSProperties
-  contentStyle?: React.CSSProperties
+export interface CardDefaultProps {
+  className?: string,
+  title?: string,
+  style?: React.CSSProperties,
+  contentStyle?: React.CSSProperties,
 }
 
 /**
@@ -16,10 +16,9 @@ export interface Iprops {
  *
  * @export
  * @class CardDefault
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<CardDefaultProps>}
  */
-export default class CardDefault extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
+export default class CardDefault extends React.Component<CardDefaultProps> {
   public render() {
     return (
       <div className={this.props.className}>

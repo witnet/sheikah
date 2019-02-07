@@ -30,7 +30,6 @@ const openInExternalApp = (url: string) => (e: React.MouseEvent<HTMLAnchorElemen
  * @extends {React.Component<SectionProps>}
  */
 export class Community extends React.Component<SectionProps> {
-  // tslint:disable-next-line: completed-docs prefer-function-over-method
   public render() {
     return (
       <div className={styles.content}>
@@ -135,7 +134,7 @@ const CommunitySection: SectionInfo = {
   sectionPath: urls.COMMUNITY_SECTION,
   path: urls.COMMUNITY_SECTION,
   component: Community,
-  icon: "users"
+  icon: "users",
 }
 
 export default CommunitySection

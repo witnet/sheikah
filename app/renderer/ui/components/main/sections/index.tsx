@@ -8,8 +8,8 @@ import { PathNameProp, TopBarProps } from "app/renderer/ui/components/commonType
  * @interface SectionProps
  */
 export interface SectionProps extends PathNameProp {
-  className?: string
-  services?: { showUnimplementedMessage?: Function }
+  className?: string,
+  services?: { showUnimplementedMessage?: Function },
 }
 
 /**
@@ -21,7 +21,6 @@ export interface SectionProps extends PathNameProp {
  * @template Props
  */
 export class SectionComponent<Props> extends React.Component<SectionProps & Props> {
-
   /**
    * TopBar's props
    *
@@ -50,13 +49,13 @@ export class SectionComponent<Props> extends React.Component<SectionProps & Prop
  * @interface SectionInfo
  */
 export interface SectionInfo {
-  key: string
-  caption: string
-  sectionPath: string
-  path: string
-  icon?: string
-  isPrefilledWallet?: boolean
-  component: React.ComponentClass<SectionProps>
+  caption: string,
+  component: React.ComponentClass<SectionProps>,
+  icon?: string,
+  isPrefilledWallet?: boolean,
+  key: string,
+  path: string,
+  sectionPath: string,
 }
 
 /**
@@ -66,7 +65,7 @@ export interface SectionInfo {
  * @interface TabProps
  */
 export interface TabProps {
-  className?: string
+  className?: string,
 }
 
 /**
@@ -86,9 +85,9 @@ export class TabComponent<T> extends React.Component<TabProps & T> { }
  * @interface TabInfo
  */
 export interface TabInfo {
-  key: string
-  caption: string
-  path: string
+  caption: string,
   // TODO: Refactor types in #451
-  component: React.ComponentClass<any>
+  component: React.ComponentClass<any>,
+  key: string,
+  path: string,
 }

@@ -4,11 +4,11 @@ import { parseDate } from "app/renderer/utils/parseDate"
 const styles = require("./style.scss")
 
 export interface PendingTransactionProps {
-  status: string
-  amount?: string
-  receiver?: boolean
-  address?: string
-  vestingTime?: Date
+  status: string,
+  amount?: string,
+  receiver?: boolean,
+  address?: string,
+  vestingTime?: Date,
 }
 
 /**
@@ -18,9 +18,7 @@ export interface PendingTransactionProps {
  * @class List
  * @extends {React.Component<PendingTransactionProps>}
  */
-
 export default class PendingTransaction extends React.Component<PendingTransactionProps> {
-  // tslint:disable-next-line: completed-docs
   public render() {
     const receiver = this.props.receiver ? "From" : "To"
     const value = this.props.receiver ? "positive" : "negative"
@@ -36,7 +34,7 @@ export default class PendingTransaction extends React.Component<PendingTransacti
         </p>
         <p className={styles.amount}>
           <span className={`${styles.number} ${styles[value]}`}>
-          {`${value === "positive" ? "+" : "-"}${this.props.amount}`}
+            {`${value === "positive" ? "+" : "-"}${this.props.amount}`}
           </span>
           <span className={styles.wit}>
             WIT

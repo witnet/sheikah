@@ -6,7 +6,6 @@ import { Route } from "react-router"
  * with the arguments passed to the route.
  */
 export class GuardedRoute extends React.Component<any> {
-
   /**
    * Guarded route render function.
    */

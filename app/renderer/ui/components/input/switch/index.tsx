@@ -2,10 +2,10 @@ import * as React from "react"
 import { Switch } from "antd"
 
 export interface Iprops {
-  className?: string
-  checked?: boolean
-  onChange?: (checked: boolean) => void
-  size?: "small" | "default"
+  className?: string,
+  checked?: boolean,
+  onChange?: (checked: boolean) => void,
+  size?: "small" | "default",
 }
 
 /**

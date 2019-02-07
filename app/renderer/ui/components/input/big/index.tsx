@@ -2,10 +2,10 @@ import * as React from "react"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  className?: string
-  onChange?: (e: React.ChangeEvent) => void
-  value?: string
+export interface BigInputProps {
+  className?: string,
+  onChange?: (e: React.ChangeEvent) => void,
+  value?: string,
 }
 
 /**
@@ -13,10 +13,9 @@ export interface Iprops {
  *
  * @export
  * @class InputWit
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<BigInputProps>}
  */
-export default class InputBig extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
+export default class InputBig extends React.Component<BigInputProps> {
   public render() {
     const className = `${styles.big} ${this.props.className}`
 

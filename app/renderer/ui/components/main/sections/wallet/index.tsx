@@ -20,14 +20,13 @@ const styles =
  */
 
 class Wallet extends React.Component<SectionProps> {
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const tabs: Array<TabInfo> = [TabTransactions, TabReceive, TabSend]
     const topBarlinkProps: Array<TopBarLinkProps> = tabs.map(tab => (
       {
         caption: tab.caption,
         key: tab.key,
-        path: `${tab.path}`
+        path: `${tab.path}`,
       }
     ))
 
@@ -73,7 +72,7 @@ const WalletSection: SectionInfo = {
   sectionPath: urls.WALLET_SECTION,
   path: urls.TRANSACTIONS_TAB,
   icon: "book",
-  component: Wallet
+  component: Wallet,
 }
 
 export default WalletSection

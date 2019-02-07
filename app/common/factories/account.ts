@@ -5,7 +5,7 @@ import {
   FinalKey,
   KeyPath,
   Utxo,
-  Stxo
+  Stxo,
 } from "app/common/runtimeTypes/storage/wallets"
 
 /**
@@ -17,7 +17,7 @@ export function createAccount(keyPath: KeyPath, keyChains: Array<KeyChain>): Acc
   return {
     keyPath,
     keyChains,
-    balance: 0
+    balance: 0,
   }
 }
 
@@ -35,7 +35,7 @@ export function createKeyChain(
   return {
     kind,
     keyPath,
-    finalKeys
+    finalKeys,
   } as KeyChain
 }
 

@@ -38,7 +38,7 @@ new Promise(async () => {
   const services: Services = {
     apiClient,
     showUnimplementedMessage,
-    showSuccess
+    showSuccess,
   }
 
   // Query and parse wallets from main process
@@ -49,7 +49,7 @@ new Promise(async () => {
   const persistedStore = {
     walletInfos,
     wallet: false,
-    transactions: []
+    transactions: [],
   }
 
   const store = configureStore(persistedStore)
@@ -59,7 +59,6 @@ new Promise(async () => {
     <Root services={services} store={store} history={history} />,
     document.getElementById("root")
   )
-
 }).catch((error) => {
   console.error("Unhandled renderer process boot up error", error)
 })

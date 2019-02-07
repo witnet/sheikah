@@ -40,5 +40,4 @@ describe("jsonPlainInMemory", () => {
     const res = await storage.get("faa")
     expect(res).toEqual({ beer: "cold" })
   })
-
 })

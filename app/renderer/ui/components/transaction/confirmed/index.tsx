@@ -10,11 +10,11 @@ const styles = require("./style.scss")
  * @interface ConfirmedTransactionProps
  */
 export interface ConfirmedTransactionProps {
-  amount?: number
-  receiver?: boolean
-  address?: string
-  block?: string
-  date?: Date
+  amount?: number,
+  receiver?: boolean,
+  address?: string,
+  block?: string,
+  date?: Date,
 }
 
 /**
@@ -25,7 +25,6 @@ export interface ConfirmedTransactionProps {
  * @extends {React.Component<ConfirmedTransactionProps>}
  */
 export default class ConfirmedTransaction extends React.Component<ConfirmedTransactionProps> {
-  // tslint:disable-next-line: completed-docs
   public render() {
     const Icon = this.props.receiver
       ? (<p className={styles.icon}><i className={`fa fa-angle-right ${styles.green}`} /></p>)

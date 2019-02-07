@@ -9,5 +9,5 @@ export {
   ButtonLink,
   ButtonNavigation,
   ButtonOption,
-  ActionButton
+  ActionButton,
 }

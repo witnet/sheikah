@@ -10,10 +10,16 @@ const styles = require("./style.scss")
 export type SettingsOptions = Array<{ text: string, onClick: (e: MouseEvent) => void}>
 
 export interface SidebarProps {
-  className?: string
-  setingsOptions: SettingsOptions
-  linksProps: Array<SideBarLinkProps>
-  walletName: string
+  className?: string,
+  linksProps: Array<SideBarLinkProps>,
+  setingsOptions: SettingsOptions,
+  walletName: string,
+}
+
+const linksRender = (linksProps: Array<SideBarLinkProps>, pathName: string) => {
+  return linksProps.map((props) => {
+    return <SideBarLink key={props.key} {...props} pathName={pathName} />
+  })
 }
 
 /**
@@ -23,10 +29,7 @@ export interface SidebarProps {
  * @class Sidebar
  * @extends {React.Component<SidebarProps>}
  */
-
 export default class Sidebar extends React.Component<SidebarProps & PathNameProp> {
-
-  // tslint:disable-next-line: completed-docs
   public render() {
     const src = require("svg/sheikah.svg")
 
@@ -59,10 +62,4 @@ export default class Sidebar extends React.Component<SidebarProps & PathNameProp
       </div>
     )
   }
-}
-
-const linksRender = (linksProps: Array<SideBarLinkProps>, pathName: string) => {
-  return linksProps.map((props) => {
-    return <SideBarLink key={props.key} {...props} pathName={pathName} />
-  })
 }

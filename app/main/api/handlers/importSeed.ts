@@ -3,7 +3,7 @@ import {
   ImportSeedError,
   importSeedErrors,
   ImportSeedParams,
-  ImportSeedResponse
+  ImportSeedResponse,
 } from "app/common/runtimeTypes/ipc/wallets"
 import { JsonSerializable } from "app/common/serializers"
 import { AppStateManager } from "app/main/appState"
@@ -24,9 +24,7 @@ import { fromMnemonics } from "app/main/crypto/seed"
  * If there is no `UnconsolidatedWallet` in the app state, it will create one with the mnemonics.
  * In both cases it will also generate a wallet ID and return it.
  */
-export default async function importSeed
-  ({ appStateManager }: AppStateS, params: any): Promise<JsonSerializable> {
-
+export default async function importSeed({ appStateManager }: AppStateS, params: any): Promise<JsonSerializable> {
   // First of all, parse method parameters
   return parseParams(params)
     // Get the seed from the params
@@ -74,7 +72,7 @@ async function getSeed(params: ImportSeedParams): Promise<Seed> {
  * @param appStateManager
  */
 async function processMnemonics(mnemonics: string):
-  Promise<Seed> {
+Promise<Seed> {
   return Promise.resolve(mnemonics)
     .then(validateMnemonicsString)
     .then(seedFromMnemonics)
@@ -90,7 +88,7 @@ async function processXprv(xprv: string): Promise<Seed> {
 
     return {
       chainCode: Buffer.from(key.extendedKey.chainCode),
-      masterSecret: Buffer.from(key.extendedKey.key.bytes)
+      masterSecret: Buffer.from(key.extendedKey.key.bytes),
     }
   } catch (error) {
     throw importSeedErrors.INVALID_XPRV
@@ -114,8 +112,7 @@ function seedFromMnemonics(mnemonics: string): Seed {
  * @param params
  */
 async function parseParams(params: any): Promise<ImportSeedParams> {
-  try { return asRuntimeType(params, ImportSeedParams, Contexts.IPC) }
-  catch { throw importSeedErrors.INVALID_METHOD_PARAMS }
+  try { return asRuntimeType(params, ImportSeedParams, Contexts.IPC) } catch { throw importSeedErrors.INVALID_METHOD_PARAMS }
 }
 
 /**
@@ -135,8 +132,7 @@ function validateMnemonicsString(mnemonics: string): string {
  * @param seed
  * @param unconsolidated
  */
-function upsertUnconsolidated
-  (seed: Seed, appStateManager: AppStateManager) {
+function upsertUnconsolidated(seed: Seed, appStateManager: AppStateManager) {
   try {
     const unconsolidatedWallet = { ...appStateManager.state.unconsolidatedWallet, seed }
     appStateManager.update({ unconsolidatedWallet })
@@ -157,8 +153,7 @@ function buildSuccessResponse(): ImportSeedResponse {
  * Build error response.
  * @param error
  */
-export function buildErrorResponse
-  (error: LiteralType<ImportSeedError["error"]>): ImportSeedResponse {
+export function buildErrorResponse(error: LiteralType<ImportSeedError["error"]>): ImportSeedResponse {
   return { kind: "ERROR", error: error.value }
 }
 

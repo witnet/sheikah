@@ -6,7 +6,7 @@ import { WalletInfo, Wallet } from "app/common/runtimeTypes/storage/wallets"
 import {
   GetWalletParams, GetWalletResponse,
   GetWalletSuccess, getWalletErrors,
-  buildGetWalletError
+  buildGetWalletError,
 } from "app/common/runtimeTypes/ipc/wallets"
 import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
 
@@ -22,7 +22,7 @@ export default async function getWallet(
   system: SubSystems, params: any
 ): Promise<JsonSerializable> {
   return Promise.resolve({ params })
-    //check if params type matches GetWalletParams runtime type
+    // check if params type matches GetWalletParams runtime type
     .then(parseParams)
     // check if there exists a wallet with chosen id
     .then(inject(checkWalletInfo, system))
@@ -88,8 +88,7 @@ function checkWalletInfo(params: GetWalletParams, system: SubSystems): GetWallet
  * @param {SubSystems} system
  * @returns {Promise<{ storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }>}
  */
-async function replaceStorage(params: GetWalletParams, system: SubSystems)
-  : Promise<{ storage: JsonAesLevelStorage, id: string }> {
+async function replaceStorage(params: GetWalletParams, system: SubSystems): Promise<{ storage: JsonAesLevelStorage, id: string }> {
   const { id, password } = params
 
   try {
@@ -157,6 +156,6 @@ function encodeResponse(response: GetWalletResponse): JsonSerializable {
 function buildSuccess(wallet: Wallet): GetWalletSuccess {
   return {
     kind: "SUCCESS",
-    wallet
+    wallet,
   }
 }

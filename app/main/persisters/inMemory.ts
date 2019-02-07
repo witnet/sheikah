@@ -4,7 +4,6 @@ import { Persister } from "./index"
  * InMemoryBackend implements a mocked in-memory StorageBackend.
  */
 export class InMemoryPersister implements Persister<Buffer, Buffer> {
-
   constructor(private memory: { [key: string]: Buffer } = {}) { }
 
   /**
@@ -35,5 +34,4 @@ export class InMemoryPersister implements Persister<Buffer, Buffer> {
 
     return Promise.resolve()
   }
-
 }

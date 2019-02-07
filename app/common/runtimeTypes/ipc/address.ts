@@ -10,14 +10,14 @@ export const GenerateAddressParams = t.intersection([
   t.partial({
     label: t.string,
     requestedAmount: t.number,
-    expirationDate: t.number
-  })
+    expirationDate: t.number,
+  }),
 ], "GenerateAddressParams")
 export type GenerateAddressParams = t.TypeOf<typeof GenerateAddressParams>
 
 export const GenerateAddressSuccess = t.type({
   kind: t.literal("SUCCESS"),
-  finalKey: ExternalFinalKey
+  finalKey: ExternalFinalKey,
 }, "GenerateAddressSuccess")
 export type GenerateAddressSuccess = t.TypeOf<typeof GenerateAddressSuccess>
 
@@ -31,7 +31,7 @@ export const generateAddressErrors = {
   WALLET_UPDATE_FAILURE: t.literal("WALLET_UPDATE_FAILURE"),
   WALLET_STORE_FAILURE: t.literal("WALLET_STORE_FAILURE"),
   ADDRESS_GENERATION_FAILURE: t.literal("ADDRESS_GENERATION_FAILURE"),
-  GENERIC_IPC_ERROR
+  GENERIC_IPC_ERROR,
 }
 
 export const generateAddressErrorMessages = {
@@ -44,7 +44,7 @@ export const generateAddressErrorMessages = {
   WALLET_UPDATE_FAILURE: "Wallet update failure",
   WALLET_STORE_FAILURE: "Wallet store failure",
   ADDRESS_GENERATION_FAILURE: "Address generation failure",
-  GENERIC_IPC_ERROR: "Unknown Error"
+  GENERIC_IPC_ERROR: "Unknown Error",
 }
 
 export const GenerateAddressErrors = t.union(Object.values(generateAddressErrors))
@@ -52,7 +52,7 @@ export type GenerateAddressErrors = t.TypeOf<typeof GenerateAddressErrors>
 
 export const GenerateAddressError = t.type({
   kind: t.literal("ERROR"),
-  error: GenerateAddressErrors
+  error: GenerateAddressErrors,
 })
 export type GenerateAddressError = t.TypeOf<typeof GenerateAddressError>
 

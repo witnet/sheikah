@@ -5,7 +5,7 @@ import { inject } from "app/main/utils/utils"
 import { AppStateS } from "app/main/system"
 import {
   NewMnemonicsResponse, Mnemonics, NewMnemonicsErrors, newMnemonicsErrors, NewMnemonicsSuccess,
-  NewMnemonicsError
+  NewMnemonicsError,
 } from "app/common/runtimeTypes/storage/wallets"
 import * as mnemonic from "app/main/crypto/mnemonic"
 import { JsonSerializable } from "app/common/serializers"
@@ -68,7 +68,7 @@ function buildSuccess(mnemonics: Mnemonics): NewMnemonicsSuccess {
   try {
     return {
       kind: "SUCCESS",
-      mnemonics: mnemonics.mnemonics
+      mnemonics: mnemonics.mnemonics,
     }
   } catch (error) {
     throw newMnemonicsErrors.INVALID_MNEMONICS_TYPE
@@ -84,7 +84,7 @@ function buildSuccess(mnemonics: Mnemonics): NewMnemonicsSuccess {
 export function buildError(error: t.LiteralType<NewMnemonicsErrors>): NewMnemonicsError {
   return {
     kind: "ERROR",
-    error: error.value
+    error: error.value,
   }
 }
 

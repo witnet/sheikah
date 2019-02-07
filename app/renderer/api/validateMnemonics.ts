@@ -3,10 +3,10 @@ import * as t from "io-ts"
 import { Client } from "app/renderer/api"
 import { Contexts, asRuntimeType } from "app/common/runtimeTypes"
 import {
-  buildErrorResponse as buildValidateMnemonicsErrorResponse
+  buildErrorResponse as buildValidateMnemonicsErrorResponse,
 } from "app/main/api/handlers/importSeed"
 import {
-  ImportSeedResponse, importSeedErrors, ImportSeedErrors, ImportSeedParams
+  ImportSeedResponse, importSeedErrors, ImportSeedErrors, ImportSeedParams,
 } from "app/common/runtimeTypes/ipc/wallets"
 
 /**
@@ -15,10 +15,9 @@ import {
  * @param client
  * @param mnemonics
  */
-export const validateMnemonics = async (client: Client, mnemonics: string)
-  : Promise<ImportSeedResponse> => {
+export const validateMnemonics = async (client: Client, mnemonics: string): Promise<ImportSeedResponse> => {
   const validateMnemonicsParams: ImportSeedParams = {
-    kind: t.literal("mnemonics").value, mnemonics
+    kind: t.literal("mnemonics").value, mnemonics,
   }
 
   return client.request("importSeed", validateMnemonicsParams)
@@ -32,10 +31,9 @@ export const validateMnemonics = async (client: Client, mnemonics: string)
  * @param client
  * @param mnemonics
  */
-export const validateXprv = async (client: Client, xprv: string)
-  : Promise<ImportSeedResponse> => {
+export const validateXprv = async (client: Client, xprv: string): Promise<ImportSeedResponse> => {
   const validateMnemonicsParams: ImportSeedParams = {
-    kind: t.literal("xprv").value, xprv
+    kind: t.literal("xprv").value, xprv,
   }
 
   return client.request("importSeed", validateMnemonicsParams)

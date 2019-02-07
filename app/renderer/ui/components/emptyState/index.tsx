@@ -3,8 +3,8 @@ import * as React from "react"
 const styles = require("./style.scss")
 
 interface Props {
-  text?: string
-  iconName?: string
+  text?: string,
+  iconName?: string,
 }
 
 /**
@@ -15,7 +15,6 @@ interface Props {
  * @extends {React.Component<Props>}
  */
 export default class EmptyState extends React.Component<Props> {
-  // tslint:disable-next-line: completed-docs
   public render() {
     const src = require(`svg/${this.props.iconName || "generic"}.svg`)
 

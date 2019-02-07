@@ -5,8 +5,7 @@ import { Cipher } from "./index"
  * Cipher implementation for AES encryption/decryption
  */
 export class AesCipher implements Cipher<Buffer, Buffer> {
-
-  constructor(private settings: AesCipherSettings) { }
+  public constructor(private settings: AesCipherSettings) { }
 
   /**
    * AES cipher encryption method
@@ -38,27 +37,26 @@ export class AesCipher implements Cipher<Buffer, Buffer> {
 
     return Buffer.concat([plainText, decipher.final()])
   }
-
 }
 
 /**
  * This type contains a set of settings for encryption.
  */
-export type AesCipherSettings = {
+export interface AesCipherSettings {
   /** The name of an AES mode of operation */
-  aesMode: "cbc" | "gcm"
+  aesMode: "cbc" | "gcm",
   /** AES initialization vector byte length */
-  aesIvByteLength: number
+  aesIvByteLength: number,
   /** The name of a hash function */
-  pbkdHashFunctionName: string
+  pbkdHashFunctionName: string,
   /** Number of PBKDF2 iterations */
-  pbkdHashIterations: number
+  pbkdHashIterations: number,
   /** AES key byte length */
-  pbkdKeyByteLength: number
+  pbkdKeyByteLength: number,
   /** PBFDK2 salt byte length */
-  pbkdSaltByteLength: number
+  pbkdSaltByteLength: number,
   /** User defined password */
-  pbkdPassword: string
+  pbkdPassword: string,
 }
 
 export const defaultAesCipherSettings: AesCipherSettings = {
@@ -68,7 +66,7 @@ export const defaultAesCipherSettings: AesCipherSettings = {
   pbkdHashIterations: 10_000,
   pbkdKeyByteLength: 32,
   pbkdSaltByteLength: 32,
-  pbkdPassword: ""
+  pbkdPassword: "",
 }
 
 /**

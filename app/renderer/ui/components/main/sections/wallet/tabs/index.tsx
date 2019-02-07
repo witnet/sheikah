@@ -5,5 +5,5 @@ import TabTransactions from "./transactions"
 export {
   TabReceive,
   TabSend,
-  TabTransactions
+  TabTransactions,
 }

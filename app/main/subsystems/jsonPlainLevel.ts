@@ -23,7 +23,6 @@ export type JsonPlainLevelStorage = Storage<Buffer, JsonSerializable, Buffer, Bu
  *  - LevelDB storage backend as persister
  */
 export class JsonPlainLevelSubSystem implements Lifecycle<JsonPlainLevelStorage, Config> {
-
   /**
    * The storage object itself.
    * It exposes the Storage API (get, put, close).
@@ -61,7 +60,7 @@ export class JsonPlainLevelSubSystem implements Lifecycle<JsonPlainLevelStorage,
     // Create the LevelDB connection
     const connection = level(dbPath, {
       keyEncoding: "binary",
-      valueEncoding: "binary"
+      valueEncoding: "binary",
     })
 
     const keyHasher = sha256BufferHasher
@@ -99,8 +98,5 @@ export class JsonPlainLevelSubSystem implements Lifecycle<JsonPlainLevelStorage,
     if (this.storage !== undefined) {
       await this.storage.close()
     }
-
-    return
   }
-
 }

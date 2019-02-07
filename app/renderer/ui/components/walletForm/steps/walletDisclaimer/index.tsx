@@ -3,10 +3,10 @@ import * as React from "react"
 
 const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
 
-export interface Iprops {
-  className?: string
-  nextStep: () => void
-  previousStep: () => void
+export interface WalletSeedDisclaimerProps {
+  className?: string,
+  nextStep: () => void,
+  previousStep: () => void,
 }
 
 /**
@@ -14,16 +14,14 @@ export interface Iprops {
  *
  * @export
  * @class WalletSeedDisclaimer
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<WalletSeedDisclaimerProps>}
  */
-export default class WalletSeedDisclaimer extends React.Component<Iprops> {
-
+export default class WalletSeedDisclaimer extends React.Component<WalletSeedDisclaimerProps> {
   /**
    * All styles to be applied to this component.
    */
   private cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 
-  // tslint:disable-next-line: completed-docs
   public render() {
     return (
       <NavigationCard
@@ -54,5 +52,4 @@ export default class WalletSeedDisclaimer extends React.Component<Iprops> {
       </NavigationCard>
     )
   }
-
 }

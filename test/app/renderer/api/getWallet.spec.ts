@@ -9,7 +9,7 @@ import { CURRENT_WALLET_VERSION } from "app/common/runtimeTypes/storage/wallets"
 describe("GetWallet API", () => {
   const getWalletParams = {
     id: "1",
-    password: "test-pwd"
+    password: "test-pwd",
   }
 
   const wallet: GetWalletSuccess = {
@@ -21,12 +21,12 @@ describe("GetWallet API", () => {
       seed: {
         mnemonics: "",
         kind: "Wip3",
-        seed: { masterSecret: Buffer.from(""), chainCode: Buffer.from("") }
+        seed: { masterSecret: Buffer.from(""), chainCode: Buffer.from("") },
       },
       epochs: { last: 0 },
       purpose: 0x80000003,
-      accounts: []
-    }
+      accounts: [],
+    },
   }
 
   const messageHandler = jest.fn()
@@ -37,7 +37,7 @@ describe("GetWallet API", () => {
     idGen: () => "some generated id",
     json: jsonSerializer,
     ipc: ipcRendererFactory(),
-    messageHandler
+    messageHandler,
   }
   const client = new api.Client(options)
 
@@ -51,7 +51,7 @@ describe("GetWallet API", () => {
       jsonrpc: "2.0",
       id: "some generated id",
       method: "getWallet",
-      params: getWalletParams
+      params: getWalletParams,
     }
 
     // Call getWallet renderer function to trigger a JSON-RPC request and

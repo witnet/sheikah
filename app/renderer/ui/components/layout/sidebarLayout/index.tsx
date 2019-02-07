@@ -5,11 +5,11 @@ import { Dropdown } from "app/renderer/ui/components/dropdown"
 const styles = require("./style.scss")
 
 interface Iprops {
-  title: string
-  menuIcon?: string
-  settingsOptions: SettingsOptions
-  menuText: string
-  collapeSidebar?: boolean
+  title: string,
+  menuIcon?: string,
+  settingsOptions: SettingsOptions,
+  menuText: string,
+  collapeSidebar?: boolean,
 }
 
 /**
@@ -22,11 +22,8 @@ interface Iprops {
  * @extends {React.Component<Iprops>}
  */
 export default class SidebarLayout extends React.Component<Iprops> {
-
-  /** render */
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-  const gridStyles = `${styles.grid} ${this.props.collapeSidebar ? styles.collapse : ""}`
+    const gridStyles = `${styles.grid} ${this.props.collapeSidebar ? styles.collapse : ""}`
 
     return (
       <div className={gridStyles}>
@@ -39,7 +36,7 @@ export default class SidebarLayout extends React.Component<Iprops> {
             placement="topCenter"
             dataSource={this.props.settingsOptions}
           >
-            <div className={styles.settings}  >
+            <div className={styles.settings} >
               <i className={`${this.props.menuIcon} ${styles.icon}`} />
               <span className={styles.label}>{this.props.menuText}</span>
             </div>

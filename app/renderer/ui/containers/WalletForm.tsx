@@ -7,7 +7,7 @@ import { newMnemonicsErrors, WalletInfos } from "app/common/runtimeTypes/storage
 import { assertNever } from "app/common/utils"
 import { saveWallet, saveTransactions, saveWalletInfo } from "app/renderer/actions"
 import {
-  Client, encryptWallet, newMnemonics, validateMnemonics, validateXprv
+  Client, encryptWallet, newMnemonics, validateMnemonics, validateXprv,
 } from "app/renderer/api"
 
 import {
@@ -27,7 +27,8 @@ import { extendWalletData, prefilledWalletCaption } from "app/renderer/prefilled
 import { StoreState } from "app/renderer/store"
 import { WalletForm } from "app/renderer/ui/components/walletForm"
 import {
-  WalletEncryptionPassword, WalletSeedBackup, WalletSeedTypeSelection, WalletSeedValidation, Welcome
+  WalletEncryptionPassword, WalletSeedBackup, WalletSeedTypeSelection, WalletSeedValidation,
+  Welcome,
 } from "app/renderer/ui/components/walletForm/steps"
 import WalletAdvancedOptions from "app/renderer/ui/components/walletForm/steps/walletAdvancedOpts"
 import WalletSeedDisclaimer from "app/renderer/ui/components/walletForm/steps/walletDisclaimer"
@@ -56,7 +57,7 @@ export interface StateProps {
  * @interface DispatchProps
  */
 export interface DispatchProps {
-  actions: any
+  actions: any,
 }
 
 /**
@@ -65,7 +66,7 @@ export interface DispatchProps {
  * @interface Props
  */
 interface Props {
-  services: Services
+  services: Services,
 }
 
 /**
@@ -74,7 +75,7 @@ interface Props {
  */
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
-    actions: bindActionCreators({ saveWallet, saveTransactions, saveWalletInfo }, dispatch)
+    actions: bindActionCreators({ saveWallet, saveTransactions, saveWalletInfo }, dispatch),
   }
 }
 
@@ -96,7 +97,6 @@ const mapStateToProps = (state: StoreState): StateProps => {
  */
 class WalletFormContainer extends
   React.Component<RouteComponentProps<any> & Props & StateProps & DispatchProps> {
-
   /**
    * Component state
    *
@@ -158,7 +158,7 @@ class WalletFormContainer extends
 
     back: async () => {
       this.props.history.goBack()
-    }
+    },
   }
 
   /**
@@ -213,7 +213,7 @@ class WalletFormContainer extends
       // if is a prefilledWallet add the prefilled data
       const wallet = extendWalletData(encryptWalletResponse.wallet)
       await this.props.actions.saveWallet(wallet)
-      this.props.actions.saveWalletInfo({id: wallet.id, caption: wallet.caption})
+      this.props.actions.saveWalletInfo({ id: wallet.id, caption: wallet.caption })
       this.props.actions.saveTransactions(extendTransactionsData([], wallet.caption))
 
       navigateTo(this.props.history, TRANSACTIONS_TAB)
@@ -305,7 +305,7 @@ class WalletFormContainer extends
   private seedConfirmationPreviousStep = async () => {
     this.setState({
       seedErrorMessage: "",
-      confirmMnemonics: ""
+      confirmMnemonics: "",
     })
     this.props.history.goBack()
   }
@@ -375,7 +375,7 @@ class WalletFormContainer extends
   private importSeedPreviousStep = async () => {
     this.setState({
       importSeed: "",
-      seedErrorMessage: ""
+      seedErrorMessage: "",
     })
     this.props.history.goBack()
   }
@@ -450,7 +450,7 @@ class WalletFormContainer extends
     this.setState({
       password: "",
       passwordErrorMessage: "",
-      repeatPassword: ""
+      repeatPassword: "",
     })
     this.props.history.goBack()
   }
@@ -513,7 +513,7 @@ class WalletFormContainer extends
     const message = [
       "Please type your 12 word seed phrase exactly as it was shown to you on the previous " +
       "screen.",
-      "This step is to confirm that you have copied your seed phrase correctly."
+      "This step is to confirm that you have copied your seed phrase correctly.",
     ]
 
     return (

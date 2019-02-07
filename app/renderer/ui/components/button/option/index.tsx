@@ -5,11 +5,11 @@ import { Button } from "antd"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  className?: string
-  onClick?: any
-  recommended?: boolean
-  secondaryText?: string
+export interface ButtonOptionProps {
+  className?: string,
+  onClick?: any,
+  recommended?: boolean,
+  secondaryText?: string,
 }
 
 /**
@@ -17,11 +17,10 @@ export interface Iprops {
  *
  * @export
  * @class ButtonWit
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<ButtonOptionProps>}
  */
 
-export default class ButtonOption extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
+export default class ButtonOption extends React.Component<ButtonOptionProps> {
   public render() {
     const recommendedStyle = _.get(this, "props.recommended", "")
       ? styles.recommended

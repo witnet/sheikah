@@ -3,17 +3,17 @@ import { Input } from "antd"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  className?: string
-  type?: string
-  name?: string
-  value?: string | number
-  onChange?: React.ChangeEventHandler
-  onBlur?: React.ChangeEventHandler
-  onKeyUp?: React.KeyboardEventHandler
-  min?: string
-  max?: string
-  units?: string
+export interface InputAmountProps {
+  className?: string,
+  max?: string,
+  min?: string,
+  name?: string,
+  onBlur?: React.ChangeEventHandler,
+  onChange?: React.ChangeEventHandler,
+  onKeyUp?: React.KeyboardEventHandler,
+  type?: string,
+  units?: string,
+  value?: string | number,
 }
 
 /**
@@ -21,11 +21,10 @@ export interface Iprops {
  *
  * @export
  * @class InputAmount
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<InputAmountProps>}
  */
 
-export default class InputAmount extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
+export default class InputAmount extends React.Component<InputAmountProps> {
   public render() {
     return (
       <div className={styles.grid}>

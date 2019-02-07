@@ -10,11 +10,11 @@ export type Listener = (e: any, message: string) => void
  * Ipc interface type for Electron's renderer-proces that is specific
  * about which methods are actually used in the frontend application.
  */
-export type Ipc = {
-  once(channel: string, listener: Listener): void
-  send(channel: string, ...args: Array<any>): void
-  sendSync(channel: string, ...args: Array<any>): any
-  removeAllListeners(channel: string): void
+export interface Ipc {
+  once(channel: string, listener: Listener): void,
+  send(channel: string, ...args: Array<any>): void,
+  sendSync(channel: string, ...args: Array<any>): any,
+  removeAllListeners(channel: string): void,
 }
 
 /** A default implementation of `Ipc` that is just the one supplied by Electron */

@@ -19,7 +19,7 @@ const JsonRT = t.recursion<JsonSerializable>(
     t.string,
     t.boolean,
     t.array(self),
-    t.dictionary(t.string, self)
+    t.dictionary(t.string, self),
   ])
 )
 
@@ -48,12 +48,12 @@ export type Params = t.TypeOf<typeof Params>
 export const Request = t.intersection([
   t.type({
     jsonrpc: Version,
-    method: t.string
+    method: t.string,
   }),
   t.partial({
     id: Id,
-    params: Params
-  })
+    params: Params,
+  }),
 ])
 
 /** Request type */
@@ -72,11 +72,11 @@ export function isNotification(req: Request): boolean {
 export const Err = t.intersection([
   t.type({
     code: t.number,
-    message: t.string
+    message: t.string,
   }),
   t.partial({
-    data: JsonRT
-  })
+    data: JsonRT,
+  }),
 ])
 
 export enum ErrCodes {
@@ -109,7 +109,7 @@ export const errors = {
   /**
    * Internal JSON-RPC error.
    */
-  internalError: { code: ErrCodes.InternalError, message: "Internal JSON-RPC error" }
+  internalError: { code: ErrCodes.InternalError, message: "Internal JSON-RPC error" },
 }
 
 /** Err type */
@@ -119,12 +119,12 @@ export type Err = t.TypeOf<typeof Err>
 export const Response = t.intersection([
   t.type({
     jsonrpc: Version,
-    id: Id
+    id: Id,
   }),
   t.union([
     t.type({ error: Err }),
-    t.type({ result: JsonRT })
-  ])
+    t.type({ result: JsonRT }),
+  ]),
 ])
 
 /** Response type */
@@ -159,7 +159,7 @@ export function request(method: string, id: Id, params?: Params): Request {
     jsonrpc,
     method,
     id,
-    params
+    params,
   }
 }
 
@@ -170,7 +170,7 @@ export function notification(method: string, params?: Params): Request {
   return {
     jsonrpc,
     method,
-    params
+    params,
   }
 }
 
@@ -181,7 +181,7 @@ export function successResponse(result: JsonSerializable, id: Id): Response {
   return {
     jsonrpc,
     id,
-    result
+    result,
   }
 }
 
@@ -192,7 +192,7 @@ export function errorResponse(error: Err, id: Id, data?: any): Response {
   return {
     jsonrpc,
     id,
-    error: { data, ...error }
+    error: { data, ...error },
   }
 }
 
@@ -256,7 +256,8 @@ export class InvalidParamsError {
   public name: string
   /** message of error */
   public message: string
-  constructor(message: string) {
+  /** constructor */
+  public constructor(message: string) {
     this.name = "InvalidParams"
     this.message = message
   }
@@ -268,7 +269,8 @@ export class TimeoutError {
   public name: string
   /** message of error */
   public message: string
-  constructor(message: string) {
+  /** Constructor */
+  public constructor(message: string) {
     this.name = "TimeoutError"
     this.message = message
   }

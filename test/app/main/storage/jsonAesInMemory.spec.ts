@@ -7,7 +7,7 @@ import { sha256BufferHasher } from "app/main/hashers/sha256Buffer"
 const pbkdPassword = "password"
 const aesSettings: AesCipherSettings = {
   ...defaultAesCipherSettings,
-  pbkdPassword
+  pbkdPassword,
 }
 const keyHasher = sha256BufferHasher
 const serializer = jsonBufferSerializer

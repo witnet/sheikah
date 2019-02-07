@@ -6,11 +6,11 @@ import { DefaultInput } from "app/renderer/ui/components/input"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  className?: any
-  prevStep: () => void
-  nextStep: (password: string) => void
-  errorMessage?: string
+export interface WalletPasswordRequestProps {
+  className?: any,
+  errorMessage?: string,
+  nextStep: (password: string) => void,
+  prevStep: () => void,
 }
 
 /**
@@ -18,15 +18,15 @@ export interface Iprops {
  *
  * @export
  * @class WalletPasswordRequest
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<WalletPasswordRequestProps>}
  */
-export default class WalletPasswordRequest extends React.Component<Iprops> {
+export default class WalletPasswordRequest extends React.Component<WalletPasswordRequestProps> {
   /**
    * Local state to hold password
    * @type {{password: string}}
    */
   public state = {
-    password: ""
+    password: "",
   }
 
   /**
@@ -58,8 +58,6 @@ export default class WalletPasswordRequest extends React.Component<Iprops> {
    */
   private prevStep = () => { this.props.prevStep() }
 
-  /** render */
-  // tslint:disable-next-line:prefer-function-over-method
   public render() {
     return (
       <div className={styles.layout}>

@@ -5,13 +5,13 @@ import * as t from "io-ts"
 export const AppState = t.intersection([
   t.type({
     _seq: t.number,
-    walletInfos: WalletInfos
+    walletInfos: WalletInfos,
   }),
   t.partial({
     wallet: Wallet,
     appInfo: AppInfo,
-    unconsolidatedWallet: UnconsolidatedWallet
-  })
+    unconsolidatedWallet: UnconsolidatedWallet,
+  }),
 ], "AppState")
 export type AppState = t.TypeOf<typeof AppState>
 

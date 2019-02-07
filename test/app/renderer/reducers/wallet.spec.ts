@@ -1,7 +1,7 @@
 import { walletReducer } from "app/renderer/reducers/wallet"
 import {
   emptyState, validSaveWalletAction,
-  newWallet, nonEmptyState
+  newWallet, nonEmptyState,
 } from "./wallet.fixtures"
 
 describe("Wallet renderer", () => {
@@ -14,5 +14,4 @@ describe("Wallet renderer", () => {
     const newState = walletReducer(nonEmptyState, validSaveWalletAction)
     expect(newState).toMatchObject(newWallet)
   })
-
 })

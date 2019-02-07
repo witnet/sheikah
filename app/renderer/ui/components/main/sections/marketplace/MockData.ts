@@ -5,7 +5,7 @@ export const marketplaceProducts = [
     cover: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
     alt: "example",
     rating: "4.5",
-    tags: ["multisig", "parametric"]
+    tags: ["multisig", "parametric"],
   },
   {
     title: "Pay to Alice or Bob, based on API response",
@@ -13,7 +13,7 @@ export const marketplaceProducts = [
     cover: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
     alt: "example",
     rating: "4.5",
-    tags: ["bet", "oracle", "parametric"]
+    tags: ["bet", "oracle", "parametric"],
   },
   {
     title: "Crypto-heirship",
@@ -21,7 +21,7 @@ export const marketplaceProducts = [
     cover: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
     alt: "example",
     rating: "4.5",
-    tags: ["oracle", "parametric"]
+    tags: ["oracle", "parametric"],
   },
   {
     title: "Pay if flight is delayed",
@@ -29,7 +29,7 @@ export const marketplaceProducts = [
     cover: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
     alt: "example",
     rating: "4.5",
-    tags: ["oracle", "parametric"]
+    tags: ["oracle", "parametric"],
   },
   {
     title: "Pay if it rains",
@@ -37,6 +37,6 @@ export const marketplaceProducts = [
     cover: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
     alt: "example",
     rating: "4.5",
-    tags: ["oracle", "parametric", "weather"]
-  }
+    tags: ["oracle", "parametric", "weather"],
+  },
 ]

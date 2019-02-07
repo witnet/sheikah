@@ -3,5 +3,5 @@ import TabHistory from "./history"
 
 export {
   TabEditor,
-  TabHistory
+  TabHistory,
 }

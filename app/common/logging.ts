@@ -2,16 +2,18 @@ import { error, warn, info, debug } from "electron-log"
 
 type LogFunction = (arg: any) => void
 
-type Logger = {
-  error: LogFunction;
-  warn: LogFunction;
-  info: LogFunction;
-  debug: LogFunction;
+interface Logger {
+  error: LogFunction,
+  warn: LogFunction,
+  info: LogFunction,
+  debug: LogFunction,
 }
 
-export default {
+const loggers: Logger = {
   error,
   warn,
   info,
-  debug
-} as Logger
+  debug,
+}
+
+export default loggers

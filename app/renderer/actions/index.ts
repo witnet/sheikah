@@ -16,10 +16,10 @@ export const saveTransactions = (transactions: ComputedTransactions) => {
 }
 
 // Expected params for saving a final key
-export type SaveFinalKeyParams = {
+export interface SaveFinalKeyParams {
   account: number,
   keyChain: KEYCHAIN_INDICES,
-  finalKey: FinalKey
+  finalKey: FinalKey,
 }
 
 // Action creator to save final Key

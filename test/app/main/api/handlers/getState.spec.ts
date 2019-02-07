@@ -5,10 +5,9 @@ import { AppState } from "app/common/runtimeTypes/ipc/state"
 import { AppStateManager } from "app/main/appState"
 
 describe("GetState Handler", () => {
-
   it("should return initial state when is no update", async () => {
     const system = {
-      appStateManager: new AppStateManager()
+      appStateManager: new AppStateManager(),
     }
 
     // Call handler method to get appState from system
@@ -23,7 +22,7 @@ describe("GetState Handler", () => {
 
   it("should return updated state when is update", async () => {
     const system = {
-      appStateManager: new AppStateManager()
+      appStateManager: new AppStateManager(),
     }
 
     system.appStateManager.update({
@@ -31,9 +30,9 @@ describe("GetState Handler", () => {
         _v: CURRENT_WALLETS_VERSION,
         infos: [
           { id: "w1", caption: "i1" },
-          { id: "w2", caption: "i2" }
-        ]
-      }
+          { id: "w2", caption: "i2" },
+        ],
+      },
     })
 
     // Call handler method to get AppState from system

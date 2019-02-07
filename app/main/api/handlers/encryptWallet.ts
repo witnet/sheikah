@@ -4,7 +4,7 @@ import {
   EncryptWalletParams,
   EncryptWalletResponse,
   encryptWalletErrors,
-  EncryptWalletError
+  EncryptWalletError,
 } from "app/common/runtimeTypes/ipc/wallets"
 import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
 import {
@@ -18,7 +18,7 @@ import {
   KeyPath,
   KeyChain,
   Account,
-  CURRENT_WALLET_VERSION
+  CURRENT_WALLET_VERSION,
 } from "app/common/runtimeTypes/storage/wallets"
 import * as AccountFactory from "app/common/factories/account"
 import { JsonSerializable } from "app/common/serializers"
@@ -37,7 +37,6 @@ import { config } from "app/common/config"
 export default async function encryptWallet(
   system: AppStateS & WalletStorageS & AppStorageS, params: any
 ): Promise<JsonSerializable> {
-
   return parseParams(params)
     .then(inject(getUnconsolidatedData, system.appStateManager))
     .then(newWallet)
@@ -58,15 +57,14 @@ async function parseParams(params: any): Promise<EncryptWalletParams> {
 }
 
 /** Data required to build a wallet, union of WalletParams and UnconsolidatedWallet */
-type UnconsolidatedData = { password: string, caption: string, seed: Seed }
+interface UnconsolidatedData { password: string, caption: string, seed: Seed }
 /**
  * Update and validate unconsolidated wallet
  * @param params
  * @param appStateManager
  */
 function getUnconsolidatedData(params: EncryptWalletParams, appStateManager: AppStateManager):
-  UnconsolidatedData {
-
+UnconsolidatedData {
   if (!appStateManager.state.unconsolidatedWallet) {
     throw encryptWalletErrors.UNAVAILABLE_UNCONSOLIDATED_WALLET
   }
@@ -77,7 +75,7 @@ function getUnconsolidatedData(params: EncryptWalletParams, appStateManager: App
   return {
     ...params,
     caption: params.caption || newCaption(appStateManager.state.walletInfos.infos.length),
-    seed: appStateManager.state.unconsolidatedWallet.seed
+    seed: appStateManager.state.unconsolidatedWallet.seed,
   }
 }
 
@@ -104,14 +102,13 @@ async function replaceWallet(
   { walletStorage, wallet }: { walletStorage: JsonAesLevelStorage, wallet: Wallet },
   system: AppStateS & WalletStorageS
 ): Promise<Wallet> {
-
   try {
     await system.walletStorage.replace(walletStorage)
     // as the wallet has been stored with success the unconsolidated wallet is removed
     system.appStateManager.update({ unconsolidatedWallet: {} as UnconsolidatedWallet, wallet })
 
     return wallet
-  } catch  {
+  } catch {
     throw encryptWalletErrors.WALLET_REPLACE_FAILURE
   }
 }
@@ -129,7 +126,7 @@ async function storePlainInfo(wallet: Wallet, system: AppStorageS & AppStateS) {
   )
   const walletInfosUpdate = {
     _v: walletInfos._v,
-    infos: walletInfos.infos.concat({ id: wallet.id, caption: wallet.caption })
+    infos: walletInfos.infos.concat({ id: wallet.id, caption: wallet.caption }),
   }
   try {
     system.appStateManager.update({ walletInfos: walletInfosUpdate })
@@ -148,7 +145,7 @@ async function storePlainInfo(wallet: Wallet, system: AppStorageS & AppStateS) {
 function buildSuccessResponse(wallet: Wallet): EncryptWalletResponse {
   return {
     kind: "SUCCESS",
-    wallet
+    wallet,
   }
 }
 
@@ -157,10 +154,10 @@ function buildSuccessResponse(wallet: Wallet): EncryptWalletResponse {
  * @param error
  */
 function buildErrorResponse(error: t.LiteralType<EncryptWalletError["error"]>):
-  EncryptWalletResponse {
+EncryptWalletResponse {
   return {
     kind: "ERROR",
-    error: error.value
+    error: error.value,
   }
 }
 
@@ -181,19 +178,18 @@ function encodeResponse(response: EncryptWalletResponse): JsonSerializable {
 function newWallet(
   { password, caption, seed }: UnconsolidatedData,
 ) {
-
   const walletInfo: WalletInfo = {
     id: generateId(seed),
-    caption
+    caption,
   }
   const seedInfo: Wip3SeedInfo = {
     kind: "Wip3",
-    seed
+    seed,
   }
   const extendedKey: ExtendedKey = {
     type: "private",
     key: seed.masterSecret,
-    chainCode: seed.chainCode
+    chainCode: seed.chainCode,
   }
   const path = "m/3'/4919'/0'"
   const account = createAccount(path, extendedKey)
@@ -206,7 +202,7 @@ function newWallet(
       born: 0,
     },
     purpose: 0x80000003,
-    accounts: [account]
+    accounts: [account],
   }
 
   return { wallet, password }

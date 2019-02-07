@@ -7,7 +7,7 @@ import { History } from "history"
  * @param {string} route
  * @returns {void}
  */
-function navigateTo (history: History, route: string): void {
+function navigateTo(history: History, route: string): void {
   if (history.location.pathname === route) {
     history.replace(route)
   } else {
@@ -22,8 +22,8 @@ function navigateTo (history: History, route: string): void {
  * @param {string} route
  * @returns {() => void}
  */
-function lazyNavigateTo (history: History, route: string): () => void {
-  return  () => { navigateTo(history, route) }
+function lazyNavigateTo(history: History, route: string): () => void {
+  return () => { navigateTo(history, route) }
 }
 
 export {

@@ -1,5 +1,3 @@
-/* tslint:disable:no-null-keyword */
-
 import { ipcRendererFactory } from "test/__stubs__/ipcRenderer"
 import { jsonSerializer } from "test/__stubs__/serializers"
 import * as api from "app/renderer/api"
@@ -8,7 +6,7 @@ import { routes } from "app/main/api"
 describe("NewMnemonics API", () => {
   const mnemonicsResponse = {
     kind: "SUCCESS",
-    mnemonics: "narrow flavor sense humble radar rail rail cactus radar broom oyster gym"
+    mnemonics: "narrow flavor sense humble radar rail rail cactus radar broom oyster gym",
   }
   const messageHandler = jest.fn()
   messageHandler.mockResolvedValue(mnemonicsResponse)
@@ -18,7 +16,7 @@ describe("NewMnemonics API", () => {
     idGen: () => "some generated id",
     json: jsonSerializer,
     ipc: ipcRendererFactory(),
-    messageHandler
+    messageHandler,
   }
   const client = new api.Client(options)
 
@@ -32,7 +30,7 @@ describe("NewMnemonics API", () => {
       jsonrpc: "2.0",
       id: "some generated id",
       method: "newMnemonics",
-      params: null
+      params: null,
     }
 
     // Call newMnemonics renderer function to trigger a JSON-RPC request and wait for the response
@@ -44,5 +42,4 @@ describe("NewMnemonics API", () => {
     // Check that the message handler function has been called correctly
     expect(messageHandler).toBeCalledWith(jsonSerializer, expected)
   })
-
 })

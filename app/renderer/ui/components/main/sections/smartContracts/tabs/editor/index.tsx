@@ -3,7 +3,7 @@ import * as React from "react"
 
 import {
   TabInfo,
-  TabComponent
+  TabComponent,
 } from "app/renderer/ui/components/main/sections"
 import * as urls from "app/renderer/constants/urls"
 import Wrapper from "app/renderer/ui/components/wrapper"
@@ -21,7 +21,7 @@ const styles = require("./style.scss")
  * @interface Props
  */
 interface Props {
-  services: Services
+  services: Services,
 }
 /**
  * Smart Contracts Editor tab component
@@ -30,7 +30,6 @@ interface Props {
  * @extends {TabComponent<any>}
  */
 class TabEditor extends TabComponent<any & Props> {
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
       <div>
@@ -61,7 +60,7 @@ const EditorTab: TabInfo = {
   key: "editor",
   caption: "Editor",
   path: urls.SMART_CONTRACTS_EDITOR_TAB,
-  component: TabEditor
+  component: TabEditor,
 }
 
 export default EditorTab

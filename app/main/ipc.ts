@@ -11,9 +11,9 @@ export type Listener = (e: Event, message: string) => Promise<void>
  * Ipc interface type for Electron's main-proces that is specific
  * about which methods are actually used in the backend application.
  */
-export type Ipc = {
-  on(channel: string, listener: Listener): void
-  removeAllListeners(channel: string): void
+export interface Ipc {
+  on(channel: string, listener: Listener): void,
+  removeAllListeners(channel: string): void,
 }
 
 /**

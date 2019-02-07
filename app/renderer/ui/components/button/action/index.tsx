@@ -5,9 +5,9 @@ import { Button } from "antd"
 const styles = require("./style.scss")
 
 export interface Iprops {
-  className?: string
-  onClick?: any
-  disabled?: boolean
+  className?: string,
+  onClick?: any,
+  disabled?: boolean,
 }
 
 /**
@@ -19,7 +19,6 @@ export interface Iprops {
  */
 
 export default class ActionButton extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
   public render() {
     return (
       <Button

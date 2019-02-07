@@ -5,7 +5,6 @@ import { Persister } from "./index"
  * LevelBackend implements the IStorageBackend for LevelDB.
  */
 export class LevelPersister implements Persister<Buffer, Buffer> {
-
   /**
    * The LevelBackend constructor takes a reference to a LevelUp backend.
    * @param {levelup.LevelUp} connection
@@ -46,5 +45,4 @@ export class LevelPersister implements Persister<Buffer, Buffer> {
   public put = async (key: Buffer, value: Buffer): Promise<void> => {
     this.connection.put(key, value)
   }
-
 }

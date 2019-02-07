@@ -1,8 +1,8 @@
 import { Event } from "app/main/synthetic"
 
-type EventOptions = {
+interface EventOptions {
   send: (channel: string, ...args: Array<any>) => void,
-  returnValue: any
+  returnValue: any,
 }
 
 /**
@@ -15,8 +15,8 @@ export function syntheticEvent(options: Partial<EventOptions> = {}): Event {
         if (options.send) {
           options.send(channel, ...args)
         }
-      }
+      },
     },
-    returnValue: options.returnValue
+    returnValue: options.returnValue,
   }
 }

@@ -3,10 +3,10 @@ import Spinner from "app/renderer/ui/components/spinner"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  active: boolean
-  title: string
-  description: string
+export interface LoadingModalProps {
+  active: boolean,
+  description: string,
+  title: string,
 }
 
 /**
@@ -14,9 +14,9 @@ export interface Iprops {
  *
  * @export
  * @class LoadingModal
- * @extends {React.Component}
+ * @extends {React.Component<LoadingModalProps>}
  */
-export class LoadingModal extends React.Component<Iprops> {
+export class LoadingModal extends React.Component<LoadingModalProps> {
   /** render */
   public render() {
     const style = this.props.active ? "" : "hidden"

@@ -5,13 +5,13 @@ export const CURRENT_WALLETS_VERSION = 0
 export const CURRENT_WALLET_VERSION = 0
 
 export const Version = t.type({
-  _v: t.number
+  _v: t.number,
 }, "Version")
 export type Version = t.TypeOf<typeof Version>
 
 export const WalletInfo = t.type({
   id: t.string,
-  caption: t.string
+  caption: t.string,
 }, "WalletInfo")
 export type WalletInfo = t.TypeOf<typeof WalletInfo>
 
@@ -21,19 +21,19 @@ export type WalletInfoCollection = t.TypeOf<typeof WalletInfoCollection>
 export const WalletInfos = t.intersection([
   Version,
   t.type({
-    infos: WalletInfoCollection
+    infos: WalletInfoCollection,
   }, "WalletInfos"),
 ])
 export type WalletInfos = t.TypeOf<typeof WalletInfos>
 
 export const Mnemonics = t.type({
-  mnemonics: t.string
+  mnemonics: t.string,
 })
 export type Mnemonics = t.TypeOf<typeof Mnemonics>
 
 export const NewMnemonicsSuccess = t.intersection([
   t.type({ kind: t.literal("SUCCESS") }),
-  Mnemonics
+  Mnemonics,
 ])
 export type NewMnemonicsSuccess = t.TypeOf<typeof NewMnemonicsSuccess>
 
@@ -41,7 +41,7 @@ export const newMnemonicsErrors = {
   GENERIC_ERROR: t.literal("GENERIC_ERROR"),
   DEPENDENCY_ERROR_GENERATE_MNEMONICS: t.literal("DEPENDENCY_ERROR_GENERATE_MNEMONICS"),
   INVALID_MNEMONICS_TYPE: t.literal("INVALID_MNEMONICS_TYPE"),
-  ERROR_UPDATING_UNCONSOLIDATED_WALLET: t.literal("ERROR_UPDATING_UNCONSOLIDATED_WALLET")
+  ERROR_UPDATING_UNCONSOLIDATED_WALLET: t.literal("ERROR_UPDATING_UNCONSOLIDATED_WALLET"),
 }
 
 export const NewMnemonicsErrors = t.union(Object.values(newMnemonicsErrors))
@@ -49,7 +49,7 @@ export type NewMnemonicsErrors = t.TypeOf<typeof NewMnemonicsErrors>
 
 export const NewMnemonicsError = t.type({
   kind: t.literal("ERROR"),
-  error: NewMnemonicsErrors
+  error: NewMnemonicsErrors,
 })
 export type NewMnemonicsError = t.TypeOf<typeof NewMnemonicsError>
 
@@ -58,17 +58,17 @@ export type NewMnemonicsResponse = t.TypeOf<typeof NewMnemonicsResponse>
 
 export const Outpoint = t.type({
   txid: t.string,
-  index: t.number // output index
+  index: t.number, // output index
 }, "Outpoint")
 export type Outpoint = t.TypeOf<typeof Outpoint>
 
 export const Utxo = t.type({
-  outpoint: Outpoint
+  outpoint: Outpoint,
 }, "Utxo")
 export type Utxo = t.TypeOf<typeof Utxo>
 
 export const Stxo = t.type({
-  outpoint: Outpoint
+  outpoint: Outpoint,
 }, "Stxo")
 export type Stxo = t.TypeOf<typeof Stxo>
 
@@ -124,7 +124,7 @@ export const SerializableBuffer = new t.Type<Buffer, string>(
 export const ExtendedKey = t.type({
   type: t.union([t.literal("private"), t.literal("public")], "type"),
   key: SerializableBuffer,
-  chainCode: SerializableBuffer
+  chainCode: SerializableBuffer,
 }, "ExtendedKey")
 export type ExtendedKey = t.TypeOf<typeof ExtendedKey>
 
@@ -135,7 +135,7 @@ export const FinalKeyMetadata = t.partial({
   label: t.string,
   creationDate: t.number,
   expirationDate: t.number,
-  requestedAmount: PositiveNumber
+  requestedAmount: PositiveNumber,
 }, "FinalKeyMetadata")
 export type FinalKeyMetadata = t.TypeOf<typeof FinalKeyMetadata>
 
@@ -143,12 +143,12 @@ const CommonFinalKey = t.intersection([
   t.type({
     extendedKey: ExtendedKey,
     keyPath: KeyPath,
-    pkh: SerializableBuffer
+    pkh: SerializableBuffer,
   }),
   t.partial({
     utxos: t.array(Utxo),
-    stxos: t.array(Stxo)
-  })
+    stxos: t.array(Stxo),
+  }),
 ], "CommonFinalKey")
 type CommonFinalKey = t.TypeOf<typeof CommonFinalKey>
 
@@ -158,8 +158,8 @@ export const ExternalFinalKey = t.intersection([
   }),
   CommonFinalKey,
   t.partial({
-    metadata: FinalKeyMetadata
-  })
+    metadata: FinalKeyMetadata,
+  }),
 ], "ExternalFinalKey")
 export type ExternalFinalKey = t.TypeOf<typeof ExternalFinalKey>
 
@@ -167,7 +167,7 @@ export const InternalFinalKey = t.intersection([
   t.type({
     kind: t.literal("internal"),
   }),
-  CommonFinalKey
+  CommonFinalKey,
 ], "InternalFinalKey")
 export type InternalFinalKey = t.TypeOf<typeof InternalFinalKey>
 
@@ -175,7 +175,7 @@ export const RadFinalKey = t.intersection([
   t.type({
     kind: t.literal("rad"),
   }),
-  CommonFinalKey
+  CommonFinalKey,
 ], "RadFinalKey")
 export type RadFinalKey = t.TypeOf<typeof RadFinalKey>
 
@@ -184,7 +184,7 @@ export type FinalKey = t.TypeOf<typeof FinalKey>
 
 const CommonKeyChain = t.type({
   keyPath: KeyPath,
-  finalKeys: t.array(FinalKey)
+  finalKeys: t.array(FinalKey),
 }, "CommonKeyChain")
 type CommonKeyChain = t.TypeOf<typeof CommonKeyChain>
 
@@ -192,7 +192,7 @@ export const ExternalKeyChain = t.intersection([
   t.type({
     kind: t.literal("external"),
   }),
-  CommonKeyChain
+  CommonKeyChain,
 ], "ExternalKeyChain")
 export type ExternalKeyChain = t.TypeOf<typeof ExternalKeyChain>
 
@@ -200,7 +200,7 @@ export const InternalKeyChain = t.intersection([
   t.type({
     kind: t.literal("internal"),
   }),
-  CommonKeyChain
+  CommonKeyChain,
 ], "InternalKeyChain")
 export type InternalKeyChain = t.TypeOf<typeof InternalKeyChain>
 
@@ -208,7 +208,7 @@ export const RadKeyChain = t.intersection([
   t.type({
     kind: t.literal("rad"),
   }),
-  CommonKeyChain
+  CommonKeyChain,
 ], "RadKeyChain")
 export type RadKeyChain = t.TypeOf<typeof RadKeyChain>
 
@@ -217,11 +217,11 @@ export type KeyChain = t.TypeOf<typeof KeyChain>
 
 export const EpochsInfo = t.intersection([
   t.type({
-    last: t.number
+    last: t.number,
   }),
   t.partial({
-    born: t.number
-  })
+    born: t.number,
+  }),
 ], "EpochsInfo")
 export type EpochsInfo = t.TypeOf<typeof EpochsInfo>
 
@@ -232,19 +232,19 @@ export const Account = t.type({
   // this will likely contain chain 0 (external), 1 (internal) and 2 (rad<sup>1</sup>)
   keyChains: t.array(KeyChain),
   // how much value is in this branch of the Wip3 key tree
-  balance: t.number
+  balance: t.number,
 }, "Account")
 export type Account = t.TypeOf<typeof Account>
 
 export const Seed = t.type({
   masterSecret: SerializableBuffer,
-  chainCode: SerializableBuffer
+  chainCode: SerializableBuffer,
 }, "Seed")
 export type Seed = t.TypeOf<typeof Seed>
 
 export const Wip3SeedInfo = t.type({
   kind: t.literal("Wip3"),
-  seed: Seed
+  seed: Seed,
 }, "Wip3SeedInfo")
 
 export type Wip3SeedInfo = t.TypeOf<typeof Wip3SeedInfo>
@@ -259,7 +259,7 @@ export const Wallet = t.intersection([
     seed: SeedInfo,
     epochs: EpochsInfo,
     purpose: t.literal(0x80000003), // this wallet uses derivation path m/3'/*
-    accounts: t.array(Account)
+    accounts: t.array(Account),
   }, "Wallet"),
 ])
 export type Wallet = t.TypeOf<typeof Wallet>
@@ -268,6 +268,6 @@ export type Wallet = t.TypeOf<typeof Wallet>
 export const UnconsolidatedWallet = t.partial({
   id: t.string,
   seed: Seed,
-  mnemonics: t.string
+  mnemonics: t.string,
 }, "UnconsolidatedWallet")
 export type UnconsolidatedWallet = t.TypeOf<typeof UnconsolidatedWallet>

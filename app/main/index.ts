@@ -1,5 +1,3 @@
-const { app, ipcMain } = require("electron")
-
 import * as log from "electron-log"
 import { config } from "app/common/config"
 import { inDarwin, inDevelopment } from "app/common/env"
@@ -7,6 +5,8 @@ import { Channels } from "app/main/ipc"
 import startupRoutine from "app/main/routines/startup"
 import * as ipc from "./ipc"
 import { appSystem } from "./system"
+
+const { app, ipcMain } = require("electron")
 
 let channels: Channels
 
@@ -39,7 +39,7 @@ async function stopApplication() {
 async function startApplication() {
   const [system] = await Promise.all([
     appSystem.start(config),
-    installExtensions()
+    installExtensions(),
   ])
   const { channels: _channels } = await startupRoutine(system)
   channels = _channels
@@ -55,7 +55,7 @@ async function installExtensions() {
   const installer = require("electron-devtools-installer")
   const extensions = [
     "REACT_DEVELOPER_TOOLS",
-    "REDUX_DEVTOOLS"
+    "REDUX_DEVTOOLS",
   ]
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS
 

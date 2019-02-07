@@ -3,5 +3,5 @@ import AlertMessage from "./message"
 
 export {
   AlertDefault,
-  AlertMessage
+  AlertMessage,
 }

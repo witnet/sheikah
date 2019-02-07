@@ -1,5 +1,3 @@
-/* tslint:disable:no-null-keyword */
-
 import { ipcRendererFactory } from "test/__stubs__/ipcRenderer"
 import { jsonSerializer } from "test/__stubs__/serializers"
 import * as api from "app/renderer/api"
@@ -12,8 +10,8 @@ describe("GetWallets API", () => {
     infos:
       [
         { id: "1", caption: "My hot wallet" },
-        { id: "2", caption: "My TREZOR cold wallet" }
-      ]
+        { id: "2", caption: "My TREZOR cold wallet" },
+      ],
   }
   const messageHandler = jest.fn()
   messageHandler.mockResolvedValue(wallets)
@@ -23,7 +21,7 @@ describe("GetWallets API", () => {
     idGen: () => "some generated id",
     json: jsonSerializer,
     ipc: ipcRendererFactory(),
-    messageHandler
+    messageHandler,
   }
   const client = new api.Client(options)
 
@@ -37,7 +35,7 @@ describe("GetWallets API", () => {
       jsonrpc: "2.0",
       id: "some generated id",
       method: "getWalletInfos",
-      params: null
+      params: null,
     }
 
     // Call getWallets renderer function to trigger a JSON-RPC request and
@@ -50,5 +48,4 @@ describe("GetWallets API", () => {
     // Check that the message handler function has been called correctly
     expect(messageHandler).toBeCalledWith(jsonSerializer, expected)
   })
-
 })

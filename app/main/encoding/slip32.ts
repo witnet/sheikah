@@ -23,7 +23,7 @@ export const exportKeyToSlip32 =
  */
 export const importKeyFromSlip32 =
   (slip32: string): { keyPath: KeyPath, extendedKey: ExtendedKey<PrivateKey | PublicKey> } => {
-    const { keyPath: keyPath, extendedKey: _extendedKey } = Slip32.importKeyFromSlip32(slip32)
+    const { keyPath, extendedKey: _extendedKey } = Slip32.importKeyFromSlip32(slip32)
     const key = { ..._extendedKey.key, bytes: Buffer.from(_extendedKey.key.bytes) }
     const extendedKey = { key, chainCode: Buffer.from(_extendedKey.chainCode) }
 

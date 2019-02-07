@@ -1,4 +1,5 @@
 import * as mkdirp from "mkdirp"
+// eslint-disable-next-line no-undef
 import ErrnoException = NodeJS.ErrnoException
 
 /**

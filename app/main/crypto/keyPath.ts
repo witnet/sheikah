@@ -26,8 +26,8 @@ export const derive = (path: KeyPath, number: number): KeyPath => {
  */
 export const fromString = (path: string): KeyPath => {
   const toNumber = (value: string): number => {
-    const number = value.slice(-1) === "'" ?
-      hardened(parseInt(value.slice(0, -1))) : parseInt(value)
+    const number = value.slice(-1) === "'"
+      ? hardened(parseInt(value.slice(0, -1))) : parseInt(value)
     if (isNaN(number)) {
       throw Error(Errors.INVALID_PATH_NUMBER)
     }
@@ -54,8 +54,8 @@ export const toString = (path: KeyPath) => {
  * @returns {string}
  */
 export const childNumberToString = (childNumber: number) => {
-  return isHardened(childNumber) ?
-    `${childNumber - HARDENED_KEY_INDEX}'` : `${childNumber}`
+  return isHardened(childNumber)
+    ? `${childNumber - HARDENED_KEY_INDEX}'` : `${childNumber}`
 }
 
 export const lastChildNumber = (path: KeyPath): number => {

@@ -5,15 +5,14 @@ import { NewMnemonicsSuccess } from "app/common/runtimeTypes/storage/wallets"
 
 jest.mock("app/main/crypto/mnemonic", () => {
   return {
-    generate: () => "some mnemonic"
+    generate: () => "some mnemonic",
   }
 })
 
 describe("NewMnemonics Handler", () => {
-
   it("should return a non-empty mnemonics as response", async () => {
     const system = {
-      appStateManager: new AppStateManager()
+      appStateManager: new AppStateManager(),
     }
 
     // Call the new mnemonics handler and wait for the response
@@ -31,7 +30,7 @@ describe("NewMnemonics Handler", () => {
 
   it("should call state manager's update with generated mnemonic", async () => {
     const system = {
-      appStateManager: new AppStateManager()
+      appStateManager: new AppStateManager(),
     }
     const expectedMnemonic = { mnemonics: "some mnemonic" }
 

@@ -4,5 +4,5 @@ export const jsonSerializer = {
   },
   async deserialize(x: any) {
     return x
-  }
+  },
 }

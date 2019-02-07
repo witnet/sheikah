@@ -5,13 +5,13 @@ import { ClickParam } from "antd/lib/menu"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  className?: string
-  classNameList?: string
-  classNameItem?: string
-  dataSource: Array<({ text: any; onClick: any })>
-  borderer?: boolean
-  renderItem?: any
+export interface DropdownBorderedProps {
+  borderer?: boolean,
+  className?: string,
+  classNameItem?: string,
+  classNameList?: string,
+  dataSource: Array<({ text: any, onClick: any })>,
+  renderItem?: any,
 }
 
 /**
@@ -19,17 +19,16 @@ export interface Iprops {
  *
  * @export
  * @class Dropdown
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<DropdownBorderedProps>}
  */
 
-export default class DropdownBordered extends React.Component<Iprops> {
-
+export default class DropdownBordered extends React.Component<DropdownBorderedProps> {
   /**
    * Component State
    *  visible is set to true if the dropdown menu is being shown
    */
   public state = {
-    visible: false
+    visible: false,
   }
 
   /**
@@ -48,9 +47,7 @@ export default class DropdownBordered extends React.Component<Iprops> {
     this.setState({ visible })
   }
 
-  // tslint:disable-next-line: completed-docs
   public render() {
-
     /**
      * Menu items of the dropdown
      */
@@ -76,7 +73,7 @@ export default class DropdownBordered extends React.Component<Iprops> {
      * Dropdown trigger mode
      */
     const triggerMode: Array<"click" | "hover"> = [
-      "click"
+      "click",
     ]
 
     return (

@@ -1,6 +1,6 @@
 import { MAX_EXPIRATION_DATE_DIFF } from "app/main/api/handlers/generateAddress"
 import {
-  GenerateAddressParams
+  GenerateAddressParams,
 } from "app/common/runtimeTypes/ipc/address"
 import { Wallet, Account, KeyChain } from "app/common/runtimeTypes/storage/wallets"
 import { WalletStorage } from "app/main/subsystems/wallets"
@@ -19,13 +19,13 @@ describe("GenerateAddress Handler", () => {
   const keyChain: KeyChain = {
     kind: "external",
     keyPath: [1, 2, 3],
-    finalKeys: []
+    finalKeys: [],
   }
 
   const account: Account = {
     keyPath: [1, 2, 3],
     keyChains: [keyChain],
-    balance: 0
+    balance: 0,
   }
 
   const masterSecret = Buffer.alloc(32)
@@ -37,7 +37,7 @@ describe("GenerateAddress Handler", () => {
     seed: { kind: "Wip3", seed: { masterSecret, chainCode } },
     epochs: { last: 123 },
     purpose: 0x80000003,
-    accounts: [account]
+    accounts: [account],
   }
 
   const keyHasher = sha256BufferHasher
@@ -51,20 +51,20 @@ describe("GenerateAddress Handler", () => {
   const noWalletSystem = {
     appStateManager: new AppStateManager(),
     walletStorage: new WalletStorage(),
-    storageFactory: async () => plainMemoryStorage
+    storageFactory: async () => plainMemoryStorage,
   }
 
   const system = {
     appStateManager: new AppStateManager({ wallet }),
     walletStorage: new WalletStorage(),
-    storageFactory: async () => plainMemoryStorage
+    storageFactory: async () => plainMemoryStorage,
   }
 
   it("should respond with WRONG_PARAMS if request isn't valid", async () => {
     const params = "invalid params"
     const expected = {
       kind: "ERROR",
-      error: "WRONG_PARAMS"
+      error: "WRONG_PARAMS",
     }
     const response = await generateAddress(system, params)
 
@@ -75,7 +75,7 @@ describe("GenerateAddress Handler", () => {
     const params = { account: 0, requestedAmount: -1 }
     const expected = {
       kind: "ERROR",
-      error: "NON_POSITIVE_AMOUNT"
+      error: "NON_POSITIVE_AMOUNT",
     }
     const response = await generateAddress(system, params)
 
@@ -86,7 +86,7 @@ describe("GenerateAddress Handler", () => {
     const params = { account: 0, expirationDate: -1 }
     const expected = {
       kind: "ERROR",
-      error: "PAST_EXPIRATION_DATE"
+      error: "PAST_EXPIRATION_DATE",
     }
     const response = await generateAddress(system, params)
 
@@ -97,7 +97,7 @@ describe("GenerateAddress Handler", () => {
     const params = { account: 0, expirationDate: MAX_EXPIRATION_DATE_DIFF + 1 }
     const expected = {
       kind: "ERROR",
-      error: "TOO_FAR_EXPIRATION_DATE"
+      error: "TOO_FAR_EXPIRATION_DATE",
     }
     const response = await generateAddress(system, params)
 
@@ -108,7 +108,7 @@ describe("GenerateAddress Handler", () => {
     const params = { account: 0 }
     const expected = {
       kind: "ERROR",
-      error: "NO_UNLOCKED_WALLET"
+      error: "NO_UNLOCKED_WALLET",
     }
     const response = await generateAddress(noWalletSystem, params)
 
@@ -119,7 +119,7 @@ describe("GenerateAddress Handler", () => {
     const params = { account: 1 }
     const expected = {
       kind: "ERROR",
-      error: "WRONG_ACCOUNT"
+      error: "WRONG_ACCOUNT",
     }
     const response = await generateAddress(system, params)
 
@@ -133,12 +133,12 @@ describe("GenerateAddress Handler", () => {
     const extendedKey = {
       chainCode: "f55975c2fda883d73495932af3974762003dfd715505ea262b1fa3105e157e04",
       key: "15ac4f758a96f6606e36db3922432cc3ee81a6c7e23169164e5eeeedfcc5b7a5",
-      type: "private"
+      type: "private",
     }
     const metadata = {
       creationDate: 0,
       requestedAmount: 20,
-      expirationDate: 1
+      expirationDate: 1,
     }
     const expected = {
       kind: "SUCCESS",
@@ -147,8 +147,8 @@ describe("GenerateAddress Handler", () => {
         extendedKey,
         keyPath,
         pkh,
-        metadata
-      }
+        metadata,
+      },
     }
 
     await system.walletStorage.replace(plainMemoryStorage)
@@ -172,15 +172,15 @@ describe("GenerateAddress Handler", () => {
               extendedKey: {
                 chainCode: "f55975c2fda883d73495932af3974762003dfd715505ea262b1fa3105e157e04",
                 key: "15ac4f758a96f6606e36db3922432cc3ee81a6c7e23169164e5eeeedfcc5b7a5",
-                type: "private"
+                type: "private",
               },
               keyPath,
               kind: "external",
               metadata,
-              pkh
-            }]
-          }]
-        }]
+              pkh,
+            }],
+          }],
+        }],
       })
     }
   })

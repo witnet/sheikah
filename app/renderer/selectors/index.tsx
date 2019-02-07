@@ -2,8 +2,7 @@ import { ComputedTransaction, ComputedTransactions } from "app/renderer/prefille
 import { ConfirmedTransactionProps } from "app/renderer/ui/components/transaction/confirmed"
 import { PendingTransactionProps } from "app/renderer/ui/components/transaction/pending"
 // TODO: Add reselect #issue-?
-export const filterConfirmedTransactions = (transactions: ComputedTransactions)
-: Array<ConfirmedTransactionProps> => {
+export const filterConfirmedTransactions = (transactions: ComputedTransactions): Array<ConfirmedTransactionProps> => {
   return transactions.length
     ? transactions.filter(transaction => transaction.epoch)
       .map((transaction: ComputedTransaction) => (
@@ -13,14 +12,13 @@ export const filterConfirmedTransactions = (transactions: ComputedTransactions)
           amount: transaction.value,
           block: `${transaction.epoch}`,
           // From seconds to ms
-          date: transaction.date ? new Date(transaction.date * 1000) : undefined
+          date: transaction.date ? new Date(transaction.date * 1000) : undefined,
         }
       ))
     : []
 }
 
-export const filterPendingTransactions = (transactions: ComputedTransactions)
-: Array<PendingTransactionProps> => {
+export const filterPendingTransactions = (transactions: ComputedTransactions): Array<PendingTransactionProps> => {
   return transactions.length
     ? transactions
       .filter(transaction => !transaction.epoch)
@@ -33,8 +31,8 @@ export const filterPendingTransactions = (transactions: ComputedTransactions)
           vestingTime: transaction.timelock !== 0
           // From seconds to ms
             ? new Date(transaction.timelock * 1000)
-            : undefined
+            : undefined,
         }
       ))
-      : []
+    : []
 }

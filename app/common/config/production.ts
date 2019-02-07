@@ -3,5 +3,5 @@ import { commonConfig } from "./common"
 
 export default {
   ...commonConfig,
-  chainType: ChainType.main
+  chainType: ChainType.main,
 }

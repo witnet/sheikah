@@ -11,9 +11,9 @@ import * as level from "level"
 import { homedir } from "os"
 import * as path from "path"
 
-type Config = {
+interface Config {
   name: string,
-  password: string
+  password: string,
 }
 
 export type JsonAesLevelStorage = Storage<Buffer, JsonSerializable, Buffer, Buffer>
@@ -26,7 +26,6 @@ export type JsonAesLevelStorage = Storage<Buffer, JsonSerializable, Buffer, Buff
  *  - LevelDB storage backend as persister
  */
 export class JsonAesLevelSubSystem implements Lifecycle<JsonAesLevelStorage, Config> {
-
   /**
    * Name of the storage.
    * This is used when constructing the filesystem path where the data will be written to.
@@ -57,12 +56,12 @@ export class JsonAesLevelSubSystem implements Lifecycle<JsonAesLevelStorage, Con
     // Create the LevelDB connection
     const connection = level(dbPath, {
       keyEncoding: "binary",
-      valueEncoding: "binary"
+      valueEncoding: "binary",
     })
 
     const aesSettings: AesCipherSettings = {
       ...defaultAesCipherSettings,
-      pbkdPassword: config.password
+      pbkdPassword: config.password,
     }
 
     const keyHasher = sha256BufferHasher
@@ -83,8 +82,5 @@ export class JsonAesLevelSubSystem implements Lifecycle<JsonAesLevelStorage, Con
     if (this.storage !== undefined) {
       await this.storage.close()
     }
-
-    return
   }
-
 }

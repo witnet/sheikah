@@ -13,7 +13,7 @@ import {
   GenerateAddressResponse,
   GenerateAddressParams,
   GenerateAddressSuccess,
-  generateAddressErrors
+  generateAddressErrors,
 } from "app/common/runtimeTypes/ipc/address"
 
 import { computePkh } from "app/main/crypto/address/p2pkh"
@@ -100,8 +100,8 @@ async function createFinalKeyAddress(
       chainCode: seed.chainCode,
       key: {
         type: "private",
-        bytes: seed.masterSecret
-      }
+        bytes: seed.masterSecret,
+      },
     }
     const finalKeys = wallet.accounts[account].keyChains[0].finalKeys
     const finalKeyIndex = finalKeys.length
@@ -119,14 +119,14 @@ async function createFinalKeyAddress(
       extendedKey: {
         type: "private",
         chainCode: extendedFinalPrivateKey.chainCode,
-        key: extendedFinalPrivateKey.key.bytes
+        key: extendedFinalPrivateKey.key.bytes,
       },
       keyPath: keyPathStruct,
       pkh,
       metadata: {
         ...metadata,
-        creationDate
-      }
+        creationDate,
+      },
     }
     finalKeys.push(externalFinalPrivKey)
 
@@ -143,12 +143,11 @@ async function updateWallet(
 ): Promise<[ExternalFinalKey, Wallet]> {
   try {
     system.appStateManager.update({
-      wallet
+      wallet,
     })
 
     return [finalKey, wallet]
-  }
-  catch (e) {
+  } catch (e) {
     throw generateAddressErrors.WALLET_UPDATE_FAILURE
   }
 }
@@ -165,8 +164,7 @@ async function storeWallet(
     }
 
     return finalKey
-  }
-  catch (e) {
+  } catch (e) {
     throw generateAddressErrors.WALLET_STORE_FAILURE
   }
 }
@@ -175,6 +173,6 @@ async function storeWallet(
 async function resultAsResponse(finalKey: ExternalFinalKey): Promise<GenerateAddressSuccess> {
   return {
     kind: "SUCCESS",
-    finalKey
+    finalKey,
   }
 }

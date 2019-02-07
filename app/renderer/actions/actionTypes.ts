@@ -7,7 +7,7 @@ import {
   SAVE_FINALKEY,
   SAVE_TRANSACTIONS,
   SAVE_WALLET_INFO,
-  SAVE_WALLET_INFOS
+  SAVE_WALLET_INFOS,
 } from "app/renderer/actions/actionNames"
 
 // Type for the transations reducer

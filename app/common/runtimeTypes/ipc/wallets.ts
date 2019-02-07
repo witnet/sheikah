@@ -14,12 +14,12 @@ export const ImportSeedParams = t.taggedUnion(
   [
     t.type({
       kind: t.literal("mnemonics"),
-      mnemonics: t.string
+      mnemonics: t.string,
     }, "mnemonics"),
     t.type({
       kind: t.literal("xprv"),
-      xprv: t.string
-    }, "xprv")
+      xprv: t.string,
+    }, "xprv"),
   ], "ImportSeedParams")
 export type ImportSeedParams = t.TypeOf<typeof ImportSeedParams>
 
@@ -32,7 +32,7 @@ export const importSeedErrors = {
   INVALID_MNEMONICS: t.literal("INVALID_MNEMONICS"),
   INVALID_XPRV: t.literal("INVALID_XPRV"),
   MISMATCHING_MNEMONICS: t.literal("MISMATCHING_MNEMONICS"),
-  UNCONSOLIDATED_UPDATE_FAILURE: t.literal("UNCONSOLIDATED_UPDATE_FAILURE")
+  UNCONSOLIDATED_UPDATE_FAILURE: t.literal("UNCONSOLIDATED_UPDATE_FAILURE"),
 }
 
 export const ImportSeedErrors = t.union(Object.values(importSeedErrors))
@@ -40,7 +40,7 @@ export type ImportSeedErrors = t.TypeOf<typeof ImportSeedErrors>
 
 export const ImportSeedError = t.type({
   kind: t.literal("ERROR"),
-  error: ImportSeedErrors
+  error: ImportSeedErrors,
 })
 export type ImportSeedError = t.TypeOf<typeof ImportSeedError>
 
@@ -52,13 +52,13 @@ export type ImportSeedResponse = t.TypeOf<typeof ImportSeedResponse>
 
 export const GetWalletParams = t.type({
   id: t.string,
-  password: t.string
+  password: t.string,
 })
 export type GetWalletParams = t.TypeOf<typeof GetWalletParams>
 
 export const GetWalletSuccess = t.type({
   kind: t.literal("SUCCESS"),
-  wallet: Wallet
+  wallet: Wallet,
 })
 export type GetWalletSuccess = t.TypeOf<typeof GetWalletSuccess>
 
@@ -69,7 +69,7 @@ export const getWalletErrors = {
   WRONG_PASSWORD: t.literal("WRONG_PASSWORD"),
   WALLET_NOT_FOUND: t.literal("WALLET_NOT_FOUND"),
   INSUFFICIENT_PERMISSIONS: t.literal("INSUFFICIENT_PERMISSIONS"),
-  GENERIC_IPC_ERROR
+  GENERIC_IPC_ERROR,
 }
 
 export const getWalletErrorMessages = {
@@ -79,7 +79,7 @@ export const getWalletErrorMessages = {
   WRONG_PASSWORD: "Wrong Password",
   WALLET_NOT_FOUND: "Wallet Not Found",
   INSUFFICIENT_PERMISSIONS: "Insufficient Permissions",
-  GENERIC_IPC_ERROR: "Unknown Error"
+  GENERIC_IPC_ERROR: "Unknown Error",
 }
 
 export const GetWalletErrors = t.union(Object.values(getWalletErrors))
@@ -87,7 +87,7 @@ export type GetWalletErrors = t.TypeOf<typeof GetWalletErrors>
 
 export const GetWalletError = t.type({
   kind: t.literal("ERROR"),
-  error: GetWalletErrors
+  error: GetWalletErrors,
 })
 export type GetWalletError = t.TypeOf<typeof GetWalletError>
 
@@ -103,18 +103,18 @@ export function buildGetWalletError(error: t.LiteralType<GetWalletErrors>) {
 
 export const EncryptWalletParams = t.intersection([
   t.type({
-    password: t.string
+    password: t.string,
   }),
   t.partial({
-    caption: t.string
-  })
+    caption: t.string,
+  }),
 ])
 
 export type EncryptWalletParams = t.TypeOf<typeof EncryptWalletParams>
 
 export const EncryptWalletSuccess = t.type({
   kind: t.literal("SUCCESS"),
-  wallet: Wallet
+  wallet: Wallet,
 }, "EncryptWalletSuccess")
 
 export const encryptWalletErrors = {
@@ -136,7 +136,7 @@ export const EncryptWalletErrors = t.union(Object.values(encryptWalletErrors))
 export type EncryptWalletErrors = t.TypeOf<typeof EncryptWalletErrors>
 export const EncryptWalletError = t.type({
   kind: t.literal("ERROR"),
-  error: EncryptWalletErrors
+  error: EncryptWalletErrors,
 }, "EncryptWalletError")
 export type EncryptWalletError = t.TypeOf<typeof EncryptWalletError>
 

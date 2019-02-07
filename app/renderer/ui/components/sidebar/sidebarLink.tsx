@@ -24,7 +24,6 @@ export type SideBarLinkProps = SectionInfo
  * @extends {(React.Component<SideBarLinkProps & PathNameProp>)}
  */
 export class SideBarLink extends React.Component<SideBarLinkProps & PathNameProp> {
-
   /**
    * Private method whick checks if current path and link match
    *
@@ -47,7 +46,6 @@ export class SideBarLink extends React.Component<SideBarLinkProps & PathNameProp
     return this.props.icon && `fa-${this.props.icon}`
   }
 
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     return (
       <Link className={join([styles.link, this.active])} to={this.props.path} replace={true}>

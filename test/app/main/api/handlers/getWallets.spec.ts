@@ -4,10 +4,9 @@ import { WalletInfos, CURRENT_WALLETS_VERSION } from "app/common/runtimeTypes/st
 import { AppStateManager } from "app/main/appState"
 
 describe("GetWallets Handler", () => {
-
   it("should return no wallets when an empty state", async () => {
     const system = {
-      appStateManager: new AppStateManager()
+      appStateManager: new AppStateManager(),
     }
 
     // Call handler method to get wallets from system
@@ -22,7 +21,7 @@ describe("GetWallets Handler", () => {
 
   it("should return initialized wallets when non empty state", async () => {
     const system = {
-      appStateManager: new AppStateManager()
+      appStateManager: new AppStateManager(),
     }
 
     system.appStateManager.update({
@@ -30,9 +29,9 @@ describe("GetWallets Handler", () => {
         _v: CURRENT_WALLETS_VERSION,
         infos: [
           { id: "w1", caption: "i1" },
-          { id: "w2", caption: "i2" }
-        ]
-      }
+          { id: "w2", caption: "i2" },
+        ],
+      },
     })
 
     // Call handler method to get wallets from system

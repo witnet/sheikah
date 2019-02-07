@@ -8,7 +8,7 @@ import { Errors } from "app/common/witnet-js/addresses/errors"
  */
 export const prefixToChainType: { [key: string]: number } = {
   twit: ChainType.test,
-  wit: ChainType.main
+  wit: ChainType.main,
 }
 
 /**

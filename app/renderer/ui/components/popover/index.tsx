@@ -1,13 +1,13 @@
 import * as React from "react"
 import { Popover } from "antd"
 
-export interface Iprops {
-  className?: string
+export interface PopoverDefaultProps {
+  className?: string,
+  content: any,
   placement?: "top" | "left" | "right" | "bottom" | "topLeft" | "topRight" | "bottomLeft" |
-    "bottomRight" | "leftTop" | "leftBottom" | "rightTop" | "rightBottom"
-  title?: string
-  content: any
-  trigger?: "hover" | "focus" | "click" | "contextMenu"
+  "bottomRight" | "leftTop" | "leftBottom" | "rightTop" | "rightBottom",
+  title?: string,
+  trigger?: "hover" | "focus" | "click" | "contextMenu",
 }
 
 /**
@@ -15,11 +15,9 @@ export interface Iprops {
  *
  * @export
  * @class DefaultInput
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<PopoverDefaultProps>}
  */
-
-export default class PopoverDefault extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
+export default class PopoverDefault extends React.Component<PopoverDefaultProps> {
   public render() {
     return (
       <Popover

@@ -9,7 +9,7 @@ export type AccountOption = Account | false
 
 // Main store state
 export interface StoreState {
-  walletInfos: WalletInfos
-  wallet: WalletOption
-  transactions: ComputedTransactions
+  walletInfos: WalletInfos,
+  wallet: WalletOption,
+  transactions: ComputedTransactions,
 }

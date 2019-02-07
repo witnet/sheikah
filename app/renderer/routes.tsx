@@ -10,11 +10,14 @@ import MainContainer from "./ui/containers/Main"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 import { Services } from "app/renderer/services"
 
-export type RoutesProps = {
+export interface RoutesProps {
   store: Store<StoreState>,
-  services: Services
+  services: Services,
 }
 
+// Function to redirect to forms container
+const redirectToForms = () => <Redirect to={urls.FORMS}/>
+// eslint-disable-next-line react/display-name
 export default (props: RoutesProps) => {
   return (
     <App>
@@ -38,6 +41,3 @@ export default (props: RoutesProps) => {
     </App>
   )
 }
-
-// Function to redirect to forms container
-const redirectToForms = () => <Redirect to={urls.FORMS}/>

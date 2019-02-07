@@ -20,6 +20,7 @@ import * as urls from "app/renderer/constants/urls"
 import { extendWalletData } from "app/renderer/prefilledWallet"
 import { extendTransactionsData } from "app/renderer/prefilledTransactions"
 import { SettingsOptions } from "app/renderer/ui/components/sidebar"
+
 /**
  * Props that match redux store state
  */
@@ -32,8 +33,8 @@ export interface StateProps {
  */
 export interface DispatchProps {
   actions: any,
-  goTo: (path: string) => void,
   goBack: () => void,
+  goTo: (path: string) => void,
 }
 
 /**
@@ -50,7 +51,7 @@ export interface FormState {
   id: string,
   errorMessage?: string,
   unlockInProgress: boolean,
-  collapseSidebar: boolean
+  collapseSidebar: boolean,
 }
 
 /**
@@ -94,7 +95,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
   public state: FormState = {
     id: "",
     unlockInProgress: false,
-    collapseSidebar: false
+    collapseSidebar: false,
   }
 
   /**
@@ -171,7 +172,6 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
    * @param services
    */
   private unlockWallet = async (id: string, password: string, services: Services) => {
-
     return new Promise<Wallet>((resolve, reject) => {
       // Try to retrieve wallet from renderer API & dispatch wallet or error
       api.getWallet(services.apiClient, id, password)
@@ -228,8 +228,8 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
       text: "Close Sheikah",
       onClick: () => {
         remote.getCurrentWindow().close()
-      }
-    }
+      },
+    },
   ]
 
   /**

@@ -12,8 +12,7 @@ export const enum Contexts {
  * @param runtimeType
  * @param context
  */
-export function asRuntimeType<T, U>
-  (input: t.mixed, runtimeType: t.Type<T, U>, context?: Contexts): T {
+export function asRuntimeType<T, U>(input: t.mixed, runtimeType: t.Type<T, U>, context?: Contexts): T {
   return runtimeType.decode(input).getOrElseL(() => {
     const ctx = context ? ` from ${context}` : ""
     const errorMessage = `Got a non-compliant ${runtimeType.name}${ctx}: ${JSON.stringify(input)}`

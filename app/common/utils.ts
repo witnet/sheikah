@@ -1,16 +1,16 @@
-type stringToNumber = { [key: string]: number }
-type numberToString = { [key: number]: string }
-type stringToString = { [key: string]: string }
+interface StringToNumber { [key: string]: number }
+interface NumberToString { [key: number]: string }
+interface StringToString { [key: string]: string }
 
 /**
  * Swap keys for values
  * @param {numberToString} obj
  * @returns {stringToNumber}
  */
-export function kvSwap(obj: numberToString): stringToNumber
-export function kvSwap(obj: stringToNumber): numberToString
-export function kvSwap(obj: stringToString): stringToString
-export function kvSwap(obj: stringToNumber | numberToString | stringToString): any {
+export function kvSwap(obj: NumberToString): StringToNumber
+export function kvSwap(obj: StringToNumber): NumberToString
+export function kvSwap(obj: StringToString): StringToString
+export function kvSwap(obj: StringToNumber | NumberToString | StringToString): any {
   return Object
     .entries(obj)
     .reduce((acc, [key, value]) => {

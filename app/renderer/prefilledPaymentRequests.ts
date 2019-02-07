@@ -15,7 +15,7 @@ export type ExpiredStatus = "expired" | "not expired" | "unknown"
  */
 export interface Action {
   text: string,
-  onClick: Function
+  onClick: Function,
 }
 
 /**
@@ -38,7 +38,7 @@ export interface ComputedPaymentRequest {
   metadata?: FinalKeyMetadata,
 
   // Actions
-  actions: Array<Action>
+  actions: Array<Action>,
 }
 
 /**
@@ -73,7 +73,7 @@ export function buildComputedPaymentRequest(
     funds,
     address,
     metadata: fk.metadata,
-    actions
+    actions,
   }
 }
 
@@ -84,7 +84,6 @@ function computeFundedStatus(
   funds: number,
   requestedAmount?: number
 ): FundedStatus {
-
   return (
     (funds === 0)
       // No funds were received => PENDING
@@ -113,7 +112,6 @@ function computeExpiredStatus(
   fundedStatus: FundedStatus,
   expirationDate?: number
 ): ExpiredStatus {
-
   const nowTs = Math.floor(Date.now() / 1000)
 
   return (

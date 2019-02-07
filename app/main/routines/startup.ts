@@ -1,5 +1,3 @@
-const { ipcMain } = require("electron")
-
 import { config } from "app/common/config"
 import { asyncChannel, deadLetterChannel, syncChannel } from "app/common/ipc"
 import { asRuntimeType, Contexts } from "app/common/runtimeTypes"
@@ -8,6 +6,8 @@ import * as api from "app/main/api"
 import * as ipc from "app/main/ipc"
 import { SubSystems } from "app/main/system"
 import * as ui from "app/main/ui"
+
+const { ipcMain } = require("electron")
 
 /**
  * Startup routine.
@@ -21,7 +21,7 @@ export default async function startupRoutine(system: SubSystems) {
     // Initialize IPC channels
     ipcStart(system),
     // Start Electron UI
-    uiStart()
+    uiStart(),
   ])
 
   return { channels: returned[1] }
@@ -47,7 +47,7 @@ async function ipcStart(system: SubSystems) {
   const channels: ipc.Channels = [
     [asyncChannel, api.asyncListenerFactory(system, api.routes)],
     [syncChannel, api.syncListenerFactory(system, api.routes)],
-    [deadLetterChannel, api.deadLetterListener]
+    [deadLetterChannel, api.deadLetterListener],
   ]
   ipc.createChannels(ipcMain, channels)
 
@@ -59,6 +59,4 @@ async function ipcStart(system: SubSystems) {
  */
 async function uiStart() {
   ui.createMainWindow()
-
-  return
 }

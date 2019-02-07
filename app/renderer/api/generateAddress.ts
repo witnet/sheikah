@@ -7,7 +7,7 @@ import {
   GenerateAddressErrors,
   buildGenerateAddressError,
   GenerateAddressParams,
-  generateAddressErrors
+  generateAddressErrors,
 } from "app/common/runtimeTypes/ipc/address"
 
 /**

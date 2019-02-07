@@ -13,11 +13,11 @@ export const nonEmptyState: WalletOption = {
   seed: {
     mnemonics: "",
     kind: "Wip3",
-    seed: { masterSecret: Buffer.from(""), chainCode: Buffer.from("") }
+    seed: { masterSecret: Buffer.from(""), chainCode: Buffer.from("") },
   },
   epochs: { last: 0 },
   purpose: 0x80000003,
-  accounts: []
+  accounts: [],
 }
 
 // Create dummy wallet
@@ -28,15 +28,15 @@ export const newWallet: Wallet = {
   seed: {
     mnemonics: "",
     kind: "Wip3",
-    seed: { masterSecret: Buffer.from(""), chainCode: Buffer.from("") }
+    seed: { masterSecret: Buffer.from(""), chainCode: Buffer.from("") },
   },
   epochs: { last: 1 },
   purpose: 0x80000003,
-  accounts: []
+  accounts: [],
 }
 
 // Valid action to save a new wallet
 export const validSaveWalletAction: SaveWalletAction = {
   type: "SAVE_WALLET",
-  payload: newWallet
+  payload: newWallet,
 }

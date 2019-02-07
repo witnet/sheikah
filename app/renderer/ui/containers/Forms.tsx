@@ -4,21 +4,19 @@ import { Store } from "redux"
 
 import * as urls from "app/renderer/constants/urls"
 import { StoreState } from "app/renderer/store"
-import {
-  default as LoginFormContainer
-} from "app/renderer/ui/containers/LoginForm"
+import LoginFormContainer from "app/renderer/ui/containers/LoginForm"
 import WalletFormContainer from "app/renderer/ui/containers/WalletForm"
 import { PropsRoute } from "app/renderer/utils/propsRoute"
 import { Services } from "app/renderer/services"
 import { ifWallets } from "app/renderer/utils/guards"
 import { RedirectedRoute } from "app/renderer/utils/redirectedRoute"
 
-export type Props = {
-  store: Store<StoreState>
-  services: Services
+interface FormProps {
+  store: Store<StoreState>,
+  services: Services,
 }
 
-export const Forms = (props: Props) => (
+export const Forms = (props: FormProps) => (
   <div>
     <Switch>
       <PropsRoute

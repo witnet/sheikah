@@ -6,14 +6,14 @@ import { CardDefault } from "app/renderer/ui/components/card"
 const stepStyles = require("./style.scss")
 const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
 
-export interface Iprops {
-  className?: string
+export interface WalletSeedTypeSelectionProps {
+  className?: string,
   nextStep: {
-    newSeed: () => Promise<void>,
-    newPrefilledSeed: () => Promise<void>,
     advancedOptions: () => Promise<void>,
     back: () => Promise<void>,
-  }
+    newPrefilledSeed: () => Promise<void>,
+    newSeed: () => Promise<void>,
+  },
 }
 
 /**
@@ -21,11 +21,10 @@ export interface Iprops {
  *
  * @export
  * @class WalletSeedTypeSelection
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<WalletSeedTypeSelectionProps>}
  */
-export default class WalletSeedTypeSelection extends React.Component<Iprops> {
+export default class WalletSeedTypeSelection extends React.Component<WalletSeedTypeSelectionProps> {
   /** render */
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 

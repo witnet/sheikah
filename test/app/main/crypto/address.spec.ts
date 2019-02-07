@@ -10,7 +10,6 @@ describe("p2pkh", () => {
   const publicKey = PublicKey.create(masterKey)
 
   it("should derive a Bech32-encoded P2PKH address from an extended public key", () => {
-
     expect(computeAddress(publicKey.key, ChainType.main))
       .toEqual(fixtures.p2pkh.encodedAddress)
   })

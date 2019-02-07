@@ -4,12 +4,12 @@ import { Input } from "antd"
 
 const styles = require("./style.scss")
 
-export interface Iprops {
-  value?: string
-  className?: string
-  onChange?: (e: React.ChangeEvent) => void
-  type?: string
-  readOnly?: boolean
+export interface UnderlinedInputProps {
+  className?: string,
+  onChange?: (e: React.ChangeEvent) => void,
+  readOnly?: boolean,
+  type?: string,
+  value?: string,
 }
 
 /**
@@ -17,11 +17,10 @@ export interface Iprops {
  *
  * @export
  * @class InputUnderlined
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<UnderlinedInputProps>}
  */
 
-export default class InputUnderlined extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
+export default class InputUnderlined extends React.Component<UnderlinedInputProps> {
   public render() {
     const className = `${styles.underlined} ${this.props.className}`
 

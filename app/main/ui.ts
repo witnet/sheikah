@@ -12,13 +12,13 @@ export function createMainWindow() {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
   })
 
   const paths = require("app/../config/paths")
-  const appHtml = inHotMode ?
-    `file://${paths.templateAppHtml}` :
-    `file://${paths.filenameAppHtml}`
+  const appHtml = inHotMode
+    ? `file://${paths.templateAppHtml}`
+    : `file://${paths.filenameAppHtml}`
   mainWindow.loadURL(appHtml)
 
   mainWindow.webContents.on("did-finish-load", () => {
@@ -46,7 +46,7 @@ export function createMainWindow() {
           if (mainWindow) {
             mainWindow.webContents.inspectElement(x, y)
           }
-        }
+        },
       }]).popup(props)
     })
   }
@@ -55,54 +55,54 @@ export function createMainWindow() {
     template = [{
       label: "Sheikah [Technology Preview]",
       submenu: [{
-        label: "About Sheikah"
+        label: "About Sheikah",
       }, {
-        type: "separator"
+        type: "separator",
       }, {
         label: "Services",
-        submenu: []
+        submenu: [],
       }, {
-        type: "separator"
+        type: "separator",
       }, {
         label: "Hide Sheikah",
-        accelerator: "Command+H"
+        accelerator: "Command+H",
       }, {
         label: "Hide Others",
-        accelerator: "Command+Shift+H"
+        accelerator: "Command+Shift+H",
       }, {
-        label: "Show All"
+        label: "Show All",
       }, {
-        type: "separator"
+        type: "separator",
       }, {
         label: "Quit",
         accelerator: "Command+Q",
         click() {
           app.quit()
-        }
-      }]
+        },
+      }],
     }, {
       label: "Edit",
       submenu: [{
         label: "Undo",
-        accelerator: "Command+Z"
+        accelerator: "Command+Z",
       }, {
         label: "Redo",
-        accelerator: "Shift+Command+Z"
+        accelerator: "Shift+Command+Z",
       }, {
-        type: "separator"
+        type: "separator",
       }, {
         label: "Cut",
-        accelerator: "Command+X"
+        accelerator: "Command+X",
       }, {
         label: "Copy",
-        accelerator: "Command+C"
+        accelerator: "Command+C",
       }, {
         label: "Paste",
-        accelerator: "Command+V"
+        accelerator: "Command+V",
       }, {
         label: "Select All",
-        accelerator: "Command+A"
-      }]
+        accelerator: "Command+A",
+      }],
     }, {
       label: "View",
       submenu: inDevelopment ? [{
@@ -112,7 +112,7 @@ export function createMainWindow() {
           if (mainWindow) {
             mainWindow.webContents.reload()
           }
-        }
+        },
       }, {
         label: "Toggle full screen",
         accelerator: "Ctrl+Command+F",
@@ -120,7 +120,7 @@ export function createMainWindow() {
           if (mainWindow) {
             mainWindow.setFullScreen(!mainWindow.isFullScreen())
           }
-        }
+        },
       }, {
         label: "Toggle Developer Tools",
         accelerator: "Alt+Command+I",
@@ -128,7 +128,7 @@ export function createMainWindow() {
           if (mainWindow) {
             mainWindow.webContents.toggleDevTools()
           }
-        }
+        },
       }] : [{
         label: "Toggle full screen",
         accelerator: "Ctrl+Command+F",
@@ -136,49 +136,49 @@ export function createMainWindow() {
           if (mainWindow) {
             mainWindow.setFullScreen(!mainWindow.isFullScreen())
           }
-        }
-      }]
+        },
+      }],
     }, {
       label: "Window",
       submenu: [{
         label: "Minimize",
-        accelerator: "Command+M"
+        accelerator: "Command+M",
       }, {
         label: "Close Sheikah",
-        accelerator: "Command+W"
+        accelerator: "Command+W",
       }, {
-        type: "separator"
+        type: "separator",
       }, {
-        label: "Bring All to Front"
-      }]
+        label: "Bring All to Front",
+      }],
     }, {
       label: "Help",
       submenu: [{
         label: "About Witnet",
         click() {
           shell.openExternal("https://witnet.io")
-        }
+        },
       }, {
         label: "About Sheikah",
         click() {
           shell.openExternal("https://github.com/witnet/sheikah")
-        }
+        },
       }, {
         label: "Community Telegram group",
         click() {
           shell.openExternal("https://t.me/witnetio")
-        }
+        },
       }, {
         label: "Developers discussion chatroom",
         click() {
           shell.openExternal("https://gitter.im/witnet/sheikah")
-        }
+        },
       }, {
         label: "Report an issue on GitHub",
         click() {
           shell.openExternal("https://github.com/witnet/sheikah/issues")
-        }
-      }]
+        },
+      }],
     }]
 
     menu = Menu.buildFromTemplate(template)
@@ -193,8 +193,8 @@ export function createMainWindow() {
           if (mainWindow) {
             mainWindow.close()
           }
-        }
-      }]
+        },
+      }],
     }, {
       label: "&View",
       submenu: inDevelopment ? [{
@@ -204,7 +204,7 @@ export function createMainWindow() {
           if (mainWindow) {
             mainWindow.webContents.reload()
           }
-        }
+        },
       }, {
         label: "Toggle &Full Screen",
         accelerator: "F11",
@@ -212,7 +212,7 @@ export function createMainWindow() {
           if (mainWindow) {
             mainWindow.setFullScreen(!mainWindow.isFullScreen())
           }
-        }
+        },
       }, {
         label: "Toggle &Developer Tools",
         accelerator: "Alt+Ctrl+I",
@@ -220,7 +220,7 @@ export function createMainWindow() {
           if (mainWindow) {
             mainWindow.webContents.toggleDevTools()
           }
-        }
+        },
       }] : [{
         label: "Toggle &Full Screen",
         accelerator: "F11",
@@ -228,36 +228,36 @@ export function createMainWindow() {
           if (mainWindow) {
             mainWindow.setFullScreen(!mainWindow.isFullScreen())
           }
-        }
-      }]
+        },
+      }],
     }, {
       label: "Help",
       submenu: [{
         label: "About Witnet",
         click() {
           shell.openExternal("https://witnet.io/")
-        }
+        },
       }, {
         label: "About Sheikah",
         click() {
           shell.openExternal("https://github.com/witnet/sheikah")
-        }
+        },
       }, {
         label: "Community Telegram group",
         click() {
           shell.openExternal("https://t.me/witnetio")
-        }
+        },
       }, {
         label: "Developers discussion chatroom",
         click() {
           shell.openExternal("https://gitter.im/witnet/sheikah")
-        }
+        },
       }, {
         label: "Report an issue on GitHub",
         click() {
           shell.openExternal("https://github.com/witnet/sheikah/issues")
-        }
-      }]
+        },
+      }],
     }]
     menu = Menu.buildFromTemplate(template)
     mainWindow.setMenu(menu)

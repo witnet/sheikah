@@ -20,14 +20,13 @@ const mainStyles = require("app/renderer/ui/components/main/style.scss")
  */
 
 class DataRequests extends React.Component<SectionProps> {
-  // tslint:disable-next-line: completed-docs
   public render() {
     const tabs: Array<TabInfo> = [TabHistory, TabEditor]
     const topBarlinkProps: Array<TopBarLinkProps> = tabs.map(tab => (
       {
         caption: tab.caption,
         key: tab.key,
-        path: `${tab.path}`
+        path: `${tab.path}`,
       }
     ))
 
@@ -66,7 +65,7 @@ const DataRequestsSection: SectionInfo = {
   sectionPath: urls.DATA_REQUESTS_SECTION,
   path: urls.DATA_REQUESTS_HISTORY_TAB,
   component: DataRequests,
-  icon: "eye"
+  icon: "eye",
 }
 
 export default DataRequestsSection

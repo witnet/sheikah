@@ -5,12 +5,12 @@ export const commonConfig: Partial<Config> = {
   appInfo: {
     name: process.env.npm_package_productName || "this app",
     version: (process.env.npm_package_version || "0.0.0").split(".").map((n) => parseInt(n, 10)),
-    env: inDevelopment ? "dev" : "prod"
+    env: inDevelopment ? "dev" : "prod",
   },
   walletIdGeneration: {
     salt: "sheikah seed",
     hashIterations: 4096,
     keyByteLength: 32,
-    hashFunctionName: "sha256"
-  }
+    hashFunctionName: "sha256",
+  },
 }

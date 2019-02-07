@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { getMasterKey } from "test/__helpers__/crypto"
 import * as fixtures from "./keyFixtures"
 import * as PrivateKey from "app/main/crypto/key/privateKey"
@@ -105,7 +106,6 @@ describe("derive keys (test vector #1)", () => {
       .toEqual(data.derivedKeyBytes)
     expect(m0h_1_2h_pub.chainCode.toString(fixtures.encoding))
       .toEqual(data.derivedChainCode)
-
   })
 
   it("should derive private key from path m/0'/1/2'/2", () => {

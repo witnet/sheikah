@@ -5,7 +5,7 @@ import { ComputedTransactions } from "app/renderer/prefilledTransactions"
 
 import {
   ConfirmedTransaction,
-  PendingTransaction
+  PendingTransaction,
 } from "app/renderer/ui/components/transaction"
 import Balances from "app/renderer/ui/components/balances"
 import Wrapper from "app/renderer/ui/components/wrapper"
@@ -16,7 +16,7 @@ import * as urls from "app/renderer/constants/urls"
 import {
   TabInfo,
   TabComponent,
-  TabProps
+  TabProps,
 } from "app/renderer/ui/components/main/sections"
 
 import { balanceData } from "app/renderer/ui/components/main/sections/wallet/MockData"
@@ -26,11 +26,11 @@ import { PathNameProp } from "app/renderer/ui/components/commonTypes"
 const styles = require("./style.scss")
 
 interface OwnProps {
-  pendingTransactions: ComputedTransactions
-  confirmedTransactions: ComputedTransactions
-  services: Services
-  pathName: PathNameProp
-  isPrefilledWallet: boolean
+  pendingTransactions: ComputedTransactions,
+  confirmedTransactions: ComputedTransactions,
+  services: Services,
+  pathName: PathNameProp,
+  isPrefilledWallet: boolean,
 }
 
 /**
@@ -40,7 +40,6 @@ interface OwnProps {
  * @extends {TabComponent<any>}
  */
 class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const balances = this.props.isPrefilledWallet
       ? balanceData
@@ -48,12 +47,12 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
 
     const listOptions = [
       "Export all transactions as CSV",
-      "View in block explorer"
+      "View in block explorer",
     ].map((opt: string) => ({
       text: opt,
       onClick: () => {
         this.props.services.showUnimplementedMessage()
-      }
+      },
     }))
 
     const pendingTransactionsList = (
@@ -119,7 +118,7 @@ const TransactionsTab: TabInfo = {
   key: "transactions",
   caption: "Transactions",
   path: urls.TRANSACTIONS_TAB,
-  component: Transactions
+  component: Transactions,
 }
 
 export default TransactionsTab

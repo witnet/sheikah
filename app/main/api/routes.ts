@@ -1,8 +1,8 @@
 import { SubSystems } from "app/main/system"
 import * as h from "./handlers"
 
-export type Routes<T> = {
-  [key: string]: h.Handler<T>
+export interface Routes<T> {
+  [key: string]: h.Handler<T>,
 }
 
 export const routes: Routes<SubSystems> = {
@@ -16,7 +16,7 @@ export const routes: Routes<SubSystems> = {
   newMnemonics: h.newMnemonics,
   importSeed: h.importSeed,
   encryptWallet: h.encryptWallet,
-  generateAddress: h.generateAddress
+  generateAddress: h.generateAddress,
 }
 
 /**

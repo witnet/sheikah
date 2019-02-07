@@ -3,5 +3,5 @@ import PendingTransaction from "./pending"
 
 export {
   ConfirmedTransaction,
-  PendingTransaction
+  PendingTransaction,
 }

@@ -2,8 +2,8 @@ import * as React from "react"
 
 const styles = require("./style.scss")
 
-export interface Props {
-  mood: "positive" | "neutral" | "warning" | "negative"
+export interface DotIndicatorProps {
+  mood: "positive" | "neutral" | "warning" | "negative",
 }
 
 /**
@@ -11,11 +11,10 @@ export interface Props {
  *
  * @export
  * @class DotIndicator
- * @extends {React.Component<Props>}
+ * @extends {React.Component<DotIndicatorProps>}
  */
 
-export default class DotIndicator extends React.Component<Props> {
-  // tslint:disable-next-line: completed-docs
+export default class DotIndicator extends React.Component<DotIndicatorProps> {
   public render() {
     const dotStyle = `fa fa-circle dot ${styles[this.props.mood]}`
 

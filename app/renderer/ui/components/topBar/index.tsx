@@ -5,10 +5,16 @@ import { join } from "app/renderer/utils/list"
 import {
   PathNameProp,
   TopBarLinkProps,
-  TopBarProps
+  TopBarProps,
 } from "app/renderer/ui/components/commonTypes"
 
 const styles = require("./style.scss")
+
+const linksRender = (linksProps: Array<TopBarLinkProps>, pathName: string) => {
+  return linksProps.map((props) => {
+    return <TopBarLink key={props.key} {...props} pathName={pathName} />
+  })
+}
 
 /**
  * topBar UI component
@@ -17,9 +23,7 @@ const styles = require("./style.scss")
  * @class TopBar
  * @extends {React.Component<TopBarProps>}
  */
-
 export default class TopBar extends React.Component<TopBarProps & PathNameProp> {
-  // tslint:disable-next-line: completed-docs
   public render() {
     return (
       <div className={join([styles["top-bar"], this.props.className])}>
@@ -27,10 +31,4 @@ export default class TopBar extends React.Component<TopBarProps & PathNameProp> 
       </div>
     )
   }
-}
-
-const linksRender = (linksProps: Array<TopBarLinkProps>, pathName: string) => {
-  return linksProps.map((props) => {
-    return <TopBarLink key={props.key} {...props} pathName={pathName} />
-  })
 }

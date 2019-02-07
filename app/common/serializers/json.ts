@@ -6,7 +6,7 @@ import { Serializer } from "./types"
  */
 export type JsonSerializable =
   null | number | string | boolean | JsonSerializableObject | JsonSerializableArray
-export type JsonSerializableObject = { [key: string]: JsonSerializable }
+export interface JsonSerializableObject { [key: string]: JsonSerializable }
 export interface JsonSerializableArray extends Array<JsonSerializable> { }
 
 /**
@@ -19,5 +19,5 @@ export type JsonSerializer = Serializer<JsonSerializable, string>
  */
 export const jsonSerializer: JsonSerializer = {
   serialize: async (value: JsonSerializable): Promise<string> => JSON.stringify(value),
-  deserialize: async (serialized: string): Promise<JsonSerializable> => JSON.parse(serialized)
+  deserialize: async (serialized: string): Promise<JsonSerializable> => JSON.parse(serialized),
 }

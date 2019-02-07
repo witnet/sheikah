@@ -1,4 +1,3 @@
-/* tslint:disable:no-null-keyword */
 import * as api from "app/main/api"
 import { InvalidParamsError, ErrCodes, replyChannel } from "app/common/ipc-protocol"
 import { syntheticEvent } from "test/__stubs__/event"
@@ -18,7 +17,7 @@ describe("API", () => {
         const event = syntheticEvent({ send: senderMock })
         const message = "invalid request"
         const expectedResponse = {
-          error: { code: ErrCodes.ParseError }
+          error: { code: ErrCodes.ParseError },
         }
 
         await asyncHandler(event, message)
@@ -32,7 +31,7 @@ describe("API", () => {
         const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({})
         const expectedResponse = {
-          error: { code: ErrCodes.InvalidRequest }
+          error: { code: ErrCodes.InvalidRequest },
         }
 
         await asyncHandler(event, request)
@@ -46,7 +45,7 @@ describe("API", () => {
         const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({ jsonrpc: "2.0", method: "ping" })
         const expectedResponse = {
-          error: { code: ErrCodes.MethodNotFound }
+          error: { code: ErrCodes.MethodNotFound },
         }
 
         await asyncHandler(event, request)
@@ -63,7 +62,7 @@ describe("API", () => {
         const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({ jsonrpc: "2.0", method: "ping" })
         const expectedResponse = {
-          error: { code: ErrCodes.InvalidParams }
+          error: { code: ErrCodes.InvalidParams },
         }
 
         await asyncHandler(event, request)
@@ -78,7 +77,7 @@ describe("API", () => {
         const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({ jsonrpc: "2.0", method: "ping" })
         const expectedResponse = {
-          error: { code: ErrCodes.InternalError }
+          error: { code: ErrCodes.InternalError },
         }
 
         await asyncHandler(event, request)
@@ -96,12 +95,12 @@ describe("API", () => {
           jsonrpc: "2.0",
           id: "some id",
           method: "sum",
-          params: [1, 2, 3]
+          params: [1, 2, 3],
         })
         const expectedResponse = {
           jsonrpc: "2.0",
           id: "some id",
-          result: null
+          result: null,
         }
 
         await asyncHandler(event, request)

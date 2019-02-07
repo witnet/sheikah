@@ -1,3 +1,4 @@
+// eslint-disable-file @typescript-eslint/no-use-before-define
 import * as crypto from "crypto"
 import {
   Wallet,
@@ -8,7 +9,7 @@ import {
   Utxo,
   Stxo,
   KeyChain,
-  FinalKeyMetadata
+  FinalKeyMetadata,
 } from "app/common/runtimeTypes/storage/wallets"
 import { KEYCHAIN_INDICES } from "app/common/constants/wallet"
 
@@ -45,7 +46,7 @@ function generatePrefilledWallet(): Wallet {
     seed: seedInfo,
     epochs,
     purpose: 0x80000003,
-    accounts
+    accounts,
   }
 }
 
@@ -106,33 +107,33 @@ function generatePrefilledAccount(): Account {
       finalKeys: [
         generateFinalKey("external", keyPath0, 0, {
           label: "From Satoshi Nakamoto",
-          creationDate: 1530887445,     // Friday, July 6, 2018 2:30:45 PM
-          expirationDate: 1556323200,   // Saturday, April 27, 2019 00:00:00 AM
-          requestedAmount: 1
+          creationDate: 1530887445, // Friday, July 6, 2018 2:30:45 PM
+          expirationDate: 1556323200, // Saturday, April 27, 2019 00:00:00 AM
+          requestedAmount: 1,
         }),
         generateFinalKey("external", keyPath0, 1, {
           label: "From Nick Szabo",
-          creationDate: 1531912925,     // Wednesday, July 18, 2018 11:22:05 AM
-          expirationDate: 1535382908,   // Monday, August 27, 2018 3:15:08 PM
-          requestedAmount: 1
+          creationDate: 1531912925, // Wednesday, July 18, 2018 11:22:05 AM
+          expirationDate: 1535382908, // Monday, August 27, 2018 3:15:08 PM
+          requestedAmount: 1,
         }),
         generateFinalKey("external", keyPath0, 2, {
           label: "From Hal Finney",
-          creationDate: 1532451243,     // Tuesday, July 24, 2018 4:54:03 PM
-          requestedAmount: 1
+          creationDate: 1532451243, // Tuesday, July 24, 2018 4:54:03 PM
+          requestedAmount: 1,
         }),
         generateFinalKey("external", keyPath0, 3, {
           label: "From Peter Todd",
-          creationDate: 1532695437,     // Friday, July 27, 2018 12:43:57 PM
-          requestedAmount: 1
+          creationDate: 1532695437, // Friday, July 27, 2018 12:43:57 PM
+          requestedAmount: 1,
         }),
         generateFinalKey("external", keyPath0, 4, {
-          creationDate: 1533551072      // Monday, August 6, 2018 10:24:32 AM
+          creationDate: 1533551072, // Monday, August 6, 2018 10:24:32 AM
         }),
         generateFinalKey("external", keyPath0, 5, {
           label: "From Gavin Wood",
-          creationDate: 1534447293,     // Thursday, August 16, 2018 7:21:33 PM
-          requestedAmount: 1
+          creationDate: 1534447293, // Thursday, August 16, 2018 7:21:33 PM
+          requestedAmount: 1,
         }),
       ],
     },
@@ -149,7 +150,7 @@ function generatePrefilledAccount(): Account {
       kind: "rad",
       keyPath: keyPath2,
       finalKeys: [generateFinalKey("rad", keyPath2, 0)],
-    }
+    },
   ] as Array<KeyChain>
 
   return { balance, keyPath, keyChains }
@@ -164,7 +165,7 @@ export const prefilledAddresses = [
   "twit1qr99gcgt2v6p3q6qsx7dptkwdukrjhjl5v7cyes4",
   "twit1qqn8f9w9uh0afqeps5jqgk0nxuzk4vuucgfl3mad",
   "twit1qzm54qfg3570j52pm3gvt7glcdpgpg6rzu58h9rx",
-  "twit1qq6vf6x04d7vczw6e3pzparx73kk9zc6rgsn0snw"
+  "twit1qq6vf6x04d7vczw6e3pzparx73kk9zc6rgsn0snw",
 ]
 
 /**

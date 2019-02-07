@@ -17,7 +17,7 @@ const styles = require("./style.scss")
  * @interface Props
  */
 interface Props {
-  services: Services
+  services: Services,
 }
 
 /**
@@ -27,18 +27,15 @@ interface Props {
  * @extends {TabComponent<any>}
  */
 class TabHistory extends TabComponent<any & Props> {
-
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
-
     // Options to be shown in the Dropdown menu
     const byTemplateOptions = [
       "Order by template",
-      "Order by deployment date"
+      "Order by deployment date",
     ].map((opt: string) => (
       {
         text: opt,
-        onClick: () => this.props.services.showUnimplementedMessage()
+        onClick: () => this.props.services.showUnimplementedMessage(),
       }
     ))
 
@@ -93,7 +90,7 @@ const HistoryTab: TabInfo = {
   key: "history",
   caption: "History",
   path: urls.SMART_CONTRACTS_HISTORY_TAB,
-  component: TabHistory
+  component: TabHistory,
 }
 
 export default HistoryTab

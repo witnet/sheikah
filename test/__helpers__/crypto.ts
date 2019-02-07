@@ -9,8 +9,7 @@ import * as PrivateKey from "app/main/crypto/key/privateKey"
  * @returns {ExtendedKey<PrivateKey>}
  */
 export function getMasterKey(seedEntropy: string, passPhrase = "Witnet seed"):
-  ExtendedKey<PrivateKey.PrivateKey> {
-
+ExtendedKey<PrivateKey.PrivateKey> {
   const entropy = Buffer.from(seedEntropy, "hex")
   const { masterSecret, chainCode } = fromEntropy(entropy, passPhrase)
   const masterKey: ExtendedKey<PrivateKey.PrivateKey> =

@@ -6,9 +6,9 @@ import { CardDefault } from "app/renderer/ui/components/card"
 const stepStyles = require("./style.scss")
 const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
 
-export interface Iprops {
-  className?: string
-  nextStep: () => void
+export interface WelcomeProps {
+  className?: string,
+  nextStep: () => void,
 }
 
 /**
@@ -16,11 +16,9 @@ export interface Iprops {
  *
  * @export
  * @class Welcome
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<WelcomeProps>}
  */
-export default class Welcome extends React.Component<Iprops> {
-  /** render */
-  // tslint:disable-next-line:prefer-function-over-method
+export default class Welcome extends React.Component<WelcomeProps> {
   public render() {
     const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 
@@ -35,7 +33,7 @@ export default class Welcome extends React.Component<Iprops> {
           smart contracts.
         </p>
         <div className={stepStyles.link}>
-          <ButtonLink onClick={this.props.nextStep}>Let's do this!</ButtonLink>
+          <ButtonLink onClick={this.props.nextStep}>Let&apos;s do this!</ButtonLink>
         </div>
       </CardDefault>
     )

@@ -14,5 +14,5 @@ export const jsonBufferSerializer: JsonBufferSerializer = {
   },
   deserialize: async (serialized: Buffer): Promise<JsonSerializable> => {
     return JSON.parse(serialized.toString())
-  }
+  },
 }

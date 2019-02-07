@@ -6,7 +6,7 @@ import { buildError as buildNewMnemonicsError } from "app/main/api/handlers/newM
 import {
   NewMnemonicsResponse,
   newMnemonicsErrors,
-  NewMnemonicsErrors
+  NewMnemonicsErrors,
 } from "app/common/runtimeTypes/storage/wallets"
 
 /**

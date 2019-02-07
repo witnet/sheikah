@@ -2,18 +2,18 @@ import { Dropdown, Menu } from "antd"
 import * as React from "react"
 import { ClickParam } from "antd/lib/menu"
 
-export interface Iprops {
-  className?: string
-  classNameList?: string
-  classNameItem?: string
-  dataSource: Array<{ text: any; onClick: any }>
-  borderer?: boolean
-  renderItem?: any
-  menu?: JSX.Element
-  menuStyle?: string
-  menuItemStyle?: string
-  trigger: Array<("click" | "hover")>
-  placement: "topLeft" | "topCenter" | "topRight" | "bottomLeft" | "bottomCenter" | "bottomRight"
+export interface DefaultDropdownProps {
+  borderer?: boolean,
+  className?: string,
+  classNameItem?: string,
+  classNameList?: string,
+  dataSource: Array<{ text: any, onClick: any }>,
+  menu?: JSX.Element,
+  menuItemStyle?: string,
+  menuStyle?: string,
+  placement: "topLeft" | "topCenter" | "topRight" | "bottomLeft" | "bottomCenter" | "bottomRight",
+  renderItem?: any,
+  trigger: Array<("click" | "hover")>,
 }
 
 /**
@@ -21,17 +21,16 @@ export interface Iprops {
  *
  * @export
  * @class Dropdown
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<DefaultDropdownProps>}
  */
 
-export default class DefaultDropdown extends React.Component<Iprops> {
-
+export default class DefaultDropdown extends React.Component<DefaultDropdownProps> {
   /**
    * Component State
    *  visible is set to true if the dropdown menu is being shown
    */
   public state = {
-    visible: false
+    visible: false,
   }
 
   /**
@@ -50,9 +49,7 @@ export default class DefaultDropdown extends React.Component<Iprops> {
     this.setState({ visible })
   }
 
-  // tslint:disable-next-line: completed-docs
   public render() {
-
     /**
      * Menu items of the dropdown
      */

@@ -1,15 +1,15 @@
 import * as React from "react"
 
-import { Card, } from "antd"
+import { Card } from "antd"
 const styles = require("./style.scss")
 
-export interface Iprops {
-  cover: string
-  alt: string
-  title: string
-  author: string
-  rating: string
-  tags: Array<string>
+export interface CardMarketPlaceProductProps {
+  cover: string,
+  alt: string,
+  title: string,
+  author: string,
+  rating: string,
+  tags: Array<string>,
 }
 
 /**
@@ -17,10 +17,9 @@ export interface Iprops {
  *
  * @export
  * @class CardMarketPlaceProduct
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<CardMarketPlaceProductProps>}
  */
-export default class CardMarketPlaceProduct extends React.Component<Iprops> {
-  // tslint:disable-next-line: completed-docs
+export default class CardMarketPlaceProduct extends React.Component<CardMarketPlaceProductProps> {
   public render() {
     return (
       <Card

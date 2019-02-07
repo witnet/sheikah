@@ -4,9 +4,9 @@ import * as assert from "assert"
 import * as bip39 from "bip39"
 import { Errors } from "./errors"
 
-export type Seed = {
-  masterSecret: Buffer
-  chainCode: Buffer
+export interface Seed {
+  masterSecret: Buffer,
+  chainCode: Buffer,
 }
 
 /**
@@ -30,6 +30,6 @@ export function fromEntropy(entropy: Buffer, hmacKey = "Witnet seed"): Seed {
 
   return {
     masterSecret: hash.slice(0, 32),
-    chainCode: hash.slice(32, 64)
+    chainCode: hash.slice(32, 64),
   }
 }

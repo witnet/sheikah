@@ -7,7 +7,7 @@ export const pbkdf2Data = {
       iterations: 1,
       length: 20,
       expected: "867f70cf1ade02cff3752599a3a53dc4af34c7a6",
-      hex: ""
+      hex: "",
     },
     {
       password: "password",
@@ -36,6 +36,6 @@ export const pbkdf2Data = {
       iterations: 4096,
       length: 16,
       expected: "9d9e9c4cd21fe4be24d5b8244c759665",
-    }
-  ]
+    },
+  ],
 }

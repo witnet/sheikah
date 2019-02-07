@@ -21,7 +21,7 @@ export const slip32 = {
       prvBech32: "xprv1qpujxsyd4hfu0dtwa524vac84e09mjsgnh5h9crl8wrqg58z5wmsuqqcxlqmar3fjhkprndzk" +
         "pnp2xlze76g4hu7g7c4r4r2m2e6y8xlvu566tn6",
       pubBech32: "xpub1qpujxsyd4hfu0dtwa524vac84e09mjsgnh5h9crl8wrqg58z5wmsuq7eqte474swq3cvvvcnc" +
-        "umfz6xe6l0j6jdl990an7mukyyuemsyjszuwypl"
+        "umfz6xe6l0j6jdl990an7mukyyuemsyjszuwypl",
     },
     {
       keyPath: "m/0",
@@ -32,7 +32,7 @@ export const slip32 = {
       prvBech32: "xprv1qyqqqqqqurn9qwkq2l84m3mwqu672mw5f5vnkt57yuwv94rtcavunxczrc7qpw4gn29a6cw9u" +
         "g4e7yrqrkrerj0cl39jlfkln45dxdhsavpmqm4krfqykk",
       pubBech32: "xpub1qyqqqqqqurn9qwkq2l84m3mwqu672mw5f5vnkt57yuwv94rtcavunxczrc7qxa4l2v75k923p" +
-        "75lgyjtdeyxzmc8m6709mcvlvv9ehz22aj9pdr4m6lwmk"
+        "75lgyjtdeyxzmc8m6709mcvlvv9ehz22aj9pdr4m6lwmk",
     },
     {
       keyPath: "m/1",
@@ -43,7 +43,7 @@ export const slip32 = {
       prvBech32: "xprv1qyqqqqqpt3yfzltg8zmxdt43r6k8cnuclqrh0x6hcafzuwzsjuv7av085kfqpsd74lcvfkucg" +
         "ec2grrfc228h8fne4lkuayuvlsledwxzxxa5y5zefalyg",
       pubBech32: "xpub1qyqqqqqpt3yfzltg8zmxdt43r6k8cnuclqrh0x6hcafzuwzsjuv7av085kfq963xfxe4z2u6s" +
-        "kdtvk9gtc5cnfaw8xe9rzrhktwq726yk7za27ydw88adn"
+        "kdtvk9gtc5cnfaw8xe9rzrhktwq726yk7za27ydw88adn",
     },
     {
       keyPath: "m/0'",
@@ -54,7 +54,7 @@ export const slip32 = {
       prvBech32: "xprv1qxqqqqqq78qr7hlewyyfzt74vasa87k63pu7g9e6hfzlzrdyh0v5k8zfw9sqpsyv7vcejeyzc" +
         "pkm85jel7vmujlhpquzf4f3sh3nry0w0n4jh7t0jhc039",
       pubBech32: "xpub1qxqqqqqq78qr7hlewyyfzt74vasa87k63pu7g9e6hfzlzrdyh0v5k8zfw9sqylcasaesu3swj" +
-        "gdnsgjzjy2kt0unmteqs8kkskewm5wsz9mt9sfuvlxj6p"
+        "gdnsgjzjy2kt0unmteqs8kkskewm5wsz9mt9sfuvlxj6p",
     },
     {
       keyPath: "m/1'",
@@ -65,7 +65,7 @@ export const slip32 = {
       prvBech32: "xprv1qxqqqqqpg0xyhjjecen2taujv52gzfvq9mfva3rd78zu4rn2qkx6k5j6w0csq0hs9lznqqr59" +
         "zgleyz93w57mjpk8k837fn7xf43q7r3p37mxn095hysnx",
       pubBech32: "xpub1qxqqqqqpg0xyhjjecen2taujv52gzfvq9mfva3rd78zu4rn2qkx6k5j6w0cs8dgcfffxmtr2h" +
-        "k3a34222s28rn5rarpzvr2kwps98cncpy3rr867k5u83k"
+        "k3a34222s28rn5rarpzvr2kwps98cncpy3rr867k5u83k",
     },
     {
       keyPath: "m/44'/0'/0'",
@@ -76,7 +76,7 @@ export const slip32 = {
       prvBech32: "xprv1qwqqqqpvsqqqqqyqqqqqq0dyhsvs5f5qzywnr7klmjg972nldnnhcmcsnyv3zme984p5g5seq" +
         "rlxftuztddhs42vxw3gkgcgtlqg9a53k0r39nqafenwzvef0k585enml6g",
       pubBech32: "xpub1qwqqqqpvsqqqqqyqqqqqq0dyhsvs5f5qzywnr7klmjg972nldnnhcmcsnyv3zme984p5g5seq" +
-        "dm5eyg0eurl495gd6nefux4etke4l3sk39c8alzzwae9ycw0h6t6ltmssr"
+        "dm5eyg0eurl495gd6nefux4etke4l3sk39c8alzzwae9ycw0h6t6ltmssr",
     },
     {
       keyPath: "m/44'/0'/1'",
@@ -87,7 +87,7 @@ export const slip32 = {
       prvBech32: "xprv1qwqqqqpvsqqqqqyqqqqqz2t3lgkmpl6ad8skdfqxsya28k0dp8z2mtpwpn3n2g7633tqna85q" +
         "zy9th76xllxvwllcqfkvxzsfc7t6lveyy6xp880vxguw2fnn4wx2mhtjy8",
       pubBech32: "xpub1qwqqqqpvsqqqqqyqqqqqz2t3lgkmpl6ad8skdfqxsya28k0dp8z2mtpwpn3n2g7633tqna85q" +
-        "fwsycv984xr5du3vra4r5hjv2kxfejjryfenqkyugvqhnh35geajlgxhp0"
+        "fwsycv984xr5du3vra4r5hjv2kxfejjryfenqkyugvqhnh35geajlgxhp0",
     },
     {
       keyPath: "m/44'/2'/0'",
@@ -98,7 +98,7 @@ export const slip32 = {
       prvBech32: "xprv1qwqqqqpvsqqqqq5qqqqqpp5u2pz7tlrcjert40x3jcd3qx7rre6lu5xl3fv9c7dsth9q436cq" +
         "zvre5gd352pvzcshxjtkceq062c2p22xyekr82hk782n4d2xprdysp4gxc",
       pubBech32: "xpub1qwqqqqpvsqqqqq5qqqqqpp5u2pz7tlrcjert40x3jcd3qx7rre6lu5xl3fv9c7dsth9q436cq" +
-        "dq0uwuw3yt9yk96cr9hz9snccvdrtmrmsep4y9h28gxjucpgsducuj4f9r"
+        "dq0uwuw3yt9yk96cr9hz9snccvdrtmrmsep4y9h28gxjucpgsducuj4f9r",
     },
     {
       keyPath: "m/49'/0'/0'",
@@ -109,7 +109,7 @@ export const slip32 = {
       prvBech32: "xprv1qwqqqqp3sqqqqqyqqqqqqm42udj6urs2p24cgvjule7dwmpmjzgrt7yfulflrwz84xs8jlktq" +
         "zyq65t490dyryrq0cretzxn7ezdj6l6qdzxhn5neh0a50z2n8r7vumvllf",
       pubBech32: "xpub1qwqqqqp3sqqqqqyqqqqqqm42udj6urs2p24cgvjule7dwmpmjzgrt7yfulflrwz84xs8jlktq" +
-        "tclx3ufrvs0w45w4clvnp5lh7m8hj4k7dvrymcsanzzx44a2kfe6xynfgh"
+        "tclx3ufrvs0w45w4clvnp5lh7m8hj4k7dvrymcsanzzx44a2kfe6xynfgh",
     },
     {
       keyPath: "m/49'/2'/0'",
@@ -120,7 +120,7 @@ export const slip32 = {
       prvBech32: "xprv1qwqqqqp3sqqqqq5qqqqqqeahu8w9cu9fx5zzrrx0grz844rdf2wgtqvkxakwp6zn4jnmupycq" +
         "r8jytxzuztsf8lzefmxymqecln68muhrv0kgx2htz4neqeyv070gg6dcn7",
       pubBech32: "xpub1qwqqqqp3sqqqqq5qqqqqqeahu8w9cu9fx5zzrrx0grz844rdf2wgtqvkxakwp6zn4jnmupycq" +
-        "2c88z9a9mdt50q29sy9vut06lyevhfp97e8xmmmjf040kfzky9vu2pu92u"
+        "2c88z9a9mdt50q29sy9vut06lyevhfp97e8xmmmjf040kfzky9vu2pu92u",
     },
     {
       keyPath: "m/84'/0'/0'",
@@ -131,7 +131,7 @@ export const slip32 = {
       prvBech32: "xprv1qwqqqqz5sqqqqqyqqqqqqjjn5z4jrwwujkrfcn5j59s3jnsrcrhnlagpftrf9apnc3m9fy8uq" +
         "rs57f6dzm9qmygrrwvtzcnpspsaqwfslgup4ak5et6ykqvpn2mdggeaxrp",
       pubBech32: "xpub1qwqqqqz5sqqqqqyqqqqqqjjn5z4jrwwujkrfcn5j59s3jnsrcrhnlagpftrf9apnc3m9fy8uq" +
-        "fc85cha4npxa2dk8vwpj7gx74hwqxqdp083jehp5tdrfa0n5zdfkg3lp00"
+        "fc85cha4npxa2dk8vwpj7gx74hwqxqdp083jehp5tdrfa0n5zdfkg3lp00",
     },
-  ]
+  ],
 }

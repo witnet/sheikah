@@ -13,15 +13,15 @@ export const chainCode = seedBuffer.slice(32, 64)
 
 export const seed: Seed = {
   masterSecret,
-  chainCode
+  chainCode,
 }
 
 export const encodedSeed = {
   masterSecret: "fdd406c7e4698a60cd403a157d5718a9f84ce066753c0d12106f7d230e2067d9",
-  chainCode: "84344ffc819cfb5a958d43c3637101e0566b9cdd309dab46dde9eafe48281237"
+  chainCode: "84344ffc819cfb5a958d43c3637101e0566b9cdd309dab46dde9eafe48281237",
 }
 
 export const wrongEncodedSeed = {
   masterSecret: "Hello",
-  chainCode: "World"
+  chainCode: "World",
 }

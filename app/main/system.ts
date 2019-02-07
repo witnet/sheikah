@@ -7,7 +7,7 @@ import { AppStateManager } from "app/main/appState"
 import { appStorageInitializer } from "app/main/storage/initializers"
 import { appStateSubSystem } from "app/main/subsystems/appState"
 import {
-  WalletStorage, WalletStorageSubSystem
+  WalletStorage, WalletStorageSubSystem,
 } from "app/main/subsystems/wallets"
 import { Lifecycle } from "./lifecycle"
 import { jsonSubSystem } from "./subsystems/json"
@@ -19,13 +19,13 @@ import { storageSubsystem } from "app/main/subsystems/storageFactory"
  * This is intended to let handlers depend on specific sub-systems and not on the
  * too-big `SubSystems` type.
  */
-export type JsonS = { json: JsonSerializer }
-export type AppStorageS = { appStorage: JsonPlainLevelStorage }
-export type WalletStorageS = {
+export interface JsonS { json: JsonSerializer }
+export interface AppStorageS { appStorage: JsonPlainLevelStorage }
+export interface WalletStorageS {
   walletStorage: WalletStorage,
-  storageFactory: (args: any) => Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>>
+  storageFactory: (args: any) => Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>>,
 }
-export type AppStateS = { appStateManager: AppStateManager }
+export interface AppStateS { appStateManager: AppStateManager }
 
 /**
  * Type of the system object returned by system.start()
@@ -49,7 +49,7 @@ const builders: Builders = {
   appStorage: new JsonPlainLevelSubSystem("appStorage", appStorageInitializer),
   walletStorage: new WalletStorageSubSystem(),
   storageFactory: storageSubsystem,
-  appStateManager: appStateSubSystem
+  appStateManager: appStateSubSystem,
 }
 
 /**
@@ -60,7 +60,6 @@ const builders: Builders = {
  * `SubSystems` or just a subset of it, e.g.: `json & appStorage`.
  */
 export class System implements Lifecycle<SubSystems, Config> {
-
   /**
    * Flag indicating whether the system has been started or not
    * @type {boolean}
@@ -119,7 +118,6 @@ export class System implements Lifecycle<SubSystems, Config> {
     this.subSystems = undefined
     log.info("System stopped")
   }
-
 }
 
 export const appSystem = new System()

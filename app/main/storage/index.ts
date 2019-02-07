@@ -9,7 +9,6 @@ import { Persister } from "app/main/persisters"
  * backend) and implements the data flow for getting and putting data from/into the store.
  */
 export class Storage<KeyOut, Data, Serialized, Ciphered> {
-
   /**
    * The logtag is used in log lines to identify which storage is writing the logs.
    */
@@ -20,9 +19,8 @@ export class Storage<KeyOut, Data, Serialized, Ciphered> {
     private serializer: Serializer<Data, Serialized>,
     private cipher: Cipher<Serialized, Ciphered>,
     private persister: Persister<KeyOut, Ciphered>) {
-
-    this.logtag = `[${this.constructor.name} (${this.cipher.constructor.name}+`
-      + `${this.persister.constructor.name})]`
+    this.logtag = `[${this.constructor.name} (${this.cipher.constructor.name}+` +
+      `${this.persister.constructor.name})]`
   }
 
   /**
@@ -59,9 +57,8 @@ export class Storage<KeyOut, Data, Serialized, Ciphered> {
         .then(this.keyHasher),
       Promise.resolve(value)
         .then(this.serializer.serialize)
-        .then(this.cipher.encrypt)
+        .then(this.cipher.encrypt),
     ])
       .then((args) => this.persister.put.apply(this, args))
   }
-
 }

@@ -16,7 +16,7 @@ import { PlainCipher } from "app/main/ciphers/plain"
 
 export const walletParams: EncryptWalletParams = {
   caption: "Hello World",
-  password: "abc123"
+  password: "abc123",
 }
 export const defaultMnemonics =
   "gun illegal rough meat planet public weasel pact pipe few bitter burst arm good choice"
@@ -38,7 +38,7 @@ export const wallet: Wallet = {
   // SeedInfo
   seed: {
     kind: "Wip3",
-    seed
+    seed,
   },
   // EpochsInfo
   epochs: {
@@ -53,23 +53,22 @@ export const wallet: Wallet = {
       keyChains: [
         { kind: "external", finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 0] },
         { kind: "internal", finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 1] },
-        { kind: "rad", finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 2] }
+        { kind: "rad", finalKeys: [], keyPath: [2147483651, 2147488567, 2147483648, 2] },
       ],
-      keyPath: [2147483651, 2147488567, 2147483648]
-    }
+      keyPath: [2147483651, 2147488567, 2147483648],
+    },
   ],
 }
 
 export const infos = [{
   id: wallet.id,
-  caption: wallet.caption
+  caption: wallet.caption,
 }]
 
 /// helpers
 /** Create inmemory storage */
 export function inMemoryStorage(cipher: Cipher<Buffer, Buffer>):
-  Storage<Buffer, JsonSerializable, Buffer, Buffer> {
-
+Storage<Buffer, JsonSerializable, Buffer, Buffer> {
   const keyHasher = sha256BufferHasher
   const serializer = jsonBufferSerializer
   const backend = new InMemoryPersister()
@@ -84,7 +83,7 @@ export async function aesStorage() {
   const pbkdPassword = "password"
   const aesSettings: AesCipherSettings = {
     ...defaultAesCipherSettings,
-    pbkdPassword
+    pbkdPassword,
   }
   const cipher = new AesCipher(aesSettings)
 
@@ -104,7 +103,7 @@ export function plainStorage() {
 export function buildError(error: string) {
   return {
     kind: "ERROR",
-    error
+    error,
   }
 }
 
@@ -117,13 +116,13 @@ export function systemFactory(mnemonics?: string): AppStateS & WalletStorageS & 
       unconsolidatedWallet: {
         seed: {
           chainCode,
-          masterSecret
-        }
-      }
+          masterSecret,
+        },
+      },
     }),
     walletStorage: new WalletStorage(),
     storageFactory: aesStorage,
-    appStorage: plainStorage()
+    appStorage: plainStorage(),
   }
 }
 

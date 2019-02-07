@@ -4,7 +4,7 @@ import CardDefault from "app/renderer/ui/components/card/default"
 import { InputUnderlined } from "app/renderer/ui/components/input"
 import {
   TabInfo,
-  TabComponent
+  TabComponent,
 } from "app/renderer/ui/components/main/sections"
 import * as urls from "app/renderer/constants/urls"
 import Wrapper from "app/renderer/ui/components/wrapper"
@@ -23,7 +23,7 @@ const styles = require("./style.scss")
  * @interface Props
  */
 interface Props {
-  services: Services
+  services: Services,
 }
 /**
  * Smart Contracts Editor tab component
@@ -32,7 +32,6 @@ interface Props {
  * @extends {TabComponent<any>}
  */
 class TabEditor extends TabComponent<any & Props> {
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const description =
       "Ask two different APIs for the weather in a certain location " +
@@ -144,7 +143,7 @@ const EditorTab: TabInfo = {
   key: "editor",
   caption: "Editor",
   path: urls.DATA_REQUESTS_EDITOR_TAB,
-  component: TabEditor
+  component: TabEditor,
 }
 
 export default EditorTab

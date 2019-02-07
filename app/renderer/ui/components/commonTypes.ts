@@ -1,14 +1,14 @@
-export type PathNameProp = {
-  pathName: string
+export interface PathNameProp {
+  pathName: string,
 }
 
-export type TopBarProps = {
-  className?: string
-  linksProps: Array<TopBarLinkProps>
+export interface TopBarProps {
+  className?: string,
+  linksProps: Array<TopBarLinkProps>,
 }
 
-export type TopBarLinkProps = {
-  key: string
-  caption: string
-  path: string
+export interface TopBarLinkProps {
+  key: string,
+  caption: string,
+  path: string,
 }

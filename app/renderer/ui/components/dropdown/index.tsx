@@ -3,5 +3,5 @@ import Dropdown from "./default"
 
 export {
   DropdownBordered,
-  Dropdown
+  Dropdown,
 }

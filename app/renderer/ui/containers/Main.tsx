@@ -30,11 +30,11 @@ import { prefilledWalletCaption } from "app/renderer/prefilledWallet"
  * Props that match redux store state
  */
 export interface StateProps {
-  selectedAccount: number
-  wallet: WalletOption
-  isPrefilledWallet: boolean
-  pendingTransactions: Array<PendingTransactionProps>
-  confirmedTransactions: Array<ConfirmedTransactionProps>
+  confirmedTransactions: Array<ConfirmedTransactionProps>,
+  isPrefilledWallet: boolean,
+  pendingTransactions: Array<PendingTransactionProps>,
+  selectedAccount: number,
+  wallet: WalletOption,
 }
 
 /**
@@ -42,7 +42,7 @@ export interface StateProps {
  */
 export interface DispatchProps {
   saveTransactions: Function,
-  saveFinalKey: Function
+  saveFinalKey: Function,
 }
 
 /**
@@ -59,7 +59,7 @@ export interface OwnProps {
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     saveTransactions: bindActionCreators(saveTransactions, dispatch),
-    saveFinalKey: bindActionCreators(saveFinalKey, dispatch)
+    saveFinalKey: bindActionCreators(saveFinalKey, dispatch),
   }
 }
 
@@ -74,7 +74,7 @@ const mapStateToProps = (state: StoreState): StateProps => {
     wallet: state.wallet,
     isPrefilledWallet: state.wallet && state.wallet.caption === prefilledWalletCaption,
     confirmedTransactions: filterConfirmedTransactions(state.transactions),
-    pendingTransactions: filterPendingTransactions(state.transactions)
+    pendingTransactions: filterPendingTransactions(state.transactions),
   })
 }
 
@@ -87,36 +87,35 @@ const mapStateToProps = (state: StoreState): StateProps => {
  */
 class MainContainer extends
   React.Component<RouteComponentProps<any> & OwnProps & StateProps & DispatchProps> {
-
   // TODO review why routing to tabs with updated props does not work if here
-  ///**
+  // /**
   // * Props to be passed to tab receive
   // *
   // * @private
   // * @memberof MainContainer
   // */
-  //private tabReceiveProps = {
+  // private tabReceiveProps = {
   //  selectedAccount: this.props.selectedAccount,
   //  wallet: this.props.wallet,
   //  services: this.props.services,
   //  saveFinalKey: this.props.saveFinalKey
-  //}
+  // }
 
-  ///**
+  // /**
   // * props to be passed to tab transactions
   // *
   // * @private
   // * @memberof MainContainer
   // */
-  //private tabTransactionsProps = {
+  // private tabTransactionsProps = {
   //  pendingTransactions: this.props.pendingTransactions,
   //  confirmedTransactions: this.props.confirmedTransactions
-  //}
+  // }
 
-  ///**
+  // /**
   // * Method to render routing in Wallet Section
   // */
-  //private routingWalletSection = () => {
+  // private routingWalletSection = () => {
   //  return (
   //    <Switch>
   //      <PropsRoute
@@ -146,7 +145,7 @@ class MainContainer extends
   //      />
   //    </Switch>
   //  )
-  //}
+  // }
 
   /**
    * Options for settings button
@@ -160,18 +159,16 @@ class MainContainer extends
       text: "Lock wallet",
       onClick: () => {
         navigateTo(this.props.history, urls.FORMS)
-      }
+      },
     },
     {
       text: "Close Sheikah",
       onClick: () => {
         remote.getCurrentWindow().close()
-      }
-    }
+      },
+    },
   ]
 
-  /** render */
-  // tslint:disable-next-line:prefer-function-over-method
   public render() {
     const ownProps = { ...this.props, pathName: this.props.location.pathname }
     const activeWalletName = this.props.wallet

@@ -1,6 +1,5 @@
 import * as assert from "assert"
 import * as KeyPath from "app/main/crypto/keyPath"
-import BigNum = require("bn.js")
 import { sha512hmac } from "app/main/crypto/hash"
 import { integerAsBuffer } from "app/main/utils/conversions"
 import * as PublicKey from "./publicKey"
@@ -8,9 +7,10 @@ import { ChainCode, ExtendedKey, Key } from "./key"
 import { privateKeyTweakAdd } from "secp256k1"
 import { SECP256K1_N } from "app/main/crypto/constants"
 import { Errors } from "app/main/crypto/errors"
+import BigNum = require("bn.js")
 
 export interface PrivateKey extends Key {
-  type: "private"
+  type: "private",
 }
 
 /**

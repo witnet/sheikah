@@ -4,7 +4,7 @@ import { kvSwap } from "app/common/utils"
 describe("Utils", () => {
   const prefixToChainType = {
     wit: ChainType.main,
-    twit: ChainType.test
+    twit: ChainType.test,
   }
 
   it("swap keys with values", () => {

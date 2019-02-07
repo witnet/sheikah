@@ -15,7 +15,6 @@ export type OwnProps = ComputedPaymentRequest
  * @extends {React.Component<OwnProps>}
  */
 export default class PaymentRequest extends React.Component<OwnProps> {
-  // tslint:disable-next-line: completed-docs
   public render() {
     const creationDate = this.props.metadata && this.props.metadata.creationDate
       ? parseDate(new Date(this.props.metadata.creationDate * 1000), "day", false)
@@ -143,7 +142,7 @@ export default class PaymentRequest extends React.Component<OwnProps> {
           {this.getWitSpan()}
           <span>)</span>
         </>
-      )
+      ),
     }
 
     const expirationDate = this.props.metadata && this.props.metadata.expirationDate
@@ -164,7 +163,7 @@ export default class PaymentRequest extends React.Component<OwnProps> {
       ),
       unknown: (
         <></>
-      )
+      ),
     }
 
     return (

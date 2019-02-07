@@ -14,7 +14,7 @@ import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
 
 const createAesSettings = (pbkdPassword: string): AesCipherSettings => ({
   ...defaultAesCipherSettings,
-  pbkdPassword
+  pbkdPassword,
 })
 
 /**
@@ -24,8 +24,7 @@ const createAesSettings = (pbkdPassword: string): AesCipherSettings => ({
  * @param {string} id
  * @returns Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>>
  */
-export async function createJsonAesLevelStorage(args: any)
-  : Promise<JsonAesLevelStorage> {
+export async function createJsonAesLevelStorage(args: any): Promise<JsonAesLevelStorage> {
   try {
     const { id, password } = asRuntimeType(args, JsonAesLevelStorageParams)
 
@@ -40,7 +39,7 @@ export async function createJsonAesLevelStorage(args: any)
     // Create the LevelDB connection
     const connection = level(dbPath, {
       keyEncoding: "binary",
-      valueEncoding: "binary"
+      valueEncoding: "binary",
     })
 
     const persister = new LevelPersister(connection)

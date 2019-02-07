@@ -5,5 +5,5 @@ import CardMarketplaceProduct from "./marketplaceProduct/index"
 export {
   CardDefault,
   NavigationCard,
-  CardMarketplaceProduct
+  CardMarketplaceProduct,
 }

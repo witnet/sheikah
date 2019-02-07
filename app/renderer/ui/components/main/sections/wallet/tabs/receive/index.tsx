@@ -5,7 +5,7 @@ import { DefaultInput, InputAmount } from "app/renderer/ui/components/input"
 import PaymentRequest from "app/renderer/ui/components/paymentRequest"
 import {
   TabInfo,
-  TabComponent
+  TabComponent,
 } from "app/renderer/ui/components/main/sections"
 
 import * as urls from "app/renderer/constants/urls"
@@ -19,12 +19,12 @@ import { Services } from "app/renderer/services"
 import {
   FinalKey,
   ExternalFinalKey,
-  Wallet
+  Wallet,
 } from "app/common/runtimeTypes/storage/wallets"
 import {
   GenerateAddressResponse,
   GenerateAddressParams,
-  generateAddressErrorMessages
+  generateAddressErrorMessages,
 } from "app/common/runtimeTypes/ipc/address"
 import { assertNever } from "app/common/utils"
 import { KEYCHAIN_INDICES } from "app/common/constants/wallet"
@@ -32,13 +32,13 @@ import { KEYCHAIN_INDICES } from "app/common/constants/wallet"
 import {
   buildComputedPaymentRequest,
   Action,
-  ComputedPaymentRequest
+  ComputedPaymentRequest,
 } from "app/renderer/prefilledPaymentRequests"
 
 import {
   prefilledFinalKeysFunds,
   prefilledAddresses,
-  prefilledWalletCaption
+  prefilledWalletCaption,
 } from "app/renderer/prefilledWallet"
 
 import { encodeBech32 } from "app/common/witnet-js/addresses/p2pkh"
@@ -55,10 +55,10 @@ const grid = require("app/renderer/ui/components/main/style.scss")
  * @interface Props
  */
 interface Props {
-  selectedAccount: number
-  wallet: Wallet
-  services: Services
-  saveFinalKey: Function
+  saveFinalKey: Function,
+  selectedAccount: number,
+  services: Services,
+  wallet: Wallet,
 }
 
 /**
@@ -77,7 +77,7 @@ class TabReceive extends TabComponent<any & Props> {
     expires: "",
     loading: false,
     errorMessage: "",
-    check: false
+    check: false,
   }
 
   /**
@@ -163,7 +163,7 @@ class TabReceive extends TabComponent<any & Props> {
     // Set loading state
     this.setState({ loading: true, errorMessage: "" })
 
-    //Add an insignificant delay (1s) to improve user experience
+    // Add an insignificant delay (1s) to improve user experience
     await sleep(1000)
 
     // Generate Address for selected account (array index)
@@ -177,14 +177,14 @@ class TabReceive extends TabComponent<any & Props> {
         this.props.saveFinalKey({
           account: this.props.selectedAccount,
           keyChain: KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL,
-          finalKey
+          finalKey,
         })
         // Reset loading state
         this.setState({
           label: "",
           amount: "",
           expires: "",
-          loading: false
+          loading: false,
         })
 
         // Show success message
@@ -197,15 +197,15 @@ class TabReceive extends TabComponent<any & Props> {
         this.setState({ loading: false, errorMessage: error })
       })
   }
-     /**
+  /**
       *
       * Handle checkbox value and show expires input
       * @private
       * @memberof TabReceive
       */
-    private handleCheck = async (checked: boolean) => {
-      this.setState({check: !this.state.check})
-      }
+  private handleCheck = async (checked: boolean) => {
+    this.setState({ check: !this.state.check })
+  }
   /**
    * Method to map account to payment requests
    */
@@ -218,9 +218,11 @@ class TabReceive extends TabComponent<any & Props> {
     const isPrefilledWallet =
       this.props.wallet.caption === prefilledWalletCaption
 
-    return this.props.wallet.accounts[this.props.selectedAccount].keyChains[
-      KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL
-    ].finalKeys
+    return this.props
+      .wallet
+      .accounts[this.props.selectedAccount]
+      .keyChains[KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL]
+      .finalKeys
       .map((finalKey: FinalKey, index: number) => {
         return buildComputedPaymentRequest(
           finalKey as ExternalFinalKey,
@@ -236,7 +238,6 @@ class TabReceive extends TabComponent<any & Props> {
       .reverse()
   }
 
-  // tslint:disable-next-line:prefer-function-over-method completed-docs
   public render() {
     const loading = `${styles.loading} ${
       this.state.loading ? styles.active : styles.disabled
@@ -245,17 +246,17 @@ class TabReceive extends TabComponent<any & Props> {
     const listOptions = ["Export all payment requests as CSV"].map(
       (opt: string) => ({
         text: opt,
-        onClick: () => this.props.services.showUnimplementedMessage()
+        onClick: () => this.props.services.showUnimplementedMessage(),
       })
     )
 
     const itemOptions = [
       "Copy address",
       "Generate QR code",
-      "View related transactions in block explorer"
+      "View related transactions in block explorer",
     ].map((opt: string) => ({
       text: opt,
-      onClick: () => this.props.services.showUnimplementedMessage()
+      onClick: () => this.props.services.showUnimplementedMessage(),
     }))
 
     const paymentRequestsList = (
@@ -268,10 +269,12 @@ class TabReceive extends TabComponent<any & Props> {
       />
     )
 
-    const noPaymentRequests =
-      this.props.wallet.accounts[this.props.selectedAccount].keyChains[
-        KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL
-      ].finalKeys.length === 0
+    const noPaymentRequests = this.props
+      .wallet
+      .accounts[this.props.selectedAccount]
+      .keyChains[KEYCHAIN_INDICES.KEYCHAIN_EXTERNAL]
+      .finalKeys
+      .length === 0
 
     const today = new Date().toISOString().slice(0, 16)
 
@@ -383,7 +386,7 @@ const ReceiveTab: TabInfo = {
   key: "receive",
   caption: "Receive",
   path: urls.RECEIVE_TAB,
-  component: TabReceive
+  component: TabReceive,
 }
 
 export default ReceiveTab

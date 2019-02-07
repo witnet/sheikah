@@ -3,11 +3,11 @@ import * as React from "react"
 
 const commonFormStepStyles = require("app/renderer/ui/components/walletForm/steps/style.scss")
 
-export interface Iprops {
-  className?: string
+export interface WalletSeedBackupProps {
+  className?: string,
   mnemonics: string,
-  nextStep: () => void
-  previousStep: () => void
+  nextStep: () => void,
+  previousStep: () => void,
 }
 
 /**
@@ -15,12 +15,10 @@ export interface Iprops {
  *
  * @export
  * @class WalletSeedBackup
- * @extends {React.Component<Iprops>}
+ * @extends {React.Component<WalletSeedBackupProps>}
  */
 
-export default class WalletSeedBackup extends React.Component<Iprops> {
-  /** render */
-  // tslint:disable-next-line:prefer-function-over-method
+export default class WalletSeedBackup extends React.Component<WalletSeedBackupProps> {
   public render() {
     const cardStyle = `${commonFormStepStyles.centered} ${this.props.className}`
 

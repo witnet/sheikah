@@ -22,7 +22,7 @@ function padNumber(n: number) {
  */
 export default function parseDate(date: Date, accuracy: dateAccuracy, ordinal?: boolean): string {
   const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "July", "August", "September", "October", "November", "December",
   ]
 
   const min = date.getMinutes()
@@ -67,5 +67,5 @@ function calculateOrdinalSuffix(day: number) {
 }
 
 export {
-  parseDate
+  parseDate,
 }
