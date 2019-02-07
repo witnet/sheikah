@@ -75,13 +75,14 @@
   }
 
   .settings {
+    align-items: center;
     border-top: $sidebar-settings-border;
     display: flex;
     flex-flow: row nowrap;
     font-size: $icon-settings-font_size;
     justify-content: space-between;
     margin-top: auto;
-    padding: 1em;
+    padding: 15px;
 
     .settings-icon {
       color: $sidebar-settings-icon-color;
@@ -91,7 +92,7 @@
 
     .net-status {
       font-size: $icon_status-font_size;
-      padding: 0.5em;
+      padding: 5px;
       text-align: right;
 
       .mainnet {
