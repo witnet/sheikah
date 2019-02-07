@@ -1,6 +1,9 @@
-tslint:
+eslint:
   enabled: true
-  config_file: config/tslint.json
+  config_file: .eslintrc
+  
+tslint:
+  enabled: false
 
 jshint:
   enabled: false
