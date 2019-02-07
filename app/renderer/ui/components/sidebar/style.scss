@@ -27,8 +27,6 @@
       color: $sidebar-label-color;
       font-size: $sidebar-label-font_size;
       font-weight: bold;
-      padding-left: 2em;
-      padding-top: 1.5em;
     }
   }
 
@@ -49,9 +47,8 @@
     align-items: flex-start;
     display: flex;
     flex-flow: column nowrap;
-    height: 37vh;
     justify-content: space-around;
-    padding-top: 1em;
+    margin-top: 15px;
 
     .link {
       align-items: center;
@@ -61,11 +58,13 @@
       flex-flow: row nowrap;
       font-size: $sidebar-link-font_size;
       font-weight: $sidebar-link-font_weight;
-      padding: 1em;
+      height: 30px;
+      margin-top: 3px;
+      padding: 13px;
       text-decoration: none;
 
       .option-icon {
-        padding: 1.5em;
+        padding: 13px;
       }
     }
 
