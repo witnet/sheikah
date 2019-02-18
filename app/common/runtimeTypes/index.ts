@@ -29,5 +29,5 @@ export function asObject<T, U>(input: T, runtimeType: t.Type<T, U>): U {
   return runtimeType.encode(input)
 }
 
-export const Empty = {}
+export const Empty = t.type({})
 export type Empty = t.TypeOf<typeof Empty>
