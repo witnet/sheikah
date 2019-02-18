@@ -9,7 +9,7 @@ storiesOf("Transaction", module)
       receiver={true}
       amount={0.1}
       block="92673"
-      date={new Date(23,3,2019)}
+      date={new Date(23, 3, 2019)}
     />
   ))
   // .add("Confirmed negative", () => (

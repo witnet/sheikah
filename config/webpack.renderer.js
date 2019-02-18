@@ -2,18 +2,18 @@
  * Webpack config used to build the UI used by the Electron renderer
  * process (the react frontend).
  */
-const path = require("path");
-const webpack = require("webpack");
-const webpackMergeConfigs = require("webpack-merge");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path")
+const webpack = require("webpack")
+const webpackMergeConfigs = require("webpack-merge")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 
-const port = process.env.PORT || 3000;
-const forProduction = process.env.NODE_ENV === "production";
+const port = process.env.PORT || 3000
+const forProduction = process.env.NODE_ENV === "production"
 
-const paths = require("./paths");
+const paths = require("./paths")
 
-const bundleFilename = "bundle.js";
-const styleFilename = "style.css";
+const bundleFilename = "bundle.js"
+const styleFilename = "style.css"
 
 const distDir = path.resolve(__dirname, "../dist")
 
@@ -22,9 +22,9 @@ const typeScriptLoader = {
   options: {
     configFile: path.resolve(__dirname, process.env.TSCONFIG || "tsconfig.json"),
     transpileOnly: true,
-    experimentalWatchApi: true
-  }
-};
+    experimentalWatchApi: true,
+  },
+}
 
 const uiComponentLoader = {
   loader: "ui-component-loader",
@@ -32,9 +32,9 @@ const uiComponentLoader = {
     lib: "antd",
     libDir: "es",
     camel2: "-",
-    style: "style/index.css"
-  }
-};
+    style: "style/index.css",
+  },
+}
 
 const baseConfig = {
   // https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
@@ -66,8 +66,8 @@ const baseConfig = {
         use: [
           "style-loader",
           "css-loader?&sourceMap&importLoaders&localIdentName=[name]__[local]___[hash:base64:5]",
-          "sass-loader"
-        ]
+          "sass-loader",
+        ],
       },
       {
         test: /^((?!\.global).)*\.(scss|sass)$/,
@@ -170,10 +170,10 @@ const baseConfig = {
       template: paths.templateAppHtml,
       inject: false,
       bundleFilename,
-      styleFilename
+      styleFilename,
     }),
   ]
-};
+}
 
 const productionConfig = {
   mode: "production",
@@ -182,7 +182,7 @@ const productionConfig = {
   output: {
     publicPath: `${distDir}/`
   },
-};
+}
 
 const developmentConfig = {
   mode: "development",
@@ -205,12 +205,12 @@ const developmentConfig = {
       debug: true
     })
   ]
-};
+}
 
 if (forProduction) {
-  console.log("Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mPRODUCTION\x1b[0m mode...");
-  module.exports = webpackMergeConfigs(baseConfig, productionConfig);
+  console.log("Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mPRODUCTION\x1b[0m mode...")
+  module.exports = webpackMergeConfigs(baseConfig, productionConfig)
 } else {
-  console.log("Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mDEVELOPMENT\x1b[0m mode...");
-  module.exports = webpackMergeConfigs(baseConfig, developmentConfig);
+  console.log("Building \x1b[34mElectron RENDERER\x1b[0m in \x1b[36mDEVELOPMENT\x1b[0m mode...")
+  module.exports = webpackMergeConfigs(baseConfig, developmentConfig)
 }
