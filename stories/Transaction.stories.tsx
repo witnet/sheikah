@@ -7,34 +7,34 @@ storiesOf("Transaction", module)
     <ConfirmedTransaction
       address="wit1qre9fq64r5jgv0t3m8q3tvnqwphxm9xpacvrdhe5"
       receiver={true}
-      amount="+0.1"
+      amount={0.1}
       block="92673"
-      date="April 23 at 14:38"
+      date={new Date(23,3,2019)}
     />
   ))
-  .add("Confirmed negative", () => (
-    <ConfirmedTransaction
-      address="wit1qre9fq64r5jgv0t3m8q3tvnqwphxm9xpacvrdhe5"
-      receiver={false}
-      amount="-0.1"
-      block="92673"
-      date="April 23 at 14:38"
-    />
-  ))
-  .add("Pending unconfirmed", () => (
-    <PendingTransaction
-      status="unconfirmed"
-      address="wit1qre9fq64r5jgv0t3m8q3tvnqwphxm9xpacvrdhe5"
-      receiver={true}
-      amount="+1"
-    />
-  ))
-  .add("Pending confirmed", () => (
-    <PendingTransaction
-      status="timelocked"
-      address="Genesis block"
-      receiver={true}
-      amount="+0.1"
-      vestingTime="(Vesting on October 21th 2019)"
-    />
-  ))
+  // .add("Confirmed negative", () => (
+  //   <ConfirmedTransaction
+  //     address="wit1qre9fq64r5jgv0t3m8q3tvnqwphxm9xpacvrdhe5"
+  //     receiver={false}
+  //     amount={-0.1}
+  //     block="92673"
+  //     date="April 23 at 14:38"
+  //   />
+  // ))
+  // .add("Pending unconfirmed", () => (
+  //   <PendingTransaction
+  //     status="unconfirmed"
+  //     address="wit1qre9fq64r5jgv0t3m8q3tvnqwphxm9xpacvrdhe5"
+  //     receiver={true}
+  //     amount="+1"
+  //   />
+  // ))
+  // .add("Pending confirmed", () => (
+  //   <PendingTransaction
+  //     status="timelocked"
+  //     address="Genesis block"
+  //     receiver={true}
+  //     amount="+0.1"
+  //     vestingTime="(Vesting on October 21th 2019)"
+  //   />
+  // ))

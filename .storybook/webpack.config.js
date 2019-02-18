@@ -1,106 +1,127 @@
-const path = require("path");
-
-// Shared styles configuration.
-const sharedStylesConfiguration = [
-  "style-loader",
-  {
-    loader: "css-loader",
-    options: {
-      importLoaders: 2,
-      modules: true,
-      localIdentName: "[path][name]__[local]--[hash:base64:5]"
-    }
-  }
-];
-
-module.exports = (storybookBaseConfig, configType) => {
-  if (configType === "PRODUCTION") {
-    // See https://github.com/storybooks/storybook/issues/1570
-    storybookBaseConfig.plugins = storybookBaseConfig.plugins.filter(
-      plugin => plugin.constructor.name !== "UglifyJsPlugin"
-    );
-  }
-
-  // Add file loader.
-  storybookBaseConfig.module.rules.push({
-    test: /\.(png|jpg|gif|svg)$/,
-    use: [
-      {
-        loader: "file-loader",
-        options: {}
-      }
-    ],
-    exclude: /node_modules/,
-    include: [/stories/, /app/]
-  });
-
-  // Add url loader.
-  storybookBaseConfig.module.rules.push({
-    test: /\.(png|jpg|gif|svg)$/,
-    use: [
-      {
-        loader: "url-loader",
-        options: {
-          limit: 8192
-        }
-      }
-    ],
-    exclude: /node_modules/,
-    include: [/stories/, /app/]
-  });
-
-  // Add less support.
-  storybookBaseConfig.module.rules.push({
-    test: /\.less$/,
+const path = require("path")
+module.exports = (baseConfig, env, config) => {
+  // Antd css
+  config.module.rules.push({
+    test: /\.antd\.css$/,
+    use: ["style-loader"],
+  }) 
+  // SASS stylesheets
+  config.module.rules.push({
+    test: /\.global\.(scss|sass)$/,
     use: [
       "style-loader",
-      "css-loader",
-      {
-        loader: "less-loader",
-        options: {
-          javascriptEnabled: true
-        }
-      }
+      "css-loader?&sourceMap&importLoaders&localIdentName=[name]__[local]___[hash:base64:5]",
+      "sass-loader"
     ]
-  });
-
-  // Add sass support.
-  storybookBaseConfig.module.rules.push({
-    test: /\.scss$/,
-    use: [...sharedStylesConfiguration, "sass-loader"],
-    exclude: /node_modules/,
-    include: [/stories/, /app/, /styles/]
-  });
-
-  // Add css support.
-  storybookBaseConfig.module.rules.push({
-    test: /\.css$/,
-    use: [...sharedStylesConfiguration],
-    exclude: /node_modules/,
-    include: [/stories/, /app/]
-  });
-
-  // Add typescript support.
-  storybookBaseConfig.module.rules.push({
-    test: /\.tsx?$/,
+  })  
+  
+  config.module.rules.push({
+    test: /^((?!\.global).)*\.(scss|sass)$/,
     use: [
-      {
-        loader: "babel-loader"
-      },
-      {
-        loader: "awesome-typescript-loader",
+      "style-loader",
+      "css-loader?modules&sourceMap&importLoaders&localIdentName=[name]__[local]___[hash:base64:5]",
+      "sass-loader"
+    ]
+  }) 
+
+  // CSS stylesheets
+  config.module.rules.push({
+    test: /^(?!foo).*\.css$/,
+    exclude: /node_modules/,
+      loaders: [
+        "style-loader",
+        "css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
+      ]
+    })
+    
+    config.module.rules.push({
+      test: /node_modules.*\.css$/,
+      loaders: [
+        "style-loader",
+        "css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
+      ]
+    })
+
+    // WOFF Font
+    config.module.rules.push({
+      test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+      use: {
+        loader: "url-loader",
         options: {
-          configFileName: "config/tsconfig.storybook.json"
+          limit: 10000,
+          mimetype: "application/font-woff",
+        }
+      },
+    })
+
+    // WOFF2 Font
+    config.module.rules.push({
+      test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+      use: {
+        loader: "url-loader",
+        options: {
+          limit: 10000,
+          mimetype: "application/font-woff",
         }
       }
-    ],
-    exclude: /node_modules/,
-    include: [/stories/, /app/]
-  });
+    })
 
-  storybookBaseConfig.resolve.extensions.push(".tsx");
-  storybookBaseConfig.resolve.extensions.push(".ts");
-  storybookBaseConfig.resolve.extensions.push(".scss");
+    // TTF Font
+    config.module.rules.push({
+      test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+      use: {
+        loader: "url-loader",
+        options: {
+          limit: 10000,
+          mimetype: "application/octet-stream"
+        }
+      }
+    })
 
-  return storybookBaseConfig;
+    // EOT Font
+    config.module.rules.push({
+      test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+      use: "file-loader",
+    })
+
+    // SVG Font
+    config.module.rules.push({
+      test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+      use: {
+        loader: "url-loader",
+        options: {
+          limit: 10000,
+          mimetype: "image/svg+xml",
+        }
+      }
+    })
+
+    // Common Image Formats
+    config.module.rules.push({
+      test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
+      use: "url-loader",
+    }) 
+    
+    
+    config.module.rules.push({
+      test: /\.(ts|tsx)$/,
+      loader: require.resolve('babel-loader'),
+      options: {
+        presets: [['react-app', { flow: false, typescript: true }]],
+        
+        
+        plugins: [
+          ['import', { libraryName: "antd", style: false }]
+        ]
+        
+        
+      }
+    })
+  
+  config.resolve.extensions.push('.ts', '.tsx');
+  config.resolve.modules.push(path.resolve(__dirname, "../"))
+  
+  return config;
 };
+
+

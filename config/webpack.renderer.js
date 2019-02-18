@@ -79,7 +79,7 @@ const baseConfig = {
       },
       // CSS stylesheets
       {
-        test: /.*\.css$/,
+        test: /^(?!antd).*\.css$/,
         exclude: /node_modules/,
         loaders: [
           "style-loader",
