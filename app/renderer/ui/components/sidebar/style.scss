@@ -10,7 +10,7 @@
   }
 
   .brand {
-    padding: 1em;
+    padding: 18px;
 
     .logo {
       width: $sidebar-logo-width;
@@ -36,7 +36,7 @@
     display: flex;
     flex-flow: row wrap;
     font-weight: bold;
-    padding: 1em;
+    padding: 16px;
   }
 
   .current-wallet-name {
@@ -47,8 +47,7 @@
     align-items: flex-start;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-around;
-    margin-top: 15px;
+    margin-top: 25px;
 
     .link {
       align-items: center;
@@ -58,13 +57,17 @@
       flex-flow: row nowrap;
       font-size: $sidebar-link-font_size;
       font-weight: $sidebar-link-font_weight;
-      height: 30px;
-      margin-top: 3px;
-      padding: 13px;
+      margin-top: 5px;
+      padding: 10px;
       text-decoration: none;
 
+      .sidebar-icon {
+        padding: 8px;
+      }
+
       .option-icon {
-        padding: 13px;
+        padding: 6px;
+        width: 100%;
       }
     }
 
@@ -109,6 +112,11 @@
   }
 
   @media screen and (max-width: 1250px) {
+    .brand img {
+      clip-path: circle(40px at 0);
+      transform: translateX(-4px);
+    }
+
     .current-wallet-name {
       transform: translateX(-10px);
       transition: transform;
@@ -116,7 +124,7 @@
 
     .option-icon {
       opacity: 0;
-      transition: opacity 0.4s linear;
+      transition: opacity 300ms linear;
     }
 
     .settings {
@@ -124,6 +132,13 @@
       .synced {
         display: none;
       }
+    }
+  }
+
+  @media screen and (min-width: 1250px) {
+    .option-icon {
+      opacity: 100%;
+      transition: opacity 900ms ease-in-out;
     }
   }
 }
