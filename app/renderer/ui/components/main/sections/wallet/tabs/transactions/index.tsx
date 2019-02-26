@@ -24,6 +24,7 @@ import { Services } from "app/renderer/services"
 import { PathNameProp } from "app/renderer/ui/components/commonTypes"
 
 const styles = require("./style.scss")
+const mainStyles = require("app/renderer/ui/components/main/style.scss")
 
 interface OwnProps {
   pendingTransactions: ComputedTransactions,
@@ -74,8 +75,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
     )
 
     return (
-      <>
-        <div className={styles.wrapper}>
+        <div className={`${mainStyles.wrapper} ${mainStyles["main-padding"]}`}>
           <div className={styles.main}>
             <Wrapper
               title="PENDING"
@@ -109,7 +109,6 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
             </Wrapper>
           </div>
         </div>
-      </>
     )
   }
 }

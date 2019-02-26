@@ -1,32 +1,19 @@
 :local {
-  .wrapper {
-    display: flex;
-    flex-flow: row nowrap;
-  }
-
   .main {
     align-content: space-around;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
-    margin: 1em;
-    padding: 1em;
-    width: 70vw;
+    min-width: 800px;
   }
 
   .side {
     display: flex;
     flex-flow: column nowrap;
-    margin: 1em;
-    padding: 1em;
-    width: 30vw;
+    min-width: 350px;
   }
 
   .confirmed {
-    margin-top: 2em;
-  }
-
-  .vesting-graph-wrapper {
-    margin: 0.5em;
+    margin-top: 20px;
   }
 }

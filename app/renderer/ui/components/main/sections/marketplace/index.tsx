@@ -8,7 +8,6 @@ import {
 import * as urls from "app/renderer/constants/urls"
 import { marketplaceProducts } from "app/renderer/ui/components/main/sections/marketplace/MockData"
 
-const grid = require("app/renderer/ui/components/main/style.scss")
 const styles = require("./style.scss")
 const items = marketplaceProducts.map((item, i) => (
   <div className={styles.item} key={i}>
@@ -35,7 +34,7 @@ const items = marketplaceProducts.map((item, i) => (
 class Marketplace extends React.Component<SectionProps> {
   public render() {
     return (
-      <div className={grid.layout}>
+      <div>
         <header className={styles.header}>
           <div className={styles["header-text"]}>
             <h1>

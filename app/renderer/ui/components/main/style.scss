@@ -1,12 +1,5 @@
 :local {
   @import "app/renderer/ui/theme";
-  // GRID LAYOUT
-  .layout {
-    display: grid;
-    grid-template-columns: repeat(12, [col] 1fr);
-    margin: 0;
-    padding: 0;
-  }
 
   .wrapper {
     display: flex;
@@ -25,14 +18,13 @@
     width: 85vw;
   }
 
+  .main-padding {
+    padding: 40px;
+  }
+
   .top-bar {
     background: $top_bar-background;
     width: 85vw;
-  }
-
-  .receive-main {
-    grid-column: col 1 / -1;
-    height: 100vh;
   }
 
   .about-side {

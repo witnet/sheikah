@@ -3,7 +3,6 @@
 
   .header {
     background: #1a6cfb;
-    grid-column: col 1 / -1;
     height: 14vh;
     padding: 4em;
   }
@@ -39,8 +38,6 @@
   }
 
   .main {
-    grid-column: col 1 / span 9;
-    grid-row: 2;
     margin-top: 1em;
   }
 
@@ -98,8 +95,6 @@
   }
 
   .nav {
-    grid-column: col 9 / -1;
-    grid-row: 2;
     margin: 2em;
   }
 

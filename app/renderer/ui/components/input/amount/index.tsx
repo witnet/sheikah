@@ -27,7 +27,7 @@ export interface InputAmountProps {
 export default class InputAmount extends React.Component<InputAmountProps> {
   public render() {
     return (
-      <div className={styles.grid}>
+      <div>
         <Input
           className={this.props.className}
           type={this.props.type}
