@@ -113,7 +113,7 @@ class TabSend extends TabComponent<any> {
                 className={styles["submit-btn"]}
                 onClick={this.props.services.showUnimplementedMessage}
               >
-                SIGN AND SEND
+              SIGN AND SEND
               </ActionButton>
             </div>
           </div>

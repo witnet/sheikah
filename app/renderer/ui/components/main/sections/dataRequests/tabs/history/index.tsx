@@ -11,7 +11,7 @@ import { CardDefault } from "app/renderer/ui/components/card"
 
 const svgImage = require("svg/dataRequestsHistory.svg")
 const styles = require("./style.scss")
-const layout = require("app/renderer/ui/components/main/style.scss")
+const mainStyles = require("app/renderer/ui/components/main/style.scss")
 
 /**
  * Props that contain configuration
@@ -41,15 +41,13 @@ class TabHistory extends TabComponent<any & Props> {
     ))
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.main}>
-          <Wrapper className={styles.template} title="BY TEMPLATE" actions={byTemplateOptions}>
-            <CardDefault className={styles["with-padding"]}>
-              <img src={svgImage} />
-            </CardDefault>
-          </Wrapper>
-        </div>
-        <div className={`${styles.text} ${layout["about-side"]}`}>
+      <div className={mainStyles["main-padding"]}>
+        <Wrapper className={styles.template} title="BY TEMPLATE" actions={byTemplateOptions}>
+          <CardDefault className={styles["with-padding"]}>
+            <img src={svgImage} />
+          </CardDefault>
+        </Wrapper>
+        <div className={`${styles.text} ${mainStyles["about-side"]}`}>
           <p className={styles.title}>About data requests</p>
           <p className={styles.text}>
             Data requests are scripts that tell Witnet where to retrieve data.
