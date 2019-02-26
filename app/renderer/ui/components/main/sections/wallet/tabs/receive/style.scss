@@ -37,80 +37,63 @@
   }
 
   .new-payment-request {
-    width: 60vw;
-  }
-
-  .form {
-    display: flex;
-    flex-flow: column nowrap;
-    padding: 2.5em;
-
-    .form-row {
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: flex-start;
-      margin: 5px;
-    }
-
-    .submit {
-      align-self: flex-end;
-    }
-
-    .label {
-      align-self: center;
-      color: $grey-9;
-      font-weight: 600;
-      justify-content: flex-start;
-    }
+    min-width: 400px;
 
     .form {
-      align-items: center;
-      display: grid;
-      grid-column-end: 3;
-      grid-column-start: 1;
-      grid-gap: 0.5em 1em;
-      grid-template-columns: auto auto 1fr 1fr;
-      position: relative;
+      align-items: flex-start;
+      display: flex;
+      flex-flow: column nowrap;
+      min-width: 80%;
+      padding: 35px;
+
+      .form-row {
+        align-items: center;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        margin: 7px;
+        min-width: 100%;
+      }
 
       .label {
+        align-self: center;
         color: $grey-9;
         font-weight: 600;
-        grid-column: 1;
-        text-align: right;
+        justify-content: flex-start;
       }
 
       .label-input {
-        grid-column-end: 6;
-        grid-column-start: 2;
+        align-self: center;
         height: 48px;
-        padding: 12px 14px 10px 14px;
+        margin-left: 35px;
+        max-width: 90%;
       }
 
-      .check-wrapper {
-        grid-column-end: 1;
-        grid-column-start: 4;
+      .amount-input {
+        height: 48px;
+        margin-left: 17px;
+        max-width: 40%;
       }
 
-      .expires {
-        padding: 800px;
+      .switch {
+        margin-left: 7px;
+      }
+
+      .date-input {
+        height: 48px;
+        margin-left: 10px;
+        max-width: 18%;
+      }
+
+      .submit {
+        align-self: flex-end;
       }
     }
+  }
 
-    .amount-input {
-      height: 48px;
-      margin-left: 1.2em;
-      padding: 1.5em;
-      width: 10vw;
-    }
-
-    .date-input {
-      height: 48px;
-      width: 14vw;
-    }
-
-    .input-check {
-      margin: 20px;
-    }
+  .payment-requests {
+    margin-top: 30px;
+    padding: 5px;
   }
 
   .payment-requests {
@@ -124,6 +107,10 @@
 
   .qr {
     text-align: center;
+  }
+
+  .about {
+    display: none;
   }
 
   .pending {

@@ -4,7 +4,9 @@
   .payment-request {
     align-items: center;
     border-bottom: $payment_request-border;
-    padding: 30px 50px;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 40px;
 
     &:last-child {
       border: none;

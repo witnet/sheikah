@@ -296,33 +296,38 @@ class TabReceive extends TabComponent<any & Props> {
             className={`${styles["new-payment-request"]}`}
         >
         <div className={styles.form}>
-          <label className={styles.label}>Label</label>
-          <DefaultInput
-            className={styles["label-input"]}
-            type="text"
-            name="label"
-            onChange={this.handleChange}
-            value={this.state.label}
-          />
-          <label className={styles.label}>Amount</label>
-          <InputAmount
-            className={styles["amount-input"]}
-            type="number"
-            min="0"
-            name="amount"
-            onChange={this.handleChange}
-            value={this.state.amount}
-          />
-          <div className={styles["check-wrapper"]}>
-            <label className={styles.label}> Expires </label>
+          <div className={styles["form-row"]}>
+            <label className={styles.label}>Label</label>
+            <DefaultInput
+              className={styles["label-input"]}
+              type="text"
+              name="label"
+              onChange={this.handleChange}
+              value={this.state.label}
+            />
+          </div>
+          <div className={styles["form-row"]}>
+            <label className={styles.label}>Amount</label>
+            <InputAmount
+              className={styles["amount-input"]}
+              type="number"
+              min="0"
+              name="amount"
+              onChange={this.handleChange}
+              value={this.state.amount}
+            />
+          </div>
+          <div className={styles["form-row"]}>
+            <label className={styles.label}>Expires</label>
             <SwitchSelector
+              className={styles.switch}
               checked={this.state.check}
               onChange={this.handleCheck}
               size={"small"}
             />
             {expirationDateInput}
           </div>
-          <div className={`${styles["form-row"]} ${styles.submit}`}>
+          <div className={styles.submit}>
             <ActionButton
               className={styles.submit}
               onClick={this.handleClick}
@@ -361,7 +366,7 @@ class TabReceive extends TabComponent<any & Props> {
           {paymentRequestsList}
         </Wrapper>
 
-        <div>
+        <div className={styles.about}>
           <p className={styles.title}>About payment requests</p>
           <p className={styles.text}>
             Every time you generate a receiveng address in Sheikah, you can
