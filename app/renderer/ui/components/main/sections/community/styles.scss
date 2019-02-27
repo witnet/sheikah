@@ -2,7 +2,7 @@
   @import "app/renderer/ui/theme";
 
   .content {
-    padding: 2em;
+    padding: 30px;
   }
 
   .title {
@@ -23,18 +23,18 @@
   .channels {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     list-style-type: none;
-    padding: 0.5em;
+    margin: 15px;
 
     .list-item {
       background: $grey-1;
       box-shadow: $default-box-shadow;
-      margin: 0.5em;
-      padding: 2em;
+      margin: 10px;
+      max-width: 275px;
+      padding: 30px;
       position: relative;
       transition: box-shadow 0.1s ease;
-      width: 30vw;
 
       a {
         color: $blue-6;

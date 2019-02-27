@@ -19,7 +19,7 @@ const mainStyles = require("app/renderer/ui/components/main/style.scss")
  * @interface Props
  */
 interface Props {
-  services: Services
+  services: Services,
 }
 
 /**

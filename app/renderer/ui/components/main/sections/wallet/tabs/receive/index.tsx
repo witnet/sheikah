@@ -292,56 +292,56 @@ class TabReceive extends TabComponent<any & Props> {
     return (
       <div className={mainStyles["main-padding"]}>
         <Wrapper
-            title="NEW PAYMENT REQUEST"
-            className={`${styles["new-payment-request"]}`}
+          title="NEW PAYMENT REQUEST"
+          className={`${styles["new-payment-request"]}`}
         >
-        <div className={styles.form}>
-          <div className={styles["form-row"]}>
-            <label className={styles.label}>Label</label>
-            <DefaultInput
-              className={styles["label-input"]}
-              type="text"
-              name="label"
-              onChange={this.handleChange}
-              value={this.state.label}
-            />
-          </div>
-          <div className={styles["form-row"]}>
-            <label className={styles.label}>Amount</label>
-            <InputAmount
-              className={styles["amount-input"]}
-              type="number"
-              min="0"
-              name="amount"
-              onChange={this.handleChange}
-              value={this.state.amount}
-            />
-          </div>
-          <div className={styles["form-row"]}>
-            <label className={styles.label}>Expires</label>
-            <SwitchSelector
-              className={styles.switch}
-              checked={this.state.check}
-              onChange={this.handleCheck}
-              size={"small"}
-            />
-            {expirationDateInput}
-          </div>
-          <div className={styles.submit}>
-            <ActionButton
-              className={styles.submit}
-              onClick={this.handleClick}
-              disabled={this.state.loading}
-            >
+          <div className={styles.form}>
+            <div className={styles["form-row"]}>
+              <label className={styles.label}>Label</label>
+              <DefaultInput
+                className={styles["label-input"]}
+                type="text"
+                name="label"
+                onChange={this.handleChange}
+                value={this.state.label}
+              />
+            </div>
+            <div className={styles["form-row"]}>
+              <label className={styles.label}>Amount</label>
+              <InputAmount
+                className={styles["amount-input"]}
+                type="number"
+                min="0"
+                name="amount"
+                onChange={this.handleChange}
+                value={this.state.amount}
+              />
+            </div>
+            <div className={styles["form-row"]}>
+              <label className={styles.label}>Expires</label>
+              <SwitchSelector
+                className={styles.switch}
+                checked={this.state.check}
+                onChange={this.handleCheck}
+                size={"small"}
+              />
+              {expirationDateInput}
+            </div>
+            <div className={styles.submit}>
+              <ActionButton
+                className={styles.submit}
+                onClick={this.handleClick}
+                disabled={this.state.loading}
+              >
               SAVE AND GENERATE ADDRESS
-            </ActionButton>
-          </div>
-          <AlertMessage
-            className={styles.error}
-            type="error"
-            title="Error"
-            description={this.state.errorMessage}
-          />
+              </ActionButton>
+            </div>
+            <AlertMessage
+              className={styles.error}
+              type="error"
+              title="Error"
+              description={this.state.errorMessage}
+            />
           </div>
           <div className={loading}>
             <Spinner

@@ -75,40 +75,40 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
     )
 
     return (
-        <div className={`${mainStyles.wrapper} ${mainStyles["main-padding"]}`}>
-          <div className={styles.main}>
-            <Wrapper
-              title="PENDING"
-              caption={`${this.props.pendingTransactions.length} transactions`}
-              className={`${styles.pending}`}
-              empty={!this.props.pendingTransactions.length}
-            >
-              {pendingTransactionsList}
-            </Wrapper>
-            <Wrapper
-              title="CONFIRMED"
-              caption={`${this.props.confirmedTransactions.length} transactions`}
-              actions={listOptions}
-              className={styles.confirmed}
-              empty={!this.props.confirmedTransactions.length}
-            >
-              {confirmedTransactionsList}
-            </Wrapper>
-          </div>
-
-          <div className={styles.side}>
-            <Balances className={styles.balances} {...balances} />
-            <Wrapper
-              title="VESTING SCHEDULE GRAPH"
-              actions={listOptions}
-              className={styles["vesting-graph-wrapper"]}
-              empty={true}
-              contentClassName={styles["vesting-graph"]}
-            >
-              <EmptyState iconName="graph" text="Nothing to show" />
-            </Wrapper>
-          </div>
+      <div className={`${mainStyles.wrapper} ${mainStyles["main-padding"]}`}>
+        <div className={styles.main}>
+          <Wrapper
+            title="PENDING"
+            caption={`${this.props.pendingTransactions.length} transactions`}
+            className={`${styles.pending}`}
+            empty={!this.props.pendingTransactions.length}
+          >
+            {pendingTransactionsList}
+          </Wrapper>
+          <Wrapper
+            title="CONFIRMED"
+            caption={`${this.props.confirmedTransactions.length} transactions`}
+            actions={listOptions}
+            className={styles.confirmed}
+            empty={!this.props.confirmedTransactions.length}
+          >
+            {confirmedTransactionsList}
+          </Wrapper>
         </div>
+
+        <div className={styles.side}>
+          <Balances className={styles.balances} {...balances} />
+          <Wrapper
+            title="VESTING SCHEDULE GRAPH"
+            actions={listOptions}
+            className={styles["vesting-graph-wrapper"]}
+            empty={true}
+            contentClassName={styles["vesting-graph"]}
+          >
+            <EmptyState iconName="graph" text="Nothing to show" />
+          </Wrapper>
+        </div>
+      </div>
     )
   }
 }

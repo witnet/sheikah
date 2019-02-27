@@ -49,7 +49,7 @@ export class SideBarLink extends React.Component<SideBarLinkProps & PathNameProp
   public render() {
     return (
       <Link className={join([styles.link, this.active])} to={this.props.path} replace={true}>
-        <i className={`${join(["fa", this.icon]) } ${styles["sidebar-icon"]}`} />
+        <i className={`${join(["fa", this.icon])} ${styles["sidebar-icon"]}`} />
         <span className={styles["option-icon"]}>{this.props.caption}</span>
       </Link>
     )
