@@ -94,15 +94,7 @@
   .payment-requests {
     margin-top: 30px;
     padding: 5px;
-  }
-
-  .payment-requests {
-    align-content: center;
-    display: flex;
-    flex-flow: column wrap;
-    margin: 2em;
-    padding: 1em;
-    width: 60vw;
+    width: 100%;
   }
 
   .qr {
