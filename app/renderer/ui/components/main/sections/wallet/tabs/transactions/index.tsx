@@ -81,6 +81,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
             title="PENDING"
             caption={`${this.props.pendingTransactions.length} transactions`}
             className={`${styles.pending}`}
+            contentClassName={styles.content}
             empty={!this.props.pendingTransactions.length}
           >
             {pendingTransactionsList}
@@ -90,6 +91,7 @@ class Transactions extends TabComponent<TabProps & PathNameProp & OwnProps> {
             caption={`${this.props.confirmedTransactions.length} transactions`}
             actions={listOptions}
             className={styles.confirmed}
+            contentClassName={styles.content}
             empty={!this.props.confirmedTransactions.length}
           >
             {confirmedTransactionsList}

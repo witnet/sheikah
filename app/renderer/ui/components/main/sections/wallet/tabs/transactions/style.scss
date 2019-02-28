@@ -4,13 +4,14 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
-    min-width: 800px;
+    margin-right: 30px;
+    width: 800px;
   }
 
   .side {
     display: flex;
     flex-flow: column nowrap;
-    min-width: 350px;
+    min-width: 300px;
   }
 
   .confirmed {
