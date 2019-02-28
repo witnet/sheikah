@@ -19,7 +19,7 @@
       flex-flow: row nowrap;
       justify-content: flex-start;
       margin: 7px;
-      min-width: 100%;
+      width: 100%;
     }
 
     .label {
@@ -32,14 +32,14 @@
     .address-input {
       height: 48px;
       margin-left: 18px;
-      max-width: 90%;
+      // max-width: 950px;
     }
 
     .label-input {
       align-self: center;
       height: 48px;
       margin-left: 38px;
-      max-width: 90%;
+      // max-width: 900px;
     }
 
     .amount-input {

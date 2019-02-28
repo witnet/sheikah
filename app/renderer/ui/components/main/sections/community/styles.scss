@@ -2,13 +2,14 @@
   @import "app/renderer/ui/theme";
 
   .content {
-    padding: 30px;
+    padding: 20px;
   }
 
   .title {
     color: $font-color-dark;
     font-size: 1.5em;
     font-weight: 500;
+    padding: 10px;
 
     &::after {
       background: $sheikah-gradient;
@@ -25,13 +26,12 @@
     flex-flow: row wrap;
     justify-content: flex-start;
     list-style-type: none;
-    margin: 15px;
 
     .list-item {
       background: $grey-1;
       box-shadow: $default-box-shadow;
       margin: 10px;
-      max-width: 275px;
+      max-width: 375px;
       padding: 30px;
       position: relative;
       transition: box-shadow 0.1s ease;
@@ -68,6 +68,18 @@
           transform: rotate(-15deg) scale(1.1);
         }
       }
+    }
+  }
+
+  @media screen and (max-width: 1009px) {
+    .list-item {
+      background: $grey-1;
+      box-shadow: $default-box-shadow;
+      margin: 10px;
+      padding: 15px;
+      position: relative;
+      transition: box-shadow 0.1s ease;
+      width: 250px;
     }
   }
 }
