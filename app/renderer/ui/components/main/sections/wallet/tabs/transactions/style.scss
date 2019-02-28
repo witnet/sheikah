@@ -1,11 +1,10 @@
 :local {
   .main {
-    align-content: space-around;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
     margin-right: 30px;
-    width: 800px;
+    width: 900px;
   }
 
   .side {
@@ -16,5 +15,15 @@
 
   .confirmed {
     margin-top: 20px;
+  }
+
+  @media screen and (min-width: 1500px) {
+    .main {
+      width: 1100px;
+    }
+
+    .side {
+      min-width: 450px;
+    }
   }
 }
