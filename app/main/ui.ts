@@ -11,8 +11,9 @@ let mainWindow: BrowserWindow | undefined
 export function createMainWindow() {
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
     height: 728,
+    minWidth: 800,
+    minHeight: 720,
   })
 
   const paths = require("app/../config/paths")
