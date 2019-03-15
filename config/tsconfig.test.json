@@ -7,5 +7,8 @@
     "../test/**/*.tsx",
     "../@types/**/*.d.ts",
     "../node_modules/@types/**/*.d.ts"
-  ]
+  ],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": false,
+  }
 }

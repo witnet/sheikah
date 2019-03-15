@@ -1,0 +1,108 @@
+:local {
+  @import "app/renderer/ui/fonts";
+  @import "app/renderer/ui/theme";
+
+  .action {
+    background: $button_action-background;
+    border: $button_action-border;
+    border-color: $button_action-border_color;
+    border-radius: $button_action-border_radius;
+    box-shadow: $button_action-shadow;
+    color: $button_action-color;
+    font-weight: $button_action-font_weight;
+    line-height: $button_action-line_height;
+    padding: $button_action-padding;
+
+    &:hover {
+        background: $button_action-background;
+        border-color: $button_action-border_color;
+        color: $button_action-color;
+    }
+
+    &:focus {
+        background: $button_action-focus-background;
+        border-color: $button_action-focus-border_color;
+        color: $button_action-focus-color;
+    }
+
+    &:disabled,
+    &:disabled:hover {
+        background: $button_action-disabled-background;
+        border-color: $button_action-disabled-border_color;
+        color: $button_action-disabled-color;
+    }
+  }
+
+  .link {
+    @extend %font20;
+
+    background: $button_link-background;
+    border: $button_link-border;
+    color: $button_link-color;
+    cursor: pointer;
+    font: inherit;
+    padding: 0;
+  }
+
+  .navigation {
+    background: $button_navigation-background;
+    border-color: $button_navigation-border-color;
+    border-radius: 0;
+    border-style: $button_navigation-border-style;
+    border-width: 1px 1px 0 0;
+    color: $button_navigation-color;
+    cursor: pointer;
+    font: inherit;
+    height: $button_navigation-height;
+    padding: 0;
+    width: $button_navigation-width;
+
+    &:last-of-type {
+      border-right: 0;
+    }
+
+    &:hover,
+    &:focus {
+      border-color: $button_navigation-border-color;
+    }
+
+    &:active {
+      background: $button_navigation-hover-background;
+    }
+  }
+  
+  .option {
+    @extend %font20;
+
+    background: $button_option-background;
+    border: $button_option-border;
+    color: $button_option-color;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font: inherit;
+    height: 60px;
+    justify-content: space-between;
+    outline: inherit;
+    padding: 0 20px;
+    width: 100%;
+
+    &:hover,
+    &:focus {
+      border-color: $button_option-hover-border-color;
+      box-shadow: $button_option-hover-box-shadow;
+      color: $button_option-hover-color;
+    }
+
+    &:active {
+      background: $button_option-active-background;
+      border-color: $button_option-active-border-color;
+      box-shadow: $button_option-active-box-shadow;
+      color: $button_option-active-color;
+    }
+  
+    .recommended {
+      height: 75px;
+    }
+  }
+}        
