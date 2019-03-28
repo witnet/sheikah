@@ -22,14 +22,26 @@ module.exports = (baseConfig, env, config) => {
       "css-loader?modules&sourceMap&importLoaders&localIdentName=[name]__[local]___[hash:base64:5]",
       "sass-loader"
     ]
-  }) 
+  })
 
+// Config Addon
+  config.module.rules.push({
+    test: /\.stories\.tsx?$/,
+    loaders: [
+      {
+        loader:require.resolve('@storybook/addon-storysource/loader'),
+        options: { parser: 'typescript' },
+      },
+    ],
+    enforce: 'pre',
+  });
+ 
   // CSS stylesheets
   config.module.rules.push({
     test: /^(?!foo).*\.css$/,
     exclude: /node_modules/,
-      loaders: [
-        "style-loader",
+    loaders: [
+      "style-loader",
         "css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
       ]
     })
@@ -101,6 +113,7 @@ module.exports = (baseConfig, env, config) => {
       test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
       use: "url-loader",
     }) 
+
     
     
     config.module.rules.push({
@@ -117,11 +130,10 @@ module.exports = (baseConfig, env, config) => {
         
       }
     })
+   
   
   config.resolve.extensions.push('.ts', '.tsx');
   config.resolve.modules.push(path.resolve(__dirname, "../"))
   
   return config;
 };
-
-
