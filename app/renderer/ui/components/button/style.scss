@@ -14,28 +14,27 @@
     padding: $button_action-padding;
 
     &:hover {
-        background: $button_action-background;
-        border-color: $button_action-border_color;
-        color: $button_action-color;
+      background: $button_action-background;
+      border-color: $button_action-border_color;
+      color: $button_action-color;
     }
 
     &:focus {
-        background: $button_action-focus-background;
-        border-color: $button_action-focus-border_color;
-        color: $button_action-focus-color;
+      background: $button_action-focus-background;
+      border-color: $button_action-focus-border_color;
+      color: $button_action-focus-color;
     }
 
     &:disabled,
     &:disabled:hover {
-        background: $button_action-disabled-background;
-        border-color: $button_action-disabled-border_color;
-        color: $button_action-disabled-color;
+      background: $button_action-disabled-background;
+      border-color: $button_action-disabled-border_color;
+      color: $button_action-disabled-color;
     }
   }
 
   .link {
-    @extend %font20;
-
+    // @extend %font20;
     background: $button_link-background;
     border: $button_link-border;
     color: $button_link-color;
@@ -70,7 +69,7 @@
       background: $button_navigation-hover-background;
     }
   }
-  
+
   .option {
     @extend %font20;
 
@@ -100,9 +99,9 @@
       box-shadow: $button_option-active-box-shadow;
       color: $button_option-active-color;
     }
-  
+
     .recommended {
       height: 75px;
     }
   }
-}        
+}

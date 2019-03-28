@@ -1,5 +1,5 @@
 import { Dropdown, Menu } from "antd"
-import { ButtonDefault } from "app/renderer/ui/components/button"
+import { Button } from "app/renderer/ui/components/button"
 import * as React from "react"
 import { ClickParam } from "antd/lib/menu"
 
@@ -84,9 +84,9 @@ export default class DropdownBordered extends React.Component<DropdownBorderedPr
         placement="bottomRight"
         onVisibleChange={this.onVisibleChange}
       >
-        <ButtonDefault className={`${this.props.className} ${styles.button}`}>
+        <Button className={`${this.props.className} ${styles.button}`}>
           <span>···</span> <i className="fa fa-angle-down" />
-        </ButtonDefault>
+        </Button>
       </Dropdown>
     )
   }

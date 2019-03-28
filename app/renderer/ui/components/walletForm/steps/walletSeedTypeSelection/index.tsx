@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { ButtonOption } from "app/renderer/ui/components/button"
+import { Button } from "app/renderer/ui/components/button"
 import { CardDefault } from "app/renderer/ui/components/card"
 
 const stepStyles = require("./style.scss")
@@ -35,32 +35,40 @@ export default class WalletSeedTypeSelection extends React.Component<WalletSeedT
         </p>
         <ul className={stepStyles.options}>
           <li>
-            <ButtonOption
+            <Button
+              type="option"
               recommended={true}
               onClick={this.props.nextStep.newSeed}
               secondaryText="RECOMMENDED"
             >
               Create new seed phrase
-            </ButtonOption>
+            </Button>
           </li>
           <li>
-            <ButtonOption
+            <Button
+              type="option"
               recommended={true}
               onClick={this.props.nextStep.newPrefilledSeed}
               secondaryText="RECOMMENDED"
             >
               Create a wallet prefilled with sample data
-            </ButtonOption>
+            </Button>
           </li>
           <li>
-            <ButtonOption onClick={this.props.nextStep.advancedOptions}>
+            <Button
+              onClick={this.props.nextStep.advancedOptions}
+              type="option"
+            >
               Import and advanced options
-            </ButtonOption>
+            </Button>
           </li>
           <li>
-            <ButtonOption onClick={this.props.nextStep.back}>
+            <Button
+              type="option"
+              onClick={this.props.nextStep.back}
+            >
               Cancel
-            </ButtonOption>
+            </Button>
           </li>
         </ul>
       </CardDefault>

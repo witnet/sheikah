@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { AlertMessage } from "app/renderer/ui/components/alert"
-import { ButtonNavigation } from "app/renderer/ui/components/button"
+import { Button } from "app/renderer/ui/components/button"
 import { DefaultInput } from "app/renderer/ui/components/input"
 
 const styles = require("./style.scss")
@@ -80,14 +80,18 @@ export default class WalletPasswordRequest extends React.Component<WalletPasswor
           />
         </div>
         <div className={styles.navigation}>
-          <ButtonNavigation
-            text="Cancel"
+          <Button
+            type="navigation"
             onClick={this.prevStep}
-          />
-          <ButtonNavigation
-            text="Unlock"
+          >
+            Cancel
+          </Button>
+          <Button
+            type="navigation"
             onClick={this.nextStep}
-          />
+          >
+            Unlock
+          </Button>
         </div>
       </div>
     )

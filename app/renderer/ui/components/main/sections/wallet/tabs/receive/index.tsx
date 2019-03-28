@@ -11,7 +11,7 @@ import {
 import * as urls from "app/renderer/constants/urls"
 import * as api from "app/renderer/api"
 
-import { ActionButton } from "app/renderer/ui/components/button"
+import { Button } from "app/renderer/ui/components/button"
 
 import Spinner from "app/renderer/ui/components/spinner"
 import { AlertMessage } from "app/renderer/ui/components/alert"
@@ -326,13 +326,14 @@ class TabReceive extends TabComponent<any & Props> {
                   {expirationDateInput}
                 </div>
                 <div className={`${styles["form-row"]} ${styles.submit}`}>
-                  <ActionButton
+                  <Button
+                    type="action"
                     className={styles.submit}
                     onClick={this.handleClick}
                     disabled={this.state.loading}
                   >
                     SAVE AND GENERATE ADDRESS
-                  </ActionButton>
+                  </Button>
                 </div>
               </div>
               <div className={loading}>

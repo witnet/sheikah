@@ -9,5 +9,3 @@ storiesOf("Button", module)
       action button
     </Button>
   ))
-
-

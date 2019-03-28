@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { ButtonLink } from "app/renderer/ui/components/button"
+import { Button } from "app/renderer/ui/components/button"
 import { CardDefault } from "app/renderer/ui/components/card"
 
 const stepStyles = require("./style.scss")
@@ -33,7 +33,7 @@ export default class Welcome extends React.Component<WelcomeProps> {
           smart contracts.
         </p>
         <div className={stepStyles.link}>
-          <ButtonLink onClick={this.props.nextStep}>Let&apos;s do this!</ButtonLink>
+          <Button onClick={this.props.nextStep}>Let&apos;s do this!</Button>
         </div>
       </CardDefault>
     )

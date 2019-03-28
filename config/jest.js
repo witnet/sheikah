@@ -3,6 +3,7 @@ module.exports = {
   "modulePaths": [
     "<rootDir>/..",
   ],
+  "snapshotSerializers": ["enzyme-to-json/serializer"],
   "roots": ["<rootDir>/.."],
   "moduleNameMapper": {
     "app\/(.*)$": "<rootDir>/../app/$1",

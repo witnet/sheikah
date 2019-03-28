@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { Card } from "antd"
 
-import { ButtonNavigation } from "app/renderer/ui/components/button"
+import { Button } from "app/renderer/ui/components/button"
 
 const styles = require("./style.scss")
 
@@ -44,14 +44,18 @@ export default class NavigationCard extends React.Component<NavigationCardProps>
             {this.props.children}
           </div>
           <div className={styles.navigation}>
-            <ButtonNavigation
-              text={this.props.backText ? this.props.backText : "Back"}
+            <Button
+              type="navigation"
               onClick={this.props.previousStep}
-            />
-            <ButtonNavigation
-              text={this.props.nextText ? this.props.nextText : "Next"}
+            >
+              {this.props.backText ? this.props.backText : "Back"}
+            </Button>
+            <Button
+              type="navigation"
               onClick={this.props.nextStep}
-            />
+            >
+              {this.props.nextText ? this.props.nextText : "Next"}
+            </Button>>
           </div>
         </Card>
       </div>

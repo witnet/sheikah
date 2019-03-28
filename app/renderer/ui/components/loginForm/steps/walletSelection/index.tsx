@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { ButtonOption } from "app/renderer/ui/components/button"
+import { Button } from "app/renderer/ui/components/button"
 import { WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 
 const styles = require("./style.scss")
@@ -32,14 +32,15 @@ export default class WalletSelection extends React.Component<WalletSelectionProp
   private linksRender = () => {
     return this.props.walletInfos.infos.map((walletInfo) => {
       return (
-        <ButtonOption
+        <Button
+          type="option"
           key={walletInfo.id}
           className={`${styles.link} ${styles.listItem}`}
           secondaryText=">"
           onClick={this.nextStep(walletInfo.id)}
         >
           {walletInfo.caption}
-        </ButtonOption>)
+        </Button>)
     })
   }
 
@@ -52,13 +53,14 @@ export default class WalletSelection extends React.Component<WalletSelectionProp
         <div className={styles.links}>
           {this.linksRender()}
         </div>
-        <ButtonOption
+        <Button
+          type="option"
           className={styles.link}
           secondaryText=">"
           onClick={this.props.newWallet}
         >
           Create, import or recover a wallet
-        </ButtonOption>
+        </Button>
       </div>
     )
   }

@@ -1,7 +1,7 @@
 import * as React from "react"
 import { List } from "antd"
 
-import { ButtonOption } from "app/renderer/ui/components/button"
+import { Button } from "app/renderer/ui/components/button"
 import EmptyState from "app/renderer/ui/components/emptyState"
 
 const styles = require("./style.scss")
@@ -38,12 +38,13 @@ export default class DefaultList extends React.Component<DefaultListProps> {
    */
   private createClickableOption = (item: any) => {
     return (
-      <ButtonOption
+      <Button
+        type="option"
         onClick={item.onClick}
         className={`${this.props.classNameItem} ${styles.option}`}
       >
         {item.text}
-      </ButtonOption>
+      </Button>
     )
   }
 

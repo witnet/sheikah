@@ -6,7 +6,7 @@ import {
 } from "app/renderer/ui/components/main/sections"
 import Wrapper from "app/renderer/ui/components/wrapper"
 import { DefaultInput, InputAmount } from "app/renderer/ui/components/input"
-import { ActionButton } from "app/renderer/ui/components/button"
+import { Button } from "app/renderer/ui/components/button"
 import Popover from "app/renderer/ui/components/popover"
 import { SelectFees } from "app/renderer/ui/components/select"
 
@@ -99,12 +99,13 @@ class TabSend extends TabComponent<any> {
               onChange={this.handleFee}
               value={this.state.fee}
             />
-            <ActionButton
+            <Button
+              type="action"
               className={styles.submit}
               onClick={this.props.services.showUnimplementedMessage}
             >
               SIGN AND SEND
-            </ActionButton>
+            </Button>
           </div>
         </Wrapper>
       </div>

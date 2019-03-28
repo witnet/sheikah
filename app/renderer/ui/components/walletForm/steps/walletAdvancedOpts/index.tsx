@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { ButtonOption } from "app/renderer/ui/components/button"
+import { Button } from "app/renderer/ui/components/button"
 import { CardDefault } from "app/renderer/ui/components/card"
 
 const stepStyles = require("./style.scss")
@@ -38,24 +38,33 @@ export default class WalletAdvancedOptions extends React.Component<WalletAdvance
         </p>
         <ul className={stepStyles.options}>
           <li>
-            <ButtonOption onClick={this.props.nextStep.importMnemonics}>
+            <Button
+              type="option"
+              onClick={this.props.nextStep.importMnemonics}>
               Import my own master key from a seed phrase
-            </ButtonOption>
+            </Button>
+
           </li>
           <li>
-            <ButtonOption onClick={this.props.nextStep.importXprv} >
+            <Button
+              type="option"
+              onClick={this.props.nextStep.importXprv} >
               Import my own master key from a xprv string
-            </ButtonOption>
+            </Button>
           </li>
           <li>
-            <ButtonOption onClick={this.props.nextStep.useHardwareDevice}>
+            <Button
+              type="option"
+              onClick={this.props.nextStep.useHardwareDevice}>
               Use a hardware device
-            </ButtonOption>
+            </Button>
           </li>
           <li>
-            <ButtonOption onClick={this.props.nextStep.back}>
+            <Button
+              type="option"
+              onClick={this.props.nextStep.back}>
               Go back
-            </ButtonOption>
+            </Button>
           </li>
         </ul>
       </CardDefault>

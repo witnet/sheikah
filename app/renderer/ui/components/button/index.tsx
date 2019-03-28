@@ -9,7 +9,8 @@ export interface Props {
   type?: "action" | "default" | "link" | "navigation" | "option",
   onClick?: any,
   disabled?: boolean,
-
+  secondaryText?: string,
+  recommended?: boolean,
 }
 
 /**
@@ -22,8 +23,7 @@ export interface Props {
 
 export default class Button extends React.Component<Props> {
   public render() {
-
-    const style = styles[this.props.type || "default"] 
+    const style = styles[this.props.type || "default"]
 
     return (
       <AntdButton
@@ -38,5 +38,5 @@ export default class Button extends React.Component<Props> {
 }
 
 export {
-  Button
+  Button,
 }
