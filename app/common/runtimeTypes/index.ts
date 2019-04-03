@@ -5,7 +5,6 @@ export const enum Contexts {
   STORAGE = "storage",
   IPC = "ipc",
 }
-
 /**
  * Decode and validate a mixed JS object as a certain runtime type.
  * @param input

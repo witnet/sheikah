@@ -1,5 +1,6 @@
 import { WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 import * as api from "app/renderer/api"
+import * as apiNew from "app/renderer/new_api"
 import * as React from "react"
 import { message } from "antd"
 import { render } from "react-dom"
@@ -8,8 +9,10 @@ import "./ui/app.global.scss"
 import { Services } from "app/renderer/services"
 import { UnimplementedMessage } from "app/renderer/ui/components/unimplementedMessage"
 import GenericMessage from "app/renderer/ui/components/genericMessage"
+import { CreateWalletParams } from "app/common/runtimeTypes/wallet"
 
 const apiClient = new api.Client()
+const newApi = new apiNew.Client()
 
 /**
  * Call antd message to show Toast component
@@ -61,4 +64,11 @@ new Promise(async () => {
   )
 }).catch((error) => {
   console.error("Unhandled renderer process boot up error", error)
+})
+
+newApi.open(async () => {
+  const args: CreateWalletParams = { name: "Sara", password: "holi" }
+
+  const wallet = await apiNew.createWallet(newApi, args)
+  console.log("WIP: ", wallet)
 })

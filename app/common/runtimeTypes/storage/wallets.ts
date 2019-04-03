@@ -120,6 +120,7 @@ export const SerializableBuffer = new t.Type<Buffer, string>(
   /** encode: converts a value of type Buffer to a value of type hex string */
   (a) => a.toString("hex")
 )
+export type SerializableBuffer = t.TypeOf<typeof SerializableBuffer>
 
 export const ExtendedKey = t.type({
   type: t.union([t.literal("private"), t.literal("public")], "type"),
