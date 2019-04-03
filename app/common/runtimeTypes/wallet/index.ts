@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import * as t from "io-ts"
 import { JsonSerializable } from "app/common/serializers"
-
+// Serializable Buffer runtime type
+import { SerializableBuffer } from "app/common/runtimeTypes/storage/wallets"
 /**
  * Json runtime type. This type is intended to replace `any` and hence make function signatures
  * more strict.
@@ -44,6 +44,7 @@ export const RADRetrieveArgs = t.type({
   url: t.string,
   script: t.array(JsonRT),
 })
+
 // RADRetrieve args type
 export type RADRetrieveArgs = t.TypeOf<typeof RADRetrieveArgs>
 
@@ -51,6 +52,7 @@ export type RADRetrieveArgs = t.TypeOf<typeof RADRetrieveArgs>
 export const RADAggregateArgs = t.type({
   script: t.array(JsonRT),
 })
+
 // RADAggregate args type
 export type RADAggregateArgs = t.TypeOf<typeof RADAggregateArgs>
 
@@ -58,6 +60,7 @@ export type RADAggregateArgs = t.TypeOf<typeof RADAggregateArgs>
 export const RADConsensusArgs = t.type({
   script: t.array(JsonRT),
 })
+
 // RADConsensus args type
 export type RADConsensusArgs = t.TypeOf<typeof RADConsensusArgs>
 
@@ -66,6 +69,7 @@ export const RADDeliverArgs = t.type({
   kind: RADType,
   url: t.string,
 })
+
 // RADDelivery args type
 export type RADDeliverArgs = t.TypeOf<typeof RADDeliverArgs>
 
@@ -74,11 +78,13 @@ export const WalletInfo = t.type({
   id: t.string,
   caption: t.string,
 })
+
 // Wallet info type
 export type WalletInfo = t.TypeOf<typeof WalletInfo>
 
 // Seed runtime type
 export const Seed = t.array(t.number)
+
 // Seed type
 export type Seed = t.TypeOf<typeof Seed>
 
@@ -128,15 +134,17 @@ export const KeyChain = t.union([
   t.literal("Internal"),
   t.literal("Rad"),
 ])
+
 // Key chain type
 export type KeyChain = t.TypeOf<typeof KeyChain>
 
 // Account runtime type
 export const Account = t.type({
-  key_path: KeyPath,
-  key_chains: t.array(KeyChain),
+  keyPath: KeyPath,
+  keyChains: t.array(KeyChain),
   balance: t.number,
 })
+
 // Account type
 export type Account = t.TypeOf<typeof Account>
 
@@ -149,28 +157,46 @@ export const Wallet = t.type({
   purpose: DerivationPath,
   accounts: t.array(Account),
 })
+
 // Wallet type
 export type Wallet = t.TypeOf<typeof Wallet>
 
 // Create data request method params runtime type
-export const CreateDataRequestParams = t.type({
-  not_before: t.number,
+export const Params = t.type({
+  notBefore: t.number,
   retrieve: t.array(RADRetrieveArgs),
 })
+
 // Create data request method params type
+export const CreateDataRequestParams = t.type({
+  notBefore: t.number,
+  retrieve: t.array(RADRetrieveArgs),
+  aggregate: RADAggregateArgs,
+  consensus: RADConsensusArgs,
+  deliver: t.array(RADDeliverArgs),
+})
+
 export type CreateDataRequestParams = t.TypeOf<typeof CreateDataRequestParams>
+
+// Create mnemonics method params runtime type
+export const CreateMnemonicsParams = t.type({
+  mnemonics: Mnemonics,
+})
+
+export type CreateMnemonicsParams = t.TypeOf<typeof CreateMnemonicsParams>
 
 // Create wallet method params runtime type
 export const CreateWalletParams = t.type({
   name: t.string,
   password: t.string,
 })
+
 // Create wallet method params type
 export type CreateWalletParams = t.TypeOf<typeof CreateWalletParams>
 
 // Get transactions method params runtime type
 export const GetTransactionsParams = t.type({
-  wallet_id: t.string,
+  walletId: t.string,
   limit: t.number,
   page: t.number,
 })
@@ -182,21 +208,24 @@ export const ImportSeedParams = t.union([
   Mnemonics,
   Seed,
 ])
+
 // Import seed method params type
 export type ImportSeedParams = t.TypeOf<typeof ImportSeedParams>
 
 // Lock wallet method params runtime type
 export const LockWalletParams = t.type({
-  wallet_id: t.string,
+  walletId: t.string,
   wipe: t.boolean,
 })
+
 // Lock wallet methods params type
 export type LockWalletParams = t.TypeOf<typeof LockWalletParams>
 
 // Run data request method params runtime types
 export const RunDataRequestParams = t.type({
-  data_request: DataRequest,
+  dataRequest: DataRequest,
 })
+
 // Run data request method params types
 export type RunDataRequestParams = t.TypeOf<typeof RunDataRequestParams>
 
@@ -204,20 +233,34 @@ export type RunDataRequestParams = t.TypeOf<typeof RunDataRequestParams>
 export const SayHelloParams = t.type({
   name: t.string,
 })
+
 // Say hello args method params types
 export type SayHelloParams = t.TypeOf<typeof SayHelloParams>
 
 // Send data request method args runtime type
 export const SendDataRequestParams = t.type({
-  data_request: DataRequest,
+  dataRequest: DataRequest,
 })
+
 // Send data request method args type
 export type SendDataRequestParams = t.TypeOf<typeof SendDataRequestParams>
 
+export const GenerateAddressParams = t.type({
+  walletId: t.string,
+})
+
+export type GenerateAddressParams = t.TypeOf<typeof GenerateAddressParams>
+
+// Address runtime type
+export const Address = SerializableBuffer
+
+// Address type
+export type Address = t.TypeOf<typeof Address>
+
 // Send value transfer transaction method params runtime type
 export const SendVTTParams = t.type({
-  wallet_id: t.string,
-  to_address: t.array(t.number),
+  walletId: t.string,
+  toAddress: Address,
   amount: t.number,
   fee: t.number,
   subject: t.string,
@@ -230,5 +273,45 @@ export const UnlockWalletParams = t.type({
   id: t.string,
   password: t.string,
 })
+
 // Unlock wallet method params types
 export type UnlockWalletParams = t.TypeOf<typeof UnlockWalletParams>
+
+export const SayHelloResponse = t.string
+export type SayHelloResponse = t.TypeOf<typeof SayHelloResponse>
+
+export const GenericAPIError = t.string
+export type GenericAPIError = t.TypeOf<typeof GenericAPIError>
+
+export const SendDataRequestResponse = t.string
+export type SendDataRequestResponse = t.TypeOf<typeof SendDataRequestResponse>
+
+export const RunDataRequestResponse = t.string
+export type RunDataRequestResponse = t.TypeOf<typeof RunDataRequestResponse>
+
+export const LockWalletResponse = t.boolean
+export type LockWalletResponse = t.TypeOf<typeof LockWalletResponse>
+
+export const WalletInfoResponse = t.object
+export type WalletInfoResponse = t.TypeOf<typeof WalletInfoResponse>
+
+export const GetTransactionsResponse = t.object
+export type GetTransactionsResponse = t.TypeOf<typeof GetTransactionsResponse>
+
+export const CreateWalletResponse = t.object
+export type CreateWalletResponse = t.TypeOf<typeof CreateWalletResponse>
+
+export const CreateMnemonicsResponse = t.object
+export type CreateMnemonicsResponse = t.TypeOf<typeof CreateMnemonicsResponse>
+
+export const CreateDataRequestResponse = t.object
+export type CreateDataRequestResponse = t.TypeOf<typeof CreateDataRequestResponse>
+
+export const ImportSeedResponse = t.object
+export type ImportSeedResponse = t.TypeOf<typeof ImportSeedResponse>
+
+export const SendVTTResponse = t.object
+export type SendVTTResponse = t.TypeOf<typeof SendVTTResponse>
+
+export const UnlockWalletResponse = t.boolean
+export type UnlockWalletResponse = t.TypeOf<typeof UnlockWalletResponse>
