@@ -1,8 +1,10 @@
 import { ApiClient, ApiMethod, MethodArgs } from "./"
-import { CreateWalletParams, GenericAPIError, Wallet } from "../../common/runtimeTypes/wallet"
+import { CreateWalletParams, GenericAPIError, Wallet, JsonRT } from "../../common/runtimeTypes/wallet"
 import { asRuntimeType } from "app/common/runtimeTypes"
 
-export function createWallet(client: ApiClient<ApiMethod, MethodArgs>, params: CreateWalletParams): Promise<any> {
+export function createWallet(
+  client: ApiClient<ApiMethod, MethodArgs>,
+  params: CreateWalletParams): Promise<JsonRT> {
   return client
     .request("createWallet", params)
     .then(handleCreateWallet)
@@ -13,6 +15,6 @@ function handleCreateWallet(response: { wallet: Wallet }): Wallet {
   return asRuntimeType(response.wallet, Wallet)
 }
 
-function handleCreateWalletError(error: any): GenericAPIError {
+function handleCreateWalletError(error: GenericAPIError): GenericAPIError {
   return asRuntimeType(error, GenericAPIError)
 }
