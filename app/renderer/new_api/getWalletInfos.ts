@@ -1,8 +1,9 @@
 import { ApiClient, ApiMethod, MethodArgs } from "./"
-import { GenericAPIError, WalletInfo } from "../../common/runtimeTypes/wallet"
+import { GenericAPIError, WalletInfo, JsonRT } from "../../common/runtimeTypes/wallet"
 import { asRuntimeType } from "app/common/runtimeTypes"
 
-export function getWalletInfos(client: ApiClient<ApiMethod, MethodArgs>) {
+export function getWalletInfos(
+  client: ApiClient<ApiMethod, MethodArgs>): Promise<JsonRT> {
   return client
     .request("getWalletInfos")
     .then(handleGetWalletInfosResponse)
@@ -13,6 +14,6 @@ function handleGetWalletInfosResponse(response: { walletInfos: WalletInfo }): Wa
   return asRuntimeType(response.walletInfos, WalletInfo)
 }
 
-function handleGetWalletInfosError(error: any): GenericAPIError {
+function handleGetWalletInfosError(error: GenericAPIError): GenericAPIError {
   return asRuntimeType(error, GenericAPIError)
 }

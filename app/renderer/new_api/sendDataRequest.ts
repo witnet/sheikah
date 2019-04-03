@@ -1,8 +1,10 @@
 import { ApiClient, ApiMethod, MethodArgs } from "./"
-import { SendDataRequestParams, GenericAPIError } from "../../common/runtimeTypes/wallet"
-import { asRuntimeType } from "app/common/runtimeTypes"
+import { SendDataRequestParams, GenericAPIError, JsonRT } from "../../common/runtimeTypes/wallet"
+import { asRuntimeType } from "../../../app/common/runtimeTypes"
 
-export function sendDataRequest(client: ApiClient<ApiMethod, MethodArgs>, params: SendDataRequestParams): Promise<any> {
+export function sendDataRequest(
+  client: ApiClient<ApiMethod, MethodArgs>,
+  params: SendDataRequestParams): Promise<JsonRT> {
   return client
     .request("sendDataRequest", params)
     .then(handleSendDataRequestResponse)
@@ -13,6 +15,6 @@ function handleSendDataRequestResponse(response: true): boolean {
   return response
 }
 
-function handleSendDataRequestError(error: any): GenericAPIError {
+function handleSendDataRequestError(error: GenericAPIError): GenericAPIError {
   return asRuntimeType(error, GenericAPIError)
 }

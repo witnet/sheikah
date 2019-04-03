@@ -1,7 +1,7 @@
 import { asObject, asRuntimeType } from "app/common/runtimeTypes"
 import { ipcRendererFactory } from "test/__stubs__/ipcRenderer"
 import { jsonSerializer } from "test/__stubs__/serializers"
-import * as api from "app/renderer/api"
+import * as api from "../../../../app/renderer/api"
 import { routes } from "app/main/api"
 import { GenerateAddressParams, GenerateAddressSuccess } from "app/common/runtimeTypes/ipc/address"
 

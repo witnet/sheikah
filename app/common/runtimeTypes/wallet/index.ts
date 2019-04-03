@@ -161,12 +161,6 @@ export const Wallet = t.type({
 // Wallet type
 export type Wallet = t.TypeOf<typeof Wallet>
 
-// Create data request method params runtime type
-export const Params = t.type({
-  notBefore: t.number,
-  retrieve: t.array(RADRetrieveArgs),
-})
-
 // Create data request method params type
 export const CreateDataRequestParams = t.type({
   notBefore: t.number,
@@ -277,41 +271,10 @@ export const UnlockWalletParams = t.type({
 // Unlock wallet method params types
 export type UnlockWalletParams = t.TypeOf<typeof UnlockWalletParams>
 
-export const SayHelloResponse = t.string
-export type SayHelloResponse = t.TypeOf<typeof SayHelloResponse>
-
-export const GenericAPIError = t.string
+// Generic API error runtime type
+export const GenericAPIError = t.type({
+  kind: t.literal("ERROR"),
+  error: t.string,
+})
+// Generic API Error type
 export type GenericAPIError = t.TypeOf<typeof GenericAPIError>
-
-export const SendDataRequestResponse = t.string
-export type SendDataRequestResponse = t.TypeOf<typeof SendDataRequestResponse>
-
-export const RunDataRequestResponse = t.string
-export type RunDataRequestResponse = t.TypeOf<typeof RunDataRequestResponse>
-
-export const LockWalletResponse = t.boolean
-export type LockWalletResponse = t.TypeOf<typeof LockWalletResponse>
-
-export const WalletInfoResponse = t.object
-export type WalletInfoResponse = t.TypeOf<typeof WalletInfoResponse>
-
-export const GetTransactionsResponse = t.object
-export type GetTransactionsResponse = t.TypeOf<typeof GetTransactionsResponse>
-
-export const CreateWalletResponse = t.object
-export type CreateWalletResponse = t.TypeOf<typeof CreateWalletResponse>
-
-export const CreateMnemonicsResponse = t.object
-export type CreateMnemonicsResponse = t.TypeOf<typeof CreateMnemonicsResponse>
-
-export const CreateDataRequestResponse = t.object
-export type CreateDataRequestResponse = t.TypeOf<typeof CreateDataRequestResponse>
-
-export const ImportSeedResponse = t.object
-export type ImportSeedResponse = t.TypeOf<typeof ImportSeedResponse>
-
-export const SendVTTResponse = t.object
-export type SendVTTResponse = t.TypeOf<typeof SendVTTResponse>
-
-export const UnlockWalletResponse = t.boolean
-export type UnlockWalletResponse = t.TypeOf<typeof UnlockWalletResponse>

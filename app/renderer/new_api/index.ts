@@ -1,7 +1,9 @@
 import {
   CreateDataRequestParams, CreateWalletParams,
-  GetTransactionsParams, ImportSeedParams, LockWalletParams, RunDataRequestParams, SayHelloParams, SendDataRequestParams,
-  SendVTTParams, UnlockWalletParams, GenerateAddressParams,
+  GetTransactionsParams, ImportSeedParams,
+  LockWalletParams, RunDataRequestParams, SayHelloParams,
+  SendDataRequestParams, SendVTTParams, UnlockWalletParams,
+  GenerateAddressParams,
 } from "app/common/runtimeTypes/wallet"
 
 export { sayHello } from "./sayHello"
@@ -48,7 +50,8 @@ export type ApiMethod = "createDataRequest" | "createMnemonics" | "createWallet"
 "sendDataRequest" | "sendVTT" | "unlockWallet"
 
 export type MethodArgs = CreateDataRequestParams | CreateWalletParams |
-GetTransactionsParams | ImportSeedParams | LockWalletParams | RunDataRequestParams | SayHelloParams | SendDataRequestParams |
+GetTransactionsParams | ImportSeedParams | LockWalletParams | RunDataRequestParams |
+SayHelloParams | SendDataRequestParams |
 SendVTTParams | UnlockWalletParams | GenerateAddressParams
 
 export class Client implements ApiClient<ApiMethod, MethodArgs> {

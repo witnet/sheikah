@@ -1,8 +1,10 @@
 import { ApiClient, ApiMethod, MethodArgs } from "./"
-import { GenericAPIError, CreateMnemonicsParams, Mnemonics } from "../../common/runtimeTypes/wallet"
+import { GenericAPIError, CreateMnemonicsParams, Mnemonics, JsonRT } from "../../common/runtimeTypes/wallet"
 import { asRuntimeType } from "app/common/runtimeTypes"
 
-export function createMnemonics(client: ApiClient<ApiMethod, MethodArgs>, params: CreateMnemonicsParams): Promise<any> {
+export function createMnemonics(
+  client: ApiClient<ApiMethod, MethodArgs>,
+  params: CreateMnemonicsParams): Promise<JsonRT> {
   return client
     .request("createMnemonics", params)
     .then(handleCreateMnemonicsResponse)
@@ -13,6 +15,6 @@ function handleCreateMnemonicsResponse(response: { mnemonics: Mnemonics }): Mnem
   return asRuntimeType(response, Mnemonics)
 }
 
-function handleCreateMnemonicsError(error: any): GenericAPIError {
+function handleCreateMnemonicsError(error: GenericAPIError): GenericAPIError {
   return asRuntimeType(error, GenericAPIError)
 }
