@@ -8,7 +8,7 @@ import { Services } from "app/renderer/services"
 
 const svgImage = require("svg/smartContractsHistory.svg")
 
-const layout = require("app/renderer/ui/components/main/sections/smartContracts/style.scss")
+const mainStyles = require("app/renderer/ui/components/main/style.scss")
 const styles = require("./style.scss")
 
 /**
@@ -40,7 +40,7 @@ class TabHistory extends TabComponent<any & Props> {
     ))
 
     return (
-      <div className={layout.layout}>
+      <div className={mainStyles["main-padding"]}>
         <div className={styles.templates}>
           <Wrapper
             title="BY TEMPLATE"
@@ -52,7 +52,6 @@ class TabHistory extends TabComponent<any & Props> {
             </CardDefault>
           </Wrapper>
         </div>
-
         <div className={`${styles.right}`}>
           <p className={styles.title}>About Smart Contracts</p>
           <p className={styles.text}>

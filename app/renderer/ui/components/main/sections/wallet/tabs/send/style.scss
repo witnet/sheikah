@@ -2,22 +2,24 @@
   @import "app/renderer/ui/colors";
   @import "app/renderer/ui/theme";
 
-  .pending {
-    margin: 3em;
-    width: 50vw;
+  .pay-to {
+    min-width: 400px;
   }
 
   .form {
+    align-items: flex-start;
     display: flex;
     flex-flow: column nowrap;
-    padding: 2em;
-    width: inherit;
+    min-width: 80%;
+    padding: 35px;
 
     .form-row {
+      align-items: center;
       display: flex;
       flex-flow: row nowrap;
       justify-content: flex-start;
-      margin: 5px;
+      margin: 7px;
+      width: 100%;
     }
 
     .label {
@@ -29,22 +31,21 @@
 
     .address-input {
       height: 48px;
-      margin-left: 1em;
-      width: 80%;
+      margin-left: 18px;
+      // max-width: 950px;
     }
 
     .label-input {
       align-self: center;
       height: 48px;
-      margin-left: 2.5em;
-      width: 80%;
+      margin-left: 38px;
+      // max-width: 900px;
     }
 
     .amount-input {
       height: 48px;
-      margin-left: 1.2em;
-      padding: 1.5em;
-      width: 60%;
+      margin-left: 20px;
+      max-width: 40%;
     }
 
     span {
@@ -52,8 +53,20 @@
     }
 
     .fee-input {
-      margin-left: 3.5em;
-      width: 60%;
+      height: 48px;
+      margin-left: 51px;
+      min-width: 20%;
+    }
+
+    .submit-area {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-end;
+      min-width: 100%;
+    }
+
+    .submit-btn {
+      min-width: 250px;
     }
 
     .info {
@@ -69,18 +82,6 @@
     .icon {
       font-size: 16px;
       padding: 0.5em;
-    }
-
-    .submit-area {
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: center;
-      margin: 1em;
-      width: 50%;
-    }
-
-    .submit-btn {
-      width: 15em;
     }
 
     .qr {

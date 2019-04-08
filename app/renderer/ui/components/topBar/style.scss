@@ -4,7 +4,7 @@
   .top-bar {
     border-bottom: $top_bar-border;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     justify-content: flex-start;
     padding-left: 1em;
   }

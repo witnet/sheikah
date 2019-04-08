@@ -1,11 +1,6 @@
 :local {
   @import "app/renderer/ui/theme";
 
-  .wrapper {
-    display: flex;
-    flex-flow: row nowrap;
-  }
-
   .title {
     color: $tooltip_title-color;
     font-size: $tooltip_title-font_size;
@@ -24,10 +19,6 @@
 
   .with-padding div {
     padding: 12px !important;
-  }
-
-  .main {
-    padding: 2em;
   }
 }
 

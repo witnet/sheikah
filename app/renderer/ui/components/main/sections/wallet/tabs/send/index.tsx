@@ -18,6 +18,7 @@ import {
 } from "app/renderer/ui/components/main/sections/wallet/MockData"
 
 const styles = require("./style.scss")
+const mainStyles = require("app/renderer/ui/components/main/style.scss")
 
 /**
  * TabSend component
@@ -56,12 +57,12 @@ class TabSend extends TabComponent<any> {
     const selectFeesData: Array<SelectOptionData> = mockSelectFeesData
 
     return (
-      <div className={styles.left}>
-        <Wrapper title="PAY TO" className={styles.pending}>
-          <div className={styles["new-transaction"]}>
+      <Wrapper title="PAY TO" className={`${mainStyles["main-padding"]} ${styles["pay-to"]}`}>
+        <div className={styles["form"]}>
+          <div className={styles["form-row"]}>
             <label className={styles.label}>Address</label>
             <DefaultInput
-              className={`${styles.input} ${styles["large-input"]}`}
+              className={styles["address-input"]}
               name="address"
               onChange={this.inputChange}
               value={this.state.address}
@@ -75,25 +76,31 @@ class TabSend extends TabComponent<any> {
                 <i className={`fa fa-info ${styles.icon}`} />
               </p>
             </Popover>
+          </div>
+          <div className={styles["form-row"]}>
             <label className={styles.label}>Label</label>
             <DefaultInput
-              className={`${styles.input} ${styles["large-input"]}`}
+              className={styles["label-input"]}
               name="label"
               onChange={this.inputChange}
               value={this.state.label}
             />
+          </div>
+          <div className={styles["form-row"]}>
             <label className={styles.label}>Amount</label>
             <InputAmount
-              className={`${styles.input} ${styles["small-input"]} ${styles["amount-input"]}`}
+              className={`${styles["amount-input"]}`}
               type="number"
               min="0"
               name="amount"
               onChange={this.inputChange}
               value={this.state.amount}
             />
+          </div>
+          <div className={styles["form-row"]}>
             <label className={styles.label}>Fee</label>
             <SelectFees
-              className={`${styles.input} ${styles["small-input"]}`}
+              className={styles["fee-input"]}
               dataSource={selectFeesData}
               defaultValue={selectFeesData[0].text}
               onChange={this.handleFee}
@@ -102,13 +109,17 @@ class TabSend extends TabComponent<any> {
             <Button
               type="action"
               className={styles.submit}
+          </div>
+          <div className={styles["submit-area"]}>
+            <ActionButton
+              className={styles["submit-btn"]}
               onClick={this.props.services.showUnimplementedMessage}
             >
               SIGN AND SEND
             </Button>
           </div>
-        </Wrapper>
-      </div>
+        </div>
+      </Wrapper>
     )
   }
 }

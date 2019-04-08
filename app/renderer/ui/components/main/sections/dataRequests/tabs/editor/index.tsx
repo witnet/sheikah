@@ -118,18 +118,18 @@ class TabEditor extends TabComponent<any & Props> {
               </table>
             </CardDefault>
           </div>
-        </div>
-        {/* EDITORS */}
-        <div className={`${styles.editors}`}>
-          <Wrapper title="RETRIEVAL LOGIC" className={styles.editor}>
-            <img src={svgRetrieval} />
-          </Wrapper>
-          <Wrapper title="ATTESTATION LOGIC" className={styles.editor}>
-            <img src={svgAttestation} />
-          </Wrapper>
-          <Wrapper title="DELIVERY LOGIC" className={styles.editor}>
-            <img src={svgDelivery} />
-          </Wrapper>
+          {/* EDITORS */}
+          <div className={`${styles.editors}`}>
+            <Wrapper title="RETRIEVAL LOGIC" className={styles.editor}>
+              <img src={svgRetrieval} />
+            </Wrapper>
+            <Wrapper title="ATTESTATION LOGIC" className={styles.editor}>
+              <img src={svgAttestation} />
+            </Wrapper>
+            <Wrapper title="DELIVERY LOGIC" className={styles.editor}>
+              <img src={svgDelivery} />
+            </Wrapper>
+          </div>
         </div>
       </div>
     )

@@ -10,7 +10,7 @@
   }
 
   .brand {
-    padding: 1em;
+    padding: 18px;
 
     .logo {
       width: $sidebar-logo-width;
@@ -27,37 +27,47 @@
       color: $sidebar-label-color;
       font-size: $sidebar-label-font_size;
       font-weight: bold;
-      padding-left: 2em;
-      padding-top: 1.5em;
     }
   }
 
   .current-wallet {
     background: $blue-6;
     color: $sidebar-current_wallet-color;
+    display: flex;
+    flex-flow: row wrap;
     font-weight: bold;
-    padding: 1em;
+    padding: 16px;
+  }
+
+  .current-wallet-name {
+    text-overflow: ellipsis;
   }
 
   .link-list {
-    align-content: center;
     align-items: flex-start;
     display: flex;
     flex-flow: column nowrap;
-    height: 35vh;
-    justify-content: space-around;
-    padding-top: 1em;
+    margin-top: 25px;
 
     .link {
+      align-items: center;
       border-left: $sidebar-inactive-border;
       color: $sidebar-link-color;
+      display: flex;
+      flex-flow: row nowrap;
       font-size: $sidebar-link-font_size;
       font-weight: $sidebar-link-font_weight;
-      padding: 1em;
+      margin-top: 5px;
+      padding: 10px;
       text-decoration: none;
 
+      .sidebar-icon {
+        padding: 8px;
+      }
+
       .option-icon {
-        padding: 1.5em;
+        padding: 6px;
+        width: 100%;
       }
     }
 
@@ -68,13 +78,14 @@
   }
 
   .settings {
+    align-items: center;
     border-top: $sidebar-settings-border;
     display: flex;
     flex-flow: row nowrap;
     font-size: $icon-settings-font_size;
     justify-content: space-between;
     margin-top: auto;
-    padding: 1em;
+    padding: 15px;
 
     .settings-icon {
       color: $sidebar-settings-icon-color;
@@ -84,7 +95,7 @@
 
     .net-status {
       font-size: $icon_status-font_size;
-      padding: 0.5em;
+      padding: 5px;
       text-align: right;
 
       .mainnet {
@@ -97,6 +108,37 @@
         font-weight: $sidebar-synced-font_weight;
         padding: 0.5em;
       }
+    }
+  }
+
+  @media screen and (max-width: 1250px) {
+    .brand img {
+      clip-path: circle(40px at 0);
+      transform: translateX(-4px);
+    }
+
+    .current-wallet-name {
+      transform: translateX(-10px);
+      transition: transform;
+    }
+
+    .option-icon {
+      opacity: 0;
+      transition: opacity 300ms linear;
+    }
+
+    .settings {
+      .mainnet,
+      .synced {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1250px) {
+    .option-icon {
+      opacity: 100%;
+      transition: opacity 900ms ease-in-out;
     }
   }
 }

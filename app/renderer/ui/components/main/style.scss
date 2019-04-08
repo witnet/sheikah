@@ -1,12 +1,5 @@
 :local {
   @import "app/renderer/ui/theme";
-  // GRID LAYOUT
-  .layout {
-    display: grid;
-    grid-template-columns: repeat(12, [col] 1fr);
-    margin: 0;
-    padding: 0;
-  }
 
   .wrapper {
     display: flex;
@@ -20,7 +13,13 @@
   .main {
     background: $background-color;
     height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: 85vw;
+  }
+
+  .main-padding {
+    padding: 40px;
   }
 
   .top-bar {
@@ -28,11 +27,52 @@
     width: 85vw;
   }
 
-  .receive-main {
-    grid-column: col 1 / -1;
-  }
-
   .about-side {
     display: none;
+  }
+
+  @media screen and (min-width: 50px) and (max-width: 400px) {
+    .sidebar {
+      display: none;
+      opacity: 0;
+      transition: opacity 300ms linear;
+    }
+
+    .main {
+      width: 100vw;
+    }
+
+    .top-bar {
+      width: 100vw;
+    }
+  }
+
+  @media screen and (min-width: 400px) and (max-width: 1250px) {
+    .sidebar {
+      transition: width 500ms linear;
+      width: 60px;
+    }
+
+    .main {
+      width: 95vw;
+    }
+
+    .top-bar {
+      width: 95vw;
+    }
+  }
+
+  @media screen and (min-width: 1250px) {
+    .sidebar {
+      transition: width 300ms linear;
+    }
+
+    .main {
+      width: 95vw;
+    }
+
+    .top-bar {
+      width: 95vw;
+    }
   }
 }
