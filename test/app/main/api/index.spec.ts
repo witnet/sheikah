@@ -55,7 +55,7 @@ describe("API", () => {
 
       it("should return an error if request params are not accepted by handler", async () => {
         const senderMock = jest.fn()
-        const handler = async (sys: any, params: any) => {
+        const handler = async (/* sys: any, params: any */) => {
           throw new InvalidParamsError("invalid params!")
         }
         const asyncHandler = api.asyncListenerFactory(system, { ping: handler })
@@ -72,7 +72,7 @@ describe("API", () => {
 
       it("should return an error if an Error occurs within handler", async () => {
         const senderMock = jest.fn()
-        const handler = async (sys: any, params: any) => { throw new Error("kaboom!") }
+        const handler = async (/* sys: any, params: any */) => { throw new Error("kaboom!") }
         const asyncHandler = api.asyncListenerFactory(system, { ping: handler })
         const event = syntheticEvent({ send: senderMock })
         const request = JSON.stringify({ jsonrpc: "2.0", method: "ping" })
