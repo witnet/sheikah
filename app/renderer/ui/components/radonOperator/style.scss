@@ -1,0 +1,8 @@
+:local {
+  @import "app/renderer/ui/theme";
+
+  .main {
+    border: 1px black solid;
+    max-width: 400px;
+  }
+}
