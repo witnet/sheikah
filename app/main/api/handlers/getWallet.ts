@@ -88,7 +88,8 @@ function checkWalletInfo(params: GetWalletParams, system: SubSystems): GetWallet
  * @param {SubSystems} system
  * @returns {Promise<{ storage: Storage<Buffer, JsonSerializable, Buffer, Buffer>, id: string }>}
  */
-async function replaceStorage(params: GetWalletParams, system: SubSystems): Promise<{ storage: JsonAesLevelStorage, id: string }> {
+async function replaceStorage(params: GetWalletParams, system: SubSystems):
+Promise<{ storage: JsonAesLevelStorage, id: string }> {
   const { id, password } = params
 
   try {

@@ -112,7 +112,11 @@ function seedFromMnemonics(mnemonics: string): Seed {
  * @param params
  */
 async function parseParams(params: any): Promise<ImportSeedParams> {
-  try { return asRuntimeType(params, ImportSeedParams, Contexts.IPC) } catch { throw importSeedErrors.INVALID_METHOD_PARAMS }
+  try {
+    return asRuntimeType(params, ImportSeedParams, Contexts.IPC)
+  } catch {
+    throw importSeedErrors.INVALID_METHOD_PARAMS
+  }
 }
 
 /**
