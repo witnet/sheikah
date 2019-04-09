@@ -1,4 +1,4 @@
-import Select from "./default"
+import { Select } from "./default"
 import SelectFees from "./fees"
 
 export {
