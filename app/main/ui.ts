@@ -38,6 +38,7 @@ export function createMainWindow() {
     const electronDebug = require("electron-debug")
     electronDebug()
     electronDebug.openDevTools(mainWindow)
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
     mainWindow.webContents.on("context-menu", (e: any, props: any) => {
       const { x, y } = props
 

@@ -9,7 +9,8 @@ export class LevelPersister implements Persister<Buffer, Buffer> {
    * The LevelBackend constructor takes a reference to a LevelUp backend.
    * @param {levelup.LevelUp} connection
    */
-  constructor(private connection: LevelUp) { }
+  // eslint-disable-next-line no-useless-constructor
+  public constructor(private connection: LevelUp) { }
 
   /**
    * Database closing method implementation for LevelDB.

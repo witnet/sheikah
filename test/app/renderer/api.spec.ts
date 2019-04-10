@@ -107,7 +107,7 @@ describe("api", () => {
         const errorClient = client.withOptions({
           json: {
             ...jsonSerializer,
-            async serialize(x: any) {
+            async serialize(/* x: any */) {
               // eslint-disable-next-line no-throw-literal
               throw "kaboom!"
             },

@@ -19,6 +19,7 @@ import { JsonAesLevelStorage } from "app/main/subsystems/jsonAesLevel"
  * @returns {Promise<JsonSerializable>}
  */
 export default async function getWallet(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   system: SubSystems, params: any
 ): Promise<JsonSerializable> {
   return Promise.resolve({ params })
@@ -55,6 +56,7 @@ function searchWalletInfo(walletInfos: Array<WalletInfo>, id: string): WalletInf
  * @param {{ params: any }} { params }
  * @returns {GetWalletParams}
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseParams({ params }: { params: any }): GetWalletParams {
   try {
     return asRuntimeType(params, GetWalletParams)
@@ -109,6 +111,7 @@ Promise<{ storage: JsonAesLevelStorage, id: string }> {
  * @returns {Promise<JsonSerializable>}
  */
 async function searchWallet(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   { storage, id }: { storage: JsonAesLevelStorage, id: string }
 ): Promise<JsonSerializable> {
   try {

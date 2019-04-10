@@ -15,6 +15,7 @@ export interface SelectFeesProps {
   className?: string,
   dataSource: Array<SelectOptionData>,
   defaultValue?: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange?: any,
   value: string,
 }

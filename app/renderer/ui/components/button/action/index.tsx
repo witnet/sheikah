@@ -6,7 +6,7 @@ const styles = require("./style.scss")
 
 export interface Iprops {
   className?: string,
-  onClick?: any,
+  onClick?: React.MouseEventHandler,
   disabled?: boolean,
 }
 

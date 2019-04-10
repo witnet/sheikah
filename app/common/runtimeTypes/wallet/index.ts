@@ -6,7 +6,7 @@ import { JsonSerializable } from "app/common/serializers"
  * Json runtime type. This type is intended to replace `any` and hence make function signatures
  * more strict.
  */
-const JsonRT = t.recursion<JsonSerializable>(
+export const JsonRT = t.recursion<JsonSerializable>(
   "JsonRT",
   (self) => t.union([
     t.nullType,
@@ -17,6 +17,8 @@ const JsonRT = t.recursion<JsonSerializable>(
     t.dictionary(t.string, self),
   ])
 )
+// JsonRT runtime type
+export type JsonRT = t.TypeOf<typeof JsonRT>
 
 // To be defined
 // Mnemonics runtime type

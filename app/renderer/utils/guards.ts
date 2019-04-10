@@ -4,6 +4,7 @@ import { StoreState } from "app/renderer/store"
 /**
  * All route guards must abide by this type.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RouteGuard = (store: Store<StoreState>) => (props: any) => boolean
 
 /**
@@ -12,7 +13,7 @@ type RouteGuard = (store: Store<StoreState>) => (props: any) => boolean
  */
 export const ifWallets: RouteGuard = (store) => {
   const state = store.getState()
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unused-vars
   return (props: any) => {
     return state.walletInfos.infos.length > 0
   }
@@ -24,7 +25,7 @@ export const ifWallets: RouteGuard = (store) => {
  */
 export const ifWallet: RouteGuard = (store) => {
   const state = store.getState()
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unused-vars
   return (props: any) => {
     return (state.wallet !== false)
   }

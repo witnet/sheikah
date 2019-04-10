@@ -6,8 +6,8 @@ const styles = require("./style.scss")
 
 export interface ButtonNavigationProps {
   className?: string,
-  onClick?: any,
-  text: any,
+  onClick?: React.MouseEventHandler,
+  text: string | React.ReactNode,
 }
 
 /**

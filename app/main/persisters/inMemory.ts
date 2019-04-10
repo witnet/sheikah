@@ -4,7 +4,8 @@ import { Persister } from "./index"
  * InMemoryBackend implements a mocked in-memory StorageBackend.
  */
 export class InMemoryPersister implements Persister<Buffer, Buffer> {
-  constructor(private memory: { [key: string]: Buffer } = {}) { }
+  // eslint-disable-next-line no-useless-constructor
+  public constructor(private memory: { [key: string]: Buffer } = {}) { }
 
   /**
    * Mocked database closing method implementation.

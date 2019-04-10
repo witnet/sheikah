@@ -12,8 +12,10 @@ import ErrnoException = NodeJS.ErrnoException
  * @param {string} path
  * @returns {Promise<any>}
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ensurePath = async (path: string): Promise<any> => {
   return new Promise((resolve, reject) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unused-vars
     mkdirp(path, (error: ErrnoException, made: mkdirp.Made) => {
       if (error) {
         reject(error)

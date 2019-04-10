@@ -35,6 +35,7 @@ import { config } from "app/common/config"
  * @returns {Promise<void>}
  */
 export default async function encryptWallet(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   system: AppStateS & WalletStorageS & AppStorageS, params: any
 ): Promise<JsonSerializable> {
   return parseParams(params)
@@ -52,6 +53,7 @@ export default async function encryptWallet(
 /**
  * Wrapper around asType to parse params as EncryptWalletParams
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function parseParams(params: any): Promise<EncryptWalletParams> {
   return asType(params, EncryptWalletParams, encryptWalletErrors.INVALID_METHOD_PARAMS)
 }
@@ -222,6 +224,7 @@ function newCaption(index: number): string {
  * @param keyPath
  * @param extendedKey
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function createAccount(keyPath: string, extendedKey: ExtendedKey): Account {
   const externalKeyChain = createKeyChain("external", `${keyPath}/0`)
   const internalKeyChain = createKeyChain("internal", `${keyPath}/1`)

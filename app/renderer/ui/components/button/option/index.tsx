@@ -7,7 +7,7 @@ const styles = require("./style.scss")
 
 export interface ButtonOptionProps {
   className?: string,
-  onClick?: any,
+  onClick?: React.MouseEventHandler,
   recommended?: boolean,
   secondaryText?: string,
 }

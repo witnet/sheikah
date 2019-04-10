@@ -87,6 +87,7 @@ export class TabComponent<T> extends React.Component<TabProps & T> { }
 export interface TabInfo {
   caption: string,
   // TODO: Refactor types in #451
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: React.ComponentClass<any>,
   key: string,
   path: string,

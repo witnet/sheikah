@@ -14,7 +14,7 @@ export class Storage<KeyOut, Data, Serialized, Ciphered> {
    */
   private logtag: string
 
-  constructor(
+  public constructor(
     private keyHasher: Hasher<string, KeyOut>,
     private serializer: Serializer<Data, Serialized>,
     private cipher: Cipher<Serialized, Ciphered>,

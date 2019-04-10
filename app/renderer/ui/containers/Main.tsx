@@ -86,6 +86,7 @@ const mapStateToProps = (state: StoreState): StateProps => {
  * @extends {React.Component<RouteComponentProps<any>, void>}
  */
 class MainContainer extends
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   React.Component<RouteComponentProps<any> & OwnProps & StateProps & DispatchProps> {
   // TODO review why routing to tabs with updated props does not work if here
   // /**
@@ -222,6 +223,7 @@ class MainContainer extends
 /**
  * Connect react component with redux store
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default connect<StateProps, DispatchProps, any, StoreState>(
   mapStateToProps,
   mapDispatchToProps

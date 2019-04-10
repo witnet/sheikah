@@ -6,7 +6,7 @@ const styles = require("./style.scss")
 
 export interface UnderlinedInputProps {
   className?: string,
-  onChange?: (e: React.ChangeEvent) => void,
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
   readOnly?: boolean,
   type?: string,
   value?: string,

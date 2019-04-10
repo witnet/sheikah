@@ -24,6 +24,7 @@ const createAesSettings = (pbkdPassword: string): AesCipherSettings => ({
  * @param {string} id
  * @returns Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>>
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function createJsonAesLevelStorage(args: any): Promise<JsonAesLevelStorage> {
   try {
     const { id, password } = asRuntimeType(args, JsonAesLevelStorageParams)

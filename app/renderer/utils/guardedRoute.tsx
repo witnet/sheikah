@@ -5,6 +5,7 @@ import { Route } from "react-router"
  * A guarded route renders component A or B depending on the result of executing a guard function
  * with the arguments passed to the route.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GuardedRoute extends React.Component<any> {
   /**
    * Guarded route render function.
@@ -12,6 +13,7 @@ export class GuardedRoute extends React.Component<any> {
   public render() {
     const { aCompo: A, bCompo: B, guard, ...props } = this.props
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const renderer = (props: any) => {
       return guard(props)
         ? <A {...props} services={this.props.services} />

@@ -32,6 +32,7 @@ type System = AppStateS & WalletStorageS
  * @returns {Promise<JsonSerializable>}
  */
 export default async function generateAddress(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   system: System, params: any
 ): Promise<JsonSerializable> {
   return Promise.resolve(params)
@@ -46,6 +47,7 @@ export default async function generateAddress(
 }
 
 /** Parse params into the GenerateAddressParams type */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function parseParams(params: any): Promise<GenerateAddressParams> {
   try {
     return asRuntimeType(params, GenerateAddressParams)

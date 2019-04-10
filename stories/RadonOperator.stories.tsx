@@ -1,6 +1,5 @@
 import * as React from "react"
 import { storiesOf } from "@storybook/react"
-import { action } from "@storybook/addon-actions"
 import { RadonType } from "../app/renderer/radon"
 import { RadonOperator } from "../app/renderer/ui/components/radonOperator"
 storiesOf("RadonOperator", module)

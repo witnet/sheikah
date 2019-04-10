@@ -26,6 +26,7 @@ const mainStyles = require("app/renderer/ui/components/main/style.scss")
  * @class TabSend
  * @extends {TabComponent<any>}
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 class TabSend extends TabComponent<any> {
   public state = {
     address: "",
@@ -68,7 +69,7 @@ class TabSend extends TabComponent<any> {
               value={this.state.address}
             />
             <Popover
-              content={<p>Don't forget to double check the address before pressing 'Send'</p>}
+              content={<p>Don&apos;t forget to double check the address before pressing &apos;Send&apos;</p>}
               trigger="hover"
               placement="right"
             >

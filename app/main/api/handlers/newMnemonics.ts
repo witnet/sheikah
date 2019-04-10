@@ -16,6 +16,7 @@ import { JsonSerializable } from "app/common/serializers"
  * @param system
  * @param params
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-explicit-any
 export default async function newMnemonics(system: AppStateS, params: any) {
   return Promise.resolve()
     // Get mnemonics from crypto library

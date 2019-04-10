@@ -6,7 +6,7 @@ import { WalletInfos } from "app/common/runtimeTypes/storage/wallets"
 const styles = require("./style.scss")
 
 export interface WalletSelectionProps {
-  className?: any,
+  className?: string,
   newWallet: () => void,
   nextStep: (id: string) => void,
   walletInfos: WalletInfos,

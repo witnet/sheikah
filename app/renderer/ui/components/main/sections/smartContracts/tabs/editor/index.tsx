@@ -29,6 +29,7 @@ interface Props {
  * @class TabEditor
  * @extends {TabComponent<any>}
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 class TabEditor extends TabComponent<any & Props> {
   public render() {
     return (
