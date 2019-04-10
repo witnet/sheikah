@@ -19,6 +19,7 @@ export interface RadonOperatorProps {
 export interface RadonOperatorState {
   availableMethodsNames: Array<RadonMethodName>,
   selectedMethodInfo: RadonMethod,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedArguments: Array<any>,
   radonFunctionArgument: string,
 }
@@ -31,7 +32,7 @@ export interface RadonOperatorState {
  * @extends {React.Component<RadonOperatorProps>}
  */
 export default class RadonOperator extends React.Component<RadonOperatorProps, RadonOperatorState> {
-  constructor(props: RadonOperatorProps) {
+  public constructor(props: RadonOperatorProps) {
     super(props)
 
     const availableMethodsNames = getMethodsByType(this.props.inputType)

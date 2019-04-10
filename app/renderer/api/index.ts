@@ -32,6 +32,7 @@ export interface Options {
   /** Generator of request ids used by the client */
   idGen: ipc.RequestIdGenerator,
   /** Function that handles the message deserialization and interpretation */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   messageHandler: (json: JsonSerializer, message: string) => Promise<any>,
   /** Json serializer to use for (de)serializing requests/responses */
   json: JsonSerializer,
@@ -40,7 +41,9 @@ export interface Options {
 /** ApiClient interface that concrete api clients must implement */
 export interface ApiClient {
   withOptions(opts: Partial<Options>): ApiClient,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   notify(method: string, ...args: Array<any>): void,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   request(method: string, ...args: Array<any>): Promise<any>,
 }
 
@@ -58,6 +61,7 @@ export const defaultOptions: Options = {
  * Default message handler used in Api Client's `defaultOptions`. This handler is the one processing
  * response messages from Electron's IPC Main process.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function defaultMessageHandler(json: JsonSerializer, message: string): Promise<any> {
   try {
     const obj = await json.deserialize(message)
@@ -77,7 +81,8 @@ export async function defaultMessageHandler(json: JsonSerializer, message: strin
  * protocol to Electron's IPC Main process.
  */
 export class Client implements ApiClient {
-  constructor(public options: Options = defaultOptions) { }
+  // eslint-disable-next-line no-useless-constructor
+  public constructor(public options: Options = defaultOptions) { }
 
   /** Returns a new client with its options overriden by `newOpts`. */
   public withOptions(newOpts: Partial<Options>): Client {
@@ -92,6 +97,7 @@ export class Client implements ApiClient {
    * preparing the payload of the request.
    */
   public async notify(method: string, params: JsonSerializable = null): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return this.send(method, params).then((result) => undefined)
   }
 
@@ -101,11 +107,13 @@ export class Client implements ApiClient {
    * a response doesn't arrive in `ipc.timeout` milliseconds (by default) or if
    * any error ocurrs preparing the payload of the request.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async request(method: string, params: JsonSerializable = null): Promise<any> {
     return this.send(method, params, this.options.idGen())
   }
 
   /** Helper method that contains the common logic for sending requests or notifications. */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private async send(method: string, params: JsonSerializable, id?: string | number): Promise<any> {
     const { channel, timeout, ipc, json, messageHandler } = this.options
     const replyChannel = id ? protocol.replyChannel(id) : null
@@ -116,6 +124,7 @@ export class Client implements ApiClient {
       if (replyChannel) {
         log.debug(`[IPC Renderer] Client sending request ${request.method} (${replyChannel})`)
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unused-vars
         ipc.once(replyChannel, (event: any, message: string) => {
           log.debug(`[IPC Renderer] Client received response for ${request.method}: ${message}`)
           messageHandler(json, message).then(resolve).catch(reject)

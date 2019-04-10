@@ -7,11 +7,13 @@ export interface DefaultDropdownProps {
   className?: string,
   classNameItem?: string,
   classNameList?: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSource: Array<{ text: any, onClick: any }>,
   menu?: JSX.Element,
   menuItemStyle?: string,
   menuStyle?: string,
   placement: "topLeft" | "topCenter" | "topRight" | "bottomLeft" | "bottomCenter" | "bottomRight",
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderItem?: any,
   trigger: Array<("click" | "hover")>,
 }
@@ -54,6 +56,7 @@ export default class DefaultDropdown extends React.Component<DefaultDropdownProp
      * Menu items of the dropdown
      */
     const menuItems = (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.props.dataSource.map((data: { text: any, onClick: any }, index: number) => (
         <Menu.Item key={index} className={this.props.menuItemStyle}>
           {data.text}

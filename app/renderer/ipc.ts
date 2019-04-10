@@ -4,6 +4,7 @@ export * from "app/common/ipc"
 /**
  * Listener type specific to Electron's renderer-process
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Listener = (e: any, message: string) => void
 
 /**
@@ -12,7 +13,9 @@ export type Listener = (e: any, message: string) => void
  */
 export interface Ipc {
   once(channel: string, listener: Listener): void,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   send(channel: string, ...args: Array<any>): void,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendSync(channel: string, ...args: Array<any>): any,
   removeAllListeners(channel: string): void,
 }

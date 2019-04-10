@@ -5,6 +5,7 @@ const styles = require("./style.scss")
 
 export interface Iprops {
   className?: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   type?: any,
   title: string,
   description?: string,

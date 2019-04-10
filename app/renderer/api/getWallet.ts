@@ -23,6 +23,7 @@ export async function getWallet(client: ApiClient, id: string, password: string)
  * Function to check that the received response is a valid response
  * @param response
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseResponse(response: any) {
   try {
     return asRuntimeType(response, GetWalletResponse, Contexts.IPC)

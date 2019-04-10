@@ -32,6 +32,7 @@ export interface StateProps {
  * Props that match redux actions
  */
 export interface DispatchProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   actions: any,
   goBack: () => void,
   goTo: (path: string) => void,
@@ -80,6 +81,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
  * Function to assert a never value
  * @param x
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const assertNever = (x: never) => undefined
 
 /**
@@ -259,6 +261,7 @@ class LoginFormContainer extends React.Component<StateProps & DispatchProps & Ow
 /**
  * Connect react component with redux store
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default connect<StateProps, DispatchProps, any, StoreState>(
   mapStateToProps,
   mapDispatchToProps

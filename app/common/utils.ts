@@ -10,6 +10,7 @@ interface StringToString { [key: string]: string }
 export function kvSwap(obj: NumberToString): StringToNumber
 export function kvSwap(obj: StringToNumber): NumberToString
 export function kvSwap(obj: StringToString): StringToString
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function kvSwap(obj: StringToNumber | NumberToString | StringToString): any {
   return Object
     .entries(obj)
@@ -18,4 +19,5 @@ export function kvSwap(obj: StringToNumber | NumberToString | StringToString): a
     }, {})
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const assertNever = (_x: never) => undefined

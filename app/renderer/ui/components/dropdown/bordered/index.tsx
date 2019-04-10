@@ -10,7 +10,9 @@ export interface DropdownBorderedProps {
   className?: string,
   classNameItem?: string,
   classNameList?: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSource: Array<({ text: any, onClick: any })>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderItem?: any,
 }
 
@@ -52,6 +54,7 @@ export default class DropdownBordered extends React.Component<DropdownBorderedPr
      * Menu items of the dropdown
      */
     const menuItems = (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.props.dataSource.map((data: { text: any, onClick: any }, index: number) => (
         <Menu.Item key={index} className={styles.menuItem}>
           {data.text}

@@ -28,6 +28,7 @@ interface Props {
  * @class TabHistory
  * @extends {TabComponent<any & Props>}
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 class TabHistory extends TabComponent<any & Props> {
   public render() {
     // Options to be shown in the Dropdown menu
@@ -51,7 +52,7 @@ class TabHistory extends TabComponent<any & Props> {
           <p className={styles.title}>About data requests</p>
           <p className={styles.text}>
             Data requests are scripts that tell Witnet where to retrieve data.
-            You can think of them as the <em>"if-this-then-that"</em> of
+            You can think of them as the <em>&quot;if-this-then-that&quot;</em> of
             blockchains.
           </p>
           <p className={styles.text}>
@@ -63,8 +64,8 @@ class TabHistory extends TabComponent<any & Props> {
           </p>
           <p className={styles.text}>
             Every time you deploy a data request, you can choose how many Witnet
-            nodes will be processing the request. This is called "replication
-            factor". The more nodes, the higher the fidelity of the request will
+            nodes will be processing the request. This is called &quot;replication
+            factor&quot;. The more nodes, the higher the fidelity of the request will
             be. For each additional replication factor, there will be additional
             costs to the requester.
           </p>

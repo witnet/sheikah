@@ -8,7 +8,9 @@ const Option = Select.Option
 export interface SelectDefaultProps {
   className?: string,
   defaultValue?: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange?: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSource: Array<any>,
 }
 

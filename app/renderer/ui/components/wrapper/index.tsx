@@ -7,13 +7,13 @@ const receiveStyles =
   require("app/renderer/ui/components/main/sections/wallet/tabs/receive/style.scss")
 
 export interface WrapperProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   actions?: Array<{ text: any, onClick: any }>,
   caption?: string,
   className?: string,
   contentClassName?: string,
   empty?: boolean,
   title?: string,
-
 }
 
 /**

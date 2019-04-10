@@ -22,6 +22,8 @@ const JsonRT = t.recursion<JsonSerializable>(
     t.dictionary(t.string, self),
   ])
 )
+/** JsonRT runtime type */
+type JsonRT = t.TypeOf<typeof JsonRT>
 
 /** Version runtime type */
 const Version = t.literal("2.0")
@@ -188,7 +190,7 @@ export function successResponse(result: JsonSerializable, id: Id): Response {
 /**
  * Factory function to build unsuccessful Response objects.
  */
-export function errorResponse(error: Err, id: Id, data?: any): Response {
+export function errorResponse(error: Err, id: Id, data?: JsonRT): Response {
   return {
     jsonrpc,
     id,
@@ -204,6 +206,7 @@ export function errorResponse(error: Err, id: Id, data?: any): Response {
  * @returns {Promise<Request>} A resolved promise with the request object
  * on success, or a rejected object with an array of error messages.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function decodeRequest(request: any): Promise<Request> {
   const result = Request.decode(request)
 
@@ -219,6 +222,7 @@ export async function decodeRequest(request: any): Promise<Request> {
  * @param {Request} request The request object value.
  * @returns {any} The primitive object value.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function encodeRequest(request: Request): any {
   return Request.encode(request)
 }
@@ -231,6 +235,7 @@ export function encodeRequest(request: Request): any {
  * @returns {Promise<Response>} A resolved promise with the response object
  * on success, or a rejected object with an array of error messages.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function decodeResponse(response: any): Promise<Response> {
   const result = Response.decode(response)
 
@@ -246,6 +251,7 @@ export async function decodeResponse(response: any): Promise<Response> {
  * @param {Response} response The response object value.
  * @returns {any} The primitive object value.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function encodeResponse(response: Response): any {
   return Response.encode(response)
 }

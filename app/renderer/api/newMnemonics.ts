@@ -28,6 +28,7 @@ export async function newMnemonics(client: ApiClient): Promise<NewMnemonicsRespo
  * @param {*} response
  * @returns
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseResponse(response: any) {
   try {
     return asRuntimeType(response, NewMnemonicsResponse, Contexts.IPC)

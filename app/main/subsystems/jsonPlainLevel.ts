@@ -39,7 +39,7 @@ export class JsonPlainLevelSubSystem implements Lifecycle<JsonPlainLevelStorage,
    */
   private initializer: JsonSerializableObject
 
-  constructor(name: string, initializer = {}) {
+  public constructor(name: string, initializer = {}) {
     this.name = name
     this.initializer = initializer
   }
@@ -48,6 +48,7 @@ export class JsonPlainLevelSubSystem implements Lifecycle<JsonPlainLevelStorage,
    * Start the Storage lifecycle.
    * @param config
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async start(config?: Partial<Config>) {
     log.debug(`Starting "${this.name}" storage subsystem...`)
 

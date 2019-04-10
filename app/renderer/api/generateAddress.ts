@@ -31,6 +31,7 @@ export async function generateAddress(
  * Function to check that the received response is a valid response
  * @param response
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseResponse(response: any) {
   try {
     return asRuntimeType(response, GenerateAddressResponse, Contexts.IPC)
@@ -42,6 +43,7 @@ function parseResponse(response: any) {
 /**
  * Function to build a generic IPC error that abstracts from IPC errors
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unused-vars,handle-callback-err
 function buildError(error: any) {
   return buildGenerateAddressError(
     t.literal<GenerateAddressErrors>(generateAddressErrors.GENERIC_IPC_ERROR.value)

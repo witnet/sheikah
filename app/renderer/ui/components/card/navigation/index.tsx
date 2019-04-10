@@ -8,7 +8,9 @@ const styles = require("./style.scss")
 
 export interface NavigationCardProps {
   className?: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   nextStep?: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   previousStep?: any,
   title?: string,
   backText?: string,

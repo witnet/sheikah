@@ -57,6 +57,7 @@ export interface StateProps {
  * @interface DispatchProps
  */
 export interface DispatchProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   actions: any,
 }
 
@@ -96,6 +97,7 @@ const mapStateToProps = (state: StoreState): StateProps => {
  * @extends {(React.Component<RouteComponentProps<any> & Props & StateProps & DispatchProps>)}
  */
 class WalletFormContainer extends
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   React.Component<RouteComponentProps<any> & Props & StateProps & DispatchProps> {
   /**
    * Component state
@@ -386,7 +388,7 @@ class WalletFormContainer extends
    * @private
    * @memberof WalletFormContainer
    */
-  private onChangeInput = async (ev: any) => {
+  private onChangeInput = async (ev: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ confirmMnemonics: ev.target.value.replace("\n", "") })
     if (this.state.mnemonics === this.state.confirmMnemonics) {
       this.setState({ seedErrorMessage: "" })
@@ -399,7 +401,7 @@ class WalletFormContainer extends
    * @private
    * @memberof WalletFormContainer
    */
-  private onChangePassword = async (ev: any) => {
+  private onChangePassword = async (ev: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ password: ev.target.value })
     if (this.state.password === this.state.repeatPassword) {
       this.setState({ passwordErrorMessage: "" })
@@ -412,7 +414,7 @@ class WalletFormContainer extends
    * @private
    * @memberof WalletFormContainer
    */
-  private OnChangeRepeatPassword = async (ev: any) => {
+  private OnChangeRepeatPassword = async (ev: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ repeatPassword: ev.target.value })
     if (this.state.password === this.state.repeatPassword) {
       this.setState({ passwordErrorMessage: "" })
@@ -425,7 +427,7 @@ class WalletFormContainer extends
    * @private
    * @memberof WalletFormContainer
    */
-  private onChangeImportSeed = async (ev: any) => {
+  private onChangeImportSeed = async (ev: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ importSeed: ev.target.value.replace("\n", "") })
   }
 
@@ -652,6 +654,7 @@ class WalletFormContainer extends
 /**
  * Connect react component with redux store
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default connect<StateProps, DispatchProps, any, StoreState>(
   mapStateToProps,
   mapDispatchToProps

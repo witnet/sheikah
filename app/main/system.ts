@@ -23,6 +23,7 @@ export interface JsonS { json: JsonSerializer }
 export interface AppStorageS { appStorage: JsonPlainLevelStorage }
 export interface WalletStorageS {
   walletStorage: WalletStorage,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   storageFactory: (args: any) => Promise<Storage<Buffer, JsonSerializable, Buffer, Buffer>>,
 }
 export interface AppStateS { appStateManager: AppStateManager }

@@ -8,6 +8,7 @@ import { AppStateS } from "app/main/system"
  * @param system
  * @param params
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-explicit-any
 export default async function getWalletInfos(system: AppStateS, params: any) {
   return asObject(system.appStateManager.state.walletInfos, WalletInfos)
 }

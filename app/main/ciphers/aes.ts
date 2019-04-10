@@ -5,6 +5,7 @@ import { Cipher } from "./index"
  * Cipher implementation for AES encryption/decryption
  */
 export class AesCipher implements Cipher<Buffer, Buffer> {
+  // eslint-disable-next-line no-useless-constructor
   public constructor(private settings: AesCipherSettings) { }
 
   /**

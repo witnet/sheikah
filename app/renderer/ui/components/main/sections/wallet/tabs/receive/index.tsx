@@ -66,6 +66,7 @@ interface Props {
  * @class TabReceive
  * @extends {TabComponent<any & Props>}
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 class TabReceive extends TabComponent<any & Props> {
   /**
    * Local state to form inputs and loading state
@@ -158,7 +159,7 @@ class TabReceive extends TabComponent<any & Props> {
    * List item handle click method
    * @param e click params
    */
-  private handleClick = async (e: any) => {
+  private handleClick = async () => {
     // Set loading state
     this.setState({ loading: true, errorMessage: "" })
 
@@ -202,7 +203,7 @@ class TabReceive extends TabComponent<any & Props> {
       * @private
       * @memberof TabReceive
       */
-  private handleCheck = async (checked: boolean) => {
+  private handleCheck = async (/* checked: boolean */) => {
     this.setState({ check: !this.state.check })
   }
   /**

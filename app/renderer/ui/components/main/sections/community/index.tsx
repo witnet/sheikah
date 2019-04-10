@@ -18,7 +18,7 @@ const styles = require("./styles.scss")
  * Method to open a link in the default external app (browser, mail client...)
  * @param url
  */
-const openInExternalApp = (url: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+const openInExternalApp = (url: string) => () => {
   shell.openExternal(url)
 }
 

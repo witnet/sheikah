@@ -7,11 +7,13 @@ import rootReducer from "app/renderer/reducers"
 import { StoreState } from "app/renderer/store"
 
 declare const window: Window & {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?(a: any): void,
 }
 
 declare const module: NodeModule & {
   hot?: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     accept(...args: Array<any>): any,
   },
 }
@@ -37,6 +39,7 @@ const composeEnhancers: typeof compose =
       /* eslint-disable-next-line:max-line-length */
       // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
       actionCreators,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }) as any
     : compose
 
@@ -47,6 +50,7 @@ const composeEnhancers: typeof compose =
  * @param services
  */
 function configureStore(initialState: StoreState) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const middlewares: Array<any> = [router]
   if (process.env.NODE_ENV === "development") {
     middlewares.push(logger)

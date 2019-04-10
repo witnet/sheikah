@@ -7,7 +7,7 @@ import { DefaultInput } from "app/renderer/ui/components/input"
 const styles = require("./style.scss")
 
 export interface WalletPasswordRequestProps {
-  className?: any,
+  className?: string,
   errorMessage?: string,
   nextStep: (password: string) => void,
   prevStep: () => void,
@@ -34,6 +34,7 @@ export default class WalletPasswordRequest extends React.Component<WalletPasswor
    * @param {React.FormEvent} event
    */
   private handlePassword = (event: React.FormEvent) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.setState({ password: (event.target as any).value })
   }
 

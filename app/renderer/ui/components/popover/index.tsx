@@ -3,7 +3,7 @@ import { Popover } from "antd"
 
 export interface PopoverDefaultProps {
   className?: string,
-  content: any,
+  content: React.ReactNode,
   placement?: "top" | "left" | "right" | "bottom" | "topLeft" | "topRight" | "bottomLeft" |
   "bottomRight" | "leftTop" | "leftBottom" | "rightTop" | "rightBottom",
   title?: string,

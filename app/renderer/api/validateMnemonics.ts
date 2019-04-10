@@ -47,6 +47,7 @@ export const validateXprv = async (client: Client, xprv: string): Promise<Import
  * @param {*} response
  * @returns
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseResponse(response: any) {
   try {
     return asRuntimeType(response, ImportSeedResponse, Contexts.IPC)

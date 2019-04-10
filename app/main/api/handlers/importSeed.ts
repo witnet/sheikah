@@ -24,6 +24,7 @@ import { fromMnemonics } from "app/main/crypto/seed"
  * If there is no `UnconsolidatedWallet` in the app state, it will create one with the mnemonics.
  * In both cases it will also generate a wallet ID and return it.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function importSeed({ appStateManager }: AppStateS, params: any): Promise<JsonSerializable> {
   // First of all, parse method parameters
   return parseParams(params)
@@ -41,6 +42,7 @@ export default async function importSeed({ appStateManager }: AppStateS, params:
 }
 
 // Function to assert a never value
+// eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-explicit-any
 const assertNever = (_x: never) => undefined
 
 /**
@@ -111,6 +113,7 @@ function seedFromMnemonics(mnemonics: string): Seed {
  * Parse handler parameters as ValidateMnemonicsParams runtime type.
  * @param params
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function parseParams(params: any): Promise<ImportSeedParams> {
   try {
     return asRuntimeType(params, ImportSeedParams, Contexts.IPC)

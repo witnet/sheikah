@@ -5,13 +5,13 @@ import { Input } from "antd"
 export interface DefaultInputProps {
   className?: string,
   disabled?: boolean,
-  min?: any,
+  min?: string | number | undefined,
   name?: string,
   onBlur?: React.ChangeEventHandler,
   onChange?: React.ChangeEventHandler,
   onKeyUp?: React.KeyboardEventHandler,
   type?: string,
-  value?: any,
+  value?: string | number | Array<string> | undefined,
 }
 
 /**

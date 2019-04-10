@@ -8,9 +8,12 @@ export interface WalletSeedValidationProps {
   className?: string,
   errorMessage?: string,
   inputValue: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   nextStep: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeInput?: any,
   paragraphs: Array<string>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   previousStep: any,
   title: string,
 }

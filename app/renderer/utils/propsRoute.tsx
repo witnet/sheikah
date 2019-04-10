@@ -10,12 +10,14 @@ import { RoutesProps } from "app/renderer/routes"
  * and the props of that component will be a merge between RouteComponentProps and
  * additional props (RoutesProps)
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class PropsRoute extends React.Component<any> {
   /**
    * Function to render a component combining RouteComponentProps with RoutesProps
    * as props
    */
-  private withOwnProps = (A: typeof React.Component, routesProps: RoutesProps, children: any) =>
+  private withOwnProps = (A: typeof React.Component, routesProps: RoutesProps, children: React.ReactNode) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (props: RouteComponentProps<any>) => (<A {...routesProps} {...props}>{children}</A>)
 
   /**

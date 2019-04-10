@@ -6,16 +6,19 @@ import EmptyState from "app/renderer/ui/components/emptyState"
 
 const styles = require("./style.scss")
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isClickableOption = (item: any) => item.onClick && item.text
 
 export interface DefaultListProps {
   borderer?: boolean,
   classNameItem?: string,
   classNameList?: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSource: Array<(string | { text: any, onClick: any } | any)>,
   emptyIcon?: string,
   emptyText?: string,
   grid?: {},
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderItem?: any,
 }
 
@@ -36,6 +39,7 @@ export default class DefaultList extends React.Component<DefaultListProps> {
    * @returns
    * @memberof DefaultList
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private createClickableOption = (item: any) => {
     return (
       <ButtonOption
@@ -55,6 +59,7 @@ export default class DefaultList extends React.Component<DefaultListProps> {
    * @returns
    * @memberof DefaultList
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private createStaticOption = (item: any) => {
     return (
       this.props.renderItem
@@ -71,6 +76,7 @@ export default class DefaultList extends React.Component<DefaultListProps> {
    * @returns
    * @memberof DefaultList
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private createRenderItem = (item: any) => {
     return isClickableOption(item)
       ? this.createClickableOption(item)

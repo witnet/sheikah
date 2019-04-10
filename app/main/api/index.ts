@@ -35,6 +35,7 @@ export const asyncListenerFactory = genericListenerFactory(
  * @returns {(event: Event, req: string) => void} The listener function
  */
 export const syncListenerFactory = genericListenerFactory(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (responseChannel: string) => {
     return async (event: Event, response: string) => {
       event.returnValue = response

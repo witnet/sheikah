@@ -26,6 +26,7 @@ interface Props {
  * @class TabHistory
  * @extends {TabComponent<any>}
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 class TabHistory extends TabComponent<any & Props> {
   public render() {
     // Options to be shown in the Dropdown menu
