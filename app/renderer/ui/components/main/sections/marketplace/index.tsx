@@ -7,6 +7,7 @@ import {
 
 import * as urls from "app/renderer/constants/urls"
 import { marketplaceProducts } from "app/renderer/ui/components/main/sections/marketplace/MockData"
+import  { RadonQuery }  from "app/renderer/ui/components/query"
 
 const styles = require("./style.scss")
 const items = marketplaceProducts.map((item, i) => (
@@ -35,6 +36,7 @@ const items = marketplaceProducts.map((item, i) => (
 class Marketplace extends React.Component<SectionProps> {
   public render() {
     return (
+<<<<<<< HEAD
       <div>
         <header className={styles.header}>
           <div className={styles["header-text"]}>
@@ -103,6 +105,77 @@ class Marketplace extends React.Component<SectionProps> {
             </div>
           </nav>
         </div>
+=======
+      // <div className={grid.layout}>
+      //   <header className={styles.header}>
+      //     <div className={styles["header-text"]}>
+      //       <h1>
+      //         <span className={styles.title1}>Sheikah</span>
+      //         <span className={styles.title2}>Marketplace</span>
+      //       </h1>
+      //       <p className={styles.subtitle}>
+      //         Hundreds of data request and smart contact templates, ready to be
+      //         deployed
+      //       </p>
+      //     </div>
+      //   </header>
+      //   <main className={styles.main}>
+      //     <div className={styles.featured}>
+      //       <h2 className={styles["section-title"]}>Featured</h2>
+      //       <div className={styles.row}>
+      //         {items}
+      //       </div>
+      //     </div>
+      //     <div className={styles.insurance}>
+      //       <h2 className={styles["section-title"]}>Insurance</h2>
+      //       <div className={styles.row}>
+      //         {items}
+      //       </div>
+      //     </div>
+      //   </main>
+      //   <nav className={styles.nav}>
+      //     <ul className={styles["navbar-categories"]}>
+      //       <li className={`${styles["navbar-item"]} ${styles["nav-border"]}`}>
+      //         <a href="#">All categories</a>
+      //       </li>
+      //       <li className={`${styles["navbar-item"]} ${styles["nav-border"]}`}>
+      //         <a href="#">Top Charts</a>
+      //       </li>
+      //       <li className={styles["navbar-item"]}>
+      //         <a href="#">New releases</a>
+      //       </li>
+      //     </ul>
+      //     <div className={`${styles.tags} ${styles.down}`}>
+      //       <h4>Tags</h4>
+      //       <hr className={styles.bar} />
+      //       <ul className={styles["hashtag-list"]}>
+      //         <li>
+      //           <a className={`${styles["hashtag-item"]}`} href="#">
+      //             #bet
+      //           </a>
+      //         </li>
+      //         <li>
+      //           <a className={`${styles["hashtag-item"]}`} href="#">
+      //             #multisig
+      //           </a>
+      //         </li>
+      //         <li>
+      //           <a className={`${styles["hashtag-item"]}`} href="#">
+      //             #oracle
+      //           </a>
+      //         </li>
+      //         <li>
+      //           <a className={`${styles["hashtag-item"]}`} href="#">
+      //             #parametric
+      //           </a>
+      //         </li>
+      //       </ul>
+      //     </div>
+      //   </nav>
+      // </div>
+      <div>
+        <RadonQuery></RadonQuery>
+>>>>>>> wip initial component definition
       </div>
     )
   }

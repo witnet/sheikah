@@ -1,0 +1,12 @@
+:local {
+  .section {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  .column{
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 20px;
+  }
+}
