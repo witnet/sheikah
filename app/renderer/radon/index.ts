@@ -1,6 +1,6 @@
 import { objectValues } from "../utils/objectValues"
 
-export type RadonTypeName = "Array" | "Boolean" | "Float" | "Int" | "Map" | "Mixed" | "Null" | "Result" | "String"
+export type RadonTypeName = "array" | "boolean" | "float" | "int" | "map" | "mixed" | "null" | "result" | "string"
 
 export type RadonFunction = "FUNCTION_FILTER" | "FUNCTION_MAP" | "FUNCTION_REDUCE" | "FUNCTION_HASH"
 export type RadonMethodName = "ARRAY_COUNT" | "ARRAY_EVERY" | "ARRAY_FILTER" | "ARRAY_FLATTEN" |
@@ -87,15 +87,15 @@ enum ReduceFunction {
 }
 
 export enum RadonType {
-  Array = "Array",
-  Boolean = "Boolean",
-  Float = "Float",
-  Int = "Int",
-  Map = "Map",
-  Mixed = "Mixed",
-  Null = "Null",
-  Result = "Result",
-  String = "String",
+  Array = "array",
+  Boolean = "boolean",
+  Float = "float",
+  Int = "int",
+  Map = "map",
+  Mixed = "mixed",
+  Null = "null",
+  Result = "result",
+  String = "string",
 }
 
 export enum ArrayMethod {
@@ -731,15 +731,15 @@ export function getMethodsByType(type: RadonType) {
   type RadonTypeMap = { [K in RadonTypeName]: () => Array<RadonMethodName> }
 
   const radonTypeMap: RadonTypeMap = {
-    Array: () => objectValues(ArrayMethod),
-    Boolean: () => objectValues(BooleanMethod),
-    Float: () => objectValues(FloatMethod),
-    Int: () => objectValues(IntMethod),
-    Map: () => objectValues(MapMethod),
-    Mixed: () => objectValues(MixedMethod),
-    Null: () => objectValues(NullMethod),
-    Result: () => objectValues(ResultMethod),
-    String: () => objectValues(StringMethod),
+    array: () => objectValues(ArrayMethod),
+    boolean: () => objectValues(BooleanMethod),
+    float: () => objectValues(FloatMethod),
+    int: () => objectValues(IntMethod),
+    map: () => objectValues(MapMethod),
+    mixed: () => objectValues(MixedMethod),
+    null: () => objectValues(NullMethod),
+    result: () => objectValues(ResultMethod),
+    string: () => objectValues(StringMethod),
   }
 
   return radonTypeMap[type]()
@@ -748,7 +748,7 @@ export function getMethodsByType(type: RadonType) {
 export function getMethodInformation(method: RadonMethodName) {
   type MethodInformationMap = { [K in RadonMethodName]: RadonMethod }
   const methodInformationMap: MethodInformationMap = {
-    // array
+    // Array
     ARRAY_COUNT: arrayCount,
     ARRAY_EVERY: arrayEvery,
     ARRAY_FILTER: arrayFilter,

@@ -13,7 +13,8 @@ import {
 const styles = require("./style.scss")
 
 export interface RadonOperatorProps {
-  inputType: RadonType,
+  inputType?: RadonType,
+  methodInformation?: RadonMethod,
 }
 
 export interface RadonOperatorState {
@@ -34,17 +35,26 @@ export interface RadonOperatorState {
 export default class RadonOperator extends React.Component<RadonOperatorProps, RadonOperatorState> {
   public constructor(props: RadonOperatorProps) {
     super(props)
+    if (props.methodInformation) {
+      const methodNames = getMethodsByType(props.methodInformation.name.split("_")[0].toLowerCase() as RadonType)
+      this.state = {
+        selectedMethodInfo: props.methodInformation,
+        availableMethodsNames: methodNames,
+        selectedArguments: props.methodInformation.arguments.map(getAvailableArguments),
+        radonFunctionArgument: "",
+      }
+    } else if (props.inputType) {
+      const availableMethodsNames = getMethodsByType(props.inputType)
+      const selectedMethodInfo = getMethodInformation(availableMethodsNames[0])
 
-    const availableMethodsNames = getMethodsByType(this.props.inputType)
-    const selectedMethodInfo = getMethodInformation(availableMethodsNames[0])
+      const selectedArguments = selectedMethodInfo.arguments.map(getAvailableArguments)
 
-    const selectedArguments = selectedMethodInfo.arguments.map(getAvailableArguments)
-
-    this.state = {
-      availableMethodsNames,
-      selectedMethodInfo,
-      selectedArguments,
-      radonFunctionArgument: "",
+      this.state = {
+        availableMethodsNames,
+        selectedMethodInfo,
+        selectedArguments,
+        radonFunctionArgument: "",
+      }
     }
   }
 

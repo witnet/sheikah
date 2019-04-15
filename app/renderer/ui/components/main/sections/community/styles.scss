@@ -1,6 +1,16 @@
 :local {
   @import "app/renderer/ui/theme";
 
+  a {
+    color: $blue-6;
+    cursor: pointer;
+    display: block;
+    font-size: 1.3em;
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+
   .content {
     padding: 20px;
   }
@@ -36,14 +46,16 @@
       position: relative;
       transition: box-shadow 0.1s ease;
 
-      a {
-        color: $blue-6;
-        cursor: pointer;
-        display: block;
-        font-size: 1.3em;
-        font-weight: 500;
-        margin-bottom: 10px;
-        text-decoration: none;
+      &:hover {
+        box-shadow: $default-box-shadow-active;
+
+        a {
+          text-decoration: underline;
+        }
+
+        img {
+          transform: rotate(-15deg) scale(1.1);
+        }
       }
 
       .back {
@@ -55,18 +67,6 @@
         right: -25px;
         transition: transform 0.2s ease;
         width: 100px;
-      }
-
-      &:hover {
-        box-shadow: $default-box-shadow-active;
-
-        a {
-          text-decoration: underline;
-        }
-
-        img {
-          transform: rotate(-15deg) scale(1.1);
-        }
       }
     }
   }
@@ -83,4 +83,3 @@
     }
   }
 }
-

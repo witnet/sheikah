@@ -1,11 +1,7 @@
 import * as React from "react"
-import {
-  RADRetrieveArgs,
-  CreateDataRequestParams as RadRequest,
-  RADAggregateArgs,
-  RADConsensusArgs,
-} from "../../../../../common/runtimeTypes/wallet"
-
+import { RADRetrieveArgs, CreateDataRequestParams as RadRequest,
+  RADAggregateArgs, RADConsensusArgs } from "../../../../../common/runtimeTypes/wallet"
+import RadonScript from "../radonScript"
 const style = require("./style.scss")
 
 export interface RadonQueryState {
@@ -98,7 +94,7 @@ export default class RadonQuery extends React.Component<RadonQueryProps, RadonQu
   }
   public render() {
     return (
-      <div>
+      <>
         <section className={style.section}>
           <div className={style.column}>
             <h1>Request</h1>
@@ -117,7 +113,7 @@ export default class RadonQuery extends React.Component<RadonQueryProps, RadonQu
             <h1>Aggregate</h1>
           </div>
           <div className={style.column}>
-            {this.renderAggregate()}
+            <RadonScript radonScript={["ARRAY_FILTER", "ARRAY_GET"]} />
           </div>
         </section>
         <br></br>
@@ -139,8 +135,7 @@ export default class RadonQuery extends React.Component<RadonQueryProps, RadonQu
             <input placeholder="url"></input>
           </div>
         </section>
-
-      </div>
+      </>
     )
   }
 }

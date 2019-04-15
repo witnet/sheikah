@@ -1,8 +1,11 @@
 import * as React from "react"
 import { storiesOf } from "@storybook/react"
-import { RadonQuery } from "../app/renderer/ui/components/query"
+import { RadonQuery, RadonScript } from "../app/renderer/ui/components/query"
 
-storiesOf("RadonQuery", module)
+storiesOf("Radon", module)
+  .add("RadonScript", () => {
+    return <RadonScript radonScript={["ARRAY_COUNT", "FLOAT_MODULO", "STRING_LENGTH"]} />
+  })
   .add("RadonQuery", () => {
     const retrieve = {
       notBefore: 0,
@@ -36,7 +39,6 @@ storiesOf("RadonQuery", module)
         { kind: "HTTP_POST", url: "https://localhost:3000" },
       ],
     }
-
     return <RadonQuery request={retrieve} />
   }
   )
