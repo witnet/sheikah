@@ -52,7 +52,6 @@ export type RADRetrieveArgs = t.TypeOf<typeof RADRetrieveArgs>
 export const RADAggregateArgs = t.type({
   script: t.array(JsonRT),
 })
-
 // RADAggregate args type
 export type RADAggregateArgs = t.TypeOf<typeof RADAggregateArgs>
 

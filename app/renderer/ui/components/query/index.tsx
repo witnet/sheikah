@@ -1,5 +1,5 @@
-import RadonQuery  from "./radonQuery"
+import RadonQuery from "./radonQuery"
 
 export {
-  RadonQuery
+  RadonQuery,
 }
