@@ -1,27 +1,37 @@
 import * as React from "react"
 
 import {
-  getMethodInformation,
-  getMethodsByType,
-  RadonType,
-  getRadonFunctionsByType,
-  RadonMethodName,
-  RadonMethod,
-  RadonArgument,
+  TYPES as RadonTypes,
+  TYPESYSTEM as RadonTypeSystem,
+  OPERATOR_INFOS as RadonOperatorInfos,
+  FilteringFunctionCodes,
+  ReducingFunctionCodes,
+  HashFunctionCodes,
+  TYPES,
 } from "../../../radon"
+import { match } from "app/renderer/utils/match"
 
 const styles = require("./style.scss")
 
 export interface RadonOperatorProps {
-  inputType: RadonType,
+  path: {
+    scriptIndex: number,
+    stage: "retrieve" | "aggregate" | "consensus",
+  },
+  operator: Array<any> | number,
+  updateOperatorCodeSelect: Function,
+  updateOperatorFilterArgument: Function,
+  updateFilterArgument: Function,
+  updateOperatorReduceArgument: Function,
+  selectHashFunction: Function,
+  updateArgumentInput: Function,
+
 }
 
 export interface RadonOperatorState {
-  availableMethodsNames: Array<RadonMethodName>,
-  selectedMethodInfo: RadonMethod,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedArguments: Array<any>,
-  radonFunctionArgument: string,
+  inputType: string,
+  operator: Array<any>,
+  outputType: string,
 }
 
 /**
@@ -32,179 +42,162 @@ export interface RadonOperatorState {
  * @extends {React.Component<RadonOperatorProps>}
  */
 export default class RadonOperator extends React.Component<RadonOperatorProps, RadonOperatorState> {
-  public constructor(props: RadonOperatorProps) {
-    super(props)
+  private getTypeFromOperatorCode = (operatorCode: number): string => Object.entries(RadonTypeSystem)
+    .reduce((acc, array) => {
+      if (Object.keys(array[1]).find(code => parseInt(code) === operatorCode)) {
+        acc = array[0]
+      }
 
-    const availableMethodsNames = getMethodsByType(this.props.inputType)
-    const selectedMethodInfo = getMethodInformation(availableMethodsNames[0])
-
-    const selectedArguments = selectedMethodInfo.arguments.map(getAvailableArguments)
-
-    this.state = {
-      availableMethodsNames,
-      selectedMethodInfo,
-      selectedArguments,
-      radonFunctionArgument: "",
-    }
-  }
-
-  public changeSelectedMethod = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedArguments = getMethodInformation(e.target.value as RadonMethodName)
-      .arguments
-      .map(getAvailableArguments)
-
-    this.setState({
-      selectedArguments,
-      selectedMethodInfo: getMethodInformation(e.target.value as RadonMethodName),
-      radonFunctionArgument: "",
-    })
-  }
-
-  public setSelectedMethodArguments = (index: number, e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedArguments = this.state.selectedArguments
-    selectedArguments[index] = {
-      name: e.target.name,
-      value: e.target.value,
-    }
-    // console.log(e.target["dat)
-    this.setState({
-      selectedArguments,
-    })
-  }
-
-  public setFunctionInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      radonFunctionArgument: e.target.value,
-    })
-  }
-
-  public setArgumentInput = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedArguments = this.state.selectedArguments
-
-    selectedArguments[index] = {
-      name: e.target.name,
-      value: e.target.value,
-    }
-    this.setState({
-      selectedArguments,
-    })
-  }
+      return acc
+    }, "")
 
   public render() {
+    const operatorCode = Array.isArray(this.props.operator) ? this.props.operator[0] : this.props.operator
+    // if there is no operator code default input type is string
+    const defaultInputType = 0x03
+    const foundType = operatorCode
+      ? this.getTypeFromOperatorCode(operatorCode) : defaultInputType
+
+    const inputType = RadonTypes[foundType]
+    const operator = Array.isArray(this.props.operator) ? this.props.operator : [this.props.operator]
+
+    const outputType = RadonTypes[RadonTypeSystem[foundType][operatorCode]]
+
+    const operatorOptions = Object.keys(RadonTypeSystem[RadonTypes[inputType]])
+      .map((item: string) => <option value={item} key={item}>{RadonOperatorInfos[item].name}</option>)
+
     return (
       <div className={styles.main}>
-        <p>{this.props.inputType}</p>
-        <select value={this.state.selectedMethodInfo.name} onChange={this.changeSelectedMethod}>
-          {
-            this.state.availableMethodsNames.map(method =>
-              <option key={method} value={method}>
-                {method}
-              </option>)
+        <p>Input Type: {inputType}</p>
+        <span>Method: </span>
+        <select
+          value={operatorCode}
+          onChange={
+            (e: React.ChangeEvent<HTMLSelectElement>) =>
+              this.props.updateOperatorCodeSelect(this.props.path, e.target.value)
           }
+        >
+          {operatorOptions}
         </select>
         {
-          this.state.selectedMethodInfo.arguments.map((argument, index) => {
-            switch (argument.kind) {
-              case "RADON_TYPE":
-                return (
-                  <div>
-                    <label>{argument.name} </label>
-                    <input type="text" data-index={index} required={!argument.optional}
-                      name="radonType" value={this.state.selectedArguments[index].value}
-                      onChange={e => this.setArgumentInput(index, e)}
-                    />
-                  </div>
-                )
-              case "FUNCTION_FILTER":
-                return (
-                  <div>
-                    <select value={this.state.selectedArguments[index].value} data-index={index}
-                      name="functionFilter"
-                      onChange={(e) => this.setSelectedMethodArguments(index, e)}
-                    >
-                      {getRadonFunctionsByType("FUNCTION_FILTER").map(functionName =>
-                        <option key= {functionName} value={functionName}>
-                          {functionName}
-                        </option>)
-                      }
-                    </select>
-                    <label>Value: </label>
-                    <input name="functionFilterInput" value={this.state.radonFunctionArgument}
-                      onChange={this.setFunctionInput}
-                    />
-                  </div>
-                )
-              case "FUNCTION_MAP":
-                return (
-                  <div>
-                  TODO: Implement map functions
-                  </div>
-                )
-              case "FUNCTION_REDUCE":
-                return (
-                  <div>
-                    <select value={this.state.selectedArguments[index].value} name="functionReduce"
-                      onChange={e => this.setSelectedMethodArguments(index, e)}
-                    >
-                      {getRadonFunctionsByType("FUNCTION_REDUCE").map(functionName => {
-                        return (
-                          <option key={functionName} value={functionName}>
-                            {functionName}
-                          </option>
-                        )
-                      })}
-                    </select>
-                  </div>
-                )
-              case "FUNCTION_HASH":
-                return (
-                  <div>
-                    <select value={this.state.selectedArguments[index].value} name="hashFunction"
-                      onChange={e => this.setSelectedMethodArguments(index, e)}
-                    >
-                      {getRadonFunctionsByType("FUNCTION_HASH").map(functionName => {
-                        return (
-                          <option key={functionName} value={functionName}>
-                            {functionName}
-                          </option>
-                        )
-                      })}
-                    </select>
-                  </div>
-                )
-            }
-          })
+          RadonOperatorInfos[operatorCode].arguments
+            .map((argValues, index) => {
+              return match(argValues.kind, [
+                { options: [TYPES.Boolean, TYPES.Int, TYPES.Float, TYPES.String],
+                  result: (
+                    <div>
+                      <label htmlFor={argValues.name}>{argValues.name}:</label>
+                      <input
+                        name={argValues.name} value={operator[index + 1]}
+                        onChange={
+                          (e: React.ChangeEvent<HTMLInputElement>) =>
+                            this.props.updateArgumentInput(this.props.path, e.target.value, operator, index + 1)
+                        }
+                      />
+                    </div>
+                  ),
+                },
+                {
+                  options: [TYPES.Map],
+                  result: (
+                    <div>
+                      <label htmlFor={argValues.name}>{argValues.name}*:</label>
+                      <input
+                        name={argValues.name} value={operator[index + 1]}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          this.props.updateArgumentInput(this.props.path, e.target.value, operator, index + 1)
+                        }
+                      />
+                    </div>
+                  ),
+                },
+                {
+                  options: [TYPES.HashFunction],
+                  result: (
+                    <div>
+                      <span>{argValues.name}</span>
+                      <select
+                        value={operator[index + 1]}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                          this.props.selectHashFunction(this.props.path, e.target.value, operator, index + 1)
+                        }
+                      >
+                        {
+                          Object.entries(HashFunctionCodes)
+                            .slice(0, Object.entries(HashFunctionCodes).length / 2)
+                            .map(item => <option key={item[0]} value={item[0]}>{item[1]}</option>)
+                        }
+                      </select>
+                    </div>),
+                },
+                {
+                  options: [TYPES.FilterFunction],
+                  result: (
+                    <div>
+                      <span>{argValues.name}</span>
+                      <select value={operator[index + 1][0]}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                          this.props.updateOperatorFilterArgument(this.props.path, e.target.value, operator, index + 1)
+                        }
+                      >
+                        {Object.entries(FilteringFunctionCodes)
+                          .slice(0, Object.entries(FilteringFunctionCodes).length / 2)
+                          .map(item => <option key={item[0]} value={item[0]}>{item[1]}</option>)
+                        }
+                      </select>
+                      <div>
+                        <span>Value:</span>
+                        <input
+                          value={operator[index][1]}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            this.props.updateFilterArgument(this.props.path, e.target.value, operator, index + 1)
+                          }
+                        />
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  options: [TYPES.ReduceFunction],
+                  result: (
+                    <div>
+                      <span>{argValues.name}</span>
+                      <select
+                        value={operator[index + 1]}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                          this.props.updateOperatorReduceArgument(this.props.path, e.target.value, operator, index + 1)
+                        }
+                      >
+                        {Object.entries(ReducingFunctionCodes)
+                          .slice(0, Object.entries(ReducingFunctionCodes).length / 2)
+                          .map(item => <option key={item[0]} value={item[0]}>{item[1]}</option>)
+                        }
+                      </select>
+                    </div>
+                  ),
+                },
+                {
+                  options: [TYPES.Self, TYPES.MapFunction],
+                  result: (
+                    <div>
+                      <label htmlFor={argValues.name}>{argValues.name}*:</label>
+                      <input
+                        name={argValues.name}
+                        value={operator[index + 1]}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          this.props.updateArgumentInput(this.props.path, e, operator, index + 1)
+                        }
+                      />
+                    </div>
+                  ),
+                },
+              ])
+            })
         }
-        <p>{this.state.selectedMethodInfo.outputType}</p>
+
+        <p>Output Type: {outputType}</p>
       </div>
     )
-  }
-}
-
-function getAvailableArguments(item: RadonArgument) {
-  switch (item.kind) {
-    case "FUNCTION_FILTER":
-      return {
-        name: getRadonFunctionsByType(item.kind)[0],
-        value: "",
-      }
-    case "FUNCTION_HASH":
-      return {
-        name: getRadonFunctionsByType(item.kind)[0],
-        value: "",
-      }
-    case "FUNCTION_MAP":
-      return {
-        name: "",
-        value: "",
-      }
-    case "FUNCTION_REDUCE":
-      return {
-        name: getRadonFunctionsByType(item.kind)[0],
-        value: "",
-      }
-    case "RADON_TYPE":
-      return ""
   }
 }
 
