@@ -1,68 +1,198 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
+    <h1><img src="https://raw.githubusercontent.com/witnet/sheikah/master/.github/header.png" alt="Sheikah"/></a></h1>
+    <a href="https://gitter.im/witnet/sheikah?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/witnet/sheikah.svg" alt="Join the chat at https://gitter.im/witnet/sheikah" /></a>
+    <a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly" /></a>
+    <a href="https://travis-ci.com/witnet/sheikah"><img src="https://travis-ci.com/witnet/sheikah.svg?branch=master" alt="Build Status" /></a>
+    <a href="https://houndci.com"><img src="https://img.shields.io/badge/code_quality-houndci-a873d1.svg" alt="Protected by HoundCI" /></a>
+    <a href="https://github.com/witnet/sheikah/blob/master/LICENSE"><img src="https://img.shields.io/github/license/witnet/sheikah.svg" alt="GPLv3 Licensed" /></a>
+    <a href="https://github.com/witnet/sheikah/graphs/contributors"><img src="https://img.shields.io/github/contributors/witnet/sheikah.svg" alt="GitHub contributors" /></a>
+    <a href="https://github.com/witnet/sheikah/commits/master"><img src="https://img.shields.io/github/last-commit/witnet/sheikah.svg" alt="Github last commit" /></a>
+    <br /><br />
+    <p><strong>Sheikah</strong> is a <a href="https://witnet.io/">Witnet</a> compatible desktop wallet, data requests and smart contracts development environment.</p>
+</div>
 
-## Available Scripts
+## Current status
+**Sheikah is still a *Technology Preview***. If you run it, you will find:
 
-In the project directory, you can run:
+- **Features that work**: wallets creation, seed phrase export, addresses generation and addresses listing.
+- **Features that are partially implemented**: transactions listing, data requests listing and smart contracts listing.
+- **Features that are mocked for demo purposes**: data requests editor, smart contracts editor, Sheikah Marketplace.
+- **Features that are still missing**: data requests deployment, smart contracts deployment and selection of full node to use as backend.
 
-### `npm start`
+All of these features will be made available along the first Witnet testnet during 2019 Q1.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### From Github Releases
 
-### `npm test`
+Go to [releases](https://github.com/witnet/sheikah/releases) section and download the binary suitable for your system.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### From Source
 
-### `npm run build`
+To install from source follow this instructions in a terminal:
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+``` bash
+git clone https://github.com/witnet/sheikah.git
+cd sheikah
+yarn
+yarn package
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Then, copy the appropriate binary written in `release` directory. Just click the file to open Sheikah.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Logs
 
-### `npm run eject`
+We are using [Electron Log](https://github.com/megahertz/electron-log/) library and we log to both, console and the file in the following location:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* **on Linux**: `~/.config/Sheikah/log.log`
+* **on MacOS**: `~/Library/Logs/Sheikah/log.log`
+* **on Windows**: `%USERPROFILE%\AppData\Roaming\Sheikah\log.log`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Development
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+When running in **development** the log level is set to *debug*, *debug*, *info*, *warn*, and *error* messages will be logger.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Production
 
-## Learn More
+When running in **production** the log level is set to *warn*, only *warn* and *error* messages will be logged.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Sheikah Development
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This is a Web/Desktop application built with [Electron](https://electronjs.org/) and uses the [electron-react-typescript](https://github.com/iRath96/electron-react-typescript-boilerplate) template as its base.
 
-### Code Splitting
+For developing we recommend you use [yarn](https://yarnpkg.com/en/) instead of npm.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+When developing Sheikah, we support **Node versions: 8, 9 and 10**. It might work with another version but we do not guarantee it will do in the future.
 
-### Analyzing the Bundle Size
+### Quickstart
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+``` bash
+# clone the repository
+git clone git@github.com:witnet/sheikah.git
 
-### Making a Progressive Web App
+# cd into the cloned repository
+cd sheikah
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+# install application dependencies
+yarn
 
-### Advanced Configuration
+# launch development application
+yarn start # or yarn dev
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### Formatter
 
-### Deployment
+* Verify files are correctly formatted with `yarn fmt`
+* Repair format errors with (**this operation modifies your files!**) `yarn fmt!`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+### Lint
 
-### `npm run build` fails to minify
+* Run linters with `yarn lint`. This will run all linters
+* Run TypeScript lint with `yarn ts-lint`
+* Run styles lint with `yarn stylelint`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Test
+
+We use [Jest](https://facebook.github.io/jest/) for testing. All test commands are a thin wrapper around jest so with any of them you can use [Jest's CLI options](https://facebook.github.io/jest/docs/en/cli.html)
+
+``` bash
+# run unit/integration tests
+yarn test
+
+# run end-to-end tests
+yarn test-e2e
+
+# run all tests
+yarn test-all
+```
+
+To run specific tests you can use jest directly:
+
+``` bash
+# run test specified with a pattern or filename
+yarn jest my-test #or
+yarn jest path/to/my-test.js
+
+# run tests related to changed files based on hg/git (uncommitted files)
+yarn jest -o
+
+# run tests related to path/to/fileA.js and path/to/fileB.js
+yarn jest --findRelatedTests path/to/fileA.js path/to/fileB.js
+
+# run tests that match this spec name (match against the name in describe or test, basically).
+yarn jest -t name-of-spec
+
+# run tests in watch mode
+yarn jest --watch #runs jest -o by default
+yarn jest --watchAll #runs all tests
+```
+
+### Build
+
+#### Production
+
+To build the application run: `yarn build`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`
+
+`yarn build` is composed by two sub-tasks:
+
+* `yarn build-renderer`: Build the frontend/ui (React) application that will run in Electron's renderer process
+* `yarn build-main`: Build the backend (Node) application that will run in Electron's main process
+
+#### Development
+
+To build the application run: `yarn build-dev`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`. Note that in development mode, the application needs a running development server that serves the static assets, this means that you need to run `yarn hot-server` in another terminal in order to view the application with all the assets.
+
+#### Type Checking
+
+We have separated the transpilation and the type-checking phase for development in order to reduce the time the application needs to boot in development mode. Building/running the application for development with `yarn build-dev`/`yarn start` won't do any type-checking, the same happens when running the tests with `yarn test`.
+
+To type-check the project you should run:
+
+``` bash
+yarn typecheck
+# or
+# yarn typecheck --watch
+```
+
+To type-check the project and the tests you should run:
+
+``` bash
+yarn typecheck-test
+# or
+# yarn typecheck-test --watch
+```
+
+### Package
+
+To package the application into an executable for your platform (Windows, MacOS, GNU/Linux) run any of the following commands. The packaged application will be written to `release` folder.
+
+#### Production build
+
+``` bash
+yarn package
+```
+
+#### Development build
+
+``` bash
+yarn package-dev
+```
+
+### Contributing
+
+#### Commit Messages
+
+Use the command `yarn commit` when committing changes to follow the same conventions we used for writing commit messages.
+
+#### Travis (continuous integration)
+
+When opening a pull request a job in [Travis](https://travis-ci.com/) will be fired off to check the changes. To avoid wasting time waiting for Travis output we provide the command `yarn ci` that will perform almost the same checks but it'll run in your computer.
+
+#### Troubleshooting
+
+* Remember to look at the log file
+* Use `yarn clean` to remove the contents of the build and release directories (`dist` and `release`)
+* Use `yarn clean-deps` to remove all installed dependencies
+* Use `yarn reinstall` to remove all installed dependencies and install them again
+
+If the application doesn't boot correctly and no error is reported in the terminal, try running `yarn reinstall` and try again.

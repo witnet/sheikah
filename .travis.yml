@@ -1,0 +1,27 @@
+sudo: false
+
+language: node_js
+
+node_js:
+- 8
+- 10
+- 12
+
+cache:
+  yarn: true
+  directories:
+  - node_modules
+  - app/node_modules
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+
+install:
+- yarn
+- cd app && yarn && cd ..
+
+script:
+- node --version
+- yarn ci

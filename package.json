@@ -1,20 +1,111 @@
 {
-  "name": "sheikah-poc",
+  "name": "sheikah",
+  "productName": "Sheikah",
   "version": "0.1.0",
-  "private": true,
+  "description": "A Witnet compatible desktop wallet and data requests development environment.",
+  "main": "src/electron-starter.js",
+  "scripts": {
+    "build": "react-scripts build",
+    "dev": "npm-run-all --parallel start electron-dev",
+    "electron-dev": "sleep 2 & ELECTRON_START_URL=http://localhost:3000 electron .",
+    "electron": "electron .",
+    "fmt-css!": "npx prettier --write src/**/*.css --parser=css",
+    "fmt-js!": "npx prettier --write {src/**/*.{js,jsx},stories/**/*.js,.storybook/**/*js} --config .prettierrc",
+    "fmt!": "yarn fmt-js! && yarn fmt-css!",
+    "lint-css": "npx stylelint ./**/*.css --config .stylelintrc",
+    "lint-js": "npx eslint {src/**/*.{js,jsx},stories/**/*.js,.storybook/**/*.js} -c .eslintrc",
+    "lint": "yarn lint-js && yarn lint-css",
+    "start": "react-scripts start",
+    "storybook": "start-storybook -p 6006",
+    "test": "react-scripts test",
+    "ci": "yarn lint && yarn fmt!"
+  },
+  "build": {
+    "productName": "Sheikah",
+    "appId": "io.github.witnet.sheikah",
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "files": [
+      "dist/",
+      "node_modules/",
+      "package.json"
+    ],
+    "directories": {
+      "app": ".",
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ]
+    }
+  },
+  "bin": {
+    "electron": "./node_modules/.bin/electron"
+  },
+  "author": "Witnet Foundation <info@witnet.foundation>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/witnet/sheikah.git"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/witnet/sheikah/issues"
+  },
+  "keywords": [
+    "electron",
+    "boilerplate",
+    "react",
+    "react-router",
+    "flux",
+    "webpack",
+    "react-hot"
+  ],
+  "homepage": "https://witnet.io",
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@storybook/addon-actions": "^5.0.11",
+    "@storybook/addon-links": "^5.0.11",
+    "@storybook/addons": "^5.0.11",
+    "@storybook/react": "^5.0.11",
+    "electron": "^5.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "1.17.0",
+    "stylelint-config-prettier": "^5.1.0",
+    "stylelint-prettier": "^1.1.0"
+  },
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.1",
+    "stylelint": "^10.0.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+  "engineStrict": false,
+  "engines": {
+    "node": ">=8.x.x",
+    "yarn": ">=1.x"
   },
   "browserslist": {
     "production": [
