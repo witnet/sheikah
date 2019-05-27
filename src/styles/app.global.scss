@@ -1,0 +1,133 @@
+:global {
+  @import "theme";
+  @import "colors";
+  @import "reset";
+  @import "fonts";
+
+  html {
+    box-sizing: border-box;
+  }
+
+  p {
+    @extend %font16;
+
+    color: $font-color-dark;
+  }
+
+  textarea {
+    font-family: $font-family;
+    outline: none;
+  }
+
+  pre,
+  .pre-alike {
+    font-family: "Lucida Console", Monaco, monospace;
+  }
+
+  body {
+    bottom: 0;
+    font-family: $font-family;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    .ant-select-selection-selected-value {
+      float: none;
+      padding-top: 3px;
+    }
+
+    .ant-select-selection__rendered {
+      align-items: center;
+      display: flex;
+      height: 48px;
+    }
+
+    .ant-select-selection {
+      height: 48px;
+    }
+
+    .ant-input {
+      font-family: $font-family;
+    }
+
+    .ant-list {
+      font-family: $font-family;
+    }
+
+    .ant-message-notice-content {
+      background: transparent;
+      border-radius: 0;
+      -webkit-box-shadow: 0 0;
+      box-shadow: 0 0;
+      display: inline-block;
+      padding: 0;
+      pointer-events: all;
+    }
+
+    .ant-message-info {
+      background: $toast-info-background;
+      border-radius: 41px / 37px;
+      -webkit-box-shadow: $toast-box-shadow;
+      box-shadow: $toast-box-shadow;
+      opacity: $toast-opacity;
+      padding: $toast-padding;
+
+      .anticon {
+        display: $toast-display-anticon;
+      }
+    }
+
+    .ant-message-success {
+      background: $toast-success-background;
+      border-radius: 41px / 37px;
+      -webkit-box-shadow: $toast-box-shadow;
+      box-shadow: $toast-box-shadow;
+      opacity: $toast-opacity;
+      padding: $toast-padding;
+
+      .anticon {
+        display: $toast-display-anticon;
+      }
+    }
+
+    .ant-card {
+      color: $font-color-dark;
+      font: inherit;
+    }
+
+    // DO NOT REMOVE OUT OF BODY! See issue #203
+    .ant-card-head {
+      align-items: center;
+      background: linear-gradient(to right, $purple-6, $blue-6);
+      color: $grey-1;
+      display: flex;
+      height: 100px;
+      padding: 0 40px;
+    }
+
+    .ant-card-head-title {
+      @extend %font20;
+
+      color: $grey-1;
+    }
+
+    .ant-card-body {
+      padding: 0;
+    }
+
+    .ant-dropdown-menu {
+      border: 1px solid $blue-6;
+      border-radius: 4px 0 4px 4px;
+      margin-top: -5px;
+      padding: 0;
+    }
+
+    .ant-dropdown-menu-item {
+      color: $grey-9;
+      font-family: $font-family;
+      font-weight: 600;
+      padding: 10px 20px;
+    }
+  }
+}

@@ -1,62 +1,56 @@
 <template>
   <div>
-    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-      <el-radio-button :label="false">expand</el-radio-button>
-      <el-radio-button :label="true">collapse</el-radio-button>
-    </el-radio-group>
-    <el-menu
-      default-active="2"
-      class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
-      :collapse="isCollapse"
-    >
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">Navigator One</span>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">Group One</span>
-          <el-menu-item index="1-1">item one</el-menu-item>
-          <el-menu-item index="1-2">item two</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="Group Two">
-          <el-menu-item index="1-3">item three</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <span slot="title">item four</span>
-          <el-menu-item index="1-4-1">item one</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">Navigator Two</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">Navigator Three</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">Navigator Four</span>
-      </el-menu-item>
-    </el-menu>
+    <div class="sidebar">
+      <div class="brand">
+      <router-link class="logo" to="/">
+        <img class="sheikah-img" :src=sheikah />
+      </router-link>
+      </div>
+      <div class="current-wallet">
+       <span class="current-wallet-name">{{ this.currentWallet }}</span>
+      </div>
+      <div class="link-list">
+        <router-link class="link" to="/wallet">
+          <font-awesome-icon class="icon" icon="wallet" />
+          <span class="label">Wallet</span>
+        </router-link>
+
+        <router-link class="link" to="/request">
+          <font-awesome-icon class="icon" icon="code" />
+          <span class="label">Data request</span>
+        </router-link>
+
+        <router-link class="link" to="/marketplace">
+          <font-awesome-icon class="icon" icon="shopping-bag" />
+          <span class="label">Marketplace</span>
+        </router-link>
+
+        <router-link class="link" to="/community">
+          <font-awesome-icon class="icon" icon="users" />
+          <span class="label">Community</span>
+        </router-link>
+      </div>
+      <div class="settings">
+        <font-awesome-icon icon="cog" />
+        <div class="net-status">
+          <span class="mainnet">PROTOTYPE</span>
+          <span class="synced">SYNCED</span>
+          <!-- <DotIndicator mood="warning"/> -->
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
-<style>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
-}
-</style>
-
 <script>
+const logo = require('../resources/svg/sheikah.svg')
 export default {
   data () {
     return {
+      sheikah: logo,
       isCollapse: true,
+      currentWallet: "Toom Nook's Wallet",
     }
   },
   methods: {
@@ -69,3 +63,137 @@ export default {
   },
 }
 </script>
+<style lang="scss">
+@import '../styles/theme.scss';
+@import '../styles/app.global.scss';
+@media screen and (max-width: 1200px) {
+  .sidebar {
+    max-width: 75px;
+  }
+  .brand {
+    clip-path: circle(60px at 0);
+  }
+  .label {
+    opacity: 0;
+  }
+  .current-wallet-name {
+    transform: translateX(-5px);
+  }
+  .settings {
+    .mainnet,
+    .synced {
+      display: none;
+    }
+  }
+}
+.sidebar {
+    box-shadow: $sidebar-shadow;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100vh;
+    z-index: 5;
+    width: 15vw;
+    font-family: 'Titillium Web'
+  }
+  .brand {
+    padding: 20px;
+    .logo {
+      width: $sidebar-logo-width;
+    }
+    .sheikah-img {
+      clip-path: inset(0px 150px 0px 0px);
+    }
+    .name {
+      color: $sidebar-name-color;
+      font-size: $sidebar-name-font_size;
+      font-weight: 800;
+    }
+    .label {
+      color: $sidebar-label-color;
+      font-size: $sidebar-label-font_size;
+      font-weight: bold;
+    }
+  }
+  .current-wallet {
+    background: $blue-6;
+    color: $sidebar-current_wallet-color;
+    display: flex;
+    flex-flow: row wrap;
+    font-weight: bold;
+    padding: 20px;
+    .current-wallet-name {
+      text-overflow: ellipsis;
+    }
+  }
+  .link-list {
+    align-items: flex-start;
+    display: flex;
+    flex-flow: column nowrap;
+    margin-top: 35px;
+    .link {
+      color: $sidebar-link-color;
+      border-left: $sidebar-inactive-border;
+      display: flex;
+      flex-flow: row nowrap;
+      font-size: $sidebar-link-font_size;
+      font-weight: $sidebar-link-font_weight;
+      margin: 0px 15px 0px 0px;
+      padding: 8px;
+      height: 40px;
+      align-items: center;
+      text-decoration: none;
+      &:focus{
+        border-left: $sidebar-active-border;
+        color: $sidebar-active-color;
+      }
+      .icon {
+        margin-right: 20px;
+        margin-left: 10px;
+        width: 20px;
+      }
+      .label {
+        width: 100%;
+      }
+    }
+    .active {
+      border-left: $sidebar-active-border;
+      color: $sidebar-active-color;
+    }
+  }
+  .settings {
+    align-items: center;
+    border-top: $sidebar-settings-border;
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: $icon-settings-font_size;
+    justify-content: space-between;
+    margin-top: auto;
+    padding: 15px;
+    .settings-icon {
+      color: $sidebar-settings-icon-color;
+      cursor: pointer;
+      font-size: $sidebar-settings-icon-size;
+    }
+    .net-status {
+      font-size: $icon_status-font_size;
+      display: flex;
+      align-items: center;
+      .dot {
+        height: 10px;
+        width: 10px;
+        background-color: $yellow-5;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .mainnet {
+        color: $sidebar-mainnet-color;
+        font-weight: $sidebar-mainnet-font_weight;
+      }
+      .synced {
+        color: $sidebar-synced-color;
+        font-weight: $sidebar-synced-font_weight;
+        padding: 0.5em;
+      }
+    }
+  }
+</style>
