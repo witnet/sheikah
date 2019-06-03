@@ -21,6 +21,20 @@ describe('RadonOperator.vue', () => {
     { value: 15, text: 'NOTBOTTOM' },
   ]
 
+  const reduceArgumentOptions = [
+    { value: 0, text: 'MIN' },
+    { value: 1, text: 'MAX' },
+    { value: 2, text: 'MODE' },
+    { value: 3, text: 'AVGMEAN' },
+    { value: 4, text: 'AVGMEANW' },
+    { value: 5, text: 'AVGMEDIAN' },
+    { value: 6, text: 'AVGMEDIANW' },
+    { value: 7, text: 'DEVSTD' },
+    { value: 8, text: 'DEVAVG' },
+    { value: 9, text: 'DEVMED' },
+    { value: 10, text: 'DEVMAX' },
+  ]
+
   describe('ArrayCount operator', () => {
     const operator = 0x50
     const wrapper = shallowMount(RadonOperator, {
@@ -84,6 +98,34 @@ describe('RadonOperator.vue', () => {
 
   describe('ArrayReduce operator', () => {
     // TODO(#649)
+    const operator = [0x56, 0]
+    const wrapper = shallowMount(RadonOperator, {
+      propsData: { radOperator: operator },
+    })
+
+    it('select has operator code value', () => {
+      expect(wrapper.find('select').element.value).toBe(operator[0].toString())
+    })
+
+    it('has arguments', () => {
+      expect(wrapper.find('.arguments').exists()).toBe(true)
+    })
+
+    it('select options have the correct value ', () => {
+      reduceArgumentOptions.map((argumentOption, index) => {
+        expect(wrapper.find('.arguments').findAll('option').at(index).element.value).toBe(argumentOption.value.toString())
+      })
+    })
+
+    it('select options have the correct content', () => {
+      reduceArgumentOptions.map((argumentOption, index) => {
+        expect(wrapper.find('.arguments').findAll('option').at(index).element.textContent.trim()).toBe(argumentOption.text)
+      })
+    })
+
+    it('argument input has the correct value', () => {
+      expect(wrapper.find('.arguments').find('select').element.value).toBe(operator[1].toString())
+    })
   })
 
   describe('ArraySome operator', () => {
