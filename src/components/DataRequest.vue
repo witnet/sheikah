@@ -1,9 +1,16 @@
  <template>
   <div>
-    Data request
+    <el-header style="font-size: 12px">
+      <div>
+        <router-link to="/request/editor">Editor</router-link>
+      </div>
+      <div>
+        <router-link to="/request/templates">Templates</router-link>
+      </div>
+    </el-header>
+    <router-view></router-view>
   </div>
 </template>
-
 <script>
 export default {
   name: 'DataRequest',
