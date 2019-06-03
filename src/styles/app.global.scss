@@ -1,0 +1,35 @@
+:global {
+  @import "theme";
+  @import "colors";
+  @import "reset";
+  @import "fonts";
+
+  html {
+    box-sizing: border-box;
+  }
+
+  p {
+    @extend %font16;
+
+    color: $font-color-dark;
+  }
+
+  textarea {
+    font-family: $font-family;
+    outline: none;
+  }
+
+  pre,
+  .pre-alike {
+    font-family: "Lucida Console", Monaco, monospace;
+  }
+
+  body {
+    bottom: 0;
+    font-family: $font-family;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
+}
