@@ -4,7 +4,7 @@
     <span>Method: </span>
     <select
       v-model="operatorCode"
-      @change="event => updateOperatorCodeSelect(this.path, event.target.value)"
+      @change="event => updateOperatorCodeSelect(path, event.target.value)"
     >
       <option v-for="operatorOption in operatorOptions" :value="operatorOption" :key="operatorOption">
         {{ RadonOperatorInfos[operatorOption].name }}
@@ -19,7 +19,7 @@
         <input
           :name="argValues.name"
           :value="operator[index + 1]"
-          @change="event => updateArgumentInput(this.path, event.target.value, operator, index + 1)"
+          @change="event => updateArgumentInput(path, event.target.value, operator, index + 1)"
         />
       </div>
 
@@ -30,7 +30,7 @@
         <input
           :name="argValues.name"
           :value="operator[index + 1]"
-          @change="event => updateArgumentInput(this.path, event.target.value, operator, index + 1)"
+          @change="event => updateArgumentInput(path, event.target.value, operator, index + 1)"
         />
       </div>
 
@@ -38,7 +38,7 @@
           <span>{{argValues.name}}</span>
           <select
             :value="operator[index + 1]"
-            @change="event => selectHashFunction(this.path, event.target.value, operator, index + 1)"
+            @change="event => selectHashFunction(path, event.target.value, operator, index + 1)"
           >
             <option v-for="hashCode in hashFunctionCodes" :key="hashCode[0]" :value="hashCode[0]">
               {{ hashCode[1] }}
@@ -50,7 +50,7 @@
         <span>{{ argValues.name }}</span>
         <select
           :value="operator[index + 1][0]"
-          @change="event => this.updateOperatorFilterArgument(this.props.path, event.target.value, operator, index + 1)"
+          @change="event => updateOperatorFilterArgument(path, event.target.value, operator, index + 1)"
         >
           <option v-for="(filterCode, index) in filteringFunctionCodes" :key="filteringFunctionCodes[index][1]" :value="filteringFunctionCodes[index][0]">
             {{ filterCode[1] }}
@@ -61,19 +61,21 @@
           <span>Value:</span>
           <input
             :value="operator[index + 1][1]"
-            @change="event => this.updateFilterArgument(this.path, event.target.value, operator, index + 1)"
+            @change="event => updateFilterArgument(path, event.target.value, operator, index + 1)"
           />
         </div>
 
       </div>
 
       <div v-else-if="isTypeOf(RadonTypes.ReduceFunction, argValues.kind)">
+
         <span>{{ argValues.name }}</span>
+        {{ operator[index+1] }}
         <select
           :value="operator[index + 1]"
-          @change="event => this.updateOperatorReduceArgument(this.path, event.target.value, operator, index + 1)"
+          @change="event => updateOperatorReduceArgument(path, event.target.value, operator, index + 1)"
         >
-        <option v-for="reducingCode in reducingFunctionCodes" :key="reducingCode[1]">
+        <option v-for="reducingCode in reducingFunctionCodes" :key="reducingCode[1]" :value="reducingCode[0]">
           {{ reducingCode[1] }}
         </option>
         </select>
@@ -84,7 +86,7 @@
         <input
           :name="argValues.name"
           :value="operator[index + 1]"
-          @change="event => this.props.updateArgumentInput(this.props.path, event.target.value, operator, index + 1)"
+          @change="event => props.updateArgumentInput(props.path, event.target.value, operator, index + 1)"
         />
       </div>
 

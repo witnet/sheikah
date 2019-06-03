@@ -117,6 +117,7 @@ import {
   TYPESYSTEM as RadonTypeSystem,
   HashFunctionCodes,
   ReducingFunctionCodes,
+  FilteringFunctionCodes,
 } from '@/radon'
 
 export default {
@@ -133,7 +134,7 @@ export default {
         {
           url: '',
           kind: 'HTTP_GET',
-          script: [[0x51, [0x00, 1]]],
+          script: [[0x56, 0]],
         },
       ],
       aggregate: {
@@ -240,14 +241,16 @@ export default {
       operator,
       argIndex,
     ) {
-      operator[argIndex] = [operator[argIndex][0], reduceArgument]
-      if (path.retrieveIndex) {
-        this[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
+      operator[argIndex] = reduceArgument
+      if (Number.isInteger(path.retrieveIndex)) {
+        console.log("---", this[`${path.stage}`])
+        this[`${path.stage}`][path.retrieveIndex].script[path.scriptIndex] = operator
         this[`${path.stage}`] = [...this[`${path.stage}`]]
       } else {
-        this[`${path.stage}`][path.scriptIndex] = operator
+        this[`${path.stage}`].script[path.scriptIndex] = operator
         this[`${path.stage}`] = { ...this[`${path.stage}`] }
       }
+
     },
     updateFilterArgument: function (path, filterArgument, operator, argIndex) {
       operator[argIndex] = [operator[argIndex][0], filterArgument]
@@ -274,16 +277,31 @@ export default {
     },
     updateOperatorCodeSelect: function (path, operatorCode) {
       let args = RadonOperatorInfos[operatorCode].arguments.map(argument => {
+        console.log("---", operatorCode)
         return match(argument.kind, [
           {
             options: [
               RadonTypes.Boolean,
-              RadonTypes.Int,
-              RadonTypes.Float,
-              RadonTypes.String,
-              RadonTypes.FilterFunction,
             ],
-            result: [argument.kind, ''],
+            result: true,
+          },
+          {
+            options: [
+              RadonTypes.Int,
+            ],
+            result: 0,
+          },
+          {
+            options: [
+            RadonTypes.Float,
+            ],
+            result: 0.0,
+          },
+          {
+            options: [
+              RadonTypes.String,
+            ],
+            result: "",
           },
           {
             options: [
@@ -298,18 +316,16 @@ export default {
             result: [],
           },
           {
+            options: [RadonTypes.FilterFunction],
+            result: [0, 0],
+          },
+          {
             options: [RadonTypes.HashFunction],
-            result: parseInt(
-              parseInt(HashFunctionCodes[HashFunctionCodes[0]]).toString(16),
-            ),
+            result: 0,
           },
           {
             options: [RadonTypes.ReduceFunction],
-            result: parseInt(
-              parseInt(
-                ReducingFunctionCodes[ReducingFunctionCodes[0]],
-              ).toString(16),
-            ),
+            result: 0,
           },
         ])
       })
@@ -343,6 +359,20 @@ export default {
       return false
     },
   },
+  computed: {
+    hashFunctionCodes: function () {
+      return Object.entries(HashFunctionCodes)
+        .slice(0, Object.entries(HashFunctionCodes).length / 2)
+    },
+    filteringFunctionCodes: function () {
+      return Object.entries(FilteringFunctionCodes)
+        .slice(0, Object.entries(FilteringFunctionCodes).length / 2)
+    },
+    reducingFunctionCodes: function () {
+      return Object.entries(ReducingFunctionCodes)
+        .slice(0, Object.entries(ReducingFunctionCodes).length / 2)
+    }
+  }
 }
 </script>
 
