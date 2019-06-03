@@ -9,7 +9,3 @@ export default {
   name: 'Templates',
 }
 </script>
-
-<style>
-
-</style>

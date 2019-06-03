@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 
 import Wallet from './components/Wallet.vue'
+import Editor from './components/Editor.vue'
+import Templates from './components/Templates.vue'
 import DataRequest from './components/DataRequest.vue'
 import Community from './components/Community.vue'
 import Transaction from './components/Transaction.vue'
@@ -41,6 +43,16 @@ export default new Router({
         {
           path: 'request',
           component: DataRequest,
+          children: [
+            {
+              path: 'templates',
+              component: Templates,
+            },
+            {
+              path: 'editor',
+              component: Editor,
+            },
+          ],
         },
         {
           path: 'community',
