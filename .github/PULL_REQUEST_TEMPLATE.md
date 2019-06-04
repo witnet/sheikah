@@ -10,7 +10,7 @@ the brackets) _before_ filing your PR:**
 - [ ] I have read and understood [STYLEGUIDE][style] document.
 - [ ] I have included tests for the changes in my PR. If not, I have included a
   rationale for why I haven't.
-- [ ] My code is formatted and is accepted by `yarn fmt`.
+- [ ] My code is formatted and is accepted by `yarn lint`.
 - [ ] **I understand my PR may be closed if it becomes obvious I didn't
   actually perform all of these steps.**
 
