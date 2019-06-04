@@ -1,32 +1,15 @@
 <template>
-  <div>
-    <el-header class="el-header">
-      <div>
-        <router-link to="/wallet/transaction">Transaction</router-link>
-      </div>
-      <div>
-        <router-link to="/wallet/receive">Receive</router-link>
-      </div>
-      <div>
-        <router-link to="/wallet/send">Send</router-link>
-      </div>
-    </el-header>
-    <router-view></router-view>
-  </div>
+<div>
+  <TopBar />
+</div>
 </template>
 
 <script>
+import TopBar from '@/components/TopBar'
 export default {
   name: 'Wallet',
+  components: {
+    TopBar,
+  },
 }
 </script>
-
-<style scoped>
-.el-header {
-  font-size: 12px;
-  display: flex;
-}
-.el-header > div {
-  margin: 0 20px;
-}
-</style>
