@@ -13,7 +13,7 @@ By participating, you are expected to uphold this code as well.
 ## I just have a question
 
 Please don't file an issue with questions.
-It's easier for you and for us if you go directly to [our Gitter chatroom][gitter], since it will keep our repositories clean and you will get a faster response.
+It's easier for you and for us if you go directly to [discord server][discord], since it will keep our repositories clean and you will get a faster response.
 
 ## How can I contribute?
 
@@ -69,7 +69,7 @@ Enhancement suggestions are tracked as GitHub issues. Create an issue on that re
 ## Pull Requests
 
 * Do not include issue numbers in the PR title
-* Follow [our TypeScript styleguide][styleguide]
+* Follow [our styleguide][styleguide]
 * Avoid platform-dependent code
 * Place imports in the following order:
 *    External Node modules, referred by package name (such as `os` or `path`)
@@ -94,21 +94,19 @@ Unsure where to begin contributing? You can start by looking through these good 
 * Reference issues and pull requests liberally after the first line
 * [Verify your commits][signing-commits] before creating a pull request
 * Standardize your commits:
-    - use `yarn commit` to write the commit message with the interactive guide
-    - clean up the problem/warnings from check before pushing your commits
+    Good commit messages are: `feat(ui-compo): implement button component` or `test(button): fix button behavior`
 
     A good rule of thumb is that your commit message follows these rules if you can prefix it with "This commit will ..." and it makes sense.
-
     For example, "This commit will add a feature" vs "This commit will added a feature".
 
-### TypeScript
+### Javascript
 
-All TypeScript must adhere to [our TypeScript styleguide][styleguide].
+All TypeScript must adhere to [our Javascript styleguide][styleguide].
 
 ## Copyright
 These guidelines are based on the [AragonJS contributing guidelines][aragonjs], published under the [Creative Commons Zero v1.0 Universal License][CC0].
 
-[gitter]: https://gitter.im/witnet/sheikah
+[discord]: https://discord.gg/FDPPv7H
 [issues]: https://github.com/witnet/sheikah/issues
 [code]: https://github.com/witnet/sheikah/blob/master/.github/CODE_OF_CONDUCT.md
 [signing-commits]: https://help.github.com/articles/signing-commits-with-gpg/
