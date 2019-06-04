@@ -19,6 +19,7 @@ export default new Router({
       path: '/',
       name: 'main',
       component: Home,
+      redirect: 'wallet',
       children: [
         {
           path: 'wallet',
