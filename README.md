@@ -77,19 +77,13 @@ cd sheikah
 yarn
 
 # launch development application
-yarn start # or yarn dev
+yarn electron:serve
 ```
 
 ### Formatter
 
-* Verify files are correctly formatted with `yarn fmt`
-* Repair format errors with (**this operation modifies your files!**) `yarn fmt!`
-
-### Lint
-
-* Run linters with `yarn lint`. This will run all linters
-* Run TypeScript lint with `yarn ts-lint`
-* Run styles lint with `yarn stylelint`
+* Verify files are correctly formatted with `yarn lint`
+* Repair lint errors with (**this operation modifies your files!**) `yarn lint!`
 
 ### Test
 
@@ -100,10 +94,10 @@ We use [Jest](https://facebook.github.io/jest/) for testing. All test commands a
 yarn test
 
 # run end-to-end tests
-yarn test-e2e
+yarn test:e2e
 
-# run all tests
-yarn test-all
+# run unit tests 
+yarn test:unit
 ```
 
 To run specific tests you can use jest directly:
@@ -131,67 +125,19 @@ yarn jest --watchAll #runs all tests
 
 #### Production
 
-To build the application run: `yarn build`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`
-
-`yarn build` is composed by two sub-tasks:
-
-* `yarn build-renderer`: Build the frontend/ui (React) application that will run in Electron's renderer process
-* `yarn build-main`: Build the backend (Node) application that will run in Electron's main process
-
-#### Development
-
-To build the application run: `yarn build-dev`, the build files are written to `dist` directory. To run the application using the generated build execute `yarn electron dist/main`. Note that in development mode, the application needs a running development server that serves the static assets, this means that you need to run `yarn hot-server` in another terminal in order to view the application with all the assets.
-
-#### Type Checking
-
-We have separated the transpilation and the type-checking phase for development in order to reduce the time the application needs to boot in development mode. Building/running the application for development with `yarn build-dev`/`yarn start` won't do any type-checking, the same happens when running the tests with `yarn test`.
-
-To type-check the project you should run:
-
-``` bash
-yarn typecheck
-# or
-# yarn typecheck --watch
-```
-
-To type-check the project and the tests you should run:
-
-``` bash
-yarn typecheck-test
-# or
-# yarn typecheck-test --watch
-```
-
-### Package
-
-To package the application into an executable for your platform (Windows, MacOS, GNU/Linux) run any of the following commands. The packaged application will be written to `release` folder.
-
-#### Production build
-
-``` bash
-yarn package
-```
-
-#### Development build
-
-``` bash
-yarn package-dev
-```
+To build the application run: `yarn electron:build`, the build files are written to `dist` directory.
 
 ### Contributing
 
-#### Commit Messages
-
-Use the command `yarn commit` when committing changes to follow the same conventions we used for writing commit messages.
+You can read the [contributing guide](https://github.com/witnet/sheikah/blob/master/.github/CONTRIBUTING.md)
 
 #### Travis (continuous integration)
 
-When opening a pull request a job in [Travis](https://travis-ci.com/) will be fired off to check the changes. To avoid wasting time waiting for Travis output we provide the command `yarn travis` that will perform almost the same checks but it'll run in your computer. The command `yarn travisp` does the same but parallelizes some tasks so it'll run faster.
+When opening a pull request a job in [Travis](https://travis-ci.com/) will be fired off to check the changes. To avoid wasting time waiting for Travis output we provide the command `yarn travis` that will perform almost the same checks but it'll run in your computer.
 
 #### Troubleshooting
 
-* Remember to look at the log file
-* Use `yarn clean` to remove the contents of the build and release directories (`dist` and `release`)
+* Use `yarn clean` to remove the contents of the build directory (`dist_electron`)
 * Use `yarn clean-deps` to remove all installed dependencies
 * Use `yarn reinstall` to remove all installed dependencies and install them again
 
