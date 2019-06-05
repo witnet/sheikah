@@ -23,3 +23,21 @@ storiesOf('Button', module)
     template: '<my-button @click="action">😀 😎 👍 💯</my-button>',
     methods: { action: action('clicked') },
   }))
+  .add('Positive', () => ({
+    components: { Button },
+    template: '<Button type="positive" @click="action">Hello Button</Button>',
+    methods: { action: action('clicked') },
+  }))
+storiesOf('Card', module)
+  .add('Simple', () => ({
+    components: { BaseCard },
+    template: '<BaseCard>Hello Card!</BaseCard>',
+  }))
+  .add('Title', () => ({
+    components: { BaseCard },
+    template: '<BaseCard title="This is a Card with Title">Hello Card!</BaseCard>',
+  }))
+  .add('Navigation Card', () => ({
+    components: { NavigationCard },
+    template: '<NavigationCard title="This is a Card with Title" text="Lorem ipsum dolor sit amet consectetur, adipisicing elit.">Hello Card!</NavigationCard>',
+  }))
