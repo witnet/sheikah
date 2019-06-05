@@ -14,8 +14,7 @@ export class ApiClient {
 
   constructor (options) {
     this.options = options || defaultOptions
-    // TODO: remove unneccessary option fields. For instance, url
-    this.ws = new RPCWebsockets(options.url, { ...options })
+    this.ws = new RPCWebsockets(this.options.url, { ...this.options })
   }
 
   withOptions (opts) {
@@ -27,7 +26,6 @@ export class ApiClient {
   }
 
   async request (method, params) {
-    //  TODO: pass class options
     return this.ws.call(method, params)
   }
 
@@ -56,7 +54,7 @@ function callApiMethod (methodName) {
 }
 
 function handleResponse (response) {
-  return response
+  return response.code ? { error: response } : { response }
 }
 
 function handleError (error) {
