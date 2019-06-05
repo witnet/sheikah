@@ -1,5 +1,7 @@
 <template>
   <div class>
+    <p v-if="dataRequestResult">The result of the data request is: {{ dataRequestResult }}</p>
+    <p v-if="dataRequestError">There was an error trying data request {{ dataRequestError }}</p>
     <div>
       <p>Retrieve:</p>
       <textarea
@@ -19,6 +21,8 @@
         :value="JSON.stringify(consensus)"
         v-on:keyup.enter="e => updateStage(e, 'consensus')"
       />
+
+      <button @click="tryDataRequest">Try data request</button>
     </div>
 
     <div class>
@@ -130,19 +134,11 @@ export default {
   },
   data () {
     return {
-      retrieve: [
-        {
-          url: '',
-          kind: 'HTTP_GET',
-          script: [[0x56, 0]],
-        },
-      ],
-      aggregate: {
-        script: [0x43, 0x74, [0x61, 'weather'], 0x74, [0x61, 'temp'], 0x72],
-      },
-      consensus: {
-        script: [0x43, 0x74, [0x61, 'weather'], 0x74, [0x61, 'temp'], 0x72],
-      },
+      dataRequestResult: this.$store.state.dataRequestResult,
+      dataRequestError: this.$store.state.dataRequestError,
+      retrieve: this.$store.state.radRequest.retrieve,
+      aggregate: this.$store.state.radRequest.aggregate,
+      consensus: this.$store.state.radRequest.consensus,
       error: {
         retrieve: false,
         aggregate: false,
@@ -151,6 +147,9 @@ export default {
     }
   },
   methods: {
+    tryDataRequest: function () {
+      this.$store.dispatch('tryDataRequest')
+    },
     getOutput: function (operatorCode) {
       return Object.entries(RadonTypeSystem).reduce((acc, array) => {
         if (Object.keys(array[1]).find(key => parseInt(key) === operatorCode)) {
@@ -187,13 +186,10 @@ export default {
         path.retrieveIndex,
       )
       const operatorCode = this.getOperatorCode(lastOperator)
-      // const lastOperatorStringType = this.getOutput(operatorCode)
       const operatorsObject =
         RadonTypeSystem[RadonTypes[this.getOutput(operatorCode)]]
       const newOperatorCode = parseInt(Object.entries(operatorsObject)[0][0])
       const newOperatorInfo = RadonOperatorInfos[newOperatorCode]
-
-      // add operator arguments by argument type
 
       const numberOfOperatorArguments = newOperatorInfo.arguments.length
 
@@ -202,7 +198,6 @@ export default {
           ? this[path.stage][path.retrieveIndex].script.push(newOperatorCode)
           : this[path.stage].script.push(newOperatorCode)
       } else {
-        // const newOperator = [newOperatorCode, newOperatorInfo.arugments.map(argument => )]
         Number.isInteger(parseInt(path.retrieveIndex))
           ? this[path.stage][path.retrieveIndex].script.push([newOperatorCode])
           : this[path.stage].script.push(newOperatorCode)
@@ -243,14 +238,12 @@ export default {
     ) {
       operator[argIndex] = reduceArgument
       if (Number.isInteger(path.retrieveIndex)) {
-        console.log("---", this[`${path.stage}`])
         this[`${path.stage}`][path.retrieveIndex].script[path.scriptIndex] = operator
         this[`${path.stage}`] = [...this[`${path.stage}`]]
       } else {
         this[`${path.stage}`].script[path.scriptIndex] = operator
         this[`${path.stage}`] = { ...this[`${path.stage}`] }
       }
-
     },
     updateFilterArgument: function (path, filterArgument, operator, argIndex) {
       operator[argIndex] = [operator[argIndex][0], filterArgument]
@@ -277,7 +270,6 @@ export default {
     },
     updateOperatorCodeSelect: function (path, operatorCode) {
       let args = RadonOperatorInfos[operatorCode].arguments.map(argument => {
-        console.log("---", operatorCode)
         return match(argument.kind, [
           {
             options: [
@@ -293,7 +285,7 @@ export default {
           },
           {
             options: [
-            RadonTypes.Float,
+              RadonTypes.Float,
             ],
             result: 0.0,
           },
@@ -301,7 +293,7 @@ export default {
             options: [
               RadonTypes.String,
             ],
-            result: "",
+            result: '',
           },
           {
             options: [
@@ -371,8 +363,8 @@ export default {
     reducingFunctionCodes: function () {
       return Object.entries(ReducingFunctionCodes)
         .slice(0, Object.entries(ReducingFunctionCodes).length / 2)
-    }
-  }
+    },
+  },
 }
 </script>
 
