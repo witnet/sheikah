@@ -1,37 +1,38 @@
 <template>
-  <div class="card">
-    <div v-if="title" class="title">
-      {{ title }}
+  <div class='card'>
+    <div v-if="title" class='title'>
+      <h5 class='card-title'>{{ title }}</h5>
     </div>
-    <div class="simple">
-      <slot>
-      </slot>
-    </div>
+    <slot></slot>
   </div>
 </template>
+
 <script>
 export default {
-  name: 'baseCard',
+  name: 'BaseCard',
   props: {
     title: String,
   },
 }
 </script>
-<style lang="scss">
+
+<style lang='scss'>
   @import '@/styles/_colors.scss';
   @import '@/styles/theme.scss';
 
   .card {
-    max-width: 60%;
+    max-width: 600px;
+    border: 1px solid #EEE;
+    border-radius: 2px;
   }
 
-  .simple {
+  .shadow {
     box-shadow: $default-box-shadow;
   }
 
   .title {
-    padding: $card-default-padding;
     border-bottom: solid 1px $grey-4;
+    padding: 20px;
   }
 
 </style>
