@@ -140,14 +140,18 @@ export default {
   .navigation-button {
     background: $button_navigation-background;
     border-color: $button_navigation-border-color;
-    border-radius: 0;
     border-style: $button_navigation-border-style;
-    border-width: 1px 1px 0 0;
+    border-width: 1px 0px 0px 0px;
     color: $button_navigation-color;
     cursor: pointer;
     font: inherit;
     height: 50px;
     width: 50%;
+  }
+
+  .navigation-button:last-child {
+    border-left: $button_navigation-border-style;
+    border-color: $button_navigation-border-color;
   }
 
 </style>

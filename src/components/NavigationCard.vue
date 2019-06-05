@@ -1,26 +1,25 @@
 <template>
   <div class="navigation">
-    <BaseCard :title="title" class="navigation">
+    <BaseCard :title="title" class="navigation shadow">
       <p class="content">
-       {{ text }}
+        <slot></slot>
       </p>
-        <Button type="navigation-button" @click="previousStep">
-          Previous Step
-        </Button>
-        <Button type="navigation-button" @click="nextStep">
-          Next Step
-        </Button>
+      <div class="button-group">
+      <Button type="navigation-button" @click="previousStep">Previous Step</Button>
+      <Button type="navigation-button" @click="nextStep">Next Step</Button>
+      </div>
     </BaseCard>
   </div>
 </template>
+
 <script>
 import Button from '@/components/Button'
 import BaseCard from '@/components/BaseCard'
+
 export default {
-  name: 'navigationCard',
+  name: 'NavigationCard',
   props: {
     title: String,
-    text: String,
     previousStep: Function,
     nextStep: Function,
   },
@@ -29,18 +28,19 @@ export default {
     BaseCard,
   },
   methods: {
-    handleKeyUp: (event) => {
+    handleKeyUp: event => {
       if (event.keyCode === 13) {
         this.props.nextStep()
       }
     },
   },
 }
-
 </script>
-<style lang="scss">
+
+<style lang='scss'>
 @import '@/styles/app.global.scss';
 @import '@/styles/_colors.scss';
+
 .navigation > .title {
   background: $sheikah-gradient;
   color: $grey-2;
@@ -48,8 +48,8 @@ export default {
   font-weight: 100;
 }
 
-.content {
-    padding: 30px;
-  }
+.shadow {
+  box-shadow: $default-box-shadow;
+}
 
 </style>
