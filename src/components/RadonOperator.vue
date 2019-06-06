@@ -70,7 +70,6 @@
       <div v-else-if="isTypeOf(RadonTypes.ReduceFunction, argValues.kind)">
 
         <span>{{ argValues.name }}</span>
-        {{ operator[index+1] }}
         <select
           :value="operator[index + 1]"
           @change="event => updateOperatorReduceArgument(path, event.target.value, operator, index + 1)"
@@ -96,6 +95,7 @@
 </template>
 
 <script>
+import { getTypeFromOperatorCode } from '@/radon/utils'
 import {
   TYPES as RadonTypes,
   TYPESYSTEM as RadonTypeSystem,
@@ -121,10 +121,11 @@ export default {
   },
   data () {
     const operatorCode = Array.isArray(this.radOperator) ? this.radOperator[0] : this.radOperator
-    const foundType = operatorCode ? this.getTypeFromOperatorCode(operatorCode) : DEFAULT_INPUT_TYPE
-    const inputType = RadonTypes[foundType]
+    const inputTypeCode = operatorCode ? getTypeFromOperatorCode(operatorCode) : DEFAULT_INPUT_TYPE
+    const inputType = RadonTypes[inputTypeCode]
     const operator = Array.isArray(this.radOperator) ? this.radOperator : [this.radOperator]
-    const outputType = RadonTypes[RadonTypeSystem[foundType][operatorCode]]
+    const outputTypeCode = RadonTypeSystem[inputTypeCode][operatorCode]
+    const outputType = RadonTypes[RadonTypeSystem[inputTypeCode][operatorCode]]
     const operatorOptions = Object.keys(RadonTypeSystem[RadonTypes[inputType]])
     return {
       inputType,
@@ -160,19 +161,6 @@ export default {
       return Array.isArray(types)
         ? types.includes(candidate)
         : types === candidate
-    },
-    getTypeFromOperatorCode: function (operatorCode) {
-      const result = Object.entries(RadonTypeSystem)
-        .reduce((acc, array) => {
-          const hasSameType = Object.keys(array[1]).find(code => {
-            return parseInt(code) === operatorCode
-          })
-          if (hasSameType) {
-            acc = array[0]
-          }
-          return acc
-        }, '')
-      return result
     },
   },
 }
