@@ -1,5 +1,5 @@
 <template>
-  <div class>
+  <div >
     <p v-if="dataRequestResult">The result of the data request is: {{ dataRequestResult }}</p>
     <p v-if="dataRequestError">There was an error trying data request {{ dataRequestError }}</p>
     <div>
@@ -25,7 +25,7 @@
       <button @click="tryDataRequest">Try data request</button>
     </div>
 
-    <div class>
+    <div >
       <h1>Request</h1>
     </div>
     <div class="row">
@@ -57,11 +57,11 @@
       </div>
     </div>
     <br>
-    <div class>
-      <div class>
+    <div >
+      <div >
         <h1>Aggregate</h1>
       </div>
-      <div class>
+      <div >
         <div>
           <RadonScript
             v-show="!error.aggregate"
@@ -80,11 +80,11 @@
       </div>
     </div>
     <br>
-    <div class>
-      <div class>
+    <div >
+      <div >
         <h1>Consensus</h1>
       </div>
-      <div class>
+      <div>
         <RadonScript
           v-show="!error.consensus"
           :path="{stage: 'consensus'}"
@@ -112,7 +112,7 @@
 </template>
 
 <script>
-
+import { getOutput } from '@/radon/utils'
 import { match } from '@/utils'
 import RadonScript from '@/components/RadonScript.vue'
 import {
@@ -151,12 +151,13 @@ export default {
       this.$store.dispatch('tryDataRequest')
     },
     getOutput: function (operatorCode) {
-      return Object.entries(RadonTypeSystem).reduce((acc, array) => {
+      const result = Object.entries(RadonTypeSystem).reduce((acc, array) => {
         if (Object.keys(array[1]).find(key => parseInt(key) === operatorCode)) {
           acc = RadonTypes[RadonTypeSystem[array[0]][operatorCode]]
         }
         return acc
       }, '')
+      return result
     },
     updateStage: function (event, stage) {
       try {
@@ -167,40 +168,49 @@ export default {
         this.error[stage] = true
       }
     },
-
     getLastOperator: function (request, stage, retrieveIndex) {
-      const script = retrieveIndex
+      const script = Number.isInteger(retrieveIndex)
         ? this[stage][retrieveIndex].script
         : this[stage].script
-
       return script[script.length - 1]
     },
     getOperatorCode: function (operator) {
       return Array.isArray(operator) ? operator[0] : operator
     },
     pushOperator: function (path) {
-      const { retrieve, aggregate, consensus } = this
-      const lastOperator = this.getLastOperator(
-        { retrieve, aggregate, consensus },
-        path.stage,
-        path.retrieveIndex,
-      )
-      const operatorCode = this.getOperatorCode(lastOperator)
-      const operatorsObject =
-        RadonTypeSystem[RadonTypes[this.getOutput(operatorCode)]]
-      const newOperatorCode = parseInt(Object.entries(operatorsObject)[0][0])
-      const newOperatorInfo = RadonOperatorInfos[newOperatorCode]
-
-      const numberOfOperatorArguments = newOperatorInfo.arguments.length
-
-      if (numberOfOperatorArguments === 0) {
-        Number.isInteger(parseInt(path.retrieveIndex))
-          ? this[path.stage][path.retrieveIndex].script.push(newOperatorCode)
-          : this[path.stage].script.push(newOperatorCode)
+      const currentScript = Number.isInteger(parseInt(path.retrieveIndex))
+        ? this[path.stage][path.retrieveIndex].script
+        : this[path.stage].script
+      const scriptTypes = currentScript.map(getOutput)
+      if (scriptTypes[0] === 'Self') {
+        console.log(`ERROR pushing a new operator in stage ${path.stage} in stageIndex ${path.retrieveIndex}`)
       } else {
-        Number.isInteger(parseInt(path.retrieveIndex))
-          ? this[path.stage][path.retrieveIndex].script.push([newOperatorCode])
-          : this[path.stage].script.push(newOperatorCode)
+      // TODO: check if first operator in aggregate phase is Self and then search the type in retrieval stage
+        const cleanScriptTypes = scriptTypes.map((item, index, array) => {
+          if (item === 'Self') {
+            return array[index - 1]
+          } else {
+            return item
+          }
+        })
+
+        const outputType = cleanScriptTypes[cleanScriptTypes.length - 1]
+        const operatorsObject =
+          RadonTypeSystem[RadonTypes[outputType]]
+        const newOperatorCode = parseInt(Object.entries(operatorsObject)[0][0])
+        const newOperatorInfo = RadonOperatorInfos[newOperatorCode]
+
+        const numberOfOperatorArguments = newOperatorInfo.arguments.length
+
+        if (numberOfOperatorArguments === 0) {
+          Number.isInteger(parseInt(path.retrieveIndex))
+            ? this[path.stage][path.retrieveIndex].script.push(newOperatorCode)
+            : this[path.stage].script.push(newOperatorCode)
+        } else {
+          Number.isInteger(parseInt(path.retrieveIndex))
+            ? this[path.stage][path.retrieveIndex].script.push([newOperatorCode])
+            : this[path.stage].script.push(newOperatorCode)
+        }
       }
     },
     pushRetrieve: function () {
@@ -212,7 +222,7 @@ export default {
     },
     updateArgumentInput: function (path, input, operator, argIndex) {
       operator[argIndex] = input
-      if (path.retrieveIndex) {
+      if (Number.isInteger(parseInt(path.retrieveIndex))) {
         this[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
         this[`${path.stage}`] = [...this[`${path.stage}`]]
       } else {
@@ -222,7 +232,7 @@ export default {
     },
     selectHashFunction: function (path, hashFunctionCode, operator, argIndex) {
       operator[argIndex] = hashFunctionCode
-      if (path.retrieveIndex) {
+      if (Number.isInteger(parseInt(path.retrieveIndex))) {
         this[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
         this[`${path.stage}`] = [...this[`${path.stage}`]]
       } else {
@@ -237,7 +247,7 @@ export default {
       argIndex,
     ) {
       operator[argIndex] = reduceArgument
-      if (Number.isInteger(path.retrieveIndex)) {
+      if (Number.isInteger(parseInt(path.retrieveIndex))) {
         this[`${path.stage}`][path.retrieveIndex].script[path.scriptIndex] = operator
         this[`${path.stage}`] = [...this[`${path.stage}`]]
       } else {
@@ -247,7 +257,7 @@ export default {
     },
     updateFilterArgument: function (path, filterArgument, operator, argIndex) {
       operator[argIndex] = [operator[argIndex][0], filterArgument]
-      if (path.retrieveIndex) {
+      if (Number.isInteger(parseInt(path.retrieveIndex))) {
         this[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
         this[`${path.stage}`] = [...this[`${path.stage}`]]
       } else {
@@ -262,7 +272,7 @@ export default {
       argIndex,
     ) {
       operator[argIndex] = [filterFunctionCode, '']
-      if (path.retrieveIndex) {
+      if (Number.isInteger(parseInt(path.retrieveIndex))) {
         this[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
       } else {
         this[`${path.stage}`][path.scriptIndex] = operator
