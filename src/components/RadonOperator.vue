@@ -1,8 +1,10 @@
 <template>
- <div class="operator">
-    <p>Input Type: {{ inputType }}</p>
-    <span>Method: </span>
-    <select
+<div>
+  <div :class="createClass([`${inputType}-type`])">
+    {{ inputType }}
+  </div>
+  <div :class="createClass([`${inputType}-operator`, 'operator'])" >
+    <select :class="createClass([`${inputType}-operator-select`])"
       v-model="operatorCode"
       @change="event => updateOperatorCodeSelect(path, event.target.value)"
     >
@@ -11,12 +13,10 @@
       </option>
     </select>
     <div class="arguments" v-for="(argValues, index) in RadonOperatorInfos[operatorCode].arguments" :key="argValues.toString() + index"  >
-
       <div v-if="isTypeOf([RadonTypes.Boolean, RadonTypes.Int, RadonTypes.Float, RadonTypes.String], argValues.kind)">
-        <label :htmlFor="argValues.name">
-          {{argValues.name}}:
-        </label>
         <input
+          :class="createClass([`${inputType}-argument`])"
+          :placeholder="argValues.name"
           :name="argValues.name"
           :value="operator[index + 1]"
           @change="event => updateArgumentInput(path, event.target.value, operator, index + 1)"
@@ -24,10 +24,9 @@
       </div>
 
       <div v-else-if="isTypeOf(RadonTypes.Map, argValues.kind)">
-        <label :htmlFor="argValues.name">
-          {{ argValues.name }}:
-          </label>
         <input
+          :class="createClass([`${inputType}-argument`])"
+          :placeholder="argValues.name"
           :name="argValues.name"
           :value="operator[index + 1]"
           @change="event => updateArgumentInput(path, event.target.value, operator, index + 1)"
@@ -35,20 +34,20 @@
       </div>
 
       <div v-else-if="isTypeOf(RadonTypes.HashFunction, argValues.kind)">
-          <span>{{argValues.name}}</span>
-          <select
-            :value="operator[index + 1]"
-            @change="event => selectHashFunction(path, event.target.value, operator, index + 1)"
-          >
-            <option v-for="hashCode in hashFunctionCodes" :key="hashCode[0]" :value="hashCode[0]">
-              {{ hashCode[1] }}
-            </option>
-          </select>
+        <select
+          :class="createClass([`${inputType}-argument`])"
+          :value="operator[index + 1]"
+          @change="event => selectHashFunction(path, event.target.value, operator, index + 1)"
+        >
+          <option v-for="hashCode in hashFunctionCodes" :key="hashCode[0]" :value="hashCode[0]">
+            {{ hashCode[1] }}
+          </option>
+        </select>
       </div>
 
       <div v-else-if="isTypeOf(RadonTypes.FilterFunction, argValues.kind)">
-        <span>{{ argValues.name }}</span>
         <select
+          :class="createClass([`${inputType}-argument`])"
           :value="operator[index + 1][0]"
           @change="event => updateOperatorFilterArgument(path, event.target.value, operator, index + 1)"
         >
@@ -58,40 +57,39 @@
         </select>
 
         <div>
-          <span>Value:</span>
           <input
+            :class="createClass([`${inputType}-argument`])"
+            placeholder="value"
             :value="operator[index + 1][1]"
             @change="event => updateFilterArgument(path, event.target.value, operator, index + 1)"
           />
         </div>
-
       </div>
 
       <div v-else-if="isTypeOf(RadonTypes.ReduceFunction, argValues.kind)">
-
-        <span>{{ argValues.name }}</span>
         <select
+          :class="createClass([`${inputType}-argument`])"
           :value="operator[index + 1]"
           @change="event => updateOperatorReduceArgument(path, event.target.value, operator, index + 1)"
         >
-        <option v-for="reducingCode in reducingFunctionCodes" :key="reducingCode[1]" :value="reducingCode[0]">
-          {{ reducingCode[1] }}
-        </option>
+          <option v-for="reducingCode in reducingFunctionCodes" :key="reducingCode[1]" :value="reducingCode[0]">
+            {{ reducingCode[1] }}
+          </option>
         </select>
       </div>
 
       <div v-else-if="isTypeOf(RadonTypes.MapFunction, argValues.kind)">
-        <label :htmlFor="argValues.name">{{ argValues.name }}*:</label>
         <input
+          :class="createClass([`${inputType}-argument`])"
+          :placeholder="argValues.name"
           :name="argValues.name"
           :value="operator[index + 1]"
           @change="event => props.updateArgumentInput(props.path, event.target.value, operator, index + 1)"
         />
       </div>
-
     </div>
-    <p>Output Type: {{ outputType }}</p>
   </div>
+</div>
 </template>
 
 <script>
@@ -124,7 +122,6 @@ export default {
     const inputTypeCode = operatorCode ? getTypeFromOperatorCode(operatorCode) : DEFAULT_INPUT_TYPE
     const inputType = RadonTypes[inputTypeCode]
     const operator = Array.isArray(this.radOperator) ? this.radOperator : [this.radOperator]
-    const outputTypeCode = RadonTypeSystem[inputTypeCode][operatorCode]
     const outputType = RadonTypes[RadonTypeSystem[inputTypeCode][operatorCode]]
     const operatorOptions = Object.keys(RadonTypeSystem[RadonTypes[inputType]])
     return {
@@ -162,12 +159,98 @@ export default {
         ? types.includes(candidate)
         : types === candidate
     },
+    createClass (classes) {
+      return classes.join(' ').toLowerCase()
+    },
   },
 }
 </script>
 
-<style>
-.operator {
-  border: 1px solid black;
-}
+<style scoped lang="scss">
+  @import '@/styles/_colors.scss';
+  @import '@/styles/fonts.scss';
+
+  *:focus {
+      outline: none;
+  }
+
+  [class*=argument] {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  [class*=select]{
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: $font-size-12;
+    font-weight: 800;
+  }
+
+  [class*=type] {
+    margin: 10px 0;
+    width: fit-content;
+    padding: 5px 10px;
+    font-size: $font-size-12;
+    font-weight: 800;
+    border-radius: 5px;
+  }
+
+  [class*=operator] {
+    border-radius: 5px;
+  }
+
+  @mixin color($color) {
+    &-operator {
+      border: 1px solid $color;
+    }
+
+    &-operator-select, &-type {
+      color: white;
+      background-color: $color;
+    }
+
+    &-argument,
+    &-argument::placeholder {
+      border: 1px solid $color;
+      color: $color;
+    }
+  }
+
+  .string {
+    @include color($blue-6);
+  }
+
+  .mixed {
+    @include color($orange-6);
+  }
+
+  .boolean {
+    @include color($red-6);
+  }
+
+  .int {
+    @include color($purple-6);
+  }
+
+  .float {
+    @include color($green-6);
+  }
+
+  .array {
+    @include color($yellow-6);
+  }
+
+  .map {
+    @include color($magenta-6);
+  }
+
+  .null {
+    @include color($grey-6);
+  }
+
+  .result {
+    @include color($volcano-6);
+  }
 </style>
