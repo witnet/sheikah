@@ -39,6 +39,8 @@ export default {
   text-align: center;
   transition: all 0.25s;
   border: none;
+  cursor: pointer;
+  min-width: max-content;
 }
 
 :active,

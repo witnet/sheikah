@@ -189,7 +189,7 @@ export const TYPESYSTEM = {
     [OPERATORS.STRING_HASH]: TYPES.String,
     [OPERATORS.STRING_LENGTH]: TYPES.Int,
     [OPERATORS.STRING_CATEGORIZE]: TYPES.Self,
-    [OPERATORS.STRING_PARSEJSON]: TYPES.Self,
+    [OPERATORS.STRING_PARSEJSON]: TYPES.Mixed,
     [OPERATORS.STRING_PARSEXML]: TYPES.Map,
     [OPERATORS.STRING_TOBOOLEAN]: TYPES.Boolean,
     [OPERATORS.STRING_TOFLOAT]: TYPES.Float,
@@ -278,16 +278,16 @@ export let RadonMethodNames;
   RadonMethodNames['RESULT_GET'] = 'resultGet'
   RadonMethodNames['RESULT_GETOR'] = 'resultGetOr'
   RadonMethodNames['RESULT_ISOK'] = 'resutlIsok'
-  RadonMethodNames['STRING_HASH'] = 'stringHash'
-  RadonMethodNames['STRING_LENGTH'] = 'strighLenght'
-  RadonMethodNames['STRING_CATEGORIZE'] = 'stringCategorize'
-  RadonMethodNames['STRING_PARSEJSON'] = 'stringParseJson'
-  RadonMethodNames['STRING_PARSEXML'] = 'stringParseXml'
-  RadonMethodNames['STRING_TOBOOLEAN'] = 'stringToBoolean'
-  RadonMethodNames['STRING_TOFLOAT'] = 'stringToFloat'
-  RadonMethodNames['STRING_TOINT'] = 'stringToInt'
-  RadonMethodNames['STRING_TOLOWERCASE'] = 'stringToLowercase'
-  RadonMethodNames['STRING_TOUPPERCASE'] = 'stringToUppercase'
+  RadonMethodNames['STRING_HASH'] = 'HASH'
+  RadonMethodNames['STRING_LENGTH'] = 'LENGHT'
+  RadonMethodNames['STRING_CATEGORIZE'] = 'CATEGORIZE'
+  RadonMethodNames['STRING_PARSEJSON'] = 'PARSE_JSON'
+  RadonMethodNames['STRING_PARSEXML'] = 'PARSE_XML'
+  RadonMethodNames['STRING_TOBOOLEAN'] = 'TO_BOOLEAN'
+  RadonMethodNames['STRING_TOFLOAT'] = 'TO_FLOAT'
+  RadonMethodNames['STRING_TOINT'] = 'TO_INT'
+  RadonMethodNames['STRING_TOLOWERCASE'] = 'TO_LOWERCASE'
+  RadonMethodNames['STRING_TOUPPERCASE'] = 'TO_UPPERCASE'
 })(RadonMethodNames || (RadonMethodNames = {}))
 
 export const OPERATOR_INFOS = {

@@ -10,12 +10,13 @@ const apiClient = new ApiClient()
 export default new Vuex.Store({
   state: {
     radRequestResult: null,
+    radRequestError: null,
     radRequest: {
       retrieve: [
         {
           url: '',
           kind: 'HTTP_GET',
-          script: [[0x56, 0]],
+          script: [67],
         },
       ],
       aggregate: {
