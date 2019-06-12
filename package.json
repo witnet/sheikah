@@ -1,7 +1,17 @@
 {
-  "name": "vue-poc",
+  "name": "sheikah",
   "version": "0.1.0",
+  "description": "A Witnet compatible desktop wallet interface and data requests development environment.",
   "private": true,
+  "author": "Witnet Foundation <info@witnet.foundation>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/witnet/sheikah.git"
+  },
+  "bugs": {
+    "url": "https://github.com/witnet/sheikah/issues"
+  },
+  "license": "GPL-3.0",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -26,7 +36,6 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.18",
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/vue-fontawesome": "^0.1.6",
-    "core-js": "^2.6.5",
     "element-ui": "^2.4.5",
     "rpc-websockets": "^4.3.5",
     "vue": "^2.6.10",
