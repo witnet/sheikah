@@ -263,8 +263,23 @@ describe('RadonOperator.vue', () => {
   describe('MIXED_TOFLOAT', () => {
     // TODO(#694)
   })
-  describe('MIXED_TOINT', () => {
-    // TODO(#695)
+  describe.only('MIXED_TOINT', () => {
+    const operator = [115, 0]
+    const wrapper = shallowMount(RadonOperator, {
+      propsData: { radOperator: operator },
+    })
+
+    it('select has operator code value', () => {
+      expect(wrapper.find('select').element.value).toBe(operator[0].toString())
+    })
+
+    it('has arguments', () => {
+      expect(wrapper.find('.arguments').exists()).toBe(true)
+    })
+
+    it('argument input has the correct value', () => {
+      expect(wrapper.find('.arguments').find('input').element.value).toBe(operator[1].toString())
+    })
   })
   describe('MIXED_TOMAP', () => {
     // TODO(#696)

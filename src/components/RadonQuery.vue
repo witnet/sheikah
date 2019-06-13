@@ -227,11 +227,10 @@ export default {
       operator[argIndex] = input
       if (Number.isInteger(parseInt(path.retrieveIndex))) {
         this[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
-        this[`${path.stage}`] = [...this[`${path.stage}`]]
       } else {
         this[`${path.stage}`][path.scriptIndex] = operator
-        this[`${path.stage}`] = { ...this[`${path.stage}`] }
       }
+      this.$forceUpdate()
     },
     selectHashFunction: function (path, hashFunctionCode, operator, argIndex) {
       operator[argIndex] = hashFunctionCode

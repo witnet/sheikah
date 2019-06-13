@@ -16,7 +16,7 @@ export default new Vuex.Store({
         {
           url: '',
           kind: 'HTTP_GET',
-          script: [67],
+          script: [67, [115, 0]],
         },
       ],
       aggregate: {
