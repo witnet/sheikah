@@ -54,7 +54,7 @@ function callApiMethod (methodName) {
 }
 
 function handleResponse (response) {
-  return response.code ? { error: response } : { response }
+  return response.code ? { error: response } : { ...response }
 }
 
 function handleError (error) {
