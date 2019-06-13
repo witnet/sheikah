@@ -19,10 +19,29 @@ import WalletSeedValidation from '@/components/steps/WalletSeedValidation.vue'
 import WelcomeForm from '@/components/steps/WelcomeForm.vue'
 import FirstTimeUsage from '@/views/FirstTimeUsage.vue'
 import Home from '@/views/Home.vue'
+import WelcomeBack from '@/views/WelcomeBack.vue'
+import WalletList from '@/components/WelcomeBack/WalletList.vue'
+import UnlockWallet from '@/components/WelcomeBack/UnlockWallet.vue'
 
 import store from '@/store'
 
 Vue.use(Router)
+
+function checkWalletIsOpen (to, from, next) {
+  if (store.state.wallet) {
+    next()
+  } else {
+    next('/ftu/welcome')
+  }
+}
+
+function checkWalletIsNotOpen (to, from, next) {
+  if (store.state.wallet) {
+    next('/wallet/transaction')
+  } else {
+    next()
+  }
+}
 
 export default new Router({
   routes: [
@@ -45,6 +64,7 @@ export default new Router({
       path: `/ftu`,
       name: 'ftu',
       component: FirstTimeUsage,
+      beforeEnter: checkWalletIsNotOpen,
       children: [
         {
           path: 'welcome',
@@ -80,7 +100,7 @@ export default new Router({
       path: '/',
       name: 'main',
       component: Home,
-      redirect: 'wallet',
+      beforeEnter: checkWalletIsOpen,
       children: [
         {
           path: 'wallet',
