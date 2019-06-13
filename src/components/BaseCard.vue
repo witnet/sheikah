@@ -21,18 +21,16 @@ export default {
   @import '@/styles/theme.scss';
 
   .card {
-    max-width: 600px;
     border: 1px solid #EEE;
     border-radius: 2px;
-  }
-
-  .shadow {
     box-shadow: $default-box-shadow;
+    height: 550px;
+    width: 600px;
+    font-size: 16px;
   }
 
   .title {
     border-bottom: solid 1px $grey-4;
-    padding: 20px;
   }
 
 </style>
