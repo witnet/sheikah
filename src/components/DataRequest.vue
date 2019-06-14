@@ -1,19 +1,26 @@
  <template>
   <div>
-    <el-header style="font-size: 12px">
-      <div>
-        <router-link to="/request/editor">Editor</router-link>
-      </div>
-      <div>
-        <router-link to="/request/templates">Templates</router-link>
-      </div>
-    </el-header>
+    <TopBar :tabs="tabs" />
     <router-view></router-view>
   </div>
 </template>
+
 <script>
+import TopBar from '@/components/TopBar.vue'
+
 export default {
   name: 'DataRequest',
+  components: {
+    TopBar,
+  },
+  data() {
+    return {
+      tabs: [
+        { name: 'Editor', link: '/request/editor' },
+        { name: 'Templates', link: '/request/templates' }
+      ]
+    }
+  }
 }
 </script>
 

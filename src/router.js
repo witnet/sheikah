@@ -37,7 +37,7 @@ function checkWalletIsOpen (to, from, next) {
 
 function checkWalletIsNotOpen (to, from, next) {
   if (store.state.wallet) {
-    next('/wallet/transaction')
+    next('/wallet/transactions')
   } else {
     next()
   }
@@ -107,7 +107,7 @@ export default new Router({
           component: Wallet,
           children: [
             {
-              path: 'transaction',
+              path: 'transactions',
               component: Transaction,
             },
             {
