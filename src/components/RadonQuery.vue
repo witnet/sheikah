@@ -8,7 +8,7 @@
               <p class="text">SOURCE</p>
               <p class="text">#{{ index }}</p>
             </div>
-            <div class="content">
+            <div class="request-type">
               <select class="select">
                 <option value="HTTPS_GET">HTTPS GET</option>
               </select>
@@ -452,7 +452,7 @@ export default {
     }
   }
 
-  .content {
+  .request-type {
     display: flex;
     flex-direction: column;
     padding: 10px;
