@@ -1,14 +1,15 @@
 <template>
   <div class="top-bar">
-    <router-link class="link" to="/wallet/transaction">Transactions</router-link>
-    <router-link class="link" to="/wallet/receive">Receive</router-link>
-    <router-link class="link" to="/wallet/send">Send</router-link>
+    <router-link v-for="tab in tabs" :key="tab.link" class="link" :to="tab.link">{{ tab.name }}</router-link>
   </div>
 </template>
 
 <script>
 export default {
   name: 'TopBar',
+  props: {
+    tabs: Array
+  }
 }
 </script>
 
