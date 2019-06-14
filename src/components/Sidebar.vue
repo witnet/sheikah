@@ -2,7 +2,7 @@
   <div>
     <div class="sidebar">
       <div class="brand">
-      <router-link class="logo" to="/wallet/transaction">
+      <router-link class="logo" to="/wallet/transactions">
         <img class="sheikah-img" src='@/resources/svg/sheikah.svg' />
       </router-link>
       </div>
@@ -10,7 +10,7 @@
        <span class="current-wallet-name">My Wallet</span>
       </div>
       <div class="link-list">
-        <router-link class="link" to="/wallet/transaction">
+        <router-link class="link" to="/wallet/transactions">
           <font-awesome-icon class="icon" icon="wallet" />
           <span class="label">Wallet</span>
         </router-link>
