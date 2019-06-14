@@ -10,7 +10,7 @@
     <ul class="options">
       <li>
         <router-link class="link" to="/ftu/disclaimer">
-          <Button class="option create-wallet-option">
+          <Button :onClick="function(){}" class="option create-wallet-option">
             Create new seed phrase
             <p class="recommended-text"> RECOMMENDED </p>
           </Button>
@@ -18,7 +18,7 @@
       </li>
       <li>
         <router-link class="link" to="/ftu/disclaimer">
-          <Button class="option create-wallet-option">
+          <Button :onClick="function(){}" class="option create-wallet-option">
             Create a wallet prefilled with sample data
             <p class="recommended-text">
               RECOMMENDED
@@ -27,13 +27,13 @@
         </router-link>
       </li>
       <li>
-        <Button class="option create-wallet-option">
+        <Button :onClick="function(){}" class="option create-wallet-option">
           Import and advanced options
         </Button>
       </li>
       <li>
         <router-link class="link" to="/ftu/welcome">
-          <Button class="option create-wallet-option">
+          <Button :onClick="function(){}" class="option create-wallet-option">
             Cancel
           </Button>
         </router-link>
