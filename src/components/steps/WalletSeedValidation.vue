@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     nextStep () {
-      if (this.seed.trim() === this.$store.state.mnemonics.trim()) {
+      if (this.seed && this.seed.trim() === this.$store.state.mnemonics.trim()) {
         this.$router.push('/ftu/encryption-pass')
         this.showError = false
       } else {
