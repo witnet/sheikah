@@ -33,7 +33,7 @@ export default {
     wallet () {
       const wallet = this.$store.state.wallet
       if (wallet) {
-        this.$router.push('/wallet/transaction')
+        this.$router.push('/wallet/transactions')
       }
       return wallet
     },
