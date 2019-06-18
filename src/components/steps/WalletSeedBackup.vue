@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-
 import NavigationCard from '@/components/NavigationCard'
 
 export default {
@@ -39,8 +37,8 @@ export default {
     NavigationCard,
   },
   methods: {
-    calculateFirstSentence: () => mnemonics.split(' ').slice(0, 6).join(' '),
-    calculateSecondSentence: () => mnemonics.split(' ').slice(6).join(' '),
+    calculateFirstSentence: () => this.seed.split(' ').slice(0, 6).join(' '),
+    calculateSecondSentence: () => this.seed.split(' ').slice(6).join(' '),
   },
 }
 </script>

@@ -13,14 +13,14 @@ export default {
   components: {
     TopBar,
   },
-  data() {
+  data () {
     return {
       tabs: [
         { name: 'Editor', link: '/request/editor' },
-        { name: 'Templates', link: '/request/templates' }
-      ]
+        { name: 'Templates', link: '/request/templates' },
+      ],
     }
-  }
+  },
 }
 </script>
 

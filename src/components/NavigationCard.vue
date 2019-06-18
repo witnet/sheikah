@@ -57,7 +57,6 @@ export default {
   margin-left: 40px;
 }
 
-
 .content {
   font-size: 16px;
   height: 389px;
