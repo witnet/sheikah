@@ -15,11 +15,11 @@
       </p>
       <div class="form-row">
         <label class="label">Password</label>
-        <input class="password-input" type="password" v-model="password">
+        <Input type="underlined" class="password-input" nativeType="password" v-model="password" />
       </div>
       <div class="form-row">
         <label class="label">Confirm password</label>
-        <input class="password-input" type="password" v-model="repeatPassword">
+        <Input type="underlined" class="password-input" nativeType="password" v-model="repeatPassword" />
       </div>
 
     </div>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import Input from '@/components/Input'
 import NavigationCard from '@/components/NavigationCard'
 
 export default {
@@ -54,6 +55,7 @@ export default {
     },
   },
   components: {
+    Input,
     NavigationCard,
   },
 }
@@ -84,7 +86,8 @@ export default {
 }
 
 .password-input {
-  width: 100%;
+  width: 50%;
+
 }
 
 </style>
