@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { ApiClient, tryDataRequest, createMnemonics, getTransactions, getWalletInfos, lockWallet, sendVTT } from '@/api'
+import { ApiClient, runRadRequest, createMnemonics, getTransactions, getWalletInfos, lockWallet, sendVTT } from '@/api'
 
 Vue.use(Vuex)
 
@@ -9,6 +9,7 @@ const apiClient = new ApiClient()
 
 export default new Vuex.Store({
   state: {
+    networkStatus: 'error',
     radRequestResult: null,
     radRequestError: null,
     radRequest: {
@@ -48,6 +49,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    checkNetworkStatus (state) {
+      state.networkStatus = apiClient.ws.ready ? 'synced' : 'error'
+    },
     setDataRequestResult (state, result) {
       state.dataRequestResult = result
     },
@@ -146,7 +150,7 @@ export default new Vuex.Store({
     },
 
     tryDataRequest: async function (context) {
-      const requestResult = await tryDataRequest(apiClient, { rad_request: context.store.radRequest })
+      const requestResult = await runRadRequest(apiClient, { rad_request: context.store.radRequest })
       if (requestResult.result) {
         context.commit('setDataRequestResult', requestResult.response)
       } else {

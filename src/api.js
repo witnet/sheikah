@@ -3,9 +3,9 @@ const RPCWebsockets = require('rpc-websockets').Client
 const defaultOptions = {
   url: 'ws://localhost:11212',
   autoconnect: true,
-  reconnect: false,
-  reconnectInterval: 5000,
-  maxReconnects: 5,
+  reconnect: true,
+  reconnect_interval: 1000,
+  max_reconnects: 0,
 }
 
 export class ApiClient {
