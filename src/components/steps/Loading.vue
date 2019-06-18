@@ -5,7 +5,7 @@
     <p class="title">Sheikah is loading your wallet</p>
     <Spinner class="spinner" :active="true" />
     <p class="description">This will take a few seconds</p>
-    <p v-if="wallet"></p>
+    <p v-if="wallet"> {{ reloadView() }} </p>
   </BaseCard>
 
 </template>
@@ -28,14 +28,15 @@ export default {
       this.$store.dispatch('createMnemonics')
       this.$router.push('ftu/seed-backup')
     },
+    reloadView () {
+      if (this.wallet) {
+        this.$router.push('/wallet/transactions')
+      }
+    },
   },
   computed: {
     wallet () {
-      const wallet = this.$store.state.wallet
-      if (wallet) {
-        this.$router.push('/wallet/transactions')
-      }
-      return wallet
+      return this.$store.state.wallet
     },
   },
 
@@ -46,48 +47,30 @@ export default {
   @import '@/styles/_colors.scss';
 
 .card {
-  height: 450px;
-  width: 600px;
+  align-items: center;
   display: flex;
   flex-direction: column;
+  height: 450px;
   justify-content: center;
-  align-items: center;
+  width: 600px;
+}
+
+.title {
+  border: none;
+  color: $blue-6;
+  font-size: 20px;
+  margin: 0 0 20px 0;
+}
+
+.description {
+  color: $blue-6;
+  font-size: 14px;
+  margin: 20px 0 0 0;
 }
 
 .spinner {
-
+  grid-row: 3;
+  margin: 0 auto;
 }
 
-  // .modal {
-  //   align-items: center;
-  //   background: $loading_modal-background;
-  //   display: grid;
-  //   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  //   height: $loading_modal-height;
-  //   position: absolute;
-  //   width: $loading_modal-width;
-  //   z-index: 10;
-
-    .title {
-      color: $blue-6;
-      font-size: 20px;
-      // grid-row: 2;
-      margin: 0 0 20px 0;
-      border: none;
-    }
-
-    .description {
-      color: $blue-6;
-      font-size: 14px;
-      margin: 20px 0 0 0;
-}
-
-  .spinner {
-    grid-row: 3;
-    margin: 0 auto;
-  }
-
-  .hidden {
-    display: none;
-  }
 </style>
