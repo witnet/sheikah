@@ -32,18 +32,15 @@
       </div>
       <div class="settings">
         <font-awesome-icon icon="cog" />
-        <div class="net-status">
-          <span class="mainnet">PROTOTYPE</span>
-          <span class="synced">SYNCED</span>
-          <!-- <DotIndicator mood="warning"/> -->
-          <span class="dot"></span>
-        </div>
+        <NetworkStatus :status="status" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import NetworkStatus from '@/components/NetworkStatus.vue'
+
 export default {
   methods: {
     handleOpen (key, keyPath) {
@@ -51,6 +48,14 @@ export default {
     },
     handleClose (key, keyPath) {
       console.log(key, keyPath)
+    },
+  },
+  components: {
+    NetworkStatus,
+  },
+  computed: {
+    status () {
+      return this.$store.state.networkStatus
     },
   },
 }
