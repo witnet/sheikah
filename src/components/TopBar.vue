@@ -8,8 +8,8 @@
 export default {
   name: 'TopBar',
   props: {
-    tabs: Array
-  }
+    tabs: Array,
+  },
 }
 </script>
 

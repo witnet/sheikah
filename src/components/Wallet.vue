@@ -8,7 +8,7 @@
 import TopBar from '@/components/TopBar'
 export default {
   name: 'Wallet',
-  data() {
+  data () {
     return {
       tabs: [
         { name: 'Transactions', link: '/wallet/transactions' },

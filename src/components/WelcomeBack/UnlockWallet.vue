@@ -10,7 +10,7 @@
       </button>
       <p v-if="showError">Invalid password</p>
 
-      <p v-if="sent">{{ wallet }}</p>
+      <p v-if="sent">{{ updateView(wallet) }}</p>
     </div>
 </template>
 
@@ -30,19 +30,18 @@ export default {
       this.$store.dispatch('unlockWallet', { id: this.$route.params.id, password: this.password })
       this.sent = true
     },
-  },
-  computed: {
-    wallet () {
-      console.log('----')
-      const wallet = this.$store.state.wallet
+    updateView (wallet) {
       if (wallet) {
         this.showError = false
         this.$router.push('/wallet/transactions')
       } else {
         // this.showError = true
       }
-
-      return wallet
+    },
+  },
+  computed: {
+    wallet () {
+      return this.$store.state.wallet
     },
   },
 }
