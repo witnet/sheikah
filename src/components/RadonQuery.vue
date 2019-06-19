@@ -80,8 +80,6 @@
       </div>
     </div>
     <div>
-    <p v-if="dataRequestResult">The result of the data request is: {{ dataRequestResult }}</p>
-    <p v-if="dataRequestError">There was an error trying data request {{ dataRequestError }}</p>
       <p>Retrieval</p>
       <textarea
         class="textarea"
@@ -103,6 +101,8 @@
 
       <button @click="tryDataRequest">Try data request</button>
     </div>
+  The result of the data request is:
+  {{ radRequestResult }}
 
   </div>
 </template>
@@ -133,11 +133,12 @@ export default {
   },
   data () {
     return {
-      dataRequestResult: this.$store.state.dataRequestResult,
+      // dataRequestResult: this.$store.state.dataRequestResult,
       dataRequestError: this.$store.state.dataRequestError,
       retrieve: this.$store.state.radRequest.retrieve,
       aggregate: this.$store.state.radRequest.aggregate,
       consensus: this.$store.state.radRequest.consensus,
+      deliver: this.$store.state.radRequest.deliver,
       error: {
         retrieve: false,
         aggregate: false,
@@ -147,7 +148,14 @@ export default {
   },
   methods: {
     tryDataRequest: function () {
-      this.$store.dispatch('tryDataRequest')
+      const radRequest = {
+        not_before: 0,
+        retrieve: this.retrieve,
+        aggregate: this.aggregate,
+        consensus: this.consensus,
+        deliver: this.deliver,
+      }
+      this.$store.dispatch('tryDataRequest', radRequest)
     },
     getOutput: function (operatorCode) {
       const result = Object.entries(RadonTypeSystem).reduce((acc, array) => {
@@ -376,6 +384,9 @@ export default {
       return Object.entries(ReducingFunctionCodes)
         .slice(0, Object.entries(ReducingFunctionCodes).length / 2)
     },
+    radRequestResult: function () {
+      return this.$store.state.radRequestResult
+    }
   },
 }
 </script>
