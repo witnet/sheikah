@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import msgpack5 from 'msgpack5'
+const msgpack = msgpack5()
 
 import { ApiClient, runRadRequest, createMnemonics, getTransactions, getWalletInfos, lockWallet, sendVTT } from '@/api'
 
@@ -13,19 +15,40 @@ export default new Vuex.Store({
     radRequestResult: null,
     radRequestError: null,
     radRequest: {
+      not_before: 0,
       retrieve: [
         {
-          url: '',
-          kind: 'HTTP_GET',
-          script: [67, [115, 0]],
+          url: 'https://api.coindesk.com/v1/bpi/currentprice.json',
+          kind: 'HTTP-GET',
+          script: [
+            83,
+            132,
+            [ 1, 'bpi' ],
+            132,
+            [ 1, 'USD' ],
+            132,
+            [ 1, 'rate_float' ],
+            130,
+          ],
         },
       ],
       aggregate: {
-        script: [0x43, 0x74, [0x61, 'weather'], 0x74, [0x61, 'temp'], 0x72],
+        script: [
+          [
+            102,
+            32,
+          ],
+        ],
       },
       consensus: {
-        script: [0x43, 0x74, [0x61, 'weather'], 0x74, [0x61, 'temp'], 0x72],
+        script: [
+          [
+            102,
+            32,
+          ],
+        ],
       },
+      deliver: [{ kind: 'HTTP-GET', url: 'https://hooks.zapier.com/hooks/catch/3860543/l2awcd' }],
     },
     wallet: null,
     walletLocked: false,
@@ -53,7 +76,7 @@ export default new Vuex.Store({
       state.networkStatus = apiClient.ws.ready ? 'synced' : 'error'
     },
     setDataRequestResult (state, result) {
-      state.dataRequestResult = result
+      Object.assign(state, { radRequestResult: result })
     },
 
     setMnemonics (state, result) {
@@ -149,13 +172,27 @@ export default new Vuex.Store({
       }
     },
 
-    tryDataRequest: async function (context) {
-      const requestResult = await runRadRequest(apiClient, { rad_request: context.store.radRequest })
+    tryDataRequest: async function (context, decodedRadRequest) {
+      const encodedRadRequest = encodeDataRequest(decodedRadRequest)
+      const requestResult = await runRadRequest(apiClient, { radRequest: encodedRadRequest })
       if (requestResult.result) {
-        context.commit('setDataRequestResult', requestResult.response)
+        context.commit('setDataRequestResult', requestResult.result)
       } else {
         context.commit('setError', 'tryDataRequest', requestResult.error)
       }
     },
   },
 })
+
+function encodeDataRequest (radRequest) {
+  return {
+    not_before: radRequest.not_before,
+    retrieve: radRequest.retrieve.map(retrieve => {
+      return { ...retrieve, script: [...msgpack.encode(retrieve.script)] }
+    }),
+
+    aggregate: { script: [...msgpack.encode(radRequest.aggregate.script)] },
+    consensus: { script: [...msgpack.encode(radRequest.consensus.script)] },
+    deliver: radRequest.deliver,
+  }
+}
