@@ -4,16 +4,10 @@
       <RadonOperator
         :radOperator="operator"
         :path="{...path, scriptIndex: index }"
-        :updateArgumentInput="updateArgumentInput"
-        :selectHashFunction="selectHashFunction"
-        :updateFilterArgument="updateFilterArgument"
-        :updateOperatorCodeSelect="updateOperatorCodeSelect"
-        :updateOperatorFilterArgument="updateOperatorFilterArgument"
-        :updateOperatorReduceArgument="updateOperatorReduceArgument"
       />
     </div>
 
-    <button @click="event => pushOperator(path)" class="circle plus"></button>
+    <button @click="pushOperator" class="circle plus"></button>
   </div>
 </template>
 
@@ -26,18 +20,15 @@ export default {
   props: {
     path: Object,
     script: Array,
-    selectHashFunction: Function,
-    updateArgumentInput: Function,
-    updateFilterArgument: Function,
-    updateOperatorCodeSelect: Function,
-    updateOperatorFilterArgument: Function,
-    updateOperatorReduceArgument: Function,
-    pushOperator: Function,
   },
   data () {
     return {}
   },
-  methods: { },
+  methods: {
+    pushOperator () {
+      this.$store.commit('pushOperator', { path: this.path })
+    },
+  },
 }
 </script>
 
