@@ -1,9 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import msgpack5 from 'msgpack5'
-const msgpack = msgpack5()
 
 import { ApiClient, runRadRequest, createMnemonics, getTransactions, getWalletInfos, lockWallet, sendVTT } from '@/api'
+import { getOutput, isValidScript } from './radon/utils'
+import { match } from './utils'
+import {
+  TYPES as RadonTypes,
+  OPERATOR_INFOS as RadonOperatorInfos,
+  TYPESYSTEM as RadonTypeSystem,
+  // HashFunctionCodes,
+  // ReducingFunctionCodes,
+  // FilteringFunctionCodes,
+} from '@/radon'
+
+const msgpack = msgpack5()
 
 Vue.use(Vuex)
 
@@ -97,6 +108,178 @@ export default new Vuex.Store({
     setError (state, errorName, error) {
       state.errors[errorName] = error
     },
+
+    pushOperator (state, { path }) {
+      if (path.stage === 'retrieve' && state.radRequest.retrieve[path.retrieveIndex].script.length === 0) {
+        state.radRequest.retrieve[path.retrieveIndex].script.push(67)
+      } else {
+        const currentScript = Number.isInteger(parseInt(path.retrieveIndex))
+          ? state.radRequest[path.stage][path.retrieveIndex].script
+          : state.radRequest[path.stage].script
+        const scriptTypes = currentScript.map(getOutput)
+        if (scriptTypes[0] === 'Self') {
+          console.log(`ERROR pushing a new operator in stage ${path.stage} in stageIndex ${path.retrieveIndex}`)
+        } else {
+        // TODO: check if first operator in aggregate phase is Self and then search the type in retrieval stage
+          const cleanScriptTypes = scriptTypes.map((item, index, array) => {
+            if (item === 'Self') {
+              return array[index - 1]
+            } else {
+              return item
+            }
+          })
+
+          const outputType = cleanScriptTypes[cleanScriptTypes.length - 1]
+          const operatorsObject = RadonTypeSystem[RadonTypes[outputType]]
+          const newOperatorCode = parseInt(Object.entries(operatorsObject)[0][0])
+          const newOperatorInfo = RadonOperatorInfos[newOperatorCode]
+          const numberOfOperatorArguments = newOperatorInfo.arguments.length
+
+          if (numberOfOperatorArguments === 0) {
+            Number.isInteger(parseInt(path.retrieveIndex))
+              ? state.radRequest[path.stage][path.retrieveIndex].script.push(newOperatorCode)
+              : state.radRequest[path.stage].script.push(newOperatorCode)
+          } else {
+            Number.isInteger(parseInt(path.retrieveIndex))
+              ? state.radRequest[path.stage][path.retrieveIndex].script.push([newOperatorCode])
+              : state.radRequest[path.stage].script.push(newOperatorCode)
+          }
+        }
+      }
+    },
+
+    pushRetrieve (state) {
+      state.radRequest.retrieve.push({
+        url: '',
+        kind: 'HTTP_GET',
+        script: [],
+      })
+    },
+    updateArgumentInput (state, { path, input, operator, argIndex }) {
+      operator[argIndex] = input
+      if (Number.isInteger(parseInt(path.retrieveIndex))) {
+        state.radRequest[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
+      } else {
+        state.radRequest[`${path.stage}`][path.scriptIndex] = operator
+      }
+    },
+    selectHashFunction: function (state, { path, hashFunctionCode, operator, argIndex }) {
+      operator[argIndex] = hashFunctionCode
+      if (Number.isInteger(parseInt(path.retrieveIndex))) {
+        state.radRequest[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
+        state.radRequest[`${path.stage}`] = [...state.radRequest[`${path.stage}`]]
+      } else {
+        state.radRequest[`${path.stage}`][path.scriptIndex] = operator
+        state.radRequest[`${path.stage}`] = { ...this[`${path.stage}`] }
+      }
+    },
+    updateOperatorReduceArgument: function (state, { path, reduceArgument, operator, argIndex }) {
+      operator[argIndex] = reduceArgument
+      if (Number.isInteger(parseInt(path.retrieveIndex))) {
+        state.radRequest[`${path.stage}`][path.retrieveIndex].script[path.scriptIndex] = operator
+        state.radRequest[`${path.stage}`] = [...state.radRequest[`${path.stage}`]]
+      } else {
+        state.radRequest[`${path.stage}`].script[path.scriptIndex] = operator
+        state.radRequest[`${path.stage}`] = { ...state.radRequest[`${path.stage}`] }
+      }
+    },
+    updateFilterArgument: function (state, { path, filterArgument, operator, argIndex }) {
+      operator[argIndex] = [operator[argIndex][0], filterArgument]
+      if (Number.isInteger(parseInt(path.retrieveIndex))) {
+        state.radRequest[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
+        state.radRequest[`${path.stage}`] = [...state.radRequest[`${path.stage}`]]
+      } else {
+        state.radRequest[`${path.stage}`][path.scriptIndex] = operator
+        state.radRequest[`${path.stage}`] = { ...state.radRequest[`${path.stage}`] }
+      }
+    },
+    updateOperatorFilterArgument: function (state, { path, filterFunctionCode, operator, argIndex }) {
+      operator[argIndex] = [filterFunctionCode, '']
+      if (Number.isInteger(parseInt(path.retrieveIndex))) {
+        state.radRequest[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
+      } else {
+        state.radRequest[`${path.stage}`][path.scriptIndex] = operator
+      }
+    },
+    updateOperatorCodeSelect: function (state, { path, operatorCode }) {
+      let args = RadonOperatorInfos[operatorCode].arguments.map(argument => {
+        return match(argument.kind, [
+          {
+            options: [
+              RadonTypes.Boolean,
+            ],
+            result: true,
+          },
+          {
+            options: [
+              RadonTypes.Int,
+            ],
+            result: 0,
+          },
+          {
+            options: [
+              RadonTypes.Float,
+            ],
+            result: 0.0,
+          },
+          {
+            options: [
+              RadonTypes.String,
+            ],
+            result: '',
+          },
+          {
+            options: [
+              RadonTypes.Map,
+              RadonTypes.Mixed,
+              RadonTypes.Array,
+              RadonTypes.Null,
+              RadonTypes.Result,
+              RadonTypes.Self,
+              RadonTypes.MapFunction,
+            ],
+            result: [],
+          },
+          {
+            options: [RadonTypes.FilterFunction],
+            result: [0, 0],
+          },
+          {
+            options: [RadonTypes.HashFunction],
+            result: 0,
+          },
+          {
+            options: [RadonTypes.ReduceFunction],
+            result: 0,
+          },
+        ])
+      })
+      if (path.stage === 'retrieve') {
+        state.radRequest[`${path.stage}`][path.retrieveIndex].script[path.scriptIndex] = [
+          parseInt(operatorCode),
+          ...args,
+        ]
+        if (!isValidScript('')) {
+          state.radRequest[`${path.stage}`][path.retrieveIndex].script.splice(
+            path.scriptIndex + 1,
+            state.radRequest[`${path.stage}`][path.retrieveIndex].script.length,
+          )
+        }
+        state.radRequest[`${path.stage}`] = { ...state.radRequest[`${path.stage}`] }
+      } else {
+        state.radRequest[`${path.stage}`].script[path.scriptIndex] = [
+          parseInt(operatorCode),
+          ...args,
+        ]
+        if (!isValidScript('')) {
+          state.radRequest[`${path.stage}`].script.splice(
+            path.scriptIndex + 1,
+            state.radRequest[`${path.stage}`].script.length,
+          )
+        }
+        state.radRequest[`${path.stage}`] = { ...state.radRequest[`${path.stage}`] }
+      }
+    },
   },
   actions: {
     sendVTT: async function (context, { walletId, toAddress, amount, fee, subject }) {
@@ -172,8 +355,8 @@ export default new Vuex.Store({
       }
     },
 
-    tryDataRequest: async function (context, decodedRadRequest) {
-      const encodedRadRequest = encodeDataRequest(decodedRadRequest)
+    tryDataRequest: async function (context) {
+      const encodedRadRequest = encodeDataRequest(context.state.radRequest)
       const requestResult = await runRadRequest(apiClient, { radRequest: encodedRadRequest })
       if (requestResult.result) {
         context.commit('setDataRequestResult', requestResult.result)

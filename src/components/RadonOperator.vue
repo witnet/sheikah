@@ -6,7 +6,7 @@
   <div :class="createClass([`${inputType}-operator`, 'operator'])" >
     <select :class="createClass([`${inputType}-operator-select`])"
       v-model="operatorCode"
-      @change="event => updateOperatorCodeSelect(path, event.target.value)"
+      @change="event => updateOperatorCodeSelect(event.target.value)"
     >
       <option v-for="operatorOption in operatorOptions" :value="operatorOption" :key="operatorOption">
         {{ RadonOperatorInfos[operatorOption].name }}
@@ -19,7 +19,7 @@
           :placeholder="argValues.name"
           :name="argValues.name"
           :value="operator[index + 1]"
-          @change="event => updateArgumentInput(path, event.target.value, operator, index + 1)"
+          @change="event => updateArgumentInput(event.target.value, index + 1)"
         />
       </div>
 
@@ -29,7 +29,7 @@
           :placeholder="argValues.name"
           :name="argValues.name"
           :value="operator[index + 1]"
-          @change="event => updateArgumentInput(path, event.target.value, operator, index + 1)"
+          @change="event => updateArgumentInput(event.target.value, index + 1)"
         />
       </div>
 
@@ -37,7 +37,7 @@
         <select
           :class="createClass([`${inputType}-argument`])"
           :value="operator[index + 1]"
-          @change="event => selectHashFunction(path, event.target.value, operator, index + 1)"
+          @change="event => selectHashFunction(event.target.value, index + 1)"
         >
           <option v-for="hashCode in hashFunctionCodes" :key="hashCode[0]" :value="hashCode[0]">
             {{ hashCode[1] }}
@@ -49,7 +49,7 @@
         <select
           :class="createClass([`${inputType}-argument`])"
           :value="operator[index + 1][0]"
-          @change="event => updateOperatorFilterArgument(path, event.target.value, operator, index + 1)"
+          @change="event => updateOperatorFilterArgument(event.target.value, index + 1)"
         >
           <option v-for="(filterCode, index) in filteringFunctionCodes" :key="filteringFunctionCodes[index][1]" :value="filteringFunctionCodes[index][0]">
             {{ filterCode[1] }}
@@ -61,7 +61,7 @@
             :class="createClass([`${inputType}-argument`])"
             placeholder="value"
             :value="operator[index + 1][1]"
-            @change="event => updateFilterArgument(path, event.target.value, operator, index + 1)"
+            @change="event => updateFilterArgument(event.target.value, index + 1)"
           />
         </div>
       </div>
@@ -70,7 +70,7 @@
         <select
           :class="createClass([`${inputType}-argument`])"
           :value="operator[index + 1]"
-          @change="event => updateOperatorReduceArgument(path, event.target.value, operator, index + 1)"
+          @change="event => updateOperatorReduceArgument(event.target.value, index + 1)"
         >
           <option v-for="reducingCode in reducingFunctionCodes" :key="reducingCode[1]" :value="reducingCode[0]">
             {{ reducingCode[1] }}
@@ -84,7 +84,7 @@
           :placeholder="argValues.name"
           :name="argValues.name"
           :value="operator[index + 1]"
-          @change="event => props.updateArgumentInput(props.path, event.target.value, operator, index + 1)"
+          @change="event => props.updateArgumentInput(event.target.value, index + 1)"
         />
       </div>
     </div>
@@ -110,12 +110,6 @@ export default {
   props: {
     radOperator: [Array, Number],
     path: Object,
-    selectHashFunction: Function,
-    updateArgumentInput: Function,
-    updateFilterArgument: Function,
-    updateOperatorCodeSelect: Function,
-    updateOperatorFilterArgument: Function,
-    updateOperatorReduceArgument: Function,
   },
   data () {
     const operatorCode = Array.isArray(this.radOperator) ? this.radOperator[0] : this.radOperator
@@ -161,6 +155,24 @@ export default {
     },
     createClass (classes) {
       return classes.join(' ').toLowerCase()
+    },
+    updateOperatorCodeSelect (operatorCode) {
+      this.$store.commit('updateOperatorCodeSelect', { path: this.path, operatorCode })
+    },
+    updateArgumentInput (input, argIndex) {
+      this.$store.commit('updateArgumentInput', { path: this.path, input, operator: this.operator, argIndex })
+    },
+    selectHashFunction (hashFunctionCode, argIndex) {
+      this.$store.commit('selectHashFunction', { path: this.path, hashFunctionCode, operator: this.operator, argIndex })
+    },
+    updateOperatorFilterArgument (filterFunctionCode, argIndex) {
+      this.$store.commit('updateOperatorFilterArgument', { path: this.path, filterFunctionCode, operator: this.operator, argIndex })
+    },
+    updateFilterArgument (filterArgument, argIndex) {
+      this.$store.commit('updateFilterArgument', { path: this.path, filterArgument, operator: this.operator, argIndex })
+    },
+    updateOperatorReduceArgument (reduceArgument, argIndex) {
+      this.$store.commit('updateOperatorReduceArgument', { path: this.path, reduceArgument, operator: this.operator, argIndex })
     },
   },
 }
