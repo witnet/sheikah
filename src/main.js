@@ -5,10 +5,10 @@ import store from './store'
 import './plugins/element.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee, faWallet, faEye, faCode, faShoppingBag, faUsers, faCog, faAngleRight, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faWallet, faEye, faCode, faShoppingBag, faUsers, faCog, faAngleRight, faAngleLeft, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faCoffee, faWallet, faEye, faCode, faShoppingBag, faUsers, faCog, faAngleRight, faCircle)
+library.add(faCoffee, faWallet, faEye, faCode, faShoppingBag, faUsers, faCog, faAngleRight, faAngleLeft, faCircle)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
