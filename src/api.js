@@ -53,12 +53,13 @@ function callApiMethod (methodName) {
     .catch(handleError)
 }
 
+// TODO(#594): Handle errors in a proper way
 function handleResponse (response) {
-  return response.code ? { error: response } : { ...response }
+  return response || { error: Error('Wallet error occurred') }
 }
 
 function handleError (error) {
-  return error
+  return { error }
 }
 
 export const createDataRequest = callApiMethod('createDataRequest')

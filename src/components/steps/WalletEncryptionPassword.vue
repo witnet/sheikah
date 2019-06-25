@@ -46,7 +46,7 @@ export default {
     nextStep () {
       if (this.password === this.repeatPassword) {
         this.showError = false
-        this.$store.dispatch('createWallet', { password: this.password, mnemonics: this.mnemonics })
+        this.$store.dispatch('createWallet', { sourceType: 'mnemonics', password: this.password, mnemonics: this.mnemonics })
         this.$router.push('/ftu/create-wallet')
       } else {
         this.showError = true
