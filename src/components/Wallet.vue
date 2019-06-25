@@ -1,6 +1,7 @@
 <template>
 <div>
   <TopBar :tabs="tabs" />
+  <router-view />
 </div>
 </template>
 
@@ -13,8 +14,7 @@ export default {
       tabs: [
         { name: 'Transactions', link: '/wallet/transactions' },
         { name: 'Receive', link: '/wallet/receive' },
-        { name: 'Send', link: '/wallet/send' },
-      ],
+        { name: 'Send', link: '/wallet/send' } ],
     }
   },
   components: {

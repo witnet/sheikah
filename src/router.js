@@ -8,7 +8,7 @@ import Marketplace from '@/components/Marketplace.vue'
 import Receive from '@/components/Receive.vue'
 import Send from '@/components/Send.vue'
 import Templates from '@/components/Templates.vue'
-import Transaction from '@/components/Transaction.vue'
+import Transactions from '@/components/Transactions.vue'
 import Wallet from '@/components/Wallet.vue'
 import Loading from '@/components/steps/Loading.vue'
 import WalletDisclaimer from '@/components/steps/WalletDisclaimer.vue'
@@ -108,7 +108,7 @@ export default new Router({
           children: [
             {
               path: 'transactions',
-              component: Transaction,
+              component: Transactions,
             },
             {
               path: 'receive',
