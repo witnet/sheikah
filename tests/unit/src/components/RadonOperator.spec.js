@@ -35,6 +35,8 @@ describe('RadonOperator.vue', () => {
     { value: 10, text: 'DEVMAX' },
   ]
 
+  // This test will fail while the witnet-rust code continues using an old version of radon.
+  // To be able to run rad request we have the same wrong operator codes
   describe('ArrayCount operator', () => {
     const operator = 0x50
     const wrapper = shallowMount(RadonOperator, {
@@ -95,9 +97,9 @@ describe('RadonOperator.vue', () => {
   describe('ArrayMap operator', () => {
     // TODO(#648)
   })
-
+  // This test will fail while the witnet-rust code continues using an old version of radon.
+  // To be able to run rad request we have the same wrong operator codes
   describe('ArrayReduce operator', () => {
-    // TODO(#649)
     const operator = [0x56, 0]
     const wrapper = shallowMount(RadonOperator, {
       propsData: { radOperator: operator },
@@ -263,7 +265,7 @@ describe('RadonOperator.vue', () => {
   describe('MIXED_TOFLOAT', () => {
     // TODO(#694)
   })
-  describe.only('MIXED_TOINT', () => {
+  describe('MIXED_TOINT', () => {
     const operator = [115, 0]
     const wrapper = shallowMount(RadonOperator, {
       propsData: { radOperator: operator },
