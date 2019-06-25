@@ -28,7 +28,7 @@ import store from '@/store'
 Vue.use(Router)
 
 function checkWalletIsOpen (to, from, next) {
-  if (store.state.wallet) {
+  if (store.state.wallet.wallet) {
     next()
   } else {
     next('/ftu/welcome')
@@ -36,7 +36,7 @@ function checkWalletIsOpen (to, from, next) {
 }
 
 function checkWalletIsNotOpen (to, from, next) {
-  if (store.state.wallet) {
+  if (store.state.wallet.wallet) {
     next('/wallet/transactions')
   } else {
     next()

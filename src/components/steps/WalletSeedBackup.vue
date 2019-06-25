@@ -24,14 +24,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import NavigationCard from '@/components/NavigationCard'
 
 export default {
   name: 'WalletSeedBackup',
+
   computed: {
-    seed () {
-      return this.$store.state.mnemonics
-    },
+    ...mapState({
+      seed: state => state.wallet.mnemonics,
+    }),
   },
   components: {
     NavigationCard,

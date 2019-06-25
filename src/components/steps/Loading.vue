@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import BaseCard from '@/components/BaseCard.vue'
 import Spinner from '@/components/Spinner.vue'
 
@@ -35,9 +37,9 @@ export default {
     },
   },
   computed: {
-    wallet () {
-      return this.$store.state.wallet
-    },
+    ...mapState({
+      wallet: state => state.wallet.wallet,
+    }),
   },
 
 }
