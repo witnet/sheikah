@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import NetworkStatus from '@/components/NetworkStatus.vue'
 
 export default {
@@ -54,9 +56,9 @@ export default {
     NetworkStatus,
   },
   computed: {
-    status () {
-      return this.$store.state.networkStatus
-    },
+    ...mapState({
+      status: state => state.wallet.networkStatus,
+    }),
   },
 }
 </script>

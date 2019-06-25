@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
   name: 'UnlockWallet',
@@ -40,9 +41,9 @@ export default {
     },
   },
   computed: {
-    wallet () {
-      return this.$store.state.wallet
-    },
+    ...mapState({
+      wallet: state => state.wallet.wallet,
+    }),
   },
 }
 </script>
