@@ -2,6 +2,8 @@
   <BaseCard
     class="card"
   >
+    <!-- TODO(#701) Handle error in a proper way -->
+    <p v-if="error"> {{ goToFirstStep() }}</p>
     <p class="title">Sheikah is loading your wallet</p>
     <Spinner class="spinner" :active="true" />
     <p class="description">This will take a few seconds</p>
@@ -23,6 +25,9 @@ export default {
     Spinner,
   },
   methods: {
+    goToFirstStep () {
+      this.$router.push('/ftu/welcome')
+    },
     previousStep () {
       this.$router.push('/ftu/seed-type-selection')
     },
@@ -39,6 +44,7 @@ export default {
   computed: {
     ...mapState({
       wallet: state => state.wallet.wallet,
+      error: state => state.wallet.errors.unlockWallet || state.wallet.errors.createWallet,
     }),
   },
 

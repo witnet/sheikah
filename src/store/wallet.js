@@ -1,4 +1,4 @@
-import { ApiClient, runRadRequest, createMnemonics, getTransactions, getWalletInfos, lockWallet, sendVTT } from '@/api'
+import { ApiClient, createWallet, unlockWallet, runRadRequest, createMnemonics, getTransactions, getWalletInfos, lockWallet, sendVTT } from '@/api'
 import { encodeDataRequest } from '@/utils'
 
 const apiClient = new ApiClient()
@@ -34,19 +34,16 @@ export default {
       Object.assign(state, { mnemonics: result })
     },
 
-    setWallet (state, wallet) {
+    setWallet (state, { wallet }) {
       state.wallet = wallet
     },
 
     lockWallet (state, id) {
       state.lockWallet = id
     },
-    unlockWallet (state, wallet) {
-      state.wallet = wallet
-    },
 
-    setError (state, errorName, error) {
-      state.errors[errorName] = error
+    setError (state, { name, error }) {
+      state.errors[name] = error
     },
   },
   actions: {
@@ -59,17 +56,14 @@ export default {
       }
     },
 
-    unlockWallet: async function (context, { id, password }) {
-      // const unlockWalletRequest = await unlockWallet(apiClient, { id, password })
-      setTimeout(function () {
-        context.commit('setWallet', { wallet: { name: 'Prueba' } })
-      }, 500)
-
-      // if (unlockWalletRequest.result) {
-      //   context.commit('setWallet', context.store.wallet.id)
-      // } else {
-      //   context.commit('setError', 'unlockWallet', unlockWalletRequest.error)
-      // }
+    unlockWallet: async function (context, { walletId, password }) {
+      const request = await unlockWallet(apiClient, { walletId, password, sessionId: '1' })
+      if (request.unlockedWalletId) {
+        // TODO(#706) We should receive a wallet structure instead a walletId
+        context.commit('setWallet', { wallet: request.unlockedWalletId })
+      } else {
+        context.commit('setError', { name: 'unlockWallet', error: request.error })
+      }
     },
 
     lockWallet: async function (context, { walletId, wipe }) {
@@ -91,16 +85,20 @@ export default {
     },
 
     createWallet: async function (context, params) {
-      // const createWalletRequest = await createWallet(apiClient, params)
-      // TODO() make read request when the wallet implements this feature
-      setTimeout(function () {
-        context.commit('setWallet', { wallet: { name: 'Prueba' } })
-      }, 500)
-      // if (createWalletRequest.result) {
-      //   context.commit('setWallet', createWalletRequest.response)
-      // } else {
-      //   context.commit('setError', 'createWallet', createWalletRequest.error)
-      // }
+      const request = await createWallet(apiClient, {
+        name: 'first',
+        caption: '1',
+        seedSource: {
+          data: params.mnemonics,
+          source: params.sourceType,
+        },
+        password: params.password,
+      })
+      if (request.walletId) {
+        context.dispatch('unlockWallet', { walletId: request.walletId, password: params.password })
+      } else {
+        context.commit('setError', 'createWallet', request.error)
+      }
     },
 
     getTransactions: async function (context, { walletId, limit, page }) {
