@@ -88,15 +88,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import RadonScript from '@/components/RadonScript.vue'
 import Button from '@/components/Button.vue'
-import { getOutput } from '@/radon/utils'
-import { match } from '@/utils'
 
 import {
-  TYPES as RadonTypes,
-  OPERATOR_INFOS as RadonOperatorInfos,
-  TYPESYSTEM as RadonTypeSystem,
   HashFunctionCodes,
   ReducingFunctionCodes,
   FilteringFunctionCodes,
@@ -113,7 +110,6 @@ export default {
   },
   data () {
     return {
-      dataRequestError: this.$store.state.dataRequestError,
       error: {
         retrieve: false,
         aggregate: false,
@@ -140,6 +136,14 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      radRequestError: state => state.wallet.dataRequestError,
+      radRequestResult: state => state.wallet.radRequestResult,
+      retrieve: state => state.rad.radRequest.retrieve,
+      aggregate: state => state.rad.radRequest.aggregate,
+      consensus: state => state.rad.radRequest.consensus,
+      deliver: state => state.rad.radRequest.deliver,
+    }),
     hashFunctionCodes: function () {
       return Object.entries(HashFunctionCodes)
         .slice(0, Object.entries(HashFunctionCodes).length / 2)
@@ -151,21 +155,6 @@ export default {
     reducingFunctionCodes: function () {
       return Object.entries(ReducingFunctionCodes)
         .slice(0, Object.entries(ReducingFunctionCodes).length / 2)
-    },
-    radRequestResult: function () {
-      return this.$store.state.radRequestResult
-    },
-    retrieve: function () {
-      return this.$store.state.radRequest.retrieve
-    },
-    aggregate: function () {
-      return this.$store.state.radRequest.aggregate
-    },
-    consensus: function () {
-      return this.$store.state.radRequest.consensus
-    },
-    deliver: function () {
-      return this.$store.state.radRequest.deliver
     },
   },
 }

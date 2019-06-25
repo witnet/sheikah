@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import Input from '@/components/Input'
 import NavigationCard from '@/components/NavigationCard'
 
@@ -44,7 +46,7 @@ export default {
     nextStep () {
       if (this.password === this.repeatPassword) {
         this.showError = false
-        this.$store.dispatch('createWallet', { password: this.password, mnemonics: this.$store.state.mnemonics })
+        this.$store.dispatch('createWallet', { password: this.password, mnemonics: this.mnemonics })
         this.$router.push('/ftu/create-wallet')
       } else {
         this.showError = true
@@ -53,6 +55,11 @@ export default {
     previousStep () {
       this.$router.push('/ftu/seed-validation')
     },
+  },
+  computed: {
+    ...mapState({
+      mnemonics: state => state.wallet.mnemonics,
+    }),
   },
   components: {
     Input,

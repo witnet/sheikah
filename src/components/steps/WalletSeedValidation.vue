@@ -23,8 +23,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import NavigationCard from '@/components/NavigationCard'
 import Input from '@/components/Input.vue'
+
 export default {
   name: 'WalletSeedValidation',
   components: {
@@ -37,9 +40,14 @@ export default {
       showError: '',
     }
   },
+  computed: {
+    ...mapState({
+      mnemonics: state => state.wallet.mnemonics,
+    }),
+  },
   methods: {
     nextStep () {
-      if (this.seed && this.seed.trim() === this.$store.state.mnemonics.trim()) {
+      if (this.seed && this.seed.trim() === this.mnemonics.trim()) {
         this.$router.push('/ftu/encryption-pass')
         this.showError = false
       } else {
