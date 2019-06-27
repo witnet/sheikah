@@ -18,19 +18,14 @@
 </template>
 
 <script>
-import DotIndicator from '../components/DotIndicator'
-
 export default {
   name: 'Transaction',
   props: {
-    amount: String,
     address: String,
-    date: String,
+    amount: String,
     block: String,
     border: Boolean,
-  },
-  components: {
-    DotIndicator,
+    date: String,
   },
   computed: {
     origin () {
@@ -38,8 +33,8 @@ export default {
     },
     arrowIcon () {
       return this.amount.includes('+') ? 'angle-right' : 'angle-left'
-    }
-  }
+    },
+  },
 }
 </script>
 
