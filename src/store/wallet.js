@@ -17,7 +17,14 @@ export default {
     networkStatus: 'error',
     radRequestResult: null,
     transactions: [],
-    wallet: null,
+    wallet: {
+      balances: {
+        available: 3.141592,
+        timelocked: 3.141592,
+        unconfirmed: 3.141592,
+        total: 3.141592,
+      },
+    },
     walletInfos: [],
     walletLocked: false,
   },
