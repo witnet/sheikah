@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <p><span class="label">Transactions</span> <span class="number">{{ transactionsLength }} transactions</span></p>
+  <div class="transaction-list">
+    <p><span class="label">TRANSACTIONS</span> <span class="number">{{ transactionsLength }} transactions</span></p>
     <div class="list">
       <Transaction v-for="(transaction, index) in transactions"
         :key="transaction.id"
@@ -41,11 +41,13 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
+.transaction-list {
+  width: 100%;
 
   .label {
     font-size: 16px;
     font-weight: 600;
-    color: $grey-8;
+    color: #808080ff;
   }
 
   .number {
@@ -58,6 +60,6 @@ export default {
     padding: 0 16px;
     border: 1px solid lightgray;
     box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
-
   }
+}
 </style>

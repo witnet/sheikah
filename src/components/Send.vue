@@ -76,7 +76,7 @@ export default {
 
   .card {
     max-width: 1000px;
-    min-width: 500px;
+    min-width: 850px;
     .row {
       display: flex;
       align-items: center;
