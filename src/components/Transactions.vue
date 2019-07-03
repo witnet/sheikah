@@ -1,16 +1,33 @@
 <template>
   <div class="transactions">
-    <TransactionList :transactions="transactions" />
+    <TransactionList class="list" :transactions="transactions" />
+    <Balances :available="available" :timelocked="timelocked" :unconfirmed="unconfirmed" :total="total" />
   </div>
 </template>
 
 <script>
+import Balances from './Balances'
 import TransactionList from './TransactionList'
 
 export default {
   name: 'Transactions',
   components: {
     TransactionList,
+    Balances,
+  },
+  computed: {
+    available () {
+      return this.$store.state.wallet.wallet.balances.available
+    },
+    timelocked () {
+      return this.$store.state.wallet.wallet.balances.timelocked
+    },
+    unconfirmed () {
+      return this.$store.state.wallet.wallet.balances.unconfirmed
+    },
+    total () {
+      return this.$store.state.wallet.wallet.balances.total
+    },
   },
   data () {
     return {
@@ -35,5 +52,12 @@ export default {
 .transactions {
   // width: 700px;
   padding: 32px;
+  display: flex;
+  min-width: 300px;
+
+  .list {
+    margin-right: 40px;
+  }
 }
+
 </style>
