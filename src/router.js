@@ -27,19 +27,13 @@ import store from '@/store'
 
 Vue.use(Router)
 
-function checkWalletIsOpen (to, from, next) {
+function redirectIfNeccesary (to, from, next) {
   if (store.state.wallet.wallet) {
     next()
+  } else if (store.state.wallet.walletInfos) {
+    next('/welcome-back/wallet-list')
   } else {
     next('/ftu/welcome')
-  }
-}
-
-function checkWalletIsNotOpen (to, from, next) {
-  if (store.state.wallet.wallet) {
-    next('/wallet/transactions')
-  } else {
-    next()
   }
 }
 
@@ -47,7 +41,7 @@ export default new Router({
   routes: [
     {
       path: '/welcome-back',
-      name: 'welcome-back',
+      name: 'welcomeBack',
       component: WelcomeBack,
       children: [
         {
@@ -64,7 +58,6 @@ export default new Router({
       path: `/ftu`,
       name: 'ftu',
       component: FirstTimeUsage,
-      beforeEnter: checkWalletIsNotOpen,
       children: [
         {
           path: 'welcome',
@@ -100,7 +93,7 @@ export default new Router({
       path: '/',
       name: 'main',
       component: Home,
-      beforeEnter: checkWalletIsOpen,
+      beforeEnter: redirectIfNeccesary,
       children: [
         {
           path: 'wallet',

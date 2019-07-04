@@ -4,7 +4,8 @@
         Select which wallet do you want to unlock
       </p>
       <ul class="list">
-        <li v-for="wallet in wallets" :key="wallet.id">
+        <div class="wallets">
+        <li v-for="wallet in wallets"  :key="wallet.id">
           <router-link class="link" :to="`/welcome-back/unlock/${wallet.id}`">
             <Button class="option">
               {{ wallet.name }}
@@ -12,6 +13,7 @@
             </Button>
           </router-link>
         </li>
+        </div>
         <li>
           <router-link class="link" to="/ftu/welcome">
             <Button class="option">
@@ -28,21 +30,11 @@
 
 export default {
   name: 'WalletList',
-  data () {
-    return {
-      wallets: [
-        {
-          name: 'My how wallet',
-          id: 1,
-        },
-        {
-          name: 'My trezor cold wallet',
-          id: 2,
-        },
-      ],
-    }
+  computed: {
+    wallets () {
+      return this.$store.state.wallet.walletInfos
+    },
   },
-
 }
 </script>
 
@@ -88,7 +80,12 @@ export default {
     }
     .list {
       height: 240px;
-      overflow: auto;
+
+      .wallets {
+        overflow-y: scroll;
+        height: 200px;
+        margin-bottom: 24px;
+      }
 
       .option {
         margin-bottom: 10px;
