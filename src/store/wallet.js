@@ -35,6 +35,10 @@ export default {
       state.wallet = wallet
     },
 
+    setWalletInfos (state, { walletInfos }) {
+      state.walletInfos = walletInfos
+    },
+
     lockWallet (state, id) {
       state.lockWallet = id
     },

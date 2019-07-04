@@ -9,7 +9,10 @@
 export default {
   name: 'app',
 
-  created () {
+  mounted () {
+    this.$store.dispatch('getWalletInfos')
+
+    // Initialize polling interval to retrieve network status
     setInterval(() => {
       this.$store.commit('checkNetworkStatus')
     }, 3000)

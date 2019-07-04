@@ -1,8 +1,6 @@
 <template>
     <div class="content">
-      <p class="text">
-        Insert Password to unlock wallet {{ $route.params.id }}
-      </p>
+      <p class="text">Insert a password to unlock wallet</p>
       <input v-model="password" type="password">
 
       <button @click="unlockWallet">
@@ -28,7 +26,7 @@ export default {
   },
   methods: {
     unlockWallet () {
-      this.$store.dispatch('unlockWallet', { id: this.$route.params.id, password: this.password })
+      this.$store.dispatch('unlockWallet', { walletId: this.$route.params.id, password: this.password })
       this.sent = true
     },
     updateView (wallet) {
