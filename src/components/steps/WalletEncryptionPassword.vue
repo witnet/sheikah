@@ -22,8 +22,8 @@
         <Input type="underlined" class="password-input" nativeType="password" v-model="repeatPassword" />
       </div>
 
+    <p v-if="error" class="error">{{ error }}</p>
     </div>
-    <p v-if="showError">Password must match</p>
   </NavigationCard>
 </template>
 
@@ -39,12 +39,25 @@ export default {
     return {
       password: '',
       repeatPassword: '',
-      showError: '',
+      error: false,
     }
   },
   methods: {
+    validateForm () {
+      if (this.password.length < 8) {
+        this.error = 'Password must be at least 8 characters'
+        return false
+      }
+
+      if (this.password !== this.repeatPassword) {
+        this.error = 'Passwords must match'
+        return false
+      }
+
+      return true
+    },
     nextStep () {
-      if (this.password === this.repeatPassword) {
+      if (this.validateForm()) {
         this.showError = false
         this.$store.dispatch('createWallet', { sourceType: 'mnemonics', password: this.password, mnemonics: this.mnemonics })
         this.$router.push('/ftu/create-wallet')
@@ -69,6 +82,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
+
+.error {
+  color: $red-5;
+}
 
 .content {
   padding: 40px;
