@@ -8,7 +8,7 @@ const defaultOptions = {
   max_reconnects: 0,
 }
 
-export class ApiClient {
+class ApiClient {
   options
   ws
 
@@ -46,31 +46,73 @@ export class ApiClient {
   }
 }
 
-function callApiMethod (methodName) {
-  return (client, params) => client
-    .request(methodName, params)
-    .then(handleResponse)
-    .catch(handleError)
-}
+export class WalletApi {
+  client
 
-// TODO(#594): Handle errors in a proper way
-function handleResponse (response) {
-  return response || { error: Error('Wallet error occurred') }
-}
+  constructor () {
+    this.client = new ApiClient()
+  }
+  // TODO(#594): Handle errors in a proper way
+  _handleResponse (response) {
+    return response.error ? response : { result: response }
+  }
 
-function handleError (error) {
-  return { error }
-}
+  _handleError (error) {
+    return { error }
+  }
 
-export const createDataRequest = callApiMethod('createDataRequest')
-export const createMnemonics = callApiMethod('createMnemonics')
-export const createWallet = callApiMethod('createWallet')
-export const generateAddress = callApiMethod('generateAddress')
-export const getTransactions = callApiMethod('getTransactions')
-export const getWalletInfos = callApiMethod('getWalletInfos')
-export const importSeed = callApiMethod('importSeed')
-export const lockWallet = callApiMethod('lockWallet')
-export const runRadRequest = callApiMethod('runRadRequest')
-export const sendDataRequest = callApiMethod('sendDataRequest')
-export const sendVTT = callApiMethod('sendVTT')
-export const unlockWallet = callApiMethod('unlockWallet')
+  _callApiMethod (methodName) {
+    return (params) => this.client
+      .request(methodName, params)
+      .then(this._handleResponse)
+      .catch(this._handleError)
+  }
+
+  async createDataRequest (params) {
+    return this._callApiMethod('createDataRequest')(params)
+  }
+
+  async createMnemonics (params) {
+    return this._callApiMethod('createMnemonics')(params)
+  }
+
+  async createWallet (params) {
+    return this._callApiMethod('createWallet')(params)
+  }
+
+  async generateAddress (params) {
+    return this._callApiMethod('generateAddress')(params)
+  }
+
+  async getTransactions (params) {
+    return this._callApiMethod('getTransactions')(params)
+  }
+
+  async getWalletInfos (params) {
+    return this._callApiMethod('getWalletInfos')(params)
+  }
+
+  async importSeed (params) {
+    return this._callApiMethod('importSeed')(params)
+  }
+
+  async lockWallet (params) {
+    return this._callApiMethod('lockWallet')(params)
+  }
+
+  async runRadRequest (params) {
+    return this._callApiMethod('runRadRequest')(params)
+  }
+
+  async sendDataRequest (params) {
+    return this._callApiMethod('sendDataRequest')(params)
+  }
+
+  async sendVTT (params) {
+    return this._callApiMethod('sendVTT')(params)
+  }
+
+  async unlockWallet (params) {
+    return this._callApiMethod('unlockWallet')(params)
+  }
+}
