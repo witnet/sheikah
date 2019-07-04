@@ -1,7 +1,4 @@
-import { ApiClient, createWallet, unlockWallet, runRadRequest, createMnemonics, getTransactions, getWalletInfos, lockWallet, sendVTT } from '@/api'
 import { encodeDataRequest } from '@/utils'
-
-const apiClient = new ApiClient()
 
 export default {
   state: {
@@ -25,7 +22,7 @@ export default {
   },
   mutations: {
     checkNetworkStatus (state) {
-      state.networkStatus = apiClient.ws.ready ? 'synced' : 'error'
+      state.networkStatus = this.$walletApi.client.ws.ready ? 'synced' : 'error'
     },
     setDataRequestResult (state, result) {
       Object.assign(state, { radRequestResult: result })
@@ -48,86 +45,83 @@ export default {
   },
   actions: {
     sendVTT: async function (context, { walletId, toAddress, amount, fee, subject }) {
-      const sendVTTRequest = await sendVTT(apiClient, { wallet_id: walletId, to_address: toAddress, amount, fee, subject })
-      if (sendVTTRequest.result) {
-        context.commit('sendVTTSuccess', sendVTTRequest.result)
+      const request = await this.$walletApi.sendVTT({ wallet_id: walletId, to_address: toAddress, amount, fee, subject })
+      if (request.result) {
+        context.commit('sendVTTSuccess', request.result)
       } else {
-        context.commit('setError', 'sendVTT', sendVTTRequest.error)
+        context.commit('setError', 'sendVTT', request.error)
       }
     },
 
     unlockWallet: async function (context, { walletId, password }) {
-      const request = await unlockWallet(apiClient, { walletId, password, sessionId: '1' })
-      if (request.unlockedWalletId) {
+      const request = await this.$walletApi.unlockWallet({ walletId, password, sessionId: '1' })
+      if (request.result) {
         // TODO(#706) We should receive a wallet structure instead a walletId
-        context.commit('setWallet', { wallet: request.unlockedWalletId })
+        context.commit('setWallet', { wallet: request.result.sessionId })
       } else {
         context.commit('setError', { name: 'unlockWallet', error: request.error })
       }
     },
 
     lockWallet: async function (context, { walletId, wipe }) {
-      const lockWalletRequest = await lockWallet(apiClient, { wallet_id: walletId, wipe })
-      if (lockWalletRequest.result) {
+      const request = await this.$walletApi.lockWallet({ wallet_id: walletId, wipe })
+      if (request.result) {
         context.commit('lockWallet', context.store.wallet.id)
       } else {
-        context.commit('setError', 'lockWallet', lockWalletRequest.error)
+        context.commit('setError', 'lockWallet', request.error)
       }
     },
 
     createMnemonics: async function (context) {
-      const createMnemonicsRequest = await createMnemonics(apiClient, { length: 'Words12' })
-      if (createMnemonicsRequest.mnemonics) {
-        context.commit('setMnemonics', createMnemonicsRequest.mnemonics)
+      const request = await this.$walletApi.createMnemonics({ length: 12 })
+      if (request.result) {
+        context.commit('setMnemonics', request.result.mnemonics)
       } else {
-        context.commit('setError', 'createMnemonics', createMnemonicsRequest.error)
+        context.commit('setError', 'createMnemonics', request.error)
       }
     },
 
     createWallet: async function (context, params) {
-      const request = await createWallet(apiClient, {
+      const request = await this.$walletApi.createWallet({
         name: 'first',
         caption: '1',
-        seedSource: {
-          data: params.mnemonics,
-          source: params.sourceType,
-        },
+        seedData: params[params.sourceType],
+        seedSource: params.sourceType,
         password: params.password,
       })
-      if (request.walletId) {
-        context.dispatch('unlockWallet', { walletId: request.walletId, password: params.password })
+      if (request.result) {
+        context.dispatch('unlockWallet', { walletId: request.result.walletId, password: params.password })
       } else {
-        context.commit('setError', 'createWallet', request.error)
+        context.commit('setError', { name: 'createWallet', error: request.error.data[0][1] })
       }
     },
 
     getTransactions: async function (context, { walletId, limit, page }) {
-      const getTransactionsRequest = await getTransactions(apiClient, { wallet_id: walletId, limit, page })
+      const request = await this.$walletApi.getTransactions({ wallet_id: walletId, limit, page })
 
-      if (getTransactionsRequest.result) {
-        context.commit('setTransactions', getTransactionsRequest.response)
+      if (request.result) {
+        context.commit('setTransactions', request.result)
       } else {
-        context.commit('setError', 'getTransactions', getTransactionsRequest.error)
+        context.commit('setError', 'getTransactions', request.error)
       }
     },
 
     getWalletInfos: async function (context) {
-      const getWalletInfosRequest = await getWalletInfos(apiClient)
-
-      if (getWalletInfosRequest.result) {
-        context.commit('setWalletInfos', getWalletInfosRequest.response)
+      const request = await this.$walletApi.getWalletInfos()
+      if (request.result) {
+        context.commit('setWalletInfos', { walletInfos: request.result.infos })
       } else {
-        context.commit('setError', 'getWalletInfos', getWalletInfosRequest.error)
+        context.commit('setError', 'getWalletInfos', request.error)
       }
     },
 
     tryDataRequest: async function (context) {
-      const encodedRadRequest = encodeDataRequest(context.state.radRequest)
-      const requestResult = await runRadRequest(apiClient, { radRequest: encodedRadRequest })
-      if (requestResult.result) {
-        context.commit('setDataRequestResult', requestResult.result)
+      const encodedRadRequest = encodeDataRequest(context.rootState.rad.radRequest)
+      const request = await this.$walletApi.runRadRequest({ radRequest: encodedRadRequest })
+      if (request.result) {
+        context.commit('setDataRequestResult', request.result)
       } else {
-        context.commit('setError', 'tryDataRequest', requestResult.error)
+        context.commit('setError', 'tryDataRequest', request.error)
       }
     },
   },
