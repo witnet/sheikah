@@ -37,9 +37,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import '@/styles/app.global.scss';
+<style scoped lang="scss">
 @import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
 
 .navigation-card .title {
   align-items: center;
