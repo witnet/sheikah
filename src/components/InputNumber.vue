@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     increase() {
-      this.$emit('input', parseInt(this.value) + 1)
+      this.$emit('input', parseInt(this.value, 10) + 1)
     }
   },
 }
