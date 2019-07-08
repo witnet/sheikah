@@ -1,10 +1,12 @@
 <template>
-  <div class='card'>
-    <div v-if="title" class='title'>
-      <h5 class='card-title'>{{ title }}</h5>
-    </div>
+<div class="card">
+  <div v-if="title" class='title'>
+    <p class='card-title'>{{ title }}</p>
+  </div>
+  <div class='content'>
     <slot></slot>
   </div>
+</div>
 </template>
 
 <script>
@@ -16,21 +18,24 @@ export default {
 }
 </script>
 
-<style lang='scss'>
-  @import '@/styles/_colors.scss';
-  @import '@/styles/theme.scss';
+<style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
 
-  .card {
+.card {
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    color: $grey-8;
+    margin-bottom: 8px;
+  }
+
+  .content {
     border: 1px solid #EEE;
     border-radius: 2px;
     box-shadow: $default-box-shadow;
-    height: 550px;
-    width: 600px;
     font-size: 16px;
+    padding: 32px;
   }
-
-  .title {
-    border-bottom: solid 1px $grey-4;
-  }
-
+}
 </style>

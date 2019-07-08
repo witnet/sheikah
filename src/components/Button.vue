@@ -33,7 +33,7 @@ export default {
   border-radius: 4px;
   font-size: 14px;
   font-weight: 400;
-  height: 32px;
+  height: 42px;
   line-height: 1.5;
   padding: 0 15px;
   text-align: center;
@@ -41,6 +41,7 @@ export default {
   border: none;
   cursor: pointer;
   min-width: max-content;
+  z-index: -1;
 }
 
 :active,
