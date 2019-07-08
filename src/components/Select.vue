@@ -62,23 +62,24 @@ export default {
 
 <style lang="scss" scoped>
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .select-box {
   display: flex;
   flex-direction: column;
   user-select: none;
+  height: 42px;
 
   .select {
+    z-index: 1;
+    min-height: 42px;
     align-items: center;
     background: #fff;
     border-radius: 4px;
     border: 1px solid #ccc;
-    box-sizing: border-box;
     color: #777;
     display:flex;
-    height: 32px;
     min-width: 120px;
     padding: 0 12px 0 16px;
 
@@ -100,11 +101,16 @@ export default {
         justify-content: space-between;
         padding-right: 16px;
         width: 100%;
+
+        .primary {
+          margin-right: 16px;
+        }
       }
     }
   }
 
   .options {
+    z-index: 1;
     display: none;
     &.active {
       display: block;
