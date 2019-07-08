@@ -13,14 +13,19 @@ export default {
   props: {
     nativeType: String,
     placeholder: String,
-    type: String,
+    type: [Number, String],
     value: {
       required: true,
     },
   },
-  data () {
-    return {
-      inputValue: this.value,
+  computed: {
+    inputValue: {
+      get () {
+        return this.value
+      },
+      set(inputValue) {
+        this.$emit('input', inputValue)
+      },
     }
   },
   methods: {
