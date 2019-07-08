@@ -13,7 +13,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
