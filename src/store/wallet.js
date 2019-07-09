@@ -46,6 +46,9 @@ export default {
     setError (state, { name, error }) {
       state.errors[name] = error
     },
+    setVTT (state, transaction) {
+      state.vtt = transaction
+    },
   },
   actions: {
     sendVTT: async function (context, { walletId, toAddress, amount, fee, subject }) {
@@ -55,6 +58,11 @@ export default {
       } else {
         context.commit('setError', 'sendVTT', request.error)
       }
+    },
+
+    createVTT: async function (context, { address, amount, fee, label }) {
+      const request = await this.$walletApi.createVTT({ wallet_id: this.state.wallet.id, address, amount, fee, label })
+      context.commit('setVTT', { kind: 'vtt', fee, label, amount })
     },
 
     unlockWallet: async function (context, { walletId, password }) {

@@ -28,7 +28,7 @@
       <Select v-model="fee" :options="options" />
     </div>
 
-    <Button class="button" :onClick="() => 0" type="primary">Sign and send</Button>
+    <Button class="button" :onClick="createVTT" type="primary">Sign and send</Button>
   </BaseCard>
 </div>
 </template>
@@ -61,6 +61,11 @@ export default {
         { value: 39, primaryText: 'Low', secondaryText: '39 uWit/B' },
       ],
     }
+  },
+  methods: {
+    createVTT () {
+      this.$store.dispatch('createVTT', { label: this.label, address: this.address, amount: this.amount, fee: this.fee })
+    },
   },
 }
 </script>
