@@ -12,6 +12,7 @@ export default {
       tryDataRequest: null,
       unlockWallet: null,
     },
+    generatedAddress: null,
     mnemonics: null,
     networkStatus: 'error',
     radRequestResult: null,
@@ -49,6 +50,10 @@ export default {
     setVTT (state, transaction) {
       state.vtt = transaction
     },
+
+    setGeneratedAddress (state, { address }) {
+      state.generatedAddress = address
+    },
   },
   actions: {
     sendVTT: async function (context, { walletId, toAddress, amount, fee, subject }) {
@@ -63,6 +68,12 @@ export default {
     createVTT: async function (context, { address, amount, fee, label }) {
       const request = await this.$walletApi.createVTT({ wallet_id: this.state.wallet.id, address, amount, fee, label })
       context.commit('setVTT', { kind: 'vtt', fee, label, amount })
+    },
+
+    generateAddress: async function (context, { label, amount, expires }) {
+      const request = await this.$walletApi.generateAddress({ label, amount, expires })
+
+      context.commit('setGeneratedAddress', { address: '(40.425471, -3.697424)' })
     },
 
     unlockWallet: async function (context, { walletId, password }) {
