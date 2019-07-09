@@ -108,8 +108,8 @@ export class WalletApi {
     return this._callApiMethod('sendDataRequest')(params)
   }
 
-  async sendVTT (params) {
-    return this._callApiMethod('sendVTT')(params)
+  async createVTT (params) {
+    return this._callApiMethod('createVTT')(params)
   }
 
   async unlockWallet (params) {
