@@ -1,29 +1,29 @@
 <template>
-    <div class="content">
-      <p class="text">
-        Select which wallet do you want to unlock
-      </p>
-      <ul class="list">
-        <div class="wallets">
-        <li v-for="wallet in wallets"  :key="wallet.id">
-          <router-link class="link" :to="`/welcome-back/unlock/${wallet.id}`">
-            <Button class="option">
-              {{ wallet.name }}
-              <font-awesome-icon icon="angle-right" />
-            </Button>
-          </router-link>
-        </li>
-        </div>
-        <li>
-          <router-link class="link" to="/ftu/welcome">
-            <Button class="option">
-              Create import or recover a wallet
-              <font-awesome-icon icon="angle-right" />
-            </Button>
-          </router-link>
-        </li>
-      </ul>
-    </div>
+  <div class="wallet-list">
+    <p class="text">
+      Select which wallet do you want to unlock
+    </p>
+    <ul class="list">
+      <div class="wallets">
+      <li v-for="wallet in wallets" :key="wallet.id">
+        <router-link class="link" :to="`/welcome-back/unlock/${wallet.id}`">
+          <Button class="option">
+            {{ wallet.name }}
+            <font-awesome-icon icon="angle-right" />
+          </Button>
+        </router-link>
+      </li>
+      </div>
+      <li>
+        <router-link class="link" to="/ftu/welcome">
+          <Button class="option">
+            Create import or recover a wallet
+            <font-awesome-icon icon="angle-right" />
+          </Button>
+        </router-link>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -42,42 +42,11 @@ export default {
   @import '@/styles/theme.scss';
   @import '@/styles/_colors.scss';
 
-.centered {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card {
-  height: 400px;
-  min-width: 600px;
-  display: grid;
-  grid-template-columns: 30% 1fr;
-  box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
-
-  .sidebar {
-    background: $sheikah-gradient;
-    padding: 20px;
-    justify-content: space-between;
-    display: flex;
-    flex-direction: column;
-    .title {
-      font-size: 22px;
-      color: white;
-      border: none;
-    }
-    .settings {
-      color: white;
-    }
-  }
-
-  .content {
-    padding: 30px;
+  .wallet-list {
     .text {
       margin-bottom: 30px;
     }
+
     .list {
       height: 240px;
 
@@ -87,9 +56,13 @@ export default {
         margin-bottom: 24px;
       }
 
+      .link {
+        text-decoration: none;
+       }
+
       .option {
-        margin-bottom: 10px;
         background: white;
+        border-radius: 3px;
         border: 1px solid #ececec;
         color: #4d4d4d;
         cursor: pointer;
@@ -97,9 +70,9 @@ export default {
         flex-direction: row;
         height: 60px;
         justify-content: space-between;
+        margin-bottom: 10px;
         padding: 0 20px;
         width: 100%;
-        border-radius: 3px;
 
         &:hover {
           border-color: $blue-6;
@@ -108,9 +81,5 @@ export default {
       }
     }
   }
-}
 
-.link {
-  text-decoration: none;
-}
 </style>
