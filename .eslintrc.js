@@ -8,6 +8,13 @@ module.exports = {
     '@vue/standard',
   ],
   rules: {
+    'sort-imports': ['error', {
+      'ignoreCase': false,
+      'ignoreDeclarationSort': false,
+      'ignoreMemberSort': false,
+      'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
+    }],
+    'max-line-length': [true, 120],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'comma-dangle': [
@@ -20,14 +27,8 @@ module.exports = {
         functions: 'always-multiline',
       },
     ],
-    'sort-imports': ['error', {
-      'ignoreCase': false,
-      'ignoreDeclarationSort': false,
-      'ignoreMemberSort': false,
-      'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
-    }],
-    'max-line-length': [true, 120],
   },
+  
   parserOptions: {
     parser: 'babel-eslint',
   },
