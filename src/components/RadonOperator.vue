@@ -95,12 +95,12 @@
 <script>
 import { getTypeFromOperatorCode } from '@/radon/utils'
 import {
-  TYPES as RadonTypes,
-  TYPESYSTEM as RadonTypeSystem,
-  OPERATOR_INFOS as RadonOperatorInfos,
   FilteringFunctionCodes,
-  ReducingFunctionCodes,
   HashFunctionCodes,
+  OPERATOR_INFOS as RadonOperatorInfos,
+  TYPESYSTEM as RadonTypeSystem,
+  TYPES as RadonTypes,
+  ReducingFunctionCodes,
 } from '@/radon'
 
 const DEFAULT_INPUT_TYPE = 0x03

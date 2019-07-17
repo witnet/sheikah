@@ -94,9 +94,9 @@ import RadonScript from '@/components/RadonScript.vue'
 import Button from '@/components/Button.vue'
 
 import {
+  FilteringFunctionCodes,
   HashFunctionCodes,
   ReducingFunctionCodes,
-  FilteringFunctionCodes,
 } from '@/radon'
 
 export default {

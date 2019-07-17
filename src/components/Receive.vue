@@ -104,7 +104,6 @@ export default {
   display: flex;
   justify-content: space-between;
 
-
   .text {
     width: 300px;
 

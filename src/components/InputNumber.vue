@@ -21,18 +21,18 @@ export default {
   },
   computed: {
     inputValue: {
-      get() {
+      get () {
         return this.value
       },
-      set(inputValue) {
+      set (inputValue) {
         this.$emit('input', inputValue)
-      }
-    }
+      },
+    },
   },
   methods: {
-    increase() {
+    increase () {
       this.$emit('input', parseInt(this.value, 10) + 1)
-    }
+    },
   },
 }
 </script>
