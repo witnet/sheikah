@@ -1,7 +1,7 @@
 import {
-  TYPES as RadonTypes,
   OPERATOR_INFOS as RadonOperatorInfos,
   TYPESYSTEM as RadonTypeSystem,
+  TYPES as RadonTypes,
 } from '@/radon'
 import { getOutput, isValidScript } from '@/radon/utils'
 import { match } from '@/utils'
