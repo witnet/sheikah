@@ -62,7 +62,7 @@ export default {
         color: white;
       }
     }
-    
+
     .content {
       padding: 30px;
     }

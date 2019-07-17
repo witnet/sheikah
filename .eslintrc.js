@@ -20,7 +20,13 @@ module.exports = {
         functions: 'always-multiline',
       },
     ],
-
+    'sort-imports': ['error', {
+      'ignoreCase': false,
+      'ignoreDeclarationSort': false,
+      'ignoreMemberSort': false,
+      'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
+    }],
+    'max-line-length': [true, 120],
   },
   parserOptions: {
     parser: 'babel-eslint',

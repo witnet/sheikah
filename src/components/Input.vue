@@ -23,10 +23,10 @@ export default {
       get () {
         return this.value
       },
-      set(inputValue) {
+      set (inputValue) {
         this.$emit('input', inputValue)
       },
-    }
+    },
   },
   methods: {
     getClass (className) {

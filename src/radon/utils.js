@@ -1,6 +1,6 @@
 import {
-  TYPES as RadonTypes,
   TYPESYSTEM as RadonTypeSystem,
+  TYPES as RadonTypes,
 } from '@/radon'
 
 export function getLastOperator (request, stage, retrieveIndex) {
