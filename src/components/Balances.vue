@@ -5,19 +5,23 @@
     </p>
    <div class="entry">
      <p class="label">Available balance</p>
-     <p class="value">{{ available }} <span class="currency">WIT</span></p>
+     <p v-if='available' class="value">{{ available }} <span class="currency">WIT</span></p>
+     <p v-else class="empty-value"> _ </p>
   </div>
    <div class="entry">
      <p class="label">Timelocked</p>
-     <p class="value">{{ timelocked }} <span class="currency">WIT</span></p>
+     <p v-if='timelocked' class="value">{{ timelocked }} <span class="currency">WIT</span></p>
+     <p v-else class="empty-value"> _ </p>
   </div>
    <div class="entry">
      <p class="label">Unconfirmed</p>
-     <p class="value">{{ unconfirmed }} <span class="currency">WIT</span></p>
+     <p v-if='unconfirmed' class="value">{{ unconfirmed }} <span class="currency">WIT</span></p>
+     <p v-else class="empty-value"> _ </p>
   </div>
    <div class="entry">
      <p class="label">Total</p>
-     <p class="value">{{ total }} <span class="currency">WIT</span></p>
+     <p v-if='total' class="value">{{ total }} <span class="currency">WIT</span></p>
+     <p v-else class="empty-value"> _ </p>
   </div>
  </div>
 </template>
@@ -30,7 +34,7 @@ export default {
     timelocked: Number,
     unconfirmed: Number,
     total: Number,
-  },
+  }, 
 }
 </script>
 

@@ -19,9 +19,9 @@ export default {
     transactions: [],
     wallet: {
       balances: {
-        available: 3.141592,
-        timelocked: 3.141592,
-        unconfirmed: 3.141592,
+        available: null,
+        timelocked: null,
+        unconfirmed: null,
         total: 3.141592,
       },
     },
