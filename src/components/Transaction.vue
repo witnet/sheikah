@@ -1,5 +1,6 @@
 <template>
-  <div :class="`transaction ${border ? 'border' : ''}`">
+  
+  <div v-if='transactions => 1' :class="`transaction ${border ? 'border' : ''}`">
     <div class="amount">
       <font-awesome-icon :class="`icon ${origin.toLowerCase()}`" :icon="arrowIcon" />
       <span :class="`number ${origin.toLowerCase()}`">{{ amount }}</span>
@@ -15,9 +16,11 @@
       <p class="block">Confirmed in block {{ block }}</p>
     </div>
   </div>
+  
 </template>
 
 <script>
+
 export default {
   name: 'Transaction',
   props: {
