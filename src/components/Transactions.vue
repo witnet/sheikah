@@ -32,16 +32,16 @@ export default {
   data () {
     return {
       transactions: [
-        {
-          amount: '+0.1',
-          address: '1957128f5d125609c37d2079a904be42f0809556',
-          date: 'April 23 at 14:38',
-        },
-        {
-          amount: '-0.1',
-          address: '1957128f5d125609c37d2079a904be42f0809556',
-          date: 'April 23 at 14:38',
-        },
+        // {
+        //   amount: '+0.1',
+        //   address: '1957128f5d125609c37d2079a904be42f0809556',
+        //   date: 'April 23 at 14:38',
+        // },
+        // {
+        //   amount: '-0.1',
+        //   address: '1957128f5d125609c37d2079a904be42f0809556',
+        //   date: 'April 23 at 14:38',
+        // },
       ],
     }
   },
