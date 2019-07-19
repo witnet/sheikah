@@ -9,26 +9,10 @@
           </div>
           <Input v-model="label" />
         </div>
-
-        <div class="row">
-          <div class="label">
-            <label class="" for>Amount</label>
-          </div>
-          <InputNumber v-model="amount" />
+        
+        <div class="submmit-button">
+        <Button class="button" :onClick="generateAddress" type="primary">Generate address</Button>
         </div>
-
-        <div class="row">
-          <div class="label">
-            <label class="" for>Expires</label>
-          </div>
-          <Select v-model="expires" :options="options" />
-        </div>
-        <Button class="button" :onClick="generateAddress" type="primary">Save and generate address</Button>
-      </div>
-
-      <div class="qr">
-        <p v-show="!generatedAddress" class="text">Your QR code will appear here once the payment request is saved</p>
-        <qrcode :class="`code ${!generatedAddress ? 'blur': '' }`" :value="generatedAddress || 'witnet'" :options="{ width: 300 }"></qrcode>
       </div>
     </div>
   </BaseCard>
@@ -104,7 +88,6 @@ export default {
   display: flex;
   justify-content: space-between;
 
-
   .text {
     width: 300px;
 
@@ -122,41 +105,15 @@ export default {
   }
 
   .card {
-    max-width: 1000px;
-    min-width: 900px;
+    max-width: 400px;
+    min-width: 400px;
 
     .layout {
       display: flex;
 
-      .qr {
-        position: relative;
-        flex-grow: 1;
-        display: flex;
-        align-items: center;
-        justify-content:center;
-        z-index: 1;
-
-        .code {
-          width: 300px;
-
-          &.blur {
-            opacity: 0.1;
-            filter: blur(9px);
-          }
-        }
-
-        .text {
-          font-size: 18px;
-          z-index:2;
-          position: absolute;
-        }
-      }
-
       .row {
         display: flex;
         align-items: center;
-        margin-bottom: 16px;
-        max-width: 600px;
 
         .label {
           min-width: 64px;
@@ -165,9 +122,10 @@ export default {
         }
       }
 
-      .button {
-        margin-left: 88px;
-        margin-top: 24px;
+      .submmit-button {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
       }
     }
   }
