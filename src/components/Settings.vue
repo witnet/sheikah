@@ -30,10 +30,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.el-dropdown-menu{
+  padding: 5px 0;
+}
 .el-dropdown-menu__item {
-  padding: 15px;
-  margin-bottom: 3px;
+  padding: 0px 10px;
   font-weight: bold;
   color:#909090;
   &:not(.is-disabled):hover{
@@ -49,6 +50,7 @@ export default {
 }
 .icon{
   color: inherit;
+  font-size: 18px;
 }
 .el-button, .el-dropdown-selfdefine :hover {
   cursor: pointer;
