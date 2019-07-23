@@ -7,26 +7,24 @@
     :previousStep="() => this.$router.push('/ftu/disclaimer')"
     :nextStep="() => this.$router.push('/ftu/seed-validation')"
   >
-    <div class="content">
-      <p class="paragraph-seed-title">Your 12 word seed phrase:</p>
-      <pre class="seed">{{ seed }}</pre>
-        <p class="paragraph-seed">
-          Please copy these 12 words onto a piece of paper which you will be able to safely store
-          and secure. You must write the complete words in the exact order they are presented to
-          you.
-        </p>
-        <p class="paragraph-seed">
-          We do not store your seed phrase - if you exit this setup or fail to write down your
-          seed phrase, we cannot help you access your wallet.
-        </p>
-    </div>
+    <p class="paragraph-seed-title">Your 12 word seed phrase:</p>
+    <pre class="seed">{{ seed }}</pre>
+      <p class="paragraph-seed">
+        Please copy these 12 words onto a piece of paper which you will be able to safely store
+        and secure. You must write the complete words in the exact order they are presented to
+        you.
+      </p>
+      <p class="paragraph-seed">
+        We do not store your seed phrase - if you exit this setup or fail to write down your
+        seed phrase, we cannot help you access your wallet.
+      </p>
   </NavigationCard>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
-import NavigationCard from '@/components/NavigationCard'
+import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
   name: 'WalletSeedBackup',
