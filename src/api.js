@@ -54,7 +54,7 @@ export class WalletApi {
   }
   // TODO(#594): Handle errors in a proper way
   _handleResponse (response) {
-    return response.error ? response : { result: response }
+    return response && response.error ? response : { result: response || true }
   }
 
   _handleError (error) {
@@ -114,5 +114,9 @@ export class WalletApi {
 
   async unlockWallet (params) {
     return this._callApiMethod('unlockWallet')(params)
+  }
+
+  async closeSession (params) {
+    return this._callApiMethod('closeSession')(params)
   }
 }
