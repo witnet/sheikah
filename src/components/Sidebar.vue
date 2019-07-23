@@ -89,7 +89,7 @@ export default {
   }
 
   .label {
-    opacity: 0;
+    display: none;
   }
 
   .current-wallet-name {
@@ -167,7 +167,7 @@ export default {
     flex-flow: row nowrap;
     font-size: $sidebar-link-font_size;
     font-weight: $sidebar-link-font_weight;
-    padding: 15px 8px;
+    padding: 25px 8px;
     text-decoration: none;
     width: 100%;
     text-align: left;
@@ -178,8 +178,8 @@ export default {
     }
 
     .icon {
-      margin-right: 20px;
-      margin-left: 10px;
+      margin-right: 25px;
+      margin-left: 15px;
       width: 20px;
     }
 
