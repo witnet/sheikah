@@ -31,7 +31,7 @@
         </router-link>
       </div>
       <div class="settings">
-        <font-awesome-icon icon="cog" />
+        <Settings :settings="settings"/>
         <NetworkStatus :status="status" />
       </div>
     </div>
@@ -42,18 +42,30 @@
 import { mapState } from 'vuex'
 
 import NetworkStatus from '@/components/NetworkStatus.vue'
+import Settings from '@/components/Settings.vue'
 
 export default {
+  data(){
+    return {
+      settings: [{
+        label: 'Close session',
+        action: ()=>{
+          this.$store.dispatch('closeSession')
+        }
+      }]
+    }
+  },
   methods: {
     handleOpen (key, keyPath) {
       console.log(key, keyPath)
     },
     handleClose (key, keyPath) {
       console.log(key, keyPath)
-    },
+    }
   },
   components: {
     NetworkStatus,
+    Settings,
   },
   computed: {
     ...mapState({
