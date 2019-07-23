@@ -16,18 +16,12 @@ export default {
     Balances,
   },
   computed: {
-    available () {
-      return this.$store.state.wallet.wallet.balances.available
-    },
-    timelocked () {
-      return this.$store.state.wallet.wallet.balances.timelocked
-    },
-    unconfirmed () {
-      return this.$store.state.wallet.wallet.balances.unconfirmed
-    },
-    total () {
-      return this.$store.state.wallet.wallet.balances.total
-    },
+    ...mapState({
+      available: state => state.wallet.balances.available,
+      timelocked: state => state.wallet.balances.timelocked,
+      unconfirmed: state => state.wallet.balances.unconfirmed,
+      total: state => state.wallet.balances.total,
+    }),
   },
   data () {
     return {
