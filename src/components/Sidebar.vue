@@ -81,7 +81,7 @@ export default {
 
 @media screen and (max-width: 1200px) {
   .sidebar {
-    max-width: 75px;
+    max-width: 90px;
   }
 
   .brand {
@@ -97,7 +97,7 @@ export default {
   }
 
   .settings {
-
+    
     .mainnet,
     .synced {
       display: none;
@@ -111,12 +111,12 @@ export default {
   flex-flow: column nowrap;
   height: 100vh;
   z-index: 5;
-  width: 15vw;
+  width: 20vw;
   font-family: 'Titillium Web'
 }
 
 .brand {
-  padding: 20px;
+  padding: 28px;
 
   .logo {
     width: $sidebar-logo-width;
@@ -179,7 +179,7 @@ export default {
 
     .icon {
       margin-right: 25px;
-      margin-left: 15px;
+      margin-left: 20px;
       width: 20px;
     }
 
@@ -200,9 +200,9 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   font-size: $icon-settings-font_size;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: auto;
-  padding: 15px;
+  padding: 15px 0;
 
   .settings-icon {
     color: $sidebar-settings-icon-color;
