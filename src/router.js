@@ -28,7 +28,7 @@ import store from '@/store'
 Vue.use(Router)
 
 function redirectIfNeccesary (to, from, next) {
-  if (store.state.wallet.wallet) {
+  if (store.state.wallet.sessionId) {
     next()
   } else if (store.state.wallet.walletInfos) {
     next('/welcome-back/wallet-list')
