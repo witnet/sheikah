@@ -2,13 +2,12 @@
   <BaseCard
     class="card"
   >
+  <div class="card">
     <!-- TODO(#701) Handle error in a proper way -->
-    <p v-if="error"> {{ goToFirstStep() }}</p>
     <p class="title">Sheikah is loading your wallet</p>
     <Spinner class="spinner" :active="true" />
     <p class="description">This will take a few seconds</p>
-    <p v-if="wallet"> {{ reloadView() }} </p>
-  </BaseCard>
+    </div>
 
 </template>
 
@@ -36,18 +35,26 @@ export default {
       this.$router.push('ftu/seed-backup')
     },
     reloadView () {
-      if (this.wallet) {
-        this.$router.push('/wallet/transactions')
-      }
     },
   },
   computed: {
     ...mapState({
-      wallet: state => state.wallet.wallet,
+      sessionId: state => state.wallet.sessionId,
       error: state => state.wallet.errors.unlockWallet || state.wallet.errors.createWallet,
     }),
   },
-
+  watch: {
+    sessionId(value) {
+      if (value) {
+        this.$router.push('/wallet/transactions')
+      }
+    },
+    error(value) {
+      if (value) {
+        this.goToFirstStep()
+      }
+    }
+  },
 }
 </script>
 
