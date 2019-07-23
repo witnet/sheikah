@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import 'mapState' from 'vuex'
+
 import Balances from './Balances'
 import TransactionList from './TransactionList'
 
