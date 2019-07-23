@@ -27,8 +27,8 @@
       </div>
       <Select v-model="fee" :options="options" />
     </div>
-    <div class="submmit-button">
-    <Button class="button" :onClick="createVTT" type="primary">Sign and send</Button>
+    <div class="submit">
+      <Button :onClick="createVTT" type="primary">Sign and send</Button>
     </div>
   </BaseCard>
 </div>
@@ -90,9 +90,9 @@ export default {
         text-align: right;
       }
     }
-    .submmit-button {
-        display: flex;
-        justify-content: flex-end;
+    .submit {
+      width: 100%;
+      text-align: right;
     }
   }
 }
