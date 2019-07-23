@@ -12,23 +12,27 @@ export default {
       tryDataRequest: null,
       unlockWallet: null,
     },
+      balances: {
+        available: null,
+        timelocked: null,
+        unconfirmed: null,
+      total: null,
+      },
+    sessionId: null,
+    walletId: null,
     generatedAddress: null,
     mnemonics: null,
     networkStatus: 'error',
     radRequestResult: null,
     transactions: [],
-    wallet: {
-      balances: {
-        available: null,
-        timelocked: null,
-        unconfirmed: null,
-        total: 3.141592,
-      },
-    },
     walletInfos: [],
     walletLocked: false,
   },
   mutations: {
+    deleteSession (state) {
+      state.sessionId = null
+      state.walletId = null
+    },
     checkNetworkStatus (state) {
       state.networkStatus = this.$walletApi.client.ws.ready ? 'synced' : 'error'
     },
@@ -39,8 +43,9 @@ export default {
       Object.assign(state, { mnemonics: result })
     },
 
-    setWallet (state, { wallet }) {
-      state.wallet = wallet
+    setWallet (state, { walletId, sessionId }) {
+      state.walletId = walletId
+      state.sessionId = sessionId
     },
 
     setWalletInfos (state, { walletInfos }) {
@@ -87,7 +92,7 @@ export default {
       const request = await this.$walletApi.unlockWallet({ walletId, password, sessionId: '1' })
       if (request.result) {
         // TODO(#706) We should receive a wallet structure instead a walletId
-        context.commit('setWallet', { wallet: request.result.sessionId })
+        context.commit('setWallet', { sessionId: request.result.sessionId, walletId })
       } else {
         context.commit('setError', { name: 'unlockWallet', error: request.error })
       }
