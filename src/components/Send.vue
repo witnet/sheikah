@@ -1,6 +1,6 @@
 <template>
 <div class="send">
-  <BaseCard class="card" title="NEW TRANSACTION">
+  <Card class="card" title="NEW TRANSACTION">
     <div class="row">
     <div class="label">
       <label class="" for>Address</label>
@@ -30,12 +30,12 @@
     <div class="submit">
       <Button :onClick="createVTT" type="primary">Sign and send</Button>
     </div>
-  </BaseCard>
+  </Card>
 </div>
 </template>
 
 <script>
-import BaseCard from './BaseCard'
+import Card from './card/Card'
 import Button from './Button'
 import Input from './Input'
 import InputNumber from './InputNumber'
@@ -44,7 +44,7 @@ import Select from './Select'
 export default {
   name: 'send',
   components: {
-    BaseCard,
+    Card,
     Button,
     Input,
     InputNumber,

@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import BaseCard from '@/components/BaseCard'
+import Card from '@/components/card/Card'
 
 export default {
   name: 'WelcomeBack',
   components: {
-    BaseCard,
+    Card,
   },
 }
 </script>

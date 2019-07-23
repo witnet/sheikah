@@ -7,23 +7,21 @@
     :previousStep="previousStep"
     :nextStep="nextStep"
   >
-    <div class="content">
-      <p class="paragraph">
-        <strong>PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on this
-        computer. This is not your backup and you cannot restore your wallet with this password.
-        Your seed phrase is still your ultimate backup.
-      </p>
-      <div class="form-row">
-        <label class="label">Password</label>
-        <Input type="underlined" class="password-input" nativeType="password" v-model="password" />
-      </div>
-      <div class="form-row">
-        <label class="label">Confirm password</label>
-        <Input type="underlined" class="password-input" nativeType="password" v-model="repeatPassword" />
-      </div>
+    <p class="paragraph">
+      <strong>PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on this
+      computer. This is not your backup and you cannot restore your wallet with this password.
+      Your seed phrase is still your ultimate backup.
+    </p>
+    <div class="form-row">
+      <label class="label">Password</label>
+      <Input type="underlined" class="password-input" nativeType="password" v-model="password" />
+    </div>
+    <div class="form-row">
+      <label class="label">Confirm password</label>
+      <Input type="underlined" class="password-input" nativeType="password" v-model="repeatPassword" />
+    </div>
 
     <p v-if="error" class="error">{{ error }}</p>
-    </div>
   </NavigationCard>
 </template>
 
@@ -31,7 +29,7 @@
 import { mapState } from 'vuex'
 
 import Input from '@/components/Input'
-import NavigationCard from '@/components/NavigationCard'
+import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
   name: 'WalletEncryptionPassword',
@@ -85,10 +83,6 @@ export default {
 
 .error {
   color: $red-5;
-}
-
-.content {
-  padding: 40px;
 }
 
 .paragraph {

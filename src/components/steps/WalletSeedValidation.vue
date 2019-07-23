@@ -7,25 +7,23 @@
     :previousStep="previousStep"
     :nextStep="nextStep"
   >
-    <div class="content">
-      <p>
-        Please type your 12 word seed phrase exactly as it was shown to you on the previous screen.
-        This step is to confirm that you have copied your seed phrase correctly.
-      </p>
-      <Input type="big" class="seed" v-model="seed" />
-      <p v-if="showError">Mnemonics must match</p>
-      <p class="paragraph">
-        Please ensure you do not add any extra spaces between words or at the beginning or end
-        of the phrase.
-      </p>
-    </div>
+    <p>
+      Please type your 12 word seed phrase exactly as it was shown to you on the previous screen.
+      This step is to confirm that you have copied your seed phrase correctly.
+    </p>
+    <Input type="big" class="seed" v-model="seed" />
+    <p v-if="showError">Mnemonics must match</p>
+    <p class="paragraph">
+      Please ensure you do not add any extra spaces between words or at the beginning or end
+      of the phrase.
+    </p>
   </NavigationCard>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
-import NavigationCard from '@/components/NavigationCard'
+import NavigationCard from '@/components/card/NavigationCard'
 import Input from '@/components/Input.vue'
 
 export default {
