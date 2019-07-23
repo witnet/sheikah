@@ -1,4 +1,5 @@
 import { encodeDataRequest } from '@/utils'
+import router from '@/router'
 
 export default {
   state: {
@@ -12,12 +13,12 @@ export default {
       tryDataRequest: null,
       unlockWallet: null,
     },
-      balances: {
-        available: null,
-        timelocked: null,
-        unconfirmed: null,
+    balances: {
+      available: null,
+      timelocked: null,
+      unconfirmed: null,
       total: null,
-      },
+    },
     sessionId: null,
     walletId: null,
     generatedAddress: null,
@@ -68,6 +69,18 @@ export default {
     },
   },
   actions: {
+
+    closeSession: async function (context) {
+      const request = await this.$walletApi.closeSession({walletId: context.state.walletId, sessionId: context.state.sessionId})
+      if(request.result){
+        context.commit('deleteSession')
+        router.push('/welcome-back/wallet-list')
+      }else{
+        // TODO: handle error properly
+        console.log('error closing session')
+      }
+    },
+
     sendVTT: async function (context, { walletId, toAddress, amount, fee, subject }) {
       const request = await this.$walletApi.sendVTT({ wallet_id: walletId, to_address: toAddress, amount, fee, subject })
       if (request.result) {
