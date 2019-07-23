@@ -9,7 +9,7 @@
           </div>
           <Input v-model="label" />
         </div>
-        
+
         <div class="submmit-button">
         <Button class="button" :onClick="generateAddress" type="primary">Generate address</Button>
         </div>
@@ -122,10 +122,10 @@ export default {
         }
       }
 
-      .submmit-button {
+      .submit {
         margin-top: 20px;
-        display: flex;
-        justify-content: flex-end;
+        width: 100%;
+        text-align: right;
       }
     }
   }
