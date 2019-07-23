@@ -1,6 +1,6 @@
 <template>
 <div class="receive">
-  <BaseCard class="card" title="NEW PAYMENT REQUEST">
+  <Card class="card" title="NEW PAYMENT REQUEST">
     <div class="layout">
       <div class="form">
         <div class="row">
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-  </BaseCard>
+  </Card>
 
   <div class="text">
     <p class="title"> About payment requests </p>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import BaseCard from './BaseCard'
+import Card from './card/Card'
 import Button from './Button'
 import Input from './Input'
 import InputNumber from './InputNumber'
@@ -52,7 +52,7 @@ import Select from './Select'
 export default {
   name: 'receive',
   components: {
-    BaseCard,
+    Card,
     Button,
     Input,
     InputNumber,

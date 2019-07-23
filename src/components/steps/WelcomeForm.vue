@@ -1,9 +1,11 @@
 <template>
-  <BaseCard class="welcome-card" previousText="Back" nextText="Start">
-    <div class='welcome-title-container'>
-      <h5 class='welcome-title'>Hey Listen!</h5>
-    </div>
-    <div class="content">
+  <Card class="welcome-card" :width="600" :height="440" previousText="Back" nextText="Start">
+    <template v-slot:header>
+      <div class="header">
+        Ey, listen!
+      </div>
+    </template>
+
       <p class="subtitle">
         This assistant will guide you through the process of creating your own Witnet wallet.
       </p>
@@ -15,17 +17,16 @@
       <div class="container">
         <router-link class="router-link" to="/ftu/seed-type-selection">Let's do it</router-link>
       </div>
-    </div>
-  </BaseCard>
+  </Card>
 </template>
 
 <script>
-import BaseCard from '@/components/BaseCard'
+import Card from '@/components/card/Card'
 
 export default {
   name: 'WelcomeForm',
   components: {
-    BaseCard,
+    Card,
   },
 }
 </script>
@@ -34,44 +35,33 @@ export default {
 @import '@/styles/theme.scss';
 
 .welcome-card {
-  height: 450px;
-}
+  .header {
+    align-items: center;
+    background: linear-gradient(to right, #722ed1, #1a6cfb);
+    display: flex;
+    font-size: 20px;
+    font-weight: 100;
+    height: 100px;
+    padding: 0 20px;
+    color: #ececec;
+  }
 
-.welcome-title-container {
-  align-items: center;
-  background: $sheikah-gradient;
-  border-bottom: solid 1px $grey-4;
-  color: $grey-2;
-  display: flex;
-  flex-flow: row nowrap;
-  font-size: $loading-modal-title-font-size;
-  font-size: 19px;
-  font-weight: 100;
-  height: 100px;
-}
+  .subtitle {
+    color: $font-color-dark;
+  }
 
-.welcome-title {
-  margin-left: 38px;
-}
+  .container {
+    margin-top: 80px;
+    text-align: right;
+  }
 
-.content {
-  padding: 40px;
-}
+  .text-welcome {
+    color: $font-color-light;
+    margin-top: 40px;
+  }
 
-.subtitle {
-  color: $font-color-dark;
-}
-
-.container {
-  margin-top: 80px;
-}
-
-.text-welcome {
-  color: $font-color-light;
-  margin-top: 40px;
-}
-
-.router-link {
-  text-decoration: none;
+  .router-link {
+    text-decoration: none;
+  }
 }
 </style>

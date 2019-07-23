@@ -1,6 +1,6 @@
 <template>
-  <BaseCard
-    class="card"
+  <Card
+    class=""
   >
   <div class="card">
     <!-- TODO(#701) Handle error in a proper way -->
@@ -8,19 +8,20 @@
     <Spinner class="spinner" :active="true" />
     <p class="description">This will take a few seconds</p>
     </div>
+  </Card>
 
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
-import BaseCard from '@/components/BaseCard.vue'
+import Card from '@/components/card/Card.vue'
 import Spinner from '@/components/Spinner.vue'
 
 export default {
   name: 'WalletDisclaimer',
   components: {
-    BaseCard,
+    Card,
     Spinner,
   },
   methods: {
@@ -65,9 +66,9 @@ export default {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 450px;
+  height: 250px;
   justify-content: center;
-  width: 600px;
+  width: 300px;
 }
 
 .title {
