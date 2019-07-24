@@ -21,7 +21,7 @@ export default {
     },
     sessionId: null,
     walletId: null,
-    generatedAddress: null,
+    addresses: [],
     mnemonics: null,
     networkStatus: 'error',
     radRequestResult: null,
@@ -63,9 +63,14 @@ export default {
     setVTT (state, transaction) {
       state.vtt = transaction
     },
+    setAddresses (state, { addresses, address }) {
+      if (addresses) {
+        state.addresses = [...addresses, ...state.addresses]
+      }
 
-    setGeneratedAddress (state, { address }) {
-      state.generatedAddress = address
+      if (address) {
+        state.addresses.push(address)
+      }
     },
   },
   actions: {
@@ -95,10 +100,16 @@ export default {
       context.commit('setVTT', { kind: 'vtt', fee, label, amount })
     },
 
-    generateAddress: async function (context, { label, amount, expires }) {
-      const request = await this.$walletApi.generateAddress({ label, amount, expires })
+    getAddresses: async function (context) {
+      const request = await this.$walletApi.getAddresses()
+      const addresses = [generateRandomHex(32)]
+      context.commit('setAddresses', { addresses })
+    },
 
-      context.commit('setGeneratedAddress', { address: '(40.425471, -3.697424)' })
+    generateAddress: async function (context, { label }) {
+      const request = await this.$walletApi.generateAddress({ label, wallet_id: context.state.wallet })
+      const address = generateRandomHex(32)
+      context.commit('setAddresses', { address })
     },
 
     unlockWallet: async function (context, { walletId, password }) {
@@ -173,4 +184,14 @@ export default {
       }
     },
   },
+}
+
+function generateRandomHex (length) {
+  let hex = '0x'
+
+  for (let i = 0; i < length; i++) {
+    hex = hex + Math.floor(Math.random() * Math.floor(16)).toString(16)
+  }
+
+  return hex
 }

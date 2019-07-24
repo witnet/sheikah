@@ -1,24 +1,31 @@
 <template>
 <div class="receive">
-  <Card class="card" title="NEW PAYMENT REQUEST">
-    <div class="layout">
-      <div class="form">
-        <div class="row">
-          <div class="label">
-            <label class="" for>Label</label>
+  <div>
+    <Card class="card" title="NEW PAYMENT REQUEST">
+      <div class="layout">
+        <div class="form">
+          <div class="row">
+            <div class="label">
+              <label class="" for>Label</label>
+            </div>
+            <Input v-model="label" />
           </div>
-          <Input v-model="label" />
-        </div>
 
-        <div class="submmit-button">
-        <Button class="button" :onClick="generateAddress" type="primary">Generate address</Button>
+          <div class="submit">
+          <Button class="button" :onClick="generateAddress" type="primary">Generate address</Button>
+          </div>
         </div>
       </div>
-    </div>
-  </Card>
+    </Card>
 
+    <Card class="card" title="GENERATED ADDRESSES">
+      <p class="address" v-for="address in addresses">
+        {{ address }}
+      </p>
+    </Card>
+  </div>
   <div class="text">
-    <p class="title"> About payment requests </p>
+    <p class="title">About payment requests</p>
     <p class="paragraph">
       Every time you generate a receiving address in
       Sheikah, you can label and store it as a payment
@@ -51,6 +58,9 @@ import Select from './Select'
 
 export default {
   name: 'receive',
+  beforeCreate () {
+    this.$store.dispatch('getAddresses')
+  },
   components: {
     Card,
     Button,
@@ -61,22 +71,16 @@ export default {
   data () {
     return {
       label: '',
-      amount: 0,
-      expires: '',
-      options: [
-        { value: 0, primaryText: 'Never', secondaryText: '' },
-      ],
     }
   },
   methods: {
     generateAddress () {
-      this.$store.dispatch('generateAddress', { label: this.label, expires: this.expires, amount: this.amount })
+      this.$store.dispatch('generateAddress', { label: this.label })
     },
   },
-
   computed: {
-    generatedAddress () {
-      return this.$store.state.wallet.generatedAddress
+    addresses () {
+      return this.$store.state.wallet.addresses
     },
   },
 }
@@ -107,6 +111,20 @@ export default {
   .card {
     max-width: 400px;
     min-width: 400px;
+    margin-bottom: 30px;
+
+    .address {
+      text-align: center;
+      width: 100%;
+      border-bottom: 1px solid #ececec;
+      padding: 10px;
+      color: black;
+      font-weight: 500;
+    }
+
+    .address:last-child {
+      border: none;
+    }
 
     .layout {
       display: flex;
