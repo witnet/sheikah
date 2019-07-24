@@ -36,7 +36,7 @@ export default {
   },
   watch: {
     value (value) {
-      this.$emit('select', value)
+      this.$emit('input', value)
     },
   },
   beforeMount () {
