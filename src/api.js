@@ -119,4 +119,8 @@ export class WalletApi {
   async closeSession (params) {
     return this._callApiMethod('closeSession')(params)
   }
+
+  getAddresses (params) {
+    return this._callApiMethod('getAddresses')(params)
+  }
 }
