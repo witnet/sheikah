@@ -9,7 +9,7 @@ export default {
       getTransactions: null,
       getWalletInfos: null,
       lockWallet: null,
-      sendVTT: null,
+      sendTransaction: null,
       tryDataRequest: null,
       unlockWallet: null,
     },
@@ -22,6 +22,7 @@ export default {
     sessionId: null,
     walletId: null,
     addresses: [],
+    generatedTransaction: null,
     mnemonics: null,
     networkStatus: 'error',
     radRequestResult: null,
@@ -60,8 +61,9 @@ export default {
     setError (state, { name, error }) {
       state.errors[name] = error
     },
-    setVTT (state, transaction) {
-      state.vtt = transaction
+
+    setGeneratedTransaction (state, { transaction }) {
+      state.generatedTransaction = transaction
     },
     setAddresses (state, { addresses, address }) {
       if (addresses) {
@@ -86,18 +88,19 @@ export default {
       }
     },
 
-    sendVTT: async function (context, { walletId, toAddress, amount, fee, subject }) {
-      const request = await this.$walletApi.sendVTT({ wallet_id: walletId, to_address: toAddress, amount, fee, subject })
-      if (request.result) {
-        context.commit('sendVTTSuccess', request.result)
-      } else {
-        context.commit('setError', 'sendVTT', request.error)
-      }
+    sendTransaction: async function (context) {
+      const request = await this.$walletApi.sendTransaction({
+        walletId: context.state.walletId,
+        sessionId: context.state.sessionId,
+        transaction: context.state.generatedTransaction,
+      })
+      // context.commit('setSuccess', 'sendTransaction')
     },
 
     createVTT: async function (context, { address, amount, fee, label }) {
       const request = await this.$walletApi.createVTT({ wallet_id: this.state.wallet.id, address, amount, fee, label })
-      context.commit('setVTT', { kind: 'vtt', fee, label, amount })
+      const generatedTransaction = { to: address, amount, fee, type: 'Value Transfer Transaction', from: [ '0xfabadafabadafabadafabadafabada', '0xacabadaacabadaacabadaacabada', '0xbeefbeefbeefbeefbeefbeefbeef' ] }
+      context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
     },
 
     getAddresses: async function (context) {
