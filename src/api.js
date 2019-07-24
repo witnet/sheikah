@@ -123,4 +123,8 @@ export class WalletApi {
   getAddresses (params) {
     return this._callApiMethod('getAddresses')(params)
   }
+
+  sendTransaction (params) {
+    return this._callApiMethod('sendTransaction')(params)
+  }
 }
