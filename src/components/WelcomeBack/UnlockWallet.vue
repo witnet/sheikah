@@ -1,17 +1,17 @@
 <template>
   <div class="unlock-wallet">
     <p class="text">Insert a password to unlock wallet</p>
-    <input v-model="password" type="password">
-
-    <button @click="unlockWallet">
-      Unlock
-    </button>
+    <input class="password-input" v-model="password" type="password" placeholder ="••••••••">
+    <div class="submit">
+    <Button :onClick="unlockWallet" type="primary">Unlock</Button>
+    </div>
     <p v-if="showError">Invalid password</p>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import Button from '@/components/Button'
 
 export default {
   name: 'UnlockWallet',
@@ -46,14 +46,49 @@ export default {
         this.updateView()
       }
     }
-  }
+  },
+  components: {
+    Button,
+  },
 }
 </script>
 
 <style scoped lang="scss">
+
+@import '@/styles/theme.scss';
+
   .unlock-wallet{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    
+    &>* {
+        flex: 1 10px;
+        margin: 30px;
+        width: 300px;
+    }
+    .password-input{
+      border:none;
+      border-bottom: 1px solid black;
+      font-size: 16px;
+      padding:10px;
+      color: black;
+      
+        &:focus, &:hover {
+        outline: none;
+        box-shadow: 0px 1px 0px 0px rgba(114, 113, 113, 0.75)
+        }
+        &::placeholder {
+        font-size: 16px;
+        }
+    }
     .text {
       margin-bottom: 30px;
+      font-size: 20px;
     }
-}
+    .submit{
+      text-align: right;
+    }
+  }
+  
 </style>
