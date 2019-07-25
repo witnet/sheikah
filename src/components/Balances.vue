@@ -34,7 +34,7 @@ export default {
     timelocked: Number,
     unconfirmed: Number,
     total: Number,
-  }, 
+  },
 }
 </script>
 

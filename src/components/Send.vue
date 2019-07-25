@@ -54,7 +54,7 @@
       <div class="row">
         <p class="entry">From<p>
         <div class="column">
-          <p class="address value" v-for="address in generatedTransaction.from">{{ address }}</p>
+          <p class="address value" v-for="address in generatedTransaction.from" :key="address">{{ address }}</p>
         </div>
       </div>
       <div class="row">
@@ -110,7 +110,7 @@ export default {
     },
     closeDialog () {
       this.showDialog = false
-    }
+    },
   },
   computed: {
     generatedTransaction () {
@@ -123,7 +123,7 @@ export default {
         this.showDialog = true
       }
     },
-  }
+  },
 }
 </script>
 
