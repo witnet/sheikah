@@ -1,4 +1,5 @@
 import msgpack5 from 'msgpack5'
+import { shell } from 'electron'
 
 const msgpack = msgpack5()
 
@@ -20,4 +21,9 @@ export function match (value, options, result) {
   return search
     ? search.result
     : null
+}
+
+export function openInExternalApp (url) {
+  console.log('url', url)
+  shell.openExternal(url)
 }
