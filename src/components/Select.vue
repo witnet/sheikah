@@ -16,7 +16,7 @@
     </div>
   </div>
   <select v-model="value" class="hidden">
-    <option v-for="(option, index) in options" :value="option.value" :key="option.value">
+    <option v-for="option in options" :value="option.value" :key="option.value">
       {{ option.value }}
     </option>
   </select>

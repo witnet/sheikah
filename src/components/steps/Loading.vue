@@ -45,16 +45,16 @@ export default {
     }),
   },
   watch: {
-    sessionId(value) {
+    sessionId (value) {
       if (value) {
         this.$router.push('/wallet/transactions')
       }
     },
-    error(value) {
+    error (value) {
       if (value) {
         this.goToFirstStep()
       }
-    }
+    },
   },
 }
 </script>

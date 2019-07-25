@@ -30,11 +30,11 @@ export default {
     height: {
       type: Number,
       default: 250,
-    }
+    },
   },
   components: {
     BaseCard,
-  }
+  },
 }
 </script>
 
@@ -59,4 +59,3 @@ export default {
   }
 }
 </style>
-

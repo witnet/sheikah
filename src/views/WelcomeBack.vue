@@ -17,13 +17,8 @@
 </template>
 
 <script>
-import Card from '@/components/card/Card'
-
 export default {
   name: 'WelcomeBack',
-  components: {
-    Card,
-  },
 }
 </script>
 

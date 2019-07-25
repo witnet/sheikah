@@ -1,5 +1,5 @@
 <template>
-  
+
   <div v-if='transactions => 1' :class="`transaction ${border ? 'border' : ''}`">
     <div class="amount">
       <font-awesome-icon :class="`icon ${origin.toLowerCase()}`" :icon="arrowIcon" />
@@ -16,7 +16,7 @@
       <p class="block">Confirmed in block {{ block }}</p>
     </div>
   </div>
-  
+
 </template>
 
 <script>

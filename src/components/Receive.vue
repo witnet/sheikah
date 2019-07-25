@@ -19,7 +19,7 @@
     </Card>
 
     <Card class="card" title="GENERATED ADDRESSES">
-      <p class="address" v-for="address in addresses">
+      <p class="address" v-for="address in addresses" :key="address">
         {{ address }}
       </p>
     </Card>
@@ -53,8 +53,6 @@
 import Card from './card/Card'
 import Button from './Button'
 import Input from './Input'
-import InputNumber from './InputNumber'
-import Select from './Select'
 
 export default {
   name: 'receive',
@@ -65,8 +63,6 @@ export default {
     Card,
     Button,
     Input,
-    InputNumber,
-    Select,
   },
   data () {
     return {

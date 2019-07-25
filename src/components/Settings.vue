@@ -14,18 +14,16 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
-    name: 'Settings',
-    props: {
-      settings: Array,
+  name: 'Settings',
+  props: {
+    settings: Array,
+  },
+  methods: {
+    handleCommand (index) {
+      this.settings[index].action()
     },
-    methods: {
-      handleCommand(index) {
-        this.settings[index].action()
-      }
-    }
+  },
 }
 </script>
 
@@ -57,7 +55,7 @@ export default {
   background: none;
   color: inherit;
   border: none;
- 
+
   &:hover .icon{
   background: none;
   border: none;

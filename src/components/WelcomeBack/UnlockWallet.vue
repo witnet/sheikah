@@ -41,7 +41,7 @@ export default {
     }),
   },
   watch: {
-    sessionId: function(newValue) {
+    sessionId: function (newValue) {
       if (newValue) {
         this.updateView()
       }
@@ -61,7 +61,7 @@ export default {
     height: 300px;
     display: flex;
     flex-direction: column;
-    
+
     &>* {
         flex: 1 10px;
         margin: 30px;
@@ -73,7 +73,7 @@ export default {
       font-size: 16px;
       padding:10px;
       color: black;
-      
+
         &:focus, &:hover {
         outline: none;
         box-shadow: 0px 1px 0px 0px rgba(114, 113, 113, 0.75)
@@ -90,5 +90,5 @@ export default {
       text-align: right;
     }
   }
-  
+
 </style>

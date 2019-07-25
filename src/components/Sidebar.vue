@@ -45,14 +45,14 @@ import NetworkStatus from '@/components/NetworkStatus.vue'
 import Settings from '@/components/Settings.vue'
 
 export default {
-  data(){
+  data () {
     return {
       settings: [{
         label: 'Close session',
-        action: ()=>{
+        action: () => {
           this.$store.dispatch('closeSession')
-        }
-      }]
+        },
+      }],
     }
   },
   methods: {
@@ -61,7 +61,7 @@ export default {
     },
     handleClose (key, keyPath) {
       console.log(key, keyPath)
-    }
+    },
   },
   components: {
     NetworkStatus,

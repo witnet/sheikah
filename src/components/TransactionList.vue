@@ -51,7 +51,7 @@ export default {
     font-size: 16px;
     font-weight: 600;
     color: #808080ff;
-    
+
   }
   .number {
     font-size: 14px;
@@ -79,7 +79,7 @@ export default {
       margin-bottom: 10px;
     }
   }
-  
+
   .title{
     margin-bottom: 10px;
   }
