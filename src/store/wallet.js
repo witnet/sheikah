@@ -78,11 +78,11 @@ export default {
   actions: {
 
     closeSession: async function (context) {
-      const request = await this.$walletApi.closeSession({walletId: context.state.walletId, sessionId: context.state.sessionId})
-      if(request.result){
+      const request = await this.$walletApi.closeSession({ walletId: context.state.walletId, sessionId: context.state.sessionId })
+      if (request.result) {
         context.commit('deleteSession')
         router.push('/welcome-back/wallet-list')
-      }else{
+      } else {
         // TODO: handle error properly
         console.log('error closing session')
       }
