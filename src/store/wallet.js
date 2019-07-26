@@ -105,14 +105,19 @@ export default {
 
     getAddresses: async function (context) {
       const request = await this.$walletApi.getAddresses()
-      const addresses = [generateRandomHex(32)]
-      context.commit('setAddresses', { addresses })
+      // context.commit('setAddresses', { addresses })
     },
 
     generateAddress: async function (context, { label }) {
-      const request = await this.$walletApi.generateAddress({ label, wallet_id: context.state.wallet })
-      const address = generateRandomHex(32)
-      context.commit('setAddresses', { address })
+      const request = await this.$walletApi.generateAddress({
+        label,
+        walletId: context.state.walletId,
+        sessionId: context.state.sessionId
+      })
+
+      if (request.result) {
+        context.commit('setAddresses', { address: request.result.address })
+      }
     },
 
     unlockWallet: async function (context, { walletId, password }) {
@@ -170,6 +175,7 @@ export default {
 
     getWalletInfos: async function (context) {
       const request = await this.$walletApi.getWalletInfos()
+      console.log(request)
       if (request.result) {
         context.commit('setWalletInfos', { walletInfos: request.result.infos })
       } else {
@@ -189,12 +195,12 @@ export default {
   },
 }
 
-function generateRandomHex (length) {
-  let hex = '0x'
+// function generateRandomHex (length) {
+//   let hex = '0x'
 
-  for (let i = 0; i < length; i++) {
-    hex = hex + Math.floor(Math.random() * Math.floor(16)).toString(16)
-  }
+//   for (let i = 0; i < length; i++) {
+//     hex = hex + Math.floor(Math.random() * Math.floor(16)).toString(16)
+//   }
 
-  return hex
-}
+//   return hex
+// }
