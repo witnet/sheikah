@@ -104,15 +104,20 @@ export default {
     },
 
     getAddresses: async function (context) {
-      const request = await this.$walletApi.getAddresses()
-      // context.commit('setAddresses', { addresses })
+      const request = await this.$walletApi.getAddresses({
+        walletId: context.state.walletId,
+        sessionId: context.state.sessionId,
+      })
+      if (request.result) {
+        context.commit('setAddresses', { addresses: request.result.addresses.map(x => x.address) })
+      }
     },
 
     generateAddress: async function (context, { label }) {
       const request = await this.$walletApi.generateAddress({
         label,
         walletId: context.state.walletId,
-        sessionId: context.state.sessionId
+        sessionId: context.state.sessionId,
       })
 
       if (request.result) {
@@ -175,7 +180,6 @@ export default {
 
     getWalletInfos: async function (context) {
       const request = await this.$walletApi.getWalletInfos()
-      console.log(request)
       if (request.result) {
         context.commit('setWalletInfos', { walletInfos: request.result.infos })
       } else {
