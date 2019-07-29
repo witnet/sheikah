@@ -1,17 +1,15 @@
-import msgpack5 from 'msgpack5'
+import cbor from 'cbor'
 import { shell } from 'electron'
-
-const msgpack = msgpack5()
 
 export function encodeDataRequest (radRequest) {
   return {
     not_before: radRequest.not_before,
     retrieve: radRequest.retrieve.map(retrieve => {
-      return { ...retrieve, script: [...msgpack.encode(retrieve.script)] }
+      return { ...retrieve, script: [...cbor.encode(retrieve.script)] }
     }),
 
-    aggregate: { script: [...msgpack.encode(radRequest.aggregate.script)] },
-    consensus: { script: [...msgpack.encode(radRequest.consensus.script)] },
+    aggregate: { script: [...cbor.encode(radRequest.aggregate.script)] },
+    consensus: { script: [...cbor.encode(radRequest.consensus.script)] },
     deliver: radRequest.deliver,
   }
 }
