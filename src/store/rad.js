@@ -12,37 +12,17 @@ export default {
       not_before: 0,
       retrieve: [
         {
-          url: 'https://api.coindesk.com/v1/bpi/currentprice.json',
+          url: '',
           kind: 'HTTP-GET',
-          script: [
-            83,
-            132,
-            [ 1, 'bpi' ],
-            132,
-            [ 1, 'USD' ],
-            132,
-            [ 1, 'rate_float' ],
-            130,
-          ],
+          script: [],
         },
       ],
       aggregate: {
-        script: [
-          [
-            102,
-            32,
-          ],
-        ],
+        script: [],
       },
       consensus: {
-        script: [
-          [
-            102,
-            32,
-          ],
-        ],
+        script: [],
       },
-      deliver: [{ kind: 'HTTP-GET', url: 'https://hooks.zapier.com/hooks/catch/3860543/l2awcd' }],
     },
   },
   mutations: {

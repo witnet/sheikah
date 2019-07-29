@@ -20,63 +20,78 @@ export let TYPES;
 export let OPERATORS;
 
 (function (OPERATORS) {
-  OPERATORS[OPERATORS['ARRAY_COUNT'] = 64] = 'ARRAY_COUNT' // 80
-  OPERATORS[OPERATORS['ARRAY_EVERY'] = 81] = 'ARRAY_EVERY'
-  OPERATORS[OPERATORS['ARRAY_FILTER'] = 82] = 'ARRAY_FILTER'
-  OPERATORS[OPERATORS['ARRAY_FLATTEN'] = 67] = 'ARRAY_FLATTEN' // 83
-  OPERATORS[OPERATORS['ARRAY_GET'] = 1] = 'ARRAY_GET' // 84
-  OPERATORS[OPERATORS['ARRAY_MAP'] = 85] = 'ARRAY_MAP'
-  OPERATORS[OPERATORS['ARRAY_REDUCE'] = 102] = 'ARRAY_REDUCE' // 86
-  OPERATORS[OPERATORS['ARRAY_SOME'] = 87] = 'ARRAY_SOME'
-  OPERATORS[OPERATORS['ARRAY_SORT'] = 88] = 'ARRAY_SORT'
-  OPERATORS[OPERATORS['ARRAY_TAKE'] = 89] = 'ARRAY_TAKE'
-  OPERATORS[OPERATORS['BOOLEAN_MATCH'] = 16] = 'BOOLEAN_MATCH'
-  OPERATORS[OPERATORS['BOOLEAN_NEG'] = 17] = 'BOOLEAN_NEG'
-  OPERATORS[OPERATORS['BOOLEAN_TOSTRING'] = 18] = 'BOOLEAN_TOSTRING'
-  OPERATORS[OPERATORS['FLOAT_ABS'] = 48] = 'FLOAT_ABS'
-  OPERATORS[OPERATORS['FLOAT_CEIL'] = 49] = 'FLOAT_CEIL'
-  OPERATORS[OPERATORS['FLOAT_FLOOR'] = 50] = 'FLOAT_FLOOR'
-  OPERATORS[OPERATORS['FLOAT_MODULO'] = 51] = 'FLOAT_MODULO'
-  OPERATORS[OPERATORS['FLOAT_MULT'] = 52] = 'FLOAT_MULT'
-  OPERATORS[OPERATORS['FLOAT_NEG'] = 53] = 'FLOAT_NEG'
-  OPERATORS[OPERATORS['FLOAT_POW'] = 54] = 'FLOAT_POW'
-  OPERATORS[OPERATORS['FLOAT_RECIP'] = 55] = 'FLOAT_RECIP'
-  OPERATORS[OPERATORS['FLOAT_ROUND'] = 56] = 'FLOAT_ROUND'
-  OPERATORS[OPERATORS['FLOAT_SUM'] = 57] = 'FLOAT_SUM'
-  OPERATORS[OPERATORS['FLOAT_TOSTRING'] = 58] = 'FLOAT_TOSTRING'
-  OPERATORS[OPERATORS['FLOAT_TRUNC'] = 59] = 'FLOAT_TRUNC'
-  OPERATORS[OPERATORS['INT_ABS'] = 32] = 'INT_ABS'
-  OPERATORS[OPERATORS['INT_MATCH'] = 33] = 'INT_MATCH'
-  OPERATORS[OPERATORS['INT_MODULO'] = 34] = 'INT_MODULO'
-  OPERATORS[OPERATORS['INT_MULT'] = 35] = 'INT_MULT'
-  OPERATORS[OPERATORS['INT_NEG'] = 36] = 'INT_NEG'
-  OPERATORS[OPERATORS['INT_POW'] = 37] = 'INT_POW'
-  OPERATORS[OPERATORS['INT_RECIP'] = 38] = 'INT_RECIP'
-  OPERATORS[OPERATORS['INT_SUM'] = 39] = 'INT_SUM'
-  OPERATORS[OPERATORS['INT_TOFLOAT'] = 40] = 'INT_TOFLOAT'
-  OPERATORS[OPERATORS['INT_TOSTRING'] = 41] = 'INT_TOSTRING'
-  OPERATORS[OPERATORS['MAP_ENTRIES'] = 96] = 'MAP_ENTRIES'
-  OPERATORS[OPERATORS['MAP_GET'] = 97] = 'MAP_GET'
-  OPERATORS[OPERATORS['MAP_KEYS'] = 98] = 'MAP_KEYS'
-  OPERATORS[OPERATORS['MAP_VALUES'] = 99] = 'MAP_VALUES'
-  OPERATORS[OPERATORS['MIXED_TOARRAY'] = 128] = 'MIXED_TOARRAY' // 112
-  OPERATORS[OPERATORS['MIXED_TOBOOLEAN'] = 113] = 'MIXED_TOBOOLEAN'
-  OPERATORS[OPERATORS['MIXED_TOFLOAT'] = 130] = 'MIXED_TOFLOAT'// 114
-  OPERATORS[OPERATORS['MIXED_TOINT'] = 115] = 'MIXED_TOINT'
-  OPERATORS[OPERATORS['MIXED_TOMAP'] = 132] = 'MIXED_TOMAP' // 116
-  OPERATORS[OPERATORS['RESULT_GET'] = 128] = 'RESULT_GET'
-  OPERATORS[OPERATORS['RESULT_GETOR'] = 129] = 'RESULT_GETOR'
-  OPERATORS[OPERATORS['RESULT_ISOK'] = 114] = 'RESULT_ISOK' // 130
-  OPERATORS[OPERATORS['STRING_HASH'] = 80] = 'STRING_HASH' // 64
-  OPERATORS[OPERATORS['STRING_LENGTH'] = 65] = 'STRING_LENGTH'
-  OPERATORS[OPERATORS['STRING_CATEGORIZE'] = 66] = 'STRING_CATEGORIZE'
-  OPERATORS[OPERATORS['STRING_PARSEJSON'] = 83] = 'STRING_PARSEJSON' // 67
-  OPERATORS[OPERATORS['STRING_PARSEXML'] = 68] = 'STRING_PARSEXML'
-  OPERATORS[OPERATORS['STRING_TOBOOLEAN'] = 69] = 'STRING_TOBOOLEAN'
-  OPERATORS[OPERATORS['STRING_TOFLOAT'] = 70] = 'STRING_TOFLOAT'
-  OPERATORS[OPERATORS['STRING_TOINT'] = 71] = 'STRING_TOINT'
-  OPERATORS[OPERATORS['STRING_TOLOWERCASE'] = 72] = 'STRING_TOLOWERCASE'
-  OPERATORS[OPERATORS['STRING_TOUPPERCASE'] = 73] = 'STRING_TOUPPERCASE'
+  OPERATORS[OPERATORS['BOOLEAN_MATCH'] = 0x10] = 'BOOLEAN_MATCH'
+  OPERATORS[OPERATORS['BOOLEAN_NEGATE'] = 0x11] = 'BOOLEAN_NEG'
+  OPERATORS[OPERATORS['BOOLEAN_ASSTRING'] = 0x12] = 'BOOLEAN_TOSTRING'
+
+  OPERATORS[OPERATORS['INT_ABSOLUTE'] = 0x20] = 'INT_ABS'
+  OPERATORS[OPERATORS['INT_ASBYTES'] = 0x21] = 'INT_ASBYTES'
+  OPERATORS[OPERATORS['INT_ASFLOAT'] = 0x22] = 'INT_ASFLOAT'
+  OPERATORS[OPERATORS['INT_ASSTRING'] = 0x23] = 'INT_ASFLOAT'
+  OPERATORS[OPERATORS['INT_GREATERTHAN'] = 0x24] = 'INT_MATCH'
+  OPERATORS[OPERATORS['INT_LESSTHAN'] = 0x25] = 'INT_MODULO'
+  OPERATORS[OPERATORS['INT_MATCH'] = 0x26] = 'INT_MULT'
+  OPERATORS[OPERATORS['INT_MODULO'] = 0x27] = 'INT_NEG'
+  OPERATORS[OPERATORS['INT_MULTIPLY'] = 0x28] = 'INT_POW'
+  OPERATORS[OPERATORS['INT_NEGATE'] = 0x29] = 'INT_RECIP'
+  OPERATORS[OPERATORS['INT_POWER'] = 0x2A] = 'INT_SUM'
+  OPERATORS[OPERATORS['INT_RECIPROCAL'] = 0x2B] = 'INT_TOFLOAT'
+  OPERATORS[OPERATORS['INT_SUM'] = 0x2C] = 'INT_TOSTRING'
+
+  OPERATORS[OPERATORS['FLOAT_ABSOLUTE'] = 0x30] = 'FLOAT_ABSOLUTE'
+  OPERATORS[OPERATORS['FLOAT_ASBYTES'] = 0x31] = 'FLOAT_ASBYTES'
+  OPERATORS[OPERATORS['FLOAT_ASSTRING'] = 0x32] = 'FLOAT_ASSTRING'
+  OPERATORS[OPERATORS['FLOAT_CEILING'] = 0x33] = 'FLOAT_CEILING'
+  OPERATORS[OPERATORS['FLOAT_GREATERTHAN'] = 0x33] = 'FLOAT_GREATERTHAN'
+  OPERATORS[OPERATORS['FLOAT_FLOOR'] = 0x34] = 'FLOAT_FLOOR'
+  OPERATORS[OPERATORS['FLOAT_MODULO'] = 0x35] = 'FLOAT_MODULO'
+  OPERATORS[OPERATORS['FLOAT_MULTIPLY'] = 0x36] = 'FLOAT_MULTIPLY'
+  OPERATORS[OPERATORS['FLOAT_NEGATE'] = 0x37] = 'FLOAT_NEGATE'
+  OPERATORS[OPERATORS['FLOAT_POWER'] = 0x38] = 'FLOAT_POWER'
+  OPERATORS[OPERATORS['FLOAT_RECIPROAL'] = 0x39] = 'FLOAT_RECIPROCAL'
+  OPERATORS[OPERATORS['FLOAT_ROUND'] = 0x3A] = 'FLOAT_ROUND'
+  OPERATORS[OPERATORS['FLOAT_SUM'] = 0x3B] = 'FLOAT_SUM'
+  OPERATORS[OPERATORS['FLOAT_TRUNCATE'] = 0x3C] = 'FLOAT_TRUNCATE'
+
+  OPERATORS[OPERATORS['STRING_ASBYTES'] = 0x40] = 'STRING_ASBYTES'
+  OPERATORS[OPERATORS['STRING_FLOAT'] = 0x41] = 'STRING_FLOAT'
+  OPERATORS[OPERATORS['STRING_INTEGER'] = 0x42] = 'STRING_INTEGER'
+  OPERATORS[OPERATORS['STRING_LENGTH'] = 0x43] = 'STRING_LENGTH'
+  OPERATORS[OPERATORS['STRING_MATCH'] = 0x44] = 'STRING_MATCH'
+  OPERATORS[OPERATORS['STRING_PARSEJSON'] = 0x45] = 'STRING_PARSEJSON'
+  OPERATORS[OPERATORS['STRING_PARSEXML'] = 0x46] = 'STRING_PARSEXML'
+  OPERATORS[OPERATORS['STRING_ASBOOLEAN'] = 0x47] = 'STRING_ASBOOLEAN'
+  OPERATORS[OPERATORS['STRING_TOLOWERCASE'] = 0x48] = 'STRING_TOLOWERCASE'
+  OPERATORS[OPERATORS['STRING_TOUPPERCASE'] = 0x49] = 'STRING_TOUPPERCASE'
+
+  OPERATORS[OPERATORS['ARRAY_ASBYTES'] = 0x50] = 'ARRAY_ASBYTES'
+  OPERATORS[OPERATORS['ARRAY_COUNT'] = 0x51] = 'ARRAY_COUNT'
+  OPERATORS[OPERATORS['ARRAY_EVERY'] = 0x52] = 'ARRAY_EVERY'
+  OPERATORS[OPERATORS['ARRAY_FILTER'] = 0x53] = 'ARRAY_FILTER'
+  OPERATORS[OPERATORS['ARRAY_FLATTEN'] = 0x54] = 'ARRAY_FLATTEN'
+  OPERATORS[OPERATORS['ARRAY_GET'] = 0x55] = 'ARRAY_GET'
+  OPERATORS[OPERATORS['ARRAY_MAP'] = 0x56] = 'ARRAY_MAP'
+  OPERATORS[OPERATORS['ARRAY_REDUCE'] = 0x57] = 'ARRAY_REDUCE'
+  OPERATORS[OPERATORS['ARRAY_SOME'] = 0x58] = 'ARRAY_SOME'
+  OPERATORS[OPERATORS['ARRAY_SORT'] = 0x59] = 'ARRAY_SORT'
+  OPERATORS[OPERATORS['ARRAY_TAKE'] = 0x5A] = 'ARRAY_TAKE'
+
+  OPERATORS[OPERATORS['MAP_ENTRIES'] = 0x60] = 'MAP_ENTRIES'
+  OPERATORS[OPERATORS['MAP_GET'] = 0x61] = 'MAP_GET'
+  OPERATORS[OPERATORS['MAP_KEYS'] = 0x62] = 'MAP_KEYS'
+  OPERATORS[OPERATORS['MAP_VALUES'] = 0x63] = 'MAP_VALUES'
+
+  OPERATORS[OPERATORS['BYTES_ASARRAY'] = 0x70] = 'BYTES_ASARRAY'
+  OPERATORS[OPERATORS['BYTES_ASBOOLEAN'] = 0x71] = 'BYTES_ASBOOLEAN'
+  OPERATORS[OPERATORS['BYTES_ASFLOAT'] = 0x72] = 'BYTES_ASFLOAT'
+  OPERATORS[OPERATORS['BYTES_ASINTEGER'] = 0x73] = 'BYTES_ASINTEGER'
+  OPERATORS[OPERATORS['BYTES_ASMAP'] = 0x74] = 'BYTES_ASMAP'
+  OPERATORS[OPERATORS['BYTES_ASSTRING'] = 0x75] = 'BYTES_ASSTRING'
+  OPERATORS[OPERATORS['BYTES_HASH'] = 0x75] = 'BYTES_HASH'
+
+  OPERATORS[OPERATORS['RESULT_GET'] = 0x80] = 'BYTES_GET'
+  OPERATORS[OPERATORS['RESULT_GETOR'] = 0x81] = 'BYTES_GET_OR'
+  OPERATORS[OPERATORS['RESULT_ISOK'] = 0x82] = 'BYTES_ISOK'
 })(OPERATORS || (OPERATORS = {}))
 
 export let HashFunctionCodes;
@@ -129,7 +144,7 @@ export let ReducingFunctionCodes;
   ReducingFunctionCodes[ReducingFunctionCodes['MIN'] = 0] = 'MIN'
   ReducingFunctionCodes[ReducingFunctionCodes['MAX'] = 1] = 'MAX'
   ReducingFunctionCodes[ReducingFunctionCodes['MODE'] = 2] = 'MODE'
-  ReducingFunctionCodes[ReducingFunctionCodes['AVGMEAN'] = 32] = 'AVGMEAN'// 3
+  ReducingFunctionCodes[ReducingFunctionCodes['AVGMEAN'] = 3] = 'AVGMEAN'
   ReducingFunctionCodes[ReducingFunctionCodes['AVGMEANW'] = 4] = 'AVGMEANW'
   ReducingFunctionCodes[ReducingFunctionCodes['AVGMEDIAN'] = 5] = 'AVGMEDIAN'
   ReducingFunctionCodes[ReducingFunctionCodes['AVGMEDIANW'] = 6] = 'AVGMEDIANW'
@@ -231,6 +246,52 @@ export const TYPESYSTEM = {
 export let RadonMethodNames;
 
 (function (RadonMethodNames) {
+  RadonMethodNames['BOOLEAN_MATCH'] = 'BOOLEAN_MATCH'
+  RadonMethodNames['BOOLEAN_NEGATE'] = 'BOOLEAN_NEGATE'
+  RadonMethodNames['BOOLEAN_ASSTRING'] = 'BOOLEAN_ASSTRING'
+
+  RadonMethodNames['INT_ABSOLUTE'] = 'INT_ABSOLUTE'
+  RadonMethodNames['INT_ASBYTES'] = 'INT_ASBYTES'
+  RadonMethodNames['INT_ASFLOAT'] = 'INT_ASFLOAT'
+  RadonMethodNames['INT_ASSTRING'] = 'INT_ASSTRING'
+  RadonMethodNames['INT_GREATERTHAN'] = 'INT_GREATERTHAN'
+  RadonMethodNames['INT_LESSTHAN'] = 'INT_LESSTHAN'
+  RadonMethodNames['INT_MATCH'] = 'INT_MATCH'
+  RadonMethodNames['INT_MODULO'] = 'INT_MODULO'
+  RadonMethodNames['INT_MULTIPLY'] = 'INT_MULTIPLY'
+  RadonMethodNames['INT_NEGATE'] = 'INT_NEGATE'
+  RadonMethodNames['INT_POWER'] = 'INT_POWER'
+  RadonMethodNames['INT_RECIPROCAL'] = 'INT_RECIPROCAL'
+  RadonMethodNames['INT_SUM'] = 'INT_SUM'
+
+  RadonMethodNames['FLOAT_ABSOLUTE'] = 'FLOAT_ABSOLUTE'
+  RadonMethodNames['FLOAT_ASBYTES'] = 'FLOAT_ASBYTES'
+  RadonMethodNames['FLOAT_ASSTRING'] = 'FLOAT_ASSTRING'
+  RadonMethodNames['FLOAT_CEILING'] = 'FLOAT_CEILING'
+  RadonMethodNames['FLOAT_GREATERTHAN'] = 'FLOAT_GREATERTHAN'
+  RadonMethodNames['FLOAT_FLOOR'] = 'FLOAT_FLOOR'
+  RadonMethodNames['FLOAT_LESSTHAN'] = 'FLOAT_LESSTHAN'
+  RadonMethodNames['FLOAT_MODULO'] = 'FLOAT_MODULO'
+  RadonMethodNames['FLOAT_MULTIPLY'] = 'FLOAT_MULTIPLY'
+  RadonMethodNames['FLOAT_NEGATE'] = 'FLOAT_NEGATE'
+  RadonMethodNames['FLOAT_POWER'] = 'FLOAT_POWER'
+  RadonMethodNames['FLOAT_RECIPROAL'] = 'FLOAT_RECIPROAL'
+  RadonMethodNames['FLOAT_ROUND'] = 'FLOAT_ROUND'
+  RadonMethodNames['FLOAT_SUM'] = 'FLOAT_SUM'
+  RadonMethodNames['FLOAT_TRUNCATE'] = 'truncate'
+
+  RadonMethodNames['STRING_ASBYTES'] = 'STRING_ASBYTES'
+  RadonMethodNames['STRING_ASFLOAT'] = 'STRING_ASFLOAT'
+  RadonMethodNames['STRING_ASINTEGER'] = 'STRING_ASINTEGER'
+  RadonMethodNames['STRING_LENGTH'] = 'STRING_LENGTH'
+  RadonMethodNames['STRING_MATCH'] = 'STRING_MATCH'
+  RadonMethodNames['STRING_PARSEJSON'] = 'STRING_PARSEJSON'
+  RadonMethodNames['STRING_PARSEXML'] = 'STRING_PARSEXML'
+  RadonMethodNames['STRING_ASBOOLEAN'] = 'STRING_ASBOOLEAN'
+  RadonMethodNames['STRING_TOLOWERCASE'] = 'STRING_TOLOWERCASE'
+  RadonMethodNames['STRING_TOUPPERCASE'] = 'STRING_TOUPPERCASE'
+
+  RadonMethodNames['ARRAY_ASBYTES'] = 'ARRAY_ASBYTES'
   RadonMethodNames['ARRAY_COUNT'] = 'ARRAY_COUNT'
   RadonMethodNames['ARRAY_EVERY'] = 'ARRAY_EVERY'
   RadonMethodNames['ARRAY_FILTER'] = 'ARRAY_FILTER'
@@ -241,56 +302,259 @@ export let RadonMethodNames;
   RadonMethodNames['ARRAY_SOME'] = 'ARRAY_SOME'
   RadonMethodNames['ARRAY_SORT'] = 'ARRAY_SORT'
   RadonMethodNames['ARRAY_TAKE'] = 'ARRAY_TAKE'
-  RadonMethodNames['BOOLEAN_MATCH'] = 'BOOLEAN_MATCH'
-  RadonMethodNames['BOOLEAN_NEG'] = 'BOOLEAN_NEG'
-  RadonMethodNames['BOOLEAN_TOSTRING'] = 'BOOLEAN_TOSTRING'
-  RadonMethodNames['FLOAT_ABS'] = 'FLOAT_ABS'
-  RadonMethodNames['FLOAT_CEIL'] = 'FLOAT_CEIL'
-  RadonMethodNames['FLOAT_FLOOR'] = 'FLOAT_FLOOR'
-  RadonMethodNames['FLOAT_MODULO'] = 'FLOAT_MODULO'
-  RadonMethodNames['FLOAT_MULT'] = 'floatMult'
-  RadonMethodNames['FLOAT_NEG'] = 'floatNeg'
-  RadonMethodNames['FLOAT_POW'] = 'floatPow'
-  RadonMethodNames['FLOAT_RECIP'] = 'floatRecip'
-  RadonMethodNames['FLOAT_ROUND'] = 'floatRound'
-  RadonMethodNames['FLOAT_SUM'] = 'floatSum'
-  RadonMethodNames['FLOAT_TOSTRING'] = 'floatToString'
-  RadonMethodNames['FLOAT_TRUNC'] = 'floatTrunc'
-  RadonMethodNames['INT_ABS'] = 'intAbs'
-  RadonMethodNames['INT_MATCH'] = 'intMatch'
-  RadonMethodNames['INT_MODULO'] = 'intModulo'
-  RadonMethodNames['INT_MULT'] = 'intMult'
-  RadonMethodNames['INT_NEG'] = 'intNeg'
-  RadonMethodNames['INT_POW'] = 'intPow'
-  RadonMethodNames['INT_RECIP'] = 'intRecip'
-  RadonMethodNames['INT_SUM'] = 'intSum'
-  RadonMethodNames['INT_TOFLOAT'] = 'intToFloat'
-  RadonMethodNames['INT_TOSTRING'] = 'intToString'
-  RadonMethodNames['MAP_ENTRIES'] = 'mapEntries'
-  RadonMethodNames['MAP_GET'] = 'mapGet'
-  RadonMethodNames['MAP_KEYS'] = 'mapKeys'
-  RadonMethodNames['MAP_VALUES'] = 'mapValues'
-  RadonMethodNames['MIXED_TOARRAY'] = 'mixedToArray'
-  RadonMethodNames['MIXED_TOBOOLEAN'] = 'mixedToBoolean'
-  RadonMethodNames['MIXED_TOFLOAT'] = 'mixedToFloat'
-  RadonMethodNames['MIXED_TOINT'] = 'mixedToInt'
-  RadonMethodNames['MIXED_TOMAP'] = 'mixedToMap'
-  RadonMethodNames['RESULT_GET'] = 'resultGet'
-  RadonMethodNames['RESULT_GETOR'] = 'resultGetOr'
-  RadonMethodNames['RESULT_ISOK'] = 'resutlIsok'
-  RadonMethodNames['STRING_HASH'] = 'HASH'
-  RadonMethodNames['STRING_LENGTH'] = 'LENGHT'
-  RadonMethodNames['STRING_CATEGORIZE'] = 'CATEGORIZE'
-  RadonMethodNames['STRING_PARSEJSON'] = 'PARSE_JSON'
-  RadonMethodNames['STRING_PARSEXML'] = 'PARSE_XML'
-  RadonMethodNames['STRING_TOBOOLEAN'] = 'TO_BOOLEAN'
-  RadonMethodNames['STRING_TOFLOAT'] = 'TO_FLOAT'
-  RadonMethodNames['STRING_TOINT'] = 'TO_INT'
-  RadonMethodNames['STRING_TOLOWERCASE'] = 'TO_LOWERCASE'
-  RadonMethodNames['STRING_TOUPPERCASE'] = 'TO_UPPERCASE'
+
+  RadonMethodNames['MAP_ENTRIES'] = 'MAP_ENTRIES'
+  RadonMethodNames['MAP_GET'] = 'MAP_GET'
+  RadonMethodNames['MAP_KEYS'] = 'MAP_KEYS'
+  RadonMethodNames['MAP_VALUES'] = 'MAP_VALUES'
+
+  RadonMethodNames['BYTES_ASARRAY'] = 'BYTES_ASARRAY'
+  RadonMethodNames['BYTES_ASBOOLEAN'] = 'BYTES_ASBOOLEAN'
+  RadonMethodNames['BYTES_ASFLOAT'] = 'BYTES_ASFLOAT'
+  RadonMethodNames['BYTES_ASINTEGER'] = 'BYTES_ASINTEGER'
+  RadonMethodNames['BYTES_ASMAP'] = 'BYTES_ASMAP'
+  RadonMethodNames['BYTES_ASSTRING'] = 'BYTES_ASSTRING'
+  RadonMethodNames['BYTES_HASH'] = 'BYTES_HASH'
+
+  RadonMethodNames['RESULT_GET'] = 'RESULT_GET'
+  RadonMethodNames['RESULT_GETOR'] = 'RESULT_GETOR'
+  RadonMethodNames['RESULT_ISOK'] = 'RESULT_ISOK'
 })(RadonMethodNames || (RadonMethodNames = {}))
 
 export const OPERATOR_INFOS = {
+  [OPERATORS.BOOLEAN_MATCH]: {
+    name: RadonMethodNames.BOOLEAN_MATCH,
+    arguments: [{
+      name: 'categories',
+      optional: false,
+      kind: TYPES.Map,
+    }, {
+      name: 'default',
+      optional: false,
+      kind: TYPES.Self,
+    }],
+  },
+  [OPERATORS.BOOLEAN_NEGATE]: {
+    name: RadonMethodNames.BOOLEAN_NEG,
+    arguments: [],
+  },
+  [OPERATORS.BOOLEAN_ASSTRING]: {
+    name: RadonMethodNames.BOOLEAN_TOSTRING,
+    arguments: [],
+  },
+  [OPERATORS.INT_ABSOLUTE]: {
+    name: RadonMethodNames.INT_ABS,
+    arguments: [],
+  },
+  [OPERATORS.INT_ASBYTES]: {
+    name: RadonMethodNames.INT_ASBYTES,
+    arguments: [],
+  },
+  [OPERATORS.INT_ASFLOAT]: {
+    name: RadonMethodNames.INT_ASBYTES,
+    arguments: [],
+  },
+  [OPERATORS.INT_ASSTRING]: {
+    name: RadonMethodNames.INT_ASSTRING,
+    arguments: [{
+      name: 'base',
+      optional: true,
+      kind: TYPES.Int,
+    }],
+  },
+  [OPERATORS.INT_GREATERTHAN]: {
+    name: RadonMethodNames.INT_GREATERTHAN,
+    arguments: [{
+      name: 'value',
+      optional: false,
+      kind: TYPES.Int,
+    }],
+  },
+  [OPERATORS.INT_LESSTHAN]: {
+    name: RadonMethodNames.INT_GREATERTHAN,
+    arguments: [{
+      name: 'value',
+      optional: false,
+      kind: TYPES.Int,
+    }],
+  },
+  [OPERATORS.INT_MATCH]: {
+    name: RadonMethodNames.INT_MATCH,
+    arguments: [],
+  },
+  [OPERATORS.INT_MODULO]: {
+    name: RadonMethodNames.INT_MODULO,
+    arguments: [{
+      name: 'modulus',
+      optional: false,
+      kind: TYPES.Int,
+    }],
+  },
+  [OPERATORS.INT_MULTIPLY]: {
+    name: RadonMethodNames.INT_MULTIPLY,
+    arguments: [{
+      name: 'factor',
+      optional: false,
+      kind: TYPES.Int,
+    }],
+  },
+  [OPERATORS.INT_NEGATE]: {
+    name: RadonMethodNames.INT_NEGATE,
+    arguments: [],
+  },
+  [OPERATORS.INT_POWER]: {
+    name: RadonMethodNames.INT_POWER,
+    arguments: [{
+      name: 'exponent',
+      optional: false,
+      kind: TYPES.Int,
+    }],
+  },
+  [OPERATORS.INT_RECIPROCAL]: {
+    name: RadonMethodNames.INT_RECIPROCAL,
+    arguments: [],
+  },
+  [OPERATORS.INT_SUM]: {
+    name: RadonMethodNames.INT_SUM,
+    arguments: [{
+      name: 'addend',
+      optional: false,
+      kind: TYPES.Int,
+    }],
+  },
+  [OPERATORS.FLOAT_ABSOLUTE]: {
+    name: RadonMethodNames.FLOAT_ABSOLUTE,
+    arguments: [],
+  },
+  [OPERATORS.FLOAT_ASBYTES]: {
+    name: RadonMethodNames.FLOAT_ASBYTES,
+    arguments: [],
+  },
+  [OPERATORS.FLOAT_ASSTRING]: {
+    name: RadonMethodNames.FLOAT_ASSTRING,
+    arguments: [{
+      name: 'decimals',
+      optional: false,
+      kind: TYPES.Float,
+    }],
+  },
+  [OPERATORS.FLOAT_CEILING]: {
+    name: RadonMethodNames.FLOAT_CEILING,
+    arguments: [],
+  },
+  [OPERATORS.FLOAT_GREATERTHAN]: {
+    name: RadonMethodNames.FLOAT_GREATERTHAN,
+    arguments: [{
+      name: 'value',
+      optional: false,
+      kind: TYPES.Float,
+    }],
+  },
+  [OPERATORS.FLOAT_FLOOR]: {
+    name: RadonMethodNames.FLOAT_FLOOR,
+    arguments: [],
+  },
+  [OPERATORS.FLOAT_LESSTHAN]: {
+    name: RadonMethodNames.FLOAT_LESSTHAN,
+    arguments: [{
+      name: 'value',
+      optional: false,
+      kind: TYPES.Float,
+    }],
+  },
+  [OPERATORS.FLOAT_MODULO]: {
+    name: RadonMethodNames.FLOAT_MODULO,
+    arguments: [{
+      name: 'modulus',
+      optional: false,
+      kind: TYPES.Float,
+    }],
+  },
+  [OPERATORS.FLOAT_MULTIPLY]: {
+    name: RadonMethodNames.FLOAT_MULTIPLY,
+    arguments: [{
+      name: 'factor',
+      optional: false,
+      kind: TYPES.Float,
+    }],
+  },
+  [OPERATORS.FLOAT_NEGATE]: {
+    name: RadonMethodNames.FLOAT_NEGATE,
+    arguments: [],
+  },
+  [OPERATORS.FLOAT_POWER]: {
+    name: RadonMethodNames.FLOAT_POWER,
+    arguments: [{
+      name: 'exponent',
+      optional: false,
+      kind: TYPES.Float,
+    }],
+  },
+  [OPERATORS.FLOAT_RECIPROCAL]: {
+    name: RadonMethodNames.FLOAT_RECIPROCAL,
+    arguments: [],
+  },
+  [OPERATORS.FLOAT_ROUND]: {
+    name: RadonMethodNames.FLOAT_ROUND,
+    arguments: [],
+  },
+  [OPERATORS.FLOAT_SUM]: {
+    name: RadonMethodNames.FLOAT_SUM,
+    arguments: [{
+      name: 'addend',
+      optional: false,
+      kind: TYPES.Float,
+    }],
+  },
+  [OPERATORS.FLOAT_TRUNCATE]: {
+    name: RadonMethodNames.FLOAT_TRUNCATE,
+    arguments: [],
+  },
+
+  [OPERATORS.STRING_ASBYTES]: {
+    name: RadonMethodNames.STRING_ASBYTES,
+    arguments: [],
+  },
+  [OPERATORS.STRING_ASFLOAT]: {
+    name: RadonMethodNames.BYTES_ASFLOAT,
+    arguments: [],
+  },
+  [OPERATORS.STRING_ASINTEGER]: {
+    name: RadonMethodNames.STRING_ASINTEGER,
+    arguments: [],
+  },
+  [OPERATORS.STRING_LENGTH]: {
+    name: RadonMethodNames.STRING_PARSEJSON,
+    arguments: [],
+  },
+  [OPERATORS.STRING_MATCH]: {
+    name: RadonMethodNames.STRING_MATCH,
+    arguments: [],
+  },
+  [OPERATORS.STRING_PARSEJSON]: {
+    name: RadonMethodNames.STRING_PARSEJSON,
+    arguments: [],
+  },
+  [OPERATORS.STRING_PARSEXML]: {
+    name: RadonMethodNames.STRING_PARSEXML,
+    arguments: [],
+  },
+  [OPERATORS.STRING_ASBOOLEAN]: {
+    name: RadonMethodNames.STRING_TOINT,
+    arguments: [],
+  },
+  [OPERATORS.STRING_TOLOWERCASE]: {
+    name: RadonMethodNames.STRING_TOLOWERCASE,
+    arguments: [],
+  },
+  [OPERATORS.STRING_TOUPPERCASE]: {
+    name: RadonMethodNames.STRING_TOUPPERCASE,
+    arguments: [],
+  },
+  [OPERATORS.ARRAY_ASBYTES]: {
+    name: RadonMethodNames.ARRAY_ASBYTES,
+    arguments: [],
+  },
   [OPERATORS.ARRAY_COUNT]: {
     name: RadonMethodNames.ARRAY_COUNT,
     arguments: [],
@@ -375,154 +639,6 @@ export const OPERATOR_INFOS = {
       kind: TYPES.Int,
     }],
   },
-  [OPERATORS.BOOLEAN_MATCH]: {
-    name: RadonMethodNames.BOOLEAN_MATCH,
-    arguments: [{
-      name: 'categories',
-      optional: false,
-      kind: TYPES.Map,
-    }, {
-      name: 'default',
-      optional: false,
-      kind: TYPES.Self,
-    }],
-  },
-  [OPERATORS.BOOLEAN_NEG]: {
-    name: RadonMethodNames.BOOLEAN_NEG,
-    arguments: [],
-  },
-  [OPERATORS.BOOLEAN_TOSTRING]: {
-    name: RadonMethodNames.BOOLEAN_TOSTRING,
-    arguments: [],
-  },
-  [OPERATORS.FLOAT_ABS]: {
-    name: RadonMethodNames.FLOAT_ABS,
-    arguments: [],
-  },
-  [OPERATORS.FLOAT_CEIL]: {
-    name: RadonMethodNames.FLOAT_CEIL,
-    arguments: [],
-  },
-  [OPERATORS.FLOAT_FLOOR]: {
-    name: RadonMethodNames.FLOAT_FLOOR,
-    arguments: [],
-  },
-  [OPERATORS.FLOAT_MODULO]: {
-    name: RadonMethodNames.FLOAT_MODULO,
-    arguments: [{
-      name: 'modulus',
-      optional: false,
-      kind: TYPES.Float,
-    }],
-  },
-  [OPERATORS.FLOAT_MULT]: {
-    name: RadonMethodNames.FLOAT_MULT,
-    arguments: [{
-      name: 'factor',
-      optional: false,
-      kind: TYPES.Float,
-    }],
-  },
-  [OPERATORS.FLOAT_NEG]: {
-    name: RadonMethodNames.FLOAT_NEG,
-    arguments: [],
-  },
-  [OPERATORS.FLOAT_POW]: {
-    name: RadonMethodNames.FLOAT_POW,
-    arguments: [{
-      name: 'exponent',
-      optional: false,
-      kind: TYPES.Float,
-    }],
-  },
-  [OPERATORS.FLOAT_RECIP]: {
-    name: RadonMethodNames.FLOAT_RECIP,
-    arguments: [],
-  },
-  [OPERATORS.FLOAT_ROUND]: {
-    name: RadonMethodNames.FLOAT_ROUND,
-    arguments: [],
-  },
-  [OPERATORS.FLOAT_SUM]: {
-    name: RadonMethodNames.FLOAT_SUM,
-    arguments: [{
-      name: 'addend',
-      optional: false,
-      kind: TYPES.Float,
-    }],
-  },
-  [OPERATORS.FLOAT_TOSTRING]: {
-    name: RadonMethodNames.FLOAT_TOSTRING,
-    arguments: [{
-      name: 'decimals',
-      optional: false,
-      kind: TYPES.Float,
-    }],
-  },
-  [OPERATORS.FLOAT_TRUNC]: {
-    name: RadonMethodNames.FLOAT_TRUNC,
-    arguments: [],
-  },
-  [OPERATORS.INT_ABS]: {
-    name: RadonMethodNames.INT_ABS,
-    arguments: [],
-  },
-  [OPERATORS.INT_MATCH]: {
-    name: RadonMethodNames.INT_MATCH,
-    arguments: [],
-  },
-  [OPERATORS.INT_MODULO]: {
-    name: RadonMethodNames.INT_MODULO,
-    arguments: [{
-      name: 'modulus',
-      optional: false,
-      kind: TYPES.Int,
-    }],
-  },
-  [OPERATORS.INT_MULT]: {
-    name: RadonMethodNames.INT_MULT,
-    arguments: [{
-      name: 'factor',
-      optional: false,
-      kind: TYPES.Int,
-    }],
-  },
-  [OPERATORS.INT_NEG]: {
-    name: RadonMethodNames.INT_NEG,
-    arguments: [],
-  },
-  [OPERATORS.INT_POW]: {
-    name: RadonMethodNames.INT_POW,
-    arguments: [{
-      name: 'exponent',
-      optional: false,
-      kind: TYPES.Int,
-    }],
-  },
-  [OPERATORS.INT_RECIP]: {
-    name: RadonMethodNames.INT_RECIP,
-    arguments: [],
-  },
-  [OPERATORS.INT_SUM]: {
-    name: RadonMethodNames.INT_SUM,
-    arguments: [{
-      name: 'addend',
-      optional: false,
-      kind: TYPES.Int,
-    }],
-  },
-  [OPERATORS.INT_TOFLOAT]: {
-    name: RadonMethodNames.INT_TOFLOAT,
-    arguments: [],
-  },
-  [OPERATORS.INT_TOSTRING]: {
-    name: RadonMethodNames.INT_TOSTRING,
-    arguments: [{
-      name: 'base',
-      optional: true,
-      kind: TYPES.Int,
-    }],
-  },
   [OPERATORS.MAP_ENTRIES]: {
     name: RadonMethodNames.MAP_ENTRIES,
     arguments: [],
@@ -543,28 +659,36 @@ export const OPERATOR_INFOS = {
     name: RadonMethodNames.MAP_VALUES,
     arguments: [],
   },
-  [OPERATORS.MIXED_TOARRAY]: {
-    name: RadonMethodNames.MIXED_TOARRAY,
+  [OPERATORS.BYTES_ASARRAY]: {
+    name: RadonMethodNames.BYTES_ASARRAY,
     arguments: [],
   },
-  [OPERATORS.MIXED_TOBOOLEAN]: {
-    name: RadonMethodNames.MIXED_TOBOOLEAN,
+  [OPERATORS.BYTES_ASBOOLEAN]: {
+    name: RadonMethodNames.BYTES_ASBOOLEAN,
     arguments: [],
   },
-  [OPERATORS.MIXED_TOFLOAT]: {
-    name: RadonMethodNames.MIXED_TOFLOAT,
+  [OPERATORS.BYTES_ASFLOAT]: {
+    name: RadonMethodNames.BYTES_ASFLOAT,
     arguments: [],
   },
-  [OPERATORS.MIXED_TOINT]: {
-    name: RadonMethodNames.MIXED_TOINT,
+  [OPERATORS.BYTES_ASINTEGER]: {
+    name: RadonMethodNames.BYTES_ASINTEGER,
     arguments: [{
       name: 'base',
       optional: true,
       kind: TYPES.Int,
     }],
   },
-  [OPERATORS.MIXED_TOMAP]: {
+  [OPERATORS.BYTES_ASMAP]: {
     name: RadonMethodNames.MIXED_TOMAP,
+    arguments: [],
+  },
+  [OPERATORS.BYTES_ASSTRING]: {
+    name: RadonMethodNames.BYTES_ASSTRING,
+    arguments: [],
+  },
+  [OPERATORS.BYTES_HASH]: {
+    name: RadonMethodNames.MIXED_HASH,
     arguments: [],
   },
   [OPERATORS.RESULT_GET]: {
@@ -581,62 +705,6 @@ export const OPERATOR_INFOS = {
   },
   [OPERATORS.RESULT_ISOK]: {
     name: RadonMethodNames.RESULT_ISOK,
-    arguments: [],
-  },
-  [OPERATORS.STRING_HASH]: {
-    name: RadonMethodNames.STRING_HASH,
-    arguments: [{
-      name: 'function',
-      optional: false,
-      kind: TYPES.HashFunction,
-    }],
-  },
-  [OPERATORS.STRING_LENGTH]: {
-    name: RadonMethodNames.STRING_LENGTH,
-    arguments: [],
-  },
-  [OPERATORS.STRING_CATEGORIZE]: {
-    name: RadonMethodNames.STRING_CATEGORIZE,
-    arguments: [{
-      name: 'categories',
-      optional: false,
-      kind: TYPES.Map,
-    }, {
-      name: 'default',
-      optional: true,
-      kind: TYPES.Self,
-    }],
-  },
-  [OPERATORS.STRING_PARSEJSON]: {
-    name: RadonMethodNames.STRING_PARSEJSON,
-    arguments: [],
-  },
-  [OPERATORS.STRING_PARSEXML]: {
-    name: RadonMethodNames.STRING_PARSEXML,
-    arguments: [],
-  },
-  [OPERATORS.STRING_TOBOOLEAN]: {
-    name: RadonMethodNames.STRING_TOBOOLEAN,
-    arguments: [],
-  },
-  [OPERATORS.STRING_TOFLOAT]: {
-    name: RadonMethodNames.STRING_TOFLOAT,
-    arguments: [],
-  },
-  [OPERATORS.STRING_TOINT]: {
-    name: RadonMethodNames.STRING_TOINT,
-    arguments: [{
-      name: 'base',
-      optional: true,
-      kind: TYPES.Int,
-    }],
-  },
-  [OPERATORS.STRING_TOLOWERCASE]: {
-    name: RadonMethodNames.STRING_TOLOWERCASE,
-    arguments: [],
-  },
-  [OPERATORS.STRING_TOUPPERCASE]: {
-    name: RadonMethodNames.STRING_TOUPPERCASE,
     arguments: [],
   },
 }
