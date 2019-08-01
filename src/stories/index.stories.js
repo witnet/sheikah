@@ -3,45 +3,7 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/vue'
 
 import Button from '@/components/Button'
-import Card from '@/components/card/Card.vue'
 import NavigationCard from '@/components/card/NavigationCard'
-
-storiesOf('Card', module)
-  .add('basic', () => ({
-    components: { Card },
-    template: '<Card>Hello Card!</Card>',
-  }))
-  .add('with title', () => ({
-    components: { Card },
-    template: '<Card title="Title">Card!</Card>',
-  }))
-
-  .add('with header', () => ({
-    components: { Card },
-    data () {
-      return {
-        headerStyles: {
-          alignItems: 'center',
-          background: 'linear-gradient(to right, #722ed1, #1a6cfb)',
-          display: 'flex',
-          fontSize: '18px',
-          fontWeight: '100',
-          height: '100px',
-          padding: '0 20px',
-        },
-      }
-    },
-    template: `
-      <Card width="400" height="300" >
-        <template v-slot:header>
-          <div v-bind:style="{ ...headerStyles }">
-            Header
-          </div>
-        </template>
-        Card!
-      </Card>
-    `,
-  }))
 
 storiesOf('NavigationCard', module)
   .add('basic', () => ({
