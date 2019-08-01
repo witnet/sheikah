@@ -24,10 +24,9 @@ export default {
 .card-layout{
     box-shadow: 1px 3px 11px 0px rgba(158, 158, 158, 0.445);
     margin: 30px;
-    padding: 20px 0px 0px 20px;
-    display: flex;
-
-
+    padding: 50px 0px 0px 50px;
+    display:flex;
+    
   .clip{
     clip-path: inset(0 0% 0% 0);
     border-radius: 5px;
