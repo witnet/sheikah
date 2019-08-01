@@ -1,7 +1,7 @@
 <template>
   <div class="unlock-wallet">
     <p class="text">Insert a password to unlock wallet</p>
-    <input class="password-input" v-model="password" type="password" placeholder ="••••••••">
+    <input class="password-input" v-model="password" type="password" placeholder ="Password">
     <div class="submit">
     <Button :onClick="unlockWallet" type="primary">Unlock</Button>
     </div>
@@ -69,7 +69,7 @@ export default {
     }
     .password-input{
       border:none;
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid rgb(92, 91, 91);
       font-size: 16px;
       padding:10px;
       color: black;
