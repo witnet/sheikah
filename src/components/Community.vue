@@ -85,7 +85,6 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
   margin:25px;
-
   .card{
     flex: 0 1 calc(49% - 1em);
     margin:10px;
