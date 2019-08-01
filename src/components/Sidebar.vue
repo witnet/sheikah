@@ -15,7 +15,7 @@
           <span class="label">Wallet</span>
         </router-link>
 
-        <router-link class="link" to="/request/editor">
+        <router-link class="link" to="/request/templates">
           <font-awesome-icon class="icon" icon="code" />
           <span class="label">Data request</span>
         </router-link>
