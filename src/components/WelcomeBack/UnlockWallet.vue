@@ -45,7 +45,7 @@ export default {
       if (newValue) {
         this.updateView()
       }
-    }
+    },
   },
   components: {
     Button,

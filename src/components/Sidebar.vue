@@ -97,7 +97,7 @@ export default {
   }
 
   .settings {
-    
+
     .mainnet,
     .synced {
       display: none;

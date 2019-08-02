@@ -26,13 +26,14 @@ export default {
     margin: 30px;
     padding: 20px 0px 0px 20px;
     display: flex;
-    
+
+
   .clip{
     clip-path: inset(0 0% 0% 0);
     border-radius: 5px;
     display:flex;
     flex-wrap: wrap;
-    
+
       &:hover .icon-container{
         transition: transform .2s ease;
         transform: rotate(-3deg) scale(1);
@@ -54,8 +55,8 @@ export default {
       }
       .icon-container{
         text-align: right;
-        margin: -50px -30px;   
-      } 
+        margin: -50px -30px;
+      }
   }
 }
 
