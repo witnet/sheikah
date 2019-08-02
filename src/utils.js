@@ -22,6 +22,5 @@ export function match (value, options, result) {
 }
 
 export function openInExternalApp (url) {
-  console.log('url', url)
   shell.openExternal(url)
 }
