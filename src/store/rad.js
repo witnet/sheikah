@@ -64,7 +64,10 @@ export default {
         }
       }
     },
-
+    updateRetrieveSource (state, { source, index }) {
+      state.radRequest.retrieve[index].url = source.url
+      state.radRequest.retrieve[index].kind = source.kind
+    },
     pushRetrieve (state) {
       state.radRequest.retrieve.push({
         url: '',
