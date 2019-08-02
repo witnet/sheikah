@@ -37,6 +37,7 @@ export default {
   watch: {
     value (value) {
       this.$emit('input', value)
+      this.$emit('change', value)
     },
   },
   beforeMount () {
@@ -66,10 +67,12 @@ export default {
 }
 
 .select-box {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   user-select: none;
   height: 42px;
+  width: min-content;
 
   .select {
     z-index: 1;
@@ -77,15 +80,17 @@ export default {
     align-items: center;
     background: #fff;
     border-radius: 4px;
-    border: 1px solid #ccc;
-    color: #777;
+    border: 1px solid #1a6cfb;
+    color: #1a6cfb;
     display:flex;
-    min-width: 120px;
+    width: min-content;
+    min-width: min-content;
     padding: 0 12px 0 16px;
 
     &.active,
     &:hover {
-      border-color: #1a6cfb;
+      border-color: #40a9ff;
+      color: #40a9ff;
     }
 
     .selected {
@@ -115,16 +120,16 @@ export default {
     &.active {
       display: block;
     }
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #40a9ff;
+    border-left: 1px solid #40a9ff;
     border-radius: 0 0 4px 4px;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #40a9ff;
 
     .option {
       align-items: center;
       background: #fff;
       box-sizing: border-box;
-      color: #777;
+      color: #1a6cfb;
       display:flex;
       height: 32px;
       justify-content: space-between;
@@ -132,7 +137,7 @@ export default {
       width: 100%;
 
       &:hover {
-        color: #1a6cfb;
+        color: #40a9ff;
       }
 
       &.selected {
