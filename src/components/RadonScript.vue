@@ -1,10 +1,10 @@
 <template>
   <div>
     <div v-for="(operator, index) in script" :key="operator.toString() + index">
-      <RadonOperator
+      <!-- <RadonOperator
         :radOperator="operator"
         :path="{...path, scriptIndex: index }"
-      />
+      /> -->
     </div>
 
     <button @click="pushOperator" class="circle plus"></button>

@@ -14,14 +14,14 @@ export default {
         {
           url: '',
           kind: 'HTTP-GET',
-          script: [],
+          script: [0x45],
         },
       ],
       aggregate: {
-        script: [],
+        script: [0x50],
       },
       consensus: {
-        script: [],
+        script: [0x50],
       },
     },
   },
