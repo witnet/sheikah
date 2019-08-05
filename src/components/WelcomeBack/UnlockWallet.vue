@@ -17,7 +17,7 @@ export default {
   name: 'UnlockWallet',
   data () {
     return {
-      password: '',
+      password: 'password',
       showError: false,
       sent: false,
     }
