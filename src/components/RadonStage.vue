@@ -1,7 +1,7 @@
 <template>
-  <div class="" v-if="retrieve">
+  <div class="" v-if="stage ==='retrieve'">
     <div class="sources">
-      <div v-for="(source, index) in retrieve" class="source" :key="source.kind+index">
+      <div v-for="(source, index) in script" class="source" :key="source.kind+index">
         <div class="header">
           <div class="tag">
             <p class="text">SOURCE</p>
@@ -29,7 +29,7 @@
             class="script"
             v-show="!error.retrieve"
             :path="{stage: 'retrieve', retrieveIndex: index}"
-            :script="source.script"
+            :script="script"
           />
           <p class="error" v-show="error.retrieve">There is an error in the retrieve stage</p>
         </div>
@@ -40,23 +40,23 @@
     </div>
   </div>
 
-  <div v-else-if="aggregate">
+  <div v-else-if="stage ==='aggregate'"> 
   <p>Aggregate</p>
     <RadonScript
       class="script"
       v-show="!error.aggregate"
-      :path="{stage: 'aggregate'}" :script="aggregate.script"
+      :path="{stage: 'aggregate'}" :script="script.script"
     />
     <p class="error" v-show="error.aggregate">There is an error in the aggregate stage</p>
   </div>
 
-  <div v-else-if="consensus">
+  <div v-else-if="stage ==='consensus'"> 
   <p>Consensus</p>
     <RadonScript
       class="script"
       v-show="!error.consensus"
       :path="{stage: 'consensus'}"
-      :script="consensus.script"
+      :script="script.script"
     />
     <p class="error" v-show="error.consensus">There is an error in the consensus stage</p>
   </div>
@@ -77,9 +77,8 @@ export default {
     Select,
   },
   props: {
-    retrieve: Array,
-    aggregate: Object,
-    consensus: Object,
+    stage: String,
+    script: [Array, Object],
   },
   data () {
     return {
