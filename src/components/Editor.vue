@@ -1,20 +1,23 @@
 <template>
 <div>
   <ToolBar/>
+  <Carousel/>
+  <RadonQuery/>
 </div>
 </template>
 
 <script>
-
 import { mapState } from 'vuex'
 import RadonStage from '@/components/RadonStage.vue'
 import ToolBar from '@/components/ToolBar.vue'
+import Carousel from '@/components/Carousel.vue'
 
 export default {
   name: 'Editor',
   components: {
     RadonStage,
     ToolBar,
+    Carousel,
   },
   computed: {
     ...mapState({
