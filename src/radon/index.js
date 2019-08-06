@@ -7,7 +7,7 @@ export let TYPES;
   TYPES[TYPES['String'] = 3] = 'String'
   TYPES[TYPES['Array'] = 4] = 'Array'
   TYPES[TYPES['Map'] = 5] = 'Map'
-  TYPES[TYPES['Mixed'] = 6] = 'Mixed'
+  TYPES[TYPES['Bytes'] = 6] = 'Bytes'
   TYPES[TYPES['Null'] = 7] = 'Null'
   TYPES[TYPES['Result'] = 8] = 'Result'
   TYPES[TYPES['HashFunction'] = -1] = 'HashFunction'
@@ -163,7 +163,7 @@ export let RadonTypeCodes;
   RadonTypeCodes[RadonTypeCodes['String'] = 3] = 'String'
   RadonTypeCodes[RadonTypeCodes['Array'] = 4] = 'Array'
   RadonTypeCodes[RadonTypeCodes['Map'] = 5] = 'Map'
-  RadonTypeCodes[RadonTypeCodes['Mixed'] = 6] = 'Mixed'
+  RadonTypeCodes[RadonTypeCodes['Bytes'] = 6] = 'Bytes'
   RadonTypeCodes[RadonTypeCodes['Null'] = 7] = 'Null'
   RadonTypeCodes[RadonTypeCodes['Result'] = 8] = 'Result'
 })(RadonTypeCodes || (RadonTypeCodes = {}))
@@ -204,7 +204,7 @@ export const TYPESYSTEM = {
     [OPERATORS.STRING_HASH]: TYPES.String,
     [OPERATORS.STRING_LENGTH]: TYPES.Int,
     [OPERATORS.STRING_CATEGORIZE]: TYPES.Self,
-    [OPERATORS.STRING_PARSEJSON]: TYPES.Mixed,
+    [OPERATORS.STRING_PARSEJSON]: TYPES.Bytes,
     [OPERATORS.STRING_PARSEXML]: TYPES.Map,
     [OPERATORS.STRING_TOBOOLEAN]: TYPES.Boolean,
     [OPERATORS.STRING_TOFLOAT]: TYPES.Float,
@@ -217,7 +217,7 @@ export const TYPESYSTEM = {
     [OPERATORS.ARRAY_EVERY]: TYPES.Boolean,
     [OPERATORS.ARRAY_FILTER]: TYPES.Array,
     [OPERATORS.ARRAY_FLATTEN]: TYPES.Array,
-    [OPERATORS.ARRAY_GET]: TYPES.Mixed,
+    [OPERATORS.ARRAY_GET]: TYPES.Bytes,
     [OPERATORS.ARRAY_MAP]: TYPES.Array,
     [OPERATORS.ARRAY_REDUCE]: TYPES.Self,
     [OPERATORS.ARRAY_SOME]: TYPES.Boolean,
@@ -226,16 +226,17 @@ export const TYPESYSTEM = {
   },
   [TYPES.Map]: {
     [OPERATORS.MAP_ENTRIES]: TYPES.Array,
-    [OPERATORS.MAP_GET]: TYPES.Mixed,
+    [OPERATORS.MAP_GET]: TYPES.Bytes,
     [OPERATORS.MAP_KEYS]: TYPES.Array,
     [OPERATORS.MAP_VALUES]: TYPES.Array,
   },
-  [TYPES.Mixed]: {
-    [OPERATORS.MIXED_TOARRAY]: TYPES.Array,
-    [OPERATORS.MIXED_TOBOOLEAN]: TYPES.Boolean,
-    [OPERATORS.MIXED_TOFLOAT]: TYPES.Float,
-    [OPERATORS.MIXED_TOINT]: TYPES.Int,
-    [OPERATORS.MIXED_TOMAP]: TYPES.Map,
+  [TYPES.Bytes]: {
+    [OPERATORS.BYTES_TOARRAY]: TYPES.Array,
+    [OPERATORS.BYTES_TOBOOLEAN]: TYPES.Boolean,
+    [OPERATORS.BYTES_TOFLOAT]: TYPES.Float,
+    [OPERATORS.BYTES_TOINT]: TYPES.Int,
+    [OPERATORS.BYTES_TOMAP]: TYPES.Map,
+    [OPERATORS.BYTES_HASH]: TYPES.Bytes,
   },
   [TYPES.Result]: {
     [OPERATORS.RESULT_GET]: TYPES.Self,
@@ -680,7 +681,7 @@ export const OPERATOR_INFOS = {
     }],
   },
   [OPERATORS.BYTES_ASMAP]: {
-    name: RadonMethodNames.MIXED_TOMAP,
+    name: RadonMethodNames.BYTES_ASMAP,
     arguments: [],
   },
   [OPERATORS.BYTES_ASSTRING]: {
@@ -688,7 +689,7 @@ export const OPERATOR_INFOS = {
     arguments: [],
   },
   [OPERATORS.BYTES_HASH]: {
-    name: RadonMethodNames.MIXED_HASH,
+    name: RadonMethodNames.BYTES_HASH,
     arguments: [],
   },
   [OPERATORS.RESULT_GET]: {
