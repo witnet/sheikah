@@ -3062,14 +3062,6 @@ bl@^1.0.0:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
-bl@^2.0.1:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/bl/-/bl-2.2.0.tgz#e1a574cdf528e4053019bb800b041c0ac88da493"
-  integrity sha512-wbgvOpqopSr7uq6fJrLH8EsvYMJf9gzfo2jCsL2eTy75qXPukA4pCgHamOQkZtY5vmfVtjB+P3LNlMHW5CEZXA==
-  dependencies:
-    readable-stream "^2.3.5"
-    safe-buffer "^5.1.1"
-
 bluebird-lst@^1.0.6, bluebird-lst@^1.0.7:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/bluebird-lst/-/bluebird-lst-1.0.8.tgz#61b572e8b3eb57e0fff676a0e54566d93597e6a4"
@@ -9327,16 +9319,6 @@ ms@2.1.1, ms@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
   integrity sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==
-
-msgpack5@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/msgpack5/-/msgpack5-4.2.1.tgz#007233691af34c4168cea9477cb3236aae854f03"
-  integrity sha512-Xo7nE9ZfBVonQi1rSopNAqPdts/QHyuSEUwIEzAkB+V2FtmkkLUbP6MyVqVVQxsZYI65FpvW3Bb8Z9ZWEjbgHQ==
-  dependencies:
-    bl "^2.0.1"
-    inherits "^2.0.3"
-    readable-stream "^2.3.6"
-    safe-buffer "^5.1.2"
 
 multicast-dns-service-types@^1.1.0:
   version "1.1.0"
