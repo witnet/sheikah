@@ -16,7 +16,6 @@ export default {
   data () {
     return {
       tabs: [
-        { name: 'Editor', link: '/request/editor' },
         { name: 'Templates', link: '/request/templates' },
       ],
     }
