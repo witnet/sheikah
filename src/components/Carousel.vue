@@ -6,10 +6,34 @@
   <div class="card">
     <div class="card--overflow-container">
       <div class="card-cards" >
-        <div class="card--card" v-for="source in sources.slice(counter)" :key="source.index">
+        <div class='card--card' v-for="source in sources.slice(counter)" :key="source.index">
           <div v-if="source" class="content">
-          <h3 class="sourceHeader">{{source.name}} <span class="index">#{{source.index}}</span></h3>
-          <button class="delete-btn" @click="deleteSource(source.index)"><font-awesome-icon class="icon" icon="trash"/></button>
+            <div class="header">
+              <h3 class="source-header">Source <span class="index">{{source.index}}</span></h3>
+              <button class="delete-btn" @click="deleteSource(source.index)"><font-awesome-icon class="icon" icon="trash"/></button>
+            </div>
+            <div class="header-operators">
+              <Select
+                class="select"
+                v-model="source.kind"
+                @change="(selectValue) => updateSource({kind: selectValue, url: source.url}, source.index)"
+                :options="[
+                  { value: 'HTTPS_GET', primaryText: 'HTTPS_GET' },
+                ]"
+              />
+              <div>
+              <input
+                class="input"
+                placeholder="url"
+                type="text"
+                v-model="source.url"
+                @change="(e) => updateSource({kind: source.kind, url: e.target.value}, source.index)"
+              />
+              </div>
+              <div class="button-container">
+              <button class="add-operators-btn">Add operators</button>
+              </div>
+            </div>
           </div>
         </div>
       <button @click="addSource" class="add-source">
@@ -27,17 +51,23 @@
 </template>
 
 <script>
+import Select from '@/components/Select'
+
 export default {
   name: 'Carousel',
-  // props: {
-  //   sources: Array,
-  // },
+  props: {
+    sources: Array,
+  },
+  components: {
+    Select,
+  },
+  updated() {
+    console.log(this.sources)
+  },
   data() {
+    console.log(this.sources)
     return {
       counter: 0,
-      sources: [
-        { name: `Source `, index: 0},
-      ]
     }
   },
   computed: {
@@ -54,27 +84,29 @@ export default {
       const isMovingTotheLeft = direction === -1
 
     if (isMovingToTheRight && !this.endOfList) {
+      this.show = !this.show
       this.counter++
     } else if (isMovingTotheLeft && !this.headOfList) {
+      this.show = !this.show
       this.counter--
     }
     },
     addSource(){
+      this.show = !this.show
       if (this.sources.length > 1) this.counter++
-      this.sources.push({name: `Source`, index: this.sources.length })
+      this.$store.commit('pushRetrieve')
     },
-
-    deleteSource(id){
-      const deletedIndex = id
-      this.sources.splice(id, 1)
-      this.sources.map(source => {
-      if(deletedIndex < source.index) return source.index--
-      })
+    deleteSource(index){
+      this.$store.commit('deleteSource', {index})
+      if(this.sources.length > 2) this.moveCarousel(-1)
+    },
+    updateSource: function (sourceInformation, sourceIndex) {
+      console.log(sourceInformation)
+      this.$store.commit('updateRetrieveSource', { source: sourceInformation, index: sourceIndex })
     },
   }
 } 
 </script>
-
 <style lang="scss" scoped>
 
 .icon{
@@ -83,10 +115,12 @@ export default {
 }
 
 .carousel-container {
+  
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 .card {
@@ -108,7 +142,7 @@ export default {
     height: 80vh;
     width: 5vh;
     cursor: pointer;
-    padding: 10px;
+    
     display: flex;
     justify-content: center;
     align-content: center;
@@ -119,13 +153,13 @@ export default {
   }
   &--to__left :active, &--to__right :active{
     transform: scale(0.9);
+    
   }
+  
 }
-
 .card-cards {
   display: flex;
-  transition: transform 150ms ease-out;
-  transform: translatex(0px);
+  
 
   .add-source{
     padding: 50px;
@@ -134,53 +168,87 @@ export default {
     display: flex;
     justify-content: center;
     align-content: center;
-
     &:hover, &:active, &:focus{
       outline: none;
       cursor: pointer;
     }
-
     & img{
       width: 40px;
     }
   }
-
   .card--card {
-    margin: 0 10px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px 0 rgba(40,44,53,.06), 0 2px 2px 0 rgba(40,44,53,.08);
-    border-radius: 4px;
+    border-right: 2px solid #d4d4d475;
     z-index: 3;
-    background-color: rgba(206, 206, 206, 0.52);
+    margin-left: 20px;
 
     .content {
       width: 25vw;
       height: 50vw;
       font-size: 20px;
-      padding: 40px;
       font-weight: bold;
       display: flex;
-
-      .index{
-        color:rgba(0, 0, 255, 0.76)
+      flex-direction: column;
+      overflow-y: scroll;
+      &>.header, &>.header-operators{
+        margin: 30px;
       }
-
-      .delete-btn {
+      .header {
+       display: flex;
+        .index{
+          color:black;
+        }
+        .delete-btn {
         display: none;
+        }
       }
-
+      .header-operators {
+        height: 50px;
+        .select {
+          margin: 0 0 8px 0;
+        }
+        .input {
+          cursor: pointer;
+          border-radius: 4px;
+          font-size: 16px;
+          font-weight: 400;
+          background-color: #D2DFFB;
+          color: #4d4d4d;
+          border: 1px solid #D2DFFB;
+          width: 100%;
+          padding: 8px;
+        }
+      }
       &:hover {
         .delete-btn {
           cursor: pointer;
           display: block;
-          background-color: rgba(206, 206, 206, 0);
+          background-color: rgba(236, 233, 233, 0);
           border: none;
           padding: 0px;
           height: 10px;
           margin-left: auto;
         }
       }
+      .button-container{
+        text-align: center;
+      .add-operators-btn{
+        cursor: pointer;
+        margin: 30px;
+        width: 150px;
+        padding: 5px;
+        font-size: 18px;
+        background-color:#1a6cfb;
+        border-radius: 5px;
+        color: white;
+        font-family: 'Titillium Web';
+        font-weight: bold;
+        &:active, &:focus{
+          outline: none
+        }
+      }
+      }
     }
   }
 }
+
 </style>

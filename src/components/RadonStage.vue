@@ -1,43 +1,6 @@
 <template>
   <div class="" v-if="stage ==='retrieve'">
-    <div class="sources">
-      <div v-for="(source, index) in script" class="source" :key="source.kind+index">
-        <div class="header">
-          <div class="tag">
-            <p class="text">SOURCE</p>
-            <p class="number">#{{ index }}</p>
-          </div>
-          <Select
-            class="select"
-            v-model="kinds[index]"
-            @change="(selectValue) => updateSource({kind: selectValue, url: urls[index]}, index)"
-            :options="[
-              { value: 'HTTPS_GET', primaryText: 'HTTPS_GET' },
-            ]"
-          />
-          <input
-            class="input"
-            placeholder="url"
-            type="text"
-            v-model="urls"
-            @change="(e) => updateSource({kind: kinds[index], url: e.target.value}, index)"
-          />
-        </div>
-
-        <div>
-          <RadonScript
-            class="script"
-            v-show="!error.retrieve"
-            :path="{stage: 'retrieve', retrieveIndex: index}"
-            :script="script"
-          />
-          <p class="error" v-show="error.retrieve">There is an error in the retrieve stage</p>
-        </div>
-      </div>
-      <div>
-        <button @click="pushRetrieve" class="circle plus"></button>
-      </div>
-    </div>
+    <Carousel :sources="script.map((x, index) => {x.index = index; return x})"/>
   </div>
 
   <div v-else-if="stage ==='aggregate'"> 
@@ -68,6 +31,7 @@ import { mapState } from 'vuex'
 import RadonScript from '@/components/RadonScript.vue'
 import RadonStage from '@/components/RadonStage.vue'
 import Select from '@/components/Select'
+import Carousel from '@/components/Carousel'
 
 export default {
   name: 'RadonStage',
@@ -75,6 +39,7 @@ export default {
     RadonScript,
     RadonStage,
     Select,
+    Carousel,
   },
   props: {
     stage: String,
@@ -82,8 +47,7 @@ export default {
   },
   data () {
     return {
-      kinds: [''],
-      urls: [''],
+
       error: {
         retrieve: false,
         aggregate: false,
