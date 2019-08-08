@@ -2,8 +2,7 @@
 <div>
   <ToolBar/>
   <StageBar v-on:change-stage="changeStage"/>
-  <RadonStage class="stage" :stage="this.currentStage" :script="currentScript"/>
-  <Carousel/>
+  <RadonStage class="stage" :stage="currentStage" :script="currentScript"/>
 </div>
 </template>
 
@@ -11,7 +10,6 @@
 import { mapState } from 'vuex'
 import RadonStage from '@/components/RadonStage.vue'
 import ToolBar from '@/components/ToolBar.vue'
-import Carousel from '@/components/Carousel.vue'
 import StageBar from '@/components/StageBar.vue'
 
 export default {
@@ -19,18 +17,12 @@ export default {
   components: {
     RadonStage,
     ToolBar,
-    Carousel,
     StageBar,
-  },
-  data(){
-    return {
-      currentStage: "retrieve"
-    }
   },
   methods:{
    changeStage: function (stage) {
     this.currentStage = stage
-   }
+   },
   },
   computed: {
     ...mapState({
@@ -50,6 +42,7 @@ export default {
   },
   data(){
     return{
+      currentStage: "retrieve",
       tabs: [
         {icon: 'Redo', 
         action: 'redo changes' ,
