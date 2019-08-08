@@ -76,9 +76,9 @@ export default {
 
   .select {
     z-index: 1;
-    min-height: 42px;
+    min-height: 35px;
     align-items: center;
-    background: #fff;
+    background: none;
     border-radius: 4px;
     border: 1px solid #1a6cfb;
     color: #1a6cfb;
@@ -89,8 +89,8 @@ export default {
 
     &.active,
     &:hover {
-      border-color: #40a9ff;
-      color: #40a9ff;
+      border-color: #1a6dfbb6;
+      color: #1a6cfbb6;
     }
 
     .selected {

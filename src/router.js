@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import DataRequest from '@/components/DataRequest.vue'
 import Community from '@/components/Community.vue'
 import Editor from '@/components/Editor.vue'
 import Marketplace from '@/components/Marketplace.vue'
@@ -114,7 +114,7 @@ export default new Router({
         },
         {
           path: 'request',
-          component: Editor,
+          component: DataRequest,
           children: [
             {
               path: 'templates',

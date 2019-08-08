@@ -68,6 +68,15 @@ export default {
       state.radRequest.retrieve[index].url = source.url
       state.radRequest.retrieve[index].kind = source.kind
     },
+    deleteSource (state, { index }) {
+      console.log(this.sources)
+      state.radRequest.retrieve.splice(index, 1)
+      state.radRequest.retrieve.map(source => {
+        if (index < source.index) {
+          return source.index--
+        }
+      })
+    },
     pushRetrieve (state) {
       state.radRequest.retrieve.push({
         url: '',
