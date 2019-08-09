@@ -37,31 +37,31 @@ export default {
       templates: [
       {
         header: 'Template 1',
-        content: 'Follow Witnet Foundation on Twitter to get daily updates on the progress of the project.',
+        content: 'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
       },
       {
         header: 'Template 2',
-        content: 'Join the official Witnet community Discrod room to discuss with the rest of the community and get direct support from the developers.',
+        content: 'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
       },
       {
         header: 'Template 3',
-        content: 'Follow Witnet Foundation on Medium to read different articles stating our vision and future roadmap.',
+        content: 'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
       },
       {
         header: 'Template 4',
-        content: 'You can write us directly for any inquiry not appropriate for any of the other channels.',
+        content: 'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
       },
       {
         header: 'Template 5',
-        content: 'Join other members of the Witnet Community at the official Telegram group.',
+        content: 'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
       },
       {
         header: 'Template 6',
-        content: 'GitHub is where the Witnet protocol development takes place. Are you a programmer? Your contributions are more than welcome!',
+        content: 'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
       },
       {
         header: 'Template 7',
-        content: 'The space for linking articles, informal discussion, kitten pictures and occasional memes.',
+        content: 'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
       }]
     }
   }
