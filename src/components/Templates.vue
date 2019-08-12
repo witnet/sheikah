@@ -3,7 +3,7 @@
 <div>
   <TopBar :tabs="tabs" />
   <div class="container-templates">
-    <TemplateCard class="card" v-for="template in templates" :key="template.content">
+    <TemplateCard class="card" v-for="template in templates" :key="template.header">
       <template v-slot:title>
         {{template.header}}
       </template>

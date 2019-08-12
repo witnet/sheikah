@@ -3,9 +3,10 @@
   <div class="card--to__left" @click="moveCarousel(-1)" :disabled="headOfList">
   <font-awesome-icon class="icon-left" icon="angle-left"/>
   </div>
-  <div class="card">
-    <div class="card--overflow-container">
-      <div class="card-cards" >
+  <div class='card'>
+    <div class='card--overflow-container'>
+      <div class='card-cards'>
+      <transition-group tag="div" :class="animate" :name="animate">
         <div class='card--card' v-for="source in sources.slice(counter)" :key="source.index">
           <div v-if="source" class="content">
             <div class="header">
@@ -36,6 +37,7 @@
             </div>
           </div>
         </div>
+      </transition-group>
       <button @click="addSource" class="add-source">
         <img src="@/resources/svg/add.svg">
       </button>
@@ -68,6 +70,7 @@ export default {
     console.log(this.sources)
     return {
       counter: 0,
+      animate: "slide-right",
     }
   },
   computed: {
@@ -84,15 +87,15 @@ export default {
       const isMovingTotheLeft = direction === -1
 
     if (isMovingToTheRight && !this.endOfList) {
-      this.show = !this.show
+      this.animate = "slide-right"
       this.counter++
+      
     } else if (isMovingTotheLeft && !this.headOfList) {
-      this.show = !this.show
+      this.animate = "slide-left"
       this.counter--
     }
     },
     addSource(){
-      this.show = !this.show
       if (this.sources.length > 1) this.counter++
       this.$store.commit('pushRetrieve')
     },
@@ -155,12 +158,12 @@ export default {
     transform: scale(0.9);
     
   }
-  
 }
+
 .card-cards {
   display: flex;
+  transform: translateX(0px);
   
-
   .add-source{
     padding: 50px;
     background-color: #ecf5ff5e;
@@ -231,24 +234,65 @@ export default {
       }
       .button-container{
         text-align: center;
-      .add-operators-btn{
-        cursor: pointer;
-        margin: 30px;
-        width: 150px;
-        padding: 5px;
-        font-size: 18px;
-        background-color:#1a6cfb;
-        border-radius: 5px;
-        color: white;
-        font-family: 'Titillium Web';
-        font-weight: bold;
-        &:active, &:focus{
-          outline: none
+
+        .add-operators-btn{
+          cursor: pointer;
+          margin: 30px;
+          width: 150px;
+          padding: 5px;
+          font-size: 18px;
+          background-color:#1a6cfb;
+          border-radius: 5px;
+          color: white;
+          font-family: 'Titillium Web';
+          font-weight: bold;
+          
+          &:active, &:focus{
+            outline: none
+          }
         }
-      }
       }
     }
   }
+}
+
+.slide-right{
+  display: flex;
+}
+.slide-right-move {
+  transition: all 600ms ease-in-out 50ms;
+}
+.slide-right-enter-active {
+  transition: all 400ms ease-out;
+}
+.slide-right-leave-active {
+
+  transition: all 200ms ease-in;
+  position: absolute;
+  z-index: 0;
+}
+.slide-right-enter,
+.slide-right-leave-to {
+  opacity: 0;
+}
+
+.slide-left{
+  display: flex;
+}
+.slide-left-move {
+  transition: all 200ms ease-in-out 30ms;
+}
+.slide-left-enter-active {
+  transition: all 400ms ease-in;
+}
+.slide-left-leave-active {
+  transition: all 600ms ease-out;
+  position: absolute;
+  z-index: 0;
+}
+.slide-left-enter,
+.slide-left-leave-to {
+  opacity: 0;
 }
 
 </style>
