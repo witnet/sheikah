@@ -1,6 +1,5 @@
 <template>
-
-  <div v-if='transactions => 1' :class="`transaction ${border ? 'border' : ''}`">
+  <div v-if="transactions => 1" :class="`transaction ${border ? 'border' : ''}`">
     <div class="amount">
       <font-awesome-icon :class="`icon ${origin.toLowerCase()}`" :icon="arrowIcon" />
       <span :class="`number ${origin.toLowerCase()}`">{{ amount }}</span>
@@ -8,7 +7,9 @@
     </div>
 
     <div class="address">
-     <p class="origin"><span class="label">{{ origin }}</span> <span class="number">{{address}}</span></p>
+      <p class="origin">
+        <span class="label">{{ origin }}</span> <span class="number">{{ address }}</span>
+      </p>
     </div>
 
     <div class="">
@@ -16,11 +17,9 @@
       <p class="block">Confirmed in block {{ block }}</p>
     </div>
   </div>
-
 </template>
 
 <script>
-
 export default {
   name: 'Transaction',
   props: {
@@ -31,10 +30,10 @@ export default {
     date: String,
   },
   computed: {
-    origin () {
+    origin() {
       return this.amount.includes('+') ? 'From' : 'To'
     },
-    arrowIcon () {
+    arrowIcon() {
       return this.amount.includes('+') ? 'angle-right' : 'angle-left'
     },
   },
@@ -55,7 +54,8 @@ export default {
     border-bottom: 1px solid lightgray;
   }
 
-  .amount, .address {
+  .amount,
+  .address {
     display: flex;
     align-items: center;
   }
@@ -70,11 +70,11 @@ export default {
       font-weight: 500;
     }
 
-    .from{
+    .from {
       color: $green-6;
     }
 
-    .to{
+    .to {
       color: $red-6;
     }
 
@@ -87,7 +87,7 @@ export default {
   }
 
   .address {
-   .origin {
+    .origin {
       font-size: 14px;
       color: $grey-8;
       font-weight: 600;
@@ -105,7 +105,6 @@ export default {
       &.to {
         color: $red-6;
       }
-
     }
 
     .address-number {

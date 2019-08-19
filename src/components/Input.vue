@@ -20,22 +20,22 @@ export default {
   },
   computed: {
     inputValue: {
-      get () {
+      get() {
         return this.value
       },
-      set (inputValue) {
+      set(inputValue) {
         this.$emit('input', inputValue)
       },
     },
   },
   methods: {
-    getClass (className) {
+    getClass(className) {
       const classes = ['big', 'underlined']
       return classes.includes(className) ? className : 'default'
     },
   },
   watch: {
-    inputValue (value) {
+    inputValue(value) {
       this.$emit('input', value)
     },
   },
@@ -82,11 +82,11 @@ export default {
     border-radius: 0;
     color: $input_underlined-color;
 
-    &:focus, &:hover {
+    &:focus,
+    &:hover {
       box-shadow: none;
       outline: none;
     }
   }
-
 }
 </style>

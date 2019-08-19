@@ -13,7 +13,7 @@ storiesOf('Card', module)
   }))
   .add('with header', () => ({
     components: { Card },
-    data () {
+    data() {
       return {
         headerStyles: {
           alignItems: 'center',
@@ -39,23 +39,22 @@ storiesOf('Card', module)
   }))
   .add('template', () => ({
     components: { TemplateCard },
-    data () {
+    data() {
       return {
-        options: [{
-          label: 'Edit',
-          action: () => {
+        options: [
+          {
+            label: 'Edit',
+            action: () => {},
           },
-        },
-        {
-          label: 'Deploy',
-          action: () => {
+          {
+            label: 'Deploy',
+            action: () => {},
           },
-        },
-        {
-          label: 'Delete',
-          action: () => {
+          {
+            label: 'Delete',
+            action: () => {},
           },
-        }],
+        ],
       }
     },
     template: `

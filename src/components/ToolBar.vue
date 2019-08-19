@@ -1,42 +1,32 @@
 <template>
   <div class="top-bar">
     <router-link class="back" to="/request/templates">
-    <img class="back-btn" src="@/resources/svg/arrow-to-left.svg">
+      <img class="back-btn" src="@/resources/svg/arrow-to-left.svg" />
     </router-link>
-    <button v-for="tab in tabs" :key="tab.icon" :class="tab.class" :to="tab.action">{{ tab.icon }}</button>
+    <button v-for="tab in tabs" :key="tab.icon" :class="tab.class" :to="tab.action">
+      {{ tab.icon }}
+    </button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'ToolBar',
-  methods:{
-    tryDataRequest: function () {
+  methods: {
+    tryDataRequest: function() {
       this.$store.dispatch('tryDataRequest')
     },
   },
-  data(){
-    return{
+  data() {
+    return {
       tabs: [
-        {icon: 'Redo', 
-        action: 'redo changes' ,
-        class:'end'
-        },
-        {icon: 'Undo', 
-        action: 'Undo changes',
-        class:'end'
-        },
-        {icon: 'Save', 
-        action: 'Save changes',
-        class:'end'
-        },
-        {icon: 'Try data request', 
-        action: this.tryDataRequest,
-        class:'end'
-        }
+        { icon: 'Redo', action: 'redo changes', class: 'end' },
+        { icon: 'Undo', action: 'Undo changes', class: 'end' },
+        { icon: 'Save', action: 'Save changes', class: 'end' },
+        { icon: 'Try data request', action: this.tryDataRequest, class: 'end' },
       ],
     }
-  }
+  },
 }
 </script>
 
@@ -44,14 +34,14 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
-.top-bar{
+.top-bar {
   border-bottom: 1px solid $grey-4;
   display: flex;
   flex-flow: row wrap;
   height: 64px;
   justify-content: flex-end;
 
-  .first, 
+  .first,
   .end {
     color: #b3b3b3;
     font-family: 'Titillium Web';
@@ -89,5 +79,5 @@ export default {
       width: 20px;
     }
   }
-} 
+}
 </style>

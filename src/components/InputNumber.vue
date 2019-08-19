@@ -21,16 +21,16 @@ export default {
   },
   computed: {
     inputValue: {
-      get () {
+      get() {
         return this.value
       },
-      set (inputValue) {
+      set(inputValue) {
         this.$emit('input', inputValue)
       },
     },
   },
   methods: {
-    increase () {
+    increase() {
       this.$emit('input', parseInt(this.value, 10) + 1)
     },
   },
@@ -56,7 +56,7 @@ export default {
     color: #ccc;
     border: 1px solid #ccc;
 
-    &:hover{
+    &:hover {
       color: #1a6cfb;
     }
   }

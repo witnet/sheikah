@@ -3,7 +3,7 @@
     <span class="label">NETWORK STATUS</span>
     <span class="status">{{ status.toUpperCase() }}</span>
     <div class="dot-status">
-    <DotIndicator :status="status" />
+      <DotIndicator :status="status" />
     </div>
   </div>
 </template>
@@ -26,16 +26,16 @@ export default {
 @import '@/styles/app.global.scss';
 
 @media screen and (max-width: 1200px) {
-  .label{
+  .label {
     display: none;
   }
-  .status{
+  .status {
     display: none;
   }
-  .network-status{
+  .network-status {
     text-align: left;
   }
-  .dot-status{
+  .dot-status {
     margin-right: 15px;
   }
 }
@@ -51,7 +51,7 @@ export default {
     font-weight: $sidebar-mainnet-font_weight;
   }
 
-  .status{
+  .status {
     color: $sidebar-synced-color;
     font-weight: $sidebar-synced-font_weight;
     padding: 0.6em;

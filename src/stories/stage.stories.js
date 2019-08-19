@@ -2,8 +2,7 @@
 import { storiesOf } from '@storybook/vue'
 import RadonStage from '@/components/RadonStage'
 
-storiesOf('RadonStage', module)
-  .add('Retrieve', () => ({
-    components: { RadonStage },
-    template: '<RadonStage :retrieve="[{script: []}]"/>',
-  }))
+storiesOf('RadonStage', module).add('Retrieve', () => ({
+  components: { RadonStage },
+  template: '<RadonStage :retrieve="[{script: []}]"/>',
+}))

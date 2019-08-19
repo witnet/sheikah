@@ -17,7 +17,7 @@ storiesOf('NavigationCard', module)
 
   .add('with header', () => ({
     components: { NavigationCard },
-    data () {
+    data() {
       return {
         headerStyles: {
           alignItems: 'center',

@@ -1,19 +1,19 @@
 <template>
-<div class="welcome-back">
-  <div class="layout">
-    <div class="bar">
-      <p class="title">Welcome Back</p>
-      <p class="settings">
-        <font-awesome-icon icon="cog" />
-        App Settings
-      </p>
-    </div>
+  <div class="welcome-back">
+    <div class="layout">
+      <div class="bar">
+        <p class="title">Welcome Back</p>
+        <p class="settings">
+          <font-awesome-icon icon="cog" />
+          App Settings
+        </p>
+      </div>
 
-    <div class="content">
-      <router-view />
+      <div class="content">
+        <router-view />
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>

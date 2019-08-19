@@ -12,20 +12,20 @@
 </template>
 
 <script>
-import RadonOperator from '@/components/RadonOperator'
+// import RadonOperator from '@/components/RadonOperator'
 
 export default {
   name: 'RadonScript',
-  components: { RadonOperator },
+  // components: { RadonOperator },
   props: {
     path: Object,
     script: Array,
   },
-  data () {
+  data() {
     return {}
   },
   methods: {
-    pushOperator () {
+    pushOperator() {
       this.$store.commit('pushOperator', { path: this.path })
     },
   },
@@ -33,38 +33,41 @@ export default {
 </script>
 
 <style scoped>
-
 .circle {
-    outline: none;
-    border: 2px solid grey;
-    box-shadow: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    position: relative;
-    margin: 20px 0;
-    display: inline-block;
-    vertical-align: middle;
-    background: transparent;
+  outline: none;
+  border: 2px solid grey;
+  box-shadow: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  position: relative;
+  margin: 20px 0;
+  display: inline-block;
+  vertical-align: middle;
+  background: transparent;
 }
 
 .circle:before,
 .circle:after {
-    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 .circle.plus:before,
 .circle.plus:after {
   cursor: pointer;
   background: grey;
 }
-.circle.plus:before{
-    width: 2px;
-    margin: 3px auto;
+.circle.plus:before {
+  width: 2px;
+  margin: 3px auto;
 }
-.circle.plus:after{
-    margin: auto 3px;
-    height: 2px;
-    box-shadow: none;
+.circle.plus:after {
+  margin: auto 3px;
+  height: 2px;
+  box-shadow: none;
 }
-
 </style>

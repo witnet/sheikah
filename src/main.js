@@ -14,13 +14,13 @@ Vue.config.productionTip = false
 const walletApi = new WalletApi()
 const isSocketReady = setInterval(checkSocketStatus, 1)
 
-function checkSocketStatus () {
+function checkSocketStatus() {
   if (walletApi.client.ws.ready) {
     runApp()
   }
 }
 
-function runApp () {
+function runApp() {
   clearInterval(isSocketReady)
 
   store.$walletApi = walletApi

@@ -1,55 +1,87 @@
 <template>
- <div class="carousel-container">
-  <div class="card--to__left" @click="moveCarousel(-1)" :disabled="headOfList">
-  <font-awesome-icon class="icon-left" icon="angle-left"/>
-  </div>
-  <div class='card'>
-    <div class='card--overflow-container'>
-      <div class='card-cards'>
-      <transition-group tag="div" :class="animate" :name="animate">
-        <div class='card--card' v-for="source in sources.slice(counter)" :key="source.index">
-          <div v-if="source" class="content">
-            <div class="header">
-              <h3 class="source-header">Source <span class="index">{{source.index}}</span></h3>
-              <button class="delete-btn" @click="deleteSource(source.index)"><font-awesome-icon class="icon" icon="trash"/></button>
-            </div>
-            <div class="header-operators">
-              <Select
-                class="select"
-                v-model="source.kind"
-                @change="(selectValue) => updateSource({kind: selectValue, url: source.url}, source.index)"
-                :options="[
-                  { value: 'HTTPS_GET', primaryText: 'HTTPS_GET' },
-                ]"
-              />
-              <div>
-              <input
-                class="input"
-                placeholder="url"
-                type="text"
-                v-model="source.url"
-                @change="(e) => updateSource({kind: source.kind, url: e.target.value}, source.index)"
-              />
+  <div class="carousel-container">
+    <div class="card--to__left" @click="moveCarousel(-1)" :disabled="headOfList">
+      <font-awesome-icon class="icon-left" icon="angle-left" />
+    </div>
+    <div class="card">
+      <div class="card--overflow-container">
+        <div class="card-cards">
+          <transition-group tag="div" :class="animate" :name="animate">
+            <div class="card--card" v-for="source in sources.slice(counter)" :key="source.index">
+              <div v-if="source" class="content">
+                <div class="header">
+                  <h3 class="source-header">
+                    Source
+                    <span class="index">{{ source.index }}</span>
+                  </h3>
+                  <button class="delete-btn" @click="deleteSource(source.index)">
+                    <font-awesome-icon class="icon" icon="trash" />
+                  </button>
+                </div>
+                <div class="header-operators">
+                  <Select
+                    class="select"
+                    v-model="source.kind"
+                    @change="
+                      selectValue =>
+                        updateSource({ kind: selectValue, url: source.url }, source.index)
+                    "
+                    :options="[{ value: 'HTTPS_GET', primaryText: 'HTTPS_GET' }]"
+                  />
+                  <div>
+                    <input
+                      class="input"
+                      placeholder="url"
+                      type="text"
+                      v-model="source.url"
+                      @change="
+                        e => updateSource({ kind: source.kind, url: e.target.value }, source.index)
+                      "
+                    />
+                  </div>
+                  <div class="header-operators">
+                    <Select
+                      class="select"
+                      v-model="source.kind"
+                      @change="
+                        selectValue =>
+                          updateSource({ kind: selectValue, url: source.url }, source.index)
+                      "
+                      :options="[{ value: 'HTTPS_GET', primaryText: 'HTTPS_GET' }]"
+                    />
+                    <div>
+                      <input
+                        class="input"
+                        placeholder="url"
+                        type="text"
+                        v-model="source.url"
+                        @change="
+                          e =>
+                            updateSource({ kind: source.kind, url: e.target.value }, source.index)
+                        "
+                      />
+                    </div>
+                    <div class="button-container">
+                      <button class="add-operators-btn">Add operators</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="button-container">
-              <button class="add-operators-btn">Add operators</button>
-              </div>
+              <button @click="addSource" class="add-source">
+                <img src="@/resources/svg/add.svg" />
+              </button>
             </div>
-          </div>
+          </transition-group>
+          <button @click="addSource" class="add-source">
+            <img src="@/resources/svg/add.svg" />
+          </button>
         </div>
-      </transition-group>
-      <button @click="addSource" class="add-source">
-        <img src="@/resources/svg/add.svg">
-      </button>
+      </div>
+      <div class="card--to__right" @click="moveCarousel(1)" :disabled="endOfList">
+        <font-awesome-icon class="icon-right" icon="angle-right" />
       </div>
     </div>
   </div>
-  <div class="card--to__right" @click="moveCarousel(1)" :disabled="endOfList">
-  <font-awesome-icon class="icon-right" icon="angle-right"/>
-  
-  </div>
-</div>
-  
 </template>
 
 <script>
@@ -70,15 +102,15 @@ export default {
     console.log(this.sources)
     return {
       counter: 0,
-      animate: "slide-right",
+      animate: 'slide-right',
     }
   },
   computed: {
     endOfList() {
-      return this.counter === this.sources.length - 2 || this.sources.length < 2 
+      return this.counter === this.sources.length - 2 || this.sources.length < 2
     },
     headOfList() {
-      return this.counter === 0;
+      return this.counter === 0
     },
   },
   methods: {
@@ -86,66 +118,63 @@ export default {
       const isMovingToTheRight = direction === 1
       const isMovingTotheLeft = direction === -1
 
-    if (isMovingToTheRight && !this.endOfList) {
-      this.animate = "slide-right"
-      this.counter++
-      
-    } else if (isMovingTotheLeft && !this.headOfList) {
-      this.animate = "slide-left"
-      this.counter--
-    }
+      if (isMovingToTheRight && !this.endOfList) {
+        this.animate = 'slide-right'
+        this.counter++
+      } else if (isMovingTotheLeft && !this.headOfList) {
+        this.animate = 'slide-left'
+        this.counter--
+      }
     },
-    addSource(){
+    addSource() {
       if (this.sources.length > 1) this.counter++
       this.$store.commit('pushRetrieve')
     },
-    deleteSource(index){
-      this.$store.commit('deleteSource', {index})
-      if(this.sources.length > 2) this.moveCarousel(-1)
+    deleteSource(index) {
+      this.$store.commit('deleteSource', { index })
+      if (this.sources.length > 2) this.moveCarousel(-1)
     },
-    updateSource: function (sourceInformation, sourceIndex) {
+    updateSource: function(sourceInformation, sourceIndex) {
       console.log(sourceInformation)
       this.$store.commit('updateRetrieveSource', { source: sourceInformation, index: sourceIndex })
     },
-  }
-} 
+  },
+}
 </script>
 <style lang="scss" scoped>
-
-.icon{
-  color:rgba(255, 0, 0, 0.623);
+.icon {
+  color: rgba(255, 0, 0, 0.623);
   font-size: 18px;
 }
 
 .carousel-container {
-  
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  
 }
 
 .card {
   display: flex;
   justify-content: center;
   width: 70vw;
-  
+
   &--overflow-container {
     overflow: hidden;
   }
   &--to__left .icon-left,
-  &--to__right .icon-right{
+  &--to__right .icon-right {
     margin: auto;
     font-size: 40px;
-    color:rgb(170, 168, 168);
+    color: rgb(170, 168, 168);
   }
-  &--to__left, &--to__right{
+  &--to__left,
+  &--to__right {
     background-color: #ecf5ff5e;
     height: 80vh;
     width: 5vh;
     cursor: pointer;
-    
+
     display: flex;
     justify-content: center;
     align-content: center;
@@ -154,28 +183,30 @@ export default {
       border-color: #696a6b5e;
     }
   }
-  &--to__left :active, &--to__right :active{
+  &--to__left :active,
+  &--to__right :active {
     transform: scale(0.9);
-    
   }
 }
 
 .card-cards {
   display: flex;
   transform: translateX(0px);
-  
-  .add-source{
+
+  .add-source {
     padding: 50px;
     background-color: #ecf5ff5e;
     border: none;
     display: flex;
     justify-content: center;
     align-content: center;
-    &:hover, &:active, &:focus{
+    &:hover,
+    &:active,
+    &:focus {
       outline: none;
       cursor: pointer;
     }
-    & img{
+    & img {
       width: 40px;
     }
   }
@@ -192,16 +223,17 @@ export default {
       display: flex;
       flex-direction: column;
       overflow-y: scroll;
-      &>.header, &>.header-operators{
+      & > .header,
+      & > .header-operators {
         margin: 30px;
       }
       .header {
-       display: flex;
-        .index{
-          color:black;
+        display: flex;
+        .index {
+          color: black;
         }
         .delete-btn {
-        display: none;
+          display: none;
         }
       }
       .header-operators {
@@ -214,9 +246,9 @@ export default {
           border-radius: 4px;
           font-size: 16px;
           font-weight: 400;
-          background-color: #D2DFFB;
+          background-color: #d2dffb;
           color: #4d4d4d;
-          border: 1px solid #D2DFFB;
+          border: 1px solid #d2dffb;
           width: 100%;
           padding: 8px;
         }
@@ -232,23 +264,24 @@ export default {
           margin-left: auto;
         }
       }
-      .button-container{
+      .button-container {
         text-align: center;
 
-        .add-operators-btn{
+        .add-operators-btn {
           cursor: pointer;
           margin: 30px;
           width: 150px;
           padding: 5px;
           font-size: 18px;
-          background-color:#1a6cfb;
+          background-color: #1a6cfb;
           border-radius: 5px;
           color: white;
           font-family: 'Titillium Web';
           font-weight: bold;
-          
-          &:active, &:focus{
-            outline: none
+
+          &:active,
+          &:focus {
+            outline: none;
           }
         }
       }
@@ -256,7 +289,7 @@ export default {
   }
 }
 
-.slide-right{
+.slide-right {
   display: flex;
 }
 .slide-right-move {
@@ -266,7 +299,6 @@ export default {
   transition: all 400ms ease-out;
 }
 .slide-right-leave-active {
-
   transition: all 200ms ease-in;
   position: absolute;
   z-index: 0;
@@ -276,7 +308,7 @@ export default {
   opacity: 0;
 }
 
-.slide-left{
+.slide-left {
   display: flex;
 }
 .slide-left-move {
@@ -294,5 +326,4 @@ export default {
 .slide-left-leave-to {
   opacity: 0;
 }
-
 </style>

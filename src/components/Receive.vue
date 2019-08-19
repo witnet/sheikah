@@ -1,52 +1,49 @@
 <template>
-<div class="receive">
-  <div>
-    <Card class="card" title="NEW PAYMENT REQUEST">
-      <div class="layout">
-        <div class="form">
-          <div class="row">
-            <div class="label">
-              <label class="" for>Label</label>
+  <div class="receive">
+    <div>
+      <Card class="card" title="NEW PAYMENT REQUEST">
+        <div class="layout">
+          <div class="form">
+            <div class="row">
+              <div class="label">
+                <label class="" for>Label</label>
+              </div>
+              <Input v-model="label" />
             </div>
-            <Input v-model="label" />
-          </div>
 
-          <div class="submit">
-          <Button class="button" :onClick="generateAddress" type="primary">Generate address</Button>
+            <div class="submit">
+              <Button class="button" :onClick="generateAddress" type="primary"
+                >Generate address</Button
+              >
+            </div>
           </div>
         </div>
-      </div>
-    </Card>
+      </Card>
 
-    <Card class="card" title="GENERATED ADDRESSES">
-      <p class="address" v-for="address in addresses" :key="address">
-        {{ address }}
+      <Card class="card" title="GENERATED ADDRESSES">
+        <p class="address" v-for="address in addresses" :key="address">
+          {{ address }}
+        </p>
+      </Card>
+    </div>
+    <div class="text">
+      <p class="title">About payment requests</p>
+      <p class="paragraph">
+        Every time you generate a receiving address in Sheikah, you can label and store it as a
+        payment request. This allows you to better trace every payment you receive.
       </p>
-    </Card>
-  </div>
-  <div class="text">
-    <p class="title">About payment requests</p>
-    <p class="paragraph">
-      Every time you generate a receiving address in
-      Sheikah, you can label and store it as a payment
-      request. This allows you to better trace every
-      payment you receive.
-    </p>
 
-    <p class="paragraph">
-      You can generate as many payment requests
-      at once. However, it is advised that you only
-      generate as you need them, instead of creating
-      a lot of them  preemptively.
-    </p>
+      <p class="paragraph">
+        You can generate as many payment requests at once. However, it is advised that you only
+        generate as you need them, instead of creating a lot of them preemptively.
+      </p>
 
-    <p class="paragraph">
-      All this data is completely private and it is only
-      stored in your device in a encrypted database
-      that only you can read.
-    </p>
+      <p class="paragraph">
+        All this data is completely private and it is only stored in your device in a encrypted
+        database that only you can read.
+      </p>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -56,7 +53,7 @@ import Input from './Input'
 
 export default {
   name: 'receive',
-  beforeCreate () {
+  beforeCreate() {
     this.$store.dispatch('getAddresses')
   },
   components: {
@@ -64,18 +61,18 @@ export default {
     Button,
     Input,
   },
-  data () {
+  data() {
     return {
       label: '',
     }
   },
   methods: {
-    generateAddress () {
+    generateAddress() {
       this.$store.dispatch('generateAddress', { label: this.label })
     },
   },
   computed: {
-    addresses () {
+    addresses() {
       return this.$store.state.wallet.addresses
     },
   },
@@ -83,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.receive{
+.receive {
   padding: 32px;
   display: flex;
   justify-content: space-between;

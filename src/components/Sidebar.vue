@@ -2,12 +2,12 @@
   <div>
     <div class="sidebar">
       <div class="brand">
-      <router-link class="logo" to="/wallet/transactions">
-        <img class="sheikah-img" src='@/resources/svg/sheikah.svg' />
-      </router-link>
+        <router-link class="logo" to="/wallet/transactions">
+          <img class="sheikah-img" src="@/resources/svg/sheikah.svg" />
+        </router-link>
       </div>
       <div class="current-wallet">
-       <span class="current-wallet-name">My Wallet</span>
+        <span class="current-wallet-name">My Wallet</span>
       </div>
       <div class="link-list">
         <router-link class="link" to="/wallet/transactions">
@@ -31,7 +31,7 @@
         </router-link>
       </div>
       <div class="settings">
-        <Settings :settings="settings"/>
+        <Settings :settings="settings" />
         <NetworkStatus :status="status" />
       </div>
     </div>
@@ -45,21 +45,23 @@ import NetworkStatus from '@/components/NetworkStatus.vue'
 import Settings from '@/components/Settings.vue'
 
 export default {
-  data () {
+  data() {
     return {
-      settings: [{
-        label: 'Close session',
-        action: () => {
-          this.$store.dispatch('closeSession')
+      settings: [
+        {
+          label: 'Close session',
+          action: () => {
+            this.$store.dispatch('closeSession')
+          },
         },
-      }],
+      ],
     }
   },
   methods: {
-    handleOpen (key, keyPath) {
+    handleOpen(key, keyPath) {
       console.log(key, keyPath)
     },
-    handleClose (key, keyPath) {
+    handleClose(key, keyPath) {
       console.log(key, keyPath)
     },
   },
@@ -97,7 +99,6 @@ export default {
   }
 
   .settings {
-
     .mainnet,
     .synced {
       display: none;
@@ -112,7 +113,7 @@ export default {
   height: 100vh;
   z-index: 5;
   width: 20vw;
-  font-family: 'Titillium Web'
+  font-family: 'Titillium Web';
 }
 
 .brand {

@@ -12,15 +12,15 @@
     <ul class="options">
       <li>
         <router-link class="link" to="/ftu/disclaimer">
-          <Button :onClick="function(){}" class="option create-wallet-option">
+          <Button :onClick="function() {}" class="option create-wallet-option">
             Create new seed phrase
-            <p class="recommended-text"> RECOMMENDED </p>
+            <p class="recommended-text">RECOMMENDED</p>
           </Button>
         </router-link>
       </li>
       <li>
         <router-link class="link" to="/ftu/disclaimer">
-          <Button :onClick="function(){}" class="option create-wallet-option">
+          <Button :onClick="function() {}" class="option create-wallet-option">
             Create a wallet prefilled with sample data
             <p class="recommended-text">
               RECOMMENDED
@@ -29,13 +29,13 @@
         </router-link>
       </li>
       <li>
-        <Button :onClick="function(){}" class="option create-wallet-option">
+        <Button :onClick="function() {}" class="option create-wallet-option">
           Import and advanced options
         </Button>
       </li>
       <li>
         <router-link class="link" to="/ftu/welcome">
-          <Button :onClick="function(){}" class="option create-wallet-option">
+          <Button :onClick="function() {}" class="option create-wallet-option">
             Cancel
           </Button>
         </router-link>
@@ -61,28 +61,28 @@ export default {
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
 
-  .header {
-    align-items: center;
-    background: linear-gradient(to right, #722ed1, #1a6cfb);
-    display: flex;
-    font-size: 20px;
-    font-weight: 100;
-    height: 100px;
-    padding: 0 20px;
-    color: #ececec;
-  }
+.header {
+  align-items: center;
+  background: linear-gradient(to right, #722ed1, #1a6cfb);
+  display: flex;
+  font-size: 20px;
+  font-weight: 100;
+  height: 100px;
+  padding: 0 20px;
+  color: #ececec;
+}
 
-  .create-wallet-text {
-    color: $font-color-dark;
-  }
+.create-wallet-text {
+  color: $font-color-dark;
+}
 
-  .options {
-    margin-top: 30px;
+.options {
+  margin-top: 30px;
 
-    .router-link-active {
-      text-decoration: none;
-    }
+  .router-link-active {
+    text-decoration: none;
   }
+}
 
 .link {
   text-decoration: none;
