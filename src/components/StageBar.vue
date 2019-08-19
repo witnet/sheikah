@@ -54,6 +54,7 @@ export default {
     border-bottom: 2px solid $grey-4;
     outline: none;
     cursor: pointer;
+    background: none;
 
     .link-btn:active,
     &:focus,

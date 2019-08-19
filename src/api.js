@@ -128,4 +128,12 @@ export class WalletApi {
   sendTransaction(params) {
     return this._callApiMethod('sendTransaction')(params)
   }
+
+  saveItem(params) {
+    return this._callApiMethod('set')(params)
+  }
+
+  getItem(params) {
+    return this._callApiMethod('get')(params)
+  }
 }
