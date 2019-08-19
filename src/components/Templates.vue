@@ -1,79 +1,99 @@
 <template>
   <div>
     <TopBar :tabs="tabs" />
-    <div class="container-templates">
-      <TemplateCard class="card" v-for="template in templates" :key="template.header">
-        <template v-slot:title>
-          {{ template.header }}
-        </template>
-        <template v-slot:description>
-          {{ template.content }}
-        </template>
-      </TemplateCard>
-      <router-link class="add" to="/request/editor">
-        <img class="add-btn" src="@/resources/svg/add.svg" />
-      </router-link>
+    <Button type="primary" :onClick="importTemplate" class="import">Import template</Button>
+    <div v-if="Object.entries(templates)" class="container-templates">
+      <TemplateCard
+        v-for="template in templates"
+        class="card"
+        :name="template.name"
+        :id="template.id"
+        :description="template.description"
+        :key="template.id"
+      />
     </div>
+    <div v-else>
+      You don't have templates yet.
+    </div>
+    <router-link class="add" to="/request/editor">
+      <img @click="createTemplate" class="add-btn" src="@/resources/svg/add.svg" />
+    </router-link>
+    <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
   </div>
 </template>
 
 <script>
 import TemplateCard from './card/TemplateCard'
 import TopBar from '@/components/TopBar.vue'
+import Button from '@/components/Button.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Templates',
   components: {
     TemplateCard,
     TopBar,
+    Button,
+  },
+
+  beforeMount() {
+    this.$store.dispatch('getTemplates')
   },
 
   data() {
     return {
       tabs: [{ name: 'Templates', link: '/request/templates' }],
-      templates: [
-        {
-          header: 'Template 1',
-          content:
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
-        },
-        {
-          header: 'Template 2',
-          content:
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
-        },
-        {
-          header: 'Template 3',
-          content:
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
-        },
-        {
-          header: 'Template 4',
-          content:
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
-        },
-        {
-          header: 'Template 5',
-          content:
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
-        },
-        {
-          header: 'Template 6',
-          content:
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
-        },
-        {
-          header: 'Template 7',
-          content:
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus taciti suspendisse vehicula, magna in hac sed fermentum sociosqu parturient viverra justo.',
-        },
-      ],
     }
+  },
+
+  computed: {
+    ...mapState({
+      templates: state =>
+        Object.entries(state.rad.templates)
+          .map(template => {
+            return {
+              id: template[0],
+              ...template[1],
+            }
+          })
+          .sort((a, b) => parseInt(a.creationDate) - parseInt(b.creationDate)),
+    }),
+  },
+  methods: {
+    createTemplate: function() {
+      this.$store.commit('createTemplate')
+    },
+    importTemplate: function() {
+      this.$refs.fileInput.click()
+    },
+    readFile(e) {
+      const file = this.$refs.fileInput.files[0]
+      const reader = new FileReader()
+      reader.addEventListener(
+        'load',
+        () => {
+          const fileText = reader.result
+          try {
+            const template = JSON.parse(fileText)
+            // TODO: Validate template before save
+            this.$store.dispatch('saveTemplate', { template })
+          } catch (error) {
+            console.log('Error parsing json')
+          }
+        },
+        false
+      )
+      reader.readAsText(file)
+    },
   },
 }
 </script>
 
 <style lang="scss">
+.import {
+  margin: 16px;
+}
+
 .container-templates {
   display: flex;
   flex-wrap: wrap;
@@ -84,17 +104,17 @@ export default {
     flex: 0 1 calc(30% - 1em);
     margin: 20px;
   }
-  .add {
-    display: flex;
-    justify-content: center;
-    flex: 0 1 calc(30% - 1em);
-    margin: 20px;
+}
+.add {
+  display: flex;
+  justify-content: center;
+  flex: 0 1 calc(30% - 1em);
+  margin: 20px;
 
-    .add-btn {
-      width: 50px;
-      &:hover {
-        cursor: pointer;
-      }
+  .add-btn {
+    width: 50px;
+    &:hover {
+      cursor: pointer;
     }
   }
 }

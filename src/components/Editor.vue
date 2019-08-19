@@ -26,19 +26,17 @@ export default {
   },
   computed: {
     ...mapState({
-      retrieve: state => state.rad.radRequest.retrieve,
-      aggregate: state => state.rad.radRequest.aggregate,
-      consensus: state => state.rad.radRequest.consensus,
+      currentTemplate: state => state.rad.currentTemplate,
     }),
     currentScript: function() {
       if (this.currentStage === 'retrieve') {
-        return this.retrieve
+        return this.currentTemplate.radRequest.retrieve
       } else if (this.currentStage === 'aggregate') {
-        return this.aggregate
+        return this.currentTemplate.radRequest.aggregate.script
       } else if (this.currentStage === 'consensus') {
-        return this.consensus
+        return this.currentTemplate.radRequest.consensus.script
       } else {
-        return ''
+        return null
       }
     },
   },
