@@ -9,7 +9,7 @@ export default {
     status: String,
   },
   methods: {
-    setStatus (status) {
+    setStatus(status) {
       if (status === 'synced') {
         return 'synced'
       } else {
@@ -18,7 +18,6 @@ export default {
     },
   },
 }
-
 </script>
 
 <style scoped lang="scss">

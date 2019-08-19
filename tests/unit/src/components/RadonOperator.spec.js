@@ -68,13 +68,24 @@ describe('RadonOperator.vue', () => {
 
     it('select options have the correct value ', () => {
       filterArgumentOptions.map((argumentOption, index) => {
-        expect(wrapper.find('.arguments').findAll('option').at(index).element.value).toBe(argumentOption.value.toString())
+        expect(
+          wrapper
+            .find('.arguments')
+            .findAll('option')
+            .at(index).element.value
+        ).toBe(argumentOption.value.toString())
       })
     })
 
     it('select options have the correct content', () => {
       filterArgumentOptions.map((argumentOption, index) => {
-        expect(wrapper.find('.arguments').findAll('option').at(index).element.textContent.trim()).toBe(argumentOption.text)
+        expect(
+          wrapper
+            .find('.arguments')
+            .findAll('option')
+            .at(index)
+            .element.textContent.trim()
+        ).toBe(argumentOption.text)
       })
     })
 
@@ -115,13 +126,24 @@ describe('RadonOperator.vue', () => {
 
     it('select options have the correct value ', () => {
       reduceArgumentOptions.map((argumentOption, index) => {
-        expect(wrapper.find('.arguments').findAll('option').at(index).element.value).toBe(argumentOption.value.toString())
+        expect(
+          wrapper
+            .find('.arguments')
+            .findAll('option')
+            .at(index).element.value
+        ).toBe(argumentOption.value.toString())
       })
     })
 
     it('select options have the correct content', () => {
       reduceArgumentOptions.map((argumentOption, index) => {
-        expect(wrapper.find('.arguments').findAll('option').at(index).element.textContent.trim()).toBe(argumentOption.text)
+        expect(
+          wrapper
+            .find('.arguments')
+            .findAll('option')
+            .at(index)
+            .element.textContent.trim()
+        ).toBe(argumentOption.text)
       })
     })
 

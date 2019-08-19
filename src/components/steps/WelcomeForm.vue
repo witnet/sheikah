@@ -6,17 +6,16 @@
       </div>
     </template>
 
-      <p class="subtitle">
-        This assistant will guide you through the process of creating your own Witnet wallet.
-      </p>
-      <p class="text-welcome">
-        A wallet is an app that keeps your credentials safe and lets you interface with the
-        Witnet blockchain in many ways: from transferring Wit to someone else to creating
-        smart contracts.
-      </p>
-      <div class="container">
-        <router-link class="router-link" to="/ftu/seed-type-selection">Let's do it</router-link>
-      </div>
+    <p class="subtitle">
+      This assistant will guide you through the process of creating your own Witnet wallet.
+    </p>
+    <p class="text-welcome">
+      A wallet is an app that keeps your credentials safe and lets you interface with the Witnet
+      blockchain in many ways: from transferring Wit to someone else to creating smart contracts.
+    </p>
+    <div class="container">
+      <router-link class="router-link" to="/ftu/seed-type-selection">Let's do it</router-link>
+    </div>
   </Card>
 </template>
 

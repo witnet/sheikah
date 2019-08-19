@@ -1,5 +1,5 @@
 <template>
-    <button :class="normalizeType(type)" @click="onClick" :nativeType=nativeType>
+  <button :class="normalizeType(type)" @click="onClick" :nativeType="nativeType">
     <slot></slot>
   </button>
 </template>
@@ -13,8 +13,16 @@ export default {
     type: String,
   },
   methods: {
-    normalizeType (propType) {
-      const buttonTypes = ['danger', 'dashed', 'default', 'navigation', 'option', 'positive', 'primary']
+    normalizeType(propType) {
+      const buttonTypes = [
+        'danger',
+        'dashed',
+        'default',
+        'navigation',
+        'option',
+        'positive',
+        'primary',
+      ]
       return buttonTypes.includes(propType) ? propType : 'default'
     },
   },
@@ -144,7 +152,7 @@ export default {
   width: 50%;
 
   &:last-of-type {
-    border-left:0;
+    border-left: 0;
   }
 
   &:focus {

@@ -1,6 +1,8 @@
 <template>
   <div class="top-bar">
-    <router-link v-for="tab in tabs" :key="tab.link" class="link" :to="tab.link">{{ tab.name }}</router-link>
+    <router-link v-for="tab in tabs" :key="tab.link" class="link" :to="tab.link">{{
+      tab.name
+    }}</router-link>
   </div>
 </template>
 
@@ -41,5 +43,4 @@ export default {
     }
   }
 }
-
 </style>

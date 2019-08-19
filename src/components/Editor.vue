@@ -1,9 +1,9 @@
 <template>
-<div>
-  <ToolBar/>
-  <StageBar v-on:change-stage="changeStage"/>
-  <RadonStage class="stage" :stage="currentStage" :script="currentScript"/>
-</div>
+  <div>
+    <ToolBar />
+    <StageBar v-on:change-stage="changeStage" />
+    <RadonStage class="stage" :stage="currentStage" :script="currentScript" />
+  </div>
 </template>
 
 <script>
@@ -19,10 +19,10 @@ export default {
     ToolBar,
     StageBar,
   },
-  methods:{
-   changeStage: function (stage) {
-    this.currentStage = stage
-   },
+  methods: {
+    changeStage: function(stage) {
+      this.currentStage = stage
+    },
   },
   computed: {
     ...mapState({
@@ -30,38 +30,28 @@ export default {
       aggregate: state => state.rad.radRequest.aggregate,
       consensus: state => state.rad.radRequest.consensus,
     }),
-    currentScript: function(){
-      if(this.currentStage === "retrieve") {
+    currentScript: function() {
+      if (this.currentStage === 'retrieve') {
         return this.retrieve
-      } else if (this.currentStage === "aggregate") {
+      } else if (this.currentStage === 'aggregate') {
         return this.aggregate
-      } else if(this.currentStage === "consensus") {
+      } else if (this.currentStage === 'consensus') {
         return this.consensus
+      } else {
+        return ''
       }
-    }
+    },
   },
-  data(){
-    return{
-      currentStage: "retrieve",
+  data() {
+    return {
+      currentStage: 'retrieve',
       tabs: [
-        {icon: 'Redo', 
-        action: 'redo changes' ,
-        class:'end'
-        },
-        {icon: 'Undo', 
-        action: 'Undo changes',
-        class:'end'
-        },
-        {icon: 'Save', 
-        action: 'Save changes',
-        class:'end'
-        },
-        {icon: 'Try data request', 
-        action: 'Try data request',
-        class:'end'
-        }
+        { icon: 'Redo', action: 'redo changes', class: 'end' },
+        { icon: 'Undo', action: 'Undo changes', class: 'end' },
+        { icon: 'Save', action: 'Save changes', class: 'end' },
+        { icon: 'Try data request', action: 'Try data request', class: 'end' },
       ],
     }
-  }
+  },
 }
 </script>

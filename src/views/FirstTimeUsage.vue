@@ -1,13 +1,11 @@
 <template>
-<div class="centered">
-  <router-view />
-</div>
+  <div class="centered">
+    <router-view />
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
 <style scoped>
@@ -18,5 +16,4 @@ export default {
   justify-content: center;
   align-items: center;
 }
-
 </style>

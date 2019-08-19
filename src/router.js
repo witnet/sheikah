@@ -1,32 +1,33 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import DataRequest from '@/components/DataRequest.vue'
+
 import Community from '@/components/Community.vue'
+import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
+import FirstTimeUsage from '@/views/FirstTimeUsage.vue'
+import Home from '@/views/Home.vue'
+import Loading from '@/components/steps/Loading.vue'
 import Marketplace from '@/components/Marketplace.vue'
 import Receive from '@/components/Receive.vue'
 import Send from '@/components/Send.vue'
 import Templates from '@/components/Templates.vue'
 import Transactions from '@/components/Transactions.vue'
+import UnlockWallet from '@/components/WelcomeBack/UnlockWallet.vue'
 import Wallet from '@/components/Wallet.vue'
-import Loading from '@/components/steps/Loading.vue'
 import WalletDisclaimer from '@/components/steps/WalletDisclaimer.vue'
 import WalletEncryptionPassword from '@/components/steps/WalletEncryptionPassword.vue'
+import WalletList from '@/components/WelcomeBack/WalletList.vue'
 import WalletSeedBackup from '@/components/steps/WalletSeedBackup.vue'
 import WalletSeedTypeSelection from '@/components/steps/WalletSeedTypeSelection.vue'
 import WalletSeedValidation from '@/components/steps/WalletSeedValidation.vue'
-import WelcomeForm from '@/components/steps/WelcomeForm.vue'
-import FirstTimeUsage from '@/views/FirstTimeUsage.vue'
-import Home from '@/views/Home.vue'
 import WelcomeBack from '@/views/WelcomeBack.vue'
-import WalletList from '@/components/WelcomeBack/WalletList.vue'
-import UnlockWallet from '@/components/WelcomeBack/UnlockWallet.vue'
+import WelcomeForm from '@/components/steps/WelcomeForm.vue'
 
 import store from '@/store'
 
 Vue.use(Router)
 
-function redirectIfNeccesary (to, from, next) {
+function redirectIfNeccesary(to, from, next) {
   if (store.state.wallet.sessionId) {
     next()
   } else if (store.state.wallet.walletInfos) {

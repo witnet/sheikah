@@ -1,7 +1,7 @@
 import cbor from 'cbor'
 import { shell } from 'electron'
 
-export function encodeDataRequest (radRequest) {
+export function encodeDataRequest(radRequest) {
   return {
     not_before: radRequest.not_before,
     retrieve: radRequest.retrieve.map(retrieve => {
@@ -14,13 +14,11 @@ export function encodeDataRequest (radRequest) {
   }
 }
 
-export function match (value, options, result) {
+export function match(value, options, result) {
   const search = options.find(x => x.options.includes(value))
-  return search
-    ? search.result
-    : null
+  return search ? search.result : null
 }
 
-export function openInExternalApp (url) {
+export function openInExternalApp(url) {
   shell.openExternal(url)
 }

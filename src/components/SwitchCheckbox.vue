@@ -1,9 +1,9 @@
 <template>
   <div class="switch" @click="switchValue">
     <div class="wrapper">
-    <div :class="`dot ${checked ? 'checked' : ''}`">
-      <input class="input" type="checkbox" />
-    </div>
+      <div :class="`dot ${checked ? 'checked' : ''}`">
+        <input class="input" type="checkbox" />
+      </div>
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
 <script>
 export default {
   name: 'SwitchCheckbox',
-  data () {
+  data() {
     return {
       checked: this.value,
     }
@@ -20,12 +20,12 @@ export default {
     value: Boolean,
   },
   methods: {
-    switchValue () {
+    switchValue() {
       this.checked = !this.checked
     },
   },
   watch: {
-    checked (value) {
+    checked(value) {
       this.$emit('switchCheckbox', value)
     },
   },
@@ -33,12 +33,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .switch {
   display: inline-block;
   width: 40px;
   height: 20px;
-  background: #ececec ;
+  background: #ececec;
   border-radius: 10px;
 
   // This class will be helpull in a future if we want to add more padding
@@ -48,7 +47,7 @@ export default {
     width: 40px;
     height: 20px;
     border-radius: 10px;
-    background-color:#ececec;
+    background-color: #ececec;
   }
 
   .dot {
