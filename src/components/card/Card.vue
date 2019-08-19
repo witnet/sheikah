@@ -1,19 +1,19 @@
 <template>
-<BaseCard :style="{ width: `${width}px`, height: `${height}px` }" class="card">
-  <template v-if="title" v-slot:header>
-    <p class='title'>{{ title }}</p>
-  </template>
+  <BaseCard :style="{ width: `${width}px`, height: `${height}px` }" class="card">
+    <template v-if="title" v-slot:header>
+      <p class="title">{{ title }}</p>
+    </template>
 
-  <template v-else v-slot:header>
-    <slot name="header"></slot>
-  </template>
+    <template v-else v-slot:header>
+      <slot name="header"></slot>
+    </template>
 
-  <template v-slot:content>
-  <div class='content'>
-    <slot></slot>
-  </div>
-</template>
-</BaseCard>
+    <template v-slot:content>
+      <div class="content">
+        <slot></slot>
+      </div>
+    </template>
+  </BaseCard>
 </template>
 
 <script>
@@ -51,7 +51,7 @@ export default {
   }
 
   .content {
-    border: 1px solid #EEE;
+    border: 1px solid #eee;
     border-radius: 2px;
     box-shadow: $default-box-shadow;
     font-size: 16px;

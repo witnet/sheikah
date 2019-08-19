@@ -5,11 +5,10 @@
 </template>
 
 <script>
-
 export default {
   name: 'app',
 
-  mounted () {
+  mounted() {
     this.$store.dispatch('getWalletInfos')
 
     // Initialize polling interval to retrieve network status

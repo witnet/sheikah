@@ -1,15 +1,12 @@
 <template>
-  <Card
-    class=""
-  >
-  <div class="card">
-    <!-- TODO(#701) Handle error in a proper way -->
-    <p class="title">Sheikah is loading your wallet</p>
-    <Spinner class="spinner" :active="true" />
-    <p class="description">This will take a few seconds</p>
+  <Card class="">
+    <div class="card">
+      <!-- TODO(#701) Handle error in a proper way -->
+      <p class="title">Sheikah is loading your wallet</p>
+      <Spinner class="spinner" :active="true" />
+      <p class="description">This will take a few seconds</p>
     </div>
   </Card>
-
 </template>
 
 <script>
@@ -25,18 +22,17 @@ export default {
     Spinner,
   },
   methods: {
-    goToFirstStep () {
+    goToFirstStep() {
       this.$router.push('/ftu/welcome')
     },
-    previousStep () {
+    previousStep() {
       this.$router.push('/ftu/seed-type-selection')
     },
-    nextStep () {
+    nextStep() {
       this.$store.dispatch('createMnemonics')
       this.$router.push('ftu/seed-backup')
     },
-    reloadView () {
-    },
+    reloadView() {},
   },
   computed: {
     ...mapState({
@@ -45,12 +41,12 @@ export default {
     }),
   },
   watch: {
-    sessionId (value) {
+    sessionId(value) {
       if (value) {
         this.$router.push('/wallet/transactions')
       }
     },
-    error (value) {
+    error(value) {
       if (value) {
         this.goToFirstStep()
       }
@@ -60,7 +56,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import '@/styles/_colors.scss';
+@import '@/styles/_colors.scss';
 
 .card {
   align-items: center;
@@ -88,5 +84,4 @@ export default {
   grid-row: 3;
   margin: 0 auto;
 }
-
 </style>

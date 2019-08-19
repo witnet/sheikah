@@ -1,24 +1,32 @@
 <template>
-  <div class="" v-if="stage ==='retrieve'">
-    <Carousel :sources="script.map((x, index) => {x.index = index; return x})"/>
+  <div class="" v-if="stage === 'retrieve'">
+    <Carousel
+      :sources="
+        script.map((x, index) => {
+          x.index = index
+          return x
+        })
+      "
+    />
   </div>
 
-  <div v-else-if="stage ==='aggregate'"> 
-  <p>Aggregate</p>
+  <div v-else-if="stage === 'aggregate'">
+    <p>Aggregate</p>
     <RadonScript
       class="script"
       v-show="!error.aggregate"
-      :path="{stage: 'aggregate'}" :script="script.script"
+      :path="{ stage: 'aggregate' }"
+      :script="script.script"
     />
     <p class="error" v-show="error.aggregate">There is an error in the aggregate stage</p>
   </div>
 
-  <div v-else-if="stage ==='consensus'"> 
-  <p>Consensus</p>
+  <div v-else-if="stage === 'consensus'">
+    <p>Consensus</p>
     <RadonScript
       class="script"
       v-show="!error.consensus"
-      :path="{stage: 'consensus'}"
+      :path="{ stage: 'consensus' }"
       :script="script.script"
     />
     <p class="error" v-show="error.consensus">There is an error in the consensus stage</p>
@@ -26,28 +34,21 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 import RadonScript from '@/components/RadonScript.vue'
-import RadonStage from '@/components/RadonStage.vue'
-import Select from '@/components/Select'
 import Carousel from '@/components/Carousel'
 
 export default {
   name: 'RadonStage',
   components: {
     RadonScript,
-    RadonStage,
-    Select,
     Carousel,
   },
   props: {
     stage: String,
     script: [Array, Object],
   },
-  data () {
+  data() {
     return {
-
       error: {
         retrieve: false,
         aggregate: false,
@@ -56,10 +57,10 @@ export default {
     }
   },
   methods: {
-    updateSource: function (sourceInformation, sourceIndex) {
+    updateSource: function(sourceInformation, sourceIndex) {
       this.$store.commit('updateRetrieveSource', { source: sourceInformation, index: sourceIndex })
     },
-    pushRetrieve: function () {
+    pushRetrieve: function() {
       this.$store.commit('pushRetrieve')
     },
   },
@@ -134,21 +135,21 @@ export default {
     }
   }
 
-    .select {
-      margin: 0 0 8px 0;
-    }
+  .select {
+    margin: 0 0 8px 0;
+  }
 
-    .input {
-      cursor: pointer;
-      border-radius: 4px;
-      font-size: 16px;
-      font-weight: 400;
-      background-color: #D2DFFB;
-      color: #4d4d4d;
-      border: 1px solid #D2DFFB;
-      width: 100%;
-      padding: 8px
-    }
+  .input {
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: #d2dffb;
+    color: #4d4d4d;
+    border: 1px solid #d2dffb;
+    width: 100%;
+    padding: 8px;
+  }
 }
 
 .error {
@@ -171,36 +172,40 @@ export default {
 }
 
 .circle {
-    outline: none;
-    border: 2px solid grey;
-    box-shadow: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    position: relative;
-    margin: 0 40px;
-    display: inline-block;
-    vertical-align: middle;
-    background: transparent;
+  outline: none;
+  border: 2px solid grey;
+  box-shadow: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 40px;
+  display: inline-block;
+  vertical-align: middle;
+  background: transparent;
 }
 
 .circle:before,
 .circle:after {
-    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 .circle.plus:before,
 .circle.plus:after {
   cursor: pointer;
   background: grey;
 }
-.circle.plus:before{
-    width: 2px;
-    margin: 3px auto;
+.circle.plus:before {
+  width: 2px;
+  margin: 3px auto;
 }
-.circle.plus:after{
-    margin: auto 3px;
-    height: 2px;
-    box-shadow: none;
+.circle.plus:after {
+  margin: auto 3px;
+  height: 2px;
+  box-shadow: none;
 }
-
 </style>

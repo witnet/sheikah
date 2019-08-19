@@ -2,7 +2,7 @@
   <BaseCard class="card-navigation">
     <template v-slot:header>
       <div v-if="title" class="header">
-      {{ title }}
+        {{ title }}
       </div>
     </template>
 
@@ -55,7 +55,7 @@ export default {
 .card-navigation {
   width: 600px;
 
-  .header{
+  .header {
     background: linear-gradient(to right, #722ed1, #1a6cfb);
     padding: 0 20px;
     align-items: center;

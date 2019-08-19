@@ -1,32 +1,37 @@
 <template>
-<div class="select-box">
-  <div :class="`select ${active ? 'active' : ''}`" @click="showOptions">
-    <div class="selected">
-      <div class="label">
-        <span class="primary">{{ primaryText }}</span>
-        <span class="secondary">{{ secondaryText }}</span>
+  <div class="select-box">
+    <div :class="`select ${active ? 'active' : ''}`" @click="showOptions">
+      <div class="selected">
+        <div class="label">
+          <span class="primary">{{ primaryText }}</span>
+          <span class="secondary">{{ secondaryText }}</span>
+        </div>
+        <font-awesome-icon class="icon" icon="sort-down" />
       </div>
-      <font-awesome-icon class="icon" icon="sort-down" />
     </div>
-  </div>
-  <div :class="`options ${active ? 'active': ''}`">
-    <div v-for="option in options" :key="option.value" :class="`option ${option.value=== value ? 'selected':''}`" @click="() => selectOption(option)">
-      <span class="primary">{{ option.primaryText}}</span>
-      <span class="value">{{ option.secondaryText }}</span>
+    <div :class="`options ${active ? 'active' : ''}`">
+      <div
+        v-for="option in options"
+        :key="option.value"
+        :class="`option ${option.value === value ? 'selected' : ''}`"
+        @click="() => selectOption(option)"
+      >
+        <span class="primary">{{ option.primaryText }}</span>
+        <span class="value">{{ option.secondaryText }}</span>
+      </div>
     </div>
+    <select v-model="value" class="hidden">
+      <option v-for="option in options" :value="option.value" :key="option.value">
+        {{ option.value }}
+      </option>
+    </select>
   </div>
-  <select v-model="value" class="hidden">
-    <option v-for="option in options" :value="option.value" :key="option.value">
-      {{ option.value }}
-    </option>
-  </select>
-</div>
 </template>
 
 <script>
 export default {
   name: 'Select',
-  data () {
+  data() {
     return {
       value: '',
       primaryText: '',
@@ -35,12 +40,12 @@ export default {
     }
   },
   watch: {
-    value (value) {
+    value(value) {
       this.$emit('input', value)
       this.$emit('change', value)
     },
   },
-  beforeMount () {
+  beforeMount() {
     const defaultOption = this.options.find(option => option.selectedByDefault) || this.options[0]
     this.selectOption(defaultOption)
   },
@@ -48,10 +53,10 @@ export default {
     options: Array,
   },
   methods: {
-    showOptions () {
+    showOptions() {
       this.active = !this.active
     },
-    selectOption (option) {
+    selectOption(option) {
       this.value = option.value
       this.primaryText = option.primaryText
       this.secondaryText = option.secondaryText
@@ -82,7 +87,7 @@ export default {
     border-radius: 4px;
     border: 1px solid #1a6cfb;
     color: #1a6cfb;
-    display:flex;
+    display: flex;
     width: min-content;
     min-width: min-content;
     padding: 0 12px 0 16px;
@@ -130,7 +135,7 @@ export default {
       background: #fff;
       box-sizing: border-box;
       color: #1a6cfb;
-      display:flex;
+      display: flex;
       height: 32px;
       justify-content: space-between;
       padding: 0 16px;

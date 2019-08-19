@@ -12,36 +12,36 @@ class ApiClient {
   options
   ws
 
-  constructor (options) {
+  constructor(options) {
     this.options = options || defaultOptions
     this.ws = new RPCWebsockets(this.options.url, { ...this.options })
   }
 
-  withOptions (opts) {
+  withOptions(opts) {
     return new ApiClient({ ...this.options, ...opts })
   }
 
-  async notify (method, params) {
+  async notify(method, params) {
     return this.ws.notify(method, params)
   }
 
-  async request (method, params) {
+  async request(method, params) {
     return this.ws.call(method, params)
   }
 
-  async subscribe (method) {
+  async subscribe(method) {
     return this.ws.subscribe(method)
   }
 
-  async unsubscribe (method) {
+  async unsubscribe(method) {
     return this.ws.unsubscribe(method)
   }
 
-  async open (handler) {
+  async open(handler) {
     return this.ws.on('open', handler)
   }
 
-  async on (event, handler) {
+  async on(event, handler) {
     return this.ws.on(event, handler)
   }
 }
@@ -49,82 +49,83 @@ class ApiClient {
 export class WalletApi {
   client
 
-  constructor () {
+  constructor() {
     this.client = new ApiClient()
   }
   // TODO(#594): Handle errors in a proper way
-  _handleResponse (response) {
+  _handleResponse(response) {
     return response && response.error ? response : { result: response || true }
   }
 
-  _handleError (error) {
+  _handleError(error) {
     return { error }
   }
 
-  _callApiMethod (methodName) {
-    return (params) => this.client
-      .request(methodName, params)
-      .then(this._handleResponse)
-      .catch(this._handleError)
+  _callApiMethod(methodName) {
+    return params =>
+      this.client
+        .request(methodName, params)
+        .then(this._handleResponse)
+        .catch(this._handleError)
   }
 
-  async createDataRequest (params) {
+  async createDataRequest(params) {
     return this._callApiMethod('createDataRequest')(params)
   }
 
-  async createMnemonics (params) {
+  async createMnemonics(params) {
     return this._callApiMethod('createMnemonics')(params)
   }
 
-  async createWallet (params) {
+  async createWallet(params) {
     return this._callApiMethod('createWallet')(params)
   }
 
-  async generateAddress (params) {
+  async generateAddress(params) {
     return this._callApiMethod('generateAddress')(params)
   }
 
-  async getTransactions (params) {
+  async getTransactions(params) {
     return this._callApiMethod('getTransactions')(params)
   }
 
-  async getWalletInfos (params) {
+  async getWalletInfos(params) {
     return this._callApiMethod('getWalletInfos')(params)
   }
 
-  async importSeed (params) {
+  async importSeed(params) {
     return this._callApiMethod('importSeed')(params)
   }
 
-  async lockWallet (params) {
+  async lockWallet(params) {
     return this._callApiMethod('lockWallet')(params)
   }
 
-  async runRadRequest (params) {
+  async runRadRequest(params) {
     return this._callApiMethod('runRadRequest')(params)
   }
 
-  async sendDataRequest (params) {
+  async sendDataRequest(params) {
     return this._callApiMethod('sendDataRequest')(params)
   }
 
-  async createVTT (params) {
+  async createVTT(params) {
     return this._callApiMethod('createVTT')(params)
   }
 
-  async unlockWallet (params) {
+  async unlockWallet(params) {
     return this._callApiMethod('unlockWallet')(params)
   }
 
-  async closeSession (params) {
+  async closeSession(params) {
     return this._callApiMethod('closeSession')(params)
   }
 
-  getAddresses (params) {
+  getAddresses(params) {
     return this._callApiMethod('getAddresses')(params)
   }
 
-  sendTransaction (params) {
+  sendTransaction(params) {
     return this._callApiMethod('sendTransaction')(params)
   }
 }

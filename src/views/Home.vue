@@ -18,7 +18,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web:300,300i,400,400i,600,600i&display=swap');
 
 .layout {
@@ -30,5 +29,4 @@ export default {
     width: 100%;
   }
 }
-
 </style>

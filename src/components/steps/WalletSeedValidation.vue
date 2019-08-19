@@ -14,8 +14,8 @@
     <Input type="big" class="seed" v-model="seed" />
     <p v-if="showError">Mnemonics must match</p>
     <p class="paragraph">
-      Please ensure you do not add any extra spaces between words or at the beginning or end
-      of the phrase.
+      Please ensure you do not add any extra spaces between words or at the beginning or end of the
+      phrase.
     </p>
   </NavigationCard>
 </template>
@@ -32,7 +32,7 @@ export default {
     NavigationCard,
     Input,
   },
-  data () {
+  data() {
     return {
       seed: '',
       showError: '',
@@ -44,7 +44,7 @@ export default {
     }),
   },
   methods: {
-    nextStep () {
+    nextStep() {
       if (this.seed && this.seed.trim() === this.mnemonics.trim()) {
         this.$router.push('/ftu/encryption-pass')
         this.showError = false
@@ -52,7 +52,7 @@ export default {
         this.showError = true
       }
     },
-    previousStep () {
+    previousStep() {
       this.$router.push('/ftu/seed-backup')
     },
   },
@@ -84,5 +84,4 @@ export default {
 .paragraph {
   margin-top: 15px;
 }
-
 </style>

@@ -1,9 +1,9 @@
 <template>
-<div class="card-layout">
+  <div class="card-layout">
     <slot name="header"></slot>
     <slot name="content"></slot>
     <slot name="footer"></slot>
-</div>
+  </div>
 </template>
 
 <script>
@@ -13,7 +13,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .card-layout {
   display: grid;
   grid-template-columns: 1fr;

@@ -26,8 +26,11 @@ export default {
     },
   },
   mutations: {
-    pushOperator (state, { path }) {
-      if (path.stage === 'retrieve' && state.radRequest.retrieve[path.retrieveIndex].script.length === 0) {
+    pushOperator(state, { path }) {
+      if (
+        path.stage === 'retrieve' &&
+        state.radRequest.retrieve[path.retrieveIndex].script.length === 0
+      ) {
         state.radRequest.retrieve[path.retrieveIndex].script.push(67)
       } else {
         const currentScript = Number.isInteger(parseInt(path.retrieveIndex))
@@ -35,9 +38,13 @@ export default {
           : state.radRequest[path.stage].script
         const scriptTypes = currentScript.map(getOutput)
         if (scriptTypes[0] === 'Self') {
-          console.log(`ERROR pushing a new operator in stage ${path.stage} in stageIndex ${path.retrieveIndex}`)
+          console.log(
+            `ERROR pushing a new operator in stage ${path.stage} in stageIndex ${
+              path.retrieveIndex
+            }`
+          )
         } else {
-        // TODO: check if first operator in aggregate phase is Self and then search the type in retrieval stage
+          // TODO: check if first operator in aggregate phase is Self and then search the type in retrieval stage
           const cleanScriptTypes = scriptTypes.map((item, index, array) => {
             if (item === 'Self') {
               return array[index - 1]
@@ -64,11 +71,11 @@ export default {
         }
       }
     },
-    updateRetrieveSource (state, { source, index }) {
+    updateRetrieveSource(state, { source, index }) {
       state.radRequest.retrieve[index].url = source.url
       state.radRequest.retrieve[index].kind = source.kind
     },
-    deleteSource (state, { index }) {
+    deleteSource(state, { index }) {
       console.log(this.sources)
       state.radRequest.retrieve.splice(index, 1)
       state.radRequest.retrieve.map(source => {
@@ -77,14 +84,14 @@ export default {
         }
       })
     },
-    pushRetrieve (state) {
+    pushRetrieve(state) {
       state.radRequest.retrieve.push({
         url: '',
         kind: 'HTTP-GET',
         script: [],
       })
     },
-    updateArgumentInput (state, { path, input, operator, argIndex }) {
+    updateArgumentInput(state, { path, input, operator, argIndex }) {
       operator[argIndex] = input
       if (Number.isInteger(parseInt(path.retrieveIndex))) {
         state.radRequest[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
@@ -92,7 +99,7 @@ export default {
         state.radRequest[`${path.stage}`][path.scriptIndex] = operator
       }
     },
-    selectHashFunction: function (state, { path, hashFunctionCode, operator, argIndex }) {
+    selectHashFunction: function(state, { path, hashFunctionCode, operator, argIndex }) {
       operator[argIndex] = hashFunctionCode
       if (Number.isInteger(parseInt(path.retrieveIndex))) {
         state.radRequest[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
@@ -102,7 +109,7 @@ export default {
         state.radRequest[`${path.stage}`] = { ...this[`${path.stage}`] }
       }
     },
-    updateOperatorReduceArgument: function (state, { path, reduceArgument, operator, argIndex }) {
+    updateOperatorReduceArgument: function(state, { path, reduceArgument, operator, argIndex }) {
       operator[argIndex] = reduceArgument
       if (Number.isInteger(parseInt(path.retrieveIndex))) {
         state.radRequest[`${path.stage}`][path.retrieveIndex].script[path.scriptIndex] = operator
@@ -112,7 +119,7 @@ export default {
         state.radRequest[`${path.stage}`] = { ...state.radRequest[`${path.stage}`] }
       }
     },
-    updateFilterArgument: function (state, { path, filterArgument, operator, argIndex }) {
+    updateFilterArgument: function(state, { path, filterArgument, operator, argIndex }) {
       operator[argIndex] = [operator[argIndex][0], filterArgument]
       if (Number.isInteger(parseInt(path.retrieveIndex))) {
         state.radRequest[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
@@ -122,7 +129,10 @@ export default {
         state.radRequest[`${path.stage}`] = { ...state.radRequest[`${path.stage}`] }
       }
     },
-    updateOperatorFilterArgument: function (state, { path, filterFunctionCode, operator, argIndex }) {
+    updateOperatorFilterArgument: function(
+      state,
+      { path, filterFunctionCode, operator, argIndex }
+    ) {
       operator[argIndex] = [filterFunctionCode, '']
       if (Number.isInteger(parseInt(path.retrieveIndex))) {
         state.radRequest[`${path.stage}`][path.retrieveIndex][path.scriptIndex] = operator
@@ -130,31 +140,23 @@ export default {
         state.radRequest[`${path.stage}`][path.scriptIndex] = operator
       }
     },
-    updateOperatorCodeSelect: function (state, { path, operatorCode }) {
+    updateOperatorCodeSelect: function(state, { path, operatorCode }) {
       let args = RadonOperatorInfos[operatorCode].arguments.map(argument => {
         return match(argument.kind, [
           {
-            options: [
-              RadonTypes.Boolean,
-            ],
+            options: [RadonTypes.Boolean],
             result: true,
           },
           {
-            options: [
-              RadonTypes.Int,
-            ],
+            options: [RadonTypes.Int],
             result: 0,
           },
           {
-            options: [
-              RadonTypes.Float,
-            ],
+            options: [RadonTypes.Float],
             result: 0.0,
           },
           {
-            options: [
-              RadonTypes.String,
-            ],
+            options: [RadonTypes.String],
             result: '',
           },
           {
@@ -191,7 +193,7 @@ export default {
         if (!isValidScript('')) {
           state.radRequest[`${path.stage}`][path.retrieveIndex].script.splice(
             path.scriptIndex + 1,
-            state.radRequest[`${path.stage}`][path.retrieveIndex].script.length,
+            state.radRequest[`${path.stage}`][path.retrieveIndex].script.length
           )
         }
         state.radRequest[`${path.stage}`] = { ...state.radRequest[`${path.stage}`] }
@@ -203,7 +205,7 @@ export default {
         if (!isValidScript('')) {
           state.radRequest[`${path.stage}`].script.splice(
             path.scriptIndex + 1,
-            state.radRequest[`${path.stage}`].script.length,
+            state.radRequest[`${path.stage}`].script.length
           )
         }
         state.radRequest[`${path.stage}`] = { ...state.radRequest[`${path.stage}`] }

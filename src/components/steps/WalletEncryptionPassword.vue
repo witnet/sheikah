@@ -8,9 +8,9 @@
     :nextStep="nextStep"
   >
     <p class="paragraph">
-      <strong>PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on this
-      computer. This is not your backup and you cannot restore your wallet with this password.
-      Your seed phrase is still your ultimate backup.
+      <strong>PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on this computer.
+      This is not your backup and you cannot restore your wallet with this password. Your seed
+      phrase is still your ultimate backup.
     </p>
     <div class="form-row">
       <label class="label">Password</label>
@@ -18,7 +18,12 @@
     </div>
     <div class="form-row">
       <label class="label">Confirm password</label>
-      <Input type="underlined" class="password-input" nativeType="password" v-model="repeatPassword" />
+      <Input
+        type="underlined"
+        class="password-input"
+        nativeType="password"
+        v-model="repeatPassword"
+      />
     </div>
 
     <p v-if="error" class="error">{{ error }}</p>
@@ -33,7 +38,7 @@ import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
   name: 'WalletEncryptionPassword',
-  data () {
+  data() {
     return {
       password: '',
       repeatPassword: '',
@@ -41,7 +46,7 @@ export default {
     }
   },
   methods: {
-    validateForm () {
+    validateForm() {
       if (this.password.length < 8) {
         this.error = 'Password must be at least 8 characters'
         return false
@@ -54,16 +59,20 @@ export default {
 
       return true
     },
-    nextStep () {
+    nextStep() {
       if (this.validateForm()) {
         this.showError = false
-        this.$store.dispatch('createWallet', { sourceType: 'mnemonics', password: this.password, mnemonics: this.mnemonics })
+        this.$store.dispatch('createWallet', {
+          sourceType: 'mnemonics',
+          password: this.password,
+          mnemonics: this.mnemonics,
+        })
         this.$router.push('/ftu/create-wallet')
       } else {
         this.showError = true
       }
     },
-    previousStep () {
+    previousStep() {
       this.$router.push('/ftu/seed-validation')
     },
   },
@@ -105,7 +114,5 @@ export default {
 
 .password-input {
   width: 50%;
-
 }
-
 </style>

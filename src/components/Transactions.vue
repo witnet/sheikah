@@ -1,7 +1,12 @@
 <template>
   <div class="transactions">
     <TransactionList class="list" :transactions="transactions" />
-    <Balances :available="available" :timelocked="timelocked" :unconfirmed="unconfirmed" :total="total" />
+    <Balances
+      :available="available"
+      :timelocked="timelocked"
+      :unconfirmed="unconfirmed"
+      :total="total"
+    />
   </div>
 </template>
 
@@ -25,7 +30,7 @@ export default {
       total: state => state.wallet.balances.total,
     }),
   },
-  data () {
+  data() {
     return {
       transactions: [
         // {
@@ -55,5 +60,4 @@ export default {
     margin-right: 40px;
   }
 }
-
 </style>
