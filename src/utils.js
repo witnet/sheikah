@@ -1,5 +1,6 @@
 import cbor from 'cbor'
 import { shell } from 'electron'
+import uuidv4 from 'uuid/v4'
 
 export function encodeDataRequest(radRequest) {
   return {
@@ -21,4 +22,8 @@ export function match(value, options, result) {
 
 export function openInExternalApp(url) {
   shell.openExternal(url)
+}
+
+export function generateId(random) {
+  return random ? uuidv4(random) : uuidv4()
 }

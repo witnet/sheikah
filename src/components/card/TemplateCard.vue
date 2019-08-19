@@ -13,10 +13,10 @@
       </el-dropdown>
     </div>
     <div class="title">
-      <slot name="title"></slot>
+      {{ name }}
     </div>
     <div class="description">
-      <slot name="description"></slot>
+      {{ description }}
     </div>
   </div>
 </template>
@@ -30,6 +30,7 @@ export default {
         {
           label: 'Edit',
           action: () => {
+            this.setCurrentTemplate()
             this.$router.push('/request/editor')
           },
         },
@@ -39,14 +40,27 @@ export default {
         },
         {
           label: 'Delete',
-          action: () => {},
+          action: () => {
+            this.deleteTemplate()
+          },
         },
       ],
     }
   },
+  props: {
+    id: String,
+    name: String,
+    description: String,
+  },
   methods: {
     handleCommand(index) {
       this.options[index].action()
+    },
+    setCurrentTemplate() {
+      this.$store.commit('setCurrentTemplate', { id: this.id })
+    },
+    deleteTemplate() {
+      this.$store.dispatch('deleteTemplate', { id: this.id })
     },
   },
 }
@@ -85,7 +99,6 @@ export default {
   padding: 20px;
   min-width: 250px;
   background-color: #ecf5ff67;
-
   &.option-btn,
   .title,
   .description {

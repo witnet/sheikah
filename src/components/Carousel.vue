@@ -95,11 +95,7 @@ export default {
   components: {
     Select,
   },
-  updated() {
-    console.log(this.sources)
-  },
   data() {
-    console.log(this.sources)
     return {
       counter: 0,
       animate: 'slide-right',
