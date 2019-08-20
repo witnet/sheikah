@@ -753,7 +753,7 @@ export const typeSystem = {
     asInteger: [0x42, [TYPES.INTEGER]],
     length: [0x43, [TYPES.INTEGER]],
     match: [0x44, [PSEUDOTYPES.ARGUMENT]],
-    parseJSON: [0x45, [TYPES.BYTES]],
+    parseJson: [0x45, [TYPES.BYTES]],
     parseXML: [0x46, [TYPES.MAP]],
     asBoolean: [0x47, [TYPES.BOOLEAN]],
     toLowerCase: [0x48, [TYPES.STRING]],

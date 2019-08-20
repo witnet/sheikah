@@ -16,27 +16,37 @@ export default {
     },
   },
   mutations: {
+    updateHistory(state, { mir }) {
+      state.history.push(mir)
+      state.history.splice(0, state.historyIndex)
+    },
     updateTemplate(state, { id, value }) {
+      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.updateElement(id, value)
+      state.currentRadonMarkupInterpreter = new RadonMarkupInterpreter(
+        state.currentRadonMarkupInterpreter.getMir()
+      )
     },
     editorRedo(state) {
       if (state.historyIndex + 1 < history.length) {
         state.historyIndex += 1
-        state.currentTemplate = history[state.historyIndex]
+        state.currentRadonMarkupInterpreter = RadonMarkupInterpreter(history[state.historyIndex])
       }
     },
     editorUndo(state) {
       if (state.historyIndex > 0) {
         state.historyIndex -= 1
-        state.currentTemplate = history[state.historyIndex]
+        state.currentRadonMarkupInterpreter = RadonMarkupInterpreter(history[state.historyIndex])
       }
     },
     updateRetrieveSource(state, { source, index }) {
       // TODO: create a method in RadonMarkupInterpreter to update sources
+      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentTemplate.radRequest.retrieve[index].url = source.url
       state.currentTemplate.radRequest.retrieve[index].kind = source.kind
     },
     deleteSource(state, { index }) {
+      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentTemplate.radRequest.retrieve.splice(index, 1)
       state.currentTemplate.radRequest.retrieve.map(source => {
         if (index < source.index) {
@@ -45,6 +55,7 @@ export default {
       })
     },
     addSource(state) {
+      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.pushSource()
     },
     setTemplates: function(state, { templates }) {
@@ -123,7 +134,6 @@ export default {
         key: 'templates',
       })
       if (request.result) {
-        console.log(request.result.value)
         context.commit('setTemplates', { templates: request.result.value })
       } else {
         console.log(request)
