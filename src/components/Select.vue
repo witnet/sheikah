@@ -17,7 +17,7 @@
       <div
         v-for="option in options"
         :key="option.value"
-        :class="`option ${option.value === value ? 'selected' : ''}`"
+        :class="`option ${option.value === localValue ? 'selected' : ''}`"
         @click="() => selectOption(option)"
       >
         <span class="primary">{{ option.primaryText }}</span>

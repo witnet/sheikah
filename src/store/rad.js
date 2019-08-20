@@ -17,6 +17,10 @@ export default {
     },
   },
   mutations: {
+    updateTemplate(state, { id, value }) {
+      state.history.push({ ...state.currentTemplate })
+      state.currentTemplate = rmi.updateTemplate(id, value)
+    },
     editorRedo(state) {
       if (state.historyIndex + 1 < history.length) {
         state.historyIndex += 1
@@ -130,6 +134,7 @@ export default {
         key: 'templates',
       })
       if (request.result) {
+        console.log(request.result.value)
         context.commit('setTemplates', { templates: request.result.value })
       } else {
         console.log(request)
