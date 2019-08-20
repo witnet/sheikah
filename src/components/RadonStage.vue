@@ -1,5 +1,5 @@
 <template>
-  <div class="" v-if="stage === 'retrieve'">
+  <div class v-if="stage === 'retrieve'">
     <Carousel
       :sources="
         script.map((x, index) => {
@@ -9,26 +9,17 @@
       "
     />
   </div>
+
   <div v-else-if="stage === 'aggregate'">
     <p>Aggregate</p>
-    <RadonScript
-      class="script"
-      v-show="!error.aggregate"
-      stage="aggregate"
-      :script="script.script"
-    />
+    <RadonScript class="script" v-show="!error.aggregate" stage="aggregate" :script="script" />
     <p class="error" v-show="error.aggregate">There is an error in the aggregate stage</p>
   </div>
 
-  <div v-else-if="stage === 'consensus'">
-    <p>Consensus</p>
-    <RadonScript
-      class="script"
-      v-show="!error.consensus"
-      stage="consensus"
-      :script="script.script"
-    />
-    <p class="error" v-show="error.consensus">There is an error in the consensus stage</p>
+  <div v-else-if="stage === 'tally'">
+    <p>Tally</p>
+    <RadonScript class="script" v-show="!error.tally" stage="tally" :script="script" />
+    <p class="error" v-show="error.tally">There is an error in the tally stage</p>
   </div>
 </template>
 
@@ -51,7 +42,7 @@ export default {
       error: {
         retrieve: false,
         aggregate: false,
-        consensus: false,
+        tally: false,
       },
     }
   },

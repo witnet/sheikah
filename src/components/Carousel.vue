@@ -118,7 +118,7 @@ export default {
     },
     addSource() {
       if (this.sources.length > 1) this.counter++
-      this.$store.commit('pushRetrieve')
+      this.$store.commit('addSource')
     },
     deleteSource(index) {
       this.$store.commit('deleteSource', { index })

@@ -1,12 +1,21 @@
 <template>
   <div class="radon-operator">
-    <Select v-model="selectedOption" :options="operatorOptions" type="operator" />
+    <Select
+      :value="selectedOption"
+      @input="option => updateTemplate(selectedOption.id, option.value)"
+      :options="operatorOptions"
+      type="operator"
+    />
 
     <div class="with-arguments" v-if="hasArguments">
       <div v-for="(argument, index) in selectedOperator.arguments" :key="argument.label + index">
         <div v-if="argument.markup_type === 'input'" class="input-container">
-          <!-- TODO: add reactive prop in data and initialize it with the argument value -->
-          <Input class="input-operator" :placeholder="argument.label" :value="argument.value" />
+          <Input
+            class="input-operator"
+            :placeholder="argument.label"
+            :value="argument.value"
+            @input="value => updateTemplate(argument.id, value)"
+          />
         </div>
 
         <div
@@ -16,7 +25,7 @@
           <p>{{ argument.label }}</p>
           <Select
             class="argument-options"
-            v-model="selectedArgument[index]"
+            :value="selectedArgument[index]"
             :options="argumentOptions[index]"
             type="operator"
           />
@@ -40,7 +49,6 @@ export default {
   name: 'RadonOperator',
   props: {
     operator: {
-      type: [Object, Number],
       required: true,
     },
   },
@@ -49,25 +57,21 @@ export default {
     Select,
   },
   methods: {
-    updateTemplate() {
-      console.log('tutututut')
+    updateTemplate(id, value) {
+      this.$store.commit('updateTemplate', { id, value })
     },
-  },
-  watch: {
-    selectedOption(val) {
-      this.$store.dispatch('updateTemplate')
-    },
-  },
-  data() {
-    return {
-      selectedOption: {
-        primaryText: this.operator.selected.label,
-        value: this.operator.selected.label,
-        secondaryText: this.operator.selected.output_type,
-      },
-    }
   },
   computed: {
+    selectedOption() {
+      return {
+        id: this.operator.id,
+        primaryText: this.operator.selected.label,
+        value: this.operator.selected.label,
+        secondaryText: Array.isArray(this.operator.selected.output_type)
+          ? this.operator.selected.output_type[0]
+          : this.operator.selected.output_type,
+      }
+    },
     hasArguments() {
       return !!this.selectedOperator.arguments.length
     },
@@ -77,7 +81,6 @@ export default {
 
     selectedArgument: {
       get() {
-        // debugger
         const selectedArg = this.hasArguments
           ? this.operator.selected.arguments.map(argument => {
               return {
@@ -90,9 +93,9 @@ export default {
       },
       // eslint-disable-next-line
       set(inputValue) {
-        this.$store.commit('updateTemplate', {
-          // add id and value
-        })
+        // this.$store.commit('updateTemplate', {
+        //   // add id and value
+        // })
         return inputValue
       },
     },

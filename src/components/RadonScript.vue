@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(operator, index) in script" :key="operator.toString() + index">
-      <RadonOperator :operator="operator" :stage="{ ...stage, sourceIndex: index }" />
+      <RadonOperator :operator="operator" :stage="stage" :sourceIndex="sourceIndex" />
     </div>
     <div class="button-container">
       <button class="add-operators-btn" @click="pushOperator()">
@@ -21,13 +21,8 @@ export default {
     sourceIndex: Number,
     script: Array,
   },
-  data() {
-    return {}
-  },
   methods: {
     pushOperator() {
-      console.log('stage---->', this.stage)
-      console.log('source index---->', this.sourceIndex)
       this.$store.commit('pushOperator', { stage: this.stage, sourceIndex: this.sourceIndex })
     },
   },
