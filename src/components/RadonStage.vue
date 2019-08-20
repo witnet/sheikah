@@ -14,7 +14,7 @@
     <RadonScript
       class="script"
       v-show="!error.aggregate"
-      :path="{ stage: 'aggregate' }"
+      stage="aggregate"
       :script="script.script"
     />
     <p class="error" v-show="error.aggregate">There is an error in the aggregate stage</p>
@@ -25,7 +25,7 @@
     <RadonScript
       class="script"
       v-show="!error.consensus"
-      :path="{ stage: 'consensus' }"
+      stage="consensus"
       :script="script.script"
     />
     <p class="error" v-show="error.consensus">There is an error in the consensus stage</p>

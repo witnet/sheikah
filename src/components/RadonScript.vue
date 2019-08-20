@@ -1,24 +1,24 @@
 <template>
   <div>
     <div v-for="(operator, index) in script" :key="operator.toString() + index">
-      <!-- <RadonOperator
-        :radOperator="operator"
-        :path="{...path, scriptIndex: index }"
-      /> -->
+      <RadonOperator :operator="operator" :stage="{ ...stage, sourceIndex: index }" />
     </div>
-
-    <button @click="pushOperator" class="circle plus"></button>
+    <div class="button-container">
+      <button class="add-operators-btn" @click="pushOperator()">
+        Add operators
+      </button>
+    </div>
   </div>
 </template>
-
 <script>
-// import RadonOperator from '@/components/RadonOperator'
+import RadonOperator from '@/components/RadonOperator'
 
 export default {
   name: 'RadonScript',
-  // components: { RadonOperator },
+  components: { RadonOperator },
   props: {
-    path: Object,
+    stage: String,
+    sourceIndex: Number,
     script: Array,
   },
   data() {
@@ -26,13 +26,15 @@ export default {
   },
   methods: {
     pushOperator() {
-      this.$store.commit('pushOperator', { path: this.path })
+      console.log('stage---->', this.stage)
+      console.log('source index---->', this.sourceIndex)
+      this.$store.commit('pushOperator', { stage: this.stage, sourceIndex: this.sourceIndex })
     },
   },
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .circle {
   outline: none;
   border: 2px solid grey;
@@ -69,5 +71,26 @@ export default {
   margin: auto 3px;
   height: 2px;
   box-shadow: none;
+}
+.button-container {
+  text-align: center;
+
+  .add-operators-btn {
+    cursor: pointer;
+    margin: 30px;
+    width: 150px;
+    padding: 5px;
+    font-size: 18px;
+    background-color: #1a6cfb;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Titillium Web';
+    font-weight: bold;
+
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
 }
 </style>
