@@ -36,7 +36,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'Select',
   data() {
@@ -46,30 +45,10 @@ export default {
       active: false,
     }
   },
-  // watch: {
-  //   selectValue(newValue, oldValue) {
-  //     console.log('newVal', newValue)
-  //     console.log('oldValue', oldValue)
-
-  //     this.$emit('input', newValue)
-  //   },
-  // },
   props: {
     value: Object,
     options: Array,
     type: String,
-  },
-  computed: {
-    // selectValue: {
-    //   get() {
-    //     return this.value
-    //   },
-    //   // eslint-disable-next-line
-    //   set(selectValue) {
-    //     console.log('Setting local---->...', selectValue)
-    //     this.$emit('input', selectValue)
-    //   },
-    // },
   },
   methods: {
     onClose() {

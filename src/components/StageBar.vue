@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       current: this.initialStage,
-      stages: [{ name: 'retrieve' }, { name: 'aggregate' }, { name: 'consensus' }],
+      stages: [{ name: 'retrieve' }, { name: 'aggregate' }, { name: 'tally' }],
     }
   },
 }

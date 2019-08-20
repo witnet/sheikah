@@ -26,15 +26,17 @@ export default {
   },
   computed: {
     ...mapState({
-      currentTemplate: state => state.rad.currentTemplate,
+      radRequest: state => {
+        return state.rad.currentRadonMarkupInterpreter.getMarkup()
+      },
     }),
     currentScript: function() {
       if (this.currentStage === 'retrieve') {
-        return this.currentTemplate.radRequest.retrieve
+        return this.radRequest.retrieve
       } else if (this.currentStage === 'aggregate') {
-        return this.currentTemplate.radRequest.aggregate.script
-      } else if (this.currentStage === 'consensus') {
-        return this.currentTemplate.radRequest.consensus.script
+        return this.radRequest.aggregate.script
+      } else if (this.currentStage === 'tally') {
+        return this.radRequest.tally.script
       } else {
         return null
       }
