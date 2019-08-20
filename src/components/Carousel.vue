@@ -7,7 +7,11 @@
       <div class="card--overflow-container">
         <div class="card-cards">
           <transition-group tag="div" :class="animate" :name="animate">
-            <div class="card--card" v-for="source in sources.slice(counter)" :key="source.index">
+            <div
+              class="card--card"
+              v-for="(source, index) in sources.slice(counter)"
+              :key="source.index"
+            >
               <div v-if="source" class="content">
                 <div class="header">
                   <h3 class="source-header">
@@ -21,12 +25,9 @@
                 <div class="header-operators">
                   <Select
                     class="select"
-                    v-model="source.kind"
-                    @change="
-                      selectValue =>
-                        updateSource({ kind: selectValue, url: source.url }, source.index)
-                    "
-                    :options="[{ value: 'HTTPS_GET', primaryText: 'HTTPS_GET' }]"
+                    v-model="selectedOperator[index]"
+                    :options="[{ primaryText: 'HTTPS_GET' }]"
+                    type="operator"
                   />
                   <div>
                     <input
@@ -39,37 +40,13 @@
                       "
                     />
                   </div>
-                  <div class="header-operators">
-                    <Select
-                      class="select"
-                      v-model="source.kind"
-                      @change="
-                        selectValue =>
-                          updateSource({ kind: selectValue, url: source.url }, source.index)
-                      "
-                      :options="[{ value: 'HTTPS_GET', primaryText: 'HTTPS_GET' }]"
-                    />
-                    <div>
-                      <input
-                        class="input"
-                        placeholder="url"
-                        type="text"
-                        v-model="source.url"
-                        @change="
-                          e =>
-                            updateSource({ kind: source.kind, url: e.target.value }, source.index)
-                        "
-                      />
-                    </div>
-                    <div class="button-container">
-                      <button class="add-operators-btn">Add operators</button>
-                    </div>
-                  </div>
+                  <RadonScript
+                    :script="source.script"
+                    stage="retrieve"
+                    :sourceIndex="source.index"
+                  />
                 </div>
               </div>
-              <button @click="addSource" class="add-source">
-                <img src="@/resources/svg/add.svg" />
-              </button>
             </div>
           </transition-group>
           <button @click="addSource" class="add-source">
@@ -86,6 +63,7 @@
 
 <script>
 import Select from '@/components/Select'
+import RadonScript from '@/components/RadonScript'
 
 export default {
   name: 'Carousel',
@@ -94,6 +72,7 @@ export default {
   },
   components: {
     Select,
+    RadonScript,
   },
   data() {
     return {
@@ -107,6 +86,21 @@ export default {
     },
     headOfList() {
       return this.counter === 0
+    },
+    selectedOperator: {
+      get() {
+        return this.sources.map(source => {
+          return {
+            primaryText: source.kind,
+          }
+        })
+      },
+      // eslint-disable-next-line
+      set(inputValue) {
+        this.$store.dispatch('updateTemplate', {
+          // add id and value
+        })
+      },
     },
   },
   methods: {
@@ -131,7 +125,6 @@ export default {
       if (this.sources.length > 2) this.moveCarousel(-1)
     },
     updateSource: function(sourceInformation, sourceIndex) {
-      console.log(sourceInformation)
       this.$store.commit('updateRetrieveSource', { source: sourceInformation, index: sourceIndex })
     },
   },
@@ -247,6 +240,7 @@ export default {
           border: 1px solid #d2dffb;
           width: 100%;
           padding: 8px;
+          margin-bottom: 30px;
         }
       }
       &:hover {
@@ -258,27 +252,6 @@ export default {
           padding: 0px;
           height: 10px;
           margin-left: auto;
-        }
-      }
-      .button-container {
-        text-align: center;
-
-        .add-operators-btn {
-          cursor: pointer;
-          margin: 30px;
-          width: 150px;
-          padding: 5px;
-          font-size: 18px;
-          background-color: #1a6cfb;
-          border-radius: 5px;
-          color: white;
-          font-family: 'Titillium Web';
-          font-weight: bold;
-
-          &:active,
-          &:focus {
-            outline: none;
-          }
         }
       }
     }
