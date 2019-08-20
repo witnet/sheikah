@@ -1,15 +1,19 @@
 <template>
-  <div class="select-box">
-    <div :class="`select ${active ? 'active' : ''}`" @click="showOptions">
+  <div :class="[type === 'operator' ? 'select-box-operator' : 'select-box']">
+    <div ref="button" :class="`select ${active ? 'active' : ''}`" @click="active = !active">
       <div class="selected">
         <div class="label">
-          <span class="primary">{{ primaryText }}</span>
-          <span class="secondary">{{ secondaryText }}</span>
+          <span class="primary">{{ value.primaryText }}</span>
+          <font-awesome-icon class="icon sort-down" icon="sort-down" />
         </div>
-        <font-awesome-icon class="icon" icon="sort-down" />
+        <span :class="`value ${value.secondaryText}`">{{ value.secondaryText }}</span>
       </div>
     </div>
-    <div :class="`options ${active ? 'active' : ''}`">
+    <div
+      :class="`options ${active ? 'active' : ''}`"
+      v-show="active"
+      v-closable="{ exclude: ['button'], handler: 'onClose' }"
+    >
       <div
         v-for="option in options"
         :key="option.value"
@@ -17,59 +21,203 @@
         @click="() => selectOption(option)"
       >
         <span class="primary">{{ option.primaryText }}</span>
-        <span class="value">{{ option.secondaryText }}</span>
+        <span :class="`value ${option.secondaryText}`">
+          {{ option.secondaryText }}
+        </span>
       </div>
     </div>
-    <select v-model="value" class="hidden">
+    <!-- {{ value }}
+    <select v-model="selectValue" class="hidden">
       <option v-for="option in options" :value="option.value" :key="option.value">
-        {{ option.value }}
+        {{ option.primaryText }}
       </option>
-    </select>
+    </select> -->
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'Select',
   data() {
     return {
-      value: '',
       primaryText: '',
       secondaryText: '',
       active: false,
     }
   },
-  watch: {
-    value(value) {
-      this.$emit('input', value)
-      this.$emit('change', value)
-    },
-  },
-  beforeMount() {
-    const defaultOption = this.options.find(option => option.selectedByDefault) || this.options[0]
-    this.selectOption(defaultOption)
-  },
+  // watch: {
+  //   selectValue(newValue, oldValue) {
+  //     console.log('newVal', newValue)
+  //     console.log('oldValue', oldValue)
+
+  //     this.$emit('input', newValue)
+  //   },
+  // },
   props: {
+    value: Object,
     options: Array,
+    type: String,
+  },
+  computed: {
+    // selectValue: {
+    //   get() {
+    //     return this.value
+    //   },
+    //   // eslint-disable-next-line
+    //   set(selectValue) {
+    //     console.log('Setting local---->...', selectValue)
+    //     this.$emit('input', selectValue)
+    //   },
+    // },
   },
   methods: {
-    showOptions() {
-      this.active = !this.active
+    onClose() {
+      this.active = false
     },
     selectOption(option) {
-      this.value = option.value
-      this.primaryText = option.primaryText
-      this.secondaryText = option.secondaryText
+      // this.value = option.value
+      // this.primaryText = option.primaryText
+      // this.secondaryText = option.secondaryText
       this.active = false
+      this.$emit('input', option)
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.hidden {
-  display: none;
+@import '@/styles/_colors.scss';
+@import '@/styles/fonts.scss';
+
+//as-OPERATOR
+.select-box-operator {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  height: 42px;
+
+  .select {
+    z-index: 1;
+    min-height: 35px;
+    align-items: center;
+    background: #c5c2c2;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    display: flex;
+    min-width: min-content;
+    padding: 0 12px 0 16px;
+    font-weight: normal;
+
+    &.active,
+    &:hover {
+      background: #c5c2c2a9;
+      color: rgb(255, 255, 255);
+    }
+
+    .selected {
+      align-items: baseline;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 50px;
+      align-items: center;
+
+      .label {
+        display: flex;
+        width: 100%;
+        align-content: center;
+        text-align: center;
+
+        .primary {
+          margin-right: 16px;
+        }
+        .sort-down {
+          font-size: 16px;
+          margin: 0;
+        }
+      }
+      .icon {
+        margin: 10px;
+        font-size: 15px;
+      }
+    }
+  }
+  .options {
+    z-index: 2;
+    display: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    &.active {
+      display: block;
+    }
+    .option {
+      align-items: center;
+      background: #f0f0f0;
+      border-bottom: 1px solid white;
+      color: #949494;
+      display: flex;
+      height: 40px;
+      justify-content: space-between;
+      padding: 20px;
+      font-weight: normal;
+    }
+  }
 }
+.value {
+  font-size: 16px;
+  padding: 6px;
+  border-radius: 2px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  &.string {
+    background-color: #c0abfa80;
+  }
+  &.mixed {
+    background-color: #2e6ff280;
+  }
+  &.boolean {
+    background-color: #aed58180;
+  }
+  &.int {
+    background-color: #4fc3f780;
+  }
+  &.float {
+    background-color: #e5737380;
+  }
+  &.array {
+    background-color: #f0629280;
+  }
+  &.map {
+    background-color: #f22ea480;
+  }
+  &.null {
+    background-color: #ba68c880;
+  }
+  &.result {
+    background-color: #9575cd80;
+  }
+  &.bytes {
+    background-color: #7986cb80;
+  }
+  &.boolean {
+    background-color: #ff8a6580;
+  }
+  &.generic {
+    background-color: #ffb74d80;
+  }
+  &.integer {
+    background-color: #aed58180;
+  }
+}
+
+//not-an-OPERATOR
+
+// .hidden {
+//   // display: none;
+// }
 
 .select-box {
   cursor: pointer;

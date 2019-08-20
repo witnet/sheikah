@@ -18,6 +18,9 @@
     <div class="description">
       {{ description }}
     </div>
+    <div>
+      {{ date }}
+    </div>
   </div>
 </template>
 
@@ -51,6 +54,7 @@ export default {
     id: String,
     name: String,
     description: String,
+    date: Number,
   },
   methods: {
     handleCommand(index) {
