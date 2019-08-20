@@ -10,7 +10,7 @@ export function encodeDataRequest(radRequest) {
     }),
 
     aggregate: { script: [...cbor.encode(radRequest.aggregate.script)] },
-    consensus: { script: [...cbor.encode(radRequest.consensus.script)] },
+    tally: { script: [...cbor.encode(radRequest.tally.script)] },
     deliver: radRequest.deliver,
   }
 }
@@ -26,4 +26,13 @@ export function openInExternalApp(url) {
 
 export function generateId(random) {
   return random ? uuidv4(random) : uuidv4()
+}
+
+// check if contains the same elements
+export function areSoftEqualArrays(arr1, arr2) {
+  return (
+    arr1.length === arr2.length &&
+    arr1.reduce((acc, item) => (acc ? arr2.includes(item) : false), true) &&
+    arr2.reduce((acc, item) => (acc ? arr1.includes(item) : false), true)
+  )
 }

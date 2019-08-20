@@ -17,7 +17,7 @@ storiesOf('RadonQuery', module).add('RadonQuery', () => ({
       aggregate: {
         script: [0x43, 0x74, [0x61, 'weather'], 0x74, [0x61, 'temp'], 0x72],
       },
-      consensus: {
+      tally: {
         script: [0x43, 0x74, [0x61, 'weather'], 0x74, [0x61, 'temp'], 0x72],
       },
     }

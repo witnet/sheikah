@@ -1,13 +1,12 @@
 import { generateId } from '@/utils'
-import { RadonMarkupInterpreter } from '@/radon/utils'
+import { RadonMarkupInterpreter } from '@/radon'
 import Vue from 'vue'
-
-const rmi = RadonMarkupInterpreter()
 
 export default {
   state: {
     templates: {},
     currentTemplate: {},
+    currentRadonMarkupInterpreter: {},
     history: [{}],
     historyIndex: 0,
   },
@@ -17,6 +16,9 @@ export default {
     },
   },
   mutations: {
+    updateTemplate(state, { id, value }) {
+      state.currentRadonMarkupInterpreter.updateElement(id, value)
+    },
     editorRedo(state) {
       if (state.historyIndex + 1 < history.length) {
         state.historyIndex += 1
@@ -30,6 +32,7 @@ export default {
       }
     },
     updateRetrieveSource(state, { source, index }) {
+      // TODO: create a method in RadonMarkupInterpreter to update sources
       state.currentTemplate.radRequest.retrieve[index].url = source.url
       state.currentTemplate.radRequest.retrieve[index].kind = source.kind
     },
@@ -41,12 +44,8 @@ export default {
         }
       })
     },
-    pushRetrieve(state) {
-      state.currentTemplate.radRequest.retrieve.push({
-        url: '',
-        kind: 'HTTP-GET',
-        script: [],
-      })
+    addSource(state) {
+      state.currentRadonMarkupInterpreter.pushSource()
     },
     setTemplates: function(state, { templates }) {
       if (templates) {
@@ -59,46 +58,40 @@ export default {
         let name = 'template'
         return self.find(template => template.name === acc) ? name : acc
       }, 'template')
+
+      const radRequest = {
+        notBefore: 0,
+        retrieve: [
+          {
+            url: '',
+            kind: 'HTTP-GET',
+            script: [0x45],
+          },
+        ],
+        aggregate: {
+          script: [0x50],
+        },
+        tally: {
+          script: [0x50],
+        },
+      }
+
       state.currentTemplate = {
         creationDate: Date.now(),
         id: generateId(),
         name: name,
         description: '',
-        radRequest: {
-          not_before: 0,
-          retrieve: [
-            {
-              url: '',
-              kind: 'HTTP-GET',
-              script: [0x45],
-            },
-          ],
-          aggregate: {
-            script: [0x50],
-          },
-          consensus: {
-            script: [0x50],
-          },
-        },
+        radRequest,
       }
+      state.currentRadonMarkupInterpreter = new RadonMarkupInterpreter(radRequest)
     },
     setCurrentTemplate: function(state, { id }) {
-      state.currentTemplate = rmi.parseTemplate(state.templates[id])
+      const template = state.templates[id]
+      state.currentTemplate = template
+      state.currentRadonMarkupInterpreter = new RadonMarkupInterpreter(template.radRequest)
     },
     pushOperator: function(state, { stage, sourceIndex }) {
-      if (stage === 'retrieve') {
-        state.currentTemplate.radRequest[stage][sourceIndex].script.push(rmi.pushOperator())
-      }
-      if (stage === 'aggregate') {
-        state.currentTemplate.radRequest[stage].script.push(rmi.pushOperator())
-      }
-      if (stage === 'consensus') {
-        state.currentTemplate.radRequest[stage].script.push(rmi.pushOperator())
-      }
-      console.log('This comes from the Rad.js------>', state.currentTemplate.radRequest[stage].script)
-    },
-    updateTemplate: function() {
-      console.log('updating template .....')
+      state.currentRadonMarkupInterpreter.pushOperator(stage, sourceIndex)
     },
   },
   actions: {
@@ -130,6 +123,7 @@ export default {
         key: 'templates',
       })
       if (request.result) {
+        console.log(request.result.value)
         context.commit('setTemplates', { templates: request.result.value })
       } else {
         console.log(request)
