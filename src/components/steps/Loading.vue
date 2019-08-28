@@ -70,14 +70,14 @@ export default {
 .title {
   border: none;
   color: $blue-6;
-  font-size: 20px;
-  margin: 0 0 20px 0;
+  font-size: 24px;
+  margin: 0 0 24px 0;
 }
 
 .description {
   color: $blue-6;
-  font-size: 14px;
-  margin: 20px 0 0 0;
+  font-size: 16px;
+  margin: 24px 0 0 0;
 }
 
 .spinner {

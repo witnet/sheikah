@@ -67,6 +67,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
 @import '@/styles/fonts.scss';
 
 //as-OPERATOR
@@ -81,19 +82,19 @@ export default {
     z-index: 1;
     min-height: 35px;
     align-items: center;
-    background: #c5c2c2;
+    background: $grey-1;
     border-radius: 3px;
     border: none;
-    color: white;
+    color: $white;
     display: flex;
     min-width: min-content;
-    padding: 0 12px 0 16px;
+    padding: 0 8px 0 16px;
     font-weight: normal;
 
     &.active,
     &:hover {
-      background: #c5c2c2a9;
-      color: rgb(255, 255, 255);
+      background: $grey-1;
+      color: $white;
     }
 
     .selected {
@@ -119,7 +120,7 @@ export default {
         }
       }
       .icon {
-        margin: 10px;
+        margin: 8px;
         font-size: 15px;
       }
     }
@@ -128,68 +129,67 @@ export default {
     z-index: 2;
     display: none;
     border-radius: 5px;
-    margin-top: 5px;
+    margin-top: 8px;
     &.active {
       display: block;
     }
     .option {
       align-items: center;
-      background: #f0f0f0;
-      border-bottom: 1px solid white;
-      color: #949494;
+      background: $grey-0;
+      border-bottom: 1px solid $white;
+      color: $grey-3;
       display: flex;
       height: 40px;
       justify-content: space-between;
-      padding: 20px;
+      padding: 16px;
       font-weight: normal;
     }
   }
 }
 .value {
   font-size: 16px;
-  padding: 6px;
   border-radius: 2px;
   text-align: center;
-  color: rgb(0, 0, 0);
-  white-space: nowrap;
+  padding: 8px;
+  color: $black;
   &.string {
-    background-color: #c0abfa80;
+    background-color: $string;
   }
   &.mixed {
-    background-color: #2e6ff280;
+    background-color: $mixed;
   }
   &.boolean {
-    background-color: #aed58180;
+    background-color: $boolean;
   }
   &.int {
-    background-color: #4fc3f780;
+    background-color: $int;
   }
   &.float {
-    background-color: #e5737380;
+    background-color: $float;
   }
   &.array {
-    background-color: #f0629280;
+    background-color: $array;
   }
   &.map {
-    background-color: #f22ea480;
+    background-color: $map;
   }
   &.null {
-    background-color: #ba68c880;
+    background-color: $null;
   }
   &.result {
-    background-color: #9575cd80;
+    background-color: $result;
   }
   &.bytes {
-    background-color: #7986cb80;
+    background-color: $bytes;
   }
   &.boolean {
-    background-color: #ff8a6580;
+    background-color: $boolean;
   }
   &.generic {
-    background-color: #ffb74d80;
+    background-color: $generic;
   }
   &.integer {
-    background-color: #aed58180;
+    background-color: $integer;
   }
 }
 
@@ -213,17 +213,17 @@ export default {
     align-items: center;
     background: none;
     border-radius: 4px;
-    border: 1px solid #1a6cfb;
-    color: #1a6cfb;
+    border: 1px solid $blue-6;
+    color: $blue-6;
     display: flex;
     width: min-content;
     min-width: min-content;
-    padding: 0 12px 0 16px;
+    padding: 0 8px 0 16px;
 
     &.active,
     &:hover {
-      border-color: #1a6dfbb6;
-      color: #1a6cfbb6;
+      border-color: $alpha-blue-1;
+      color: $alpha-blue-1;
     }
 
     .selected {
@@ -253,16 +253,16 @@ export default {
     &.active {
       display: block;
     }
-    border-bottom: 1px solid #40a9ff;
-    border-left: 1px solid #40a9ff;
+    border-bottom: 1px solid $blue-5;
+    border-left: 1px solid $blue-5;
     border-radius: 0 0 4px 4px;
-    border-right: 1px solid #40a9ff;
+    border-right: 1px solid $blue-5;
 
     .option {
       align-items: center;
-      background: #fff;
+      background: $white;
       box-sizing: border-box;
-      color: #1a6cfb;
+      color: $blue-6;
       display: flex;
       height: 32px;
       justify-content: space-between;
@@ -270,11 +270,11 @@ export default {
       width: 100%;
 
       &:hover {
-        color: #40a9ff;
+        color: $grey-0;
       }
 
       &.selected {
-        background-color: #f9f9f9;
+        background-color: $white;
       }
     }
   }

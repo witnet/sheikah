@@ -38,6 +38,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .inputnumber {
   display: flex;
   width: max-content;
@@ -46,18 +49,17 @@ export default {
   .input {
     border-radius: 4px 0px 0px 4px;
     border-right: none;
-    outline-color: #40a9ff;
+    outline-color: $blue-5;
   }
   .increase {
-    width: 42px;
-    height: 42px;
-    font-size: 18px;
-    padding: 10px;
-    color: #ccc;
-    border: 1px solid #ccc;
+    width: 48px;
+    height: 50px;
+    padding: 16px;
+    color: $grey-1;
+    border: 1px solid $grey-1;
 
     &:hover {
-      color: #1a6cfb;
+      color: $blue-6;
     }
   }
 
@@ -65,13 +67,13 @@ export default {
     padding: 8px;
     display: flex;
     align-items: center;
-    background-color: #b3b3b3;
+    background-color: $grey-2;
     border-radius: 0 4px 4px 0;
 
     .text {
       margin: 0;
       font-weight: bold;
-      color: white;
+      color: $white;
     }
   }
 }

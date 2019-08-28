@@ -63,13 +63,13 @@ export default {
 
 .header {
   align-items: center;
-  background: linear-gradient(to right, #722ed1, #1a6cfb);
+  background: $sheikah-gradient;
   display: flex;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 100;
   height: 100px;
-  padding: 0 20px;
-  color: #ececec;
+  padding: 0 24px;
+  color: $grey-1;
 }
 
 .create-wallet-text {
@@ -77,7 +77,7 @@ export default {
 }
 
 .options {
-  margin-top: 30px;
+  margin-top: 32px;
 
   .router-link-active {
     text-decoration: none;
@@ -89,11 +89,11 @@ export default {
 }
 
 .create-wallet-option {
-  margin: 10px 0;
+  margin: 16px 0;
   width: 100%;
 }
 
 .recommended-text {
-  color: $grey-7;
+  color: $grey-3;
 }
 </style>

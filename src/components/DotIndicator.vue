@@ -24,10 +24,10 @@ export default {
 @import '@/styles/_colors.scss';
 
 .synced {
-  color: $green-7;
+  color: $green;
 }
 
 .error {
-  color: $red-5;
+  color: $red-1;
 }
 </style>

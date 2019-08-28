@@ -56,13 +56,13 @@ export default {
   width: 600px;
 
   .header {
-    background: linear-gradient(to right, #722ed1, #1a6cfb);
-    padding: 0 20px;
+    background: $sheikah-gradient;
+    padding: 0 24px;
     align-items: center;
-    color: #f9f9f9;
+    color: $white;
     display: flex;
     flex-flow: row nowrap;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 100;
     height: 100px;
   }
@@ -70,13 +70,13 @@ export default {
   .content {
     font-size: 16px;
     height: 389px;
-    padding: 30px;
-    border: 1px solid #ececec;
+    padding: 32px;
+    border: 1px solid $grey-0;
   }
 
   .navigation-buttons {
-    border-left: 1px solid #ececec;
-    border-bottom: 1px solid #ececec;
+    border-left: 1px solid $grey-0;
+    border-bottom: 1px solid $grey-0;
   }
 }
 </style>

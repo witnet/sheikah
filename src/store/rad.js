@@ -27,7 +27,7 @@ export default {
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     editorRedo(state) {
-      if (state.historyIndex + 1 < history.length) {
+      if (state.historyIndex + 1 < state.history.length) {
         state.historyIndex += 1
         state.currentRadonMarkupInterpreter = RadonMarkupInterpreter(history[state.historyIndex])
       }
@@ -95,6 +95,7 @@ export default {
     setCurrentTemplate: function(state, { id }) {
       const template = state.templates[id]
       state.currentTemplate = template
+      console.log('setCurrentTemplate()------>', state.currentTemplate)
       state.currentRadonMarkupInterpreter = new RadonMarkupInterpreter(template.radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
@@ -107,6 +108,7 @@ export default {
     saveTemplate: async function(context, args) {
       let templates = context.state.templates
       const templateToSave = args ? args.template : context.state.currentTemplate
+      console.log('TEMPLATE TO SAVE------>', templateToSave)
       if (!templateToSave.id) {
         templateToSave.id = generateId()
       }

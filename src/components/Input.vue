@@ -67,13 +67,13 @@ export default {
   }
 
   &.default {
-    background-color: #fff;
+    background-color: $white;
     border-radius: 4px;
-    border: 1px solid #ccc;
-    color: #777;
-    font-size: 14px;
+    border: 1px solid $grey-1;
+    color: $grey-4;
+    font-size: 16px;
     line-height: 32px;
-    padding: 4px 12px;
+    padding: 8px 16px;
   }
 
   &.underlined {

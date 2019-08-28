@@ -52,10 +52,10 @@ export default {
   .label {
     font-size: 16px;
     font-weight: 600;
-    color: #808080ff;
+    color: $grey-4;
   }
   .number {
-    font-size: 14px;
+    font-size: 16px;
     color: $grey-5;
     margin-left: 8px;
   }
@@ -68,21 +68,21 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 24px;
     .no-transactions-text {
-      font-size: 12px;
+      font-size: 8px;
       font-weight: 400;
       font-style: italic;
       color: $grey-5;
     }
     .no-transactions-img {
       width: 36px;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     }
   }
 
   .title {
-    margin-bottom: 10px;
+    margin-bottom: 16px;
   }
 }
 </style>
