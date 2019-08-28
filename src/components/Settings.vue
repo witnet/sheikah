@@ -32,15 +32,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .el-dropdown-menu {
-  padding: 5px 0;
+  padding: 8px 0;
 }
 .el-dropdown-menu__item {
-  padding: 0px 10px;
+  padding: 0px 8px;
   font-weight: bold;
-  color: #909090;
+  color: $grey-3;
   &:not(.is-disabled):hover {
-    color: #1a6cfb;
+    color: $blue-6;
     font-weight: bold;
   }
 }

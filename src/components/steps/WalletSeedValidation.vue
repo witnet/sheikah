@@ -75,13 +75,13 @@ export default {
   font-size: 16px;
   line-break: auto;
   line-height: 1.5em;
-  margin: 30px 0;
-  padding: 15px;
+  margin: 32px 0;
+  padding: 16px;
   width: 100%;
   margin-top: 40px;
 }
 
 .paragraph {
-  margin-top: 15px;
+  margin-top: 16px;
 }
 </style>

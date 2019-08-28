@@ -36,7 +36,7 @@ export default {
     text-align: left;
   }
   .dot-status {
-    margin-right: 15px;
+    margin-right: 24px;
   }
 }
 
@@ -44,7 +44,6 @@ export default {
   font-size: $icon_status-font_size;
   display: flex;
   align-items: center;
-  padding: 0.4em 0.4em 0 0;
 
   .label {
     color: $sidebar-mainnet-color;
@@ -54,7 +53,7 @@ export default {
   .status {
     color: $sidebar-synced-color;
     font-weight: $sidebar-synced-font_weight;
-    padding: 0.6em;
+    padding: 8px;
   }
 }
 </style>

@@ -10,7 +10,7 @@ export function encodeDataRequest(radRequest) {
     }),
 
     aggregate: { script: [...cbor.encode(radRequest.aggregate.script)] },
-    consensus: { script: [...cbor.encode(radRequest.consensus.script)] },
+    tally: { script: [...cbor.encode(radRequest.tally.script)] },
     deliver: radRequest.deliver,
   }
 }

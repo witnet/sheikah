@@ -43,7 +43,7 @@ export default {
 
 .wallet-list {
   .text {
-    margin-bottom: 30px;
+    margin-bottom: 32px;
   }
 
   .list {
@@ -60,17 +60,17 @@ export default {
     }
 
     .option {
-      background: white;
+      background: $white;
       border-radius: 3px;
-      border: 1px solid #ececec;
-      color: #4d4d4d;
+      border: 1px solid $grey-0;
+      color: $grey-5;
       cursor: pointer;
       display: flex;
       flex-direction: row;
       height: 60px;
       justify-content: space-between;
-      margin-bottom: 10px;
-      padding: 0 20px;
+      margin-bottom: 16px;
+      padding: 0 24px;
       width: 100%;
 
       &:hover {

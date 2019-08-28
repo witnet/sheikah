@@ -39,13 +39,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .balances {
   min-width: 300px;
 
   .header {
-    border-bottom: 1px solid #b3b3b3;
+    border-bottom: 1px solid $grey-0;
     margin-bottom: 24px;
-    color: #808080;
+    color: $grey-4;
     font-weight: bold;
   }
 
@@ -56,18 +59,18 @@ export default {
     justify-content: space-between;
 
     .label {
-      color: #4d4d4d;
+      color: $grey-5;
       margin-right: 16px;
     }
 
     .value {
       font-weight: bold;
-      font-size: 18px;
-      color: #4d4d4d;
+      font-size: 16px;
+      color: $grey-5;
       .currency {
-        margin-left: 4px;
-        font-size: 12px;
-        color: #b3b3b3;
+        margin-left: 8px;
+        font-size: 8px;
+        color: $grey-4;
       }
     }
   }

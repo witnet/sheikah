@@ -29,8 +29,13 @@ export default {
     transactions: [],
     walletInfos: [],
     walletLocked: false,
+    // windowWidth: window.innerWidth,
   },
   mutations: {
+    // setWindowWidth(state) {
+    //   state.windowWidth = window.innerWidth
+    //   console.log('comes from the state--->', state.windowWidth)
+    // },
     deleteSession(state) {
       state.sessionId = null
       state.walletId = null

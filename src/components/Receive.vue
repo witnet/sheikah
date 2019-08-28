@@ -80,6 +80,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .receive {
   padding: 32px;
   display: flex;
@@ -89,29 +92,29 @@ export default {
     width: 300px;
 
     .title {
-      font-size: 18px;
+      font-size: 24px;
       font-weight: bold;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     .paragraph {
       font-weight: lighter;
       font-style: italic;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
   }
 
   .card {
     max-width: 400px;
     min-width: 400px;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 
     .address {
       text-align: center;
       width: 100%;
-      border-bottom: 1px solid #ececec;
-      padding: 10px;
-      color: black;
+      border-bottom: 1px solid $grey-0;
+      padding: 16px;
+      color: $black;
       font-weight: 500;
     }
 
@@ -134,7 +137,7 @@ export default {
       }
 
       .submit {
-        margin-top: 20px;
+        margin-top: 24px;
         width: 100%;
         text-align: right;
       }
@@ -147,7 +150,7 @@ export default {
     flex-direction: column-reverse;
 
     .text {
-      margin-bottom: 10px;
+      margin-bottom: 16px;
       width: 100%;
     }
   }

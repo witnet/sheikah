@@ -66,62 +66,62 @@ export default {
     }
 
     .number {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
     }
 
     .from {
-      color: $green-6;
+      color: $green;
     }
 
     .to {
-      color: $red-6;
+      color: $red-3;
     }
 
     .wit {
-      margin-left: 4px;
-      color: $grey-6;
-      font-size: 14px;
+      margin-left: 8px;
+      color: $grey-5;
+      font-size: 16px;
       font-weight: 600;
     }
   }
 
   .address {
     .origin {
-      font-size: 14px;
-      color: $grey-8;
+      font-size: 16px;
+      color: $grey-5;
       font-weight: 600;
 
       .label {
-        margin-right: 4px;
+        margin-right: 8px;
         font-weight: 600;
-        color: $grey-7;
+        color: $grey-3;
       }
 
       &.from {
-        color: $green-6;
+        color: $green;
       }
 
       &.to {
-        color: $red-6;
+        color: $red-3;
       }
     }
 
     .address-number {
-      color: $grey-8;
+      color: $grey-5;
       font-size: 16px;
     }
   }
 
   .date {
-    color: $grey-8;
-    font-size: 14px;
+    color: $grey-5;
+    font-size: 16px;
     font-weight: 600;
   }
 
   .block {
     color: $grey-5;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
   }
 }

@@ -39,11 +39,11 @@ export default {
 .dashed,
 .positive {
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   height: 42px;
   line-height: 1.5;
-  padding: 0 15px;
+  padding: 0 16px;
   text-align: center;
   transition: all 0.25s;
   border: none;
@@ -59,9 +59,9 @@ export default {
 }
 
 .default {
-  background-color: $grey-4;
-  border: 1px solid $grey-4;
-  color: $grey-8;
+  background-color: $white;
+  border: 1px solid $blue-6;
+  color: $blue-6;
 
   &:active {
     border: 1px solid $blue-6;
@@ -71,7 +71,7 @@ export default {
 
 .primary {
   background-color: $blue-6;
-  color: $grey-1;
+  color: $white;
 
   &:active {
     background-color: $blue-5;
@@ -80,20 +80,20 @@ export default {
 }
 
 .danger {
-  background-color: $red-6;
+  background-color: $red-3;
   color: $grey-3;
 
   &:active {
     background-color: $grey-3;
-    border-color: $red-5;
-    color: $red-5;
+    border-color: $red-1;
+    color: $red-1;
   }
 }
 
 .dashed {
   background: $grey-1;
   border: 1px dashed $grey-5;
-  color: $grey-8;
+  color: $grey-5;
 
   &:active {
     border: 1px dashed $blue-5;
@@ -102,19 +102,19 @@ export default {
 }
 
 .positive {
-  background-color: $green-7;
+  background-color: $green;
   color: $grey-1;
 
   &:active {
-    background-color: $green-5;
-    border-color: $green-5;
+    background-color: $green;
+    border-color: $green;
     color: $grey-1;
   }
 }
 
 .option {
   align-items: center;
-  background: $button_option-background;
+  background: $white;
   border: $button_option-border;
   color: $button_option-color;
   cursor: pointer;
@@ -124,10 +124,10 @@ export default {
   height: 65px;
   justify-content: space-between;
   outline: inherit;
-  padding: 0 20px;
+  padding: 0 24px;
   width: 450px;
   &:hover {
-    border-color: #9999;
+    border-color: $grey-4;
   }
 
   &:active {

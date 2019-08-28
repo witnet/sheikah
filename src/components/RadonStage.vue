@@ -1,5 +1,5 @@
 <template>
-  <div class="" v-if="stage === 'retrieve'">
+  <div class v-if="stage === 'retrieve'">
     <Carousel
       :sources="
         script.map((x, index) => {
@@ -20,15 +20,10 @@
     <p class="error" v-show="error.aggregate">There is an error in the aggregate stage</p>
   </div>
 
-  <div v-else-if="stage === 'consensus'">
-    <p>Consensus</p>
-    <RadonScript
-      class="script"
-      v-show="!error.consensus"
-      stage="consensus"
-      :script="script.script"
-    />
-    <p class="error" v-show="error.consensus">There is an error in the consensus stage</p>
+  <div v-else-if="stage === 'tally'">
+    <p>tally</p>
+    <RadonScript class="script" v-show="!error.tally" stage="tally" :script="script.script" />
+    <p class="error" v-show="error.tally">There is an error in the tally stage</p>
   </div>
 </template>
 
@@ -47,11 +42,12 @@ export default {
     script: [Array, Object],
   },
   data() {
+    console.log('script------>', this.script[0].script)
     return {
       error: {
         retrieve: false,
         aggregate: false,
-        consensus: false,
+        tally: false,
       },
     }
   },
@@ -67,7 +63,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
 @import '@/styles/fonts.scss';
+
 .script {
   width: 300px;
 }
@@ -89,7 +88,7 @@ export default {
   font-size: $font-size-30;
   font-weight: 200;
   color: lightgrey;
-  margin: 10px 0;
+  margin: 16px 0;
 }
 
 .add-source {
@@ -99,7 +98,7 @@ export default {
   font-weight: 800;
   height: 26px;
   line-height: 0%;
-  padding: 0 5px;
+  padding: 0 8px;
 
   &:hover {
     color: lightgray;
@@ -108,7 +107,7 @@ export default {
 }
 
 .source {
-  margin: 0 10px 10px 0;
+  margin: 0 16px 16px 0;
 }
 
 .header {
@@ -128,9 +127,9 @@ export default {
     }
 
     .number {
-      color: #1a6cfb;
+      color: $blue-6;
       font-weight: 800;
-      font-size: 18px;
+      font-size: 16px;
     }
   }
 
@@ -143,9 +142,9 @@ export default {
     border-radius: 4px;
     font-size: 16px;
     font-weight: 400;
-    background-color: #d2dffb;
-    color: #4d4d4d;
-    border: 1px solid #d2dffb;
+    background-color: $blue-1;
+    color: $grey-5;
+    border: 1px solid $blue-0;
     width: 100%;
     padding: 8px;
   }
@@ -157,13 +156,13 @@ export default {
 
 .sources {
   display: flex;
-  margin: 10px;
+  margin: 16px;
 }
 
 .column {
   display: flex;
   flex-flow: column nowrap;
-  margin: 20px;
+  margin: 24px;
 }
 
 .textarea {
@@ -200,10 +199,10 @@ export default {
 }
 .circle.plus:before {
   width: 2px;
-  margin: 3px auto;
+  margin: 8px auto;
 }
 .circle.plus:after {
-  margin: auto 3px;
+  margin: auto 8px;
   height: 2px;
   box-shadow: none;
 }

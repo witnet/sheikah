@@ -61,6 +61,7 @@ export default {
       this.options[index].action()
     },
     setCurrentTemplate() {
+      console.log(1)
       this.$store.commit('setCurrentTemplate', { id: this.id })
     },
     deleteTemplate() {
@@ -71,6 +72,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .button-options {
   background-color: transparent;
   border: none;
@@ -81,14 +85,14 @@ export default {
   }
 }
 .el-dropdown-menu {
-  padding: 5px 0;
+  padding: 8px 0;
   font-weight: bold;
   .el-dropdown-menu__item:not(.is-disabled):hover {
-    color: #1a6cfb;
+    color: $blue-6;
   }
   .el-dropdown-menu__item:last-of-type:hover {
-    background-color: rgba(250, 115, 115, 0.205);
-    color: rgb(194, 60, 60);
+    background-color: $alpha-red;
+    color: $red-2;
   }
 }
 .el-button--primary:focus,
@@ -99,23 +103,23 @@ export default {
 }
 .card-layout {
   box-shadow: 1px 3px 11px 0px rgba(158, 158, 158, 0.445);
-  margin: 30px;
-  padding: 20px;
+  margin: 24px;
+  padding: 16px;
   min-width: 250px;
-  background-color: #ecf5ff67;
+  background-color: $alpha-blue;
   &.option-btn,
   .title,
   .description {
     flex: 1 400px;
-    padding: 20px;
+    padding: 24px;
   }
   .title {
-    font-size: 20px;
-    color: black;
+    font-size: 24px;
+    color: $black;
     padding-top: 0px;
   }
   .description {
-    color: rgb(102, 101, 101);
+    color: $grey-4;
     line-height: 1.5em;
   }
   .option-btn {

@@ -1,292 +1,292 @@
 @import "./colors";
 
-// COMMON
-$background-color: $grey-2;
+// // COMMON
 $default-box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
-$default-box-shadow-active: 0 1px 5px 1px rgba(0, 0, 0, 0.15);
-$error-color: $red-5;
-$font-color-dark: $grey-9;
-$font-color-light: $grey-7;
+$font-color-dark: $grey-6;
+$font-color-light: $grey-3;
 $sheikah-gradient: linear-gradient(to right, $purple-6, $blue-6);
-$success-color: $green-7;
-$timelocked-color: $geekblue-4;
-$warning-color: $gold-6;
+// // $background-color: $grey-2;
+// // $default-box-shadow-active: 0 1px 5px 1px rgba(0, 0, 0, 0.15);
+// // $error-color: $red-5;
+// // $success-color: $green-7;
+// // $timelocked-color: $geekblue-4;
+// // $warning-color: $gold-6;
 
-// ALERT
-$alert-color: $yellow-8;
-$alert-gradient: linear-gradient(to right, $yellow-3, $grey-2);
+// // // ALERT
+// // $alert-color: $yellow-8;
+// // $alert-gradient: linear-gradient(to right, $yellow-3, $grey-2);
 
-//BALANCES
-$balances-number-color: $grey-8;
-$balances-number-font_size: 16px;
-$balances-number-font_weight: 200;
-$balances-text-color: $grey-8;
-$balances-text-font_size: 16px;
-$balances-text-font_weight: 200;
-$balances-wit-color: $grey-6;
-$balances-wit-font_size: 14px;
-$balances-wit-font_weight: 600;
+// // //BALANCES
+// // $balances-number-color: $grey-8;
+// // $balances-number-font_size: 16px;
+// // $balances-number-font_weight: 200;
+// // $balances-text-color: $grey-8;
+// // $balances-text-font_size: 16px;
+// // $balances-text-font_weight: 200;
+// // $balances-wit-color: $grey-6;
+// // $balances-wit-font_size: 14px;
+// // $balances-wit-font_weight: 600;
 
-// BUTTON
-// BUTTON_ACTION
-$button_action-background-color: $blue-6;
-$button_action-background: $button_action-background-color;
-$button_action-border_color: $button_action-background-color;
-$button_action-border_radius: 4px;
-$button_action-border: 0;
-$button_action-color: $grey-1;
-$button_action-disabled-background-color: $grey-4;
-$button_action-disabled-background: $button_action-disabled-background-color;
-$button_action-disabled-border_color: $button_action-disabled-background-color;
-$button_action-disabled-color: $button_action-color;
-$button_action-focus-background-color: $button_action-color;
-$button_action-focus-background: $button_action-focus-background-color;
-$button_action-focus-border_color: $button_action-focus-background-color;
-$button_action-focus-color: $button_action-background-color;
-$button_action-font_weight: 600;
-$button_action-line_height: 1;
-$button_action-padding: 12px 15px 25px 15px;
-$button_action-shadow: $default-box-shadow;
+// // // BUTTON
+// // // BUTTON_ACTION
+// // $button_action-background-color: $blue-6;
+// // $button_action-background: $button_action-background-color;
+// // $button_action-border_color: $button_action-background-color;
+// // $button_action-border_radius: 4px;
+// // $button_action-border: 0;
+// // $button_action-color: $grey-1;
+// // $button_action-disabled-background-color: $grey-4;
+// // $button_action-disabled-background: $button_action-disabled-background-color;
+// // $button_action-disabled-border_color: $button_action-disabled-background-color;
+// // $button_action-disabled-color: $button_action-color;
+// // $button_action-focus-background-color: $button_action-color;
+// // $button_action-focus-background: $button_action-focus-background-color;
+// // $button_action-focus-border_color: $button_action-focus-background-color;
+// // $button_action-focus-color: $button_action-background-color;
+// // $button_action-font_weight: 600;
+// // $button_action-line_height: 1;
+// // $button_action-padding: 12px 15px 25px 15px;
+// // $button_action-shadow: $default-box-shadow;
 
-// BUTTON_LINK
-$button_link-background: none;
-$button_link-border: 0;
-$button_link-color: $blue-6;
-$button_link-height: auto;
-$button_link-width: auto;
+// // // BUTTON_LINK
+// // $button_link-background: none;
+// // $button_link-border: 0;
+// // $button_link-color: $blue-6;
+// // $button_link-height: auto;
+// // $button_link-width: auto;
 
-// BUTTON_NAVIGATION
-$button_navigation-background: $grey-1;
-$button_navigation-border-color: $grey-4;
+// // // BUTTON_NAVIGATION
+$button_navigation-background: $white;
+$button_navigation-border-color: $grey-0;
 $button_navigation-border-style: solid;
 $button_navigation-border-width: 1px;
-$button_navigation-color: $grey-8;
+$button_navigation-color: $grey-5;
 $button_navigation-height: 100%;
 $button_navigation-hover-background: $grey-2;
 $button_navigation-width: auto;
 
-// BUTTON_OPTION
-$button_option-active-background: $grey-2;
+// // // BUTTON_OPTION
+$button_option-active-background: $white;
 $button_option-active-border-color: $blue-5;
 $button_option-active-box-shadow: 0 1px 5px 0 $blue-3;
 $button_option-active-color: $blue-6;
-$button_option-background: $grey-1;
-$button_option-border-color: $grey-4;
+$button_option-background: $white;
+$button_option-border-color: $white;
 $button_option-border-style: solid;
 $button_option-border-width: 1px;
 $button_option-border: $button_option-border-width $button_option-border-style $button_option-border-color;
-$button_option-color: $grey-8;
+$button_option-color: $grey-5;
 $button_option-hover-border-color: $blue-4;
 $button_option-hover-box-shadow: 0 1px 5px 0 $blue-2;
 $button_option-hover-color: $blue-5;
 
-//CARD
-//CARD DEFAULT
-$card_default-padding: 40px;
-$card_default-shadow: $default-box-shadow;
+// // //CARD
+// // //CARD DEFAULT
+// // $card_default-padding: 40px;
+// // $card_default-shadow: $default-box-shadow;
 
-// DOT INDICATOR
-$dot_indicator-negative-color: $red-5;
-$dot_indicator-neutral-color: $geekblue-4;
-$dot_indicator-positive-color: $green-5;
-$dot_indicator-warning-color: $gold-3;
+// // // DOT INDICATOR
+// // $dot_indicator-negative-color: $red-5;
+// // $dot_indicator-neutral-color: $geekblue-4;
+// // $dot_indicator-positive-color: $green-5;
+// // $dot_indicator-warning-color: $gold-3;
 
-// DROPDOWN
-$dropdown-border-color: $grey-4;
-$dropdown-color: $grey-4;
-$dropdown-height: 20px;
-$dropdown-interactive-color: $blue-6;
-$dropdown-item-border: 1px solid rgba(26, 108, 255, 0.2);
-$dropdown-menu-background: $grey-1;
-$dropdown-menu-border: 1px solid $blue-6;
-$dropdown-width: 40px;
+// // // DROPDOWN
+// // $dropdown-border-color: $grey-4;
+// // $dropdown-color: $grey-4;
+// // $dropdown-height: 20px;
+// // $dropdown-interactive-color: $blue-6;
+// // $dropdown-item-border: 1px solid rgba(26, 108, 255, 0.2);
+// // $dropdown-menu-background: $grey-1;
+// // $dropdown-menu-border: 1px solid $blue-6;
+// // $dropdown-width: 40px;
 
-// EMPTY STATE
-$empty_state-font_size: 16px;
-$empty_state-font_weight: 200;
-$empty_state-height: 120px;
+// // // EMPTY STATE
+// // $empty_state-font_size: 16px;
+// // $empty_state-font_weight: 200;
+// // $empty_state-height: 120px;
 
-// FORMS
-// FORM_LOGIN
-$form_login-link-height: 60px;
-$form_login-links-height: 240px;
-$form_login-scrollbar-track-background: $grey-2;
-$form_login-scrollbar-thumb_hover-background: $grey-6;
-$form_login-scrollbar-thumb-background: $grey-5;
-$form_login-scrollbar-width: 10px;
-$form_login-text-color: $grey-8;
+// // // FORMS
+// // // FORM_LOGIN
+// // $form_login-link-height: 60px;
+// // $form_login-links-height: 240px;
+// // $form_login-scrollbar-track-background: $grey-2;
+// // $form_login-scrollbar-thumb_hover-background: $grey-6;
+// // $form_login-scrollbar-thumb-background: $grey-5;
+// // $form_login-scrollbar-width: 10px;
+// // $form_login-text-color: $grey-8;
 
-// FORM_WALLET
-$form_wallet-alert_color: $gold-7;
-$form_wallet-alert-font_weight: bold;
+// // // FORM_WALLET
+// // $form_wallet-alert_color: $gold-7;
+// // $form_wallet-alert-font_weight: bold;
 
-// ICON
+// // // ICON
 $icon-settings-font_size: 14px;
 $icon_status-font_size: 12px;
 
-// INPUT
-$input-padding: 22px 15px;
+// // // INPUT
+// // $input-padding: 22px 15px;
 
-//INPUT BIG
+// // //INPUT BIG
 $input_big-border-radius: 2px;
-$input_big-border: 2px dashed $grey-4;
+$input_big-border: 2px dashed $grey-1;
 $input_big-color: $font-color-light;
-$input_big-hover-border: 2px dashed $blue-4 !important;
+$input_big-hover-border: 2px dashed $blue-6 !important;
 $input_big-hover-box-shadow: $button_option-hover-box-shadow;
 $input_big-width: 100%;
 
-// INPUT UNDERLINED
-$input_underlined-border: 1px solid $grey-7;
-$input_underlined-color: $grey-7;
+// // // INPUT UNDERLINED
+$input_underlined-border: 1px solid $grey-3;
+$input_underlined-color: $grey-3;
 
-// LOADING MODAL
-$loading_modal-background: $grey-1;
-$loading_modal-description-color: $blue-6;
-$loading_modal-description-font_size: 14px;
-$loading_modal-height: 100%;
-$loading_modal-title-color: $blue-6;
-$loading_modal-title-font-size: 20px;
-$loading_modal-width: 100%;
+// // // LOADING MODAL
+// // $loading_modal-background: $grey-1;
+// // $loading_modal-description-color: $blue-6;
+// // $loading_modal-description-font_size: 14px;
+// // $loading_modal-height: 100%;
+// // $loading_modal-title-color: $blue-6;
+// // $loading_modal-title-font-size: 20px;
+// // $loading_modal-width: 100%;
 
-// MARKETPLACE
-$marketplace-header-background: $blue-4;
-$marketplace-header-color: $grey-1;
-$marketplace-header-height: 180px;
-$marketplace-header-literal_sheikah: $purple-6;
-$marketplace-subtitle-font_size: 24px;
-$marketplace-title-font_size: 64px;
-$marketplace-title-font_weight: 600;
+// // // MARKETPLACE
+// // $marketplace-header-background: $blue-4;
+// // $marketplace-header-color: $grey-1;
+// // $marketplace-header-height: 180px;
+// // $marketplace-header-literal_sheikah: $purple-6;
+// // $marketplace-subtitle-font_size: 24px;
+// // $marketplace-title-font_size: 64px;
+// // $marketplace-title-font_weight: 600;
 
-// PAYMENT REQUEST
-$payment_request-border: 1px solid $grey-4;
-$payment_request-date-color: $grey-7;
-$payment_request-date-font_size: 14px;
-$payment_request-address-color: $grey-7;
-$payment_request-address-font_size: 12px;
-$payment_request-label-color: $grey-8;
-$payment_request-label-font_size: 16px;
-$payment_request-status-color: $grey-7;
-$payment_request-status-font_size: 14px;
-$payment_request-wit-color: $grey-8;
-$payment_request-wit-font_size: 14px;
-$payment_request-wit-font_weight: 600;
+// // // PAYMENT REQUEST
+// // $payment_request-border: 1px solid $grey-4;
+// // $payment_request-date-color: $grey-7;
+// // $payment_request-date-font_size: 14px;
+// // $payment_request-address-color: $grey-7;
+// // $payment_request-address-font_size: 12px;
+// // $payment_request-label-color: $grey-8;
+// // $payment_request-label-font_size: 16px;
+// // $payment_request-status-color: $grey-7;
+// // $payment_request-status-font_size: 14px;
+// // $payment_request-wit-color: $grey-8;
+// // $payment_request-wit-font_size: 14px;
+// // $payment_request-wit-font_weight: 600;
 
-// SELECT
-$select_fees-number-color: $grey-6;
-$select_fees-number-font_size: 15px;
-$select_fees-text-color: $grey-7;
-$select_fees-text-font_size: 16px;
+// // // SELECT
+// // $select_fees-number-color: $grey-6;
+// // $select_fees-number-font_size: 15px;
+// // $select_fees-text-color: $grey-7;
+// // $select_fees-text-font_size: 16px;
 
-// SIDEBAR
-$sidebar-inactive-border: 5px solid $grey-1;
+// // // SIDEBAR
+$sidebar-inactive-border: 5px solid $white;
 $sidebar-active-border: 5px solid $blue-6;
 $sidebar-active-color: $blue-6;
-$sidebar-current_wallet-color: $grey-1;
-$sidebar-label-color: $grey-6;
+$sidebar-current_wallet-color: $white;
+$sidebar-label-color: $grey-2;
 $sidebar-label-font_size: 9px;
-$sidebar-link-color: $grey-7;
+$sidebar-link-color: $grey-3;
 $sidebar-link-font_size: 16px;
 $sidebar-link-font_weight: 700;
 $sidebar-logo-width: 125px;
-$sidebar-name-color: $grey-9;
+$sidebar-name-color: $grey-6;
 $sidebar-name-font_size: 20px;
-$sidebar-net_status-font-size: 12px;
-$sidebar-settings-border: 1px solid $grey-4;
-$sidebar-settings-icon-color: $grey-8;
+// // $sidebar-net_status-font-size: 12px;
+$sidebar-settings-border: 1px solid $grey-0;
+$sidebar-settings-icon-color: $grey-5;
 $sidebar-settings-icon-size: 20px;
-$sidebar-status-font_size: 8px;
-$sidebar-synced-color: $grey-8;
+// // $sidebar-status-font_size: 8px;
+$sidebar-synced-color: $grey-5;
 $sidebar-synced-font_weight: 700;
-$sidebar-mainnet-color: $grey-6;
+$sidebar-mainnet-color: $grey-2;
 $sidebar-mainnet-font_weight: 700;
-$sidebar-shadow: 0 0 25px 2px rgba(0, 0, 0, 0.15);
+// // $sidebar-shadow: 0 0 25px 2px rgba(0, 0, 0, 0.15);
 
-// SIDEBAR_LAYOUT
-$sidebar_layout-collapsed-width: 20px;
-$sidebar_layout-color: $grey-1;
-$sidebar_layout-content-background: $grey-1;
-$sidebar_layout-font_size: 22px;
-$sidebar_layout-icon_label-color: $grey-1;
-$sidebar_layout-icon-color: $grey-1;
+// // SIDEBAR_LAYOUT
+// // $sidebar_layout-collapsed-width: 20px;
+// // $sidebar_layout-color: $grey-1;
+// // $sidebar_layout-content-background: $grey-1;
+// // $sidebar_layout-font_size: 22px;
+// // $sidebar_layout-icon_label-color: $grey-1;
+// // $sidebar_layout-icon-color: $grey-1;
 
-// SPINNER
-$spinner-height: 80px;
-$spinner-main-border: 2px dotted $grey-5;
-$spinner-secondary-border: 3px solid $purple-6;
-$spinner-width: 80px;
+// // SPINNER
+// $spinner-height: 80px;
+// // $spinner-main-border: 2px dotted $grey-5;
+// $spinner-secondary-border: 3px solid $purple-6;
+// $spinner-width: 80px;
 
-// TAB default styles
-$tab-font_size: 14px;
-$tab-font_weight: 300;
-$tab-text-color: $grey-5;
-$tab-title-font_weight: 600;
+// // TAB default styles
+// $tab-font_size: 14px;
+// $tab-font_weight: 300;
+// // $tab-text-color: $grey-5;
+// $tab-title-font_weight: 600;
 
-//TAB_SEND
-$tab_send-info-color: $grey-5;
-$tab_send-info-font_size: 12px;
-$tab_send-info-font_weight: 200;
+// //TAB_SEND
+// // $tab_send-info-color: $grey-5;
+// $tab_send-info-font_size: 12px;
+// $tab_send-info-font_weight: 200;
 
-// TOAST
-$toast-info-background: $grey-7;
-$toast-success-background: $green-7;
-$toast-color: $grey-1;
-$toast-font_size: 14px;
-$toast-font_weight: 800;
-$toast-opacity: 0.8;
-$toast-padding: 25px 50px 25px 50px;
-$toast-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-$toast-display-anticon: none;
+// // TOAST
+// // $toast-info-background: $grey-7;
+// // $toast-success-background: $green-7;
+// // $toast-color: $grey-1;
+// $toast-font_size: 14px;
+// $toast-font_weight: 800;
+// $toast-opacity: 0.8;
+// $toast-padding: 25px 50px 25px 50px;
+// $toast-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+// $toast-display-anticon: none;
 
-// TOOLTIP
-$tooltip_title-color: $font-color-dark;
-$tooltip_title-font_size: 18px;
-$tooltip_title-font_weight: 600;
-$tooltip_text-color: $font-color-light;
-$tooltip_text-font_size: 16px;
+// // TOOLTIP
+// $tooltip_title-color: $font-color-dark;
+// $tooltip_title-font_size: 18px;
+// $tooltip_title-font_weight: 600;
+// $tooltip_text-color: $font-color-light;
+// $tooltip_text-font_size: 16px;
 
-// TOP BAR
-$top_bar-background: $grey-1;
-$top_bar-border: 1px solid $grey-5;
-$top_bar-link-active-border: 2px solid $blue-6;
-$top_bar-link-inactive-border: 2px solid $grey-1;
-$top_bar-link-active-color: $grey-8;
-$top_bar-link-default-color: $grey-5;
+// // TOP BAR
+// // $top_bar-background: $grey-1;
+// // $top_bar-border: 1px solid $grey-5;
+// // $top_bar-link-active-border: 2px solid $blue-6;
+// // $top_bar-link-inactive-border: 2px solid $grey-1;
+// // $top_bar-link-active-color: $grey-8;
+// // $top_bar-link-default-color: $grey-5;
 
-// TRANSACTION
-$transaction-address-color: $grey-8;
-$transaction-address-font_size: 16px;
-$transaction-block-color: $grey-5;
-$transaction-block-font_size: 14px;
-$transaction-block-font_weight: 600;
-$transaction-border: 1px solid $grey-4;
-$transaction-date-color: $grey-8;
-$transaction-date-font_size: 14px;
-$transaction-date-font_weight: 600;
-$transaction-number-font_size: 18px;
-$transaction-number-font_weight: 500;
-$transaction-origin-color: $grey-7;
-$transaction-origin-font_size: 14px;
-$transaction-origin-font_weight: 600;
-$transaction-status_icon-font_size : 11px;
-$transaction-angle_icon-font_size : 18px;
-$transaction-status-color: $grey-7;
-$transaction-status-font_size: 15px;
-$transaction-status-font_weight: 600;
-$transaction-timelocked-color: $timelocked-color;
-$transaction-unconfirmed-color: $warning-color;
-$transaction-vesting_time-color: $grey-5;
-$transaction-vesting_time-font_size: 14px;
-$transaction-vesting_time-font_weight: 600;
-$transaction-wit-color: $grey-6;
-$transaction-wit-font_size: 14px;
-$transaction-wit-font_weight: 600;
+// // TRANSACTION
+// // $transaction-address-color: $grey-8;
+// $transaction-address-font_size: 16px;
+// // $transaction-block-color: $grey-5;
+// $transaction-block-font_size: 14px;
+// $transaction-block-font_weight: 600;
+// // $transaction-border: 1px solid $grey-4;
+// // $transaction-date-color: $grey-8;
+// $transaction-date-font_size: 14px;
+// $transaction-date-font_weight: 600;
+// $transaction-number-font_size: 18px;
+// $transaction-number-font_weight: 500;
+// // $transaction-origin-color: $grey-7;
+// $transaction-origin-font_size: 14px;
+// $transaction-origin-font_weight: 600;
+// $transaction-status_icon-font_size : 11px;
+// $transaction-angle_icon-font_size : 18px;
+// // $transaction-status-color: $grey-7;
+// $transaction-status-font_size: 15px;
+// $transaction-status-font_weight: 600;
+// $transaction-timelocked-color: $timelocked-color;
+// $transaction-unconfirmed-color: $warning-color;
+// // $transaction-vesting_time-color: $grey-5;
+// $transaction-vesting_time-font_size: 14px;
+// $transaction-vesting_time-font_weight: 600;
+// // $transaction-wit-color: $grey-6;
+// $transaction-wit-font_size: 14px;
+// $transaction-wit-font_weight: 600;
 
-// WRAPPER
-$wrapper-caption-color: $grey-5;
-$wrapper-caption-font_size: 15px;
-$wrapper-caption-font_weight: 600;
-$wrapper-content-background: $grey-1;
-$wrapper-content-border: 1px solid $grey-3;
-$wrapper-title-color: $grey-8;
-$wrapper-title-font_size: 15px;
-$wrapper-title-font_weight: 600;
+// // WRAPPER
+// // $wrapper-caption-color: $grey-5;
+// $wrapper-caption-font_size: 15px;
+// $wrapper-caption-font_weight: 600;
+// // $wrapper-content-background: $grey-1;
+// // $wrapper-content-border: 1px solid $grey-3;
+// // $wrapper-title-color: $grey-8;
+// $wrapper-title-font_size: 15px;
+// $wrapper-title-font_weight: 600;

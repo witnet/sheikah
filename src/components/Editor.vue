@@ -26,21 +26,26 @@ export default {
   },
   computed: {
     ...mapState({
-      currentTemplate: state => state.rad.currentTemplate,
+      currentTemplate: state => {
+        console.log('current template---->', state.rad.currentTemplate)
+        return state.rad.currentTemplate.getMarkup()
+      },
     }),
     currentScript: function() {
+      console.log(2)
       if (this.currentStage === 'retrieve') {
         return this.currentTemplate.radRequest.retrieve
       } else if (this.currentStage === 'aggregate') {
         return this.currentTemplate.radRequest.aggregate.script
-      } else if (this.currentStage === 'consensus') {
-        return this.currentTemplate.radRequest.consensus.script
+      } else if (this.currentStage === 'tally') {
+        return this.currentTemplate.radRequest.tally.script
       } else {
         return null
       }
     },
   },
   data() {
+    console.log(1)
     return {
       currentStage: 'retrieve',
       tabs: [

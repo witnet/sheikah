@@ -18,23 +18,21 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
-@import '@/styles/_colors.scss';
-@import '@/styles/theme.scss';
 
 .top-bar {
-  border-bottom: 1px solid $grey-4;
+  border-bottom: 1px solid $grey-0;
   display: flex;
   flex-flow: row wrap;
   height: 64px;
   justify-content: flex-start;
-  padding-left: 20px;
+  padding-left: 24px;
 
   .link {
-    color: $grey-6;
+    color: $grey-1;
     font-weight: bold;
     height: 64px;
     line-height: 25px;
-    padding: 20px;
+    padding: 16px 24px;
     text-decoration: none;
 
     &.router-link-active {

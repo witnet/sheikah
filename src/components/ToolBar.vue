@@ -75,19 +75,19 @@ export default {
 @import '@/styles/theme.scss';
 
 .top-bar {
-  border-bottom: 1px solid $grey-4;
+  border-bottom: 1px solid $grey-0;
   display: flex;
   flex-flow: row wrap;
-  height: 64px;
+  height: 70px;
   justify-content: flex-end;
 
   .first,
   .end {
-    color: #b3b3b3;
+    color: $grey-2;
     font-family: 'Titillium Web';
     font-weight: bold;
     font-size: 1em;
-    padding: 20px;
+    padding: 16px 24px;
     background-color: transparent;
     border: none;
 
@@ -99,7 +99,7 @@ export default {
 
     &:hover {
       cursor: pointer;
-      background-color: #ecf5ff;
+      background-color: $blue-1;
     }
   }
 
@@ -109,10 +109,12 @@ export default {
 
   .back {
     margin-right: auto;
-    padding: 20px 30px 20px 30px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
 
     &:hover {
-      background-color: #ecf5ff;
+      background-color: $blue-1;
     }
 
     .back-btn {

@@ -37,7 +37,7 @@ export default {
   display: inline-block;
   width: 40px;
   height: 20px;
-  background: #ececec;
+  background: $grey-0;
   border-radius: 10px;
 
   // This class will be helpull in a future if we want to add more padding
@@ -47,18 +47,18 @@ export default {
     width: 40px;
     height: 20px;
     border-radius: 10px;
-    background-color: #ececec;
+    background-color: $grey-0;
   }
 
   .dot {
-    background-color: #fff;
+    background-color: $white;
     border-radius: 10px;
     width: 20px;
     height: 20px;
     transition: all 300ms;
 
     &.checked {
-      background-color: #1a6cfb;
+      background-color: $blue-6;
     }
   }
 

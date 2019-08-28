@@ -97,29 +97,28 @@ export default {
 <style lang="scss">
 @import '@/styles/_colors.scss';
 .templates-bar {
-  border-bottom: 1px solid $grey-4;
+  border-bottom: 1px solid $grey-0;
   display: flex;
   flex-flow: row wrap;
   height: 64px;
-  justify-content: flex-start;
-  padding-left: 50px;
+  justify-content: space-between;
+  padding-left: 48px;
   text-align: right;
 
   .title {
-    color: $grey-6;
+    color: $grey-5;
     font-weight: bold;
     height: 64px;
     line-height: 25px;
-    padding: 20px;
+    padding: 16px;
     text-decoration: none;
     border-bottom: 2px solid $blue-6;
     color: $blue-6;
   }
   .button-container {
-    width: 68vw;
-    height: 64px;
-    padding: 10px;
-    text-align: right;
+    display: flex;
+    align-items: center;
+    padding: 8px;
   }
 }
 
@@ -127,18 +126,18 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  margin: 25px;
+  margin: 24px;
 
   .card {
     flex: 0 1 calc(30% - 1em);
-    margin: 20px;
+    margin: 24px;
   }
 }
 .add {
   display: flex;
   justify-content: center;
   flex: 0 1 calc(30% - 1em);
-  margin: 20px;
+  margin: 24px;
 
   .add-btn {
     width: 50px;

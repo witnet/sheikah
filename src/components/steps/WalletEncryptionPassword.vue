@@ -91,19 +91,19 @@ export default {
 @import '@/styles/theme.scss';
 
 .error {
-  color: $red-5;
+  color: $red-1;
 }
 
 .paragraph {
-  margin-top: 10px;
-  margin-bottom: 45px;
+  margin-top: 16px;
+  margin-bottom: 40px;
 }
 
 .form-row {
   display: flex;
   max-width: 500px;
   flex-flow: row nowrap;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
   align-items: center;
 }
 

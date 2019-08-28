@@ -1,7 +1,7 @@
 /* eslint no-useless-computed-key: 0 */
 import { areSoftEqualArrays } from '@/utils'
 
-function idFactory () {
+function idFactory() {
   let counter = 0
 
   return () => {
@@ -877,15 +877,19 @@ function updateMarkup(markup, value) {
 export class RadonMarkupInterpreter {
   constructor(mir) {
     this.mir = mir
+    console.log('Inside Radon MARKUP INTERPRETER')
     this.markup = {
-      data_request: {
-        notBefore: mir.data_request.not_before,
-        retrieve: mir.data_request.retrieve.map(source => ({
-          url: source.url,
-          script: this.getSourceMarkup(source.script),
-        })),
-        aggregate: { script: this.getSourceMarkup(mir.data_request.aggregate.script) },
-        tally: { script: this.getSourceMarkup(mir.data_request.tally.script) },
+      radRequest: {
+        notBefore: mir.radRequest.notBefore,
+        retrieve: mir.radRequest.retrieve.map(source => {
+          console.log(source.script)
+          return {
+            url: source.url,
+            script: this.getSourceMarkup(source.script),
+          }
+        }),
+        aggregate: { script: this.getSourceMarkup(mir.radRequest.aggregate.script) },
+        tally: { script: this.getSourceMarkup(mir.radRequest.tally.script) },
       },
     }
   }
@@ -907,7 +911,7 @@ export class RadonMarkupInterpreter {
   }
 
   updateElement(id, value, stage) {
-    const searchAndReplace = function(currentMarkup, id, value, found) {
+    const searchAndReplace = function (currentMarkup, id, value, found) {
       if (found) {
         return updateMarkup(currentMarkup, value)
       }
@@ -927,18 +931,18 @@ export class RadonMarkupInterpreter {
       }
     }
 
-    this.markup.data_request.retrieve = this.markup.data_request.retrieve.map(soruce => {
-      return searchAndReplace(this.markup.data_request[stage].script, id, value, false)
+    this.markup.radRequest.retrieve = this.markup.radRequest.retrieve.map(soruce => {
+      return searchAndReplace(this.markup.radRequest[stage].script, id, value, false)
     })
 
-    this.markup.data_request.aggregate.script = searchAndReplace(
-      this.markup.data_request.aggregate.script,
+    this.markup.radRequest.aggregate.script = searchAndReplace(
+      this.markup.radRequest.aggregate.script,
       id,
       value,
       false
     )
-    this.markup.data_request.tally.script = searchAndReplace(
-      this.markup.data_request.tally.script,
+    this.markup.radRequest.tally.script = searchAndReplace(
+      this.markup.radRequest.tally.script,
       id,
       value,
       false
@@ -946,6 +950,7 @@ export class RadonMarkupInterpreter {
   }
 
   getSourceMarkup(source) {
+    console.log('source inside getSourceMARKUP----->', source)
     return source.map((operator, index) => {
       return Object.entries(typeSystem).reduce((acc, entry) => {
         // returns generateMarkdown([operatorName,[operatorCode, outputType] ])

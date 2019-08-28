@@ -1,8 +1,6 @@
 import { generateId } from '@/utils'
-import { RadonMarkupInterpreter } from '@/radon/utils'
+import { RadonMarkupInterpreter } from '@/radon'
 import Vue from 'vue'
-
-const rmi = RadonMarkupInterpreter()
 
 export default {
   state: {
@@ -19,7 +17,7 @@ export default {
   mutations: {
     updateTemplate(state, { id, value }) {
       state.history.push({ ...state.currentTemplate })
-      state.currentTemplate = rmi.updateTemplate(id, value)
+      state.currentTemplate.updateTemplate(id, value)
     },
     editorRedo(state) {
       if (state.historyIndex + 1 < history.length) {
@@ -63,13 +61,13 @@ export default {
         let name = 'template'
         return self.find(template => template.name === acc) ? name : acc
       }, 'template')
-      state.currentTemplate = {
+      state.currentTemplate = new RadonMarkupInterpreter({
         creationDate: Date.now(),
         id: generateId(),
         name: name,
         description: '',
         radRequest: {
-          not_before: 0,
+          notBefore: 0,
           retrieve: [
             {
               url: '',
@@ -80,29 +78,20 @@ export default {
           aggregate: {
             script: [0x50],
           },
-          consensus: {
+          tally: {
             script: [0x50],
           },
         },
-      }
+      })
     },
     setCurrentTemplate: function(state, { id }) {
-      state.currentTemplate = rmi.parseTemplate(state.templates[id])
+      console.log('on click Edit in Template Card: set current template----->', state.templates[id])
+      state.currentTemplate = new RadonMarkupInterpreter(state.templates[id])
+      console.log(3)
     },
     pushOperator: function(state, { stage, sourceIndex }) {
-      if (stage === 'retrieve') {
-        state.currentTemplate.radRequest[stage][sourceIndex].script.push(rmi.pushOperator())
-      }
-      if (stage === 'aggregate') {
-        state.currentTemplate.radRequest[stage].script.push(rmi.pushOperator())
-      }
-      if (stage === 'consensus') {
-        state.currentTemplate.radRequest[stage].script.push(rmi.pushOperator())
-      }
+      state.currentTemplate.pushOperator(stage, sourceIndex)
       console.log('This comes from the Rad.js------>', state.currentTemplate.radRequest[stage].script)
-    },
-    updateTemplate: function() {
-      console.log('updating template .....')
     },
   },
   actions: {
@@ -124,7 +113,7 @@ export default {
       if (request.result) {
         await context.dispatch('getTemplates')
       } else {
-        console.log(request)
+        console.log('request---->', request)
       }
     },
     getTemplates: async function(context, params) {
@@ -134,7 +123,7 @@ export default {
         key: 'templates',
       })
       if (request.result) {
-        console.log(request.result.value)
+        console.log('get templates----->', request.result.value)
         context.commit('setTemplates', { templates: request.result.value })
       } else {
         console.log(request)

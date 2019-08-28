@@ -67,7 +67,7 @@ export default {
   font-size: 16px;
   line-break: auto;
   line-height: 1.5em;
-  padding: 20px;
+  padding: 24px;
   white-space: pre-wrap;
   width: 100%;
 }
@@ -78,10 +78,10 @@ export default {
 }
 
 .paragraph-seed-title {
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
 .paragraph-seed {
-  margin-top: 20px;
+  margin-top: 24px;
 }
 </style>

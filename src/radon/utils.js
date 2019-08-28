@@ -377,7 +377,7 @@ export function radonToMarkup() {
       aggregate: {
         script: markup,
       },
-      consensus: {
+      tally: {
         script: markup,
       },
     },
