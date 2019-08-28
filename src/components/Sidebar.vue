@@ -3,7 +3,12 @@
     <div class="sidebar">
       <div class="brand">
         <router-link class="logo" to="/wallet/transactions">
-          <img class="sheikah-img" src="@/resources/svg/sheikah.svg" />
+          <img
+            v-if="windowWidth < 1200"
+            class="sheikah-img"
+            src="@/resources/svg/sheikah-small.svg"
+          />
+          <img v-else class="sheikah-img" src="@/resources/svg/sheikah.svg" />
         </router-link>
       </div>
       <div class="current-wallet">
@@ -45,8 +50,14 @@ import NetworkStatus from '@/components/NetworkStatus.vue'
 import Settings from '@/components/Settings.vue'
 
 export default {
+  mounted() {
+    window.onresize = () => {
+      this.windowWidth = window.innerWidth
+    }
+  },
   data() {
     return {
+      windowWidth: window.innerWidth,
       settings: [
         {
           label: 'Close session',
@@ -81,31 +92,6 @@ export default {
 @import '@/styles/theme.scss';
 @import '@/styles/app.global.scss';
 
-@media screen and (max-width: 1200px) {
-  .sidebar {
-    max-width: 90px;
-  }
-
-  .brand {
-    clip-path: circle(60px at 0);
-  }
-
-  .label {
-    display: none;
-  }
-
-  .current-wallet-name {
-    transform: translateX(-5px);
-  }
-
-  .settings {
-    .mainnet,
-    .synced {
-      display: none;
-    }
-  }
-}
-
 .sidebar {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -117,14 +103,11 @@ export default {
 }
 
 .brand {
-  padding: 28px;
+  padding: 24px;
+  text-align: left;
 
   .logo {
-    width: $sidebar-logo-width;
-  }
-
-  .sheikah-img {
-    clip-path: inset(0px 150px 0px 0px);
+    width: 100%;
   }
 
   .name {
@@ -157,7 +140,7 @@ export default {
   align-items: flex-start;
   display: flex;
   flex-flow: column nowrap;
-  margin-top: 10px;
+  margin-top: 16px;
   width: 100%;
 
   .link {
@@ -179,8 +162,8 @@ export default {
     }
 
     .icon {
-      margin-right: 25px;
-      margin-left: 20px;
+      margin-right: 24px;
+      margin-left: 24px;
       width: 20px;
     }
 
@@ -219,7 +202,7 @@ export default {
     .dot {
       height: 10px;
       width: 10px;
-      background-color: $yellow-5;
+      background-color: $yellow;
       border-radius: 50%;
       display: inline-block;
     }
@@ -233,6 +216,31 @@ export default {
       color: $sidebar-synced-color;
       font-weight: $sidebar-synced-font_weight;
       padding: 0.5em;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .sidebar {
+    max-width: 90px;
+  }
+
+  .brand {
+    text-align: center;
+  }
+
+  .label {
+    display: none;
+  }
+
+  .current-wallet-name {
+    transform: translateX(-5px);
+  }
+
+  .settings {
+    .mainnet,
+    .synced {
+      display: none;
     }
   }
 }

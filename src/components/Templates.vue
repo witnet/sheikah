@@ -18,13 +18,15 @@
         :key="template.id"
         :date="template.creationDate"
       />
+      <div class="add">
+        <router-link to="/request/editor">
+          <img @click="createTemplate" class="add-btn" src="@/resources/svg/add.svg" />
+        </router-link>
+      </div>
     </div>
     <div v-else>
       You don't have templates yet.
     </div>
-    <router-link class="add" to="/request/editor">
-      <img @click="createTemplate" class="add-btn" src="@/resources/svg/add.svg" />
-    </router-link>
     <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
   </div>
 </template>
@@ -33,24 +35,20 @@
 import TemplateCard from './card/TemplateCard'
 import Button from '@/components/Button.vue'
 import { mapState } from 'vuex'
-
 export default {
   name: 'Templates',
   components: {
     TemplateCard,
     Button,
   },
-
   beforeMount() {
     this.$store.dispatch('getTemplates')
   },
-
   data() {
     return {
       tabs: [{ name: 'Templates', link: '/request/templates' }],
     }
   },
-
   computed: {
     ...mapState({
       templates: state =>
@@ -97,29 +95,26 @@ export default {
 <style lang="scss">
 @import '@/styles/_colors.scss';
 .templates-bar {
-  border-bottom: 1px solid $grey-4;
+  border-bottom: 1px solid $grey-0;
   display: flex;
   flex-flow: row wrap;
   height: 64px;
-  justify-content: flex-start;
-  padding-left: 50px;
+  justify-content: space-between;
+  padding-left: 48px;
   text-align: right;
 
   .title {
-    color: $grey-6;
+    color: $grey-5;
     font-weight: bold;
     height: 64px;
     line-height: 25px;
-    padding: 20px;
+    padding: 16px;
     text-decoration: none;
     border-bottom: 2px solid $blue-6;
     color: $blue-6;
   }
   .button-container {
-    width: 68vw;
-    height: 64px;
-    padding: 10px;
-    text-align: right;
+    padding: 8px;
   }
 }
 
@@ -127,21 +122,23 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  margin: 25px;
+  margin: 24px;
 
   .card {
     flex: 0 1 calc(30% - 1em);
-    margin: 20px;
+    margin: 24px;
   }
 }
 .add {
   display: flex;
   justify-content: center;
-  flex: 0 1 calc(30% - 1em);
-  margin: 20px;
-
+  min-width: 250px;
+  min-height: 200px;
+  align-items: center;
+  margin: 24px;
   .add-btn {
     width: 50px;
+    flex: 0 1 calc(30% - 1em);
     &:hover {
       cursor: pointer;
     }

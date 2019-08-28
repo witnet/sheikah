@@ -50,8 +50,8 @@ export default {
 
 <style lang="scss" scoped>
 .paragraph {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   font-size: 16px;
-  padding: 0 10px;
+  padding: 0 8px;
 }
 </style>

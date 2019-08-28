@@ -66,15 +66,15 @@ export default {
 
   & > * {
     flex: 1 10px;
-    margin: 30px;
+    margin: 32px;
     width: 300px;
   }
   .password-input {
     border: none;
     border-bottom: 1px solid rgb(92, 91, 91);
     font-size: 16px;
-    padding: 10px;
-    color: black;
+    padding: 8px;
+    color: $black;
 
     &:focus,
     &:hover {
@@ -86,8 +86,8 @@ export default {
     }
   }
   .text {
-    margin-bottom: 30px;
-    font-size: 20px;
+    margin-bottom: 32px;
+    font-size: 16px;
   }
   .submit {
     text-align: right;

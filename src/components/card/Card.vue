@@ -46,16 +46,16 @@ export default {
   .title {
     font-size: 16px;
     font-weight: 600;
-    color: $grey-8;
+    color: $grey-5;
     margin-bottom: 8px;
   }
 
   .content {
-    border: 1px solid #eee;
+    border: 1px solid $grey-0;
     border-radius: 2px;
     box-shadow: $default-box-shadow;
     font-size: 16px;
-    padding: 30px;
+    padding: 32px;
   }
 }
 </style>

@@ -21,10 +21,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .card-layout {
   box-shadow: 1px 3px 11px 0px rgba(158, 158, 158, 0.445);
-  margin: 30px;
-  padding: 50px 0px 0px 50px;
+  margin: 24px;
+  padding: 32px 0px 0px 32px;
   display: flex;
 
   .clip {
@@ -42,19 +45,19 @@ export default {
     }
     & > * {
       flex: 1 400px;
-      padding: 15px;
+      padding: 16px;
     }
     .header {
-      font-size: 20px;
-      color: #1a6cfb;
+      font-size: 18px;
+      color: $blue-6;
     }
     .content {
-      color: rgb(102, 101, 101);
+      color: $grey-5;
       line-height: 1.5em;
     }
     .icon-container {
       text-align: right;
-      margin: -50px -30px;
+      margin: -48px -40px;
     }
   }
 }

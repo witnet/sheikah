@@ -17,7 +17,7 @@ storiesOf('Card', module)
       return {
         headerStyles: {
           alignItems: 'center',
-          background: 'linear-gradient(to right, #722ed1, #1a6cfb)',
+          background: '$sheikah-gradient',
           display: 'flex',
           fontSize: '18px',
           fontWeight: '100',

@@ -127,13 +127,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .radon-operator {
   border-radius: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 .with-arguments {
-  background-color: rgb(236, 236, 236);
-  padding: 10px;
+  background-color: $grey-0;
+  padding: 8px;
 }
 .input-container {
   display: flex;
@@ -147,7 +150,7 @@ export default {
   text-align: right;
   .icon {
     font-size: 25px;
-    margin-right: 18px;
+    margin-right: 16px;
   }
 }
 </style>
