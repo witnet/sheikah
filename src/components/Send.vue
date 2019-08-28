@@ -159,6 +159,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .transaction-info {
   align-items: center;
   display: flex;
@@ -166,11 +169,8 @@ export default {
 
   .entry {
     font-weight: bold;
-    font-size: 14px;
-    color: #333;
-    min-width: max-content;
-    width: 70px;
-    margin-right: 16px;
+    font-size: 16px;
+    color: $grey-6;
   }
 
   .value {
@@ -179,12 +179,11 @@ export default {
   }
 
   .row {
-    padding: 15px 10px;
-    width: 80%;
+    padding: 16px 10px;
+    width: 250px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #bfbfbf;
-    margin: 0 0 16px 0;
+    border-bottom: 1px solid $grey-1;
 
     .column {
       display: flex;

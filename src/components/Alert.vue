@@ -45,6 +45,9 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .alert {
   width: 100%;
   padding: 8px 16px;
@@ -80,34 +83,34 @@ export default {
   }
 
   &.error {
-    background-color: #fef0f0;
+    background-color: $red-01;
 
     .text {
-      color: #f56c6c;
+      color: $red-0;
     }
   }
 
   &.success {
-    background-color: #f0f9eb;
+    background-color: $green-01;
 
     .text {
-      color: #67c23a;
+      color: $green;
     }
   }
 
   &.info {
-    background-color: #f4f4f5;
+    background-color: $grey-0;
 
     .text {
-      color: #909399;
+      color: $grey-3;
     }
   }
 
   &.warning {
-    background-color: #fdf6ec;
+    background-color: $orange-01;
 
     .text {
-      color: #e6a23c;
+      color: $orange;
     }
   }
 }

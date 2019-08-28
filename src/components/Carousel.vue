@@ -50,13 +50,13 @@
             </div>
           </transition-group>
           <button @click="addSource" class="add-source">
-            <img src="@/resources/svg/add.svg" />
+            <img src="@/resources/svg/add-grey.svg" />
           </button>
         </div>
       </div>
-      <div class="card--to__right" @click="moveCarousel(1)" :disabled="endOfList">
-        <font-awesome-icon class="icon-right" icon="angle-right" />
-      </div>
+    </div>
+    <div class="card--to__right" @click="moveCarousel(1)" :disabled="endOfList">
+      <font-awesome-icon class="icon-right" icon="angle-right" />
     </div>
   </div>
 </template>
@@ -131,13 +131,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .icon {
-  color: rgba(255, 0, 0, 0.623);
-  font-size: 18px;
+  color: lightcoral;
+  font-size: 14px;
 }
 
 .carousel-container {
-  padding: 20px;
+  padding: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,27 +152,27 @@ export default {
   width: 70vw;
 
   &--overflow-container {
+    height: 80vh;
     overflow: hidden;
   }
   &--to__left .icon-left,
   &--to__right .icon-right {
     margin: auto;
     font-size: 40px;
-    color: rgb(170, 168, 168);
+    color: $grey-2;
   }
   &--to__left,
   &--to__right {
-    background-color: #ecf5ff5e;
+    background-color: transparent;
     height: 80vh;
     width: 5vh;
     cursor: pointer;
-
     display: flex;
     justify-content: center;
     align-content: center;
     &[disabled] {
       opacity: 0.2;
-      border-color: #696a6b5e;
+      border-color: $grey-5;
     }
   }
   &--to__left :active,
@@ -180,11 +183,11 @@ export default {
 
 .card-cards {
   display: flex;
+  padding: 10px;
   transform: translateX(0px);
-
   .add-source {
-    padding: 50px;
-    background-color: #ecf5ff5e;
+    padding: 40px;
+    height: 100px;
     border: none;
     display: flex;
     justify-content: center;
@@ -200,26 +203,28 @@ export default {
     }
   }
   .card--card {
-    border-right: 2px solid #d4d4d475;
     z-index: 3;
-    margin-left: 20px;
+    margin-left: 30px;
+    background-color: $white;
+    box-shadow: 1px 3px 11px 0px rgba(207, 207, 207, 0.329);
+    border-radius: 20px;
 
     .content {
-      width: 25vw;
+      min-width: 25vw;
       height: 700px;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
       display: flex;
       flex-direction: column;
       overflow-y: scroll;
       & > .header,
       & > .header-operators {
-        margin: 30px;
+        margin: 32px;
       }
       .header {
         display: flex;
         .index {
-          color: black;
+          color: $black;
         }
         .delete-btn {
           display: none;
@@ -235,22 +240,20 @@ export default {
           border-radius: 4px;
           font-size: 16px;
           font-weight: 400;
-          background-color: #d2dffb;
-          color: #4d4d4d;
-          border: 1px solid #d2dffb;
+          background-color: $alpha-blue;
+          color: $grey-5;
+          border: 1px solid $blue-0;
           width: 100%;
           padding: 8px;
-          margin-bottom: 30px;
+          margin-bottom: 24px;
         }
       }
       &:hover {
         .delete-btn {
           cursor: pointer;
           display: block;
-          background-color: rgba(236, 233, 233, 0);
           border: none;
-          padding: 0px;
-          height: 10px;
+          padding: 5px;
           margin-left: auto;
         }
       }

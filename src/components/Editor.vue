@@ -45,6 +45,7 @@ export default {
       },
     }),
     currentScript: function() {
+      console.log(2)
       if (this.currentStage === 'retrieve') {
         return this.radRequest.retrieve
       } else if (this.currentStage === 'aggregate') {
@@ -73,14 +74,9 @@ export default {
     },
   },
   data() {
+    console.log(1)
     return {
       currentStage: 'retrieve',
-      tabs: [
-        { icon: 'Redo', action: 'redo changes', class: 'end' },
-        { icon: 'Undo', action: 'Undo changes', class: 'end' },
-        { icon: 'Save', action: 'Save changes', class: 'end' },
-        { icon: 'Try data request', action: 'Try data request', class: 'end' },
-      ],
     }
   },
 }

@@ -87,24 +87,27 @@ export default {
 }
 </script>
 <style lang="scss">
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 25px;
+  margin: 24px;
   .card {
     flex: 0 1 calc(49% - 1em);
-    margin: 10px;
+    margin: 8px;
   }
 }
 
 a {
   text-decoration: none;
   cursor: pointer;
-  color: #1a6cfb;
+  color: $blue-6;
   &:hover,
   :active {
-    color: #1a6cfb;
+    color: $blue-6;
   }
 }
 

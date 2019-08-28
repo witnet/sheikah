@@ -41,17 +41,17 @@ export default {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  padding-left: 20px;
+  padding-left: 16px;
 
   .link-btn {
-    color: $grey-6;
+    color: $grey-2;
     font-weight: bold;
     font-family: 'Titillium Web';
-    font-size: 18px;
-    padding: 20px;
+    font-size: 16px;
+    padding: 24px;
     text-decoration: none;
     border: none;
-    border-bottom: 2px solid $grey-4;
+    border-bottom: 1.5px solid $grey-1;
     outline: none;
     cursor: pointer;
     background: none;

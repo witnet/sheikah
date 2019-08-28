@@ -5,7 +5,7 @@
     </div>
     <div class="button-container">
       <button class="add-operators-btn" @click="pushOperator()">
-        Add operators
+        Add operator
       </button>
     </div>
   </div>
@@ -30,6 +30,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .circle {
   outline: none;
   border: 2px solid grey;
@@ -38,7 +41,7 @@ export default {
   height: 30px;
   border-radius: 100%;
   position: relative;
-  margin: 20px 0;
+  margin: 16px 0;
   display: inline-block;
   vertical-align: middle;
   background: transparent;
@@ -60,10 +63,10 @@ export default {
 }
 .circle.plus:before {
   width: 2px;
-  margin: 3px auto;
+  margin: 8px auto;
 }
 .circle.plus:after {
-  margin: auto 3px;
+  margin: auto 8px;
   height: 2px;
   box-shadow: none;
 }
@@ -72,13 +75,13 @@ export default {
 
   .add-operators-btn {
     cursor: pointer;
-    margin: 30px;
+    margin: 32px;
     width: 150px;
-    padding: 5px;
-    font-size: 18px;
-    background-color: #1a6cfb;
+    padding: 8px;
+    font-size: 16px;
+    background-color: $blue-6;
     border-radius: 5px;
-    color: white;
+    color: $white;
     font-family: 'Titillium Web';
     font-weight: bold;
 

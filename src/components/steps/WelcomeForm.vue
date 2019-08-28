@@ -36,13 +36,13 @@ export default {
 .welcome-card {
   .header {
     align-items: center;
-    background: linear-gradient(to right, #722ed1, #1a6cfb);
+    background: $sheikah-gradient;
     display: flex;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 100;
     height: 100px;
-    padding: 0 20px;
-    color: #ececec;
+    padding: 0 24px;
+    color: $grey-0;
   }
 
   .subtitle {
