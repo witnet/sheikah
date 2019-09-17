@@ -151,6 +151,7 @@ export default {
   border-radius: 2px;
   text-align: center;
   color: rgb(0, 0, 0);
+  white-space: nowrap;
   &.string {
     background-color: #c0abfa80;
   }
