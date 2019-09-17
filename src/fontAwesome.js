@@ -16,6 +16,7 @@ import {
   faTrash,
   faInfoCircle,
   faLongArrowAltRight,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -34,6 +35,7 @@ library.add(
   faAngleUp,
   faTrash,
   faInfoCircle,
-  faLongArrowAltRight
+  faLongArrowAltRight,
+  faTimes
 )
 Vue.component('font-awesome-icon', FontAwesomeIcon)
