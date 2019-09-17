@@ -12,6 +12,7 @@ export default {
       sendTransaction: null,
       tryDataRequest: null,
       unlockWallet: null,
+      createVTT: null,
     },
     balances: {
       available: null,
@@ -107,30 +108,45 @@ export default {
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
         transaction: context.state.generatedTransaction,
+        transactionId: context.state.generatedTransaction.transactionId,
       })
-      // context.commit('setSuccess', 'sendTransaction')
+
+      if (request.result) {
+        context.commit('setSuccess', 'sendTransaction')
+      }
     },
 
     createVTT: async function(context, { address, amount, fee, label }) {
       const request = await this.$walletApi.createVTT({
-        wallet_id: this.state.wallet.id,
+        sessionId: this.state.wallet.sessionId,
+        walletId: this.state.wallet.walletId,
         address,
-        amount,
+        amount: parseInt(amount),
         fee,
         label,
       })
-      const generatedTransaction = {
-        to: address,
-        amount,
-        fee,
-        type: 'Value Transfer Transaction',
-        from: [
-          '0xfabadafabadafabadafabadafabada',
-          '0xacabadaacabadaacabadaacabada',
-          '0xbeefbeefbeefbeefbeefbeefbeef',
-        ],
+      if (request.result) {
+        const generatedTransaction = {
+          bytes: request.result.bytes,
+          transactionId: request.result.transactionId,
+          inputs: request.result.transaction.ValueTransfer.body.inputs.map(
+            input => input.output_pointer
+          ),
+          outputs: request.result.transaction.ValueTransfer.body.outputs,
+          signature: request.result.transaction.ValueTransfer.signatures.map(
+            signature => signature.public_key.bytes
+          ),
+          type: 'Value Transfer Transaction',
+          // TODO: The following fields have to come from the wallet.
+          //  They will implement a way to provide them in the future.
+          to: address,
+          amount,
+          fee,
+        }
+        context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
+      } else {
+        context.commit('setError', { name: 'createVTT', error: request.error })
       }
-      context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
     },
 
     getAddresses: async function(context) {
@@ -150,7 +166,6 @@ export default {
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
       })
-
       if (request.result) {
         context.commit('setAddresses', { address: request.result.address })
       }
