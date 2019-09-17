@@ -36,3 +36,23 @@ export function areSoftEqualArrays(arr1, arr2) {
     arr2.reduce((acc, item) => (acc ? arr1.includes(item) : false), true)
   )
 }
+
+export function formatSectionApiErrorsByRoute(routeName, errorsMap, apiErrors) {
+  const errorMessages = {
+    getTransactionsError: 'An error occurred retrieving your transactions',
+    createVTTError: 'An error occurred creating a Value Transfer Transaction',
+  }
+  return Object.entries(errorsMap)
+    .filter(entry => entry[0] === routeName)
+    .filter(entry => entry[1].find(errorName => !!apiErrors[errorName]))
+    .map(entry => [...entry[1]])
+    .reduce((acc, errorNames) => [...acc, ...errorNames], [])
+    .map(errorName => ({
+      name: errorName,
+      message: errorMessages[errorName],
+      description: `
+        ${apiErrors[errorName].message}.
+        ${JSON.stringify(apiErrors[errorName].data)}
+      `,
+    }))
+}

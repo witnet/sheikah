@@ -62,6 +62,10 @@ export default {
       state.errors[name] = error
     },
 
+    clearError(state, { error }) {
+      state[error] = null
+    },
+
     setGeneratedTransaction(state, { transaction }) {
       state.generatedTransaction = transaction
     },
