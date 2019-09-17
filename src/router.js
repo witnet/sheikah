@@ -60,30 +60,37 @@ export default new Router({
       component: FirstTimeUsage,
       children: [
         {
+          name: 'welcome',
           path: 'welcome',
           component: WelcomeForm,
         },
         {
+          name: 'disclaimer',
           path: 'disclaimer',
           component: WalletDisclaimer,
         },
         {
+          name: 'encryptionPass',
           path: 'encryption-pass',
           component: WalletEncryptionPassword,
         },
         {
+          name: 'seedBackup',
           path: 'seed-backup',
           component: WalletSeedBackup,
         },
         {
+          name: 'seedTypeSelection',
           path: 'seed-type-selection',
           component: WalletSeedTypeSelection,
         },
         {
+          name: 'seedValidation',
           path: 'seed-validation',
           component: WalletSeedValidation,
         },
         {
+          name: 'createWallet',
           path: 'create-wallet',
           component: Loading,
         },
@@ -96,42 +103,52 @@ export default new Router({
       beforeEnter: redirectIfNeccesary,
       children: [
         {
+          name: 'wallet',
           path: 'wallet',
           component: Wallet,
           children: [
             {
+              name: 'transactions',
               path: 'transactions',
               component: Transactions,
+              // beforeEnter: callGetTransactions,
             },
             {
+              name: 'receive',
               path: 'receive',
               component: Receive,
             },
             {
+              name: 'send',
               path: 'send',
               component: Send,
             },
           ],
         },
         {
+          name: 'request',
           path: 'request',
           component: DataRequest,
           children: [
             {
+              name: 'templates',
               path: 'templates',
               component: Templates,
             },
             {
+              name: 'editor',
               path: 'editor',
               component: Editor,
             },
           ],
         },
         {
+          name: 'community',
           path: 'community',
           component: Community,
         },
         {
+          name: 'marketplace',
           path: 'marketplace',
           component: Marketplace,
         },
