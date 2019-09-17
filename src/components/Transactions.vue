@@ -28,23 +28,18 @@ export default {
       timelocked: state => state.wallet.balances.timelocked,
       unconfirmed: state => state.wallet.balances.unconfirmed,
       total: state => state.wallet.balances.total,
+      transactions: state =>
+        state.wallet.transactions.map(transaction => ({
+          address: '',
+          amount: `${transaction.kind === 'Credit' ? '+' : '-'}${transaction.value}`,
+          block: transaction.block ? transaction.block.epoch : 'PENDING',
+          date: new Date(transaction.timestamp).toISOString(),
+        })),
+      error: state => state.wallet.errors.getTransactions,
     }),
   },
-  data() {
-    return {
-      transactions: [
-        // {
-        //   amount: '+0.1',
-        //   address: '1957128f5d125609c37d2079a904be42f0809556',
-        //   date: 'April 23 at 14:38',
-        // },
-        // {
-        //   amount: '-0.1',
-        //   address: '1957128f5d125609c37d2079a904be42f0809556',
-        //   date: 'April 23 at 14:38',
-        // },
-      ],
-    }
+  beforeCreate() {
+    this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
   },
 }
 </script>
