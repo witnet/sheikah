@@ -31,6 +31,9 @@ export default {
     walletLocked: false,
   },
   mutations: {
+    setTransactions(state, { transactions }) {
+      state.transactions = transactions
+    },
     deleteSession(state) {
       state.sessionId = null
       state.walletId = null
@@ -70,13 +73,18 @@ export default {
       state.generatedTransaction = transaction
     },
     setAddresses(state, { addresses, address }) {
+      const addressesMap = new Map([])
+      const addAddress = addr => addressesMap.set(addr.address, addr)
+      state.addresses.map(addAddress)
+
       if (addresses) {
-        state.addresses = [...addresses, ...state.addresses]
+        addresses.map(addAddress)
       }
 
       if (address) {
-        state.addresses.push(address)
+        addAddress(address)
       }
+      state.addresses = Array.from(addressesMap.values())
     },
   },
   actions: {
@@ -130,8 +138,9 @@ export default {
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
       })
+
       if (request.result) {
-        context.commit('setAddresses', { addresses: request.result.addresses.map(x => x.address) })
+        context.commit('setAddresses', { addresses: request.result.addresses })
       }
     },
 
@@ -193,13 +202,17 @@ export default {
       }
     },
 
-    getTransactions: async function(context, { walletId, limit, page }) {
-      const request = await this.$walletApi.getTransactions({ wallet_id: walletId, limit, page })
-
+    getTransactions: async function(context, { limit, page }) {
+      const request = await this.$walletApi.getTransactions({
+        walletId: context.state.walletId,
+        sessionId: context.state.sessionId,
+        limit,
+        page,
+      })
       if (request.result) {
-        context.commit('setTransactions', request.result)
+        context.commit('setTransactions', { transactions: request.result.transactions })
       } else {
-        context.commit('setError', 'getTransactions', request.error)
+        context.commit('setError', { name: 'getTransactions', error: request.error })
       }
     },
 

@@ -14,7 +14,7 @@
 
     <div class="">
       <p class="date">{{ date }}</p>
-      <p class="block">Confirmed in block {{ block }}</p>
+      <p class="block">Confirmed in block #{{ block }}</p>
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   props: {
     address: String,
     amount: String,
-    block: String,
+    block: [String, Number],
     border: Boolean,
     date: String,
   },
@@ -117,6 +117,7 @@ export default {
     color: $grey-8;
     font-size: 14px;
     font-weight: 600;
+    text-align: right;
   }
 
   .block {
