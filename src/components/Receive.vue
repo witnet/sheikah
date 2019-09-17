@@ -6,7 +6,7 @@
           <div class="form">
             <div class="row">
               <div class="label">
-                <label class="" for>Label</label>
+                <label class for>Label</label>
               </div>
               <Input v-model="label" />
             </div>
@@ -21,8 +21,8 @@
       </Card>
 
       <Card class="card" title="GENERATED ADDRESSES">
-        <p class="address" v-for="address in addresses" :key="address">
-          {{ address }}
+        <p class="address" v-for="address in addresses" :key="address.address">
+          {{ address.address }}
         </p>
       </Card>
     </div>
@@ -32,7 +32,6 @@
         Every time you generate a receiving address in Sheikah, you can label and store it as a
         payment request. This allows you to better trace every payment you receive.
       </p>
-
       <p class="paragraph">
         You can generate as many payment requests at once. However, it is advised that you only
         generate as you need them, instead of creating a lot of them preemptively.
@@ -68,7 +67,9 @@ export default {
   },
   methods: {
     generateAddress() {
-      this.$store.dispatch('generateAddress', { label: this.label })
+      this.$store.dispatch('generateAddress', {
+        label: this.label,
+      })
     },
   },
   computed: {
