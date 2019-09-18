@@ -38,11 +38,9 @@ export default {
         state.currentRadonMarkupInterpreter = RadonMarkupInterpreter(history[state.historyIndex])
       }
     },
-    updateRetrieveSource(state, { source, index }) {
-      // TODO: create a method in RadonMarkupInterpreter to update sources
-      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
-      state.currentTemplate.radRequest.retrieve[index].url = source.url
-      state.currentTemplate.radRequest.retrieve[index].kind = source.kind
+    updateSource(state, { source, index }) {
+      state.currentRadonMarkupInterpreter.updateSource(source, index)
+      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     deleteSource(state, { index }) {
       this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })

@@ -47,9 +47,6 @@ export default {
     }
   },
   methods: {
-    updateSource: function(sourceInformation, sourceIndex) {
-      this.$store.commit('updateRetrieveSource', { source: sourceInformation, index: sourceIndex })
-    },
     pushRetrieve: function() {
       this.$store.commit('pushRetrieve')
     },

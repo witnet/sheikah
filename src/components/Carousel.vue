@@ -125,7 +125,7 @@ export default {
       if (this.sources.length > 2) this.moveCarousel(-1)
     },
     updateSource: function(sourceInformation, sourceIndex) {
-      this.$store.commit('updateRetrieveSource', { source: sourceInformation, index: sourceIndex })
+      this.$store.commit('updateSource', { source: sourceInformation, index: sourceIndex })
     },
   },
 }
