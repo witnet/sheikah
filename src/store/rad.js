@@ -66,7 +66,7 @@ export default {
       }, 'template')
 
       const radRequest = {
-        notBefore: 0,
+        timelock: 0,
         retrieve: [
           {
             url: '',

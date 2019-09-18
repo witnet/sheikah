@@ -241,12 +241,13 @@ export default {
     },
 
     tryDataRequest: async function(context) {
-      const encodedRadRequest = encodeDataRequest(context.rootState.rad.radRequest)
-      const request = await this.$walletApi.runRadRequest({ radRequest: encodedRadRequest })
+      const request = await this.$walletApi.runRadRequest({
+        radRequest: encodeDataRequest(context.rootState.rad.currentRadonMarkupInterpreter.getMir()),
+      })
       if (request.result) {
-        context.commit('setDataRequestResult', request.result)
+        context.commit('setDataRequestResult', { dataRequest: request.result })
       } else {
-        context.commit('setError', 'tryDataRequest', request.error)
+        context.commit('setError', { name: 'tryDataRequest', error: request.error })
       }
     },
   },

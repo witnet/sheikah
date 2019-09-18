@@ -206,7 +206,7 @@ export default {
 
     .content {
       width: 25vw;
-      height: 50vw;
+      height: 700px;
       font-size: 20px;
       font-weight: bold;
       display: flex;
