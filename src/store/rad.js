@@ -43,13 +43,9 @@ export default {
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     deleteSource(state, { index }) {
-      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
-      state.currentTemplate.radRequest.retrieve.splice(index, 1)
-      state.currentTemplate.radRequest.retrieve.map(source => {
-        if (index < source.index) {
-          return source.index--
-        }
-      })
+      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      state.currentRadonMarkupInterpreter.deleteSource(index)
+      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     addSource(state) {
       this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })

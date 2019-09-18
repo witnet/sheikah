@@ -117,6 +117,12 @@ export class RadonMarkupInterpreter {
       script: this._getSourceMarkup([0x75]),
     })
   }
+  deleteSource(index) {
+    if (this.markup.retrieve[index]) {
+      this.markup.retrieve.splice(index, 1)
+    }
+  }
+
   updateSource({ url, kind }, index) {
     if (this.markup.retrieve[index]) {
       this.markup.retrieve[index].url = url
