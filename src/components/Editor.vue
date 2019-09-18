@@ -27,7 +27,7 @@ export default {
   computed: {
     ...mapState({
       radRequest: state => {
-        return state.rad.currentRadonMarkupInterpreter.getMarkup()
+        return state.rad.radRequest
       },
     }),
     currentScript: function() {

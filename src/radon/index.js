@@ -141,32 +141,28 @@ export class RadonMarkupInterpreter {
 
   updateElement(id, value, _stage) {
     const scriptId = this.cache[id].scriptId
-    const scriptIds = this.scriptsCache[scriptId]
-    this.cache[id] = this._updateMarkup(this.cache[id], value)
-    // TODO(): Check if the types chain is valid and remove invalid operators
-    this.scriptsCache[scriptId] = scriptIds.reduce((acc, id, index) => {
-      if (!acc.length) {
-        acc.push(id)
-      } else if (acc.length === index) {
-        let lastOperatorOutputType = this.cache[acc.reverse()[0]].selected.output_type
-        let operatorName = this.cache[id].selected.label
-        let options = Object.keys(typeSystem[lastOperatorOutputType])
-        if (options.includes(operatorName)) {
-          acc.push(id)
-        }
-      } else {
-        this.cache[id] = null
+    const index = this.scriptsCache[scriptId].findIndex(x => x === id)
+    const updatedElement = this._updateMarkup(this.cache[id], value)
+    const oldOutputType = this.cache[id].selected.output_type
+    const newOutputType = updatedElement.output_type
+    this.cache[id] = updatedElement
+    if (!areSoftEqualArrays(oldOutputType, newOutputType)) {
+      const newScriptIds = this.scriptsCache[scriptId].slice(0, index + 1)
+      const idsToRemove = this.scriptsCache[scriptId].slice(index + 1)
+      this.scriptsCache[scriptId] = newScriptIds
+      idsToRemove.forEach(idToRemove => {
+        this.cache[idToRemove] = null
+      })
       }
-      return acc
-    }, [])
   }
   pushOperator(stage, sourceIndex) {
     const scriptId =
       stage === 'retrieve'
         ? this.cache[this.markup[stage][sourceIndex].script[0].cacheId].scriptId
-        : this.cache[this.markup[sourceIndex][0].cacheId].scriptId
-    const script =
+        : this.cache[this.markup[stage].script[0].cacheId].scriptId
+    const fullScript =
       stage === 'retrieve' ? this.markup[stage][sourceIndex].script : this.markup[stage].script
+    const script = fullScript.filter(x => !!this.cache[x.cacheId])
     const lastOperator = this.cache[script[script.length - 1].cacheId]
     const lastOperatorOutputType = Array.isArray(lastOperator.selected.output_type)
       ? lastOperator.selected.output_type[0]
@@ -178,7 +174,8 @@ export class RadonMarkupInterpreter {
     const operatorNumber = Object.values(typeSystem[outputType])[0][0]
     const operatorInfo = OPERATOR_INFOS[operatorNumber]
 
-    const args = operatorInfo.arguments.map(argument => {
+    const args = operatorInfo.arguments
+      .map(argument => {
       if ([TYPES.BOOLEAN, TYPES.INTEGER, TYPES.FLOAT, TYPES.STRING].includes(argument.type)) {
         return this._inputArgumentMarkupFactory(argument.name, '')
       } else if (argument.type === TYPES.MAPPER) {
@@ -192,8 +189,11 @@ export class RadonMarkupInterpreter {
         return this._selectArgumentMarkupFactory(argument.name, selected, MARKUP_FILTER_OPTIONS)
       } else {
         console.log('You are using an operator with a non supported argument type')
+          // return this._inputArgumentMarkupFactory(argument.name, '')
+          return null
       }
     })
+      .filter(x => !!x)
 
     const selectedId = this._selectedOptionMarkupFactory(operatorInfo.name, outputType, args)
     const newOperatorId = this._operatorMarkupFactory(selectedId, options, outputType, scriptId)
@@ -231,8 +231,11 @@ export class RadonMarkupInterpreter {
       }, null)
 
       const args = selectedOperatorInfo.arguments.length
-        ? selectedOperatorInfo.arguments.map((argument, index) => {
-            if ([TYPES.BOOLEAN, TYPES.INTEGER, TYPES.FLOAT, TYPES.STRING].includes(argument.type)) {
+        ? selectedOperatorInfo.arguments
+            .map((argument, index) => {
+              if (
+                [TYPES.BOOLEAN, TYPES.INTEGER, TYPES.FLOAT, TYPES.STRING].includes(argument.type)
+              ) {
               return this._inputArgumentMarkupFactory(argument.name, '')
             } else if (argument.type === TYPES.MAPPER) {
               return this._inputArgumentMarkupFactory(argument.name, '')
@@ -250,29 +253,20 @@ export class RadonMarkupInterpreter {
               )
             } else {
               console.log('You are using an operator with a non supported argument type')
+                return null
             }
           })
+            .filter(x => !!x)
         : []
       markup.selected.label = value
       markup.selected.output_type = outputType
-
-      return { ...markup, arguments: args }
+      markup.selected.arguments = args
+      return { ...markup }
     } else if (markup.markup_type === 'input') {
       markup.value = value
       return markup
     }
   }
-
-  // Delete removed operators in main scripts(retrieve, aggregate, tally)
-  // _cleanScripts() {
-  //   const cleanScript = script => script.filter(op => this.cache[op.cacheId])
-  //   this.markup.retrieve = this.markup.retrieve.map(source => {
-  //     source.script = cleanScript(source.script)
-  //     return source
-  //   })
-  //   this.markup.aggregate.script = cleanScript(this.markup.aggregate.script)
-  //   this.markup.tally.script = cleanScript(this.markup.tally.script)
-  // }
 
   _getSourceMarkup(source) {
     const scriptId = this.generateId()

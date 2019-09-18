@@ -265,7 +265,7 @@ export const OPERATOR_INFOS = {
       {
         name: 'categories',
         optional: false,
-        type: TYPES.MAP,
+        type: TYPES.MAPPER,
       },
       {
         name: 'default',
