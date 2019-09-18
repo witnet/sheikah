@@ -39,17 +39,19 @@ export default {
       }
     },
     updateSource(state, { source, index }) {
+      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.updateSource(source, index)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     deleteSource(state, { index }) {
-      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.deleteSource(index)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     addSource(state) {
       this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.pushSource()
+      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     setTemplates: function(state, { templates }) {
       if (templates) {
@@ -88,14 +90,17 @@ export default {
         radRequest,
       }
       state.currentRadonMarkupInterpreter = new RadonMarkupInterpreter(radRequest)
+      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     setCurrentTemplate: function(state, { id }) {
       const template = state.templates[id]
       state.currentTemplate = template
       state.currentRadonMarkupInterpreter = new RadonMarkupInterpreter(template.radRequest)
+      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     pushOperator: function(state, { stage, sourceIndex }) {
       state.currentRadonMarkupInterpreter.pushOperator(stage, sourceIndex)
+      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
   },
   actions: {
