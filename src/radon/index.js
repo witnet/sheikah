@@ -18,9 +18,9 @@ export class RadonMarkupInterpreter {
     this.scriptsCache = {}
 
     this.markup = {
-      notBefore: mir.notBefore,
+      timelock: mir.timelock,
       retrieve: mir.retrieve.map(source => ({
-        kind: 'HTTP_GET',
+        kind: 'HTTP-GET',
         url: source.url,
         script: this._getSourceMarkup(source.script),
       })),

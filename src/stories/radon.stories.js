@@ -10,7 +10,7 @@ storiesOf('RadonQuery', module).add('RadonQuery', () => ({
       retrieve: [
         {
           url: '',
-          kind: 'HTTP_GET',
+          kind: 'HTTP-GET',
           script: [[0x56, 0]],
         },
       ],
