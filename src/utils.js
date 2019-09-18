@@ -3,12 +3,12 @@ import { shell } from 'electron'
 import uuidv4 from 'uuid/v4'
 
 export function encodeDataRequest(radRequest) {
+  debugger
   return {
-    not_before: radRequest.not_before,
+    timelock: radRequest.timelock,
     retrieve: radRequest.retrieve.map(retrieve => {
       return { ...retrieve, script: [...cbor.encode(retrieve.script)] }
     }),
-
     aggregate: { script: [...cbor.encode(radRequest.aggregate.script)] },
     tally: { script: [...cbor.encode(radRequest.tally.script)] },
     deliver: radRequest.deliver,
@@ -41,6 +41,7 @@ export function formatSectionApiErrorsByRoute(routeName, errorsMap, apiErrors) {
   const errorMessages = {
     getTransactionsError: 'An error occurred retrieving your transactions',
     createVTTError: 'An error occurred creating a Value Transfer Transaction',
+    tryDataRequestError: 'An error occurred trying your data request',
   }
   return Object.entries(errorsMap)
     .filter(entry => entry[0] === routeName)

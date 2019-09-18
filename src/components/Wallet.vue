@@ -9,7 +9,6 @@
       :description="error.description"
       v-on:close="() => clearError(error.name)"
     />
-
     <router-view />
   </div>
 </template>
