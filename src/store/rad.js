@@ -7,6 +7,7 @@ export default {
     templates: {},
     currentTemplate: {},
     currentRadonMarkupInterpreter: {},
+    radRequest: {},
     history: [{}],
     historyIndex: 0,
   },
@@ -23,9 +24,7 @@ export default {
     updateTemplate(state, { id, value }) {
       this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.updateElement(id, value)
-      state.currentRadonMarkupInterpreter = new RadonMarkupInterpreter(
-        state.currentRadonMarkupInterpreter.getMir()
-      )
+      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     editorRedo(state) {
       if (state.historyIndex + 1 < history.length) {
