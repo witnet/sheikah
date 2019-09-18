@@ -165,7 +165,7 @@ export class RadonMarkupInterpreter {
       idsToRemove.forEach(idToRemove => {
         this.cache[idToRemove] = null
       })
-      }
+    }
   }
   pushOperator(stage, sourceIndex) {
     const scriptId =
@@ -188,23 +188,23 @@ export class RadonMarkupInterpreter {
 
     const args = operatorInfo.arguments
       .map(argument => {
-      if ([TYPES.BOOLEAN, TYPES.INTEGER, TYPES.FLOAT, TYPES.STRING].includes(argument.type)) {
-        return this._inputArgumentMarkupFactory(argument.name, '')
-      } else if (argument.type === TYPES.MAPPER) {
-        // TODO: return correct markup
-        return this._inputArgumentMarkupFactory(argument.name, '')
-      } else if (argument.type === TYPES.REDUCER) {
-        const selected = this._selectedOptionMarkupFactory(Object.keys(REDUCERS)[0], 'array', [])
-        return this._selectArgumentMarkupFactory(argument.name, selected, MARKUP_REDUCER_OPTIONS)
-      } else if (argument.type === TYPES.FILTER) {
-        const selected = this._selectedOptionMarkupFactory(Object.keys(FILTERS)[0], 'array', [])
-        return this._selectArgumentMarkupFactory(argument.name, selected, MARKUP_FILTER_OPTIONS)
-      } else {
-        console.log('You are using an operator with a non supported argument type')
+        if ([TYPES.BOOLEAN, TYPES.INTEGER, TYPES.FLOAT, TYPES.STRING].includes(argument.type)) {
+          return this._inputArgumentMarkupFactory(argument.name, '')
+        } else if (argument.type === TYPES.MAPPER) {
+          // TODO: return correct markup
+          return this._inputArgumentMarkupFactory(argument.name, '')
+        } else if (argument.type === TYPES.REDUCER) {
+          const selected = this._selectedOptionMarkupFactory(Object.keys(REDUCERS)[0], 'array', [])
+          return this._selectArgumentMarkupFactory(argument.name, selected, MARKUP_REDUCER_OPTIONS)
+        } else if (argument.type === TYPES.FILTER) {
+          const selected = this._selectedOptionMarkupFactory(Object.keys(FILTERS)[0], 'array', [])
+          return this._selectArgumentMarkupFactory(argument.name, selected, MARKUP_FILTER_OPTIONS)
+        } else {
+          console.log('You are using an operator with a non supported argument type')
           // return this._inputArgumentMarkupFactory(argument.name, '')
           return null
-      }
-    })
+        }
+      })
       .filter(x => !!x)
 
     const selectedId = this._selectedOptionMarkupFactory(operatorInfo.name, outputType, args)
@@ -248,26 +248,26 @@ export class RadonMarkupInterpreter {
               if (
                 [TYPES.BOOLEAN, TYPES.INTEGER, TYPES.FLOAT, TYPES.STRING].includes(argument.type)
               ) {
-              return this._inputArgumentMarkupFactory(argument.name, '')
-            } else if (argument.type === TYPES.MAPPER) {
-              return this._inputArgumentMarkupFactory(argument.name, '')
-            } else if (argument.type === TYPES.REDUCER) {
-              return this._selectArgumentMarkupFactory(
-                argument.name,
-                MARKUP_REDUCER_OPTIONS[0],
-                MARKUP_REDUCER_OPTIONS
-              )
-            } else if (argument.type === TYPES.FILTER) {
-              return this._inputArgumentMarkupFactory(
-                argument.name,
-                MARKUP_FILTER_OPTIONS[0],
-                MARKUP_FILTER_OPTIONS
-              )
-            } else {
-              console.log('You are using an operator with a non supported argument type')
+                return this._inputArgumentMarkupFactory(argument.name, '')
+              } else if (argument.type === TYPES.MAPPER) {
+                return this._inputArgumentMarkupFactory(argument.name, '')
+              } else if (argument.type === TYPES.REDUCER) {
+                return this._selectArgumentMarkupFactory(
+                  argument.name,
+                  MARKUP_REDUCER_OPTIONS[0],
+                  MARKUP_REDUCER_OPTIONS
+                )
+              } else if (argument.type === TYPES.FILTER) {
+                return this._inputArgumentMarkupFactory(
+                  argument.name,
+                  MARKUP_FILTER_OPTIONS[0],
+                  MARKUP_FILTER_OPTIONS
+                )
+              } else {
+                console.log('You are using an operator with a non supported argument type')
                 return null
-            }
-          })
+              }
+            })
             .filter(x => !!x)
         : []
       markup.selected.label = value
