@@ -22,7 +22,7 @@ export default {
       state.history.splice(0, state.historyIndex)
     },
     updateTemplate(state, { id, value }) {
-      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.updateElement(id, value)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
@@ -39,17 +39,17 @@ export default {
       }
     },
     updateSource(state, { source, index }) {
-      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.updateSource(source, index)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     deleteSource(state, { index }) {
-      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.deleteSource(index)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     addSource(state) {
-      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.pushSource()
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
