@@ -1,5 +1,5 @@
 <template>
-  <Card :width="600" :height="550" class="wallet-seed-type-selection">
+  <Card data-test="header-1" :width="600" :height="550" class="wallet-seed-type-selection">
     <template v-slot:header>
       <div class="header">
         Create your wallet
@@ -12,7 +12,11 @@
     <ul class="options">
       <li>
         <router-link class="link" to="/ftu/disclaimer">
-          <Button :onClick="function() {}" class="option create-wallet-option">
+          <Button
+            data-test="new-seed-option"
+            :onClick="function() {}"
+            class="option create-wallet-option"
+          >
             Create new seed phrase
             <p class="recommended-text">RECOMMENDED</p>
           </Button>

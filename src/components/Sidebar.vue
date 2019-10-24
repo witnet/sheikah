@@ -2,7 +2,7 @@
   <div>
     <div class="sidebar">
       <div class="brand">
-        <router-link class="logo" to="/wallet/transactions">
+        <router-link data-test="logo-to-home" class="logo" to="/wallet/transactions">
           <img
             v-if="windowWidth < 1200"
             class="sheikah-img"
@@ -15,22 +15,22 @@
         <span class="current-wallet-name">My Wallet</span>
       </div>
       <div class="link-list">
-        <router-link class="link" to="/wallet/transactions">
+        <router-link data-test="to-transactions" class="link" to="/wallet/transactions">
           <font-awesome-icon class="icon" icon="wallet" />
           <span class="label">Wallet</span>
         </router-link>
 
-        <router-link class="link" to="/request/templates">
+        <router-link data-test="to-templates" class="link" to="/request/templates">
           <font-awesome-icon class="icon" icon="code" />
           <span class="label">Data request</span>
         </router-link>
 
-        <router-link class="link" to="/marketplace">
+        <router-link data-test="to-marketplace" class="link" to="/marketplace">
           <font-awesome-icon class="icon" icon="shopping-bag" />
           <span class="label">Marketplace</span>
         </router-link>
 
-        <router-link class="link" to="/community">
+        <router-link data-test="to-community" class="link" to="/community">
           <font-awesome-icon class="icon" icon="users" />
           <span class="label">Community</span>
         </router-link>

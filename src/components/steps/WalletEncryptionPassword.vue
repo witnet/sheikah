@@ -14,11 +14,18 @@
     </p>
     <div class="form-row">
       <label class="label">Password</label>
-      <Input type="underlined" class="password-input" nativeType="password" v-model="password" />
+      <Input
+        data-test="password-input"
+        type="underlined"
+        class="password-input"
+        nativeType="password"
+        v-model="password"
+      />
     </div>
     <div class="form-row">
       <label class="label">Confirm password</label>
       <Input
+        data-test="repeat-password"
         type="underlined"
         class="password-input"
         nativeType="password"
@@ -26,7 +33,7 @@
       />
     </div>
 
-    <p v-if="error" class="error">{{ error }}</p>
+    <p data-test="password-error-alert" v-if="error" class="error">{{ error }}</p>
   </NavigationCard>
 </template>
 

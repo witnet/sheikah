@@ -169,7 +169,8 @@ export default {
       } else if (
         this.page === this.setPages.length ||
         this.page + 1 === this.setPages.length ||
-        this.page + 2 === this.setPages.length
+        this.page + 2 === this.setPages.length ||
+        this.page + 3 === this.setPages.length
       ) {
         if (this.setPages.length >= 5) {
           for (let index = this.setPages.length - 3; index <= this.setPages.length - 1; index++) {
@@ -323,8 +324,6 @@ export default {
     font-weight: bold;
   }
   .content {
-    max-height: 45vh;
-    overflow-y: scroll;
     overflow-wrap: break-word;
     border-radius: 2px;
     box-shadow: $default-box-shadow;

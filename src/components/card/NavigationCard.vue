@@ -14,8 +14,10 @@
 
     <template v-slot:footer>
       <div class="navigation-buttons">
-        <Button type="navigation" :onClick="previousStep">{{ previousText }}</Button>
-        <Button type="navigation" :onClick="nextStep">{{ nextText }}</Button>
+        <Button data-test="previous-step" type="navigation" :onClick="previousStep">
+          {{ previousText }}
+        </Button>
+        <Button data-test="next-step" type="navigation" :onClick="nextStep">{{ nextText }}</Button>
       </div>
     </template>
   </BaseCard>

@@ -1,9 +1,15 @@
 <template>
   <div class="unlock-wallet">
     <p class="text">Insert a password to unlock wallet</p>
-    <input class="password-input" v-model="password" type="password" placeholder="Password" />
+    <input
+      data-test="password-input-access"
+      class="password-input"
+      v-model="password"
+      type="password"
+      placeholder="Password"
+    />
     <div class="submit">
-      <Button :onClick="unlockWallet" type="primary">Unlock</Button>
+      <Button data-test="unlock-wallet" :onClick="unlockWallet" type="primary">Unlock</Button>
     </div>
     <p v-if="showError">Invalid password</p>
   </div>
