@@ -1,5 +1,6 @@
 <template>
   <input
+    data-test="type-word-seed"
     v-model="inputValue"
     :class="`input ${getClass(type)}`"
     :placeholder="placeholder"

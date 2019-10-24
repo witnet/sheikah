@@ -7,7 +7,7 @@
       <div class="wallets">
         <li v-for="wallet in wallets" :key="wallet.id">
           <router-link class="link" :to="`/welcome-back/unlock/${wallet.id}`">
-            <Button class="option">
+            <Button data-test="local-wallet" class="option">
               {{ wallet.name }}
               <font-awesome-icon icon="angle-right" />
             </Button>
@@ -16,7 +16,7 @@
       </div>
       <li>
         <router-link class="link" to="/ftu/welcome">
-          <Button class="option">
+          <Button data-test="create-wallet" class="option">
             Create import or recover a wallet
             <font-awesome-icon icon="angle-right" />
           </Button>

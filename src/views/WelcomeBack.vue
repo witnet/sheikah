@@ -1,5 +1,5 @@
 <template>
-  <div class="welcome-back">
+  <div data-test="welcome-back" class="welcome-back">
     <div class="layout">
       <div class="bar">
         <p class="title">Welcome Back</p>

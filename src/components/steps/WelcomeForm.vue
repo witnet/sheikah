@@ -14,7 +14,7 @@
       blockchain in many ways: from transferring Wit to someone else to creating smart contracts.
     </p>
     <div class="container">
-      <router-link class="router-link" to="/ftu/seed-type-selection">Let's do it</router-link>
+      <router-link data-test="do-it" class="router-link" to="/ftu/seed-type-selection">Let's do it</router-link>
     </div>
   </Card>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout" data-test="home">
     <Sidebar />
     <div class="main">
       <router-view></router-view>

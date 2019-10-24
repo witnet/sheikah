@@ -1,5 +1,6 @@
 <template>
   <NavigationCard
+    data-test="header-3"
     class="wallet-seed-backup"
     title="Wallet seed phrase backup"
     previousText="Back"
@@ -8,7 +9,7 @@
     :nextStep="() => this.$router.push('/ftu/seed-validation')"
   >
     <p class="paragraph-seed-title">Your 12 word seed phrase:</p>
-    <pre class="seed">{{ seed }}</pre>
+    <pre data-test="word-seed" class="seed">{{ seed }}</pre>
     <p class="paragraph-seed">
       Please copy these 12 words onto a piece of paper which you will be able to safely store and
       secure. You must write the complete words in the exact order they are presented to you.
