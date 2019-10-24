@@ -22,7 +22,7 @@ export default {
       state.history.splice(0, state.historyIndex)
     },
     updateTemplate(state, { id, value }) {
-      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      //this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.updateElement(id, value)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
@@ -39,19 +39,21 @@ export default {
       }
     },
     updateSource(state, { source, index }) {
-      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      //this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.updateSource(source, index)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     deleteSource(state, { index }) {
-      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      //this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.deleteSource(index)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
     addSource(state) {
-      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      //this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
       state.currentRadonMarkupInterpreter.pushSource()
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
+      // state.currentRadonMarkupInterpreter.getMir()
     },
     setTemplates: function(state, { templates }) {
       if (templates) {
@@ -95,7 +97,6 @@ export default {
     setCurrentTemplate: function(state, { id }) {
       const template = state.templates[id]
       state.currentTemplate = template
-      console.log('setCurrentTemplate()------>', state.currentTemplate)
       state.currentRadonMarkupInterpreter = new RadonMarkupInterpreter(template.radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
     },
@@ -107,12 +108,12 @@ export default {
   actions: {
     saveTemplate: async function(context, args) {
       let templates = context.state.templates
+      // const templateToSave = args ? args.template : context.state.currentRadonMarkupInterpreter.getMarkup()
       const templateToSave = args ? args.template : context.state.currentTemplate
-      console.log('TEMPLATE TO SAVE------>', templateToSave)
+      templateToSave.radRequest = context.state.currentRadonMarkupInterpreter.getMir()
       if (!templateToSave.id) {
         templateToSave.id = generateId()
       }
-
       templates[templateToSave.id] = templateToSave
       const request = await this.$walletApi.saveItem({
         walletId: context.rootState.wallet.walletId,

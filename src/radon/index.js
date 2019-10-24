@@ -45,7 +45,6 @@ export class RadonMarkupInterpreter {
       source.script = this.buildFromScript(source.script)
       return source
     })
-
     newMir.aggregate.script = this.buildFromScript(this.markup.aggregate.script)
     newMir.tally.script = this.buildFromScript(this.markup.tally.script)
     this.mir = newMir
@@ -74,7 +73,6 @@ export class RadonMarkupInterpreter {
         } else {
           operatorMir = operatorCode
         }
-
         return operatorMir
       })
   }
@@ -106,7 +104,6 @@ export class RadonMarkupInterpreter {
     })
     expandedMarkup.aggregate.script = this._expandScript(expandedMarkup.aggregate.script)
     expandedMarkup.tally.script = this._expandScript(expandedMarkup.tally.script)
-
     return expandedMarkup
   }
 

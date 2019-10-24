@@ -19,7 +19,6 @@ export default {
     },
     saveTemplate: function() {
       this.$store.dispatch('saveTemplate')
-      console.log('saving current Template----->', this.$store.state.rad.currentTemplate)
     },
     exportTemplate: function() {
       this.$refs.download.click()
