@@ -1,5 +1,5 @@
 <template>
-  <div>Marketplace</div>
+  <div data-test="marketplace">Marketplace</div>
 </template>
 
 <script>
