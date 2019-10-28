@@ -239,7 +239,6 @@ export default {
         display: flex;
         justify-content: space-between;
         padding-right: 16px;
-        width: 100%;
 
         .primary {
           margin-right: 16px;
