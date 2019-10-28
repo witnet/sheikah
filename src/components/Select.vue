@@ -219,6 +219,7 @@ export default {
     width: min-content;
     min-width: min-content;
     padding: 0 8px 0 16px;
+    width: 190px;
 
     &.active,
     &:hover {
@@ -238,7 +239,6 @@ export default {
         display: flex;
         justify-content: space-between;
         padding-right: 16px;
-        width: 100%;
 
         .primary {
           margin-right: 16px;

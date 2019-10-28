@@ -1,36 +1,34 @@
 <template>
   <div class="send">
-    <Card class="card" title="NEW TRANSACTION">
-      <div class="row">
-        <div class="label">
-          <label class for>Address</label>
-        </div>
-        <Input v-model="address" placeholder="Recipient address" />
+    <div class="row">
+      <div class="label">
+        <label class for>Address</label>
       </div>
+      <Input v-model="address" placeholder="Recipient address" />
+    </div>
 
-      <div class="row">
-        <div class="label">
-          <label class for>Label</label>
-        </div>
-        <Input v-model="label" />
+    <div class="row">
+      <div class="label">
+        <label class for>Label</label>
       </div>
+      <Input v-model="label" />
+    </div>
 
-      <div class="row">
-        <div class="label">
-          <label class for>Amount</label>
-        </div>
-        <InputNumber v-model="amount" />
+    <div class="row">
+      <div class="label">
+        <label class for>Amount</label>
       </div>
-      <div class="row">
-        <div class="label">
-          <label class for>Fee</label>
-        </div>
-        <Select v-model="fee" :options="options" />
+      <InputNumber v-model="amount" />
+    </div>
+    <div class="row">
+      <div class="label">
+        <label class for>Fee</label>
       </div>
-      <div class="submit">
-        <Button :onClick="createVTT" type="primary">Sign and send</Button>
-      </div>
-    </Card>
+      <Select class="select" v-model="fee" :options="options" />
+    </div>
+    <div class="submit">
+      <Button :onClick="createVTT" type="primary">Sign and send</Button>
+    </div>
 
     <el-dialog title="Confirm Transaction" :visible.sync="showDialog" width="40%" center>
       <div v-if="generatedTransaction" class="transaction-info">
@@ -92,7 +90,6 @@
 </template>
 
 <script>
-import Card from './card/Card'
 import Button from './Button'
 import Input from './Input'
 import InputNumber from './InputNumber'
@@ -101,7 +98,6 @@ import Select from './Select'
 export default {
   name: 'send',
   components: {
-    Card,
     Button,
     Input,
     InputNumber,
@@ -177,7 +173,6 @@ export default {
     font-size: 16px;
     font-weight: 400;
   }
-
   .row {
     padding: 16px 10px;
     width: 250px;
@@ -193,27 +188,21 @@ export default {
 }
 
 .send {
-  padding: 32px;
+  .row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
 
-  .card {
-    max-width: 650px;
-    min-width: 650px;
-    .row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 16px;
-      max-width: 600px;
-
-      .label {
-        min-width: 64px;
-        margin-right: 24px;
-        text-align: right;
-      }
-    }
-    .submit {
-      width: 100%;
+    .label {
+      min-width: 64px;
+      margin-right: 24px;
       text-align: right;
     }
+  }
+  .submit {
+    width: 100%;
+    text-align: right;
+    padding-top: 10px;
   }
 }
 
@@ -221,30 +210,6 @@ export default {
   margin-top: 16px;
   .button {
     margin-right: 15px;
-  }
-}
-
-.send {
-  padding: 32px;
-
-  .card {
-    max-width: 650px;
-    min-width: 650px;
-    .row {
-      display: flex;
-      align-items: center;
-      max-width: 600px;
-
-      .label {
-        min-width: 64px;
-        margin-right: 24px;
-        text-align: right;
-      }
-    }
-    .submit {
-      width: 100%;
-      text-align: right;
-    }
   }
 }
 </style>

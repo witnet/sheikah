@@ -3,7 +3,6 @@ import { shell } from 'electron'
 import uuidv4 from 'uuid/v4'
 
 export function encodeDataRequest(radRequest) {
-  debugger
   return {
     timelock: radRequest.timelock,
     retrieve: radRequest.retrieve.map(retrieve => {

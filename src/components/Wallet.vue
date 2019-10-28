@@ -23,11 +23,7 @@ export default {
   name: 'Wallet',
   data() {
     return {
-      tabs: [
-        { name: 'Transactions', link: '/wallet/transactions' },
-        { name: 'Receive', link: '/wallet/receive' },
-        { name: 'Send', link: '/wallet/send' },
-      ],
+      tabs: [{ name: 'Transactions', link: '/wallet/transactions' }],
     }
   },
   methods: {

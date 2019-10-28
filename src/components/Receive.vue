@@ -21,9 +21,11 @@
       </Card>
 
       <Card class="card" title="GENERATED ADDRESSES">
-        <p class="address" v-for="address in addresses" :key="address.address">
-          {{ address.address }}
-        </p>
+        <div class="content">
+          <p class="address" v-for="address in addresses" :key="address.address">
+            {{ address.address }}
+          </p>
+        </div>
       </Card>
     </div>
     <div class="text">
@@ -108,7 +110,13 @@ export default {
   .card {
     max-width: 400px;
     min-width: 400px;
+    max-height: 400px;
     margin-bottom: 32px;
+
+    .content {
+      height: 200px;
+      overflow-y: scroll;
+    }
 
     .address {
       text-align: center;
