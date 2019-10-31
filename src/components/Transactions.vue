@@ -99,6 +99,9 @@ export default {
         console.log('map state transacions-->', state.wallet.errors.getTransactions)
         return state.wallet.errors.getTransactions
       },
+      addresses: state => {
+        return state.wallet.addresses
+      },
       createVTTErrorMessage: state => {
         if (state.wallet.errors.createVTT) {
           return state.wallet.errors.createVTT.message
@@ -173,6 +176,34 @@ export default {
       .primary {
         margin: 10px;
       }
+    }
+  }
+}
+.card {
+  min-width: 200px;
+  max-height: 400px;
+  margin-top: 40px;
+  .header {
+    border-bottom: 1px solid $grey-0;
+    margin-bottom: 24px;
+    color: $grey-4;
+    font-weight: bold;
+  }
+  .content {
+    max-height: 45vh;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    border-radius: 2px;
+    box-shadow: $default-box-shadow;
+    padding: 32px;
+    background-color: $alpha-blue;
+    .address {
+      text-align: center;
+      width: 250px;
+      border-bottom: 1px solid $grey-0;
+      padding: 16px;
+      color: $black;
+      font-weight: 500;
     }
   }
 }
