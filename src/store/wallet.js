@@ -128,6 +128,7 @@ export default {
         fee,
         label,
       })
+      console.log('api call---->', request)
       if (request.result) {
         const generatedTransaction = {
           bytes: request.result.bytes,
