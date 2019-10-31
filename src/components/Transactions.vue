@@ -2,46 +2,52 @@
   <div class="transactions">
     <TransactionList class="list" :transactions="transactions" />
     <div class="col-right">
-      <Balances
-        :available="available"
-        :timelocked="timelocked"
-        :unconfirmed="unconfirmed"
-        :total="total"
-      />
-      <div class="send-received">
-        <Button class="primary" :onClick="displayModalSend">
-          Send
-        </Button>
-        <Button class="secondary" :onClick="displayModalReceive">
-          Receive
-        </Button>
-      </div>
-      <el-dialog
-        title="New Transaction"
-        :visible.sync="dialogVisible1"
-        width="60%"
-        v-on:close="closeAndClear"
-      >
-        <Alert
-          v-if="transactionsError.message"
-          :key="transactionsError.message"
-          type="error"
-          :message="transactionsError.message"
-          :description="transactionsError.description"
-          v-on:close="closeAndClear"
+      <div class="top">
+        <Balances
+          :available="available"
+          :timelocked="timelocked"
+          :unconfirmed="unconfirmed"
+          :total="total"
         />
-        <Send />
-      </el-dialog>
-      <el-dialog :visible.sync="dialogVisible2" width="60%">
-        <!-- <Alert
-          :key="transactionsError.message"
-          type="error"
-          :description="transactionsError.description"
-          :message="transactionsError.message"
-          v-on:close="() => clearError(transactionsError)"
-        /> -->
-        <Receive />
-      </el-dialog>
+        <div class="send-received">
+          <Button class="primary" :onClick="displayModalSend">
+            Send
+          </Button>
+          <Button class="secondary" :onClick="displayModalReceive">
+            Receive
+          </Button>
+        </div>
+        <el-dialog
+          title="New Transaction"
+          :visible.sync="dialogVisible1"
+          width="60%"
+          v-on:close="closeAndClear"
+        >
+          <Alert
+            v-if="transactionsError.message"
+            :key="transactionsError.message"
+            type="error"
+            :message="transactionsError.message"
+            :description="transactionsError.description"
+            v-on:close="closeAndClear"
+          />
+          <Send />
+        </el-dialog>
+        <el-dialog title="New payment request" :visible.sync="dialogVisible2" width="60%">
+          <Receive />
+        </el-dialog>
+      </div>
+      <div class="card">
+        <p class="header">
+          GENERATED ADDRESSES
+        </p>
+        <div class="content">
+          <!-- <p class="address">{{ addresses[0].address }}</p> -->
+          <p class="address" v-for="address in addresses" :key="address.address">
+            {{ address.address }}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -105,6 +111,9 @@ export default {
         console.log('map state transacions-->', state.wallet.errors.getTransactions)
         return state.wallet.errors.getTransactions
       },
+      addresses: state => {
+        return state.wallet.addresses
+      },
       createVTTErrorMessage: state => {
         if (state.wallet.errors.createVTT) {
           return state.wallet.errors.createVTT.message
@@ -131,6 +140,7 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
+    this.$store.dispatch('getAddresses')
   },
 }
 </script>
@@ -150,12 +160,41 @@ export default {
   .col-right {
     display: flex;
     flex-direction: column;
+    height: 55vh;
 
     .send-received {
       margin: 0 auto;
       .primary {
         margin: 10px;
       }
+    }
+  }
+}
+.card {
+  min-width: 200px;
+  max-height: 400px;
+  margin-top: 40px;
+  .header {
+    border-bottom: 1px solid $grey-0;
+    margin-bottom: 24px;
+    color: $grey-4;
+    font-weight: bold;
+  }
+  .content {
+    max-height: 45vh;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    border-radius: 2px;
+    box-shadow: $default-box-shadow;
+    padding: 32px;
+    background-color: $alpha-blue;
+    .address {
+      text-align: center;
+      width: 250px;
+      border-bottom: 1px solid $grey-0;
+      padding: 16px;
+      color: $black;
+      font-weight: 500;
     }
   }
 }
