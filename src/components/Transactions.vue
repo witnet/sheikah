@@ -16,26 +16,30 @@
           Receive
         </Button>
       </div>
-      <el-dialog title="New Transaction" :visible.sync="dialogVisible1" width="60%">
+      <el-dialog
+        title="New Transaction"
+        :visible.sync="dialogVisible1"
+        width="60%"
+        v-on:close="closeAndClear"
+      >
         <Alert
-          v-for="error in errors"
-          :key="error.name"
+          v-if="transactionsError.message"
+          :key="transactionsError.message"
           type="error"
-          :message="error.message"
-          :description="error.description"
-          v-on:close="() => clearError(error.name)"
+          :message="transactionsError.message"
+          :description="transactionsError.description"
+          v-on:close="closeAndClear"
         />
         <Send />
       </el-dialog>
       <el-dialog :visible.sync="dialogVisible2" width="60%">
-        <Alert
-          v-for="error in errors"
-          :key="error.name"
+        <!-- <Alert
+          :key="transactionsError.message"
           type="error"
-          :message="error.message"
-          :description="error.description"
-          v-on:close="() => clearError(error.name)"
-        />
+          :description="transactionsError.description"
+          :message="transactionsError.message"
+          v-on:close="() => clearError(transactionsError)"
+        /> -->
         <Receive />
       </el-dialog>
     </div>
@@ -50,7 +54,6 @@ import Send from '@/components/Send'
 import Receive from '@/components/Receive'
 import TransactionList from './TransactionList'
 import Alert from '@/components/Alert'
-import { formatSectionApiErrorsByRoute } from '@/utils'
 
 export default {
   name: 'Transactions',
@@ -75,8 +78,13 @@ export default {
     displayModalReceive: function() {
       this.dialogVisible2 = true
     },
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
+    closeAndClear: function() {
+      this.clearError(this.createVTTErrorName)
+    },
+    clearError: function() {
+      console.log('cleaaar error.....')
+      console.log('THIS', this)
+      return this.$store.commit('clearError', { error: this.createVTTErrorName })
     },
   },
   computed: {
@@ -94,25 +102,31 @@ export default {
         })),
       error: state => state.wallet.errors.getTransactions,
       getTransactionsError: state => {
+        console.log('map state transacions-->', state.wallet.errors.getTransactions)
         return state.wallet.errors.getTransactions
       },
-      createVTTError: state => {
-        return state.wallet.errors.createVTT
+      createVTTErrorMessage: state => {
+        if (state.wallet.errors.createVTT) {
+          return state.wallet.errors.createVTT.message
+        }
+      },
+      createVTTErrorDescription: state => {
+        if (state.wallet.errors.createVTT) {
+          return state.wallet.errors.createVTT.error.message
+        }
+      },
+      createVTTErrorName: state => {
+        if (state.wallet.errors.createVTT) {
+          return state.wallet.errors.createVTT.name
+        }
       },
     }),
-    errors() {
-      console.log('In errors...>')
-      return formatSectionApiErrorsByRoute(
-        this.$route.name,
-        {
-          transactions: ['getTransactionsError', 'createVTTError'],
-          // receive: ['receiveError'],
-        },
-        {
-          getTransactionsError: this.getTransactionsError,
-          createVTTError: this.createVTTError,
-        }
-      )
+    transactionsError() {
+      return {
+        message: this.createVTTErrorMessage,
+        description: this.createVTTErrorDescription,
+        name: this.createVTTErrorName,
+      }
     },
   },
   beforeCreate() {

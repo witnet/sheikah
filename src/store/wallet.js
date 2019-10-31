@@ -62,12 +62,16 @@ export default {
       state.lockWallet = id
     },
 
-    setError(state, { name, error }) {
-      state.errors[name] = error
+    setError(state, { name, error, message }) {
+      state.errors[name] = {
+        name,
+        error,
+        message,
+      }
     },
 
     clearError(state, { error }) {
-      state[error] = null
+      state.errors[error] = null
     },
 
     setGeneratedTransaction(state, { transaction }) {
@@ -125,6 +129,7 @@ export default {
         fee,
         label,
       })
+      console.log('api call---->', request)
       if (request.result) {
         const generatedTransaction = {
           bytes: request.result.bytes,
@@ -145,7 +150,11 @@ export default {
         }
         context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
       } else {
-        context.commit('setError', { name: 'createVTT', error: request.error })
+        context.commit('setError', {
+          name: 'createVTT',
+          error: request.error,
+          message: 'An error occurred creating a Value Transfer Transaction',
+        })
       }
     },
 

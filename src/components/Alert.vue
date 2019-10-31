@@ -1,6 +1,6 @@
 <template>
-  <div class="alert" :class="[type, { closed }]">
-    <div class="message">
+  <div v-if="message" class="alert" :class="[type, { closed }]">
+    <div v-if="message" class="message">
       <p class="text">{{ message }}</p>
       <font-awesome-icon class="icon cross" icon="times" @click="close" />
     </div>
@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'Alert',
   props: {
@@ -41,6 +43,13 @@ export default {
       this.$emit('close')
     },
   },
+  computed: {
+    ...mapState({
+      clearError: state => {
+        return state.wallet.clearError
+      },
+    }),
+  },
 }
 </script>
 
@@ -53,6 +62,7 @@ export default {
   padding: 8px 16px;
   transition: opacity 0.2s;
   border-radius: 4px;
+  margin-bottom: 16px;
 
   .message {
     align-items: center;

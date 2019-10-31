@@ -51,8 +51,8 @@ export function formatSectionApiErrorsByRoute(routeName, errorsMap, apiErrors) {
       name: errorName,
       message: errorMessages[errorName],
       description: `
-        ${apiErrors[errorName].message}.
-        ${JSON.stringify(apiErrors[errorName].data)}
+      ${apiErrors[errorName].message}.
+      ${JSON.stringify(apiErrors[errorName].data)}
       `,
     }))
 }
