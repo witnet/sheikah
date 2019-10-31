@@ -96,10 +96,8 @@ export default {
         })),
       error: state => state.wallet.errors.getTransactions,
       getTransactionsError: state => {
+        console.log('map state transacions-->', state.wallet.errors.getTransactions)
         return state.wallet.errors.getTransactions
-      },
-      addresses: state => {
-        return state.wallet.addresses
       },
       createVTTErrorMessage: state => {
         if (state.wallet.errors.createVTT) {
