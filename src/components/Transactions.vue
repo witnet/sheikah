@@ -81,7 +81,7 @@
           </button>
           <button
             @click="toogleDirectionRight(page)"
-            v-if="page <= setPages.length"
+            v-if="page < setPages.length"
             class="page-link"
           >
             <font-awesome-icon class="icon-right" icon="angle-right" />
