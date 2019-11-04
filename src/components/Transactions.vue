@@ -19,7 +19,7 @@
         </div>
         <el-dialog
           title="New Transaction"
-          :visible.sync="dialogVisible1"
+          :visible.sync="dialogVisible"
           width="60%"
           v-on:close="closeAndClear"
         >
@@ -43,9 +43,49 @@
         </p>
         <div class="content">
           <!-- <p class="address">{{ addresses[0].address }}</p> -->
-          <p class="address" v-for="address in addresses" :key="address.address">
+          <p class="address" v-for="address in paginatedAddresses" :key="address.address">
             {{ address.address }}
           </p>
+        </div>
+        <!-- <div class="block">
+          <el-pagination layout="prev, pager, next" :total="1000" />
+        </div> -->
+        <div class="pagination-nav">
+          <button class="page-link" v-if="page != 1" @click="toogleDirectionLeft(page)">
+            <font-awesome-icon class="icon-left" icon="angle-left" />
+          </button>
+          <button
+            v-show="setPages.length >= 1"
+            class="page-link static"
+            :class="[firstItemActive ? 'active' : '']"
+            @click="tooglePaginationButton('first')"
+          >
+            1
+          </button>
+          <button
+            :key="pageNumber"
+            v-for="pageNumber in rangePages"
+            @click="tooglePaginationButton(pageNumber)"
+            class="page-link num"
+            :class="{ active: pageNumber === middleItemActive }"
+          >
+            {{ pageNumber }}
+          </button>
+          <button
+            v-show="setPages.length > 0 && setPages.length >= 5"
+            class="page-link static"
+            :class="[lastItemActive ? 'active' : '']"
+            @click="tooglePaginationButton('last')"
+          >
+            {{ setPages.length }}
+          </button>
+          <button
+            @click="toogleDirectionRight(page)"
+            v-if="page <= setPages.length"
+            class="page-link"
+          >
+            <font-awesome-icon class="icon-right" icon="angle-right" />
+          </button>
         </div>
       </div>
     </div>
@@ -73,25 +113,15 @@ export default {
   },
   data() {
     return {
-      dialogVisible1: false,
+      dialogVisible: false,
       dialogVisible2: false,
+      posts: this.addresses,
+      page: 1,
+      perPage: 5,
+      middleItemActive: null,
+      lastItemActive: false,
+      firstItemActive: true,
     }
-  },
-  methods: {
-    displayModalSend: function() {
-      this.dialogVisible1 = true
-    },
-    displayModalReceive: function() {
-      this.dialogVisible2 = true
-    },
-    closeAndClear: function() {
-      this.clearError(this.createVTTErrorName)
-    },
-    clearError: function() {
-      console.log('cleaaar error.....')
-      console.log('THIS', this)
-      return this.$store.commit('clearError', { error: this.createVTTErrorName })
-    },
   },
   computed: {
     ...mapState({
@@ -108,7 +138,6 @@ export default {
         })),
       error: state => state.wallet.errors.getTransactions,
       getTransactionsError: state => {
-        console.log('map state transacions-->', state.wallet.errors.getTransactions)
         return state.wallet.errors.getTransactions
       },
       addresses: state => {
@@ -130,12 +159,166 @@ export default {
         }
       },
     }),
+    setPages() {
+      let pages = []
+      let numberOfPages = Math.ceil(this.addresses.length / this.perPage)
+      for (let index = 1; index <= numberOfPages; index++) {
+        pages.push(index)
+      }
+      return pages
+    },
+    rangePages() {
+      let range = []
+      let lenghtRange = 4
+      if (this.setPages.length === 1) {
+        return range
+      }
+      if (this.setPages.length === 2) {
+        if (this.page !== 1 && this.page !== this.setPages.length) {
+          lenghtRange = this.page + 2
+        }
+        lenghtRange = 2
+      }
+      if (this.setPages.length === 3) {
+        if (this.page !== 1 && this.page !== this.setPages.length) {
+          lenghtRange = this.page + 2
+        }
+        lenghtRange = 3
+      }
+      if (this.setPages.length === 4) {
+        if (this.page !== 1 && this.page !== this.setPages.length) {
+          lenghtRange = this.page + 2
+        }
+        lenghtRange = 4
+      }
+      if (this.setPages.length >= 5) {
+        if (this.page !== 1 && this.page !== this.setPages.length) {
+          lenghtRange = this.page + 2
+        }
+        lenghtRange = 4
+      }
+      // CORE-----------------------------------------------------
+      if (this.setPages.length === 0) {
+        if (this.page !== 1 && this.page !== this.setPages.length) {
+          lenghtRange = this.page + 2
+        }
+        return range
+      }
+      if (this.page === 1) {
+        for (let index = 2; index <= lenghtRange; index++) {
+          range.push(index)
+        }
+      } else if (
+        this.page === this.setPages.length ||
+        this.page + 1 === this.setPages.length ||
+        this.page + 2 === this.setPages.length
+      ) {
+        if (this.setPages.length >= 5) {
+          for (let index = this.setPages.length - 3; index <= 4; index++) {
+            range.push(index)
+          }
+        }
+        if (this.setPages.length < 5) {
+          for (let index = 2; index <= lenghtRange; index++) {
+            range.push(index)
+          }
+        }
+      } else if (this.page !== 1 && this.page !== this.setPages.length) {
+        for (let index = this.page; index <= lenghtRange; index++) {
+          range.push(index)
+        }
+      }
+      return range
+    },
+    paginatedAddresses() {
+      return this.paginate(this.addresses)
+    },
     transactionsError() {
       return {
         message: this.createVTTErrorMessage,
         description: this.createVTTErrorDescription,
         name: this.createVTTErrorName,
       }
+    },
+  },
+  methods: {
+    toogleDirectionRight: function(position) {
+      position++
+      this.page++
+      if (position === 1) {
+        this.firstItemActive = true
+        this.lastItemActive = false
+        this.middleItemActive = null
+      } else if (position === this.setPages.length) {
+        this.lastItemActive = true
+        this.firstItemActive = false
+        this.middleItemActive = null
+      } else {
+        this.middleItemActive = position
+        this.firstItemActive = false
+        this.lastItemActive = false
+      }
+    },
+    toogleDirectionLeft: function(position) {
+      this.page--
+      position--
+      if (position === this.setPages.length) {
+        this.lastItemActive = true
+        this.firstItemActive = false
+        this.middleItemActive = null
+      } else if (position === 1) {
+        this.firstItemActive = true
+        this.lastItemActive = false
+        this.middleItemActive = null
+      } else if (position < this.setPages.length) {
+        this.middleItemActive = position
+        this.firstItemActive = false
+        this.lastItemActive = false
+      }
+    },
+    tooglePaginationButton: function(position) {
+      if (position === 'last') {
+        this.page = this.setPages.length
+        this.lastItemActive = true
+        this.firstItemActive = false
+        this.middleItemActive = null
+      } else if (position === 'first') {
+        this.page = 1
+        this.firstItemActive = true
+        this.lastItemActive = false
+        this.middleItemActive = null
+      } else {
+        this.page = position
+        this.middleItemActive = position
+        this.firstItemActive = false
+        this.lastItemActive = false
+      }
+    },
+    displayModalSend: function() {
+      this.dialogVisible = true
+    },
+    displayModalReceive: function() {
+      this.generateAddress()
+      this.dialogVisible2 = true
+      this.setPages()
+    },
+    closeAndClear: function() {
+      this.clearError(this.createVTTErrorName)
+    },
+    clearError: function() {
+      return this.$store.commit('clearError', { error: this.createVTTErrorName })
+    },
+    paginate(posts) {
+      let page = this.page
+      let perPage = this.perPage
+      let from = page * perPage - perPage
+      let to = page * perPage
+      return posts.slice(from, to)
+    },
+    generateAddress() {
+      this.$store.dispatch('generateAddress', {
+        label: this.label,
+      })
     },
   },
   beforeCreate() {
@@ -195,6 +378,40 @@ export default {
       padding: 16px;
       color: $black;
       font-weight: 500;
+    }
+  }
+  .pagination-nav {
+    padding: 16px;
+    text-align: center;
+
+    .page-link {
+      padding: 10px;
+      border-radius: 2px;
+      border: none;
+      background-color: transparent;
+      color: $blue-6;
+      font-size: 14px;
+      margin: 4px;
+    }
+    .static {
+      border: none;
+      background-color: $blue-1;
+      color: $grey-6;
+    }
+    .num {
+      border: none;
+      background-color: transparent;
+      color: $grey-6;
+    }
+    .active {
+      color: $blue-6;
+      font-size: 16px;
+    }
+    :active,
+    :focus,
+    :hover {
+      outline: none;
+      cursor: pointer;
     }
   }
 }
