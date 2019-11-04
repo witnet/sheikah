@@ -259,7 +259,6 @@ export default {
 
     .option {
       align-items: center;
-      background: $white;
       box-sizing: border-box;
       color: $blue-6;
       display: flex;
