@@ -172,7 +172,7 @@ export default {
         this.page + 2 === this.setPages.length
       ) {
         if (this.setPages.length >= 5) {
-          for (let index = this.setPages.length - 3; index <= 4; index++) {
+          for (let index = this.setPages.length - 3; index <= this.setPages.length - 1; index++) {
             range.push(index)
           }
         }
