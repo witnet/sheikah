@@ -253,14 +253,12 @@ export default {
     &.active {
       display: block;
     }
-    border-bottom: 1px solid $blue-5;
-    border-left: 1px solid $blue-5;
+    border: 1px solid $blue-1;
     border-radius: 0 0 4px 4px;
-    border-right: 1px solid $blue-5;
+    background-color: $blue-1;
 
     .option {
       align-items: center;
-      background: $white;
       box-sizing: border-box;
       color: $blue-6;
       display: flex;
