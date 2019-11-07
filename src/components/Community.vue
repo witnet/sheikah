@@ -1,6 +1,11 @@
 <template>
   <div data-test="community-page" class="container">
-    <CommunityCard class="card" v-for="social in socials" :key="social.content">
+    <CommunityCard
+      :data-test="social.url"
+      class="card"
+      v-for="social in socials"
+      :key="social.content"
+    >
       <template v-slot:header>
         <a @click="() => openExternalLink(social.url)">
           {{ social.header }}

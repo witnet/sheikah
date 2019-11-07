@@ -1,0 +1,56 @@
+import { createSelection } from '../utils'
+
+describe('Land correctly in every view accesible from the home page', () => {
+  it('Create a Wallet', () => {
+    cy.visit('/ftu')
+    cy.get('[data-test=create-wallet]').click()
+    cy.get('[data-test=do-it]').click()
+    cy.get('[data-test=new-seed-option]').click()
+    cy.get('[data-test=next-step]').click()
+    cy.get('[data-test=word-seed]')
+      .then(textarea => {
+        return createSelection(textarea, 0, 5)
+      })
+      .then(val => {
+        cy.get('[data-test=next-step]').click()
+        cy.get('input').type(val)
+      })
+    cy.get('[data-test=next-step]').click()
+    cy.get('[data-test=password-input]').type('password')
+    cy.get('[data-test=repeat-password]').type('password')
+    cy.get('[data-test=next-step]').click()
+    cy.get('[data-test=home]')
+  })
+  it('Close session', () => {
+    cy.get('.el-dropdown-menu__item').click({ force: true })
+    cy.get('[data-test=welcome-back]')
+    // Be aware that when the password does not automatically display it should check if it is correct
+    cy.get('[data-test=local-wallet]')
+      .last()
+      .click()
+    cy.get('[data-test=password-input-access]').type('password')
+    cy.get('[data-test=unlock-wallet]').click()
+    cy.get('[data-test=home]')
+  })
+  it('Redirects to the correct social urls', () => {
+    cy.get('[data-test=to-community]')
+      .last()
+      .click()
+    cy.get('[data-test=community-page]')
+    // cy.get('[data-test=https://twitter.com/witnet_io]')
+    // cy.get('[data-test=https://discord.gg/X4uurfP]')
+    // cy.get('[data-test=https://medium.com/witnet]')
+    // cy.get('[data-test=mailto:info@witnet.foundation?subject=Witnet project]')
+    // cy.get('[data-test=https://t.me/witnetio]')
+    // cy.get('[data-test=https://github.com/witnet]')
+    // cy.get('[data-test=https://reddit.com/r/witnet]')
+    cy.get('[data-test=logo-to-home]').click()
+    cy.get('[data-test=home]')
+  })
+  it('Redirects to Marketplace view', () => {
+    cy.get('[data-test=to-marketplace]').click()
+    cy.get('[data-test=marketplace]')
+    cy.get('[data-test=to-transactions]').click()
+    cy.get('[data-test=transactions]')
+  })
+})

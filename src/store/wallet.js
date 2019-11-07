@@ -34,6 +34,7 @@ export default {
   mutations: {
     setTransactions(state, { transactions }) {
       state.transactions = transactions
+      console.log('setTransactions---->', state.transactions)
     },
     deleteSession(state) {
       state.sessionId = null
@@ -91,13 +92,6 @@ export default {
       }
       state.addresses = Array.from(addressesMap.values())
     },
-    // setPages(state, { addresses }) {
-    //   let numberOfPages = Math.ceil(addresses.length / 5)
-    //   for (let index = 1; index <= numberOfPages; index++) {
-    //     state.pages.push(index)
-    //     console.log('holaaa', state.pages)
-    //   }
-    // },
   },
   actions: {
     closeSession: async function(context) {
@@ -135,7 +129,6 @@ export default {
         fee,
         label,
       })
-      console.log('api call---->', request)
       if (request.result) {
         const generatedTransaction = {
           bytes: request.result.bytes,
@@ -165,7 +158,6 @@ export default {
     },
 
     getAddresses: async function(context) {
-      console.log('es el mismo id?', context.state.walletId)
       const request = await this.$walletApi.getAddresses({
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
@@ -189,11 +181,8 @@ export default {
 
     unlockWallet: async function(context, { walletId, password }) {
       const request = await this.$walletApi.unlockWallet({ walletId, password, sessionId: '1' })
-      console.log('QUE PAASA AQUI', request)
       if (request.result) {
         // TODO(#706) We should receive a wallet structure instead a walletId
-        console.log('wallet id--->', walletId)
-        console.log('RESULTADO:::::::::::::>', request.result)
         context.commit('setWallet', { sessionId: request.result.sessionId, walletId })
       } else {
         context.commit('setError', { name: 'unlockWallet', error: request.error })

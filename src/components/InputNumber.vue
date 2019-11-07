@@ -1,7 +1,12 @@
 <template>
   <div class="inputnumber">
-    <Input v-model="inputValue" />
-    <font-awesome-icon @click="increase" class="increase" icon="angle-up" />
+    <Input data-test="send-amount" v-model="inputValue" />
+    <font-awesome-icon
+      data-test="send-increase-amount"
+      @click="increase"
+      class="increase"
+      icon="angle-up"
+    />
     <div class="unit">
       <p class="text">WIT</p>
     </div>

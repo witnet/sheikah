@@ -24,7 +24,6 @@
           v-on:close="closeAndClear"
         >
           <Alert
-            data-test="alert-send-transaction"
             v-if="transactionsError.message"
             :key="transactionsError.message"
             type="error"
@@ -193,6 +192,7 @@ export default {
       return this.paginate(this.addresses)
     },
     transactionsError() {
+      console.log('transactions error---->')
       return {
         message: this.createVTTErrorMessage,
         description: this.createVTTErrorDescription,
@@ -201,78 +201,18 @@ export default {
     },
   },
   methods: {
-    toogleDirectionRight: function(position) {
-      position++
-      this.page++
-      if (position === 1) {
-        this.firstItemActive = true
-        this.lastItemActive = false
-        this.middleItemActive = null
-      } else if (position === this.setPages.length) {
-        this.lastItemActive = true
-        this.firstItemActive = false
-        this.middleItemActive = null
-      } else {
-        this.middleItemActive = position
-        this.firstItemActive = false
-        this.lastItemActive = false
-      }
-    },
-    toogleDirectionLeft: function(position) {
-      this.page--
-      position--
-      if (position === this.setPages.length) {
-        this.lastItemActive = true
-        this.firstItemActive = false
-        this.middleItemActive = null
-      } else if (position === 1) {
-        this.firstItemActive = true
-        this.lastItemActive = false
-        this.middleItemActive = null
-      } else if (position < this.setPages.length) {
-        this.middleItemActive = position
-        this.firstItemActive = false
-        this.lastItemActive = false
-      }
-    },
-    tooglePaginationButton: function(position) {
-      if (position === 'last') {
-        this.page = this.setPages.length
-        this.lastItemActive = true
-        this.firstItemActive = false
-        this.middleItemActive = null
-      } else if (position === 'first') {
-        this.page = 1
-        this.firstItemActive = true
-        this.lastItemActive = false
-        this.middleItemActive = null
-      } else {
-        this.page = position
-        this.middleItemActive = position
-        this.firstItemActive = false
-        this.lastItemActive = false
-      }
-    },
     displayModalSend: function() {
       this.dialogVisible = true
     },
     displayModalReceive: function() {
       this.generateAddress()
       this.dialogVisible2 = true
-      this.setPages()
     },
     closeAndClear: function() {
       this.clearError(this.createVTTErrorName)
     },
     clearError: function() {
       return this.$store.commit('clearError', { error: this.createVTTErrorName })
-    },
-    paginate(posts) {
-      let page = this.page
-      let perPage = this.perPage
-      let from = page * perPage - perPage
-      let to = page * perPage
-      return posts.slice(from, to)
     },
     generateAddress() {
       this.$store.dispatch('generateAddress', {
@@ -310,66 +250,6 @@ export default {
       .primary {
         margin: 10px;
       }
-    }
-  }
-}
-.card {
-  min-width: 200px;
-  max-height: 400px;
-  margin-top: 40px;
-  .header {
-    border-bottom: 1px solid $grey-0;
-    margin-bottom: 24px;
-    color: $grey-4;
-    font-weight: bold;
-  }
-  .content {
-    overflow-wrap: break-word;
-    border-radius: 2px;
-    box-shadow: $default-box-shadow;
-    padding: 32px;
-    background-color: $alpha-blue;
-    .address {
-      text-align: center;
-      width: 250px;
-      border-bottom: 1px solid $grey-0;
-      padding: 16px;
-      color: $black;
-      font-weight: 500;
-    }
-  }
-  .pagination-nav {
-    padding: 16px;
-    text-align: center;
-
-    .page-link {
-      padding: 10px;
-      border-radius: 2px;
-      border: none;
-      background-color: transparent;
-      color: $blue-6;
-      font-size: 14px;
-      margin: 4px;
-    }
-    .static {
-      border: none;
-      background-color: $blue-1;
-      color: $grey-6;
-    }
-    .num {
-      border: none;
-      background-color: transparent;
-      color: $grey-6;
-    }
-    .active {
-      color: $blue-6;
-      font-size: 16px;
-    }
-    :active,
-    :focus,
-    :hover {
-      outline: none;
-      cursor: pointer;
     }
   }
 }
