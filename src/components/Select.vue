@@ -1,9 +1,16 @@
 <template>
   <div :class="[type === 'operator' ? 'select-box-operator' : 'select-box']">
-    <div ref="button" :class="`select ${active ? 'active' : ''}`" @click="active = !active">
+    <div
+      data-test="select-btn"
+      ref="button"
+      :class="`select ${active ? 'active' : ''}`"
+      @click="active = !active"
+    >
       <div class="selected">
         <div class="label">
-          <span class="primary">{{ value.primaryText }}</span>
+          <span class="primary" :data-test="'value' + value.primaryText">
+            {{ value.primaryText }}
+          </span>
           <font-awesome-icon class="icon sort-down" icon="sort-down" />
         </div>
         <span :class="`value ${value.secondaryText}`">{{ value.secondaryText }}</span>
@@ -16,6 +23,7 @@
     >
       <div
         v-for="option in options"
+        :data-test="'option-' + option.primaryText"
         :key="option.value"
         :class="`option ${option.value === value ? 'selected' : ''}`"
         @click="() => selectOption(option)"
