@@ -4,7 +4,11 @@
       <div class="label">
         <label class for>Address</label>
       </div>
-      <Input v-model="address" placeholder="Recipient address" />
+      <Input
+        :data-test="'send-recipient-address'"
+        v-model="address"
+        placeholder="Recipient address"
+      />
     </div>
 
     <div class="row">
@@ -27,7 +31,7 @@
       <Select class="select" v-model="fee" :options="options" />
     </div>
     <div class="submit">
-      <Button :onClick="createVTT" type="primary">Sign and send</Button>
+      <Button data-test="sign-send-btn" :onClick="createVTT" type="primary">Sign and send</Button>
     </div>
 
     <el-dialog title="Confirm Transaction" :visible.sync="showDialog" width="40%" center>
