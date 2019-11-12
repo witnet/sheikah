@@ -233,6 +233,7 @@ export default {
         page,
       })
       if (request.result) {
+        console.log('getTransaction--->', request.result)
         context.commit('setTransactions', { transactions: request.result.transactions })
       } else {
         context.commit('setError', { name: 'getTransactions', error: request.error })

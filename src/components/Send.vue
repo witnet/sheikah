@@ -4,11 +4,7 @@
       <div class="label">
         <label class for>Address</label>
       </div>
-      <Input
-        :data-test="'send-recipient-address'"
-        v-model="address"
-        placeholder="Recipient address"
-      />
+      <Input v-model="address" placeholder="Recipient address" />
     </div>
 
     <div class="row">
