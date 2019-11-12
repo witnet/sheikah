@@ -113,16 +113,6 @@ export default new Router({
               component: Transactions,
               // beforeEnter: callGetTransactions,
             },
-            {
-              name: 'receive',
-              path: 'receive',
-              component: Receive,
-            },
-            {
-              name: 'send',
-              path: 'send',
-              component: Send,
-            },
           ],
         },
         {

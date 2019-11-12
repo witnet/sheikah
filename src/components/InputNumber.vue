@@ -47,6 +47,7 @@ export default {
   min-width: max-content;
 
   .input {
+    height: 50px;
     border-radius: 4px 0px 0px 4px;
     border-right: none;
     outline-color: $blue-5;
@@ -64,6 +65,8 @@ export default {
   }
 
   .unit {
+    height: 50px;
+    width: 60px;
     padding: 8px;
     display: flex;
     align-items: center;
