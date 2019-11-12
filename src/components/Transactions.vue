@@ -24,6 +24,7 @@
           v-on:close="closeAndClear"
         >
           <Alert
+            data-test="alert-send-transaction"
             v-if="transactionsError.message"
             :key="transactionsError.message"
             type="error"
@@ -39,7 +40,7 @@
           :visible.sync="dialogVisible2"
           width="60%"
         >
-          <Receive />
+          <Receive :addresses="addresses" />
         </el-dialog>
       </div>
       <ListAddresses :addresses="addresses" />
@@ -89,7 +90,7 @@ export default {
       transactions: state =>
         state.wallet.transactions.map(transaction => ({
           address: '',
-          amount: `${transaction.kind === 'Credit' ? '+' : '-'}${transaction.value}`,
+          amount: `${transaction.entry === 'Credit' ? '+' : '-'}${transaction.value}`,
           block: transaction.block ? transaction.block.epoch : 'PENDING',
           date: new Date(transaction.timestamp).toISOString(),
         })),
@@ -116,83 +117,7 @@ export default {
         }
       },
     }),
-    setPages() {
-      let pages = []
-      let numberOfPages = Math.ceil(this.addresses.length / this.perPage)
-      for (let index = 1; index <= numberOfPages; index++) {
-        pages.push(index)
-      }
-      return pages
-    },
-    rangePages() {
-      let range = []
-      let lenghtRange = 4
-      if (this.setPages.length === 1) {
-        return range
-      }
-      if (this.setPages.length === 2) {
-        if (this.page !== 1 && this.page !== this.setPages.length) {
-          lenghtRange = this.page + 2
-        }
-        lenghtRange = 2
-      }
-      if (this.setPages.length === 3) {
-        if (this.page !== 1 && this.page !== this.setPages.length) {
-          lenghtRange = this.page + 2
-        }
-        lenghtRange = 3
-      }
-      if (this.setPages.length === 4) {
-        if (this.page !== 1 && this.page !== this.setPages.length) {
-          lenghtRange = this.page + 2
-        }
-        lenghtRange = 4
-      }
-      if (this.setPages.length >= 5) {
-        if (this.page !== 1 && this.page !== this.setPages.length) {
-          lenghtRange = this.page + 2
-        }
-        lenghtRange = 4
-      }
-      // -----------------------------------------------------
-      if (this.setPages.length === 0) {
-        if (this.page !== 1 && this.page !== this.setPages.length) {
-          lenghtRange = this.page + 2
-        }
-        return range
-      }
-      if (this.page === 1) {
-        for (let index = 2; index <= lenghtRange; index++) {
-          range.push(index)
-        }
-      } else if (
-        this.page === this.setPages.length ||
-        this.page + 1 === this.setPages.length ||
-        this.page + 2 === this.setPages.length ||
-        this.page + 3 === this.setPages.length
-      ) {
-        if (this.setPages.length >= 5) {
-          for (let index = this.setPages.length - 3; index <= this.setPages.length - 1; index++) {
-            range.push(index)
-          }
-        }
-        if (this.setPages.length < 5) {
-          for (let index = 2; index <= lenghtRange; index++) {
-            range.push(index)
-          }
-        }
-      } else if (this.page !== 1 && this.page !== this.setPages.length) {
-        for (let index = this.page; index <= lenghtRange; index++) {
-          range.push(index)
-        }
-      }
-      return range
-    },
-    paginatedAddresses() {
-      return this.paginate(this.addresses)
-    },
     transactionsError() {
-      console.log('transactions error---->')
       return {
         message: this.createVTTErrorMessage,
         description: this.createVTTErrorDescription,

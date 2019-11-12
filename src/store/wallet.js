@@ -34,7 +34,6 @@ export default {
   mutations: {
     setTransactions(state, { transactions }) {
       state.transactions = transactions
-      console.log('setTransactions---->', state.transactions)
     },
     deleteSession(state) {
       state.sessionId = null
@@ -234,6 +233,7 @@ export default {
         page,
       })
       if (request.result) {
+        console.log('getTransaction--->', request.result)
         context.commit('setTransactions', { transactions: request.result.transactions })
       } else {
         context.commit('setError', { name: 'getTransactions', error: request.error })

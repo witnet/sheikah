@@ -110,7 +110,8 @@ export class WalletApi {
   }
 
   async createVTT(params) {
-    return this._callApiMethod('createVtt')(params)
+    const defaultParams = { timeLock: 0 }
+    return this._callApiMethod('createVtt')({ ...defaultParams, ...params })
   }
 
   async unlockWallet(params) {
