@@ -91,7 +91,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .error {
-  color: $red-1;
+  color: $red-0;
 }
 
 .paragraph {

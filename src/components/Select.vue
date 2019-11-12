@@ -219,6 +219,7 @@ export default {
     width: min-content;
     min-width: min-content;
     padding: 0 8px 0 16px;
+    width: 190px;
 
     &.active,
     &:hover {
@@ -253,10 +254,9 @@ export default {
     &.active {
       display: block;
     }
-    border-bottom: 1px solid $blue-5;
-    border-left: 1px solid $blue-5;
+    border: 1px solid $blue-1;
     border-radius: 0 0 4px 4px;
-    border-right: 1px solid $blue-5;
+    background-color: $blue-1;
 
     .option {
       align-items: center;

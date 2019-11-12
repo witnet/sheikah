@@ -62,12 +62,16 @@ export default {
       state.lockWallet = id
     },
 
-    setError(state, { name, error }) {
-      state.errors[name] = error
+    setError(state, { name, error, message }) {
+      state.errors[name] = {
+        name,
+        error,
+        message,
+      }
     },
 
     clearError(state, { error }) {
-      state[error] = null
+      state.errors[error] = null
     },
 
     setGeneratedTransaction(state, { transaction }) {
@@ -99,7 +103,6 @@ export default {
         router.push('/welcome-back/wallet-list')
       } else {
         // TODO: handle error properly
-        console.log('error closing session')
       }
     },
 
@@ -145,7 +148,11 @@ export default {
         }
         context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
       } else {
-        context.commit('setError', { name: 'createVTT', error: request.error })
+        context.commit('setError', {
+          name: 'createVTT',
+          error: request.error,
+          message: 'An error occurred creating a Value Transfer Transaction',
+        })
       }
     },
 
@@ -207,6 +214,7 @@ export default {
         seedSource: params.sourceType,
         password: params.password,
       })
+
       if (request.result) {
         context.dispatch('unlockWallet', {
           walletId: request.result.walletId,

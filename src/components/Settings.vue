@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dropdown @command="handleCommand">
+    <el-dropdown class="settings-btn" @command="handleCommand">
       <el-button split-button type="primary">
         <font-awesome-icon class="icon" icon="cog" />
       </el-button>

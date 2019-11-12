@@ -1,6 +1,6 @@
 <template>
-  <div class="alert" :class="[type, { closed }]">
-    <div class="message">
+  <div>
+    <div v-if="message" class="message">
       <p class="text">{{ message }}</p>
       <font-awesome-icon class="icon cross" icon="times" @click="close" />
     </div>
@@ -53,6 +53,7 @@ export default {
   padding: 8px 16px;
   transition: opacity 0.2s;
   border-radius: 4px;
+  margin-bottom: 16px;
 
   .message {
     align-items: center;
