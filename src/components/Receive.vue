@@ -22,8 +22,8 @@ import { copyToClipboard } from '@/utils'
 
 export default {
   name: 'receive',
-  beforeCreate() {
-    this.$store.dispatch('getAddresses')
+  props: {
+    addresses: Array,
   },
   data() {
     return {
@@ -34,11 +34,6 @@ export default {
     }
   },
   methods: {
-    generateAddress() {
-      this.$store.dispatch('generateAddress', {
-        label: this.label,
-      })
-    },
     copyAddress(id) {
       copyToClipboard(id)
       this.text = 'Copied'
@@ -46,9 +41,6 @@ export default {
     },
   },
   computed: {
-    addresses() {
-      return this.$store.state.wallet.addresses
-    },
     lastAddress() {
       return this.addresses[0].address
     },

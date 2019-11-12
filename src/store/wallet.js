@@ -34,7 +34,6 @@ export default {
   mutations: {
     setTransactions(state, { transactions }) {
       state.transactions = transactions
-      console.log('setTransactions---->', state.transactions)
     },
     deleteSession(state) {
       state.sessionId = null
