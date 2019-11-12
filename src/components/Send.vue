@@ -201,6 +201,7 @@ export default {
       min-width: 64px;
       margin-right: 24px;
       text-align: right;
+      padding-top: 10px;
     }
   }
   .submit {

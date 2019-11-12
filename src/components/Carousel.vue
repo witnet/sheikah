@@ -57,6 +57,8 @@
     </div>
     <div class="card--to__right" @click="moveCarousel(1)" :disabled="endOfList">
       <font-awesome-icon class="icon-right" icon="angle-right" />
+      {{ this.counter }}
+      {{ this.sources.length }}
     </div>
   </div>
 </template>
@@ -121,7 +123,6 @@ export default {
     moveCarousel(direction) {
       const isMovingToTheRight = direction === 1
       const isMovingTotheLeft = direction === -1
-
       if (isMovingToTheRight && !this.endOfList) {
         this.animate = 'slide-right'
         this.counter++
@@ -131,12 +132,16 @@ export default {
       }
     },
     addSource() {
-      if (this.sources.length > 1) this.counter++
       this.$store.commit('addSource')
+      if (this.sources.length > 1) {
+        this.counter += 1
+      }
     },
     deleteSource(index) {
       this.$store.commit('deleteSource', { index })
-      if (this.sources.length > 2) this.moveCarousel(-1)
+      if (this.sources.length > 2) {
+        this.moveCarousel(-1)
+      }
     },
     updateSource: function(sourceInformation, sourceIndex) {
       this.$store.commit('updateSource', { source: sourceInformation, index: sourceIndex })

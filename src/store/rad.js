@@ -72,6 +72,9 @@ export default {
     clearMoveCarousel(state) {
       state.moveCarousel = false
     },
+    clearMoveCarousel(state) {
+      state.moveCarousel = false
+    },
     updateSource(state, { source, index }) {
       state.currentRadonMarkupInterpreter.updateSource(source, index)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()

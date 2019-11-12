@@ -92,6 +92,13 @@ export default {
       }
       state.addresses = Array.from(addressesMap.values())
     },
+    // setPages(state, { addresses }) {
+    //   let numberOfPages = Math.ceil(addresses.length / 5)
+    //   for (let index = 1; index <= numberOfPages; index++) {
+    //     state.pages.push(index)
+    //     console.log('holaaa', state.pages)
+    //   }
+    // },
   },
   actions: {
     closeSession: async function(context) {
