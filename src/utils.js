@@ -1,9 +1,8 @@
 import cbor from 'cbor'
-import { shell } from 'electron'
+// import { shell } from 'electron'
 import uuidv4 from 'uuid/v4'
 
 export function encodeDataRequest(radRequest) {
-  debugger
   return {
     timelock: radRequest.timelock,
     retrieve: radRequest.retrieve.map(retrieve => {
@@ -52,8 +51,27 @@ export function formatSectionApiErrorsByRoute(routeName, errorsMap, apiErrors) {
       name: errorName,
       message: errorMessages[errorName],
       description: `
-        ${apiErrors[errorName].message}.
-        ${JSON.stringify(apiErrors[errorName].data)}
+      ${apiErrors[errorName].message}.
+      ${JSON.stringify(apiErrors[errorName].data)}
       `,
     }))
+}
+
+export function copyToClipboard(id) {
+  let textToCopy = document.getElementById(id)
+  let currentRange
+  if (document.getSelection().rangeCount > 0) {
+    currentRange = document.getSelection().getRangeAt(0)
+    window.getSelection().removeRange(currentRange)
+  } else {
+    currentRange = false
+  }
+  let CopyRange = document.createRange()
+  CopyRange.selectNode(textToCopy)
+  window.getSelection().addRange(CopyRange)
+  document.execCommand('copy')
+  window.getSelection().removeRange(CopyRange)
+  if (currentRange) {
+    window.getSelection().addRange(currentRange)
+  }
 }
