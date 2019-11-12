@@ -102,6 +102,20 @@ export default {
         })
       },
     },
+    isMoveCarouselActivated() {
+      return this.$store.state.rad.moveCarousel
+    },
+  },
+  watch: {
+    isMoveCarouselActivated() {
+      if (this.isMoveCarouselActivated === 'right' && this.sources.length > 2) {
+        this.moveCarousel(-1)
+        this.$store.commit('clearMoveCarousel')
+      } else if (this.isMoveCarouselActivated === 'left') {
+        this.moveCarousel(1)
+        this.$store.commit('clearMoveCarousel')
+      }
+    },
   },
   methods: {
     moveCarousel(direction) {

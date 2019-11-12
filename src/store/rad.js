@@ -10,6 +10,7 @@ export default {
     radRequest: {},
     history: [{}],
     historyIndex: 0,
+    moveCarousel: false,
   },
   getters: {
     currentTemplate: state => {
@@ -19,40 +20,76 @@ export default {
   mutations: {
     updateHistory(state, { mir }) {
       state.history.push(mir)
-      state.history.splice(0, state.historyIndex)
+      state.historyIndex += 1
+      state.history.splice(state.historyIndex)
     },
     updateTemplate(state, { id, value }) {
-      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.updateElement(id, value)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
+      this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     editorRedo(state) {
-      if (state.historyIndex + 1 < state.history.length) {
-        state.historyIndex += 1
-        state.currentRadonMarkupInterpreter = RadonMarkupInterpreter(history[state.historyIndex])
-      }
+      // TODO: uncomment next lines when the new radon lib is integrated
+      // const Redolenght = state.currentRadonMarkupInterpreter.getMarkup().retrieve.length
+      // if (state.historyIndex + 1 < state.history.length) {
+      //   state.historyIndex += 1
+      //   state.currentRadonMarkupInterpreter = new RadonMarkupInterpreter(
+      //     state.history[state.historyIndex]
+      //   )
+      //   state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
+      //   let currentLenght = state.radRequest.retrieve.length
+      //   if (Redolenght > currentLenght) {
+      //     this.commit('moveCarousel', { direction: 'right' })
+      //   } else if (Redolenght < currentLenght) {
+      //     this.commit('moveCarousel', { direction: 'left' })
+      //   }
+      // }
     },
     editorUndo(state) {
-      if (state.historyIndex > 0) {
-        state.historyIndex -= 1
-        state.currentRadonMarkupInterpreter = RadonMarkupInterpreter(history[state.historyIndex])
+      // TODO: uncomment next lines when the new radon lib is integrated
+      // const lenght = state.currentRadonMarkupInterpreter.getMarkup().retrieve.length
+      // if (state.historyIndex > 0) {
+      //   state.historyIndex -= 1
+      //   state.currentRadonMarkupInterpreter = new RadonMarkupInterpreter(
+      //     state.history[state.historyIndex]
+      //   )
+      //   state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
+      //   let currentLenght = state.radRequest.retrieve.length
+      //   if (lenght > currentLenght) {
+      //     this.commit('moveCarousel', { direction: 'right' })
+      //   } else if (lenght < currentLenght) {
+      //     this.commit('moveCarousel', { direction: 'left' })
+      //   }
+      // }
+    },
+    moveCarousel(state, { direction }) {
+      if (direction === 'right') {
+        state.moveCarousel = 'right'
+      } else if (direction === 'left') {
+        state.moveCarousel = 'left'
       }
     },
+    clearMoveCarousel(state) {
+      state.moveCarousel = false
+    },
     updateSource(state, { source, index }) {
-      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.updateSource(source, index)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
+      // TODO: uncomment next line when the new radon lib is integrated
+      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     deleteSource(state, { index }) {
-      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.currentRadonMarkupInterpreter.deleteSource(index)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
+      // TODO: uncomment next line when the new radon lib is integrated
+      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     addSource(state) {
-      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
       state.currentRadonMarkupInterpreter.pushSource()
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
+      // TODO: uncomment next lines when the new radon lib is integrated
+      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
       // state.currentRadonMarkupInterpreter.getMir()
     },
     setTemplates: function(state, { templates }) {
@@ -103,6 +140,9 @@ export default {
     pushOperator: function(state, { stage, sourceIndex }) {
       state.currentRadonMarkupInterpreter.pushOperator(stage, sourceIndex)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
+      // TODO: uncomment next lines when the new radon lib is integrated
+      // this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
+      // state.currentRadonMarkupInterpreter.getMir()
     },
   },
   actions: {
