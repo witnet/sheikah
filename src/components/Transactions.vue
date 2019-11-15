@@ -32,7 +32,7 @@
             :description="transactionsError.description"
             v-on:close="closeAndClear"
           />
-          <Send />
+          <Send v-on:close="dialogVisible = false" />
         </el-dialog>
         <el-dialog
           data-test="receive-modal"
