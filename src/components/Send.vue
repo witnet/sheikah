@@ -1,36 +1,37 @@
 <template>
   <div class="send">
-    <div class="row">
-      <div class="label">
-        <label class for>Address</label>
+    <div v-show="!generatedTransaction">
+      <div class="row">
+        <div class="label">
+          <label class for>Address</label>
+        </div>
+        <Input v-model="address" placeholder="Recipient address" />
       </div>
-      <Input v-model="address" placeholder="Recipient address" />
-    </div>
 
-    <div class="row">
-      <div class="label">
-        <label class for>Label</label>
+      <div class="row">
+        <div class="label">
+          <label class for>Label</label>
+        </div>
+        <Input v-model="label" />
       </div>
-      <Input v-model="label" />
-    </div>
 
-    <div class="row">
-      <div class="label">
-        <label class for>Amount</label>
+      <div class="row">
+        <div class="label">
+          <label class for>Amount</label>
+        </div>
+        <InputNumber v-model="amount" />
       </div>
-      <InputNumber v-model="amount" />
-    </div>
-    <div class="row">
-      <div class="label">
-        <label class for>Fee</label>
+      <div class="row">
+        <div class="label">
+          <label class for>Fee</label>
+        </div>
+        <Select class="select" v-model="fee" :options="options" />
       </div>
-      <Select class="select" v-model="fee" :options="options" />
+      <div class="submit">
+        <Button data-test="sign-send-btn" :onClick="createVTT" type="primary">Sign and send</Button>
+      </div>
     </div>
-    <div class="submit">
-      <Button data-test="sign-send-btn" :onClick="createVTT" type="primary">Sign and send</Button>
-    </div>
-
-    <el-dialog title="Confirm Transaction" :visible.sync="showDialog" width="40%" center>
+    <div v-show="generatedTransaction">
       <div v-if="generatedTransaction" class="transaction-info">
         <div class="row">
           <p class="entry">Amount</p>
@@ -85,7 +86,7 @@
         <Button :onClick="closeDialog" type="secondary" class="button">Cancel</Button>
         <Button :onClick="confirmTransaction" type="primary" class="button">Confirm</Button>
       </span>
-    </el-dialog>
+    </div>
   </div>
 </template>
 
