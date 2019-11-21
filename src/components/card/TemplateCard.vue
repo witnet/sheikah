@@ -33,8 +33,8 @@ export default {
         {
           label: 'Edit',
           action: () => {
-            this.setCurrentTemplate()
             this.$router.push('/request/editor')
+            this.setCurrentTemplate()
           },
         },
         {

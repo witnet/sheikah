@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     pushOperator() {
-      this.$store.commit('pushOperator', { stage: this.stage, sourceIndex: this.sourceIndex })
+      this.$store.commit('pushOperator', { scriptId: this.script[0].scriptId })
     },
   },
 }
