@@ -23,7 +23,7 @@ import { copyToClipboard } from '@/utils'
 export default {
   name: 'receive',
   props: {
-    addresses: Array,
+    lastAddress: String,
   },
   data() {
     return {
@@ -41,9 +41,10 @@ export default {
     },
   },
   computed: {
-    lastAddress() {
-      return this.addresses[0].address
-    },
+    // lastAddress() {
+    //   console.log('lastAddress-->', this.addresses[this.addresses.length - 1].address)
+    //   return this.addresses[this.addresses.length - 1]
+    // },
   },
 }
 </script>

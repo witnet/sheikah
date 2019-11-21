@@ -40,7 +40,7 @@
           :visible.sync="dialogVisible2"
           width="60%"
         >
-          <Receive :addresses="addresses" />
+          <Receive :lastAddress="lastAddress" />
         </el-dialog>
       </div>
       <ListAddresses :addresses="addresses" />
@@ -74,6 +74,7 @@ export default {
       dialogVisible: false,
       dialogVisible2: false,
       posts: this.addresses,
+      lastAddress: '',
       page: 1,
       perPage: 5,
       middleItemActive: null,
@@ -122,6 +123,13 @@ export default {
         message: this.createVTTErrorMessage,
         description: this.createVTTErrorDescription,
         name: this.createVTTErrorName,
+      }
+    },
+  },
+  watch: {
+    addresses() {
+      if (this.addresses.length !== 0) {
+        this.lastAddress = this.addresses[this.addresses.length - 1].address
       }
     },
   },
