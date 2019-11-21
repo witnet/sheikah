@@ -48,9 +48,9 @@ export default {
       if (this.currentStage === 'retrieve') {
         return this.radRequest.retrieve
       } else if (this.currentStage === 'aggregate') {
-        return this.radRequest.aggregate.script
+        return this.radRequest.aggregate
       } else if (this.currentStage === 'tally') {
-        return this.radRequest.tally.script
+        return this.radRequest.tally
       } else {
         return null
       }
