@@ -24,7 +24,7 @@
           v-on:close="closeAndClear"
         >
           <Alert
-            data-test="alert-send-transaction"
+            data-test="alert"
             v-if="transactionsError.message"
             :key="transactionsError.message"
             type="error"
