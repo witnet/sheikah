@@ -1,6 +1,68 @@
 <template>
   <div class="send">
-    <div v-show="!generatedTransaction">
+    <div v-if="generatedTransaction" class="transaction-info">
+      <div :class="{ scroll: isAdvancedVisible }">
+        <div class="row">
+          <p class="entry">Amount</p>
+          <p class="value">{{ generatedTransaction.amount }} Wit</p>
+        </div>
+        <div class="row">
+          <p class="entry">Type</p>
+          <p class="value">{{ generatedTransaction.type }}</p>
+        </div>
+        <div class="row">
+          <p class="entry">To</p>
+          <p class="value">{{ generatedTransaction.to }}</p>
+        </div>
+        <div class="row">
+          <p class="entry">Fee</p>
+          <p class="value">{{ generatedTransaction.fee }} uWit/B</p>
+        </div>
+
+        <div v-if="isAdvancedVisible" class="row">
+          <p class="entry">Inputs</p>
+          <p></p>
+          <div class="column">
+            <p class="address value" v-for="input in generatedTransaction.inputs" :key="input">
+              {{ input }}
+            </p>
+          </div>
+        </div>
+        <div v-if="isAdvancedVisible" class="row">
+          <p class="entry">Outputs</p>
+          <p></p>
+          <div class="column">
+            <p
+              class="address value"
+              v-for="output in generatedTransaction.outputs"
+              :key="output.pkh"
+            >
+              <span>PKH: {{ output.pkh }}</span>
+              <span>Amount: {{ output.value }}</span>
+            </p>
+          </div>
+        </div>
+
+        <div v-if="isAdvancedVisible" class="row">
+          <p class="entry">Bytes</p>
+          <p></p>
+          <div class="column">
+            <p class="address value">{{ generatedTransaction.bytes }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="confirm-advance-btn">
+        <p v-if="isAdvancedVisible" @click="toggleAdvanceOptions" class="link">Show less</p>
+        <p v-else @click="toggleAdvanceOptions" class="link">
+          Show advanced options
+        </p>
+        <span slot="footer" class="dialog-footer">
+          <Button :onClick="closeDialog" type="secondary" class="button">Cancel</Button>
+          <Button :onClick="confirmTransaction" type="primary" class="button">Confirm</Button>
+        </span>
+      </div>
+    </div>
+    <div v-else>
       <div class="row">
         <div class="label">
           <label class for>Address</label>
@@ -35,62 +97,6 @@
         <Button data-test="sign-send-btn" :onClick="createVTT" type="primary">Sign and send</Button>
       </div>
     </div>
-    <div v-show="generatedTransaction">
-      <div v-if="generatedTransaction" class="transaction-info">
-        <div class="row">
-          <p class="entry">Amount</p>
-          <p class="value">{{ generatedTransaction.amount }} Wit</p>
-        </div>
-        <div class="row">
-          <p class="entry">Type</p>
-          <p class="value">{{ generatedTransaction.type }}</p>
-        </div>
-        <div class="row">
-          <p class="entry">To</p>
-          <p class="value">{{ generatedTransaction.to }}</p>
-        </div>
-        <div class="row">
-          <p class="entry">Fee</p>
-          <p class="value">{{ generatedTransaction.fee }} uWit/B</p>
-        </div>
-
-        <div v-if="isAdvancedVisible" class="row">
-          <p class="entry">Inputs</p>
-          <p></p>
-          <div class="column">
-            <p class="address value" v-for="input in generatedTransaction.inputs" :key="input">
-              {{ input }}
-            </p>
-          </div>
-        </div>
-        <div v-if="isAdvancedVisible" class="row">
-          <p class="entry">Outputs</p>
-          <p></p>
-          <div class="column">
-            <p class="address value" v-for="output in generatedTransaction.outputs" :key="output">
-              <span>PKH: {{ output.pkh }}</span>
-              <span>Amount: {{ output.value }}</span>
-            </p>
-          </div>
-        </div>
-
-        <div v-if="isAdvancedVisible" class="row">
-          <p class="entry">Bytes</p>
-          <p></p>
-          <div class="column">
-            <p class="address value">{{ generatedTransaction.bytes }}</p>
-          </div>
-        </div>
-      </div>
-      <p v-if="!isAdvancedVisible" @click="toggleAdvanceOptions" class="link">
-        Show advanced options
-      </p>
-      <p v-if="isAdvancedVisible" @click="toggleAdvanceOptions" class="link">Show less</p>
-      <span slot="footer" class="dialog-footer">
-        <Button :onClick="closeDialog" type="secondary" class="button">Cancel</Button>
-        <Button :onClick="confirmTransaction" type="primary" class="button">Confirm</Button>
-      </span>
-    </div>
   </div>
 </template>
 
@@ -111,7 +117,7 @@ export default {
   data() {
     return {
       isAdvancedVisible: false,
-      showDialog: false,
+      showModal: false,
       address: '',
       label: '',
       amount: 0,
@@ -135,7 +141,7 @@ export default {
 
     confirmTransaction() {
       this.$store.dispatch('sendTransaction')
-      this.showDialog = false
+      this.closeDialog()
     },
     createVTT() {
       this.$store.dispatch('createVTT', {
@@ -146,13 +152,14 @@ export default {
       })
     },
     closeDialog() {
-      this.showDialog = false
+      this.showModal = false
+      this.$emit('close')
     },
   },
   watch: {
     generatedTransaction(value) {
       if (value) {
-        this.showDialog = true
+        this.showModal = true
       }
     },
   },
@@ -167,20 +174,20 @@ export default {
   align-items: center;
   display: flex;
   flex-direction: column;
-
+  height: 50vh;
   .entry {
     font-weight: bold;
     font-size: 16px;
     color: $grey-6;
   }
-
   .value {
+    max-width: 200px;
     font-size: 16px;
     font-weight: 400;
   }
   .row {
     padding: 16px 10px;
-    width: 250px;
+    width: 300px;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid $grey-1;
@@ -188,6 +195,20 @@ export default {
     .column {
       display: flex;
       flex-direction: column;
+    }
+  }
+  .scroll {
+    overflow-y: scroll;
+  }
+  .confirm-advance-btn {
+    margin: 20px 0px 30px 0px;
+    width: 300px;
+    text-align: right;
+    .link {
+      padding: 20px;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
