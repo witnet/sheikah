@@ -6,18 +6,25 @@
       :options="operatorOptions"
       type="operator"
     />
-
     <div class="with-arguments" v-if="hasArguments">
       <div v-for="(argument, index) in selectedOperator.arguments" :key="argument.label + index">
-        <div v-if="argument.markup_type === 'input'" class="input-container">
+        <div v-if="argument.markupType === 'input'" class="input-container">
           <Input
             class="input-operator"
             :placeholder="argument.label"
             :value="argument.value"
-            @input="value => updateTemplate(argument.id, value)"
+            @input="
+              value => {
+                updateTemplate(argument.id, value, variables)
+              }
+            "
           />
+          <div class="variables">
+            {{ variables }}
+            <!-- {{ variables.find(variable => variable.key === value) }} -->
+            <!-- {{ hasVariables }} -->
+          </div>
         </div>
-
         <div
           :style="{ display: 'flex', flexDirection: 'column' }"
           v-if="argument.markup_type === 'select'"
@@ -30,7 +37,7 @@
             type="operator"
           />
         </div>
-        <div v-if="argument.markup_type === 'subscript'" class>
+        <div v-if="argument.markupType === 'subscript'" class>
           Subscipts are not supported yet.
         </div>
       </div>
@@ -47,6 +54,11 @@ import Input from '@/components/Input'
 
 export default {
   name: 'RadonOperator',
+  data() {
+    return {
+      isVariable: '',
+    }
+  },
   props: {
     operator: {
       required: true,
@@ -57,8 +69,18 @@ export default {
     Select,
   },
   methods: {
-    updateTemplate(id, value) {
-      this.$store.commit('updateTemplate', { id, value })
+    updateTemplate(id, value, variables) {
+      this.isVariable = value
+      if (!this.hasVariables) {
+        this.$store.commit('updateTemplate', { id, value })
+        console.log('update without vars', value)
+      } else {
+        console.log('update with vars', variables.find(x => x.key === value).value)
+        this.$store.commit('updateTemplate', {
+          id,
+          value: variables.find(x => x.key === value).value,
+        })
+      }
     },
   },
   computed: {
@@ -78,7 +100,20 @@ export default {
     selectedOperator() {
       return this.operator.selected
     },
-
+    variables() {
+      return this.$store.state.rad.variables
+    },
+    hasVariables() {
+      if (this.isVariable === this.variables.find(variable => variable.key).key) {
+        console.log('TRUE esto', this.isVariable)
+        console.log('TRUE es igual a', this.variables.find(variable => variable.key).key)
+        return true
+      } else {
+        console.log('FALSEesto', this.isVariable)
+        console.log('FALSE es igual a', this.variables.find(variable => variable.key).key)
+        return false
+      }
+    },
     selectedArgument: {
       get() {
         const selectedArg = this.hasArguments
@@ -144,6 +179,19 @@ export default {
   .input-operator {
     width: 90px;
     height: 30px;
+  }
+  .variables {
+    position: fixed;
+    bottom: 40px;
+    width: 200px;
+    padding: 20px;
+    background-color: black;
+    color: white;
+    .variable-value {
+      background-color: black;
+      width: 80px;
+      height: 20px;
+    }
   }
 }
 .icon-container {

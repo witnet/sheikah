@@ -9,7 +9,6 @@
       "
     />
   </div>
-
   <div v-else-if="stage === 'aggregate'">
     <p>Aggregate</p>
     <RadonScript class="script" v-show="!error.aggregate" stage="aggregate" :script="script" />
