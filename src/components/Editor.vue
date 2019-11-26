@@ -11,6 +11,7 @@
     />
     <StageBar v-on:change-stage="changeStage" />
     <RadonStage class="stage" :stage="currentStage" :script="currentScript" />
+    <Variables />
   </div>
 </template>
 
@@ -19,6 +20,7 @@ import { mapState } from 'vuex'
 import Alert from '@/components/Alert'
 import RadonStage from '@/components/RadonStage.vue'
 import ToolBar from '@/components/ToolBar.vue'
+import Variables from '@/components/Variables.vue'
 import StageBar from '@/components/StageBar.vue'
 import { formatSectionApiErrorsByRoute } from '@/utils'
 
@@ -29,6 +31,7 @@ export default {
     ToolBar,
     StageBar,
     Alert,
+    Variables,
   },
   methods: {
     changeStage: function(stage) {
