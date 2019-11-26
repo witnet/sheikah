@@ -11,6 +11,8 @@ export default {
     history: [],
     historyIndex: 0,
     moveCarousel: false,
+    variables: [{}],
+    variablesIndex: 0,
   },
   getters: {
     currentTemplate: state => {
@@ -18,6 +20,14 @@ export default {
     },
   },
   mutations: {
+    updateVariables(state, { index, key, value }) {
+      state.variables[index] = { key, value }
+      state.variables = [...state.variables]
+    },
+    createVariable: function(state) {
+      state.variablesIndex++
+      state.variables.push({ ['key_' + state.variablesIndex]: 'value' })
+    },
     updateHistory(state, { mir }) {
       state.history.push(mir)
       state.historyIndex += 1
@@ -25,7 +35,8 @@ export default {
     },
     updateTemplate(state, { id, value }) {
       state.currentRadonMarkupInterpreter.updateMarkup(id, value)
-      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup()
+      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+      console.log('Current RADR', state.radRequest)
       this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     editorRedo(state) {
@@ -100,7 +111,7 @@ export default {
           {
             url: '',
             kind: 'HTTP-GET',
-            script: [0x75],
+            script: [0x75, [0x73, '10']],
           },
         ],
         aggregate: [0x50],
