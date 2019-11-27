@@ -1,5 +1,6 @@
 <template>
   <div class="variables-container">
+    {{ currentTemplateVar }}
     <div v-for="(variable, index) in variables" :key="variable.name" class="variable">
       <Input
         class="variable-value"
@@ -36,18 +37,34 @@ export default {
   },
   methods: {
     updateVariable(index, key, value) {
-      this.$store.commit('updateVariables', { index, key, value })
-      console.log('updateVariables from component---::::')
+      this.$store.commit('updateVariables', {
+        index,
+        key,
+        value,
+        id: Object.keys(this.variablesSet)[0],
+      })
+      console.log('updateVariables from component---key::::', index)
+      console.log('updateVariables from component---key::::', key)
+      console.log('updateVariables from component---value::::', value)
     },
     createVariable: function() {
-      this.$store.commit('createVariable')
+      this.$store.commit('createVariable', { id: Object.keys(this.variablesSet)[0] })
+      console.log(Object.keys(this.variablesSet))
     },
   },
   computed: {
+    variablesSet() {
+      console.log('yayyyy')
+      console.log('------->', this.$store.state.rad.currentVariables)
+      return this.$store.state.rad.currentVariables
+    },
     variables() {
-      const variables = this.$store.state.rad.variables
-      console.log('---')
-      return variables
+      console.log('variables', this.variablesSet)
+      return this.variablesSet[Object.keys(this.variablesSet)]
+    },
+    currentTemplateVar() {
+      console.log('currenttemplate VAAARS')
+      return this.$store.state.rad.currentTemplate.variables
     },
   },
 }

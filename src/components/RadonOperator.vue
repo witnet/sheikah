@@ -100,17 +100,22 @@ export default {
     selectedOperator() {
       return this.operator.selected
     },
+    variablesSet() {
+      return this.$store.state.rad.currentVariables
+    },
     variables() {
-      return this.$store.state.rad.variables
+      return this.variablesSet[Object.keys(this.variablesSet)]
     },
     hasVariables() {
-      if (this.isVariable === this.variables.find(variable => variable.key).key) {
+      console.log(this.variables)
+      if (
+        this.variables.length > 1 &&
+        this.isVariable === this.variables.find(variable => variable.key).key
+      ) {
         console.log('TRUE esto', this.isVariable)
         console.log('TRUE es igual a', this.variables.find(variable => variable.key).key)
         return true
       } else {
-        console.log('FALSEesto', this.isVariable)
-        console.log('FALSE es igual a', this.variables.find(variable => variable.key).key)
         return false
       }
     },
