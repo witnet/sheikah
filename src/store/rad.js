@@ -11,7 +11,8 @@ export default {
     history: [],
     historyIndex: 0,
     moveCarousel: false,
-    variables: [{}],
+    variables: [],
+    currentVariables: [],
     variablesIndex: 0,
   },
   getters: {
@@ -20,13 +21,30 @@ export default {
     },
   },
   mutations: {
-    updateVariables(state, { index, key, value }) {
-      state.variables[index] = { key, value }
-      state.variables = [...state.variables]
+    updateVariables(state, { index, key, value, id }) {
+      state.currentVariables[id][index] = { key: key, value: value }
+      // state.variables[index] = { key, value }
+      state.currentVariables[id] = [...state.currentVariables[id]]
+      console.log(state.currentVariables[id])
     },
-    createVariable: function(state) {
-      state.variablesIndex++
-      state.variables.push({ ['key_' + state.variablesIndex]: 'value' })
+    createVariable: function(state, { id }) {
+      state.variablesIndex += 1
+      console.log(state.currentVariables)
+      state.currentVariables[id].push({
+        key: 'key_' + state.variablesIndex,
+        value: 'value',
+      })
+      state.currentVariables = { ...state.currentVariables }
+
+      console.log('updated!!')
+      console.log('createVariable', state.currentVariables[id])
+      // state.variables.push({ ['key_' + state.variablesIndex]: 'value' })
+    },
+    setCurrentVariables(state, { id }) {
+      const currentVariablesSet = state.variables[id]
+      console.log('variables', state.variables)
+      state.currentVariables = currentVariablesSet
+      console.log('current variables-->', state.currentVariables)
     },
     updateHistory(state, { mir }) {
       state.history.push(mir)
@@ -124,15 +142,22 @@ export default {
         description: '',
         radRequest,
       }
-
+      state.currentVariables[state.currentTemplate.id] = [
+        {
+          key: 'key_' + state.variablesIndex,
+          value: 'value',
+        },
+      ]
       state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
       state.history = [state.currentTemplate]
     },
     setCurrentTemplate: function(state, { id }) {
       const template = state.templates[id]
+      console.log('templates', state.templates)
       state.currentTemplate = template
-      state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate.radRequest)
+      console.log('current template-->', state.currentTemplate.id)
+      state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
       state.history = [state.currentTemplate]
     },

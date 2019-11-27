@@ -35,6 +35,7 @@ export default {
           action: () => {
             this.$router.push('/request/editor')
             this.setCurrentTemplate()
+            this.setCurrentVariables()
           },
         },
         {
@@ -62,6 +63,9 @@ export default {
     },
     setCurrentTemplate() {
       this.$store.commit('setCurrentTemplate', { id: this.id })
+    },
+    setCurrentVariables() {
+      this.$store.commit('setCurrentVariables', { id: this.id })
     },
     deleteTemplate() {
       this.$store.dispatch('deleteTemplate', { id: this.id })

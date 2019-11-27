@@ -9,9 +9,11 @@ Vue.directive('closable', {
       const { handler, exclude } = binding.value
       let clickedOnExcludedEl = false
       exclude.forEach(refName => {
-        if (!clickedOnExcludedEl) {
+        if (!clickedOnExcludedEl && vnode.context.$refs[refName] !== undefined) {
           const excludedEl = vnode.context.$refs[refName]
           clickedOnExcludedEl = excludedEl.contains(e.target)
+        } else {
+          console.log('.')
         }
       })
       if (!el.contains(e.target) && !clickedOnExcludedEl) {
