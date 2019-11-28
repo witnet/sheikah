@@ -11,8 +11,6 @@ export default {
     history: [],
     historyIndex: 0,
     moveCarousel: false,
-    variables: [],
-    currentVariables: [],
     variablesIndex: 0,
   },
   getters: {
@@ -21,30 +19,29 @@ export default {
     },
   },
   mutations: {
-    updateVariables(state, { index, key, value, id }) {
-      state.currentVariables[id][index] = { key: key, value: value }
-      // state.variables[index] = { key, value }
-      state.currentVariables[id] = [...state.currentVariables[id]]
-      console.log(state.currentVariables[id])
+    updateVariables(state, { index, key, value }) {
+      Vue.set(state.currentTemplate.variables, index, { key, value })
+      state.currentTemplate.variables = [...state.currentTemplate.variables]
     },
-    createVariable: function(state, { id }) {
+    createVariable: function(state) {
       state.variablesIndex += 1
-      console.log(state.currentVariables)
-      state.currentVariables[id].push({
+      state.currentTemplate.variables.push({
         key: 'key_' + state.variablesIndex,
         value: 'value',
       })
-      state.currentVariables = { ...state.currentVariables }
-
-      console.log('updated!!')
-      console.log('createVariable', state.currentVariables[id])
-      // state.variables.push({ ['key_' + state.variablesIndex]: 'value' })
     },
-    setCurrentVariables(state, { id }) {
-      const currentVariablesSet = state.variables[id]
-      console.log('variables', state.variables)
-      state.currentVariables = currentVariablesSet
-      console.log('current variables-->', state.currentVariables)
+    storeVariableComponentId(state, { id, variable, value }) {
+      const usedVariables = state.currentTemplate.variablesIdMarkup
+      const usedVariableId = usedVariables.find(x => x.id)
+      const usedVariableKey = usedVariables.find(x => x.key)
+      if (!usedVariableId) {
+        Vue.set(usedVariables, { id, variable, value })
+        state.currentTemplate.variablesIdMarkup = [...state.currentTemplate.variablesIdMarkup]
+      }
+      if (usedVariableId && !usedVariableKey) {
+        usedVariableId.variable = variable
+        usedVariableId.value = value
+      }
     },
     updateHistory(state, { mir }) {
       state.history.push(mir)
@@ -54,7 +51,6 @@ export default {
     updateTemplate(state, { id, value }) {
       state.currentRadonMarkupInterpreter.updateMarkup(id, value)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
-      console.log('Current RADR', state.radRequest)
       this.commit('updateHistory', { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     editorRedo(state) {
@@ -141,24 +137,23 @@ export default {
         name: name,
         description: '',
         radRequest,
+        variables: [
+          {
+            key: 'key_' + state.variablesIndex,
+            value: 'value',
+          },
+        ],
+        variablesIdMarkup: [],
       }
-      state.currentVariables[state.currentTemplate.id] = [
-        {
-          key: 'key_' + state.variablesIndex,
-          value: 'value',
-        },
-      ]
       state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
       state.history = [state.currentTemplate]
     },
     setCurrentTemplate: function(state, { id }) {
       const template = state.templates[id]
-      console.log('templates', state.templates)
       state.currentTemplate = template
-      console.log('current template-->', state.currentTemplate.id)
       state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate)
-      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+      state.radRequest = { ...state.currentRadonMarkupInterpreter.getMarkup().radRequest }
       state.history = [state.currentTemplate]
     },
     pushOperator: function(state, { scriptId }) {

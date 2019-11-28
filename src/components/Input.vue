@@ -15,7 +15,7 @@ export default {
     placeholder: String,
     type: [Number, String],
     value: {
-      required: true,
+      required: false,
     },
   },
   computed: {

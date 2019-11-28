@@ -12,8 +12,6 @@ Vue.directive('closable', {
         if (!clickedOnExcludedEl && vnode.context.$refs[refName] !== undefined) {
           const excludedEl = vnode.context.$refs[refName]
           clickedOnExcludedEl = excludedEl.contains(e.target)
-        } else {
-          console.log('.')
         }
       })
       if (!el.contains(e.target) && !clickedOnExcludedEl) {

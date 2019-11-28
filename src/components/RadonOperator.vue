@@ -13,17 +13,8 @@
             class="input-operator"
             :placeholder="argument.label"
             :value="argument.value"
-            @input="
-              value => {
-                updateTemplate(argument.id, value, variables)
-              }
-            "
+            @input="value => updateTemplate(argument.id, value, variables)"
           />
-          <div class="variables">
-            {{ variables }}
-            <!-- {{ variables.find(variable => variable.key === value) }} -->
-            <!-- {{ hasVariables }} -->
-          </div>
         </div>
         <div
           :style="{ display: 'flex', flexDirection: 'column' }"
@@ -71,15 +62,19 @@ export default {
   methods: {
     updateTemplate(id, value, variables) {
       this.isVariable = value
-      if (!this.hasVariables) {
-        this.$store.commit('updateTemplate', { id, value })
-        console.log('update without vars', value)
-      } else {
-        console.log('update with vars', variables.find(x => x.key === value).value)
+      const variableMatch = variables.find(x => x.key === value.slice(1, this.isVariable.length))
+      if (this.hasVariables) {
         this.$store.commit('updateTemplate', {
           id,
-          value: variables.find(x => x.key === value).value,
+          value: '$' + variableMatch.key,
         })
+        this.$store.commit('storeVariableComponentId', {
+          id: id,
+          variable: variableMatch.key,
+          value: variableMatch.value,
+        })
+      } else {
+        this.$store.commit('updateTemplate', { id, value })
       }
     },
   },
@@ -100,24 +95,18 @@ export default {
     selectedOperator() {
       return this.operator.selected
     },
-    variablesSet() {
-      return this.$store.state.rad.currentVariables
-    },
     variables() {
-      return this.variablesSet[Object.keys(this.variablesSet)]
+      return this.$store.state.rad.currentTemplate.variables
     },
     hasVariables() {
-      console.log(this.variables)
-      if (
-        this.variables.length > 1 &&
-        this.isVariable === this.variables.find(variable => variable.key).key
-      ) {
-        console.log('TRUE esto', this.isVariable)
-        console.log('TRUE es igual a', this.variables.find(variable => variable.key).key)
-        return true
-      } else {
-        return false
+      const newValue = this.isVariable.slice(1, this.isVariable.length)
+      if (this.variables.find(variable => variable.key === newValue)) {
+        const valueInVariable = this.variables.find(variable => variable.key === newValue).key
+        if (newValue === valueInVariable) {
+          return true
+        }
       }
+      return false
     },
     selectedArgument: {
       get() {
