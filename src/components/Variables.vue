@@ -1,29 +1,25 @@
 <template>
   <div class="variables-container">
-    {{ currentTemplateVar }}
+    <div class="btn-container">
+      <button class="close-btn">Close</button>
+    </div>
     <div v-for="(variable, index) in variables" :key="variable.name" class="variable">
+      <p class="label">$</p>
       <Input
         class="variable-value"
-        :placeholder="'$var_1'"
-        :value="'$var_1'"
-        @input="
-          key => {
-            updateVariable(index, '$' + key, variable.value)
-          }
-        "
+        :value="variable.key"
+        @input="key => updateVariable(index, key, variable.value)"
       />
+      <p class="label">value:</p>
       <Input
         class="variable-value"
-        :placeholder="'value'"
-        :value="'value'"
-        @input="
-          val => {
-            updateVariable(index, variable.key, val)
-          }
-        "
+        :value="variable.value"
+        @input="val => updateVariable(index, variable.key, val)"
       />
     </div>
-    <img @click="createVariable" class="add-btn" src="@/resources/svg/add.svg" />
+    <div class="img-container">
+      <img @click="createVariable" class="add-btn" src="@/resources/svg/add.svg" />
+    </div>
   </div>
 </template>
 
@@ -37,33 +33,20 @@ export default {
   },
   methods: {
     updateVariable(index, key, value) {
+      this.key = key
+      this.value = value
       this.$store.commit('updateVariables', {
         index,
         key,
         value,
-        id: Object.keys(this.variablesSet)[0],
       })
-      console.log('updateVariables from component---key::::', index)
-      console.log('updateVariables from component---key::::', key)
-      console.log('updateVariables from component---value::::', value)
     },
     createVariable: function() {
-      this.$store.commit('createVariable', { id: Object.keys(this.variablesSet)[0] })
-      console.log(Object.keys(this.variablesSet))
+      this.$store.commit('createVariable')
     },
   },
   computed: {
-    variablesSet() {
-      console.log('yayyyy')
-      console.log('------->', this.$store.state.rad.currentVariables)
-      return this.$store.state.rad.currentVariables
-    },
     variables() {
-      console.log('variables', this.variablesSet)
-      return this.variablesSet[Object.keys(this.variablesSet)]
-    },
-    currentTemplateVar() {
-      console.log('currenttemplate VAAARS')
       return this.$store.state.rad.currentTemplate.variables
     },
   },
@@ -76,15 +59,39 @@ export default {
 
 .variables-container {
   position: fixed;
-  bottom: 40px;
-  width: 250px;
+  bottom: 0px;
+  width: 93vw;
+  height: 25vh;
+  overflow-y: scroll;
   padding: 10px;
   background-color: black;
-  color: white;
+  color: #c5c2c2;
   text-align: center;
   text-justify: center;
+  .btn-container {
+    text-align: right;
+    padding: 10px;
+    position: fixed;
+    right: 10px;
+    .close-btn {
+      background-color: transparent;
+      border: none;
+      color: #c5c2c2;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
   .variable {
-    display: inline-block;
+    padding-left: 50px;
+    display: block;
+    display: flex;
+    justify-items: left;
+    .label {
+      color: #c5c2c2;
+      padding-right: 5px;
+      margin: 10px;
+    }
     .variable-value {
       background-color: black;
       margin: 10px;
@@ -92,10 +99,14 @@ export default {
       height: 20px;
     }
   }
-  .add-btn {
-    width: 20px;
-    &:hover {
-      cursor: pointer;
+  .img-container {
+    text-align: left;
+    .add-btn {
+      margin-left: 32vw;
+      width: 20px;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

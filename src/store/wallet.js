@@ -250,24 +250,34 @@ export default {
     },
 
     tryDataRequest: async function(context) {
-      const request = await this.$walletApi.runRadRequest({
-        radRequest: encodeDataRequest(context.rootState.rad.currentRadonMarkupInterpreter.getMir()),
+      context.rootState.rad.currentTemplate.variablesIdMarkup.forEach(variable => {
+        const id = variable.id
+        const value = variable.value
+        context.commit('updateTemplate', { id, value })
       })
-      if (request.result) {
-        context.commit('setDataRequestResult', { dataRequest: request.result })
-      } else {
-        context.commit('setError', { name: 'tryDataRequest', error: request.error })
-      }
+      console.log('Try data request')
+      // TODO: The Wallet should provide a method to send the Data Request Result.
+      // if (request.result) {
+      // context.commit('setDataRequestResult', { dataRequest: request.result })
+      // } else {
+      // context.commit('setError', { name: 'tryDataRequest', error: request.error })
+      // }
+      context.rootState.rad.currentTemplate.variablesIdMarkup.forEach(variable => {
+        const id = variable.id
+        const key = variable.variable
+        context.commit('updateTemplate', { id, value: '$' + key })
+      })
+      // const request = await this.$walletApi.runRadRequest({
+      //   radRequest: encodeDataRequest(context.rootState.rad.currentRadonMarkupInterpreter.getMir()),
+      // })
     },
   },
 }
 
 // function generateRandomHex (length) {
 //   let hex = '0x'
-
 //   for (let i = 0; i < length; i++) {
 //     hex = hex + Math.floor(Math.random() * Math.floor(16)).toString(16)
 //   }
-
 //   return hex
 // }
