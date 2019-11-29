@@ -128,6 +128,7 @@ export default {
         }
       }
       .icon {
+        text-justify: center;
         margin: 8px;
         font-size: 15px;
       }
@@ -227,7 +228,7 @@ export default {
     width: min-content;
     min-width: min-content;
     padding: 0 8px 0 16px;
-    width: 190px;
+    min-width: 205px;
 
     &.active,
     &:hover {
@@ -238,19 +239,30 @@ export default {
     .selected {
       align-items: baseline;
       display: flex;
-      display: flex;
       flex-direction: row;
-      justify-content: space-between;
       width: 100%;
+      align-items: center;
 
       .label {
         display: flex;
-        justify-content: space-between;
-        padding-right: 16px;
+        width: 100%;
+        align-content: center;
+        text-align: center;
 
         .primary {
+          font-size: 16px;
           margin-right: 16px;
         }
+        .sort-down {
+          font-size: 16px;
+          margin: 0;
+        }
+      }
+      .value {
+        width: 100%;
+        font-size: 16px;
+        border-radius: 2px;
+        text-align: center;
       }
     }
   }
@@ -274,10 +286,6 @@ export default {
       justify-content: space-between;
       padding: 0 16px;
       width: 100%;
-
-      &:hover {
-        color: $grey-0;
-      }
 
       &.selected {
         background-color: $white;
