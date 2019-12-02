@@ -1,0 +1,73 @@
+<template>
+  <div class="console-container">
+    <ConsoleTab v-on:change-tab="changeTab" v-on:close="closeConsole" :showConsole="showConsole" />
+    <Variables v-show="showVariables" />
+    <Logs v-show="showLogs" />
+  </div>
+</template>
+
+<script>
+import Variables from '@/components/Variables.vue'
+import Logs from '@/components/Logs.vue'
+import ConsoleTab from '@/components/ConsoleTab.vue'
+
+export default {
+  name: 'Console',
+  components: {
+    Variables,
+    ConsoleTab,
+    Logs,
+  },
+  data() {
+    return {
+      currentTab: 'variables',
+      showConsole: true,
+    }
+  },
+  computed: {
+    showVariables: function() {
+      if (this.currentTab === 'variables' && this.showConsole) {
+        return true
+      } else {
+        return false
+      }
+    },
+    showLogs: function() {
+      if (this.currentTab === 'logs' && this.showConsole) {
+        return true
+      } else {
+        return false
+      }
+    },
+  },
+  methods: {
+    changeTab: function(tab) {
+      this.showConsole = true
+      this.currentTab = tab
+    },
+    closeConsole() {
+      this.showConsole = false
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
+.console-container {
+  position: fixed;
+  right: 0px;
+  left: 20vw;
+  display: flex;
+  flex-direction: column;
+  bottom: 0px;
+  color: #c5c2c2;
+}
+@media screen and (max-width: 1200px) {
+  .console-container {
+    left: 90px;
+  }
+}
+</style>
