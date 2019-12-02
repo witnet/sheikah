@@ -1,6 +1,11 @@
 <template>
   <div class="console-container">
-    <ConsoleTab v-on:change-tab="changeTab" v-on:close="closeConsole" :showConsole="showConsole" />
+    <ConsoleTab
+      v-on:change-tab="changeTab"
+      :tabs="tabs"
+      v-on:close="closeConsole"
+      :showConsole="showConsole"
+    />
     <Variables v-show="showVariables" />
     <Logs v-show="showLogs" />
   </div>
@@ -10,6 +15,8 @@
 import Variables from '@/components/Variables.vue'
 import Logs from '@/components/Logs.vue'
 import ConsoleTab from '@/components/ConsoleTab.vue'
+const VARIABLES = 'variables'
+const LOGS = 'logs'
 
 export default {
   name: 'Console',
@@ -20,20 +27,21 @@ export default {
   },
   data() {
     return {
-      currentTab: 'variables',
+      currentTab: VARIABLES,
+      tabs: [VARIABLES, LOGS],
       showConsole: true,
     }
   },
   computed: {
     showVariables: function() {
-      if (this.currentTab === 'variables' && this.showConsole) {
+      if (this.currentTab === VARIABLES && this.showConsole) {
         return true
       } else {
         return false
       }
     },
     showLogs: function() {
-      if (this.currentTab === 'logs' && this.showConsole) {
+      if (this.currentTab === LOGS && this.showConsole) {
         return true
       } else {
         return false
@@ -41,7 +49,7 @@ export default {
     },
   },
   methods: {
-    changeTab: function(tab) {
+    changeTab(tab) {
       this.showConsole = true
       this.currentTab = tab
     },
@@ -63,7 +71,7 @@ export default {
   display: flex;
   flex-direction: column;
   bottom: 0px;
-  color: #c5c2c2;
+  color: $grey-1;
 }
 @media screen and (max-width: 1200px) {
   .console-container {
