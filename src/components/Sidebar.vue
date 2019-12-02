@@ -222,7 +222,7 @@ export default {
 
 @media screen and (max-width: 1200px) {
   .sidebar {
-    max-width: 90px;
+    width: 90px;
   }
 
   .brand {

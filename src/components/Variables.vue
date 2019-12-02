@@ -1,8 +1,5 @@
 <template>
   <div class="variables-container">
-    <div class="btn-container">
-      <button class="close-btn">Close</button>
-    </div>
     <div v-for="(variable, index) in variables" :key="variable.name" class="variable">
       <p class="label">$</p>
       <Input
@@ -59,30 +56,13 @@ export default {
 @import '@/styles/theme.scss';
 
 .variables-container {
-  position: fixed;
-  bottom: 0px;
-  width: 93vw;
-  height: 25vh;
+  width: 100%;
+  height: 20vh;
   overflow-y: scroll;
-  padding: 10px;
-  background-color: black;
+  background-color: $black;
   color: #c5c2c2;
   text-align: center;
   text-justify: center;
-  .btn-container {
-    text-align: right;
-    padding: 10px;
-    position: fixed;
-    right: 10px;
-    .close-btn {
-      background-color: transparent;
-      border: none;
-      color: #c5c2c2;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
   .variable {
     padding-left: 50px;
     display: block;
@@ -94,7 +74,7 @@ export default {
       margin: 10px;
     }
     .variable-value {
-      background-color: black;
+      background-color: $black;
       margin: 10px;
       width: 80px;
       height: 20px;
