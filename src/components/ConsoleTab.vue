@@ -3,12 +3,12 @@
     <div class="tab">
       <button
         v-for="tab in tabs"
-        :key="tab.name"
-        @click="changeTab(tab.name)"
+        :key="tab"
+        @click="changeTab(tab)"
         class="tab-btn"
-        :class="[current === tab.name && showConsole ? 'active' : '']"
+        :class="{ active: current === tab && showConsole }"
       >
-        {{ tab.name }}
+        {{ tab }}
         <font-awesome-icon v-show="!showConsole" class="icon" icon="angle-up" />
       </button>
     </div>
@@ -20,10 +20,11 @@
 
 <script>
 export default {
-  name: 'Console-Tab',
+  name: 'ConsoleTab',
   props: {
-    initialTab: { type: String, default: 'variables' },
+    initialTab: String,
     showConsole: Boolean,
+    tabs: Array,
   },
   methods: {
     changeTab(name) {
@@ -31,14 +32,12 @@ export default {
       this.$emit('change-tab', name)
     },
     close() {
-      console.log('close')
       this.$emit('close')
     },
   },
   data() {
     return {
       current: this.initialTab,
-      tabs: [{ name: 'variables' }, { name: 'logs' }],
     }
   },
 }
@@ -71,7 +70,7 @@ export default {
       font-size: 16px;
       background-color: $black;
       border: none;
-      color: #c5c2c2;
+      color: $grey-1;
       &:hover {
         cursor: pointer;
         background-color: $black;
@@ -79,9 +78,9 @@ export default {
       .tab-btn:active,
       &:focus,
       &.active {
-        color: #c5c2c2;
+        color: $grey-1;
         outline: none;
-        border-bottom: 1px solid #c5c2c2;
+        border-bottom: 1px solid $grey-1;
       }
       .icon {
         margin-left: 16px;
@@ -96,7 +95,7 @@ export default {
       font-size: 20px;
       background-color: transparent;
       border: none;
-      color: #c5c2c2;
+      color: $grey-1;
       &:hover {
         cursor: pointer;
       }
