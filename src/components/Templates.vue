@@ -17,6 +17,7 @@
         :description="template.description"
         :key="template.id"
         :date="template.creationDate"
+        v-on:change-name="changeName"
       />
       <div class="add">
         <router-link to="/request/editor">
@@ -65,6 +66,9 @@ export default {
     }),
   },
   methods: {
+    changeName({ name, id }) {
+      this.$store.dispatch('changeTemplateName', { id, name })
+    },
     createTemplate() {
       this.$store.commit(CREATE_TEMPLATE)
     },
