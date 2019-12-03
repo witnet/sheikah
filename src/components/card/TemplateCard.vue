@@ -12,8 +12,22 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <div class="title">
-      {{ name }}
+    <div class="title" @click="showInput = true">
+      <div ref="input" v-show="!showInput" @click="showInput = !showInput">
+        {{ name }}
+      </div>
+      <Input
+        v-show="showInput"
+        v-closable="{ exclude: ['input'], handler: 'onClose' }"
+        class="input"
+        :value="name"
+        @input="
+          val => {
+            updateName(val)
+          }
+        "
+      />
+      <font-awesome-icon v-show="!showInput" class="edit-btn" icon="edit" />
     </div>
     <div class="description">
       {{ description }}
@@ -26,9 +40,13 @@
 
 <script>
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
+import Input from '@/components/Input'
 
 export default {
   name: 'TemplateCard',
+  components: {
+    Input,
+  },
   data() {
     return {
       options: [
@@ -50,6 +68,7 @@ export default {
           },
         },
       ],
+      showInput: false,
     }
   },
   props: {
@@ -59,11 +78,18 @@ export default {
     date: Number,
   },
   methods: {
+    onClose() {
+      this.showInput = false
+    },
     handleCommand(index) {
       this.options[index].action()
     },
     setCurrentTemplate() {
       this.$store.commit(SET_CURRENT_TEMPLATE, { id: this.id })
+    },
+    updateName(input) {
+      console.log('emit id', this.id)
+      this.$emit('change-name', { name: input, id: this.id })
     },
     deleteTemplate() {
       this.$store.dispatch('deleteTemplate', { id: this.id })
@@ -113,11 +139,30 @@ export default {
   .description {
     flex: 1 400px;
     padding: 24px;
+    .input {
+      background-color: transparent;
+      font-size: 1em;
+      min-height: 40px;
+      border-radius: 0%;
+      border: none;
+      border-bottom: 1px solid;
+    }
+  }
+  .edit-btn {
+    display: none;
   }
   .title {
     font-size: 24px;
     color: $black;
-    padding-top: 0px;
+    display: flex;
+    &:hover {
+      .edit-btn {
+        padding-left: 8px;
+        display: block;
+        font-size: 20px;
+        color: $blue-6;
+      }
+    }
   }
   .description {
     color: $grey-4;

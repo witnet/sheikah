@@ -24,7 +24,7 @@ export default {
   state: {
     templates: {},
     currentTemplate: {},
-    currentRadonMarkupInterpreter: {},
+    currentRadonMarkupInterpreter: null,
     radRequest: {},
     history: [],
     historyIndex: 0,
@@ -179,12 +179,35 @@ export default {
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
+    renameTemplate: function(state, { id, name }) {
+      console.log('remaned::')
+      state.templates[id].name = name
+    },
   },
   actions: {
+    changeTemplateName: async function(context, { id, name }) {
+      console.log('change template name::')
+      this.commit('renameTemplate', { id, name })
+      console.log('STATE>', { ...context.state })
+      const request = await this.$walletApi.saveItem({
+        walletId: context.rootState.wallet.walletId,
+        sessionId: context.rootState.wallet.sessionId,
+        key: 'templates',
+        value: context.state.templates,
+        creationDate: Date.now(),
+      })
+      if (request.result) {
+        await context.dispatch('getTemplates')
+      } else {
+        console.log(request)
+      }
+    },
     saveTemplate: async function(context, args) {
       let templates = context.state.templates
       const templateToSave = args ? args.template : context.state.currentTemplate
+      console.log('esto es lo ultimo que ves', context.state.currentRadonMarkupInterpreter)
       templateToSave.radRequest = context.state.currentRadonMarkupInterpreter.getMir().radRequest
+      console.log('si me ves funciona')
       if (!templateToSave.id) {
         templateToSave.id = generateId()
       }

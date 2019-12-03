@@ -2,16 +2,33 @@
   <div class="variables-container">
     <div v-for="(variable, index) in variables" :key="variable.name" class="variable">
       <p class="label">$</p>
-      <Input
+      <EditableText
         class="variable-value"
         :value="variable.key"
-        @input="key => updateVariable(index, key, variable.value)"
+        :name="variable.key"
+        @input="
+          key => {
+            updateVariable(index, key, variable.value)
+          }
+        "
       />
-      <p class="label">value:</p>
+      <!-- <Input
+        class="variable-value"
+        :value="variable.key"
+        @input="
+          key => {
+            updateVariable(index, key, variable.value)
+          }
+        "
+      /> -->
       <Input
         class="variable-value"
         :value="variable.value"
-        @input="val => updateVariable(index, variable.key, val)"
+        @input="
+          val => {
+            updateVariable(index, variable.key, val)
+          }
+        "
       />
     </div>
     <div class="img-container">
@@ -23,11 +40,13 @@
 <script>
 import Input from '@/components/Input'
 import { UPDATE_VARIABLES, CREATE_VARIABLE } from '@/store/mutation-types'
+import EditableText from '@/components/EditableText'
 
 export default {
   name: 'Variables',
   components: {
     Input,
+    EditableText,
   },
   methods: {
     updateVariable(index, key, value) {
