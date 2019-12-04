@@ -30,6 +30,7 @@ export default {
     historyIndex: 0,
     moveCarousel: false,
     variablesIndex: 0,
+    hasVariables: false,
   },
   getters: {
     currentTemplate: state => {
@@ -38,27 +39,49 @@ export default {
   },
   mutations: {
     [UPDATE_VARIABLES](state, { index, key, value }) {
-      Vue.set(state.currentTemplate.variables, index, { key, value })
-      state.currentTemplate.variables = [...state.currentTemplate.variables]
+      const prevValue = state.currentTemplate.variables[index].key
+      const markupVariable = state.currentTemplate.variablesIdMarkup.find(
+        x => x.variable === prevValue
+      )
+      if (state.hasVariables && markupVariable) {
+        state.currentTemplate.variables[index] = {
+          key: key,
+          value: value,
+        }
+        state.currentTemplate.variables = [...state.currentTemplate.variables]
+        this.commit(STORE_VARIABLE_COMPONENT_ID, { id: markupVariable.id, variable: key, value })
+        this.commit(UPDATE_TEMPLATE, {
+          id: markupVariable.id,
+          value: '$' + markupVariable.variable,
+        })
+      } else {
+        state.currentTemplate.variables[index] = {
+          key: key,
+          value: value,
+        }
+        state.currentTemplate.variables = [...state.currentTemplate.variables]
+      }
     },
     [CREATE_VARIABLE](state) {
-      state.variablesIndex += 1
+      state.currentTemplate.variablesIndex += 1
+      console.log('index>', state.currentTemplate.variablesIndex)
       state.currentTemplate.variables.push({
-        key: 'key_' + state.variablesIndex,
+        key: 'key_' + state.currentTemplate.variablesIndex,
         value: 'value',
       })
+      console.log('1. create variable', state.currentTemplate.variables)
     },
     [STORE_VARIABLE_COMPONENT_ID](state, { id, variable, value }) {
-      const usedVariables = state.currentTemplate.variablesIdMarkup
-      const usedVariableId = usedVariables.find(x => x.id)
-      const usedVariableKey = usedVariables.find(x => x.key)
-      if (!usedVariableId) {
-        Vue.set(usedVariables, { id, variable, value })
+      if (!state.currentTemplate.variablesIdMarkup.find(x => x.id)) {
+        state.currentTemplate.variablesIdMarkup.push({ id: id, variable: variable, value: value })
         state.currentTemplate.variablesIdMarkup = [...state.currentTemplate.variablesIdMarkup]
       }
-      if (usedVariableId && !usedVariableKey) {
-        usedVariableId.variable = variable
-        usedVariableId.value = value
+      if (
+        state.currentTemplate.variablesIdMarkup.find(x => x.id) &&
+        !state.currentTemplate.variablesIdMarkup.find(x => x.key)
+      ) {
+        state.currentTemplate.variablesIdMarkup.find(x => x.id).variable = variable
+        state.currentTemplate.variablesIdMarkup.find(x => x.id).value = value
       }
     },
     [UPDATE_HISTORY](state, { mir }) {
@@ -67,8 +90,11 @@ export default {
       state.history.splice(state.historyIndex + 1)
     },
     [UPDATE_TEMPLATE](state, { id, value }) {
+      console.log('1', state.radRequest)
       state.currentRadonMarkupInterpreter.updateMarkup(id, value)
+      console.log('2', state.radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+      console.log('3', state.radRequest)
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     [EDITOR_REDO](state) {
@@ -157,10 +183,11 @@ export default {
         radRequest,
         variables: [
           {
-            key: 'key_' + state.variablesIndex,
+            key: 'key_0',
             value: 'value',
           },
         ],
+        variablesIndex: 0,
         variablesIdMarkup: [],
       }
       state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate)
