@@ -46,6 +46,7 @@ export default {
 @import '@/styles/theme.scss';
 .input {
   display: inline-block;
+  text-align: center;
   width: 100%;
   box-sizing: border-box;
 
@@ -53,6 +54,7 @@ export default {
     border: $input_big-border;
     border-radius: $input_big-border-radius;
     min-height: 80px;
+    max-width: 90px;
     transition: all 0.1s ease;
     width: $input_big-width;
 
@@ -73,7 +75,6 @@ export default {
     color: $grey-4;
     font-size: 16px;
     line-height: 32px;
-    padding: 8px 16px;
   }
 
   &.underlined {

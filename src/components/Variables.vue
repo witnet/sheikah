@@ -2,25 +2,23 @@
   <div class="variables-container">
     <div v-for="(variable, index) in variables" :key="variable.name" class="variable">
       <p class="label">$</p>
+      {{ keys }}
       <EditableText
         class="variable-value"
-        :value="variable.key"
-        :name="variable.key"
+        :value="keys[index]"
+        :error="errors[index]"
+        :blockOpen="error"
+        v-on:close="
+          key => {
+            handleCloseEvent(index, key, variable.value)
+          }
+        "
         @input="
           key => {
-            updateVariable(index, key, variable.value)
+            updateKey(index, key)
           }
         "
       />
-      <!-- <Input
-        class="variable-value"
-        :value="variable.key"
-        @input="
-          key => {
-            updateVariable(index, key, variable.value)
-          }
-        "
-      /> -->
       <Input
         class="variable-value"
         :value="variable.value"
@@ -32,7 +30,7 @@
       />
     </div>
     <div class="img-container">
-      <img @click="createVariable" class="add-btn" src="@/resources/svg/add.svg" />
+      <img @click="() => createVariable()" class="add-btn" src="@/resources/svg/add.svg" />
     </div>
   </div>
 </template>
@@ -48,23 +46,59 @@ export default {
     Input,
     EditableText,
   },
+  data() {
+    return {
+      errors: [],
+      isOpen: [],
+      keys: this.$store.state.rad.currentTemplate.variables.map(x => x.key),
+    }
+  },
   methods: {
-    updateVariable(index, key, value) {
-      this.key = key
-      this.value = value
+    updateKey(index, key) {
+      // this.keys[index] = key
+      this.$set(this.keys, index, key)
+      if (this.isRepeated(key)) {
+        this.$set(this.errors, index, true)
+      } else {
+        this.$set(this.errors, index, false)
+      }
+    },
+    handleCloseEvent(index, key, value) {
       this.$store.commit(UPDATE_VARIABLES, {
         index,
         key,
         value,
       })
     },
-    createVariable() {
+    updateVariable(index, key, value) {
+      this.keys[index] = key
+      if (this.isRepeated(key)) {
+        this.$set(this.errors, index, true)
+      } else {
+        this.$set(this.errors, index, false)
+      }
+    },
+    createVariable: function() {
       this.$store.commit(CREATE_VARIABLE)
+    },
+    isRepeated(key) {
+      return !!this.variables.find(variable => variable.key === key)
     },
   },
   computed: {
+    error() {
+      return this.errorIndex !== -1
+    },
     variables() {
       return this.$store.state.rad.currentTemplate.variables
+    },
+    errorIndex() {
+      return this.errors.findIndex(error => !!error)
+    },
+  },
+  watch: {
+    variables() {
+      this.keys = this.$store.state.rad.currentTemplate.variables.map(x => x.key)
     },
   },
 }
@@ -98,6 +132,9 @@ export default {
       width: 80px;
       height: 20px;
     }
+  }
+  .var-repeated {
+    color: red;
   }
   .img-container {
     text-align: left;

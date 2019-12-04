@@ -1,10 +1,11 @@
 <template>
-  <div class="title" @click="showInput = true">
-    <div ref="editable" v-show="!showInput" @click="showInput = !showInput">
-      {{ name }}
+  <div class="title" @click="allowOpen">
+    <div ref="editable" v-show="!showInput" @click="allowEdit">
+      {{ value }}
     </div>
     <input
       v-show="showInput"
+      :class="{ error: error }"
       class="editVar"
       v-model="inputValue"
       :placeholder="placeholder"
@@ -18,11 +19,12 @@
 export default {
   name: 'EditableText',
   props: {
-    name: String,
+    error: Boolean,
     placeholder: String,
     value: {
       required: true,
     },
+    blockOpen: Boolean,
   },
   data() {
     return {
@@ -40,8 +42,32 @@ export default {
     },
   },
   methods: {
+    allowEdit() {
+      console.log('se puede abrir??', this.blockOpen)
+      if (this.blockOpen && !this.showInput) {
+        this.showInput = false
+      } else {
+        this.showInput = !this.showInput
+      }
+    },
+    allowOpen() {
+      if (this.blockOpen && !this.showInput) {
+        this.showInput = false
+      } else {
+        this.showInput = true
+      }
+    },
     onClose() {
-      this.showInput = false
+      if (this.error) {
+        this.showInput = true
+        this.showError = true
+      } else {
+        if (this.showInput) {
+          this.$emit('close', this.inputValue)
+        }
+        this.showInput = false
+        this.showError = false
+      }
     },
   },
   watch: {
@@ -68,6 +94,9 @@ export default {
     border: none;
     color: #c5c2c2;
     border-bottom: 1px solid #c5c2c2;
+    &.error {
+      color: red;
+    }
   }
   .edit-btn {
     display: none;
