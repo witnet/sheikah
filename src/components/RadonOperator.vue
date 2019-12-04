@@ -15,6 +15,7 @@
             :value="argument.value"
             @input="value => updateTemplate(argument.id, value, variables)"
           />
+          <font-awesome-icon class="link" v-show="hasVariables" icon="link" />
         </div>
         <div
           :style="{ display: 'flex', flexDirection: 'column' }"
@@ -63,6 +64,7 @@ export default {
   methods: {
     updateTemplate(id, value, variables) {
       this.isVariable = value
+      this.$store.state.rad.hasVariables = true
       const variableMatch = variables.find(x => x.key === value.slice(1, this.isVariable.length))
       if (this.hasVariables) {
         this.$store.commit(UPDATE_TEMPLATE, {
@@ -75,6 +77,7 @@ export default {
           value: variableMatch.value,
         })
       } else {
+        this.$store.state.rad.hasVariables = false
         this.$store.commit(UPDATE_TEMPLATE, { id, value })
       }
     },
@@ -98,6 +101,9 @@ export default {
     },
     variables() {
       return this.$store.state.rad.currentTemplate.variables
+    },
+    emitIsVariable() {
+      return this.this.$store.state.rad.currentTemplate.hasVariables
     },
     hasVariables() {
       const newValue = this.isVariable.slice(1, this.isVariable.length)
@@ -149,6 +155,11 @@ export default {
         : []
     },
   },
+  mounted() {
+    this.selectedOperator.arguments.forEach(arg => {
+      this.isVariable = arg.value
+    })
+  },
 }
 </script>
 
@@ -167,6 +178,7 @@ export default {
 .input-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   .input-operator {
     width: 90px;
     height: 30px;
@@ -183,6 +195,10 @@ export default {
       width: 80px;
       height: 20px;
     }
+  }
+  .link {
+    font-size: 12px;
+    margin-left: 16px;
   }
 }
 .icon-container {
