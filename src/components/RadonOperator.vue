@@ -49,7 +49,7 @@ export default {
   name: 'RadonOperator',
   data() {
     return {
-      isVariable: '',
+      isVariable: null,
     }
   },
   props: {
@@ -80,6 +80,7 @@ export default {
         this.$store.state.rad.hasVariables = false
         this.$store.commit(UPDATE_TEMPLATE, { id, value })
       }
+      this.$store.dispatch('saveTemplate')
     },
   },
   computed: {
@@ -106,11 +107,13 @@ export default {
       return this.this.$store.state.rad.currentTemplate.hasVariables
     },
     hasVariables() {
-      const newValue = this.isVariable.slice(1, this.isVariable.length)
-      if (this.variables.find(variable => variable.key === newValue)) {
-        const valueInVariable = this.variables.find(variable => variable.key === newValue).key
-        if (newValue === valueInVariable) {
-          return true
+      if (this.isVariable) {
+        const newValue = this.isVariable.slice(1, this.isVariable.length)
+        if (this.variables.find(variable => variable.key === newValue)) {
+          const valueInVariable = this.variables.find(variable => variable.key === newValue).key
+          if (newValue === valueInVariable) {
+            return true
+          }
         }
       }
       return false
