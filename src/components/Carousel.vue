@@ -243,6 +243,7 @@ export default {
         margin: 32px;
       }
       .header {
+        max-height: 18px;
         display: flex;
         .index {
           color: $black;
