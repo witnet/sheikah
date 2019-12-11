@@ -1,4 +1,3 @@
-import { encodeDataRequest } from '@/utils'
 import router from '@/router'
 
 export default {
@@ -250,7 +249,7 @@ export default {
     },
 
     tryDataRequest: async function(context) {
-      context.rootState.rad.currentTemplate.variablesIdMarkup.forEach(variable => {
+      context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
         const id = variable.id
         const value = variable.value
         context.commit('updateTemplate', { id, value })
@@ -262,7 +261,7 @@ export default {
       // } else {
       // context.commit('setError', { name: 'tryDataRequest', error: request.error })
       // }
-      context.rootState.rad.currentTemplate.variablesIdMarkup.forEach(variable => {
+      context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
         const id = variable.id
         const key = variable.variable
         context.commit('updateTemplate', { id, value: '$' + key })

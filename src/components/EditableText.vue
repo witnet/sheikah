@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     allowEdit() {
-      console.log('se puede abrir??', this.blockOpen)
       if (this.blockOpen && !this.showInput) {
         this.showInput = false
       } else {
@@ -95,7 +94,8 @@ export default {
     color: #c5c2c2;
     border-bottom: 1px solid #c5c2c2;
     &.error {
-      color: red;
+      color: $red-1;
+      border-bottom: 1px solid $red-1;
     }
   }
   .edit-btn {
