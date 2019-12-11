@@ -40,19 +40,21 @@ export default {
   mutations: {
     [UPDATE_VARIABLES](state, { index, key, value }) {
       const prevValue = state.currentTemplate.variables[index].key
-      const markupVariable = state.currentTemplate.variablesIdMarkup.find(
+      const usedVariables = state.currentTemplate.usedVariables.filter(
         x => x.variable === prevValue
       )
-      if (state.hasVariables && markupVariable) {
+      if (state.hasVariables && usedVariables) {
         state.currentTemplate.variables[index] = {
           key: key,
           value: value,
         }
         state.currentTemplate.variables = [...state.currentTemplate.variables]
-        this.commit(STORE_VARIABLE_COMPONENT_ID, { id: markupVariable.id, variable: key, value })
-        this.commit(UPDATE_TEMPLATE, {
-          id: markupVariable.id,
-          value: '$' + markupVariable.variable,
+        usedVariables.forEach(usedVariable => {
+          this.commit(STORE_VARIABLE_COMPONENT_ID, { id: usedVariable.id, variable: key, value })
+          this.commit(UPDATE_TEMPLATE, {
+            id: usedVariable.id,
+            value: '$' + usedVariable.variable,
+          })
         })
       } else {
         state.currentTemplate.variables[index] = {
@@ -61,27 +63,29 @@ export default {
         }
         state.currentTemplate.variables = [...state.currentTemplate.variables]
       }
+      this.dispatch('saveTemplate')
+    },
+    deleteVariable: function(state, { index }) {
+      state.currentTemplate.variables.splice(index, 1)
+      this.dispatch('saveTemplate')
     },
     [CREATE_VARIABLE](state) {
       state.currentTemplate.variablesIndex += 1
-      console.log('index>', state.currentTemplate.variablesIndex)
       state.currentTemplate.variables.push({
         key: 'key_' + state.currentTemplate.variablesIndex,
         value: 'value',
       })
-      console.log('1. create variable', state.currentTemplate.variables)
+      this.dispatch('saveTemplate')
     },
     [STORE_VARIABLE_COMPONENT_ID](state, { id, variable, value }) {
-      if (!state.currentTemplate.variablesIdMarkup.find(x => x.id)) {
-        state.currentTemplate.variablesIdMarkup.push({ id: id, variable: variable, value: value })
-        state.currentTemplate.variablesIdMarkup = [...state.currentTemplate.variablesIdMarkup]
-      }
-      if (
-        state.currentTemplate.variablesIdMarkup.find(x => x.id) &&
-        !state.currentTemplate.variablesIdMarkup.find(x => x.key)
-      ) {
-        state.currentTemplate.variablesIdMarkup.find(x => x.id).variable = variable
-        state.currentTemplate.variablesIdMarkup.find(x => x.id).value = value
+      const usedVariable = state.currentTemplate.usedVariables.find(x => x.id)
+      const hasSameId = state.currentTemplate.usedVariables.find(x => x.id === id)
+      if (usedVariable && !!hasSameId) {
+        hasSameId.variable = variable
+        hasSameId.value = value
+      } else {
+        state.currentTemplate.usedVariables.push({ id: id, variable: variable, value: value })
+        state.currentTemplate.usedVariables = [...state.currentTemplate.usedVariables]
       }
     },
     [UPDATE_HISTORY](state, { mir }) {
@@ -90,11 +94,8 @@ export default {
       state.history.splice(state.historyIndex + 1)
     },
     [UPDATE_TEMPLATE](state, { id, value }) {
-      console.log('1', state.radRequest)
       state.currentRadonMarkupInterpreter.updateMarkup(id, value)
-      console.log('2', state.radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
-      console.log('3', state.radRequest)
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     [EDITOR_REDO](state) {
@@ -188,7 +189,7 @@ export default {
           },
         ],
         variablesIndex: 0,
-        variablesIdMarkup: [],
+        usedVariables: [],
       }
       state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate)
       state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
@@ -207,15 +208,12 @@ export default {
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     renameTemplate: function(state, { id, name }) {
-      console.log('remaned::')
       state.templates[id].name = name
     },
   },
   actions: {
     changeTemplateName: async function(context, { id, name }) {
-      console.log('change template name::')
       this.commit('renameTemplate', { id, name })
-      console.log('STATE>', { ...context.state })
       const request = await this.$walletApi.saveItem({
         walletId: context.rootState.wallet.walletId,
         sessionId: context.rootState.wallet.sessionId,
@@ -232,9 +230,7 @@ export default {
     saveTemplate: async function(context, args) {
       let templates = context.state.templates
       const templateToSave = args ? args.template : context.state.currentTemplate
-      console.log('esto es lo ultimo que ves', context.state.currentRadonMarkupInterpreter)
       templateToSave.radRequest = context.state.currentRadonMarkupInterpreter.getMir().radRequest
-      console.log('si me ves funciona')
       if (!templateToSave.id) {
         templateToSave.id = generateId()
       }

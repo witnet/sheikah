@@ -2,7 +2,6 @@
   <div class="variables-container">
     <div v-for="(variable, index) in variables" :key="variable.name" class="variable">
       <p class="label">$</p>
-      {{ keys }}
       <EditableText
         class="variable-value"
         :value="keys[index]"
@@ -28,6 +27,12 @@
           }
         "
       />
+      <div class="error" v-show="errors[index]">
+        (This key is repeated. Change the variable name before continue editing)
+      </div>
+      <div @click="() => deleteVariable(index)" class="delete">
+        <font-awesome-icon class="edit-btn" icon="times" />
+      </div>
     </div>
     <div class="img-container">
       <img @click="() => createVariable()" class="add-btn" src="@/resources/svg/add.svg" />
@@ -55,9 +60,8 @@ export default {
   },
   methods: {
     updateKey(index, key) {
-      // this.keys[index] = key
       this.$set(this.keys, index, key)
-      if (this.isRepeated(key)) {
+      if (this.isRepeated(key) && !this.isRepeatedIndex(key, index)) {
         this.$set(this.errors, index, true)
       } else {
         this.$set(this.errors, index, false)
@@ -71,15 +75,21 @@ export default {
       })
     },
     updateVariable(index, key, value) {
-      this.keys[index] = key
-      if (this.isRepeated(key)) {
-        this.$set(this.errors, index, true)
-      } else {
-        this.$set(this.errors, index, false)
-      }
+      this.$store.commit('updateVariables', {
+        index,
+        key,
+        value,
+      })
+    },
+    deleteVariable(index) {
+      this.$store.commit('deleteVariable', { index })
     },
     createVariable: function() {
       this.$store.commit(CREATE_VARIABLE)
+    },
+    isRepeatedIndex(key, index) {
+      const isSameindex = elm => elm.key === key
+      return this.variables.findIndex(isSameindex) === index
     },
     isRepeated(key) {
       return !!this.variables.find(variable => variable.key === key)
@@ -114,8 +124,6 @@ export default {
   overflow-y: scroll;
   background-color: $black;
   color: #c5c2c2;
-  text-align: center;
-  text-justify: center;
   .variable {
     padding-left: 50px;
     display: block;
@@ -133,17 +141,30 @@ export default {
       height: 20px;
     }
   }
-  .var-repeated {
-    color: red;
+  .delete {
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    font-size: 12px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .error {
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    color: $red-1;
   }
   .img-container {
-    text-align: left;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     .add-btn {
-      margin-left: 32vw;
-      width: 20px;
-      &:hover {
-        cursor: pointer;
-      }
+      width: 35px;
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
 }
