@@ -5,7 +5,7 @@
     </div>
     <input
       v-show="showInput"
-      :class="{ error: error }"
+      :class="[error]"
       class="editVar"
       v-model="inputValue"
       :placeholder="placeholder"

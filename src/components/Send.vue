@@ -224,6 +224,10 @@ export default {
       margin-right: 24px;
       text-align: right;
     }
+    .input {
+      text-align: left;
+      padding-left: 16px;
+    }
   }
   .submit {
     width: 100%;

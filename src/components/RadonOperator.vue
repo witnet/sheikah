@@ -159,9 +159,7 @@ export default {
     },
   },
   mounted() {
-    this.selectedOperator.arguments.forEach(arg => {
-      this.isVariable = arg.value
-    })
+    this.selectedOperator.arguments.forEach(arg => (this.isVariable = arg.value))
   },
 }
 </script>
