@@ -12,28 +12,30 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <div class="title" @click="showInput = true">
-      <div ref="input" v-show="!showInput" @click="showInput = !showInput">
-        {{ name }}
+    <div class="content" @click="edit()">
+      <div class="title">
+        <div ref="input" v-show="!showInput">
+          {{ name }}
+        </div>
+        <Input
+          v-closable="{ exclude: ['input'], handler: 'onClose' }"
+          v-show="showInput"
+          class="input"
+          type="default"
+          :value="name"
+          @input="
+            val => {
+              updateName(val)
+            }
+          "
+        />
       </div>
-      <Input
-        v-show="showInput"
-        v-closable="{ exclude: ['input'], handler: 'onClose' }"
-        class="input"
-        :value="name"
-        @input="
-          val => {
-            updateName(val)
-          }
-        "
-      />
-      <font-awesome-icon v-show="!showInput" class="edit-btn" icon="edit" />
-    </div>
-    <div class="description">
-      {{ description }}
-    </div>
-    <div>
-      {{ date }}
+      <div class="description">
+        {{ description }}
+      </div>
+      <div class="date">
+        {{ dateFormated }}
+      </div>
     </div>
   </div>
 </template>
@@ -41,6 +43,7 @@
 <script>
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import Input from '@/components/Input'
+import { changeDateFormat } from '@/utils'
 
 export default {
   name: 'TemplateCard',
@@ -53,8 +56,13 @@ export default {
         {
           label: 'Edit',
           action: () => {
-            this.$router.push('/request/editor')
-            this.setCurrentTemplate()
+            this.edit()
+          },
+        },
+        {
+          label: 'Rename',
+          action: () => {
+            this.showInput = true
           },
         },
         {
@@ -68,6 +76,7 @@ export default {
           },
         },
       ],
+      dateFormated: changeDateFormat(this.date),
       showInput: false,
     }
   },
@@ -75,9 +84,15 @@ export default {
     id: String,
     name: String,
     description: String,
-    date: Number,
+    date: [Number, String],
   },
   methods: {
+    edit() {
+      if (!this.showInput) {
+        this.$router.push('/request/editor')
+        this.setCurrentTemplate()
+      }
+    },
     onClose() {
       this.showInput = false
     },
@@ -88,7 +103,6 @@ export default {
       this.$store.commit(SET_CURRENT_TEMPLATE, { id: this.id })
     },
     updateName(input) {
-      console.log('emit id', this.id)
       this.$emit('change-name', { name: input, id: this.id })
     },
     deleteTemplate() {
@@ -129,48 +143,54 @@ export default {
   color: inherit;
 }
 .card-layout {
-  box-shadow: 1px 3px 11px 0px rgba(158, 158, 158, 0.445);
+  background-color: $alpha-blue;
+  border-radius: 2px;
   margin: 24px;
   padding: 16px;
-  min-width: 250px;
-  background-color: $alpha-blue;
+  border: 1.5px solid transparent;
+  box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
+  &:hover {
+    border: 1.5px solid $blue-6;
+  }
   &.option-btn,
   .title,
   .description {
-    flex: 1 400px;
     padding: 24px;
     .input {
-      background-color: transparent;
-      font-size: 1em;
+      color: $black;
+      text-align: left;
+      padding-left: 8px;
+      border: 1px solid $grey-1;
+      font-size: 0.9em;
       min-height: 40px;
-      border-radius: 0%;
-      border: none;
-      border-bottom: 1px solid;
     }
+  }
+  .date {
+    color: $grey-4;
+    text-align: right;
   }
   .edit-btn {
-    display: none;
-  }
-  .title {
-    font-size: 24px;
-    color: $black;
-    display: flex;
-    &:hover {
-      .edit-btn {
-        padding-left: 8px;
-        display: block;
-        font-size: 20px;
-        color: $blue-6;
-      }
-    }
-  }
-  .description {
-    color: $grey-4;
-    line-height: 1.5em;
+    padding-left: 8px;
+    display: block;
+    font-size: 20px;
+    color: $blue-6;
   }
   .option-btn {
     text-align: right;
     padding: 0px;
+  }
+  .content {
+    &:hover {
+      cursor: pointer;
+    }
+    .title {
+      font-size: 24px;
+      color: $black;
+    }
+    .description {
+      color: $grey-4;
+      line-height: 1.5em;
+    }
   }
 }
 </style>

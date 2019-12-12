@@ -12,6 +12,8 @@
     <StageBar v-on:change-stage="changeStage" />
     <RadonStage class="stage" :stage="currentStage" :script="currentScript" />
     <Console />
+    <p ref="delete-ref"></p>
+    <p v-closable="{ exclude: ['delete-ref'], handler: 'onClose' }"></p>
   </div>
 </template>
 
@@ -33,12 +35,22 @@ export default {
     Alert,
     Console,
   },
+  data() {
+    return {
+      // TODO: remove ref delete-ref and directive associated. Fix directive to find last reference
+      close: false,
+      currentStage: 'retrieve',
+    }
+  },
   methods: {
     changeStage: function(stage) {
       this.currentStage = stage
     },
     clearError(errorName) {
       this.$store.commit('clearError', { error: errorName })
+    },
+    onClose() {
+      this.close = false
     },
   },
   computed: {
@@ -74,11 +86,6 @@ export default {
         }
       )
     },
-  },
-  data() {
-    return {
-      currentStage: 'retrieve',
-    }
   },
 }
 </script>
