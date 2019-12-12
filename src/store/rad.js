@@ -36,6 +36,9 @@ export default {
     currentTemplate: state => {
       return state.currentTemplate
     },
+    variablesKeys: state => {
+      return state.currentTemplate.variables.map(x => x.key)
+    },
   },
   mutations: {
     [UPDATE_VARIABLES](state, { index, key, value }) {
@@ -184,7 +187,7 @@ export default {
         radRequest,
         variables: [
           {
-            key: 'key_0',
+            key: 'key_' + 0,
             value: 'value',
           },
         ],

@@ -9,6 +9,11 @@
       </div>
     </div>
     <div v-if="Object.entries(templates)" class="container-templates">
+      <div class="add">
+        <router-link to="/request/editor">
+          <img @click="createTemplate" class="add-btn" src="@/resources/svg/add.svg" />
+        </router-link>
+      </div>
       <TemplateCard
         v-for="template in templates"
         class="card"
@@ -19,16 +24,13 @@
         :date="template.creationDate"
         v-on:change-name="changeName"
       />
-      <div class="add">
-        <router-link to="/request/editor">
-          <img @click="createTemplate" class="add-btn" src="@/resources/svg/add.svg" />
-        </router-link>
-      </div>
     </div>
     <div v-else>
       You don't have templates yet.
     </div>
     <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
+    <p ref="del"></p>
+    <p v-closable="{ exclude: ['del'], handler: 'onClose' }"></p>
   </div>
 </template>
 
@@ -50,6 +52,8 @@ export default {
   data() {
     return {
       tabs: [{ name: 'Templates', link: '/request/templates' }],
+      // TODO: remove ref del and directive associated. Fix directive to find last reference
+      close: false,
     }
   },
   computed: {
@@ -66,6 +70,9 @@ export default {
     }),
   },
   methods: {
+    onClose() {
+      this.close = false
+    },
     changeName({ name, id }) {
       this.$store.dispatch('changeTemplateName', { id, name })
     },
@@ -134,19 +141,17 @@ export default {
     flex: 0 1 calc(30% - 1em);
     margin: 24px;
   }
-}
-.add {
-  display: flex;
-  justify-content: center;
-  min-width: 250px;
-  min-height: 200px;
-  align-items: center;
-  margin: 24px;
-  .add-btn {
-    width: 50px;
+  .add {
+    display: flex;
+    justify-content: center;
     flex: 0 1 calc(30% - 1em);
-    &:hover {
-      cursor: pointer;
+    align-items: center;
+    margin: 24px;
+    .add-btn {
+      width: 50px;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

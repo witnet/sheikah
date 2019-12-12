@@ -1,41 +1,29 @@
 <template>
   <div class="variables-container">
-    <div v-for="(variable, index) in variables" :key="variable.name" class="variable">
+    <div v-for="(variable, index) in variables" :key="index" class="variable">
       <p class="label">$</p>
       <EditableText
         class="variable-value"
         :value="keys[index]"
         :error="errors[index]"
         :blockOpen="error"
-        v-on:close="
-          key => {
-            handleCloseEvent(index, key, variable.value)
-          }
-        "
-        @input="
-          key => {
-            updateKey(index, key)
-          }
-        "
+        v-on:close="key => handleCloseEvent(index, key, variable.value)"
+        @input="key => updateKey(index, key)"
       />
       <Input
         class="variable-value"
         :value="variable.value"
-        @input="
-          val => {
-            updateVariable(index, variable.key, val)
-          }
-        "
+        @input="val => updateVariable(index, variable.key, val)"
       />
       <div class="error" v-show="errors[index]">
         (This key is repeated. Change the variable name before continue editing)
       </div>
-      <div @click="() => deleteVariable(index)" class="delete">
+      <div @click="deleteVariable(index)" class="delete">
         <font-awesome-icon class="edit-btn" icon="times" />
       </div>
     </div>
     <div class="img-container">
-      <img @click="() => createVariable()" class="add-btn" src="@/resources/svg/add.svg" />
+      <img @click="createVariable" class="add-btn" src="@/resources/svg/add.svg" />
     </div>
   </div>
 </template>
@@ -55,7 +43,7 @@ export default {
     return {
       errors: [],
       isOpen: [],
-      keys: this.$store.state.rad.currentTemplate.variables.map(x => x.key),
+      keys: this.$store.getters.variablesKeys,
     }
   },
   methods: {
@@ -99,6 +87,9 @@ export default {
     error() {
       return this.errorIndex !== -1
     },
+    variablesKeys() {
+      return this.$store.getters.variablesKeys
+    },
     variables() {
       return this.$store.state.rad.currentTemplate.variables
     },
@@ -108,7 +99,7 @@ export default {
   },
   watch: {
     variables() {
-      this.keys = this.$store.state.rad.currentTemplate.variables.map(x => x.key)
+      this.keys = this.variablesKeys
     },
   },
 }
@@ -132,7 +123,7 @@ export default {
     .label {
       color: #c5c2c2;
       padding-right: 5px;
-      margin: 10px;
+      margin: 8px;
     }
     .variable-value {
       background-color: $black;
