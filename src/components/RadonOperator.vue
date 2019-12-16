@@ -42,6 +42,7 @@
 <script>
 import Select from '@/components/Select'
 import Input from '@/components/Input'
+import { UPDATE_TEMPLATE, STORE_VARIABLE_COMPONENT_ID } from '@/store/mutation-types'
 
 export default {
   name: 'RadonOperator',
@@ -64,17 +65,17 @@ export default {
       this.isVariable = value
       const variableMatch = variables.find(x => x.key === value.slice(1, this.isVariable.length))
       if (this.hasVariables) {
-        this.$store.commit('updateTemplate', {
+        this.$store.commit(UPDATE_TEMPLATE, {
           id,
           value: '$' + variableMatch.key,
         })
-        this.$store.commit('storeVariableComponentId', {
+        this.$store.commit(STORE_VARIABLE_COMPONENT_ID, {
           id: id,
           variable: variableMatch.key,
           value: variableMatch.value,
         })
       } else {
-        this.$store.commit('updateTemplate', { id, value })
+        this.$store.commit(UPDATE_TEMPLATE, { id, value })
       }
     },
   },
@@ -120,11 +121,7 @@ export default {
           : []
         return selectedArg
       },
-      // eslint-disable-next-line
       set(inputValue) {
-        // this.$store.commit('updateTemplate', {
-        //   // add id and value
-        // })
         return inputValue
       },
     },

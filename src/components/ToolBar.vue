@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { EDITOR_REDO, EDITOR_UNDO } from '@/store/mutation-types'
 export default {
   name: 'ToolBar',
   methods: {
@@ -24,10 +25,10 @@ export default {
       this.$refs.download.click()
     },
     editorUndo() {
-      this.$store.commit('editorUndo')
+      this.$store.commit(EDITOR_UNDO)
     },
     editorRedo() {
-      this.$store.commit('editorRedo')
+      this.$store.commit(EDITOR_REDO)
     },
   },
   computed: {

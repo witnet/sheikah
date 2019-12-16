@@ -25,6 +25,7 @@
 
 <script>
 import Input from '@/components/Input'
+import { UPDATE_VARIABLES, CREATE_VARIABLE } from '@/store/mutation-types'
 
 export default {
   name: 'Variables',
@@ -35,14 +36,14 @@ export default {
     updateVariable(index, key, value) {
       this.key = key
       this.value = value
-      this.$store.commit('updateVariables', {
+      this.$store.commit(UPDATE_VARIABLES, {
         index,
         key,
         value,
       })
     },
-    createVariable: function() {
-      this.$store.commit('createVariable')
+    createVariable() {
+      this.$store.commit(CREATE_VARIABLE)
     },
   },
   computed: {

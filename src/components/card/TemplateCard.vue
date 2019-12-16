@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
+
 export default {
   name: 'TemplateCard',
   data() {
@@ -61,7 +63,7 @@ export default {
       this.options[index].action()
     },
     setCurrentTemplate() {
-      this.$store.commit('setCurrentTemplate', { id: this.id })
+      this.$store.commit(SET_CURRENT_TEMPLATE, { id: this.id })
     },
     deleteTemplate() {
       this.$store.dispatch('deleteTemplate', { id: this.id })

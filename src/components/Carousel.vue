@@ -64,6 +64,13 @@
 <script>
 import Select from '@/components/Select'
 import RadonScript from '@/components/RadonScript'
+import {
+  CLEAR_MOVE_CAROUSEL,
+  UPDATE_TEMPLATE,
+  ADD_SOURCE,
+  DELETE_SOURCE,
+  UPDATE_SOURCE,
+} from '@/store/mutation-types'
 
 export default {
   name: 'Carousel',
@@ -97,7 +104,7 @@ export default {
       },
       // eslint-disable-next-line
       set(inputValue) {
-        this.$store.dispatch('updateTemplate', {
+        this.$store.dispatch(UPDATE_TEMPLATE, {
           // add id and value
         })
       },
@@ -110,10 +117,10 @@ export default {
     isMoveCarouselActivated() {
       if (this.isMoveCarouselActivated === 'right' && this.sources.length > 2) {
         this.moveCarousel(-1)
-        this.$store.commit('clearMoveCarousel')
+        this.$store.commit(CLEAR_MOVE_CAROUSEL)
       } else if (this.isMoveCarouselActivated === 'left') {
         this.moveCarousel(1)
-        this.$store.commit('clearMoveCarousel')
+        this.$store.commit(CLEAR_MOVE_CAROUSEL)
       }
     },
   },
@@ -132,14 +139,14 @@ export default {
     },
     addSource() {
       if (this.sources.length > 1) this.counter++
-      this.$store.commit('addSource')
+      this.$store.commit(ADD_SOURCE)
     },
     deleteSource(index) {
-      this.$store.commit('deleteSource', { index })
+      this.$store.commit(DELETE_SOURCE, { index })
       if (this.sources.length > 2) this.moveCarousel(-1)
     },
-    updateSource: function(sourceInformation, sourceIndex) {
-      this.$store.commit('updateSource', { source: sourceInformation, index: sourceIndex })
+    updateSource(sourceInformation, sourceIndex) {
+      this.$store.commit(UPDATE_SOURCE, { source: sourceInformation, index: sourceIndex })
     },
   },
 }

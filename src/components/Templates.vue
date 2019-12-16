@@ -35,6 +35,8 @@
 import TemplateCard from './card/TemplateCard'
 import Button from '@/components/Button.vue'
 import { mapState } from 'vuex'
+import { CREATE_TEMPLATE } from '@/store/mutation-types'
+
 export default {
   name: 'Templates',
   components: {
@@ -63,10 +65,10 @@ export default {
     }),
   },
   methods: {
-    createTemplate: function() {
-      this.$store.commit('createTemplate')
+    createTemplate() {
+      this.$store.commit(CREATE_TEMPLATE)
     },
-    importTemplate: function() {
+    importTemplate() {
       this.$refs.fileInput.click()
     },
     readFile(e) {
