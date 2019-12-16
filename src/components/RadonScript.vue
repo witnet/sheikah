@@ -11,6 +11,7 @@
   </div>
 </template>
 <script>
+import { PUSH_OPERATOR } from '@/store/mutation-types'
 import RadonOperator from '@/components/RadonOperator'
 
 export default {
@@ -23,7 +24,7 @@ export default {
   },
   methods: {
     pushOperator() {
-      this.$store.commit('pushOperator', { scriptId: this.script[0].scriptId })
+      this.$store.commit(PUSH_OPERATOR, { scriptId: this.script[0].scriptId })
     },
   },
 }
