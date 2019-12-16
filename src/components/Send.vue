@@ -91,7 +91,7 @@
         <div class="label">
           <label class for>Fee</label>
         </div>
-        <Select class="select" v-model="fee" :options="options" />
+        <FormSelect v-model="fee" :options="options" />
       </div>
       <div class="submit">
         <Button data-test="sign-send-btn" :onClick="createVTT" type="primary">Sign and send</Button>
@@ -104,7 +104,7 @@
 import Button from './Button'
 import Input from './Input'
 import InputNumber from './InputNumber'
-import Select from './Select'
+import FormSelect from './FormSelect'
 
 export default {
   name: 'send',
@@ -112,7 +112,7 @@ export default {
     Button,
     Input,
     InputNumber,
-    Select,
+    FormSelect,
   },
   data() {
     return {
