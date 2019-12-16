@@ -1,6 +1,6 @@
 <template>
   <div class="radon-operator">
-    <Select
+    <FormSelect
       :value="selectedOption"
       @input="option => updateTemplate(selectedOption.id, option.value)"
       :options="operatorOptions"
@@ -22,7 +22,7 @@
           v-if="argument.markup_type === 'select'"
         >
           <p>{{ argument.label }}</p>
-          <Select
+          <FormSelect
             class="argument-options"
             :value="selectedArgument[index]"
             :options="argumentOptions[index]"
@@ -42,6 +42,7 @@
 
 <script>
 import Select from '@/components/Select'
+import FormSelect from './FormSelect'
 import Input from '@/components/Input'
 import { UPDATE_TEMPLATE, STORE_VARIABLE_COMPONENT_ID } from '@/store/mutation-types'
 
@@ -60,6 +61,7 @@ export default {
   components: {
     Input,
     Select,
+    FormSelect,
   },
   methods: {
     updateTemplate(id, value, variables) {
@@ -85,13 +87,14 @@ export default {
   },
   computed: {
     selectedOption() {
+      console.log('>>>>', this.operator.selected)
       return {
         id: this.operator.id,
         primaryText: this.operator.selected.label,
         value: this.operator.selected.label,
-        secondaryText: Array.isArray(this.operator.selected.output_type)
-          ? this.operator.selected.output_type[0]
-          : this.operator.selected.output_type,
+        secondaryText: Array.isArray(this.operator.selected.outputType)
+          ? this.operator.selected.outputType[0]
+          : this.operator.selected.outputType,
       }
     },
     hasArguments() {

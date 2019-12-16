@@ -22,7 +22,8 @@
       v-closable="{ exclude: ['button'], handler: 'onClose' }"
     >
       <div
-        v-for="option in options"
+        v-for="(option, index) in options"
+        :ref="'option_' + index"
         :data-test="'option-' + option.primaryText"
         :key="option.value"
         :class="`option ${option.value === value ? 'selected' : ''}`"
@@ -34,12 +35,6 @@
         </span>
       </div>
     </div>
-    <!-- {{ value }}
-    <select v-model="selectValue" class="hidden">
-      <option v-for="option in options" :value="option.value" :key="option.value">
-        {{ option.primaryText }}
-      </option>
-    </select> -->
   </div>
 </template>
 
@@ -63,9 +58,6 @@ export default {
       this.active = false
     },
     selectOption(option) {
-      // this.value = option.value
-      // this.primaryText = option.primaryText
-      // this.secondaryText = option.secondaryText
       this.active = false
       this.$emit('input', option)
     },
@@ -95,7 +87,6 @@ export default {
     border: none;
     color: $white;
     display: flex;
-    min-width: min-content;
     padding: 0 8px 0 16px;
     font-weight: normal;
 
@@ -109,13 +100,12 @@ export default {
       align-items: baseline;
       display: flex;
       flex-direction: row;
-      width: 100%;
       height: 50px;
       align-items: center;
 
       .label {
+        margin-right: 16px;
         display: flex;
-        width: 100%;
         align-content: center;
         text-align: center;
 
@@ -214,7 +204,6 @@ export default {
   flex-direction: column;
   user-select: none;
   height: 42px;
-  width: min-content;
 
   .select {
     z-index: 1;
@@ -225,10 +214,8 @@ export default {
     border: 1px solid $blue-6;
     color: $blue-6;
     display: flex;
-    width: min-content;
-    min-width: min-content;
     padding: 0 8px 0 16px;
-    min-width: 205px;
+    // min-width: 205px;
 
     &.active,
     &:hover {
@@ -240,12 +227,11 @@ export default {
       align-items: baseline;
       display: flex;
       flex-direction: row;
-      width: 100%;
       align-items: center;
 
       .label {
+        margin-right: 16px;
         display: flex;
-        width: 100%;
         align-content: center;
         text-align: center;
 
@@ -259,7 +245,6 @@ export default {
         }
       }
       .value {
-        width: 100%;
         font-size: 16px;
         border-radius: 2px;
         text-align: center;
@@ -285,7 +270,6 @@ export default {
       height: 32px;
       justify-content: space-between;
       padding: 0 16px;
-      width: 100%;
 
       &.selected {
         background-color: $white;
