@@ -1,54 +1,61 @@
 <template>
-  <div class="card-layout">
-    <div class="option-btn">
-      <el-dropdown @command="handleCommand">
-        <el-button class="button-options" split-button type="primary">
-          <img src="@/resources/svg/options.svg" alt="" />
-        </el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="(option, index) in options" :key="option.label" :command="index">
-            {{ option.label }}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
-    <div class="content" @click="edit()">
-      <div class="title">
-        <div ref="input" v-show="!showInput">
-          {{ name }}
+  <FrameOutside @click="showInput = false" @focus="showInput = false">
+    <div class="card-layout">
+      <div class="option-btn">
+        <el-dropdown @command="handleCommand">
+          <el-button class="button-options" split-button type="primary">
+            <img src="@/resources/svg/options.svg" alt="" />
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item
+              v-for="(option, index) in options"
+              :key="option.label"
+              :command="index"
+            >
+              {{ option.label }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+      <div class="content" @click="edit()">
+        <div class="title">
+          <div ref="input" v-show="!showInput">
+            {{ name }}
+          </div>
+          <Input
+            v-show="showInput"
+            class="input"
+            type="default"
+            :value="name"
+            @input="
+              val => {
+                updateName(val)
+              }
+            "
+          />
         </div>
-        <Input
-          v-closable="{ exclude: ['input'], handler: 'onClose' }"
-          v-show="showInput"
-          class="input"
-          type="default"
-          :value="name"
-          @input="
-            val => {
-              updateName(val)
-            }
-          "
-        />
-      </div>
-      <div class="description">
-        {{ description }}
-      </div>
-      <div class="date">
-        {{ dateFormated }}
+        <div class="description">
+          {{ description }}
+        </div>
+        <div class="date">
+          {{ dateFormated }}
+        </div>
       </div>
     </div>
-  </div>
+  </FrameOutside>
 </template>
 
 <script>
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import Input from '@/components/Input'
 import { changeDateFormat } from '@/utils'
+import FrameOutside from '@/components/FrameOutside'
 
 export default {
   name: 'TemplateCard',
   components: {
     Input,
+    FrameOutside,
   },
   data() {
     return {
