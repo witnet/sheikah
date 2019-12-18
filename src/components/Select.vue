@@ -1,115 +1,212 @@
 <template>
-  <div :class="[type === 'operator' ? 'select-box-operator' : 'select-box']">
-    <div
-      data-test="select-btn"
-      ref="button"
-      :class="`select ${active ? 'active' : ''}`"
-      @click="active = !active"
-    >
-      <div class="selected">
-        <div class="label">
-          <span class="primary" :data-test="'value' + value.primaryText">
-            {{ value.primaryText }}
-          </span>
-          <font-awesome-icon class="icon sort-down" icon="sort-down" />
-        </div>
-        <span :class="`value ${value.secondaryText}`">{{ value.secondaryText }}</span>
-      </div>
-    </div>
-    <div
-      :class="`options ${active ? 'active' : ''}`"
-      v-show="active"
-      v-closable="{ exclude: ['button'], handler: 'onClose' }"
-    >
-      <div
-        v-for="(option, index) in options"
-        :ref="'option_' + index"
-        :data-test="'option-' + option.primaryText"
-        :key="option.value"
-        :class="`option ${option.value === value ? 'selected' : ''}`"
-        @click="() => selectOption(option)"
+  <div @keydown.tab="tabKeyPressed = true" @blur.capture="handleBlur">
+    <div :class="[type === 'operator' ? 'select-box-operator' : 'select-box']">
+      <button
+        ref="button"
+        data-test="select-btn"
+        id="select-button"
+        aria-haspopup="listbox"
+        aria-labelledby="select-label select-button"
+        :aria-expanded="optionsVisible"
+        class="selected-btn"
+        @click="toggleOptions"
+        @keyup.up.down.prevent="showOptions"
+        @keyup.up.prevent="selectPrevOption"
+        @keyup.down.prevent="selectNextOption"
       >
-        <span class="primary">{{ option.primaryText }}</span>
-        <span :class="`value ${option.secondaryText}`">
-          {{ option.secondaryText }}
-        </span>
-      </div>
+        <div class="selected">
+          <div class="label">
+            <span class="primary" :data-test="'value' + value.primaryText">
+              {{ value.primaryText }}
+            </span>
+            <font-awesome-icon class="icon sort-down" icon="sort-down" />
+          </div>
+          <span :class="`value ${value.secondaryText}`">{{ value.secondaryText }}</span>
+        </div>
+      </button>
+      <input v-if="!tabKeyPressed" :aria-hidden="true" class="hidden" @focus="handleFocus" />
+      <ul
+        v-show="optionsVisible"
+        ref="options"
+        tabindex="-1"
+        role="listbox"
+        :aria-labelledby="`select-label`"
+        :aria-activedescendant="activeDescendant"
+        class="options"
+        @focus="setupFocus"
+        @keydown="search"
+        @keyup.up.prevent="selectPrevOption"
+        @keyup.down.prevent="selectNextOption"
+        @keydown.up.down.prevent
+        @keydown.enter.esc.prevent="reset"
+      >
+        <li
+          v-for="(option, index) in options"
+          :key="option.primaryText"
+          :id="`select-option-${index}`"
+          :aria-selected="activeOptionIndex === index"
+          :class="activeOptionIndex === index && 'has-focus'"
+          class="option"
+          role="option"
+          @click="selectOption(option)"
+        >
+          <span class="primary">{{ option.primaryText }}</span>
+          <span :class="`value ${option.secondaryText}`">
+            {{ option.secondaryText }}
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+let resetKeysSoFarTimer
 export default {
   name: 'Select',
-  data() {
-    return {
-      primaryText: '',
-      secondaryText: '',
-      active: false,
-    }
+  model: {
+    event: 'input',
   },
   props: {
-    value: Object,
-    options: Array,
     type: String,
+    options: {
+      type: Array,
+    },
+    value: {
+      type: Object,
+    },
+  },
+  data() {
+    return {
+      tabKeyPressed: false,
+      optionsVisible: false,
+      keysSoFar: '',
+    }
+  },
+  computed: {
+    activeOptionIndex() {
+      console.log('options', this.options)
+      return this.options.findIndex(x => x.value === this.value || x === this.value)
+    },
+    prevOptionIndex() {
+      const next = this.activeOptionIndex - 1
+      return next >= 0 ? next : this.options.length - 1
+    },
+    nextOptionIndex() {
+      const next = this.activeOptionIndex + 1
+      return next <= this.options.length - 1 ? next : 0
+    },
+    activeDescendant() {
+      return `select-option-${this.activeOptionIndex}`
+    },
   },
   methods: {
-    onClose() {
-      this.active = false
+    handleFocus(e) {
+      this.optionsVisible = true
+      this.$refs.button.focus()
     },
     selectOption(option) {
-      this.active = false
       this.$emit('input', option)
+      this.reset()
+    },
+    handleBlur(e) {
+      if (!this.$el.contains(e.relatedTarget)) {
+        this.hideOptions()
+      }
+    },
+    toggleOptions() {
+      this.optionsVisible ? this.hideOptions() : this.showOptions()
+    },
+    async showOptions() {
+      this.optionsVisible = true
+      await this.$nextTick()
+      this.$refs.options.focus()
+    },
+    hideOptions() {
+      this.optionsVisible = false
+    },
+    async reset() {
+      this.hideOptions()
+      await this.$nextTick()
+      this.$refs.button.focus()
+    },
+    setupFocus() {
+      if (!this.value) {
+        this.$emit('input', this.options[0])
+      }
+    },
+    selectPrevOption() {
+      this.$emit('input', this.options[this.prevOptionIndex])
+    },
+    selectNextOption() {
+      this.$emit('input', this.options[this.nextOptionIndex])
+    },
+    search(e) {
+      clearTimeout(resetKeysSoFarTimer)
+      // No alphanumeric key was pressed.
+      if (e.key.length <= 1) {
+        resetKeysSoFarTimer = setTimeout(() => {
+          this.keysSoFar = ''
+          console.log(this.keysSoFar)
+        }, 500)
+      }
+      this.keysSoFar += e.key
+      const matchingOption = this.options.find(x =>
+        x.primaryText.toLowerCase().startsWith(this.keysSoFar)
+      )
+      if (matchingOption) {
+        this.$emit('input', matchingOption)
+      }
     },
   },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 @import '@/styles/fonts.scss';
+//as Select-box for Operators
 
-//as-OPERATOR
 .select-box-operator {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  user-select: none;
-  height: 42px;
+  box-sizing: border-box;
+  &:focus,
+  &:focus-within {
+    border-color: $grey-0;
+    border-radius: 4px;
+    box-shadow: 0 0 0 0.1rem $white;
+  }
+  &:focus-within .selected-btn {
+    border: none;
+  }
 
-  .select {
+  .selected-btn {
+    width: 100%;
     z-index: 1;
     min-height: 35px;
     align-items: center;
-    background: $grey-1;
-    border-radius: 3px;
-    border: none;
+    background-color: $grey-1;
+    border-radius: 4px;
+    border: 1px solid $grey-1;
     color: $white;
     display: flex;
-    padding: 0 8px 0 16px;
-    font-weight: normal;
-
-    &.active,
-    &:hover {
-      background: $grey-1;
-      color: $white;
-    }
-
+    padding: 0 0 0 16px;
     .selected {
+      width: 100%;
       align-items: baseline;
       display: flex;
       flex-direction: row;
-      height: 50px;
       align-items: center;
+      justify-content: space-between;
 
       .label {
-        margin-right: 16px;
+        margin-right: 32px;
         display: flex;
         align-content: center;
         text-align: center;
 
         .primary {
+          font-size: 16px;
           margin-right: 16px;
         }
         .sort-down {
@@ -117,36 +214,46 @@ export default {
           margin: 0;
         }
       }
-      .icon {
-        text-justify: center;
-        margin: 8px;
-        font-size: 15px;
+      .value {
+        font-size: 16px;
+        border-radius: 2px;
+        text-align: center;
       }
     }
   }
-  .options {
-    z-index: 2;
+
+  .hidden {
     display: none;
-    border-radius: 5px;
-    margin-top: 8px;
-    &.active {
-      display: block;
-    }
+  }
+
+  .options {
+    border-color: 1px solid $grey-3;
+    margin: 0;
+    list-style-type: none;
+    outline: none;
+
     .option {
-      align-items: center;
       background: $grey-0;
       border-bottom: 1px solid $white;
       color: $grey-3;
+      padding: 8px;
+      cursor: default;
+      align-items: center;
       display: flex;
-      height: 40px;
+      height: 32px;
+      font-size: 14px;
       justify-content: space-between;
-      padding: 16px;
-      font-weight: normal;
+      padding: 0 16px;
+
+      &.has-focus {
+        background-color: $grey-1;
+        color: $white;
+      }
     }
   }
 }
 .value {
-  font-size: 16px;
+  font-size: 8px;
   border-radius: 2px;
   text-align: center;
   padding: 8px;
@@ -191,46 +298,39 @@ export default {
     background-color: $integer;
   }
 }
-
-//not-an-OPERATOR
-
-// .hidden {
-//   // display: none;
-// }
+//as Select-box
 
 .select-box {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  user-select: none;
-  height: 42px;
+  &:focus,
+  &:focus-within {
+    border-color: #80bdff;
+    border-radius: 4px;
+    box-shadow: 0 0 0 0.1rem rgba(141, 196, 255, 0.25);
+  }
+  &:focus-within .selected-btn {
+    border: none;
+  }
 
-  .select {
+  .selected-btn {
     z-index: 1;
     min-height: 35px;
     align-items: center;
     background: none;
     border-radius: 4px;
-    border: 1px solid $blue-6;
-    color: $blue-6;
+    border: 1px solid $grey-2;
+    color: $grey-4;
     display: flex;
     padding: 0 8px 0 16px;
-    // min-width: 205px;
-
-    &.active,
-    &:hover {
-      border-color: $alpha-blue-1;
-      color: $alpha-blue-1;
-    }
-
     .selected {
+      min-width: 220px;
       align-items: baseline;
       display: flex;
       flex-direction: row;
       align-items: center;
+      justify-content: space-between;
 
       .label {
-        margin-right: 16px;
+        margin-right: 32px;
         display: flex;
         align-content: center;
         text-align: center;
@@ -252,27 +352,29 @@ export default {
     }
   }
 
-  .options {
-    z-index: 1;
+  .hidden {
     display: none;
-    &.active {
-      display: block;
-    }
-    border: 1px solid $blue-1;
-    border-radius: 0 0 4px 4px;
-    background-color: $blue-1;
+  }
+
+  .options {
+    border-color: 1px solid #80bdff;
+    margin: 0;
+    padding-top: 8px;
+    list-style-type: none;
+    outline: none;
 
     .option {
+      padding: 8px;
+      cursor: default;
       align-items: center;
-      box-sizing: border-box;
-      color: $blue-6;
       display: flex;
       height: 32px;
+      font-size: 14px;
       justify-content: space-between;
       padding: 0 16px;
 
-      &.selected {
-        background-color: $white;
+      &.has-focus {
+        background-color: rgba(#80bdff, 0.25);
       }
     }
   }

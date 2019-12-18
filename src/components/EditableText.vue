@@ -1,23 +1,28 @@
 <template>
-  <div class="title" @click="allowOpen">
-    <div ref="editable" v-show="!showInput" @click="allowEdit">
-      {{ value }}
+  <FrameOutside @click="showInput = false" @focus="showInput = false">
+    <div class="title" @click="allowOpen">
+      <div ref="editable" v-show="!showInput" @click="allowEdit">
+        {{ value }}
+      </div>
+      <input
+        v-show="showInput"
+        :class="[error]"
+        class="editVar"
+        v-model="inputValue"
+        :placeholder="placeholder"
+      />
+      <font-awesome-icon v-show="!showInput" class="edit-btn" icon="edit" />
     </div>
-    <input
-      v-show="showInput"
-      :class="[error]"
-      class="editVar"
-      v-model="inputValue"
-      :placeholder="placeholder"
-      v-closable="{ exclude: ['editable'], handler: 'onClose' }"
-    />
-    <font-awesome-icon v-show="!showInput" class="edit-btn" icon="edit" />
-  </div>
+  </FrameOutside>
 </template>
 
 <script>
+import FrameOutside from '@/components/FrameOutside'
 export default {
   name: 'EditableText',
+  components: {
+    FrameOutside,
+  },
   props: {
     error: Boolean,
     placeholder: String,
