@@ -29,8 +29,6 @@
       You don't have templates yet.
     </div>
     <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
-    <p ref="del"></p>
-    <p v-closable="{ exclude: ['del'], handler: 'onClose' }"></p>
   </div>
 </template>
 
@@ -52,8 +50,6 @@ export default {
   data() {
     return {
       tabs: [{ name: 'Templates', link: '/request/templates' }],
-      // TODO: remove ref del and directive associated. Fix directive to find last reference
-      close: false,
     }
   },
   computed: {
@@ -70,9 +66,6 @@ export default {
     }),
   },
   methods: {
-    onClose() {
-      this.close = false
-    },
     changeName({ name, id }) {
       this.$store.dispatch('changeTemplateName', { id, name })
     },
