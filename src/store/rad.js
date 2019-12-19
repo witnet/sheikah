@@ -17,6 +17,7 @@ import {
   STORE_VARIABLE_COMPONENT_ID,
   CREATE_VARIABLE,
   UPDATE_VARIABLES,
+  TOOGLE_VARIABLES,
 } from '@/store/mutation-types'
 import Vue from 'vue'
 
@@ -97,16 +98,16 @@ export default {
       state.history.splice(state.historyIndex + 1)
     },
     [UPDATE_TEMPLATE](state, { id, value }) {
-      state.currentRadonMarkupInterpreter.updateMarkup(id, value)
-      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+      state.currentRadonMarkupInterpreter.update(id, value)
+      state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     [EDITOR_REDO](state) {
-      const redolenght = state.currentRadonMarkupInterpreter.getMarkup().radRequest.retrieve.length
+      const redolenght = state.currentRadonMarkupInterpreter.retrieve.length
       if (state.history[state.historyIndex + 1]) {
         state.historyIndex += 1
         state.currentRadonMarkupInterpreter = new Radon(state.history[state.historyIndex])
-        state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+        state.radRequest = state.currentRadonMarkupInterpreter
         const currentLenght = state.radRequest.retrieve.length
         if (redolenght > currentLenght) {
           this.commit(MOVE_CAROUSEL, { direction: 'right' })
@@ -116,11 +117,11 @@ export default {
       }
     },
     [EDITOR_UNDO](state) {
-      const lenght = state.currentRadonMarkupInterpreter.getMarkup().radRequest.retrieve.length
+      const lenght = state.currentRadonMarkupInterpreter.retrieve.length
       if (state.history[state.historyIndex - 1]) {
         state.historyIndex = state.historyIndex - 1
         state.currentRadonMarkupInterpreter = new Radon(state.history[state.historyIndex])
-        state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+        state.radRequest = state.currentRadonMarkupInterpreter
         let currentLenght = state.radRequest.retrieve.length
         if (lenght > currentLenght) {
           this.commit(MOVE_CAROUSEL, { direction: 'right' })
@@ -139,20 +140,20 @@ export default {
     [CLEAR_MOVE_CAROUSEL](state) {
       state.moveCarousel = false
     },
-    [UPDATE_SOURCE](state, { source, index }) {
-      state.currentRadonMarkupInterpreter.updateSource(source, index)
-      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+    [UPDATE_SOURCE](state, { index, source }) {
+      state.currentRadonMarkupInterpreter.updateSource(index, source)
+      state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     [DELETE_SOURCE](state, { index }) {
       state.currentRadonMarkupInterpreter.deleteSource(index)
-      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+      state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     [ADD_SOURCE](state) {
-      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+      state.radRequest = state.currentRadonMarkupInterpreter
       state.currentRadonMarkupInterpreter.addSource()
-      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+      state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     [SET_TEMPLATES](state, { templates }) {
@@ -173,11 +174,11 @@ export default {
           {
             url: '',
             kind: 'HTTP-GET',
-            script: [0x75, [0x73, '10']],
+            script: [128, [67, 5]],
           },
         ],
-        aggregate: [0x50],
-        tally: [0x50],
+        aggregate: [16],
+        tally: [],
       }
       state.currentTemplate = {
         creationDate: Date.now(),
@@ -194,24 +195,31 @@ export default {
         variablesIndex: 0,
         usedVariables: [],
       }
-      state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate)
-      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+      state.currentRadonMarkupInterpreter = new Radon(radRequest)
+      state.radRequest = state.currentRadonMarkupInterpreter
       state.history = [state.currentTemplate]
     },
     [SET_CURRENT_TEMPLATE](state, { id }) {
       const template = state.templates[id]
       state.currentTemplate = template
-      state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate)
-      state.radRequest = { ...state.currentRadonMarkupInterpreter.getMarkup().radRequest }
+      state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate.radRequest)
+      state.radRequest = state.currentRadonMarkupInterpreter
       state.history = [state.currentTemplate]
     },
     [PUSH_OPERATOR](state, { scriptId }) {
       state.currentRadonMarkupInterpreter.addOperator(scriptId)
-      state.radRequest = state.currentRadonMarkupInterpreter.getMarkup().radRequest
+      state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     renameTemplate: function(state, { id, name }) {
       state.templates[id].name = name
+    },
+    [TOOGLE_VARIABLES](state, { hasVariables }) {
+      if (hasVariables === true) {
+        state.hasVariables = true
+      } else {
+        state.hasVariables = false
+      }
     },
   },
   actions: {
@@ -233,7 +241,7 @@ export default {
     saveTemplate: async function(context, args) {
       let templates = context.state.templates
       const templateToSave = args ? args.template : context.state.currentTemplate
-      templateToSave.radRequest = context.state.currentRadonMarkupInterpreter.getMir().radRequest
+      templateToSave.radRequest = context.state.currentRadonMarkupInterpreter.getMir()
       if (!templateToSave.id) {
         templateToSave.id = generateId()
       }

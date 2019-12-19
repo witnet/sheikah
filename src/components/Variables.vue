@@ -63,7 +63,7 @@ export default {
       })
     },
     updateVariable(index, key, value) {
-      this.$store.commit('updateVariables', {
+      this.$store.commit(UPDATE_VARIABLES, {
         index,
         key,
         value,
