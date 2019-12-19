@@ -151,7 +151,6 @@ export default {
       this.$store.dispatch('generateAddress', {
         label: this.label,
       })
-      this.$store.dispatch('getAddresses')
     },
   },
   beforeCreate() {

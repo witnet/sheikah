@@ -54,11 +54,11 @@ export default {
     }),
     currentScript: function() {
       if (this.currentStage === 'retrieve') {
-        return this.radRequest.retrieve
+        return this.radRequest.getMarkup().retrieve
       } else if (this.currentStage === 'aggregate') {
-        return this.radRequest.aggregate
+        return this.radRequest.getMarkup().aggregate
       } else if (this.currentStage === 'tally') {
-        return this.radRequest.tally
+        return this.radRequest.getMarkup().tally
       } else {
         return null
       }

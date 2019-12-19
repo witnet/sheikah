@@ -43,13 +43,17 @@
 <script>
 import Select from './Select'
 import Input from '@/components/Input'
-import { UPDATE_TEMPLATE, STORE_VARIABLE_COMPONENT_ID } from '@/store/mutation-types'
+import {
+  UPDATE_TEMPLATE,
+  STORE_VARIABLE_COMPONENT_ID,
+  TOOGLE_VARIABLES,
+} from '@/store/mutation-types'
 
 export default {
   name: 'RadonOperator',
   data() {
     return {
-      isVariable: null,
+      variableName: null,
     }
   },
   props: {
@@ -63,24 +67,29 @@ export default {
   },
   methods: {
     updateTemplate(id, value, variables) {
-      this.isVariable = value
-      this.$store.state.rad.hasVariables = true
-      const variableMatch = variables.find(x => x.key === value.slice(1, this.isVariable.length))
-      if (this.hasVariables) {
-        this.$store.commit(UPDATE_TEMPLATE, {
-          id,
-          value: '$' + variableMatch.key,
-        })
-        this.$store.commit(STORE_VARIABLE_COMPONENT_ID, {
-          id: id,
-          variable: variableMatch.key,
-          value: variableMatch.value,
-        })
+      if (value && this.hasArguments) {
+        this.variableName = value
+        this.$store.commit(TOOGLE_VARIABLES, { hasVariables: true })
+        if (this.hasVariables) {
+          const variableMatch = variables.find(x => x.key === value.slice(1))
+          this.$store.commit(UPDATE_TEMPLATE, {
+            id,
+            value: '$' + variableMatch.key,
+          })
+          this.$store.commit(STORE_VARIABLE_COMPONENT_ID, {
+            id: id,
+            variable: variableMatch.key,
+            value: variableMatch.value,
+          })
+        } else {
+          this.$store.commit(TOOGLE_VARIABLES, { hasVariables: false })
+          this.$store.commit(UPDATE_TEMPLATE, { id, value })
+        }
+        this.$store.dispatch('saveTemplate')
       } else {
-        this.$store.state.rad.hasVariables = false
+        this.selected = { id: id, primaryText: value, value: value, secondaryText: 'boolean' }
         this.$store.commit(UPDATE_TEMPLATE, { id, value })
       }
-      this.$store.dispatch('saveTemplate')
     },
   },
   computed: {
@@ -89,9 +98,7 @@ export default {
         id: this.operator.id,
         primaryText: this.operator.selected.label,
         value: this.operator.selected.label,
-        secondaryText: Array.isArray(this.operator.selected.outputType)
-          ? this.operator.selected.outputType[0]
-          : this.operator.selected.outputType,
+        secondaryText: this.operator.selected.outputType,
       }
     },
     hasArguments() {
@@ -107,8 +114,8 @@ export default {
       return this.this.$store.state.rad.currentTemplate.hasVariables
     },
     hasVariables() {
-      if (this.isVariable) {
-        const newValue = this.isVariable.slice(1, this.isVariable.length)
+      if (typeof this.variableName === 'string') {
+        const newValue = this.variableName.slice(1, this.variableName.length)
         if (this.variables.find(variable => variable.key === newValue)) {
           const valueInVariable = this.variables.find(variable => variable.key === newValue).key
           if (newValue === valueInVariable) {
@@ -159,7 +166,9 @@ export default {
     },
   },
   mounted() {
-    this.selectedOperator.arguments.forEach(arg => (this.isVariable = arg.value))
+    this.selectedOperator.arguments.forEach(arg => {
+      this.variableName = arg.value
+    })
   },
 }
 </script>

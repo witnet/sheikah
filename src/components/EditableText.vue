@@ -1,5 +1,5 @@
 <template>
-  <FrameOutside @click="showInput = false" @focus="showInput = false">
+  <FrameOutside @click="onClose" @focus="onClose">
     <div class="title" @click="allowOpen">
       <div ref="editable" v-show="!showInput" @click="allowEdit">
         {{ value }}
