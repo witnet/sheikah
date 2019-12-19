@@ -42,7 +42,7 @@
       >
         <li
           v-for="(option, index) in options"
-          :key="option.primaryText"
+          :key="option.primaryText + index"
           :id="`select-option-${index}`"
           :aria-selected="activeOptionIndex === index"
           :class="activeOptionIndex === index && 'has-focus'"
@@ -85,7 +85,7 @@ export default {
   },
   computed: {
     activeOptionIndex() {
-      console.log('options', this.options)
+      // TODO(#856): implement find for operator select, wait till the Radon Library is updated
       return this.options.findIndex(x => x.value === this.value || x === this.value)
     },
     prevOptionIndex() {
@@ -147,7 +147,6 @@ export default {
       if (e.key.length <= 1) {
         resetKeysSoFarTimer = setTimeout(() => {
           this.keysSoFar = ''
-          console.log(this.keysSoFar)
         }, 500)
       }
       this.keysSoFar += e.key
@@ -246,8 +245,8 @@ export default {
       padding: 0 16px;
 
       &.has-focus {
-        background-color: $grey-1;
-        color: $white;
+        background-color: $white;
+        color: $grey-1;
       }
     }
   }
