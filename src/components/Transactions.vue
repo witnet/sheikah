@@ -73,13 +73,14 @@ export default {
     return {
       dialogVisible: false,
       dialogVisible2: false,
-      posts: this.addresses,
+      posts: this.newAddresses,
       lastAddress: '',
       page: 1,
       perPage: 5,
       middleItemActive: null,
       lastItemActive: false,
       firstItemActive: true,
+      newAddresses: null,
     }
   },
   computed: {
@@ -99,9 +100,7 @@ export default {
       getTransactionsError: state => {
         return state.wallet.errors.getTransactions
       },
-      addresses: state => {
-        return state.wallet.addresses
-      },
+      addresses: state => Array.from(state.wallet.addresses),
       createVTTErrorMessage: state => {
         if (state.wallet.errors.createVTT) {
           return state.wallet.errors.createVTT.message
@@ -139,6 +138,7 @@ export default {
     },
     displayModalReceive: function() {
       this.generateAddress()
+      this.$store.dispatch('getAddresses')
       this.dialogVisible2 = true
     },
     closeAndClear: function() {
