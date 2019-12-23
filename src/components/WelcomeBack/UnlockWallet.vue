@@ -6,10 +6,14 @@
       class="password-input"
       v-model="password"
       type="password"
+      id="submit-button"
+      @keydown.enter.esc.prevent="goNextItem"
       placeholder="Password"
     />
-    <div class="submit">
-      <Button data-test="unlock-wallet" :onClick="unlockWallet" type="primary">Unlock</Button>
+    <div @keydown.enter.esc.prevent="unlockWallet">
+      <Button ref="submit" data-test="unlock-wallet" :onClick="unlockWallet" type="primary">
+        Unlock
+      </Button>
     </div>
     <p v-if="showError">Invalid password</p>
   </div>
@@ -29,6 +33,9 @@ export default {
     }
   },
   methods: {
+    goNextItem() {
+      this.$refs.submit.$el.focus()
+    },
     unlockWallet() {
       this.$store.dispatch('unlockWallet', {
         walletId: this.$route.params.id,
