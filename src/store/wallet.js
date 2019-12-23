@@ -76,19 +76,16 @@ export default {
     setGeneratedTransaction(state, { transaction }) {
       state.generatedTransaction = transaction
     },
-    setAddresses(state, { addresses, address }) {
-      const addressesMap = new Map([])
-      const addAddress = addr => addressesMap.set(addr.address, addr)
-      state.addresses.map(addAddress)
-
-      if (addresses) {
-        addresses.map(addAddress)
-      }
-
+    addAddress(state, { address }) {
       if (address) {
-        addAddress(address)
+        state.addresses.add(address)
       }
-      state.addresses = Array.from(addressesMap.values())
+    },
+    setAddresses(state, { addresses }) {
+      if (addresses) {
+        state.addresses = addresses
+        state.addresses = new Set(addresses)
+      }
     },
   },
   actions: {
@@ -160,8 +157,8 @@ export default {
       const request = await this.$walletApi.getAddresses({
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
+        limit: 300,
       })
-
       if (request.result) {
         context.commit('setAddresses', { addresses: request.result.addresses })
       }
@@ -174,7 +171,7 @@ export default {
         sessionId: context.state.sessionId,
       })
       if (request.result) {
-        context.commit('setAddresses', { address: request.result.address })
+        context.commit('addAddress', { address: request.result })
       }
     },
 
