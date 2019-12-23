@@ -94,7 +94,14 @@
         <Select v-model="fee" :options="options" />
       </div>
       <div class="submit">
-        <Button data-test="sign-send-btn" :onClick="createVTT" type="primary">Sign and send</Button>
+        <Button
+          @keydown.enter.esc.prevent="createVTT"
+          data-test="sign-send-btn"
+          :onClick="createVTT"
+          type="primary"
+        >
+          Sign and send
+        </Button>
       </div>
     </div>
   </div>
@@ -127,6 +134,7 @@ export default {
         { value: 59, primaryText: 'Medium', secondaryText: '59 uWit/B' },
         { value: 39, primaryText: 'Low', secondaryText: '39 uWit/B' },
       ],
+      refindex: 0,
     }
   },
   computed: {
@@ -144,6 +152,7 @@ export default {
       this.closeDialog()
     },
     createVTT() {
+      this.refindex = 0
       this.$store.dispatch('createVTT', {
         label: this.label,
         address: this.address,

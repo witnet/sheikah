@@ -53,7 +53,6 @@ export default {
 }
 
 :active,
-:focus,
 :hover {
   outline: none;
 }
