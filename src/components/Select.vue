@@ -42,8 +42,8 @@
       >
         <li
           v-for="(option, index) in options"
-          :key="option.primaryText + index"
           :id="`select-option-${index}`"
+          :key="index"
           :aria-selected="activeOptionIndex === index"
           :class="activeOptionIndex === index && 'has-focus'"
           class="option"
