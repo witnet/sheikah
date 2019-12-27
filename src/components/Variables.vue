@@ -30,7 +30,7 @@
 
 <script>
 import Input from '@/components/Input'
-import { UPDATE_VARIABLES, CREATE_VARIABLE } from '@/store/mutation-types'
+import { UPDATE_VARIABLES, CREATE_VARIABLE, DELETE_VARIABLE } from '@/store/mutation-types'
 import EditableText from '@/components/EditableText'
 
 export default {
@@ -70,7 +70,7 @@ export default {
       })
     },
     deleteVariable(index) {
-      this.$store.commit('deleteVariable', { index })
+      this.$store.commit(DELETE_VARIABLE, { index })
     },
     createVariable: function() {
       this.$store.commit(CREATE_VARIABLE)

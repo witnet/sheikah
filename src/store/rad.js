@@ -14,10 +14,11 @@ import {
   CREATE_TEMPLATE,
   SET_CURRENT_TEMPLATE,
   PUSH_OPERATOR,
-  STORE_VARIABLE_COMPONENT_ID,
+  USED_VARIABLES,
   CREATE_VARIABLE,
   UPDATE_VARIABLES,
   TOOGLE_VARIABLES,
+  DELETE_VARIABLE,
 } from '@/store/mutation-types'
 import Vue from 'vue'
 
@@ -54,7 +55,7 @@ export default {
         }
         state.currentTemplate.variables = [...state.currentTemplate.variables]
         usedVariables.forEach(usedVariable => {
-          this.commit(STORE_VARIABLE_COMPONENT_ID, { id: usedVariable.id, variable: key, value })
+          this.commit(USED_VARIABLES, { id: usedVariable.id, variable: key, value })
           this.commit(UPDATE_TEMPLATE, {
             id: usedVariable.id,
             value: '$' + usedVariable.variable,
@@ -69,7 +70,7 @@ export default {
       }
       this.dispatch('saveTemplate')
     },
-    deleteVariable: function(state, { index }) {
+    [DELETE_VARIABLE](state, { index }) {
       state.currentTemplate.variables.splice(index, 1)
       this.dispatch('saveTemplate')
     },
@@ -81,7 +82,7 @@ export default {
       })
       this.dispatch('saveTemplate')
     },
-    [STORE_VARIABLE_COMPONENT_ID](state, { id, variable, value }) {
+    [USED_VARIABLES](state, { id, variable, value }) {
       const usedVariable = state.currentTemplate.usedVariables.find(x => x.id)
       const hasSameId = state.currentTemplate.usedVariables.find(x => x.id === id)
       if (usedVariable && !!hasSameId) {

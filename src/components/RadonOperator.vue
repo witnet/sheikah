@@ -13,9 +13,9 @@
             class="input-operator"
             :placeholder="argument.label"
             :value="argument.value"
-            @input="value => updateTemplate(argument.id, value, variables)"
+            @input="value => updateTemplate(index, argument.id, value, variables)"
           />
-          <font-awesome-icon class="link" v-show="hasVariables" icon="link" />
+          <font-awesome-icon class="link" v-show="hasVariables(argument.value)" icon="link" />
         </div>
         <div
           :style="{ display: 'flex', flexDirection: 'column' }"
@@ -43,11 +43,7 @@
 <script>
 import Select from './Select'
 import Input from '@/components/Input'
-import {
-  UPDATE_TEMPLATE,
-  STORE_VARIABLE_COMPONENT_ID,
-  TOOGLE_VARIABLES,
-} from '@/store/mutation-types'
+import { UPDATE_TEMPLATE, USED_VARIABLES, TOOGLE_VARIABLES } from '@/store/mutation-types'
 
 export default {
   name: 'RadonOperator',
@@ -60,24 +56,36 @@ export default {
     operator: {
       required: true,
     },
+    sourceIndex: Number,
   },
   components: {
     Input,
     Select,
   },
   methods: {
-    updateTemplate(id, value, variables) {
-      console.log('updatetemplate', id, value, variables)
+    hasVariables(value) {
+      if (typeof value === 'string') {
+        const newValue = value.slice(1, value.length)
+        if (this.variables.find(variable => variable.key === newValue)) {
+          const valueInVariable = this.variables.find(variable => variable.key === newValue).key
+          if (newValue === valueInVariable) {
+            return true
+          }
+        }
+      }
+      return false
+    },
+    updateTemplate(index, id, value, variables) {
       if (value && this.hasArguments) {
         this.variableName = value
         this.$store.commit(TOOGLE_VARIABLES, { hasVariables: true })
-        if (this.hasVariables) {
+        if (this.hasVariables(value)) {
           const variableMatch = variables.find(x => x.key === value.slice(1))
           this.$store.commit(UPDATE_TEMPLATE, {
             id,
             value: '$' + variableMatch.key,
           })
-          this.$store.commit(STORE_VARIABLE_COMPONENT_ID, {
+          this.$store.commit(USED_VARIABLES, {
             id: id,
             variable: variableMatch.key,
             value: variableMatch.value,
@@ -90,10 +98,17 @@ export default {
       } else {
         this.selected = { id: id, primaryText: value, value: value, secondaryText: 'boolean' }
         this.$store.commit(UPDATE_TEMPLATE, { id, value })
+        this.$store.dispatch('saveTemplate')
       }
     },
   },
   computed: {
+    linkVariables() {
+      return this.$store.state.rad.hasVariables
+    },
+    usedVariables() {
+      return this.$store.state.rad.currentTemplate.usedVariables
+    },
     selectedOption() {
       return {
         id: this.operator.id,
@@ -111,20 +126,8 @@ export default {
     variables() {
       return this.$store.state.rad.currentTemplate.variables
     },
-    emitIsVariable() {
-      return this.this.$store.state.rad.currentTemplate.hasVariables
-    },
-    hasVariables() {
-      if (typeof this.variableName === 'string') {
-        const newValue = this.variableName.slice(1, this.variableName.length)
-        if (this.variables.find(variable => variable.key === newValue)) {
-          const valueInVariable = this.variables.find(variable => variable.key === newValue).key
-          if (newValue === valueInVariable) {
-            return true
-          }
-        }
-      }
-      return false
+    matchVariables() {
+      return this.$store.state.rad.hasVariables
     },
     selectedArgument: {
       get() {
