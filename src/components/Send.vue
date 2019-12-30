@@ -200,7 +200,6 @@ export default {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid $grey-1;
-
     .column {
       display: flex;
       flex-direction: column;
@@ -210,11 +209,11 @@ export default {
     overflow-y: scroll;
   }
   .confirm-advance-btn {
-    margin: 20px 0px 30px 0px;
+    margin: 16px 0px 32px 0px;
     width: 300px;
     text-align: right;
     .link {
-      padding: 20px;
+      padding: 24px;
       &:hover {
         cursor: pointer;
       }
@@ -223,6 +222,7 @@ export default {
 }
 
 .send {
+  margin: 32px;
   .row {
     display: flex;
     align-items: center;

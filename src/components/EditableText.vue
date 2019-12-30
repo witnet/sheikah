@@ -88,7 +88,7 @@ export default {
 
 .title {
   font-size: 16px;
-  color: #c5c2c2;
+  color: $grey-1;
   display: flex;
   align-items: center;
   .editVar {
@@ -96,8 +96,8 @@ export default {
     font-size: 1em;
     width: 80px;
     border: none;
-    color: #c5c2c2;
-    border-bottom: 1px solid #c5c2c2;
+    color: $grey-1;
+    border-bottom: 1px solid $grey-1;
     &.error {
       color: $red-1;
       border-bottom: 1px solid $red-1;
@@ -111,7 +111,7 @@ export default {
       padding-left: 8px;
       display: block;
       font-size: 16px;
-      color: #c5c2c2;
+      color: $grey-1;
     }
   }
 }

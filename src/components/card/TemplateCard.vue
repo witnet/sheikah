@@ -152,12 +152,12 @@ export default {
 .card-layout {
   background-color: $alpha-blue;
   border-radius: 2px;
-  margin: 12px;
+  margin: 16px;
   padding: 16px;
-  border: 1.5px solid transparent;
+  border: 2px solid $grey-0;
   box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
   &:hover {
-    border: 1.5px solid $blue-6;
+    border: 2px solid $blue-6;
   }
   &.option-btn,
   .title,

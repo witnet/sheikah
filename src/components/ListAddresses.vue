@@ -237,13 +237,13 @@ export default {
     text-align: center;
 
     .page-link {
-      padding: 10px;
+      padding: 8px;
       border-radius: 2px;
       border: none;
       background-color: transparent;
       color: $blue-6;
       font-size: 14px;
-      margin: 4px;
+      margin: 8px;
     }
     .static {
       border: none;

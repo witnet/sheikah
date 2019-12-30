@@ -111,12 +111,13 @@ export default {
 
 .variables-container {
   width: 100%;
+  padding-top: 32px;
   height: 20vh;
   overflow-y: auto;
   background-color: $black;
   color: #c5c2c2;
   .variable {
-    padding-left: 50px;
+    padding-left: 16px;
     display: block;
     display: flex;
     justify-items: left;
@@ -127,7 +128,7 @@ export default {
     }
     .variable-value {
       background-color: $black;
-      margin: 10px;
+      margin: 8px;
       width: 80px;
       height: 20px;
     }

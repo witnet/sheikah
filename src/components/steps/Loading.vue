@@ -71,13 +71,13 @@ export default {
   border: none;
   color: $blue-6;
   font-size: 24px;
-  margin: 0 0 24px 0;
+  margin: 0 0 32px 0;
 }
 
 .description {
   color: $blue-6;
   font-size: 16px;
-  margin: 24px 0 0 0;
+  margin: 32px 0 0 0;
 }
 
 .spinner {
