@@ -48,6 +48,7 @@ export default {
   }
 }
 .el-button {
+  padding: 8px 16px 8px 8px;
   cursor: pointer;
   background: none;
   color: inherit;
@@ -74,5 +75,8 @@ export default {
 .el-button--primary:active {
   background: none;
   color: inherit;
+}
+@media screen and (max-width: 1200px) {
+
 }
 </style>

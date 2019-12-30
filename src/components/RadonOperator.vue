@@ -201,9 +201,9 @@ export default {
     position: fixed;
     bottom: 40px;
     width: 200px;
-    padding: 20px;
+    padding: 16px;
     background-color: black;
-    color: white;
+    color: $white;
     .variable-value {
       background-color: black;
       width: 80px;

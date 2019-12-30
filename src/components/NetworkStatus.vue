@@ -44,6 +44,7 @@ export default {
   font-size: $icon_status-font_size;
   display: flex;
   align-items: center;
+  // margin-right: 16px;
 
   .label {
     color: $sidebar-mainnet-color;

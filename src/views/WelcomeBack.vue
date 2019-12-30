@@ -49,12 +49,12 @@ export default {
 
       .title {
         font-size: 24px;
-        color: white;
+        color: $white;
         border: none;
       }
 
       .settings {
-        color: white;
+        color: $white;
       }
     }
 

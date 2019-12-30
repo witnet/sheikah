@@ -17,8 +17,8 @@
       <li>
         <router-link class="link" to="/ftu/welcome">
           <Button data-test="create-wallet" class="option">
-            Create import or recover a wallet
-            <font-awesome-icon icon="angle-right" />
+            <p class="name">Create import or recover a wallet</p>
+            <font-awesome-icon class="angle" icon="angle-right" />
           </Button>
         </router-link>
       </li>
@@ -72,8 +72,10 @@ export default {
       margin-bottom: 16px;
       padding: 0 24px;
       width: 100%;
-
+      &:focus,
       &:hover {
+        outline: none;
+        cursor: pointer;
         border-color: $blue-6;
         color: $blue-6;
       }

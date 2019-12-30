@@ -45,7 +45,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   position: relative;
-  padding: 8px;
+  padding-left: 16px;
   width: 100%;
   background-color: $black;
   &.hidden {
@@ -63,7 +63,8 @@ export default {
       padding: 8px 16px;
       font-size: 16px;
       background-color: $black;
-      border: none;
+      border: 1px solid transparent;
+      margin-bottom: -1px;
       color: $grey-1;
       &:hover {
         cursor: pointer;
@@ -75,6 +76,8 @@ export default {
         color: $grey-1;
         outline: none;
         border-bottom: 1px solid $grey-1;
+        margin-bottom: -1px;
+        outline: 1;
       }
       .icon {
         margin-left: 16px;
@@ -83,7 +86,7 @@ export default {
   }
   .btn-container {
     text-align: center;
-    padding: 10px;
+    padding: 8px;
     background-color: $black;
     .close-btn {
       font-size: 20px;
