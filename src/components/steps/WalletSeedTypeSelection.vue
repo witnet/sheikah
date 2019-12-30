@@ -73,7 +73,7 @@ export default {
   font-weight: 100;
   height: 100px;
   padding: 0 24px;
-  color: $grey-1;
+  color: $white;
 }
 
 .create-wallet-text {

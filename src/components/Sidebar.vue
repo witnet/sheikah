@@ -129,7 +129,7 @@ export default {
   display: flex;
   flex-flow: row wrap;
   font-weight: bold;
-  padding: 20px;
+  padding: 24px;
 
   .current-wallet-name {
     text-overflow: ellipsis;
@@ -184,9 +184,9 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   font-size: $icon-settings-font_size;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: auto;
-  padding: 15px 0;
+  padding: 16px;
 
   .settings-icon {
     color: $sidebar-settings-icon-color;
@@ -238,6 +238,7 @@ export default {
   }
 
   .settings {
+    justify-content: space-between;
     .mainnet,
     .synced {
       display: none;

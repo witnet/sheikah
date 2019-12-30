@@ -128,18 +128,18 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  margin: 24px;
+  margin: 32px 32px 32px 72px;
 
   .card {
-    flex: 0 1 calc(30% - 1em);
-    margin: 12px;
+    flex: 0 1 calc(30% - 2em);
+    margin: 16px;
   }
   .add {
     display: flex;
     justify-content: center;
-    flex: 0 1 calc(30% - 1em);
+    flex: 0 1 calc(30% - 2em);
     align-items: center;
-    margin: 12px;
+    margin: 16px;
     .add-btn {
       width: 50px;
       &:hover {

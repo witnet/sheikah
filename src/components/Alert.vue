@@ -62,7 +62,7 @@ export default {
     flex-direction: row;
 
     .cross {
-      color: #616161;
+      color: $grey-5;
       font-size: 12px;
       cursor: pointer;
     }

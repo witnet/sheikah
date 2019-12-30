@@ -60,7 +60,7 @@ export default {
   justify-content: center;
   align-items: center;
   .address {
-    padding: 20px;
+    padding: 24px;
   }
   .copy {
     font-size: 16px;
@@ -71,7 +71,7 @@ export default {
   }
   .copied {
     font-size: 16px;
-    color: green;
+    color: $green;
 
     &:active :focus {
       outline: none;

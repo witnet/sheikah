@@ -156,7 +156,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .icon {
-  color: lightcoral;
+  color: $red-0;
   font-size: 14px;
 }
 
@@ -204,7 +204,7 @@ export default {
 
 .card-cards {
   display: flex;
-  padding: 10px;
+  padding: 8px;
   transform: translateX(0px);
   .add-source {
     background: transparent;
@@ -254,7 +254,7 @@ export default {
         }
       }
       .header-operators {
-        height: 50px;
+        height: 53px;
         .select {
           margin: 0 0 8px 0;
         }
@@ -278,7 +278,6 @@ export default {
           cursor: pointer;
           display: block;
           margin-left: auto;
-          padding: 5px;
         }
       }
     }

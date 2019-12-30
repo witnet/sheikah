@@ -20,7 +20,7 @@
         <el-dialog
           title="New Transaction"
           :visible.sync="dialogVisible"
-          width="60%"
+          width="700px"
           v-on:close="closeAndClear"
         >
           <Alert
@@ -38,7 +38,7 @@
           data-test="receive-modal"
           title="New payment request"
           :visible.sync="dialogVisible2"
-          width="60%"
+          width="700px"
         >
           <Receive :lastAddress="lastAddress" />
         </el-dialog>
@@ -180,7 +180,7 @@ export default {
     .send-received {
       margin: 0 auto;
       .primary {
-        margin: 10px;
+        margin: 8px;
       }
     }
   }

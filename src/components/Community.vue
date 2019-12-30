@@ -99,7 +99,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 24px;
+  margin: 32px;
   .card {
     flex: 0 1 calc(49% - 1em);
     margin: 8px;

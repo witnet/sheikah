@@ -52,15 +52,16 @@ export default {
   min-width: max-content;
 
   .input {
-    height: 50px;
+    height: 35px;
+    width: 140px;
     border-radius: 4px 0px 0px 4px;
     border-right: none;
     outline-color: $blue-5;
   }
   .increase {
     width: 48px;
-    height: 50px;
-    padding: 16px;
+    height: 35px;
+    padding: 8px;
     color: $grey-1;
     border: 1px solid $grey-1;
 
@@ -70,17 +71,17 @@ export default {
   }
 
   .unit {
-    height: 50px;
     width: 60px;
+    height: 35px;
     padding: 8px;
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: $grey-2;
     border-radius: 0 4px 4px 0;
 
     .text {
       margin: 0;
-      font-weight: bold;
       color: $white;
     }
   }
