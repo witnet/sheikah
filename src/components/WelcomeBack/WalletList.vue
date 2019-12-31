@@ -8,8 +8,8 @@
         <li v-for="wallet in wallets" :key="wallet.id">
           <router-link class="link" :to="`/welcome-back/unlock/${wallet.id}`">
             <Button data-test="local-wallet" class="option">
-              {{ wallet.name }}
-              <font-awesome-icon icon="angle-right" />
+              <p class="name">{{ wallet.name || wallet.id.trim() }}</p>
+              <font-awesome-icon class="angle" icon="angle-right" />
             </Button>
           </router-link>
         </li>
@@ -50,7 +50,7 @@ export default {
     height: 240px;
 
     .wallets {
-      overflow-y: scroll;
+      overflow-y: auto;
       height: 200px;
       margin-bottom: 24px;
     }
@@ -76,6 +76,17 @@ export default {
       &:hover {
         border-color: $blue-6;
         color: $blue-6;
+      }
+
+      .name {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 0 16px 0 0;
+      }
+
+      .angle {
+        align-self: center;
       }
     }
   }
