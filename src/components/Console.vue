@@ -1,7 +1,8 @@
 <template>
   <div class="console-container">
-    <ConsoleTab
+    <ConsoleTabs
       v-on:change-tab="changeTab"
+      :current="currentTab"
       :tabs="tabs"
       v-on:close="closeConsole"
       :showConsole="showConsole"
@@ -14,7 +15,7 @@
 <script>
 import Variables from '@/components/Variables.vue'
 import Logs from '@/components/Logs.vue'
-import ConsoleTab from '@/components/ConsoleTab.vue'
+import ConsoleTabs from '@/components/ConsoleTabs.vue'
 const VARIABLES = 'variables'
 const LOGS = 'logs'
 
@@ -22,7 +23,7 @@ export default {
   name: 'Console',
   components: {
     Variables,
-    ConsoleTab,
+    ConsoleTabs,
     Logs,
   },
   data() {
