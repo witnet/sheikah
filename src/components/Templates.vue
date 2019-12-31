@@ -132,14 +132,14 @@ export default {
 
   .card {
     flex: 0 1 calc(30% - 1em);
-    margin: 24px;
+    margin: 12px;
   }
   .add {
     display: flex;
     justify-content: center;
     flex: 0 1 calc(30% - 1em);
     align-items: center;
-    margin: 24px;
+    margin: 12px;
     .add-btn {
       width: 50px;
       &:hover {

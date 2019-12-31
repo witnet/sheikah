@@ -152,7 +152,7 @@ export default {
 .card-layout {
   background-color: $alpha-blue;
   border-radius: 2px;
-  margin: 24px;
+  margin: 12px;
   padding: 16px;
   border: 1.5px solid transparent;
   box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
