@@ -2,11 +2,11 @@
   <div :class="[!showConsole ? 'tab-bar hidden' : 'tab-bar']">
     <div class="tab">
       <button
-        v-for="tab in tabs"
-        :key="tab"
+        v-for="(tab, index) in tabs"
+        :key="tab + index"
         @click="changeTab(tab)"
         class="tab-btn"
-        :class="{ active: current === tab && showConsole }"
+        :class="{ active: active === tab && showConsole }"
       >
         {{ tab }}
         <font-awesome-icon v-show="!showConsole" class="icon" icon="angle-up" />
@@ -20,25 +20,19 @@
 
 <script>
 export default {
-  name: 'ConsoleTab',
+  name: 'ConsoleTabs',
   props: {
-    initialTab: String,
+    current: String,
     showConsole: Boolean,
     tabs: Array,
   },
   methods: {
-    changeTab(name) {
-      this.current = name
-      this.$emit('change-tab', name)
+    changeTab(tabName) {
+      this.$emit('change-tab', tabName)
     },
     close() {
       this.$emit('close')
     },
-  },
-  data() {
-    return {
-      current: this.initialTab,
-    }
   },
 }
 </script>
