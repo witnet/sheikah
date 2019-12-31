@@ -1,17 +1,18 @@
 import { shallowMount } from '@vue/test-utils'
-import ConsoleTab from '@/components/ConsoleTab.vue'
+import ConsoleTabs from '@/components/ConsoleTabs.vue'
+import '../../src/fontAwesome'
 
-describe('ConsoleTab.vue', () => {
-  it('on click change initial tab', () => {
-    const wrapper = shallowMount(ConsoleTab, {
+describe('ConsoleTabs.vue', () => {
+  it('on click emit change-tab evnt', () => {
+    const wrapper = shallowMount(ConsoleTabs, {
       propsData: {
-        initialTab: 'variables',
+        current: 'variables',
         showConsole: true,
       },
     })
     wrapper.setData({
-      current: wrapper.props().initialTab,
-      tabs: [{ name: 'variables' }, { name: 'logs' }],
+      current: wrapper.props().current,
+      tabs: ['variables', 'logs'],
     })
     expect(wrapper.vm.current).toBe('variables')
     expect(
@@ -20,21 +21,6 @@ describe('ConsoleTab.vue', () => {
         .at(1)
         .trigger('click')
     )
-    expect(wrapper.vm.current).toBe('logs')
-    expect(
-      wrapper
-        .findAll('button')
-        .at(0)
-        .trigger('click')
-    )
-    expect(wrapper.vm.current).toBe('variables')
-    expect(
-      wrapper
-        .findAll('button')
-        .at(2)
-        .trigger('click')
-    )
-    wrapper.vm.$emit('close')
-    expect(wrapper.emitted().close).toBeTruthy()
+    expect(wrapper.emitted()['change-tab'][0][0]).toEqual('logs')
   })
 })

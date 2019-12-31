@@ -1,9 +1,11 @@
 import { shallowMount } from '@vue/test-utils'
 import ListAddresses from '@/components/ListAddresses.vue'
+import '../../src/fontAwesome'
 
 describe('ListAddresses.vue', () => {
   it('renders the first page with one address when there is one address', () => {
     const wrapper = shallowMount(ListAddresses, {
+      components: {},
       propsData: { addresses: ['1'] },
     })
     expect(wrapper.isVueInstance()).toBeTruthy()
