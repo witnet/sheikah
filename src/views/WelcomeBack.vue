@@ -37,7 +37,7 @@ export default {
     height: 400px;
     width: 600px;
     display: grid;
-    grid-template-columns: 160px 1fr;
+    grid-template-columns: 160px 440px;
     box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
 
     .bar {
