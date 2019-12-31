@@ -112,7 +112,7 @@ export default {
 .variables-container {
   width: 100%;
   height: 20vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: $black;
   color: #c5c2c2;
   .variable {

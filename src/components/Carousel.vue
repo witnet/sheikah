@@ -207,6 +207,7 @@ export default {
   padding: 10px;
   transform: translateX(0px);
   .add-source {
+    background: transparent;
     padding: 40px;
     height: 100px;
     border: none;
@@ -237,7 +238,7 @@ export default {
       font-weight: bold;
       display: flex;
       flex-direction: column;
-      overflow-y: scroll;
+      overflow-y: auto;
       & > .header,
       & > .header-operators {
         margin: 32px;
@@ -272,11 +273,12 @@ export default {
       }
       &:hover {
         .delete-btn {
+          background: transparent;
+          border: none;
           cursor: pointer;
           display: block;
-          border: none;
-          padding: 5px;
           margin-left: auto;
+          padding: 5px;
         }
       }
     }

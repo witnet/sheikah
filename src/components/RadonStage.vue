@@ -82,21 +82,6 @@ export default {
   margin: 16px 0;
 }
 
-.add-source {
-  border-color: grey;
-  color: grey;
-  font-size: $font-size-12;
-  font-weight: 800;
-  height: 26px;
-  line-height: 0%;
-  padding: 0 8px;
-
-  &:hover {
-    color: lightgray;
-    border-color: lightgrey;
-  }
-}
-
 .source {
   margin: 0 16px 16px 0;
 }

@@ -67,6 +67,7 @@ export default {
   },
   methods: {
     updateTemplate(id, value, variables) {
+      console.log('updatetemplate', id, value, variables)
       if (value && this.hasArguments) {
         this.variableName = value
         this.$store.commit(TOOGLE_VARIABLES, { hasVariables: true })
