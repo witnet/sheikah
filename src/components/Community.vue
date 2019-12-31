@@ -31,8 +31,8 @@ export default {
     CommunityCard,
   },
   methods: {
-    openExternalLink: url => {
-      openInExternalApp(url)
+    openExternalLink: async url => {
+      await openInExternalApp(url)
     },
   },
   data() {

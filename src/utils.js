@@ -1,5 +1,4 @@
 import cbor from 'cbor'
-// import { shell } from 'electron'
 import uuidv4 from 'uuid/v4'
 
 export function encodeDataRequest(radRequest) {
@@ -34,8 +33,18 @@ export function changeDateFormat(string) {
   return `${day}-${month}-${year}`
 }
 
-export function openInExternalApp(url) {
-  shell.openExternal(url)
+export async function openInExternalApp(url) {
+  if (process.env.IS_ELECTRON) {
+    import('electron')
+      .then(electron => {
+        electron.shell.openExternal(url)
+      })
+      .catch(error => {
+        throw Error(error)
+      })
+  } else {
+    window.location.href = url
+  }
 }
 
 export function generateId(random) {
