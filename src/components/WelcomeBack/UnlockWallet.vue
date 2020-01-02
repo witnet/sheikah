@@ -4,10 +4,15 @@
     <div @keydown.enter.esc.prevent="goNextItem">
       <PasswordInput label="Password" v-model="password" />
     </div>
-    <div @keydown.enter.esc.prevent="unlockWallet">
-      <Button ref="submit" data-test="unlock-wallet" :onClick="unlockWallet" type="primary">
-        Unlock
+    <div class="container-btn">
+      <Button class="back-btn" data-test="unlock-wallet" :onClick="previousStep" type="default">
+        Back
       </Button>
+      <div class="unlock-btn" @keydown.enter.esc.prevent="unlockWallet">
+        <Button ref="submit" data-test="unlock-wallet" :onClick="unlockWallet" type="primary">
+          Unlock
+        </Button>
+      </div>
     </div>
     <p v-if="showError">Invalid password</p>
   </div>
@@ -28,6 +33,9 @@ export default {
     }
   },
   methods: {
+    previousStep() {
+      this.$router.push('/welcome-back/wallet-list')
+    },
     goNextItem() {
       this.$refs.submit.$el.focus()
     },
@@ -98,8 +106,14 @@ export default {
     margin-bottom: 32px;
     font-size: 16px;
   }
-  .submit {
+  .container-btn {
     text-align: right;
+    .back-btn {
+      margin-right: 8px;
+    }
+    .unlock-btn {
+      display: inline;
+    }
   }
 }
 </style>
