@@ -198,14 +198,14 @@ export default {
       }
       state.currentRadonMarkupInterpreter = new Radon(radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter
-      state.history = [state.currentTemplate]
+      state.history = [state.currentRadonMarkupInterpreter.getMir()]
     },
     [SET_CURRENT_TEMPLATE](state, { id }) {
       const template = state.templates[id]
       state.currentTemplate = template
       state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate.radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter
-      state.history = [state.currentTemplate]
+      state.history = [state.currentRadonMarkupInterpreter.getMir()]
     },
     [PUSH_OPERATOR](state, { scriptId }) {
       state.currentRadonMarkupInterpreter.addOperator(scriptId)
