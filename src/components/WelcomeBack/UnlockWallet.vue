@@ -1,15 +1,17 @@
 <template>
   <div class="unlock-wallet">
     <p class="text">Insert a password to unlock wallet</p>
-    <input
-      data-test="password-input-access"
-      class="password-input"
-      v-model="password"
-      type="password"
-      id="submit-button"
-      @keydown.enter.esc.prevent="goNextItem"
-      placeholder="Password"
-    />
+    <div @keydown.enter.esc.prevent="goNextItem">
+      <PasswordInput
+        label="Password"
+        :value="password"
+        @password="
+          val => {
+            updatePassword(val)
+          }
+        "
+      />
+    </div>
     <div @keydown.enter.esc.prevent="unlockWallet">
       <Button ref="submit" data-test="unlock-wallet" :onClick="unlockWallet" type="primary">
         Unlock
@@ -22,6 +24,7 @@
 <script>
 import { mapState } from 'vuex'
 import Button from '@/components/Button'
+import PasswordInput from '@/components/PasswordInput'
 
 export default {
   name: 'UnlockWallet',
@@ -33,6 +36,9 @@ export default {
     }
   },
   methods: {
+    updatePassword(password) {
+      this.password = password
+    },
     goNextItem() {
       this.$refs.submit.$el.focus()
     },
@@ -65,6 +71,7 @@ export default {
   },
   components: {
     Button,
+    PasswordInput,
   },
 }
 </script>
