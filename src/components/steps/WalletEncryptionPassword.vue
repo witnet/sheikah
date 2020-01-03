@@ -12,24 +12,26 @@
       This is not your backup and you cannot restore your wallet with this password. Your seed
       phrase is still your ultimate backup.
     </p>
-    <div class="form-row">
-      <label class="label">Password</label>
-      <Input
-        data-test="password-input"
-        type="underlined"
-        class="password-input"
-        nativeType="password"
-        v-model="password"
+    <div class="form-row password">
+      <PasswordInput
+        label="Password"
+        :value="password"
+        @password="
+          val => {
+            updatePassword(val)
+          }
+        "
       />
     </div>
-    <div class="form-row">
-      <label class="label">Confirm password</label>
-      <Input
-        data-test="repeat-password"
-        type="underlined"
-        class="password-input"
-        nativeType="password"
-        v-model="repeatPassword"
+    <div class="form-row password">
+      <PasswordInput
+        label="Confirm password"
+        :value="repeatPassword"
+        @password="
+          val => {
+            updateConfirmation(val)
+          }
+        "
       />
     </div>
 
@@ -39,8 +41,8 @@
 
 <script>
 import { mapState } from 'vuex'
-
-import Input from '@/components/Input'
+import PasswordInput from '@/components/PasswordInput'
+// import Input from '@/components/Input'
 import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
@@ -53,6 +55,12 @@ export default {
     }
   },
   methods: {
+    updatePassword(password) {
+      this.password = password
+    },
+    updateConfirmation(repeatPassword) {
+      this.repeatPassword = repeatPassword
+    },
     validateForm() {
       if (this.password.length < 8) {
         this.error = 'Password must be at least 8 characters'
@@ -89,8 +97,8 @@ export default {
     }),
   },
   components: {
-    Input,
     NavigationCard,
+    PasswordInput,
   },
 }
 </script>
@@ -112,6 +120,12 @@ export default {
   flex-flow: row nowrap;
   margin-bottom: 32px;
   align-items: center;
+  &.password {
+    max-width: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
 }
 
 .label {
