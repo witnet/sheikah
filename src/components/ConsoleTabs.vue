@@ -6,7 +6,7 @@
         :key="tab + index"
         @click="changeTab(tab)"
         class="tab-btn"
-        :class="{ active: active === tab && showConsole }"
+        :class="{ active: current === tab && showConsole }"
       >
         {{ tab }}
         <font-awesome-icon v-show="!showConsole" class="icon" icon="angle-up" />
