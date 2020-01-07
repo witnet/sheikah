@@ -64,7 +64,7 @@ export default {
     color: $white;
     display: flex;
     flex-flow: row nowrap;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 100;
     height: 100px;
   }
