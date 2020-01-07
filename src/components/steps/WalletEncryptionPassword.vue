@@ -13,26 +13,10 @@
       phrase is still your ultimate backup.
     </p>
     <div class="form-row password">
-      <PasswordInput
-        label="Password"
-        :value="password"
-        @password="
-          val => {
-            updatePassword(val)
-          }
-        "
-      />
+      <PasswordInput label="Password" v-model="password" />
     </div>
     <div class="form-row password">
-      <PasswordInput
-        label="Confirm password"
-        :value="repeatPassword"
-        @password="
-          val => {
-            updateConfirmation(val)
-          }
-        "
-      />
+      <PasswordInput label="Confirm password" v-model="repeatPassword" />
     </div>
 
     <p data-test="password-error-alert" v-if="error" class="error">{{ error }}</p>
@@ -42,7 +26,6 @@
 <script>
 import { mapState } from 'vuex'
 import PasswordInput from '@/components/PasswordInput'
-// import Input from '@/components/Input'
 import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
@@ -55,12 +38,6 @@ export default {
     }
   },
   methods: {
-    updatePassword(password) {
-      this.password = password
-    },
-    updateConfirmation(repeatPassword) {
-      this.repeatPassword = repeatPassword
-    },
     validateForm() {
       if (this.password.length < 8) {
         this.error = 'Password must be at least 8 characters'

@@ -225,12 +225,13 @@ export default {
   margin: 32px;
   .row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 16px;
 
     .label {
       min-width: 64px;
       margin-right: 24px;
+      margin-top: 8px;
       text-align: right;
     }
     .input {

@@ -2,15 +2,7 @@
   <div class="unlock-wallet">
     <p class="text">Insert a password to unlock wallet</p>
     <div @keydown.enter.esc.prevent="goNextItem">
-      <PasswordInput
-        label="Password"
-        :value="password"
-        @password="
-          val => {
-            updatePassword(val)
-          }
-        "
-      />
+      <PasswordInput label="Password" v-model="password" />
     </div>
     <div @keydown.enter.esc.prevent="unlockWallet">
       <Button ref="submit" data-test="unlock-wallet" :onClick="unlockWallet" type="primary">
@@ -36,9 +28,6 @@ export default {
     }
   },
   methods: {
-    updatePassword(password) {
-      this.password = password
-    },
     goNextItem() {
       this.$refs.submit.$el.focus()
     },

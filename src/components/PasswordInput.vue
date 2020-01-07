@@ -15,23 +15,22 @@
 export default {
   name: 'PasswordInput',
   props: {
-    password: String,
+    value: String,
     label: String,
   },
   computed: {
     passwordValue: {
       get() {
-        console.log('3', this.password)
-        return this.password
+        return this.value
       },
       set(passwordValue) {
-        this.$emit('password', passwordValue)
+        this.$emit('input', passwordValue)
       },
     },
   },
   watch: {
     passwordValue(passwordValue) {
-      this.$emit('password', passwordValue)
+      this.$emit('input', passwordValue)
     },
   },
 }
@@ -52,7 +51,7 @@ export default {
   border: 0;
   border-bottom: 1.5px solid $grey-3;
   outline: 0;
-  padding: 8px 0;
+  padding: 16px 0;
   color: $grey-5;
   font-weight: 700;
   background: transparent;

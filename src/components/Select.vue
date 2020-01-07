@@ -212,11 +212,11 @@ export default {
           font-size: 16px;
           margin: 0;
         }
-      }
-      .value {
-        font-size: 16px;
-        border-radius: 2px;
-        text-align: center;
+        .value {
+          font-size: 16px;
+          border-radius: 2px;
+          text-align: center;
+        }
       }
     }
   }
@@ -252,7 +252,7 @@ export default {
   }
 }
 .value {
-  font-size: 8px;
+  font-size: 16px;
   border-radius: 2px;
   text-align: center;
   padding: 8px;
@@ -338,15 +338,15 @@ export default {
           font-size: 16px;
           margin-right: 16px;
         }
+        .value {
+          font-size: 20px;
+          border-radius: 2px;
+          text-align: center;
+        }
         .sort-down {
           font-size: 16px;
           margin: 0;
         }
-      }
-      .value {
-        font-size: 16px;
-        border-radius: 2px;
-        text-align: center;
       }
     }
   }
