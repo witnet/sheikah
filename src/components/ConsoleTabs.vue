@@ -63,7 +63,7 @@ export default {
       padding: 8px 16px;
       font-size: 16px;
       background-color: $black;
-      border: 1px solid transparent;
+      border: none;
       margin-bottom: -1px;
       color: $grey-1;
       &:hover {
