@@ -25,6 +25,7 @@ export default {
   name: 'Home',
   created() {
     this.pollData()
+    this.$store.dispatch('subscribeToWalletNotifications')
   },
   beforeDestroy() {
     clearInterval(this.pollingInterval)

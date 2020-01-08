@@ -121,9 +121,10 @@ export default {
   },
   computed: {
     ...mapState({
-      available: state => state.wallet.balances.available,
-      timelocked: state => state.wallet.balances.timelocked,
-      unconfirmed: state => state.wallet.balances.unconfirmed,
+      // FIXME(#902): Show all balance types when the wallet has implement it
+      // available: state => state.wallet.balances.available,
+      // timelocked: state => state.wallet.balances.timelocked,
+      // unconfirmed: state => state.wallet.balances.unconfirmed,
       total: state => state.wallet.balances.total,
       txLabels: state => state.wallet.txLabels,
       transactions: state => state.wallet.transactions,
