@@ -1,7 +1,7 @@
 <template>
   <div class="send">
     <div v-if="generatedTransaction" class="transaction-info">
-      <div :class="{ scroll: isAdvancedVisible }">
+      <div :class="{ scroll }" class="transaction-info">
         <div class="row">
           <p class="entry">Amount</p>
           <p class="value">{{ generatedTransaction.amount }} Wit</p>
@@ -18,7 +18,6 @@
           <p class="entry">Fee</p>
           <p class="value">{{ generatedTransaction.fee }} uWit/B</p>
         </div>
-
         <div v-if="isAdvancedVisible" class="row">
           <p class="entry">Inputs</p>
           <p></p>
@@ -162,6 +161,7 @@ export default {
     },
     closeDialog() {
       this.showModal = false
+      this.isAdvancedVisible = false
       this.$emit('close')
     },
   },
@@ -180,10 +180,11 @@ export default {
 @import '@/styles/theme.scss';
 
 .transaction-info {
+  overflow-y: auto;
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  max-height: 50vh;
   .entry {
     font-weight: bold;
     font-size: 16px;
@@ -206,7 +207,7 @@ export default {
     }
   }
   .scroll {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
   .confirm-advance-btn {
     margin: 16px 0px 32px 0px;
