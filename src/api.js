@@ -89,6 +89,10 @@ export class WalletApi {
     return this._callApiMethod('getTransactions')(params)
   }
 
+  async getBalance(params) {
+    return this._callApiMethod('getBalance')(params)
+  }
+
   async getWalletInfos(params) {
     return this._callApiMethod('getWalletInfos')(params)
   }

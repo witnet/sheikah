@@ -6,6 +6,7 @@ export default {
       createMnemonics: null,
       createWallet: null,
       getTransactions: null,
+      getBalance: null,
       getWalletInfos: null,
       lockWallet: null,
       sendTransaction: null,
@@ -13,12 +14,7 @@ export default {
       unlockWallet: null,
       createVTT: null,
     },
-    balances: {
-      available: null,
-      timelocked: null,
-      unconfirmed: null,
-      total: null,
-    },
+    balances: {},
     sessionId: null,
     walletId: null,
     addresses: [],
@@ -33,6 +29,9 @@ export default {
   mutations: {
     setTransactions(state, { transactions }) {
       state.transactions = transactions
+    },
+    setBalances(state, { balances }) {
+      state.balances = balances
     },
     deleteSession(state) {
       state.sessionId = null
@@ -233,6 +232,18 @@ export default {
         context.commit('setTransactions', { transactions: request.result.transactions })
       } else {
         context.commit('setError', { name: 'getTransactions', error: request.error })
+      }
+    },
+
+    getBalance: async function(context) {
+      const request = await this.$walletApi.getBalance({
+        walletId: context.state.walletId,
+        sessionId: context.state.sessionId,
+      })
+      if (request.result) {
+        context.commit('setBalances', { balances: request.result })
+      } else {
+        context.commit('setError', { name: 'getBalance', error: request.error })
       }
     },
 

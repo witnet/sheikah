@@ -30,10 +30,10 @@
 export default {
   name: 'Balances',
   props: {
-    available: Number,
-    timelocked: Number,
-    unconfirmed: Number,
-    total: Number,
+    available: String,
+    timelocked: String,
+    unconfirmed: String,
+    total: String,
   },
 }
 </script>
@@ -65,11 +65,13 @@ export default {
 
     .value {
       font-weight: bold;
-      font-size: 16px;
+      font-size: 20px;
       color: $grey-5;
+      margin: 0px;
+      padding: 0px;
       .currency {
         margin-left: 8px;
-        font-size: 8px;
+        font-size: 12px;
         color: $grey-4;
       }
     }
