@@ -70,6 +70,13 @@ export class WalletApi {
         .catch(this._handleError)
   }
 
+  async subscribeToNotifications(params, cb) {
+    return this._callApiMethod('subscribeNotifications')([params.sessionId])
+      .then(_ => {
+        this.client.on('notifications', cb)
+      })
+      .catch(this._handleError)
+  }
   async createDataRequest(params) {
     return this._callApiMethod('createDataRequest')(params)
   }
