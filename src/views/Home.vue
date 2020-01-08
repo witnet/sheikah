@@ -23,6 +23,23 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
+  created() {
+    this.pollData()
+  },
+  beforeDestroy() {
+    clearInterval(this.pollingInterval)
+  },
+  data() {
+    return {
+      pollingInterval: setInterval(this.pollData, 1000),
+    }
+  },
+  methods: {
+    pollData() {
+      this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
+      this.$store.dispatch('getAddresses')
+    },
+  },
   components: {
     Sidebar,
     Alert,
