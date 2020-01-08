@@ -1,9 +1,12 @@
 <template>
   <div class="balances">
     <p class="header">
-      BALANCES
+      BALANCE
     </p>
-    <div class="entry">
+
+    <!-- FIXME(#902): Show all balance types when the wallet has implement it
+
+      <div class="entry">
       <p class="label">Available balance</p>
       <p v-if="available" class="value">{{ available }} <span class="currency">WIT</span></p>
       <p v-else class="empty-value">_</p>
@@ -17,7 +20,7 @@
       <p class="label">Unconfirmed</p>
       <p v-if="unconfirmed" class="value">{{ unconfirmed }} <span class="currency">WIT</span></p>
       <p v-else class="empty-value">_</p>
-    </div>
+    </div> -->
     <div class="entry">
       <p class="label">Total</p>
       <p v-if="total" class="value">{{ total }} <span class="currency">WIT</span></p>
@@ -30,10 +33,14 @@
 export default {
   name: 'Balances',
   props: {
-    available: String,
-    timelocked: String,
-    unconfirmed: String,
-    total: String,
+    // FIXME(#902): Show all balance types when the wallet has implement it
+    // available: String,
+    // timelocked: String,
+    // unconfirmed: String,
+    total: {
+      type: [String, Number],
+      default: '0',
+    },
   },
 }
 </script>

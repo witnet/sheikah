@@ -397,7 +397,15 @@ export default {
         })
       }
     },
-
+    subscribeToWalletNotifications: async function(context) {
+      context.state.api.subscribeToNotifications(
+        { sessionId: this.state.wallet.sessionId },
+        notification =>
+          context.commit('setBalances', {
+            balances: { total: notification[0].accountBalance.amount },
+          })
+      )
+    },
     tryDataRequest: async function(context) {
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
         const id = variable.id
