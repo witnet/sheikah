@@ -145,7 +145,6 @@ export default {
     toggleAdvanceOptions() {
       this.isAdvancedVisible = !this.isAdvancedVisible
     },
-
     confirmTransaction() {
       this.$store.dispatch('sendTransaction')
       this.closeDialog()

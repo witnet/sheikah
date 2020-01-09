@@ -43,7 +43,7 @@
 <script>
 import Select from './Select'
 import Input from '@/components/Input'
-import { UPDATE_TEMPLATE, USED_VARIABLES, TOOGLE_VARIABLES } from '@/store/mutation-types'
+import { UPDATE_TEMPLATE, USED_VARIABLES, TOGGLE_VARIABLES } from '@/store/mutation-types'
 
 export default {
   name: 'RadonOperator',
@@ -78,7 +78,7 @@ export default {
     updateTemplate(id, value) {
       if (value && this.hasArguments) {
         this.variableName = value
-        this.$store.commit(TOOGLE_VARIABLES, { hasVariables: true })
+        this.$store.commit(TOGGLE_VARIABLES, { hasVariables: true })
         if (this.hasVariables(value)) {
           const variableMatch = this.variables.find(x => x.key === value.slice(1))
           this.$store.commit(UPDATE_TEMPLATE, {
@@ -91,7 +91,7 @@ export default {
             value: variableMatch.value,
           })
         } else {
-          this.$store.commit(TOOGLE_VARIABLES, { hasVariables: false })
+          this.$store.commit(TOGGLE_VARIABLES, { hasVariables: false })
           this.$store.commit(UPDATE_TEMPLATE, { id, value })
         }
         this.$store.dispatch('saveTemplate')
