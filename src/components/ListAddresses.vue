@@ -18,7 +18,7 @@
         data-test="paginate-to-left"
         class="page-link"
         v-if="page != 1"
-        @click="toogleDirectionLeft(page)"
+        @click="toggleDirectionLeft(page)"
       >
         <font-awesome-icon class="icon-left" icon="angle-left" />
       </button>
@@ -27,7 +27,7 @@
         v-show="setPages.length >= 1"
         class="page-link static"
         :class="[firstItemActive ? 'active' : '']"
-        @click="tooglePaginationButton('first')"
+        @click="togglePaginationButton('first')"
       >
         1
       </button>
@@ -35,7 +35,7 @@
         :data-test="'page-' + pageNumber"
         :key="pageNumber"
         v-for="pageNumber in rangePages"
-        @click="tooglePaginationButton(pageNumber)"
+        @click="togglePaginationButton(pageNumber)"
         class="page-link num"
         :class="{ active: pageNumber === middleItemActive }"
       >
@@ -46,13 +46,13 @@
         v-show="setPages.length > 0 && setPages.length >= 5"
         class="page-link static"
         :class="[lastItemActive ? 'active' : '']"
-        @click="tooglePaginationButton('last')"
+        @click="togglePaginationButton('last')"
       >
         {{ setPages.length }}
       </button>
       <button
         data-test="paginate-to-right"
-        @click="toogleDirectionRight(page)"
+        @click="toggleDirectionRight(page)"
         v-if="page < setPages.length"
         class="page-link"
       >
@@ -140,7 +140,7 @@ export default {
     },
   },
   methods: {
-    toogleDirectionRight: function(position) {
+    toggleDirectionRight: function(position) {
       position++
       this.page++
       if (position === 1) {
@@ -157,7 +157,7 @@ export default {
         this.lastItemActive = false
       }
     },
-    toogleDirectionLeft: function(position) {
+    toggleDirectionLeft: function(position) {
       this.page--
       position--
       if (position === this.setPages.length) {
@@ -174,7 +174,7 @@ export default {
         this.lastItemActive = false
       }
     },
-    tooglePaginationButton: function(position) {
+    togglePaginationButton: function(position) {
       if (position === 'last') {
         this.page = this.setPages.length
         this.lastItemActive = true
