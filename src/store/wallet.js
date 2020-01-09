@@ -13,6 +13,7 @@ export default {
       tryDataRequest: null,
       unlockWallet: null,
       createVTT: null,
+      createDataRequest: null,
     },
     balances: {},
     sessionId: null,
@@ -110,8 +111,27 @@ export default {
       })
 
       if (request.result) {
-        console.log('transaction send')
         // context.commit('setSuccess', 'sendTransaction')
+      }
+    },
+
+    createDataRequest: async function(context, { label, fee, dataRequest }) {
+      const request = await this.$walletApi.createDataRequest({
+        sessionId: this.state.wallet.sessionId,
+        walletId: this.state.wallet.walletId,
+        label,
+        fee,
+        dataRequest,
+      })
+      if (request.result) {
+        const generatedTransaction = request.result
+        context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
+      } else {
+        context.commit('setError', {
+          name: 'createDataRequest',
+          error: request.error,
+          message: 'An error occurred deploying a data request',
+        })
       }
     },
 
@@ -262,7 +282,6 @@ export default {
         const value = variable.value
         context.commit('updateTemplate', { id, value })
       })
-      console.log('Try data request')
       // TODO: The Wallet should provide a method to send the Data Request Result.
       // if (request.result) {
       // context.commit('setDataRequestResult', { dataRequest: request.result })

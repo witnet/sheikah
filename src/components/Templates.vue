@@ -23,26 +23,54 @@
         :key="template.id"
         :date="template.creationDate"
         v-on:change-name="changeName"
+        v-on:toggle-modal="displayModalCreateDR(template)"
       />
     </div>
     <div v-else>
       You don't have templates yet.
     </div>
     <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
+    <el-dialog
+      title="Send new data request"
+      :visible.sync="dialogVisible"
+      width="60%"
+      v-on:close="closeAndClear"
+    >
+      <Alert
+        data-test="alert"
+        v-if="createDataRequestError.message"
+        :key="createDataRequestError.message"
+        type="error"
+        :message="createDataRequestError.message"
+        :description="createDataRequestError.description"
+        v-on:close="closeAndClear"
+      />
+      <DeployDataRequest
+        :variablesUpdated="variablesUpdated"
+        v-on:close="dialogVisible = false"
+        v-on:toggle-updated="toggleUpdated"
+        :template="currentTemplate"
+        :fees="fees"
+      />
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import TemplateCard from './card/TemplateCard'
+import DeployDataRequest from '@/components/DeployDataRequest.vue'
 import Button from '@/components/Button.vue'
 import { mapState } from 'vuex'
+import Alert from '@/components/Alert'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
 
 export default {
   name: 'Templates',
   components: {
     TemplateCard,
+    DeployDataRequest,
     Button,
+    Alert,
   },
   beforeMount() {
     this.$store.dispatch('getTemplates')
@@ -50,6 +78,35 @@ export default {
   data() {
     return {
       tabs: [{ name: 'Templates', link: '/request/templates' }],
+      dialogVisible: false,
+      currentTemplate: '',
+      variablesUpdated: false,
+      fees: [
+        {
+          label: 'Witnesses',
+          amount: 1,
+        },
+        {
+          label: 'Data request fee',
+          amount: 1,
+        },
+        {
+          label: 'Reward fee',
+          amount: 1,
+        },
+        {
+          label: 'Commit fee',
+          amount: 1,
+        },
+        {
+          label: 'Reveal fee',
+          amount: 1,
+        },
+        {
+          label: 'Tally fee',
+          amount: 1,
+        },
+      ],
     }
   },
   computed: {
@@ -63,9 +120,49 @@ export default {
             }
           })
           .sort((a, b) => parseInt(a.creationDate) - parseInt(b.creationDate)),
+      createDataRequestErrorMessage: state => {
+        if (state.wallet.errors.createDataRequest) {
+          return state.wallet.errors.createDataRequest.message
+        }
+      },
+      createDataRequestErrorDescription: state => {
+        if (state.wallet.errors.createDataRequest) {
+          return state.wallet.errors.createDataRequest.error.message
+        }
+      },
+      createDataRequestErrorName: state => {
+        if (state.wallet.errors.createDataRequest) {
+          return state.wallet.errors.createDataRequest.name
+        }
+      },
     }),
+    createDataRequestError() {
+      return {
+        message: this.createDataRequestErrorMessage,
+        description: this.createDataRequestErrorDescription,
+        name: this.createDataRequestErrorName,
+      }
+    },
   },
   methods: {
+    toggleUpdated() {
+      this.variablesUpdated = !this.variablesUpdated
+    },
+    displayModalCreateDR: function(currentTemplate) {
+      this.dialogVisible = true
+      this.variablesUpdated = false
+      this.fees.map(fee => {
+        fee.amount = 1
+      })
+      this.currentTemplate = currentTemplate
+    },
+    closeAndClear: function() {
+      this.variablesUpdated = false
+      this.clearError(this.createDataRequestErrorName)
+    },
+    clearError: function() {
+      return this.$store.commit('clearError', { error: this.createDataRequestErrorName })
+    },
     changeName({ name, id }) {
       this.$store.dispatch('changeTemplateName', { id, name })
     },

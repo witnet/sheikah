@@ -74,7 +74,9 @@ export default {
         },
         {
           label: 'Deploy',
-          action: () => {},
+          action: () => {
+            this.displayModal()
+          },
         },
         {
           label: 'Delete',
@@ -85,6 +87,7 @@ export default {
       ],
       dateFormated: changeDateFormat(this.date),
       showInput: false,
+      isModalActivated: false,
     }
   },
   props: {
@@ -94,6 +97,10 @@ export default {
     date: [Number, String],
   },
   methods: {
+    displayModal() {
+      this.isModalActivated = true
+      this.$emit('toggle-modal', { isModalActivated: this.isModalActivated })
+    },
     edit() {
       if (!this.showInput) {
         this.$router.push('/request/editor')

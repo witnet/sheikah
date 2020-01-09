@@ -65,6 +65,7 @@ export function formatSectionApiErrorsByRoute(routeName, errorsMap, apiErrors) {
     getTransactionsError: 'An error occurred retrieving your transactions',
     createVTTError: 'An error occurred creating a Value Transfer Transaction',
     tryDataRequestError: 'An error occurred trying your data request',
+    deployDataRequestError: 'An error occurred deploying a data request',
   }
   return Object.entries(errorsMap)
     .filter(entry => entry[0] === routeName)

@@ -17,7 +17,7 @@ import {
   USED_VARIABLES,
   CREATE_VARIABLE,
   UPDATE_VARIABLES,
-  TOOGLE_VARIABLES,
+  TOGGLE_VARIABLES,
   DELETE_VARIABLE,
 } from '@/store/mutation-types'
 import Vue from 'vue'
@@ -215,7 +215,7 @@ export default {
     renameTemplate: function(state, { id, name }) {
       state.templates[id].name = name
     },
-    [TOOGLE_VARIABLES](state, { hasVariables }) {
+    [TOGGLE_VARIABLES](state, { hasVariables }) {
       if (hasVariables === true) {
         state.hasVariables = true
       } else {

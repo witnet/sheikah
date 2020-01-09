@@ -53,7 +53,7 @@ export default {
   padding: 8px 16px;
   transition: opacity 0.2s;
   border-radius: 4px;
-  margin-bottom: 16px;
+  margin-bottom: 40px;
 
   .message {
     align-items: center;
@@ -62,7 +62,7 @@ export default {
     flex-direction: row;
 
     .cross {
-      color: $grey-5;
+      color: $grey-3;
       font-size: 12px;
       cursor: pointer;
     }
