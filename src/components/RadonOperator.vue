@@ -13,7 +13,7 @@
             class="input-operator"
             :placeholder="argument.label"
             :value="argument.value"
-            @input="value => updateTemplate(index, argument.id, value, variables)"
+            @input="value => updateTemplate(argument.id, value)"
           />
           <font-awesome-icon class="link" v-show="hasVariables(argument.value)" icon="link" />
         </div>
@@ -75,12 +75,12 @@ export default {
       }
       return false
     },
-    updateTemplate(index, id, value, variables) {
+    updateTemplate(id, value) {
       if (value && this.hasArguments) {
         this.variableName = value
         this.$store.commit(TOOGLE_VARIABLES, { hasVariables: true })
         if (this.hasVariables(value)) {
-          const variableMatch = variables.find(x => x.key === value.slice(1))
+          const variableMatch = this.variables.find(x => x.key === value.slice(1))
           this.$store.commit(UPDATE_TEMPLATE, {
             id,
             value: '$' + variableMatch.key,
