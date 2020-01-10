@@ -36,7 +36,7 @@
         </router-link>
       </div>
       <div class="settings">
-        <Settings :settings="settings" />
+        <Settings :settings="settings" color="dark" />
         <NetworkStatus :status="status" />
       </div>
     </div>
@@ -64,6 +64,10 @@ export default {
           action: () => {
             this.$store.dispatch('closeSession')
           },
+        },
+        {
+          label: 'Quit app',
+          action: () => window.close(),
         },
       ],
     }
@@ -187,12 +191,6 @@ export default {
   justify-content: space-between;
   margin-top: auto;
   padding: 16px;
-
-  .settings-icon {
-    color: $sidebar-settings-icon-color;
-    cursor: pointer;
-    font-size: $sidebar-settings-icon-size;
-  }
 
   .net-status {
     font-size: $icon_status-font_size;
