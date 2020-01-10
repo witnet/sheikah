@@ -14038,10 +14038,10 @@ widest-line@^2.0.0:
   dependencies:
     string-width "^2.1.1"
 
-witnet-radon-js@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.1.0.tgz#a6e2f2ed56a8690a5a46e8cdbb504c65106f4902"
-  integrity sha512-2pCZ8yz7indExo8r0+mf2PQ3a0mS52dfnsOhZuDs7TROWH9I9lNUtLjdOcNANEedosYAR7Hd6Q9OeoPjTYrfcg==
+witnet-radon-js@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.1.2.tgz#25198f07af8c77a09ff3c15fae00c8633823d62e"
+  integrity sha512-4LSWRyWowjkZvFFgv7sA7ToxN8tfqdZ8S8ZQJgzJYwsbwpjiO6SwLzb2DIID8uiSh1Ljmh94fzPViYi9tnAuLQ==
 
 wordwrap@~0.0.2:
   version "0.0.3"
