@@ -3,10 +3,7 @@
     <div class="layout">
       <div class="bar">
         <p class="title">Welcome Back</p>
-        <p class="settings">
-          <font-awesome-icon icon="cog" />
-          App Settings
-        </p>
+        <Settings :settings="settings" :showText="true" />
       </div>
 
       <div class="content">
@@ -17,8 +14,23 @@
 </template>
 
 <script>
+import Settings from '@/components/Settings.vue'
+
 export default {
   name: 'WelcomeBack',
+  components: {
+    Settings,
+  },
+  data() {
+    return {
+      settings: [
+        {
+          label: 'Quit app',
+          action: () => window.close(),
+        },
+      ],
+    }
+  },
 }
 </script>
 
@@ -51,10 +63,6 @@ export default {
         font-size: 24px;
         color: $white;
         border: none;
-      }
-
-      .settings {
-        color: $white;
       }
     }
 
