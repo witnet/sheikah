@@ -1,7 +1,7 @@
 <template>
   <div class="unlock-wallet">
     <p class="text">Insert a password to unlock wallet</p>
-    <div @keydown.enter.esc.prevent="goNextItem">
+    <div @keydown.enter.esc.prevent="unlockWallet">
       <PasswordInput label="Password" v-model="password" />
     </div>
     <div class="container-btn">
@@ -35,9 +35,6 @@ export default {
   methods: {
     previousStep() {
       this.$router.push('/welcome-back/wallet-list')
-    },
-    goNextItem() {
-      this.$refs.submit.$el.focus()
     },
     unlockWallet() {
       this.$store.dispatch('unlockWallet', {

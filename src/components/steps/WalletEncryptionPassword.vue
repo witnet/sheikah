@@ -21,7 +21,7 @@
         ref="password"
         label="Confirm password"
         v-model="repeatPassword"
-        v-on:go-next="goNextStepButton"
+        v-on:go-next="nextStep"
       />
     </div>
 
@@ -60,24 +60,16 @@ export default {
     goNextInput() {
       this.$refs.password.$refs.passInput.focus()
     },
-    goNextStepButton() {
-      this.$refs.navCard.$refs.next.$el.focus()
-    },
     nextStep() {
-      console.log('password', this.password)
-      console.log('repeat password', this.repeatPassword)
       if (this.validateForm()) {
-        console.log('0')
         this.showError = false
         this.$store.dispatch('createWallet', {
           sourceType: 'mnemonics',
           password: this.password,
           mnemonics: this.mnemonics,
         })
-        console.log('1')
         this.$router.push('/ftu/create-wallet')
       } else {
-        console.log('1')
         this.showError = true
       }
     },
