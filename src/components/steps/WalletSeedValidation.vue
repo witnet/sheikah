@@ -13,7 +13,7 @@
       Please type your 12 word seed phrase exactly as it was shown to you on the previous screen.
       This step is to confirm that you have copied your seed phrase correctly.
     </p>
-    <Input type="big" class="seed" v-model="seed" v-on:go-next="goNextStepButton" />
+    <Input type="big" class="seed" v-model="seed" v-on:go-next="nextStep" />
     <p data-test="mnemonics-error-alert" class="match-error" v-if="showError">
       Mnemonics must match
     </p>
@@ -48,9 +48,6 @@ export default {
     }),
   },
   methods: {
-    goNextStepButton() {
-      this.$refs.navCard.$refs.next.$el.focus()
-    },
     nextStep() {
       if (this.seed && this.seed.trim() === this.mnemonics.trim()) {
         this.$router.push('/ftu/encryption-pass')

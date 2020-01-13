@@ -4,6 +4,10 @@
       GENERATED ADDRESSES
     </p>
     <div data-test="addresses-container" class="content">
+      <div v-if="addresses.length === 0" class="no-transactions-container">
+        <img class="no-transactions-img" src="@/resources/svg/empty.svg" />
+        <p class="no-transactions-text">You don't have addresses</p>
+      </div>
       <p
         :data-test="'address-' + page + '-' + index"
         class="address"
@@ -223,6 +227,22 @@ export default {
     box-shadow: $default-box-shadow;
     padding: 32px;
     background-color: $alpha-blue;
+    .no-transactions-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+      .no-transactions-text {
+        font-size: 16px;
+        font-weight: 400;
+        font-style: italic;
+        color: $grey-3;
+      }
+      .no-transactions-img {
+        width: 40px;
+        margin-bottom: 16px;
+      }
+    }
     .address {
       text-align: center;
       width: 250px;
