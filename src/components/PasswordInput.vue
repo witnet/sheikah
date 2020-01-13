@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <input
+      @keydown.enter.esc.prevent="toogleGoNextItem"
+      ref="passInput"
       type="password"
       class="input"
       :placeholder="label"
@@ -17,6 +19,11 @@ export default {
   props: {
     value: String,
     label: String,
+  },
+  methods: {
+    toogleGoNextItem() {
+      this.$emit('go-next')
+    },
   },
   computed: {
     passwordValue: {
@@ -91,7 +98,6 @@ export default {
     font-weight: 700;
     font-size: 16px;
   }
-  padding-bottom: 6px;
   border-bottom: 1.7px solid $grey-4;
   font-weight: 700;
   border-width: 2px;
