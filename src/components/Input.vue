@@ -1,5 +1,6 @@
 <template>
   <input
+    @keydown.enter.esc.prevent="toogleGoNextItem"
     v-model="inputValue"
     :class="`input ${getClass(type)}`"
     :placeholder="placeholder"
@@ -29,6 +30,9 @@ export default {
     },
   },
   methods: {
+    toogleGoNextItem() {
+      this.$emit('go-next')
+    },
     getClass(className) {
       const classes = ['big', 'underlined']
       return classes.includes(className) ? className : 'default'
