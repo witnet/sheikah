@@ -1,7 +1,7 @@
 <template>
   <div class="send">
     <div v-if="generatedTransaction" class="transaction-info">
-      <div :class="{ scroll }" class="transaction-info">
+      <div class="scroll">
         <div class="row">
           <p class="entry">Amount</p>
           <p class="value">{{ generatedTransaction.amount }} Wit</p>
