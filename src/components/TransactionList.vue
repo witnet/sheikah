@@ -70,13 +70,13 @@ export default {
     align-items: center;
     padding: 24px;
     .no-transactions-text {
-      font-size: 8px;
+      font-size: 16px;
       font-weight: 400;
       font-style: italic;
-      color: $grey-5;
+      color: $grey-3;
     }
     .no-transactions-img {
-      width: 36px;
+      width: 40px;
       margin-bottom: 16px;
     }
   }

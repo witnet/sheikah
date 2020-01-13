@@ -128,7 +128,7 @@ export default {
   watch: {
     addresses() {
       if (this.addresses.length !== 0) {
-        this.lastAddress = this.addresses[this.addresses.length - 1].address
+        this.lastAddress = this.addresses[0].address
       }
     },
   },
