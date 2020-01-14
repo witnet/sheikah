@@ -1,6 +1,6 @@
 <template>
   <FrameOutside @click="showInput = false" @focus="showInput = false">
-    <div :class="`card-layout ${getClass(type)}`">
+    <div :class="`card-layout ${style}`">
       <div class="option-btn">
         <el-dropdown @command="handleCommand">
           <el-button class="button-options" split-button type="primary">
@@ -11,11 +11,7 @@
             />
             <img v-else src="@/resources/svg/options.svg" alt="" />
           </el-button>
-          <el-dropdown-menu
-            v-if="type === 'marketplace'"
-            slot="dropdown"
-            :class="`${getClass(type)}`"
-          >
+          <el-dropdown-menu v-if="type === 'marketplace'" slot="dropdown" :class="style">
             <el-dropdown-item
               v-for="(option, index) in marketplaceOptions"
               :key="option.label"
@@ -24,7 +20,7 @@
               {{ option.label }}
             </el-dropdown-item>
           </el-dropdown-menu>
-          <el-dropdown-menu v-else slot="dropdown" :class="`${getClass(type)}`">
+          <el-dropdown-menu v-else slot="dropdown" :class="style">
             <el-dropdown-item
               v-for="(option, index) in options"
               :key="option.label"
@@ -55,7 +51,7 @@
         <div class="description">
           {{ description }}
         </div>
-        <div v-show="type != 'marketplace'" class="date">
+        <div v-show="style != 'marketplace'" class="date">
           {{ dateFormated }}
         </div>
       </div>
@@ -123,11 +119,12 @@ export default {
     date: [Number, String],
     type: [Number, String],
   },
-  methods: {
-    getClass(className) {
-      const classes = ['marketplace', 'editor']
-      return classes.includes(className) ? className : 'default'
+  computed: {
+    style() {
+      return this.type
     },
+  },
+  methods: {
     displayModal() {
       this.isModalActivated = true
       this.$emit('toggle-modal', { isModalActivated: this.isModalActivated })

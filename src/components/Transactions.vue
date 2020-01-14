@@ -89,7 +89,7 @@ export default {
       form: {
         address: '',
         label: '',
-        amount: '',
+        amount: 0,
         fee: { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' },
         options: [
           { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' },
@@ -177,8 +177,9 @@ export default {
     },
     closeAndClear: function() {
       this.clearSendForm()
-      this.$store.commit('deleteGeneratedTransaction')
+      this.$store.commit('clearGeneratedTransaction')
       this.clearError(this.createVTTErrorName)
+      this.dialogVisible = false
     },
     clearError: function() {
       return this.$store.commit('clearError', { error: this.createVTTErrorName })

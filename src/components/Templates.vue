@@ -30,12 +30,7 @@
       You don't have templates yet.
     </div>
     <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
-    <el-dialog
-      title="Send new data request"
-      :visible.sync="dialogVisible"
-      width="60%"
-      v-on:close="closeAndClear"
-    >
+    <el-dialog :visible.sync="dialogVisible" v-on:close="closeAndClear">
       <Alert
         data-test="alert"
         v-if="createDataRequestError.message"
@@ -220,7 +215,16 @@ export default {
     padding: 8px;
   }
 }
-
+.el-dialog {
+  min-width: 500px;
+  max-width: 700px;
+  .el-dialog__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    word-break: keep-all;
+  }
+}
 .container-templates {
   display: flex;
   flex-wrap: wrap;

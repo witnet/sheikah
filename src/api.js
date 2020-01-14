@@ -148,7 +148,7 @@ export class MarketplaceApi {
   baseUrl = process.env.marketplaceUrl || 'https://witnet-marketplace-api-test.herokuapp.com'
 
   _handleResponse(response) {
-    if (response) {
+    if (response && response.data) {
       return response.data
     }
   }

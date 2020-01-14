@@ -2,7 +2,7 @@
   <div class="variables-container">
     <div class="title">Add custom values for the template variables</div>
     <div v-for="(variable, index) in variables" :key="index" class="variable">
-      <p class="label">$</p>
+      <p class="label variable-value">$</p>
       <div class="variable-value">
         {{ keys[index] }}
       </div>
@@ -106,18 +106,12 @@ export default {
   .title {
     color: $grey-4;
     font-size: 18px;
-    margin: 0px 0px 40px 32px;
+    margin-bottom: 40px;
   }
   .variable {
-    padding-left: 50px;
     display: block;
     display: flex;
     justify-items: left;
-    .label {
-      color: $grey-4;
-      padding-right: 5px;
-      margin: 8px;
-    }
     .variable-value {
       display: flex;
       font-size: 16px;
@@ -125,7 +119,12 @@ export default {
       color: $grey-4;
       margin: 10px;
       width: 80px;
-      height: 20px;
+      height: 30px;
+      &.label {
+        color: $blue-6;
+        width: 40px;
+        font-weight: bold;
+      }
     }
   }
   .delete {
@@ -146,7 +145,7 @@ export default {
   .submit {
     width: 100%;
     text-align: right;
-    padding-top: 32px;
+    padding-top: 40px;
   }
 }
 </style>
