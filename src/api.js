@@ -148,7 +148,9 @@ export class MarketplaceApi {
   baseUrl = process.env.marketplaceUrl || 'https://witnet-marketplace-api-test.herokuapp.com'
 
   _handleResponse(response) {
-    return response && response.error ? response : response.data || true
+    if (response) {
+      return response.data
+    }
   }
 
   _handleError(error) {
@@ -163,7 +165,7 @@ export class MarketplaceApi {
   }
 
   getTemplates() {
-    this._get(`${this.baseUrl}/templates`)
+    return this._get(`${this.baseUrl}/templates`)
   }
 
   getTemplate(id) {
