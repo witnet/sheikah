@@ -74,7 +74,7 @@ export default {
     setGeneratedTransaction(state, { transaction }) {
       state.generatedTransaction = transaction
     },
-    deleteGeneratedTransaction(state) {
+    clearGeneratedTransaction(state) {
       state.generatedTransaction = null
     },
     addAddress(state, { address }) {

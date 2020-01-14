@@ -207,7 +207,7 @@ export default {
 }
 
 .send {
-  margin: 32px;
+  margin: 0px 32px 32px 32px;
   .row {
     display: flex;
     align-items: flex-start;
