@@ -32,7 +32,12 @@
             :description="transactionsError.description"
             v-on:close="closeAndClear"
           />
-          <Send v-on:close="dialogVisible = false" />
+          <Send
+            :form="form"
+            v-on:close="closeAndClear"
+            v-on:create-VTT="createVTT"
+            v-on:form="setFormValues"
+          />
         </el-dialog>
         <el-dialog
           data-test="receive-modal"
@@ -81,6 +86,17 @@ export default {
       lastItemActive: false,
       firstItemActive: true,
       newAddresses: null,
+      form: {
+        address: '',
+        label: '',
+        amount: '',
+        fee: { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' },
+        options: [
+          { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' },
+          { value: 59, primaryText: 'Medium', secondaryText: '59 uWit/B' },
+          { value: 39, primaryText: 'Low', secondaryText: '39 uWit/B' },
+        ],
+      },
     }
   },
   computed: {
@@ -133,6 +149,18 @@ export default {
     },
   },
   methods: {
+    setFormValues(updatedForm) {
+      this.form = updatedForm
+    },
+    createVTT() {
+      this.refindex = 0
+      this.$store.dispatch('createVTT', {
+        label: this.form.label,
+        address: this.form.address,
+        amount: this.form.amount,
+        fee: this.form.fee.value,
+      })
+    },
     displayModalSend: function() {
       this.dialogVisible = true
     },
@@ -141,7 +169,15 @@ export default {
       this.$store.dispatch('getAddresses')
       this.dialogVisible2 = true
     },
+    clearSendForm() {
+      this.form.address = ''
+      this.form.label = ''
+      this.form.amount = 0
+      this.form.fee = { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' }
+    },
     closeAndClear: function() {
+      this.clearSendForm()
+      this.$store.commit('deleteGeneratedTransaction')
       this.clearError(this.createVTTErrorName)
     },
     clearError: function() {

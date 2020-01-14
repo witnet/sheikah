@@ -81,7 +81,7 @@ export default {
         {
           label: 'Deploy',
           action: () => {
-            this.displayModal()
+            console.log('This method should be implemented soon')
           },
         },
       ],
