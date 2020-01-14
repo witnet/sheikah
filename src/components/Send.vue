@@ -68,7 +68,7 @@
         </div>
         <Input
           data-test="send-recipient-address"
-          v-model="address"
+          v-model="form.address"
           placeholder="Recipient address"
         />
       </div>
@@ -77,20 +77,19 @@
         <div class="label">
           <label class for>Label</label>
         </div>
-        <Input v-model="label" />
+        <Input v-model="form.label" />
       </div>
-
       <div class="row">
         <div class="label">
           <label class for>Amount</label>
         </div>
-        <InputNumber v-model="amount" />
+        <InputNumber v-model="form.amount" />
       </div>
       <div class="row">
         <div class="label">
           <label class for>Fee</label>
         </div>
-        <Select v-model="fee" :options="options" />
+        <Select v-model="form.fee" :options="form.options" />
       </div>
       <div class="submit">
         <Button
@@ -124,17 +123,10 @@ export default {
     return {
       isAdvancedVisible: false,
       showModal: false,
-      address: '',
-      label: '',
-      amount: 0,
-      fee: { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' },
-      options: [
-        { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' },
-        { value: 59, primaryText: 'Medium', secondaryText: '59 uWit/B' },
-        { value: 39, primaryText: 'Low', secondaryText: '39 uWit/B' },
-      ],
-      refindex: 0,
     }
+  },
+  props: {
+    form: Object,
   },
   computed: {
     generatedTransaction() {
@@ -150,16 +142,9 @@ export default {
       this.closeDialog()
     },
     createVTT() {
-      this.refindex = 0
-      this.$store.dispatch('createVTT', {
-        label: this.label,
-        address: this.address,
-        amount: this.amount,
-        fee: this.fee.value,
-      })
+      this.$emit('create-VTT', this.form)
     },
     closeDialog() {
-      this.showModal = false
       this.isAdvancedVisible = false
       this.$emit('close')
     },

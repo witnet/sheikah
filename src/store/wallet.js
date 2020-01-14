@@ -68,13 +68,14 @@ export default {
         message,
       }
     },
-
     clearError(state, { error }) {
       state.errors[error] = null
     },
-
     setGeneratedTransaction(state, { transaction }) {
       state.generatedTransaction = transaction
+    },
+    deleteGeneratedTransaction(state) {
+      state.generatedTransaction = null
     },
     addAddress(state, { address }) {
       if (address) {
