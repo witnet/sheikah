@@ -1,3 +1,4 @@
+import axios from 'axios'
 const RPCWebsockets = require('rpc-websockets').Client
 
 const defaultOptions = {
@@ -141,4 +142,36 @@ export class WalletApi {
   getItem(params) {
     return this._callApiMethod('get')(params)
   }
+}
+
+export class MarketplaceApi {
+  baseUrl = process.env.marketplaceUrl || 'https://witnet-marketplace-api-test.herokuapp.com'
+
+  _handleResponse(response) {
+    return response && response.error ? response : response.data || true
+  }
+
+  _handleError(error) {
+    return { error }
+  }
+
+  _get(url) {
+    return axios
+      .get(url)
+      .then(this._handleResponse)
+      .catch(this._handleError)
+  }
+
+  getTemplates() {
+    this._get(`${this.baseUrl}/templates`)
+  }
+
+  getTemplate(id) {
+    return axios
+      .get(`${this.baseUrl}/templates/${id}`)
+      .then(this._handleResponse)
+      .catch(this._handleError)
+  }
+
+  postTemplate() {}
 }
