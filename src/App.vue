@@ -8,7 +8,7 @@
 export default {
   name: 'app',
 
-  mounted() {
+  async beforeCreate() {
     this.$store.dispatch('getWalletInfos')
 
     // Initialize polling interval to retrieve network status
