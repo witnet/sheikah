@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div v-if="generatedDataRequest" class="data-request-info">
       <ConfirmDataRequest :template="template" v-on:confirm-dr="confirmDataRequest" />
     </div>
@@ -79,3 +79,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.container {
+  justify-content: center;
+  margin: 0px;
+}
+</style>

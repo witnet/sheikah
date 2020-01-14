@@ -46,18 +46,18 @@ export default {
 @import '@/styles/theme.scss';
 
 .form {
-  margin: 16px;
+  margin: 0px 16px 16px 16px;
   .title {
     color: $grey-4;
     font-size: 18px;
-    margin: 0px 0px 40px 32px;
+    margin-bottom: 40px;
   }
   .row {
     display: flex;
     align-items: center;
     margin-bottom: 16px;
     .label {
-      min-width: 150px;
+      min-width: 110px;
       font-size: 16px;
       text-align: right;
       margin-right: 16px;
@@ -70,7 +70,7 @@ export default {
   .submit {
     width: 100%;
     text-align: right;
-    padding-top: 32px;
+    padding-top: 40px;
   }
 }
 </style>

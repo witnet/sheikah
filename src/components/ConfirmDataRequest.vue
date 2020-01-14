@@ -53,7 +53,7 @@ export default {
   .submit {
     width: 100%;
     text-align: right;
-    padding-top: 32px;
+    padding-top: 40px;
   }
 }
 </style>
