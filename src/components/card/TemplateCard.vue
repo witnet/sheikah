@@ -1,12 +1,30 @@
 <template>
   <FrameOutside @click="showInput = false" @focus="showInput = false">
-    <div class="card-layout">
+    <div :class="`card-layout ${getClass(type)}`">
       <div class="option-btn">
         <el-dropdown @command="handleCommand">
           <el-button class="button-options" split-button type="primary">
-            <img src="@/resources/svg/options.svg" alt="" />
+            <img
+              v-if="type === 'marketplace'"
+              src="@/resources/svg/options-marketplace.svg"
+              alt=""
+            />
+            <img v-else src="@/resources/svg/options.svg" alt="" />
           </el-button>
-          <el-dropdown-menu slot="dropdown">
+          <el-dropdown-menu
+            v-if="type === 'marketplace'"
+            slot="dropdown"
+            :class="`${getClass(type)}`"
+          >
+            <el-dropdown-item
+              v-for="(option, index) in marketplaceOptions"
+              :key="option.label"
+              :command="index"
+            >
+              {{ option.label }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+          <el-dropdown-menu v-else slot="dropdown" :class="`${getClass(type)}`">
             <el-dropdown-item
               v-for="(option, index) in options"
               :key="option.label"
@@ -37,7 +55,7 @@
         <div class="description">
           {{ description }}
         </div>
-        <div class="date">
+        <div v-show="type != 'marketplace'" class="date">
           {{ dateFormated }}
         </div>
       </div>
@@ -59,6 +77,14 @@ export default {
   },
   data() {
     return {
+      marketplaceOptions: [
+        {
+          label: 'Deploy',
+          action: () => {
+            this.displayModal()
+          },
+        },
+      ],
       options: [
         {
           label: 'Edit',
@@ -95,8 +121,13 @@ export default {
     name: String,
     description: String,
     date: [Number, String],
+    type: [Number, String],
   },
   methods: {
+    getClass(className) {
+      const classes = ['marketplace', 'editor']
+      return classes.includes(className) ? className : 'default'
+    },
     displayModal() {
       this.isModalActivated = true
       this.$emit('toggle-modal', { isModalActivated: this.isModalActivated })
@@ -131,6 +162,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .button-options {
+  display: block;
   background-color: transparent;
   border: none;
   &:focus,
@@ -140,10 +172,17 @@ export default {
   }
 }
 .el-dropdown-menu {
+  display: block;
   padding: 8px 0;
   font-weight: bold;
   .el-dropdown-menu__item:not(.is-disabled):hover {
+    display: block;
     color: $blue-6;
+  }
+  &.marketplace .el-dropdown-menu__item:not(.is-disabled):hover {
+    display: block;
+    background-color: rgba(255, 183, 212, 0.246);
+    color: rgb(255, 42, 127);
   }
   .el-dropdown-menu__item:last-of-type:hover {
     background-color: $alpha-red;
@@ -163,8 +202,14 @@ export default {
   padding: 16px;
   border: 2px solid $grey-0;
   box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
+  &.marketplace {
+    background: none;
+  }
   &:hover {
     border: 2px solid $blue-6;
+  }
+  &.marketplace:hover {
+    border: 2px solid rgb(255, 42, 127);
   }
   &.option-btn,
   .title,

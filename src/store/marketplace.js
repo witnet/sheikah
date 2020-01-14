@@ -14,7 +14,7 @@ export default {
   actions: {
     retrieveTemplates: async function(context, params) {
       const request = await marketplaceApi.getTemplates()
-      if (!request.error) {
+      if (request) {
         this.commit('setTemplates', { templates: request })
       } else {
         console.error('Error retrieving templates from the marketplace')
