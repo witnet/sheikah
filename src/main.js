@@ -15,14 +15,10 @@ const walletApi = new WalletApi()
 const isSocketReady = setInterval(checkSocketStatus, 1)
 
 function checkSocketStatus() {
-  if (walletApi.client.ws.ready) {
-    runApp()
-  }
+  runApp()
 }
-
 function runApp() {
   clearInterval(isSocketReady)
-
   store.$walletApi = walletApi
 
   const vm = new Vue({
