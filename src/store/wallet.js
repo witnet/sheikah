@@ -108,11 +108,12 @@ export default {
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
         transaction: context.state.generatedTransaction,
-        transactionId: context.state.generatedTransaction.transactionId,
       })
-
       if (request.result) {
+        console.log('transaction sent!', request.result)
         // context.commit('setSuccess', 'sendTransaction')
+      } else {
+        console.log('ERROR')
       }
     },
 
@@ -146,23 +147,7 @@ export default {
         label,
       })
       if (request.result) {
-        const generatedTransaction = {
-          bytes: request.result.bytes,
-          transactionId: request.result.transactionId,
-          inputs: request.result.transaction.ValueTransfer.body.inputs.map(
-            input => input.output_pointer
-          ),
-          outputs: request.result.transaction.ValueTransfer.body.outputs,
-          signature: request.result.transaction.ValueTransfer.signatures.map(
-            signature => signature.public_key.bytes
-          ),
-          type: 'Value Transfer Transaction',
-          // TODO: The following fields have to come from the wallet.
-          //  They will implement a way to provide them in the future.
-          to: address,
-          amount,
-          fee,
-        }
+        const generatedTransaction = request.result.transaction
         context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
       } else {
         context.commit('setError', {
