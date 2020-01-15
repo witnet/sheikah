@@ -8,8 +8,6 @@ import FirstTimeUsage from '@/views/FirstTimeUsage.vue'
 import Home from '@/views/Home.vue'
 import Loading from '@/components/steps/Loading.vue'
 import Marketplace from '@/components/Marketplace.vue'
-import Receive from '@/components/Receive.vue'
-import Send from '@/components/Send.vue'
 import Templates from '@/components/Templates.vue'
 import Transactions from '@/components/Transactions.vue'
 import UnlockWallet from '@/components/WelcomeBack/UnlockWallet.vue'
@@ -22,25 +20,41 @@ import WalletSeedTypeSelection from '@/components/steps/WalletSeedTypeSelection.
 import WalletSeedValidation from '@/components/steps/WalletSeedValidation.vue'
 import WelcomeBack from '@/views/WelcomeBack.vue'
 import WelcomeForm from '@/components/steps/WelcomeForm.vue'
+import WalletNotFound from '@/components/WalletNotFound.vue'
+import { WalletApi } from './api'
 
 import store from '@/store'
 
 Vue.use(Router)
 
+const walletApi = new WalletApi()
 function redirectIfNeccesary(to, from, next) {
-  if (store.state.wallet.sessionId) {
+  next()
+  if (walletApi.client.ws.ready) {
     next()
-  } else if (store.state.wallet.walletInfos) {
-    next('/welcome-back/wallet-list')
+    if (store.state.wallet.sessionId) {
+      next()
+    } else if (store.state.wallet.walletInfos) {
+      next('/welcome-back/wallet-list')
+    } else {
+      next('/ftu/welcome')
+    }
   } else {
-    next('/ftu/welcome')
+    next('/wallet-not-found')
   }
 }
 
 export default new Router({
   routes: [
     {
+      path: '/wallet-not-found',
+      beforeEnter: redirectIfNeccesary,
+      name: 'runWalletAlert',
+      component: WalletNotFound,
+    },
+    {
       path: '/welcome-back',
+      beforeEnter: redirectIfNeccesary,
       name: 'welcomeBack',
       component: WelcomeBack,
       children: [
@@ -57,6 +71,7 @@ export default new Router({
     {
       path: `/ftu`,
       name: 'ftu',
+      beforeEnter: redirectIfNeccesary,
       component: FirstTimeUsage,
       children: [
         {
