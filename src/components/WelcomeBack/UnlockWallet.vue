@@ -2,7 +2,8 @@
   <div class="unlock-wallet">
     <p class="text">Insert a password to unlock wallet</p>
     <div @keydown.enter.esc.prevent="unlockWallet">
-      <PasswordInput label="Password" v-model="password" />
+      <PasswordInput label="Password" v-model="password" :error="'unlockWallet'" />
+      <p v-if="showError" class="error">Invalid password</p>
     </div>
     <div class="container-btn">
       <Button class="back-btn" data-test="unlock-wallet" :onClick="previousStep" type="default">
@@ -14,7 +15,6 @@
         </Button>
       </div>
     </div>
-    <p v-if="showError">Invalid password</p>
   </div>
 </template>
 
@@ -28,7 +28,6 @@ export default {
   data() {
     return {
       password: '',
-      showError: false,
       sent: false,
     }
   },
@@ -44,7 +43,6 @@ export default {
       this.sent = true
     },
     updateView() {
-      this.showError = false
       this.$router.push('/wallet/transactions')
     },
   },
@@ -54,6 +52,7 @@ export default {
         return state.wallet.walletId
       },
       sessionId: state => state.wallet.sessionId,
+      showError: state => state.wallet.errors.unlockWallet,
     }),
   },
   watch: {
@@ -88,6 +87,7 @@ export default {
     border-bottom: 1px solid rgb(92, 91, 91);
     font-size: 16px;
     padding: 8px;
+    margin-bottom: 8px;
     color: $black;
 
     &:focus,
@@ -98,6 +98,11 @@ export default {
     &::placeholder {
       font-size: 16px;
     }
+  }
+  .error {
+    position: absolute;
+    padding-top: 16px;
+    color: $red-0;
   }
   .text {
     margin-bottom: 32px;

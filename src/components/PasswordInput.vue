@@ -19,10 +19,14 @@ export default {
   props: {
     value: String,
     label: String,
+    error: String,
   },
   methods: {
     toogleGoNextItem() {
       this.$emit('go-next')
+    },
+    clearError(errorName) {
+      this.$store.commit('clearError', { error: errorName })
     },
   },
   computed: {
@@ -37,6 +41,7 @@ export default {
   },
   watch: {
     passwordValue(passwordValue) {
+      this.clearError(this.error)
       this.$emit('input', passwordValue)
     },
   },
