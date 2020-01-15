@@ -108,7 +108,7 @@ export default {
       transactions: state =>
         state.wallet.transactions.map(transaction => ({
           address: '',
-          amount: `${transaction.entry === 'Credit' ? '+' : '-'}${transaction.value}`,
+          amount: transaction.value,
           block: transaction.block ? transaction.block.epoch : 'PENDING',
           date: new Date(transaction.timestamp).toISOString(),
         })),
