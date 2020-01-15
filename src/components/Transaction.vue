@@ -5,7 +5,6 @@
       <span :class="`number ${origin.toLowerCase()}`">{{ amount }}</span>
       <span class="wit">WIT</span>
     </div>
-
     <div class="address">
       <p class="origin">
         <span class="label">{{ origin }}</span> <span class="number">{{ address }}</span>
@@ -24,17 +23,17 @@ export default {
   name: 'Transaction',
   props: {
     address: String,
-    amount: String,
+    amount: Number,
     block: [String, Number],
     border: Boolean,
     date: String,
   },
   computed: {
     origin() {
-      return this.amount.includes('+') ? 'From' : 'To'
+      return this.amount > 0 ? 'From' : 'To'
     },
     arrowIcon() {
-      return this.amount.includes('+') ? 'angle-right' : 'angle-left'
+      return this.amount > 0 ? 'angle-right' : 'angle-left'
     },
   },
 }
