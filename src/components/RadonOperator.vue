@@ -53,6 +53,10 @@ export default {
     }
   },
   props: {
+    showOutputType: {
+      default: true,
+      type: Boolean,
+    },
     operator: {
       required: true,
     },
@@ -114,7 +118,7 @@ export default {
         id: this.operator.id,
         primaryText: this.operator.selected.label,
         value: this.operator.selected.label,
-        secondaryText: this.operator.selected.outputType,
+        secondaryText: this.showOutputType ? this.operator.selected.outputType : '',
       }
     },
     hasArguments() {

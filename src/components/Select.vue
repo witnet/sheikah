@@ -21,7 +21,9 @@
             </span>
             <font-awesome-icon class="icon sort-down" icon="sort-down" />
           </div>
-          <span :class="`value ${value.secondaryText}`">{{ value.secondaryText }}</span>
+          <span v-if="value.secondaryText" :class="`value ${value.secondaryText}`">{{
+            value.secondaryText
+          }}</span>
         </div>
       </button>
       <input v-if="!tabKeyPressed" :aria-hidden="true" class="hidden" @focus="handleFocus" />
