@@ -1,7 +1,12 @@
 <template>
   <div>
     <div v-for="(operator, index) in script" :key="operator.toString() + index">
-      <RadonOperator :operator="operator" :stage="stage" :sourceIndex="sourceIndex" />
+      <RadonOperator
+        :operator="operator"
+        :stage="stage"
+        :sourceIndex="sourceIndex"
+        :showUnionIcon="index !== script.length - 1"
+      />
     </div>
     <div class="button-container">
       <button class="add-operators-btn" @click="pushOperator()">
