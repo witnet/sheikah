@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="icon-container">
+    <div v-if="showUnionIcon" class="icon-container">
       <font-awesome-icon class="icon sort-down" icon="sort-down" />
     </div>
   </div>
@@ -53,6 +53,10 @@ export default {
     }
   },
   props: {
+    showUnionIcon: {
+      type: Boolean,
+      default: false,
+    },
     showOutputType: {
       default: true,
       type: Boolean,
