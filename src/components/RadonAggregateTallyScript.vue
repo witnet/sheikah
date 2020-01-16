@@ -1,35 +1,55 @@
 <template>
   <div>
-    <div v-for="(operator, index) in script" :key="operator.toString() + index">
-      <RadonOperator
-        :operator="operator"
-        :stage="stage"
-        :sourceIndex="sourceIndex"
-        :showUnionIcon="index !== script.length - 1"
-      />
+    <p>Filters</p>
+    <div>
+      <div v-for="(operator, index) in filters" :key="operator.toString() + index">
+        <RadonOperator
+          :operator="operator"
+          :stage="stage"
+          :sourceIndex="sourceIndex"
+          :showOutputType="false"
+          :showUnionIcon="index !== filters.length - 1"
+        />
+      </div>
+      <div class="button-container">
+        <button class="add-operators-btn" @click="pushOperator()">
+          Add operator
+        </button>
+      </div>
     </div>
-    <div class="button-container">
-      <button class="add-operators-btn" @click="pushOperator()">
-        Add operator
-      </button>
-    </div>
+    <p>Reducer</p>
+    <RadonOperator
+      :operator="reducer"
+      :stage="stage"
+      :sourceIndex="sourceIndex"
+      :showOutputType="false"
+    />
   </div>
 </template>
+
 <script>
 import { PUSH_OPERATOR } from '@/store/mutation-types'
 import RadonOperator from '@/components/RadonOperator'
 
 export default {
-  name: 'RadonScript',
+  name: 'RadonAggregateTallyScript',
   components: { RadonOperator },
   props: {
     stage: String,
     sourceIndex: Number,
-    script: Array,
+    script: Object,
   },
   methods: {
     pushOperator() {
-      this.$store.commit(PUSH_OPERATOR, { scriptId: this.script[0].scriptId })
+      this.$store.commit(PUSH_OPERATOR, { scriptId: this.filters[0].scriptId })
+    },
+  },
+  computed: {
+    filters() {
+      return this.script.filters
+    },
+    reducer() {
+      return this.script.reducer
     },
   },
 }
@@ -41,7 +61,7 @@ export default {
 
 .circle {
   outline: none;
-  border: 2px solid $grey-4;
+  border: 2px solid $grey-6;
   box-shadow: none;
   width: 30px;
   height: 30px;
@@ -65,7 +85,7 @@ export default {
 .circle.plus:before,
 .circle.plus:after {
   cursor: pointer;
-  background: $grey-4;
+  background: $grey-6;
 }
 .circle.plus:before {
   width: 2px;

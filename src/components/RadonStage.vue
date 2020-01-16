@@ -10,26 +10,34 @@
     />
   </div>
   <div v-else-if="stage === 'aggregate'">
-    <p>Aggregate</p>
-    <RadonScript class="script" v-show="!error.aggregate" stage="aggregate" :script="script" />
+    <RadonAggregateTallyScript
+      class="script"
+      v-show="!error.aggregate"
+      stage="aggregate"
+      :script="script"
+    />
     <p class="error" v-show="error.aggregate">There is an error in the aggregate stage</p>
   </div>
 
   <div v-else-if="stage === 'tally'">
-    <p>Tally</p>
-    <RadonScript class="script" v-show="!error.tally" stage="tally" :script="script" />
+    <RadonAggregateTallyScript
+      class="script"
+      v-show="!error.tally"
+      stage="tally"
+      :script="script"
+    />
     <p class="error" v-show="error.tally">There is an error in the tally stage</p>
   </div>
 </template>
 
 <script>
-import RadonScript from '@/components/RadonScript.vue'
 import Carousel from '@/components/Carousel'
+import RadonAggregateTallyScript from '@/components/RadonAggregateTallyScript'
 
 export default {
   name: 'RadonStage',
   components: {
-    RadonScript,
+    RadonAggregateTallyScript,
     Carousel,
   },
   props: {

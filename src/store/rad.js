@@ -178,8 +178,14 @@ export default {
             script: [128, [67, 5]],
           },
         ],
-        aggregate: [16],
-        tally: [],
+        aggregate: {
+          filters: [[0x03, 1]],
+          reducer: 0x02,
+        },
+        tally: {
+          filters: [[0x03, 1]],
+          reducer: 0x02,
+        },
       }
       state.currentTemplate = {
         creationDate: Date.now(),
