@@ -25,21 +25,6 @@ export default {
 @import '@/styles/theme.scss';
 @import '@/styles/app.global.scss';
 
-@media screen and (max-width: 1200px) {
-  .label {
-    display: none;
-  }
-  .status {
-    display: none;
-  }
-  .network-status {
-    text-align: left;
-  }
-  .dot-status {
-    margin-right: 24px;
-  }
-}
-
 .network-status {
   font-size: $icon_status-font_size;
   display: flex;
@@ -54,6 +39,14 @@ export default {
     color: $sidebar-synced-color;
     font-weight: $sidebar-synced-font_weight;
     padding: 8px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .label {
+    display: none;
+  }
+  .status {
+    display: none;
   }
 }
 </style>
