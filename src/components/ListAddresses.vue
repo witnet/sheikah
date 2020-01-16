@@ -9,9 +9,9 @@
         <p class="no-transactions-text">You don't have addresses</p>
       </div>
       <p
-        :data-test="'address-' + page + '-' + index"
+        :data-test="'address-' + currentPage + '-' + index"
         class="address"
-        v-for="(address, index) in paginatedAddresses"
+        v-for="(address, index) in paginatedItems"
         :key="address.address"
       >
         {{ address.address }}
@@ -21,17 +21,17 @@
       <button
         data-test="paginate-to-left"
         class="page-link"
-        v-if="page != 1"
-        @click="toggleDirectionLeft(page)"
+        v-if="currentPage !== 1"
+        @click="toggleDirection('left', currentPage)"
       >
         <font-awesome-icon class="icon-left" icon="angle-left" />
       </button>
       <button
         :data-test="'page-1'"
-        v-show="setPages.length >= 1"
+        v-show="pages.length >= 1"
         class="page-link static"
         :class="[firstItemActive ? 'active' : '']"
-        @click="togglePaginationButton('first')"
+        @click="togglePaginationButton(1)"
       >
         1
       </button>
@@ -46,18 +46,18 @@
         {{ pageNumber }}
       </button>
       <button
-        :data-test="'page-' + setPages.length"
-        v-show="setPages.length > 0 && setPages.length >= 5"
+        :data-test="'page-' + pages.length"
+        v-show="pages.length > 0 && pages.length >= itemsPerPage"
         class="page-link static"
         :class="[lastItemActive ? 'active' : '']"
-        @click="togglePaginationButton('last')"
+        @click="togglePaginationButton(pages.length)"
       >
-        {{ setPages.length }}
+        {{ pages.length }}
       </button>
       <button
         data-test="paginate-to-right"
-        @click="toggleDirectionRight(page)"
-        v-if="page < setPages.length"
+        @click="toggleDirection('right', currentPage)"
+        v-if="currentPage < pages.length"
         class="page-link"
       >
         <font-awesome-icon class="icon-right" icon="angle-right" />
@@ -74,134 +74,127 @@ export default {
   },
   data() {
     return {
-      page: 1,
-      perPage: 5,
+      currentPage: 1,
+      itemsPerPage: 5,
+      maxNumberOfpagesShown: 5,
       middleItemActive: null,
       lastItemActive: false,
       firstItemActive: true,
     }
   },
   computed: {
-    // TODO: pagination needs a refactor (in Issue: #823)
-    setPages() {
-      let pages = []
-      let numberOfPages = Math.ceil(this.addresses.length / this.perPage)
-      for (let index = 1; index <= numberOfPages; index++) {
-        pages.push(index)
+    // List of pages to show in pagination bar
+    pagesLength() {
+      return this.pages.length
+    },
+    pages() {
+      const numberOfPages = Math.ceil(this.addresses.length / this.itemsPerPage)
+      return this.fillTheRange(1, numberOfPages)
+    },
+    // paginated items
+    paginatedItems() {
+      const from = this.currentPage * this.itemsPerPage - this.itemsPerPage
+      const to = this.currentPage * this.itemsPerPage
+      return this.addresses.slice(from, to)
+    },
+    isFirstPage() {
+      return this.currentPage === 1
+    },
+    isLastPage() {
+      return this.currentPage === this.pagesLength
+    },
+    // Returns the lenght of range for the middle pages of the pagination nav
+    rangeLength() {
+      let rangeLength = 4
+
+      if (!this.isFirstPage && !this.isLastPage) {
+        rangeLength = this.currentPage + 2
       }
-      return pages
+      if (this.pagesLength <= 1) {
+        rangeLength = 1
+      }
+      if (this.pagesLength < this.maxNumberOfpagesShown && this.pagesLength > 1) {
+        rangeLength = this.pagesLength
+      }
+      if (this.pagesLength >= this.maxNumberOfpagesShown) {
+        rangeLength = this.currentPage + 3
+      }
+      return rangeLength
     },
-    paginatedAddresses() {
-      return this.paginate(this.addresses)
-    },
+    // middle pages range of the pagination nav
     rangePages() {
-      let range = []
-      let lenghtRange = 4
-      if (this.page !== 1 && this.page !== this.setPages.length) {
-        lenghtRange = this.page + 2
-      }
-      if (this.setPages.length === 0 || this.setPages.length === 1) {
-        return range
-      }
-      if (this.setPages.length === 2) {
-        lenghtRange = 2
-      }
-      if (this.setPages.length === 3) {
-        lenghtRange = 3
-      }
-      if (this.setPages.length === 4) {
-        lenghtRange = 4
-      }
-      if (this.setPages.length >= 5) {
-        lenghtRange = this.page + 3
-      }
-      if (this.page === 1) {
-        for (let index = 2; index <= lenghtRange; index++) {
-          range.push(index)
-        }
-      } else if (
-        this.page === this.setPages.length ||
-        this.page + 1 === this.setPages.length ||
-        this.page + 2 === this.setPages.length ||
-        this.page + 3 === this.setPages.length
-      ) {
-        if (this.setPages.length >= 5) {
-          for (let index = this.setPages.length - 3; index <= this.setPages.length - 1; index++) {
-            range.push(index)
-          }
-        }
-        if (this.setPages.length < 5) {
-          for (let index = 2; index <= lenghtRange; index++) {
-            range.push(index)
-          }
-        }
-      } else if (this.page !== 1 && this.page !== this.setPages.length) {
-        for (let index = this.page; index <= lenghtRange; index++) {
-          range.push(index)
-        }
-      }
-      return range
+      const { initial, last } = this.calculateRanges()
+      return this.fillTheRange(initial, last)
     },
   },
   methods: {
-    toggleDirectionRight: function(position) {
-      position++
-      this.page++
-      if (position === 1) {
-        this.firstItemActive = true
-        this.lastItemActive = false
-        this.middleItemActive = null
-      } else if (position === this.setPages.length) {
-        this.lastItemActive = true
-        this.firstItemActive = false
-        this.middleItemActive = null
+    calculateRanges() {
+      let initial = 2
+      let last
+      if (this.isFirstPage) {
+        last = this.rangeLength
+      } else if (this.isLastPage || this.currentPage >= this.pagesLength - 3) {
+        if (this.pagesLength >= this.maxNumberOfpagesShown) {
+          initial = this.pagesLength - 3
+          last = this.pagesLength - 1
+        } else {
+          last = this.rangeLength
+        }
       } else {
-        this.middleItemActive = position
+        initial = this.currentPage
+        last = this.rangeLength
+      }
+      return { initial, last }
+    },
+    fillTheRange(initial, last) {
+      return Array(last - initial + 1)
+        .fill()
+        .map(() => initial++)
+    },
+    activateButton() {
+      if (this.isFirstPage) {
+        this.lastItemActive = false
+        this.middleItemActive = null
+      } else if (this.isLastPage) {
+        this.firstItemActive = false
+        this.middleItemActive = null
+      } else if (!this.isFirstPage && !this.isLastPage) {
         this.firstItemActive = false
         this.lastItemActive = false
       }
     },
-    toggleDirectionLeft: function(position) {
-      this.page--
-      position--
-      if (position === this.setPages.length) {
-        this.lastItemActive = true
-        this.firstItemActive = false
-        this.middleItemActive = null
-      } else if (position === 1) {
-        this.firstItemActive = true
-        this.lastItemActive = false
-        this.middleItemActive = null
-      } else if (position < this.setPages.length) {
-        this.middleItemActive = position
-        this.firstItemActive = false
-        this.lastItemActive = false
-      }
-    },
-    togglePaginationButton: function(position) {
-      if (position === 'last') {
-        this.page = this.setPages.length
-        this.lastItemActive = true
-        this.firstItemActive = false
-        this.middleItemActive = null
-      } else if (position === 'first') {
-        this.page = 1
-        this.firstItemActive = true
-        this.lastItemActive = false
-        this.middleItemActive = null
+    toggleDirection(direction) {
+      if (direction === 'right') {
+        this.currentPage++
       } else {
-        this.page = position
-        this.middleItemActive = position
-        this.firstItemActive = false
-        this.lastItemActive = false
+        this.currentPage--
+      }
+      this.activateButton()
+      if (this.isFirstPage) {
+        this.firstItemActive = true
+      }
+      if (this.isLastPage) {
+        if (this.pagesLength < this.maxNumberOfpagesShown) {
+          this.middleItemActive = this.currentPage
+        } else {
+          this.lastItemActive = true
+        }
+      } else {
+        this.middleItemActive = this.currentPage
       }
     },
-    paginate(posts) {
-      let page = this.page
-      let perPage = this.perPage
-      let from = page * perPage - perPage
-      let to = page * perPage
-      return posts.slice(from, to)
+    togglePaginationButton(newPage) {
+      if (newPage === this.pagesLength) {
+        this.currentPage = this.pagesLength
+        this.lastItemActive = true
+      } else if (newPage === 1) {
+        this.currentPage = 1
+        this.firstItemActive = true
+      } else {
+        this.currentPage = newPage
+        this.middleItemActive = newPage
+      }
+      this.activateButton()
     },
   },
 }
