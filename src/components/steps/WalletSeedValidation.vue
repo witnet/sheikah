@@ -14,7 +14,7 @@
       This step is to confirm that you have copied your seed phrase correctly.
     </p>
     <Input type="big" class="seed" v-model="seed" v-on:go-next="nextStep" />
-    <p data-test="mnemonics-error-alert" class="match-error" v-if="showError">
+    <p data-test="mnemonics-error-alert" class="match-error" v-if="mnemonicsError">
       Mnemonics must match
     </p>
     <p class="paragraph">
@@ -45,20 +45,39 @@ export default {
   computed: {
     ...mapState({
       mnemonics: state => state.wallet.mnemonics,
+      mnemonicsError: state => {
+        return state.wallet.errors.mnemonics
+      },
+      validatedMnemonics: state => state.wallet.validatedMnemonics,
     }),
   },
   methods: {
+    validateForm() {
+      this.$store.commit('validateMnemonics', {
+        seed: this.seed,
+        mnemonics: this.mnemonics,
+      })
+    },
     nextStep() {
-      if (this.seed && this.seed.trim() === this.mnemonics.trim()) {
+      this.validateForm()
+      if (this.validatedMnemonics) {
+        if (this.mnemonicsError) {
+          this.clearError(this.mnemonicsError.name)
+        }
         this.$router.push('/ftu/encryption-pass')
-        this.showError = false
-      } else {
-        this.showError = true
       }
+    },
+    clearError(errorName) {
+      this.$store.commit('clearError', { error: errorName })
     },
     previousStep() {
       this.$router.push('/ftu/seed-backup')
     },
+  },
+  beforeDestroy() {
+    if (this.mnemonicsError) {
+      this.clearError(this.mnemonicsError.name)
+    }
   },
 }
 </script>

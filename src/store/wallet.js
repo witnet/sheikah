@@ -7,6 +7,8 @@ export default {
     errors: {
       createMnemonics: null,
       createWallet: null,
+      createValidPassword: null,
+      mnemonics: null,
       getTransactions: null,
       getBalance: null,
       getWalletInfos: null,
@@ -28,6 +30,8 @@ export default {
     transactions: [],
     walletInfos: null,
     walletLocked: false,
+    validatedPassword: false,
+    validatedMnemonics: false,
   },
   mutations: {
     setTransactions(state, { transactions }) {
@@ -45,6 +49,7 @@ export default {
     },
     setDataRequestResult(state, result) {
       Object.assign(state, { radRequestResult: result })
+      console.log('radRequestResult', state.radRequestResult)
     },
     setMnemonics(state, result) {
       Object.assign(state, { mnemonics: result })
@@ -84,6 +89,34 @@ export default {
         state.addresses.add(address)
       }
     },
+    validateMnemonics(state, { seed, mnemonics }) {
+      if (seed && seed.trim() === mnemonics.trim()) {
+        state.validatedMnemonics = true
+      } else {
+        this.commit('setError', {
+          name: 'mnemonics',
+          message: 'Mnemonics must match',
+        })
+        state.validatedMnemonics = false
+      }
+    },
+    validatePassword(state, { password1, password2 }) {
+      if (password1.length < 8) {
+        this.commit('setError', {
+          name: 'createValidPassword',
+          message: 'Password must be at least 8 characters',
+        })
+        state.validatedPassword = false
+      } else if (password1 !== password2) {
+        this.commit('setError', {
+          name: 'createValidPassword',
+          message: 'Passwords must match',
+        })
+        state.validatedPassword = false
+      } else {
+        state.validatedPassword = true
+      }
+    },
     setAddresses(state, { addresses }) {
       if (addresses) {
         state.addresses = addresses
@@ -115,7 +148,11 @@ export default {
         console.log('transaction sent!', request.result)
         // context.commit('setSuccess', 'sendTransaction')
       } else {
-        console.log('ERROR')
+        context.commit('setError', {
+          name: 'sendTransaction',
+          error: request.error,
+          message: 'An error occurred deploying a data request',
+        })
       }
     },
 
@@ -206,6 +243,7 @@ export default {
       if (request.result) {
         context.commit('setMnemonics', request.result.mnemonics)
       } else {
+        console.log('error in creating mnemonics')
         context.commit('setError', 'createMnemonics', request.error)
       }
     },
@@ -218,14 +256,17 @@ export default {
         seedSource: params.sourceType,
         password: params.password,
       })
-
       if (request.result) {
         context.dispatch('unlockWallet', {
           walletId: request.result.walletId,
           password: params.password,
         })
       } else {
-        context.commit('setError', { name: 'createWallet', error: request.error.data[0][1] })
+        context.commit('setError', {
+          name: 'createWallet',
+          error: request.error.data[0][1],
+          message: 'An error occurred creating the wallet',
+        })
       }
     },
 
@@ -260,7 +301,11 @@ export default {
       if (request.result) {
         context.commit('setWalletInfos', { walletInfos: request.result.infos })
       } else {
-        context.commit('setError', 'getWalletInfos', request.error)
+        context.commit('setError', {
+          name: 'getWalletInfos',
+          error: request.error,
+          message: 'An error occurred trying to get the wallet info',
+        })
       }
     },
 
@@ -271,11 +316,18 @@ export default {
         context.commit('updateTemplate', { id, value })
       })
       // TODO: The Wallet should provide a method to send the Data Request Result.
-      // if (request.result) {
-      // context.commit('setDataRequestResult', { dataRequest: request.result })
-      // } else {
-      // context.commit('setError', { name: 'tryDataRequest', error: request.error })
-      // }
+      const request = await this.$walletApi.runRadRequest({
+        radRequest: context.rootState.rad.currentRadonMarkupInterpreter.getMir(),
+      })
+      if (request.result) {
+        context.commit('setDataRequestResult', { dataRequest: request.result })
+      } else {
+        context.commit('setError', {
+          name: 'tryDataRequest',
+          error: request.error,
+          message: 'An error occurred trying your data request',
+        })
+      }
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
         const id = variable.id
         const key = variable.variable

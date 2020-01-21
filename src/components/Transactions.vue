@@ -25,11 +25,20 @@
         >
           <Alert
             data-test="alert"
-            v-if="transactionsError.message"
-            :key="transactionsError.message"
+            v-if="createVTTError"
+            :key="createVTTError.message"
             type="error"
-            :message="transactionsError.message"
-            :description="transactionsError.description"
+            :message="createVTTError.message"
+            :description="createVTTError.description"
+            v-on:close="closeAndClear"
+          />
+          <Alert
+            data-test="alert"
+            v-if="sendTransactionError"
+            :key="sendTransactionError.message"
+            type="error"
+            :message="sendTransactionError.message"
+            :description="sendTransactionError.description"
             v-on:close="closeAndClear"
           />
           <Send
@@ -112,34 +121,26 @@ export default {
           block: transaction.block ? transaction.block.epoch : 'PENDING',
           date: new Date(transaction.timestamp).toISOString(),
         })),
-      error: state => state.wallet.errors.getTransactions,
-      getTransactionsError: state => {
-        return state.wallet.errors.getTransactions
-      },
       addresses: state => Array.from(state.wallet.addresses),
-      createVTTErrorMessage: state => {
+      createVTTError: state => {
         if (state.wallet.errors.createVTT) {
-          return state.wallet.errors.createVTT.message
+          return {
+            message: state.wallet.errors.createVTT.message,
+            description: state.wallet.errors.createVTT.error.message,
+            name: state.wallet.errors.createVTT.name,
+          }
         }
       },
-      createVTTErrorDescription: state => {
-        if (state.wallet.errors.createVTT) {
-          return state.wallet.errors.createVTT.error.message
-        }
-      },
-      createVTTErrorName: state => {
-        if (state.wallet.errors.createVTT) {
-          return state.wallet.errors.createVTT.name
+      sendTransactionError: state => {
+        if (state.wallet.errors.sendTransaction) {
+          return {
+            message: state.wallet.errors.sendTransaction.message,
+            description: state.wallet.errors.sendTransaction.error.message,
+            name: state.wallet.errors.sendTransaction.name,
+          }
         }
       },
     }),
-    transactionsError() {
-      return {
-        message: this.createVTTErrorMessage,
-        description: this.createVTTErrorDescription,
-        name: this.createVTTErrorName,
-      }
-    },
   },
   watch: {
     addresses() {
@@ -178,11 +179,15 @@ export default {
     closeAndClear: function() {
       this.clearSendForm()
       this.$store.commit('clearGeneratedTransaction')
-      this.clearError(this.createVTTErrorName)
       this.dialogVisible = false
+      if (this.createVTTError) {
+        this.clearError(this.createVTTError.name)
+      } else if (this.sendTransactionError) {
+        this.clearError(this.sendTransactionError.name)
+      }
     },
-    clearError: function() {
-      return this.$store.commit('clearError', { error: this.createVTTErrorName })
+    clearError: function(name) {
+      return this.$store.commit('clearError', { error: name })
     },
     generateAddress() {
       this.$store.dispatch('generateAddress', {
