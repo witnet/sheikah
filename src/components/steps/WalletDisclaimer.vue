@@ -42,7 +42,6 @@ export default {
       this.$router.push('/ftu/seed-type-selection')
     },
     nextStep() {
-      this.$store.dispatch('createMnemonics')
       this.$router.push('/ftu/seed-backup')
     },
   },

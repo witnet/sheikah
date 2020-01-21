@@ -2,12 +2,13 @@
   <div class="editor">
     <ToolBar />
     <Alert
-      v-for="error in errors"
-      :key="error.name"
+      data-test="alert"
+      v-if="tryDataRequestError"
+      :key="tryDataRequestError.message"
       type="error"
-      :message="error.message"
-      :description="error.description"
-      v-on:close="() => clearError(error.name)"
+      :message="tryDataRequestError.message"
+      :description="tryDataRequestError.description"
+      v-on:close="() => clearError(tryDataRequestError.name)"
     />
     <StageBar v-on:change-stage="changeStage" />
     <RadonStage class="stage" :stage="currentStage" :script="currentScript" />
@@ -22,7 +23,6 @@ import RadonStage from '@/components/RadonStage.vue'
 import ToolBar from '@/components/ToolBar.vue'
 import Console from '@/components/Console.vue'
 import StageBar from '@/components/StageBar.vue'
-import { formatSectionApiErrorsByRoute } from '@/utils'
 
 export default {
   name: 'Editor',
@@ -51,6 +51,15 @@ export default {
       radRequest: state => {
         return state.rad.radRequest
       },
+      tryDataRequestError: state => {
+        if (state.wallet.errors.tryDataRequest) {
+          return {
+            message: state.wallet.errors.tryDataRequest.message,
+            description: state.wallet.errors.tryDataRequest.error.message,
+            name: state.wallet.errors.tryDataRequest.name,
+          }
+        }
+      },
     }),
     currentScript: function() {
       if (this.currentStage === 'retrieve') {
@@ -63,22 +72,11 @@ export default {
         return null
       }
     },
-    ...mapState({
-      tryDataRequestError: state => {
-        return state.wallet.errors.tryDataRequest
-      },
-    }),
-    errors() {
-      return formatSectionApiErrorsByRoute(
-        this.$route.name,
-        {
-          editor: ['tryDataRequestError'],
-        },
-        {
-          tryDataRequestError: this.tryDataRequestError,
-        }
-      )
-    },
+  },
+  beforeDestroy() {
+    if (this.tryDataRequestError) {
+      this.clearError(this.tryDataRequestError.name)
+    }
   },
 }
 </script>

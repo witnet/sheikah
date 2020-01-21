@@ -18,7 +18,6 @@
     />
     <p class="error" v-show="error.aggregate">There is an error in the aggregate stage</p>
   </div>
-
   <div v-else-if="stage === 'tally'">
     <RadonAggregateTallyScript
       class="script"

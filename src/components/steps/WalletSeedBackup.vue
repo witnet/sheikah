@@ -49,6 +49,9 @@ export default {
         .slice(6)
         .join(' '),
   },
+  beforeCreate() {
+    this.$store.dispatch('createMnemonics')
+  },
 }
 </script>
 

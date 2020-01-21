@@ -33,7 +33,7 @@
     <el-dialog :visible.sync="dialogVisible" v-on:close="closeAndClear">
       <Alert
         data-test="alert"
-        v-if="createDataRequestError.message"
+        v-if="createDataRequestError"
         :key="createDataRequestError.message"
         type="error"
         :message="createDataRequestError.message"
@@ -115,29 +115,16 @@ export default {
             }
           })
           .sort((a, b) => parseInt(a.creationDate) - parseInt(b.creationDate)),
-      createDataRequestErrorMessage: state => {
+      createDataRequestError: state => {
         if (state.wallet.errors.createDataRequest) {
-          return state.wallet.errors.createDataRequest.message
-        }
-      },
-      createDataRequestErrorDescription: state => {
-        if (state.wallet.errors.createDataRequest) {
-          return state.wallet.errors.createDataRequest.error.message
-        }
-      },
-      createDataRequestErrorName: state => {
-        if (state.wallet.errors.createDataRequest) {
-          return state.wallet.errors.createDataRequest.name
+          return {
+            message: state.wallet.errors.createDataRequest.message,
+            description: state.wallet.errors.createDataRequest.error.message,
+            name: state.wallet.errors.createDataRequest.name,
+          }
         }
       },
     }),
-    createDataRequestError() {
-      return {
-        message: this.createDataRequestErrorMessage,
-        description: this.createDataRequestErrorDescription,
-        name: this.createDataRequestErrorName,
-      }
-    },
   },
   methods: {
     toggleUpdated() {
@@ -153,10 +140,12 @@ export default {
     },
     closeAndClear: function() {
       this.variablesUpdated = false
-      this.clearError(this.createDataRequestErrorName)
+      if (this.createDataRequestError) {
+        this.clearError(this.createDataRequestError.name)
+      }
     },
-    clearError: function() {
-      return this.$store.commit('clearError', { error: this.createDataRequestErrorName })
+    clearError: function(name) {
+      return this.$store.commit('clearError', { error: name })
     },
     changeName({ name, id }) {
       this.$store.dispatch('changeTemplateName', { id, name })
