@@ -1,63 +1,74 @@
 <template>
-  <div data-test="transactions" class="transactions">
-    <TransactionList class="list" :transactions="transactions" />
-    <div class="col-right">
-      <div class="top">
-        <Balances
-          :available="available"
-          :timelocked="timelocked"
-          :unconfirmed="unconfirmed"
-          :total="total"
-        />
-        <div class="send-received">
-          <Button data-test="send-btn" class="primary" :onClick="displayModalSend">
-            Send
-          </Button>
-          <Button data-test="receive-btn" class="secondary" :onClick="displayModalReceive">
-            Receive
-          </Button>
+  <div data-test="transactions">
+    <Alert
+      data-test="alert"
+      v-for="error in errors"
+      :key="error.message"
+      type="error"
+      :message="error.message"
+      :description="error.description"
+      v-on:close="() => clearError(error.name)"
+    />
+    <div class="transactions">
+      <TransactionList class="list" :transactions="transactions" />
+      <div class="col-right">
+        <div class="top">
+          <Balances
+            :available="available"
+            :timelocked="timelocked"
+            :unconfirmed="unconfirmed"
+            :total="total"
+          />
+          <div class="send-received">
+            <Button data-test="send-btn" class="primary" :onClick="displayModalSend">
+              Send
+            </Button>
+            <Button data-test="receive-btn" class="secondary" :onClick="displayModalReceive">
+              Receive
+            </Button>
+          </div>
+          <el-dialog
+            title="New Transaction"
+            :visible.sync="dialogVisible"
+            width="700px"
+            v-on:close="closeAndClear"
+          >
+            <Alert
+              data-test="alert"
+              v-for="error in errors"
+              :key="error.message"
+              type="error"
+              :message="error.message"
+              :description="error.description"
+              v-on:close="closeAndClear"
+            />
+            <Send
+              :form="form"
+              v-on:close="closeAndClear"
+              v-on:create-VTT="createVTT"
+              v-on:form="setFormValues"
+            />
+          </el-dialog>
+          <el-dialog
+            data-test="receive-modal"
+            title="New payment request"
+            :visible.sync="dialogVisible2"
+            width="700px"
+          >
+            <Alert
+              data-test="alert"
+              v-for="error in errors"
+              :key="error.message"
+              type="error"
+              :message="error.message"
+              :description="error.description"
+              v-on:close="() => clearError(error.name)"
+            />
+            <Receive :lastAddress="lastAddress" />
+          </el-dialog>
         </div>
-        <el-dialog
-          title="New Transaction"
-          :visible.sync="dialogVisible"
-          width="700px"
-          v-on:close="closeAndClear"
-        >
-          <Alert
-            data-test="alert"
-            v-if="createVTTError"
-            :key="createVTTError.message"
-            type="error"
-            :message="createVTTError.message"
-            :description="createVTTError.description"
-            v-on:close="closeAndClear"
-          />
-          <Alert
-            data-test="alert"
-            v-if="sendTransactionError"
-            :key="sendTransactionError.message"
-            type="error"
-            :message="sendTransactionError.message"
-            :description="sendTransactionError.description"
-            v-on:close="closeAndClear"
-          />
-          <Send
-            :form="form"
-            v-on:close="closeAndClear"
-            v-on:create-VTT="createVTT"
-            v-on:form="setFormValues"
-          />
-        </el-dialog>
-        <el-dialog
-          data-test="receive-modal"
-          title="New payment request"
-          :visible.sync="dialogVisible2"
-          width="700px"
-        >
-          <Receive :lastAddress="lastAddress" />
-        </el-dialog>
+        <ListAddresses :addresses="addresses" />
       </div>
-      <ListAddresses :addresses="addresses" />
     </div>
   </div>
 </template>
@@ -140,6 +151,52 @@ export default {
           }
         }
       },
+      getAddressesError: state => {
+        if (state.wallet.errors.getAddresses) {
+          return {
+            message: state.wallet.errors.getAddresses.message,
+            description: state.wallet.errors.getAddresses.error.message,
+            name: state.wallet.errors.getAddresses.name,
+          }
+        }
+      },
+      generateAddressError: state => {
+        if (state.wallet.errors.generateAddress) {
+          return {
+            message: state.wallet.errors.generateAddress.message,
+            description: state.wallet.errors.generateAddress.error.message,
+            name: state.wallet.errors.generateAddress.name,
+          }
+        }
+      },
+      getBalanceError: state => {
+        if (state.wallet.errors.getBalance) {
+          return {
+            message: state.wallet.errors.getBalance.message,
+            description: state.wallet.errors.getBalance.error.message,
+            name: state.wallet.errors.getBalance.name,
+          }
+        }
+      },
+      getTransactionsError: state => {
+        if (state.wallet.errors.getTransactions) {
+          return {
+            message: state.wallet.errors.getTransactions.message,
+            description: state.wallet.errors.getTransactions.error.message,
+            name: state.wallet.errors.getTransactions.name,
+          }
+        }
+      },
+      errors() {
+        return [
+          this.getTransactionsError,
+          this.getBalanceError,
+          this.getAddressesError,
+          this.generateAddressError,
+          this.sendTransactionError,
+          this.createVTTError,
+        ].filter(error => !!error)
+      },
     }),
   },
   watch: {
@@ -199,6 +256,20 @@ export default {
     this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
     this.$store.dispatch('getAddresses')
     this.$store.dispatch('getBalance')
+  },
+  beforeDestroy() {
+    if (this.generateAddressError) {
+      this.clearError(this.generateAddressError.name)
+    }
+    if (this.getTransactionsError) {
+      this.clearError(this.getTransactionsError.name)
+    }
+    if (this.getBalanceError) {
+      this.clearError(this.getBalanceError.name)
+    }
+    if (this.getAddressesError) {
+      this.clearError(this.getAddressesError.name)
+    }
   },
 }
 </script>

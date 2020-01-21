@@ -48,8 +48,8 @@ export default {
   methods: {
     validateForm() {
       this.$store.commit('validatePassword', {
-        password1: this.password,
-        password2: this.repeatPassword,
+        password: this.password,
+        repeatPassword: this.repeatPassword,
       })
     },
     goNextInput() {
@@ -80,9 +80,7 @@ export default {
     ...mapState({
       mnemonics: state => state.wallet.mnemonics,
       createWalletError: state => state.wallet.errors.createWallet,
-      createValidPasswordError: state => {
-        return state.wallet.errors.createValidPassword
-      },
+      createValidPasswordError: state => state.wallet.errors.createValidPassword,
       validatedPassword: state => state.wallet.validatedPassword,
     }),
   },

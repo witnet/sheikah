@@ -24,6 +24,10 @@ import Vue from 'vue'
 
 export default {
   state: {
+    errors: {
+      saveItem: null,
+      getItem: null,
+    },
     templates: {},
     currentTemplate: {},
     currentRadonMarkupInterpreter: null,
@@ -228,6 +232,13 @@ export default {
         state.hasVariables = false
       }
     },
+    setError(state, { name, error, message }) {
+      state.errors[name] = {
+        name,
+        error,
+        message,
+      }
+    },
   },
   actions: {
     changeTemplateName: async function(context, { id, name }) {
@@ -242,7 +253,11 @@ export default {
       if (request.result) {
         await context.dispatch('getTemplates')
       } else {
-        console.log(request)
+        context.commit('setError', {
+          name: 'saveItem',
+          error: request.error,
+          message: 'An error occurred changing the template name',
+        })
       }
     },
     saveTemplate: async function(context, args) {
@@ -263,7 +278,11 @@ export default {
       if (request.result) {
         await context.dispatch('getTemplates')
       } else {
-        console.log(request)
+        context.commit('setError', {
+          name: 'saveItem',
+          error: request.error,
+          message: 'An error occurred saving changes',
+        })
       }
     },
     getTemplates: async function(context, params) {
@@ -275,7 +294,11 @@ export default {
       if (request.result) {
         context.commit(SET_TEMPLATES, { templates: request.result.value })
       } else {
-        console.log(request)
+        context.commit('setError', {
+          name: 'getItem',
+          error: request.error,
+          message: 'An error retrieving the templates list',
+        })
       }
     },
     deleteTemplate: async function(context, { id }) {
@@ -289,7 +312,11 @@ export default {
       if (request.result) {
         console.log(request.result)
       } else {
-        console.log(request)
+        context.commit('setError', {
+          name: 'saveItem',
+          error: request.error,
+          message: 'An error occurred deleting the template',
+        })
       }
     },
   },
