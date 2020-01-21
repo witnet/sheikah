@@ -3,7 +3,7 @@
     <p class="text">Insert a password to unlock wallet</p>
     <div @keydown.enter.esc.prevent="unlockWallet">
       <PasswordInput label="Password" v-model="password" :error="'unlockWallet'" />
-      <p v-if="showError" class="error">Invalid password</p>
+      <p v-if="unlockWalletError" class="error">Invalid password</p>
     </div>
     <div class="container-btn">
       <Button class="back-btn" data-test="unlock-wallet" :onClick="previousStep" type="default">
@@ -52,7 +52,7 @@ export default {
         return state.wallet.walletId
       },
       sessionId: state => state.wallet.sessionId,
-      showError: state => state.wallet.errors.unlockWallet,
+      unlockWalletError: state => state.wallet.errors.unlockWallet,
     }),
   },
   watch: {

@@ -25,7 +25,9 @@
       />
     </div>
 
-    <p data-test="password-error-alert" v-if="error" class="error">{{ error }}</p>
+    <p data-test="password-error-alert" v-if="createValidPasswordError" class="error">
+      {{ createValidPasswordError.message }}
+    </p>
   </NavigationCard>
 </template>
 
@@ -45,46 +47,53 @@ export default {
   },
   methods: {
     validateForm() {
-      if (this.password.length < 8) {
-        this.error = 'Password must be at least 8 characters'
-        return false
-      }
-
-      if (this.password !== this.repeatPassword) {
-        this.error = 'Passwords must match'
-        return false
-      }
-
-      return true
+      this.$store.commit('validatePassword', {
+        password1: this.password,
+        password2: this.repeatPassword,
+      })
     },
     goNextInput() {
       this.$refs.password.$refs.passInput.focus()
     },
     nextStep() {
-      if (this.validateForm()) {
-        this.showError = false
+      this.validateForm()
+      if (this.validatedPassword) {
+        if (this.createValidPasswordError) {
+          this.clearError(this.createValidPasswordError.name)
+        }
         this.$store.dispatch('createWallet', {
           sourceType: 'mnemonics',
           password: this.password,
           mnemonics: this.mnemonics,
         })
         this.$router.push('/ftu/create-wallet')
-      } else {
-        this.showError = true
       }
     },
     previousStep() {
       this.$router.push('/ftu/seed-validation')
     },
+    clearError(errorName) {
+      this.$store.commit('clearError', { error: errorName })
+    },
   },
   computed: {
     ...mapState({
       mnemonics: state => state.wallet.mnemonics,
+      createWalletError: state => state.wallet.errors.createWallet,
+      createValidPasswordError: state => {
+        return state.wallet.errors.createValidPassword
+      },
+      validatedPassword: state => state.wallet.validatedPassword,
     }),
   },
   components: {
     NavigationCard,
     PasswordInput,
+  },
+  beforeDestroy() {
+    if (this.createValidPasswordError) {
+      this.clearError(this.createValidPasswordError.name)
+    }
   },
 }
 </script>
