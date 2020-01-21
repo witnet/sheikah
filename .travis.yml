@@ -1,10 +1,8 @@
-osx_image: xcode8.3
 sudo: required
 dist: trusty
 language: c
 matrix:
   include:
-  - os: osx
   - os: linux
     env: CC=clang CXX=clang++ npm_config_clang=1
     compiler: clang
@@ -27,5 +25,9 @@ install:
 - source ~/.bashrc
 - npm install -g xvfb-maybe
 - yarn
+before_script:
+  - wget $(curl -s https://api.github.com/repos/witnet/witnet-rust/releases/latest | grep 'browser_' | cut -d\" -f4)
+  - tar -zxvf witnet-0.6.0-x86_64-unknown-linux-gnu.tar.gz
+  - ./witnet --trace node server && ./witnet wallet server
 script:
 - yarn travis
