@@ -3,12 +3,12 @@
     <ToolBar />
     <Alert
       data-test="alert"
-      v-if="tryDataRequestError"
-      :key="tryDataRequestError.message"
+      v-for="error in errors"
+      :key="error.message"
       type="error"
-      :message="tryDataRequestError.message"
-      :description="tryDataRequestError.description"
-      v-on:close="() => clearError(tryDataRequestError.name)"
+      :message="error.message"
+      :description="error.description"
+      v-on:close="() => clearError(error.name)"
     />
     <StageBar v-on:change-stage="changeStage" />
     <RadonStage class="stage" :stage="currentStage" :script="currentScript" />
@@ -60,7 +60,19 @@ export default {
           }
         }
       },
+      saveItemError: state => {
+        if (state.rad.errors.saveItem) {
+          return {
+            message: state.rad.errors.saveItem.message,
+            description: state.rad.errors.saveItem.error.message,
+            name: state.rad.errors.saveItem.name,
+          }
+        }
+      },
     }),
+    errors() {
+      return [this.saveItemError, this.tryDataRequestError].filter(error => !!error)
+    },
     currentScript: function() {
       if (this.currentStage === 'retrieve') {
         return this.radRequest.getMarkup().retrieve
@@ -76,6 +88,9 @@ export default {
   beforeDestroy() {
     if (this.tryDataRequestError) {
       this.clearError(this.tryDataRequestError.name)
+    }
+    if (this.saveItemError) {
+      this.clearError(this.saveItemError.name)
     }
   },
 }

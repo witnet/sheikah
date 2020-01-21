@@ -7,6 +7,7 @@ export default {
     errors: {
       createMnemonics: null,
       createWallet: null,
+      generateAddress: null,
       createValidPassword: null,
       mnemonics: null,
       getTransactions: null,
@@ -18,6 +19,9 @@ export default {
       unlockWallet: null,
       createVTT: null,
       createDataRequest: null,
+      closeSession: null,
+      getAddresses: null,
+      network: null,
     },
     balances: {},
     sessionId: null,
@@ -45,11 +49,19 @@ export default {
       state.walletId = null
     },
     checkNetworkStatus(state) {
-      state.networkStatus = state.api.client.ws.ready ? 'synced' : 'error'
+      if (state.api.client.ws.ready) {
+        state.networkStatus = 'synced'
+      } else {
+        state.networkStatus = 'error'
+        this.commit('setError', {
+          name: 'network',
+          error: 'The wallet or the node is not running properly',
+          message: 'connection error',
+        })
+      }
     },
     setDataRequestResult(state, result) {
       Object.assign(state, { radRequestResult: result })
-      console.log('radRequestResult', state.radRequestResult)
     },
     setMnemonics(state, result) {
       Object.assign(state, { mnemonics: result })
@@ -100,14 +112,14 @@ export default {
         state.validatedMnemonics = false
       }
     },
-    validatePassword(state, { password1, password2 }) {
-      if (password1.length < 8) {
+    validatePassword(state, { password, repeatPassword }) {
+      if (password.length < 8) {
         this.commit('setError', {
           name: 'createValidPassword',
           message: 'Password must be at least 8 characters',
         })
         state.validatedPassword = false
-      } else if (password1 !== password2) {
+      } else if (password !== repeatPassword) {
         this.commit('setError', {
           name: 'createValidPassword',
           message: 'Passwords must match',
@@ -134,7 +146,11 @@ export default {
         context.commit('deleteSession')
         router.push('/welcome-back/wallet-list')
       } else {
-        // TODO: handle error properly
+        context.commit('setError', {
+          name: 'closeSession',
+          error: request.error,
+          message: 'An error occurred trying to close the session',
+        })
       }
     },
 
@@ -205,6 +221,12 @@ export default {
       })
       if (request.result) {
         context.commit('setAddresses', { addresses: request.result.addresses })
+      } else {
+        context.commit('setError', {
+          name: 'getAddresses',
+          error: request.error,
+          message: 'An error occurred retrieving the addresses list',
+        })
       }
     },
 
@@ -216,6 +238,12 @@ export default {
       })
       if (request.result) {
         context.commit('addAddress', { address: request.result })
+      } else {
+        context.commit('setError', {
+          name: 'generateAddress',
+          error: request.error,
+          message: 'An error occurred generating the address',
+        })
       }
     },
 
@@ -243,8 +271,11 @@ export default {
       if (request.result) {
         context.commit('setMnemonics', request.result.mnemonics)
       } else {
-        console.log('error in creating mnemonics')
-        context.commit('setError', 'createMnemonics', request.error)
+        context.commit('setError', {
+          name: 'createMnemonics',
+          error: request.error,
+          message: 'An error occurred creating the mnemonics',
+        })
       }
     },
 
@@ -280,7 +311,11 @@ export default {
       if (request.result) {
         context.commit('setTransactions', { transactions: request.result.transactions })
       } else {
-        context.commit('setError', { name: 'getTransactions', error: request.error })
+        context.commit('setError', {
+          name: 'getTransactions',
+          error: request.error,
+          message: 'An error occurred getting the transactions',
+        })
       }
     },
 
@@ -292,7 +327,11 @@ export default {
       if (request.result) {
         context.commit('setBalances', { balances: request.result })
       } else {
-        context.commit('setError', { name: 'getBalance', error: request.error })
+        context.commit('setError', {
+          name: 'getBalance',
+          error: request.error,
+          message: 'An error occurred getting the balance',
+        })
       }
     },
 
@@ -316,7 +355,7 @@ export default {
         context.commit('updateTemplate', { id, value })
       })
       // TODO: The Wallet should provide a method to send the Data Request Result.
-      const request = await this.$walletApi.runRadRequest({
+      const request = await context.state.api.runRadRequest({
         radRequest: context.rootState.rad.currentRadonMarkupInterpreter.getMir(),
       })
       if (request.result) {
