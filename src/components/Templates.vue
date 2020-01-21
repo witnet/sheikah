@@ -8,6 +8,15 @@
         <Button type="primary" :onClick="importTemplate" class="import">Import template</Button>
       </div>
     </div>
+    <Alert
+      data-test="alert"
+      v-for="error in errors"
+      :key="error.message"
+      type="error"
+      :message="error.message"
+      :description="error.description"
+      v-on:close="() => clearError(error.name)"
+    />
     <div v-if="Object.entries(templates)" class="container-templates">
       <div class="add">
         <router-link to="/request/editor">
@@ -33,11 +42,11 @@
     <el-dialog :visible.sync="dialogVisible" v-on:close="closeAndClear">
       <Alert
         data-test="alert"
-        v-if="createDataRequestError"
-        :key="createDataRequestError.message"
+        v-for="error in errors"
+        :key="error.message"
         type="error"
-        :message="createDataRequestError.message"
-        :description="createDataRequestError.description"
+        :message="error.message"
+        :description="error.description"
         v-on:close="closeAndClear"
       />
       <DeployDataRequest
@@ -124,6 +133,27 @@ export default {
           }
         }
       },
+      saveItemError: state => {
+        if (state.rad.errors.saveItem) {
+          return {
+            message: state.rad.errors.saveItem.message,
+            description: state.rad.errors.saveItem.error.message,
+            name: state.rad.errors.saveItem.name,
+          }
+        }
+      },
+      getItemError: state => {
+        if (state.rad.errors.getItem) {
+          return {
+            message: state.rad.errors.getItem.message,
+            description: state.rad.errors.getItem.error.message,
+            name: state.rad.errors.getItem.name,
+          }
+        }
+      },
+      errors() {
+        return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(error => !!error)
+      },
     }),
   },
   methods: {
@@ -175,6 +205,14 @@ export default {
       )
       reader.readAsText(file)
     },
+  },
+  beforeDestroy() {
+    if (this.saveItemError) {
+      this.clearError(this.saveItemError.name)
+    }
+    if (this.getItemError) {
+      this.clearError(this.getItemError.name)
+    }
   },
 }
 </script>
