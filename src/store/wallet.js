@@ -1,5 +1,6 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
+import { addToList } from '@/utils'
 
 export default {
   state: {
@@ -32,6 +33,7 @@ export default {
     networkStatus: 'error',
     radRequestResult: null,
     transactions: [],
+    txLabels: {},
     walletInfos: null,
     walletLocked: false,
     validatedPassword: false,
@@ -39,7 +41,17 @@ export default {
   },
   mutations: {
     setTransactions(state, { transactions }) {
-      state.transactions = transactions
+      state.transactions = transactions.map(transaction => ({
+        id: transaction.hex_hash,
+        address: '',
+        amount: transaction.value,
+        block: transaction.block ? transaction.block.epoch : 'PENDING',
+        date: new Date(transaction.timestamp).toISOString(),
+        label: addToList(transaction.hex_hash, state.txLabels, 'label'),
+      }))
+    },
+    setLabels(state, { labels }) {
+      state.txLabels = labels
     },
     setBalances(state, { balances }) {
       state.balances = balances
@@ -153,25 +165,56 @@ export default {
         })
       }
     },
-
-    sendTransaction: async function(context) {
+    getLabels: async function(context) {
+      const request = await context.state.api.getItem({
+        walletId: context.rootState.wallet.walletId,
+        sessionId: context.rootState.wallet.sessionId,
+        key: `${context.rootState.wallet.walletId}_labels`,
+      })
+      if (request.result) {
+        context.commit('setLabels', { labels: request.result.value || {} })
+      } else {
+        // TODO: handle error properly
+        console.log('error getting labels', request.error)
+      }
+    },
+    sendTransaction: async function(context, { label }) {
+      const transactionToSend = context.state.generatedTransaction
       const request = await context.state.api.sendTransaction({
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
-        transaction: context.state.generatedTransaction,
+        transaction: context.state.generatedTransaction.transaction,
       })
       if (request.result) {
         console.log('transaction sent!', request.result)
+        context.dispatch('saveLabel', { label, transaction: transactionToSend })
         // context.commit('setSuccess', 'sendTransaction')
       } else {
         context.commit('setError', {
           name: 'sendTransaction',
           error: request.error,
-          message: 'An error occurred deploying a data request',
+          message: 'An error occurred sending a request',
         })
       }
     },
-
+    saveLabel: async function(context, { label, transaction }) {
+      const transactionId = transaction.transactionId
+      context.state.txLabels[transactionId] = { label }
+      const txLabels = context.state.txLabels
+      console.log('in SAVE LABELS', txLabels)
+      const request = await this.$walletApi.saveItem({
+        walletId: context.rootState.wallet.walletId,
+        sessionId: context.rootState.wallet.sessionId,
+        key: `${context.rootState.wallet.walletId}_labels`,
+        value: txLabels,
+      })
+      if (request.result) {
+        console.log('label saved!', request.result)
+      } else {
+        // TODO: handle error propery
+        console.log('error')
+      }
+    },
     createDataRequest: async function(context, { label, fee, dataRequest }) {
       const request = await context.state.api.createDataRequest({
         sessionId: this.state.wallet.sessionId,
@@ -202,7 +245,7 @@ export default {
         label,
       })
       if (request.result) {
-        const generatedTransaction = request.result.transaction
+        const generatedTransaction = request.result
         context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
       } else {
         context.commit('setError', {
@@ -309,6 +352,7 @@ export default {
         page,
       })
       if (request.result) {
+        console.log(request.result)
         context.commit('setTransactions', { transactions: request.result.transactions })
       } else {
         context.commit('setError', {

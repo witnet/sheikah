@@ -6,11 +6,13 @@
       <span class="wit">WIT</span>
     </div>
     <div class="address">
-      <p class="origin">
-        <span class="label">{{ origin }}</span> <span class="number">{{ address }}</span>
-      </p>
+      <div class="origin">
+        <div class="label">
+          {{ origin }}<span class="number">{{ address }}</span>
+        </div>
+        <div class="tx-label">{{ label }}</div>
+      </div>
     </div>
-
     <div class="">
       <p class="date">{{ date }}</p>
       <p class="block">Confirmed in block #{{ block }}</p>
@@ -27,6 +29,8 @@ export default {
     block: [String, Number],
     border: Boolean,
     date: String,
+    label: String,
+    id: String,
   },
   computed: {
     origin() {
@@ -104,6 +108,12 @@ export default {
       &.to {
         color: $red-3;
       }
+    }
+    .tx-label {
+      margin-top: 8px;
+      color: $grey-3;
+      font-size: 16px;
+      font-weight: 600;
     }
 
     .address-number {
