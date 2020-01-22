@@ -125,13 +125,9 @@ export default {
       timelocked: state => state.wallet.balances.timelocked,
       unconfirmed: state => state.wallet.balances.unconfirmed,
       total: state => state.wallet.balances.total,
-      transactions: state =>
-        state.wallet.transactions.map(transaction => ({
-          address: '',
-          amount: transaction.value,
-          block: transaction.block ? transaction.block.epoch : 'PENDING',
-          date: new Date(transaction.timestamp).toISOString(),
-        })),
+      txLabels: state => state.wallet.txLabels,
+      transactions: state => state.wallet.transactions,
+      error: state => state.wallet.errors.getTransactions,
       addresses: state => Array.from(state.wallet.addresses),
       createVTTError: state => {
         if (state.wallet.errors.createVTT) {
@@ -256,6 +252,8 @@ export default {
     this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
     this.$store.dispatch('getAddresses')
     this.$store.dispatch('getBalance')
+    // TODO: place this methods in the correct place when the generated transaction from the wallet is ready
+    this.$store.dispatch('getLabels')
   },
   beforeDestroy() {
     if (this.generateAddressError) {

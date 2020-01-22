@@ -8,6 +8,8 @@
       <Transaction
         v-for="(transaction, index) in transactions"
         :key="transaction.id"
+        :id="transaction.id"
+        :label="transaction.label"
         :amount="transaction.amount"
         :address="transaction.address"
         :sending="transaction.sending"

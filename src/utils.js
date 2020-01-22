@@ -12,6 +12,16 @@ export function encodeDataRequest(radRequest) {
     deliver: radRequest.deliver,
   }
 }
+export function addToList(id, list = [], key) {
+  if (isRepeated(id, list)) {
+    return list[id][key]
+  } else {
+    return ''
+  }
+}
+export function isRepeated(key, list) {
+  return list && list[key]
+}
 
 export function match(value, options, result) {
   const search = options.find(x => x.options.includes(value))
