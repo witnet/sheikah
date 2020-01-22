@@ -4,26 +4,30 @@
       <div class="scroll">
         <div class="row">
           <p class="entry">Amount</p>
-          <p class="value">{{ generatedTransaction.amount }} Wit</p>
+          <p class="value">{{ generatedTransaction.metadata.value }} Wit</p>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <p class="entry">Type</p>
           <p class="value">{{ generatedTransaction.type }}</p>
-        </div>
+        </div> -->
         <div class="row">
           <p class="entry">To</p>
-          <p class="value">{{ generatedTransaction.to }}</p>
+          <p class="value">{{ generatedTransaction.metadata.to }}</p>
         </div>
         <div class="row">
           <p class="entry">Fee</p>
-          <p class="value">{{ generatedTransaction.fee }} uWit/B</p>
+          <p class="value">{{ generatedTransaction.metadata.fee }} uWit/B</p>
         </div>
         <div v-if="isAdvancedVisible" class="row">
           <p class="entry">Inputs</p>
           <p></p>
           <div class="column">
-            <p class="address value" v-for="input in generatedTransaction.inputs" :key="input">
-              {{ input }}
+            <p
+              class="address value"
+              v-for="input in generatedTransaction.transaction.ValueTransfer.body.inputs"
+              :key="input.output_pointer"
+            >
+              {{ input.output_pointer }}
             </p>
           </div>
         </div>
@@ -33,7 +37,7 @@
           <div class="column">
             <p
               class="address value"
-              v-for="output in generatedTransaction.outputs"
+              v-for="output in generatedTransaction.transaction.ValueTransfer.body.outputs"
               :key="output.pkh"
             >
               <span>PKH: {{ output.pkh }}</span>
@@ -138,7 +142,7 @@ export default {
       this.isAdvancedVisible = !this.isAdvancedVisible
     },
     confirmTransaction() {
-      this.$store.dispatch('sendTransaction')
+      this.$store.dispatch('sendTransaction', { label: this.form.label })
       this.closeDialog()
     },
     createVTT() {
@@ -192,6 +196,7 @@ export default {
   }
   .scroll {
     overflow-y: auto;
+    overflow-wrap: break-word;
   }
   .confirm-advance-btn {
     margin: 16px 0px 32px 0px;
