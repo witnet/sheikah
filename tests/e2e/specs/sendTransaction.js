@@ -1,25 +1,46 @@
-describe.skip('Create a complete Send transactions flow', () => {
-  it('Opens the modal for sending transactions and fill the form', () => {
-    cy.get('[data-test=send-btn]').click()
-    cy.get('[data-test=send-recipient-address]')
+import { createSelection } from '../utils'
+
+describe('Create a complete Send transactions flow', () => {
+  it('Redirects to home view', () => {
+    cy.createAndUnlockWallet()
+    cy.get('[data-test=to-transactions]').click()
+    cy.get('[data-test=transactions]')
+  })
+  it('Add Addresses correctly', () => {
+    cy.get('[data-test=receive-btn]').click()
+    cy.get('[data-test=receive-modal]')
+  })
+  it('Copies last address generated and fill the send tx form', () => {
+    cy.get('[data-test=last-address]')
       .click()
-      .type('x')
-    cy.get('input')
-      .first()
-      .click()
-      .type('x')
-    cy.get('input')
+      .then(textarea => {
+        return createSelection(textarea, 0, 5)
+      })
+      .then(val => {
+        cy.get('.el-dialog__headerbtn')
+          .last()
+          .click({ force: true })
+        cy.get('[data-test=send-btn]').click()
+        cy.get('[data-test=tx-address]')
+          .click()
+          .clear()
+          .type('twit1rhr2j4smwaskm3trn3e2xfvm2eur508g687gh9')
+      })
+    cy.get('[data-test=tx-label]')
       .last()
       .click()
+      .type('hola')
+    cy.get('[data-test=tx-amount]')
+      .last()
+      .click()
+      .clear()
       .type('1')
-    cy.get('[data-test=send-increase-amount]').click()
-    cy.get('[data-test=send-amount]').should('have.value', '2')
-    cy.get('[data-test=valueHigh]')
     cy.get('[data-test=select-btn]').click()
-    cy.get('[data-test=option-Medium]').click()
-    cy.get('[data-test=valueMedium]')
+    cy.get('[data-test=option-2]').click()
     cy.get('[data-test=sign-send-btn]').click()
   })
+
+  // IF there is not enough balance
   it('Shows error when sending transactions', () => {
     cy.get('[data-test=alert]')
   })

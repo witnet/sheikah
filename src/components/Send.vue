@@ -27,7 +27,7 @@
           <p class="entry">Fee</p>
           <p class="value">{{ generatedTransaction.metadata.fee }} uWit/B</p>
         </div>
-        <div v-if="isAdvancedVisible" class="row">
+        <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
           <p class="entry">Inputs</p>
           <p></p>
           <div class="column">
@@ -40,7 +40,7 @@
             </p>
           </div>
         </div>
-        <div v-if="isAdvancedVisible" class="row">
+        <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
           <p class="entry">Outputs</p>
           <p></p>
           <div class="column">
@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div v-if="isAdvancedVisible" class="row">
+        <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
           <p class="entry">Bytes</p>
           <p></p>
           <div class="column">
@@ -64,33 +64,45 @@
         </div>
       </div>
       <div class="confirm-advance-btn">
-        <p v-if="isAdvancedVisible" @click="toggleAdvanceOptions" class="link">Show less</p>
-        <p v-else @click="toggleAdvanceOptions" class="link">
+        <p
+          v-if="isAdvancedVisible"
+          data-test="advance-options"
+          @click="toggleAdvanceOptions"
+          class="link"
+        >
+          Show less
+        </p>
+        <p v-else data-test="show-advance-options" @click="toggleAdvanceOptions" class="link">
           Show advanced options
         </p>
         <span slot="footer" class="dialog-footer">
-          <Button :onClick="closeDialog" type="secondary" class="button">Cancel</Button>
-          <Button :onClick="confirmTransaction" type="primary" class="button">Confirm</Button>
+          <Button :onClick="closeDialog" data-test="cancel-tx" type="secondary" class="button">
+            Cancel
+          </Button>
+          <Button
+            :onClick="confirmTransaction"
+            data-test="confirm-tx"
+            type="primary"
+            class="button"
+          >
+            Confirm
+          </Button>
         </span>
       </div>
     </div>
-    <div v-else>
+    <div v-else data-test="tx-form">
       <div class="row">
         <div class="label">
           <label class for>Address</label>
         </div>
-        <Input
-          data-test="send-recipient-address"
-          v-model="form.address"
-          placeholder="Recipient address"
-        />
+        <Input data-test="tx-address" v-model="form.address" placeholder="Recipient address" />
       </div>
 
       <div class="row">
         <div class="label">
           <label class for>Label</label>
         </div>
-        <Input v-model="form.label" />
+        <Input data-test="tx-label" v-model="form.label" />
       </div>
       <div class="row">
         <div class="label">

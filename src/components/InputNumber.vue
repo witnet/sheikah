@@ -1,6 +1,6 @@
 <template>
   <div class="inputnumber">
-    <Input data-test="send-amount" v-model="inputValue" />
+    <Input data-test="tx-amount" v-model="inputValue" />
     <font-awesome-icon
       data-test="send-increase-amount"
       @click="increase"
