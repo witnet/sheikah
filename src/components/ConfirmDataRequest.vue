@@ -1,5 +1,5 @@
 <template>
-  <div class="form">
+  <div data-test="confirm-deploy-dr" class="form">
     <div class="title">Confirm</div>
     <div class="data-request-info">
       {{ template.radRequest }}
