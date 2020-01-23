@@ -23,8 +23,8 @@
       <div class="add">
         <router-link to="/request/editor">
           <img
-            @click="createTemplate"
             data-test="create-template"
+            @click="createTemplate"
             class="add-btn"
             src="@/resources/svg/add.svg"
           />

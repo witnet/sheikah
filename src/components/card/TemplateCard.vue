@@ -22,6 +22,7 @@
           </el-dropdown-menu>
           <el-dropdown-menu v-else slot="dropdown" :class="style">
             <el-dropdown-item
+              :data-test="`template-${option.label}`"
               v-for="(option, index) in options"
               :key="option.label"
               :command="index"
@@ -31,12 +32,13 @@
           </el-dropdown-menu>
         </el-dropdown>
       </div>
-      <div class="content" @click="edit" data-test="edit-template">
+      <div data-test="edit-template" class="content" @click="edit">
         <div class="title">
           <div ref="input" v-show="!showInput">
             {{ name }}
           </div>
           <Input
+            data-test="template-name-input"
             v-show="showInput"
             class="input"
             type="default"
