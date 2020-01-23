@@ -20,7 +20,7 @@
     >
       <template v-slot:header>
         <div class="header">
-          Ey, listen!
+          Hey, listen!
         </div>
       </template>
       <InformativeContent :subtitle="subtitle" :text="text" />

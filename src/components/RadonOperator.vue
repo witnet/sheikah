@@ -11,12 +11,18 @@
       <div v-for="(argument, index) in selectedOperator.arguments" :key="argument.label + index">
         <div v-if="argument.markupType === 'input'" class="input-container">
           <Input
+            data-test="argument-input"
             class="input-operator"
             :placeholder="argument.label"
             :value="argument.value"
             @input="value => updateTemplate(argument.id, value)"
           />
-          <font-awesome-icon class="link" v-show="hasVariables(argument.value)" icon="link" />
+          <font-awesome-icon
+            data-test="variable-link-icon"
+            class="link"
+            v-show="hasVariables(argument.value)"
+            icon="link"
+          />
         </div>
         <div
           :style="{ display: 'flex', flexDirection: 'column' }"

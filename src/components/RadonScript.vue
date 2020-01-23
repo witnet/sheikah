@@ -2,6 +2,7 @@
   <div>
     <div v-for="(operator, index) in script" :key="operator.toString() + index">
       <RadonOperator
+        data-test="radon-operator"
         :operator="operator"
         :stage="stage"
         :sourceIndex="sourceIndex"
@@ -9,7 +10,7 @@
       />
     </div>
     <div class="button-container">
-      <button class="add-operators-btn" @click="pushOperator">
+      <button data-test="add-operator-btn" class="add-operators-btn" @click="pushOperator">
         Add operator
       </button>
     </div>

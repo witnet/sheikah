@@ -1,5 +1,5 @@
 <template>
-  <div class="editor">
+  <div class="editor" data-test="editor-view">
     <ToolBar />
     <Alert
       data-test="alert"
