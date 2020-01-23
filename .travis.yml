@@ -1,0 +1,25 @@
+dist: bionic
+language: node_js
+node_js:
+  - 10
+cache:
+  yarn: true
+  directories:
+  - "$HOME/.electron"
+  - "$HOME/.cache"
+addons:
+  apt:
+    packages:
+    # - libgnome-keyring-dev
+    - icnsutils
+    - graphicsmagick
+    - xz-utils
+install:
+- curl -o- -L https://yarnpkg.com/install.sh | bash
+- source ~/.bashrc
+- npm install -g xvfb-maybe
+- yarn
+before_script:
+- bash ci/initializeWitnet.sh
+script:
+- yarn ci
