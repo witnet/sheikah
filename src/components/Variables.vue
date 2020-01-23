@@ -12,18 +12,24 @@
       />
       <Input
         class="variable-value input"
+        data-test="edit-var-value-input"
         :value="variable.value"
         @input="val => updateVariable(index, variable.key, val)"
       />
       <div class="error" v-show="errors[index]">
         (This key is repeated. Change the variable name before continue editing)
       </div>
-      <div @click="deleteVariable(index)" class="delete">
+      <div data-test="delete-var-btn" @click="deleteVariable(index)" class="delete">
         <font-awesome-icon class="edit-btn" icon="times" />
       </div>
     </div>
     <div class="img-container">
-      <img @click="createVariable" class="add-btn" src="@/resources/svg/add.svg" />
+      <img
+        data-test="add-var-btn"
+        @click="createVariable"
+        class="add-btn"
+        src="@/resources/svg/add.svg"
+      />
     </div>
   </div>
 </template>

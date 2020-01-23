@@ -1,10 +1,16 @@
 <template>
   <div class="top-bar">
     <a :href="dataStr" ref="download" download="template.json" style="display:none"></a>
-    <router-link class="back" to="/request/templates">
+    <router-link data-test="go-back-to-templates" class="back" to="/request/templates">
       <img class="back-btn" src="@/resources/svg/arrow-to-left.svg" />
     </router-link>
-    <button v-for="tab in tabs" :key="tab.icon" :class="tab.class" @click="tab.action">
+    <button
+      :data-test="`action-${tab.icon}`"
+      v-for="tab in tabs"
+      :key="tab.icon"
+      :class="tab.class"
+      @click="tab.action"
+    >
       {{ tab.icon }}
     </button>
   </div>
@@ -80,6 +86,7 @@ export default {
   display: flex;
   flex-flow: row wrap;
   height: 70px;
+  min-width: 700px;
   justify-content: flex-end;
 
   .first,
