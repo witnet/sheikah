@@ -21,42 +21,110 @@ import WalletSeedValidation from '@/components/steps/WalletSeedValidation.vue'
 import WelcomeBack from '@/views/WelcomeBack.vue'
 import WelcomeForm from '@/components/steps/WelcomeForm.vue'
 import WalletNotFound from '@/components/WalletNotFound.vue'
-import { WalletApi } from './api'
 
 import store from '@/store'
 
 Vue.use(Router)
-
-const walletApi = new WalletApi()
-function redirectIfNeccesary(to, from, next) {
-  next()
-  if (walletApi.client.ws.ready) {
+function redirectOnReload(to, from, next) {
+  if (store.state.wallet.api.client.ws.ready) {
     next()
-    if (store.state.wallet.sessionId) {
-      next()
-    } else if (store.state.wallet.walletInfos) {
-      next('/welcome-back/wallet-list')
-    } else {
-      next('/ftu/welcome')
-    }
   } else {
-    next('/wallet-not-found')
+    next('/')
   }
 }
 
 export default new Router({
   routes: [
     {
+      path: '/',
+      name: 'main',
+      component: Home,
+      beforeEnter: (to, from, next) => {
+        if (store.state.wallet.api.client.ws.ready) {
+          next()
+        } else {
+          let error = true
+
+          setTimeout(() => {
+            if (error) {
+              next('/wallet-not-found')
+            }
+          }, 3)
+
+          store.state.wallet.api.client.ws.on('open', () => {
+            error = false
+            store.dispatch('getWalletInfos')
+            const polling = setInterval(() => {
+              const isSessionId = store.state.wallet.sessionId
+              const walletInfos = store.state.wallet.walletInfos
+              if (Array.isArray(walletInfos)) {
+                clearInterval(polling)
+
+                if (isSessionId) {
+                  next()
+                } else if (walletInfos.length > 0) {
+                  next('/welcome-back/wallet-list')
+                } else {
+                  next('/ftu/welcome')
+                }
+              }
+            }, 1000)
+          })
+        }
+      },
+      children: [
+        {
+          name: 'wallet',
+          path: 'wallet',
+          component: Wallet,
+          children: [
+            {
+              name: 'transactions',
+              path: 'transactions',
+              component: Transactions,
+            },
+          ],
+        },
+        {
+          name: 'request',
+          path: 'request',
+          component: DataRequest,
+          children: [
+            {
+              name: 'templates',
+              path: 'templates',
+              component: Templates,
+            },
+            {
+              name: 'editor',
+              path: 'editor',
+              component: Editor,
+            },
+          ],
+        },
+        {
+          name: 'community',
+          path: 'community',
+          component: Community,
+        },
+        {
+          name: 'marketplace',
+          path: 'marketplace',
+          component: Marketplace,
+        },
+      ],
+    },
+    {
       path: '/wallet-not-found',
-      beforeEnter: redirectIfNeccesary,
       name: 'runWalletAlert',
       component: WalletNotFound,
+      beforeEnter: redirectOnReload,
     },
     {
       path: '/welcome-back',
-      beforeEnter: redirectIfNeccesary,
       name: 'welcomeBack',
       component: WelcomeBack,
+      beforeEnter: redirectOnReload,
       children: [
         {
           path: 'unlock/:id',
@@ -71,7 +139,7 @@ export default new Router({
     {
       path: `/ftu`,
       name: 'ftu',
-      beforeEnter: redirectIfNeccesary,
+      beforeEnter: redirectOnReload,
       component: FirstTimeUsage,
       children: [
         {
@@ -108,54 +176,6 @@ export default new Router({
           name: 'createWallet',
           path: 'create-wallet',
           component: Loading,
-        },
-      ],
-    },
-    {
-      path: '/',
-      name: 'main',
-      component: Home,
-      beforeEnter: redirectIfNeccesary,
-      children: [
-        {
-          name: 'wallet',
-          path: 'wallet',
-          component: Wallet,
-          children: [
-            {
-              name: 'transactions',
-              path: 'transactions',
-              component: Transactions,
-              // beforeEnter: callGetTransactions,
-            },
-          ],
-        },
-        {
-          name: 'request',
-          path: 'request',
-          component: DataRequest,
-          children: [
-            {
-              name: 'templates',
-              path: 'templates',
-              component: Templates,
-            },
-            {
-              name: 'editor',
-              path: 'editor',
-              component: Editor,
-            },
-          ],
-        },
-        {
-          name: 'community',
-          path: 'community',
-          component: Community,
-        },
-        {
-          name: 'marketplace',
-          path: 'marketplace',
-          component: Marketplace,
         },
       ],
     },
