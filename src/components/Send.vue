@@ -1,5 +1,14 @@
 <template>
   <div class="send">
+    <Alert
+      data-test="alert"
+      v-for="error in errors"
+      :key="error.message"
+      type="error"
+      :message="error.message"
+      :description="error.description"
+      v-on:close="() => clearError(error.name)"
+    />
     <div v-if="generatedTransaction" class="transaction-info">
       <div class="scroll">
         <div class="row">
@@ -114,6 +123,8 @@ import Button from './Button'
 import Input from './Input'
 import InputNumber from './InputNumber'
 import Select from './Select'
+import { mapState } from 'vuex'
+import Alert from '@/components/Alert'
 
 export default {
   name: 'send',
@@ -122,6 +133,7 @@ export default {
     Input,
     InputNumber,
     Select,
+    Alert,
   },
   data() {
     return {
@@ -133,11 +145,28 @@ export default {
     form: Object,
   },
   computed: {
+    ...mapState({
+      saveItemError: state => {
+        if (state.wallet.errors.saveItem) {
+          return {
+            message: state.wallet.errors.saveItem.message,
+            description: state.wallet.errors.saveItem.error.message,
+            name: state.wallet.errors.saveItem.name,
+          }
+        }
+      },
+      errors() {
+        return [this.saveItemError].filter(error => !!error)
+      },
+    }),
     generatedTransaction() {
       return this.$store.state.wallet.generatedTransaction
     },
   },
   methods: {
+    clearError: function(name) {
+      return this.$store.commit('clearError', { error: name })
+    },
     toggleAdvanceOptions() {
       this.isAdvancedVisible = !this.isAdvancedVisible
     },
@@ -149,8 +178,10 @@ export default {
       this.$emit('create-VTT', this.form)
     },
     closeDialog() {
-      this.isAdvancedVisible = false
-      this.$emit('close')
+      if (this.errors) {
+        this.isAdvancedVisible = false
+        this.$emit('close')
+      }
     },
   },
   watch: {
@@ -159,6 +190,9 @@ export default {
         this.showModal = true
       }
     },
+  },
+  beforeDestroy() {
+    this.clearError(this.saveItemError.name)
   },
 }
 </script>

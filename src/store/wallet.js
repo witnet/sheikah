@@ -23,6 +23,8 @@ export default {
       closeSession: null,
       getAddresses: null,
       network: null,
+      saveItem: null,
+      getItem: null,
     },
     balances: {},
     sessionId: null,
@@ -174,8 +176,12 @@ export default {
       if (request.result) {
         context.commit('setLabels', { labels: request.result.value || {} })
       } else {
-        // TODO: handle error properly
-        console.log('error getting labels', request.error)
+        // TODO1: handle error properly
+        context.commit('setError', {
+          name: 'getItem',
+          error: request.error,
+          message: 'An error occurred retrieving the label for the transaction',
+        })
       }
     },
     sendTransaction: async function(context, { label }) {
@@ -186,7 +192,6 @@ export default {
         transaction: context.state.generatedTransaction.transaction,
       })
       if (request.result) {
-        console.log('transaction sent!', request.result)
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
         // context.commit('setSuccess', 'sendTransaction')
       } else {
@@ -201,8 +206,7 @@ export default {
       const transactionId = transaction.transactionId
       context.state.txLabels[transactionId] = { label }
       const txLabels = context.state.txLabels
-      console.log('in SAVE LABELS', txLabels)
-      const request = await this.$walletApi.saveItem({
+      const request = await context.state.api.saveItem({
         walletId: context.rootState.wallet.walletId,
         sessionId: context.rootState.wallet.sessionId,
         key: `${context.rootState.wallet.walletId}_labels`,
@@ -211,8 +215,12 @@ export default {
       if (request.result) {
         console.log('label saved!', request.result)
       } else {
-        // TODO: handle error propery
-        console.log('error')
+        // TODO1: handle error propery
+        context.commit('setError', {
+          name: 'saveItem',
+          error: request.error,
+          message: 'An error occurred saving the label for your transaction',
+        })
       }
     },
     createDataRequest: async function(context, { label, fee, dataRequest }) {
@@ -352,7 +360,6 @@ export default {
         page,
       })
       if (request.result) {
-        console.log(request.result)
         context.commit('setTransactions', { transactions: request.result.transactions })
       } else {
         context.commit('setError', {
