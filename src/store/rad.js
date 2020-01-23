@@ -232,7 +232,7 @@ export default {
   actions: {
     changeTemplateName: async function(context, { id, name }) {
       this.commit('renameTemplate', { id, name })
-      const request = await this.$walletApi.saveItem({
+      const request = await context.rootState.wallet.api.saveItem({
         walletId: context.rootState.wallet.walletId,
         sessionId: context.rootState.wallet.sessionId,
         key: 'templates',
@@ -253,7 +253,7 @@ export default {
         templateToSave.id = generateId()
       }
       templates[templateToSave.id] = templateToSave
-      const request = await this.$walletApi.saveItem({
+      const request = await context.rootState.wallet.api.saveItem({
         walletId: context.rootState.wallet.walletId,
         sessionId: context.rootState.wallet.sessionId,
         key: 'templates',
@@ -267,7 +267,7 @@ export default {
       }
     },
     getTemplates: async function(context, params) {
-      const request = await this.$walletApi.getItem({
+      const request = await context.rootState.wallet.api.getItem({
         walletId: context.rootState.wallet.walletId,
         sessionId: context.rootState.wallet.sessionId,
         key: 'templates',
@@ -280,7 +280,7 @@ export default {
     },
     deleteTemplate: async function(context, { id }) {
       Vue.delete(context.state.templates, id)
-      const request = await this.$walletApi.saveItem({
+      const request = await context.rootState.wallet.api.saveItem({
         walletId: context.rootState.wallet.walletId,
         sessionId: context.rootState.wallet.sessionId,
         key: 'templates',
