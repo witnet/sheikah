@@ -14,10 +14,16 @@
       phrase is still your ultimate backup.
     </p>
     <div class="form-row password">
-      <PasswordInput label="Password" v-model="password" v-on:go-next="goNextInput" />
+      <PasswordInput
+        data-test="password-input"
+        label="Password"
+        v-model="password"
+        v-on:go-next="goNextInput"
+      />
     </div>
     <div ref="confirm" class="form-row password">
       <PasswordInput
+        data-test="password-input"
         ref="password"
         label="Confirm password"
         v-model="repeatPassword"

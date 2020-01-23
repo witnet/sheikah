@@ -2,8 +2,13 @@
   <div class="unlock-wallet">
     <p class="text">Insert a password to unlock wallet</p>
     <div @keydown.enter.esc.prevent="unlockWallet">
-      <PasswordInput label="Password" v-model="password" :error="'unlockWallet'" />
-      <p v-if="unlockWalletError" class="error">Invalid password</p>
+      <PasswordInput
+        data-test="password-input"
+        label="Password"
+        v-model="password"
+        :error="'unlockWallet'"
+      />
+      <p v-if="showError" class="error">Invalid password</p>
     </div>
     <div class="container-btn">
       <Button class="back-btn" data-test="unlock-wallet" :onClick="previousStep" type="default">
