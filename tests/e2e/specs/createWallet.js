@@ -1,7 +1,7 @@
 // https://docs.cypress.io/api/introduction/api.html
 import { createSelection } from '../utils'
 
-describe('Create Wallet', () => {
+describe.skip('Create Wallet', () => {
   it('Create a wallet succesfully', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/ftu')
