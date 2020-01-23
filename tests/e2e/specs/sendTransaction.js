@@ -1,4 +1,4 @@
-describe('Create a complete Send transactions flow', () => {
+describe.skip('Create a complete Send transactions flow', () => {
   it('Opens the modal for sending transactions and fill the form', () => {
     cy.get('[data-test=send-btn]').click()
     cy.get('[data-test=send-recipient-address]')

@@ -1,6 +1,6 @@
 import { createSelection } from '../utils'
 
-describe('Create a complete Receive transactions flow', () => {
+describe.skip('Create a complete Receive transactions flow', () => {
   it('Create a new Wallet', () => {
     cy.visit('/ftu')
     cy.get('[data-test=create-wallet]').click()

@@ -1,6 +1,6 @@
 import { createSelection } from '../utils'
 
-describe('Land correctly in every view accesible from the home page', () => {
+describe.skip('Land correctly in every view accesible from the home page', () => {
   it('Create a Wallet', () => {
     cy.visit('/ftu')
     cy.get('[data-test=create-wallet]').click()
