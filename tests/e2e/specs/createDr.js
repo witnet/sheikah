@@ -41,7 +41,6 @@ describe('Create a complete Receive transactions flow', () => {
       .first()
       .click()
   })
-
   it('Add variable and edit', () => {
     cy.get('[data-test=add-var-btn]').click()
     cy.get('[data-test=edit-var]')
@@ -56,7 +55,6 @@ describe('Create a complete Receive transactions flow', () => {
       .clear()
       .type('1')
   })
-
   it('Insert variable in argument input', () => {
     cy.get('[data-test=argument-input]')
       .first()
@@ -64,13 +62,11 @@ describe('Create a complete Receive transactions flow', () => {
       .type('$a')
     cy.get('[data-test=variable-link-icon]').and('be.visible')
   })
-
   it('Delete variable', () => {
     cy.get('[data-test=delete-var-btn]')
       .last()
       .click()
   })
-
   it('Edit variable and change input in argument', () => {
     cy.get('[data-test=add-var-btn]').click()
     cy.get('[data-test=edit-var]')
@@ -88,7 +84,6 @@ describe('Create a complete Receive transactions flow', () => {
       .first()
       .should('have.value', '$b')
   })
-
   it('Insert variable in argument input', () => {
     cy.get('[data-test=argument-input]')
       .last()
@@ -96,7 +91,6 @@ describe('Create a complete Receive transactions flow', () => {
       .type('$hi')
     cy.get('[data-test=variable-link-icon]').and('be.visible')
   })
-
   it('Edit variable and change input in argument', () => {
     cy.get('[data-test=add-var-btn]').click()
     cy.get('[data-test=edit-var]')
@@ -113,6 +107,10 @@ describe('Create a complete Receive transactions flow', () => {
     cy.get('[data-test=argument-input]')
       .last()
       .should('have.value', '$hi')
+  })
+
+  it('Adds a source', () => {
+    cy.get('[data-test=add-source-btn]').click()
   })
 
   it('Adds a source', () => {
@@ -138,7 +136,7 @@ describe('Create a complete Receive transactions flow', () => {
       .should('eq', 2)
     cy.get('[data-test=radon-operator]')
       .its('length')
-      .should('eq', 4)
+      .should('eq', 3)
   })
 
   it('Go back to templates list', () => {

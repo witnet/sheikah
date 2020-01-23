@@ -1,5 +1,5 @@
 <template>
-  <div class="variables-container">
+  <div data-test="variables-dr-form" class="variables-container">
     <div class="title">Add custom values for the template variables</div>
     <div v-for="(variable, index) in variables" :key="index" class="variable">
       <p class="label variable-value">$</p>
@@ -7,6 +7,7 @@
         {{ keys[index] }}
       </div>
       <Input
+        data-test="variable-value-input"
         class="variable-value"
         :value="variable.value"
         @input="val => updateVariable(index, variable.key, val)"

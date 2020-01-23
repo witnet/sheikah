@@ -1,6 +1,5 @@
 <template>
   <div class="centered">
-    {{ status }}
     <router-view />
   </div>
 </template>

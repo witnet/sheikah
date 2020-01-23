@@ -1,11 +1,11 @@
 <template>
-  <div class="form">
+  <div data-test="fees-dr-form" class="form">
     <div class="title">Select the fees for the data request</div>
     <div v-for="fee in fees" :key="fee.label" class="row">
       <div class="label">
         <label class for>{{ fee.label }}</label>
       </div>
-      <InputNumber v-model="fee.amount" />
+      <InputNumber data-test="fee-input" v-model="fee.amount" />
     </div>
     <div class="submit">
       <Button
