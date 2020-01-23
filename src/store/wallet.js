@@ -1,7 +1,9 @@
 import router from '@/router'
+import { WalletApi } from '@/api'
 
 export default {
   state: {
+    api: new WalletApi(),
     errors: {
       createMnemonics: null,
       createWallet: null,
@@ -24,7 +26,7 @@ export default {
     networkStatus: 'error',
     radRequestResult: null,
     transactions: [],
-    walletInfos: [],
+    walletInfos: null,
     walletLocked: false,
   },
   mutations: {
@@ -39,7 +41,7 @@ export default {
       state.walletId = null
     },
     checkNetworkStatus(state) {
-      state.networkStatus = this.$walletApi.client.ws.ready ? 'synced' : 'error'
+      state.networkStatus = state.api.client.ws.ready ? 'synced' : 'error'
     },
     setDataRequestResult(state, result) {
       Object.assign(state, { radRequestResult: result })
@@ -91,7 +93,7 @@ export default {
   },
   actions: {
     closeSession: async function(context) {
-      const request = await this.$walletApi.closeSession({
+      const request = await context.state.api.closeSession({
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
       })
@@ -104,7 +106,7 @@ export default {
     },
 
     sendTransaction: async function(context) {
-      const request = await this.$walletApi.sendTransaction({
+      const request = await context.state.api.sendTransaction({
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
         transaction: context.state.generatedTransaction,
@@ -118,7 +120,7 @@ export default {
     },
 
     createDataRequest: async function(context, { label, fee, dataRequest }) {
-      const request = await this.$walletApi.createDataRequest({
+      const request = await context.state.api.createDataRequest({
         sessionId: this.state.wallet.sessionId,
         walletId: this.state.wallet.walletId,
         label,
@@ -138,7 +140,7 @@ export default {
     },
 
     createVTT: async function(context, { address, amount, fee, label }) {
-      const request = await this.$walletApi.createVTT({
+      const request = await context.state.api.createVTT({
         sessionId: this.state.wallet.sessionId,
         walletId: this.state.wallet.walletId,
         address,
@@ -159,7 +161,7 @@ export default {
     },
 
     getAddresses: async function(context) {
-      const request = await this.$walletApi.getAddresses({
+      const request = await context.state.api.getAddresses({
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
         limit: 300,
@@ -170,7 +172,7 @@ export default {
     },
 
     generateAddress: async function(context, { label }) {
-      const request = await this.$walletApi.generateAddress({
+      const request = await context.state.api.generateAddress({
         label,
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
@@ -181,7 +183,7 @@ export default {
     },
 
     unlockWallet: async function(context, { walletId, password }) {
-      const request = await this.$walletApi.unlockWallet({ walletId, password, sessionId: '1' })
+      const request = await context.state.api.unlockWallet({ walletId, password, sessionId: '1' })
       if (request.result) {
         // TODO(#706) We should receive a wallet structure instead a walletId
         context.commit('setWallet', { sessionId: request.result.sessionId, walletId })
@@ -191,7 +193,7 @@ export default {
     },
 
     lockWallet: async function(context, { walletId, wipe }) {
-      const request = await this.$walletApi.lockWallet({ wallet_id: walletId, wipe })
+      const request = await context.state.api.lockWallet({ wallet_id: walletId, wipe })
       if (request.result) {
         context.commit('lockWallet', context.store.wallet.id)
       } else {
@@ -200,7 +202,7 @@ export default {
     },
 
     createMnemonics: async function(context) {
-      const request = await this.$walletApi.createMnemonics({ length: 12 })
+      const request = await context.state.api.createMnemonics({ length: 12 })
       if (request.result) {
         context.commit('setMnemonics', request.result.mnemonics)
       } else {
@@ -209,7 +211,7 @@ export default {
     },
 
     createWallet: async function(context, params) {
-      const request = await this.$walletApi.createWallet({
+      const request = await context.state.api.createWallet({
         name: 'first',
         caption: '1',
         seedData: params[params.sourceType],
@@ -228,7 +230,7 @@ export default {
     },
 
     getTransactions: async function(context, { limit, page }) {
-      const request = await this.$walletApi.getTransactions({
+      const request = await context.state.api.getTransactions({
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
         limit,
@@ -242,7 +244,7 @@ export default {
     },
 
     getBalance: async function(context) {
-      const request = await this.$walletApi.getBalance({
+      const request = await context.state.api.getBalance({
         walletId: context.state.walletId,
         sessionId: context.state.sessionId,
       })
@@ -254,7 +256,7 @@ export default {
     },
 
     getWalletInfos: async function(context) {
-      const request = await this.$walletApi.getWalletInfos()
+      const request = await context.state.api.getWalletInfos()
       if (request.result) {
         context.commit('setWalletInfos', { walletInfos: request.result.infos })
       } else {
@@ -279,7 +281,7 @@ export default {
         const key = variable.variable
         context.commit('updateTemplate', { id, value: '$' + key })
       })
-      // const request = await this.$walletApi.runRadRequest({
+      // const request = await context.state.api.runRadRequest({
       //   radRequest: encodeDataRequest(context.rootState.rad.currentRadonMarkupInterpreter.getMir()),
       // })
     },
