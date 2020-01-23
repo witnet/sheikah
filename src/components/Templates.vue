@@ -22,7 +22,12 @@
     <div v-if="Object.entries(templates)" class="container-templates">
       <div class="add">
         <router-link to="/request/editor">
-          <img @click="createTemplate" class="add-btn" src="@/resources/svg/add.svg" />
+          <img
+            @click="createTemplate"
+            data-test="create-template"
+            class="add-btn"
+            src="@/resources/svg/add.svg"
+          />
         </router-link>
       </div>
       <TemplateCard
@@ -45,6 +50,7 @@
       <Alert
         data-test="alert"
         v-for="error in errors"
+        class="alert"
         :key="error.message"
         type="error"
         :message="error.message"
@@ -272,6 +278,8 @@ export default {
   }
   .add {
     display: flex;
+    min-width: 100px;
+    min-height: 200px;
     justify-content: center;
     flex: 0 1 calc(30% - 2em);
     align-items: center;

@@ -59,6 +59,7 @@ export default {
 }
 
 .input {
+  z-index: 1000;
   font-size: 16px;
   width: 300px;
   border: 0;

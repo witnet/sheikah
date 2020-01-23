@@ -13,7 +13,6 @@ function encodeAggregationTally(stage) {
 }
 
 export function encodeDataRequest(radRequest) {
-  console.log('RAD', radRequest)
   return {
     time_lock: radRequest.timelock,
     retrieve: radRequest.retrieve.map(retrieve => {

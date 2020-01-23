@@ -12,13 +12,17 @@
               v-for="(source, index) in sources.slice(counter)"
               :key="source.index"
             >
-              <div v-if="source" class="content">
+              <div v-if="source" class="content" data-test="source-content">
                 <div class="header">
                   <h3 class="source-header">
                     Source
                     <span class="index">{{ source.index }}</span>
                   </h3>
-                  <button class="delete-btn" @click="deleteSource(source.index)">
+                  <button
+                    data-test="delete-source-btn"
+                    class="delete-btn"
+                    @click="deleteSource(source.index)"
+                  >
                     <font-awesome-icon class="icon" icon="trash" />
                   </button>
                 </div>
@@ -50,7 +54,7 @@
               </div>
             </div>
           </transition-group>
-          <button @click="addSource" class="add-source">
+          <button data-test="add-source-btn" @click="addSource" class="add-source">
             <img src="@/resources/svg/add-grey.svg" />
           </button>
         </div>

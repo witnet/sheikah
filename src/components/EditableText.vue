@@ -1,10 +1,11 @@
 <template>
   <FrameOutside @click="onClose" @focus="onClose">
     <div class="title" @click="allowOpen">
-      <div ref="editable" v-show="!showInput" @click="allowEdit">
+      <div data-test="edit-var" ref="editable" v-show="!showInput" @click="allowEdit">
         {{ value }}
       </div>
       <input
+        data-test="edit-var-input"
         v-show="showInput"
         :class="[error]"
         class="editVar"
