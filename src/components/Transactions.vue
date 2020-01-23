@@ -183,10 +183,20 @@ export default {
           }
         }
       },
+      getLabelsError: state => {
+        if (state.wallet.errors.getItem) {
+          return {
+            message: state.wallet.errors.getItem.message,
+            description: state.wallet.errors.getItem.error.message,
+            name: state.wallet.errors.getItem.name,
+          }
+        }
+      },
       errors() {
         return [
           this.getTransactionsError,
           this.getBalanceError,
+          this.getLabelsError,
           this.getAddressesError,
           this.generateAddressError,
           this.sendTransactionError,
@@ -258,6 +268,9 @@ export default {
   beforeDestroy() {
     if (this.generateAddressError) {
       this.clearError(this.generateAddressError.name)
+    }
+    if (this.getLabelsError) {
+      this.clearError(this.getLabelsError.name)
     }
     if (this.getTransactionsError) {
       this.clearError(this.getTransactionsError.name)
