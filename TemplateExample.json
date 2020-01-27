@@ -6,11 +6,30 @@
     "retrieve": [
       {
         "kind": "HTTP-GET",
-        "url": "https://api.coindesk.com/v1/bpi/currentprice.json",
-        "script": [69, 116, [97, "bpi"], 116, [97, "VSD"], 116, [97, "rate_float"], 114]
+        "url": "source1",
+        "script": [128,[67,5]]
+      },
+      {
+        "kind": "HTTP-GET",
+        "url": "source2",
+        "script": [128,[67,5]]
       }
     ],
-    "aggregate": { "script": [[87, 3]] },
-    "tally": { "script": [[87, 3]] }
-  }
+    "aggregate":{
+      "filters":[[3,1]],
+      "reducer":2
+    },
+    "tally": {
+      "filters":[[3,1]],
+      "reducer":2
+    }
+  },
+  "usedVariables": [],
+  "variables": [
+    {
+      "key": "key_0",
+      "value":"value"
+    }
+  ],
+  "variablesIndex":0
 }
