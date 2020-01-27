@@ -261,9 +261,23 @@ export default {
       }
     },
     saveTemplate: async function(context, args) {
+      const isImportingTemplate = !!args
+      const date = Date.now()
       let templates = context.state.templates
-      const templateToSave = args ? args.template : context.state.currentTemplate
-      templateToSave.radRequest = context.state.currentRadonMarkupInterpreter.getMir()
+
+      const templateToSave = isImportingTemplate
+        ? {
+            ...args.template,
+            creationDate: date,
+            variables: args.template.variables || [],
+            variablesIndex: args.template.variablesIndex || 0,
+            usedVariables: args.template.usedVariables || [],
+          }
+        : {
+            ...context.state.currentTemplate,
+            radRequest: context.state.currentRadonMarkupInterpreter.getMir(),
+          }
+
       if (!templateToSave.id) {
         templateToSave.id = generateId()
       }
@@ -273,7 +287,7 @@ export default {
         sessionId: context.rootState.wallet.sessionId,
         key: 'templates',
         value: templates,
-        creationDate: Date.now(),
+        creationDate: date,
       })
       if (request.result) {
         await context.dispatch('getTemplates')
