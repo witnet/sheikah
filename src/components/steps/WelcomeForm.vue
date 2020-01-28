@@ -25,7 +25,7 @@
       </template>
       <InformativeContent :subtitle="subtitle" :text="text" />
       <div class="container">
-        <router-link data-test="do-it" class="router-link" to="/ftu/seed-type-selection">
+        <router-link data-test="next-step" class="router-link" to="/ftu/seed-type-selection">
           Let's do it
         </router-link>
       </div>

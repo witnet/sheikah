@@ -152,7 +152,9 @@ export default {
         }
       },
       errors() {
-        return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(error => !!error)
+        return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(
+          error => !!error
+        )
       },
     }),
   },

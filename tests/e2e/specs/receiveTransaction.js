@@ -4,7 +4,7 @@ describe.skip('Create a complete Receive transactions flow', () => {
   it('Create a new Wallet', () => {
     cy.visit('/ftu')
     cy.get('[data-test=create-wallet]').click()
-    cy.get('[data-test=do-it]').click()
+    cy.get('[data-test=next-step]').click()
     cy.get('[data-test=new-seed-option]').click()
     cy.get('[data-test=next-step]').click()
     cy.get('[data-test=word-seed]')
