@@ -1,12 +1,19 @@
 // https://docs.cypress.io/api/introduction/api.html
 import { createSelection } from '../utils'
-
-describe.skip('Create Wallet', () => {
+beforeEach(() => {
+  // FIXME(#908): Clear wallet state before each suite
+  console.log('We should reset the db here')
+})
+describe('Create Wallet', () => {
   it('Create a wallet succesfully', () => {
-    // Cypress.config('baseUrl', 'http://localhost:8080')
-    cy.visit('/ftu')
+    // Go to ftu form when the wallet contains a created wallet
+    Cypress.config('baseUrl', 'http://localhost:8080')
+    cy.visit('/')
+    // if (Cypress.env().is_wallet_created) {
     cy.get('[data-test=create-wallet]').click()
-    cy.get('[data-test=do-it]').click()
+    // }
+
+    cy.get('[data-test=next-step]').click()
     cy.get('[data-test=new-seed-option]').click()
     cy.get('[data-test=next-step]').click()
     cy.get('[data-test=word-seed]')
@@ -18,8 +25,15 @@ describe.skip('Create Wallet', () => {
         cy.get('input').type(val)
       })
     cy.get('[data-test=next-step]').click()
-    cy.get('[data-test=password-input]').type('password')
-    cy.get('[data-test=repeat-password]').type('password')
+
+    cy.get('[data-test=password]')
+      .first()
+      .type('password')
+
+    cy.get('[data-test=password]')
+      .last()
+      .type('password')
+
     cy.get('[data-test=next-step]').click()
     cy.get('[data-test=home]')
   })
@@ -27,7 +41,7 @@ describe.skip('Create Wallet', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/ftu')
     cy.get('[data-test=create-wallet]').click()
-    cy.get('[data-test=do-it]').click()
+    cy.get('[data-test=next-step]').click()
     cy.get('[data-test=new-seed-option]').click()
     cy.get('[data-test=next-step]').click()
     cy.get('[data-test=word-seed]')
@@ -45,7 +59,7 @@ describe.skip('Create Wallet', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/ftu')
     cy.get('[data-test=create-wallet]').click()
-    cy.get('[data-test=do-it]').click()
+    cy.get('[data-test=next-step]').click()
     cy.get('[data-test=new-seed-option]').click()
     cy.get('[data-test=next-step]').click()
     cy.get('[data-test=word-seed]')
@@ -57,8 +71,12 @@ describe.skip('Create Wallet', () => {
         cy.get('input').type(val)
       })
     cy.get('[data-test=next-step]').click()
-    cy.get('[data-test=password-input]').type('password')
-    cy.get('[data-test=repeat-password]').type('password1')
+    cy.get('[data-test=password]')
+      .first()
+      .type('password')
+    cy.get('[data-test=password]')
+      .last()
+      .type('password1')
     cy.get('[data-test=next-step]').click()
     cy.get('[data-test=password-error-alert]').should('have.css', 'color', 'rgb(245, 108, 108)')
   })
@@ -66,7 +84,7 @@ describe.skip('Create Wallet', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/ftu')
     cy.get('[data-test=create-wallet]').click()
-    cy.get('[data-test=do-it]').click()
+    cy.get('[data-test=next-step]').click()
     cy.get('[data-test=new-seed-option]').click()
     cy.get('[data-test=next-step]').click()
     cy.get('[data-test=word-seed]')
@@ -78,8 +96,12 @@ describe.skip('Create Wallet', () => {
         cy.get('input').type(val)
       })
     cy.get('[data-test=next-step]').click()
-    cy.get('[data-test=password-input]').type('password')
-    cy.get('[data-test=repeat-password]').type('password')
+    cy.get('[data-test=password]')
+      .first()
+      .type('password')
+    cy.get('[data-test=password]')
+      .last()
+      .type('password')
     cy.get('[data-test=previous-step]').click()
     cy.get('[data-test=header-4]')
     cy.get('[data-test=previous-step]').click()

@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <input
+      data-test="password"
       @keydown.enter.esc.prevent="toogleGoNextItem"
       ref="passInput"
       type="password"
