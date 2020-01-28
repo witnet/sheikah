@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div data-test="marketplace">
     <div class="templates-bar">
       <div v-for="tab in tabs" class="title" :key="tab.link">
         {{ tab.name }}
