@@ -12,7 +12,7 @@
     />
     <StageBar v-on:change-stage="changeStage" />
     <RadonStage class="stage" :stage="currentStage" :script="currentScript" />
-    <Console />
+    <Console :logs="logs" />
   </div>
 </template>
 
@@ -36,6 +36,7 @@ export default {
   data() {
     return {
       currentStage: 'retrieve',
+      logs: [],
     }
   },
   methods: {
@@ -46,10 +47,18 @@ export default {
       this.$store.commit('clearError', { error: errorName })
     },
   },
+  watch: {
+    radRequestResult(val) {
+      this.logs.push(val)
+    },
+  },
   computed: {
     ...mapState({
       radRequest: state => {
         return state.rad.radRequest
+      },
+      radRequestResult: state => {
+        return state.wallet.radRequestResult
       },
       tryDataRequestError: state => {
         if (state.wallet.errors.tryDataRequest) {

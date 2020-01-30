@@ -1,6 +1,6 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
-import { addToList } from '@/utils'
+import { addToList, encodeDataRequest } from '@/utils'
 
 export default {
   state: {
@@ -74,13 +74,12 @@ export default {
         })
       }
     },
-    setDataRequestResult(state, result) {
-      Object.assign(state, { radRequestResult: result })
+    setDataRequestResult(state, { result }) {
+      state.radRequestResult = { ...result, timestamp: Date.now() }
     },
     setMnemonics(state, result) {
       Object.assign(state, { mnemonics: result })
     },
-
     setWallet(state, { walletId, sessionId }) {
       state.walletId = walletId
       state.sessionId = sessionId
@@ -405,12 +404,12 @@ export default {
         const value = variable.value
         context.commit('updateTemplate', { id, value })
       })
-      // TODO: The Wallet should provide a method to send the Data Request Result.
+
       const request = await context.state.api.runRadRequest({
-        radRequest: context.rootState.rad.currentRadonMarkupInterpreter.getMir(),
+        radRequest: encodeDataRequest(context.rootState.rad.currentRadonMarkupInterpreter.getMir()),
       })
       if (request.result) {
-        context.commit('setDataRequestResult', { dataRequest: request.result })
+        context.commit('setDataRequestResult', { result: request.result })
       } else {
         context.commit('setError', {
           name: 'tryDataRequest',
@@ -423,9 +422,6 @@ export default {
         const key = variable.variable
         context.commit('updateTemplate', { id, value: '$' + key })
       })
-      // const request = await context.state.api.runRadRequest({
-      //   radRequest: encodeDataRequest(context.rootState.rad.currentRadonMarkupInterpreter.getMir()),
-      // })
     },
   },
 }

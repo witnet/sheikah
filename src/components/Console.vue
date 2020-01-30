@@ -8,7 +8,7 @@
       :showConsole="showConsole"
     />
     <Variables v-show="showVariables" />
-    <Logs v-show="showLogs" />
+    <Logs v-show="showLogs" :logs="logs" />
   </div>
 </template>
 
@@ -26,12 +26,23 @@ export default {
     ConsoleTabs,
     Logs,
   },
+  props: {
+    logs: Array,
+  },
   data() {
     return {
       currentTab: VARIABLES,
       tabs: [VARIABLES, LOGS],
       showConsole: true,
     }
+  },
+  watch: {
+    logs(val, old) {
+      if (val.length !== val.old) {
+        this.changeTab(LOGS)
+        this.openConsole()
+      }
+    },
   },
   computed: {
     showVariables: function() {
@@ -56,6 +67,9 @@ export default {
     },
     closeConsole() {
       this.showConsole = false
+    },
+    openConsole() {
+      this.showConsole = true
     },
   },
 }

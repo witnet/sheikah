@@ -31,7 +31,7 @@
           </el-dropdown-menu>
         </el-dropdown>
       </div>
-      <div class="content" @click="edit()">
+      <div class="content" @click="edit">
         <div class="title">
           <div ref="input" v-show="!showInput">
             {{ name }}

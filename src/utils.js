@@ -1,15 +1,25 @@
 import cbor from 'cbor'
 import uuidv4 from 'uuid/v4'
 
+function encodeAggregationTally(stage) {
+  return {
+    filters: stage.filters.map(filter => {
+      return Array.isArray(filter)
+        ? { op: filter[0], args: filter.slice(1).length ? cbor.encode(filter.slice(1)) : [] }
+        : { op: filter, args: [] }
+    }),
+    reducer: stage.reducer,
+  }
+}
+
 export function encodeDataRequest(radRequest) {
   return {
-    timelock: radRequest.timelock,
+    time_lock: radRequest.timelock,
     retrieve: radRequest.retrieve.map(retrieve => {
       return { ...retrieve, script: [...cbor.encode(retrieve.script)] }
     }),
-    aggregate: { script: [...cbor.encode(radRequest.aggregate.script)] },
-    tally: { script: [...cbor.encode(radRequest.tally.script)] },
-    deliver: radRequest.deliver,
+    aggregate: encodeAggregationTally(radRequest.aggregate),
+    tally: encodeAggregationTally(radRequest.tally),
   }
 }
 export function addToList(id, list = [], key) {
