@@ -1,7 +1,8 @@
 <template>
   <div class="logs-container">
-    <div class="log">
-      Log
+    <div v-for="log in logs" :key="log.timestamp" class="log">
+      <p class="time">{{ log.timestamp }}</p>
+      <p class="message">{{ log.result }}</p>
     </div>
   </div>
 </template>
@@ -9,6 +10,9 @@
 <script>
 export default {
   name: 'Logs',
+  props: {
+    logs: Array,
+  },
 }
 </script>
 
@@ -21,14 +25,18 @@ export default {
   height: 20vh;
   overflow-y: scroll;
   background-color: $black;
-  text-align: center;
-  text-justify: center;
   .log {
-    color: red;
     padding-left: 50px;
-    display: block;
     display: flex;
-    justify-items: left;
+
+    .time,
+    .message {
+      color: lightcoral;
+    }
+
+    .time {
+      margin-right: 8px;
+    }
   }
 }
 </style>
