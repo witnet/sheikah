@@ -1,35 +1,32 @@
 {
-  "name": "bitcoin",
-  "description": "Request the bitcoin price from coindesk",
+  "name": "Bitcoin hash",
+  "description": "Get the latest bitcoint hash",
   "radRequest": {
-    "notBefore": 1669852800,
-    "retrieve": [
-      {
-        "kind": "HTTP-GET",
-        "url": "source1",
-        "script": [128,[67,5]]
+      "timelock": 1669852800,
+      "retrieve": [
+          {
+              "kind": "HTTP-GET",
+              "url": "https://blockchain.info/q/latesthash",
+              "script": []
+          },
+          {
+              "kind": "HTTP-GET",
+              "url": "https://api-r.bitcoinchain.com/v1/status",
+              "script": [119, [103, "hash"]]
+          },
+          {
+              "kind": "HTTP-GET",
+              "url": "https://api.blockchair.com/bitcoin/stats",
+              "script": [119, [102, "data"], [103, "best_block_hash"]]
+          }
+      ],
+      "aggregate": {
+          "filters": [],
+          "reducer": 2
       },
-      {
-        "kind": "HTTP-GET",
-        "url": "source2",
-        "script": [128,[67,5]]
+      "tally": {
+          "filters": [8],
+          "reducer": 2
       }
-    ],
-    "aggregate":{
-      "filters":[[3,1]],
-      "reducer":2
-    },
-    "tally": {
-      "filters":[[3,1]],
-      "reducer":2
-    }
-  },
-  "usedVariables": [],
-  "variables": [
-    {
-      "key": "key_0",
-      "value":"value"
-    }
-  ],
-  "variablesIndex":0
+  }
 }
