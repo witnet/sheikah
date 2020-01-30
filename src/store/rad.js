@@ -213,7 +213,7 @@ export default {
     [SET_CURRENT_TEMPLATE](state, { id }) {
       const template = state.templates[id]
       state.currentTemplate = template
-      state.currentRadonMarkupInterpreter = new Radon(state.currentTemplate.radRequest)
+      state.currentRadonMarkupInterpreter = new Radon(template.radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter
       state.history = [state.currentRadonMarkupInterpreter.getMir()]
     },
