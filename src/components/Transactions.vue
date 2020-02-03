@@ -1,14 +1,16 @@
 <template>
   <div data-test="transactions">
-    <Alert
-      data-test="alert"
-      v-for="error in errors"
-      :key="error.message"
-      type="error"
-      :message="error.message"
-      :description="error.description"
-      v-on:close="() => clearError(error.name)"
-    />
+    <div v-show="dialogVisible === false || !dialogVisible2 === false">
+      <Alert
+        data-test="alert"
+        v-for="error in errors"
+        :key="error.message"
+        type="error"
+        :message="error.message"
+        :description="error.description"
+        v-on:close="() => clearError(error.name)"
+      />
+    </div>
     <div class="transactions">
       <TransactionList class="list" :transactions="transactions" />
       <div class="col-right">
@@ -189,15 +191,19 @@ export default {
         }
       },
       errors() {
-        return [
-          this.getTransactionsError,
-          this.getBalanceError,
-          this.getLabelsError,
-          this.getAddressesError,
-          this.generateAddressError,
-          this.sendTransactionError,
-          this.createVTTError,
-        ].filter(error => !!error)
+        if (this.$store.state.wallet.networkStatus !== 'error') {
+          return [
+            this.getTransactionsError,
+            this.getBalanceError,
+            this.getLabelsError,
+            this.getAddressesError,
+            this.generateAddressError,
+            this.sendTransactionError,
+            this.createVTTError,
+          ].filter(error => !!error)
+        } else {
+          return []
+        }
       },
     }),
   },

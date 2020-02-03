@@ -44,12 +44,11 @@ export default new Router({
           next()
         } else {
           let error = true
-
           setTimeout(() => {
             if (error) {
               next('/wallet-not-found')
             }
-          }, 3)
+          }, 3000)
 
           store.state.wallet.api.client.ws.on('open', () => {
             error = false
@@ -59,7 +58,6 @@ export default new Router({
               const walletInfos = store.state.wallet.walletInfos
               if (Array.isArray(walletInfos)) {
                 clearInterval(polling)
-
                 if (isSessionId) {
                   next()
                 } else if (walletInfos.length > 0) {
@@ -119,8 +117,38 @@ export default new Router({
     {
       path: '/wallet-not-found',
       name: 'runWalletAlert',
+      beforeEnter: (to, from, next) => {
+        if (store.state.wallet.api.client.ws.ready) {
+          next()
+        } else {
+          let error = true
+          setTimeout(() => {
+            if (error) {
+              next()
+            }
+          }, 2000)
+
+          store.state.wallet.api.client.ws.on('open', () => {
+            error = false
+            store.dispatch('getWalletInfos')
+            const polling = setInterval(() => {
+              const isSessionId = store.state.wallet.sessionId
+              const walletInfos = store.state.wallet.walletInfos
+              if (Array.isArray(walletInfos)) {
+                clearInterval(polling)
+                if (isSessionId) {
+                  next()
+                } else if (walletInfos.length > 0) {
+                  next('/welcome-back/wallet-list')
+                } else {
+                  next('/ftu/welcome')
+                }
+              }
+            }, 1000)
+          })
+        }
+      },
       component: WalletNotFound,
-      beforeEnter: redirectOnReload,
     },
     {
       path: '/welcome-back',
