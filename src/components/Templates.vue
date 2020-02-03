@@ -8,15 +8,17 @@
         <Button type="primary" :onClick="importTemplate" class="import">Import template</Button>
       </div>
     </div>
-    <Alert
-      data-test="alert"
-      v-for="error in errors"
-      :key="error.message"
-      type="error"
-      :message="error.message"
-      :description="error.description"
-      v-on:close="() => clearError(error.name)"
-    />
+    <div v-show="dialogVisible === false">
+      <Alert
+        data-test="alert"
+        v-for="error in errors"
+        :key="error.message"
+        type="error"
+        :message="error.message"
+        :description="error.description"
+        v-on:close="() => clearError(error.name)"
+      />
+    </div>
     <div v-if="Object.entries(templates)" class="container-templates">
       <div class="add">
         <router-link to="/request/editor">
@@ -152,9 +154,13 @@ export default {
         }
       },
       errors() {
-        return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(
-          error => !!error
-        )
+        if (this.$store.state.wallet.networkStatus !== 'error') {
+          return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(
+            error => !!error
+          )
+        } else {
+          return []
+        }
       },
     }),
   },

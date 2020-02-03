@@ -80,7 +80,11 @@ export default {
       },
     }),
     errors() {
-      return [this.saveItemError, this.tryDataRequestError].filter(error => !!error)
+      if (this.$store.state.wallet.networkStatus !== 'error') {
+        return [this.saveItemError, this.tryDataRequestError].filter(error => !!error)
+      } else {
+        return []
+      }
     },
     currentScript: function() {
       if (this.currentStage === 'retrieve') {
