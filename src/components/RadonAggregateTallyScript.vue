@@ -12,8 +12,8 @@
         />
       </div>
       <div class="button-container">
-        <button class="add-operators-btn" @click="pushOperator()">
-          Add operator
+        <button class="add-operators-btn" @click="pushOperator">
+          Add Filter
         </button>
       </div>
     </div>
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     pushOperator() {
-      this.$store.commit(PUSH_OPERATOR, { scriptId: this.filters[0].scriptId })
+      this.$store.commit(PUSH_OPERATOR, { scriptId: this.reducer.scriptId })
     },
   },
   computed: {

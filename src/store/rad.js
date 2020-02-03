@@ -179,15 +179,15 @@ export default {
           {
             url: '',
             kind: 'HTTP-GET',
-            script: [128, [67, 5]],
+            script: [119],
           },
         ],
         aggregate: {
-          filters: [[0x03, 1]],
+          filters: [],
           reducer: 0x02,
         },
         tally: {
-          filters: [[0x03, 1]],
+          filters: [],
           reducer: 0x02,
         },
       }
