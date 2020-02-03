@@ -1,11 +1,27 @@
 <template>
   <div class="centered">
+    {{ status }}
     <router-view />
   </div>
 </template>
 
 <script>
-export default {}
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState({
+      status: state => state.wallet.networkStatus,
+    }),
+  },
+  watch: {
+    status(status) {
+      if (status === 'error') {
+        this.$router.push('/wallet-not-found')
+      }
+    },
+  },
+}
 </script>
 
 <style scoped>

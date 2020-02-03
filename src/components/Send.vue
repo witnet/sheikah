@@ -156,7 +156,11 @@ export default {
         }
       },
       errors() {
-        return [this.saveItemError].filter(error => !!error)
+        if (this.$store.state.wallet.networkStatus !== 'error') {
+          return [this.saveItemError].filter(error => !!error)
+        } else {
+          return []
+        }
       },
     }),
     generatedTransaction() {
@@ -192,7 +196,9 @@ export default {
     },
   },
   beforeDestroy() {
-    this.clearError(this.saveItemError.name)
+    if (this.saveItemError) {
+      this.clearError(this.saveItemError.name)
+    }
   },
 }
 </script>
@@ -246,7 +252,7 @@ export default {
 }
 
 .send {
-  margin: 0px 32px 32px 32px;
+  margin: 40px;
   .row {
     display: flex;
     align-items: flex-start;

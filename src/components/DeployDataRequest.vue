@@ -83,6 +83,6 @@ export default {
 <style lang="scss" scoped>
 .container {
   justify-content: center;
-  margin: 0px;
+  margin-top: 40px;
 }
 </style>

@@ -1,6 +1,7 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
 import { addToList, encodeDataRequest } from '@/utils'
+import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 
 export default {
   state: {
@@ -65,6 +66,7 @@ export default {
     checkNetworkStatus(state) {
       if (state.api.client.ws.ready) {
         state.networkStatus = 'synced'
+        this.commit('clearError', { error: 'network' })
       } else {
         state.networkStatus = 'error'
         this.commit('setError', {
@@ -411,7 +413,7 @@ export default {
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
         const id = variable.id
         const value = variable.value
-        context.commit('updateTemplate', { id, value })
+        context.commit(UPDATE_TEMPLATE, { id, value })
       })
 
       const request = await context.state.api.runRadRequest({
@@ -429,7 +431,7 @@ export default {
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
         const id = variable.id
         const key = variable.variable
-        context.commit('updateTemplate', { id, value: '$' + key })
+        context.commit(UPDATE_TEMPLATE, { id, value: '$' + key })
       })
     },
   },

@@ -15,6 +15,7 @@
 
 <script>
 import Settings from '@/components/Settings.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'WelcomeBack',
@@ -30,6 +31,18 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    ...mapState({
+      status: state => state.wallet.networkStatus,
+    }),
+  },
+  watch: {
+    status(status) {
+      if (status === 'error') {
+        this.$router.push('/wallet-not-found')
+      }
+    },
   },
 }
 </script>
