@@ -3,7 +3,8 @@
     <Select
       :value="selectedOption"
       @input="option => updateTemplate(selectedOption.id, option.value)"
-      :options="operatorOptions"
+      :options="options"
+      v-on:filtered="filtered"
       type="operator"
     />
     <div class="with-arguments" v-if="hasArguments">
@@ -42,6 +43,7 @@
 
 <script>
 import Select from './Select'
+import { changeOperatorOptionName } from '@/utils'
 import Input from '@/components/Input'
 import { UPDATE_TEMPLATE, USED_VARIABLES, TOGGLE_VARIABLES } from '@/store/mutation-types'
 
@@ -50,6 +52,7 @@ export default {
   data() {
     return {
       variableName: null,
+      options: [],
     }
   },
   props: {
@@ -71,6 +74,10 @@ export default {
     Select,
   },
   methods: {
+    // TODO: fix filter
+    filtered(filtered) {
+      this.options = filtered
+    },
     hasVariables(value) {
       if (typeof value === 'string') {
         const newValue = value.slice(1, value.length)
@@ -156,9 +163,9 @@ export default {
     operatorOptions() {
       return this.operator.options.map(option => {
         return {
-          primaryText: option.label,
+          primaryText: changeOperatorOptionName(option.label),
           value: option.label,
-          secondaryText: option.output_type,
+          secondaryText: option.outputType,
         }
       })
     },
@@ -177,7 +184,13 @@ export default {
         : []
     },
   },
+  watch: {
+    operator(newOperator) {
+      this.options = this.operatorOptions
+    },
+  },
   mounted() {
+    this.options = this.operatorOptions
     this.selectedOperator.arguments.forEach(arg => {
       this.variableName = arg.value
     })
