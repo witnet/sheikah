@@ -330,7 +330,6 @@ export default {
         value: context.state.templates,
       })
       if (request.result) {
-        console.log(request.result)
       } else {
         context.commit('setError', {
           name: 'saveItem',

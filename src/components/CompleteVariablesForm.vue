@@ -19,7 +19,7 @@
     <div class="submit">
       <Button
         @keydown.enter.esc.prevent="nextStep"
-        data-test="sign-send-btn"
+        data-test="complete-variables-submit"
         :onClick="nextStep"
         type="primary"
       >

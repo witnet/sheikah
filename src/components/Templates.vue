@@ -58,11 +58,9 @@
         v-on:close="closeAndClear"
       />
       <DeployDataRequest
-        :variablesUpdated="variablesUpdated"
         v-on:close="dialogVisible = false"
         v-on:toggle-updated="toggleUpdated"
         :template="currentTemplate"
-        :fees="fees"
       />
     </el-dialog>
   </div>
@@ -92,33 +90,6 @@ export default {
       tabs: [{ name: 'Templates', link: '/request/templates' }],
       dialogVisible: false,
       currentTemplate: '',
-      variablesUpdated: false,
-      fees: [
-        {
-          label: 'Witnesses',
-          amount: 1,
-        },
-        {
-          label: 'Data request fee',
-          amount: 1,
-        },
-        {
-          label: 'Reward fee',
-          amount: 1,
-        },
-        {
-          label: 'Commit fee',
-          amount: 1,
-        },
-        {
-          label: 'Reveal fee',
-          amount: 1,
-        },
-        {
-          label: 'Tally fee',
-          amount: 1,
-        },
-      ],
     }
   },
   computed: {
@@ -186,9 +157,6 @@ export default {
     displayModalCreateDR: function(currentTemplate) {
       this.dialogVisible = true
       this.variablesUpdated = false
-      this.fees.map(fee => {
-        fee.amount = 1
-      })
       this.currentTemplate = currentTemplate
     },
     closeAndClear: function() {
