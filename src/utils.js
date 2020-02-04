@@ -24,6 +24,8 @@ export function standardizeWitUnits(amount, unit) {
 
 export function encodeDataRequest(radRequest) {
   return {
+    // TODO: Use only one timelock argument when the wallet standarize calls
+    timeLock: radRequest.timelock,
     time_lock: radRequest.timelock,
     retrieve: radRequest.retrieve.map(retrieve => {
       return { ...retrieve, script: [...cbor.encode(retrieve.script)] }

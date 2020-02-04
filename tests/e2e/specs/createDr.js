@@ -56,7 +56,6 @@ describe('Create a complete Receive transactions flow', () => {
     cy.get('[data-test=option-6]')
       .last()
       .click({ force: true })
-
   })
   it('Add variable and edit', () => {
     cy.get('[data-test=console-tab]')
