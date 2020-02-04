@@ -232,7 +232,7 @@ export default {
     border-radius: 20px;
 
     .content {
-      min-width: 25vw;
+      min-width: 500px;
       height: 700px;
       font-size: 18px;
       font-weight: bold;

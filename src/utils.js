@@ -34,6 +34,18 @@ export function isRepeated(key, list) {
   return list && list[key]
 }
 
+export function changeOperatorOptionName(name) {
+  if (name != null) {
+    const a = name.match(/[A-Z][a-z]+/g).splice(1)
+    if (a.length > 0) {
+      a[0] = a[0].toLowerCase()
+      return a.join('')
+    } else {
+      return 'changeName'
+    }
+  }
+}
+
 export function match(value, options, result) {
   const search = options.find(x => x.options.includes(value))
   return search ? search.result : null
