@@ -8,7 +8,9 @@
         v-model="password"
         :error="'unlockWallet'"
       />
-      <p data-test="password-error-alert" v-if="unlockWalletError" class="error">Invalid password</p>
+      <p data-test="password-error-alert" v-if="unlockWalletError" class="error">
+        Invalid password
+      </p>
     </div>
     <div class="container-btn">
       <Button class="back-btn" data-test="unlock-wallet" :onClick="previousStep" type="default">

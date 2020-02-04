@@ -8,7 +8,7 @@ cache:
   - "$HOME/.electron"
   - "$HOME/.cache"
 env:
-  - RUST_LOG=error ELECTRON_ENABLE_LOGGING=true
+  - RUST_LOG=error ELECTRON_ENABLE_LOGGING=true TRAVIS=true
 addons:
   apt:
     packages:

@@ -200,14 +200,16 @@ export default {
         transaction: context.state.generatedTransaction.transaction,
       })
       if (request.result) {
+        console.log('----- Template deployed successfully -----')
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
-        // context.commit('setSuccess', 'sendTransaction')
+        context.commit('clearGeneratedTransaction')
       } else {
         context.commit('setError', {
           name: 'sendTransaction',
           error: request.error,
           message: 'An error occurred sending a request',
         })
+        context.commit('clearGeneratedTransaction')
       }
     },
     saveLabel: async function(context, { label, transaction }) {
@@ -231,16 +233,29 @@ export default {
         })
       }
     },
-    createDataRequest: async function(context, { label, fee, dataRequest }) {
-      const request = await context.state.api.createDataRequest({
+    createDataRequest: async function(context, { label, parameters, request }) {
+      const data = {
         sessionId: this.state.wallet.sessionId,
         walletId: this.state.wallet.walletId,
         label,
-        fee,
-        dataRequest,
-      })
-      if (request.result) {
-        const generatedTransaction = request.result
+        fee: parameters.fee,
+        request: {
+          dataRequest: encodeDataRequest(request),
+          witnessReward: parameters.rewardFee,
+          witnesses: parameters.witnesses,
+          backupWitnesses: parameters.backupWitnesses,
+          commitFee: parameters.commitFee,
+          revealFee: parameters.revealFee,
+          tallyFee: parameters.tallyFee,
+          extraCommitRounds: parameters.extraCommitRounds,
+          extraRevealRounds: parameters.extraRevealRounds,
+          minConsensusPercentage: parameters.minConsensusPercentage,
+        },
+      }
+
+      const req = await context.state.api.createDataRequest(data)
+      if (req.result) {
+        const generatedTransaction = req.result
         context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
       } else {
         context.commit('setError', {

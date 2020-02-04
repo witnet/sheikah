@@ -63,19 +63,20 @@ describe('Create a complete deploy Data Request flow', () => {
       .first()
       .clear()
       .type('1')
-    cy.get('[data-test=sign-send-btn]').click()
-    cy.get('[data-test=variables-dr-form]').should('not.be.visible')
-    cy.get('[data-test=fees-dr-form]').should('be.visible')
-    cy.get('[data-test=tx-amount]')
-      .first()
-      .clear()
-      .type('1')
-    cy.get('[data-test=sign-send-btn]').click()
-    if (cy.get('[data-test=confirm-deploy-dr]').and('not.be.visible')) {
-      cy.get('[data-test=alert]').should('be.visible')
-    } else {
-      cy.get('[data-test=fees-dr-form]').should('not.be.visible')
-      cy.get('[data-test=sign-send-btn]').click()
-    }
+    cy.get('[data-test=complete-variables-submit]').click()
+    // TODO: test the confirmation process when witnet-rust#1029
+    // cy.get('[data-test=fees-dr-form]').should('be.visible')
+    // cy.get('[data-test=tx-amount]')
+    //   .first()
+    //   .clear()
+    //   .type('1')
+    // cy.get('[data-test=create-data-request-submit]').click()
+
+    // if (cy.get('[data-test=confirm-deploy-dr]').and('not.be.visible')) {
+    //   cy.get('[data-test=alert]').should('be.visible')
+    // } else {
+    //   cy.get('[data-test=fees-dr-form]').should('not.be.visible')
+    //   cy.get('[data-test=sign-send-btn]').click()
+    // }
   })
 })
