@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import { changeOperatorOptionName } from '@/utils'
+
 let resetKeysSoFarTimer
 export default {
   name: 'Select',
@@ -88,7 +90,11 @@ export default {
   computed: {
     activeOptionIndex() {
       // TODO(#856): implement find for operator select, wait till the Radon Library is updated
-      return this.options.findIndex(x => x.value === this.value || x === this.value)
+      if (this.type === 'operator') {
+        return this.options.findIndex(x => changeOperatorOptionName(x.value) === this.value.value)
+      } else {
+        return this.options.findIndex(x => x.value === this.value || x === this.value)
+      }
     },
     prevOptionIndex() {
       const next = this.activeOptionIndex - 1
@@ -149,13 +155,16 @@ export default {
       if (e.key.length <= 1) {
         resetKeysSoFarTimer = setTimeout(() => {
           this.keysSoFar = ''
-        }, 500)
+        }, 1000)
       }
       this.keysSoFar += e.key
+      console.log('keys', this.keysSoFar)
       const matchingOption = this.options.find(x =>
         x.primaryText.toLowerCase().startsWith(this.keysSoFar)
       )
       if (matchingOption) {
+        // TODO: implement filtered option
+        // this.$emit('filtered', matchingOption)
         this.$emit('input', matchingOption)
       }
     },
@@ -170,7 +179,7 @@ export default {
 //as Select-box for Operators
 
 .select-box-operator {
-  box-sizing: border-box;
+  min-width: 350px;
   &:focus,
   &:focus-within {
     border-color: $grey-0;
@@ -182,7 +191,8 @@ export default {
   }
 
   .selected-btn {
-    width: 100%;
+    box-sizing: border-box;
+    min-width: inherit;
     z-index: 1;
     min-height: 35px;
     align-items: center;
@@ -228,6 +238,13 @@ export default {
   }
 
   .options {
+    position: absolute;
+    min-width: inherit;
+    font-weight: 500;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    box-sizing: border-box;
     border-color: 1px solid $grey-3;
     margin: 0;
     list-style-type: none;
@@ -244,7 +261,7 @@ export default {
       height: 32px;
       font-size: 14px;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0px 0px 0px 16px;
 
       &.has-focus {
         background-color: $white;

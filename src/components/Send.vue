@@ -192,7 +192,9 @@ export default {
     },
   },
   beforeDestroy() {
-    this.clearError(this.saveItemError.name)
+    if (this.saveItemError) {
+      this.clearError(this.saveItemError.name)
+    }
   },
 }
 </script>
