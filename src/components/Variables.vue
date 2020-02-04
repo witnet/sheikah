@@ -11,7 +11,7 @@
         @input="key => updateKey(index, key)"
       />
       <Input
-        class="variable-value"
+        class="variable-value input"
         :value="variable.value"
         @input="val => updateVariable(index, variable.key, val)"
       />
@@ -129,8 +129,10 @@ export default {
     .variable-value {
       background-color: $black;
       margin: 8px;
-      width: 80px;
       height: 20px;
+      &.input {
+        width: 80px;
+      }
     }
   }
   .delete {

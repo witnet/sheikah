@@ -16,7 +16,6 @@ export function createSelection(field, start, end) {
   field.focus()
   return field[0].innerHTML
 }
-
 export async function createAndUnlockWallet() {
   const api = new WalletApi()
   const promise = new Promise((resolve, reject) => {
