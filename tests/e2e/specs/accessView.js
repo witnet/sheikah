@@ -1,8 +1,6 @@
-import { createAndUnlockWallet } from '../utils'
-
 describe('Land correctly in every view accesible from the home page', () => {
-  beforeEach(async () => {
-    await createAndUnlockWallet()
+  beforeEach(() => {
+    cy.createAndUnlockWallet()
   })
 
   it('Redirects to the transactions view', () => {
