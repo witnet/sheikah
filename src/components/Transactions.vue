@@ -13,12 +13,7 @@
       <TransactionList class="list" :transactions="transactions" />
       <div class="col-right">
         <div class="top">
-          <Balances
-            :available="available"
-            :timelocked="timelocked"
-            :unconfirmed="unconfirmed"
-            :total="total"
-          />
+          <Balances :total="total" />
           <div class="send-received">
             <Button data-test="send-btn" class="primary" :onClick="displayModalSend">
               Send

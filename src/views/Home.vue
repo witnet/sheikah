@@ -25,10 +25,12 @@ export default {
   name: 'Home',
   created() {
     this.pollData()
-    this.$store.dispatch('subscribeToWalletNotifications')
   },
   beforeDestroy() {
     clearInterval(this.pollingInterval)
+    if (this.closeSessionError) {
+      this.clearError(this.closeSessionError.name)
+    }
   },
   data() {
     return {
@@ -40,15 +42,13 @@ export default {
       this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
       this.$store.dispatch('getAddresses')
     },
+    clearError(errorName) {
+      this.$store.commit('clearError', { error: errorName })
+    },
   },
   components: {
     Sidebar,
     Alert,
-  },
-  methods: {
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
-    },
   },
   computed: {
     ...mapState({
@@ -74,11 +74,6 @@ export default {
     errors() {
       return [this.closeSessionError, this.networkError].filter(error => !!error)
     },
-  },
-  beforeDestroy() {
-    if (this.closeSessionError) {
-      this.clearError(this.closeSessionError.name)
-    }
   },
 }
 </script>
