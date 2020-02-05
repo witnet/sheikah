@@ -358,6 +358,7 @@ export default {
         limit,
         page,
       })
+
       if (request.result) {
         context.commit('setTransactions', { transactions: request.result.transactions })
       } else {
