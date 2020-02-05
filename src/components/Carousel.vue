@@ -44,6 +44,7 @@
                     :script="source.script"
                     stage="retrieve"
                     :sourceIndex="source.index"
+                    :scriptId="source.scriptId"
                   />
                 </div>
               </div>

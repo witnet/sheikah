@@ -9,7 +9,7 @@
       />
     </div>
     <div class="button-container">
-      <button class="add-operators-btn" @click="pushOperator()">
+      <button class="add-operators-btn" @click="pushOperator">
         Add operator
       </button>
     </div>
@@ -26,10 +26,14 @@ export default {
     stage: String,
     sourceIndex: Number,
     script: Array,
+    scriptId: Number,
   },
   methods: {
     pushOperator() {
-      this.$store.commit(PUSH_OPERATOR, { scriptId: this.script[0].scriptId })
+      // TODO: get scriptId in a more consistent way
+      this.$store.commit(PUSH_OPERATOR, {
+        scriptId: this.script[0] ? this.script[0].scriptId : this.scriptId,
+      })
     },
   },
 }

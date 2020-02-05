@@ -179,7 +179,7 @@ export default {
           {
             url: '',
             kind: 'HTTP-GET',
-            script: [119],
+            script: [],
           },
         ],
         aggregate: {
