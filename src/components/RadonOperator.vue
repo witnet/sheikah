@@ -43,7 +43,7 @@
 
 <script>
 import Select from './Select'
-import { changeOperatorOptionName } from '@/utils'
+import { standardizeOperatorName } from '@/utils'
 import Input from '@/components/Input'
 import { UPDATE_TEMPLATE, USED_VARIABLES, TOGGLE_VARIABLES } from '@/store/mutation-types'
 
@@ -74,7 +74,7 @@ export default {
     Select,
   },
   methods: {
-    // TODO: fix filter
+    // TODO: find a better way to filter when searching a specific operator
     filtered(filtered) {
       this.options = filtered
     },
@@ -163,7 +163,7 @@ export default {
     operatorOptions() {
       return this.operator.options.map(option => {
         return {
-          primaryText: changeOperatorOptionName(option.label),
+          primaryText: standardizeOperatorName(option.label),
           value: option.label,
           secondaryText: option.outputType,
         }
