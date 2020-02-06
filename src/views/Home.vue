@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     pollData() {
+      this.$store.dispatch('getBalance')
       this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
       this.$store.dispatch('getAddresses')
     },
