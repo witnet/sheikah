@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { changeOperatorOptionName } from '@/utils'
+import { standardizeOperatorName } from '@/utils'
 
 let resetKeysSoFarTimer
 export default {
@@ -91,7 +91,7 @@ export default {
     activeOptionIndex() {
       // TODO(#856): implement find for operator select, wait till the Radon Library is updated
       if (this.type === 'operator') {
-        return this.options.findIndex(x => changeOperatorOptionName(x.value) === this.value.value)
+        return this.options.findIndex(x => standardizeOperatorName(x.value) === this.value.value)
       } else {
         return this.options.findIndex(x => x.value === this.value || x === this.value)
       }

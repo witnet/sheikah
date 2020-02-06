@@ -34,14 +34,17 @@ export function isRepeated(key, list) {
   return list && list[key]
 }
 
-export function changeOperatorOptionName(name) {
+// Split the first word of a camelCase string
+export function standardizeOperatorName(name) {
   if (name != null) {
-    const a = name.match(/[A-Z][a-z]+/g).splice(1)
-    if (a.length > 0) {
-      a[0] = a[0].toLowerCase()
-      return a.join('')
+    const capitalLetterRegex = /[A-Z][a-z]+/g
+    const matchedArray = name.match(capitalLetterRegex).splice(1)
+    if (matchedArray.length) {
+      matchedArray[0] = matchedArray[0].toLowerCase()
+      const standardizedWord = matchedArray.join('')
+      return standardizedWord
     } else {
-      return 'changeName'
+      return name.toLowerCase()
     }
   }
 }
