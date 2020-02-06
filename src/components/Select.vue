@@ -180,6 +180,7 @@ export default {
 
 .select-box-operator {
   min-width: 350px;
+  position: relative;
   &:focus,
   &:focus-within {
     border-color: $grey-0;
@@ -238,6 +239,7 @@ export default {
   }
 
   .options {
+    top: 34px;
     position: absolute;
     min-width: inherit;
     font-weight: 500;
