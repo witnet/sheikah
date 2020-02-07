@@ -273,6 +273,7 @@ export default {
       })
       if (request.result) {
         context.commit('setAddresses', { addresses: request.result.addresses })
+        this.commit('clearError', { error: 'getAddresses' })
       } else {
         context.commit('setError', {
           name: 'getAddresses',
@@ -363,6 +364,7 @@ export default {
 
       if (request.result) {
         context.commit('setTransactions', { transactions: request.result.transactions })
+        this.commit('clearError', { error: 'getTransactions' })
       } else {
         context.commit('setError', {
           name: 'getTransactions',
@@ -379,6 +381,7 @@ export default {
       })
       if (request.result) {
         context.commit('setBalances', { balances: request.result })
+        this.commit('clearError', { error: 'getBalance' })
       } else {
         context.commit('setError', {
           name: 'getBalance',
