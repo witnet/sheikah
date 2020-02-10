@@ -15,7 +15,8 @@
             class="input-operator"
             :placeholder="argument.label"
             :value="argument.value"
-            @input="value => updateTemplate(argument.id, value)"
+            @input="value => updateTemplate(argument.id, value, argument.type)"
+            :type="argument.type"
           />
           <font-awesome-icon
             data-test="variable-link-icon"
@@ -49,7 +50,7 @@
 
 <script>
 import Select from './Select'
-import { standardizeOperatorName } from '@/utils'
+import { standardizeOperatorName, getNativeValueFromMarkupArgumentType } from '@/utils'
 import Input from '@/components/Input'
 import { UPDATE_TEMPLATE, USED_VARIABLES, TOGGLE_VARIABLES } from '@/store/mutation-types'
 
@@ -96,7 +97,7 @@ export default {
       }
       return false
     },
-    updateTemplate(id, value) {
+    updateTemplate(id, value, type) {
       if (value && this.hasArguments) {
         this.variableName = value
         this.$store.commit(TOGGLE_VARIABLES, { hasVariables: true })
@@ -109,16 +110,22 @@ export default {
           this.$store.commit(USED_VARIABLES, {
             id: id,
             variable: variableMatch.key,
-            value: variableMatch.value,
+            value: getNativeValueFromMarkupArgumentType(variableMatch.value, type),
           })
         } else {
           this.$store.commit(TOGGLE_VARIABLES, { hasVariables: false })
-          this.$store.commit(UPDATE_TEMPLATE, { id, value })
+          this.$store.commit(UPDATE_TEMPLATE, {
+            id,
+            value: getNativeValueFromMarkupArgumentType(value, type),
+          })
         }
         this.$store.dispatch('saveTemplate')
       } else {
         this.selected = { id: id, primaryText: value, value: value, secondaryText: 'boolean' }
-        this.$store.commit(UPDATE_TEMPLATE, { id, value })
+        this.$store.commit(UPDATE_TEMPLATE, {
+          id,
+          value: getNativeValueFromMarkupArgumentType(value, type),
+        })
         this.$store.dispatch('saveTemplate')
       }
     },
