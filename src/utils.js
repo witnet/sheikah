@@ -145,3 +145,14 @@ export function copyToClipboard(id) {
     window.getSelection().addRange(currentRange)
   }
 }
+
+// Get the native javascript type from the radon markup argument type
+export function getNativeValueFromMarkupArgumentType(value, type) {
+  if (type === 'number') {
+    return Number(value)
+  }
+  if (type === 'boolean') {
+    return value === 'true'
+  }
+  return value
+}
