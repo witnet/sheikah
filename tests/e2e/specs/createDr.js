@@ -34,12 +34,29 @@ describe('Create a complete Receive transactions flow', () => {
     cy.get('[data-test=select-btn]')
       .first()
       .click()
-    cy.get('[data-test=option-0]')
+
+    cy.get('[data-test=select-btn]')
+      .last()
+      .click()
+    cy.get('[data-test=option-7]')
       .last()
       .click({ force: true })
     cy.get('[data-test=add-operator-btn]')
       .first()
       .click()
+
+    cy.get('[data-test=option-6]')
+      .last()
+      .click({ force: true })
+
+    cy.get('[data-test=add-operator-btn]')
+      .first()
+      .click()
+
+    cy.get('[data-test=option-6]')
+      .last()
+      .click({ force: true })
+
   })
   it('Add variable and edit', () => {
     cy.get('[data-test=console-tab]')
