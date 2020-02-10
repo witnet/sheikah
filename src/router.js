@@ -42,6 +42,9 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         if (store.state.wallet.api.client.ws.ready) {
           next()
+          store.state.wallet.api.client.ws.on('close', () => {
+            next('/wallet-not-found')
+          })
         } else {
           let error = true
           setTimeout(() => {
@@ -49,7 +52,6 @@ export default new Router({
               next('/wallet-not-found')
             }
           }, 3000)
-
           store.state.wallet.api.client.ws.on('open', () => {
             error = false
             store.dispatch('getWalletInfos')
@@ -132,13 +134,11 @@ export default new Router({
             error = false
             store.dispatch('getWalletInfos')
             const polling = setInterval(() => {
-              const isSessionId = store.state.wallet.sessionId
+              // const isSessionId = store.state.wallet.sessionId
               const walletInfos = store.state.wallet.walletInfos
               if (Array.isArray(walletInfos)) {
                 clearInterval(polling)
-                if (isSessionId) {
-                  next()
-                } else if (walletInfos.length > 0) {
+                if (walletInfos.length > 0) {
                   next('/welcome-back/wallet-list')
                 } else {
                   next('/ftu/welcome')

@@ -150,6 +150,15 @@ export default {
           }
         }
       },
+      networkError: state => {
+        if (state.wallet.errors.network) {
+          return {
+            message: state.wallet.errors.network.message,
+            description: state.wallet.errors.network.error,
+            name: state.wallet.errors.network.name,
+          }
+        }
+      },
       getItemError: state => {
         if (state.rad.errors.getItem) {
           return {
@@ -165,7 +174,7 @@ export default {
             error => !!error
           )
         } else {
-          return []
+          return [this.networkError]
         }
       },
     }),
