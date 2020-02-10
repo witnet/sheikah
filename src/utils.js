@@ -1,5 +1,6 @@
 import cbor from 'cbor'
 import uuidv4 from 'uuid/v4'
+import { WIT_UNIT } from '@/constants'
 
 function encodeAggregationTally(stage) {
   return {
@@ -10,6 +11,15 @@ function encodeAggregationTally(stage) {
     }),
     reducer: stage.reducer,
   }
+}
+// Convert the received amount of nanoWits into selected unit
+export function standardizeWitUnits(amount, unit) {
+  const units = {
+    [`${WIT_UNIT.WIT}`]: 9,
+    [`${WIT_UNIT.MICRO}`]: 3,
+    [`${WIT_UNIT.NANO}`]: 0,
+  }
+  return (amount / Math.pow(10, units[unit])).toFixed(units[unit]).replace(/\.?0+$/, '')
 }
 
 export function encodeDataRequest(radRequest) {

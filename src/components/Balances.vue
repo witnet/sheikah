@@ -23,7 +23,10 @@
     </div> -->
     <div class="entry">
       <p class="label">Total</p>
-      <p v-if="total" class="value">{{ total }} <span class="currency">WIT</span></p>
+      <p v-if="total" class="value">
+        {{ total }}
+        <span class="currency">{{ currency }}</span>
+      </p>
       <p v-else class="empty-value">_</p>
     </div>
   </div>
@@ -41,6 +44,7 @@ export default {
       type: [String, Number],
       default: '0',
     },
+    currency: String,
   },
 }
 </script>

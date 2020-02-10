@@ -7,6 +7,7 @@
     <div class="list">
       <Transaction
         v-for="(transaction, index) in transactions"
+        :currency="currency"
         :key="transaction.id"
         :id="transaction.id"
         :label="transaction.label"
@@ -42,6 +43,7 @@ export default {
     return {}
   },
   props: {
+    currency: String,
     transactions: Array,
   },
 }

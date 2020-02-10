@@ -1,7 +1,8 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
-import { addToList, encodeDataRequest } from '@/utils'
+import { addToList, encodeDataRequest, standardizeWitUnits } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
+import { WIT_UNIT } from '@/constants'
 
 export default {
   state: {
@@ -27,7 +28,8 @@ export default {
       saveItem: null,
       getItem: null,
     },
-    balances: {},
+    currency: WIT_UNIT.NANO,
+    balances: null,
     sessionId: null,
     walletId: null,
     addresses: [],
@@ -47,7 +49,7 @@ export default {
       state.transactions = transactions.map(transaction => ({
         id: transaction.hex_hash,
         address: '',
-        amount: transaction.value,
+        amount: standardizeWitUnits(transaction.value, state.currency),
         block: transaction.block ? transaction.block.epoch : 'PENDING',
         date: new Date(transaction.timestamp).toISOString(),
         label: addToList(transaction.hex_hash, state.txLabels, 'label'),
@@ -57,7 +59,7 @@ export default {
       state.txLabels = labels
     },
     setBalances(state, { balances }) {
-      state.balances = balances
+      state.balances = standardizeWitUnits(balances.total, state.currency)
     },
     deleteSession(state) {
       state.sessionId = null
