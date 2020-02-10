@@ -12,10 +12,10 @@
       />
     </div>
     <div class="transactions">
-      <TransactionList class="list" :transactions="transactions" />
+      <TransactionList class="list" :transactions="transactions" :currency="currency" />
       <div class="col-right">
         <div class="top">
-          <Balances :total="total" />
+          <Balances :total="total" :currency="currency" />
           <div class="send-received">
             <Button data-test="send-btn" class="primary" :onClick="displayModalSend">
               Send
@@ -122,7 +122,7 @@ export default {
       // available: state => state.wallet.balances.available,
       // timelocked: state => state.wallet.balances.timelocked,
       // unconfirmed: state => state.wallet.balances.unconfirmed,
-      total: state => state.wallet.balances.total,
+      total: state => state.wallet.balances,
       txLabels: state => state.wallet.txLabels,
       transactions: state => state.wallet.transactions,
       error: state => state.wallet.errors.getTransactions,
@@ -136,6 +136,7 @@ export default {
           }
         }
       },
+      currency: state => state.wallet.currency,
       sendTransactionError: state => {
         if (state.wallet.errors.sendTransaction) {
           return {
