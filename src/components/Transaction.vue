@@ -3,7 +3,7 @@
     <div class="amount">
       <font-awesome-icon :class="`icon ${origin.toLowerCase()}`" :icon="arrowIcon" />
       <span :class="`number ${origin.toLowerCase()}`">{{ amount }}</span>
-      <span class="wit">WIT</span>
+      <span class="wit">{{ currency }}</span>
     </div>
     <div class="address">
       <div class="origin">
@@ -24,8 +24,9 @@
 export default {
   name: 'Transaction',
   props: {
+    currency: String,
     address: String,
-    amount: Number,
+    amount: String,
     block: [String, Number],
     border: Boolean,
     date: String,
