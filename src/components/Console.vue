@@ -33,7 +33,7 @@ export default {
     return {
       currentTab: VARIABLES,
       tabs: [VARIABLES, LOGS],
-      showConsole: true,
+      showConsole: false,
     }
   },
   watch: {

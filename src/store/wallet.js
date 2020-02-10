@@ -69,13 +69,18 @@ export default {
       if (state.api.client.ws.ready) {
         state.networkStatus = 'synced'
         this.commit('clearError', { error: 'network' })
+        if (state.errors.length) {
+          state.errors.map(err => this.commit('clearError', { error: err.name }))
+        }
       } else {
         state.networkStatus = 'error'
-        this.commit('setError', {
-          name: 'network',
-          error: 'The wallet or the node is not running properly',
-          message: 'connection error',
-        })
+        if (state.networkStatus === 'error') {
+          this.commit('setError', {
+            name: 'network',
+            error: 'The wallet or the node is not running properly',
+            message: 'connection error',
+          })
+        }
       }
     },
     setDataRequestResult(state, { result }) {

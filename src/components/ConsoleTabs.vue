@@ -2,6 +2,7 @@
   <div :class="[!showConsole ? 'tab-bar hidden' : 'tab-bar']">
     <div class="tab">
       <button
+        data-test="console-tab"
         v-for="(tab, index) in tabs"
         :key="tab + index"
         @click="changeTab(tab)"
