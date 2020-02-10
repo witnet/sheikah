@@ -42,6 +42,9 @@ describe('Create a complete Receive transactions flow', () => {
       .click()
   })
   it('Add variable and edit', () => {
+    cy.get('[data-test=console-tab]')
+      .first()
+      .click()
     cy.get('[data-test=add-var-btn]').click()
     cy.get('[data-test=edit-var]')
       .first()
@@ -126,7 +129,7 @@ describe('Create a complete Receive transactions flow', () => {
       .click()
     cy.get('[data-test=option-1]')
       .last()
-      .click()
+      .click({ force: true })
   })
 
   it('Saves template', () => {

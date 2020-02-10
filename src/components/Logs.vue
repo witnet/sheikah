@@ -1,6 +1,6 @@
 <template>
   <div class="logs-container">
-    <div v-for="log in logs" :key="log.timestamp" class="log">
+    <div v-for="log in results" :key="log.timestamp" class="log">
       <p class="time">{{ log.timestamp }}</p>
       <p class="message">{{ log.result }}</p>
     </div>
@@ -13,6 +13,11 @@ export default {
   props: {
     logs: Array,
   },
+  computed: {
+    results() {
+      return this.logs
+    },
+  },
 }
 </script>
 
@@ -23,6 +28,7 @@ export default {
 .logs-container {
   width: 100%;
   height: 20vh;
+  padding-top: 32px;
   overflow-y: scroll;
   background-color: $black;
   .log {
