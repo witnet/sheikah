@@ -10,6 +10,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
+    "ci": "yarn lint && yarn test --headless",
     "clean": "yarn clean-deps && rm -rf dist_electron",
     "clean-deps": "rm -rf node_modules",
     "electron:build": "vue-cli-service electron:build",
@@ -18,8 +19,9 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
     "reinstall": "yarn clean-deps && yarn",
-    "test": "yarn test:unit && yarn test:e2e",
-    "ci": "yarn lint && yarn test --headless"
+    "styleguide": "vue-cli-service styleguidist",
+    "styleguide:build": "vue-cli-service styleguidist:build",
+    "test": "yarn test:unit && yarn test:e2e"
   },
   "main": "background.js",
   "dependencies": {
@@ -56,6 +58,7 @@
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-standard": "^4.0.0",
+    "vue-cli-plugin-styleguidist": "^4.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
