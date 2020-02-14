@@ -5,6 +5,7 @@
         data-test="radon-operator"
         :operator="operator"
         :stage="stage"
+        :scriptId="scriptId"
         :sourceIndex="sourceIndex"
         :showUnionIcon="index !== script.length - 1"
       />

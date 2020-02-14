@@ -14,6 +14,7 @@ import {
   CREATE_TEMPLATE,
   SET_CURRENT_TEMPLATE,
   PUSH_OPERATOR,
+  DELETE_OPERATOR,
   USED_VARIABLES,
   CREATE_VARIABLE,
   UPDATE_VARIABLES,
@@ -219,6 +220,11 @@ export default {
     },
     [PUSH_OPERATOR](state, { scriptId }) {
       state.currentRadonMarkupInterpreter.addOperator(scriptId)
+      state.radRequest = state.currentRadonMarkupInterpreter
+      this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
+    },
+    [DELETE_OPERATOR](state, { scriptId, operatorId }) {
+      state.currentRadonMarkupInterpreter.deleteOperator(scriptId, operatorId)
       state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
