@@ -287,7 +287,7 @@ export default {
   }
   .add {
     display: flex;
-    min-width: 100px;
+    min-width: 300px;
     min-height: 200px;
     justify-content: center;
     flex: 0 1 calc(30% - 2em);
