@@ -1,15 +1,17 @@
 import { createSelection } from '../utils'
-
-describe('Create a complete Send transactions flow', () => {
+// TODO: remove skip in tests when new rust realise is ready
+describe.skip('Create a complete Send transactions flow', () => {
   it('Redirects to home view', () => {
     cy.createAndUnlockWallet()
     cy.get('[data-test=to-transactions]').click()
     cy.get('[data-test=transactions]')
   })
+
   it('Add Addresses correctly', () => {
     cy.get('[data-test=receive-btn]').click()
     cy.get('[data-test=receive-modal]')
   })
+
   it('Copies last address generated and fill the send tx form', () => {
     cy.get('[data-test=last-address]')
       .click()
@@ -44,6 +46,7 @@ describe('Create a complete Send transactions flow', () => {
   it('Shows error when sending transactions', () => {
     cy.get('[data-test=alert]')
   })
+
   it('Closes the modal', () => {
     cy.get('.el-dialog__headerbtn')
       .first()
