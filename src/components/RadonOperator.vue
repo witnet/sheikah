@@ -1,12 +1,17 @@
 <template>
   <div class="radon-operator">
-    <Select
-      :value="selectedOption"
-      @input="option => updateTemplate(selectedOption.id, option.value)"
-      :options="options"
-      v-on:filtered="filtered"
-      type="operator"
-    />
+    <div class="selected-operator">
+      <Select
+        :value="selectedOption"
+        @input="option => updateTemplate(selectedOption.id, option.value)"
+        :options="options"
+        v-on:filtered="filtered"
+        type="operator"
+      />
+      <button class="delete-op-btn" @click="deleteOperator">
+        x
+      </button>
+    </div>
     <div class="with-arguments" v-if="hasArguments">
       <div v-for="(argument, index) in selectedOperator.arguments" :key="argument.label + index">
         <div v-if="argument.markupType === 'input'" class="input-container">
@@ -52,7 +57,12 @@
 import Select from './Select'
 import { standardizeOperatorName, getNativeValueFromMarkupArgumentType } from '@/utils'
 import Input from '@/components/Input'
-import { UPDATE_TEMPLATE, USED_VARIABLES, TOGGLE_VARIABLES } from '@/store/mutation-types'
+import {
+  UPDATE_TEMPLATE,
+  USED_VARIABLES,
+  TOGGLE_VARIABLES,
+  DELETE_OPERATOR,
+} from '@/store/mutation-types'
 
 export default {
   name: 'RadonOperator',
@@ -70,6 +80,9 @@ export default {
     showOutputType: {
       default: true,
       type: Boolean,
+    },
+    scriptId: {
+      required: true,
     },
     operator: {
       required: true,
@@ -96,6 +109,12 @@ export default {
         }
       }
       return false
+    },
+    deleteOperator() {
+      this.$store.commit(DELETE_OPERATOR, {
+        scriptId: this.scriptId,
+        operatorId: this.operator.id,
+      })
     },
     updateTemplate(id, value, type) {
       if (value && this.hasArguments) {
@@ -218,6 +237,25 @@ export default {
 .radon-operator {
   border-radius: 5px;
   margin-bottom: 8px;
+  .selected-operator {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .delete-op-btn {
+      display: none;
+      cursor: pointer;
+      color: $red-0;
+      font-size: 16px;
+      background-color: transparent;
+      border: none;
+      margin-left: 20px;
+      position: absolute;
+      font-weight: 700;
+    }
+    &:hover .delete-op-btn {
+      display: block;
+    }
+  }
 }
 .with-arguments {
   background-color: $grey-0;

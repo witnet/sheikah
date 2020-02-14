@@ -195,6 +195,7 @@ export default {
   color: inherit;
 }
 .card-layout {
+  min-width: 300px;
   background-color: $alpha-blue;
   border-radius: 2px;
   margin: 16px;
