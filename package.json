@@ -10,7 +10,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "ci": "yarn lint && yarn test --headless",
+    "ci": "yarn lint && yarn test --headless && yarn electron:build",
     "clean": "yarn clean-deps && rm -rf dist_electron",
     "clean-deps": "rm -rf node_modules",
     "electron:build": "vue-cli-service electron:build",
@@ -21,7 +21,8 @@
     "reinstall": "yarn clean-deps && yarn",
     "styleguide": "vue-cli-service styleguidist",
     "styleguide:build": "vue-cli-service styleguidist:build",
-    "test": "yarn test:unit && yarn test:e2e"
+    "test": "yarn test:unit && yarn test:e2e",
+    "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten"
   },
   "main": "background.js",
   "dependencies": {
@@ -53,17 +54,18 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "electron": "^5.0.0",
+    "electron-icon-builder": "^1.0.2",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-standard": "^4.0.0",
-    "vue-cli-plugin-styleguidist": "^4.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-electron-builder": "^1.4.5",
     "vue-cli-plugin-element": "^1.0.1",
+    "vue-cli-plugin-styleguidist": "^4.8.0",
     "vue-template-compiler": "^2.5.21"
   },
   "bugs": {
