@@ -30,7 +30,6 @@ export default {
   },
   async beforeCreate() {
     this.$store.dispatch('getWalletInfos')
-
     // Initialize polling interval to retrieve network status
     setInterval(() => {
       this.$store.commit('checkNetworkStatus')
