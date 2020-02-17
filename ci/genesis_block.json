@@ -1,0 +1,28 @@
+{
+  "alloc": [
+      [
+          {
+              "address": "twit1adgt8t2h3xnu358f76zxlph0urf2ev7cd78ggc",
+              "value": "500000000000",
+              "timelock": "0"
+          },
+          {
+              "address": "twit103clhyyjv37v4qzwyxwl0njdqs3uzvk29vkchw",
+              "value": "500000000000",
+              "timelock": "0"
+          }
+      ],
+      [
+          {
+              "address": "twit1ec9xzm4tgjg994s7g73wr7plj5n2emnty70320",
+              "value": "555444333222111000",
+              "timelock": "0"
+          },
+          {
+              "address": "twit1xpcuk9les7hg52p2hx4kz7mycwz0kn3zw330p4",
+              "value": "555444333222111000",
+              "timelock": "0"
+          }
+      ]
+  ]
+}

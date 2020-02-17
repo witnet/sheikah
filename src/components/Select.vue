@@ -112,7 +112,9 @@ export default {
   methods: {
     handleFocus(e) {
       this.optionsVisible = true
-      this.$refs.button.focus()
+      if (this.$refs.button) {
+        this.$refs.button.focus()
+      }
     },
     selectOption(option) {
       this.$emit('input', option)
@@ -129,7 +131,9 @@ export default {
     async showOptions() {
       this.optionsVisible = true
       await this.$nextTick()
-      this.$refs.options.focus()
+      if (this.$refs.options) {
+        this.$refs.options.focus()
+      }
     },
     hideOptions() {
       this.optionsVisible = false
@@ -137,7 +141,9 @@ export default {
     async reset() {
       this.hideOptions()
       await this.$nextTick()
-      this.$refs.button.focus()
+      if (this.$refs.button) {
+        this.$refs.button.focus()
+      }
     },
     setupFocus() {
       if (!this.value) {
