@@ -177,8 +177,8 @@ export default {
   actions: {
     closeSession: async function(context) {
       const request = await context.state.api.closeSession({
-        walletId: context.state.walletId,
-        sessionId: context.state.sessionId,
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
       })
       if (request.result) {
         context.commit('deleteSession')
@@ -193,8 +193,8 @@ export default {
     },
     getLabels: async function(context) {
       const request = await context.state.api.getItem({
-        walletId: context.rootState.wallet.walletId,
-        sessionId: context.rootState.wallet.sessionId,
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
         key: `${context.rootState.wallet.walletId}_labels`,
       })
       if (request.result) {
@@ -211,8 +211,8 @@ export default {
     sendTransaction: async function(context, { label }) {
       const transactionToSend = context.state.generatedTransaction
       const request = await context.state.api.sendTransaction({
-        walletId: context.state.walletId,
-        sessionId: context.state.sessionId,
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
         transaction: context.state.generatedTransaction.transaction,
       })
       if (request.result) {
@@ -233,8 +233,8 @@ export default {
       context.state.txLabels[transactionId] = { label }
       const txLabels = context.state.txLabels
       const request = await context.state.api.saveItem({
-        walletId: context.rootState.wallet.walletId,
-        sessionId: context.rootState.wallet.sessionId,
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
         key: `${context.rootState.wallet.walletId}_labels`,
         value: txLabels,
       })
@@ -251,8 +251,8 @@ export default {
     },
     createDataRequest: async function(context, { label, parameters, request }) {
       const data = {
-        sessionId: this.state.wallet.sessionId,
-        walletId: this.state.wallet.walletId,
+        session_id: this.state.wallet.sessionId,
+        wallet_id: this.state.wallet.walletId,
         label,
         fee: parameters.fee,
         request: {
@@ -284,8 +284,8 @@ export default {
 
     createVTT: async function(context, { address, amount, fee, label }) {
       const request = await context.state.api.createVTT({
-        sessionId: this.state.wallet.sessionId,
-        walletId: this.state.wallet.walletId,
+        session_id: this.state.wallet.sessionId,
+        wallet_id: this.state.wallet.walletId,
         address,
         amount: parseInt(amount),
         fee,
@@ -305,8 +305,8 @@ export default {
 
     getAddresses: async function(context) {
       const request = await context.state.api.getAddresses({
-        walletId: context.state.walletId,
-        sessionId: context.state.sessionId,
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
         limit: 300,
       })
       if (request.result) {
@@ -324,8 +324,8 @@ export default {
     generateAddress: async function(context, { label }) {
       const request = await context.state.api.generateAddress({
         label,
-        walletId: context.state.walletId,
-        sessionId: context.state.sessionId,
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
       })
       if (request.result) {
         context.commit('addAddress', { address: request.result })
@@ -339,10 +339,15 @@ export default {
     },
 
     unlockWallet: async function(context, { walletId, password }) {
-      const request = await context.state.api.unlockWallet({ walletId, password, sessionId: '1' })
+      const request = await context.state.api.unlockWallet({
+        wallet_id: walletId,
+        password,
+        session_id: '1',
+        prefill: [1000, 2000, 3000],
+      })
       if (request.result) {
         // TODO(#706) We should receive a wallet structure instead a walletId
-        context.commit('setWallet', { sessionId: request.result.sessionId, walletId })
+        context.commit('setWallet', { sessionId: request.result.session_id, walletId })
       } else {
         context.commit('setError', { name: 'unlockWallet', error: request.error })
       }
@@ -374,13 +379,13 @@ export default {
       const request = await context.state.api.createWallet({
         name: 'first',
         caption: '1',
-        seedData: params[params.sourceType],
-        seedSource: params.sourceType,
+        seed_data: params[params.sourceType],
+        seed_source: params.sourceType,
         password: params.password,
       })
       if (request.result) {
         context.dispatch('unlockWallet', {
-          walletId: request.result.walletId,
+          walletId: request.result.wallet_id,
           password: params.password,
         })
       } else {
@@ -394,8 +399,8 @@ export default {
 
     getTransactions: async function(context, { limit, page }) {
       const request = await context.state.api.getTransactions({
-        walletId: context.state.walletId,
-        sessionId: context.state.sessionId,
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
         limit,
         page,
       })
@@ -414,8 +419,8 @@ export default {
 
     getBalance: async function(context) {
       const request = await context.state.api.getBalance({
-        walletId: context.state.walletId,
-        sessionId: context.state.sessionId,
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
       })
       if (request.result) {
         context.commit('setBalances', { balances: request.result })
@@ -448,7 +453,7 @@ export default {
     },
     subscribeToWalletNotifications: async function(context) {
       context.state.api.subscribeToNotifications(
-        { sessionId: this.state.wallet.sessionId },
+        { session_id: this.state.wallet.sessionId },
         notification =>
           context.commit('setBalances', {
             balances: { total: notification[0].accountBalance.amount },
@@ -463,7 +468,9 @@ export default {
       })
 
       const request = await context.state.api.runRadRequest({
-        radRequest: encodeDataRequest(context.rootState.rad.currentRadonMarkupInterpreter.getMir()),
+        rad_request: encodeDataRequest(
+          context.rootState.rad.currentRadonMarkupInterpreter.getMir()
+        ),
       })
       if (request.result) {
         context.commit('setDataRequestResult', { result: request.result })

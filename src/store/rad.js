@@ -250,11 +250,11 @@ export default {
     changeTemplateName: async function(context, { id, name }) {
       this.commit('renameTemplate', { id, name })
       const request = await context.rootState.wallet.api.saveItem({
-        walletId: context.rootState.wallet.walletId,
-        sessionId: context.rootState.wallet.sessionId,
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
         key: 'templates',
         value: context.state.templates,
-        creationDate: Date.now(),
+        creation_date: Date.now(),
       })
       if (request.result) {
         await context.dispatch('getTemplates')
@@ -289,11 +289,11 @@ export default {
       }
       templates[templateToSave.id] = templateToSave
       const request = await context.rootState.wallet.api.saveItem({
-        walletId: context.rootState.wallet.walletId,
-        sessionId: context.rootState.wallet.sessionId,
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
         key: 'templates',
         value: templates,
-        creationDate: date,
+        creation_date: date,
       })
       if (request.result) {
         await context.dispatch('getTemplates')
@@ -307,8 +307,8 @@ export default {
     },
     getTemplates: async function(context, params) {
       const request = await context.rootState.wallet.api.getItem({
-        walletId: context.rootState.wallet.walletId,
-        sessionId: context.rootState.wallet.sessionId,
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
         key: 'templates',
       })
       if (request.result) {
@@ -324,8 +324,8 @@ export default {
     deleteTemplate: async function(context, { id }) {
       Vue.delete(context.state.templates, id)
       const request = await context.rootState.wallet.api.saveItem({
-        walletId: context.rootState.wallet.walletId,
-        sessionId: context.rootState.wallet.sessionId,
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
         key: 'templates',
         value: context.state.templates,
       })
