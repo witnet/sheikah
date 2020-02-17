@@ -1,5 +1,7 @@
 'use strict'
+/* global __static */
 
+import path from 'path'
 import { BrowserWindow, app, protocol } from 'electron'
 import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -20,6 +22,7 @@ function createWindow() {
     height: 600,
     minWidth: 800,
     minHeight: 600,
+    icon: path.join(__static, 'icon.png'),
     webPreferences: {
       nodeIntegration: true,
     },
