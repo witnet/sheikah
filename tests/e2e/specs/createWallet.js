@@ -1,5 +1,6 @@
 // https://docs.cypress.io/api/introduction/api.html
 import { createSelection } from '../utils'
+
 beforeEach(() => {
   // FIXME(#908): Clear wallet state before each suite
   console.log('We should reset the db here')

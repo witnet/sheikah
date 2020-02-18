@@ -80,18 +80,17 @@ export function changeDateFormat(string) {
   return `${day}-${month}-${year}`
 }
 
+// TODO(#935): allow open links with electron.shell.openExternal
 export async function openInExternalApp(url) {
-  if (process.env.IS_ELECTRON) {
-    import('electron')
-      .then(electron => {
-        electron.shell.openExternal(url)
-      })
-      .catch(error => {
-        throw Error(error)
-      })
-  } else {
-    window.location.href = url
-  }
+  // if (process.env.IS_ELECTRON) {
+  //     .then(electron => {
+  // electron.shell.openExternal(url)
+  //     })
+  //     .catch(error => {
+  //       throw Error(error)
+  //     })
+  // } else {
+  window.location.href = url
 }
 
 export function generateId(random) {

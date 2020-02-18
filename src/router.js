@@ -21,6 +21,7 @@ import WalletSeedValidation from '@/components/steps/WalletSeedValidation.vue'
 import WelcomeBack from '@/views/WelcomeBack.vue'
 import WelcomeForm from '@/components/steps/WelcomeForm.vue'
 import WalletNotFound from '@/components/WalletNotFound.vue'
+import Setup from '@/views/Setup.vue'
 
 import store from '@/store'
 
@@ -115,6 +116,12 @@ export default new Router({
           component: Marketplace,
         },
       ],
+    },
+
+    {
+      path: '/setup',
+      name: 'setup',
+      component: Setup,
     },
     {
       path: '/wallet-not-found',
