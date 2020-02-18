@@ -33,17 +33,17 @@ describe('Create a complete Receive transactions flow', () => {
   it('Add operator', () => {
     cy.get('[data-test=select-btn]')
       .first()
-      .click()
+      .click({ force: true })
 
     cy.get('[data-test=select-btn]')
       .last()
-      .click()
+      .click({ force: true })
     cy.get('[data-test=option-7]')
       .last()
       .click({ force: true })
     cy.get('[data-test=add-operator-btn]')
       .first()
-      .click()
+      .click({ force: true })
 
     cy.get('[data-test=option-6]')
       .last()
@@ -51,7 +51,7 @@ describe('Create a complete Receive transactions flow', () => {
 
     cy.get('[data-test=add-operator-btn]')
       .first()
-      .click()
+      .click({ force: true })
 
     cy.get('[data-test=option-6]')
       .last()
@@ -90,7 +90,8 @@ describe('Create a complete Receive transactions flow', () => {
     cy.get('[data-test=add-var-btn]').click()
     cy.get('[data-test=edit-var]')
       .first()
-      .click()
+      .click({ force: true })
+
     cy.get('[data-test=edit-var-input]')
       .first()
       .clear()
@@ -139,10 +140,10 @@ describe('Create a complete Receive transactions flow', () => {
   it('Add operator', () => {
     cy.get('[data-test=add-operator-btn]')
       .last()
-      .click()
+      .click({ force: true })
     cy.get('[data-test=select-btn]')
       .last()
-      .click()
+      .click({ force: true })
     cy.get('[data-test=option-1]')
       .last()
       .click({ force: true })
