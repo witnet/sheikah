@@ -2,6 +2,9 @@ dist: bionic
 language: node_js
 node_js:
   - 10
+branches:
+  only:
+  - dev
 cache:
   yarn: true
   directories:
