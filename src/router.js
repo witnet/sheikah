@@ -134,7 +134,6 @@ export default new Router({
             error = false
             store.dispatch('getWalletInfos')
             const polling = setInterval(() => {
-              // const isSessionId = store.state.wallet.sessionId
               const walletInfos = store.state.wallet.walletInfos
               if (Array.isArray(walletInfos)) {
                 clearInterval(polling)
