@@ -14,10 +14,10 @@
 
     <template v-slot:footer>
       <div class="navigation-buttons">
-        <Button data-test="previous-step" type="navigation" :onClick="previousStep">
+        <Button class="button" data-test="previous-step" :onClick="previousStep">
           {{ previousText }}
         </Button>
-        <Button data-test="next-step" type="navigation" ref="next" :onClick="nextStep">
+        <Button class="button" data-test="next-step" type="primary" ref="next" :onClick="nextStep">
           {{ nextText }}
         </Button>
       </div>
@@ -58,6 +58,9 @@ export default {
 
 .card-navigation {
   width: 600px;
+  // height: 550px;
+  min-height: 400px;
+  border: 1px solid $grey-0;
 
   .header {
     background: $sheikah-gradient;
@@ -73,14 +76,17 @@ export default {
 
   .content {
     font-size: 16px;
-    height: 389px;
-    padding: 32px;
-    border: 1px solid $grey-0;
+    padding: 32px 32px 0px 32px;
   }
 
   .navigation-buttons {
-    border-left: 1px solid $grey-0;
-    border-bottom: 1px solid $grey-0;
+    box-sizing: border-box;
+    text-align: right;
+    padding: 32px;
+    .button,
+    .default {
+      margin-right: 8px;
+    }
   }
 }
 </style>

@@ -196,7 +196,7 @@ export default {
         creationDate: Date.now(),
         id: generateId(),
         name: name,
-        description: '',
+        description: 'Add a description for this template',
         radRequest,
         variables: [
           {

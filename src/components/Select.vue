@@ -324,6 +324,8 @@ export default {
 //as Select-box
 
 .select-box {
+  min-width: 250px;
+  position: relative;
   &:focus,
   &:focus-within {
     border-color: #80bdff;
@@ -335,6 +337,8 @@ export default {
   }
 
   .selected-btn {
+    box-sizing: border-box;
+    min-width: inherit;
     z-index: 1;
     min-height: 35px;
     align-items: center;
@@ -380,6 +384,10 @@ export default {
   }
 
   .options {
+    box-sizing: border-box;
+    position: absolute;
+    top: 34px;
+    min-width: inherit;
     border-color: 1px solid #80bdff;
     margin: 0;
     padding-top: 8px;
