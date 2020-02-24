@@ -405,11 +405,16 @@ export default {
         context.commit('setBalances', { balances: request.result })
         this.commit('clearError', { error: 'getBalance' })
       } else {
-        context.commit('setError', {
-          name: 'getBalance',
-          error: request.error,
-          message: 'An error occurred getting the balance',
-        })
+        if (request.error.message === 'Unauthorized') {
+          context.commit('deleteSession')
+          router.push('/welcome-back/wallet-list')
+        } else {
+          context.commit('setError', {
+            name: 'getBalance',
+            error: request.error,
+            message: 'An error occurred getting the balance',
+          })
+        }
       }
     },
 
