@@ -7,7 +7,7 @@
       :key="social.content"
     >
       <template v-slot:header>
-        <a @click="() => openExternalLink(social.url)">
+        <a :href="social.url" target="_blank">
           {{ social.header }}
         </a>
       </template>
