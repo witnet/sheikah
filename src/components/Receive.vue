@@ -24,6 +24,7 @@ export default {
   name: 'receive',
   props: {
     lastAddress: String,
+    modalShown: Boolean,
   },
   data() {
     return {
@@ -33,18 +34,18 @@ export default {
       lastAddressId: 'last-generated-address',
     }
   },
+  watch: {
+    modalShown() {
+      this.copied = false
+      this.text = 'Copy'
+    },
+  },
   methods: {
     copyAddress(id) {
       copyToClipboard(id)
       this.text = 'Copied'
       this.copied = true
     },
-  },
-  computed: {
-    // lastAddress() {
-    //   console.log('lastAddress-->', this.addresses[this.addresses.length - 1].address)
-    //   return this.addresses[this.addresses.length - 1]
-    // },
   },
 }
 </script>

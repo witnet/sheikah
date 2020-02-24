@@ -1,12 +1,10 @@
 <template>
   <div data-test="templates">
     <div class="templates-bar">
-      <div v-for="tab in tabs" class="title" :key="tab.link">
-        {{ tab.name }}
-      </div>
-      <div class="button-container">
-        <Button type="primary" :onClick="importTemplate" class="import">Import template</Button>
-      </div>
+      <button class="tool-btn" @click="importTemplate">
+        <font-awesome-icon class="icon" icon="file-import" />
+        Import template
+      </button>
     </div>
     <div v-show="dialogVisible === false">
       <Alert
@@ -215,22 +213,32 @@ export default {
   display: flex;
   flex-flow: row wrap;
   height: 64px;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding-left: 48px;
   text-align: right;
 
-  .title {
-    color: $grey-5;
-    font-weight: bold;
-    height: 64px;
-    line-height: 25px;
-    padding: 16px;
-    text-decoration: none;
-    border-bottom: 2px solid $blue-6;
-    color: $blue-6;
+  .icon {
+    margin-right: 8px;
   }
-  .button-container {
-    padding: 8px;
+  .tool-btn {
+    color: $grey-2;
+    font-family: 'Titillium Web';
+    font-weight: bold;
+    font-size: 1em;
+    padding: 16px 24px;
+    background-color: transparent;
+    border: none;
+
+    &:active,
+    &:focus,
+    &:hover {
+      outline: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: $blue-1;
+    }
   }
 }
 .el-dialog {

@@ -3,9 +3,11 @@
     <p class="subtitle">
       {{ subtitle }}
     </p>
-    <p class="text">
-      {{ text }}
-    </p>
+    <div class="text-container">
+      <p class="text" v-for="text in texts" :key="text">
+        {{ text }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -14,7 +16,7 @@ export default {
   name: 'InformativeContent',
   props: {
     subtitle: String,
-    text: String,
+    texts: Object,
   },
 }
 </script>
@@ -25,16 +27,15 @@ export default {
 .subtitle {
   color: $font-color-dark;
 }
-
-.container {
-  margin-top: 80px;
-}
-
-.text {
-  color: $font-color-light;
+.text-container {
+  max-height: 200px;
+  overflow-y: auto;
   margin-top: 40px;
+  .text {
+    padding-top: 16px;
+    color: $font-color-light;
+  }
 }
-
 .router-link {
   text-decoration: none;
 }

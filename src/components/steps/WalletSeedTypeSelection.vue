@@ -11,52 +11,37 @@
     </p>
     <ul class="options">
       <li>
-        <router-link class="link" to="/ftu/disclaimer">
-          <Button
-            data-test="new-seed-option"
-            :onClick="function() {}"
-            class="option create-wallet-option"
-          >
-            Create new seed phrase
-            <p class="recommended-text">RECOMMENDED</p>
-          </Button>
-        </router-link>
+        <RedirectionOption
+          data-test="new-seed-option"
+          link="/ftu/disclaimer"
+          name="Create new seed phrase (RECOMMENDED)"
+        />
       </li>
       <li>
-        <router-link class="link" to="/ftu/disclaimer">
-          <Button :onClick="function() {}" class="option create-wallet-option">
-            Create a wallet prefilled with sample data
-            <p class="recommended-text">
-              RECOMMENDED
-            </p>
-          </Button>
-        </router-link>
+        <RedirectionOption
+          link="/ftu/disclaimer"
+          name="Create a wallet prefilled with sample data (RECOMMENDED)"
+        />
       </li>
       <li>
-        <Button :onClick="function() {}" class="option create-wallet-option">
-          Import and advanced options
-        </Button>
+        <RedirectionOption link="" name="Import and advanced options" />
       </li>
       <li>
-        <router-link class="link" to="/ftu/welcome">
-          <Button :onClick="function() {}" class="option create-wallet-option">
-            Cancel
-          </Button>
-        </router-link>
+        <RedirectionOption link="/ftu/welcome" name="Cancel" />
       </li>
     </ul>
   </Card>
 </template>
 
 <script>
-import Button from '@/components/Button'
 import Card from '@/components/card/Card'
+import RedirectionOption from '@/components/RedirectionOption'
 
 export default {
   name: 'WalletSeedTypeSelection',
   components: {
-    Button,
     Card,
+    RedirectionOption,
   },
 }
 </script>
@@ -82,22 +67,5 @@ export default {
 
 .options {
   margin-top: 32px;
-
-  .router-link-active {
-    text-decoration: none;
-  }
-}
-
-.link {
-  text-decoration: none;
-}
-
-.create-wallet-option {
-  margin: 16px 0;
-  width: 100%;
-}
-
-.recommended-text {
-  color: $grey-3;
 }
 </style>

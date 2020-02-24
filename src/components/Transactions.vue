@@ -59,9 +59,9 @@
               type="error"
               :message="error.message"
               :description="error.description"
-              v-on:close="() => clearError(error.name)"
+              v-on:close="() => closeAndClear"
             />
-            <Receive :lastAddress="lastAddress" />
+            <Receive :lastAddress="lastAddress" :modalShown="dialogVisible2" />
           </el-dialog>
         </div>
         <ListAddresses :addresses="addresses" />

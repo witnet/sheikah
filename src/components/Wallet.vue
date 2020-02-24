@@ -1,6 +1,5 @@
 <template>
   <div>
-    <TopBar :tabs="tabs" />
     <Alert
       data-test="alert"
       v-for="error in errors"
@@ -16,16 +15,10 @@
 
 <script>
 import Alert from '@/components/Alert'
-import TopBar from '@/components/TopBar'
 import { mapState } from 'vuex'
 
 export default {
   name: 'Wallet',
-  data() {
-    return {
-      tabs: [{ name: 'Transactions', link: '/wallet/transactions' }],
-    }
-  },
   methods: {
     clearError(errorName) {
       this.$store.commit('clearError', { error: errorName })
@@ -62,7 +55,6 @@ export default {
     }
   },
   components: {
-    TopBar,
     Alert,
   },
 }
