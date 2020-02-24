@@ -1,10 +1,5 @@
 <template>
   <div data-test="marketplace">
-    <div class="templates-bar">
-      <div v-for="tab in tabs" class="title" :key="tab.link">
-        {{ tab.name }}
-      </div>
-    </div>
     <div class="header">
       <p class="title">
         <span class="sheikah-title">Sheikah </span>Marketplace

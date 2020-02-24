@@ -53,8 +53,9 @@ export default {
 }
 
 :active,
-:hover {
-  outline: none;
+:hover,
+:focus {
+  outline-color: $blue-6;
 }
 
 .default {
@@ -74,7 +75,7 @@ export default {
 
   &:active {
     background-color: $blue-5;
-    color: $grey-1;
+    color: $white;
   }
 }
 

@@ -1,14 +1,15 @@
 <template>
   <div>
     <NavigationCard
+      class="introduction"
       v-if="sessionId"
-      title="Ey, listen!"
+      title="Hey, listen!"
       :previousStep="previousStep"
       :nextStep="nextStep"
       previousText="Back"
       nextText="Let's do it"
     >
-      <InformativeContent :subtitle="subtitle" :text="text" />
+      <InformativeContent :subtitle="subtitle" :texts="texts" />
     </NavigationCard>
     <Card
       v-else
@@ -23,7 +24,7 @@
           Hey, listen!
         </div>
       </template>
-      <InformativeContent :subtitle="subtitle" :text="text" />
+      <InformativeContent :subtitle="subtitle" :texts="texts" />
       <div class="container">
         <router-link data-test="next-step" class="router-link" to="/ftu/seed-type-selection">
           Let's do it
@@ -49,8 +50,9 @@ export default {
     return {
       subtitle:
         'This assistant will guide you through the process of creating your own Witnet wallet.',
-      text:
-        'A wallet is an app that keeps your credentials safe and lets you interface with the Witnet blockchain in many ways: from transferring Wit to someone else to creating smart contracts.',
+      texts: {
+        0: 'A wallet is an app that keeps your credentials safe and lets you interface with the Witnet blockchain in many ways: from transferring Wit to someone else to creating smart contracts.',
+      },
     }
   },
   computed: {
