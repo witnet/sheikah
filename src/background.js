@@ -31,7 +31,6 @@ const STATUS_PATH = {
   [STATUS.WAIT]: 'setup',
   [STATUS.READY]: '',
 }
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
@@ -49,7 +48,7 @@ function createWindow() {
     height: 600,
     minWidth: 800,
     minHeight: 600,
-    icon: path.join(__static, 'icon.png'),
+    icon: path.join(__static, 'icon.ico'),
     webPreferences: {
       nodeIntegration: true,
     },
@@ -120,7 +119,6 @@ function main() {
       asset =>
         asset.browser_download_url.includes(arch) && asset.browser_download_url.includes(platform)
     )
-
     if (release) {
       const releaseUrl = release.browser_download_url
       const latestReleaseVersion = releaseUrl
