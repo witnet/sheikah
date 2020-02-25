@@ -3,8 +3,8 @@ import VueQrcode from '@chenfengyuan/vue-qrcode'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './fontAwesome'
 import './plugins/element.js'
+import './fontAwesome'
 import '@/directives'
 
 Vue.component(VueQrcode.name, VueQrcode)

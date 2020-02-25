@@ -8,20 +8,18 @@
         v-on:filtered="filtered"
         type="operator"
       />
-      <button class="delete-op-btn" @click="deleteOperator">
-        x
-      </button>
+      <font-awesome-icon @click="deleteOperator" icon="times-circle" class="delete-op-btn" />
     </div>
     <div class="with-arguments" v-if="hasArguments">
       <div v-for="(argument, index) in selectedOperator.arguments" :key="argument.label + index">
         <div v-if="argument.markupType === 'input'" class="input-container">
-          <Input
-            data-test="argument-input"
+          <el-input
             class="input-operator"
+            size="small"
+            data-test="argument-input"
             :placeholder="argument.label"
-            :value="argument.value"
+            :value="argument.value.toString()"
             @input="value => updateTemplate(argument.id, value, argument.type)"
-            :type="argument.type"
           />
           <font-awesome-icon
             data-test="variable-link-icon"
@@ -56,7 +54,6 @@
 <script>
 import Select from './Select'
 import { standardizeOperatorName, getNativeValueFromMarkupArgumentType } from '@/utils'
-import Input from '@/components/Input'
 import {
   UPDATE_TEMPLATE,
   USED_VARIABLES,
@@ -90,7 +87,6 @@ export default {
     sourceIndex: Number,
   },
   components: {
-    Input,
     Select,
   },
   methods: {
@@ -266,6 +262,7 @@ export default {
   justify-content: center;
   align-items: center;
   .input-operator {
+    margin: 8px;
     width: 90px;
     height: 30px;
   }

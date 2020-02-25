@@ -34,7 +34,7 @@
                     type="operator"
                   />
                   <div>
-                    <input
+                    <el-input
                       class="input"
                       placeholder="url"
                       type="text"
@@ -237,7 +237,7 @@ export default {
     border-radius: 20px;
 
     .content {
-      min-width: 500px;
+      min-width: 300px;
       height: 700px;
       font-size: 18px;
       font-weight: bold;
@@ -265,14 +265,7 @@ export default {
         }
         .input {
           cursor: pointer;
-          border-radius: 4px;
-          font-size: 16px;
-          font-weight: 400;
-          background-color: $alpha-blue;
           color: $grey-5;
-          border: 1px solid $blue-0;
-          width: 100%;
-          padding: 8px;
           margin-bottom: 24px;
         }
       }

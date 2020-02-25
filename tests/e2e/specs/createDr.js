@@ -1,5 +1,5 @@
 // TODO: remove skip in tests when new rust realise is ready
-describe.skip('Create a complete Receive transactions flow', () => {
+describe('Create a complete Receive transactions flow', () => {
   it('Redirects to the templates view', () => {
     cy.createAndUnlockWallet()
     cy.get('[data-test=to-templates]')

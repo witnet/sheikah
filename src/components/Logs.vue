@@ -44,5 +44,8 @@ export default {
       margin-right: 8px;
     }
   }
+  & :hover {
+    background-color: $grey-7;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 import { createSelection } from '../utils'
 // TODO: remove skip in tests when new rust realise is ready
-describe.skip('Create a complete Send transactions flow', () => {
+describe('Create a complete Send transactions flow', () => {
   it('Redirects to home view', () => {
     cy.createAndUnlockWallet()
     cy.get('[data-test=to-transactions]').click()
@@ -37,8 +37,11 @@ describe.skip('Create a complete Send transactions flow', () => {
       .click()
       .clear()
       .type('1')
-    cy.get('[data-test=select-btn]').click()
-    cy.get('[data-test=option-2]').click()
+    cy.get('[data-test=tx-fee]')
+      .last()
+      .click()
+      .clear()
+      .type('1')
     cy.get('[data-test=sign-send-btn]').click()
   })
 

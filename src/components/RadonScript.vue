@@ -83,6 +83,7 @@ export default {
   box-shadow: none;
 }
 .button-container {
+  margin-top: 16px;
   text-align: center;
 
   .add-operators-btn {
