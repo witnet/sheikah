@@ -13,13 +13,13 @@
       </p>
     </div>
     <div class="container-btn">
-      <Button class="back-btn" data-test="unlock-wallet" :onClick="previousStep" type="default">
+      <el-button class="back-btn" type="text" data-test="unlock-wallet" @click="previousStep">
         Back
-      </Button>
+      </el-button>
       <div class="unlock-btn" @keydown.enter.esc.prevent="unlockWallet">
-        <Button ref="submit" data-test="unlock-wallet" :onClick="unlockWallet" type="primary">
+        <el-button ref="submit" data-test="unlock-wallet" @click="unlockWallet" type="primary">
           Unlock
-        </Button>
+        </el-button>
       </div>
     </div>
   </div>
@@ -27,7 +27,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import Button from '@/components/Button'
 import PasswordInput from '@/components/PasswordInput'
 
 export default {
@@ -70,7 +69,6 @@ export default {
     },
   },
   components: {
-    Button,
     PasswordInput,
   },
 }
@@ -121,6 +119,7 @@ export default {
       margin-right: 8px;
     }
     .unlock-btn {
+      margin-left: 8px;
       display: inline;
     }
   }

@@ -17,14 +17,14 @@
       </div>
     </div>
     <div class="submit">
-      <Button
+      <el-button
         @keydown.enter.esc.prevent="nextStep"
         data-test="complete-variables-submit"
-        :onClick="nextStep"
+        @click="nextStep"
         type="primary"
       >
         Continue
-      </Button>
+      </el-button>
     </div>
   </div>
 </template>

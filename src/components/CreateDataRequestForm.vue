@@ -73,14 +73,14 @@
     </div>
 
     <div class="submit">
-      <Button
-        @keydown.enter.esc.prevent="createDataRequest"
+      <el-button
+        @keydown.enter.esc.prevent="createDataRequest" 
         data-test="create-data-request-submit"
-        :onClick="createDataRequest"
+        @click="createDataRequest"
         type="primary"
       >
         Continue
-      </Button>
+      </el-button>
     </div>
   </div>
 </template>
@@ -88,12 +88,10 @@
 <script>
 import InputNumber from './InputNumber'
 import Input from './Input'
-import Button from './Button'
 
 export default {
   name: 'CreateDataRequestForm',
   components: {
-    Button,
     Input,
     InputNumber,
   },
