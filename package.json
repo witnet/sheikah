@@ -1,5 +1,5 @@
 {
-  "name": "sheikah",
+  "name": "sheikah-witnet-wallet",
   "version": "0.1.0",
   "private": true,
   "description": "A Witnet compatible desktop wallet interface and data requests development environment.",
