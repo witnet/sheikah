@@ -17,12 +17,12 @@
         <div class="top">
           <Balances :total="total" :currency="currency" />
           <div class="send-received">
-            <Button data-test="send-btn" class="primary" :onClick="displayModalSend">
+            <el-button data-test="send-btn" @click="displayModalSend" type="primary">
               Send
-            </Button>
-            <Button data-test="receive-btn" class="secondary" :onClick="displayModalReceive">
+            </el-button>
+            <el-button data-test="receive-btn" @click="displayModalReceive">
               Receive
-            </Button>
+            </el-button>
           </div>
           <el-dialog
             title="New Transaction"
@@ -72,7 +72,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import Button from '@/components/Button'
 import Balances from './Balances'
 import Send from '@/components/Send'
 import Receive from '@/components/Receive'
@@ -85,7 +84,6 @@ export default {
   components: {
     TransactionList,
     Balances,
-    Button,
     Send,
     Receive,
     Alert,

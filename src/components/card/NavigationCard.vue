@@ -14,19 +14,18 @@
 
     <template v-slot:footer>
       <div class="navigation-buttons">
-        <Button class="button" data-test="previous-step" :onClick="previousStep">
+        <el-button class="button" type="text" @click="previousStep">
           {{ previousText }}
-        </Button>
-        <Button class="button" data-test="next-step" type="primary" ref="next" :onClick="nextStep">
+        </el-button>
+        <el-button type="primary" @click="nextStep" ref="next">
           {{ nextText }}
-        </Button>
+        </el-button>
       </div>
     </template>
   </BaseCard>
 </template>
 
 <script>
-import Button from '@/components/Button'
 import BaseCard from '@/components/card/BaseCard'
 
 export default {
@@ -40,7 +39,6 @@ export default {
   },
   components: {
     BaseCard,
-    Button,
   },
   methods: {
     handleKeyUp: event => {

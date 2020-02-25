@@ -49,7 +49,6 @@ export default {
     outline: none;
     cursor: pointer;
     border-color: $blue-6;
-    color: $blue-6;
   }
 
   .name {
@@ -57,6 +56,9 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     padding: 0 16px 0 0;
+    &:active {
+      color: $grey-5;
+    }
   }
 
   .angle {

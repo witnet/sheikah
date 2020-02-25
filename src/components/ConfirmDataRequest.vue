@@ -48,26 +48,21 @@
       </div>
     </div>
     <div class="submit">
-      <Button
+      <el-button
         @keydown.enter.esc.prevent="confirmDataRequest"
         data-test="sign-send-btn"
-        :onClick="confirmDataRequest"
+        @click="confirmDataRequest"
         type="primary"
       >
         Confirm
-      </Button>
+      </el-button>
     </div>
   </div>
 </template>
 
 <script>
-import Button from './Button'
-
 export default {
   name: 'ConfirmDataRequest',
-  components: {
-    Button,
-  },
   props: {
     backupWitnesses: Number,
     commitFee: Number,

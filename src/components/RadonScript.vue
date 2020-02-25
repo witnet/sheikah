@@ -11,9 +11,9 @@
       />
     </div>
     <div class="button-container">
-      <button data-test="add-operator-btn" class="add-operators-btn" @click="pushOperator">
+      <el-button data-test="add-operator-btn" @click="pushOperator" type="primary">
         Add operator
-      </button>
+      </el-button>
     </div>
   </div>
 </template>
