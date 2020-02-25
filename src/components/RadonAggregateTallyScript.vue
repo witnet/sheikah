@@ -9,6 +9,7 @@
           :sourceIndex="sourceIndex"
           :showOutputType="false"
           :showUnionIcon="index !== filters.length - 1"
+          :scriptId="operator.scriptId"
         />
       </div>
       <div class="button-container">
@@ -23,6 +24,7 @@
       :stage="stage"
       :sourceIndex="sourceIndex"
       :showOutputType="false"
+      :scriptId="reducer.scriptId"
     />
   </div>
 </template>

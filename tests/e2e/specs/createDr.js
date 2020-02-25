@@ -1,5 +1,4 @@
-// TODO: remove skip in tests when new rust realise is ready
-describe('Create a complete Receive transactions flow', () => {
+describe('Create a complete data request flow', () => {
   it('Redirects to the templates view', () => {
     cy.createAndUnlockWallet()
     cy.get('[data-test=to-templates]')
@@ -14,7 +13,7 @@ describe('Create a complete Receive transactions flow', () => {
   })
 
   it('Adds a source', () => {
-    cy.get('[data-test=add-source-btn]').click()
+    cy.get('[data-test=add-source-btn]').click({ force: true })
   })
 
   it('Deletes a source', () => {
@@ -35,26 +34,18 @@ describe('Create a complete Receive transactions flow', () => {
     cy.get('[data-test=select-btn]')
       .first()
       .click({ force: true })
+    cy.get('[data-test=option-7]')
+      .last()
+      .click({ force: true })
+
+    cy.get('[data-test=add-operator-btn]')
+      .first()
+      .click()
 
     cy.get('[data-test=select-btn]')
       .last()
       .click({ force: true })
-    cy.get('[data-test=option-7]')
-      .last()
-      .click({ force: true })
-    cy.get('[data-test=add-operator-btn]')
-      .first()
-      .click({ force: true })
-
-    cy.get('[data-test=option-6]')
-      .last()
-      .click({ force: true })
-
-    cy.get('[data-test=add-operator-btn]')
-      .first()
-      .click({ force: true })
-
-    cy.get('[data-test=option-6]')
+    cy.get('[data-test=option-2]')
       .last()
       .click({ force: true })
   })
@@ -82,7 +73,7 @@ describe('Create a complete Receive transactions flow', () => {
       .first()
       .clear()
       .type('$a')
-    cy.get('[data-test=variable-link-icon]').and('be.visible')
+    cy.get('[data-test=variable-link-icon]').and('exist')
   })
 
   it('Delete variable', () => {
@@ -115,7 +106,7 @@ describe('Create a complete Receive transactions flow', () => {
       .last()
       .clear()
       .type('$hi')
-    cy.get('[data-test=variable-link-icon]').and('be.visible')
+    cy.get('[data-test=variable-link-icon]').and('exist')
   })
 
   it('Edit variable and change input in argument', () => {
@@ -137,11 +128,11 @@ describe('Create a complete Receive transactions flow', () => {
   })
 
   it('Adds a source', () => {
-    cy.get('[data-test=add-source-btn]').click()
+    cy.get('[data-test=add-source-btn]').click({ force: true })
   })
 
   it('Adds a source', () => {
-    cy.get('[data-test=add-source-btn]').click()
+    cy.get('[data-test=add-source-btn]').click({ force: true })
   })
 
   it('Add operator', () => {

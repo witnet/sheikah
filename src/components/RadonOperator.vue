@@ -1,14 +1,25 @@
 <template>
   <div class="radon-operator">
     <div class="selected-operator">
-      <Select
-        :value="selectedOption"
-        @input="option => updateTemplate(selectedOption.id, option.value)"
-        :options="options"
-        v-on:filtered="filtered"
-        type="operator"
-      />
-      <font-awesome-icon @click="deleteOperator" icon="times-circle" class="delete-op-btn" />
+      <el-select
+        data-test="select-btn"
+        class="operator-select"
+        v-model="selectedOptionValue"
+        @change="value => updateTemplate(selectedOption.id, value)"
+      >
+        <el-option
+          v-for="(x, idx) in options"
+          :key="x.primaryText + selectedOption.id + idx"
+          :label="x.primaryText"
+          :value="x.value"
+        >
+          <span :data-test="`option-${idx}`" style="float: left">{{ x.primaryText }}</span>
+          <span style="float: right; color: #8492a6; font-size: 13px">
+            {{ x.secondaryText }}
+          </span>
+        </el-option>
+      </el-select>
+      <button class="delete-op-btn" @click="deleteOperator">x</button>
     </div>
     <div class="with-arguments" v-if="hasArguments">
       <div v-for="(argument, index) in selectedOperator.arguments" :key="argument.label + index">
@@ -30,15 +41,22 @@
         </div>
         <div
           :style="{ display: 'flex', flexDirection: 'column' }"
-          v-if="argument.markup_type === 'select'"
+          v-if="argument.markupType === 'select'"
         >
           <p>{{ argument.label }}</p>
-          <Select
+          <el-select
             class="argument-options"
-            :value="selectedArgument[index]"
+            v-model="selectedArgumentValue[index]"
             :options="argumentOptions[index]"
-            type="operator"
-          />
+          >
+            <el-option
+              v-for="o in argumentOptions[index]"
+              :key="o.primaryText"
+              :label="o.primaryText"
+              :value="o.primaryText"
+            >
+            </el-option>
+          </el-select>
         </div>
         <div v-if="argument.markupType === 'subscript'" class>
           Subscipts are not supported yet.
@@ -52,7 +70,6 @@
 </template>
 
 <script>
-import Select from './Select'
 import { standardizeOperatorName, getNativeValueFromMarkupArgumentType } from '@/utils'
 import {
   UPDATE_TEMPLATE,
@@ -67,6 +84,11 @@ export default {
     return {
       variableName: null,
       options: [],
+      selectedOptionValue: this.operator.label,
+      selectedArgumentValue: [
+        this.operator.selected.arguments[0] ? this.operator.selected.arguments[0].value : '',
+        this.operator.selected.arguments[1] ? this.operator.selected.arguments[1].value : '',
+      ],
     }
   },
   props: {
@@ -85,9 +107,6 @@ export default {
       required: true,
     },
     sourceIndex: Number,
-  },
-  components: {
-    Select,
   },
   methods: {
     // TODO: find a better way to filter when searching a specific operator
@@ -213,7 +232,16 @@ export default {
     },
   },
   watch: {
+    selectedOption(selected) {
+      this.selectedOptionValue = selected.value
+    },
     operator(newOperator) {
+      const selectedOperatorArgs = newOperator.selected.arguments
+      this.selectedOptionValue = newOperator.label
+      this.selectedArgumentValue = [
+        selectedOperatorArgs[0] ? selectedOperatorArgs[0].value : '',
+        selectedOperatorArgs[1] ? selectedOperatorArgs[1].value : '',
+      ]
       this.options = this.operatorOptions
     },
   },
@@ -233,26 +261,34 @@ export default {
 .radon-operator {
   border-radius: 5px;
   margin-bottom: 8px;
+  .operator-select {
+    width: 100%;
+  }
   .selected-operator {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     .delete-op-btn {
-      display: none;
-      cursor: pointer;
-      color: $red-0;
-      font-size: 16px;
       background-color: transparent;
       border: none;
-      margin-left: 20px;
-      position: absolute;
+      color: $red-0;
+      cursor: pointer;
+      display: none;
+      font-size: 16px;
       font-weight: 700;
+      margin-left: 20px;
     }
-    &:hover .delete-op-btn {
+  }
+}
+
+.radon-operator:hover {
+  .selected-operator {
+    .delete-op-btn {
       display: block;
     }
   }
 }
+
 .with-arguments {
   background-color: $grey-0;
   padding: 8px;
