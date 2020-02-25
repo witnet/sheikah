@@ -1,10 +1,14 @@
 <template>
   <div data-test="templates">
     <div class="templates-bar">
-      <button class="tool-btn" @click="importTemplate">
-        <font-awesome-icon class="icon" icon="file-import" />
-        Import template
-      </button>
+      <TopBar :tabs="tabs">
+        <template v-slot:tool>
+          <button class="tool-btn" @click="importTemplate">
+            <font-awesome-icon class="icon" icon="file-import" />
+            Import template
+          </button>
+        </template>
+      </TopBar>
     </div>
     <div v-show="dialogVisible === false">
       <Alert
@@ -68,12 +72,14 @@
 import TemplateCard from './card/TemplateCard'
 import DeployDataRequest from '@/components/DeployDataRequest.vue'
 import { mapState } from 'vuex'
+import TopBar from '@/components/TopBar'
 import Alert from '@/components/Alert'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
 
 export default {
   name: 'Templates',
   components: {
+    TopBar,
     TemplateCard,
     DeployDataRequest,
     Alert,
@@ -211,8 +217,6 @@ export default {
   display: flex;
   flex-flow: row wrap;
   height: 64px;
-  justify-content: flex-end;
-  padding-left: 48px;
   text-align: right;
 
   .icon {

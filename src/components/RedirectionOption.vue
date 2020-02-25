@@ -1,9 +1,10 @@
 <template>
-  <router-link class="link" :to="link">
-    <Button data-test="local-wallet" class="option">
+  <router-link :class="normalizeType(type)" :to="link">
+    <button data-test="local-wallet" class="option">
+      <font-awesome-icon v-if="type === 'backward'" class="angle" icon="angle-left" />
       <p class="name">{{ name }}</p>
-      <font-awesome-icon class="angle" icon="angle-right" />
-    </Button>
+      <font-awesome-icon v-if="type === 'forward'" class="angle" icon="angle-right" />
+    </button>
   </router-link>
 </template>
 
@@ -13,6 +14,13 @@ export default {
   props: {
     link: String,
     name: String,
+    type: String,
+  },
+  methods: {
+    normalizeType(propType) {
+      const buttonTypes = ['forward', 'backward']
+      return buttonTypes.includes(propType) ? propType : 'forward'
+    },
   },
 }
 </script>
@@ -27,7 +35,8 @@ export default {
   margin-bottom: 24px;
 }
 
-.link {
+.forward,
+.backward {
   text-decoration: none;
 }
 

@@ -7,13 +7,18 @@
       <div class="wallets">
         <li v-for="wallet in wallets" :key="wallet.id">
           <RedirectionOption
+            type="forward"
             :link="`/welcome-back/unlock/${wallet.id}`"
             :name="wallet.name || wallet.id.trim()"
           />
         </li>
       </div>
       <li>
-        <RedirectionOption link="/ftu/welcome" name="Create import or recover a wallet" />
+        <RedirectionOption
+          type="forward"
+          link="/ftu/welcome"
+          name="Create import or recover a wallet"
+        />
       </li>
     </ul>
   </div>

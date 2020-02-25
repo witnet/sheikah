@@ -1,26 +1,20 @@
 <template>
   <div class="inputnumber">
-    <Input data-test="tx-amount" v-model="inputValue" />
-    <font-awesome-icon
-      data-test="send-increase-amount"
-      @click="increase"
-      class="increase"
-      icon="angle-up"
-    />
-    <div class="unit">
-      <p class="text">WIT</p>
-    </div>
+    <el-input data-test="tx-amount" v-model="inputValue">
+      <template slot="append">
+        <div class="increase" @click="increase">
+          <div class="icon">
+            <font-awesome-icon data-test="send-increase-amount" icon="angle-up" />
+          </div>
+        </div>
+      </template>
+    </el-input>
   </div>
 </template>
 
 <script>
-import Input from './Input'
-
 export default {
   name: 'InputNumber',
-  components: {
-    Input,
-  },
   props: {
     value: [String, Number],
   },
@@ -48,28 +42,23 @@ export default {
 
 .inputnumber {
   display: flex;
+  align-items: center;
   width: max-content;
   min-width: max-content;
-
-  .input {
-    height: 35px;
-    width: 140px;
-    border-radius: 4px 0px 0px 4px;
-    border-right: none;
-    outline-color: $blue-5;
-  }
   .increase {
-    width: 48px;
-    height: 35px;
-    padding: 8px;
-    color: $grey-1;
-    border: 1px solid $grey-1;
-
+    display: flex;
+    align-items: center;
+    color: $grey-4;
     &:hover {
+      cursor: pointer;
       color: $blue-6;
     }
   }
-
+  .text {
+    color: $grey-4;
+    font-size: 14px;
+    margin-left: 16px;
+  }
   .unit {
     width: 60px;
     height: 35px;

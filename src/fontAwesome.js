@@ -17,6 +17,7 @@ import {
   faInfoCircle,
   faLongArrowAltRight,
   faTimes,
+  faTimesCircle,
   faEdit,
   faLink,
   faFileImport,
@@ -41,6 +42,7 @@ library.add(
   faInfoCircle,
   faLongArrowAltRight,
   faTimes,
+  faTimesCircle,
   faEdit,
   faLink
 )

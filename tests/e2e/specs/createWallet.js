@@ -1,15 +1,9 @@
 // https://docs.cypress.io/api/introduction/api.html
 import { createSelection } from '../utils'
-
-beforeEach(() => {
-  // FIXME(#908): Clear wallet state before each suite
-  console.log('We should reset the db here')
-})
-// TODO: remove skip in tests when new rust realise is ready
-describe.skip('Create Wallet', () => {
+describe('Create Wallet', () => {
   it('Create a wallet succesfully', () => {
     // Go to ftu form when the wallet contains a created wallet
-    Cypress.config('baseUrl', 'http://localhost:8080')
+    // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/')
     // if (Cypress.env().is_wallet_created) {
     cy.get('[data-test=create-wallet]').click()

@@ -37,17 +37,11 @@
           <div ref="input" v-show="!showInput">
             {{ name }}
           </div>
-          <Input
+          <el-input
             data-test="template-name-input"
             v-show="showInput"
-            class="input"
-            type="default"
-            :value="name"
-            @input="
-              val => {
-                updateName(val)
-              }
-            "
+            :placeholder="name"
+            v-model="updateName"
           />
         </div>
         <div class="description">
@@ -63,14 +57,12 @@
 
 <script>
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
-import Input from '@/components/Input'
 import { changeDateFormat } from '@/utils'
 import FrameOutside from '@/components/FrameOutside'
 
 export default {
   name: 'TemplateCard',
   components: {
-    Input,
     FrameOutside,
   },
   data() {
@@ -125,6 +117,14 @@ export default {
     style() {
       return this.type
     },
+    updateName: {
+      get() {
+        return this.name
+      },
+      set(newName) {
+        this.$emit('change-name', { name: newName, id: this.id })
+      },
+    },
   },
   methods: {
     displayModal() {
@@ -145,9 +145,6 @@ export default {
     },
     setCurrentTemplate() {
       this.$store.commit(SET_CURRENT_TEMPLATE, { id: this.id })
-    },
-    updateName(input) {
-      this.$emit('change-name', { name: input, id: this.id })
     },
     deleteTemplate() {
       this.$store.dispatch('deleteTemplate', { id: this.id })

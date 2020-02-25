@@ -31,14 +31,12 @@
 
 <script>
 import Input from '@/components/Input'
-import Button from './Button'
 import { UPDATE_VARIABLES } from '@/store/mutation-types'
 
 export default {
   name: 'Variables',
   components: {
     Input,
-    Button,
   },
   data() {
     return {
