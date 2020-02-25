@@ -67,7 +67,6 @@
 <script>
 import TemplateCard from './card/TemplateCard'
 import DeployDataRequest from '@/components/DeployDataRequest.vue'
-import Button from '@/components/Button.vue'
 import { mapState } from 'vuex'
 import Alert from '@/components/Alert'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
@@ -77,7 +76,6 @@ export default {
   components: {
     TemplateCard,
     DeployDataRequest,
-    Button,
     Alert,
   },
   beforeMount() {

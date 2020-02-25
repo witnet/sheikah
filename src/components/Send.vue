@@ -76,17 +76,17 @@
           Show advanced options
         </p>
         <span slot="footer" class="dialog-footer">
-          <Button :onClick="closeDialog" data-test="cancel-tx" type="secondary" class="button">
+          <el-button data-test="cancel-tx" @click="closeDialog">
             Cancel
-          </Button>
-          <Button
-            :onClick="confirmTransaction"
-            data-test="confirm-tx"
+          </el-button>
+          <el-button
+            @keydown.enter.esc.prevent="confirmTransaction"
             type="primary"
-            class="button"
+            data-test="confirm-tx"
+            @click="confirmTransaction"
           >
             Confirm
-          </Button>
+          </el-button>
         </span>
       </div>
     </div>
@@ -117,21 +117,20 @@
         <Select v-model="form.fee" :options="form.options" />
       </div>
       <div class="submit">
-        <Button
+        <el-button
           @keydown.enter.esc.prevent="createVTT"
-          data-test="sign-send-btn"
-          :onClick="createVTT"
           type="primary"
+          data-test="sign-send-btn"
+          @click="createVTT"
         >
           Sign and send
-        </Button>
+        </el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Button from './Button'
 import Input from './Input'
 import InputNumber from './InputNumber'
 import Select from './Select'
@@ -141,7 +140,6 @@ import Alert from '@/components/Alert'
 export default {
   name: 'send',
   components: {
-    Button,
     Input,
     InputNumber,
     Select,
