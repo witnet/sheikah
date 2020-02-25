@@ -6,35 +6,35 @@
       <div class="label">
         <label>Witnesses</label>
       </div>
-      <Input v-model="witnesses" />
+      <el-input v-model="witnesses" />
     </div>
 
     <div class="row">
       <div class="label">
         <label>Min Consensus Percentage</label>
       </div>
-      <Input v-model="minConsensusPercentage" />
+      <el-input v-model="minConsensusPercentage" />
     </div>
 
     <div class="row">
       <div class="label">
         <label>Extra reveal rounds</label>
       </div>
-      <Input v-model="extraRevealRounds" />
+      <el-input v-model="extraRevealRounds" />
     </div>
 
     <div class="row">
       <div class="label">
         <label>Extra commit rounds</label>
       </div>
-      <Input v-model="extraCommitRounds" />
+      <el-input v-model="extraCommitRounds" />
     </div>
 
     <div class="row">
       <div class="label">
         <label>Backup witnesses</label>
       </div>
-      <Input v-model="backupWitnesses" />
+      <el-input v-model="backupWitnesses" />
     </div>
 
     <div class="row">
@@ -74,7 +74,7 @@
 
     <div class="submit">
       <el-button
-        @keydown.enter.esc.prevent="createDataRequest" 
+        @keydown.enter.esc.prevent="createDataRequest"
         data-test="create-data-request-submit"
         @click="createDataRequest"
         type="primary"
@@ -87,12 +87,10 @@
 
 <script>
 import InputNumber from './InputNumber'
-import Input from './Input'
 
 export default {
   name: 'CreateDataRequestForm',
   components: {
-    Input,
     InputNumber,
   },
   data() {
@@ -112,6 +110,7 @@ export default {
   },
   methods: {
     createDataRequest() {
+      console.log('--create data request--')
       this.$emit('create-dr', {
         backupWitnesses: this.backupWitnesses,
         commitFee: this.commitFee,

@@ -10,9 +10,11 @@
         v-on:close="key => handleCloseEvent(index, key, variable.value)"
         @input="key => updateKey(index, key)"
       />
-      <Input
+      <el-input
         class="variable-value input"
+        size="mini"
         data-test="edit-var-value-input"
+        :placeholder="variable.value"
         :value="variable.value"
         @input="val => updateVariable(index, variable.key, val)"
       />
@@ -20,7 +22,7 @@
         (This key is repeated. Change the variable name before continue editing)
       </div>
       <div data-test="delete-var-btn" @click="deleteVariable(index)" class="delete">
-        <font-awesome-icon class="edit-btn" icon="times" />
+        <font-awesome-icon icon="times-circle" class="delete-btn" />
       </div>
     </div>
     <div class="img-container">
@@ -35,14 +37,12 @@
 </template>
 
 <script>
-import Input from '@/components/Input'
 import { UPDATE_VARIABLES, CREATE_VARIABLE, DELETE_VARIABLE } from '@/store/mutation-types'
 import EditableText from '@/components/EditableText'
 
 export default {
   name: 'Variables',
   components: {
-    Input,
     EditableText,
   },
   data() {
@@ -121,19 +121,21 @@ export default {
   height: 20vh;
   overflow-y: auto;
   background-color: $black;
-  color: #c5c2c2;
+  color: $grey-2;
   .variable {
     padding-left: 16px;
     display: block;
     display: flex;
     justify-items: left;
     .label {
-      color: #c5c2c2;
+      color: $grey-2;
       padding-right: 5px;
       margin: 8px;
     }
     .variable-value {
       background-color: $black;
+      display: flex;
+      align-items: center;
       margin: 8px;
       height: 20px;
       &.input {

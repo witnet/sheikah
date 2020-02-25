@@ -4,7 +4,8 @@
       <div data-test="edit-var" ref="editable" v-show="!showInput" @click="allowEdit">
         {{ value }}
       </div>
-      <input
+      <el-input
+        size="mini"
         data-test="edit-var-input"
         v-show="showInput"
         :class="[error]"
@@ -92,25 +93,22 @@ export default {
   color: $grey-1;
   display: flex;
   align-items: center;
+  justify-content: center;
   .editVar {
-    background-color: transparent;
-    font-size: 1em;
     width: 80px;
-    border: none;
-    color: $grey-1;
-    border-bottom: 1px solid $grey-1;
     &.error {
       color: $red-1;
       border-bottom: 1px solid $red-1;
     }
   }
   .edit-btn {
-    display: none;
+    margin-left: 8px;
+    opacity: 0;
   }
   &:hover {
     .edit-btn {
       padding-left: 8px;
-      display: block;
+      opacity: 1;
       font-size: 16px;
       color: $grey-1;
     }

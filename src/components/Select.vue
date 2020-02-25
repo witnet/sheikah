@@ -182,7 +182,7 @@ export default {
 //as Select-box for Operators
 
 .select-box-operator {
-  min-width: 450px;
+  min-width: 300px;
   position: relative;
   &:focus,
   &:focus-within {

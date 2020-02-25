@@ -1,8 +1,11 @@
 <template>
   <div class="top-bar">
-    <router-link v-for="tab in tabs" :key="tab.link" class="link" :to="tab.link">{{
-      tab.name
-    }}</router-link>
+    <div class="tabs">
+      <router-link v-for="tab in tabs" :key="tab.link" class="link" :to="tab.link">{{
+        tab.name
+      }}</router-link>
+    </div>
+    <slot name="tool"></slot>
   </div>
 </template>
 
@@ -20,24 +23,27 @@ export default {
 @import '@/styles/theme.scss';
 
 .top-bar {
+  width: 100%;
   border-bottom: 1px solid $grey-0;
   display: flex;
   flex-flow: row wrap;
   height: 64px;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding-left: 24px;
-
-  .link {
-    color: $grey-1;
-    font-weight: bold;
-    height: 64px;
-    line-height: 25px;
-    padding: 16px 24px;
-    text-decoration: none;
-
-    &.router-link-active {
-      border-bottom: 2px solid $blue-6;
-      color: $blue-6;
+  .tabs {
+    display: flex;
+    justify-content: flex-start;
+    .link {
+      color: $grey-1;
+      font-weight: bold;
+      height: 64px;
+      line-height: 25px;
+      padding: 16px 24px;
+      text-decoration: none;
+      &.router-link-active {
+        border-bottom: 2px solid $blue-6;
+        color: $blue-6;
+      }
     }
   }
 }

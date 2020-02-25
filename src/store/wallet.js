@@ -260,7 +260,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'createDataRequest',
-          error: request.error,
+          error: req.error,
           message: 'An error occurred deploying a data request',
         })
       }

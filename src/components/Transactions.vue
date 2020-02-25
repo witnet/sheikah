@@ -1,5 +1,6 @@
 <template>
   <div data-test="transactions">
+    <TopBar :tabs="tabs" />
     <div v-show="dialogVisible === false || !dialogVisible2 === false">
       <Alert
         data-test="alert"
@@ -75,6 +76,7 @@ import { mapState } from 'vuex'
 import Balances from './Balances'
 import Send from '@/components/Send'
 import Receive from '@/components/Receive'
+import TopBar from '@/components/TopBar'
 import TransactionList from './TransactionList'
 import Alert from '@/components/Alert'
 import ListAddresses from '@/components/ListAddresses'
@@ -88,6 +90,7 @@ export default {
     Receive,
     Alert,
     ListAddresses,
+    TopBar,
   },
   data() {
     return {
@@ -101,11 +104,12 @@ export default {
       lastItemActive: false,
       firstItemActive: true,
       newAddresses: null,
+      tabs: [{ name: 'Transactions', link: '/wallet/transactions' }],
       form: {
         address: '',
         label: '',
         amount: 0,
-        fee: { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' },
+        fee: 0,
         options: [
           { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' },
           { value: 59, primaryText: 'Medium', secondaryText: '59 uWit/B' },
@@ -238,7 +242,7 @@ export default {
       this.form.address = ''
       this.form.label = ''
       this.form.amount = 0
-      this.form.fee = { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' }
+      this.form.fee = 0
     },
     closeAndClear: function() {
       this.clearSendForm()

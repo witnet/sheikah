@@ -1,5 +1,5 @@
 // TODO: remove skip in tests when new rust realise is ready
-describe.skip('Create a complete deploy Data Request flow', () => {
+describe('Create a complete deploy Data Request flow', () => {
   it('Redirects to Templates view', () => {
     cy.createAndUnlockWallet()
     cy.get('[data-test=to-templates]').click()
@@ -55,7 +55,6 @@ describe.skip('Create a complete deploy Data Request flow', () => {
       .click({ force: true })
     cy.get('[data-test=template-name-input]')
       .last()
-      .and('be.visible')
       .clear()
       .type('1')
     cy.get('[data-test=to-templates]')

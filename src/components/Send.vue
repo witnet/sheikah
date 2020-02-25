@@ -95,26 +95,26 @@
         <div class="label">
           <label class for>Address</label>
         </div>
-        <Input data-test="tx-address" v-model="form.address" placeholder="Recipient address" />
+        <el-input data-test="tx-address" v-model="form.address" placeholder="Recipient address" />
       </div>
 
       <div class="row">
         <div class="label">
           <label class for>Label</label>
         </div>
-        <Input data-test="tx-label" v-model="form.label" />
+        <el-input data-test="tx-label" v-model="form.label" />
       </div>
       <div class="row">
         <div class="label">
           <label class for>Amount</label>
         </div>
-        <InputNumber v-model="form.amount" />
+        <el-input data-test="tx-amount" v-model="form.amount" />
       </div>
       <div class="row">
         <div class="label">
           <label class for>Fee</label>
         </div>
-        <Select v-model="form.fee" :options="form.options" />
+        <el-input data-test="tx-fee" v-model="form.fee" />
       </div>
       <div class="submit">
         <el-button
@@ -131,18 +131,14 @@
 </template>
 
 <script>
-import Input from './Input'
 import InputNumber from './InputNumber'
-import Select from './Select'
 import { mapState } from 'vuex'
 import Alert from '@/components/Alert'
 
 export default {
   name: 'send',
   components: {
-    Input,
     InputNumber,
-    Select,
     Alert,
   },
   data() {

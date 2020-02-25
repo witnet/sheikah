@@ -63,7 +63,7 @@ export default {
   font-size: 16px;
   width: 300px;
   border: 0;
-  border-bottom: 1.5px solid $grey-3;
+  border-bottom: 1px solid $grey-3;
   outline: 0;
   padding: 16px 0;
   color: $grey-5;

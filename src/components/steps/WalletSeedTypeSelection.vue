@@ -12,6 +12,7 @@
     <ul class="options">
       <li>
         <RedirectionOption
+          type="forward"
           data-test="new-seed-option"
           link="/ftu/disclaimer"
           name="Create new seed phrase (RECOMMENDED)"
@@ -19,15 +20,16 @@
       </li>
       <li>
         <RedirectionOption
+          type="forward"
           link="/ftu/disclaimer"
           name="Create a wallet prefilled with sample data (RECOMMENDED)"
         />
       </li>
       <li>
-        <RedirectionOption link="" name="Import and advanced options" />
+        <RedirectionOption type="forward" link="" name="Import and advanced options" />
       </li>
       <li>
-        <RedirectionOption link="/ftu/welcome" name="Cancel" />
+        <RedirectionOption type="backward" link="/ftu/welcome" name="Cancel" />
       </li>
     </ul>
   </Card>
