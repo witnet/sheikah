@@ -27,12 +27,15 @@
                   </button>
                 </div>
                 <div class="header-operators">
-                  <Select
-                    class="select"
-                    v-model="selectedOperator[index]"
-                    :options="[{ primaryText: 'HTTPS_GET' }]"
-                    type="operator"
-                  />
+                  <el-select class="select" v-model="selectedOperator[index]">
+                    <el-option
+                      v-for="item in ['HTTPS_GET']"
+                      :key="item"
+                      :label="item"
+                      :value="item"
+                    >
+                    </el-option>
+                  </el-select>
                   <div>
                     <el-input
                       class="input"
@@ -67,7 +70,6 @@
 </template>
 
 <script>
-import Select from '@/components/Select'
 import RadonScript from '@/components/RadonScript'
 import {
   CLEAR_MOVE_CAROUSEL,
@@ -83,7 +85,6 @@ export default {
     sources: Array,
   },
   components: {
-    Select,
     RadonScript,
   },
   data() {

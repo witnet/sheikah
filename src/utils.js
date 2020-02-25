@@ -49,7 +49,7 @@ export function isRepeated(key, list) {
 export function standardizeOperatorName(name) {
   if (name != null) {
     const capitalLetterRegex = /[A-Z][a-z]+/g
-    const matchedArray = name.match(capitalLetterRegex).splice(1)
+    const matchedArray = (name.match(capitalLetterRegex) || []).splice(1)
     if (matchedArray.length) {
       matchedArray[0] = matchedArray[0].toLowerCase()
       const standardizedWord = matchedArray.join('')
