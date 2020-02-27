@@ -46,14 +46,21 @@ export default {
   },
   mutations: {
     setTransactions(state, { transactions }) {
-      state.transactions = transactions.map(transaction => ({
-        id: transaction.hex_hash,
-        address: '',
-        amount: standardizeWitUnits(transaction.value, state.currency),
-        block: transaction.block ? transaction.block.epoch : 'PENDING',
-        date: new Date(transaction.timestamp).toISOString(),
-        label: addToList(transaction.hex_hash, state.txLabels, 'label'),
-      }))
+      state.transactions = transactions.map(transaction => {
+        let date = new Date(transaction.timestamp * 1000)
+        return {
+          id: transaction.hex_hash,
+          address: '',
+          amount: standardizeWitUnits(transaction.value, state.currency),
+          block: transaction.block ? transaction.block.epoch : 'PENDING',
+          date: `${date.toLocaleDateString('en-US')} at ${date.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+          })}`,
+          label: addToList(transaction.hex_hash, state.txLabels, 'label'),
+        }
+      })
     },
     setLabels(state, { labels }) {
       state.txLabels = labels
