@@ -5,13 +5,8 @@
       <span :class="`number ${origin.toLowerCase()}`">{{ amount }}</span>
       <span class="wit">{{ currency }}</span>
     </div>
-    <div class="address">
-      <div class="origin">
-        <div class="label">
-          {{ origin }}<span class="number">{{ address }}</span>
-        </div>
-        <div class="tx-label">{{ label }}</div>
-      </div>
+    <div class="label">
+      {{ label }}
     </div>
     <div class="">
       <p class="date">{{ date }}</p>
@@ -90,37 +85,13 @@ export default {
     }
   }
 
-  .address {
-    .origin {
-      font-size: 16px;
-      color: $grey-5;
-      font-weight: 600;
-
-      .label {
-        margin-right: 8px;
-        font-weight: 600;
-        color: $grey-3;
-      }
-
-      &.from {
-        color: $green;
-      }
-
-      &.to {
-        color: $red-3;
-      }
-    }
-    .tx-label {
-      margin-top: 8px;
-      color: $grey-3;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .address-number {
-      color: $grey-5;
-      font-size: 16px;
-    }
+  .label {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: $grey-3;
+    font-size: 16px;
+    font-weight: 600;
   }
 
   .date {
