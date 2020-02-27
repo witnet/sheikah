@@ -48,23 +48,13 @@
       You don't have templates yet.
     </div>
     <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
-    <el-dialog :visible.sync="dialogVisible" v-on:close="closeAndClear">
-      <Alert
-        data-test="alert"
-        v-for="error in errors"
-        class="alert"
-        :key="error.message"
-        type="error"
-        :message="error.message"
-        :description="error.description"
-        v-on:close="closeAndClear"
-      />
-      <DeployDataRequest
-        v-on:close="dialogVisible = false"
-        v-on:toggle-updated="toggleUpdated"
-        :template="currentTemplate"
-      />
-    </el-dialog>
+
+    <DeployDataRequest
+      v-if="dialogVisible"
+      v-on:close="closeDeployModal"
+      :template="currentTemplate"
+      :visible="dialogVisible"
+    />
   </div>
 </template>
 
@@ -91,7 +81,7 @@ export default {
     return {
       tabs: [{ name: 'Templates', link: '/request/templates' }],
       dialogVisible: false,
-      currentTemplate: '',
+      currentTemplate: null,
     }
   },
   computed: {
@@ -111,6 +101,15 @@ export default {
             message: state.wallet.errors.createDataRequest.message,
             description: state.wallet.errors.createDataRequest.error.message,
             name: state.wallet.errors.createDataRequest.name,
+          }
+        }
+      },
+      sendTransactionError: state => {
+        if (state.wallet.errors.sendTransaction) {
+          return {
+            message: state.wallet.errors.sendTransaction.message,
+            description: state.rad.errors.sendTransaction.error.message,
+            name: state.rad.errors.sendTransaction.name,
           }
         }
       },
@@ -153,19 +152,31 @@ export default {
     }),
   },
   methods: {
-    toggleUpdated() {
-      this.variablesUpdated = !this.variablesUpdated
+    closeDeployModal(status) {
+      if (status === 'SENT') {
+        this.showSuccessNotification = true
+        // TODO: remove setTimeout adding a flag in vuex
+        setTimeout(() => {
+          if (!this.sendTransactionError) {
+            this.$notify({
+              title: 'Success',
+              message: 'Data request deployed',
+              type: 'success',
+            })
+          } else {
+            this.$notify({
+              title: 'Error',
+              message: 'Error ocurred',
+              type: 'error',
+            })
+          }
+        }, 3000)
+      }
+      this.dialogVisible = false
     },
     displayModalCreateDR: function(currentTemplate) {
       this.dialogVisible = true
-      this.variablesUpdated = false
       this.currentTemplate = currentTemplate
-    },
-    closeAndClear: function() {
-      this.variablesUpdated = false
-      if (this.createDataRequestError) {
-        this.clearError(this.createDataRequestError.name)
-      }
     },
     clearError: function(name) {
       return this.$store.commit('clearError', { error: name })

@@ -263,6 +263,7 @@ export default {
         height: 53px;
         .select {
           margin: 0 0 8px 0;
+          width: 100%;
         }
         .input {
           cursor: pointer;
