@@ -1,7 +1,7 @@
 <template>
   <div :class="[hover ? 'network-status' : 'network-status collapsed-network-status']">
-    <span class="label">NETWORK STATUS</span>
-    <span class="status">{{ status.toUpperCase() }}</span>
+    <span v-if="windowWidth > 1200 && hover" class="label">NETWORK STATUS</span>
+    <span v-if="windowWidth > 1200 && hover" class="status">{{ status.toUpperCase() }}</span>
     <div class="dot-status">
       <DotIndicator :status="status" />
     </div>
@@ -15,6 +15,7 @@ export default {
   props: {
     hover: Boolean,
     status: String,
+    windowWidth: Number,
   },
   components: {
     DotIndicator,
