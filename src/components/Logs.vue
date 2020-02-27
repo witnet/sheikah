@@ -1,10 +1,12 @@
 <template>
   <div class="logs-container">
     <div class="row log" v-for="(log, index) in logs" :key="log.timestamp">
-      <p v-show="errors[index] === false" class="column info">INFO</p>
-      <p v-show="errors[index] === true" class="column error">ERROR</p>
-      <div class="column message">{{ log.result }}</div>
-      <p class="column time">{{ log.timestamp }}</p>
+      <div class="row">
+        <div v-show="errors[index] === false" class="column info">INFO</div>
+        <div v-show="errors[index] === true" class="column error">ERROR</div>
+        <div class="column message">{{ log.result }}</div>
+      </div>
+      <div class="column time">{{ log.timestamp }}</div>
     </div>
   </div>
 </template>
@@ -63,22 +65,27 @@ export default {
       margin-right: 16px;
       justify-content: flex-start;
       color: #c5c2c2;
+      font-size: 14px;
     }
     .error {
       height: min-content;
+      padding: 2px 4px;
       background-color: $red-0;
-      color: #fff;
-      font-size: 12px;
+      color: $white;
+      font-size: 10px;
       margin-right: 8px;
+      border-radius: 2px;
       border: 2px solid $red-0;
     }
     .info {
       height: min-content;
-      background-color: #1a6cfb;
-      color: #fff;
-      font-size: 12px;
+      padding: 2px 4px;
+      background-color: $blue-6;
+      color: $white;
+      font-size: 10px;
       margin-right: 8px;
-      border: 1px solid #1a6cfb;
+      border-radius: 2px;
+      border: 1px solid $blue-6;
     }
     .time {
       margin-right: 8px;

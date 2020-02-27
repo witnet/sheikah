@@ -112,6 +112,6 @@ export default {
 <style scoped>
 .editor {
   position: relative;
-  height: 100vh;
+  height: 100%;
 }
 </style>

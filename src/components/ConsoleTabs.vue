@@ -59,12 +59,10 @@ export default {
     justify-content: left;
     .tab-btn {
       display: flex;
-      margin-bottom: 16px;
       padding: 8px 16px;
       font-size: 16px;
       background-color: $black;
       border: none;
-      margin-bottom: -1px;
       color: $grey-1;
       &:hover {
         cursor: pointer;
