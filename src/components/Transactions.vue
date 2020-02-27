@@ -25,28 +25,12 @@
               Receive
             </el-button>
           </div>
-          <el-dialog
-            title="New Transaction"
-            :visible.sync="dialogVisible"
-            width="700px"
+          <Send
+            :form="form"
+            :showModal="dialogVisible"
             v-on:close="closeAndClear"
-          >
-            <Alert
-              data-test="alert"
-              v-for="error in errors"
-              :key="error.message"
-              type="error"
-              :message="error.message"
-              :description="error.description"
-              v-on:close="closeAndClear"
-            />
-            <Send
-              :form="form"
-              v-on:close="closeAndClear"
-              v-on:create-VTT="createVTT"
-              v-on:form="setFormValues"
-            />
-          </el-dialog>
+            v-on:form="setFormValues"
+          />
           <el-dialog
             data-test="receive-modal"
             title="New payment request"
@@ -221,15 +205,6 @@ export default {
     setFormValues(updatedForm) {
       this.form = updatedForm
     },
-    createVTT() {
-      this.refindex = 0
-      this.$store.dispatch('createVTT', {
-        label: this.form.label,
-        address: this.form.address,
-        amount: this.form.amount,
-        fee: this.form.fee.value,
-      })
-    },
     displayModalSend: function() {
       this.dialogVisible = true
     },
@@ -238,24 +213,8 @@ export default {
       this.$store.dispatch('getAddresses')
       this.dialogVisible2 = true
     },
-    clearSendForm() {
-      this.form.address = ''
-      this.form.label = ''
-      this.form.amount = 0
-      this.form.fee = 0
-    },
     closeAndClear: function() {
-      this.clearSendForm()
-      this.$store.commit('clearGeneratedTransaction')
       this.dialogVisible = false
-      if (this.createVTTError) {
-        this.clearError(this.createVTTError.name)
-      } else if (this.sendTransactionError) {
-        this.clearError(this.sendTransactionError.name)
-      }
-    },
-    clearError: function(name) {
-      return this.$store.commit('clearError', { error: name })
     },
     generateAddress() {
       this.$store.dispatch('generateAddress', {

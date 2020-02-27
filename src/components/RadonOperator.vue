@@ -6,6 +6,8 @@
         class="operator-select"
         v-model="selectedOptionValue"
         @change="value => updateTemplate(selectedOption.id, value)"
+        :clearable="true"
+        v-on:clear="deleteOperator"
       >
         <el-option
           v-for="(x, idx) in options"
@@ -19,7 +21,6 @@
           </span>
         </el-option>
       </el-select>
-      <button class="delete-op-btn" @click="deleteOperator">x</button>
     </div>
     <div class="with-arguments" v-if="hasArguments">
       <div v-for="(argument, index) in selectedOperator.arguments" :key="argument.label + index">
@@ -254,7 +255,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
@@ -268,22 +269,27 @@ export default {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    .delete-op-btn {
-      background-color: transparent;
-      border: none;
-      color: $red-0;
-      cursor: pointer;
-      display: none;
-      font-size: 16px;
-      font-weight: 700;
-      margin-left: 20px;
+
+    .el-input__prefix {
+      left: 185px;
+      top: 14px;
+
+      .delete {
+        background-color: transparent;
+        color: $red-0;
+        cursor: pointer;
+        display: none;
+        font-size: 12px;
+        font-weight: 700;
+        vertical-align: middle;
+      }
     }
   }
 }
 
 .radon-operator:hover {
   .selected-operator {
-    .delete-op-btn {
+    .delete {
       display: block;
     }
   }

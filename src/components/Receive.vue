@@ -5,13 +5,13 @@
         <div data-test="last-address" id="last-generated-address" class="address">
           {{ lastAddress }}
         </div>
-        <div
+        <el-button
           data-test="copy-last-address"
-          :class="[copied ? 'copied' : 'copy']"
+          :type="copied ? 'success' : 'primary'"
           @click="copyAddress(lastAddressId)"
         >
           {{ text }}
-        </div>
+        </el-button>
       </div>
     </div>
   </div>
@@ -62,6 +62,7 @@ export default {
   align-items: center;
   .address {
     padding: 24px;
+    font-size: 18px;
   }
   .copy {
     font-size: 16px;
