@@ -6,7 +6,11 @@
   >
     <div :class="[hover ? 'brand' : 'brand collapsed-brand']">
       <router-link data-test="logo-to-home" class="logo" to="/wallet/transactions">
-        <img v-if="hover" class="sheikah-img" src="@/resources/svg/sheikah.svg" />
+        <img
+          v-if="windowWidth > 1200 && hover"
+          class="sheikah-img"
+          src="@/resources/svg/sheikah.svg"
+        />
         <img v-else class="sheikah-img" src="@/resources/svg/sheikah-small.svg" />
       </router-link>
     </div>
@@ -42,14 +46,13 @@
     </div>
     <div :class="[hover ? 'settings' : 'settings collapsed-settings']">
       <Settings :settings="settings" color="dark" />
-      <NetworkStatus :hover="hover" :status="status" />
+      <NetworkStatus :windowWidth="windowWidth" :hover="hover" :status="status" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-
 import NetworkStatus from '@/components/NetworkStatus.vue'
 import Settings from '@/components/Settings.vue'
 

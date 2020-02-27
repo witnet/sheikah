@@ -131,14 +131,12 @@
 </template>
 
 <script>
-import InputNumber from './InputNumber'
 import { mapState } from 'vuex'
 import Alert from '@/components/Alert'
 
 export default {
   name: 'send',
   components: {
-    InputNumber,
     Alert,
   },
   data() {

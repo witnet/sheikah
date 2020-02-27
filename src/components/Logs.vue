@@ -1,8 +1,10 @@
 <template>
   <div class="logs-container">
-    <div v-for="log in results" :key="log.timestamp" class="log">
-      <p class="time">{{ log.timestamp }}</p>
-      <p class="message">{{ log.result }}</p>
+    <div class="row log" v-for="(log, index) in logs" :key="log.timestamp">
+      <p v-show="errors[index] === false" class="column info">INFO</p>
+      <p v-show="errors[index] === true" class="column error">ERROR</p>
+      <div class="column message">{{ log.result }}</div>
+      <p class="column time">{{ log.timestamp }}</p>
     </div>
   </div>
 </template>
@@ -10,12 +12,22 @@
 <script>
 export default {
   name: 'Logs',
+  data() {
+    return {
+      errors: [],
+    }
+  },
   props: {
     logs: Array,
   },
-  computed: {
-    results() {
-      return this.logs
+  methods: {
+    checkResult() {
+      this.errors = this.logs.map(log => log.result.includes('RadonError'))
+    },
+  },
+  watch: {
+    logs() {
+      this.checkResult()
     },
   },
 }
@@ -27,25 +39,53 @@ export default {
 
 .logs-container {
   width: 100%;
-  height: 20vh;
   padding-top: 32px;
+  height: 20vh;
   overflow-y: scroll;
   background-color: $black;
-  .log {
-    padding-left: 50px;
+  .row {
     display: flex;
+    justify-content: space-between;
+    .column {
+      min-width: 40px;
+      margin-left: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  .log {
+    display: flex;
+    margin-bottom: 8px;
 
     .time,
     .message {
-      color: lightcoral;
+      margin-right: 16px;
+      justify-content: flex-start;
+      color: #c5c2c2;
     }
-
+    .error {
+      height: min-content;
+      background-color: $red-0;
+      color: #fff;
+      font-size: 12px;
+      margin-right: 8px;
+      border: 2px solid $red-0;
+    }
+    .info {
+      height: min-content;
+      background-color: #1a6cfb;
+      color: #fff;
+      font-size: 12px;
+      margin-right: 8px;
+      border: 1px solid #1a6cfb;
+    }
     .time {
       margin-right: 8px;
     }
-  }
-  & :hover {
-    background-color: $grey-7;
+    &:hover {
+      background-color: #252525;
+    }
   }
 }
 </style>

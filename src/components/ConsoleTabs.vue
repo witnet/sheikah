@@ -10,7 +10,6 @@
         :class="{ active: current === tab && showConsole }"
       >
         {{ tab }}
-        <font-awesome-icon v-show="!showConsole" class="icon" icon="angle-up" />
       </button>
     </div>
     <div v-show="showConsole" class="btn-container">

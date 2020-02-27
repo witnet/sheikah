@@ -108,3 +108,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.editor {
+  position: relative;
+  height: 100vh;
+}
+</style>

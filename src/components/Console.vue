@@ -80,17 +80,12 @@ export default {
 @import '@/styles/theme.scss';
 
 .console-container {
-  position: fixed;
+  position: absolute;
   right: 0px;
-  left: 20vw;
+  left: 0px;
   display: flex;
   flex-direction: column;
   bottom: 0px;
   color: $grey-1;
-}
-@media screen and (max-width: 1200px) {
-  .console-container {
-    left: 90px;
-  }
 }
 </style>
