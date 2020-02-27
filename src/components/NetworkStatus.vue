@@ -1,5 +1,5 @@
 <template>
-  <div class="network-status">
+  <div :class="[hover ? 'network-status' : 'network-status collapsed-network-status']">
     <span class="label">NETWORK STATUS</span>
     <span class="status">{{ status.toUpperCase() }}</span>
     <div class="dot-status">
@@ -13,6 +13,7 @@ import DotIndicator from '@/components/DotIndicator'
 export default {
   name: 'NetworkStatus',
   props: {
+    hover: Boolean,
     status: String,
   },
   components: {
@@ -41,7 +42,7 @@ export default {
     padding: 8px;
   }
 }
-@media screen and (max-width: 1200px) {
+.collapsed-network-status {
   .label {
     display: none;
   }

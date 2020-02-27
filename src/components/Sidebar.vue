@@ -1,44 +1,48 @@
 <template>
-  <div>
-    <div class="sidebar">
-      <div class="brand">
-        <router-link data-test="logo-to-home" class="logo" to="/wallet/transactions">
-          <img
-            v-if="windowWidth < 1200"
-            class="sheikah-img"
-            src="@/resources/svg/sheikah-small.svg"
-          />
-          <img v-else class="sheikah-img" src="@/resources/svg/sheikah.svg" />
-        </router-link>
-      </div>
-      <div class="current-wallet">
-        <span class="current-wallet-name">My Wallet</span>
-      </div>
-      <div class="link-list">
-        <router-link data-test="to-transactions" class="link" to="/wallet/transactions">
-          <font-awesome-icon class="icon" icon="wallet" />
-          <span class="label">Wallet</span>
-        </router-link>
+  <div
+    @mouseover="hover = true"
+    @mouseleave="hover = false"
+    :class="[hover ? 'sidebar' : 'sidebar collapsed-sidebar']"
+  >
+    <div :class="[hover ? 'brand' : 'brand collapsed-brand']">
+      <router-link data-test="logo-to-home" class="logo" to="/wallet/transactions">
+        <img v-if="hover" class="sheikah-img" src="@/resources/svg/sheikah.svg" />
+        <img v-else class="sheikah-img" src="@/resources/svg/sheikah-small.svg" />
+      </router-link>
+    </div>
+    <div class="current-wallet">
+      <span
+        :class="[
+          hover ? 'current-wallet-name' : 'current-wallet-name collapsed-current-wallet-name',
+        ]"
+      >
+        My Wallet
+      </span>
+    </div>
+    <div class="link-list">
+      <router-link data-test="to-transactions" class="link" to="/wallet/transactions">
+        <font-awesome-icon class="icon" icon="wallet" />
+        <span :class="[hover ? 'label' : 'label collapsed-label']">Wallet</span>
+      </router-link>
 
-        <router-link data-test="to-templates" class="link" to="/request/templates">
-          <font-awesome-icon class="icon" icon="code" />
-          <span class="label">Data request</span>
-        </router-link>
+      <router-link data-test="to-templates" class="link" to="/request/templates">
+        <font-awesome-icon class="icon" icon="code" />
+        <span :class="[hover ? 'label' : 'label collapsed-label']">Data request</span>
+      </router-link>
 
-        <router-link data-test="to-marketplace" class="link" to="/marketplace">
-          <font-awesome-icon class="icon" icon="shopping-bag" />
-          <span class="label">Marketplace</span>
-        </router-link>
+      <router-link data-test="to-marketplace" class="link" to="/marketplace">
+        <font-awesome-icon class="icon" icon="shopping-bag" />
+        <span :class="[hover ? 'label' : 'label collapsed-label']">Marketplace</span>
+      </router-link>
 
-        <router-link data-test="to-community" class="link" to="/community">
-          <font-awesome-icon class="icon" icon="users" />
-          <span class="label">Community</span>
-        </router-link>
-      </div>
-      <div class="settings">
-        <Settings :settings="settings" color="dark" />
-        <NetworkStatus :status="status" />
-      </div>
+      <router-link data-test="to-community" class="link" to="/community">
+        <font-awesome-icon class="icon" icon="users" />
+        <span :class="[hover ? 'label' : 'label collapsed-label']">Community</span>
+      </router-link>
+    </div>
+    <div :class="[hover ? 'settings' : 'settings collapsed-settings']">
+      <Settings :settings="settings" color="dark" />
+      <NetworkStatus :hover="hover" :status="status" />
     </div>
   </div>
 </template>
@@ -57,6 +61,7 @@ export default {
   },
   data() {
     return {
+      hover: false,
       windowWidth: window.innerWidth,
       settings: [
         {
@@ -97,12 +102,13 @@ export default {
 @import '@/styles/app.global.scss';
 
 .sidebar {
+  width: 20vw;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   display: flex;
+  justify-content: space-between;
   flex-flow: column nowrap;
   height: 100vh;
   z-index: 5;
-  width: 20vw;
   font-family: 'Titillium Web';
 }
 
@@ -159,6 +165,10 @@ export default {
     text-decoration: none;
     width: 100%;
     text-align: left;
+    &:hover {
+      background-color: $blue-1;
+      border-left: $sidebar-inactive-border-hover;
+    }
 
     &.router-link-active {
       border-left: $sidebar-active-border;
@@ -179,6 +189,10 @@ export default {
   .active {
     border-left: $sidebar-active-border;
     color: $sidebar-active-color;
+    -webkit-transition: all 1s ease-in ease-out;
+    -moz-transition: all 1s ease-in ease-out;
+    -o-transition: all 1s ease-in ease-out;
+    transition: all 1s ease-in ease-out;
   }
 }
 
@@ -218,6 +232,31 @@ export default {
   }
 }
 
+.collapsed-sidebar {
+  transition: 200ms;
+  height: 100vh;
+  width: 90px;
+}
+
+.collapsed-brand {
+  text-align: center;
+}
+
+.collapsed-label {
+  display: none;
+}
+
+.collapsed-current-wallet-name {
+  transform: translateX(-5px);
+}
+
+.collapsed-settings {
+  justify-content: space-between;
+  .mainnet,
+  .synced {
+    display: none;
+  }
+}
 @media screen and (max-width: 1200px) {
   .sidebar {
     width: 90px;

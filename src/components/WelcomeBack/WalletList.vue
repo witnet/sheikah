@@ -15,6 +15,7 @@
       </div>
       <li>
         <RedirectionOption
+          data-test="create-wallet"
           type="forward"
           link="/ftu/welcome"
           name="Create import or recover a wallet"
