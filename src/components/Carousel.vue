@@ -167,7 +167,7 @@ export default {
 }
 
 .carousel-container {
-  padding: 24px;
+  padding: 24px 24px 0px 24px;
   display: flex;
   align-items: center;
   justify-content: center;

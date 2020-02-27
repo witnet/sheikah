@@ -1,9 +1,7 @@
 <template>
   <div class="layout" data-test="home">
     <Sidebar />
-    <div class="main">
-      <router-view></router-view>
-    </div>
+    <router-view class="main"></router-view>
   </div>
 </template>
 
@@ -38,6 +36,7 @@ export default {
 
 .layout {
   display: flex;
+  position: relative;
 
   .main {
     height: 100vh;

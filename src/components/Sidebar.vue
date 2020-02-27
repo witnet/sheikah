@@ -143,6 +143,8 @@ export default {
   flex-flow: row wrap;
   font-weight: bold;
   padding: 24px;
+  height: 80px;
+  align-items: center;
 
   .current-wallet-name {
     text-overflow: ellipsis;
@@ -153,7 +155,6 @@ export default {
   align-items: flex-start;
   display: flex;
   flex-flow: column nowrap;
-  margin-top: 16px;
   width: 100%;
 
   .link {
@@ -208,6 +209,7 @@ export default {
   justify-content: space-between;
   margin-top: auto;
   padding: 16px;
+  height: 50px;
 
   .net-status {
     font-size: $icon_status-font_size;
