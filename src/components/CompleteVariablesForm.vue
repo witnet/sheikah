@@ -1,6 +1,5 @@
 <template>
   <div data-test="variables-dr-form" class="variables-container">
-    <div class="title">Add custom values for the template variables</div>
     <div v-for="(variable, index) in variables" :key="index" class="variable">
       <p class="label variable-value">$</p>
       <div class="variable-value">
@@ -17,6 +16,7 @@
       </div>
     </div>
     <div class="submit">
+      <el-button @click="goBack">Cancel</el-button>
       <el-button
         @keydown.enter.esc.prevent="nextStep"
         data-test="complete-variables-submit"
@@ -46,6 +46,9 @@ export default {
     }
   },
   methods: {
+    goBack() {
+      this.$emit('go-back')
+    },
     nextStep() {
       this.$emit('go-to-next-step')
     },
@@ -102,11 +105,6 @@ export default {
 
 .variables-container {
   overflow-y: auto;
-  .title {
-    color: $grey-4;
-    font-size: 18px;
-    margin-bottom: 40px;
-  }
   .variable {
     display: block;
     display: flex;

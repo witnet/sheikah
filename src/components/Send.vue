@@ -1,6 +1,13 @@
 <template>
-  <div class="send">
+  <el-dialog
+    title="Create Value Transfer Transaction"
+    :visible.sync="showModal"
+    width="700px"
+    v-on:close="closeAndClear"
+    :show-close="false"
+  >
     <Alert
+      class="alert"
       data-test="alert"
       v-for="error in errors"
       :key="error.message"
@@ -9,125 +16,126 @@
       :description="error.description"
       v-on:close="() => clearError(error.name)"
     />
-    <div v-if="generatedTransaction" class="transaction-info">
-      <div class="scroll">
-        <div class="row">
-          <p class="entry">Amount</p>
-          <p class="value">{{ generatedTransaction.metadata.value }} Wit</p>
-        </div>
-        <!-- <div class="row">
-          <p class="entry">Type</p>
-          <p class="value">{{ generatedTransaction.type }}</p>
-        </div> -->
-        <div class="row">
-          <p class="entry">To</p>
-          <p class="value">{{ generatedTransaction.metadata.to }}</p>
-        </div>
-        <div class="row">
-          <p class="entry">Fee</p>
-          <p class="value">{{ generatedTransaction.metadata.fee }} uWit/B</p>
-        </div>
-        <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
-          <p class="entry">Inputs</p>
-          <p></p>
-          <div class="column">
-            <p
-              class="address value"
-              v-for="input in generatedTransaction.transaction.ValueTransfer.body.inputs"
-              :key="input.output_pointer"
-            >
-              {{ input.output_pointer }}
-            </p>
-          </div>
-        </div>
-        <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
-          <p class="entry">Outputs</p>
-          <p></p>
-          <div class="column">
-            <p
-              class="address value"
-              v-for="output in generatedTransaction.transaction.ValueTransfer.body.outputs"
-              :key="output.pkh"
-            >
-              <span>PKH: {{ output.pkh }}</span>
-              <span>Amount: {{ output.value }}</span>
-            </p>
-          </div>
-        </div>
 
-        <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
-          <p class="entry">Bytes</p>
-          <p></p>
-          <div class="column">
-            <p class="address value">{{ generatedTransaction.bytes }}</p>
+    <div class="">
+      <div v-if="generatedTransaction" class="transaction-info">
+        <div class="scroll">
+          <div class="row">
+            <p class="entry">Amount</p>
+            <p class="value">{{ generatedTransaction.metadata.value }} Wit</p>
+          </div>
+          <div class="row">
+            <p class="entry">To</p>
+            <p class="value">{{ generatedTransaction.metadata.to }}</p>
+          </div>
+          <div class="row">
+            <p class="entry">Fee</p>
+            <p class="value">{{ generatedTransaction.metadata.fee }} uWit/B</p>
+          </div>
+          <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
+            <p class="entry">Inputs</p>
+            <p></p>
+            <div class="column">
+              <p
+                class="address value"
+                v-for="input in generatedTransaction.transaction.ValueTransfer.body.inputs"
+                :key="input.output_pointer"
+              >
+                {{ input.output_pointer }}
+              </p>
+            </div>
+          </div>
+          <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
+            <p class="entry">Outputs</p>
+            <p></p>
+            <div class="column">
+              <p
+                class="address value"
+                v-for="output in generatedTransaction.transaction.ValueTransfer.body.outputs"
+                :key="output.pkh"
+              >
+                <span>PKH: {{ output.pkh }}</span>
+                <span>Amount: {{ output.value }}</span>
+              </p>
+            </div>
+          </div>
+
+          <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
+            <p class="entry">Bytes</p>
+            <p></p>
+            <div class="column">
+              <p class="address value">{{ generatedTransaction.bytes }}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="confirm-advance-btn">
-        <p
-          v-if="isAdvancedVisible"
-          data-test="advance-options"
-          @click="toggleAdvanceOptions"
-          class="link"
-        >
-          Show less
-        </p>
-        <p v-else data-test="show-advance-options" @click="toggleAdvanceOptions" class="link">
-          Show advanced options
-        </p>
-        <span slot="footer" class="dialog-footer">
-          <el-button data-test="cancel-tx" @click="closeDialog">
-            Cancel
-          </el-button>
-          <el-button
-            @keydown.enter.esc.prevent="confirmTransaction"
-            type="primary"
-            data-test="confirm-tx"
-            @click="confirmTransaction"
+        <div class="confirm-advance-btn">
+          <p
+            v-if="isAdvancedVisible"
+            data-test="advance-options"
+            @click="toggleAdvanceOptions"
+            class="link"
           >
-            Confirm
-          </el-button>
-        </span>
-      </div>
-    </div>
-    <div v-else data-test="tx-form">
-      <div class="row">
-        <div class="label">
-          <label class for>Address</label>
+            Show less
+          </p>
+          <p v-else data-test="show-advance-options" @click="toggleAdvanceOptions" class="link">
+            Show advanced options
+          </p>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="closeDialog" data-test="cancel-tx">
+              Cancel
+            </el-button>
+            <el-button
+              @keydown.enter.esc.prevent="confirmTransaction"
+              type="primary"
+              data-test="confirm-tx"
+              @click="confirmTransaction"
+            >
+              Confirm
+            </el-button>
+          </span>
         </div>
-        <el-input data-test="tx-address" v-model="form.address" placeholder="Recipient address" />
       </div>
+      <el-form
+        v-else
+        data-test="tx-form"
+        :model="form"
+        label-position="left"
+        :rules="rules"
+        ref="send-form"
+        label-width="120px"
+      >
+        <el-form-item label="Address" prop="address">
+          <el-input
+            v-model="form.address"
+            placeholder="Recipient address"
+            data-test="tx-address"
+            maxlength="43"
+          />
+        </el-form-item>
 
-      <div class="row">
-        <div class="label">
-          <label class for>Label</label>
+        <el-form-item label="Label" prop="label">
+          <el-input v-model="form.label" data-test="tx-label" />
+        </el-form-item>
+        <el-form-item label="Amount" prop="amount">
+          <el-input v-model.number="form.amount" data-test="tx-amount" />
+        </el-form-item>
+        <el-form-item label="fee" prop="fee">
+          <el-input v-model.number="form.fee" data-test="tx-fee" />
+        </el-form-item>
+
+        <div class="submit">
+          <el-button
+            @keydown.enter.esc.prevent="createVTT"
+            type="primary"
+            data-test="sign-send-btn"
+            @click="createVTT"
+          >
+            Sign and send
+          </el-button>
         </div>
-        <el-input data-test="tx-label" v-model="form.label" />
-      </div>
-      <div class="row">
-        <div class="label">
-          <label class for>Amount</label>
-        </div>
-        <el-input data-test="tx-amount" v-model="form.amount" />
-      </div>
-      <div class="row">
-        <div class="label">
-          <label class for>Fee</label>
-        </div>
-        <el-input data-test="tx-fee" v-model="form.fee" />
-      </div>
-      <div class="submit">
-        <el-button
-          @keydown.enter.esc.prevent="createVTT"
-          type="primary"
-          data-test="sign-send-btn"
-          @click="createVTT"
-        >
-          Sign and send
-        </el-button>
-      </div>
+      </el-form>
     </div>
-  </div>
+  </el-dialog>
 </template>
 
 <script>
@@ -142,14 +150,43 @@ export default {
   data() {
     return {
       isAdvancedVisible: false,
-      showModal: false,
+      form: {
+        address: '',
+        label: '',
+        amount: null,
+        fee: null,
+      },
+      rules: {
+        address: [
+          { required: true, message: 'Required field', trigger: 'blur' },
+          { min: 43, max: 43, message: 'Length should be 43', trigger: 'blur' },
+        ],
+        label: [],
+        amount: [
+          { required: true, message: 'Required field', trigger: 'blur' },
+          { type: 'number', message: 'This field must be a number' },
+        ],
+        fee: [
+          { required: true, message: 'Required field', trigger: 'blur' },
+          { type: 'number', message: 'This field must be a number' },
+        ],
+      },
     }
   },
   props: {
-    form: Object,
+    showModal: Boolean,
   },
   computed: {
     ...mapState({
+      createVTTError: state => {
+        if (state.wallet.errors.createVTT) {
+          return {
+            message: state.wallet.errors.createVTT.message,
+            description: state.wallet.errors.createVTT.error.message,
+            name: state.wallet.errors.createVTT.name,
+          }
+        }
+      },
       saveItemError: state => {
         if (state.wallet.errors.saveItem) {
           return {
@@ -161,7 +198,7 @@ export default {
       },
       errors() {
         if (this.$store.state.wallet.networkStatus !== 'error') {
-          return [this.saveItemError].filter(error => !!error)
+          return [this.sendTransactionError, this.createVTTError].filter(error => !!error)
         } else {
           return []
         }
@@ -172,8 +209,24 @@ export default {
     },
   },
   methods: {
+    clearSendForm() {
+      this.form.address = ''
+      this.form.label = ''
+      this.form.amount = 0
+      this.form.fee = 0
+    },
     clearError: function(name) {
       return this.$store.commit('clearError', { error: name })
+    },
+    closeAndClear() {
+      this.clearSendForm()
+      this.$store.commit('clearGeneratedTransaction')
+      this.$emit('close')
+      if (this.createVTTError) {
+        this.clearError(this.createVTTError.name)
+      } else if (this.sendTransactionError) {
+        this.clearError(this.sendTransactionError.name)
+      }
     },
     toggleAdvanceOptions() {
       this.isAdvancedVisible = !this.isAdvancedVisible
@@ -183,7 +236,16 @@ export default {
       this.closeDialog()
     },
     createVTT() {
-      this.$emit('create-VTT', this.form)
+      this.$refs['send-form'].validate(valid => {
+        if (valid) {
+          this.$store.dispatch('createVTT', {
+            label: this.form.label,
+            address: this.form.address,
+            amount: this.form.amount,
+            fee: this.form.fee,
+          })
+        }
+      })
     },
     closeDialog() {
       if (this.errors) {
@@ -194,9 +256,9 @@ export default {
   },
   watch: {
     generatedTransaction(value) {
-      if (value) {
-        this.showModal = true
-      }
+      // if (value) {
+      //   this.showModal = true
+      // }
     },
   },
   beforeDestroy() {
@@ -210,6 +272,10 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+
+.alert {
+  margin-bottom: 40px;
+}
 
 .transaction-info {
   overflow-y: auto;
@@ -255,29 +321,26 @@ export default {
   }
 }
 
-.send {
-  margin: 40px;
-  .row {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 16px;
+.row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
 
-    .label {
-      min-width: 64px;
-      margin-right: 24px;
-      margin-top: 8px;
-      text-align: right;
-    }
-    .input {
-      text-align: left;
-      padding-left: 16px;
-    }
-  }
-  .submit {
-    width: 100%;
+  .label {
+    min-width: 64px;
+    margin-right: 24px;
+    margin-top: 8px;
     text-align: right;
-    padding-top: 10px;
   }
+  .input {
+    text-align: left;
+    padding-left: 16px;
+  }
+}
+.submit {
+  width: 100%;
+  text-align: right;
+  padding-top: 10px;
 }
 
 .dialog-footer {

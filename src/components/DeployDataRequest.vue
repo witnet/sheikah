@@ -1,29 +1,49 @@
 <template>
-  <div class="container">
-    <div v-if="generatedTransaction" class="data-request-info">
-      <ConfirmDataRequest
-        :backupWitnesses="backupWitnesses"
-        :commitFee="commitFee"
-        :extraCommitRounds="extraCommitRounds"
-        :extraRevealRounds="extraRevealRounds"
-        :fee="fee"
-        :generatedTransaction="generatedTransaction"
-        :minConsensusPercentage="minConsensusPercentage"
-        :revealFee="revealFee"
-        :rewardFee="rewardFee"
-        :tallyFee="tallyFee"
-        :timelock="timelock"
-        :witnesses="witnesses"
-        v-on:confirm-dr="confirmDataRequest"
-      />
-    </div>
-    <div v-else-if="showFillVariablesForm">
-      <CreateDataRequestForm v-on:create-dr="createDataRequest" />
-    </div>
-    <div v-else>
-      <CompleteVariablesForm v-on:go-to-next-step="showCreateDataRequestForm" />
-    </div>
-  </div>
+  <el-dialog
+    :visible="visible"
+    :title="title"
+    width="400px"
+    v-on:close="closeAndClear"
+    :show-close="false"
+  >
+    <Alert
+      data-test="alert"
+      v-for="error in errors"
+      class="alert"
+      :key="error.message"
+      type="error"
+      :message="error.message"
+      :description="error.description"
+    />
+    <ConfirmDataRequest
+      v-if="generatedTransaction"
+      :backupWitnesses="backupWitnesses"
+      :commitFee="commitFee"
+      :extraCommitRounds="extraCommitRounds"
+      :extraRevealRounds="extraRevealRounds"
+      :fee="fee"
+      :generatedTransaction="generatedTransaction"
+      :minConsensusPercentage="minConsensusPercentage"
+      :revealFee="revealFee"
+      :rewardFee="rewardFee"
+      :tallyFee="tallyFee"
+      :timelock="timelock"
+      :witnesses="witnesses"
+      v-on:confirm-dr="confirmDataRequest"
+      v-on:go-back="() => goBack('CONFIRM')"
+    />
+    <CreateDataRequestForm
+      v-else-if="showFillVariablesForm"
+      :backWord="variables.length ? 'Back' : 'Cancel'"
+      v-on:go-back="() => goBack('FORM')"
+      v-on:create-dr="createDataRequest"
+    />
+    <CompleteVariablesForm
+      v-else
+      v-on:go-to-next-step="showCreateDataRequestForm"
+      v-on:go-back="() => goBack('TEMPLATE_VARIABLES')"
+    />
+  </el-dialog>
 </template>
 
 <script>
@@ -37,8 +57,7 @@ export default {
   name: 'DeployDataRequest',
   props: {
     template: Object,
-    dialogVisible: Boolean,
-    showModal: Boolean,
+    visible: Boolean,
   },
   components: {
     CreateDataRequestForm,
@@ -46,6 +65,24 @@ export default {
     ConfirmDataRequest,
   },
   computed: {
+    title() {
+      if (this.generatedTransaction) {
+        return 'Confirm'
+      } else if (this.showFillVariablesForm) {
+        return 'Fill all the fields to deploy a data request'
+      } else {
+        return 'Add custom values for the template variables'
+      }
+    },
+    errors() {
+      if (this.$store.state.wallet.networkStatus !== 'error') {
+        return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(
+          error => !!error
+        )
+      } else {
+        return [this.networkError]
+      }
+    },
     variables() {
       return this.$store.getters.variablesKeys
     },
@@ -60,6 +97,7 @@ export default {
   },
   data() {
     return {
+      currentTemplate: '',
       variablesUpdated: false,
       backupWitnesses: null,
       commitFee: null,
@@ -75,6 +113,42 @@ export default {
     }
   },
   methods: {
+    goBack(from) {
+      if (from === 'CONFIRM') {
+        this.$store.commit('clearGeneratedTransaction')
+      } else if (from === 'TEMPLATE_VARIABLES') {
+        this.closeAndClear()
+      } else if (from === 'FORM' && !this.variables.length) {
+        this.closeAndClear()
+      } else {
+        this.variablesUpdated = false
+      }
+    },
+    clearError: function(name) {
+      return this.$store.commit('clearError', { error: name })
+    },
+    closeAndClear: function() {
+      this.$emit('close')
+      if (this.createDataRequestError) {
+        this.clearError(this.createDataRequestError.name)
+      }
+      if (this.generatedTransaction) {
+        this.$store.commit('clearGeneratedTransaction')
+      }
+      this.currentTemplate = ''
+      this.variablesUpdated = false
+      this.backupWitnesses = null
+      this.commitFee = null
+      this.extraCommitRounds = null
+      this.extraRevealRounds = null
+      this.fee = null
+      this.minConsensusPercentage = null
+      this.revealFee = null
+      this.rewardFee = null
+      this.tallyFee = null
+      this.timelock = null
+      this.witnesses = null
+    },
     showCreateDataRequestForm() {
       this.variablesUpdated = true
     },
@@ -97,10 +171,7 @@ export default {
     },
     confirmDataRequest() {
       this.$store.dispatch('sendTransaction', { label: '' })
-      this.closeDialog()
-    },
-    closeDialog() {
-      this.$emit('close')
+      this.$emit('close', 'SENT')
     },
   },
   created() {
@@ -111,9 +182,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.container {
-  margin: 0px;
-  max-width: 100%;
-}
-</style>
+<style lang="scss" scoped></style>
