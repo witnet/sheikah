@@ -82,6 +82,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .top-bar {
+  position: relative;
   border-bottom: 1px solid $grey-0;
   display: flex;
   flex-flow: row wrap;
