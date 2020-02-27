@@ -14,10 +14,10 @@
 
     <template v-slot:footer>
       <div class="navigation-buttons">
-        <el-button class="button" type="text" @click="previousStep">
+        <el-button data-test="previous-step" class="button" type="text" @click="previousStep">
           {{ previousText }}
         </el-button>
-        <el-button type="primary" @click="nextStep" ref="next">
+        <el-button data-test="next-step" type="primary" @click="nextStep" ref="next">
           {{ nextText }}
         </el-button>
       </div>
