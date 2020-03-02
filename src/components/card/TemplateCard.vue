@@ -33,19 +33,21 @@
         </el-dropdown>
       </div>
       <div data-test="edit-template" class="content" @click="edit">
-        <div class="title">
-          <div ref="input" v-show="!showInput">
-            {{ name }}
+        <div class="info">
+          <div class="title">
+            <div ref="input" v-show="!showInput">
+              {{ name }}
+            </div>
+            <el-input
+              data-test="template-name-input"
+              v-show="showInput"
+              :placeholder="name"
+              v-model="updateName"
+            />
           </div>
-          <el-input
-            data-test="template-name-input"
-            v-show="showInput"
-            :placeholder="name"
-            v-model="updateName"
-          />
-        </div>
-        <div class="description">
-          {{ description }}
+          <div class="description">
+            {{ description }}
+          </div>
         </div>
         <div v-show="style != 'marketplace'" class="date">
           {{ dateFormated }}
@@ -192,8 +194,12 @@ export default {
   color: inherit;
 }
 .card-layout {
-  min-width: 300px;
+  width: 250px;
+  height: 250px;
   background-color: $alpha-blue;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   border-radius: 2px;
   margin: 16px;
   padding: 16px;
@@ -211,15 +217,7 @@ export default {
   &.option-btn,
   .title,
   .description {
-    padding: 24px;
-    .input {
-      color: $black;
-      text-align: left;
-      padding-left: 8px;
-      border: 1px solid $grey-1;
-      font-size: 0.9em;
-      min-height: 40px;
-    }
+    padding: 16px;
   }
   .date {
     color: $grey-4;
@@ -228,19 +226,24 @@ export default {
   .edit-btn {
     padding-left: 8px;
     display: block;
-    font-size: 20px;
+    // font-size: 20px;
     color: $blue-6;
   }
   .option-btn {
+    flex: 1;
     text-align: right;
     padding: 0px;
   }
   .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 3;
     &:hover {
       cursor: pointer;
     }
     .title {
-      font-size: 24px;
+      font-size: 20px;
       color: $black;
     }
     .description {
