@@ -226,7 +226,6 @@ export default {
   .edit-btn {
     padding-left: 8px;
     display: block;
-    // font-size: 20px;
     color: $blue-6;
   }
   .option-btn {
