@@ -41,7 +41,8 @@ export default new Router({
       name: 'main',
       component: Home,
       beforeEnter: (to, from, next) => {
-        if (store.state.wallet.api.client.ws.ready) {
+        const isReady = store.state.wallet.api.client.ws.ready
+        if (isReady) {
           next()
           store.state.wallet.api.client.ws.on('close', () => {
             next('/wallet-not-found')

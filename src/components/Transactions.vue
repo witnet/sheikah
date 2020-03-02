@@ -18,10 +18,10 @@
         <div class="top">
           <Balances :total="total" :currency="currency" />
           <div class="send-received">
-            <el-button data-test="send-btn" @click="displayModalSend" type="primary">
+            <el-button class="button" data-test="send-btn" @click="displayModalSend" type="primary">
               Send
             </el-button>
-            <el-button data-test="receive-btn" @click="displayModalReceive">
+            <el-button class="button" data-test="receive-btn" @click="displayModalReceive">
               Receive
             </el-button>
           </div>
@@ -268,6 +268,12 @@ export default {
 
     .send-received {
       margin: 0 auto;
+      height: 50px;
+      .button {
+        margin-top: 16px;
+        height: 100%;
+        width: 48%;
+      }
       .primary {
         margin: 8px;
       }
