@@ -105,6 +105,7 @@ export default {
 @import '@/styles/app.global.scss';
 
 .sidebar {
+  transition: 300ms;
   width: 20vw;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -238,7 +239,7 @@ export default {
 }
 
 .collapsed-sidebar {
-  transition: 200ms;
+  transition: 300ms;
   height: 100vh;
   width: 90px;
 }
