@@ -21,31 +21,33 @@
         v-on:close="() => clearError(error.name)"
       />
     </div>
-    <div v-if="Object.entries(templates)" class="container-templates">
-      <div class="add">
-        <router-link to="/request/editor">
-          <img
-            data-test="create-template"
-            @click="createTemplate"
-            class="add-btn"
-            src="@/resources/svg/add.svg"
-          />
-        </router-link>
+    <div class="centered">
+      <div v-if="Object.entries(templates)" class="container-templates">
+        <div class="add">
+          <router-link to="/request/editor">
+            <img
+              data-test="create-template"
+              @click="createTemplate"
+              class="add-btn"
+              src="@/resources/svg/add.svg"
+            />
+          </router-link>
+        </div>
+        <TemplateCard
+          v-for="template in templates"
+          class="card"
+          :name="template.name"
+          :id="template.id"
+          :description="template.description"
+          :key="template.id"
+          :date="template.creationDate"
+          v-on:change-name="changeName"
+          v-on:toggle-modal="displayModalCreateDR(template)"
+        />
       </div>
-      <TemplateCard
-        v-for="template in templates"
-        class="card"
-        :name="template.name"
-        :id="template.id"
-        :description="template.description"
-        :key="template.id"
-        :date="template.creationDate"
-        v-on:change-name="changeName"
-        v-on:toggle-modal="displayModalCreateDR(template)"
-      />
-    </div>
-    <div v-else>
-      You don't have templates yet.
+      <div v-else>
+        You don't have templates yet.
+      </div>
     </div>
     <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
 
@@ -264,29 +266,35 @@ export default {
     word-break: keep-all;
   }
 }
+.centered {
+  display: flex;
+  justify-content: center;
+  margin: 24px;
+}
 .container-templates {
+  width: 80vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  margin: 32px 32px 32px 72px;
 
   .card {
-    flex: 0 1 calc(30% - 2em);
     margin: 16px;
   }
   .add {
+    box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
+    border: 2px solid $grey-0;
     display: flex;
-    min-width: 300px;
-    min-height: 200px;
+    width: 250px;
+    height: 250px;
     justify-content: center;
-    flex: 0 1 calc(30% - 2em);
     align-items: center;
     margin: 16px;
     .add-btn {
       width: 50px;
-      &:hover {
-        cursor: pointer;
-      }
+    }
+    &:hover {
+      cursor: pointer;
+      border: 2px solid $blue-6;
     }
   }
 }
