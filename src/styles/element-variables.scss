@@ -1,5 +1,5 @@
 @import "./colors";
-$--color-primary: #1a6cfb;
+$--color-primary: $blue-6;
 $--color-success: #52c41a;
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
@@ -7,6 +7,20 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   background-color: $black;
   color: #c5c2c2;
   border-color: #c5c2c2;
+}
+
+.marketplace {
+  &.el-pagination {
+    .el-pager li.active {
+      color: rgb(255, 42, 127);
+    }
+    .el-pager li:hover {
+      color: rgb(255, 42, 127);
+    }
+    button:hover {
+      color: rgb(255, 42, 127);
+    }
+  }
 }
   
 @import "~element-ui/packages/theme-chalk/src/index";

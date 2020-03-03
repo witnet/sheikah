@@ -41,12 +41,12 @@ describe('Create a complete deploy Data Request flow', () => {
   it('Edit template', () => {
     cy.get('[data-test=edit-template]')
       .last()
-      .click()
+      .click({ force: true })
     cy.get('[data-test=editor-view]')
   })
 
   it('Go back to templates list', () => {
-    cy.get('[data-test=go-back-to-templates]').click()
+    cy.get('[data-test=go-back-to-templates]').click({ force: true })
   })
 
   it('Rename templates', () => {
