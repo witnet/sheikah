@@ -30,7 +30,7 @@ export default {
         if (state.wallet.errors.closeSession) {
           return {
             message: state.wallet.errors.closeSession.message,
-            description: state.wallet.errors.closeSession.error.message,
+            description: state.wallet.errors.closeSession.error,
             name: state.wallet.errors.closeSession.name,
           }
         }

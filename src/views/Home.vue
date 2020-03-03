@@ -23,9 +23,13 @@ export default {
   },
   methods: {
     pollData() {
-      this.$store.dispatch('getBalance')
-      this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
-      this.$store.dispatch('getAddresses')
+      const currentRoute = this.$router.currentRoute.path
+      const matchRoute = currentRoute.startsWith('/welcome-back') || currentRoute.startsWith('/ftu')
+      if (!matchRoute) {
+        this.$store.dispatch('getBalance')
+        this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
+        this.$store.dispatch('getAddresses')
+      }
     },
   },
 }
