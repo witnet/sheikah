@@ -6,7 +6,7 @@
     </p>
     <div class="list">
       <Transaction
-        v-for="(transaction, index) in transactions"
+        v-for="(transaction, index) in paginatedItems"
         :currency="currency"
         :key="transaction.id"
         :id="transaction.id"
@@ -23,6 +23,14 @@
         <p class="no-transactions-text">You don't have transactions</p>
       </div>
     </div>
+    <div v-show="transactions.length" class="pagination-nav">
+      <el-pagination
+        @current-change="handleCurrentChange"
+        layout="prev, pager, next"
+        :total="transactions.length"
+        :current-page="currentPage"
+      />
+    </div>
   </div>
 </template>
 
@@ -34,13 +42,26 @@ export default {
   components: {
     Transaction,
   },
+  data() {
+    return {
+      currentPage: 1,
+      itemsPerPage: 10,
+    }
+  },
   computed: {
+    paginatedItems() {
+      const from = this.currentPage * this.itemsPerPage - this.itemsPerPage
+      const to = this.currentPage * this.itemsPerPage
+      return this.transactions.slice(from, to)
+    },
     transactionsLength() {
       return this.transactions.length
     },
   },
-  data() {
-    return {}
+  methods: {
+    handleCurrentChange(val) {
+      this.currentPage = val
+    },
   },
   props: {
     currency: String,
@@ -64,6 +85,8 @@ export default {
     margin-left: 8px;
   }
   .list {
+    overflow: auto;
+    max-height: 73vh;
     padding: 0 16px;
     border: 0.5px solid rgb(224, 224, 224);
     box-shadow: 0 0px 5px 0px rgba(29, 29, 29, 0.1);
@@ -84,7 +107,10 @@ export default {
       margin-bottom: 16px;
     }
   }
-
+  .pagination-nav {
+    padding: 16px 0px 16px 0px;
+    text-align: center;
+  }
   .title {
     margin-bottom: 16px;
   }

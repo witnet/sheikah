@@ -288,7 +288,7 @@ export default {
         wallet_id: this.state.wallet.walletId,
         address,
         amount: parseInt(amount),
-        fee,
+        fee: parseInt(fee),
         label,
       })
       if (request.result) {

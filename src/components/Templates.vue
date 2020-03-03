@@ -21,33 +21,40 @@
         v-on:close="() => clearError(error.name)"
       />
     </div>
-    <div class="centered">
-      <div v-if="Object.entries(templates)" class="container-templates">
-        <div class="add">
-          <router-link to="/request/editor">
-            <img
-              data-test="create-template"
-              @click="createTemplate"
-              class="add-btn"
-              src="@/resources/svg/add.svg"
-            />
-          </router-link>
-        </div>
-        <TemplateCard
-          v-for="template in templates"
-          class="card"
-          :name="template.name"
-          :id="template.id"
-          :description="template.description"
-          :key="template.id"
-          :date="template.creationDate"
-          v-on:change-name="changeName"
-          v-on:toggle-modal="displayModalCreateDR(template)"
-        />
+    <div v-if="Object.entries(paginatedItems)" class="container-templates">
+      <div v-show="currentPage === 1" class="add">
+        <router-link to="/request/editor">
+          <img
+            data-test="create-template"
+            @click="createTemplate"
+            class="add-btn"
+            src="@/resources/svg/add.svg"
+          />
+        </router-link>
       </div>
-      <div v-else>
-        You don't have templates yet.
-      </div>
+      <TemplateCard
+        v-for="template in paginatedItems"
+        class="card"
+        :name="template.name"
+        :id="template.id"
+        :description="template.description"
+        :key="template.id"
+        :date="template.creationDate"
+        v-on:change-name="changeName"
+        v-on:toggle-modal="displayModalCreateDR(template)"
+      />
+    </div>
+    <div v-else>
+      You don't have templates yet.
+    </div>
+    <div v-show="templates.length" class="pagination-nav">
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :page-size="itemsPerPage"
+        layout="prev, pager, next"
+        :total="templates.length"
+        :current-page="currentPage"
+      />
     </div>
     <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
 
@@ -81,12 +88,20 @@ export default {
   },
   data() {
     return {
+      currentPage: 1,
+      itemsPerPage: 8,
       tabs: [{ name: 'Templates', link: '/request/templates' }],
       dialogVisible: false,
       currentTemplate: null,
     }
   },
   computed: {
+    paginatedItems() {
+      this.getItemsPerPage()
+      const from = this.currentPage * this.itemsPerPage - this.itemsPerPage
+      const to = this.currentPage * this.itemsPerPage
+      return this.templates.slice(from, to)
+    },
     ...mapState({
       templates: state =>
         Object.entries(state.rad.templates)
@@ -154,27 +169,14 @@ export default {
     }),
   },
   methods: {
-    closeDeployModal(status) {
-      if (status === 'SENT') {
-        this.showSuccessNotification = true
-        // TODO: remove setTimeout adding a flag in vuex
-        setTimeout(() => {
-          if (!this.sendTransactionError) {
-            this.$notify({
-              title: 'Success',
-              message: 'Data request deployed',
-              type: 'success',
-            })
-          } else {
-            this.$notify({
-              title: 'Error',
-              message: 'Error ocurred',
-              type: 'error',
-            })
-          }
-        }, 3000)
-      }
-      this.dialogVisible = false
+    getItemsPerPage() {
+      this.currentPage === 1 ? (this.itemsPerPage = 8) : (this.itemsPerPage = 9)
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val
+    },
+    toggleUpdated() {
+      this.variablesUpdated = !this.variablesUpdated
     },
     displayModalCreateDR: function(currentTemplate) {
       this.dialogVisible = true
@@ -255,6 +257,10 @@ export default {
       background-color: $blue-1;
     }
   }
+}
+.pagination-nav {
+  padding: 16px 0px 16px 0px;
+  text-align: center;
 }
 .el-dialog {
   min-width: 500px;
