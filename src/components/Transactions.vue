@@ -94,11 +94,6 @@ export default {
         label: '',
         amount: 0,
         fee: 0,
-        options: [
-          { value: 79, primaryText: 'High', secondaryText: '79 uWit/B' },
-          { value: 59, primaryText: 'Medium', secondaryText: '59 uWit/B' },
-          { value: 39, primaryText: 'Low', secondaryText: '39 uWit/B' },
-        ],
       },
     }
   },
@@ -204,6 +199,15 @@ export default {
   methods: {
     setFormValues(updatedForm) {
       this.form = updatedForm
+    },
+    createVTT() {
+      this.refindex = 0
+      this.$store.dispatch('createVTT', {
+        label: this.form.label,
+        address: this.form.address,
+        amount: this.form.amount,
+        fee: this.form.fee,
+      })
     },
     displayModalSend: function() {
       this.dialogVisible = true

@@ -10,13 +10,23 @@
       <div v-if="Object.entries(templates)" class="col deployed-templates-list">
         <TemplateCard
           type="marketplace"
-          v-for="template in templates"
+          v-for="template in paginatedItems"
           class="card"
           :name="template.name"
           :id="template.id"
           :description="template.description"
           :key="template.id"
         />
+        <div v-show="templates.length" class="pagination">
+          <el-pagination
+            class="marketplace"
+            @current-change="handleCurrentChange"
+            :page-size="itemsPerPage"
+            layout="prev, pager, next"
+            :total="templates.length"
+            :current-page="currentPage"
+          />
+        </div>
       </div>
       <div class="col col-right">
         <div class="tags">
@@ -41,12 +51,24 @@ export default {
   data() {
     return {
       tabs: [{ name: 'Marketplace', link: '/marketplace' }],
+      currentPage: 1,
+      itemsPerPage: 4,
     }
   },
   beforeCreate() {
     this.$store.dispatch('retrieveTemplates')
   },
+  methods: {
+    handleCurrentChange(val) {
+      this.currentPage = val
+    },
+  },
   computed: {
+    paginatedItems() {
+      const from = this.currentPage * this.itemsPerPage - this.itemsPerPage
+      const to = this.currentPage * this.itemsPerPage
+      return this.templates.slice(from, to)
+    },
     ...mapState({
       templates: state => {
         return state.marketplace.templates
@@ -103,14 +125,23 @@ export default {
 }
 .row {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 .deployed-templates-list {
   flex: 0 0 55vw;
   flex-wrap: wrap;
   display: flex;
-  justify-content: left;
+  justify-content: center;
   margin: 32px 0px 32px 72px;
+  .pagination {
+    padding: 16px 0px 16px 0px;
+    text-align: center;
+    &.el-pagination {
+      .el-pager li.active {
+        color: red;
+      }
+    }
+  }
   .card {
     flex: 0 1 calc(40% - 2em);
   }
