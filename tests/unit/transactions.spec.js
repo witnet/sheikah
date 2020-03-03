@@ -2,6 +2,7 @@ import { shallowMount } from '@vue/test-utils'
 import ListAddresses from '@/components/ListAddresses.vue'
 import '../../src/fontAwesome'
 
+// remove skip test when the pagination component is ready to be used
 describe.skip('ListAddresses.vue', () => {
   it('renders the first page with one address when there is one address', () => {
     const wrapper = shallowMount(ListAddresses, {

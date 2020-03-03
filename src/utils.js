@@ -2,6 +2,25 @@ import cbor from 'cbor'
 import uuidv4 from 'uuid/v4'
 import { WIT_UNIT } from '@/constants'
 
+// Create Notifications if notifications are supported
+export function createNotification(notificationProps) {
+  if (window.Notification) {
+    Notification.requestPermission(permission => innerCreateNotification(notificationProps))
+  } else {
+    console.log('Notifications not supported')
+  }
+}
+
+// Create Notifications with specified arguments
+function innerCreateNotification(notificationProps) {
+  const notification = new Notification(notificationProps.title, notificationProps)
+  if (Number.isInteger(notificationProps.closeTimeout)) {
+    setTimeout(() => {
+      notification.close()
+    }, notificationProps.closeTimeout)
+  }
+}
+
 function encodeAggregationTally(stage) {
   return {
     filters: stage.filters.map(filter => {
