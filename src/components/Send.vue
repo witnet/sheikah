@@ -191,7 +191,7 @@ export default {
         if (state.wallet.errors.saveItem) {
           return {
             message: state.wallet.errors.saveItem.message,
-            description: state.wallet.errors.saveItem.error.message,
+            description: state.wallet.errors.saveItem.error,
             name: state.wallet.errors.saveItem.name,
           }
         }

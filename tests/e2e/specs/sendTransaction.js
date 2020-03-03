@@ -45,11 +45,6 @@ describe('Create a complete Send transactions flow', () => {
     cy.get('[data-test=sign-send-btn]').click()
   })
 
-  // IF there is not enough balance
-  it('Shows error when sending transactions', () => {
-    cy.get('[data-test=alert]')
-  })
-
   it('Closes the modal', () => {
     cy.get('.el-dialog__headerbtn')
       .first()
