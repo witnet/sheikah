@@ -64,7 +64,7 @@ export default {
         if (state.wallet.errors.tryDataRequest) {
           return {
             message: state.wallet.errors.tryDataRequest.message,
-            description: state.wallet.errors.tryDataRequest.error.message,
+            description: state.wallet.errors.tryDataRequest.error,
             name: state.wallet.errors.tryDataRequest.name,
           }
         }
@@ -73,7 +73,7 @@ export default {
         if (state.rad.errors.saveItem) {
           return {
             message: state.rad.errors.saveItem.message,
-            description: state.rad.errors.saveItem.error.message,
+            description: state.rad.errors.saveItem.error,
             name: state.rad.errors.saveItem.name,
           }
         }

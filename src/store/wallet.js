@@ -1,8 +1,9 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
-import { addToList, encodeDataRequest, standardizeWitUnits } from '@/utils'
+import { addToList, encodeDataRequest, standardizeWitUnits, createNotification } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { WIT_UNIT } from '@/constants'
+import warning from '@/resources/svg/warning.png'
 
 export default {
   state: {
@@ -119,10 +120,25 @@ export default {
     },
 
     setError(state, { name, error, message }) {
-      state.errors[name] = {
-        name,
-        error,
-        message,
+      if (error === 'Validation Error') {
+        state.errors[name] = {
+          name,
+          error,
+          message,
+        }
+      } else {
+        if (state.networkStatus !== 'error') {
+          // notification options
+          const notificationProps = {
+            title: error,
+            body: message,
+            icon: warning,
+            vibrate: [50, 100, 150],
+            closeTimeout: 5000,
+          }
+          // create notification
+          createNotification(notificationProps)
+        }
       }
     },
     clearError(state, { error }) {
@@ -145,6 +161,7 @@ export default {
       } else {
         this.commit('setError', {
           name: 'mnemonics',
+          error: 'Validation Error',
           message: 'Mnemonics must match',
         })
         state.validatedMnemonics = false
@@ -160,6 +177,7 @@ export default {
       } else if (password !== repeatPassword) {
         this.commit('setError', {
           name: 'createValidPassword',
+          error: 'Validation Error',
           message: 'Passwords must match',
         })
         state.validatedPassword = false
@@ -186,7 +204,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'closeSession',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred trying to close the session',
         })
       }
@@ -203,7 +221,7 @@ export default {
         // TODO1: handle error properly
         context.commit('setError', {
           name: 'getItem',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred retrieving the label for the transaction',
         })
       }
@@ -222,7 +240,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'sendTransaction',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred sending a request',
         })
         context.commit('clearGeneratedTransaction')
@@ -244,7 +262,7 @@ export default {
         // TODO1: handle error propery
         context.commit('setError', {
           name: 'saveItem',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred saving the label for your transaction',
         })
       }
@@ -276,7 +294,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'createDataRequest',
-          error: req.error,
+          error: req.error.message,
           message: 'An error occurred deploying a data request',
         })
       }
@@ -297,7 +315,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'createVTT',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred creating a Value Transfer Transaction',
         })
       }
@@ -315,7 +333,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'getAddresses',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred retrieving the addresses list',
         })
       }
@@ -332,7 +350,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'generateAddress',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred generating the address',
         })
       }
@@ -349,7 +367,7 @@ export default {
         // TODO(#706) We should receive a wallet structure instead a walletId
         context.commit('setWallet', { sessionId: request.result.session_id, walletId })
       } else {
-        context.commit('setError', { name: 'unlockWallet', error: request.error })
+        context.commit('setError', { name: 'unlockWallet', error: request.error.message })
       }
     },
 
@@ -369,7 +387,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'createMnemonics',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred creating the mnemonics',
         })
       }
@@ -391,7 +409,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'createWallet',
-          error: request.error.data[0][1],
+          error: request.error.data[0][1].message,
           message: 'An error occurred creating the wallet',
         })
       }
@@ -411,7 +429,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'getTransactions',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred getting the transactions',
         })
       }
@@ -432,7 +450,7 @@ export default {
         } else {
           context.commit('setError', {
             name: 'getBalance',
-            error: request.error,
+            error: request.error.message,
             message: 'An error occurred getting the balance',
           })
         }
@@ -446,7 +464,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'getWalletInfos',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred trying to get the wallet info',
         })
       }
@@ -477,7 +495,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'tryDataRequest',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred trying your data request',
         })
       }
