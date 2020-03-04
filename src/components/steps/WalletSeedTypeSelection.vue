@@ -40,7 +40,6 @@
 <script>
 import Card from '@/components/card/Card'
 import { mapState } from 'vuex'
-
 export default {
   name: 'WalletSeedTypeSelection',
   components: {

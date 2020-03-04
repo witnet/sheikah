@@ -155,6 +155,9 @@ export default {
     setSeed(state, result) {
       Object.assign(state, { seed: result })
     },
+    setSeed(state, result) {
+      Object.assign(state, { seed: result })
+    },
     setMnemonics(state, result) {
       Object.assign(state, { mnemonics: result })
     },

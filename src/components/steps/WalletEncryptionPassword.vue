@@ -53,7 +53,6 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import NavigationCard from '@/components/card/NavigationCard'
-
 export default {
   name: 'WalletEncryptionPassword',
   components: {
