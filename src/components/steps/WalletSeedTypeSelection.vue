@@ -26,10 +26,19 @@
         />
       </li>
       <li>
-        <RedirectionOption type="forward" link="" name="Import and advanced options" />
+        <RedirectionOption
+          type="forward"
+          link="/ftu/import-wallet"
+          name="Import and advanced options"
+        />
       </li>
-      <li>
-        <RedirectionOption type="backward" link="/ftu/welcome" name="Cancel" />
+      <li class="cancel-btn">
+        <router-link to="/ftu/welcome">
+          <el-button data-test="cancel-tx" type="text">
+            Cancel
+          </el-button>
+          <!-- <RedirectionOption type="backward" link="/ftu/welcome" name="Cancel" /> -->
+        </router-link>
       </li>
     </ul>
   </Card>
@@ -61,6 +70,10 @@ export default {
   height: 100px;
   padding: 0 24px;
   color: $white;
+}
+
+.cancel-btn {
+  text-align: right;
 }
 
 .create-wallet-text {

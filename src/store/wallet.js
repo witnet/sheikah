@@ -9,6 +9,7 @@ export default {
   state: {
     api: new WalletApi(),
     errors: {
+      seed: null,
       createMnemonics: null,
       createWallet: null,
       generateAddress: null,
@@ -36,6 +37,7 @@ export default {
     addresses: [],
     generatedTransaction: null,
     mnemonics: null,
+    seed: null,
     networkStatus: 'error',
     radRequestResult: null,
     transactions: [],
@@ -94,6 +96,9 @@ export default {
     setDataRequestResult(state, { result }) {
       state.radRequestResult = { ...result, timestamp: Date.now() }
     },
+    setSeed(state, result) {
+      Object.assign(state, { seed: result })
+    },
     setMnemonics(state, result) {
       Object.assign(state, { mnemonics: result })
     },
@@ -140,6 +145,9 @@ export default {
     },
     clearGeneratedTransaction(state) {
       state.generatedTransaction = null
+    },
+    clearSeed(state) {
+      state.seed = null
     },
     addAddress(state, { address }) {
       if (address) {
@@ -397,6 +405,7 @@ export default {
           walletId: request.result.wallet_id,
           password: params.password,
         })
+        context.commit('clearSeed')
       } else {
         context.commit('setError', {
           name: 'createWallet',
