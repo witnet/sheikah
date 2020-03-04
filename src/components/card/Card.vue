@@ -51,6 +51,9 @@ export default {
   }
 
   .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-radius: 2px;
     box-shadow: $default-box-shadow;
     font-size: 16px;

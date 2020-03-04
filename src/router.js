@@ -20,6 +20,7 @@ import WalletSeedTypeSelection from '@/components/steps/WalletSeedTypeSelection.
 import WalletSeedValidation from '@/components/steps/WalletSeedValidation.vue'
 import WelcomeBack from '@/views/WelcomeBack.vue'
 import WelcomeForm from '@/components/steps/WelcomeForm.vue'
+import WalletImport from '@/components/steps/WalletImport.vue'
 import WalletNotFound from '@/components/WalletNotFound.vue'
 import Setup from '@/views/Setup.vue'
 
@@ -178,6 +179,11 @@ export default new Router({
       beforeEnter: redirectOnReload,
       component: FirstTimeUsage,
       children: [
+        {
+          name: 'importWallet',
+          path: 'import-wallet',
+          component: WalletImport,
+        },
         {
           name: 'welcome',
           path: 'welcome',
