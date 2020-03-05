@@ -38,6 +38,7 @@
 import Card from '@/components/card/Card'
 import NavigationCard from '@/components/card/NavigationCard'
 import InformativeContent from '@/components/card/InformativeContent'
+import { mapState } from 'vuex'
 
 export default {
   name: 'WelcomeForm',
@@ -56,6 +57,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      mainnetReady: state => state.wallet.mainnetReady,
+    }),
     sessionId() {
       const walletInfosLength = this.$store.state.wallet.walletInfos.length
       return walletInfosLength > 0
@@ -63,7 +67,11 @@ export default {
   },
   methods: {
     previousStep() {
-      this.$router.push('/welcome-back/wallet-list')
+      if (this.mainnetReady) {
+        this.$router.push('/welcome-back/wallet-list')
+      } else {
+        this.$router.push('/ftu/import-claiming-file')
+      }
     },
     nextStep() {
       this.$router.push('/ftu/seed-type-selection')

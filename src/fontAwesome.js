@@ -20,11 +20,15 @@ import {
   faTimesCircle,
   faEdit,
   faLink,
+  faFile,
   faFileImport,
+  faFileUpload,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
+  faFile,
+  faFileUpload,
   faFileImport,
   faCoffee,
   faWallet,
