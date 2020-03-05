@@ -29,6 +29,8 @@ export default {
       saveItem: null,
       getItem: null,
     },
+    mainnetReadyDate: new Date(2020, 4, 16, 17, 23, 42, 0).getTime() / 1000,
+    mainnetReady: false,
     currency: WIT_UNIT.NANO,
     balances: null,
     sessionId: null,
@@ -73,6 +75,19 @@ export default {
     deleteSession(state) {
       state.sessionId = null
       state.walletId = null
+    },
+    checkMainnetReady(state) {
+      const mainnetReadyDate = String(state.mainnetReadyDate)
+        .split('')
+        .splice(0, 7)
+        .join('')
+      const currentDate = String(Date.now())
+        .split('')
+        .splice(0, 7)
+        .join('')
+      if (mainnetReadyDate === currentDate) {
+        state.mainnetReady = true
+      }
     },
     checkNetworkStatus(state) {
       if (state.api.client.ws.ready) {

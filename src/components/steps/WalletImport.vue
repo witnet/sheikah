@@ -45,6 +45,7 @@ export default {
   computed: {
     ...mapState({
       mnemonics: state => state.wallet.mnemonics,
+      mainnetReady: state => state.wallet.mainnetReady,
       mnemonicsError: state => {
         return state.wallet.errors.mnemonics
       },
@@ -89,7 +90,11 @@ export default {
       this.$store.commit('clearError', { error: errorName })
     },
     previousStep() {
-      this.$router.push('/ftu/seed-type-selection')
+      if (this.mainnetReady) {
+        this.$router.push('/ftu/seed-type-selection')
+      } else {
+        this.$router.push('/ftu/claiming-process')
+      }
     },
   },
   beforeDestroy() {

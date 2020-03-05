@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Community from '@/components/Community.vue'
+import ClaimingProcess from '@/components/claiming/ClaimingProcess.vue'
+import ClaimingInfo from '@/components/claiming/ClaimingInfo.vue'
+import ImportClaimingFile from '@/components/claiming/ImportClaimingFile.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
 import FirstTimeUsage from '@/views/FirstTimeUsage.vue'
@@ -60,7 +63,8 @@ export default new Router({
             const polling = setInterval(() => {
               const isSessionId = store.state.wallet.sessionId
               const walletInfos = store.state.wallet.walletInfos
-              if (Array.isArray(walletInfos)) {
+              const mainnetReady = store.state.wallet.mainnetReady
+              if (Array.isArray(walletInfos) && mainnetReady) {
                 clearInterval(polling)
                 if (isSessionId) {
                   next()
@@ -69,6 +73,10 @@ export default new Router({
                 } else {
                   next('/ftu/welcome')
                 }
+              } else {
+                clearInterval(polling)
+                next('/ftu/claiming-process')
+                console.log('Mainnet not yet!')
               }
             }, 1000)
           })
@@ -183,6 +191,21 @@ export default new Router({
           name: 'importWallet',
           path: 'import-wallet',
           component: WalletImport,
+        },
+        {
+          name: 'claimingProcess',
+          path: 'claiming-process',
+          component: ClaimingProcess,
+        },
+        {
+          name: 'claimingInfo',
+          path: 'claiming-info',
+          component: ClaimingInfo,
+        },
+        {
+          name: 'importClaimingFile',
+          path: 'import-claiming-file',
+          component: ImportClaimingFile,
         },
         {
           name: 'welcome',
