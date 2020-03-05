@@ -110,8 +110,7 @@ export default {
     display: flex;
     flex-direction: column;
     font-size: 16px;
-    justify-content: center;
-    padding: 32px 32px 0 32px;
+    padding: 32px;
   }
 
   .navigation-buttons {

@@ -2,6 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Community from '@/components/Community.vue'
+import ClaimingProcess from '@/views/ClaimingProcess.vue'
+import ClaimingInstructions from '@/components/claiming/Instructions.vue'
+import ClaimingCreateWallet from '@/components/claiming/CreateWallet.vue'
+import ClaimingCountdown from '@/components/claiming/Countdown.vue'
+import GenerateClaimingAddresses from '@/components/claiming/GenerateAddresses.vue'
+import DownloadClaimingFile from '@/components/claiming/DownloadFile.vue'
+import ClaimingFileInformation from '@/components/claiming/FileInformation.vue'
+import UploadClaimingFile from '@/components/claiming/UploadFile.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
 import FirstTimeUsage from '@/views/FirstTimeUsage.vue'
@@ -77,11 +85,24 @@ export default new Router({
             store.dispatch('getWalletInfos')
             const polling = setInterval(() => {
               const walletInfos = store.state.wallet.walletInfos
-              clearInterval(polling)
-              if (walletInfos && walletInfos.length > 0) {
-                next('/welcome-back/wallet-list')
+              const isSessionId = store.state.wallet.sessionId
+              const tokenGenerationEventOccurred = store.state.wallet.tokenGenerationEventOccurred
+              if (tokenGenerationEventOccurred) {
+                clearInterval(polling)
+                if (isSessionId) {
+                  next()
+                } else if (walletInfos && walletInfos.length > 0) {
+                  next('/welcome-back/wallet-list')
+                } else {
+                  next('/ftu/welcome')
+                }
               } else {
-                next('/ftu/welcome')
+                clearInterval(polling)
+                if (walletInfos) {
+                  console.log('countdown')
+                } else {
+                  next('/claiming')
+                }
               }
             }, 5000)
           })
@@ -227,6 +248,50 @@ export default new Router({
           name: 'createWallet',
           path: 'create-wallet',
           component: Loading,
+        },
+      ],
+    },
+    {
+      path: `/claiming`,
+      name: 'claiming',
+      beforeEnter: redirectOnReload,
+      component: ClaimingProcess,
+      children: [
+        {
+          name: 'claimingInstructions',
+          path: '/',
+          component: ClaimingInstructions,
+        },
+        {
+          name: 'uploadClaimingFile',
+          path: 'upload-file',
+          component: UploadClaimingFile,
+        },
+        {
+          name: 'claimingFileInformation',
+          path: 'file-information',
+          component: ClaimingFileInformation,
+        },
+        {
+          name: 'claimingCreateWallet',
+          path: 'create-wallet',
+          component: ClaimingCreateWallet,
+        },
+        {
+          name: 'generateClaimingAddresses',
+          path: 'generate-addresses',
+          component: GenerateClaimingAddresses,
+        },
+
+        {
+          name: 'downloadClaimingFile',
+          path: 'download-file',
+          component: DownloadClaimingFile,
+        },
+        {
+          name: 'ClaimingCountdown',
+          path: 'countdown',
+          component: ClaimingCountdown,
         },
       ],
     },
