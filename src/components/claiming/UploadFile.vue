@@ -19,7 +19,7 @@
       >
         <font-awesome-icon class="icon" icon="file-upload" />
         <p v-show="!uploaded" class="sub-text">
-          Upload the file or drag it here.
+          <span class="upload">Upload the file</span> or drag it here.
         </p>
       </div>
       <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
@@ -62,14 +62,11 @@ export default {
       if (this.uploaded) {
         this.uploaded = false
       } else {
-        this.$router.push('/claiming/claiming-instructions')
+        this.$router.push('/claiming')
       }
     },
     nextStep() {
-      if (this.uploaded) {
-        this.$store.commit('setClaimingInfo', { info: this.file })
-        this.$router.push('/claiming/file-information')
-      }
+      this.$router.push('/claiming/file-information')
     },
     importFile() {
       this.$refs.fileInput.click()
