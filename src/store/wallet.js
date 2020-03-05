@@ -30,6 +30,8 @@ export default {
       saveItem: null,
       getItem: null,
     },
+    checkTokenGenerationEventDate: new Date(2020, 4, 16, 17, 23, 42, 0),
+    mainnetReady: false,
     currency: WIT_UNIT.NANO,
     balances: null,
     sessionId: null,
@@ -74,6 +76,13 @@ export default {
     deleteSession(state) {
       state.sessionId = null
       state.walletId = null
+    },
+    checkTokenGenerationEventDate(state) {
+      const tokenGenerationEventDate = state.tokenGenerationEventDate
+      const currentDate = new Date()
+      if (tokenGenerationEventDate < currentDate) {
+        state.tokenGenerationEventOccurred = true
+      }
     },
     checkNetworkStatus(state) {
       if (state.api.client.ws.ready) {

@@ -73,6 +73,9 @@ export default {
   }
 
   .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-size: 16px;
     padding: 32px 32px 0px 32px;
   }

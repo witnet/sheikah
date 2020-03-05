@@ -33,6 +33,7 @@ export default {
     // Initialize polling interval to retrieve network status
     setInterval(() => {
       this.$store.commit('checkNetworkStatus')
+      this.$store.commit('checkTokenGenerationEventDate')
     }, 3000)
   },
 }
