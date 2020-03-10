@@ -67,19 +67,12 @@ export default {
         if (this.createValidPasswordError) {
           this.clearError(this.createValidPasswordError.name)
         }
-        if (this.mnemonics) {
-          this.$store.dispatch('createWallet', {
-            sourceType: 'mnemonics',
-            password: this.password,
-            mnemonics: this.mnemonics,
-          })
-        } else if (this.seed) {
-          this.$store.dispatch('createWallet', {
-            sourceType: 'mnemonics',
-            password: this.password,
-            mnemonics: this.seed.result,
-          })
-        }
+        const words = this.mnemonics || this.seed.result
+        this.$store.dispatch('createWallet', {
+          sourceType: 'mnemonics',
+          password: this.password,
+          mnemonics: words,
+        })
         this.$router.push('/ftu/create-wallet')
       }
     },
