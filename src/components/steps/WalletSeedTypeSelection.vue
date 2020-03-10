@@ -37,7 +37,6 @@
           <el-button data-test="cancel-tx" type="text">
             Cancel
           </el-button>
-          <!-- <RedirectionOption type="backward" link="/ftu/welcome" name="Cancel" /> -->
         </router-link>
       </li>
     </ul>
