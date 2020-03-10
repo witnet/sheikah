@@ -69,13 +69,14 @@ export default {
       })
     },
     validateForm() {
-      if (this.seed) {
+      const seedLength = this.seed.split(' ').length
+      if (this.seed && seedLength === 12) {
         // TODO: set seed only if validated by the wallet
         this.setSeed()
       } else {
         this.$store.commit('setError', {
           name: 'seed',
-          message: 'You must provide a seed to import a wallet',
+          message: 'You must provide a valid seed to import a wallet',
         })
       }
     },
