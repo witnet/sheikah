@@ -1,7 +1,7 @@
 <template>
   <div :class="[hover ? 'network-status' : 'network-status collapsed-network-status']">
-    <span v-if="windowWidth > 1200 && hover" class="label">NETWORK STATUS</span>
-    <span v-if="windowWidth > 1200 && hover" class="status">{{ status.toUpperCase() }}</span>
+    <span v-if="hover" class="label">NETWORK STATUS</span>
+    <span v-if="hover" class="status">{{ status.toUpperCase() }}</span>
     <div class="dot-status">
       <DotIndicator :status="status" />
     </div>
@@ -33,6 +33,7 @@ export default {
   align-items: center;
 
   .label {
+    min-width: max-content;
     color: $sidebar-mainnet-color;
     font-weight: $sidebar-mainnet-font_weight;
   }
