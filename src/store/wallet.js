@@ -125,7 +125,7 @@ export default {
     },
 
     setError(state, { name, error, message }) {
-      if (error === 'Validation Error') {
+      if (error === 'Validation Error' || name === 'seed') {
         state.errors[name] = {
           name,
           error,
@@ -157,6 +157,9 @@ export default {
     },
     clearSeed(state) {
       state.seed = null
+    },
+    clearMnemonics(state) {
+      state.mnemonics = null
     },
     addAddress(state, { address }) {
       if (address) {
@@ -415,12 +418,14 @@ export default {
           password: params.password,
         })
         context.commit('clearSeed')
+        context.commit('clearMnemonics')
       } else {
         context.commit('setError', {
           name: 'createWallet',
-          error: request.error.data[0][1].message,
+          error: request.error.data[0][1],
           message: 'An error occurred creating the wallet',
         })
+        router.push('/ftu/import-wallet')
       }
     },
 

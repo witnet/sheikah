@@ -25,6 +25,7 @@ export default {
     pollData() {
       const currentRoute = this.$router.currentRoute.path
       const matchRoute = currentRoute.startsWith('/welcome-back') || currentRoute.startsWith('/ftu')
+      this.$store.dispatch('getWalletInfos')
       if (!matchRoute) {
         this.$store.dispatch('getBalance')
         this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
