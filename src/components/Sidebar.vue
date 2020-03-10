@@ -6,11 +6,7 @@
   >
     <div :class="[hover ? 'brand' : 'brand collapsed-brand']">
       <router-link data-test="logo-to-home" class="logo" to="/wallet/transactions">
-        <img
-          v-if="windowWidth > 1200 && hover"
-          class="sheikah-img"
-          src="@/resources/svg/sheikah.svg"
-        />
+        <img v-if="hover" class="sheikah-img" src="@/resources/svg/sheikah.svg" />
         <img v-else class="sheikah-img" src="@/resources/svg/sheikah-small.svg" />
       </router-link>
     </div>
@@ -106,7 +102,6 @@ export default {
 
 .sidebar {
   transition: 300ms;
-  width: 20vw;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
@@ -114,6 +109,7 @@ export default {
   height: 100vh;
   z-index: 5;
   font-family: 'Titillium Web';
+  min-width: 300px;
 }
 
 .brand {
@@ -241,7 +237,8 @@ export default {
 .collapsed-sidebar {
   transition: 300ms;
   height: 100vh;
-  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
 }
 
 .collapsed-brand {
@@ -261,31 +258,6 @@ export default {
   .mainnet,
   .synced {
     display: none;
-  }
-}
-@media screen and (max-width: 1200px) {
-  .sidebar {
-    width: 90px;
-  }
-
-  .brand {
-    text-align: center;
-  }
-
-  .label {
-    display: none;
-  }
-
-  .current-wallet-name {
-    transform: translateX(-5px);
-  }
-
-  .settings {
-    justify-content: space-between;
-    .mainnet,
-    .synced {
-      display: none;
-    }
   }
 }
 </style>

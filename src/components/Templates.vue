@@ -21,31 +21,33 @@
         v-on:close="() => clearError(error.name)"
       />
     </div>
-    <div v-if="Object.entries(paginatedItems)" class="container-templates">
-      <div v-show="currentPage === 1" class="add">
-        <router-link to="/request/editor">
-          <img
-            data-test="create-template"
-            @click="createTemplate"
-            class="add-btn"
-            src="@/resources/svg/add.svg"
-          />
-        </router-link>
+    <div class="centered">
+      <div v-if="Object.entries(paginatedItems)" class="container-templates">
+        <div v-show="currentPage === 1" class="add">
+          <router-link to="/request/editor">
+            <img
+              data-test="create-template"
+              @click="createTemplate"
+              class="add-btn"
+              src="@/resources/svg/add.svg"
+            />
+          </router-link>
+        </div>
+        <TemplateCard
+          v-for="template in paginatedItems"
+          class="card"
+          :name="template.name"
+          :id="template.id"
+          :description="template.description"
+          :key="template.id"
+          :date="template.creationDate"
+          v-on:change-name="changeName"
+          v-on:toggle-modal="displayModalCreateDR(template)"
+        />
       </div>
-      <TemplateCard
-        v-for="template in paginatedItems"
-        class="card"
-        :name="template.name"
-        :id="template.id"
-        :description="template.description"
-        :key="template.id"
-        :date="template.creationDate"
-        v-on:change-name="changeName"
-        v-on:toggle-modal="displayModalCreateDR(template)"
-      />
-    </div>
-    <div v-else>
-      You don't have templates yet.
+      <div v-else>
+        You don't have templates yet.
+      </div>
     </div>
     <div v-show="templates.length" class="pagination-nav">
       <el-pagination
