@@ -31,6 +31,7 @@ export default {
       getItem: null,
     },
     checkTokenGenerationEventDate: new Date(2020, 4, 16, 17, 23, 42, 0),
+    claimingFileInfo: {},
     mainnetReady: false,
     currency: WIT_UNIT.NANO,
     balances: null,
@@ -110,6 +111,9 @@ export default {
     },
     setMnemonics(state, result) {
       Object.assign(state, { mnemonics: result })
+    },
+    setClaimingInfo(state, { info }) {
+      Object.assign(state, { claimingFileInfo: info })
     },
     setWallet(state, { walletId, sessionId }) {
       state.walletId = walletId
@@ -255,6 +259,28 @@ export default {
           message: 'An error occurred sending a request',
         })
         context.commit('clearGeneratedTransaction')
+      }
+    },
+    saveClaimingInfo: async function(context) {
+      const claimingFileInfo = context.state.claimingFileInfo
+      console.log('claiming info', claimingFileInfo)
+      console.log('session id', context.rootState.wallet.sessionId)
+      const request = await context.state.api.saveItem({
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
+        key: `${context.rootState.wallet.walletId}_claiming_info`,
+        value: claimingFileInfo,
+      })
+      if (request.result) {
+        console.log('claiming info saved!', request.result)
+      } else {
+        console.log(request.error)
+        // TODO1: handle error propery
+        context.commit('setError', {
+          name: 'saveItem',
+          error: request.error.message,
+          message: 'An error occurred saving the claiming information',
+        })
       }
     },
     saveLabel: async function(context, { label, transaction }) {
