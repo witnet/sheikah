@@ -54,6 +54,11 @@ function createWindow() {
     },
   })
 
+  if (!isDevelopment) {
+    // Hide electron toolbar in production environment
+    win.setMenuBarVisibility(false)
+  }
+
   loadUrl(status)
 
   win.on('closed', () => {
