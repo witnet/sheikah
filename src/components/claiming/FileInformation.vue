@@ -34,7 +34,6 @@ export default {
   computed: {
     ...mapState({
       claimingFileInfo: state => {
-        console.log(state.wallet.claimingFileInfo)
         return state.wallet.claimingFileInfo
       },
     }),
