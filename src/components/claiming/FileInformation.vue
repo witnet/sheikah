@@ -14,6 +14,7 @@
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
 import InformativeContent from '@/components/card/InformativeContent'
+import { mapState } from 'vuex'
 
 export default {
   name: 'FileInformation',
@@ -23,11 +24,28 @@ export default {
   },
   data() {
     return {
-      subtitle: 'File information',
+      subtitle: 'Claiming information',
       texts: {},
     }
   },
+  created() {
+    this.fillInfo()
+  },
+  computed: {
+    ...mapState({
+      claimingFileInfo: state => {
+        console.log(state.wallet.claimingFileInfo)
+        return state.wallet.claimingFileInfo
+      },
+    }),
+  },
   methods: {
+    fillInfo() {
+      this.texts = {
+        0: this.claimingFileInfo.name,
+        1: this.claimingFileInfo.description,
+      }
+    },
     nextStep() {
       this.$router.push('/claiming/create-wallet')
     },

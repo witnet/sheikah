@@ -30,6 +30,12 @@ import WelcomeForm from '@/components/steps/WelcomeForm.vue'
 import WalletImport from '@/components/steps/WalletImport.vue'
 import WalletNotFound from '@/components/WalletNotFound.vue'
 import Setup from '@/views/Setup.vue'
+import ClaimingWalletDisclaimer from '@/components/claiming/WalletDisclaimer.vue'
+import ClaimingWalletEncryptionPassword from '@/components/claiming/WalletEncryptionPassword.vue'
+import ClaimingWalletSeedBackup from '@/components/claiming/WalletSeedBackup.vue'
+import ClaimingWalletSeedTypeSelection from '@/components/claiming/WalletSeedTypeSelection.vue'
+import ClaimingWalletSeedValidation from '@/components/claiming/WalletSeedValidation.vue'
+import ClaimingLoading from '@/components/claiming/Loading.vue'
 
 import store from '@/store'
 
@@ -98,11 +104,12 @@ export default new Router({
                 }
               } else {
                 clearInterval(polling)
-                if (walletInfos) {
-                  console.log('countdown')
-                } else {
-                  next('/claiming')
-                }
+                next('/claiming/claiming-instructions')
+                // if (walletInfos) {
+                //   console.log('countdown')
+                // } else {
+                //   next('/claiming')
+                // }
               }
             }, 5000)
           })
@@ -259,7 +266,7 @@ export default new Router({
       children: [
         {
           name: 'claimingInstructions',
-          path: '/',
+          path: 'claiming-instructions',
           component: ClaimingInstructions,
         },
         {
@@ -276,6 +283,36 @@ export default new Router({
           name: 'claimingCreateWallet',
           path: 'create-wallet',
           component: ClaimingCreateWallet,
+        },
+        {
+          name: 'disclaimer',
+          path: 'disclaimer',
+          component: ClaimingWalletDisclaimer,
+        },
+        {
+          name: 'encryptionPass',
+          path: 'encryption-pass',
+          component: ClaimingWalletEncryptionPassword,
+        },
+        {
+          name: 'seedBackup',
+          path: 'seed-backup',
+          component: ClaimingWalletSeedBackup,
+        },
+        {
+          name: 'seedTypeSelection',
+          path: 'seed-type-selection',
+          component: ClaimingWalletSeedTypeSelection,
+        },
+        {
+          name: 'seedValidation',
+          path: 'seed-validation',
+          component: ClaimingWalletSeedValidation,
+        },
+        {
+          name: 'loading',
+          path: 'loading',
+          component: ClaimingLoading,
         },
         {
           name: 'generateClaimingAddresses',
