@@ -310,6 +310,25 @@ export default {
         })
       }
     },
+    getClaimingInfo: async function(context) {
+      console.log('getClaimingInfo')
+      const request = await context.state.api.getItem({
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
+        key: `${context.rootState.wallet.walletId}_claiming_info`,
+      })
+      if (request.result) {
+        console.log('getClaimingInfo', request.result)
+        context.commit('setClaimingInfo', { info: request.result || {} })
+      } else {
+        // TODO1: handle error properly
+        context.commit('setError', {
+          name: 'getItem',
+          error: request.error.message,
+          message: 'An error occurred retrieving the claiming information',
+        })
+      }
+    },
     sendTransaction: async function(context, { label }) {
       const transactionToSend = context.state.generatedTransaction
       const request = await context.state.api.sendTransaction({
