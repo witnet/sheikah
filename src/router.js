@@ -271,27 +271,27 @@ export default new Router({
           component: ClaimingCreateWallet,
         },
         {
-          name: 'disclaimer',
+          name: 'claimingInformation',
           path: 'disclaimer',
           component: ClaimingWalletDisclaimer,
         },
         {
-          name: 'encryptionPass',
+          name: 'claimingEncryptionPass',
           path: 'encryption-pass',
           component: ClaimingWalletEncryptionPassword,
         },
         {
-          name: 'seedBackup',
+          name: 'claimingSeedBackup',
           path: 'seed-backup',
           component: ClaimingWalletSeedBackup,
         },
         {
-          name: 'seedTypeSelection',
+          name: 'claimingSeedTypeSelection',
           path: 'seed-type-selection',
           component: ClaimingWalletSeedTypeSelection,
         },
         {
-          name: 'seedValidation',
+          name: 'claimingSeedValidation',
           path: 'seed-validation',
           component: ClaimingWalletSeedValidation,
         },
