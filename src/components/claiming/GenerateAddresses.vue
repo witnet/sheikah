@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     nextStep() {
-      this.$router.push('/claiming/countdown')
+      this.$router.push('/claiming/download-file')
     },
     previousStep() {
       this.$router.push('/claiming/create-wallet')
