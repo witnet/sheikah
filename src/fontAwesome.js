@@ -23,12 +23,14 @@ import {
   faFile,
   faFileImport,
   faFileUpload,
+  faFileDownload,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
   faFile,
   faFileUpload,
+  faFileDownload,
   faFileImport,
   faCoffee,
   faWallet,

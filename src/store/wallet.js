@@ -113,6 +113,7 @@ export default {
       Object.assign(state, { mnemonics: result })
     },
     setClaimingInfo(state, { info }) {
+      console.log('info set!', info)
       Object.assign(state, { claimingFileInfo: info })
     },
     setWallet(state, { walletId, sessionId }) {
