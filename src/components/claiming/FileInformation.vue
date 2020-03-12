@@ -2,12 +2,11 @@
   <NavigationCard
     :nextStep="nextStep"
     :previousStep="previousStep"
-    data-test=""
     nextText="Next"
     previousText="Back"
     title="File Information"
   >
-    <InformativeContent :subtitle="subtitle" :texts="texts" />
+    <InformativeContent :subtitle="subtitle" :texts="text" />
   </NavigationCard>
 </template>
 
@@ -25,7 +24,10 @@ export default {
   data() {
     return {
       subtitle: 'Claiming information',
-      texts: {},
+      text: {
+        0: 'A:',
+        1: 'B:',
+      },
     }
   },
   created() {
@@ -34,6 +36,7 @@ export default {
   computed: {
     ...mapState({
       claimingFileInfo: state => {
+        console.log('Claiming information:', state.wallet.claimingFileInfo)
         return state.wallet.claimingFileInfo
       },
     }),
