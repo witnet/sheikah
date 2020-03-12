@@ -163,6 +163,7 @@ export default {
       state.status = status
     },
     setClaimingInfo(state, { info }) {
+      console.log('info set!', info)
       Object.assign(state, { claimingFileInfo: info })
     },
     setWallet(state, { walletId, sessionId }) {

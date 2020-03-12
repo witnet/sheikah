@@ -7,7 +7,17 @@
     previousText="Back"
     title="DownloadFile"
   >
+    <InformativeContent :subtitle="subtitle" :texts="texts" />
     <div class="file-container">
+      <el-button
+        type="primary"
+        size="small"
+        class="download-btn"
+        data-test="download-claiming"
+        @click="exportFile"
+      >
+        Click to download the file
+      </el-button>
       <a
         :href="dataStr"
         ref="download"
@@ -15,29 +25,32 @@
         style="display:none"
       ></a>
       <div class="file">
-        <font-awesome-icon class="icon" icon="file" />
-        <p class="name">claiming-information.json</p>
+        <p class="name">
+          <i class="el-icon-document"></i>
+          <span class="text"> claiming-information.json </span>
+        </p>
       </div>
-      <el-button class="download-btn" data-test="download-claiming" @click="exportFile">
-        Download File
-      </el-button>
     </div>
   </NavigationCard>
 </template>
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
+import InformativeContent from '@/components/card/InformativeContent'
 import { mapState } from 'vuex'
 
 export default {
   name: 'DownloadFile',
   components: {
     NavigationCard,
+    InformativeContent,
   },
   data() {
     return {
-      subtitle: 'DownloadFile',
-      texts: {},
+      subtitle: 'Download your claiming file,',
+      texts: {
+        0: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a pharetra sapien. Curabitur tortor quam, porttitor mattis pretium vel, tincidunt eget orci. Ut pretium ultrices libero, quis dignissim felis cursus vel. Vestibulum ipsum nulla, efficitur vitae finibus nec, gravida ut ipsum.',
+      },
     }
   },
   computed: {
@@ -73,19 +86,39 @@ export default {
 @import '@/styles/theme.scss';
 .file-container {
   display: flex;
+  justify-content: left;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: left;
+  margin-left: 34px;
   .file {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: left;
     font-size: 34px;
     margin-bottom: 16px;
-    .name {
-      padding: 16px;
+    color: #606266;
+    .el-icon-document {
+      margin-right: 8px;
+      padding-left: 4px;
     }
+    .name {
+      border: 1px solid transparent;
+      border-radius: 3px;
+      margin: 16px 16px 16px 0px;
+      font-size: 14px;
+      &:hover {
+        transition: color 0.3s;
+        border: 1px solid #f5f7fa;
+        background-color: #f5f7fa;
+        .text {
+          color: $blue-6;
+        }
+      }
+    }
+  }
+  .download-btn {
+    width: min-content;
   }
 }
 </style>

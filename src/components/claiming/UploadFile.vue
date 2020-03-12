@@ -1,7 +1,6 @@
 <template>
   <div>
     <NavigationCard
-      v-show="!uploaded"
       data-test="header-2"
       class="wallet-disclaimer"
       title="Import claiming file"
@@ -10,92 +9,83 @@
       previousText="Back"
       nextText="Next"
     >
-      <div
-        class="drag-file-area"
-        @click="importFile"
-        v-cloak
-        @drop.prevent="addFile"
-        @dragover.prevent
+      <InformativeContent :subtitle="subtitle" :texts="texts" />
+      <el-upload
+        class="upload-file"
+        ref="upload"
+        accept="application/json"
+        :auto-upload="false"
+        :multiple="false"
+        :http-request="handleUpload"
+        :on-change="handleUpload"
+        action=""
+        :limit="1"
+        list-type="text"
+        :on-exceed="handleExceed"
       >
-        <font-awesome-icon class="icon" icon="file-upload" />
-        <p v-show="!uploaded" class="sub-text">
-          <span class="upload">Upload the file</span> or drag it here.
-        </p>
-      </div>
-      <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
-    </NavigationCard>
-    <NavigationCard
-      v-show="uploaded"
-      data-test="header-2"
-      class="wallet-disclaimer"
-      title="Claiming Information"
-      :previousStep="previousStep"
-      :nextStep="nextStep"
-      previousText="Back"
-      nextText="Next"
-    >
-      <div class="file-info">
-        <font-awesome-icon class="icon" icon="file" />
-        {{ file.name }}
-      </div>
+        <el-button size="small" type="primary">Click to upload file</el-button>
+        <div slot="tip" class="el-upload__tip">Only application/json files supported</div>
+      </el-upload>
     </NavigationCard>
   </div>
 </template>
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
+import InformativeContent from '@/components/card/InformativeContent'
 
 export default {
   name: 'UploadFile',
   components: {
     NavigationCard,
+    InformativeContent,
   },
   data() {
     return {
-      uploaded: false,
-      file: 'file',
+      file: {},
       subtitle: 'Import your claiming file,',
+      texts: {
+        0: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a pharetra sapien. Curabitur tortor quam, porttitor mattis pretium vel, tincidunt eget orci. Ut pretium ultrices libero, quis dignissim felis cursus vel. Vestibulum ipsum nulla, efficitur vitae finibus nec, gravida ut ipsum.',
+      },
+      dialogVisible: false,
+      disabled: false,
+      uploaded: false,
     }
   },
   methods: {
+    handleExceed(files, fileList) {
+      this.$message.warning('The limit of files uploaded is 1')
+    },
+    handleUpload() {
+      const y = this.$refs.upload.uploadFiles[0].raw
+      const reader = new FileReader()
+      reader.onload = e => {
+        const fileText = e.target.result
+        try {
+          const x = JSON.parse(fileText)
+          this.$store.commit('setClaimingInfo', { info: x })
+          this.uploaded = true
+        } catch (error) {
+          console.log('Error parsing json', error)
+        }
+        return false
+      }
+      reader.readAsText(y)
+    },
     previousStep() {
       if (this.uploaded) {
         this.uploaded = false
       } else {
-        this.$router.push('/claiming')
+        this.$router.push('/claiming/claiming-instructions')
       }
     },
     nextStep() {
-      this.$router.push('/claiming/file-information')
+      if (this.uploaded) {
+        this.$router.push('/claiming/file-information')
+      }
     },
     importFile() {
       this.$refs.fileInput.click()
-    },
-    addFile(e) {
-      let droppedFiles = e.dataTransfer.files
-      if (!droppedFiles) return
-      ;[...droppedFiles].forEach(f => {
-        this.uploaded = true
-        this.file = f
-      })
-    },
-    readFile(e) {
-      const file = this.$refs.fileInput.files[0]
-      const reader = new FileReader()
-      reader.addEventListener(
-        'load',
-        () => {
-          const fileText = reader.result
-          try {
-            this.file = JSON.parse(fileText)
-            this.uploaded = true
-          } catch (error) {
-            console.log('Error parsing json')
-          }
-        },
-        false
-      )
-      reader.readAsText(file)
     },
   },
 }
@@ -110,32 +100,7 @@ export default {
   font-size: 16px;
   padding: 0 8px;
 }
-.drag-file-area {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  outline: $input_big-border;
-  cursor: pointer;
-  .sub-text {
-    color: $grey-3;
-    .upload {
-      font-weight: 600;
-    }
-  }
-}
-.file-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: $grey-3;
-}
-.icon {
-  color: $grey-3;
-  font-size: 40px;
-  padding-bottom: 8px;
+.upload-file {
+  margin-left: 32px;
 }
 </style>
