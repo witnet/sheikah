@@ -224,7 +224,20 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   }
 }
 
-@import '~element-ui/packages/theme-chalk/src/index';
+.upload-container {
+  margin-left: 32px;
+  margin-right: 32px;
+
+  .el-upload {
+    width: 100%;
+
+    .el-upload-dragger {
+      width: 100%;
+    }
+  }
+}
+
+@import "~element-ui/packages/theme-chalk/src/index";
 
 .el-pagination {
   button:disabled {
