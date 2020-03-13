@@ -14,10 +14,21 @@
 
     <template v-slot:footer>
       <div class="navigation-buttons">
-        <el-button data-test="previous-step" class="button" type="text" @click="previousStep">
+        <el-button
+          v-if="previousStep"
+          data-test="previous-step"
+          class="button"
+          @click="previousStep"
+        >
           {{ previousText }}
         </el-button>
-        <el-button data-test="next-step" type="primary" @click="nextStep" ref="next">
+        <el-button
+          v-if="nextStep"
+          data-test="next-step"
+          type="primary"
+          @click="nextStep"
+          ref="next"
+        >
           {{ nextText }}
         </el-button>
       </div>
@@ -33,7 +44,10 @@ export default {
   props: {
     nextStep: Function,
     nextText: String,
-    previousStep: Function,
+    previousStep: {
+      type: Function,
+      required: false,
+    },
     previousText: String,
     title: String,
   },

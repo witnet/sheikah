@@ -1,13 +1,11 @@
 <template>
   <NavigationCard
-    :nextStep="nextStep"
     :previousStep="previousStep"
     data-test=""
-    nextText="Next"
     previousText="Back"
     title="DownloadFile"
   >
-    <InformativeContent :subtitle="subtitle" :texts="texts" />
+    <Countdown :date="checkTokenGenerationEventDate" />
     <div class="file-container">
       <el-button
         type="primary"
@@ -36,27 +34,27 @@
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
-import InformativeContent from '@/components/card/InformativeContent'
+import Countdown from '@/components/claiming/Countdown'
 import { mapState } from 'vuex'
 
 export default {
   name: 'DownloadFile',
   components: {
     NavigationCard,
-    InformativeContent,
+    Countdown,
   },
   data() {
     return {
       subtitle: 'Download your claiming file,',
-      texts: {
-        0: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a pharetra sapien. Curabitur tortor quam, porttitor mattis pretium vel, tincidunt eget orci. Ut pretium ultrices libero, quis dignissim felis cursus vel. Vestibulum ipsum nulla, efficitur vitae finibus nec, gravida ut ipsum.',
-      },
     }
   },
   computed: {
     ...mapState({
       claimingFileInfo: state => {
         return state.wallet.claimingFileInfo
+      },
+      checkTokenGenerationEventDate: state => {
+        return state.wallet.checkTokenGenerationEventDate
       },
     }),
     dataStr() {
@@ -67,9 +65,6 @@ export default {
   methods: {
     exportFile() {
       this.$refs.download.click()
-    },
-    nextStep() {
-      this.$router.push('/claiming/countdown')
     },
     previousStep() {
       this.$router.push('/claiming/generate-addresses')
@@ -105,7 +100,7 @@ export default {
     .name {
       border: 1px solid transparent;
       border-radius: 3px;
-      margin: 16px 16px 16px 0px;
+      margin: 16px 16px 0px 0px;
       font-size: 14px;
       &:hover {
         transition: color 0.3s;
