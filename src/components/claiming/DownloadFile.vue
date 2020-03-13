@@ -1,10 +1,5 @@
 <template>
-  <NavigationCard
-    :previousStep="previousStep"
-    data-test=""
-    previousText="Back"
-    title="DownloadFile"
-  >
+  <NavigationCard data-test="" title="DownloadFile">
     <Countdown :date="checkTokenGenerationEventDate" />
     <div class="file-container">
       <el-button

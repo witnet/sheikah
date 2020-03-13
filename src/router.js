@@ -85,12 +85,12 @@ export default new Router({
                 }
               } else {
                 clearInterval(polling)
-                next('/claiming/claiming-instructions')
-                // if (walletInfos) {
-                //   console.log('countdown')
-                // } else {
-                //   next('/claiming')
-                // }
+                if (walletInfos) {
+                  // TODO: remove this line, only for development
+                  next('/claiming/claiming-instructions')
+                } else {
+                  next('/claiming')
+                }
               }
             }, 1000)
           })
