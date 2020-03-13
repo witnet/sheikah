@@ -15,6 +15,7 @@ export const EDITOR_STAGES = {
   AGGREGATIONS: 'aggregations',
   TALLY: 'tally',
 }
+export const CLAIM_WITS_PER_ADDRESS = 1
 
 export const WIT_UNIT = {
   WIT: 'wit',
