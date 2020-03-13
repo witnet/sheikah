@@ -49,6 +49,7 @@ export default {
     walletLocked: false,
     validatedPassword: false,
     validatedMnemonics: false,
+    claimingAddresses: [],
   },
   mutations: {
     setTransactions(state, { transactions }) {
@@ -169,6 +170,11 @@ export default {
     addAddress(state, { address }) {
       if (address) {
         state.addresses.add(address)
+      }
+    },
+    addClaimingAddress(state, { address }) {
+      if (address) {
+        state.claimingAddresses.push(address)
       }
     },
     validateMnemonics(state, { seed, mnemonics }) {
@@ -395,7 +401,23 @@ export default {
         })
       }
     },
+    generateMultipleAddresses: async function(context) {
+      const request = await context.state.api.generateAddress({
+        label: '',
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
+      })
 
+      if (request.result) {
+        context.commit('addClaimingAddress', { address: request.result })
+      } else {
+        context.commit('setError', {
+          name: 'generateAddress',
+          error: request.error.message,
+          message: 'An error occurred generating the address',
+        })
+      }
+    },
     generateAddress: async function(context, { label }) {
       const request = await context.state.api.generateAddress({
         label,
