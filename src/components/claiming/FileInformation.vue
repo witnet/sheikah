@@ -30,24 +30,14 @@ export default {
       },
     }
   },
-  created() {
-    this.fillInfo()
-  },
   computed: {
     ...mapState({
       claimingFileInfo: state => {
-        console.log('Claiming information:', state.wallet.claimingFileInfo)
         return state.wallet.claimingFileInfo
       },
     }),
   },
   methods: {
-    fillInfo() {
-      this.texts = {
-        0: this.claimingFileInfo.name,
-        1: this.claimingFileInfo.description,
-      }
-    },
     nextStep() {
       this.$router.push('/claiming/create-wallet')
     },

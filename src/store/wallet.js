@@ -39,7 +39,7 @@ export default {
       getItem: null,
     },
     checkTokenGenerationEventDate: new Date(2020, 4, 16, 17, 23, 42, 0),
-    claimingFileInfo: {},
+    claimingFileInfo: null,
     mainnetReady: false,
     currency: WIT_UNIT.NANO,
     balance: {},
@@ -164,7 +164,6 @@ export default {
       state.status = status
     },
     setClaimingInfo(state, { info }) {
-      console.log('info set!', info)
       Object.assign(state, { claimingFileInfo: info })
     },
     setWallet(state, { walletId, sessionId }) {
@@ -209,6 +208,9 @@ export default {
     },
     setGeneratedTransaction(state, { transaction }) {
       state.generatedTransaction = transaction
+    },
+    clearClaimingInfo(state) {
+      state.claimingFileInfo = null
     },
     clearGeneratedTransaction(state) {
       state.generatedTransaction = null
@@ -318,14 +320,12 @@ export default {
       }
     },
     getClaimingInfo: async function(context) {
-      console.log('getClaimingInfo')
       const request = await context.state.api.getItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
         key: `${context.rootState.wallet.walletId}_claiming_info`,
       })
       if (request.result) {
-        console.log('getClaimingInfo', request.result)
         context.commit('setClaimingInfo', { info: request.result || {} })
       } else {
         // TODO1: handle error properly
@@ -366,8 +366,6 @@ export default {
     },
     saveClaimingInfo: async function(context) {
       const claimingFileInfo = context.state.claimingFileInfo
-      console.log('claiming info', claimingFileInfo)
-      console.log('session id', context.rootState.wallet.sessionId)
       const request = await context.state.api.saveItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
