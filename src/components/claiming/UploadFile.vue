@@ -11,19 +11,20 @@
     >
       <InformativeContent :subtitle="subtitle" :texts="texts" />
       <el-upload
-        class="upload-file"
+        class="upload-container"
         ref="upload"
         accept="application/json"
+        drag
+        action=""
         :auto-upload="false"
         :multiple="false"
         :http-request="handleUpload"
         :on-change="handleUpload"
-        action=""
         :limit="1"
-        list-type="text"
         :on-exceed="handleExceed"
       >
-        <el-button size="small" type="primary">Click to upload file</el-button>
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">Suelta tu archivo aquí o <em>haz clic para cargar</em></div>
         <div slot="tip" class="el-upload__tip">Only application/json files supported</div>
       </el-upload>
     </NavigationCard>
@@ -45,7 +46,7 @@ export default {
       file: {},
       subtitle: 'Import your claiming file,',
       texts: {
-        0: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a pharetra sapien. Curabitur tortor quam, porttitor mattis pretium vel, tincidunt eget orci. Ut pretium ultrices libero, quis dignissim felis cursus vel. Vestibulum ipsum nulla, efficitur vitae finibus nec, gravida ut ipsum.',
+        0: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a pharetra sapien.',
       },
       dialogVisible: false,
       disabled: false,
@@ -99,8 +100,5 @@ export default {
   margin-bottom: 16px;
   font-size: 16px;
   padding: 0 8px;
-}
-.upload-file {
-  margin-left: 32px;
 }
 </style>

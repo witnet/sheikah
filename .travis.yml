@@ -5,7 +5,7 @@ node_js:
 branches:
   only:
   - dev
-  - claiming-process
+  # - claiming-process
 cache:
   yarn: true
   directories:
