@@ -1,7 +1,6 @@
 <template>
   <NavigationCard
     :nextStep="nextStep"
-    :previousStep="() => {}"
     data-test=""
     nextText="I will be careful, I promise!"
     title="Claiming process information"
