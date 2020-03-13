@@ -5,7 +5,6 @@ import Community from '@/components/Community.vue'
 import ClaimingProcess from '@/views/ClaimingProcess.vue'
 import ClaimingInstructions from '@/components/claiming/Instructions.vue'
 import ClaimingCreateWallet from '@/components/claiming/CreateWallet.vue'
-import ClaimingCountdown from '@/components/claiming/Countdown.vue'
 import GenerateClaimingAddresses from '@/components/claiming/GenerateAddresses.vue'
 import DownloadClaimingFile from '@/components/claiming/DownloadFile.vue'
 import ClaimingFileInformation from '@/components/claiming/FileInformation.vue'
@@ -33,7 +32,6 @@ import Setup from '@/views/Setup.vue'
 import ClaimingWalletDisclaimer from '@/components/claiming/WalletDisclaimer.vue'
 import ClaimingWalletEncryptionPassword from '@/components/claiming/WalletEncryptionPassword.vue'
 import ClaimingWalletSeedBackup from '@/components/claiming/WalletSeedBackup.vue'
-import ClaimingWalletSeedTypeSelection from '@/components/claiming/WalletSeedTypeSelection.vue'
 import ClaimingWalletSeedValidation from '@/components/claiming/WalletSeedValidation.vue'
 import ClaimingLoading from '@/components/claiming/Loading.vue'
 
@@ -300,11 +298,6 @@ export default new Router({
           component: ClaimingWalletSeedBackup,
         },
         {
-          name: 'claimingSeedTypeSelection',
-          path: 'seed-type-selection',
-          component: ClaimingWalletSeedTypeSelection,
-        },
-        {
           name: 'claimingSeedValidation',
           path: 'seed-validation',
           component: ClaimingWalletSeedValidation,
@@ -324,11 +317,6 @@ export default new Router({
           name: 'downloadClaimingFile',
           path: 'download-file',
           component: DownloadClaimingFile,
-        },
-        {
-          name: 'ClaimingCountdown',
-          path: 'countdown',
-          component: ClaimingCountdown,
         },
       ],
     },
