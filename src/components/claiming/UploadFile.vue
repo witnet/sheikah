@@ -9,7 +9,11 @@
       previousText="Back"
       nextText="Next"
     >
-      <InformativeContent :subtitle="subtitle" :texts="texts" />
+      <p class="text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
+        in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu. Nulla facilisi.
+        Praesent fermentum urna magna, et vehicula odio venenatis vitae.
+      </p>
       <el-upload
         class="upload-container"
         ref="upload"
@@ -28,7 +32,7 @@
       >
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">Drag your file here or <em>click to upload</em></div>
-        <div slot="tip" class="el-upload__tip">Only application/json files supported</div>
+        <div slot="tip" class="el-upload__tip">Only json files supported</div>
       </el-upload>
       <p v-if="uploadFileError" class="error">
         {{ uploadFileError.message }}
@@ -45,22 +49,16 @@
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
-import InformativeContent from '@/components/card/InformativeContent'
 import { mapState } from 'vuex'
 
 export default {
   name: 'UploadFile',
   components: {
     NavigationCard,
-    InformativeContent,
   },
   data() {
     return {
       file: [],
-      subtitle: 'Import your claiming file,',
-      texts: {
-        0: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a pharetra sapien.',
-      },
       dialogVisible: false,
       disabled: false,
     }
@@ -142,11 +140,10 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
-.paragraph {
-  margin-bottom: 16px;
-  font-size: 16px;
-  padding: 0 8px;
+.text {
+  margin-bottom: 8px;
 }
+
 .error {
   color: $red-0;
 }

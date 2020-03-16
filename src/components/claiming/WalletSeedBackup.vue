@@ -8,22 +8,13 @@
     :previousStep="() => this.$router.push('/claiming/disclaimer')"
     :nextStep="() => this.$router.push('/claiming/seed-validation')"
   >
-    <Alert
-      data-test="alert"
-      v-if="createMnemonicsError"
-      :key="createMnemonicsError.message"
-      type="error"
-      :message="createMnemonicsError.message"
-      :description="createMnemonicsError.description"
-      v-on:close="() => clearError(createMnemonicsError.name)"
-    />
-    <p class="paragraph-seed-title">Your 12 word seed phrase:</p>
+    <p class="text">Your 12 word seed phrase:</p>
     <pre data-test="word-seed" class="seed">{{ seed }}</pre>
-    <p class="paragraph-seed">
+    <p class="text">
       Please copy these 12 words onto a piece of paper which you will be able to safely store and
       secure. You must write the complete words in the exact order they are presented to you.
     </p>
-    <p class="paragraph-seed">
+    <p class="text">
       We do not store your seed phrase - if you exit this setup or fail to write down your seed
       phrase, we cannot help you access your wallet.
     </p>
@@ -32,7 +23,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import Alert from '@/components/Alert'
 import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
@@ -54,7 +44,6 @@ export default {
   },
   components: {
     NavigationCard,
-    Alert,
   },
   methods: {
     clearError(errorName) {
@@ -85,8 +74,8 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
 
-.content {
-  padding: 40px;
+.text {
+  margin-bottom: 8px;
 }
 
 .seed {
@@ -101,18 +90,6 @@ export default {
   padding: 24px;
   white-space: pre-wrap;
   width: 100%;
-}
-
-.seed-text {
-  color: $input_big-color;
-  width: inherit;
-}
-
-.paragraph-seed-title {
-  margin-bottom: 32px;
-}
-
-.paragraph-seed {
-  margin-top: 24px;
+  margin: 16px 0;
 }
 </style>

@@ -9,7 +9,7 @@
     :nextStep="nextStep"
     ref="navCard"
   >
-    <p>
+    <p class="text">
       Please type your 12 word seed phrase exactly as it was shown to you on the previous screen.
       This step is to confirm that you have copied your seed phrase correctly.
     </p>
@@ -17,7 +17,7 @@
     <p data-test="mnemonics-error-alert" class="match-error" v-if="mnemonicsError">
       Mnemonics must match
     </p>
-    <p class="paragraph">
+    <p class="text">
       Please ensure you do not add any extra spaces between words or at the beginning or end of the
       phrase.
     </p>
@@ -85,10 +85,6 @@ export default {
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
 
-.content {
-  padding: 40px;
-}
-
 .seed {
   align-items: center;
   border: $input_big-border;
@@ -99,15 +95,16 @@ export default {
   font-size: 16px;
   line-break: auto;
   line-height: 1.5em;
-  margin: 32px 0;
   padding: 16px;
   width: 100%;
-  margin-top: 40px;
+  margin: 16px 0;
 }
+
 .match-error {
   color: $red-0;
 }
-.paragraph {
-  margin-top: 16px;
+
+.text {
+  margin-bottom: 8px;
 }
 </style>
