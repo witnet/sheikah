@@ -2,33 +2,31 @@
   <NavigationCard
     :nextStep="nextStep"
     data-test=""
-    nextText="I will be careful, I promise!"
+    nextText="Next"
     title="Claiming process information"
   >
-    <InformativeContent :subtitle="subtitle" :texts="texts" />
+    <p class="text bold">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
+      in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
+    </p>
+    <p class="text">
+      Nulla facilisi. Praesent fermentum urna magna, et vehicula odio venenatis vitae. Cras lacinia
+      arcu id orci viverra, et semper metus ullamcorper. Donec tempus diam velit, eu pellentesque
+      odio imperdiet mattis. Suspendisse eu mollis leo, nec posuere augue. Suspendisse eget nulla
+      libero. Aenean velit justo, efficitur ac interdum ut, suscipit in ex. Nulla facilisi. Quisque
+      mattis, tellus nec mollis maximus, eros sapien vulputate ligula, at dignissim orci ipsum vel
+      justo. Donec quis rhoncus ex, eget posuere augue.
+    </p>
   </NavigationCard>
 </template>
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
-import InformativeContent from '@/components/card/InformativeContent'
 
 export default {
   name: 'Instructions',
   components: {
     NavigationCard,
-    InformativeContent,
-  },
-  data() {
-    return {
-      subtitle: 'Please, read carefully before continue,',
-      texts: {
-        0: 'A wallet is an app that keeps your credentials safe and lets you interface with the Witnet blockchain in many ways: from transferring Wit to someone else to creating smart contracts.',
-        1: 'You should never share your seed phrase with anyone. We at Witnet do not store your seed phrase and will never ask you to share it with us. If you lose your seed phrase, you will permanently lose access to your wallet and your funds.',
-        2: 'If someone finds or sees your seed phrase, they will have access to your wallet and all of your funds.',
-        3: 'We recommend storing your seed phrase on paper somewhere safe. Do not store it in a file on your computer or anywhere electronically.',
-      },
-    }
   },
   methods: {
     nextStep() {
@@ -37,3 +35,14 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.text {
+  margin-bottom: 8px;
+
+  &.bold {
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+}
+</style>
