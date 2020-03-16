@@ -1,5 +1,5 @@
 <template>
-  <Card class="">
+  <Card>
     <div class="card">
       <p class="title">Sheikah is loading your wallet</p>
       <Spinner class="spinner" :active="true" />
@@ -10,11 +10,12 @@
 
 <script>
 import { mapState } from 'vuex'
+
 import Card from '@/components/card/Card.vue'
 import Spinner from '@/components/Spinner.vue'
 
 export default {
-  name: 'WalletDisclaimer',
+  name: 'Loading',
   components: {
     Card,
     Spinner,
@@ -40,7 +41,8 @@ export default {
   watch: {
     sessionId(value) {
       if (value) {
-        this.$router.push('/wallet/transactions')
+        this.$store.dispatch('saveClaimingInfo')
+        this.$router.push('/claiming/generate-addresses')
       }
     },
     error(value) {
@@ -56,25 +58,23 @@ export default {
 @import '@/styles/_colors.scss';
 
 .card {
+  width: max-content;
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 250px;
   justify-content: center;
-  width: 300px;
+
   .title {
     border: none;
-    color: $purple-4;
+    color: $blue-6;
     font-size: 24px;
-    margin: 0 0 32px 0;
+    margin: 0 0 48px 0;
   }
-
   .description {
-    color: $purple-6;
+    color: $blue-6;
     font-size: 16px;
-    margin: 32px 0 0 0;
+    margin: 40px 0 0 0;
   }
-
   .spinner {
     grid-row: 3;
     margin: 0 auto;
