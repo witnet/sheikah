@@ -30,10 +30,11 @@
         v-on:go-next="nextStep"
       />
     </div>
-
-    <p data-test="password-error-alert" v-if="createValidPasswordError" class="error">
-      {{ createValidPasswordError.message }}
-    </p>
+    <div class="form-row">
+      <div data-test="password-error-alert" v-if="createValidPasswordError" class="error">
+        {{ createValidPasswordError.message }}
+      </div>
+    </div>
   </NavigationCard>
 </template>
 
@@ -50,6 +51,18 @@ export default {
       repeatPassword: '',
       error: false,
     }
+  },
+  watch: {
+    password() {
+      if (this.createValidPasswordError) {
+        this.clearError(this.createValidPasswordError.name)
+      }
+    },
+    repeatPassword() {
+      if (this.createValidPasswordError) {
+        this.clearError(this.createValidPasswordError.name)
+      }
+    },
   },
   methods: {
     validateForm() {
@@ -106,6 +119,7 @@ export default {
 
 .error {
   color: $red-0;
+  min-width: 270px;
 }
 
 .paragraph {
@@ -119,6 +133,7 @@ export default {
   flex-flow: row nowrap;
   margin-bottom: 32px;
   align-items: center;
+  justify-content: center;
   &.password {
     max-width: none;
     display: flex;

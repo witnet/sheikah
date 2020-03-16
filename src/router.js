@@ -102,12 +102,13 @@ export default new Router({
                 }
               } else {
                 clearInterval(polling)
-                if (localStorage.getItem('completed')) {
-                  // TODO: remove this line, only for development
-                  next('/claiming/download-file')
-                } else {
-                  next('/claiming/claiming-instructions')
-                }
+                next('/claiming/claiming-instructions')
+                // if (localStorage.getItem('completed')) {
+                //   // TODO: remove this line, only for development
+                //   next('/claiming/download-file')
+                // } else {
+                //   next('/claiming/claiming-instructions')
+                // }
               }
             }, 5000)
           })

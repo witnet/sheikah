@@ -103,7 +103,9 @@ export default {
 .match-error {
   color: $red-0;
 }
-
+.seed {
+  font-family: 'Lucida Console', Monaco, monospace;
+}
 .text {
   margin-bottom: 8px;
 }

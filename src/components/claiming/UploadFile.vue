@@ -11,8 +11,7 @@
     >
       <p class="text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
-        in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu. Nulla facilisi.
-        Praesent fermentum urna magna, et vehicula odio venenatis vitae.
+        in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
       </p>
       <el-upload
         class="upload-container"
@@ -30,7 +29,8 @@
         :on-exceed="handleExceed"
         :on-remove="clearClaimingInfo"
       >
-        <i class="el-icon-upload"></i>
+        <i v-if="claimingFileInfo" class="el-icon-upload-success el-icon-circle-check" />
+        <i v-else class="el-icon-upload"></i>
         <div class="el-upload__text">Drag your file here or <em>click to upload</em></div>
         <div slot="tip" class="el-upload__tip">Only json files supported</div>
       </el-upload>
@@ -142,13 +142,20 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+.el-icon-circle-check {
+  font-size: 56px;
+  color: #52c41a;
+  margin: 40px 0 16px;
+  line-height: 50px;
+}
 
 .text {
-  margin-bottom: 8px;
+  margin-bottom: 24px;
 }
 
 .error {
+  font-size: 16px;
   color: $red-0;
-  margin: 32px 32px 0px 32px;
+  margin: 8px 32px 0px 32px;
 }
 </style>

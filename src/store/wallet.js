@@ -252,6 +252,7 @@ export default {
       if (password.length < 8) {
         this.commit('setError', {
           name: 'createValidPassword',
+          error: 'Validation Error',
           message: 'Password must be at least 8 characters',
         })
         state.validatedPassword = false
