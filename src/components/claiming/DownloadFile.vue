@@ -48,6 +48,9 @@ export default {
       claimingFileInfo: state => {
         return state.wallet.claimingFileInfo
       },
+      claimingProcessCompleted: state => {
+        return state.wallet.claimingProcessState
+      },
       checkTokenGenerationEventDate: state => {
         return state.wallet.checkTokenGenerationEventDate
       },
@@ -66,6 +69,7 @@ export default {
     },
   },
   beforeCreate() {
+    this.$store.dispatch('saveCompletedProcess')
     this.$store.dispatch('getClaimingInfo')
   },
 }

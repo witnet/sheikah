@@ -32,6 +32,7 @@ export default {
     },
     checkTokenGenerationEventDate: new Date(2020, 4, 16, 17, 23, 42, 0),
     claimingFileInfo: null,
+    claimingProcessState: null,
     mainnetReady: false,
     currency: WIT_UNIT.NANO,
     balances: null,
@@ -115,6 +116,9 @@ export default {
     },
     setClaimingInfo(state, { info }) {
       Object.assign(state, { claimingFileInfo: info })
+    },
+    setClaimingState(state, { completed }) {
+      Object.assign(state, { claimingProcessState: completed })
     },
     setWallet(state, { walletId, sessionId }) {
       state.walletId = walletId
@@ -250,6 +254,9 @@ export default {
         })
       }
     },
+    getClaimingProcessState: function(context) {
+      context.commit('setClaimingState', { completed: localStorage.getItem('completed') })
+    },
     getClaimingInfo: async function(context) {
       const request = await context.state.api.getItem({
         wallet_id: context.rootState.wallet.walletId,
@@ -306,6 +313,10 @@ export default {
           message: 'An error occurred saving the claiming information',
         })
       }
+    },
+    saveCompletedProcess: async function(context) {
+      localStorage.setItem('completed', true)
+      context.dispatch('getClaimingProcessState')
     },
     saveLabel: async function(context, { label, transaction }) {
       const transactionId = transaction.transactionId
