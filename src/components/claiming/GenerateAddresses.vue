@@ -5,11 +5,8 @@
     nextText="Next"
     title="Generate addresses"
   >
-    <p>Your addresses are being generated. This process could take some time</p>
+    <p class="text">Your addresses are being generated. This process could take some time</p>
     <el-progress :percentage="percentage" :format="format"></el-progress>
-    <p>{{ generatedAddresses }} of {{ addressesToGenerate }}</p>
-    <!-- TODO: Show buttons only when all addresses are generated -->
-    <!-- <el-button type="primary" @click="generateAddresses">Generate addresses</el-button> -->
   </NavigationCard>
 </template>
 <script>
@@ -75,3 +72,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.text {
+  margin-bottom: 8px;
+}
+</style>
