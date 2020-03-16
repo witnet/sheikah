@@ -87,6 +87,9 @@ export default {
     },
   },
   methods: {
+    clearError() {
+      this.$store.commit('clearError', { error: this.uploadFileError.name })
+    },
     clearClaimingInfo() {
       this.$store.commit('clearClaimingInfo')
     },
@@ -146,5 +149,6 @@ export default {
 
 .error {
   color: $red-0;
+  margin: 32px 32px 0px 32px;
 }
 </style>
