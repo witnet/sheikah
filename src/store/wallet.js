@@ -10,6 +10,7 @@ export default {
     api: new WalletApi(),
     errors: {
       seed: null,
+      uploadFile: null,
       createMnemonics: null,
       createWallet: null,
       generateAddress: null,
@@ -134,7 +135,8 @@ export default {
     },
 
     setError(state, { name, error, message }) {
-      if (error === 'Validation Error' || name === 'seed') {
+      if (error === 'Validation Error' || name === 'seed' || name === 'uploadFile') {
+        console.log('errr')
         state.errors[name] = {
           name,
           error,
