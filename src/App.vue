@@ -45,10 +45,4 @@ export default {
   min-width: 100vw;
   min-height: 100vh;
 }
-.spinner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 </style>
