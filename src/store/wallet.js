@@ -18,6 +18,7 @@ export default {
     errors: {
       shutdown: null,
       seed: null,
+      uploadFile: null,
       createMnemonics: null,
       createWallet: null,
       generateAddress: null,
@@ -184,7 +185,7 @@ export default {
     },
 
     setError(state, { name, error, message }) {
-      if (name === 'seed' || error === 'Validation Error') {
+      if (error === 'Validation Error' || name === 'seed' || name === 'uploadFile') {
         state.errors[name] = {
           name,
           error,
