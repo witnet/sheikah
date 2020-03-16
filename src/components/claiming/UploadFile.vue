@@ -16,6 +16,7 @@
         accept="application/json"
         drag
         action=""
+        :on-preview="downloadFile"
         :auto-upload="false"
         :multiple="false"
         :http-request="handleUpload"
@@ -32,6 +33,12 @@
       <p v-if="uploadFileError" class="error">
         {{ uploadFileError.message }}
       </p>
+      <a
+        :href="dataStr"
+        ref="download"
+        download="claiming-information.json"
+        style="display:none"
+      ></a>
     </NavigationCard>
   </div>
 </template>
@@ -84,6 +91,13 @@ export default {
   methods: {
     clearClaimingInfo() {
       this.$store.commit('clearClaimingInfo')
+    },
+    dataStr() {
+      const claimingFileInfo = this.$store.state.wallet.claimingFileInfo
+      return `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(claimingFileInfo))}`
+    },
+    downloadFile() {
+      this.$refs.download.click()
     },
     handleExceed(files, fileList) {
       this.$message.warning('The limit of files uploaded is 1')
