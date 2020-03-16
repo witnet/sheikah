@@ -136,7 +136,6 @@ export default {
 
     setError(state, { name, error, message }) {
       if (error === 'Validation Error' || name === 'seed' || name === 'uploadFile') {
-        console.log('errr')
         state.errors[name] = {
           name,
           error,
@@ -201,6 +200,7 @@ export default {
       if (password.length < 8) {
         this.commit('setError', {
           name: 'createValidPassword',
+          error: 'Validation Error',
           message: 'Password must be at least 8 characters',
         })
         state.validatedPassword = false
