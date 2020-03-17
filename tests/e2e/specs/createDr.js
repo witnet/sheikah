@@ -1,4 +1,5 @@
-describe('Create a complete data request flow', () => {
+// In claiming file branch, these test doesn't apply
+describe.skip('Create a complete data request flow', () => {
   it('Redirects to the templates view', () => {
     cy.createAndUnlockWallet()
     cy.get('[data-test=to-templates]')

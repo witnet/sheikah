@@ -1,5 +1,5 @@
 <template>
-  <Card>
+  <Card data-test="loading">
     <div class="card">
       <p class="title">Sheikah is loading your wallet</p>
       <Spinner class="spinner" :active="true" />
@@ -13,7 +13,7 @@ import { mapState } from 'vuex'
 
 import Card from '@/components/card/Card.vue'
 import Spinner from '@/components/Spinner.vue'
-
+import { sleep } from '@/utils'
 export default {
   name: 'Loading',
   components: {
@@ -39,8 +39,9 @@ export default {
     }),
   },
   watch: {
-    sessionId(value) {
+    async sessionId(value) {
       if (value) {
+        await sleep(2000)
         this.$store.dispatch('saveClaimingInfo')
         this.$router.push('/claiming/generate-addresses')
       }

@@ -1,6 +1,8 @@
 // https://docs.cypress.io/api/introduction/api.html
 import { createSelection } from '../utils'
-describe('Create Wallet', () => {
+
+// In claiming file branch, these test doesn't apply
+describe.skip('Create Wallet', () => {
   it('Create a wallet succesfully', () => {
     // Go to ftu form when the wallet contains a created wallet
     // Cypress.config('baseUrl', 'http://localhost:8080')

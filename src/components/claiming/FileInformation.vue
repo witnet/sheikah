@@ -1,5 +1,6 @@
 <template>
   <NavigationCard
+    data-test="file-information"
     :nextStep="nextStep"
     :previousStep="previousStep"
     nextText="Sign and continue"

@@ -1,5 +1,5 @@
-// TODO: remove skip in tests when new rust realise is ready
-describe('Create a complete deploy Data Request flow', () => {
+// In claiming file branch, these test doesn't apply
+describe.skip('Create a complete deploy Data Request flow', () => {
   it('Redirects to Templates view', () => {
     cy.createAndUnlockWallet()
     cy.get('[data-test=to-templates]').click()

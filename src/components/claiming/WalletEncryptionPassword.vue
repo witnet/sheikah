@@ -1,5 +1,6 @@
 <template>
   <NavigationCard
+    data-test="password"
     class="wallet-encryption"
     title="Encrypt your wallet with a password"
     previousText="Back"

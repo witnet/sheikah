@@ -1,7 +1,7 @@
 <template>
   <NavigationCard
     :nextStep="nextStep"
-    data-test=""
+    data-test="instructions"
     nextText="Continue"
     title="Claiming process information"
   >

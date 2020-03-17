@@ -142,10 +142,13 @@ export default {
 
     setError(state, { name, error, message }) {
       if (error === 'Validation Error' || name === 'seed' || name === 'uploadFile') {
-        state.errors[name] = {
-          name,
-          error,
-          message,
+        state.errors = {
+          ...state.errros,
+          [name]: {
+            name,
+            error,
+            message,
+          },
         }
       } else {
         if (state.networkStatus !== 'error') {
