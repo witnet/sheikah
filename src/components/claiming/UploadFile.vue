@@ -24,7 +24,7 @@
         :multiple="false"
         :http-request="handleUpload"
         :on-change="handleUpload"
-        :limit="1"
+        :limit="2"
         :file-list="file"
         :on-exceed="handleExceed"
         :on-remove="clearClaimingInfo"
@@ -66,9 +66,7 @@ export default {
   computed: {
     ...mapState({
       uploadFileError: state => state.wallet.errors.uploadFile,
-      claimingFileInfo: state => {
-        return state.wallet.claimingFileInfo
-      },
+      claimingFileInfo: state => state.wallet.claimingFileInfo,
     }),
   },
   created() {
@@ -104,19 +102,23 @@ export default {
       this.$message.warning('The limit of files uploaded is 1')
     },
     handleUpload() {
-      const y = this.$refs.upload.uploadFiles[0].raw
+      const getLast = array => array[array.length - 1]
+      const uploadFiles = this.$refs.upload.uploadFiles
+      // we allow upload 2 files but the first one will be overwritten getting last file
+      // this trick is done because element-ui doesn't allow this behaviour:
+      // https://github.com/ElemeFE/element/issues/17991
+      const raw = getLast(uploadFiles).raw
       const reader = new FileReader()
       reader.onload = e => {
-        const fileText = e.target.result
+        // try to parse the json file content
+        const fileContent = JSON.parse(e.target.result)
         try {
-          const x = JSON.parse(fileText)
-          this.$store.commit('setClaimingInfo', { info: x })
+          this.$store.commit('setClaimingInfo', { info: fileContent })
         } catch (error) {
           console.log('Error parsing json', error)
         }
-        return false
       }
-      reader.readAsText(y)
+      reader.readAsText(raw)
     },
     previousStep() {
       this.$router.push('/claiming/claiming-instructions')
