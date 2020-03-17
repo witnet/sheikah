@@ -4,7 +4,7 @@
     class="wallet-seed-validation"
     title="Confirm your seed phrase"
     previousText="Back"
-    nextText="Next"
+    nextText="Confirm and continue"
     :previousStep="previousStep"
     :nextStep="nextStep"
     ref="navCard"
@@ -101,10 +101,13 @@ export default {
 }
 
 .match-error {
+  font-size: 14px;
   color: $red-0;
+  margin-bottom: 8px;
 }
 .seed {
-  font-family: 'Lucida Console', Monaco, monospace;
+  font-size: 20px;
+  font-family: inherit;
 }
 .text {
   margin-bottom: 8px;

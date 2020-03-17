@@ -9,6 +9,12 @@ $font-color-light: $alt-grey-2;
 $sheikah-gradient: linear-gradient(to right, $purple-5, $purple-4);
 
 // BUTTON_NAVIGATION
+$default-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+$font-color-dark: $grey-6;
+$font-color-light: $grey-3;
+$sheikah-gradient: linear-gradient(to right, $purple-6, $blue-6);
+
+// // // BUTTON_NAVIGATION
 $button_navigation-background: $white;
 $button_navigation-border-color: $grey-1;
 $button_navigation-border-style: solid;

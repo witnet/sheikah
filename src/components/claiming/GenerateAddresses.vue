@@ -2,7 +2,7 @@
   <NavigationCard
     :nextStep="areAddressesGenerated ? nextStep : null"
     data-test=""
-    nextText="Next"
+    nextText="Continue"
     title="Generate addresses"
   >
     <p class="text">Your addresses are being generated. This process could take some time</p>
