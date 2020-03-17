@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     previousStep() {
-      this.$router.push('/claiming/seed-type-selection')
+      this.$router.push('/claiming/create-wallet')
     },
     nextStep() {
       this.$router.push('/claiming/seed-backup')

@@ -3,7 +3,7 @@
     class="wallet-encryption"
     title="Encrypt your wallet with a password"
     previousText="Back"
-    nextText="Next"
+    nextText="Continue"
     :previousStep="previousStep"
     :nextStep="nextStep"
     ref="navCard"
@@ -119,6 +119,7 @@ export default {
 
 .error {
   color: $red-0;
+  font-size: 14px;
   min-width: 270px;
 }
 

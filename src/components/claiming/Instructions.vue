@@ -2,7 +2,7 @@
   <NavigationCard
     :nextStep="nextStep"
     data-test=""
-    nextText="Next"
+    nextText="Continue"
     title="Claiming process information"
   >
     <p class="text bold">
