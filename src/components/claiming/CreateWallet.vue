@@ -1,8 +1,8 @@
 <template>
   <div>
     <NavigationCard
+      data-test="create-wallet"
       class="introduction"
-      v-if="sessionId"
       title="Create your wallet"
       :previousStep="previousStep"
       :nextStep="nextStep"
@@ -22,7 +22,6 @@
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
-import { mapState } from 'vuex'
 
 export default {
   name: 'WelcomeForm',
@@ -31,9 +30,6 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      mainnetReady: state => state.wallet.mainnetReady,
-    }),
     sessionId() {
       const walletInfosLength = this.$store.state.wallet.walletInfos.length
       return walletInfosLength > 0

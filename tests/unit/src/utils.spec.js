@@ -1,4 +1,4 @@
-import { areSoftEqualArrays, standardizeWitUnits, calculateAddressesNumber } from '@/utils'
+import { areSoftEqualArrays, standardizeWitUnits, calculateAddressesAmount } from '@/utils'
 import { WIT_UNIT } from '../../../src/constants'
 
 describe('areSoftEqualArrays', () => {
@@ -67,53 +67,53 @@ describe('standardizeWitUnits', () => {
   })
 })
 
-describe('calculateAddressesNumber', () => {
+describe('calculateAddressesAmount', () => {
   describe('amount is equal to address gap', () => {
     it('50 000 000', () => {
       const expected = 1
-      const result = calculateAddressesNumber(50000000)
+      const result = calculateAddressesAmount(50000000).length
 
       expect(result).toBe(expected)
     })
 
     it('5 000 000', () => {
       const expected = 1
-      const result = calculateAddressesNumber(5000000)
+      const result = calculateAddressesAmount(5000000).length
 
       expect(result).toBe(expected)
     })
 
     it('500 000', () => {
       const expected = 1
-      const result = calculateAddressesNumber(500000)
+      const result = calculateAddressesAmount(500000).length
 
       expect(result).toBe(expected)
     })
 
     it('50 000', () => {
       const expected = 1
-      const result = calculateAddressesNumber(50000)
+      const result = calculateAddressesAmount(50000).length
 
       expect(result).toBe(expected)
     })
 
     it('5 000', () => {
       const expected = 1
-      const result = calculateAddressesNumber(5000)
+      const result = calculateAddressesAmount(5000).length
 
       expect(result).toBe(expected)
     })
 
     it('500', () => {
       const expected = 1
-      const result = calculateAddressesNumber(500)
+      const result = calculateAddressesAmount(500).length
 
       expect(result).toBe(expected)
     })
 
     it('50', () => {
       const expected = 1
-      const result = calculateAddressesNumber(50)
+      const result = calculateAddressesAmount(50).length
 
       expect(result).toBe(expected)
     })
@@ -121,14 +121,14 @@ describe('calculateAddressesNumber', () => {
 
   it('amount is lower than address minimum', () => {
     const expected = 1
-    const result = calculateAddressesNumber(5)
+    const result = calculateAddressesAmount(5).length
 
     expect(result).toBe(expected)
   })
 
   it('amount is 0', () => {
     const expected = 0
-    const result = calculateAddressesNumber(0)
+    const result = calculateAddressesAmount(0).length
 
     expect(result).toBe(expected)
   })
@@ -136,21 +136,21 @@ describe('calculateAddressesNumber', () => {
   describe('divide several times', () => {
     it('737', () => {
       const expected = 6
-      const result = calculateAddressesNumber(737)
+      const result = calculateAddressesAmount(737).length
 
       expect(result).toBe(expected)
     })
 
     it('1 000 532', () => {
       const expected = 4
-      const result = calculateAddressesNumber(1000532)
+      const result = calculateAddressesAmount(1000532).length
 
       expect(result).toBe(expected)
     })
 
     it('2 523 432', () => {
       const expected = 24
-      const result = calculateAddressesNumber(2523432)
+      const result = calculateAddressesAmount(2523432).length
 
       expect(result).toBe(expected)
     })

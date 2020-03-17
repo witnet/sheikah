@@ -1,6 +1,6 @@
 <template>
   <NavigationCard
-    data-test="header-2"
+    data-test="wallet-disclaimer"
     class="wallet-disclaimer"
     title="Important"
     :previousStep="previousStep"

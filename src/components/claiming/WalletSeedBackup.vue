@@ -1,6 +1,6 @@
 <template>
   <NavigationCard
-    data-test="header-3"
+    data-test="wallet-seed-backup"
     class="wallet-seed-backup"
     title="Wallet seed phrase backup"
     previousText="Back"

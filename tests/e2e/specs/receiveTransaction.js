@@ -1,5 +1,5 @@
-// TODO: remove skip in tests when new rust realise is ready
-describe('Create a complete Receive transactions flow', () => {
+// In claiming file branch, these test doesn't apply
+describe.skip('Create a complete Receive transactions flow', () => {
   it('Add Addresses correctly', () => {
     cy.createAndUnlockWallet()
     cy.get('[data-test=receive-btn]').click()

@@ -10,6 +10,7 @@ import util from 'util'
 import { spawn } from 'child_process'
 import { BrowserWindow, app, protocol } from 'electron'
 import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib'
+import { sleep } from '@/utils'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
@@ -224,12 +225,4 @@ function loadUrl(s) {
       win.loadURL(`app://./index.html/#/${STATUS_PATH[s]}`)
     }
   }
-}
-
-async function sleep(t) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve()
-    }, t)
-  })
 }

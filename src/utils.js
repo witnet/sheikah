@@ -206,3 +206,11 @@ export function createExportClaimingFile(importedFile, addresses, disclaimers) {
     signature: importedFile.signature,
   }
 }
+
+export async function sleep(t) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve()
+    }, t)
+  })
+}

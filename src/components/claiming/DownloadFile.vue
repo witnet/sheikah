@@ -1,5 +1,5 @@
 <template>
-  <NavigationCard data-test="" title="Download file">
+  <NavigationCard data-test="download-file" title="Download file">
     <p class="text bold">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
       in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.

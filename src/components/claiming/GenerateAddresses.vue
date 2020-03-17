@@ -1,7 +1,7 @@
 <template>
   <NavigationCard
     :nextStep="areAddressesGenerated ? nextStep : null"
-    data-test=""
+    data-test="generate-addresses"
     nextText="Continue"
     title="Generate addresses"
   >
