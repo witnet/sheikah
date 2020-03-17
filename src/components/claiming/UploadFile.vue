@@ -7,7 +7,7 @@
       :previousStep="previousStep"
       :nextStep="nextStep"
       previousText="Back"
-      nextText="Next"
+      nextText="Continue"
     >
       <p class="text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
@@ -31,7 +31,7 @@
       >
         <i v-if="claimingFileInfo" class="el-icon-upload-success el-icon-circle-check" />
         <i v-else class="el-icon-upload"></i>
-        <div class="el-upload__text">Drag your file here or <em>click to upload</em></div>
+        <div class="el-upload__text">Drag your file here or <em>click to import</em></div>
         <div slot="tip" class="el-upload__tip">Only json files supported</div>
       </el-upload>
       <p v-if="uploadFileError" class="error">
@@ -156,8 +156,8 @@ export default {
 }
 
 .error {
-  font-size: 16px;
+  font-size: 14px;
   color: $red-0;
-  margin: 8px 32px 0px 32px;
+  margin-top: 8px;
 }
 </style>

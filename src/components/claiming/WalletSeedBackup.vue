@@ -4,7 +4,7 @@
     class="wallet-seed-backup"
     title="Wallet seed phrase backup"
     previousText="Back"
-    nextText="Next"
+    nextText="Continue"
     :previousStep="() => this.$router.push('/claiming/disclaimer')"
     :nextStep="() => this.$router.push('/claiming/seed-validation')"
   >
@@ -91,5 +91,7 @@ export default {
   white-space: pre-wrap;
   width: 100%;
   margin: 16px 0;
+  font-family: inherit;
+  font-size: 20px;
 }
 </style>

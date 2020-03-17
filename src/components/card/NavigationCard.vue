@@ -69,6 +69,8 @@ export default {
 @import '@/styles/theme.scss';
 
 .card-navigation {
+  background-color: $white;
+  box-shadow: $default-box-shadow;
   width: 600px;
   // height: 550px;
   min-height: 400px;
@@ -76,7 +78,7 @@ export default {
 
   .header {
     background: $sheikah-gradient;
-    padding: 0 24px;
+    padding: 0 32px;
     align-items: center;
     color: $white;
     display: flex;

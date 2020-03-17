@@ -1,5 +1,9 @@
 <template>
-  <NavigationCard data-test="" title="DownloadFile">
+  <NavigationCard data-test="" title="Download file">
+    <p class="text bold">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
+      in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
+    </p>
     <Countdown :date="checkTokenGenerationEventDate" />
     <div class="file-container">
       <el-button
@@ -9,7 +13,7 @@
         data-test="download-claiming"
         @click="exportFile"
       >
-        Click to download the file
+        Click to export the file
       </el-button>
       <a
         :href="dataStr"
@@ -78,6 +82,14 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+.text {
+  margin-bottom: 8px;
+
+  &.bold {
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+}
 .file-container {
   display: flex;
   justify-content: left;
@@ -91,7 +103,6 @@ export default {
     align-items: left;
     font-size: 34px;
     margin-bottom: 16px;
-    color: #606266;
     .el-icon-document {
       margin-right: 8px;
       padding-left: 4px;
