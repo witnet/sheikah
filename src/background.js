@@ -20,6 +20,7 @@ import {
   ipcMain,
 } from 'electron'
 import progress from 'progress-stream'
+import { sleep } from '@/utils'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
@@ -388,13 +389,5 @@ async function runWallet() {
   })
   walletProcess.stderr.on('data', function(data) {
     console.info('stderr: ' + data.toString())
-  })
-}
-
-async function sleep(t) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve()
-    }, t)
   })
 }

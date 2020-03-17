@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavigationCard
-      data-test="header-2"
+      data-test="import-file"
       class="wallet-disclaimer"
       title="Import claiming file"
       :previousStep="previousStep"
@@ -14,6 +14,7 @@
         in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
       </p>
       <el-upload
+        data-test="upload"
         class="upload-container"
         ref="upload"
         accept="application/json"
@@ -34,7 +35,7 @@
         <div class="el-upload__text">Drag your file here or <em>click to import</em></div>
         <div slot="tip" class="el-upload__tip">Only json files supported</div>
       </el-upload>
-      <p v-if="uploadFileError" class="error">
+      <p v-if="uploadFileError" class="error" data-test="error">
         {{ uploadFileError.message }}
       </p>
       <a
@@ -77,7 +78,7 @@ export default {
   watch: {
     claimingFileInfo() {
       if (this.claimingFileInfo && this.uploadFileError) {
-        this.clearError(this.uploadFileError.name)
+        return this.$store.commit('clearError', { error: 'uploadFile' })
       }
       if (this.claimingFileInfo) {
         this.file = [this.claimingFileInfo]
@@ -111,9 +112,10 @@ export default {
       const reader = new FileReader()
       reader.onload = e => {
         // try to parse the json file content
-        const fileContent = JSON.parse(e.target.result)
         try {
-          this.$store.commit('setClaimingInfo', { info: fileContent })
+          console.log('---', e.target.result)
+          const fileInfo = JSON.parse(e.target.result)
+          this.$store.commit('setClaimingInfo', { info: fileInfo })
         } catch (error) {
           console.log('Error parsing json', error)
         }
@@ -129,7 +131,7 @@ export default {
       } else {
         this.$store.commit('setError', {
           name: 'uploadFile',
-          error: 'Uploading file',
+          error: 'Validation Error',
           message: 'Upload a valid claiming file before continue',
         })
       }

@@ -1,5 +1,5 @@
 <template>
-  <div class="centered">
+  <div class="centered" data-test="claiming">
     <router-view />
   </div>
 </template>
