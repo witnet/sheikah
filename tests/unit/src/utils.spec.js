@@ -1,5 +1,6 @@
-import { areSoftEqualArrays, standardizeWitUnits } from '@/utils'
+import { areSoftEqualArrays, standardizeWitUnits, calculateAddressesNumber } from '@/utils'
 import { WIT_UNIT } from '../../../src/constants'
+
 describe('areSoftEqualArrays', () => {
   it('check if two sorted arrays contains the same items', () => {
     const arr1 = [1, 2, 3, 4, 5]
@@ -31,6 +32,7 @@ describe('areSoftEqualArrays', () => {
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
   })
 })
+
 describe('standardizeWitUnits', () => {
   describe('return the value in selected unit', () => {
     describe('wit', () => {
@@ -60,6 +62,96 @@ describe('standardizeWitUnits', () => {
     it('nanoWit', () => {
       const expected = '4'
       const result = standardizeWitUnits(4, WIT_UNIT.NANO)
+      expect(result).toBe(expected)
+    })
+  })
+})
+
+describe('calculateAddressesNumber', () => {
+  describe('amount is equal to address gap', () => {
+    it('50 000 000', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(50000000)
+
+      expect(result).toBe(expected)
+    })
+
+    it('5 000 000', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(5000000)
+
+      expect(result).toBe(expected)
+    })
+
+    it('500 000', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(500000)
+
+      expect(result).toBe(expected)
+    })
+
+    it('50 000', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(50000)
+
+      expect(result).toBe(expected)
+    })
+
+    it('5 000', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(5000)
+
+      expect(result).toBe(expected)
+    })
+
+    it('500', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(500)
+
+      expect(result).toBe(expected)
+    })
+
+    it('50', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(50)
+
+      expect(result).toBe(expected)
+    })
+  })
+
+  it('amount is lower than address minimum', () => {
+    const expected = 1
+    const result = calculateAddressesNumber(5)
+
+    expect(result).toBe(expected)
+  })
+
+  it('amount is 0', () => {
+    const expected = 0
+    const result = calculateAddressesNumber(0)
+
+    expect(result).toBe(expected)
+  })
+
+  describe('divide several times', () => {
+    it('737', () => {
+      const expected = 6
+      const result = calculateAddressesNumber(737)
+
+      expect(result).toBe(expected)
+    })
+
+    it('1 000 532', () => {
+      const expected = 4
+      const result = calculateAddressesNumber(1000532)
+
+      expect(result).toBe(expected)
+    })
+
+    it('2 523 432', () => {
+      const expected = 24
+      const result = calculateAddressesNumber(2523432)
+
       expect(result).toBe(expected)
     })
   })

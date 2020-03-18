@@ -1,6 +1,6 @@
 import cbor from 'cbor'
 import uuidv4 from 'uuid/v4'
-import { WIT_UNIT } from '@/constants'
+import { WIT_UNIT, CLAIMING_ADDRESS_MIN_WITS } from '@/constants'
 
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
@@ -175,4 +175,23 @@ export function getNativeValueFromMarkupArgumentType(value, type) {
     return value === 'true'
   }
   return value
+}
+
+// calculate the number of addresses and its amount according to the amount of wits passed
+export function calculateAddressesAmount(amount) {
+  if (amount === 0) return []
+  const ceil = precision => x => Math.ceil(x / precision) * precision
+  // round the amount of wits for convenience and deniability
+  const roundedAmount =
+    amount % CLAIMING_ADDRESS_MIN_WITS === 0 ? amount : ceil(CLAIMING_ADDRESS_MIN_WITS)(amount)
+
+  return (roundedAmount / CLAIMING_ADDRESS_MIN_WITS)
+    .toString()
+    .split('')
+    .map(Number)
+    .reverse()
+    .map((x, exp) => {
+      return new Array(x).fill(50 * 10 ** exp)
+    })
+    .reduce((a, b) => [...a, ...b])
 }
