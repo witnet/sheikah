@@ -272,7 +272,7 @@ export default {
         key: `${context.rootState.wallet.walletId}_claiming_info`,
       })
       if (request.result) {
-        context.commit('setClaimingInfo', { info: request.result || {} })
+        context.commit('setClaimingInfo', { info: request.result.value || {} })
       } else {
         // TODO1: handle error properly
         context.commit('setError', {
