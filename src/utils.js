@@ -487,3 +487,14 @@ export function calculateAddressesAmount(amount) {
     })
     .reduce((a, b) => [...a, ...b])
 }
+
+export function createExportClaimingFile(importedFile, addresses, disclaimers) {
+  return {
+    email_address: importedFile.data.email_address,
+    name: importedFile.data.name,
+    // TODO: set timelock properly when is defined
+    addresses: addresses.map(address => ({ ...address, timelock: importedFile.data.timelock })),
+    disclaimers: disclaimers || {},
+    signature: importedFile.signature,
+  }
+}
