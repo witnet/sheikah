@@ -12,8 +12,7 @@
 <script>
 import { mapState } from 'vuex'
 import NavigationCard from '@/components/card/NavigationCard'
-import { CLAIM_WITS_PER_ADDRESS } from '@/constants'
-
+import { calculateAddressesAmount } from '@/utils'
 export default {
   name: 'GenerateAddresses',
   components: {
@@ -23,13 +22,8 @@ export default {
     this.generateAddresses()
   },
   data() {
-    // TODO: read the amount from the uploaded file
-    const amount = 500
-    const addressesToGenerate = Math.ceil(amount / CLAIM_WITS_PER_ADDRESS)
     return {
       subtitle: 'GenerateAddresses',
-      amount,
-      addressesToGenerate,
     }
   },
   methods: {
@@ -59,15 +53,31 @@ export default {
   },
   computed: {
     ...mapState({
+      importedFile: state => {
+        return state.wallet.claimingFileInfo
+      },
       generatedAddresses: state => {
         return state.wallet.claimingAddresses.length || 0
       },
     }),
+    addressesAmount() {
+      return calculateAddressesAmount(this.importedFile.data.wit)
+    },
+    addressesToGenerate() {
+      return this.addressesAmount.length
+    },
     areAddressesGenerated() {
       return this.generatedAddresses === this.addressesToGenerate
     },
     percentage() {
       return Math.round((this.generatedAddresses / this.addressesToGenerate) * 100)
+    },
+  },
+  watch: {
+    areAddressesGenerated(areGenerated) {
+      if (areGenerated) {
+        this.$store.commit('addAmountToClamingAddresses', this.addressesAmount)
+      }
     },
   },
 }

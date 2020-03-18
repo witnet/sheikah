@@ -8,6 +8,7 @@ import {
   WALLET_EVENTS,
   HISTORY_UPDATE_TYPE,
   EDITOR_STAGES,
+  CLAIMING_ADDRESS_MIN_WITS,
 } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import { Radon } from 'witnet-radon-js'
@@ -466,4 +467,23 @@ export function simplifyDrResult(input, radonType) {
     // Types different than Array and Object are converted to a string that is tagged with the type
     return `${radonType}(${input})`
   }
+}
+
+// calculate the number of addresses and its amount according to the amount of wits passed
+export function calculateAddressesAmount(amount) {
+  if (amount === 0) return []
+  const ceil = precision => x => Math.ceil(x / precision) * precision
+  // round the amount of wits for convenience and deniability
+  const roundedAmount =
+    amount % CLAIMING_ADDRESS_MIN_WITS === 0 ? amount : ceil(CLAIMING_ADDRESS_MIN_WITS)(amount)
+
+  return (roundedAmount / CLAIMING_ADDRESS_MIN_WITS)
+    .toString()
+    .split('')
+    .map(Number)
+    .reverse()
+    .map((x, exp) => {
+      return new Array(x).fill(50 * 10 ** exp)
+    })
+    .reduce((a, b) => [...a, ...b])
 }

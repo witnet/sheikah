@@ -7,6 +7,7 @@ import {
   calculateCurrentFocusAfterUndo,
   calculateCurrentFocusAfterRedo,
   simplifyDrResult,
+  calculateAddressesNumber,
 } from '@/utils'
 import { WIT_UNIT } from '@/constants'
 import { Radon } from 'witnet-radon-js'
@@ -1139,5 +1140,95 @@ describe('calculateCurrentFocusAfterRedo', () => {
     // it('UPDATE_VARIABLE', () => {})
     // it('ADD_VARIABLE', () => {})
     // it('DELETE_VARIABLE', () => {})
+  })
+})
+
+describe('calculateAddressesNumber', () => {
+  describe('amount is equal to address gap', () => {
+    it('50 000 000', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(50000000)
+
+      expect(result).toBe(expected)
+    })
+
+    it('5 000 000', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(5000000)
+
+      expect(result).toBe(expected)
+    })
+
+    it('500 000', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(500000)
+
+      expect(result).toBe(expected)
+    })
+
+    it('50 000', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(50000)
+
+      expect(result).toBe(expected)
+    })
+
+    it('5 000', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(5000)
+
+      expect(result).toBe(expected)
+    })
+
+    it('500', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(500)
+
+      expect(result).toBe(expected)
+    })
+
+    it('50', () => {
+      const expected = 1
+      const result = calculateAddressesNumber(50)
+
+      expect(result).toBe(expected)
+    })
+  })
+
+  it('amount is lower than address minimum', () => {
+    const expected = 1
+    const result = calculateAddressesNumber(5)
+
+    expect(result).toBe(expected)
+  })
+
+  it('amount is 0', () => {
+    const expected = 0
+    const result = calculateAddressesNumber(0)
+
+    expect(result).toBe(expected)
+  })
+
+  describe('divide several times', () => {
+    it('737', () => {
+      const expected = 6
+      const result = calculateAddressesNumber(737)
+
+      expect(result).toBe(expected)
+    })
+
+    it('1 000 532', () => {
+      const expected = 4
+      const result = calculateAddressesNumber(1000532)
+
+      expect(result).toBe(expected)
+    })
+
+    it('2 523 432', () => {
+      const expected = 24
+      const result = calculateAddressesNumber(2523432)
+
+      expect(result).toBe(expected)
+    })
   })
 })

@@ -68,6 +68,12 @@ export default {
     claimingAddresses: [],
   },
   mutations: {
+    addAmountToClamingAddresses(state, addressesAmount) {
+      state.claimingAddresses = state.claimingAddresses.map((address, index) => ({
+        address: address,
+        amount: addressesAmount[index],
+      }))
+    },
     setTransactions(state, { transactions }) {
       state.transactions = transactions.map(transaction => ({
         ...transaction,
@@ -233,7 +239,7 @@ export default {
     },
     addClaimingAddress(state, { address }) {
       if (address) {
-        state.claimingAddresses.push(address)
+        state.claimingAddresses.push(address.address)
       }
     },
     validateMnemonics(state, { seed, mnemonics }) {

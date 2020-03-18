@@ -49,6 +49,9 @@ export default {
   },
   computed: {
     ...mapState({
+      claimingAddresses: state => {
+        return state.wallet.claimingAddresses
+      },
       claimingFileInfo: state => {
         return state.wallet.claimingFileInfo
       },
