@@ -34,6 +34,7 @@
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
 import Countdown from '@/components/claiming/Countdown'
+import { createExportClaimingFile } from '@/utils'
 import { mapState } from 'vuex'
 
 export default {
@@ -55,6 +56,12 @@ export default {
       claimingFileInfo: state => {
         return state.wallet.claimingFileInfo
       },
+      addresses: state => {
+        return state.wallet.addresses
+      },
+      disclaimers: state => {
+        return state.wallet.disclaimers
+      },
       claimingProcessCompleted: state => {
         return state.wallet.claimingProcessState
       },
@@ -64,7 +71,11 @@ export default {
     }),
     dataStr() {
       const claimingFileInfo = this.$store.state.wallet.claimingFileInfo
-      return `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(claimingFileInfo))}`
+      return `data:text/json;charset=utf-8,${encodeURIComponent(
+        JSON.stringify(
+          createExportClaimingFile(claimingFileInfo, this.claimingAddresses, this.disclaimers)
+        )
+      )}`
     },
   },
   methods: {
