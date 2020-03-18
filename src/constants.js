@@ -1,4 +1,4 @@
-export const CLAIM_WITS_PER_ADDRESS = 1
+export const CLAIMING_ADDRESS_MIN_WITS = 50
 
 export const WIT_UNIT = {
   WIT: 'wit',
