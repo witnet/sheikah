@@ -60,6 +60,7 @@ export default {
   data() {
     return {
       file: [],
+      fileName: '',
       dialogVisible: false,
       disabled: false,
     }
@@ -72,7 +73,7 @@ export default {
   },
   created() {
     if (this.claimingFileInfo) {
-      this.file.push({ name: 'claiming-process.json' })
+      this.file.push(this.claimingFileInfo.info)
     }
   },
   watch: {
@@ -81,7 +82,7 @@ export default {
         return this.$store.commit('clearError', { error: 'uploadFile' })
       }
       if (this.claimingFileInfo) {
-        this.file = [this.claimingFileInfo]
+        this.file = [this.claimingFileInfo.info]
       }
     },
   },
@@ -102,6 +103,36 @@ export default {
     handleExceed(files, fileList) {
       this.$message.warning('The limit of files uploaded is 1')
     },
+    validateFile(file) {
+      const isTheCorrectType =
+        typeof file.data.email_address === 'string' &&
+        typeof file.data.name === 'string' &&
+        typeof file.data.usd === 'number' &&
+        typeof file.data.wit === 'number' &&
+        typeof file.data.genesis_date === 'number' &&
+        typeof file.signature === 'string'
+      if (isTheCorrectType) {
+        return true
+      } else {
+        return false
+      }
+    },
+    normalizeFile(file) {
+      return {
+        info: {
+          name: this.fileName,
+          data: {
+            email_address: file.data.email_address,
+            name: file.data.name,
+            usd: file.data.usd,
+            wit: file.data.wit,
+            genesis_date: file.data.genesis_date,
+          },
+          signature: file.signature,
+          source: file.source,
+        },
+      }
+    },
     handleUpload() {
       const getLast = array => array[array.length - 1]
       const uploadFiles = this.$refs.upload.uploadFiles
@@ -113,9 +144,13 @@ export default {
       reader.onload = e => {
         // try to parse the json file content
         try {
-          console.log('---', e.target.result)
           const fileInfo = JSON.parse(e.target.result)
-          this.$store.commit('setClaimingInfo', { info: fileInfo })
+          this.fileName = raw.name
+          if (this.validateFile(fileInfo)) {
+            this.$store.commit('setClaimingInfo', {
+              info: this.normalizeFile(fileInfo),
+            })
+          }
         } catch (error) {
           console.log('Error parsing json', error)
         }
