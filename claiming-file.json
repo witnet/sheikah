@@ -1,0 +1,11 @@
+{
+  "data": {
+    "email_address": "johndoe@example.tld",
+    "name": "John Doe",
+    "usd": 1000,
+    "wit":  33350,
+    "genesis_date": 1587081600
+  },
+  "signature":  "<...>",
+  "source": false
+}
