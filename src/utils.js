@@ -490,12 +490,12 @@ export function calculateAddressesAmount(amount) {
 
 export function createExportClaimingFile(importedFile, addresses, disclaimers) {
   return {
-    email_address: importedFile.data.email_address,
-    name: importedFile.data.name,
+    email_address: importedFile.info.data.email_address,
+    name: importedFile.info.data.name,
     // TODO: set timelock properly when is defined
-    addresses: addresses.map(address => ({ ...address, timelock: importedFile.data.timelock })),
+    addresses: addresses.map(address => ({ ...address, timelock: importedFile.info.data.timelock })),
     disclaimers: disclaimers || {},
-    signature: importedFile.signature,
+    signature: importedFile.info.signature,
   }
 }
 

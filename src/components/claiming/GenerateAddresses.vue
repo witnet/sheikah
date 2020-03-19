@@ -61,7 +61,7 @@ export default {
       },
     }),
     addressesAmount() {
-      return calculateAddressesAmount(this.importedFile.data.wit)
+      return calculateAddressesAmount(this.importedFile.info.data.wit)
     },
     addressesToGenerate() {
       return this.addressesAmount.length
