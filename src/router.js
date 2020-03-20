@@ -29,6 +29,7 @@ import WelcomeForm from '@/components/steps/WelcomeForm.vue'
 import WalletImport from '@/components/steps/WalletImport.vue'
 import WalletNotFound from '@/components/WalletNotFound.vue'
 import Setup from '@/views/Setup.vue'
+import ClaimingUnlockWallet from '@/components/claiming/UnlockWallet.vue'
 import ClaimingWalletDisclaimer from '@/components/claiming/WalletDisclaimer.vue'
 import ClaimingWalletEncryptionPassword from '@/components/claiming/WalletEncryptionPassword.vue'
 import ClaimingWalletSeedBackup from '@/components/claiming/WalletSeedBackup.vue'
@@ -102,13 +103,12 @@ export default new Router({
                 }
               } else {
                 clearInterval(polling)
-                next('/claiming/claiming-instructions')
-                // if (localStorage.getItem('completed')) {
-                //   // TODO: remove this line, only for development
-                //   next('/claiming/download-file')
-                // } else {
-                //   next('/claiming/claiming-instructions')
-                // }
+                if (localStorage.getItem('completed')) {
+                  const l = store.state.wallet.walletInfos.length
+                  next(`/claiming/unlock/${store.state.wallet.walletInfos[l - 1].id}`)
+                } else {
+                  next('/claiming/claiming-instructions')
+                }
               }
             }, 5000)
           })
@@ -267,6 +267,10 @@ export default new Router({
           name: 'claimingInstructions',
           path: 'claiming-instructions',
           component: ClaimingInstructions,
+        },
+        {
+          path: 'unlock/:id',
+          component: ClaimingUnlockWallet,
         },
         {
           name: 'uploadClaimingFile',
