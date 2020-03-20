@@ -123,7 +123,6 @@ export default {
     },
     setClaimingInfo(state, { info }) {
       Object.assign(state, { claimingFileInfo: info })
-      console.log(state.claimingFileInfo)
     },
     setClaimingState(state, { completed }) {
       Object.assign(state, { claimingProcessState: completed })
