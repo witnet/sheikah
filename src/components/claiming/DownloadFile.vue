@@ -16,6 +16,7 @@
         Click to export the file
       </el-button>
       <a
+        v-if="dataStr"
         :href="dataStr"
         ref="download"
         download="claiming-information.json"
@@ -70,12 +71,17 @@ export default {
       },
     }),
     dataStr() {
-      const claimingFileInfo = this.$store.state.wallet.claimingFileInfo
-      return `data:text/json;charset=utf-8,${encodeURIComponent(
-        JSON.stringify(
-          createExportClaimingFile(claimingFileInfo, this.claimingAddresses, this.disclaimers)
-        )
-      )}`
+      return this.claimingFileInfo
+        ? `data:text/json;charset=utf-8,${encodeURIComponent(
+            JSON.stringify(
+              createExportClaimingFile(
+                this.claimingFileInfo.info,
+                this.claimingAddresses,
+                this.disclaimers
+              )
+            )
+          )}`
+        : ''
     },
   },
   methods: {
@@ -87,8 +93,8 @@ export default {
     },
   },
   beforeCreate() {
-    this.$store.dispatch('saveCompletedProcess')
     this.$store.dispatch('getClaimingInfo')
+    this.$store.dispatch('saveCompletedProcess')
   },
 }
 </script>
