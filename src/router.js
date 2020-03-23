@@ -9,6 +9,7 @@ import GenerateClaimingAddresses from '@/components/claiming/GenerateAddresses.v
 import DownloadClaimingFile from '@/components/claiming/DownloadFile.vue'
 import ClaimingFileInformation from '@/components/claiming/FileInformation.vue'
 import UploadClaimingFile from '@/components/claiming/UploadFile.vue'
+import Vesting from '@/components/claiming/Vesting.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
 import FirstTimeUsage from '@/views/FirstTimeUsage.vue'
@@ -268,6 +269,11 @@ export default new Router({
           name: 'claimingFileInformation',
           path: 'file-information',
           component: ClaimingFileInformation,
+        },
+        {
+          name: 'claimingVesting',
+          path: 'vesting',
+          component: Vesting,
         },
         {
           name: 'claimingCreateWallet',

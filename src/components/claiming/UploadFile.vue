@@ -51,7 +51,7 @@
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
 import { mapState } from 'vuex'
-
+import { validateClaimingImportFile } from '@/utils'
 export default {
   name: 'UploadFile',
   components: {
@@ -77,9 +77,12 @@ export default {
     }
   },
   watch: {
+    uploadFileError() {
+      this.file = []
+    },
     claimingFileInfo() {
       if (this.claimingFileInfo && this.uploadFileError) {
-        return this.$store.commit('clearError', { error: 'uploadFile' })
+        this.clearError()
       }
       if (this.claimingFileInfo) {
         this.file = [this.claimingFileInfo.info]
@@ -88,7 +91,7 @@ export default {
   },
   methods: {
     clearError() {
-      this.$store.commit('clearError', { error: this.uploadFileError.name })
+      this.$store.commit('clearError', { error: 'uploadFile' })
     },
     clearClaimingInfo() {
       this.$store.commit('clearClaimingInfo')
@@ -103,30 +106,22 @@ export default {
     handleExceed(files, fileList) {
       this.$message.warning('The limit of files uploaded is 1')
     },
-    validateFile(file) {
-      const isTheCorrectType =
-        typeof file.data.email_address === 'string' &&
-        typeof file.data.name === 'string' &&
-        typeof file.data.usd === 'number' &&
-        typeof file.data.wit === 'number' &&
-        typeof file.data.genesis_date === 'number' &&
-        typeof file.signature === 'string'
-      if (isTheCorrectType) {
-        return true
-      } else {
-        return false
-      }
-    },
     normalizeFile(file) {
       return {
         info: {
           name: this.fileName,
           data: {
-            email_address: file.data.email_address,
+            emailAddress: file.data.email_address,
             name: file.data.name,
             usd: file.data.usd,
             wit: file.data.wit,
-            genesis_date: file.data.genesis_date,
+            genesisDate: file.data.genesis_date * 10 ** 3,
+            vesting: {
+              delay: file.data.vesting.delay,
+              cliff: file.data.vesting.cliff,
+              installmentLength: file.data.vesting.installment_length,
+              installmentWits: file.data.vesting.installment_wits,
+            },
           },
           signature: file.signature,
           source: file.source,
@@ -146,10 +141,15 @@ export default {
         try {
           const fileInfo = JSON.parse(e.target.result)
           this.fileName = raw.name
-          if (this.validateFile(fileInfo)) {
+          if (validateClaimingImportFile(fileInfo)) {
             this.$store.commit('setClaimingInfo', {
               info: this.normalizeFile(fileInfo),
             })
+            if (this.uploadFileError) {
+              this.clearError()
+            }
+          } else {
+            this.setError()
           }
         } catch (error) {
           console.log('Error parsing json', error)
@@ -160,15 +160,18 @@ export default {
     previousStep() {
       this.$router.push('/claiming/claiming-instructions')
     },
+    setError () {
+      this.$store.commit('setError', {
+        name: 'uploadFile',
+        error: 'Validation Error',
+        message: 'Upload a valid claiming file',
+      })
+    },
     nextStep() {
-      if (this.claimingFileInfo) {
+      if (this.claimingFileInfo && !this.uploadFileError) {
         this.$router.push('/claiming/file-information')
       } else {
-        this.$store.commit('setError', {
-          name: 'uploadFile',
-          error: 'Validation Error',
-          message: 'Upload a valid claiming file before continue',
-        })
+        this.setError()
       }
     },
     importFile() {
