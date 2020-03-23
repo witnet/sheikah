@@ -123,6 +123,36 @@ export class WalletApi {
     return this._callApiMethod('create_wallet')(params)
   }
 
+  signData(params) {
+    return this._callApiMethod('sign_data')(params)
+  }
+
+  // sign all disclaimers at once
+  signDisclaimers(params) {
+    const disclaimers = { disclaimer_1: 'disclaimer_1', disclaimer_2: 'disclaimer_2' }
+    const requests = []
+    Object.entries(disclaimers).forEach(elm => {
+      const request = this.signData({
+        wallet_id: params.wallet_id,
+        session_id: params.session_id,
+        data: elm[0],
+      })
+      requests.push(request)
+    })
+    return Promise.all(requests).then(request => {
+      const isError = request.find(x => !x.result)
+      if (isError) {
+        return { error: 'Error signing data' }
+      } else {
+        // assign disclaimer names to its signature
+        return Object.keys(disclaimers).reduce((acc, key, index) => {
+          acc[key] = request[index].result
+          return acc
+        }, {})
+      }
+    })
+  }
+
   generateAddress(params) {
     return this._callApiMethod('generate_address')(params)
   }
@@ -131,19 +161,19 @@ export class WalletApi {
     return this._callApiMethod('get_addresses')(params, standardizeAddresses)
   }
 
+  getTransactions(params) {
+    return this._callApiMethod('get_transactions')(
+      params,
+      standardizeTransactions,
+    )
+  }
+
   getBalance(params) {
     return this._callApiMethod('get_balance')(params)
   }
 
   getItem(params) {
     return this._callApiMethod('get')(params)
-  }
-
-  getTransactions(params) {
-    return this._callApiMethod('get_transactions')(
-      params,
-      standardizeTransactions,
-    )
   }
 
   getWalletInfos(params) {
@@ -170,12 +200,12 @@ export class WalletApi {
     return this._callApiMethod('send_data_request')(params)
   }
 
-  sendTransaction(params) {
-    return this._callApiMethod('send_transaction')(params)
-  }
-
   unlockWallet(params) {
     return this._callApiMethod('unlock_wallet')(params)
+  }
+
+  sendTransaction(params) {
+    return this._callApiMethod('send_transaction')(params)
   }
 }
 
