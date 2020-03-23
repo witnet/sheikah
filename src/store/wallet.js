@@ -9,6 +9,7 @@ export default {
   state: {
     api: new WalletApi(),
     errors: {
+      signDisclaimer: null,
       seed: null,
       uploadFile: null,
       createMnemonics: null,
@@ -46,6 +47,7 @@ export default {
     networkStatus: 'error',
     radRequestResult: null,
     transactions: [],
+    disclaimers: {},
     txLabels: {},
     walletInfos: null,
     walletLocked: false,
@@ -123,6 +125,9 @@ export default {
     },
     setClaimingInfo(state, { info }) {
       Object.assign(state, { claimingFileInfo: info })
+    },
+    setDisclaimers(state, { result }) {
+      state.disclaimers = result
     },
     setClaimingState(state, { completed }) {
       Object.assign(state, { claimingProcessState: completed })
@@ -488,6 +493,21 @@ export default {
           name: 'createMnemonics',
           error: request.error.message,
           message: 'An error occurred creating the mnemonics',
+        })
+      }
+    },
+
+    signData: async function(context) {
+      const request = await context.state.api.signDisclaimers({
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
+      })
+      if (request) {
+        context.commit('setDisclaimers', { result: request })
+      } else {
+        context.commit('setError', {
+          name: 'signDisclaimer',
+          message: 'An error occurred signing the data',
         })
       }
     },

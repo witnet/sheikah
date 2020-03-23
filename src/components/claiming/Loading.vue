@@ -32,6 +32,7 @@ export default {
   computed: {
     ...mapState({
       sessionId: state => state.wallet.sessionId,
+      disclaimers: state => state.wallet.disclaimers,
       error: state => state.wallet.errors.unlockWallet || state.wallet.errors.createWallet,
     }),
   },
@@ -39,6 +40,7 @@ export default {
     async sessionId(value) {
       if (value) {
         await sleep(2000)
+        this.$store.dispatch('signData')
         this.$store.dispatch('saveClaimingInfo')
         this.$router.push('/claiming/generate-addresses')
       }
