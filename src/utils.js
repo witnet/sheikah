@@ -12,6 +12,7 @@ import {
 } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import { Radon } from 'witnet-radon-js'
+import ow from 'ow'
 
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
@@ -490,12 +491,11 @@ export function calculateAddressesAmount(amount) {
 
 export function createExportClaimingFile(importedFile, addresses, disclaimers) {
   return {
-    email_address: importedFile.data.email_address,
+    email_address: importedFile.data.emailAddress,
     name: importedFile.data.name,
     // TODO: set timelock properly when is defined
     addresses: addresses.map(address => ({
       ...address,
-      timelock: importedFile.data.timelock,
     })),
     disclaimers: disclaimers || {},
     signature: importedFile.signature,
@@ -508,4 +508,28 @@ export async function sleep(t) {
       resolve()
     }, t)
   })
+}
+
+// validate imported file structure
+export function validateClaimingImportFile(importedFile) {
+  return ow.isValid(
+    importedFile,
+    // imported file schema
+    ow.object.exactShape({
+      data: {
+        email_address: ow.string,
+        name: ow.string,
+        usd: ow.number,
+        wit: ow.number,
+        genesis_date: ow.number,
+        vesting: {
+          delay: ow.number,
+          cliff: ow.number,
+          installment_length: ow.number,
+          installment_wits: ow.number,
+        },
+      },
+      signature: ow.string,
+    })
+  )
 }

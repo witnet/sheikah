@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     previousStep() {
-      this.$router.push('/claiming/file-information')
+      this.$router.push('/claiming/vesting')
     },
     nextStep() {
       this.$router.push('/claiming/disclaimer')
