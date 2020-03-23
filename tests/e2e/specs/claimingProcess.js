@@ -60,6 +60,19 @@ describe('claimingProcess', () => {
     })
   })
 
+  describe('Vesting step', () => {
+    it('navigate to file information step', () => {
+      cy.get('[data-test=vesting]')
+    })
+
+    it('navigate back and forward', () => {
+      cy.get('[data-test=previous-step]').click()
+      cy.get('[data-test=file-information]')
+      cy.get('[data-test=next-step]').click()
+      cy.get('[data-test=next-step]').click()
+    })
+  })
+
   describe('Create your wallet step', () => {
     it('navigate create your wallet step', () => {
       cy.get('[data-test=create-wallet]')

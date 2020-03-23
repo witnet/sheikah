@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     nextStep() {
-      this.$router.push('/claiming/create-wallet')
+      this.$router.push('/claiming/vesting')
     },
     previousStep() {
       this.$router.push('/claiming/upload-file')
