@@ -70,67 +70,98 @@ export class WalletApi {
         .catch(this._handleError)
   }
 
-  async subscribeToNotifications(params, cb) {
+  subscribeToNotifications(params, cb) {
     return this._callApiMethod('subscribe_notifications')([params.sessionId])
       .then(_ => {
         this.client.on('notifications', cb)
       })
       .catch(this._handleError)
   }
-  async createDataRequest(params) {
+
+  createDataRequest(params) {
     return this._callApiMethod('create_data_request')(params)
   }
 
-  async createMnemonics(params) {
+  createMnemonics(params) {
     return this._callApiMethod('create_mnemonics')(params)
   }
 
-  async createWallet(params) {
+  createWallet(params) {
     return this._callApiMethod('create_wallet')(params)
   }
 
-  async generateAddress(params) {
+  signData(params) {
+    return this._callApiMethod('sign_data')(params)
+  }
+
+  // sign all disclaimers at once
+  signDisclaimers(params) {
+    const disclaimers = { disclaimer_1: 'disclaimer_1', disclaimer_2: 'disclaimer_2' }
+    const requests = []
+    Object.entries(disclaimers).forEach(elm => {
+      const request = this.signData({
+        wallet_id: params.wallet_id,
+        session_id: params.session_id,
+        data: elm[0],
+      })
+      requests.push(request)
+    })
+    return Promise.all(requests).then(request => {
+      const isError = request.find(x => !x.result)
+      if (isError) {
+        return { error: 'Error signing data' }
+      } else {
+        // assign disclaimer names to its signature
+        return Object.keys(disclaimers).reduce((acc, key, index) => {
+          acc[key] = request[index].result
+          return acc
+        }, {})
+      }
+    })
+  }
+
+  generateAddress(params) {
     return this._callApiMethod('generate_address')(params)
   }
 
-  async getTransactions(params) {
+  getTransactions(params) {
     return this._callApiMethod('get_transactions')(params)
   }
 
-  async getBalance(params) {
+  getBalance(params) {
     return this._callApiMethod('get_balance')(params)
   }
 
-  async getWalletInfos(params) {
+  getWalletInfos(params) {
     return this._callApiMethod('get_wallet_infos')(params)
   }
 
-  async importSeed(params) {
+  importSeed(params) {
     return this._callApiMethod('import_seed')(params)
   }
 
-  async lockWallet(params) {
+  lockWallet(params) {
     return this._callApiMethod('lock_wallet')(params)
   }
 
-  async runRadRequest(params) {
+  runRadRequest(params) {
     return this._callApiMethod('run_rad_request')(params)
   }
 
-  async sendDataRequest(params) {
+  sendDataRequest(params) {
     return this._callApiMethod('send_data_request')(params)
   }
 
-  async createVTT(params) {
+  createVTT(params) {
     const defaultParams = { timeLock: 0 }
     return this._callApiMethod('create_vtt')({ ...defaultParams, ...params })
   }
 
-  async unlockWallet(params) {
+  unlockWallet(params) {
     return this._callApiMethod('unlock_wallet')(params)
   }
 
-  async closeSession(params) {
+  closeSession(params) {
     return this._callApiMethod('close_session')(params)
   }
 
