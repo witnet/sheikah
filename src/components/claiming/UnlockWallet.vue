@@ -3,11 +3,11 @@
     <div class="text">Insert a password to unlock wallet</div>
     <div class="unlock-wallet">
       <div @keydown.enter.esc.prevent="unlockWallet">
-        <PasswordInput
+        <el-input
           data-test="password-input"
-          label="Password"
+          placeholder="Please input password"
           v-model="password"
-          :error="'unlockWallet'"
+          show-password
         />
         <p data-test="password-error-alert" v-if="unlockWalletError" class="error">
           Invalid password
@@ -19,7 +19,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import PasswordInput from '@/components/PasswordInput'
 import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
@@ -59,7 +58,6 @@ export default {
     },
   },
   components: {
-    PasswordInput,
     NavigationCard,
   },
 }
