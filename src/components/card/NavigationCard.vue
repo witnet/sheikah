@@ -77,7 +77,7 @@ export default {
   border: 1px solid $grey-0;
 
   .header {
-    background: $sheikah-gradient;
+    background: $blue-6;
     padding: 0 32px;
     align-items: center;
     color: $white;
@@ -89,6 +89,7 @@ export default {
   }
 
   .content {
+    background: $white;
     display: flex;
     flex-direction: column;
     justify-content: center;

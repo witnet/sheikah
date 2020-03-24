@@ -52,6 +52,7 @@ export default {
 @import '@/styles/_colors.scss';
 
 .welcome-back {
+  background-color: $alpha-grey;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -59,6 +60,7 @@ export default {
   align-items: center;
 
   .layout {
+    background: $white;
     height: 400px;
     width: 600px;
     display: grid;
@@ -66,7 +68,7 @@ export default {
     box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
 
     .bar {
-      background: $sheikah-gradient;
+      background: $blue-6;
       padding: 20px;
       justify-content: space-between;
       display: flex;

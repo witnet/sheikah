@@ -51,6 +51,7 @@ export default {
   }
 
   .content {
+    background: $white;
     display: flex;
     flex-direction: column;
     justify-content: center;

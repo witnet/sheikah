@@ -24,6 +24,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
 .container {
+  background: $white;
   display: flex;
   flex-direction: column;
   .subtitle {
