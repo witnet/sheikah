@@ -72,10 +72,8 @@ export default {
   }
   .content {
     overflow-wrap: break-word;
-    border-radius: 2px;
-    box-shadow: $default-box-shadow;
+    box-shadow: 0 0px 5px 0px rgba(29, 29, 29, 0.1);
     padding: 32px;
-    background-color: $alpha-blue;
     .no-transactions-container {
       display: flex;
       flex-direction: column;

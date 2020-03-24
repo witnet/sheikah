@@ -15,21 +15,25 @@
       phrase is still your ultimate backup.
     </p>
     <div class="form-row password">
-      <PasswordInput
+      <p>Create a password</p>
+      <el-input
         data-test="password-input"
-        label="Password"
+        placeholder="Please input password"
         v-model="password"
-        v-on:go-next="goNextInput"
-      />
+        show-password
+        @keydown.enter.native="goNextInput"
+      ></el-input>
     </div>
     <div ref="confirm" class="form-row password">
-      <PasswordInput
-        data-test="password-input"
+      <p>Confirm your password</p>
+      <el-input
         ref="password"
-        label="Confirm password"
+        @keydown.enter.native="nextStep"
+        data-test="password-input"
+        placeholder="Confirm password"
         v-model="repeatPassword"
-        v-on:go-next="nextStep"
-      />
+        show-password
+      ></el-input>
     </div>
     <div class="form-row">
       <div data-test="password-error-alert" v-if="createValidPasswordError" class="error">
@@ -41,7 +45,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import PasswordInput from '@/components/PasswordInput'
 import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
@@ -73,7 +76,7 @@ export default {
       })
     },
     goNextInput() {
-      this.$refs.password.$refs.passInput.focus()
+      this.$refs.password.focus()
     },
     nextStep() {
       this.validateForm()
@@ -106,7 +109,6 @@ export default {
   },
   components: {
     NavigationCard,
-    PasswordInput,
   },
   beforeDestroy() {
     if (this.createValidPasswordError) {

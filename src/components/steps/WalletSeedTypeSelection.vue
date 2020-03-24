@@ -62,7 +62,7 @@ export default {
 
 .header {
   align-items: center;
-  background: $sheikah-gradient;
+  background: $blue-6;
   display: flex;
   font-size: 24px;
   font-weight: 100;
