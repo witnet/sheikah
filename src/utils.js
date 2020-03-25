@@ -241,3 +241,21 @@ export function validateClaimingImportFile(importedFile) {
     })
   )
 }
+
+function calculateVesting (vestingInfo, amount, genesisDate) {
+  const { delay, installmentLength, cliff, installmentWits } = vestingInfo
+  const numberOfSteps = Math.ceil(amount / installmentWits)
+  const steps = Array(numberOfSteps)
+    .fill(0)
+    .map((_, index) => {
+      let date = new Date(genesisDate)
+      date.setSeconds(date.getSeconds() + delay + cliff + installmentLength * index)
+      let currentAmount = amount >= installmentWits ? installmentWits : amount
+      amount -= installmentWits
+      return {
+        date: changeDateFormat(date),
+        amount: currentAmount,
+      }
+    })
+  return steps
+}

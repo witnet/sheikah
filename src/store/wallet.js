@@ -56,6 +56,9 @@ export default {
     claimingAddresses: [],
   },
   mutations: {
+    setComputedVesting(state, computedVesting) {
+      state.computedVesting = computedVesting
+    },
     addAmountToClamingAddresses(state, addressesAmount) {
       state.claimingAddresses = state.claimingAddresses.map((address, index) => ({
         address: address,
