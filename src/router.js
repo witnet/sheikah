@@ -187,12 +187,27 @@ export default new Router({
             error = false
             store.dispatch('getWalletInfos')
             const polling = setInterval(() => {
+              const isSessionId = store.state.wallet.sessionId
               const walletInfos = store.state.wallet.walletInfos
-              clearInterval(polling)
-              if (walletInfos.length > 0) {
-                next('/welcome-back/wallet-list')
+              const tokenGenerationEventOccurred = store.state.wallet.tokenGenerationEventOccurred
+              if (tokenGenerationEventOccurred) {
+                clearInterval(polling)
+                if (isSessionId) {
+                  next()
+                } else if (walletInfos.length > 0) {
+                  next('/welcome-back/wallet-list')
+                } else {
+                  next('/ftu/welcome')
+                }
               } else {
-                next('/ftu/welcome')
+                console.log('not occured')
+                clearInterval(polling)
+                if (localStorage.getItem('completed')) {
+                  const l = store.state.wallet.walletInfos.length
+                  next(`/claiming/unlock/${store.state.wallet.walletInfos[l - 1].id}`)
+                } else {
+                  next('/claiming/claiming-instructions')
+                }
               }
             }, 1000)
           })
