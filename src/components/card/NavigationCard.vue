@@ -12,7 +12,13 @@
       </div>
     </template>
 
-    <template v-slot:footer>
+    <template v-slot:alt-footer>
+      <div class="alt-footer">
+        <slot name="alt-footer"></slot>
+      </div>
+    </template>
+
+    <template v-if="previousStep || nextStep" v-slot:footer>
       <div class="navigation-buttons">
         <el-button
           v-if="previousStep"
