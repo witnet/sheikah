@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Community from '@/components/Community.vue'
 import ClaimingProcess from '@/views/ClaimingProcess.vue'
 import ClaimingInstructions from '@/components/claiming/Instructions.vue'
 import ClaimingCreateWallet from '@/components/claiming/CreateWallet.vue'
@@ -10,6 +9,14 @@ import DownloadClaimingFile from '@/components/claiming/DownloadFile.vue'
 import ClaimingFileInformation from '@/components/claiming/FileInformation.vue'
 import UploadClaimingFile from '@/components/claiming/UploadFile.vue'
 import Vesting from '@/components/claiming/Vesting.vue'
+import Countdown from '@/components/claiming/Countdown.vue'
+import ClaimingUnlockWallet from '@/components/claiming/UnlockWallet.vue'
+import ClaimingWalletDisclaimer from '@/components/claiming/WalletDisclaimer.vue'
+import ClaimingWalletEncryptionPassword from '@/components/claiming/WalletEncryptionPassword.vue'
+import ClaimingWalletSeedBackup from '@/components/claiming/WalletSeedBackup.vue'
+import ClaimingWalletSeedValidation from '@/components/claiming/WalletSeedValidation.vue'
+import ClaimingLoading from '@/components/claiming/Loading.vue'
+import Community from '@/components/Community.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
 import FirstTimeUsage from '@/views/FirstTimeUsage.vue'
@@ -30,12 +37,6 @@ import WelcomeForm from '@/components/steps/WelcomeForm.vue'
 import WalletImport from '@/components/steps/WalletImport.vue'
 import WalletNotFound from '@/components/WalletNotFound.vue'
 import Setup from '@/views/Setup.vue'
-import ClaimingUnlockWallet from '@/components/claiming/UnlockWallet.vue'
-import ClaimingWalletDisclaimer from '@/components/claiming/WalletDisclaimer.vue'
-import ClaimingWalletEncryptionPassword from '@/components/claiming/WalletEncryptionPassword.vue'
-import ClaimingWalletSeedBackup from '@/components/claiming/WalletSeedBackup.vue'
-import ClaimingWalletSeedValidation from '@/components/claiming/WalletSeedValidation.vue'
-import ClaimingLoading from '@/components/claiming/Loading.vue'
 
 import store from '@/store'
 
@@ -104,13 +105,12 @@ export default new Router({
                 }
               } else {
                 clearInterval(polling)
-                next('/claiming/claiming-instructions')
-                // if (localStorage.getItem('completed')) {
-                //   const l = store.state.wallet.walletInfos.length
-                //   next(`/claiming/unlock/${store.state.wallet.walletInfos[l - 1].id}`)
-                // } else {
-                //   next('/claiming/claiming-instructions')
-                // }
+                if (localStorage.getItem('completed')) {
+                  const l = store.state.wallet.walletInfos.length
+                  next(`/claiming/unlock/${store.state.wallet.walletInfos[l - 1].id}`)
+                } else {
+                  next('/claiming/claiming-instructions')
+                }
               }
             }, 5000)
           })
@@ -278,6 +278,11 @@ export default new Router({
           name: 'uploadClaimingFile',
           path: 'upload-file',
           component: UploadClaimingFile,
+        },
+        {
+          name: 'countdown',
+          path: 'countdown',
+          component: Countdown,
         },
         {
           name: 'claimingFileInformation',

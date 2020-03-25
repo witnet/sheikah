@@ -1,10 +1,14 @@
 <template>
-  <NavigationCard data-test="download-file" title="Download file">
+  <NavigationCard
+    data-test="download-file"
+    title="Export and send your token claim file"
+    :nextStep="nextStep"
+    nextText="Continue"
+  >
     <p class="text bold">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
       in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
     </p>
-    <Countdown :date="checkTokenGenerationEventDate" />
     <div class="file-container">
       <el-button
         type="primary"
@@ -13,7 +17,7 @@
         data-test="download-claiming"
         @click="exportFile"
       >
-        Click to export the file
+        Export my claim file...
       </el-button>
       <a
         v-if="dataStr"
@@ -34,7 +38,6 @@
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
-import Countdown from '@/components/claiming/Countdown'
 import { createExportClaimingFile } from '@/utils'
 import { mapState } from 'vuex'
 
@@ -42,7 +45,6 @@ export default {
   name: 'DownloadFile',
   components: {
     NavigationCard,
-    Countdown,
   },
   data() {
     return {
@@ -66,9 +68,6 @@ export default {
       claimingProcessCompleted: state => {
         return state.wallet.claimingProcessState
       },
-      checkTokenGenerationEventDate: state => {
-        return state.wallet.checkTokenGenerationEventDate
-      },
     }),
     dataStr() {
       return this.claimingFileInfo
@@ -88,8 +87,8 @@ export default {
     exportFile() {
       this.$refs.download.click()
     },
-    previousStep() {
-      this.$router.push('/claiming/generate-addresses')
+    nextStep() {
+      this.$router.push('/claiming/countdown')
     },
   },
   beforeCreate() {
@@ -112,17 +111,15 @@ export default {
 }
 .file-container {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   flex-direction: column;
-  align-items: left;
-  margin-left: 34px;
+  align-items: center;
   .file {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: left;
+    align-items: center;
     font-size: 34px;
-    margin-bottom: 16px;
     .el-icon-document {
       margin-right: 8px;
       padding-left: 4px;
@@ -143,7 +140,7 @@ export default {
     }
   }
   .download-btn {
-    width: min-content;
+    width: 225px;
   }
 }
 </style>

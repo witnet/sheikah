@@ -2,6 +2,7 @@
   <div class="card-layout">
     <slot name="header"></slot>
     <slot name="content"></slot>
+    <slot name="alt-footer" />
     <slot name="footer"></slot>
   </div>
 </template>
