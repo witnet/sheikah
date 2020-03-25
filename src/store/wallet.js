@@ -60,10 +60,19 @@ export default {
       state.computedVesting = computedVesting
     },
     addAmountToClamingAddresses(state, addressesAmount) {
-      state.claimingAddresses = state.claimingAddresses.map((address, index) => ({
-        address: address,
-        amount: addressesAmount[index],
-      }))
+      const addresses = [...state.claimingAddresses]
+      state.claimingAddresses = addressesAmount
+        .map((amount, index) => {
+          let timelock = Math.floor(state.computedVesting[index].date.getTime() / 1000)
+          return amount.map(y => {
+            return {
+              address: addresses.shift(),
+              amount: y,
+              timelock,
+            }
+          })
+        })
+        .reduce((acc, arr) => [...acc, ...arr])
     },
     setTransactions(state, { transactions }) {
       state.transactions = transactions.map(transaction => {

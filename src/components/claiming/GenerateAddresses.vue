@@ -59,12 +59,17 @@ export default {
       generatedAddresses: state => {
         return state.wallet.claimingAddresses.length || 0
       },
+      computedVesting: state => {
+        return state.wallet.computedVesting
+      },
     }),
     addressesAmount() {
-      return calculateAddressesAmount(this.importedFile.info.data.wit)
+      return this.computedVesting.map(period => {
+        return calculateAddressesAmount(period.amount)
+      })
     },
     addressesToGenerate() {
-      return this.addressesAmount.length
+      return this.addressesAmount.reduce((acc, arr) => acc + arr.length, 0)
     },
     areAddressesGenerated() {
       return this.generatedAddresses === this.addressesToGenerate

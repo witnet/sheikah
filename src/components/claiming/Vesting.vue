@@ -8,14 +8,16 @@
     title="Vesting"
   >
     <p>You will unlock the following amount of wits</p>
-    <p v-for="step in vesting" :key="step.date">{{ step.date }} - {{ step.amount }} wits</p>
+    <p v-for="step in vesting" :key="step.date.getTime()">
+      {{ changeDateFormat(step.date) }} - {{ step.amount }} wits
+    </p>
   </NavigationCard>
 </template>
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
 import { mapState } from 'vuex'
-import { calculateVesting } from '@/utils'
+import { calculateVesting, changeDateFormat } from '@/utils'
 export default {
   name: 'Vesting',
   components: {
@@ -25,7 +27,7 @@ export default {
     ...mapState({
       vestingInfo: state => state.wallet.claimingFileInfo.info.data.vesting,
       genesisDate: state => state.wallet.claimingFileInfo.info.data.genesisDate,
-      amount: state => state.wallet.claimingFileInfo.amount,
+      amount: state => state.wallet.claimingFileInfo.info.data.wit,
     }),
 
     vesting() {
@@ -35,6 +37,7 @@ export default {
     },
   },
   methods: {
+    changeDateFormat,
     nextStep() {
       this.$router.push('/claiming/create-wallet')
     },
