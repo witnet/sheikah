@@ -160,7 +160,7 @@ export default {
     previousStep() {
       this.$router.push('/claiming/claiming-instructions')
     },
-    setError () {
+    setError() {
       this.$store.commit('setError', {
         name: 'uploadFile',
         error: 'Validation Error',
