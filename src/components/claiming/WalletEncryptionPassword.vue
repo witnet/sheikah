@@ -17,6 +17,7 @@
     <div class="form-row password">
       <p>Create a password</p>
       <el-input
+        class="password"
         data-test="password-input"
         placeholder="Please input password"
         v-model="password"
@@ -27,6 +28,7 @@
     <div ref="confirm" class="form-row password">
       <p>Confirm your password</p>
       <el-input
+        class="password"
         ref="password"
         @keydown.enter.native="nextStep"
         data-test="password-input"
@@ -137,21 +139,18 @@ export default {
   flex-flow: row nowrap;
   margin-bottom: 32px;
   align-items: center;
-  justify-content: center;
   &.password {
     max-width: none;
     display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    justify-content: space-between;
+  }
+  .password {
+    width: 350px;
   }
 }
 
 .label {
   color: $font-color-light;
   width: 100px;
-}
-
-.password-input {
-  width: 50%;
 }
 </style>
