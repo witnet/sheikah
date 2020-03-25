@@ -1,8 +1,8 @@
 <template>
-  <NavigationCard
+  <Disclaimer
     data-test="wallet-disclaimer"
     class="wallet-disclaimer"
-    title="Important"
+    title="Wits are not money"
     :previousStep="previousStep"
     :nextStep="nextStep"
     previousText="Back"
@@ -26,16 +26,16 @@
       We recommend storing your seed phrase on paper somewhere safe. Do not store it in a file on
       your computer or anywhere electronically.
     </p>
-  </NavigationCard>
+  </Disclaimer>
 </template>
 
 <script>
-import NavigationCard from '@/components/card/NavigationCard'
+import Disclaimer from '@/components/card/Disclaimer'
 
 export default {
   name: 'WalletDisclaimer',
   components: {
-    NavigationCard,
+    Disclaimer,
   },
   data() {
     return {
@@ -54,10 +54,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .text {
   margin-bottom: 8px;
+  color: $white;
 
   &.bold {
+    color: $white;
     font-weight: bold;
     margin-bottom: 16px;
   }
