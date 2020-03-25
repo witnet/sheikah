@@ -80,7 +80,7 @@ describe('claimingProcess', () => {
 
     it('navigate back and forward', () => {
       cy.get('[data-test=previous-step]').click()
-      cy.get('[data-test=file-information]')
+      cy.get('[data-test=vesting]')
       cy.get('[data-test=next-step]').click()
       cy.get('[data-test=next-step]').click()
     })

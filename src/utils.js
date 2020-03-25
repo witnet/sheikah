@@ -201,11 +201,8 @@ export function createExportClaimingFile(importedFile, addresses, disclaimers) {
   return {
     email_address: importedFile.data.emailAddress,
     name: importedFile.data.name,
-    // TODO: set timelock properly when is defined
-    addresses: addresses.map(address => ({
-      ...address,
-    })),
-    disclaimers: disclaimers || {},
+    addresses,
+    disclaimers: disclaimers,
     signature: importedFile.signature,
   }
 }
@@ -242,7 +239,7 @@ export function validateClaimingImportFile(importedFile) {
   )
 }
 
-function calculateVesting (vestingInfo, amount, genesisDate) {
+export function calculateVesting(vestingInfo, amount, genesisDate) {
   const { delay, installmentLength, cliff, installmentWits } = vestingInfo
   const numberOfSteps = Math.ceil(amount / installmentWits)
   const steps = Array(numberOfSteps)
@@ -253,7 +250,7 @@ function calculateVesting (vestingInfo, amount, genesisDate) {
       let currentAmount = amount >= installmentWits ? installmentWits : amount
       amount -= installmentWits
       return {
-        date: changeDateFormat(date),
+        date: date,
         amount: currentAmount,
       }
     })
