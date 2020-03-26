@@ -130,10 +130,10 @@ describe('claimingProcess', () => {
     })
 
     it('write password', () => {
-      cy.get('[data-test=password]')
+      cy.get('[data-test=password-input]')
         .first()
         .type('password')
-      cy.get('[data-test=password]')
+      cy.get('[data-test=password-input]')
         .last()
         .type('password')
       cy.get('[data-test=next-step]').click()
