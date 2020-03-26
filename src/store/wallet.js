@@ -123,7 +123,11 @@ export default {
           message,
         }
       } else {
-        if (state.networkStatus !== 'error') {
+        const socketNotReady = error === 'socket not ready'
+        const networkStatusError = state.networkStatus === 'error'
+        if (networkStatusError || socketNotReady) {
+          return ''
+        } else {
           // notification options
           const notificationProps = {
             title: error,
