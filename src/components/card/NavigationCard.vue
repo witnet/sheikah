@@ -78,9 +78,8 @@ export default {
   background-color: $white;
   box-shadow: $default-box-shadow;
   width: 600px;
-  // height: 550px;
   min-height: 400px;
-  border: 1px solid $grey-0;
+  border: 1px solid $blue-6;
 
   .header {
     background: $blue-6;
