@@ -85,20 +85,46 @@ export function match(value, options, result) {
   return search ? search.result : null
 }
 
-export function changeDateFormat(string) {
+export function changeDateFormat(string, format) {
   let date = new Date(string)
-  let month = '' + (date.getMonth() + 1)
-  let day = '' + date.getDate()
-  let year = date.getFullYear()
-
-  if (month.length < 2) {
-    month = '0' + month
+  if (format === 'claiming') {
+    const formatedDate = date
+      .toString()
+      .split(' ')
+      .splice(1, 4)
+    const month = formatedDate[0].toUpperCase()
+    const day = formatedDate[1]
+    const year = formatedDate[2]
+    const time = formatedDate[3]
+    return `${month} ${day}, ${year} @ ${time}`
+  } else {
+    let month = '' + (date.getMonth() + 1)
+    let day = '' + date.getDate()
+    let year = date.getFullYear()
+    if (month.length < 2) {
+      month = '0' + month
+    }
+    if (day.length < 2) {
+      day = '0' + day
+    }
+    return `${day}-${month}-${year}`
   }
-  if (day.length < 2) {
-    day = '0' + day
-  }
-  return `${day}-${month}-${year}`
 }
+
+// export function changeDateFormat(string) {
+//   let date = new Date(string)
+//   let month = '' + (date.getMonth() + 1)
+//   let day = '' + date.getDate()
+//   let year = date.getFullYear()
+
+//   if (month.length < 2) {
+//     month = '0' + month
+//   }
+//   if (day.length < 2) {
+//     day = '0' + day
+//   }
+//   return `${day}-${month}-${year}`
+// }
 
 // TODO(#935): allow open links with electron.shell.openExternal
 export async function openInExternalApp(url) {
