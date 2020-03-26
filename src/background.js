@@ -8,7 +8,7 @@ import path from 'path'
 import stream from 'stream'
 import util from 'util'
 import { spawn } from 'child_process'
-import { BrowserWindow, app, protocol } from 'electron'
+import { BrowserWindow, app, protocol, globalShortcut } from 'electron'
 import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
@@ -94,6 +94,9 @@ app.on('ready', async () => {
     } catch (e) {
       console.error('Vue Devtools failed to install:', e.toString())
     }
+  } else {
+    globalShortcut.register('CmdOrCtrl+R', () => {})
+    globalShortcut.register('CmdOrCtrl+Shift+R', () => {})
   }
 
   createWindow()
