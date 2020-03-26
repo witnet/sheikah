@@ -180,7 +180,6 @@ export default new Router({
                   next('/ftu/welcome')
                 }
               } else {
-                console.log('not occured')
                 clearInterval(polling)
                 if (localStorage.getItem('completed')) {
                   const l = store.state.wallet.walletInfos.length

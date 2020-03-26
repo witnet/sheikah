@@ -17,8 +17,8 @@
     </div>
     <div class="list-data">
       <div class="list-row" v-for="step in vesting" :key="step.date.getTime()">
-        <p class="data type">{{ type }}</p>
-        <p class="data date">{{ changeDateFormat(step.date) }}</p>
+        <p :class="`data type_${type}`">{{ type }}</p>
+        <p class="data date">{{ changeDateFormat(step.date, 'claiming') }}</p>
         <p class="data amount">{{ step.amount }}<span class="currency"> WIT</span></p>
       </div>
     </div>
@@ -40,12 +40,25 @@ export default {
     type() {
       const genesis = this.vesting.lenght <= 1
       const delay = this.vestingInfo.delay > 0 && !genesis
-      return genesis ? 'GENESIS' : delay ? 'DELAY' : 'LOCK-UP'
+      if (genesis) {
+        return 'GENESIS'
+      } else if (delay) {
+        return 'DELAY'
+      } else {
+        return 'LOCK-UP'
+      }
     },
     vesting() {
       const vesting = calculateVesting(this.vestingInfo, this.amount, this.genesisDate)
-      this.$store.commit('setComputedVesting', vesting)
       return vesting
+    },
+  },
+  watch: {
+    vesting: {
+      handler: function() {
+        this.$store.commit('setComputedVesting', this.vesting)
+      },
+      immediate: true,
     },
   },
   methods: {
@@ -103,7 +116,7 @@ export default {
         color: $grey-5;
         font-size: 14px;
       }
-      .type {
+      .type_LOCK-UP {
         height: min-content;
         padding: 0px 4px;
         background-color: $light-purple;
@@ -111,6 +124,24 @@ export default {
         font-size: 12px;
         border-radius: 2px;
         border: 1px solid $blue-6;
+      }
+      .type_DELAY {
+        height: min-content;
+        padding: 0px 4px;
+        background-color: $light-blue;
+        color: $white;
+        font-size: 12px;
+        border-radius: 2px;
+        border: 1px solid $blue;
+      }
+      .type_GENESIS {
+        height: min-content;
+        padding: 0px 4px;
+        background-color: $green-0;
+        color: $white;
+        font-size: 12px;
+        border-radius: 2px;
+        border: 1px solid $dark-green;
       }
     }
   }
