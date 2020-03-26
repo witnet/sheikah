@@ -126,9 +126,6 @@ export default {
         repeatPassword: this.repeatPassword,
       })
     },
-    goNextInput() {
-      this.$refs.password.focus()
-    },
     nextStep() {
       this.validateForm()
       if (this.validatedPassword) {
