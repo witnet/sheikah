@@ -250,6 +250,21 @@ export function formatDateVerbose(date) {
   return format(date, 'MMM do yyyy')
 }
 
+// export function changeDateFormat(string) {
+//   let date = new Date(string)
+//   let month = '' + (date.getMonth() + 1)
+//   let day = '' + date.getDate()
+//   let year = date.getFullYear()
+
+//   if (month.length < 2) {
+//     month = '0' + month
+//   }
+//   if (day.length < 2) {
+//     day = '0' + day
+//   }
+//   return `${day}-${month}-${year}`
+// }
+
 // TODO(#935): allow open links with electron.shell.openExternal
 export async function openInExternalApp(url) {
   // if (process.env.IS_ELECTRON) {

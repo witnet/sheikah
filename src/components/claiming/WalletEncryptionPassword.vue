@@ -22,7 +22,7 @@
         placeholder="Please input password"
         v-model="password"
         show-password
-      ></el-input>
+      />
     </div>
     <div ref="confirm" class="form-row password">
       <p>Confirm your password</p>
@@ -34,7 +34,7 @@
         placeholder="Confirm password"
         v-model="repeatPassword"
         show-password
-      ></el-input>
+      />
     </div>
     <div class="form-row">
       <div data-test="password-error-alert" v-if="createValidPasswordError" class="error">
