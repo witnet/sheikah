@@ -18,6 +18,7 @@ import {
   shell,
   Tray,
   ipcMain,
+  globalShortcut
 } from 'electron'
 import progress from 'progress-stream'
 import { sleep } from '@/utils'
@@ -95,6 +96,9 @@ app.on('ready', async () => {
     } catch (e) {
       console.error('Vue Devtools failed to install:', e.toString())
     }
+  } else {
+    globalShortcut.register('CmdOrCtrl+R', () => {})
+    globalShortcut.register('CmdOrCtrl+Shift+R', () => {})
   }
 
   createTray()
