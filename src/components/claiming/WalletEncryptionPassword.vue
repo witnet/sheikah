@@ -22,7 +22,6 @@
         placeholder="Please input password"
         v-model="password"
         show-password
-        @keydown.enter.native="goNextInput"
       ></el-input>
     </div>
     <div ref="confirm" class="form-row password">
@@ -76,9 +75,6 @@ export default {
         password: this.password,
         repeatPassword: this.repeatPassword,
       })
-    },
-    goNextInput() {
-      this.$refs.password.focus()
     },
     nextStep() {
       this.validateForm()
