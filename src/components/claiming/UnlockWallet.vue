@@ -1,9 +1,10 @@
 <template>
   <NavigationCard data-test="" title="Unlock wallet" :nextStep="unlockWallet" nextText="Unlock">
-    <div class="text">Insert a password to unlock wallet</div>
     <div class="unlock-wallet">
+      <div class="text">Insert a password to unlock wallet</div>
       <div @keydown.enter.esc.prevent="unlockWallet">
         <el-input
+          class="input"
           data-test="password-input"
           placeholder="Please input password"
           v-model="password"
@@ -56,6 +57,11 @@ export default {
         this.updateView()
       }
     },
+    password() {
+      if (this.unlockWalletError) {
+        this.$store.commit('clearError', { error: this.unlockWalletError.name })
+      }
+    },
   },
   components: {
     NavigationCard,
@@ -74,24 +80,10 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
 
-  .password-input {
-    border: none;
-    border-bottom: 1px solid rgb(92, 91, 91);
-    font-size: 16px;
-    padding: 8px;
-    margin-bottom: 8px;
-    color: $black;
-
-    &:focus,
-    &:hover {
-      outline: none;
-      box-shadow: 0px 1px 0px 0px rgba(114, 113, 113, 0.75);
-    }
-    &::placeholder {
-      font-size: 16px;
-    }
+  .input {
+    width: 100%;
   }
   .error {
     position: absolute;
