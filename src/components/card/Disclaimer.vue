@@ -1,45 +1,53 @@
 <template>
-  <BaseCard class="card-navigation">
-    <template v-slot:header>
-      <div v-if="title" class="header">
-        <p class="title">DISCLAIMER</p>
-        <div class="big-title">
-          {{ title }}
-          <font-awesome-icon class="icon" icon="file-signature" />
+  <div class="container">
+    <BaseCard class="card-navigation">
+      <template v-slot:header>
+        <div v-if="title" class="header">
+          <p class="title">DISCLAIMER</p>
+          <div class="big-title">
+            {{ title }}
+            <font-awesome-icon class="icon" icon="file-signature" />
+          </div>
         </div>
-      </div>
-    </template>
-    <template v-slot:content>
-      <div ref="disclaimer" :class="disclaimerClass">
-        <slot></slot>
-      </div>
-      <p v-show="!readAll && showButton" @click="readAll = true" class="underline">Read more</p>
-      <p v-show="readAll && showButton" @click="readAll = false" class="underline">Show less</p>
-    </template>
+      </template>
+      <template v-slot:content>
+        <div ref="disclaimer" :class="disclaimerClass">
+          <slot></slot>
+        </div>
+        <p v-show="!readAll && showButton" @click="readAll = true" class="underline">Read more</p>
+        <p v-show="readAll && showButton" @click="readAll = false" class="underline">Show less</p>
+      </template>
 
-    <template v-if="previousStep || nextStep" v-slot:footer>
-      <div ref="hi" class="navigation-buttons">
-        <el-button
-          v-if="previousStep"
-          data-test="previous-step"
-          class="dark button"
-          @click="previousStep"
-        >
-          {{ previousText }}
-        </el-button>
-        <el-button
-          v-if="nextStep"
-          class="dark"
-          data-test="next-step"
-          type="primary"
-          @click="nextStep"
-          ref="next"
-        >
-          {{ nextText }}
-        </el-button>
-      </div>
-    </template>
-  </BaseCard>
+      <template v-if="previousStep || nextStep" v-slot:footer>
+        <div ref="hi" class="navigation-buttons">
+          <el-button
+            v-if="previousStep"
+            data-test="previous-step"
+            class="dark button"
+            @click="previousStep"
+          >
+            {{ previousText }}
+          </el-button>
+          <el-button
+            v-if="nextStep"
+            class="dark"
+            data-test="next-step"
+            type="primary"
+            @click="nextStep"
+            ref="next"
+          >
+            {{ nextText }}
+          </el-button>
+        </div>
+      </template>
+    </BaseCard>
+    <div class="sub-title-container">
+      <p class="sub-title">
+        By accepting these disclaimers, you commit to comply with the explained restrictions and
+        digitally sign your conformance using your Witnet wallet.
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -103,6 +111,11 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
 
 .card-navigation {
   background: $blue-6;
@@ -168,6 +181,17 @@ export default {
     .default {
       margin-right: 8px;
     }
+  }
+}
+.sub-title-container {
+  position: absolute;
+  bottom: -80px;
+  max-width: 600px;
+  .sub-title {
+    text-align: center;
+    color: $grey-4;
+    font-size: 14px;
+    margin: 0px 32px;
   }
 }
 </style>
