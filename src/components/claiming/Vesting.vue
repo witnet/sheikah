@@ -27,7 +27,6 @@
 import NavigationCard from '@/components/card/NavigationCard'
 import ClaimingInfo from '@/components/claiming/ClaimingInfo'
 import { mapState } from 'vuex'
-import { calculateVesting, changeDateFormat } from '@/utils'
 export default {
   name: 'Vesting',
   components: {
@@ -36,22 +35,10 @@ export default {
   },
   computed: {
     ...mapState({
-      claimingFileInfo: state => state.wallet.claimingFileInfo.info,
       name: state => state.wallet.claimingFileInfo.info.data.name,
-      vestingInfo: state => state.wallet.claimingFileInfo.info.data.vesting,
-      genesisDate: state => state.wallet.claimingFileInfo.info.data.genesisDate,
-      amount: state => state.wallet.claimingFileInfo.info.data.wit,
     }),
-
-    vesting() {
-      console.log('claiming info', this.claimingFileInfo)
-      const vesting = calculateVesting(this.vestingInfo, this.amount, this.genesisDate)
-      this.$store.commit('setComputedVesting', vesting)
-      return vesting
-    },
   },
   methods: {
-    changeDateFormat,
     nextStep() {
       this.$router.push('/claiming/create-wallet')
     },

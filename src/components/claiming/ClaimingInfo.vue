@@ -32,8 +32,6 @@ export default {
   name: 'ClaimingInfo',
   computed: {
     ...mapState({
-      claimingFileInfo: state => state.wallet.claimingFileInfo.info,
-      name: state => state.wallet.claimingFileInfo.info.data.name,
       vestingInfo: state => state.wallet.claimingFileInfo.info.data.vesting,
       genesisDate: state => state.wallet.claimingFileInfo.info.data.genesisDate,
       amount: state => state.wallet.claimingFileInfo.info.data.wit,
@@ -47,12 +45,8 @@ export default {
     vesting() {
       const vesting = calculateVesting(this.vestingInfo, this.amount, this.genesisDate)
       this.$store.commit('setComputedVesting', vesting)
-      console.log(vesting)
       return vesting
     },
-  },
-  created() {
-    console.log('CLAIMING FILE INFO', this.claimingFileInfo)
   },
   methods: {
     changeDateFormat,
