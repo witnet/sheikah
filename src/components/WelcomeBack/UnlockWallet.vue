@@ -3,6 +3,7 @@
     <p class="text">Insert a password to unlock wallet</p>
     <div @keydown.enter.esc.prevent="unlockWallet">
       <el-input
+        class="input"
         data-test="password-input"
         placeholder="Please input password"
         v-model="password"
@@ -66,6 +67,11 @@ export default {
         this.updateView()
       }
     },
+    password() {
+      if (this.unlockWalletError) {
+        this.$store.commit('clearError', { error: this.unlockWalletError.name })
+      }
+    },
   },
 }
 </script>
@@ -73,51 +79,23 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/theme.scss';
 
+.text {
+  margin-bottom: 32px;
+  font-size: 16px;
+}
 .unlock-wallet {
-  height: 300px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: left;
 
-  & > * {
-    flex: 1 10px;
-    margin: 32px;
-    width: 300px;
-  }
-  .password-input {
-    border: none;
-    border-bottom: 1px solid rgb(92, 91, 91);
-    font-size: 16px;
-    padding: 8px;
-    margin-bottom: 8px;
-    color: $black;
-
-    &:focus,
-    &:hover {
-      outline: none;
-      box-shadow: 0px 1px 0px 0px rgba(114, 113, 113, 0.75);
-    }
-    &::placeholder {
-      font-size: 16px;
-    }
+  .input {
+    width: 100%;
   }
   .error {
     position: absolute;
     padding-top: 16px;
     color: $red-0;
-  }
-  .text {
-    margin-bottom: 32px;
-    font-size: 16px;
-  }
-  .container-btn {
-    text-align: right;
-    .back-btn {
-      margin-right: 8px;
-    }
-    .unlock-btn {
-      margin-left: 8px;
-      display: inline;
-    }
   }
 }
 </style>
