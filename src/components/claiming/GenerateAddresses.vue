@@ -5,7 +5,11 @@
     nextText="Continue"
     title="Generate addresses"
   >
-    <p class="text">Your addresses are being generated. This process could take some time</p>
+    <p class="text">
+      To enhance your privacy, the Sheikah wallet divides your tokens among multiple addresses that
+      are difficult to associate with each other. Your first addresses are now being generated. This
+      process could take some time.
+    </p>
     <el-progress :percentage="percentage" :format="format"></el-progress>
   </NavigationCard>
 </template>
