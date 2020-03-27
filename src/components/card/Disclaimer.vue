@@ -14,8 +14,8 @@
         <div ref="disclaimer" :class="disclaimerClass">
           <slot></slot>
         </div>
-        <p v-show="!readAll && showButton" @click="readAll = true" class="underline">Read more</p>
-        <p v-show="readAll && showButton" @click="readAll = false" class="underline">Show less</p>
+        <p v-show="!readAll && showButton" @click="handleRead()" class="underline">Read more</p>
+        <p v-show="readAll && showButton" @click="handleRead()" class="underline">Show less</p>
       </template>
 
       <template v-if="previousStep || nextStep" v-slot:footer>
@@ -91,6 +91,14 @@ export default {
     },
   },
   methods: {
+    handleRead() {
+      if (!this.readAll && this.showButton) {
+        this.readAll = true
+      } else {
+        this.readAll = false
+        this.$refs.disclaimer.scrollTop = 0
+      }
+    },
     handleKeyUp: event => {
       if (event.keyCode === 13) {
         this.props.nextStep()
@@ -157,7 +165,6 @@ export default {
     display: flex;
     overflow-y: hidden;
     flex-direction: column;
-    justify-content: center;
     font-size: 16px;
     padding: 32px 32px 0px 32px;
   }
