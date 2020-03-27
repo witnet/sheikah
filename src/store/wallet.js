@@ -58,7 +58,6 @@ export default {
   mutations: {
     setComputedVesting(state, computedVesting) {
       state.computedVesting = computedVesting
-      console.log('SETTTTTTT', state.computedVesting)
     },
     addAmountToClamingAddresses(state, addressesAmount) {
       const addresses = [...state.claimingAddresses]
