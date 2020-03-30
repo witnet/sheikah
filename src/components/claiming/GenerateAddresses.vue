@@ -1,10 +1,5 @@
 <template>
-  <NavigationCard
-    :nextStep="areAddressesGenerated ? nextStep : null"
-    data-test="generate-addresses"
-    nextText="Continue"
-    title="Generate addresses"
-  >
+  <NavigationCard data-test="generate-addresses" title="Generate addresses" :disabled="false">
     <p class="text">
       To enhance your privacy, the Sheikah wallet divides your tokens among multiple addresses that
       are difficult to associate with each other. Your first addresses are now being generated. This
@@ -16,7 +11,8 @@
 <script>
 import { mapState } from 'vuex'
 import NavigationCard from '@/components/card/NavigationCard'
-import { calculateAddressesAmount } from '@/utils'
+import { calculateAddressesAmount, sleep } from '@/utils'
+
 export default {
   name: 'GenerateAddresses',
   components: {
@@ -47,9 +43,6 @@ export default {
     },
     generateAddress() {
       this.$store.dispatch('generateMultipleAddresses')
-    },
-    nextStep() {
-      this.$router.push('/claiming/download-file')
     },
     previousStep() {
       this.$router.push('/claiming/create-wallet')
@@ -83,9 +76,11 @@ export default {
     },
   },
   watch: {
-    areAddressesGenerated(areGenerated) {
+    async areAddressesGenerated(areGenerated) {
       if (areGenerated) {
         this.$store.commit('addAmountToClamingAddresses', this.addressesAmount)
+        await sleep(2000)
+        this.$router.push('/claiming/download-file')
       }
     },
   },

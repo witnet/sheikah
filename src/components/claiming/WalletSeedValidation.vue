@@ -7,6 +7,7 @@
     nextText="Confirm and continue"
     :previousStep="previousStep"
     :nextStep="nextStep"
+    :disabled="disabled"
     ref="navCard"
   >
     <p class="text">
@@ -17,7 +18,7 @@
     <p data-test="mnemonics-error-alert" class="match-error" v-if="mnemonicsError">
       Mnemonics must match
     </p>
-    <p class="text">
+    <p class="text last">
       Please ensure you do not add any extra spaces between words or at the beginning or end of the
       phrase.
     </p>
@@ -40,7 +41,13 @@ export default {
     return {
       seed: '',
       showError: '',
+      disabled: true,
     }
+  },
+  watch: {
+    seed(seed) {
+      this.validateForm()
+    },
   },
   computed: {
     ...mapState({
@@ -57,13 +64,17 @@ export default {
         seed: this.seed,
         mnemonics: this.mnemonics,
       })
-    },
-    nextStep() {
-      this.validateForm()
       if (this.validatedMnemonics) {
         if (this.mnemonicsError) {
           this.clearError(this.mnemonicsError.name)
         }
+        this.disabled = false
+      } else {
+        this.disabled = true
+      }
+    },
+    nextStep() {
+      if (this.validatedMnemonics) {
         this.$router.push('/claiming/encryption-pass')
       }
     },
@@ -111,5 +122,8 @@ export default {
 }
 .text {
   margin-bottom: 8px;
+  &.last {
+    margin: 0px;
+  }
 }
 </style>

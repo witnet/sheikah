@@ -7,6 +7,7 @@
     nextText="Continue"
     :previousStep="() => this.$router.push('/claiming/disclaimer')"
     :nextStep="() => this.$router.push('/claiming/seed-validation')"
+    :disabled="false"
   >
     <p class="text">Your 12 word seed phrase:</p>
     <pre data-test="word-seed" class="seed">{{ seed }}</pre>
@@ -14,7 +15,7 @@
       Please copy these 12 words onto a piece of paper which you will be able to safely store and
       secure. You must write the complete words in the exact order they are presented to you.
     </p>
-    <p class="text">
+    <p class="text last">
       We do not store your seed phrase - if you exit this setup or fail to write down your seed
       phrase, we cannot help you access your wallet.
     </p>
@@ -76,6 +77,9 @@ export default {
 
 .text {
   margin-bottom: 8px;
+  &.last {
+    margin: 0px;
+  }
 }
 
 .seed {
