@@ -131,7 +131,7 @@ export default {
   box-shadow: $default-box-shadow;
   width: 600px;
   min-height: 400px;
-  border: 1px solid $grey-0;
+  border: 1px solid $blue-6;
 
   .header {
     color: $white;
@@ -153,6 +153,7 @@ export default {
     }
     .big-title {
       display: flex;
+      align-items: center;
       justify-content: space-between;
       .icon {
         font-size: 50px;
