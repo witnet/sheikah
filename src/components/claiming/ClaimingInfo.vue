@@ -17,7 +17,9 @@
     </div>
     <div class="list-data">
       <div class="list-row" v-for="step in vesting" :key="step.date.getTime()">
-        <p :class="`data type_${type}`">{{ type }}</p>
+        <div class="data">
+          <p :class="`type_${type}`">{{ type }}</p>
+        </div>
         <p class="data date">{{ changeDateFormat(step.date, 'claiming') }}</p>
         <p class="data amount">{{ step.amount }}<span class="currency"> WIT</span></p>
       </div>
@@ -106,18 +108,25 @@ export default {
       display: flex;
       padding: 16px;
       .data {
+        flex: 1;
         margin-right: 24px;
         font-size: 16px;
         .currency {
           font-size: 12px;
         }
       }
+      .amount {
+        flex-basis: 100%;
+      }
       .date {
+        flex-basis: 100%;
+        text-align: center;
         color: $grey-5;
         font-size: 14px;
       }
       .type_LOCK-UP {
         height: min-content;
+        width: max-content;
         padding: 0px 4px;
         background-color: $light-purple;
         color: $white;
