@@ -97,6 +97,7 @@ app.on('ready', async () => {
   } else {
     globalShortcut.register('CmdOrCtrl+R', () => {})
     globalShortcut.register('CmdOrCtrl+Shift+R', () => {})
+    globalShortcut.register('CmdOrCtrl+Shift+I', () => {})
   }
 
   createWindow()
