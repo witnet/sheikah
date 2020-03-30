@@ -6,7 +6,6 @@ import ClaimingInstructions from '@/components/claiming/Instructions.vue'
 import ClaimingCreateWallet from '@/components/claiming/CreateWallet.vue'
 import GenerateClaimingAddresses from '@/components/claiming/GenerateAddresses.vue'
 import DownloadClaimingFile from '@/components/claiming/DownloadFile.vue'
-import ClaimingFileInformation from '@/components/claiming/FileInformation.vue'
 import UploadClaimingFile from '@/components/claiming/UploadFile.vue'
 import Vesting from '@/components/claiming/Vesting.vue'
 import Countdown from '@/components/claiming/Countdown.vue'
@@ -297,11 +296,6 @@ export default new Router({
           name: 'countdown',
           path: 'countdown',
           component: Countdown,
-        },
-        {
-          name: 'claimingFileInformation',
-          path: 'file-information',
-          component: ClaimingFileInformation,
         },
         {
           name: 'claimingVesting',

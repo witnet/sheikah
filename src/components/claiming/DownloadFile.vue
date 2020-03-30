@@ -4,6 +4,7 @@
     title="Export and send your token claim file"
     :nextStep="nextStep"
     nextText="Continue"
+    :disabled="disabled"
   >
     <p class="text bold">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
@@ -49,6 +50,7 @@ export default {
   data() {
     return {
       subtitle: 'Download your claiming file,',
+      disabled: true,
     }
   },
   computed: {
@@ -86,6 +88,7 @@ export default {
   methods: {
     exportFile() {
       this.$refs.download.click()
+      this.disabled = false
     },
     nextStep() {
       this.$router.push('/claiming/countdown')

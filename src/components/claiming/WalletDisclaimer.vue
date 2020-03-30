@@ -22,7 +22,7 @@
       If someone finds or sees your seed phrase, they will have access to your wallet and all of
       your funds.
     </p>
-    <p class="text">
+    <p class="text last">
       We recommend storing your seed phrase on paper somewhere safe. Do not store it in a file on
       your computer or anywhere electronically.
     </p>
@@ -60,6 +60,9 @@ export default {
   &.bold {
     font-weight: bold;
     margin-bottom: 16px;
+  }
+  &.last {
+    margin: 0px;
   }
 }
 </style>

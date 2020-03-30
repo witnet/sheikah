@@ -1,5 +1,5 @@
 <template>
-  <NavigationCard data-test="download-file" title="Download file">
+  <NavigationCard data-test="download-file" title="It's done!" :disabled="false">
     <p class="text">
       You have completed the Witnet token claim process successfully on the Sheikah side, but please
       <span class="bold">REMEMBER TO SEND THE CLAIM FILE TO THIS ADDRESS:</span>
@@ -130,11 +130,10 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 .countdown-background {
-  margin-top: 24px;
-  border-top: 1px solid $font-color-light;
+  padding-top: 24px;
+  border-top: 1px solid $grey-1;
   background: $grey-0;
   .countdown-header {
-    margin-top: 16px;
     color: $font-color-light;
     text-align: center;
   }
@@ -156,9 +155,8 @@ export default {
     }
 
     .digit {
-      color: $font-color-light;
       font-size: 50px;
-      font-weight: 700px;
+      font-weight: 400px;
       margin: 10px;
       text-align: center;
     }
@@ -168,7 +166,7 @@ export default {
   margin-bottom: 8px;
 }
 .e-mail {
-  margin-top: 24px;
+  margin: 24px 0px 8px 0px;
   text-align: center;
   color: $blue-6;
 }

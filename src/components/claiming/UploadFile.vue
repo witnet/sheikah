@@ -6,6 +6,7 @@
       title="Import claiming file"
       :previousStep="previousStep"
       :nextStep="nextStep"
+      :disabled="disabled"
       previousText="Back"
       nextText="Continue"
     >
@@ -62,7 +63,7 @@ export default {
       file: [],
       fileName: '',
       dialogVisible: false,
-      disabled: false,
+      disabled: true,
     }
   },
   computed: {
@@ -74,18 +75,27 @@ export default {
   created() {
     if (this.claimingFileInfo) {
       this.file.push(this.claimingFileInfo.info)
+      this.disabled = false
     }
   },
   watch: {
-    uploadFileError() {
+    uploadFileError(error) {
       this.file = []
+      if (error) {
+        this.disabled = true
+      } else {
+        this.disabled = false
+      }
     },
-    claimingFileInfo() {
-      if (this.claimingFileInfo && this.uploadFileError) {
+    claimingFileInfo(info) {
+      if (info && this.uploadFileError) {
         this.clearError()
       }
-      if (this.claimingFileInfo) {
+      if (info) {
         this.file = [this.claimingFileInfo.info]
+        this.disabled = false
+      } else {
+        this.disabled = true
       }
     },
   },
@@ -168,11 +178,7 @@ export default {
       })
     },
     nextStep() {
-      if (this.claimingFileInfo && !this.uploadFileError) {
-        this.$router.push('/claiming/file-information')
-      } else {
-        this.setError()
-      }
+      this.$router.push('/claiming/vesting')
     },
     importFile() {
       this.$refs.fileInput.click()

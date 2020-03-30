@@ -1,6 +1,6 @@
 <template>
   <div class="centered" data-test="claiming">
-    <router-view />
+    <router-view class="modal" />
   </div>
 </template>
 
@@ -35,5 +35,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  .modal {
+    transform: translateX(-10px);
+  }
 }
 </style>
