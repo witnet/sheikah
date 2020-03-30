@@ -39,7 +39,11 @@ export default {
       this.sent = true
     },
     updateView() {
-      this.$router.push('/claiming/download-file')
+      if (localStorage.getItem('completed')) {
+        this.$router.push('/claiming/countdown')
+      } else {
+        this.$router.push('/claiming/download-file')
+      }
     },
   },
   computed: {
