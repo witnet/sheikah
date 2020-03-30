@@ -14,6 +14,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .card-layout {
   display: grid;
   grid-template-columns: 1fr;

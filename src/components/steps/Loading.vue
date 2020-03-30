@@ -1,5 +1,5 @@
 <template>
-  <Card class="">
+  <Card>
     <div class="card">
       <p class="title">Sheikah is loading your wallet</p>
       <Spinner class="spinner" :active="true" />

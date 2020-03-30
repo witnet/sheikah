@@ -3,11 +3,11 @@
     <BaseCard class="card-navigation">
       <template v-slot:header>
         <div v-if="title" class="header">
-          <p class="title">DISCLAIMER</p>
           <div class="big-title">
+            <p class="title">DISCLAIMER</p>
             {{ title }}
-            <font-awesome-icon class="icon" icon="file-signature" />
           </div>
+          <font-awesome-icon class="icon" icon="file-signature" />
         </div>
       </template>
       <template v-slot:content>
@@ -136,28 +136,26 @@ export default {
   .header {
     color: $white;
     padding: 0 32px;
-    margin-bottom: 16px;
     display: flex;
-    align-items: left;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     font-size: 32px;
     font-weight: 500;
     height: 100px;
-    .title {
-      font-size: 14px;
-      font-weight: 500;
-      color: $white;
-      margin-bottom: 8px;
-      margin-top: 16px;
-    }
     .big-title {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      .icon {
-        font-size: 50px;
+      align-items: left;
+      justify-content: center;
+      flex-direction: column;
+      .title {
+        font-size: 14px;
+        font-weight: 500;
+        color: $white;
+        margin-bottom: 8px;
       }
+    }
+    .icon {
+      font-size: 50px;
     }
   }
 
@@ -185,10 +183,6 @@ export default {
     box-sizing: border-box;
     text-align: right;
     padding: 32px;
-    .button,
-    .default {
-      margin-right: 8px;
-    }
   }
 }
 .sub-title-container {

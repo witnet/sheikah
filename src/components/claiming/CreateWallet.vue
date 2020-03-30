@@ -6,13 +6,14 @@
       title="Create your wallet"
       :previousStep="previousStep"
       :nextStep="nextStep"
+      :disabled="false"
       previousText="Back"
       nextText="Let's do it"
     >
       <p class="text bold">
         This assistant will guide you through the process of creating your own Witnet wallet.
       </p>
-      <p class="text">
+      <p class="text last">
         A wallet is an app that keeps your credentials safe and lets you interface with the Witnet
         blockchain in many ways: from transferring Wit to someone else to creating smart contracts.
       </p>
@@ -54,6 +55,9 @@ export default {
   &.bold {
     font-weight: bold;
     margin-bottom: 16px;
+  }
+  &.last {
+    margin: 0px;
   }
 }
 </style>

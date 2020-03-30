@@ -7,6 +7,7 @@
     nextText="Continue"
     :previousStep="previousStep"
     :nextStep="nextStep"
+    :disabled="disabled"
     ref="navCard"
   >
     <p class="paragraph">
@@ -24,21 +25,21 @@
         show-password
       />
     </div>
-    <div ref="confirm" class="form-row password">
+    <div ref="confirm" class="form-row password last">
       <p>Confirm your password</p>
-      <el-input
-        class="password"
-        ref="password"
-        @keydown.enter.native="nextStep"
-        data-test="password-input"
-        placeholder="Confirm password"
-        v-model="repeatPassword"
-        show-password
-      />
-    </div>
-    <div class="form-row">
-      <div data-test="password-error-alert" v-if="createValidPasswordError" class="error">
-        {{ createValidPasswordError.message }}
+      <div class="col">
+        <el-input
+          class="password"
+          ref="password"
+          @keydown.enter.native="nextStep"
+          data-test="password-input"
+          placeholder="Confirm password"
+          v-model="repeatPassword"
+          show-password
+        />
+        <div data-test="password-error-alert" v-if="createValidPasswordError" class="error">
+          {{ createValidPasswordError.message }}
+        </div>
       </div>
     </div>
   </NavigationCard>
@@ -55,6 +56,7 @@ export default {
       password: '',
       repeatPassword: '',
       error: false,
+      disabled: true,
     }
   },
   watch: {
@@ -62,10 +64,25 @@ export default {
       if (this.createValidPasswordError) {
         this.clearError(this.createValidPasswordError.name)
       }
+      if (this.password && this.repeatPassword) {
+        this.disabled = false
+      } else {
+        this.disabled = true
+      }
+    },
+    createValidPasswordError(error) {
+      if (error) {
+        this.disabled = true
+      }
     },
     repeatPassword() {
       if (this.createValidPasswordError) {
         this.clearError(this.createValidPasswordError.name)
+      }
+      if (this.password && this.repeatPassword) {
+        this.disabled = false
+      } else {
+        this.disabled = true
       }
     },
   },
@@ -122,11 +139,11 @@ export default {
   color: $red-0;
   font-size: 14px;
   min-width: 270px;
+  margin-top: 16px;
 }
 
 .paragraph {
-  margin-top: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 .form-row {
@@ -139,6 +156,9 @@ export default {
     max-width: none;
     display: flex;
     justify-content: space-between;
+  }
+  &.last {
+    margin: 0px;
   }
   .password {
     width: 350px;

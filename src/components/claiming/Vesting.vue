@@ -5,6 +5,7 @@
     :previousStep="previousStep"
     nextText="Continue"
     previousText="Back"
+    :disabled="false"
     :title="`${name}, this is your token allocation`"
   >
     <ClaimingInfo />
@@ -14,7 +15,7 @@
         verify that your information listed above is correct — if not, please ask
         genesis@witnet.foundation for support.
       </p>
-      <p class="text">
+      <p class="text last">
         This information will be available after the token generation event through the main Sheikah
         wallet interface. However, feel free to take a screenshot or picture using your phone as a
         means of backup.
@@ -43,7 +44,7 @@ export default {
       this.$router.push('/claiming/create-wallet')
     },
     previousStep() {
-      this.$router.push('/claiming/file-information')
+      this.$router.push('/claiming/upload-file')
     },
   },
 }
@@ -58,6 +59,9 @@ export default {
   &.bold {
     font-weight: bold;
     margin-bottom: 16px;
+  }
+  &.last {
+    margin: 0px;
   }
 }
 </style>

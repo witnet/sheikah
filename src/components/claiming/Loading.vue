@@ -22,10 +22,7 @@ export default {
   },
   methods: {
     goToFirstStep() {
-      this.$router.push('/ftu/welcome')
-    },
-    previousStep() {
-      this.$router.push('/ftu/seed-type-selection')
+      this.$router.push('/claiming/claiming-instructions')
     },
     reloadView() {},
   },
@@ -56,7 +53,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
-
 .card {
   width: max-content;
   align-items: center;

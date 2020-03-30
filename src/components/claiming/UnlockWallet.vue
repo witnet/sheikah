@@ -1,5 +1,11 @@
 <template>
-  <NavigationCard data-test="" title="Unlock wallet" :nextStep="unlockWallet" nextText="Unlock">
+  <NavigationCard
+    data-test=""
+    title="Unlock wallet"
+    :nextStep="unlockWallet"
+    nextText="Unlock"
+    :disabled="false"
+  >
     <div class="unlock-wallet">
       <div class="text">Insert a password to unlock wallet</div>
       <div @keydown.enter.esc.prevent="unlockWallet">
