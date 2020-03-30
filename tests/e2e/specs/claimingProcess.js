@@ -24,15 +24,13 @@ describe('claimingProcess', () => {
     })
 
     it('Show error and do not redirect if file is not imported', () => {
-      cy.get('[data-test=next-step]').click()
-      cy.get('[data-test=error]')
+      cy.get('[data-test=next-step]').should('be.disabled')
     })
 
     it('UploadFile', () => {
       const fileName = 'claiming.json'
       cy.fixture(fileName).then(fileJson => {
         const fileContent = JSON.stringify(fileJson)
-        console.log('fileCOntent-.---', fileContent)
         cy.get('.el-upload-dragger').upload(
           {
             fileContent,
@@ -47,19 +45,6 @@ describe('claimingProcess', () => {
     })
   })
 
-  describe('File information step', () => {
-    it('navigate to file information step', () => {
-      cy.get('[data-test=file-information]')
-    })
-
-    it('navigate back and forward', () => {
-      cy.get('[data-test=previous-step]').click()
-      cy.get('[data-test=import-file]')
-      cy.get('[data-test=next-step]').click()
-      cy.get('[data-test=next-step]').click()
-    })
-  })
-
   describe('Vesting step', () => {
     it('navigate to file information step', () => {
       cy.get('[data-test=vesting]')
@@ -67,7 +52,7 @@ describe('claimingProcess', () => {
 
     it('navigate back and forward', () => {
       cy.get('[data-test=previous-step]').click()
-      cy.get('[data-test=file-information]')
+      cy.get('[data-test=import-file]')
       cy.get('[data-test=next-step]').click()
       cy.get('[data-test=next-step]').click()
     })
@@ -150,8 +135,6 @@ describe('claimingProcess', () => {
     it('navigate to generate addresses step', () => {
       cy.wait(2000)
       cy.get('[data-test=generate-addresses]')
-      cy.wait(2000)
-      cy.get('[data-test=next-step]').click()
     })
   })
 

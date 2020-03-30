@@ -55,26 +55,26 @@ export default {
 :active,
 :hover,
 :focus {
-  outline-color: $blue-6;
+  outline-color: $purple-6;
 }
 
 .default {
   background-color: $white;
-  border: 1px solid $blue-6;
-  color: $blue-6;
+  border: 1px solid $purple-6;
+  color: $purple-6;
 
   &:active {
-    border: 1px solid $blue-6;
-    color: $blue-6;
+    border: 1px solid $purple-6;
+    color: $purple-6;
   }
 }
 
 .primary {
-  background-color: $blue-6;
+  background-color: $purple-6;
   color: $white;
 
   &:active {
-    background-color: $blue-5;
+    background-color: $purple-5;
     color: $white;
   }
 }
@@ -85,8 +85,8 @@ export default {
 
   &:active {
     background-color: $grey-3;
-    border-color: $red-1;
-    color: $red-1;
+    border-color: $red-2;
+    color: $red-2;
   }
 }
 
@@ -96,18 +96,18 @@ export default {
   color: $grey-5;
 
   &:active {
-    border: 1px dashed $blue-5;
-    color: $blue-5;
+    border: 1px dashed $purple-5;
+    color: $purple-5;
   }
 }
 
 .positive {
-  background-color: $green;
+  background-color: $green-1;
   color: $grey-1;
 
   &:active {
-    background-color: $green;
-    border-color: $green;
+    background-color: $green-1;
+    border-color: $green-1;
     color: $grey-1;
   }
 }

@@ -96,8 +96,8 @@ export default {
     line-height: 25px;
     padding: 16px;
     text-decoration: none;
-    border-bottom: 2px solid $blue-6;
-    color: $blue-6;
+    border-bottom: 2px solid $purple-6;
+    color: $purple-6;
   }
   .button-container {
     padding: 8px;

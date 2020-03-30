@@ -276,7 +276,7 @@ export default {
 
       .delete {
         background-color: transparent;
-        color: $red-0;
+        color: $red-1;
         cursor: pointer;
         display: none;
         font-size: 12px;

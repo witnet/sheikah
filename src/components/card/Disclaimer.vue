@@ -126,12 +126,12 @@ export default {
 }
 
 .card-navigation {
-  background: $blue-6;
+  background: $purple-6;
   color: $white;
   box-shadow: $default-box-shadow;
   width: 600px;
   min-height: 400px;
-  border: 1px solid $blue-6;
+  border: 1px solid $purple-6;
 
   .header {
     color: $white;

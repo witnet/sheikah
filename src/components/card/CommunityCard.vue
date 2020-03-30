@@ -49,7 +49,7 @@ export default {
     }
     .header {
       font-size: 18px;
-      color: $blue-6;
+      color: $purple-6;
     }
     .content {
       color: $grey-5;

@@ -51,7 +51,7 @@ export default {
   }
 
   .content {
-    border: 1px solid $blue-6;
+    border: 1px solid $purple-6;
     background: $white;
     display: flex;
     flex-direction: column;

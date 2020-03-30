@@ -33,7 +33,7 @@
           data-test="next-step"
           type="primary"
           @click="nextStep"
-          :disabled="disabled"
+          :disabled="disabledNextButton"
           ref="next"
         >
           {{ nextText }}
@@ -57,7 +57,7 @@ export default {
     },
     previousText: String,
     title: String,
-    disabled: Boolean,
+    disabledNextButton: Boolean,
   },
   components: {
     BaseCard,
@@ -80,10 +80,10 @@ export default {
   background-color: $white;
   box-shadow: $default-box-shadow;
   width: 600px;
-  border: 1px solid $blue-6;
+  border: 1px solid $purple-6;
 
   .header {
-    background: $blue-6;
+    background: $purple-6;
     padding: 0 32px;
     align-items: center;
     color: $white;

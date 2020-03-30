@@ -95,7 +95,7 @@ export default {
   .error {
     position: absolute;
     padding-top: 16px;
-    color: $red-0;
+    color: $red-1;
   }
 }
 </style>

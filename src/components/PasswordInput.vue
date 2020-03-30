@@ -101,14 +101,14 @@ export default {
     display: block;
     transition: 0.2s;
     font-size: 1rem;
-    color: $blue-6;
+    color: $purple-6;
     font-weight: 700;
     font-size: 16px;
   }
   border-bottom: 1.7px solid $grey-4;
   font-weight: 700;
   border-width: 2px;
-  border-image: linear-gradient(to right, $blue-6);
+  border-image: linear-gradient(to right, $purple-6);
   border-image-slice: 1;
 }
 </style>

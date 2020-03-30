@@ -4,7 +4,7 @@
     title="Unlock wallet"
     :nextStep="unlockWallet"
     nextText="Unlock"
-    :disabled="false"
+    :disabledNextButton="false"
   >
     <div class="unlock-wallet">
       <div class="text">Insert a password to unlock wallet</div>
@@ -45,11 +45,7 @@ export default {
       this.sent = true
     },
     updateView() {
-      if (localStorage.getItem('completed')) {
-        this.$router.push('/claiming/countdown')
-      } else {
-        this.$router.push('/claiming/download-file')
-      }
+      this.$router.push('/claiming/countdown')
     },
   },
   computed: {
@@ -98,7 +94,7 @@ export default {
   .error {
     position: absolute;
     padding-top: 16px;
-    color: $red-0;
+    color: $red-1;
   }
 }
 </style>

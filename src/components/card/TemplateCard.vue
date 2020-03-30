@@ -175,7 +175,7 @@ export default {
   font-weight: bold;
   .el-dropdown-menu__item:not(.is-disabled):hover {
     display: block;
-    color: $blue-6;
+    color: $purple-6;
   }
   &.marketplace .el-dropdown-menu__item:not(.is-disabled):hover {
     display: block;
@@ -196,7 +196,7 @@ export default {
 .card-layout {
   width: 250px;
   height: 250px;
-  background-color: $alpha-blue;
+  background-color: $alpha-purple;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -209,7 +209,7 @@ export default {
     background: none;
   }
   &:hover {
-    border: 2px solid $blue-6;
+    border: 2px solid $purple-6;
   }
   &.marketplace:hover {
     border: 2px solid rgb(255, 42, 127);
@@ -226,7 +226,7 @@ export default {
   .edit-btn {
     padding-left: 8px;
     display: block;
-    color: $blue-6;
+    color: $purple-6;
   }
   .option-btn {
     flex: 1;

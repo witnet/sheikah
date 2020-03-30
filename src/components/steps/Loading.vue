@@ -64,13 +64,13 @@ export default {
   width: 300px;
   .title {
     border: none;
-    color: $blue-6;
+    color: $purple-6;
     font-size: 24px;
     margin: 0 0 32px 0;
   }
 
   .description {
-    color: $blue-6;
+    color: $purple-6;
     font-size: 16px;
     margin: 32px 0 0 0;
   }
