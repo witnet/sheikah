@@ -1,5 +1,6 @@
 <template>
   <NavigationCard
+    ref="navCard"
     data-test="password"
     class="wallet-encryption"
     title="Encrypt your wallet with a password"
@@ -7,8 +8,7 @@
     nextText="Continue"
     :previousStep="previousStep"
     :nextStep="nextStep"
-    :disabled="disabled"
-    ref="navCard"
+    :disabledNextButton="disabledNextButton"
   >
     <p class="paragraph">
       <strong>PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on this computer.
@@ -18,26 +18,26 @@
     <div class="form-row password">
       <p>Create a password</p>
       <el-input
+        v-model="password"
         class="password"
         data-test="password-input"
         placeholder="Please input password"
-        v-model="password"
         show-password
       />
     </div>
-    <div ref="confirm" class="form-row password last">
+    <div ref="confirm" class="form-row password">
       <p>Confirm your password</p>
       <div class="col">
         <el-input
-          class="password"
           ref="password"
-          @keydown.enter.native="nextStep"
+          v-model="repeatPassword"
+          class="password"
           data-test="password-input"
           placeholder="Confirm password"
-          v-model="repeatPassword"
           show-password
+          @keydown.enter.native="nextStep"
         />
-        <div data-test="password-error-alert" v-if="createValidPasswordError" class="error">
+        <div v-if="createValidPasswordError" data-test="password-error-alert" class="error">
           {{ createValidPasswordError.message }}
         </div>
       </div>
@@ -56,7 +56,7 @@ export default {
       password: '',
       repeatPassword: '',
       error: false,
-      disabled: true,
+      disabledNextButton: true,
     }
   },
   watch: {
@@ -65,14 +65,14 @@ export default {
         this.clearError(this.createValidPasswordError.name)
       }
       if (this.password && this.repeatPassword) {
-        this.disabled = false
+        this.disabledNextButton = false
       } else {
-        this.disabled = true
+        this.disabledNextButton = true
       }
     },
     createValidPasswordError(error) {
       if (error) {
-        this.disabled = true
+        this.disabledNextButton = true
       }
     },
     repeatPassword() {
@@ -80,9 +80,9 @@ export default {
         this.clearError(this.createValidPasswordError.name)
       }
       if (this.password && this.repeatPassword) {
-        this.disabled = false
+        this.disabledNextButton = false
       } else {
-        this.disabled = true
+        this.disabledNextButton = true
       }
     },
   },
@@ -132,11 +132,12 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
 
 .error {
-  color: $red-0;
+  color: $red-1;
   font-size: 14px;
   min-width: 270px;
   margin-top: 16px;
@@ -157,7 +158,7 @@ export default {
     display: flex;
     justify-content: space-between;
   }
-  &.last {
+  &.form-row:last-of-type {
     margin: 0px;
   }
   .password {

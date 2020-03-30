@@ -552,9 +552,9 @@ export function calculateVesting(vestingInfo, amount, genesisDate) {
   const steps = Array(numberOfSteps)
     .fill(0)
     .map((_, index) => {
-      let date = new Date(genesisDate)
+      const date = new Date(genesisDate)
       date.setSeconds(date.getSeconds() + delay + cliff + installmentLength * index)
-      let currentAmount = amount >= installmentWits ? installmentWits : amount
+      const currentAmount = amount >= installmentWits ? installmentWits : amount
       amount -= installmentWits
       return {
         date: date,

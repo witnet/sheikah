@@ -4,7 +4,7 @@
     title="Export and send your token claim file"
     :nextStep="nextStep"
     nextText="Continue"
-    :disabled="disabled"
+    :disabledNextButton="disabledNextButton"
   >
     <p class="text bold">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
@@ -22,8 +22,8 @@
       </el-button>
       <a
         v-if="dataStr"
-        :href="dataStr"
         ref="download"
+        :href="dataStr"
         download="claiming-information.json"
         style="display:none"
       ></a>
@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       subtitle: 'Download your claiming file,',
-      disabled: true,
+      disabledNextButton: true,
     }
   },
   computed: {
@@ -85,18 +85,18 @@ export default {
         : ''
     },
   },
+  beforeCreate() {
+    this.$store.dispatch('getClaimingInfo')
+    this.$store.dispatch('saveCompletedProcess')
+  },
   methods: {
     exportFile() {
       this.$refs.download.click()
-      this.disabled = false
+      this.disabledNextButton = false
     },
     nextStep() {
       this.$router.push('/claiming/countdown')
     },
-  },
-  beforeCreate() {
-    this.$store.dispatch('getClaimingInfo')
-    this.$store.dispatch('saveCompletedProcess')
   },
 }
 </script>
@@ -137,7 +137,7 @@ export default {
         border: 1px solid #f5f7fa;
         background-color: #f5f7fa;
         .text {
-          color: $blue-6;
+          color: $purple-6;
         }
       }
     }

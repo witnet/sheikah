@@ -12,8 +12,8 @@
     <p>
       Please type your 12 word seed phrase.
     </p>
-    <Input type="big" class="seed" v-model="seed" v-on:go-next="nextStep" />
-    <p data-test="mnemonics-error-alert" class="match-error" v-if="seedError">
+    <Input v-model="seed" type="big" class="seed" @go-next="nextStep" />
+    <p v-if="seedError" data-test="mnemonics-error-alert" class="match-error">
       {{ seedError.message }}
     </p>
     <p class="paragraph">
@@ -60,6 +60,14 @@ export default {
       }
     },
   },
+  beforeDestroy() {
+    if (this.mnemonicsError) {
+      this.clearError(this.mnemonicsError.name)
+    }
+    if (this.seedError) {
+      this.clearError(this.seedError.name)
+    }
+  },
   methods: {
     setSeed() {
       this.$store.commit('setSeed', {
@@ -90,14 +98,6 @@ export default {
     previousStep() {
       this.$router.push('/ftu/seed-type-selection')
     },
-  },
-  beforeDestroy() {
-    if (this.mnemonicsError) {
-      this.clearError(this.mnemonicsError.name)
-    }
-    if (this.seedError) {
-      this.clearError(this.seedError.name)
-    }
   },
 }
 </script>

@@ -1,12 +1,12 @@
 <template>
-  <NavigationCard data-test="download-file" title="It's done!" :disabled="false">
+  <NavigationCard data-test="download-file" title="It's done!" :disabledNextButton="false">
     <p class="text">
       You have completed the Witnet token claim process successfully on the Sheikah side, but please
       <span class="bold">REMEMBER TO SEND THE CLAIM FILE TO THIS ADDRESS:</span>
     </p>
-    <p class="e-mail">
+    <a class="e-mail" href="mailto:genesis@witnet.foundation">
       genesis@witnet.foundation
-    </p>
+    </a>
     <p class="download-again">
       If you lost your claim file, do not panic!
       <span class="underline" @click="exportFile">Click here to download</span> it again
@@ -22,26 +22,26 @@
       <div class="countdown">
         <div class="column">
           <p class="digit">{{ days }}</p>
-          <p class="text">Days</p>
+          <p class="text">DAYS</p>
         </div>
         <div class="column">
           <p class="digit">{{ hours }}</p>
-          <p class="text">Hours</p>
+          <p class="text">HOURS</p>
         </div>
         <div class="column">
           <p class="digit">{{ minutes }}</p>
-          <p class="text">Minutes</p>
+          <p class="text">MINUTES</p>
         </div>
         <div class="column">
           <p class="digit">{{ seconds }}</p>
-          <p class="text">Seconds</p>
+          <p class="text">SECONDS</p>
         </div>
       </div>
     </div>
     <a
       v-show="dataStr"
-      :href="dataStr"
       ref="file"
+      :href="dataStr"
       download="claiming-information.json"
       style="display:none"
     />
@@ -145,18 +145,15 @@ export default {
     display: flex;
     flex-direction: column;
     margin: 20px;
-    font-weight: 700px;
     .text {
       color: $font-color-light;
       margin-top: 24px;
-      font-size: 20px;
       margin-bottom: 16px;
       text-align: center;
     }
 
     .digit {
       font-size: 50px;
-      font-weight: 400px;
       margin: 10px;
       text-align: center;
     }
@@ -166,9 +163,10 @@ export default {
   margin-bottom: 8px;
 }
 .e-mail {
+  font-size: 20px;
   margin: 24px 0px 8px 0px;
   text-align: center;
-  color: $blue-6;
+  color: $purple-6;
 }
 .download-again {
   margin-bottom: 24px;
@@ -177,7 +175,7 @@ export default {
   color: $grey-3;
 }
 .underline {
-  color: $font-color-light;
+  color: inherit;
   text-decoration: underline;
   cursor: pointer;
 }

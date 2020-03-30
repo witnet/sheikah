@@ -67,7 +67,6 @@ export default {
       flex: 1 415px;
       padding: 16px;
     }
-
     .content {
       color: $alt-grey-5;
       line-height: 1.5em;

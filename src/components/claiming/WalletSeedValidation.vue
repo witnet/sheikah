@@ -1,5 +1,6 @@
 <template>
   <NavigationCard
+    ref="navCard"
     data-test="header-4"
     class="wallet-seed-validation"
     title="Confirm your seed phrase"
@@ -7,18 +8,17 @@
     nextText="Confirm and continue"
     :previousStep="previousStep"
     :nextStep="nextStep"
-    :disabled="disabled"
-    ref="navCard"
+    :disabledNextButton="disabledNextButton"
   >
     <p class="text">
       Please type your 12 word seed phrase exactly as it was shown to you on the previous screen.
       This step is to confirm that you have copied your seed phrase correctly.
     </p>
-    <Input type="big" class="seed" v-model="seed" v-on:go-next="nextStep" />
-    <p data-test="mnemonics-error-alert" class="match-error" v-if="mnemonicsError">
+    <Input v-model="seed" type="big" class="seed" @go-next="nextStep" />
+    <p v-if="mnemonicsError" data-test="mnemonics-error-alert" class="match-error">
       Mnemonics must match
     </p>
-    <p class="text last">
+    <p class="text">
       Please ensure you do not add any extra spaces between words or at the beginning or end of the
       phrase.
     </p>
@@ -41,7 +41,7 @@ export default {
     return {
       seed: '',
       showError: '',
-      disabled: true,
+      disabledNextButton: true,
     }
   },
   watch: {
@@ -58,6 +58,11 @@ export default {
       validatedMnemonics: state => state.wallet.validatedMnemonics,
     }),
   },
+  beforeDestroy() {
+    if (this.mnemonicsError) {
+      this.clearError(this.mnemonicsError.name)
+    }
+  },
   methods: {
     validateForm() {
       this.$store.commit('validateMnemonics', {
@@ -68,9 +73,9 @@ export default {
         if (this.mnemonicsError) {
           this.clearError(this.mnemonicsError.name)
         }
-        this.disabled = false
+        this.disabledNextButton = false
       } else {
-        this.disabled = true
+        this.disabledNextButton = true
       }
     },
     nextStep() {
@@ -85,13 +90,9 @@ export default {
       this.$router.push('/claiming/seed-backup')
     },
   },
-  beforeDestroy() {
-    if (this.mnemonicsError) {
-      this.clearError(this.mnemonicsError.name)
-    }
-  },
 }
 </script>
+
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
@@ -113,7 +114,7 @@ export default {
 
 .match-error {
   font-size: 14px;
-  color: $red-0;
+  color: $red-1;
   margin-bottom: 8px;
 }
 .seed {
@@ -122,7 +123,7 @@ export default {
 }
 .text {
   margin-bottom: 8px;
-  &.last {
+  &:last-of-type {
     margin: 0px;
   }
 }

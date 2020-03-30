@@ -6,7 +6,7 @@
       title="Import claiming file"
       :previousStep="previousStep"
       :nextStep="nextStep"
-      :disabled="disabled"
+      :disabledNextButton="disabledNextButton"
       previousText="Back"
       nextText="Continue"
     >
@@ -15,9 +15,9 @@
         in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
       </p>
       <el-upload
+        ref="upload"
         data-test="upload"
         class="upload-container"
-        ref="upload"
         accept="application/json"
         drag
         action=""
@@ -40,8 +40,8 @@
         {{ uploadFileError.message }}
       </p>
       <a
-        :href="dataStr"
         ref="download"
+        :href="dataStr"
         download="claiming-information.json"
         style="display:none"
       ></a>
@@ -63,7 +63,7 @@ export default {
       file: [],
       fileName: '',
       dialogVisible: false,
-      disabled: true,
+      disabledNextButton: true,
     }
   },
   computed: {
@@ -72,19 +72,13 @@ export default {
       claimingFileInfo: state => state.wallet.claimingFileInfo,
     }),
   },
-  created() {
-    if (this.claimingFileInfo) {
-      this.file.push(this.claimingFileInfo.info)
-      this.disabled = false
-    }
-  },
   watch: {
     uploadFileError(error) {
       this.file = []
       if (error) {
-        this.disabled = true
+        this.disabledNextButton = true
       } else {
-        this.disabled = false
+        this.disabledNextButton = false
       }
     },
     claimingFileInfo(info) {
@@ -93,11 +87,17 @@ export default {
       }
       if (info) {
         this.file = [this.claimingFileInfo.info]
-        this.disabled = false
+        this.disabledNextButton = false
       } else {
-        this.disabled = true
+        this.disabledNextButton = true
       }
     },
+  },
+  created() {
+    if (this.claimingFileInfo) {
+      this.file.push(this.claimingFileInfo.info)
+      this.disabledNextButton = false
+    }
   },
   methods: {
     clearError() {
@@ -203,7 +203,7 @@ export default {
 
 .error {
   font-size: 14px;
-  color: $red-0;
+  color: $red-1;
   margin-top: 8px;
 }
 </style>

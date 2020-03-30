@@ -77,7 +77,7 @@ export default {
       const addresses = [...state.claimingAddresses]
       state.claimingAddresses = addressesAmount
         .map((amount, index) => {
-          let timelock = Math.floor(state.computedVesting[index].date.getTime() / 1000)
+          const timelock = Math.floor(state.computedVesting[index].date.getTime() / 1000)
           return amount.map(y => {
             return {
               address: addresses.shift(),

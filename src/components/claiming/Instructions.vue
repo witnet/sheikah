@@ -4,13 +4,13 @@
     data-test="instructions"
     nextText="Continue"
     title="Claiming process information"
-    :disabled="false"
+    :disabledNextButton="false"
   >
     <p class="text bold">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
       in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
     </p>
-    <p class="text last">
+    <p class="text">
       Nulla facilisi. Praesent fermentum urna magna, et vehicula odio venenatis vitae. Cras lacinia
       arcu id orci viverra, et semper metus ullamcorper. Donec tempus diam velit, eu pellentesque
       odio imperdiet mattis. Suspendisse eu mollis leo, nec posuere augue. Suspendisse eget nulla
@@ -45,7 +45,7 @@ export default {
     font-weight: bold;
     margin-bottom: 16px;
   }
-  &.last {
+  &:last-of-type {
     margin: 0px;
   }
 }

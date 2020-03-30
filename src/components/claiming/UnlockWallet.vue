@@ -4,19 +4,19 @@
     title="Unlock wallet"
     :nextStep="unlockWallet"
     nextText="Unlock"
-    :disabled="false"
+    :disabledNextButton="false"
   >
     <div class="unlock-wallet">
       <div class="text">Insert a password to unlock wallet</div>
       <div @keydown.enter.esc.prevent="unlockWallet">
         <el-input
+          v-model="password"
           class="input"
           data-test="password-input"
           placeholder="Please input password"
-          v-model="password"
           show-password
         />
-        <p data-test="password-error-alert" v-if="unlockWalletError" class="error">
+        <p v-if="unlockWalletError" data-test="password-error-alert" class="error">
           Invalid password
         </p>
       </div>
@@ -45,11 +45,7 @@ export default {
       this.sent = true
     },
     updateView() {
-      if (localStorage.getItem('completed')) {
-        this.$router.push('/claiming/countdown')
-      } else {
-        this.$router.push('/claiming/download-file')
-      }
+      this.$router.push('/claiming/countdown')
     },
   },
   computed: {
@@ -98,7 +94,7 @@ export default {
   .error {
     position: absolute;
     padding-top: 16px;
-    color: $red-0;
+    color: $red-1;
   }
 }
 </style>
