@@ -13,6 +13,12 @@ export default {
   components: {
     // Spinner,
   },
+  created() {
+    // Disable back and forward from keyboard and mouse buttons
+    window.onpopstate = function(event) {
+      event.stopImmediatePropagation()
+    }
+  },
   data() {
     return {
       loading: true,
