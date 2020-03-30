@@ -108,7 +108,7 @@ export default {
 
     &:hover {
       cursor: pointer;
-      background-color: $blue-1;
+      background-color: $purple-0;
     }
   }
 
@@ -123,7 +123,7 @@ export default {
     align-items: center;
 
     &:hover {
-      background-color: $blue-1;
+      background-color: $purple-0;
     }
 
     .back-btn {

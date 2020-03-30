@@ -6,7 +6,7 @@
       title="Import claiming file"
       :previousStep="previousStep"
       :nextStep="nextStep"
-      :disabled="disabled"
+      :disabledNextButton="disabledNextButton"
       previousText="Back"
       nextText="Continue"
     >
@@ -63,7 +63,7 @@ export default {
       file: [],
       fileName: '',
       dialogVisible: false,
-      disabled: true,
+      disabledNextButton: true,
     }
   },
   computed: {
@@ -75,16 +75,16 @@ export default {
   created() {
     if (this.claimingFileInfo) {
       this.file.push(this.claimingFileInfo.info)
-      this.disabled = false
+      this.disabledNextButton = false
     }
   },
   watch: {
     uploadFileError(error) {
       this.file = []
       if (error) {
-        this.disabled = true
+        this.disabledNextButton = true
       } else {
-        this.disabled = false
+        this.disabledNextButton = false
       }
     },
     claimingFileInfo(info) {
@@ -93,9 +93,9 @@ export default {
       }
       if (info) {
         this.file = [this.claimingFileInfo.info]
-        this.disabled = false
+        this.disabledNextButton = false
       } else {
-        this.disabled = true
+        this.disabledNextButton = true
       }
     },
   },
@@ -203,7 +203,7 @@ export default {
 
 .error {
   font-size: 14px;
-  color: $red-0;
+  color: $red-1;
   margin-top: 8px;
 }
 </style>

@@ -97,8 +97,8 @@ export default {
   .editVar {
     width: 80px;
     &.error {
-      color: $red-1;
-      border-bottom: 1px solid $red-1;
+      color: $red-2;
+      border-bottom: 1px solid $red-2;
     }
   }
   .edit-btn {

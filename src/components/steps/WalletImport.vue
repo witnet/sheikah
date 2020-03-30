@@ -127,7 +127,7 @@ export default {
   margin-top: 40px;
 }
 .match-error {
-  color: $red-0;
+  color: $red-1;
 }
 .paragraph {
   margin-top: 16px;

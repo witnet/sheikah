@@ -68,7 +68,7 @@ export default {
     box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
 
     .bar {
-      background: $blue-6;
+      background: $purple-6;
       padding: 20px;
       justify-content: space-between;
       display: flex;

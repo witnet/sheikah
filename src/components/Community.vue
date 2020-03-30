@@ -109,10 +109,10 @@ export default {
 a {
   text-decoration: none;
   cursor: pointer;
-  color: $blue-6;
+  color: $purple-6;
   &:hover,
   :active {
-    color: $blue-6;
+    color: $purple-6;
   }
 }
 

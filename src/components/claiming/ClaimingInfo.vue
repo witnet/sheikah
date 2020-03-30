@@ -74,11 +74,11 @@ export default {
 
 .main {
   border-radius: 4px;
-  border: 1px solid $yellow-default;
+  border: 1px solid $yellow-2;
   display: flex;
   flex-direction: column;
   .header {
-    background-color: $yellow-default;
+    background-color: $yellow-2;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -103,12 +103,11 @@ export default {
   .list-data {
     max-height: 200px;
     overflow-y: auto;
-    background-color: $light-yellow;
+    background-color: $yellow-0;
     .list-row {
       display: flex;
       padding: 16px;
       .data {
-        flex: 1;
         margin-right: 24px;
         font-size: 16px;
         .currency {
@@ -128,29 +127,29 @@ export default {
         height: min-content;
         width: max-content;
         padding: 0px 4px;
-        background-color: $light-purple;
+        background-color: $purple-3;
         color: $white;
         font-size: 12px;
         border-radius: 2px;
-        border: 1px solid $blue-6;
+        border: 1px solid $purple-6;
       }
       .type_DELAY {
         height: min-content;
         padding: 0px 4px;
-        background-color: $light-blue;
+        background-color: $blue-0;
         color: $white;
         font-size: 12px;
         border-radius: 2px;
-        border: 1px solid $blue;
+        border: 1px solid $blue-1;
       }
       .type_GENESIS {
         height: min-content;
         padding: 0px 4px;
-        background-color: $green-0;
+        background-color: $green-3;
         color: $white;
         font-size: 12px;
         border-radius: 2px;
-        border: 1px solid $dark-green;
+        border: 1px solid $green-2;
       }
     }
   }

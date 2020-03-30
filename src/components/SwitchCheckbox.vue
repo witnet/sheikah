@@ -60,7 +60,7 @@ export default {
     transition: all 300ms;
 
     &.checked {
-      background-color: $blue-6;
+      background-color: $purple-6;
     }
   }
 

@@ -5,7 +5,7 @@
 $default-box-shadow: -10px 10px 0px 0px rgba(155, 81, 224, 0.30);
 $font-color-dark: $grey-6;
 $font-color-light: $grey-3;
-$sheikah-gradient: linear-gradient(to right, $purple-6, $blue-6);
+$sheikah-gradient: linear-gradient(to right, $purple-7, $purple-6);
 
 // // // BUTTON_NAVIGATION
 $button_navigation-background: $white;
@@ -19,18 +19,18 @@ $button_navigation-width: auto;
 
 // // // BUTTON_OPTION
 $button_option-active-background: $white;
-$button_option-active-border-color: $blue-5;
-$button_option-active-box-shadow: 0 1px 5px 0 $blue-3;
-$button_option-active-color: $blue-6;
+$button_option-active-border-color: $purple-5;
+$button_option-active-box-shadow: 0 1px 5px 0 $purple-2;
+$button_option-active-color: $purple-6;
 $button_option-background: $white;
 $button_option-border-color: $white;
 $button_option-border-style: solid;
 $button_option-border-width: 1px;
 $button_option-border: $button_option-border-width $button_option-border-style $button_option-border-color;
 $button_option-color: $grey-5;
-$button_option-hover-border-color: $blue-4;
-$button_option-hover-box-shadow: 0 1px 5px 0 $blue-2;
-$button_option-hover-color: $blue-5;
+$button_option-hover-border-color: $purple-4;
+$button_option-hover-box-shadow: 0 1px 5px 0 $purple-1;
+$button_option-hover-color: $purple-5;
 
 // // // ICON
 $icon-settings-font_size: 14px;
@@ -40,7 +40,7 @@ $icon_status-font_size: 12px;
 $input_big-border-radius: 2px;
 $input_big-border: 2px dashed $grey-1;
 $input_big-color: $font-color-light;
-$input_big-hover-border: 2px dashed $blue-6 !important;
+$input_big-hover-border: 2px dashed $purple-6 !important;
 $input_big-hover-box-shadow: $button_option-hover-box-shadow;
 $input_big-width: 100%;
 
@@ -50,9 +50,9 @@ $input_underlined-color: $grey-3;
 
 // // // SIDEBAR
 $sidebar-inactive-border: 5px solid $white;
-$sidebar-inactive-border-hover:5px solid $blue-1;
-$sidebar-active-border: 5px solid $blue-6;
-$sidebar-active-color: $blue-6;
+$sidebar-inactive-border-hover:5px solid $purple-0;
+$sidebar-active-border: 5px solid $purple-6;
+$sidebar-active-color: $purple-6;
 $sidebar-current_wallet-color: $white;
 $sidebar-label-color: $grey-2;
 $sidebar-label-font_size: 9px;

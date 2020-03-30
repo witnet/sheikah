@@ -7,7 +7,7 @@
     nextText="Continue"
     :previousStep="previousStep"
     :nextStep="nextStep"
-    :disabled="disabled"
+    :disabledNextButton="disabledNextButton"
     ref="navCard"
   >
     <p class="paragraph">
@@ -25,7 +25,7 @@
         show-password
       />
     </div>
-    <div ref="confirm" class="form-row password last">
+    <div ref="confirm" class="form-row password">
       <p>Confirm your password</p>
       <div class="col">
         <el-input
@@ -56,7 +56,7 @@ export default {
       password: '',
       repeatPassword: '',
       error: false,
-      disabled: true,
+      disabledNextButton: true,
     }
   },
   watch: {
@@ -65,14 +65,14 @@ export default {
         this.clearError(this.createValidPasswordError.name)
       }
       if (this.password && this.repeatPassword) {
-        this.disabled = false
+        this.disabledNextButton = false
       } else {
-        this.disabled = true
+        this.disabledNextButton = true
       }
     },
     createValidPasswordError(error) {
       if (error) {
-        this.disabled = true
+        this.disabledNextButton = true
       }
     },
     repeatPassword() {
@@ -80,9 +80,9 @@ export default {
         this.clearError(this.createValidPasswordError.name)
       }
       if (this.password && this.repeatPassword) {
-        this.disabled = false
+        this.disabledNextButton = false
       } else {
-        this.disabled = true
+        this.disabledNextButton = true
       }
     },
   },
@@ -136,7 +136,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .error {
-  color: $red-0;
+  color: $red-1;
   font-size: 14px;
   min-width: 270px;
   margin-top: 16px;
@@ -157,7 +157,7 @@ export default {
     display: flex;
     justify-content: space-between;
   }
-  &.last {
+  &.form-row:last-of-type {
     margin: 0px;
   }
   .password {

@@ -7,7 +7,7 @@
     nextText="Confirm and continue"
     :previousStep="previousStep"
     :nextStep="nextStep"
-    :disabled="disabled"
+    :disabledNextButton="disabledNextButton"
     ref="navCard"
   >
     <p class="text">
@@ -18,7 +18,7 @@
     <p data-test="mnemonics-error-alert" class="match-error" v-if="mnemonicsError">
       Mnemonics must match
     </p>
-    <p class="text last">
+    <p class="text">
       Please ensure you do not add any extra spaces between words or at the beginning or end of the
       phrase.
     </p>
@@ -41,7 +41,7 @@ export default {
     return {
       seed: '',
       showError: '',
-      disabled: true,
+      disabledNextButton: true,
     }
   },
   watch: {
@@ -68,9 +68,9 @@ export default {
         if (this.mnemonicsError) {
           this.clearError(this.mnemonicsError.name)
         }
-        this.disabled = false
+        this.disabledNextButton = false
       } else {
-        this.disabled = true
+        this.disabledNextButton = true
       }
     },
     nextStep() {
@@ -113,7 +113,7 @@ export default {
 
 .match-error {
   font-size: 14px;
-  color: $red-0;
+  color: $red-1;
   margin-bottom: 8px;
 }
 .seed {
@@ -122,7 +122,7 @@ export default {
 }
 .text {
   margin-bottom: 8px;
-  &.last {
+  &:last-of-type {
     margin: 0px;
   }
 }

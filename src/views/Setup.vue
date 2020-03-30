@@ -29,16 +29,16 @@ export default {
   justify-content: center;
   align-items: center;
   .alert {
-    background-color: $orange-01;
+    background-color: $orange-0;
     width: 400px;
     .title {
-      color: $orange;
+      color: $orange-1;
       font-weight: bold;
       font-size: 18px;
       padding-bottom: 16px;
     }
     .description {
-      color: $orange;
+      color: $orange-1;
       font-size: 16px;
     }
     .link-container {

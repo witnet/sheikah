@@ -57,7 +57,7 @@ export default {
   &:hover {
     outline: none;
     cursor: pointer;
-    border-color: $blue-6;
+    border-color: $purple-6;
   }
 
   .name {

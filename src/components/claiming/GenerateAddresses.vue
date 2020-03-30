@@ -1,5 +1,9 @@
 <template>
-  <NavigationCard data-test="generate-addresses" title="Generate addresses" :disabled="false">
+  <NavigationCard
+    data-test="generate-addresses"
+    title="Generate addresses"
+    :disabledNextButton="false"
+  >
     <p class="text">
       To enhance your privacy, the Sheikah wallet divides your tokens among multiple addresses that
       are difficult to associate with each other. Your first addresses are now being generated. This

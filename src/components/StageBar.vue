@@ -60,8 +60,8 @@ export default {
     &:focus,
     &.active {
       outline: none;
-      border-bottom: 2px solid $blue-6;
-      color: $blue-6;
+      border-bottom: 2px solid $purple-6;
+      color: $purple-6;
     }
   }
 }

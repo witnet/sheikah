@@ -51,7 +51,7 @@ export default {
     color: $grey-4;
     &:hover {
       cursor: pointer;
-      color: $blue-6;
+      color: $purple-6;
     }
   }
   .text {

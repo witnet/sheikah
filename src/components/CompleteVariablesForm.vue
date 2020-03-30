@@ -118,7 +118,7 @@ export default {
       width: 80px;
       height: 30px;
       &.label {
-        color: $blue-6;
+        color: $purple-6;
         width: 40px;
         font-weight: bold;
       }
@@ -137,7 +137,7 @@ export default {
     display: flex;
     align-items: center;
     padding-left: 16px;
-    color: $red-1;
+    color: $red-2;
   }
   .submit {
     width: 100%;
