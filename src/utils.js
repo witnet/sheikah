@@ -39,7 +39,11 @@ export function standardizeWitUnits(amount, unit) {
     [`${WIT_UNIT.MICRO}`]: 3,
     [`${WIT_UNIT.NANO}`]: 0,
   }
-  return (amount / Math.pow(10, units[unit])).toFixed(units[unit]).replace(/\.?0+$/, '')
+  if (unit === WIT_UNIT.NANO) {
+    return amount.toString()
+  } else {
+    return (amount / Math.pow(10, units[unit])).toFixed(units[unit]).replace(/\.?0+$/, '')
+  }
 }
 
 export function encodeDataRequest(radRequest) {

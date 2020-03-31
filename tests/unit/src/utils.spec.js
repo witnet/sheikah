@@ -60,8 +60,8 @@ describe('standardizeWitUnits', () => {
       })
     })
     it('nanoWit', () => {
-      const expected = '4'
-      const result = standardizeWitUnits(4, WIT_UNIT.NANO)
+      const expected = '40'
+      const result = standardizeWitUnits(40, WIT_UNIT.NANO)
       expect(result).toBe(expected)
     })
   })
