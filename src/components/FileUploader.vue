@@ -8,28 +8,55 @@
       @drop.prevent="readFile"
       @dragover.prevent
     >
-      <i v-show="file" class="el-icon-upload-success el-icon-circle-check" />
-      <p v-if="file">{{ file.name }}</p>
-      <i v-show="!file" class="el-icon-upload"></i>
-      <p v-show="!file" class="sub-text">
+      <font-awesome-icon
+        icon="check-circle"
+        data-test="success-icon"
+        v-if="file"
+        class="icon-circle-check"
+      />
+      <p data-test="success-text" v-if="file">{{ file.name }}</p>
+      <font-awesome-icon
+        icon="cloud-upload-alt"
+        data-test="upload-icon"
+        v-if="!file"
+        class="icon-upload"
+      />
+      <p data-test="upload-text" v-if="!file" class="sub-text">
         <slot></slot>
       </p>
     </div>
-    <p v-if="acceptedFormat" class="format-warning">
+    <p data-test="accepted-file-subtitle" v-if="acceptedFormat" class="format-warning">
       {{ subtitle }}
     </p>
     <transition name="fade" mode="out-in">
-      <div class="file" v-if="file" @mouseover="showDelete = true" @mouseleave="showDelete = false">
-        <p class="name" @click="downloadFile">
-          <i class="el-icon-document"></i>
-          <span class="text"> {{ file.name }} </span>
-        </p>
-        <i @click="clearFile" v-if="showDelete" class="el-icon-close file-icon"></i>
-        <i v-else class="el-icon-upload-success el-icon-circle-check file-icon"></i>
+      <div
+        data-test="file"
+        class="file"
+        v-if="file"
+        @mouseover="showDelete = true"
+        @mouseleave="showDelete = false"
+      >
+        <div class="name" @click="downloadFile">
+          <font-awesome-icon icon="file-alt" class="icon-document" />
+          <div data-test="file-name" class="text">{{ file.name }}</div>
+        </div>
+        <font-awesome-icon
+          icon="times"
+          data-test="close-icon"
+          @click="clearFile"
+          v-if="showDelete"
+          class="file-icon close"
+        />
+        <font-awesome-icon
+          icon="check-circle"
+          data-test="check-icon"
+          v-else
+          class="file-icon success"
+        />
       </div>
     </transition>
-    <p v-if="error" class="error" data-test="error">
-      {{ error }}
+    <p data-test="error" v-if="error" class="error">
+      {{ errorMessage }}
     </p>
     <input
       :accept="acceptedFormat"
@@ -44,17 +71,18 @@
 
 <script>
 export default {
-  name: 'Import',
+  name: 'FileUploader',
   props: {
     acceptedFormat: String,
-    error: String,
     file: Object,
     clearFile: Function,
     validateFile: Function,
-    beforeUpload: Function,
+    afterUpload: Function,
+    errorMessage: String,
   },
   data() {
     return {
+      error: false,
       fileName: '',
       showDelete: false,
       subtitle: `(Only ${this.acceptedFormat} files are allowed)`,
@@ -90,16 +118,15 @@ export default {
           this.$emit('file-name', file.name)
           try {
             if (this.validateFile(fileInfo)) {
-              this.beforeUpload(fileInfo)
-              if (this.error) {
-                this.$emit('clear-error')
-              }
+              this.$emit('file-validated', fileInfo)
+              this.error = false
             } else {
               this.clearFile()
-              this.$emit('set-error')
+              this.$emit('error-uploading-file')
+              this.error = true
             }
           } catch (error) {
-            console.log('Error parsing json', error)
+            // console.log('Error parsing json', error)
           }
         },
         false
@@ -137,12 +164,12 @@ export default {
       text-decoration: underline;
     }
   }
-  .el-icon-upload {
+  .icon-upload {
     margin-bottom: 16px;
     font-size: 56px;
-    color: $grey-3;
+    color: $grey-2;
   }
-  .el-icon-circle-check {
+  .icon-circle-check {
     font-size: 56px;
     color: #52c41a;
     margin-bottom: 16px;
@@ -164,29 +191,36 @@ export default {
   align-items: center;
   font-size: 34px;
   margin-top: 16px;
+  padding: 4px;
   height: min-content;
-  .el-icon-document {
+  .icon-document {
+    color: $grey-3;
     margin-right: 8px;
-    padding-left: 4px;
+    margin-left: 4px;
   }
   .name {
     border: 1px solid transparent;
     border-radius: 3px;
     font-size: 14px;
+    color: $grey-6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   &:hover {
     transition: color 0.3s;
     border-radius: 4px;
     background-color: #f5f7fa;
     .text {
-      color: $blue-6;
+      color: $purple-6;
     }
   }
   .file-icon {
-    padding-right: 8px;
-    font-size: 14px;
+    color: $grey-3;
+    margin-right: 8px;
+    font-size: 12px;
   }
-  .el-icon-upload-success {
+  .success {
     color: #52c41a;
   }
 }
@@ -201,12 +235,32 @@ export default {
   transform: translateY(-10px);
   opacity: 0;
 }
-.text {
-  margin-bottom: 24px;
-}
 .error {
   font-size: 14px;
-  color: $red-0;
+  color: $red-1;
   margin-top: 8px;
 }
 </style>
+
+<docs>
+#### Upload component:
+
+#### Basic usage
+```js
+<FileUploader
+  acceptedFormat=".json"
+  errorMessage="An error ocurred"
+  :validateFile="() => true"
+/>
+```
+
+#### Show error when validation file
+```js
+<FileUploader
+  acceptedFormat=".json"
+  errorMessage="An error ocurred"
+  :validateFile="() => false"
+/>
+```
+
+</docs>

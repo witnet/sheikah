@@ -14,39 +14,39 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
         in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
       </p>
-      <Import
-        :error="uploadFileError ? uploadFileError.message : null"
+      <FileUploader
+        :errorMessage="uploadFileError ? uploadFileError.message : ''"
         :file="claimingFileInfo ? claimingFileInfo.info : null"
         :clearFile="clearClaimingInfo"
         :validateFile="validateClaimingImportFile"
-        :beforeUpload="setFileInfo"
         acceptedFormat=".json"
         v-on:file-name="updateName"
-        v-on:clear-error="clearError"
-        v-on:set-error="setError"
+        v-on:file-validated="setFileInfo"
+        v-on:error-uploading-file="setError"
       >
         Drag your <span class="upload">participant_proof.json</span> file here or
         <span class="underline">click to import</span>
-      </Import>
+      </FileUploader>
     </NavigationCard>
   </div>
 </template>
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
-import Import from '@/components/Import'
+import FileUploader from '@/components/FileUploader'
 import { mapState } from 'vuex'
 import { validateClaimingImportFile } from '@/utils'
 export default {
   name: 'UploadFile',
   components: {
     NavigationCard,
-    Import,
+    FileUploader,
   },
   data() {
     return {
       showDelete: false,
       fileName: '',
+      disabledNextButton: true,
     }
   },
   computed: {
@@ -55,6 +55,31 @@ export default {
       claimingFileInfo: state => state.wallet.claimingFileInfo,
     }),
   },
+  watch: {
+    uploadFileError(error) {
+      if (error) {
+        this.disabledNextButton = true
+      } else {
+        this.disabledNextButton = false
+      }
+    },
+    claimingFileInfo(info) {
+      if (info && this.uploadFileError) {
+        this.clearError()
+      }
+      if (info) {
+        this.disabledNextButton = false
+      } else {
+        this.disabledNextButton = true
+      }
+    },
+  },
+  created() {
+    if (this.claimingFileInfo) {
+      this.disabledNextButton = false
+    }
+  },
+
   methods: {
     validateClaimingImportFile,
     updateName(name) {
@@ -64,16 +89,13 @@ export default {
       this.$store.commit('setClaimingInfo', {
         info: this.normalizeFile(file),
       })
+      this.clearError()
     },
     previousStep() {
       this.$router.push('/claiming/claiming-instructions')
     },
     nextStep() {
-      if (this.claimingFileInfo && !this.uploadFileError) {
-        this.$router.push('/claiming/file-information')
-      } else {
-        this.setError()
-      }
+      this.$router.push('/claiming/vesting')
     },
     clearError() {
       this.$store.commit('clearError', { error: 'uploadFile' })
@@ -164,7 +186,7 @@ export default {
     border-radius: 4px;
     background-color: #f5f7fa;
     .text {
-      color: $blue-6;
+      color: $purple-6;
     }
   }
   .file-icon {

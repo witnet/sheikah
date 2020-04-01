@@ -87,12 +87,13 @@ export default new Router({
                 }
               } else {
                 clearInterval(polling)
-                if (localStorage.getItem('completed') === 'true') {
-                  const l = store.state.wallet.walletInfos.length
-                  next(`/claiming/unlock/${store.state.wallet.walletInfos[l - 1].id}`)
-                } else {
-                  next('/claiming/claiming-instructions')
-                }
+                next('/claiming/claiming-instructions')
+                // if (localStorage.getItem('completed') === 'true') {
+                //   const l = store.state.wallet.walletInfos.length
+                //   next(`/claiming/unlock/${store.state.wallet.walletInfos[l - 1].id}`)
+                // } else {
+                //   next('/claiming/claiming-instructions')
+                // }
               }
             }, 1000)
           })
