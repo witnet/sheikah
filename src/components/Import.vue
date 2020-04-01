@@ -8,28 +8,43 @@
       @drop.prevent="readFile"
       @dragover.prevent
     >
-      <i v-show="file" class="el-icon-upload-success el-icon-circle-check" />
-      <p v-if="file">{{ file.name }}</p>
-      <i v-show="!file" class="el-icon-upload"></i>
-      <p v-show="!file" class="sub-text">
+      <i data-test="success-icon" v-if="file" class="el-icon-upload-success el-icon-circle-check" />
+      <p data-test="success-text" v-if="file">{{ file.name }}</p>
+      <i data-test="upload-icon" v-if="!file" class="el-icon-upload"></i>
+      <p data-test="upload-text" v-if="!file" class="sub-text">
         <slot></slot>
       </p>
     </div>
-    <p v-if="acceptedFormat" class="format-warning">
+    <p data-test="accepted-file-subtitle" v-if="acceptedFormat" class="format-warning">
       {{ subtitle }}
     </p>
     <transition name="fade" mode="out-in">
-      <div class="file" v-if="file" @mouseover="showDelete = true" @mouseleave="showDelete = false">
+      <div
+        data-test="file"
+        class="file"
+        v-if="file"
+        @mouseover="showDelete = true"
+        @mouseleave="showDelete = false"
+      >
         <p class="name" @click="downloadFile">
           <i class="el-icon-document"></i>
-          <span class="text"> {{ file.name }} </span>
+          <span data-test="file-name" class="text"> {{ file.name }} </span>
         </p>
-        <i @click="clearFile" v-if="showDelete" class="el-icon-close file-icon"></i>
-        <i v-else class="el-icon-upload-success el-icon-circle-check file-icon"></i>
+        <i
+          data-test="close-icon"
+          @click="clearFile"
+          v-if="showDelete"
+          class="el-icon-close file-icon"
+        ></i>
+        <i
+          data-test="check-icon"
+          v-else
+          class="el-icon-upload-success el-icon-circle-check file-icon"
+        ></i>
       </div>
     </transition>
-    <p v-if="error" class="error" data-test="error">
-      {{ error }}
+    <p data-test="error" v-if="error" class="error">
+      {{ errorMessage }}
     </p>
     <input
       :accept="acceptedFormat"
@@ -47,14 +62,15 @@ export default {
   name: 'Import',
   props: {
     acceptedFormat: String,
-    error: String,
     file: Object,
     clearFile: Function,
     validateFile: Function,
-    beforeUpload: Function,
+    afterUpload: Function,
+    errorMessage: String,
   },
   data() {
     return {
+      error: false,
       fileName: '',
       showDelete: false,
       subtitle: `(Only ${this.acceptedFormat} files are allowed)`,
@@ -90,16 +106,18 @@ export default {
           this.$emit('file-name', file.name)
           try {
             if (this.validateFile(fileInfo)) {
-              this.beforeUpload(fileInfo)
-              if (this.error) {
-                this.$emit('clear-error')
+              if (this.afterUpload) {
+                this.afterUpload(fileInfo)
               }
+              this.$emit('file-uploaded')
+              this.error = false
             } else {
               this.clearFile()
-              this.$emit('set-error')
+              this.$emit('error-uploading-file')
+              this.error = true
             }
           } catch (error) {
-            console.log('Error parsing json', error)
+            // console.log('Error parsing json', error)
           }
         },
         false
@@ -179,7 +197,7 @@ export default {
     border-radius: 4px;
     background-color: #f5f7fa;
     .text {
-      color: $blue-6;
+      color: $purple-6;
     }
   }
   .file-icon {
@@ -206,7 +224,7 @@ export default {
 }
 .error {
   font-size: 14px;
-  color: $red-0;
+  color: $red-1;
   margin-top: 8px;
 }
 </style>

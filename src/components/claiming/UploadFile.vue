@@ -15,15 +15,15 @@
         in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
       </p>
       <Import
-        :error="uploadFileError ? uploadFileError.message : null"
+        :errorMessage="uploadFileError ? uploadFileError.message : ''"
         :file="claimingFileInfo ? claimingFileInfo.info : null"
         :clearFile="clearClaimingInfo"
         :validateFile="validateClaimingImportFile"
-        :beforeUpload="setFileInfo"
+        :afterUpload="setFileInfo"
         acceptedFormat=".json"
         v-on:file-name="updateName"
-        v-on:clear-error="clearError"
-        v-on:set-error="setError"
+        v-on:file-uploaded="clearError"
+        v-on:error-uploading-file="setError"
       >
         Drag your <span class="upload">participant_proof.json</span> file here or
         <span class="underline">click to import</span>
@@ -47,13 +47,36 @@ export default {
     return {
       showDelete: false,
       fileName: '',
+      disabledNextButton: true,
     }
   },
   computed: {
     ...mapState({
       uploadFileError: state => state.wallet.errors.uploadFile,
-      claimingFileInfo: state => state.wallet.claimingFileInfo,
+      claimingFileInfo: state => {
+        console.log(state.wallet.claimingFileInfo)
+        return state.wallet.claimingFileInfo
+      },
     }),
+  },
+  watch: {
+    uploadFileError(error) {
+      if (error) {
+        this.disabledNextButton = true
+      } else {
+        this.disabledNextButton = false
+      }
+    },
+    claimingFileInfo(info) {
+      if (info && this.uploadFileError) {
+        this.clearError()
+      }
+      if (info) {
+        this.disabledNextButton = false
+      } else {
+        this.disabledNextButton = true
+      }
+    },
   },
   methods: {
     validateClaimingImportFile,
@@ -164,7 +187,7 @@ export default {
     border-radius: 4px;
     background-color: #f5f7fa;
     .text {
-      color: $blue-6;
+      color: $purple-6;
     }
   }
   .file-icon {
