@@ -1,5 +1,6 @@
 <template>
   <div class="import-container">
+    <!-- TODO: Fix drag and drop -->
     <div
       data-test="drag-and-drop"
       class="drag-file-area"
@@ -8,10 +9,21 @@
       @drop.prevent="readFile"
       @dragover.prevent
     >
-      <i data-test="success-icon" v-if="file" class="el-icon-upload-success el-icon-circle-check" />
-      <p data-test="success-text" v-if="file">{{ file.name }}</p>
-      <i data-test="upload-icon" v-if="!file" class="el-icon-upload"></i>
-      <p data-test="upload-text" v-if="!file" class="sub-text">
+      <!-- TODO: use font awesome icons instead of element ones -->
+      <i
+        data-test="success-icon"
+        v-if="localFile && !error"
+        class="el-icon-upload-success el-icon-circle-check"
+      />
+      <!-- TODO: Set proper error icon -->
+      <i
+        data-test="error-icon"
+        v-if="localFile && error"
+        class="el-icon-upload-error el-icon-circle-close"
+      />
+      <p data-test="success-text" v-if="localFile">{{ fileName }}</p>
+      <i data-test="upload-icon" v-if="!localFile" class="el-icon-upload"></i>
+      <p data-test="upload-text" v-if="!localFile" class="sub-text">
         <slot></slot>
       </p>
     </div>
@@ -22,13 +34,13 @@
       <div
         data-test="file"
         class="file"
-        v-if="file"
+        v-if="localFile && !error"
         @mouseover="showDelete = true"
         @mouseleave="showDelete = false"
       >
-        <p class="name" @click="downloadFile">
+        <p class="name">
           <i class="el-icon-document"></i>
-          <span data-test="file-name" class="text"> {{ file.name }} </span>
+          <span data-test="file-name" class="text"> {{ fileName }} </span>
         </p>
         <i
           data-test="close-icon"
@@ -53,77 +65,109 @@
       ref="fileInput"
       v-on:change="readFile"
     />
-    <a v-if="file" :href="fileLink" ref="download" :download="file.name" style="display:none" />
   </div>
 </template>
 
 <script>
+/**
+ * File uploader component
+ * @displayName FileUploader
+ */
 export default {
-  name: 'Import',
+  name: 'FileUploader',
   props: {
-    acceptedFormat: String,
-    file: Object,
-    clearFile: Function,
-    validateFile: Function,
-    afterUpload: Function,
-    errorMessage: String,
+    /**
+     * Type of the file to be uploaded
+     */
+    acceptedFormat: {
+      type: String,
+      required: true,
+    },
+    /**
+     * Initial file loaded
+     */
+    file: {
+      type: Object,
+      required: false,
+    },
+    /**
+     * Gets called when a file is uploaded to ensure its validity
+     */
+    validateFile: {
+      type: Function,
+      required: false,
+    },
+    /**
+     * Gets called just after a file is uploaded
+     */
+    afterUpload: {
+      type: Function,
+      required: false,
+    },
+    /**
+     * Error text to show if validateFile fails
+     */
+    errorMessage: {
+      type: String,
+      required: false,
+    },
   },
   data() {
     return {
+      localFile: this.file,
       error: false,
-      fileName: '',
+      fileName: this.fileName,
       showDelete: false,
       subtitle: `(Only ${this.acceptedFormat} files are allowed)`,
     }
   },
   methods: {
-    fileLink() {
-      return `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.file))}`
-    },
-    downloadFile() {
-      this.$refs.download.click()
+    clearFile() {
+      this.localFile = null
+      this.fileName = null
+      this.$emit('file-cleared')
     },
     importFile() {
       this.$refs.fileInput.value = ''
       this.$refs.fileInput.click()
     },
     readFile(e) {
-      let file = null
-      if (this.$refs.fileInput.files.length > 0) {
-        this.clearFile()
-        const inputFile = this.$refs.fileInput.files
-        file = inputFile[inputFile.length - 1]
-      } else if (e.dataTransfer) {
-        const dropFile = e.dataTransfer.files
-        file = dropFile[dropFile.length - 1]
-      }
+      this.localFile = this.$refs.fileInput.files[0]
+      this.fileName = this.$refs.fileInput.files[0].name
+
       const reader = new FileReader()
       reader.addEventListener(
         'load',
         e => {
           const fileInfo = JSON.parse(e.target.result)
-          this.fileName = file.name
-          this.$emit('file-name', file.name)
           try {
             if (this.validateFile(fileInfo)) {
-              if (this.afterUpload) {
-                this.afterUpload(fileInfo)
-              }
-              this.$emit('file-uploaded')
+              this.localFile = fileInfo
+              /**
+               * Emit the content of the file uploaded
+               */
+              this.$emit('file-uploaded', fileInfo)
               this.error = false
             } else {
-              this.clearFile()
+              this.fileName = this.localFile.name
+              /**
+               * Nofity file uploaded is not valid
+               */
               this.$emit('error-uploading-file')
               this.error = true
             }
           } catch (error) {
-            // console.log('Error parsing json', error)
+            /**
+             * Nofity file uploaded is not valid
+             */
+            this.$emit('error-uploading-file')
           }
         },
         false
       )
-      if (file) {
-        reader.readAsText(file)
+
+      if (this.localFile) {
+        reader.readAsText(this.localFile)
       }
     },
   },
@@ -205,7 +249,11 @@ export default {
     font-size: 14px;
   }
   .el-icon-upload-success {
-    color: #52c41a;
+    color: lightgreen;
+  }
+
+  .el-icon-upload-error {
+    color: lightcoral;
   }
 }
 .fade-enter-active {
@@ -228,3 +276,26 @@ export default {
   margin-top: 8px;
 }
 </style>
+
+<docs>
+#### Upload component:
+
+#### Basic usage
+```js
+<FileUploader
+  acceptedFormat=".json"
+  errorMessage="An error ocurred"
+  :validateFile="() => true"
+/>
+```
+
+#### Show error when validation file
+```js
+<FileUploader
+  acceptedFormat=".json"
+  errorMessage="An error ocurred"
+  :validateFile="() => false"
+/>
+```
+
+</docs>

@@ -1,12 +1,11 @@
 import { shallowMount } from '@vue/test-utils'
-import Import from '@/components/Import.vue'
+import FileUploader from '@/components/FileUploader.vue'
 import claimingFileSuccess from '../../claiming_file_success'
-// import claimingFileError from '../../claiming_file_error'
-// import { validateClaimingImportFile } from '@/utils'
+
 import '../../src/fontAwesome'
 
 describe('Renders the correct elements when there is no file uploaded', () => {
-  const wrapper = shallowMount(Import, {
+  const wrapper = shallowMount(FileUploader, {
     propsData: {
       acceptedFormat: '.json',
       errorMessage: null,
@@ -52,7 +51,7 @@ describe('Renders the correct elements when there is no file uploaded', () => {
 })
 
 describe('Renders the correct elements when there is a file uploaded', () => {
-  const wrapper = shallowMount(Import, {
+  const wrapper = shallowMount(FileUploader, {
     propsData: {
       acceptedFormat: '.json',
       errorMessage: null,
@@ -98,7 +97,7 @@ describe('Renders the correct elements when there is a file uploaded', () => {
 })
 
 describe('Shows delete file button when showDelete is activated', () => {
-  const wrapper = shallowMount(Import, {
+  const wrapper = shallowMount(FileUploader, {
     propsData: {
       acceptedFormat: '.json',
       errorMessage: null,
@@ -120,7 +119,7 @@ describe('Shows delete file button when showDelete is activated', () => {
 })
 
 describe('Shows delete file button when showDelete is activated', () => {
-  const wrapper = shallowMount(Import, {
+  const wrapper = shallowMount(FileUploader, {
     propsData: {
       acceptedFormat: '.json',
       errorMessage: null,
@@ -149,7 +148,7 @@ describe('Upload file', () => {
     let localImageInputValueSet
     let localImageInputValue = ''
 
-    const wrapper = shallowMount(Import, {
+    const wrapper = shallowMount(FileUploader, {
       propsData: {
         acceptedFormat: '.json',
         errorMessage: 'An error',
@@ -183,7 +182,7 @@ describe('Upload file', () => {
   })
 })
 describe('show error when error', () => {
-  const wrapper = shallowMount(Import, {
+  const wrapper = shallowMount(FileUploader, {
     propsData: {
       acceptedFormat: '.json',
       errorMessage: 'An error',

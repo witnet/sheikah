@@ -6,7 +6,7 @@
       title="Import claiming file"
       :previousStep="previousStep"
       :nextStep="nextStep"
-      :disabledNextButton="disabledNextButton"
+      :disabledNextButton="!isNextEnabled"
       previousText="Back"
       nextText="Continue"
     >
@@ -14,74 +14,62 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
         in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
       </p>
-      <Import
-        :errorMessage="uploadFileError ? uploadFileError.message : ''"
+      <FileUploader
+        errorMessage="Upload a valid claiming file"
         :file="claimingFileInfo ? claimingFileInfo.info : null"
+        :fileName="this.fileName"
         :clearFile="clearClaimingInfo"
         :validateFile="validateClaimingImportFile"
-        :afterUpload="setFileInfo"
         acceptedFormat=".json"
         v-on:file-name="updateName"
-        v-on:file-uploaded="clearError"
+        v-on:file-uploaded="onFileUploaded"
         v-on:error-uploading-file="setError"
+        v-on:file-cleared="clearClaimingInfo"
       >
         Drag your <span class="upload">participant_proof.json</span> file here or
         <span class="underline">click to import</span>
-      </Import>
+      </FileUploader>
     </NavigationCard>
   </div>
 </template>
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
-import Import from '@/components/Import'
+import FileUploader from '@/components/FileUploader'
 import { mapState } from 'vuex'
 import { validateClaimingImportFile } from '@/utils'
 export default {
   name: 'UploadFile',
   components: {
     NavigationCard,
-    Import,
+    FileUploader,
   },
   data() {
     return {
-      showDelete: false,
+      error: false,
       fileName: '',
-      disabledNextButton: true,
     }
   },
   computed: {
     ...mapState({
       uploadFileError: state => state.wallet.errors.uploadFile,
-      claimingFileInfo: state => {
-        console.log(state.wallet.claimingFileInfo)
-        return state.wallet.claimingFileInfo
-      },
+      claimingFileInfo: state => state.wallet.claimingFileInfo,
     }),
-  },
-  watch: {
-    uploadFileError(error) {
-      if (error) {
-        this.disabledNextButton = true
-      } else {
-        this.disabledNextButton = false
-      }
-    },
-    claimingFileInfo(info) {
-      if (info && this.uploadFileError) {
-        this.clearError()
-      }
-      if (info) {
-        this.disabledNextButton = false
-      } else {
-        this.disabledNextButton = true
-      }
+    isNextEnabled() {
+      return !this.error && this.claimingFileInfo
     },
   },
   methods: {
     validateClaimingImportFile,
+    onFileUploaded(file) {
+      this.setFileInfo(file)
+      this.error = false
+    },
     updateName(name) {
       this.fileName = name
+    },
+    setError() {
+      this.error = true
     },
     setFileInfo(file) {
       this.$store.commit('setClaimingInfo', {
@@ -92,14 +80,9 @@ export default {
       this.$router.push('/claiming/claiming-instructions')
     },
     nextStep() {
-      if (this.claimingFileInfo && !this.uploadFileError) {
+      if (this.isNextEnabled) {
         this.$router.push('/claiming/file-information')
-      } else {
-        this.setError()
       }
-    },
-    clearError() {
-      this.$store.commit('clearError', { error: 'uploadFile' })
     },
     clearClaimingInfo() {
       this.$store.commit('clearClaimingInfo')
@@ -132,13 +115,6 @@ export default {
           source: file.source,
         },
       }
-    },
-    setError() {
-      this.$store.commit('setError', {
-        name: 'uploadFile',
-        error: 'Validation Error',
-        message: 'Upload a valid claiming file',
-      })
     },
     importFile() {
       this.$refs.fileInput.value = ''
