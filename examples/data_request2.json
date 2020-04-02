@@ -1,0 +1,47 @@
+{
+    "name": "Data request example 2",
+    "description": "Request to get the bitcoin price from two sources",
+    "radRequest": {
+        "timelock": 1574703683,
+        "retrieve": [
+            {
+                "kind": "HTTP-GET",
+                "url": "https://www.bitstamp.net/api/ticker/",
+                "script": [
+                    119,
+                    [
+                        100,
+                        "last"
+                    ]
+                ]
+            },
+            {
+                "kind": "HTTP-GET",
+                "url": "https://api.coindesk.com/v1/bpi/currentprice.json",
+                "script": [
+                    119,
+                    [
+                        102,
+                        "bpi"
+                    ],
+                    [
+                        102,
+                        "USD"
+                    ],
+                    [
+                        100,
+                        "rate_float"
+                    ]
+                ]
+            }
+        ],
+        "aggregate": {
+            "filters": [],
+            "reducer": 3
+        },
+        "tally": {
+            "filters": [],
+            "reducer": 3
+        }
+    }
+}
