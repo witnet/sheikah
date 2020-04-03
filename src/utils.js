@@ -486,7 +486,7 @@ export function simplifyDrResult(input, radonType) {
 }
 
 // calculate the number of addresses and its amount according to the amount of wits passed
-export function calculateAddressesAmount(amount) {
+export function groupAmountByUnlockedDate(amount) {
   if (amount === 0) return []
   const ceil = precision => x => Math.ceil(x / precision) * precision
   // round the amount of wits for convenience and deniability
@@ -504,14 +504,31 @@ export function calculateAddressesAmount(amount) {
     .reduce((a, b) => [...a, ...b])
 }
 
-export function createExportClaimingFile(importedFile, addresses, disclaimers) {
-  return {
-    email_address: importedFile.data.emailAddress,
-    name: importedFile.data.name,
-    addresses,
-    disclaimers: disclaimers,
-    signature: importedFile.signature,
-  }
+export function createExportClaimingFileLink(importedFile, addresses, disclaimers) {
+  return `data:text/json;charset=utf-8,${encodeURIComponent(
+    JSON.stringify({
+      email_address: importedFile.data.emailAddress,
+      name: importedFile.data.name,
+      addresses,
+      disclaimers: disclaimers,
+      signature: importedFile.signature,
+    })
+  )}`
+}
+
+export function buildClaimingAddresses(amountByUnlockedDate, vesting, addresses) {
+  return amountByUnlockedDate
+    .map((amount, index) => {
+      let timelock = Math.floor(vesting[index].date.getTime() / 1000)
+      return amount.map(wits => {
+        return {
+          address: addresses.shift(),
+          amount: wits,
+          timelock,
+        }
+      })
+    })
+    .reduce((acc, arr) => [...acc, ...arr])
 }
 
 export async function sleep(t) {
@@ -549,7 +566,7 @@ export function validateClaimingImportFile(importedFile) {
 export function calculateVesting(vestingInfo, amount, genesisDate) {
   const { delay, installmentLength, cliff, installmentWits } = vestingInfo
   const numberOfSteps = Math.ceil(amount / installmentWits)
-  const steps = Array(numberOfSteps)
+  return Array(numberOfSteps)
     .fill(0)
     .map((_, index) => {
       const date = new Date(genesisDate)
@@ -561,5 +578,4 @@ export function calculateVesting(vestingInfo, amount, genesisDate) {
         amount: currentAmount,
       }
     })
-  return steps
 }

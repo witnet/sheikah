@@ -41,7 +41,7 @@
     <a
       v-show="dataStr"
       ref="file"
-      :href="dataStr"
+      :href="exportFileLink"
       download="claiming-information.json"
       style="display:none"
     />
@@ -50,12 +50,15 @@
 
 <script>
 import { mapState } from 'vuex'
-import { createExportClaimingFile, openInExternalApp } from '@/utils'
+import { openInExternalApp } from '@/utils'
 import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
   components: {
     NavigationCard,
+  },
+  beforeCreate() {
+    this.$store.dispatch('getExportFile')
   },
   data() {
     return {
@@ -89,20 +92,10 @@ export default {
       date: state => {
         return state.wallet.checkTokenGenerationEventDate
       },
+      exportFileLink: state => {
+        return state.wallet.exportFileLink
+      },
     }),
-    dataStr() {
-      return this.claimingFileInfo
-        ? `data:text/json;charset=utf-8,${encodeURIComponent(
-            JSON.stringify(
-              createExportClaimingFile(
-                this.claimingFileInfo.info,
-                this.claimingAddresses,
-                this.disclaimers
-              )
-            )
-          )}`
-        : ''
-    },
     dateInMilliseconds() {
       return Math.trunc(Date.parse(this.date) / 1000)
     },

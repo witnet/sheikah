@@ -16,7 +16,7 @@
 <script>
 import { mapState } from 'vuex'
 import NavigationCard from '@/components/card/NavigationCard'
-import { calculateAddressesAmount, sleep } from '@/utils'
+import { groupAmountByUnlockedDate, sleep } from '@/utils'
 
 export default {
   name: 'GenerateAddresses',
@@ -49,9 +49,6 @@ export default {
     generateAddress() {
       this.$store.dispatch('generateMultipleAddresses')
     },
-    previousStep() {
-      this.$router.push('/claiming/create-wallet')
-    },
   },
   computed: {
     ...mapState({
@@ -61,17 +58,17 @@ export default {
       generatedAddresses: state => {
         return state.wallet.claimingAddresses.length || 0
       },
-      computedVesting: state => {
-        return state.wallet.computedVesting
+      vesting: state => {
+        return state.wallet.vesting
       },
     }),
-    addressesAmount() {
-      return this.computedVesting.map(period => {
-        return calculateAddressesAmount(period.amount)
+    amountByUnlockedDate() {
+      return this.vesting.map(period => {
+        return groupAmountByUnlockedDate(period.amount)
       })
     },
     addressesToGenerate() {
-      return this.addressesAmount.reduce((acc, arr) => acc + arr.length, 0)
+      return this.amountByUnlockedDate.reduce((acc, arr) => acc + arr.length, 0)
     },
     areAddressesGenerated() {
       return this.generatedAddresses === this.addressesToGenerate
@@ -83,7 +80,7 @@ export default {
   watch: {
     async areAddressesGenerated(areGenerated) {
       if (areGenerated) {
-        this.$store.commit('addAmountToClamingAddresses', this.addressesAmount)
+        this.$store.dispatch('createAndSaveExportFileLink', this.amountByUnlockedDate)
         await sleep(2000)
         this.$router.push('/claiming/download-file')
       }

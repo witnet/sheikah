@@ -104,7 +104,7 @@ export default new Router({
                 }
               } else {
                 clearInterval(polling)
-                if (localStorage.getItem('completed')) {
+                if (localStorage.getItem('completed') === 'true') {
                   const l = store.state.wallet.walletInfos.length
                   next(`/claiming/unlock/${store.state.wallet.walletInfos[l - 1].id}`)
                 } else {

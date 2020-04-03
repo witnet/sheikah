@@ -7,6 +7,8 @@ import {
   encodeDataRequest,
   isSyncEvent,
   standardizeWitUnits,
+  createExportClaimingFileLink,
+  buildClaimingAddresses,
 } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { GENERATE_ADDRESS_DELAY, WALLET_EVENTS, WIT_UNIT } from '@/constants'
@@ -40,6 +42,7 @@ export default {
       saveItem: null,
       getItem: null,
     },
+    exportFileLink: '',
     checkTokenGenerationEventDate: new Date(2020, 4, 16, 17, 23, 42, 0),
     claimingFileInfo: null,
     claimingProcessState: null,
@@ -87,6 +90,12 @@ export default {
           })
         })
         .reduce((acc, arr) => [...acc, ...arr])
+    },
+    setExportFileLink(state, link) {
+      state.exportFileLink = link
+    },
+    setVesting(state, vesting) {
+      state.vesting = vesting
     },
     setTransactions(state, { transactions }) {
       state.transactions = transactions.map(transaction => ({
@@ -318,6 +327,55 @@ export default {
       return context.state.api.shutdown({
         session_id: context.state.sessionId,
       })
+    },
+    async createAndSaveExportFileLink(context, amountByUnlockedDate) {
+      const addresses = [...context.state.claimingAddresses]
+
+      const claimingAddresses = buildClaimingAddresses(
+        amountByUnlockedDate,
+        context.state.vesting,
+        addresses
+      )
+
+      const link = createExportClaimingFileLink(
+        context.state.claimingFileInfo.info,
+        claimingAddresses,
+        context.state.disclaimers
+      )
+
+      const request = await context.state.api.saveItem({
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
+        key: `${context.rootState.wallet.walletId}_claiming_link`,
+        value: { link },
+      })
+
+      if (request.result) {
+        context.commit('setExportFileLink', link)
+      } else {
+        context.commit('setError', {
+          name: 'getItem',
+          error: request.error.message,
+          message: 'An error occurred retrieving claiming file link',
+        })
+      }
+    },
+    async getExportFile(context) {
+      const request = await context.state.api.getItem({
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
+        key: `${context.rootState.wallet.walletId}_claiming_link`,
+      })
+      if (request.result) {
+        context.commit('setExportFileLink', request.result.value.link)
+      } else {
+        // TODO1: handle error properly
+        context.commit('setError', {
+          name: 'getItem',
+          error: request.error.message,
+          message: 'An error occurred retrieving the label for the transaction',
+        })
+      }
     },
     closeSession: async function(context) {
       const request = await context.state.api.closeSession({

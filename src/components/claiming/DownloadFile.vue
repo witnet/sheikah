@@ -21,9 +21,8 @@
         Export my claim file...
       </el-button>
       <a
-        v-if="dataStr"
-        ref="download"
-        :href="dataStr"
+        :href="exportFileLink"
+        ref="file"
         download="claiming-information.json"
         style="display:none"
       ></a>
@@ -39,7 +38,6 @@
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
-import { createExportClaimingFile } from '@/utils'
 import { mapState } from 'vuex'
 
 export default {
@@ -55,35 +53,13 @@ export default {
   },
   computed: {
     ...mapState({
-      claimingAddresses: state => {
-        return state.wallet.claimingAddresses
-      },
-      claimingFileInfo: state => {
-        return state.wallet.claimingFileInfo
-      },
-      addresses: state => {
-        return state.wallet.addresses
-      },
-      disclaimers: state => {
-        return state.wallet.disclaimers
-      },
       claimingProcessCompleted: state => {
         return state.wallet.claimingProcessState
       },
+      exportFileLink: state => {
+        return state.wallet.exportFileLink
+      },
     }),
-    dataStr() {
-      return this.claimingFileInfo
-        ? `data:text/json;charset=utf-8,${encodeURIComponent(
-            JSON.stringify(
-              createExportClaimingFile(
-                this.claimingFileInfo.info,
-                this.claimingAddresses,
-                this.disclaimers
-              )
-            )
-          )}`
-        : ''
-    },
   },
   beforeCreate() {
     this.$store.dispatch('getClaimingInfo')
@@ -91,7 +67,7 @@ export default {
   },
   methods: {
     exportFile() {
-      this.$refs.download.click()
+      this.$refs.file.click()
       this.disabledNextButton = false
     },
     nextStep() {
