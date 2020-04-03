@@ -51,14 +51,13 @@ export default {
       }
     },
     vesting() {
-      const vesting = calculateVesting(this.vestingInfo, this.amount, this.genesisDate)
-      return vesting
+      return calculateVesting(this.vestingInfo, this.amount, this.genesisDate)
     },
   },
   watch: {
     vesting: {
       handler: function() {
-        this.$store.commit('setComputedVesting', this.vesting)
+        this.$store.commit('setVesting', this.vesting)
       },
       immediate: true,
     },

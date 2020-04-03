@@ -1,6 +1,13 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
-import { addToList, encodeDataRequest, standardizeWitUnits, createNotification } from '@/utils'
+import {
+  addToList,
+  encodeDataRequest,
+  standardizeWitUnits,
+  createNotification,
+  createExportClaimingFileLink,
+  buildClaimingAddresses,
+} from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { WIT_UNIT } from '@/constants'
 import warning from '@/resources/svg/warning.png'
@@ -32,6 +39,7 @@ export default {
       saveItem: null,
       getItem: null,
     },
+    exportFileLink: '',
     checkTokenGenerationEventDate: new Date(2020, 4, 16, 17, 23, 42, 0),
     claimingFileInfo: null,
     claimingProcessState: null,
@@ -56,23 +64,11 @@ export default {
     claimingAddresses: [],
   },
   mutations: {
-    setComputedVesting(state, computedVesting) {
-      state.computedVesting = computedVesting
+    setExportFileLink(state, link) {
+      state.exportFileLink = link
     },
-    addAmountToClamingAddresses(state, addressesAmount) {
-      const addresses = [...state.claimingAddresses]
-      state.claimingAddresses = addressesAmount
-        .map((amount, index) => {
-          let timelock = Math.floor(state.computedVesting[index].date.getTime() / 1000)
-          return amount.map(y => {
-            return {
-              address: addresses.shift(),
-              amount: y,
-              timelock,
-            }
-          })
-        })
-        .reduce((acc, arr) => [...acc, ...arr])
+    setVesting(state, vesting) {
+      state.vesting = vesting
     },
     setTransactions(state, { transactions }) {
       state.transactions = transactions.map(transaction => {
@@ -253,6 +249,55 @@ export default {
     },
   },
   actions: {
+    async createAndSaveExportFileLink(context, amountByUnlockedDate) {
+      const addresses = [...context.state.claimingAddresses]
+
+      const claimingAddresses = buildClaimingAddresses(
+        amountByUnlockedDate,
+        context.state.vesting,
+        addresses
+      )
+
+      const link = createExportClaimingFileLink(
+        context.state.claimingFileInfo.info,
+        claimingAddresses,
+        context.state.disclaimers
+      )
+
+      const request = await context.state.api.saveItem({
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
+        key: `${context.rootState.wallet.walletId}_claiming_link`,
+        value: { link },
+      })
+
+      if (request.result) {
+        context.commit('setExportFileLink', link)
+      } else {
+        context.commit('setError', {
+          name: 'getItem',
+          error: request.error.message,
+          message: 'An error occurred retrieving claiming file link',
+        })
+      }
+    },
+    async getExportFile(context) {
+      const request = await context.state.api.getItem({
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
+        key: `${context.rootState.wallet.walletId}_claiming_link`,
+      })
+      if (request.result) {
+        context.commit('setExportFileLink', request.result.value.link)
+      } else {
+        // TODO1: handle error properly
+        context.commit('setError', {
+          name: 'getItem',
+          error: request.error.message,
+          message: 'An error occurred retrieving the label for the transaction',
+        })
+      }
+    },
     closeSession: async function(context) {
       const request = await context.state.api.closeSession({
         wallet_id: context.state.walletId,
