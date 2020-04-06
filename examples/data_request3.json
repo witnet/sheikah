@@ -1,0 +1,50 @@
+{
+    "name": "Data request example 3",
+    "description": "Request to get the last bitcoin blockhash from three sources",
+    "radRequest": {
+        "timelock": 0,
+        "retrieve": [
+            {
+                "kind": "HTTP-GET",
+                "url": "https://blockchain.info/q/latesthash",
+                "script": []
+            },
+            {
+                "kind": "HTTP-GET",
+                "url": "https://api-r.bitcoinchain.com/v1/status",
+                "script": [
+                    119,
+                    [
+                        103,
+                        "hash"
+                    ]
+                ]
+            },
+            {
+                "kind": "HTTP-GET",
+                "url": "https://api.blockchair.com/bitcoin/stats",
+                "script": [
+                    119,
+                    [
+                        102,
+                        "data"
+                    ],
+                    [
+                        103,
+                        "best_block_hash"
+                    ]
+                ]
+            }
+        ],
+        "aggregate": {
+            "filters": [],
+            "reducer": 2
+        },
+        "tally": {
+            "filters": [
+                8
+            ],
+            "reducer": 2
+        }
+    }
+}
