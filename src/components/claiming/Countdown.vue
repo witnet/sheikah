@@ -39,8 +39,8 @@
       </div>
     </div>
     <a
-      :href="exportFileLink"
       ref="file"
+      :href="exportFileLink"
       download="claiming-information.json"
       style="display:none"
     />
@@ -49,7 +49,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import { openInExternalApp } from '@/utils'
 import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
@@ -70,9 +69,6 @@ export default {
     }, 1000)
   },
   methods: {
-    openExternalLink: async url => {
-      await openInExternalApp(url)
-    },
     exportFile() {
       this.$refs.file.click()
     },

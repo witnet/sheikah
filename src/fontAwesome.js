@@ -21,14 +21,20 @@ import {
   faEdit,
   faLink,
   faFile,
+  faFileAlt,
   faFileImport,
   faFileSignature,
   faFileUpload,
   faFileDownload,
+  faCheckCircle,
+  faCloudUploadAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
+  faFileAlt,
+  faCloudUploadAlt,
+  faCheckCircle,
   faFileSignature,
   faFile,
   faFileUpload,

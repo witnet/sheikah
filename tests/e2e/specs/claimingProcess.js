@@ -31,7 +31,7 @@ describe('claimingProcess', () => {
       const fileName = 'claiming.json'
       cy.fixture(fileName).then(fileJson => {
         const fileContent = JSON.stringify(fileJson)
-        cy.get('.el-upload-dragger').upload(
+        cy.get('[data-test=drag-and-drop]').upload(
           {
             fileContent,
             fileName,
