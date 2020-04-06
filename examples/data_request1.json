@@ -1,0 +1,35 @@
+{
+    "name": "Data request example 1",
+    "description": "Request to get the height of the character Luke Skywalker",
+    "radRequest": {
+        "notBefore": 0,
+        "retrieve": [
+            {
+                "kind": "HTTP-GET",
+                "url": "https://swapi.co/api/people/",
+                "script": [
+                    119,
+                    [
+                        102,
+                        "results"
+                    ],
+                    [
+                        24,
+                        8
+                    ],
+                    -2
+                ]
+            }
+        ],
+        "aggregate": {
+            "filters": [],
+            "reducer": 2
+        },
+        "tally": {
+            "filters": [
+                8
+            ],
+            "reducer": 2
+        }
+    }
+}
