@@ -468,7 +468,6 @@ export default {
       if (request.result) {
         console.log('claiming info saved!', request.result)
       } else {
-        console.log(request.error)
         // TODO1: handle error propery
         context.commit('setError', {
           name: 'saveItem',

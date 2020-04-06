@@ -51,18 +51,19 @@
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
+import FileUploader from '@/components/FileUploader'
 import { mapState } from 'vuex'
 import { validateClaimingImportFile } from '@/utils'
 export default {
   name: 'UploadFile',
   components: {
     NavigationCard,
+    FileUploader,
   },
   data() {
     return {
-      file: [],
+      showDelete: false,
       fileName: '',
-      dialogVisible: false,
       disabledNextButton: true,
     }
   },
@@ -74,7 +75,6 @@ export default {
   },
   watch: {
     uploadFileError(error) {
-      this.file = []
       if (error) {
         this.disabledNextButton = true
       } else {
@@ -86,7 +86,6 @@ export default {
         this.clearError()
       }
       if (info) {
-        this.file = [this.claimingFileInfo.info]
         this.disabledNextButton = false
       } else {
         this.disabledNextButton = true
@@ -100,6 +99,22 @@ export default {
     }
   },
   methods: {
+    validateClaimingImportFile,
+    updateName(name) {
+      this.fileName = name
+    },
+    setFileInfo(file) {
+      this.$store.commit('setClaimingInfo', {
+        info: this.normalizeFile(file),
+      })
+      this.clearError()
+    },
+    previousStep() {
+      this.$router.push('/claiming/claiming-instructions')
+    },
+    nextStep() {
+      this.$router.push('/claiming/vesting')
+    },
     clearError() {
       this.$store.commit('clearError', { error: 'uploadFile' })
     },
@@ -112,9 +127,6 @@ export default {
     },
     downloadFile() {
       this.$refs.download.click()
-    },
-    handleExceed(files, fileList) {
-      this.$message.warning('The limit of files uploaded is 1')
     },
     normalizeFile(file) {
       return {
@@ -138,38 +150,6 @@ export default {
         },
       }
     },
-    handleUpload() {
-      const getLast = array => array[array.length - 1]
-      const uploadFiles = this.$refs.upload.uploadFiles
-      // we allow upload 2 files but the first one will be overwritten getting last file
-      // this trick is done because element-ui doesn't allow this behaviour:
-      // https://github.com/ElemeFE/element/issues/17991
-      const raw = getLast(uploadFiles).raw
-      const reader = new FileReader()
-      reader.onload = e => {
-        // try to parse the json file content
-        try {
-          const fileInfo = JSON.parse(e.target.result)
-          this.fileName = raw.name
-          if (validateClaimingImportFile(fileInfo)) {
-            this.$store.commit('setClaimingInfo', {
-              info: this.normalizeFile(fileInfo),
-            })
-            if (this.uploadFileError) {
-              this.clearError()
-            }
-          } else {
-            this.setError()
-          }
-        } catch (error) {
-          console.log('Error parsing json', error)
-        }
-      }
-      reader.readAsText(raw)
-    },
-    previousStep() {
-      this.$router.push('/claiming/claiming-instructions')
-    },
     setError() {
       this.$store.commit('setError', {
         name: 'uploadFile',
@@ -177,11 +157,12 @@ export default {
         message: 'Upload a valid claiming file',
       })
     },
-    nextStep() {
-      this.$router.push('/claiming/vesting')
-    },
     importFile() {
+      this.$refs.fileInput.value = ''
       this.$refs.fileInput.click()
+    },
+    handleDelete() {
+      this.clearClaimingInfo()
     },
   },
 }
@@ -190,17 +171,69 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
-.el-icon-circle-check {
-  font-size: 56px;
-  color: #52c41a;
-  margin: 40px 0 16px;
-  line-height: 50px;
-}
 
+.paragraph {
+  margin-bottom: 16px;
+  font-size: 16px;
+  padding: 0 8px;
+}
+.format-warning {
+  margin-top: 8px;
+  color: $grey-3;
+  font-size: 12px;
+}
+.file {
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 34px;
+  margin-top: 16px;
+  height: min-content;
+  .el-icon-document {
+    margin-right: 8px;
+    padding-left: 4px;
+  }
+  .name {
+    border: 1px solid transparent;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+  &:hover {
+    transition: color 0.3s;
+    border-radius: 4px;
+    background-color: #f5f7fa;
+    .text {
+      color: $purple-6;
+    }
+  }
+  .file-icon {
+    padding-right: 8px;
+    font-size: 14px;
+  }
+  .el-icon-upload-success {
+    color: #52c41a;
+  }
+}
+.fade-enter-active {
+  transition: all 0.3s ease;
+}
+.fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.fade-enter,
+.fade-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+.icon {
+  color: $grey-3;
+  font-size: 40px;
+  padding-bottom: 8px;
+}
 .text {
   margin-bottom: 24px;
 }
-
 .error {
   font-size: 14px;
   color: $red-1;
