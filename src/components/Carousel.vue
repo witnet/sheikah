@@ -42,9 +42,7 @@
                       placeholder="url"
                       type="text"
                       v-model="source.url"
-                      @change="
-                        e => updateSource({ kind: source.kind, url: e.target.value }, source.index)
-                      "
+                      @input="e => updateSource({ kind: source.kind, url: e }, source.index)"
                     />
                   </div>
                   <RadonScript
