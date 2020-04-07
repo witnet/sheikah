@@ -14,22 +14,15 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
         in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
       </p>
-      <el-upload
-        ref="upload"
-        data-test="upload"
-        class="upload-container"
-        accept="application/json"
-        drag
-        action=""
-        :on-preview="downloadFile"
-        :auto-upload="false"
-        :multiple="false"
-        :http-request="handleUpload"
-        :on-change="handleUpload"
-        :limit="2"
-        :file-list="file"
-        :on-exceed="handleExceed"
-        :on-remove="clearClaimingInfo"
+      <FileUploader
+        :errorMessage="uploadFileError ? uploadFileError.message : ''"
+        :file="claimingFileInfo ? claimingFileInfo.info : null"
+        v-on:clear-file="clearClaimingInfo"
+        :validateFile="validateClaimingImportFile"
+        acceptedFormat=".json"
+        v-on:file-name="updateName"
+        v-on:file-validated="setFileInfo"
+        v-on:error-uploading-file="setError"
       >
         <i v-if="claimingFileInfo" class="el-icon-upload-success el-icon-circle-check" />
         <i v-else class="el-icon-upload"></i>
@@ -160,9 +153,6 @@ export default {
     importFile() {
       this.$refs.fileInput.value = ''
       this.$refs.fileInput.click()
-    },
-    handleDelete() {
-      this.clearClaimingInfo()
     },
   },
 }
