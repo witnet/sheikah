@@ -1,20 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import ClaimingProcess from '@/views/ClaimingProcess.vue'
-import ClaimingInstructions from '@/components/claiming/Instructions.vue'
-import ClaimingCreateWallet from '@/components/claiming/CreateWallet.vue'
-import GenerateClaimingAddresses from '@/components/claiming/GenerateAddresses.vue'
-import DownloadClaimingFile from '@/components/claiming/DownloadFile.vue'
-import UploadClaimingFile from '@/components/claiming/UploadFile.vue'
-import Vesting from '@/components/claiming/Vesting.vue'
-import Countdown from '@/components/claiming/Countdown.vue'
-import ClaimingUnlockWallet from '@/components/claiming/UnlockWallet.vue'
-import ClaimingWalletDisclaimer from '@/components/claiming/WalletDisclaimer.vue'
-import ClaimingWalletEncryptionPassword from '@/components/claiming/WalletEncryptionPassword.vue'
-import ClaimingWalletSeedBackup from '@/components/claiming/WalletSeedBackup.vue'
-import ClaimingWalletSeedValidation from '@/components/claiming/WalletSeedValidation.vue'
-import ClaimingLoading from '@/components/claiming/Loading.vue'
 import Community from '@/components/Community.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
@@ -75,24 +61,13 @@ export default new Router({
             const polling = setInterval(() => {
               const isSessionId = store.state.wallet.sessionId
               const walletInfos = store.state.wallet.walletInfos
-              const tokenGenerationEventOccurred = store.state.wallet.tokenGenerationEventOccurred
-              if (tokenGenerationEventOccurred) {
-                clearInterval(polling)
-                if (isSessionId) {
-                  next()
-                } else if (walletInfos.length > 0) {
-                  next('/welcome-back/wallet-list')
-                } else {
-                  next('/ftu/welcome')
-                }
+              clearInterval(polling)
+              if (isSessionId) {
+                next()
+              } else if (walletInfos.length > 0) {
+                next('/welcome-back/wallet-list')
               } else {
-                clearInterval(polling)
-                if (localStorage.getItem('completed') === 'true') {
-                  const l = store.state.wallet.walletInfos.length
-                  next(`/claiming/unlock/${store.state.wallet.walletInfos[l - 1].id}`)
-                } else {
-                  next('/claiming/claiming-instructions')
-                }
+                next('/ftu/welcome')
               }
             }, 1000)
           })
@@ -167,25 +142,13 @@ export default new Router({
             const polling = setInterval(() => {
               const isSessionId = store.state.wallet.sessionId
               const walletInfos = store.state.wallet.walletInfos
-              const tokenGenerationEventOccurred = store.state.wallet.tokenGenerationEventOccurred
-              if (tokenGenerationEventOccurred) {
-                clearInterval(polling)
-                if (isSessionId) {
-                  next()
-                } else if (walletInfos.length > 0) {
-                  next('/welcome-back/wallet-list')
-                } else {
-                  next('/ftu/welcome')
-                }
+              clearInterval(polling)
+              if (isSessionId) {
+                next()
+              } else if (walletInfos.length > 0) {
+                next('/welcome-back/wallet-list')
               } else {
-                clearInterval(polling)
-                next('/claiming/claiming-instructions')
-                // if (localStorage.getItem('completed')) {
-                //   const l = store.state.wallet.walletInfos.length
-                //   next(`/claiming/unlock/${store.state.wallet.walletInfos[l - 1].id}`)
-                // } else {
-                //   next('/claiming/claiming-instructions')
-                // }
+                next('/ftu/welcome')
               }
             }, 1000)
           })
@@ -254,79 +217,6 @@ export default new Router({
           name: 'createWallet',
           path: 'create-wallet',
           component: Loading,
-        },
-      ],
-    },
-    {
-      path: `/claiming`,
-      name: 'claiming',
-      beforeEnter: redirectOnReload,
-      component: ClaimingProcess,
-      children: [
-        {
-          name: 'claimingInstructions',
-          path: 'claiming-instructions',
-          component: ClaimingInstructions,
-        },
-        {
-          path: 'unlock/:id',
-          component: ClaimingUnlockWallet,
-        },
-        {
-          name: 'uploadClaimingFile',
-          path: 'upload-file',
-          component: UploadClaimingFile,
-        },
-        {
-          name: 'countdown',
-          path: 'countdown',
-          component: Countdown,
-        },
-        {
-          name: 'claimingVesting',
-          path: 'vesting',
-          component: Vesting,
-        },
-        {
-          name: 'claimingCreateWallet',
-          path: 'create-wallet',
-          component: ClaimingCreateWallet,
-        },
-        {
-          name: 'claimingInformation',
-          path: 'disclaimer',
-          component: ClaimingWalletDisclaimer,
-        },
-        {
-          name: 'claimingEncryptionPass',
-          path: 'encryption-pass',
-          component: ClaimingWalletEncryptionPassword,
-        },
-        {
-          name: 'claimingSeedBackup',
-          path: 'seed-backup',
-          component: ClaimingWalletSeedBackup,
-        },
-        {
-          name: 'claimingSeedValidation',
-          path: 'seed-validation',
-          component: ClaimingWalletSeedValidation,
-        },
-        {
-          name: 'loading',
-          path: 'loading',
-          component: ClaimingLoading,
-        },
-        {
-          name: 'generateClaimingAddresses',
-          path: 'generate-addresses',
-          component: GenerateClaimingAddresses,
-        },
-
-        {
-          name: 'downloadClaimingFile',
-          path: 'download-file',
-          component: DownloadClaimingFile,
         },
       ],
     },
