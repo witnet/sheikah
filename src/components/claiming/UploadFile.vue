@@ -17,7 +17,7 @@
       <FileUploader
         :errorMessage="uploadFileError ? uploadFileError.message : ''"
         :file="claimingFileInfo ? claimingFileInfo.info : null"
-        :v-on:clear-file="clearClaimingInfo"
+        v-on:clear-file="clearClaimingInfo"
         :validateFile="validateClaimingImportFile"
         acceptedFormat=".json"
         v-on:file-name="updateName"
@@ -142,9 +142,6 @@ export default {
     importFile() {
       this.$refs.fileInput.value = ''
       this.$refs.fileInput.click()
-    },
-    handleDelete() {
-      this.clearClaimingInfo()
     },
   },
 }
