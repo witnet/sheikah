@@ -11,14 +11,7 @@
     >
       <InformativeContent :subtitle="subtitle" :texts="texts" />
     </NavigationCard>
-    <Card
-      v-else
-      class="welcome-card"
-      :width="600"
-      :height="440"
-      previousText="Back"
-      nextText="Start"
-    >
+    <Card v-else class="welcome-card" :width="600" :height="440">
       <template v-slot:header>
         <div class="header">
           Hey, listen!
@@ -67,11 +60,7 @@ export default {
   },
   methods: {
     previousStep() {
-      if (this.mainnetReady) {
-        this.$router.push('/welcome-back/wallet-list')
-      } else {
-        this.$router.push('/ftu/import-claiming-file')
-      }
+      this.$router.push('/welcome-back/wallet-list')
     },
     nextStep() {
       this.$router.push('/ftu/seed-type-selection')

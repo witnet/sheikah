@@ -5,7 +5,7 @@
     </p>
     <ul class="list">
       <div class="wallets">
-        <li v-for="wallet in wallets" :key="wallet.id">
+        <li class="wallet" v-for="wallet in wallets" :key="wallet.id">
           <RedirectionOption
             type="forward"
             :link="`/welcome-back/unlock/${wallet.id}`"
@@ -57,6 +57,12 @@ export default {
       overflow-y: auto;
       height: 200px;
       margin-bottom: 24px;
+      .wallet {
+        margin-bottom: 16px;
+        &:last-of-type {
+          margin-bottom: 0px;
+        }
+      }
     }
   }
 }

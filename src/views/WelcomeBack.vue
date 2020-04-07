@@ -60,12 +60,13 @@ export default {
   align-items: center;
 
   .layout {
+    box-shadow: $default-box-shadow;
+    border: 1px solid $purple-6;
     background: $white;
     height: 400px;
     width: 600px;
     display: grid;
     grid-template-columns: 160px 440px;
-    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
 
     .bar {
       background: $purple-6;

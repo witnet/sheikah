@@ -17,13 +17,13 @@
       :description="createMnemonicsError.description"
       v-on:close="() => clearError(createMnemonicsError.name)"
     />
-    <p class="paragraph-seed-title">Your 12 word seed phrase:</p>
+    <p class="paragraph-title">Your 12 word seed phrase:</p>
     <pre data-test="word-seed" class="seed">{{ seed }}</pre>
-    <p class="paragraph-seed">
+    <p class="paragraph">
       Please copy these 12 words onto a piece of paper which you will be able to safely store and
       secure. You must write the complete words in the exact order they are presented to you.
     </p>
-    <p class="paragraph-seed">
+    <p class="paragraph">
       We do not store your seed phrase - if you exit this setup or fail to write down your seed
       phrase, we cannot help you access your wallet.
     </p>
@@ -98,6 +98,7 @@ export default {
   font-size: 16px;
   line-break: auto;
   line-height: 1.5em;
+  margin: 24px 0px;
   padding: 24px;
   white-space: pre-wrap;
   width: 100%;
@@ -108,11 +109,10 @@ export default {
   width: inherit;
 }
 
-.paragraph-seed-title {
-  margin-bottom: 32px;
-}
-
-.paragraph-seed {
-  margin-top: 24px;
+.paragraph {
+  margin-bottom: 8px;
+  &:last-of-type {
+    margin-bottom: 0px;
+  }
 }
 </style>

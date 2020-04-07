@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <p class="subtitle">
       {{ subtitle }}
     </p>
@@ -23,20 +23,17 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
-.container {
-  background: $white;
-  display: flex;
-  flex-direction: column;
-  .subtitle {
-    color: $font-color-dark;
-  }
-  .text-container {
-    max-height: 200px;
-    overflow-y: auto;
-    margin: 40px 0px 0px 0px;
-    .text {
-      padding-top: 16px;
-      color: $font-color-light;
+.subtitle {
+  color: $font-color-dark;
+  padding-bottom: 24px;
+}
+.text-container {
+  overflow-y: auto;
+  .text {
+    padding-bottom: 8px;
+    color: $font-color-light;
+    &:last-of-type {
+      padding-bottom: 0px;
     }
   }
 }

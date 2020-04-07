@@ -153,7 +153,7 @@ export class WalletApi {
   }
 
   createVTT(params) {
-    const defaultParams = { timeLock: 0 }
+    const defaultParams = { time_lock: 0 }
     return this._callApiMethod('create_vtt')({ ...defaultParams, ...params })
   }
 

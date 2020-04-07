@@ -1,16 +1,17 @@
 <template>
-  <Card data-test="header-1" :width="600" :height="550" class="wallet-seed-type-selection">
-    <template v-slot:header>
-      <div class="header">
-        Create your wallet
-      </div>
-    </template>
-
+  <NavigationCard
+    data-test="create-your-wallet"
+    class="wallet-disclaimer"
+    title="Create your wallet"
+    :previousStep="previousStep"
+    previousText="Back"
+    nextText="I will be careful, I promise!"
+  >
     <p class="create-wallet-text">
       We will now help you create a new local wallet.
     </p>
     <ul class="options">
-      <li>
+      <li class="option">
         <RedirectionOption
           type="forward"
           data-test="new-seed-option"
@@ -18,40 +19,38 @@
           name="Create new seed phrase (RECOMMENDED)"
         />
       </li>
-      <li>
+      <li class="option">
         <RedirectionOption
           type="forward"
           link="/ftu/disclaimer"
           name="Create a wallet prefilled with sample data (RECOMMENDED)"
         />
       </li>
-      <li>
+      <li class="option">
         <RedirectionOption
           type="forward"
           link="/ftu/import-wallet"
           name="Import and advanced options"
         />
       </li>
-      <li class="cancel-btn">
-        <router-link to="/ftu/welcome">
-          <el-button data-test="cancel-tx" type="text">
-            Cancel
-          </el-button>
-        </router-link>
-      </li>
     </ul>
-  </Card>
+  </NavigationCard>
 </template>
 
 <script>
-import Card from '@/components/card/Card'
+import NavigationCard from '@/components/card/NavigationCard'
 import RedirectionOption from '@/components/RedirectionOption'
 
 export default {
   name: 'WalletSeedTypeSelection',
   components: {
-    Card,
+    NavigationCard,
     RedirectionOption,
+  },
+  methods: {
+    previousStep() {
+      this.$router.push('/ftu/welcome')
+    },
   },
 }
 </script>
@@ -80,6 +79,12 @@ export default {
 }
 
 .options {
-  margin-top: 32px;
+  margin-top: 24px;
+  .option {
+    margin-bottom: 16px;
+    &:last-of-type {
+      margin-bottom: 0px;
+    }
+  }
 }
 </style>

@@ -79,8 +79,8 @@ export default {
 .card-navigation {
   background-color: $white;
   box-shadow: $default-box-shadow;
-  width: 600px;
   border: 1px solid $purple-6;
+  width: 600px;
 
   .header {
     background: $purple-6;
