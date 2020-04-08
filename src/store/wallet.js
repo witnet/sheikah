@@ -239,7 +239,9 @@ export default {
         session_id: context.state.sessionId,
         transaction: context.state.generatedTransaction.transaction,
       })
+      console.log('REQUEST', request)
       if (request.result) {
+        console.log('RESULT', request.result)
         console.log('----- Template deployed successfully -----')
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
         context.commit('clearGeneratedTransaction')
@@ -516,11 +518,3 @@ export default {
     },
   },
 }
-
-// function generateRandomHex (length) {
-//   let hex = '0x'
-//   for (let i = 0; i < length; i++) {
-//     hex = hex + Math.floor(Math.random() * Math.floor(16)).toString(16)
-//   }
-//   return hex
-// }

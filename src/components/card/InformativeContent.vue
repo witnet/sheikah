@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <p class="subtitle">
       {{ subtitle }}
     </p>
@@ -23,6 +23,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
+<<<<<<< Updated upstream
 
 .subtitle {
   color: $font-color-dark;
@@ -34,6 +35,20 @@ export default {
   .text {
     padding-top: 16px;
     color: $font-color-light;
+=======
+.subtitle {
+  color: $font-color-dark;
+  padding-bottom: 24px;
+}
+.text-container {
+  overflow-y: auto;
+  .text {
+    padding-bottom: 8px;
+    color: $font-color-light;
+    &:last-of-type {
+      padding-bottom: 0px;
+    }
+>>>>>>> Stashed changes
   }
 }
 .router-link {

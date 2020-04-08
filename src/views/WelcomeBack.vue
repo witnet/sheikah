@@ -1,27 +1,25 @@
 <template>
   <div data-test="welcome-back" class="welcome-back">
-    <div class="layout">
-      <div class="bar">
-        <p class="title">Welcome Back</p>
-        <Settings :settings="settings" :showText="true" />
-      </div>
-
-      <div class="content">
-        <router-view />
-      </div>
+    <div class="bar">
+      <img class="row sheikah-icon" src="@/resources/svg/sheikah-icon.svg" />
+      <p class="row title">Welcome back to Sheikah!</p>
+      <p class="row subtitle">
+        Sheikah keeps your Witnet wallet safe and helps you build, share and deploy data requests
+        into the Witnet network.
+      </p>
+      <el-button class="row link" type="text">
+        Discover more features >
+      </el-button>
     </div>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Settings from '@/components/Settings.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'WelcomeBack',
-  components: {
-    Settings,
-  },
   data() {
     return {
       settings: [
@@ -58,6 +56,7 @@ export default {
   justify-content: center;
   align-items: center;
 
+<<<<<<< Updated upstream
   .layout {
     height: 400px;
     width: 600px;
@@ -77,10 +76,26 @@ export default {
         color: $white;
         border: none;
       }
+=======
+  .bar {
+    color: $new-grey-1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 100px;
+    width: 370px;
+    .row {
+      margin-bottom: 24px;
+      text-align: left;
+>>>>>>> Stashed changes
     }
-
-    .content {
-      padding: 30px;
+    .title {
+      font-size: 48px;
+      font-weight: bold;
+      line-height: inherit;
+    }
+    .sheikah-icon {
+      width: 70px;
     }
   }
 }

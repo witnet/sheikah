@@ -9,9 +9,9 @@
     ref="navCard"
   >
     <p class="paragraph">
-      <strong>PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on this computer.
-      This is not your backup and you cannot restore your wallet with this password. Your seed
-      phrase is still your ultimate backup.
+      <span class="bold"> PLEASE NOTE: </span> this password encrypts your Witnet wallet only on
+      this computer. This is not your backup and you cannot restore your wallet with this password.
+      Your seed phrase is still your ultimate backup.
     </p>
     <div class="form-row password">
       <PasswordInput
@@ -115,8 +115,10 @@ export default {
 }
 
 .paragraph {
-  margin-top: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
+  .bold {
+    font-weight: 700;
+  }
 }
 
 .form-row {
@@ -130,6 +132,9 @@ export default {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+  }
+  &:last-of-type {
+    margin-bottom: 0px;
   }
 }
 

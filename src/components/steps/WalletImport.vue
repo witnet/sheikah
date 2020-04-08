@@ -121,10 +121,9 @@ export default {
   font-size: 16px;
   line-break: auto;
   line-height: 1.5em;
-  margin: 32px 0;
+  margin: 24px 0;
   padding: 16px;
   width: 100%;
-  margin-top: 40px;
 }
 .match-error {
   color: $red-0;

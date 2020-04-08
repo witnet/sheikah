@@ -55,10 +55,17 @@ export default {
 @import '@/styles/theme.scss';
 
 .card-navigation {
+<<<<<<< Updated upstream
   width: 600px;
   // height: 550px;
   min-height: 400px;
   border: 1px solid $grey-0;
+=======
+  background-color: $white;
+  box-shadow: $default-box-shadow;
+  border: 1px solid $purple-6;
+  width: 600px;
+>>>>>>> Stashed changes
 
   .header {
     background: $sheikah-gradient;

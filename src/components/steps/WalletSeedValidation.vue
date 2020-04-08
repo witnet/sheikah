@@ -9,7 +9,7 @@
     :nextStep="nextStep"
     ref="navCard"
   >
-    <p>
+    <p class="text">
       Please type your 12 word seed phrase exactly as it was shown to you on the previous screen.
       This step is to confirm that you have copied your seed phrase correctly.
     </p>
@@ -17,7 +17,7 @@
     <p data-test="mnemonics-error-alert" class="match-error" v-if="mnemonicsError">
       Mnemonics must match
     </p>
-    <p class="paragraph">
+    <p class="text">
       Please ensure you do not add any extra spaces between words or at the beginning or end of the
       phrase.
     </p>
@@ -99,15 +99,19 @@ export default {
   font-size: 16px;
   line-break: auto;
   line-height: 1.5em;
-  margin: 32px 0;
+  margin: 24px 0px;
   padding: 16px;
   width: 100%;
-  margin-top: 40px;
 }
 .match-error {
+<<<<<<< Updated upstream
   color: $red-0;
 }
 .paragraph {
   margin-top: 16px;
+=======
+  color: $red-1;
+  margin-bottom: 8px;
+>>>>>>> Stashed changes
 }
 </style>
