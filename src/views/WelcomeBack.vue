@@ -63,7 +63,6 @@ export default {
     box-shadow: $default-box-shadow;
     border: 1px solid $purple-6;
     background: $white;
-    height: 400px;
     width: 600px;
     display: grid;
     grid-template-columns: 160px 440px;

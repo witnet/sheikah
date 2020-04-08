@@ -8,7 +8,7 @@
         aria-haspopup="listbox"
         aria-labelledby="select-label select-button"
         :aria-expanded="optionsVisible"
-        class="selected-btn"
+        :class="optionsVisible ? 'selected-btn active' : 'selected-btn'"
         @click="toggleOptions"
         @keyup.up.down.prevent="showOptions"
         @keyup.up.prevent="selectPrevOption"
@@ -45,6 +45,7 @@
         <li
           v-for="(option, index) in options"
           :id="`select-option-${index}`"
+          :ref="`option-${index}`"
           :data-test="`option-${index}`"
           :key="index"
           :aria-selected="activeOptionIndex === index"
@@ -99,10 +100,12 @@ export default {
     },
     prevOptionIndex() {
       const next = this.activeOptionIndex - 1
+      this.scrollTop(next - 1)
       return next >= 0 ? next : this.options.length - 1
     },
     nextOptionIndex() {
       const next = this.activeOptionIndex + 1
+      this.scrollTop(next - 1)
       return next <= this.options.length - 1 ? next : 0
     },
     activeDescendant() {
@@ -110,6 +113,12 @@ export default {
     },
   },
   methods: {
+    scrollTop(next) {
+      if (next > 3 && next !== this.options.length - 3) {
+        const top = this.$refs[`option-${next}`][0].offsetTop
+        this.$refs.options.scrollTop = top
+      }
+    },
     handleFocus(e) {
       this.optionsVisible = true
       if (this.$refs.button) {
@@ -332,25 +341,22 @@ export default {
 .select-box {
   min-width: 250px;
   position: relative;
-  &:focus,
-  &:focus-within {
-    border-color: #80bdff;
-    border-radius: 4px;
-    box-shadow: 0 0 0 0.1rem rgba(141, 196, 255, 0.25);
-  }
-  &:focus-within .selected-btn {
-    border: none;
-  }
 
   .selected-btn {
+    outline: none;
+    cursor: pointer;
     box-sizing: border-box;
     min-width: inherit;
+    width: 100%;
     z-index: 1;
-    min-height: 35px;
+    min-height: 60px;
     align-items: center;
     background: none;
     border-radius: 4px;
-    border: 1px solid $grey-2;
+    border-top: 1px solid $purple-6;
+    border-right: 1px solid $purple-6;
+    border-bottom: 1px solid $purple-6;
+    border-left: 1px solid $purple-6;
     color: $grey-4;
     display: flex;
     padding: 0 8px 0 16px;
@@ -363,16 +369,19 @@ export default {
       justify-content: space-between;
 
       .label {
-        margin-right: 32px;
+        overflow: hidden;
+        margin-right: 8px;
         display: flex;
         align-content: center;
         text-align: center;
 
         .primary {
+          overflow: hidden;
           font-size: 16px;
           margin-right: 16px;
         }
         .value {
+          overflow: hidden;
           font-size: 20px;
           border-radius: 2px;
           text-align: center;
@@ -384,34 +393,56 @@ export default {
       }
     }
   }
+  .active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0px solid $purple-6;
+  }
 
   .hidden {
     display: none;
   }
 
   .options {
-    box-sizing: border-box;
     position: absolute;
-    top: 34px;
-    min-width: inherit;
-    border-color: 1px solid #80bdff;
+    top: 60px;
+    right: 0px;
+    left: 0px;
+    width: inherit;
+    font-weight: 500;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    box-sizing: border-box;
     margin: 0;
-    padding-top: 8px;
     list-style-type: none;
     outline: none;
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 0px;
+    border-right: 1px solid $purple-6;
+    border-bottom: 1px solid $purple-6;
+    border-left: 1px solid $purple-6;
 
     .option {
+      overflow: hidden;
+      background: $white;
+      color: $grey-3;
       padding: 8px;
-      cursor: default;
+      cursor: pointer;
       align-items: center;
       display: flex;
-      height: 32px;
+      height: 60px;
       font-size: 14px;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0px 0px 0px 16px;
 
       &.has-focus {
-        background-color: rgba(#80bdff, 0.25);
+        background-color: $purple-0;
+      }
+      .primary {
+        overflow: hidden;
       }
     }
   }

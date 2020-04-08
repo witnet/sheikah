@@ -5,13 +5,14 @@
     </p>
     <ul class="list">
       <div class="wallets">
-        <li class="wallet" v-for="wallet in wallets" :key="wallet.id">
+        <Select v-model="currentWallet" :options="walletOptions" />
+        <!-- <li class="wallet" v-for="wallet in wallets" :key="wallet.id">
           <RedirectionOption
             type="forward"
             :link="`/welcome-back/unlock/${wallet.id}`"
             :name="wallet.name || wallet.id.trim()"
           />
-        </li>
+        </li> -->
       </div>
       <li>
         <RedirectionOption
@@ -27,15 +28,32 @@
 
 <script>
 import RedirectionOption from '@/components/RedirectionOption'
+import Select from '@/components/Select'
 
 export default {
   name: 'WalletList',
   components: {
     RedirectionOption,
+    Select,
+  },
+  data() {
+    return {
+      currentWallet: {},
+    }
+  },
+  created() {
+    this.currentWallet = this.walletOptions[0]
   },
   computed: {
     wallets() {
       return this.$store.state.wallet.walletInfos
+    },
+    walletOptions() {
+      return this.wallets.map(wallet => {
+        return {
+          primaryText: wallet.name || wallet.id.trim(),
+        }
+      })
     },
   },
 }
@@ -51,11 +69,9 @@ export default {
   }
 
   .list {
-    height: 240px;
-
     .wallets {
-      overflow-y: auto;
-      height: 200px;
+      // overflow-y: auto;
+      // height: 200px;
       margin-bottom: 24px;
       .wallet {
         margin-bottom: 16px;
