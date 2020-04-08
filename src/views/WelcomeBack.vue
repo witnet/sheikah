@@ -50,33 +50,13 @@ export default {
 @import '@/styles/_colors.scss';
 
 .welcome-back {
+  background-color: $alpha-grey;
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
 
-<<<<<<< Updated upstream
-  .layout {
-    height: 400px;
-    width: 600px;
-    display: grid;
-    grid-template-columns: 160px 440px;
-    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
-
-    .bar {
-      background: $sheikah-gradient;
-      padding: 20px;
-      justify-content: space-between;
-      display: flex;
-      flex-direction: column;
-
-      .title {
-        font-size: 24px;
-        color: $white;
-        border: none;
-      }
-=======
   .bar {
     color: $new-grey-1;
     padding: 20px;
@@ -87,7 +67,6 @@ export default {
     .row {
       margin-bottom: 24px;
       text-align: left;
->>>>>>> Stashed changes
     }
     .title {
       font-size: 48px;

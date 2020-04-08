@@ -23,8 +23,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
 .centered {
+  background-color: $alpha-grey;
+  margin: 0;
   height: 100vh;
   width: 100vw;
   display: flex;

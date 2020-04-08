@@ -64,21 +64,19 @@ export default {
   height: 250px;
   justify-content: center;
   width: 300px;
-}
+  .title {
+    border: none;
+    color: $purple-6;
+    font-size: 24px;
+    margin: 0 0 32px 0;
+  }
 
-.title {
-  border: none;
-  color: $blue-6;
-  font-size: 24px;
-  margin: 0 0 32px 0;
+  .description {
+    color: $purple-6;
+    font-size: 16px;
+    margin: 32px 0 0 0;
+  }
 }
-
-.description {
-  color: $blue-6;
-  font-size: 16px;
-  margin: 32px 0 0 0;
-}
-
 .spinner {
   grid-row: 3;
   margin: 0 auto;

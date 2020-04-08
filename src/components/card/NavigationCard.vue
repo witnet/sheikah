@@ -17,7 +17,14 @@
         <el-button data-test="previous-step" class="button" type="text" @click="previousStep">
           {{ previousText }}
         </el-button>
-        <el-button data-test="next-step" type="primary" @click="nextStep" ref="next">
+        <el-button
+          v-if="nextStep"
+          data-test="next-step"
+          type="primary"
+          @click="nextStep"
+          :disabled="disabledNextButton"
+          ref="next"
+        >
           {{ nextText }}
         </el-button>
       </div>
@@ -36,6 +43,7 @@ export default {
     previousStep: Function,
     previousText: String,
     title: String,
+    disabledNextButton: Boolean,
   },
   components: {
     BaseCard,
@@ -55,21 +63,15 @@ export default {
 @import '@/styles/theme.scss';
 
 .card-navigation {
-<<<<<<< Updated upstream
-  width: 600px;
-  // height: 550px;
-  min-height: 400px;
-  border: 1px solid $grey-0;
-=======
   background-color: $white;
   box-shadow: $default-box-shadow;
   border: 1px solid $purple-6;
   width: 600px;
->>>>>>> Stashed changes
+  border: 1px solid $purple-6;
 
   .header {
-    background: $sheikah-gradient;
-    padding: 0 24px;
+    background: $purple-6;
+    padding: 0 32px;
     align-items: center;
     color: $white;
     display: flex;
@@ -80,6 +82,10 @@ export default {
   }
 
   .content {
+    background: $white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-size: 16px;
     padding: 32px 32px 0px 32px;
   }

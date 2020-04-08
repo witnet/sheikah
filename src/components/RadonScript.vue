@@ -92,7 +92,7 @@ export default {
     width: 150px;
     padding: 8px;
     font-size: 16px;
-    background-color: $blue-6;
+    background-color: $purple-6;
     border-radius: 5px;
     color: $white;
     font-family: 'Titillium Web';

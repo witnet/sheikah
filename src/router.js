@@ -61,17 +61,6 @@ export default new Router({
             const polling = setInterval(() => {
               const isSessionId = store.state.wallet.sessionId
               const walletInfos = store.state.wallet.walletInfos
-<<<<<<< Updated upstream
-              if (Array.isArray(walletInfos)) {
-                clearInterval(polling)
-                if (isSessionId) {
-                  next()
-                } else if (walletInfos.length > 0) {
-                  next('/welcome-back/wallet-list')
-                } else {
-                  next('/ftu/welcome')
-                }
-=======
               clearInterval(polling)
               if (isSessionId) {
                 next()
@@ -79,7 +68,6 @@ export default new Router({
                 next('/welcome-back/wallet-list')
               } else {
                 next('/ftu/welcome')
->>>>>>> Stashed changes
               }
             }, 1000)
           })
@@ -154,15 +142,7 @@ export default new Router({
             store.dispatch('getWalletInfos')
             const polling = setInterval(() => {
               const walletInfos = store.state.wallet.walletInfos
-<<<<<<< Updated upstream
-              if (Array.isArray(walletInfos)) {
-                clearInterval(polling)
-                if (walletInfos.length > 0) {
-                  next('/welcome-back/wallet-list')
-                } else {
-                  next('/ftu/welcome')
-                }
-=======
+              const isSessionId = store.state.wallet.sessionId
               clearInterval(polling)
               if (isSessionId) {
                 next()
@@ -170,7 +150,6 @@ export default new Router({
                 next('/welcome-back/wallet-list')
               } else {
                 next('/ftu/welcome')
->>>>>>> Stashed changes
               }
             }, 1000)
           })

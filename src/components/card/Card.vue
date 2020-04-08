@@ -51,13 +51,10 @@ export default {
   }
 
   .content {
-<<<<<<< Updated upstream
-=======
     min-width: 500px;
     max-width: 500px;
     border: 1px solid $purple-6;
     background: $white;
->>>>>>> Stashed changes
     display: flex;
     flex-direction: column;
     justify-content: center;

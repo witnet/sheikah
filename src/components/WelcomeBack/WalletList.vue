@@ -62,7 +62,6 @@ export default {
       this.$router.push('/ftu/welcome')
     },
     unlockWallet() {
-      console.log(this.currentWallet)
       this.$store.dispatch('unlockWallet', {
         walletId: this.currentWallet.value,
         password: this.password,

@@ -2,11 +2,11 @@
   <div class="unlock-wallet">
     <p class="text">Insert a password to unlock wallet</p>
     <div @keydown.enter.esc.prevent="unlockWallet">
-      <PasswordInput
+      <el-input
         data-test="password-input"
-        label="Password"
+        placeholder="Please input password"
         v-model="password"
-        :error="'unlockWallet'"
+        show-password
       />
       <p data-test="password-error-alert" v-if="unlockWalletError" class="error">
         Invalid password
@@ -27,7 +27,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import PasswordInput from '@/components/PasswordInput'
 
 export default {
   name: 'UnlockWallet',
@@ -68,9 +67,6 @@ export default {
       }
     },
   },
-  components: {
-    PasswordInput,
-  },
 }
 </script>
 
@@ -107,7 +103,7 @@ export default {
   .error {
     position: absolute;
     padding-top: 16px;
-    color: $red-0;
+    color: $red-1;
   }
   .text {
     margin-bottom: 32px;

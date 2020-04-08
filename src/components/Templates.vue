@@ -259,7 +259,7 @@ export default {
 
     &:hover {
       cursor: pointer;
-      background-color: $blue-1;
+      background-color: $purple-0;
     }
   }
 }
@@ -305,7 +305,7 @@ export default {
     }
     &:hover {
       cursor: pointer;
-      border: 2px solid $blue-6;
+      border: 2px solid $purple-6;
     }
   }
 }
