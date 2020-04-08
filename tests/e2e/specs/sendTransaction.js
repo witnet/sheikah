@@ -1,7 +1,7 @@
 import { createSelection } from '../utils'
 // TODO: remove skip in tests when new rust realise is ready
 describe('Create a complete Send transactions flow', () => {
-  it('Redirects to home view', () => {
+  it('Redirects to main view', () => {
     cy.createAndUnlockWallet()
     cy.get('[data-test=to-transactions]').click()
     cy.get('[data-test=transactions]')

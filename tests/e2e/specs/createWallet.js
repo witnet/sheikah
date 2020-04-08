@@ -33,7 +33,7 @@ describe('Create Wallet', () => {
       .type('password')
 
     cy.get('[data-test=next-step]').click({ force: true })
-    cy.get('[data-test=home]')
+    cy.get('[data-test=main]')
   })
 
   it('Show error when mnemonics don´t match', () => {

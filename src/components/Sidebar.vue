@@ -5,7 +5,7 @@
     :class="[hover ? 'sidebar' : 'sidebar collapsed-sidebar']"
   >
     <div :class="[hover ? 'brand' : 'brand collapsed-brand']">
-      <router-link data-test="logo-to-home" class="logo" to="/wallet/transactions">
+      <router-link data-test="logo-to-main" class="logo" to="/wallet/transactions">
         <img v-if="hover" class="sheikah-img" src="@/resources/svg/sheikah.svg" />
         <img v-else class="sheikah-img" src="@/resources/svg/sheikah-small.svg" />
       </router-link>

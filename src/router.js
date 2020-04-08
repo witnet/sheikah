@@ -5,7 +5,7 @@ import Community from '@/components/Community.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
 import FirstTimeUsage from '@/views/FirstTimeUsage.vue'
-import Home from '@/views/Home.vue'
+import Main from '@/views/Main.vue'
 import Loading from '@/components/steps/Loading.vue'
 import Marketplace from '@/components/Marketplace.vue'
 import Templates from '@/components/Templates.vue'
@@ -39,7 +39,7 @@ export default new Router({
     {
       path: '/',
       name: 'main',
-      component: Home,
+      component: Main,
       beforeEnter: (to, from, next) => {
         const isReady = store.state.wallet.api.client.ws.ready
         if (isReady) {

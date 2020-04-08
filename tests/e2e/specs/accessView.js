@@ -1,5 +1,5 @@
 // TODO: remove skip in tests when new rust realise is ready
-describe('Land correctly in every view accesible from the home page', () => {
+describe('Land correctly in every view accesible from the main page', () => {
   beforeEach(() => {
     cy.createAndUnlockWallet()
   })
@@ -23,8 +23,8 @@ describe('Land correctly in every view accesible from the home page', () => {
       .last()
       .click()
     cy.get('[data-test=community-page]')
-    cy.get('[data-test=logo-to-home]').click()
-    cy.get('[data-test=home]')
+    cy.get('[data-test=logo-to-main]').click()
+    cy.get('[data-test=main]')
   })
 
   it('Redirects to Marketplace view', () => {

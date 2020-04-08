@@ -10,7 +10,7 @@ import Sidebar from '@/components/Sidebar.vue'
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'Home',
+  name: 'Main',
   components: {
     Sidebar,
   },
