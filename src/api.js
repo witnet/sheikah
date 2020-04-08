@@ -121,13 +121,8 @@ export class WalletApi {
     return this._callApiMethod('send_data_request')(params)
   }
 
-<<<<<<< Updated upstream
-  async createVTT(params) {
-    const defaultParams = { timeLock: 0 }
-=======
   createVTT(params) {
     const defaultParams = { time_lock: 0 }
->>>>>>> Stashed changes
     return this._callApiMethod('create_vtt')({ ...defaultParams, ...params })
   }
 

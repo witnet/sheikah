@@ -16,12 +16,7 @@
         </el-button>
       </li>
       <li class="option">
-        <el-button
-          class="big"
-          ref="submit"
-          @click="redirectTo('/ftu/disclaimer')"
-          type="primary"
-        >
+        <el-button class="big" ref="submit" @click="redirectTo('/ftu/disclaimer')" type="primary">
           Import a wallet from xpriv
         </el-button>
       </li>
@@ -36,11 +31,7 @@
         </el-button>
       </li>
       <li class="option">
-        <el-button
-          class="big"
-          data-test="back"
-          @click="redirectTo('/ftu/welcome')"
-        >
+        <el-button class="big" data-test="back" @click="redirectTo('/ftu/welcome')">
           Back
         </el-button>
       </li>
@@ -70,7 +61,7 @@ export default {
 
 .header {
   align-items: center;
-  background: $sheikah-gradient;
+  background: $purple-6;
   display: flex;
   font-size: 24px;
   font-weight: 100;

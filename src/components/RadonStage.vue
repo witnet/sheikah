@@ -110,7 +110,7 @@ export default {
     }
 
     .number {
-      color: $blue-6;
+      color: $purple-6;
       font-weight: 800;
       font-size: 16px;
     }
@@ -118,18 +118,6 @@ export default {
 
   .select {
     margin: 0 0 8px 0;
-  }
-
-  .input {
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: 400;
-    background-color: $blue-1;
-    color: $grey-5;
-    border: 1px solid $blue-0;
-    width: 100%;
-    padding: 8px;
   }
 }
 

@@ -1,5 +1,5 @@
 @import "./colors";
-$--color-primary: $blue-6;
+$--color-primary: $purple-6;
 $--color-success: #52c41a;
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
@@ -9,8 +9,6 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   border-color: #c5c2c2;
 }
 
-<<<<<<< Updated upstream
-=======
 .el-input {
   &.big .el-input__inner{
     height: 60px;
@@ -64,7 +62,6 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   }
 }
 
->>>>>>> Stashed changes
 .marketplace {
   &.el-pagination {
     .el-pager li.active {

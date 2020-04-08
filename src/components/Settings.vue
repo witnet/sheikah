@@ -81,7 +81,7 @@ export default {
   font-weight: bold;
   color: $grey-3;
   &:not(.is-disabled):hover {
-    color: $blue-6;
+    color: $purple-6;
     font-weight: bold;
   }
 }

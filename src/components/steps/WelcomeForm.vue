@@ -70,7 +70,7 @@ export default {
 
 .header {
   align-items: center;
-  background: $sheikah-gradient;
+  background: $purple-6;
   display: flex;
   font-size: 24px;
   font-weight: 100;

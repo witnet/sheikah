@@ -156,7 +156,7 @@ export default {
     display: flex;
     align-items: center;
     padding-left: 16px;
-    color: $red-1;
+    color: $red-2;
   }
   .img-container {
     position: fixed;

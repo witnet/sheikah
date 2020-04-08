@@ -70,7 +70,7 @@ export default {
     }
 
     .from {
-      color: $green;
+      color: $green-1;
     }
 
     .to {

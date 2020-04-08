@@ -104,14 +104,9 @@ export default {
   width: 100%;
 }
 .match-error {
-<<<<<<< Updated upstream
-  color: $red-0;
+  color: $red-1;
 }
 .paragraph {
   margin-top: 16px;
-=======
-  color: $red-1;
-  margin-bottom: 8px;
->>>>>>> Stashed changes
 }
 </style>

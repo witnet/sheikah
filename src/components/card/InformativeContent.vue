@@ -23,19 +23,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
-<<<<<<< Updated upstream
-
-.subtitle {
-  color: $font-color-dark;
-}
-.text-container {
-  max-height: 200px;
-  overflow-y: auto;
-  margin-top: 40px;
-  .text {
-    padding-top: 16px;
-    color: $font-color-light;
-=======
 .subtitle {
   color: $font-color-dark;
   padding-bottom: 24px;
@@ -48,7 +35,6 @@ export default {
     &:last-of-type {
       padding-bottom: 0px;
     }
->>>>>>> Stashed changes
   }
 }
 .router-link {

@@ -22,12 +22,17 @@ import {
   faEdit,
   faLink,
   faFileImport,
+  faFileAlt,
+  faCloudUploadAlt,
+  faCheckCircle,
+  faFileSignature,
+  faFile,
+  faFileUpload,
+  faFileDownload,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
-<<<<<<< Updated upstream
-=======
   faSortUp,
   faFileAlt,
   faCloudUploadAlt,
@@ -36,7 +41,6 @@ library.add(
   faFile,
   faFileUpload,
   faFileDownload,
->>>>>>> Stashed changes
   faFileImport,
   faCoffee,
   faWallet,

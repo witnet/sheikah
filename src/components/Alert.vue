@@ -83,18 +83,18 @@ export default {
   }
 
   &.error {
-    background-color: $red-01;
+    background-color: $red-0;
 
     .text {
-      color: $red-0;
+      color: $red-1;
     }
   }
 
   &.success {
-    background-color: $green-01;
+    background-color: $green-0;
 
     .text {
-      color: $green;
+      color: $green-1;
     }
   }
 
@@ -107,10 +107,10 @@ export default {
   }
 
   &.warning {
-    background-color: $orange-01;
+    background-color: $orange-0;
 
     .text {
-      color: $orange;
+      color: $orange-1;
     }
   }
 }

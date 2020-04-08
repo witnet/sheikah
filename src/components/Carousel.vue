@@ -160,7 +160,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .icon {
-  color: $red-0;
+  color: $red-1;
   font-size: 14px;
 }
 

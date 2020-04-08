@@ -18,7 +18,7 @@ export default {
   animation: spin 1s infinite linear;
   border: 2px dotted $grey-5;
   border-radius: 100%;
-  border-top: 3px solid $purple-6;
+  border-top: 3px solid $purple-7;
   height: 80px;
   width: 80px;
   z-index: 1;
