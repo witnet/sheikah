@@ -1,57 +1,65 @@
 <template>
-  <Card data-test="header-1" :width="600" :height="550" class="wallet-seed-type-selection">
-    <template v-slot:header>
-      <div class="header">
-        Create your wallet
-      </div>
-    </template>
-
-    <p class="create-wallet-text">
-      We will now help you create a new local wallet.
-    </p>
+  <NavigationCard
+    data-test="create-your-wallet"
+    class="wallet-disclaimer"
+    title="Create, import, or recover a wallet"
+  >
     <ul class="options">
-      <li>
-        <RedirectionOption
-          type="forward"
+      <li class="option">
+        <el-button
+          class="big"
           data-test="new-seed-option"
-          link="/ftu/disclaimer"
-          name="Create new seed phrase (RECOMMENDED)"
-        />
+          @click="redirectTo('/ftu/disclaimer')"
+          type="primary"
+        >
+          Create a new Witnet wallet
+        </el-button>
       </li>
-      <li>
-        <RedirectionOption
-          type="forward"
-          link="/ftu/disclaimer"
-          name="Create a wallet prefilled with sample data (RECOMMENDED)"
-        />
+      <li class="option">
+        <el-button
+          class="big"
+          ref="submit"
+          @click="redirectTo('/ftu/disclaimer')"
+          type="primary"
+        >
+          Import a wallet from xpriv
+        </el-button>
       </li>
-      <li>
-        <RedirectionOption
-          type="forward"
-          link="/ftu/import-wallet"
-          name="Import and advanced options"
-        />
+      <li class="option">
+        <el-button
+          class="big"
+          data-test="import-wallet"
+          @click="redirectTo('/ftu/import-wallet')"
+          type="primary"
+        >
+          Import a wallet from mnemonics
+        </el-button>
       </li>
-      <li class="cancel-btn">
-        <router-link to="/ftu/welcome">
-          <el-button data-test="cancel-tx" type="text">
-            Cancel
-          </el-button>
-        </router-link>
+      <li class="option">
+        <el-button
+          class="big"
+          data-test="back"
+          @click="redirectTo('/ftu/welcome')"
+        >
+          Back
+        </el-button>
       </li>
     </ul>
-  </Card>
+  </NavigationCard>
 </template>
 
 <script>
-import Card from '@/components/card/Card'
-import RedirectionOption from '@/components/RedirectionOption'
+import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
   name: 'WalletSeedTypeSelection',
   components: {
-    Card,
-    RedirectionOption,
+    NavigationCard,
+  },
+  methods: {
+    redirectTo(path) {
+      this.$router.push(path)
+    },
   },
 }
 </script>
@@ -80,6 +88,12 @@ export default {
 }
 
 .options {
-  margin-top: 32px;
+  margin-top: 24px;
+  .option {
+    margin-bottom: 16px;
+    &:last-of-type {
+      margin-bottom: 0px;
+    }
+  }
 }
 </style>

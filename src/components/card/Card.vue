@@ -1,5 +1,5 @@
 <template>
-  <BaseCard :style="{ width: `${width}px`, height: `${height}px` }" class="card">
+  <BaseCard class="card">
     <template v-if="title" v-slot:header>
       <p class="title">{{ title }}</p>
     </template>
@@ -51,6 +51,13 @@ export default {
   }
 
   .content {
+<<<<<<< Updated upstream
+=======
+    min-width: 500px;
+    max-width: 500px;
+    border: 1px solid $purple-6;
+    background: $white;
+>>>>>>> Stashed changes
     display: flex;
     flex-direction: column;
     justify-content: center;

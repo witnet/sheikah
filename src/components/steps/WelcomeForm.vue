@@ -11,14 +11,7 @@
     >
       <InformativeContent :subtitle="subtitle" :texts="texts" />
     </NavigationCard>
-    <Card
-      v-else
-      class="welcome-card"
-      :width="600"
-      :height="440"
-      previousText="Back"
-      nextText="Start"
-    >
+    <Card v-else class="welcome-card" :width="600" :height="440">
       <template v-slot:header>
         <div class="header">
           Hey, listen!

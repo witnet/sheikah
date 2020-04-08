@@ -29,12 +29,6 @@ export default {
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
 
-.wallets {
-  overflow-y: auto;
-  height: 200px;
-  margin-bottom: 24px;
-}
-
 .forward,
 .backward {
   text-decoration: none;
@@ -50,7 +44,6 @@ export default {
   flex-direction: row;
   height: 60px;
   justify-content: space-between;
-  margin-bottom: 16px;
   padding: 0 24px;
   width: 100%;
   &:focus,

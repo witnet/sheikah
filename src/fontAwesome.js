@@ -11,6 +11,7 @@ import {
   faEye,
   faShoppingBag,
   faSortDown,
+  faSortUp,
   faUsers,
   faWallet,
   faTrash,
@@ -25,6 +26,17 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
+<<<<<<< Updated upstream
+=======
+  faSortUp,
+  faFileAlt,
+  faCloudUploadAlt,
+  faCheckCircle,
+  faFileSignature,
+  faFile,
+  faFileUpload,
+  faFileDownload,
+>>>>>>> Stashed changes
   faFileImport,
   faCoffee,
   faWallet,
