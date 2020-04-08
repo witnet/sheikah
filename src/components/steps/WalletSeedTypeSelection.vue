@@ -2,36 +2,47 @@
   <NavigationCard
     data-test="create-your-wallet"
     class="wallet-disclaimer"
-    title="Create your wallet"
-    :previousStep="previousStep"
-    previousText="Back"
-    nextText="I will be careful, I promise!"
+    title="Create, import, or recover a wallet"
   >
-    <p class="create-wallet-text">
-      We will now help you create a new local wallet.
-    </p>
     <ul class="options">
       <li class="option">
-        <RedirectionOption
-          type="forward"
+        <el-button
+          class="big"
           data-test="new-seed-option"
-          link="/ftu/disclaimer"
-          name="Create new seed phrase (RECOMMENDED)"
-        />
+          @click="redirectTo('/ftu/disclaimer')"
+          type="primary"
+        >
+          Create a new Witnet wallet
+        </el-button>
       </li>
       <li class="option">
-        <RedirectionOption
-          type="forward"
-          link="/ftu/disclaimer"
-          name="Create a wallet prefilled with sample data (RECOMMENDED)"
-        />
+        <el-button
+          class="big"
+          ref="submit"
+          @click="redirectTo('/ftu/disclaimer')"
+          type="primary"
+        >
+          Import a wallet from xpriv
+        </el-button>
       </li>
       <li class="option">
-        <RedirectionOption
-          type="forward"
-          link="/ftu/import-wallet"
-          name="Import and advanced options"
-        />
+        <el-button
+          class="big"
+          data-test="import-wallet"
+          @click="redirectTo('/ftu/import-wallet')"
+          type="primary"
+        >
+          Import a wallet from mnemonics
+        </el-button>
+      </li>
+      <li class="option">
+        <el-button
+          class="big"
+          data-test="back"
+          @click="redirectTo('/ftu/welcome')"
+        >
+          Back
+        </el-button>
       </li>
     </ul>
   </NavigationCard>
@@ -39,17 +50,15 @@
 
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
-import RedirectionOption from '@/components/RedirectionOption'
 
 export default {
   name: 'WalletSeedTypeSelection',
   components: {
     NavigationCard,
-    RedirectionOption,
   },
   methods: {
-    previousStep() {
-      this.$router.push('/ftu/welcome')
+    redirectTo(path) {
+      this.$router.push(path)
     },
   },
 }

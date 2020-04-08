@@ -9,23 +9,34 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   border-color: #c5c2c2;
 }
 
+.el-input {
+  &.big .el-input__inner{
+    height: 60px;
+  }
+}
 
-.el-button--primary {
-  &.dark {
-    background-color: $white;
-    border-color: $white;
-    color: $purple-6;
-    &:hover, &:focus {
-      color: #9B51E0;
-      border-color: #e1cbf6;
-      background-color: #f5eefc;
-    }
-    &:active {
-      background: $purple-6;
+.el-button {
+  .el-button--primary {
+    &.dark {
+      background-color: $white;
       border-color: $white;
-      color: $white;
-      outline: none;
+      color: $purple-6;
+      &:hover, &:focus {
+        color: #9B51E0;
+        border-color: #e1cbf6;
+        background-color: #f5eefc;
+      }
+      &:active {
+        background: $purple-6;
+        border-color: $white;
+        color: $white;
+        outline: none;
+      }
     }
+  }
+  &.big {
+    width: 100%;
+    height: 60px;
   }
 }
 .el-button--default {
@@ -44,6 +55,10 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
       color: $purple-6;
       outline: none;
     }
+  }
+  &.big {
+    width: 100%;
+    height: 60px;
   }
 }
 

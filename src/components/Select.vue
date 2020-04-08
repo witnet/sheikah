@@ -15,11 +15,15 @@
         @keyup.down.prevent="selectNextOption"
       >
         <div class="selected">
+          <img class="item-icon" v-if="value.img" :src="value.img" alt="icon" />
           <div class="label">
-            <span class="primary" :data-test="'value' + value.primaryText">
+            <div class="primary" :data-test="'value' + value.primaryText">
               {{ value.primaryText }}
-            </span>
-            <font-awesome-icon class="icon sort-down" icon="sort-down" />
+            </div>
+            <div class="arrow">
+              <font-awesome-icon v-if="optionsVisible" class="icon sort-up" icon="sort-up" />
+              <font-awesome-icon v-else class="icon sort-down" icon="sort-down" />
+            </div>
           </div>
           <span v-if="value.secondaryText" :class="`value ${value.secondaryText}`">{{
             value.secondaryText
@@ -54,7 +58,10 @@
           role="option"
           @click="selectOption(option)"
         >
-          <span class="primary">{{ option.primaryText }}</span>
+          <div class="label">
+            <img class="item-icon" v-if="option.img" :src="option.img" alt="icon" />
+            <span class="primary">{{ option.primaryText }}</span>
+          </div>
           <span :class="`value ${option.secondaryText}`">
             {{ option.secondaryText }}
           </span>
@@ -228,8 +235,8 @@ export default {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-
       .label {
+        width: 100%;
         margin-right: 32px;
         display: flex;
         align-content: center;
@@ -239,7 +246,7 @@ export default {
           font-size: 16px;
           margin-right: 16px;
         }
-        .sort-down {
+        .icon {
           font-size: 16px;
           margin: 0;
         }
@@ -282,7 +289,6 @@ export default {
       font-size: 14px;
       justify-content: space-between;
       padding: 0px 0px 0px 16px;
-
       &.has-focus {
         background-color: $white;
         color: $grey-1;
@@ -339,14 +345,13 @@ export default {
 //as Select-box
 
 .select-box {
-  min-width: 250px;
+  width: 100%;
   position: relative;
 
   .selected-btn {
     outline: none;
     cursor: pointer;
     box-sizing: border-box;
-    min-width: inherit;
     width: 100%;
     z-index: 1;
     min-height: 60px;
@@ -357,23 +362,26 @@ export default {
     border-right: 1px solid $purple-6;
     border-bottom: 1px solid $purple-6;
     border-left: 1px solid $purple-6;
-    color: $grey-4;
+    color: $new-grey-1;
     display: flex;
     padding: 0 8px 0 16px;
     .selected {
-      min-width: 220px;
+      width: 100%;
       align-items: baseline;
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
 
+      .item-icon {
+        margin-right: 16px;
+      }
       .label {
+        width: 100%;
         overflow: hidden;
         margin-right: 8px;
         display: flex;
-        align-content: center;
-        text-align: center;
+        justify-content: space-between;
 
         .primary {
           overflow: hidden;
@@ -386,7 +394,7 @@ export default {
           border-radius: 2px;
           text-align: center;
         }
-        .sort-down {
+        .icon {
           font-size: 16px;
           margin: 0;
         }
@@ -421,6 +429,7 @@ export default {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-top: 0px;
+    font-size: 16px;
     border-right: 1px solid $purple-6;
     border-bottom: 1px solid $purple-6;
     border-left: 1px solid $purple-6;
@@ -428,16 +437,21 @@ export default {
     .option {
       overflow: hidden;
       background: $white;
-      color: $grey-3;
+      color: $new-grey-1;
       padding: 8px;
       cursor: pointer;
       align-items: center;
       display: flex;
       height: 60px;
-      font-size: 14px;
       justify-content: space-between;
       padding: 0px 0px 0px 16px;
-
+      .label {
+        display: flex;
+        align-items: center;
+        .item-icon {
+          margin-right: 16px;
+        }
+      }
       &.has-focus {
         background-color: $purple-0;
       }
