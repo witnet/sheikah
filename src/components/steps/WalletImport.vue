@@ -90,7 +90,7 @@ export default {
       this.$store.commit('clearError', { error: errorName })
     },
     previousStep() {
-      this.$router.push('/ftu/seed-type-selection')
+      this.$router.push('/ftu/welcome')
     },
   },
   beforeDestroy() {
@@ -118,13 +118,14 @@ export default {
   box-sizing: border-box;
   color: $input_big-color;
   display: inline-flex;
-  font-size: 16px;
+  font-size: 22px;
   line-break: auto;
   line-height: 1.5em;
   margin: 24px 0;
   padding: 16px;
   width: 100%;
 }
+
 .match-error {
   color: $red-2;
 }

@@ -52,7 +52,6 @@
 
 <script>
 import BaseCard from '@/components/card/BaseCard'
-
 export default {
   name: 'NavigationCard',
   data() {
@@ -124,15 +123,14 @@ export default {
   flex-direction: column;
   position: relative;
 }
-
 .card-navigation {
+  border-radius: 2px;
   background: $purple-4;
   color: $white;
   box-shadow: $default-box-shadow;
   width: 600px;
   min-height: 400px;
-  border: 1px solid $purple-4;
-
+  border: 1px solid $purple-3;
   .header {
     color: $white;
     padding: 0 32px;
@@ -158,7 +156,6 @@ export default {
       font-size: 50px;
     }
   }
-
   .content {
     color: $white;
     display: flex;
@@ -191,7 +188,7 @@ export default {
   max-width: 600px;
   .sub-title {
     text-align: center;
-    color: $alt-grey-3;
+    color: $grey-4;
     font-size: 14px;
     margin: 0px 32px;
   }

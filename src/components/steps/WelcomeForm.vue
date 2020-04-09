@@ -1,81 +1,81 @@
 <template>
-  <div>
-    <NavigationCard
-      class="introduction"
-      v-if="sessionId"
-      title="Hey, listen!"
-      :previousStep="previousStep"
-      :nextStep="nextStep"
-      previousText="Back"
-      nextText="Let's do it"
-    >
-      <InformativeContent :subtitle="subtitle" :texts="texts" />
-    </NavigationCard>
-    <Card v-else class="welcome-card" :width="600" :height="440">
-      <template v-slot:header>
-        <div class="header">
-          Hey, listen!
-        </div>
-      </template>
-      <InformativeContent :subtitle="subtitle" :texts="texts" />
-      <div class="container">
-        <router-link data-test="create-a" class="router-link" to="/ftu/seed-type-selection">
-          Let's do it
-        </router-link>
-      </div>
-    </Card>
+  <div data-test="welcome-back" class="welcome-back">
+    <div class="bar">
+      <img class="row sheikah-icon" src="@/resources/svg/sheikah-icon.svg" />
+      <p v-if="walletInfos.length" class="row title">Welcome back to Sheikah!</p>
+      <p v-else class="row title">Welcome to Sheikah!</p>
+      <p class="row subtitle">
+        Sheikah keeps your Witnet wallet safe and helps you build, share and deploy data requests
+        into the Witnet network.
+      </p>
+      <el-button class="row link" type="text">
+        Discover more features >
+      </el-button>
+    </div>
+    <WalletSeedTypeSelection />
   </div>
 </template>
 
 <script>
-import Card from '@/components/card/Card'
-import NavigationCard from '@/components/card/NavigationCard'
-import InformativeContent from '@/components/card/InformativeContent'
+import { mapState } from 'vuex'
+import WalletSeedTypeSelection from '@/components/steps/WalletSeedTypeSelection'
 
 export default {
-  name: 'WelcomeForm',
+  name: 'Welcome',
   components: {
-    Card,
-    NavigationCard,
-    InformativeContent,
+    WalletSeedTypeSelection,
   },
-  data() {
-    return {
-      subtitle:
-        'This assistant will guide you through the process of creating your own Witnet wallet.',
-      texts: {
-        0: 'A wallet is an app that keeps your credentials safe and lets you interface with the Witnet blockchain in many ways: from transferring Wit to someone else to creating smart contracts.',
-      },
-    }
+  created() {
+    this.$store.dispatch('getWalletInfos')
   },
   computed: {
-    sessionId() {
-      const walletInfosLength = this.$store.state.wallet.walletInfos.length
-      return walletInfosLength > 0
-    },
+    ...mapState({
+      status: state => state.wallet.networkStatus,
+      walletInfos: state => state.wallet.walletInfos,
+    }),
   },
-  methods: {
-    previousStep() {
-      this.$router.push('/welcome-back/wallet-list')
-    },
-    nextStep() {
-      this.$router.push('/ftu/seed-type-selection')
+  watch: {
+    status(status) {
+      if (status === 'error') {
+        this.$router.push('/wallet-not-found')
+      }
     },
   },
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 @import '@/styles/theme.scss';
+@import '@/styles/_colors.scss';
 
-.header {
-  align-items: center;
-  background: $purple-4;
+.welcome-back {
+  background-color: $alpha-purple;
+  height: 100vh;
+  width: 100vw;
   display: flex;
-  font-size: 24px;
-  font-weight: 100;
-  height: 100px;
-  padding: 0 24px;
-  color: $grey-1;
+  justify-content: center;
+  align-items: center;
+
+  .bar {
+    color: $alt-grey-5;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 100px;
+    width: 400px;
+    .row {
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 48px;
+      font-weight: bold;
+      line-height: inherit;
+    }
+    .sheikah-icon {
+      width: 70px;
+    }
+  }
 }
 </style>

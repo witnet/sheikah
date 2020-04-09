@@ -90,12 +90,13 @@ export default {
 }
 
 .seed {
+  font-family: inherit;
   align-items: center;
   border-radius: $input_big-border-radius;
   border: $input_big-border;
   box-sizing: border-box;
   color: $input_big-color;
-  font-size: 16px;
+  font-size: 22px;
   line-break: auto;
   line-height: 1.5em;
   margin: 24px 0px;

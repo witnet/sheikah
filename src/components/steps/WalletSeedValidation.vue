@@ -7,6 +7,7 @@
     nextText="Next"
     :previousStep="previousStep"
     :nextStep="nextStep"
+    :disabledNextButton="disabledNextButton"
     ref="navCard"
   >
     <p class="text">
@@ -40,6 +41,7 @@ export default {
     return {
       seed: '',
       showError: '',
+      disabledNextButton: true,
     }
   },
   computed: {
@@ -51,12 +53,25 @@ export default {
       validatedMnemonics: state => state.wallet.validatedMnemonics,
     }),
   },
+  watch: {
+    seed(seed) {
+      this.validateForm()
+    },
+  },
   methods: {
     validateForm() {
       this.$store.commit('validateMnemonics', {
         seed: this.seed,
         mnemonics: this.mnemonics,
       })
+      if (this.validatedMnemonics) {
+        if (this.mnemonicsError) {
+          this.clearError(this.mnemonicsError.name)
+        }
+        this.disabledNextButton = false
+      } else {
+        this.disabledNextButton = true
+      }
     },
     nextStep() {
       this.validateForm()
@@ -105,6 +120,7 @@ export default {
 }
 .match-error {
   color: $red-2;
+  margin-bottom: 8px;
 }
 .paragraph {
   margin-top: 16px;

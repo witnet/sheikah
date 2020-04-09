@@ -20,16 +20,6 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'WelcomeBack',
-  data() {
-    return {
-      settings: [
-        {
-          label: 'Quit app',
-          action: () => window.close(),
-        },
-      ],
-    }
-  },
   computed: {
     ...mapState({
       status: state => state.wallet.networkStatus,
@@ -63,12 +53,13 @@ export default {
     display: flex;
     flex-direction: column;
     margin-right: 100px;
-    width: 370px;
+    width: 400px;
     .row {
       margin-bottom: 24px;
       text-align: left;
     }
     .title {
+      font-family: 'Raleway', sans-serif;
       font-size: 48px;
       font-weight: bold;
       line-height: inherit;

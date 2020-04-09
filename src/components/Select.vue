@@ -121,7 +121,7 @@ export default {
   },
   methods: {
     scrollTop(next) {
-      if (next > 3 && next !== this.options.length - 3) {
+      if (next >= 2 && next <= this.options.length - 2) {
         const top = this.$refs[`option-${next}`][0].offsetTop
         this.$refs.options.scrollTop = top
       }
@@ -375,6 +375,7 @@ export default {
 
       .item-icon {
         margin-right: 16px;
+        width: 30px;
       }
       .label {
         width: 100%;
@@ -450,6 +451,7 @@ export default {
         align-items: center;
         .item-icon {
           margin-right: 16px;
+          width: 30px;
         }
       }
       &.has-focus {
