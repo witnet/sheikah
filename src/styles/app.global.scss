@@ -3,6 +3,7 @@
   @import "colors";
   @import "reset";
   @import "fonts";
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap');
 
   * {
     box-sizing: border-box;
@@ -31,5 +32,9 @@
     position: fixed;
     right: 0;
     top: 0;
+
+  }
+  a[target="_blank"] {
+    font-style: italic;
   }
 }

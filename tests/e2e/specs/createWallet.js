@@ -12,7 +12,6 @@ describe('Create Wallet', () => {
       cy.get('[data-test=unlock-wallet]').click({ force: true })
     }
     cy.get('[data-test=create-wallet]').click({ force: true })
-    cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=word-seed]')
@@ -21,7 +20,7 @@ describe('Create Wallet', () => {
       })
       .then(val => {
         cy.get('[data-test=next-step]').click()
-        cy.get('input').type(val)
+        cy.get('[data-test=textarea]').type(val)
       })
     cy.get('[data-test=next-step]').click({ force: true })
 
@@ -41,7 +40,6 @@ describe('Create Wallet', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/')
     cy.get('[data-test=create-wallet]').click({ force: true })
-    cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=word-seed]')
@@ -50,7 +48,7 @@ describe('Create Wallet', () => {
       })
       .then(val => {
         cy.get('[data-test=next-step]').click()
-        cy.get('input').type(val + '1')
+        cy.get('[data-test=textarea]').type(val + '1')
       })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=mnemonics-error-alert]').should('have.css', 'color', 'rgb(240, 132, 132)')
@@ -60,7 +58,6 @@ describe('Create Wallet', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/')
     cy.get('[data-test=create-wallet]').click({ force: true })
-    cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=word-seed]')
@@ -69,7 +66,7 @@ describe('Create Wallet', () => {
       })
       .then(val => {
         cy.get('[data-test=next-step]').click()
-        cy.get('input').type(val)
+        cy.get('[data-test=textarea]').type(val)
       })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=password]')
@@ -86,7 +83,6 @@ describe('Create Wallet', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/')
     cy.get('[data-test=create-wallet]').click({ force: true })
-    cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=word-seed]')
@@ -95,7 +91,7 @@ describe('Create Wallet', () => {
       })
       .then(val => {
         cy.get('[data-test=next-step]').click()
-        cy.get('input').type(val)
+        cy.get('[data-test=textarea]').type(val)
       })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=password]')

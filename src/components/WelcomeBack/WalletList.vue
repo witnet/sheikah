@@ -16,6 +16,9 @@
           v-model="password"
           show-password
         />
+        <p data-test="error-alert" v-if="unlockWalletError" class="error">
+          Invalid password
+        </p>
       </div>
       <div class="row" @keydown.enter.esc.prevent="unlockWallet">
         <el-button
@@ -24,6 +27,7 @@
           data-test="unlock-wallet"
           @click="unlockWallet"
           type="primary"
+          :disabled="disableButton"
         >
           Unlock
         </el-button>
@@ -92,6 +96,14 @@ export default {
       sessionId: state => state.wallet.sessionId,
       unlockWalletError: state => state.wallet.errors.unlockWallet,
     }),
+    disableButton() {
+      const passwordLength = this.password.split('').length
+      if (!this.unlockWalletError && passwordLength >= 8) {
+        return false
+      } else {
+        return true
+      }
+    },
     wallets() {
       return this.$store.state.wallet.walletInfos
     },
@@ -100,7 +112,7 @@ export default {
         return {
           primaryText: `My personal Witnet Wallet #${index}`,
           value: wallet.id,
-          img: require('@/resources/svg/wallet-icon.svg'),
+          img: `https://api.adorable.io/avatars/${index}/`,
         }
       })
     },
@@ -113,33 +125,29 @@ export default {
 @import '@/styles/_colors.scss';
 
 .wallet-list {
+  min-width: 500px;
   .text {
     margin-bottom: 32px;
     &.header {
       font-size: 20px;
     }
   }
-
   .list {
     .row {
       margin-bottom: 16px;
       &:last-of-type {
         margin-bottom: 0px;
       }
+      .error {
+        margin-top: 8px;
+        color: $red-3;
+      }
     }
     .wallets {
-      // overflow-y: auto;
-      // height: 200px;
-      margin-bottom: 24px;
       .wallet {
         margin-bottom: 16px;
         &:last-of-type {
           margin-bottom: 0px;
-        }
-      }
-      .el-input {
-        .el-input__inner {
-          height: 60px;
         }
       }
     }

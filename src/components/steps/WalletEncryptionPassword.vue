@@ -6,6 +6,7 @@
     nextText="Next"
     :previousStep="previousStep"
     :nextStep="nextStep"
+    :disabledNextButton="disabledNextButton"
     ref="navCard"
   >
     <p class="paragraph">
@@ -16,28 +17,30 @@
     <div class="form-row password">
       <p>Create a password</p>
       <el-input
+        class="password"
         data-test="password"
         placeholder="Please input password"
         v-model="password"
         show-password
-        @keydown.enter.native="goNextInput"
-      ></el-input>
+      />
     </div>
     <div ref="confirm" class="form-row password">
       <p>Confirm your password</p>
-      <el-input
-        ref="password"
-        @keydown.enter.native="nextStep"
-        data-test="password"
-        placeholder="Confirm password"
-        v-model="repeatPassword"
-        show-password
-      ></el-input>
+      <div class="col">
+        <el-input
+          class="password"
+          ref="password"
+          @keydown.enter.native="nextStep"
+          data-test="password"
+          placeholder="Confirm password"
+          v-model="repeatPassword"
+          show-password
+        />
+        <div data-test="password-error-alert" v-if="createValidPasswordError" class="error">
+          {{ createValidPasswordError.message }}
+        </div>
+      </div>
     </div>
-
-    <p data-test="password-error-alert" v-if="createValidPasswordError" class="error">
-      {{ createValidPasswordError.message }}
-    </p>
   </NavigationCard>
 </template>
 
@@ -52,7 +55,39 @@ export default {
       password: '',
       repeatPassword: '',
       error: false,
+      disabledNextButton: true,
     }
+  },
+  watch: {
+    password() {
+      if (this.createValidPasswordError) {
+        this.clearError(this.createValidPasswordError.name)
+      }
+      const passwordLength = this.password.split('').length
+      const repeatedPasswordLength = this.repeatPassword.split('').length
+      if (passwordLength >= 8 && repeatedPasswordLength >= 8) {
+        this.disabledNextButton = false
+      } else {
+        this.disabledNextButton = true
+      }
+    },
+    createValidPasswordError(error) {
+      if (error) {
+        this.disabledNextButton = true
+      }
+    },
+    repeatPassword() {
+      if (this.createValidPasswordError) {
+        this.clearError(this.createValidPasswordError.name)
+      }
+      const passwordLength = this.password.split('').length
+      const repeatedPasswordLength = this.repeatPassword.split('').length
+      if (passwordLength >= 8 && repeatedPasswordLength >= 8) {
+        this.disabledNextButton = false
+      } else {
+        this.disabledNextButton = true
+      }
+    },
   },
   methods: {
     validateForm() {
@@ -114,13 +149,12 @@ export default {
 
 .error {
   color: $red-2;
+  font-size: 14px;
+  min-width: 270px;
+  margin-top: 16px;
 }
-
 .paragraph {
   margin-bottom: 32px;
-  .bold {
-    font-weight: 700;
-  }
 }
 
 .form-row {
@@ -132,20 +166,21 @@ export default {
   &.password {
     max-width: none;
     display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    justify-content: space-between;
   }
-  &:last-of-type {
-    margin-bottom: 0px;
+  &.form-row:last-of-type {
+    margin: 0px;
   }
+  .password {
+    width: 350px;
+  }
+}
+.bold {
+  font-weight: bold;
 }
 
 .label {
   color: $font-color-light;
   width: 100px;
-}
-
-.password-input {
-  width: 50%;
 }
 </style>

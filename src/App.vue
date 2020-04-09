@@ -1,18 +1,12 @@
 <template>
   <div id="app">
-    <!-- <Spinner class="spinner" v-if="loading" /> -->
     <router-view />
   </div>
 </template>
 
 <script>
-// import Spinner from '@/components/Spinner.vue'
-
 export default {
   name: 'app',
-  components: {
-    // Spinner,
-  },
   created() {
     // Disable back and forward from keyboard and mouse buttons
     window.onpopstate = function(event) {

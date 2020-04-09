@@ -2,9 +2,9 @@
 @import "./colors";
 
 // // COMMON
-$default-box-shadow: 10px 10px 0px 0px rgba(155, 81, 224, 0.30);
+$default-box-shadow: 10px 10px 0px 0px rgba(155, 81, 224, 0.103);
 $font-color-dark: $alt-grey-5;
-$font-color-light: $alt-grey-5;
+$font-color-light: $alt-grey-2;
 $sheikah-gradient: linear-gradient(to right, $purple-5, $purple-4);
 
 // // // BUTTON_NAVIGATION
@@ -36,7 +36,13 @@ $button_option-hover-color: $purple-4;
 $icon-settings-font_size: 14px;
 $icon_status-font_size: 12px;
 
+// // // SELECT
+$select_border: 1px solid $grey-4;
+$select_border__active: 1px solid $purple-4;
+
 // // //INPUT BIG
+$input_border: 1px solid $grey-4;
+$input_border_color__active: $purple-4;
 $input_big-border-radius: 2px;
 $input_big-border: 2px dashed $alt-grey-1;
 $input_big-color: $font-color-light;

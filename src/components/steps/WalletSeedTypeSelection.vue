@@ -1,9 +1,8 @@
 <template>
-  <NavigationCard
-    data-test="header-1"
-    class="wallet-disclaimer"
-    title="Create, import, or recover a wallet"
-  >
+  <Card class="wallet-seed-type" data-test="header-1">
+    <p class="text header">
+      Create, import, or recover a wallet
+    </p>
     <ul class="options">
       <li class="option">
         <el-button
@@ -24,28 +23,28 @@
         <el-button
           class="big"
           data-test="import-wallet"
-          @click="redirectTo('/ftu/import-wallet')"
+          @click="redirectTo('/ftu/disclaimer')"
           type="primary"
         >
           Import a wallet from mnemonics
         </el-button>
       </li>
       <li class="option">
-        <el-button class="big" data-test="back" @click="redirectTo('/ftu/welcome')">
+        <el-button class="big" data-test="back" @click="redirectTo('/welcome-back/wallet-list')">
           Back
         </el-button>
       </li>
     </ul>
-  </NavigationCard>
+  </Card>
 </template>
 
 <script>
-import NavigationCard from '@/components/card/NavigationCard'
+import Card from '@/components/card/Card'
 
 export default {
   name: 'WalletSeedTypeSelection',
   components: {
-    NavigationCard,
+    Card,
   },
   methods: {
     redirectTo(path) {
@@ -59,32 +58,28 @@ export default {
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
 
-.header {
-  align-items: center;
-  background: $purple-4;
-  display: flex;
-  font-size: 24px;
-  font-weight: 100;
-  height: 100px;
-  padding: 0 24px;
-  color: $white;
-}
+.wallet-seed-type {
+  min-width: 500px;
 
-.cancel-btn {
-  text-align: right;
-}
-
-.create-wallet-text {
-  color: $font-color-dark;
-}
-
-.options {
-  margin-top: 24px;
-  .option {
-    margin-bottom: 16px;
-    &:last-of-type {
-      margin-bottom: 0px;
+  .text {
+    margin-bottom: 32px;
+    &.header {
+      font-size: 20px;
     }
+  }
+  .options {
+    .option {
+      margin-bottom: 16px;
+      &:last-of-type {
+        margin-bottom: 0px;
+      }
+    }
+  }
+  .cancel-btn {
+    text-align: right;
+  }
+  .create-wallet-text {
+    color: $font-color-dark;
   }
 }
 </style>

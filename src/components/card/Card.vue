@@ -51,7 +51,6 @@ export default {
   }
 
   .content {
-    min-width: 500px;
     max-width: 500px;
     border: 1px solid $purple-4;
     background: $white;

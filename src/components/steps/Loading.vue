@@ -23,12 +23,6 @@ export default {
     goToFirstStep() {
       this.$router.push('/ftu/welcome')
     },
-    previousStep() {
-      this.$router.push('/ftu/seed-type-selection')
-    },
-    nextStep() {
-      this.$router.push('ftu/seed-backup')
-    },
     reloadView() {},
   },
   computed: {

@@ -1,5 +1,6 @@
 <template>
-  <input
+  <textarea
+    data-test="textarea"
     @keydown.enter.esc.prevent="toogleGoNextItem"
     v-model="inputValue"
     :class="`input ${getClass(type)}`"
@@ -52,8 +53,8 @@ export default {
   display: inline-block;
   width: 100%;
   box-sizing: border-box;
-
   &.big {
+    font-size: 22px;
     border: $input_big-border;
     border-radius: $input_big-border-radius;
     min-height: 80px;

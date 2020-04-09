@@ -239,9 +239,7 @@ export default {
         session_id: context.state.sessionId,
         transaction: context.state.generatedTransaction.transaction,
       })
-      console.log('REQUEST', request)
       if (request.result) {
-        console.log('RESULT', request.result)
         console.log('----- Template deployed successfully -----')
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
         context.commit('clearGeneratedTransaction')

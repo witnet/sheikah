@@ -7,8 +7,9 @@
         id="select-button"
         aria-haspopup="listbox"
         aria-labelledby="select-label select-button"
-        :aria-expanded="optionsVisible"
-        :class="optionsVisible ? 'selected-btn active' : 'selected-btn'"
+        :aria-expanded="areOptionsVisible"
+        class="selected-btn"
+        :class="{ active: areOptionsVisible }"
         @click="toggleOptions"
         @keyup.up.down.prevent="showOptions"
         @keyup.up.prevent="selectPrevOption"
@@ -21,8 +22,18 @@
               {{ value.primaryText }}
             </div>
             <div class="arrow">
-              <font-awesome-icon v-if="optionsVisible" class="icon sort-up" icon="sort-up" />
-              <font-awesome-icon v-else class="icon sort-down" icon="sort-down" />
+              <img
+                v-if="areOptionsVisible"
+                class="icon sort-up"
+                src="@/resources/svg/sort-up.svg"
+                alt="sort-up-icon"
+              />
+              <img
+                v-else
+                src="@/resources/svg/sort-down.svg"
+                class="icon sort-down"
+                alt="sort-down-icon"
+              />
             </div>
           </div>
           <span v-if="value.secondaryText" :class="`value ${value.secondaryText}`">{{
@@ -32,7 +43,7 @@
       </button>
       <input v-if="!tabKeyPressed" :aria-hidden="true" class="hidden" @focus="handleFocus" />
       <ul
-        v-show="optionsVisible"
+        v-show="areOptionsVisible"
         ref="options"
         tabindex="-1"
         role="listbox"
@@ -92,7 +103,7 @@ export default {
   data() {
     return {
       tabKeyPressed: false,
-      optionsVisible: false,
+      areOptionsVisible: true,
       keysSoFar: '',
     }
   },
@@ -121,13 +132,13 @@ export default {
   },
   methods: {
     scrollTop(next) {
-      if (next > 3 && next !== this.options.length - 3) {
+      if (next >= 2 && next <= this.options.length - 2) {
         const top = this.$refs[`option-${next}`][0].offsetTop
         this.$refs.options.scrollTop = top
       }
     },
     handleFocus(e) {
-      this.optionsVisible = true
+      this.areOptionsVisible = true
       if (this.$refs.button) {
         this.$refs.button.focus()
       }
@@ -142,17 +153,17 @@ export default {
       }
     },
     toggleOptions() {
-      this.optionsVisible ? this.hideOptions() : this.showOptions()
+      this.areOptionsVisible ? this.hideOptions() : this.showOptions()
     },
     async showOptions() {
-      this.optionsVisible = true
+      this.areOptionsVisible = true
       await this.$nextTick()
       if (this.$refs.options) {
         this.$refs.options.focus()
       }
     },
     hideOptions() {
-      this.optionsVisible = false
+      this.areOptionsVisible = false
     },
     async reset() {
       this.hideOptions()
@@ -239,7 +250,7 @@ export default {
         width: 100%;
         margin-right: 32px;
         display: flex;
-        align-content: center;
+        align-items: center;
         text-align: center;
 
         .primary {
@@ -247,7 +258,6 @@ export default {
           margin-right: 16px;
         }
         .icon {
-          font-size: 16px;
           margin: 0;
         }
         .value {
@@ -358,13 +368,11 @@ export default {
     align-items: center;
     background: none;
     border-radius: 4px;
-    border-top: 1px solid $purple-4;
-    border-right: 1px solid $purple-4;
-    border-bottom: 1px solid $purple-4;
-    border-left: 1px solid $purple-4;
+    border: $select_border;
     color: $alt-grey-5;
     display: flex;
     padding: 0 8px 0 16px;
+
     .selected {
       width: 100%;
       align-items: baseline;
@@ -375,12 +383,14 @@ export default {
 
       .item-icon {
         margin-right: 16px;
+        width: 30px;
       }
       .label {
         width: 100%;
         overflow: hidden;
         margin-right: 8px;
         display: flex;
+        align-items: center;
         justify-content: space-between;
 
         .primary {
@@ -401,10 +411,13 @@ export default {
       }
     }
   }
+
   .active {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    border-bottom: 0px solid $purple-4;
+    border: $select_border__active;
+    border-bottom: none;
+    padding-bottom: 1px;
   }
 
   .hidden {
@@ -430,9 +443,8 @@ export default {
     border-top-right-radius: 0;
     border-top: 0px;
     font-size: 16px;
-    border-right: 1px solid $purple-4;
-    border-bottom: 1px solid $purple-4;
-    border-left: 1px solid $purple-4;
+    border: $select_border__active;
+    border-top: none;
 
     .option {
       overflow: hidden;
@@ -450,10 +462,11 @@ export default {
         align-items: center;
         .item-icon {
           margin-right: 16px;
+          width: 30px;
         }
       }
       &.has-focus {
-        background-color: $purple-0;
+        background-color: $alpha-purple;
       }
       .primary {
         overflow: hidden;
