@@ -46,14 +46,14 @@ export default {
   .title {
     font-size: 16px;
     font-weight: 600;
-    color: $grey-4;
+    color: $alt-grey-3;
     margin-bottom: 8px;
   }
 
   .content {
     min-width: 500px;
     max-width: 500px;
-    border: 1px solid $purple-6;
+    border: 1px solid $purple-4;
     background: $white;
     display: flex;
     flex-direction: column;

@@ -49,10 +49,10 @@ export default {
     }
     .header {
       font-size: 18px;
-      color: $purple-6;
+      color: $purple-4;
     }
     .content {
-      color: $grey-5;
+      color: $alt-grey-5;
       line-height: 1.5em;
     }
     .icon-container {

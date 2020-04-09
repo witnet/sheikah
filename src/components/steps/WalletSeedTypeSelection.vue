@@ -1,6 +1,6 @@
 <template>
   <NavigationCard
-    data-test="create-your-wallet"
+    data-test="header-1"
     class="wallet-disclaimer"
     title="Create, import, or recover a wallet"
   >
@@ -61,7 +61,7 @@ export default {
 
 .header {
   align-items: center;
-  background: $purple-6;
+  background: $purple-4;
   display: flex;
   font-size: 24px;
   font-weight: 100;

@@ -61,7 +61,7 @@ export default {
     flex-direction: row;
 
     .cross {
-      color: $grey-3;
+      color: $alt-grey-5;
       font-size: 12px;
       cursor: pointer;
     }
@@ -86,7 +86,7 @@ export default {
     background-color: $red-0;
 
     .text {
-      color: $red-1;
+      color: $red-2;
     }
   }
 
@@ -94,15 +94,15 @@ export default {
     background-color: $green-0;
 
     .text {
-      color: $green-1;
+      color: $green-5;
     }
   }
 
   &.info {
-    background-color: $grey-0;
+    background-color: $grey-1;
 
     .text {
-      color: $grey-3;
+      color: $alt-grey-5;
     }
   }
 

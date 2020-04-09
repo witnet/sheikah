@@ -121,14 +121,14 @@ export default {
   height: 20vh;
   overflow-y: auto;
   background-color: $black;
-  color: $grey-2;
+  color: $alt-grey-2;
   .variable {
     padding-left: 16px;
     display: block;
     display: flex;
     justify-items: left;
     .label {
-      color: $grey-2;
+      color: $alt-grey-2;
       padding-right: 5px;
       margin: 8px;
     }
@@ -156,7 +156,7 @@ export default {
     display: flex;
     align-items: center;
     padding-left: 16px;
-    color: $red-2;
+    color: $red-5;
   }
   .img-container {
     position: fixed;

@@ -50,7 +50,7 @@ export default {
 @import '@/styles/_colors.scss';
 
 .welcome-back {
-  background-color: $alpha-grey;
+  background-color: $alpha-purple;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -58,7 +58,7 @@ export default {
   align-items: center;
 
   .bar {
-    color: $new-grey-1;
+    color: $alt-grey-5;
     padding: 20px;
     display: flex;
     flex-direction: column;

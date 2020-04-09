@@ -77,11 +77,11 @@ export default {
   .label {
     font-size: 16px;
     font-weight: 600;
-    color: $grey-4;
+    color: $alt-grey-3;
   }
   .number {
     font-size: 16px;
-    color: $grey-5;
+    color: $alt-grey-5;
     margin-left: 8px;
   }
   .list {
@@ -100,7 +100,7 @@ export default {
       font-size: 16px;
       font-weight: 400;
       font-style: italic;
-      color: $grey-3;
+      color: $alt-grey-5;
     }
     .no-transactions-img {
       width: 40px;

@@ -129,7 +129,7 @@ export default {
 
 .form {
   .title {
-    color: $grey-4;
+    color: $alt-grey-3;
     font-size: 18px;
     margin: 0px 0px 40px 32px;
   }

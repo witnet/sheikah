@@ -47,7 +47,7 @@ export default {
 
 .circle {
   outline: none;
-  border: 2px solid $grey-4;
+  border: 2px solid $alt-grey-3;
   box-shadow: none;
   width: 30px;
   height: 30px;
@@ -71,7 +71,7 @@ export default {
 .circle.plus:before,
 .circle.plus:after {
   cursor: pointer;
-  background: $grey-4;
+  background: $alt-grey-3;
 }
 .circle.plus:before {
   width: 2px;
@@ -92,7 +92,7 @@ export default {
     width: 150px;
     padding: 8px;
     font-size: 16px;
-    background-color: $purple-6;
+    background-color: $purple-4;
     border-radius: 5px;
     color: $white;
     font-family: 'Titillium Web';

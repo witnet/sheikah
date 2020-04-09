@@ -63,7 +63,7 @@ export default {
       font-size: 16px;
       background-color: $black;
       border: none;
-      color: $grey-1;
+      color: $alt-grey-1;
       &:hover {
         cursor: pointer;
         background-color: $black;
@@ -71,9 +71,9 @@ export default {
       .tab-btn:active,
       &:focus,
       &.active {
-        color: $grey-1;
+        color: $alt-grey-1;
         outline: none;
-        border-bottom: 1px solid $grey-1;
+        border-bottom: 1px solid $alt-grey-1;
         margin-bottom: -1px;
         outline: 1;
       }
@@ -90,7 +90,7 @@ export default {
       font-size: 20px;
       background-color: transparent;
       border: none;
-      color: $grey-1;
+      color: $alt-grey-1;
       &:hover {
         cursor: pointer;
       }

@@ -14,7 +14,13 @@
 
     <template v-slot:footer>
       <div class="navigation-buttons">
-        <el-button data-test="previous-step" class="button" type="text" @click="previousStep">
+        <el-button
+          v-if="previousStep"
+          data-test="previous-step"
+          class="button"
+          type="text"
+          @click="previousStep"
+        >
           {{ previousText }}
         </el-button>
         <el-button
@@ -65,12 +71,12 @@ export default {
 .card-navigation {
   background-color: $white;
   box-shadow: $default-box-shadow;
-  border: 1px solid $purple-6;
+  border: 1px solid $purple-4;
   width: 600px;
-  border: 1px solid $purple-6;
+  border: 1px solid $purple-4;
 
   .header {
-    background: $purple-6;
+    background: $purple-4;
     padding: 0 32px;
     align-items: center;
     color: $white;

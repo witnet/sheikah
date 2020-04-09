@@ -55,60 +55,60 @@ export default {
 :active,
 :hover,
 :focus {
-  outline-color: $purple-6;
+  outline-color: $purple-4;
 }
 
 .default {
   background-color: $white;
-  border: 1px solid $purple-6;
-  color: $purple-6;
+  border: 1px solid $purple-4;
+  color: $purple-4;
 
   &:active {
-    border: 1px solid $purple-6;
-    color: $purple-6;
+    border: 1px solid $purple-4;
+    color: $purple-4;
   }
 }
 
 .primary {
-  background-color: $purple-6;
+  background-color: $purple-4;
   color: $white;
 
   &:active {
-    background-color: $purple-5;
+    background-color: $purple-4;
     color: $white;
   }
 }
 
 .danger {
-  background-color: $red-3;
-  color: $grey-3;
+  background-color: $red-4;
+  color: $alt-grey-5;
 
   &:active {
-    background-color: $grey-3;
-    border-color: $red-2;
-    color: $red-2;
+    background-color: $alt-grey-5;
+    border-color: $red-5;
+    color: $red-5;
   }
 }
 
 .dashed {
-  background: $grey-1;
-  border: 1px dashed $grey-5;
-  color: $grey-5;
+  background: $alt-grey-1;
+  border: 1px dashed $alt-grey-5;
+  color: $alt-grey-5;
 
   &:active {
-    border: 1px dashed $purple-5;
-    color: $purple-5;
+    border: 1px dashed $purple-4;
+    color: $purple-4;
   }
 }
 
 .positive {
-  background-color: $green-1;
-  color: $grey-1;
+  background-color: $green-5;
+  color: $alt-grey-1;
 
   &:active {
-    background-color: $green-1;
-    border-color: $green-1;
-    color: $grey-1;
+    background-color: $green-5;
+    border-color: $green-5;
+    color: $alt-grey-1;
   }
 }
 
@@ -127,7 +127,7 @@ export default {
   padding: 0 24px;
   width: 450px;
   &:hover {
-    border-color: $grey-4;
+    border-color: $alt-grey-3;
   }
 
   &:active {

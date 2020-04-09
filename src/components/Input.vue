@@ -74,8 +74,8 @@ export default {
     text-align: center;
     background-color: $white;
     border-radius: 4px;
-    border: 1px solid $grey-1;
-    color: $grey-4;
+    border: 1px solid $alt-grey-1;
+    color: $alt-grey-3;
     font-size: 16px;
     line-height: 32px;
   }
