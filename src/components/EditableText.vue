@@ -90,15 +90,15 @@ export default {
 
 .title {
   font-size: 16px;
-  color: $grey-1;
+  color: $alt-grey-1;
   display: flex;
   align-items: center;
   justify-content: center;
   .editVar {
     width: 80px;
     &.error {
-      color: $red-2;
-      border-bottom: 1px solid $red-2;
+      color: $red-5;
+      border-bottom: 1px solid $red-5;
     }
   }
   .edit-btn {
@@ -110,7 +110,7 @@ export default {
       padding-left: 8px;
       opacity: 1;
       font-size: 16px;
-      color: $grey-1;
+      color: $alt-grey-1;
     }
   }
 }

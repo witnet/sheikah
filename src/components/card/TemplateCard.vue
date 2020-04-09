@@ -175,7 +175,7 @@ export default {
   font-weight: bold;
   .el-dropdown-menu__item:not(.is-disabled):hover {
     display: block;
-    color: $purple-6;
+    color: $purple-4;
   }
   &.marketplace .el-dropdown-menu__item:not(.is-disabled):hover {
     display: block;
@@ -183,8 +183,8 @@ export default {
     color: rgb(255, 42, 127);
   }
   .el-dropdown-menu__item:last-of-type:hover {
-    background-color: $alpha-red;
-    color: $red-2;
+    background-color: $red-0;
+    color: $red-5;
   }
 }
 .el-button--primary:focus,
@@ -196,20 +196,20 @@ export default {
 .card-layout {
   width: 250px;
   height: 250px;
-  background-color: $alpha-purple;
+  background-color: $purple-0;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   border-radius: 2px;
   margin: 16px;
   padding: 16px;
-  border: 2px solid $grey-0;
+  border: 2px solid $grey-1;
   box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
   &.marketplace {
     background: none;
   }
   &:hover {
-    border: 2px solid $purple-6;
+    border: 2px solid $purple-4;
   }
   &.marketplace:hover {
     border: 2px solid rgb(255, 42, 127);
@@ -220,13 +220,13 @@ export default {
     padding: 16px;
   }
   .date {
-    color: $grey-4;
+    color: $alt-grey-3;
     text-align: right;
   }
   .edit-btn {
     padding-left: 8px;
     display: block;
-    color: $purple-6;
+    color: $purple-4;
   }
   .option-btn {
     flex: 1;
@@ -246,7 +246,7 @@ export default {
       color: $black;
     }
     .description {
-      color: $grey-4;
+      color: $alt-grey-3;
       line-height: 1.5em;
     }
   }

@@ -16,7 +16,7 @@
     <div class="form-row password">
       <p>Create a password</p>
       <el-input
-        data-test="password-input"
+        data-test="password"
         placeholder="Please input password"
         v-model="password"
         show-password
@@ -28,7 +28,7 @@
       <el-input
         ref="password"
         @keydown.enter.native="nextStep"
-        data-test="password-input"
+        data-test="password"
         placeholder="Confirm password"
         v-model="repeatPassword"
         show-password
@@ -113,7 +113,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .error {
-  color: $red-1;
+  color: $red-2;
 }
 
 .paragraph {

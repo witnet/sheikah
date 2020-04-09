@@ -160,7 +160,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .icon {
-  color: $red-1;
+  color: $red-2;
   font-size: 14px;
 }
 
@@ -184,7 +184,7 @@ export default {
   &--to__right .icon-right {
     margin: auto;
     font-size: 40px;
-    color: $grey-2;
+    color: $alt-grey-2;
   }
   &--to__left,
   &--to__right {
@@ -197,7 +197,7 @@ export default {
     align-content: center;
     &[disabled] {
       opacity: 0.2;
-      border-color: $grey-5;
+      border-color: $alt-grey-5;
     }
   }
   &--to__left :active,
@@ -265,7 +265,7 @@ export default {
         }
         .input {
           cursor: pointer;
-          color: $grey-5;
+          color: $alt-grey-5;
           margin-bottom: 24px;
         }
       }

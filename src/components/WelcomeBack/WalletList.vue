@@ -11,7 +11,7 @@
         <el-input
           @keydown.enter.esc.prevent="unlockWallet"
           class="big"
-          data-test="password-input"
+          data-test="password"
           placeholder="Please input password"
           v-model="password"
           show-password

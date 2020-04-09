@@ -48,14 +48,14 @@ export default {
   .increase {
     display: flex;
     align-items: center;
-    color: $grey-4;
+    color: $alt-grey-3;
     &:hover {
       cursor: pointer;
-      color: $purple-6;
+      color: $purple-4;
     }
   }
   .text {
-    color: $grey-4;
+    color: $alt-grey-3;
     font-size: 14px;
     margin-left: 16px;
   }
@@ -66,7 +66,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $grey-2;
+    background-color: $alt-grey-2;
     border-radius: 0 4px 4px 0;
 
     .text {

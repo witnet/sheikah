@@ -65,9 +65,9 @@ export default {
   max-height: 400px;
   margin-top: 40px;
   .header {
-    border-bottom: 1px solid $grey-0;
+    border-bottom: 1px solid $grey-1;
     margin-bottom: 24px;
-    color: $grey-4;
+    color: $alt-grey-3;
     font-weight: bold;
   }
   .content {
@@ -83,7 +83,7 @@ export default {
         font-size: 16px;
         font-weight: 400;
         font-style: italic;
-        color: $grey-3;
+        color: $alt-grey-5;
       }
       .no-transactions-img {
         width: 40px;
@@ -93,7 +93,7 @@ export default {
     .address {
       text-align: center;
       width: 250px;
-      border-bottom: 1px solid $grey-0;
+      border-bottom: 1px solid $grey-1;
       padding: 16px;
       color: $black;
       font-weight: 500;

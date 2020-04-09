@@ -81,7 +81,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 .templates-bar {
-  border-bottom: 1px solid $grey-0;
+  border-bottom: 1px solid $grey-1;
   display: flex;
   flex-flow: row wrap;
   height: 64px;
@@ -90,14 +90,14 @@ export default {
   text-align: right;
 
   .title {
-    color: $grey-5;
+    color: $alt-grey-5;
     font-weight: bold;
     height: 64px;
     line-height: 25px;
     padding: 16px;
     text-decoration: none;
-    border-bottom: 2px solid $purple-6;
-    color: $purple-6;
+    border-bottom: 2px solid $purple-4;
+    color: $purple-4;
   }
   .button-container {
     padding: 8px;
@@ -153,9 +153,9 @@ export default {
   .tags {
     min-width: 300px;
     .title {
-      border-bottom: 1px solid $grey-0;
+      border-bottom: 1px solid $grey-1;
       margin-bottom: 24px;
-      color: $grey-4;
+      color: $alt-grey-3;
       font-weight: bold;
     }
   }

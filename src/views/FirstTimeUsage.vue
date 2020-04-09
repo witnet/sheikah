@@ -28,7 +28,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .centered {
-  background-color: $alpha-grey;
+  background-color: $alpha-purple;
   margin: 0;
   height: 100vh;
   width: 100vw;

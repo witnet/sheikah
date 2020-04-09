@@ -103,7 +103,7 @@ export default {
   .error {
     position: absolute;
     padding-top: 16px;
-    color: $red-1;
+    color: $red-2;
   }
   .text {
     margin-bottom: 32px;

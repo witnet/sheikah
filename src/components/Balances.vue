@@ -57,9 +57,9 @@ export default {
   min-width: 300px;
 
   .header {
-    border-bottom: 1px solid $grey-0;
+    border-bottom: 1px solid $grey-1;
     margin-bottom: 24px;
-    color: $grey-4;
+    color: $alt-grey-3;
     font-weight: bold;
   }
 
@@ -70,20 +70,20 @@ export default {
     justify-content: space-between;
 
     .label {
-      color: $grey-5;
+      color: $alt-grey-5;
       margin-right: 16px;
     }
 
     .value {
       font-weight: bold;
       font-size: 20px;
-      color: $grey-5;
+      color: $alt-grey-5;
       margin: 0px;
       padding: 0px;
       .currency {
         margin-left: 8px;
         font-size: 12px;
-        color: $grey-4;
+        color: $alt-grey-3;
       }
     }
   }

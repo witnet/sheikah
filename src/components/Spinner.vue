@@ -16,9 +16,9 @@ export default {
 
 .spinner {
   animation: spin 1s infinite linear;
-  border: 2px dotted $grey-5;
+  border: 2px dotted $alt-grey-5;
   border-radius: 100%;
-  border-top: 3px solid $purple-7;
+  border-top: 3px solid $purple-5;
   height: 80px;
   width: 80px;
   z-index: 1;
