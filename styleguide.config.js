@@ -2,6 +2,14 @@ const path = require('path')
 
 module.exports = {
   title: 'Sheikah Style Guide',
+  components: [
+    'src/components/Balance.vue',
+    'src/components/BalanceButtons.vue',
+    'src/components/BalanceData.vue',
+    'src/components/Fieldset.vue',
+    'src/components/LayoutSidebar.vue',
+    'src/components/LayoutTransactions.vue',
+  ],
   require: [
     path.join(__dirname, './src/styles/app.global.scss'),
     path.join(__dirname, './src/styles/_colors.scss'),
