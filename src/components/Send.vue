@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     title="Create Value Transfer Transaction"
-    :visible.sync="showModal"
+    :visible="true"
     width="700px"
     v-on:close="closeAndClear"
     :show-close="false"
@@ -172,9 +172,6 @@ export default {
         ],
       },
     }
-  },
-  props: {
-    showModal: Boolean,
   },
   computed: {
     ...mapState({
