@@ -1,6 +1,4 @@
-import { shallowMount } from '@vue/test-utils'
 import ConsoleTabs from '@/components/ConsoleTabs.vue'
-import '../../src/fontAwesome'
 
 describe('ConsoleTabs.vue', () => {
   it('on click emit change-tab evnt', () => {
