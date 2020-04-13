@@ -31,7 +31,7 @@ export default {
       getItem: null,
     },
     currency: WIT_UNIT.NANO,
-    balances: null,
+    balance: {},
     sessionId: null,
     walletId: null,
     addresses: [],
@@ -68,8 +68,12 @@ export default {
     setLabels(state, { labels }) {
       state.txLabels = labels
     },
-    setBalances(state, { balances }) {
-      state.balances = standardizeWitUnits(balances.total, state.currency)
+    setBalance(state, { total }) {
+      state.balance = {
+        total: standardizeWitUnits(total, state.currency),
+        available: 0,
+        locked: 0,
+      }
     },
     deleteSession(state) {
       state.sessionId = null
@@ -450,7 +454,7 @@ export default {
         session_id: context.state.sessionId,
       })
       if (request.result) {
-        context.commit('setBalances', { balances: request.result })
+        context.commit('setBalance', request.result)
         this.commit('clearError', { error: 'getBalance' })
       } else {
         if (request.error.message === 'Unauthorized') {
@@ -482,8 +486,8 @@ export default {
       context.state.api.subscribeToNotifications(
         { session_id: this.state.wallet.sessionId },
         notification =>
-          context.commit('setBalances', {
-            balances: { total: notification[0].accountBalance.amount },
+          context.commit('setBalance', {
+            balance: { total: notification[0].accountBalance.amount },
           })
       )
     },
