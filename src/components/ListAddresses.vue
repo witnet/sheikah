@@ -62,7 +62,6 @@ export default {
 
 .card {
   min-width: 200px;
-  max-height: 400px;
   margin-top: 40px;
   .header {
     border-bottom: 1px solid $grey-1;

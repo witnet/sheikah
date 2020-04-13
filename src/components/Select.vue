@@ -382,6 +382,7 @@ export default {
       justify-content: space-between;
 
       .item-icon {
+        width: 30px;
         margin-right: 16px;
         width: 30px;
       }
@@ -461,6 +462,7 @@ export default {
         display: flex;
         align-items: center;
         .item-icon {
+          width: 30px;
           margin-right: 16px;
           width: 30px;
         }

@@ -36,8 +36,9 @@ export default {
 .layout {
   display: grid;
   grid-template: 1fr / auto 1fr;
-
+  max-height: 100vh;
   .content {
+    overflow: auto;
     padding: 25px;
   }
 }

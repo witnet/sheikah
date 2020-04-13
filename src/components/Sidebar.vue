@@ -1,48 +1,55 @@
 <template>
   <div
-    @mouseover="hover = true"
-    @mouseleave="hover = false"
-    :class="[hover ? 'sidebar' : 'sidebar collapsed-sidebar']"
+    @mouseover="expanded = true"
+    @mouseleave="expanded = false"
+    :class="['sidebar', expanded ? 'expanded' : 'collapsed-sidebar']"
   >
-    <div :class="[hover ? 'brand' : 'brand collapsed-brand']">
-      <router-link data-test="logo-to-main" class="logo" to="/wallet/transactions">
-        <img v-if="hover" class="sheikah-img" src="@/resources/svg/sheikah.svg" />
-        <img v-else class="sheikah-img" src="@/resources/svg/sheikah-small.svg" />
-      </router-link>
-    </div>
+    <router-link
+      data-test="logo-to-main"
+      :class="['brand', expanded ? 'expanded' : 'collapsed-brand']"
+      to="/wallet/transactions"
+    >
+      <img class="sheikah-logo" src="@/resources/svg/sheikah-small.svg" />
+      <img v-if="expanded" class="sheikah-name" src="@/resources/svg/sheikah.svg" />
+    </router-link>
     <div class="current-wallet">
-      <span
-        :class="[
-          hover ? 'current-wallet-name' : 'current-wallet-name collapsed-current-wallet-name',
-        ]"
-      >
-        My Wallet
-      </span>
+      <NetworkStatus
+        :windowWidth="windowWidth"
+        :expanded="expanded"
+        :status="status"
+        :node="node"
+        :network="network"
+        :lastBlock="block"
+      />
     </div>
     <div class="link-list">
       <router-link data-test="to-transactions" class="link" to="/wallet/transactions">
         <font-awesome-icon class="icon" icon="wallet" />
-        <span :class="[hover ? 'label' : 'label collapsed-label']">Wallet</span>
+        <span v-show="expanded" class="label">Transactions</span>
       </router-link>
 
       <router-link data-test="to-templates" class="link" to="/request/templates">
         <font-awesome-icon class="icon" icon="code" />
-        <span :class="[hover ? 'label' : 'label collapsed-label']">Data request</span>
+        <span v-show="expanded" class="label">Data request</span>
       </router-link>
 
       <router-link data-test="to-marketplace" class="link" to="/marketplace">
         <font-awesome-icon class="icon" icon="shopping-bag" />
-        <span :class="[hover ? 'label' : 'label collapsed-label']">Marketplace</span>
+        <span v-show="expanded" class="label">Marketplace</span>
       </router-link>
 
       <router-link data-test="to-community" class="link" to="/community">
         <font-awesome-icon class="icon" icon="users" />
-        <span :class="[hover ? 'label' : 'label collapsed-label']">Community</span>
+        <span v-show="expanded" class="label">Community</span>
       </router-link>
     </div>
-    <div :class="[hover ? 'settings' : 'settings collapsed-settings']">
-      <Settings :settings="settings" color="dark" />
-      <NetworkStatus :windowWidth="windowWidth" :hover="hover" :status="status" />
+    <div
+      :class="['settings', expanded ? 'expanded' : 'collapsed-settings']"
+      @click="closeSession()"
+    >
+      <div class="icon-container">
+        <img class="exit-icon" src="@/resources/svg/exit-icon.svg" alt="exit-icon" />
+      </div>
     </div>
   </div>
 </template>
@@ -50,7 +57,6 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import NetworkStatus from '@/components/NetworkStatus.vue'
-import Settings from '@/components/Settings.vue'
 
 export default {
   mounted() {
@@ -60,8 +66,11 @@ export default {
   },
   data() {
     return {
-      hover: false,
+      expanded: false,
       windowWidth: window.innerWidth,
+      node: '127.0.0.1:21338',
+      network: 'T8',
+      block: ' #9633',
       settings: [
         {
           label: 'Close session',
@@ -89,11 +98,11 @@ export default {
   },
   components: {
     NetworkStatus,
-    Settings,
   },
   computed: {
     ...mapState({
       status: state => state.wallet.networkStatus,
+      walletInfos: state => state.wallet.walletInfos,
     }),
   },
 }
@@ -104,87 +113,64 @@ export default {
 @import '@/styles/app.global.scss';
 
 .sidebar {
+  display: grid;
+  background-color: $white;
+  grid-template-rows: 70px max-content auto 70px;
   transition: 300ms;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  flex-flow: column nowrap;
-  height: 100vh;
   z-index: 5;
+  height: 100vh;
   font-family: 'Roboto';
-  min-width: 300px;
 }
-
+.expanded {
+  width: 100%;
+  transition: width 0.2s ease;
+  transition: all 100ms ease-in 0s;
+}
 .brand {
-  padding: 24px;
-  text-align: left;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 70px auto;
+  align-items: center;
+  justify-items: center;
 
-  .logo {
-    width: 100%;
-  }
-
-  .name {
-    color: $sidebar-name-color;
-    font-size: $sidebar-name-font_size;
-    font-weight: 800;
-  }
-
-  .label {
-    color: $sidebar-label-color;
-    font-size: $sidebar-label-font_size;
-    font-weight: bold;
+  .sheikah-name {
+    margin-left: 8px;
+    justify-self: start;
   }
 }
 
 .current-wallet {
-  background: $purple-4;
-  color: $sidebar-current_wallet-color;
-  display: flex;
-  flex-flow: row wrap;
-  font-weight: bold;
-  padding: 24px;
-  height: 80px;
-  align-items: center;
-
-  .current-wallet-name {
-    text-overflow: ellipsis;
-  }
+  align-self: stretch;
+  border-top: $sidebar-settings-border;
+  border-bottom: $sidebar-settings-border;
 }
 
 .link-list {
-  align-items: flex-start;
-  display: flex;
-  flex-flow: column nowrap;
-  width: 100%;
+  display: grid;
+  grid-template-rows: 70px 70px 70px 70px;
+  align-self: start;
 
   .link {
-    align-items: center;
+    text-align: left;
+    padding: 24px 0px;
     border-left: $sidebar-inactive-border;
     color: $sidebar-link-color;
-    display: flex;
-    flex-flow: row nowrap;
     font-size: $sidebar-link-font_size;
     font-weight: $sidebar-link-font_weight;
-    padding: 25px 8px;
     text-decoration: none;
-    width: 100%;
-    text-align: left;
+
     &:hover {
-      background-color: $purple-0;
+      background-color: $alpha-purple;
       border-left: $sidebar-inactive-border-hover;
     }
-
     &.router-link-active {
       border-left: $sidebar-active-border;
-      color: $sidebar-active-color;
+      background-color: $alpha-purple;
     }
-
     .icon {
-      margin-right: 24px;
-      margin-left: 24px;
-      width: 20px;
+      width: 66px;
     }
-
     .label {
       width: 100%;
     }
@@ -201,66 +187,29 @@ export default {
 }
 
 .settings {
-  align-items: center;
   border-top: $sidebar-settings-border;
-  display: flex;
-  flex-flow: row nowrap;
   font-size: $icon-settings-font_size;
-  justify-content: space-between;
-  margin-top: auto;
-  padding: 16px;
-  height: 50px;
+  display: grid;
+  grid-template-columns: 70px auto;
+  justify-items: center;
+  align-items: center;
 
-  .net-status {
-    font-size: $icon_status-font_size;
-    display: flex;
-    align-items: center;
-
-    .dot {
-      height: 10px;
-      width: 10px;
-      background-color: $yellow-3;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .mainnet {
-      color: $sidebar-mainnet-color;
-      font-weight: $sidebar-mainnet-font_weight;
-    }
-
-    .synced {
-      color: $sidebar-synced-color;
-      font-weight: $sidebar-synced-font_weight;
-      padding: 0.5em;
+  .icon-container {
+    .exit-icon {
+      cursor: pointer;
+      width: 20px;
     }
   }
 }
 
 .collapsed-sidebar {
-  transition: 300ms;
-  height: 100vh;
-  min-width: 90px;
-  max-width: 90px;
+  width: 70px;
+  grid-template-columns: 70px;
 }
-
-.collapsed-brand {
-  text-align: center;
-}
-
-.collapsed-label {
-  display: none;
-}
-
-.collapsed-current-wallet-name {
-  transform: translateX(-5px);
-}
-
 .collapsed-settings {
-  justify-content: space-between;
-  .mainnet,
-  .synced {
-    display: none;
-  }
+  width: 70px;
+}
+.collapsed-brand {
+  width: 70px;
 }
 </style>
