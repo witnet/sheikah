@@ -111,7 +111,7 @@ export default {
     background-color: $purple-4;
     border-radius: 5px;
     color: $white;
-    font-family: 'Titillium Web';
+    font-family: 'Roboto';
     font-weight: bold;
 
     &:active,

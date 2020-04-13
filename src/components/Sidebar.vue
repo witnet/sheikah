@@ -111,7 +111,7 @@ export default {
   flex-flow: column nowrap;
   height: 100vh;
   z-index: 5;
-  font-family: 'Titillium Web';
+  font-family: 'Roboto';
   min-width: 300px;
 }
 

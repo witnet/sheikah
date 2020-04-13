@@ -46,7 +46,7 @@ export default {
   .link-btn {
     color: $alt-grey-2;
     font-weight: bold;
-    font-family: 'Titillium Web';
+    font-family: 'Roboto';
     font-size: 16px;
     padding: 24px;
     text-decoration: none;

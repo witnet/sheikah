@@ -92,7 +92,7 @@ export default {
   .first,
   .end {
     color: $alt-grey-2;
-    font-family: 'Titillium Web';
+    font-family: 'Roboto';
     font-weight: bold;
     font-size: 1em;
     padding: 16px 24px;
