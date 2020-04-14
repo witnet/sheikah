@@ -18,7 +18,6 @@
           v-if="previousStep"
           data-test="previous-step"
           class="button"
-          type="text"
           @click="previousStep"
         >
           {{ previousText }}

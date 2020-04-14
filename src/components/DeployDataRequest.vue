@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import CreateDataRequestForm from '@/components/CreateDataRequestForm'
 import CompleteVariablesForm from '@/components/CompleteVariablesForm'
 import ConfirmDataRequest from '@/components/ConfirmDataRequest'

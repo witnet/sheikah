@@ -465,6 +465,9 @@ export default {
           width: 30px;
         }
       }
+      &:hover {
+        background-color: $alpha-purple;
+      }
       &.has-focus {
         background-color: $alpha-purple;
       }

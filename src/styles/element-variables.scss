@@ -13,7 +13,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .el-input {
   .el-input__inner{
     border: $input_border;
-    color: $grey-4;
+    color: $grey-5;
     &::placeholder {
       color: $grey-4;
     }
@@ -57,6 +57,10 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     border-color: $purple-4;
     font-size: 15px;
     font-weight: bold;
+    &:hover, &:focus {
+      background-color: $purple-2;
+      border-color: $purple-3;
+    }
   }
 }
 
@@ -64,6 +68,12 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   &.el-button--default {
     font-size: 15px;
     font-weight: bold;
+    color: $alt-grey-3;
+    &:hover, &:focus {
+      color: $purple-3;
+      border-color: $alpha-purple;
+      background: $alpha-purple;
+    }
   }
 }
 
@@ -71,7 +81,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   &.dark {
     background-color: $white;
     border-color: $white;
-    color: $purple-6;
+    color: $purple-4;
     &:hover, &:focus {
       color: $purple-3;
       border-color: $alpha-purple;

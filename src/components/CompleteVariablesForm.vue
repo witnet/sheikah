@@ -43,7 +43,7 @@ export default {
     return {
       errors: [],
       isOpen: [],
-      keys: this.variablesKeys,
+      keys: this.$store.getters.variablesKeys,
     }
   },
   methods: {
