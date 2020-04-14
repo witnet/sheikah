@@ -4,7 +4,8 @@ node_js:
   - 10
 branches:
   only:
-  - dev
+  - master
+  - claiming-process
 cache:
   yarn: true
   directories:
