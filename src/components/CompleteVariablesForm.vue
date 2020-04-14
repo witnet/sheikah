@@ -9,7 +9,7 @@
         data-test="variable-value-input"
         class="variable-value"
         :value="variable.value"
-        @input="val => updateVariable(index, variable.key, val)"
+        @input="val => updateVariable({ index, key: variable.key, value: val })"
       />
       <div class="error" v-show="errors[index]">
         (This key is repeated. Change the variable name before continue editing)
@@ -32,6 +32,7 @@
 <script>
 import Input from '@/components/Input'
 import { UPDATE_VARIABLES } from '@/store/mutation-types'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Variables',
@@ -42,10 +43,13 @@ export default {
     return {
       errors: [],
       isOpen: [],
-      keys: this.$store.getters.variablesKeys,
+      keys: this.variablesKeys,
     }
   },
   methods: {
+    ...mapMutations({
+      updateVariables: UPDATE_VARIABLES,
+    }),
     goBack() {
       this.$emit('go-back')
     },
@@ -60,20 +64,6 @@ export default {
         this.$set(this.errors, index, false)
       }
     },
-    handleCloseEvent(index, key, value) {
-      this.$store.commit(UPDATE_VARIABLES, {
-        index,
-        key,
-        value,
-      })
-    },
-    updateVariable(index, key, value) {
-      this.$store.commit(UPDATE_VARIABLES, {
-        index,
-        key,
-        value,
-      })
-    },
     isRepeatedIndex(key, index) {
       const isSameindex = elm => elm.key === key
       return this.variables.findIndex(isSameindex) === index
@@ -83,14 +73,14 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      variables: state => state.rad.currentTemplate.variables,
+    }),
+    ...mapGetters({
+      variablesKeys: 'variablesKeys',
+    }),
     error() {
       return this.errorIndex !== -1
-    },
-    variablesKeys() {
-      return this.$store.getters.variablesKeys
-    },
-    variables() {
-      return this.$store.state.rad.currentTemplate.variables
     },
     errorIndex() {
       return this.errors.findIndex(error => !!error)

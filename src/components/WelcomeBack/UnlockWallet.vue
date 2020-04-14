@@ -1,7 +1,7 @@
 <template>
   <div class="unlock-wallet">
     <p class="text">Insert a password to unlock wallet</p>
-    <div @keydown.enter.esc.prevent="unlockWallet">
+    <div @keydown.enter.esc.prevent="unlock">
       <el-input
         data-test="password-input"
         placeholder="Please input password"
@@ -16,8 +16,8 @@
       <el-button class="back-btn" type="text" data-test="unlock-wallet" @click="previousStep">
         Back
       </el-button>
-      <div class="unlock-btn" @keydown.enter.esc.prevent="unlockWallet">
-        <el-button ref="submit" data-test="unlock-wallet" @click="unlockWallet" type="primary">
+      <div class="unlock-btn" @keydown.enter.esc.prevent="unlock">
+        <el-button ref="submit" data-test="unlock-wallet" @click="unlock" type="primary">
           Unlock
         </el-button>
       </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'UnlockWallet',
@@ -37,11 +37,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      unlockWallet: 'unlockWallet',
+    }),
     previousStep() {
       this.$router.push('/welcome-back/wallet-list')
     },
-    unlockWallet() {
-      this.$store.dispatch('unlockWallet', {
+    unlock() {
+      this.unlockWallet({
         walletId: this.$route.params.id,
         password: this.password,
       })

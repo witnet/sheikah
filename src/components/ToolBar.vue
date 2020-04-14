@@ -18,29 +18,28 @@
 
 <script>
 import { EDITOR_REDO, EDITOR_UNDO } from '@/store/mutation-types'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'ToolBar',
   methods: {
-    tryDataRequest: function() {
-      this.$store.dispatch('tryDataRequest')
-    },
-    saveTemplate: function() {
-      this.$store.dispatch('saveTemplate')
-    },
+    ...mapActions({
+      tryDataRequest: 'tryDataRequest',
+      saveTemplate: 'saveTemplate',
+    }),
+    ...mapMutations({
+      editorUndo: EDITOR_UNDO,
+      editorRedo: EDITOR_REDO,
+    }),
     exportTemplate: function() {
       this.$refs.download.click()
     },
-    editorUndo() {
-      this.$store.commit(EDITOR_UNDO)
-    },
-    editorRedo() {
-      this.$store.commit(EDITOR_REDO)
-    },
   },
   computed: {
+    ...mapState({
+      template: state => state.rad.currentTemplate,
+    }),
     dataStr() {
-      const template = this.$store.state.rad.currentTemplate
-      return `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(template))}`
+      return `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.template))}`
     },
   },
   data() {

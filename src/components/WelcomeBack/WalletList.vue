@@ -7,9 +7,9 @@
       <div class="row wallets">
         <Select v-model="currentWallet" :options="walletOptions" />
       </div>
-      <div class="row" @keydown.enter.esc.prevent="unlockWallet">
+      <div class="row" @keydown.enter.esc.prevent="unlock">
         <el-input
-          @keydown.enter.esc.prevent="unlockWallet"
+          @keydown.enter.esc.prevent="unlock"
           class="big"
           data-test="password"
           placeholder="Please input password"
@@ -20,12 +20,12 @@
           Invalid password
         </p>
       </div>
-      <div class="row" @keydown.enter.esc.prevent="unlockWallet">
+      <div class="row" @keydown.enter.esc.prevent="unlock">
         <el-button
           class="big"
           ref="submit"
           data-test="unlock-wallet"
-          @click="unlockWallet"
+          @click="unlock"
           type="primary"
           :disabled="disableButton"
         >
@@ -44,7 +44,7 @@
 <script>
 import Select from '@/components/Select'
 import Card from '@/components/card/Card'
-import { mapState } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'WalletList',
@@ -62,11 +62,17 @@ export default {
     this.currentWallet = this.walletOptions[0]
   },
   methods: {
+    ...mapActions({
+      unlockWallet: 'unlockWallet',
+    }),
+    ...mapMutations({
+      clearError: 'clearError',
+    }),
     nextStep() {
       this.$router.push('/ftu/welcome')
     },
-    unlockWallet() {
-      this.$store.dispatch('unlockWallet', {
+    unlock() {
+      this.unlockWallet({
         walletId: this.currentWallet.value,
         password: this.password,
       })
@@ -84,7 +90,7 @@ export default {
     },
     password() {
       if (this.unlockWalletError) {
-        this.$store.commit('clearError', { error: this.unlockWalletError.name })
+        this.clearError({ error: this.unlockWalletError.name })
       }
     },
   },
@@ -95,6 +101,7 @@ export default {
       },
       sessionId: state => state.wallet.sessionId,
       unlockWalletError: state => state.wallet.errors.unlockWallet,
+      wallets: state => state.wallet.walletInfos,
     }),
     disableButton() {
       const passwordLength = this.password.split('').length
@@ -103,9 +110,6 @@ export default {
       } else {
         return true
       }
-    },
-    wallets() {
-      return this.$store.state.wallet.walletInfos
     },
     walletOptions() {
       return this.wallets.map((wallet, index) => {

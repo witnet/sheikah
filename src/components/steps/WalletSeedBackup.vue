@@ -15,7 +15,7 @@
       type="error"
       :message="createMnemonicsError.message"
       :description="createMnemonicsError.description"
-      v-on:close="() => clearError(createMnemonicsError.name)"
+      v-on:close="() => clearError({ error: createMnemonicsError.name })"
     />
     <p class="paragraph-title">Your 12 word seed phrase:</p>
     <pre data-test="word-seed" class="seed">{{ seed }}</pre>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import Alert from '@/components/Alert'
 import NavigationCard from '@/components/card/NavigationCard'
 
@@ -57,9 +57,12 @@ export default {
     Alert,
   },
   methods: {
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
-    },
+    ...mapMutations({
+      clearError: 'clearError',
+    }),
+    ...mapActions({
+      createMnemonics: 'createMnemonics',
+    }),
     calculateFirstSentence: () =>
       this.seed
         .split(' ')
@@ -71,12 +74,12 @@ export default {
         .slice(6)
         .join(' '),
   },
-  beforeCreate() {
-    this.$store.dispatch('createMnemonics')
+  created() {
+    this.createMnemonics()
   },
   beforeDestroy() {
     if (this.createMnemonicsError) {
-      this.clearError(this.createMnemonicsError.name)
+      this.clearError({ error: this.createMnemonicsError.name })
     }
   },
 }

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 import NavigationCard from '@/components/card/NavigationCard'
 import Input from '@/components/Input.vue'
@@ -52,29 +52,29 @@ export default {
         return state.wallet.errors.seed
       },
       validatedMnemonics: state => state.wallet.validatedMnemonics,
-      wallets: state => this.$store.state.wallet.walletInfos,
+      wallets: state => state.wallet.walletInfos,
     }),
   },
   watch: {
     seed() {
       if (this.seedError) {
-        this.clearError(this.seedError.name)
+        this.clearError({ error: this.seedError.name })
       }
     },
   },
   methods: {
-    setSeed() {
-      this.$store.commit('setSeed', {
-        result: this.seed,
-      })
-    },
+    ...mapMutations({
+      setSeed: 'setSeed',
+      setError: 'setError',
+      clearError: 'clearError',
+    }),
     validateForm() {
       const seedLength = this.seed.split(' ').length
       if (this.seed && seedLength === 12) {
         // TODO: set seed only if validated by the wallet
-        this.setSeed()
+        this.setSeed({ result: this.seed })
       } else {
-        this.$store.commit('setError', {
+        this.setError({
           name: 'seed',
           message: 'You must provide a valid seed to import a wallet',
         })
@@ -86,19 +86,16 @@ export default {
         this.$router.push(`/ftu/encryption-pass`)
       }
     },
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
-    },
     previousStep() {
       this.$router.push('/ftu/welcome')
     },
   },
   beforeDestroy() {
     if (this.mnemonicsError) {
-      this.clearError(this.mnemonicsError.name)
+      this.clearError({ error: this.mnemonicsError.name })
     }
     if (this.seedError) {
-      this.clearError(this.seedError.name)
+      this.clearError({ error: this.seedError.name })
     }
   },
 }

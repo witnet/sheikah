@@ -7,6 +7,7 @@
 
 <script>
 import Sidebar from '@/components/Sidebar.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
@@ -22,14 +23,20 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      getBalance: 'getBalance',
+      getTransactions: 'getTransactions',
+      getAddresses: 'getAddresses',
+      getWalletInfos: 'getWalletInfos',
+    }),
     pollData() {
       const currentRoute = this.$router.currentRoute.path
       const matchRoute = currentRoute.startsWith('/welcome-back') || currentRoute.startsWith('/ftu')
-      this.$store.dispatch('getWalletInfos')
+      this.getWalletInfos()
       if (!matchRoute) {
-        this.$store.dispatch('getBalance')
-        this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
-        this.$store.dispatch('getAddresses')
+        this.getBalance()
+        this.getTransactions({ limit: 50, page: 0 })
+        this.getAddresses()
       }
     },
   },

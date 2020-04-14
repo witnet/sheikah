@@ -13,7 +13,7 @@
         />
       </div>
       <div class="button-container">
-        <button class="add-operators-btn" @click="pushOperator">
+        <button class="add-operators-btn" @click="pushOperator({ scriptId: reducer.scriptId })">
           Add Filter
         </button>
       </div>
@@ -32,6 +32,7 @@
 <script>
 import { PUSH_OPERATOR } from '@/store/mutation-types'
 import RadonOperator from '@/components/RadonOperator'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'RadonAggregateTallyScript',
@@ -42,9 +43,9 @@ export default {
     script: Object,
   },
   methods: {
-    pushOperator() {
-      this.$store.commit(PUSH_OPERATOR, { scriptId: this.reducer.scriptId })
-    },
+    ...mapMutations({
+      pushOperator: PUSH_OPERATOR,
+    }),
   },
   computed: {
     filters() {

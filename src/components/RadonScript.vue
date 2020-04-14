@@ -11,7 +11,7 @@
       />
     </div>
     <div class="button-container">
-      <el-button data-test="add-operator-btn" @click="pushOperator" type="primary">
+      <el-button data-test="add-operator-btn" @click="addOperator" type="primary">
         Add operator
       </el-button>
     </div>
@@ -20,6 +20,7 @@
 <script>
 import { PUSH_OPERATOR } from '@/store/mutation-types'
 import RadonOperator from '@/components/RadonOperator'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'RadonScript',
@@ -31,9 +32,12 @@ export default {
     scriptId: Number,
   },
   methods: {
-    pushOperator() {
+    ...mapMutations({
+      pushOperator: PUSH_OPERATOR,
+    }),
+    addOperator() {
       // TODO: get scriptId in a more consistent way
-      this.$store.commit(PUSH_OPERATOR, {
+      this.pushOperator({
         scriptId: this.script[0] ? this.script[0].scriptId : this.scriptId,
       })
     },

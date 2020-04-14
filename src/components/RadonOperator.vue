@@ -5,9 +5,14 @@
         data-test="select-btn"
         class="operator-select"
         v-model="selectedOptionValue"
-        @change="value => updateTemplate(selectedOption.id, value)"
+        @change="value => updateTemplateAndVariables(selectedOption.id, value)"
         :clearable="true"
-        v-on:clear="deleteOperator"
+        v-on:clear="
+          deleteOperator({
+            scriptId: scriptId,
+            operatorId: operator.id,
+          })
+        "
       >
         <el-option
           v-for="(x, idx) in options"
@@ -30,8 +35,8 @@
             size="small"
             data-test="argument-input"
             :placeholder="argument.label"
-            :value="argument.value.toString()"
-            @input="value => updateTemplate(argument.id, value, argument.type)"
+            :value="argument.value ? argument.value.toString() : ''"
+            @input="value => updateTemplateAndVariables(argument.id, value, argument.type)"
           />
           <font-awesome-icon
             data-test="variable-link-icon"
@@ -71,6 +76,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from 'vuex'
 import { standardizeOperatorName, getNativeValueFromMarkupArgumentType } from '@/utils'
 import {
   UPDATE_TEMPLATE,
@@ -110,6 +116,15 @@ export default {
     sourceIndex: Number,
   },
   methods: {
+    ...mapMutations({
+      deleteOperator: DELETE_OPERATOR,
+      toggleVariables: TOGGLE_VARIABLES,
+      updateTemplate: UPDATE_TEMPLATE,
+      usedVariables: USED_VARIABLES,
+    }),
+    ...mapActions({
+      saveTemplate: 'saveTemplate',
+    }),
     // TODO: find a better way to filter when searching a specific operator
     filtered(filtered) {
       this.options = filtered
@@ -126,52 +141,45 @@ export default {
       }
       return false
     },
-    deleteOperator() {
-      this.$store.commit(DELETE_OPERATOR, {
-        scriptId: this.scriptId,
-        operatorId: this.operator.id,
-      })
-    },
-    updateTemplate(id, value, type) {
+    updateTemplateAndVariables(id, value, type) {
       if (value && this.hasArguments) {
         this.variableName = value
-        this.$store.commit(TOGGLE_VARIABLES, { hasVariables: true })
+        this.toggleVariables({ hasVariables: true })
         if (this.hasVariables(value)) {
           const variableMatch = this.variables.find(x => x.key === value.slice(1))
-          this.$store.commit(UPDATE_TEMPLATE, {
+          this.updateTemplate({
             id,
             value: '$' + variableMatch.key,
           })
-          this.$store.commit(USED_VARIABLES, {
+          this.usedVariables({
             id: id,
             variable: variableMatch.key,
             value: getNativeValueFromMarkupArgumentType(variableMatch.value, type),
           })
         } else {
-          this.$store.commit(TOGGLE_VARIABLES, { hasVariables: false })
-          this.$store.commit(UPDATE_TEMPLATE, {
+          this.toggleVariables({ hasVariables: false })
+          this.updateTemplate({
             id,
             value: getNativeValueFromMarkupArgumentType(value, type),
           })
         }
-        this.$store.dispatch('saveTemplate')
+        this.saveTemplate()
       } else {
         this.selected = { id: id, primaryText: value, value: value, secondaryText: 'boolean' }
-        this.$store.commit(UPDATE_TEMPLATE, {
+        this.updateTemplate({
           id,
           value: getNativeValueFromMarkupArgumentType(value, type),
         })
-        this.$store.dispatch('saveTemplate')
+        this.saveTemplate()
       }
     },
   },
   computed: {
-    linkVariables() {
-      return this.$store.state.rad.hasVariables
-    },
-    usedVariables() {
-      return this.$store.state.rad.currentTemplate.usedVariables
-    },
+    ...mapState({
+      linkVariables: state => state.rad.hasVariables,
+      variables: state => state.rad.currentTemplate.variables,
+      matchVariables: state => state.rad.hasVariables,
+    }),
     selectedOption() {
       return {
         id: this.operator.id,
@@ -185,12 +193,6 @@ export default {
     },
     selectedOperator() {
       return this.operator.selected
-    },
-    variables() {
-      return this.$store.state.rad.currentTemplate.variables
-    },
-    matchVariables() {
-      return this.$store.state.rad.hasVariables
     },
     selectedArgument: {
       get() {

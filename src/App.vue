@@ -5,9 +5,16 @@
 </template>
 
 <script>
+import { mapMutations, mapActions } from 'vuex'
+
 export default {
   name: 'app',
-  created() {
+  async created() {
+    await this.getWalletInfos()
+    // Initialize polling interval to retrieve network status
+    setInterval(() => {
+      this.checkNetworkStatus()
+    }, 3000)
     // Disable back and forward from keyboard and mouse buttons
     window.onpopstate = function(event) {
       event.stopImmediatePropagation()
@@ -18,6 +25,14 @@ export default {
       loading: true,
     }
   },
+  methods: {
+    ...mapMutations({
+      checkNetworkStatus: 'checkNetworkStatus',
+    }),
+    ...mapActions({
+      getWalletInfos: 'getWalletInfos',
+    }),
+  },
   watch: {
     $route: function(from, to) {
       this.loading = false
@@ -27,13 +42,6 @@ export default {
     x() {
       return this.$route
     },
-  },
-  async beforeCreate() {
-    this.$store.dispatch('getWalletInfos')
-    // Initialize polling interval to retrieve network status
-    setInterval(() => {
-      this.$store.commit('checkNetworkStatus')
-    }, 3000)
   },
 }
 </script>

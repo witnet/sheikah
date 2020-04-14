@@ -7,7 +7,7 @@
         :value="keys[index]"
         :error="errors[index]"
         :blockOpen="error"
-        v-on:close="key => handleCloseEvent(index, key, variable.value)"
+        v-on:close="key => updateVariables({ index, key, value: variable.value })"
         @input="key => updateKey(index, key)"
       />
       <el-input
@@ -16,12 +16,12 @@
         data-test="edit-var-value-input"
         :placeholder="variable.value"
         :value="variable.value"
-        @input="val => updateVariable(index, variable.key, val)"
+        @input="val => updateVariables({ index, key: variable.key, value: val })"
       />
       <div class="error" v-show="errors[index]">
         (This key is repeated. Change the variable name before continue editing)
       </div>
-      <div data-test="delete-var-btn" @click="deleteVariable(index)" class="delete">
+      <div data-test="delete-var-btn" @click="deleteVariable({ index })" class="delete">
         <font-awesome-icon icon="times-circle" class="delete-btn" />
       </div>
     </div>
@@ -39,6 +39,7 @@
 <script>
 import { UPDATE_VARIABLES, CREATE_VARIABLE, DELETE_VARIABLE } from '@/store/mutation-types'
 import EditableText from '@/components/EditableText'
+import { mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'Variables',
@@ -53,6 +54,11 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      deleteVariable: DELETE_VARIABLE,
+      createVariable: CREATE_VARIABLE,
+      updateVariables: UPDATE_VARIABLES,
+    }),
     updateKey(index, key) {
       this.$set(this.keys, index, key)
       if (this.isRepeated(key) && !this.isRepeatedIndex(key, index)) {
@@ -60,26 +66,6 @@ export default {
       } else {
         this.$set(this.errors, index, false)
       }
-    },
-    handleCloseEvent(index, key, value) {
-      this.$store.commit(UPDATE_VARIABLES, {
-        index,
-        key,
-        value,
-      })
-    },
-    updateVariable(index, key, value) {
-      this.$store.commit(UPDATE_VARIABLES, {
-        index,
-        key,
-        value,
-      })
-    },
-    deleteVariable(index) {
-      this.$store.commit(DELETE_VARIABLE, { index })
-    },
-    createVariable: function() {
-      this.$store.commit(CREATE_VARIABLE)
     },
     isRepeatedIndex(key, index) {
       const isSameindex = elm => elm.key === key
@@ -90,14 +76,14 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({
+      variablesKeys: 'variablesKeys',
+    }),
+    ...mapState({
+      variables: state => state.rad.currentTemplate.variables,
+    }),
     error() {
       return this.errorIndex !== -1
-    },
-    variablesKeys() {
-      return this.$store.getters.variablesKeys
-    },
-    variables() {
-      return this.$store.state.rad.currentTemplate.variables
     },
     errorIndex() {
       return this.errors.findIndex(error => !!error)

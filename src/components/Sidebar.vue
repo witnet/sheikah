@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import NetworkStatus from '@/components/NetworkStatus.vue'
 import Settings from '@/components/Settings.vue'
 
@@ -66,7 +66,7 @@ export default {
         {
           label: 'Close session',
           action: () => {
-            this.$store.dispatch('closeSession')
+            this.closeSession()
           },
         },
         {
@@ -77,6 +77,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      closeSession: 'closeSession',
+    }),
     handleOpen(key, keyPath) {
       console.log(key, keyPath)
     },

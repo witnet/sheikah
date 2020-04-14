@@ -18,7 +18,7 @@
         type="error"
         :message="error.message"
         :description="error.description"
-        v-on:close="() => clearError(error.name)"
+        v-on:close="() => clearError({ error: error.name })"
       />
     </div>
     <div class="centered">
@@ -72,7 +72,7 @@
 <script>
 import TemplateCard from './card/TemplateCard'
 import DeployDataRequest from '@/components/DeployDataRequest.vue'
-import { mapState } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import TopBar from '@/components/TopBar'
 import Alert from '@/components/Alert'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
@@ -86,7 +86,7 @@ export default {
     Alert,
   },
   beforeMount() {
-    this.$store.dispatch('getTemplates')
+    this.getTemplates()
   },
   data() {
     return {
@@ -159,18 +159,28 @@ export default {
           }
         }
       },
-      errors() {
-        if (this.$store.state.wallet.networkStatus !== 'error') {
-          return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(
-            error => !!error
-          )
-        } else {
-          return [this.networkError]
-        }
-      },
+      networkStatus: state => state.wallet.networkStatus,
     }),
+    errors() {
+      if (this.networkStatus !== 'error') {
+        return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(
+          error => !!error
+        )
+      } else {
+        return [this.networkError]
+      }
+    },
   },
   methods: {
+    ...mapMutations({
+      createTemplate: CREATE_TEMPLATE,
+      clearError: 'clearError',
+    }),
+    ...mapActions({
+      changeTemplateName: 'changeTemplateName',
+      getTemplates: 'getTemplates',
+      saveTemplate: 'saveTemplate',
+    }),
     closeDeployModal() {
       this.dialogVisible = false
     },
@@ -187,14 +197,8 @@ export default {
       this.dialogVisible = true
       this.currentTemplate = currentTemplate
     },
-    clearError: function(name) {
-      return this.$store.commit('clearError', { error: name })
-    },
     changeName({ name, id }) {
-      this.$store.dispatch('changeTemplateName', { id, name })
-    },
-    createTemplate() {
-      this.$store.commit(CREATE_TEMPLATE)
+      this.changeTemplateName({ id, name })
     },
     importTemplate() {
       this.$refs.fileInput.click()
@@ -209,7 +213,7 @@ export default {
           try {
             const template = JSON.parse(fileText)
             // TODO: Validate template before save
-            this.$store.dispatch('saveTemplate', { template })
+            this.saveTemplate({ template })
           } catch (error) {
             console.log('Error parsing json')
           }
@@ -221,10 +225,10 @@ export default {
   },
   beforeDestroy() {
     if (this.saveItemError) {
-      this.clearError(this.saveItemError.name)
+      this.clearError({ error: this.saveItemError.name })
     }
     if (this.getItemError) {
-      this.clearError(this.getItemError.name)
+      this.clearError({ error: this.getItemError.name })
     }
   },
 }

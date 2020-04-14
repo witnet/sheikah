@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'PasswordInput',
   props: {
@@ -23,11 +25,11 @@ export default {
     error: String,
   },
   methods: {
+    ...mapMutations({
+      clearError: 'clearError',
+    }),
     toogleGoNextItem() {
       this.$emit('go-next')
-    },
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
     },
   },
   computed: {
@@ -42,7 +44,7 @@ export default {
   },
   watch: {
     passwordValue(passwordValue) {
-      this.clearError(this.error)
+      this.clearError({ error: this.error })
       this.$emit('input', passwordValue)
     },
   },

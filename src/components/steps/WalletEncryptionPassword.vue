@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
@@ -61,7 +61,7 @@ export default {
   watch: {
     password() {
       if (this.createValidPasswordError) {
-        this.clearError(this.createValidPasswordError.name)
+        this.clearError({ error: this.createValidPasswordError.name })
       }
       const passwordLength = this.password.split('').length
       const repeatedPasswordLength = this.repeatPassword.split('').length
@@ -78,7 +78,7 @@ export default {
     },
     repeatPassword() {
       if (this.createValidPasswordError) {
-        this.clearError(this.createValidPasswordError.name)
+        this.clearError({ error: this.createValidPasswordError.name })
       }
       const passwordLength = this.password.split('').length
       const repeatedPasswordLength = this.repeatPassword.split('').length
@@ -90,8 +90,15 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      validatePassword: 'validatePassword',
+      clearError: 'clearError',
+    }),
+    ...mapActions({
+      createWallet: 'createWallet',
+    }),
     validateForm() {
-      this.$store.commit('validatePassword', {
+      this.validatePassword({
         password: this.password,
         repeatPassword: this.repeatPassword,
       })
@@ -103,10 +110,10 @@ export default {
       this.validateForm()
       if (this.validatedPassword) {
         if (this.createValidPasswordError) {
-          this.clearError(this.createValidPasswordError.name)
+          this.clearError({ error: this.createValidPasswordError.name })
         }
         const words = this.mnemonics || this.seed.result
-        this.$store.dispatch('createWallet', {
+        this.createWallet({
           sourceType: 'mnemonics',
           password: this.password,
           mnemonics: words,
@@ -120,9 +127,6 @@ export default {
       } else if (this.seed) {
         this.$router.push('/ftu/import-wallet')
       }
-    },
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
     },
   },
   computed: {
@@ -139,7 +143,7 @@ export default {
   },
   beforeDestroy() {
     if (this.createValidPasswordError) {
-      this.clearError(this.createValidPasswordError.name)
+      this.clearError({ error: this.createValidPasswordError.name })
     }
   },
 }

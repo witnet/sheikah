@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import WalletSeedTypeSelection from '@/components/steps/WalletSeedTypeSelection'
 
 export default {
@@ -26,7 +26,12 @@ export default {
     WalletSeedTypeSelection,
   },
   created() {
-    this.$store.dispatch('getWalletInfos')
+    this.getWalletInfos()
+  },
+  methods: {
+    ...mapActions({
+      getWalletInfos: 'getWalletInfos',
+    }),
   },
   computed: {
     ...mapState({

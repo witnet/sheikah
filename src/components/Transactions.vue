@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Balances from './Balances'
 import Send from '@/components/Send'
 import Receive from '@/components/Receive'
@@ -172,22 +172,23 @@ export default {
           }
         }
       },
-      errors() {
-        if (this.$store.state.wallet.networkStatus !== 'error') {
-          return [
-            this.getTransactionsError,
-            this.getBalanceError,
-            this.getLabelsError,
-            this.getAddressesError,
-            this.generateAddressError,
-            this.sendTransactionError,
-            this.createVTTError,
-          ].filter(error => !!error)
-        } else {
-          return []
-        }
-      },
+      networkStatus: state => state.wallet.networkStatus,
     }),
+    errors() {
+      if (this.networkStatus !== 'error') {
+        return [
+          this.getTransactionsError,
+          this.getBalanceError,
+          this.getLabelsError,
+          this.getAddressesError,
+          this.generateAddressError,
+          this.sendTransactionError,
+          this.createVTTError,
+        ].filter(error => !!error)
+      } else {
+        return []
+      }
+    },
   },
   watch: {
     addresses() {
@@ -197,41 +198,35 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      getAddresses: 'getAddresses',
+      generateAddress: 'generateAddress',
+      createVTT: 'createVTT',
+      getTransactions: 'getTransactions',
+      getBalance: 'getBalance',
+      getLabels: 'getLabels',
+    }),
     setFormValues(updatedForm) {
       this.form = updatedForm
-    },
-    createVTT() {
-      this.refindex = 0
-      this.$store.dispatch('createVTT', {
-        label: this.form.label,
-        address: this.form.address,
-        amount: this.form.amount,
-        fee: this.form.fee,
-      })
     },
     displayModalSend: function() {
       this.dialogVisible = true
     },
     displayModalReceive: function() {
-      this.generateAddress()
-      this.$store.dispatch('getAddresses')
+      this.generateAddress({ label: this.label })
+      this.getAddresses()
       this.dialogVisible2 = true
     },
     closeAndClear: function() {
       this.dialogVisible = false
     },
-    generateAddress() {
-      this.$store.dispatch('generateAddress', {
-        label: this.label,
-      })
-    },
   },
-  beforeCreate() {
-    this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
-    this.$store.dispatch('getAddresses')
-    this.$store.dispatch('getBalance')
+  created() {
+    this.getTransactions({ limit: 50, page: 0 })
+    this.getAddresses()
+    this.getBalance()
     // TODO: place this methods in the correct place when the generated transaction from the wallet is ready
-    this.$store.dispatch('getLabels')
+    this.getLabels()
   },
   beforeDestroy() {
     if (this.generateAddressError) {

@@ -103,7 +103,7 @@ export default {
   data() {
     return {
       tabKeyPressed: false,
-      areOptionsVisible: true,
+      areOptionsVisible: false,
       keysSoFar: '',
     }
   },

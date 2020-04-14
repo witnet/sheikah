@@ -32,6 +32,7 @@
 <script>
 import Carousel from '@/components/Carousel'
 import RadonAggregateTallyScript from '@/components/RadonAggregateTallyScript'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'RadonStage',
@@ -53,9 +54,9 @@ export default {
     }
   },
   methods: {
-    pushRetrieve: function() {
-      this.$store.commit('pushRetrieve')
-    },
+    ...mapMutations({
+      pushRetrieve: 'pushRetrieve',
+    }),
   },
 }
 </script>

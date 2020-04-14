@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import CreateDataRequestForm from '@/components/CreateDataRequestForm'
 import CompleteVariablesForm from '@/components/CompleteVariablesForm'
 import ConfirmDataRequest from '@/components/ConfirmDataRequest'
@@ -75,7 +75,7 @@ export default {
       }
     },
     errors() {
-      if (this.$store.state.wallet.networkStatus !== 'error') {
+      if (this.networkStatus !== 'error') {
         return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(
           error => !!error
         )
@@ -83,16 +83,17 @@ export default {
         return [this.networkError]
       }
     },
-    variables() {
-      return this.$store.getters.variablesKeys
-    },
     showFillVariablesForm() {
       return this.variablesUpdated || !this.variables.length
     },
+    ...mapGetters({
+      variables: 'variablesKeys',
+    }),
     ...mapState({
       generatedTransaction: state => {
         return state.wallet.generatedTransaction
       },
+      networkStatus: state => state.wallet.networkStatus,
     }),
   },
   data() {
@@ -113,9 +114,16 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      clearGeneratedTransaction: 'clearGeneratedTransaction',
+      clearError: 'clearError',
+      createDataRequest: 'createDataRequest',
+      sendTransaction: 'sendTransaction',
+      setCurrentTemplate: SET_CURRENT_TEMPLATE,
+    }),
     goBack(from) {
       if (from === 'CONFIRM') {
-        this.$store.commit('clearGeneratedTransaction')
+        this.clearGeneratedTransaction()
       } else if (from === 'TEMPLATE_VARIABLES') {
         this.closeAndClear()
       } else if (from === 'FORM' && !this.variables.length) {
@@ -124,16 +132,13 @@ export default {
         this.variablesUpdated = false
       }
     },
-    clearError: function(name) {
-      return this.$store.commit('clearError', { error: name })
-    },
     closeAndClear: function() {
       this.$emit('close')
       if (this.createDataRequestError) {
-        this.clearError(this.createDataRequestError.name)
+        this.clearError({ error: this.createDataRequestError.name })
       }
       if (this.generatedTransaction) {
-        this.$store.commit('clearGeneratedTransaction')
+        this.clearGeneratedTransaction()
       }
       this.currentTemplate = ''
       this.variablesUpdated = false
@@ -164,18 +169,18 @@ export default {
       this.tallyFee = parameters.tallyFee
       this.timelock = this.template.radRequest.timelock
       this.witnesses = parameters.witnesses
-      this.$store.dispatch('createDataRequest', {
+      this.createDataRequest({
         parameters: parameters,
         request: this.template.radRequest,
       })
     },
     confirmDataRequest() {
-      this.$store.dispatch('sendTransaction', { label: '' })
+      this.sendTransaction({ label: '' })
       this.$emit('close', 'SENT')
     },
   },
   created() {
-    this.$store.commit(SET_CURRENT_TEMPLATE, {
+    this.setCurrentTemplate({
       id: this.template.id,
     })
   },

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 import NavigationCard from '@/components/card/NavigationCard'
 import Input from '@/components/Input.vue'
@@ -59,14 +59,18 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      validateMnemonics: 'validateMnemonics',
+      clearError: 'clearError',
+    }),
     validateForm() {
-      this.$store.commit('validateMnemonics', {
+      this.validateMnemonics({
         seed: this.seed,
         mnemonics: this.mnemonics,
       })
       if (this.validatedMnemonics) {
         if (this.mnemonicsError) {
-          this.clearError(this.mnemonicsError.name)
+          this.clearError({ error: this.mnemonicsError.name })
         }
         this.disabledNextButton = false
       } else {
@@ -77,13 +81,10 @@ export default {
       this.validateForm()
       if (this.validatedMnemonics) {
         if (this.mnemonicsError) {
-          this.clearError(this.mnemonicsError.name)
+          this.clearError({ error: this.mnemonicsError.name })
         }
         this.$router.push('/ftu/encryption-pass')
       }
-    },
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
     },
     previousStep() {
       this.$router.push('/ftu/seed-backup')
@@ -91,7 +92,7 @@ export default {
   },
   beforeDestroy() {
     if (this.mnemonicsError) {
-      this.clearError(this.mnemonicsError.name)
+      this.clearError({ error: this.mnemonicsError.name })
     }
   },
 }

@@ -7,7 +7,7 @@
       type="error"
       :message="error.message"
       :description="error.description"
-      v-on:close="() => clearError(error.name)"
+      v-on:close="() => clearError({ error: error.name })"
     />
     <router-view />
   </div>
@@ -15,14 +15,14 @@
 
 <script>
 import Alert from '@/components/Alert'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'Wallet',
   methods: {
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
-    },
+    ...mapMutations({
+      clearError: 'clearError',
+    }),
   },
   computed: {
     ...mapState({
@@ -51,7 +51,7 @@ export default {
   },
   beforeDestroy() {
     if (this.closeSessionError) {
-      this.clearError(this.closeSessionError.name)
+      this.clearError({ error: this.closeSessionError.name })
     }
   },
   components: {

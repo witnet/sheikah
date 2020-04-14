@@ -8,7 +8,7 @@
       type="error"
       :message="error.message"
       :description="error.description"
-      v-on:close="() => clearError(error.name)"
+      v-on:close="() => clearError({ error: error.name })"
     />
     <StageBar v-on:change-stage="changeStage" />
     <RadonStage class="stage" :stage="currentStage" :script="currentScript" />
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import Alert from '@/components/Alert'
 import RadonStage from '@/components/RadonStage.vue'
 import ToolBar from '@/components/ToolBar.vue'
@@ -40,11 +40,11 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      clearError: 'clearError',
+    }),
     changeStage: function(stage) {
       this.currentStage = stage
-    },
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
     },
   },
   watch: {
@@ -54,12 +54,9 @@ export default {
   },
   computed: {
     ...mapState({
-      radRequest: state => {
-        return state.rad.radRequest
-      },
-      radRequestResult: state => {
-        return state.wallet.radRequestResult
-      },
+      radRequest: state => state.rad.radRequest,
+      radRequestResult: state => state.wallet.radRequestResult,
+      networkStatus: state => state.wallet.networkStatus,
       tryDataRequestError: state => {
         if (state.wallet.errors.tryDataRequest) {
           return {
@@ -80,7 +77,7 @@ export default {
       },
     }),
     errors() {
-      if (this.$store.state.wallet.networkStatus !== 'error') {
+      if (this.networkStatus !== 'error') {
         return [this.saveItemError, this.tryDataRequestError].filter(error => !!error)
       } else {
         return []
@@ -100,10 +97,10 @@ export default {
   },
   beforeDestroy() {
     if (this.tryDataRequestError) {
-      this.clearError(this.tryDataRequestError.name)
+      this.clearError({ error: this.tryDataRequestError.name })
     }
     if (this.saveItemError) {
-      this.clearError(this.saveItemError.name)
+      this.clearError({ error: this.saveItemError.name })
     }
   },
 }

@@ -14,7 +14,7 @@
       type="error"
       :message="error.message"
       :description="error.description"
-      v-on:close="() => clearError(error.name)"
+      v-on:close="() => clearError({ error: error.name })"
     />
 
     <div class="">
@@ -139,7 +139,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import Alert from '@/components/Alert'
 
 export default {
@@ -197,48 +197,52 @@ export default {
         }
       },
       errors() {
-        if (this.$store.state.wallet.networkStatus !== 'error') {
+        if (this.networkStatus !== 'error') {
           return [this.sendTransactionError, this.createVTTError].filter(error => !!error)
         } else {
           return []
         }
       },
+      generatedTransaction: state => state.wallet.generatedTransaction,
+      networkStatus: state => state.wallet.networkStatus,
     }),
-    generatedTransaction() {
-      return this.$store.state.wallet.generatedTransaction
-    },
   },
   methods: {
+    ...mapMutations({
+      clearError: 'clearError',
+      clearGeneratedTransaction: 'clearGeneratedTransaction',
+    }),
+    ...mapActions({
+      sendTransaction: 'sendTransaction',
+      createVTT: 'createVTT',
+    }),
     clearSendForm() {
       this.form.address = ''
       this.form.label = ''
       this.form.amount = 0
       this.form.fee = 0
     },
-    clearError: function(name) {
-      return this.$store.commit('clearError', { error: name })
-    },
     closeAndClear() {
       this.clearSendForm()
-      this.$store.commit('clearGeneratedTransaction')
+      this.clearGeneratedTransaction()
       this.$emit('close')
       if (this.createVTTError) {
-        this.clearError(this.createVTTError.name)
+        this.clearError({ error: this.createVTTError.name })
       } else if (this.sendTransactionError) {
-        this.clearError(this.sendTransactionError.name)
+        this.clearError({ error: this.sendTransactionError.name })
       }
     },
     toggleAdvanceOptions() {
       this.isAdvancedVisible = !this.isAdvancedVisible
     },
     confirmTransaction() {
-      this.$store.dispatch('sendTransaction', { label: this.form.label })
+      this.sendTransaction({ label: this.form.label })
       this.closeDialog()
     },
     createVTT() {
       this.$refs['send-form'].validate(valid => {
         if (valid) {
-          this.$store.dispatch('createVTT', {
+          this.createVTT({
             label: this.form.label,
             address: this.form.address,
             amount: this.form.amount,
@@ -263,7 +267,7 @@ export default {
   },
   beforeDestroy() {
     if (this.saveItemError) {
-      this.clearError(this.saveItemError.name)
+      this.clearError({ error: this.saveItemError.name })
     }
   },
 }

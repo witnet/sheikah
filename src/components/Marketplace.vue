@@ -41,7 +41,7 @@
 
 <script>
 import TemplateCard from './card/TemplateCard'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'marketplace',
@@ -55,10 +55,10 @@ export default {
       itemsPerPage: 4,
     }
   },
-  beforeCreate() {
-    this.$store.dispatch('retrieveTemplates')
-  },
   methods: {
+    ...mapActions({
+      retrieveTemplates: 'retrieveTemplates',
+    }),
     handleCurrentChange(val) {
       this.currentPage = val
     },

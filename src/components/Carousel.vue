@@ -21,7 +21,7 @@
                   <button
                     data-test="delete-source-btn"
                     class="delete-btn"
-                    @click="deleteSource(source.index)"
+                    @click="deleteSourceAndMove(source.index)"
                   >
                     <font-awesome-icon class="icon" icon="trash" />
                   </button>
@@ -42,7 +42,7 @@
                       placeholder="url"
                       type="text"
                       v-model="source.url"
-                      @input="e => updateSource({ kind: source.kind, url: e }, source.index)"
+                      @input="e => update({ kind: source.kind, url: e }, source.index)"
                     />
                   </div>
                   <RadonScript
@@ -55,7 +55,7 @@
               </div>
             </div>
           </transition-group>
-          <button data-test="add-source-btn" @click="addSource" class="add-source">
+          <button data-test="add-source-btn" @click="addSourceToCarousel" class="add-source">
             <img src="@/resources/svg/add-grey.svg" />
           </button>
         </div>
@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from 'vuex'
+
 import RadonScript from '@/components/RadonScript'
 import {
   CLEAR_MOVE_CAROUSEL,
@@ -92,6 +94,11 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      isMoveCarouselActivated: state => {
+        return state.rad.moveCarousel
+      },
+    }),
     endOfList() {
       return this.counter === this.sources.length - 2 || this.sources.length < 2
     },
@@ -108,27 +115,33 @@ export default {
       },
       // eslint-disable-next-line
       set(inputValue) {
-        this.$store.dispatch(UPDATE_TEMPLATE, {
+        this.updateTemplate({
           // add id and value
         })
       },
-    },
-    isMoveCarouselActivated() {
-      return this.$store.state.rad.moveCarousel
     },
   },
   watch: {
     isMoveCarouselActivated() {
       if (this.isMoveCarouselActivated === 'right' && this.sources.length > 2) {
         this.moveCarousel(-1)
-        this.$store.commit(CLEAR_MOVE_CAROUSEL)
+        this.clearMoveCarousel()
       } else if (this.isMoveCarouselActivated === 'left') {
         this.moveCarousel(1)
-        this.$store.commit(CLEAR_MOVE_CAROUSEL)
+        this.clearMoveCarousel()
       }
     },
   },
   methods: {
+    ...mapMutations({
+      addSource: ADD_SOURCE,
+      deleteSource: DELETE_SOURCE,
+      updateSource: UPDATE_SOURCE,
+      clearMoveCarousel: CLEAR_MOVE_CAROUSEL,
+    }),
+    ...mapActions({
+      updateTemplate: UPDATE_TEMPLATE,
+    }),
     moveCarousel(direction) {
       const isMovingToTheRight = direction === 1
       const isMovingTotheLeft = direction === -1
@@ -141,16 +154,16 @@ export default {
         this.counter--
       }
     },
-    addSource() {
+    addSourceToCarousel() {
       if (this.sources.length > 1) this.counter++
-      this.$store.commit(ADD_SOURCE)
+      this.addSource()
     },
-    deleteSource(index) {
-      this.$store.commit(DELETE_SOURCE, { index })
+    deleteSourceAndMove(index) {
+      this.deleteSource({ index })
       if (this.sources.length > 2) this.moveCarousel(-1)
     },
-    updateSource(sourceInformation, sourceIndex) {
-      this.$store.commit(UPDATE_SOURCE, { source: sourceInformation, index: sourceIndex })
+    update(sourceInformation, sourceIndex) {
+      this.updateSource({ source: sourceInformation, index: sourceIndex })
     },
   },
 }

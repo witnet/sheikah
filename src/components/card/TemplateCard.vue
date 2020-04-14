@@ -61,6 +61,7 @@
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import { changeDateFormat } from '@/utils'
 import FrameOutside from '@/components/FrameOutside'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'TemplateCard',
@@ -99,7 +100,7 @@ export default {
         {
           label: 'Delete',
           action: () => {
-            this.deleteTemplate()
+            this.deleteTemplate({ id: this.id })
           },
         },
       ],
@@ -129,6 +130,12 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      setCurrentTemplate: SET_CURRENT_TEMPLATE,
+    }),
+    ...mapActions({
+      deleteTemplate: 'deleteTemplate',
+    }),
     displayModal() {
       this.isModalActivated = true
       this.$emit('toggle-modal', { isModalActivated: this.isModalActivated })
@@ -136,7 +143,7 @@ export default {
     edit() {
       if (!this.showInput) {
         this.$router.push('/request/editor')
-        this.setCurrentTemplate()
+        this.setCurrentTemplate({ id: this.id })
       }
     },
     onClose() {
@@ -144,12 +151,6 @@ export default {
     },
     handleCommand(index) {
       this.options[index].action()
-    },
-    setCurrentTemplate() {
-      this.$store.commit(SET_CURRENT_TEMPLATE, { id: this.id })
-    },
-    deleteTemplate() {
-      this.$store.dispatch('deleteTemplate', { id: this.id })
     },
   },
 }
