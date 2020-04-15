@@ -2,24 +2,24 @@
   "alloc": [
       [
           {
-              "address": "twit1adgt8t2h3xnu358f76zxlph0urf2ev7cd78ggc",
+              "address": "twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq",
               "value": "500000000000",
               "timelock": "0"
           },
           {
-              "address": "twit103clhyyjv37v4qzwyxwl0njdqs3uzvk29vkchw",
+              "address": "twit1pa6hu345psdc48klzrxx2v2vetgax729dwrcgl",
               "value": "500000000000",
               "timelock": "0"
           }
       ],
       [
           {
-              "address": "twit1ec9xzm4tgjg994s7g73wr7plj5n2emnty70320",
+              "address": "twit1q2aa08k0agqgtamhz08vx7avml305dm6rsx7a2",
               "value": "555444333222111000",
               "timelock": "0"
           },
           {
-              "address": "twit1xpcuk9les7hg52p2hx4kz7mycwz0kn3zw330p4",
+              "address": "twit165e2e4qt4sj5k9pfvce0rhv0q3eymrgze0x934",
               "value": "555444333222111000",
               "timelock": "0"
           }
