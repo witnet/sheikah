@@ -23,7 +23,7 @@
         <el-button
           class="big"
           data-test="import-wallet"
-          @click="redirectTo('/ftu/disclaimer')"
+          @click="redirectTo('/ftu/import-wallet')"
           type="primary"
         >
           Import a wallet from mnemonics
