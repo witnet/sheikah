@@ -8,7 +8,7 @@ export function createNotification(notificationProps) {
   if (window.Notification) {
     Notification.requestPermission(permission => innerCreateNotification(notificationProps))
   } else {
-    console.log('Notifications not supported')
+    console.err('Notifications not supported. Printing notification here:', notificationProps)
   }
 }
 
@@ -28,7 +28,12 @@ export function cropString(string, caracters, position) {
 }
 
 // Create Notifications with specified arguments
-function innerCreateNotification(notificationProps) {
+function innerCreateNotification(partialProps) {
+  const notificationProps = {
+    vibrate: [50, 100, 150],
+    closeTimeout: 8000,
+    ...partialProps,
+  }
   const notification = new Notification(notificationProps.title, notificationProps)
   if (Number.isInteger(notificationProps.closeTimeout)) {
     setTimeout(() => {

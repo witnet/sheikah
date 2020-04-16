@@ -11,10 +11,12 @@ const defaultOptions = {
 }
 
 class ApiClient {
+  listeners
   options
   ws
 
   constructor(options) {
+    this.listeners = {}
     this.options = options || defaultOptions
     this.ws = new RPCWebsockets(this.options.url, { ...this.options })
   }
@@ -44,7 +46,17 @@ class ApiClient {
   }
 
   on(event, handler) {
-    return this.ws.on(event, handler)
+    // Prevents from subscribing to the same event more than once
+    if (event in this.listeners) {
+      return this.listeners[event]
+    } else {
+      const listener = this.ws.on([event], (...args) => {
+        handler(...args)
+      })
+      this.listeners[event] = listener
+
+      return listener
+    }
   }
 }
 
@@ -75,6 +87,19 @@ export class WalletApi {
 
   closeSession(params) {
     return this._callApiMethod('close_session')(params)
+  }
+
+  // This is overriding the native `client.subscribe` because it lacks support for `params`
+  subscribeToNotifications(params, cb) {
+    return this._callApiMethod('rpc.on')([params.session_id])
+      .then(_ => {
+        this.client.on('notifications', cb)
+      })
+      .catch(this._handleError)
+  }
+
+  unsubscribeFromNotifications(params) {
+    return this._callApiMethod('rpc.off')([params.session_id])
   }
 
   createDataRequest(params) {
@@ -140,14 +165,6 @@ export class WalletApi {
 
   sendTransaction(params) {
     return this._callApiMethod('send_transaction')(params)
-  }
-
-  subscribeToNotifications(params, cb) {
-    return this._callApiMethod('subscribe_notifications')([params.sessionId])
-      .then(_ => {
-        this.client.on('notifications', cb)
-      })
-      .catch(this._handleError)
   }
 
   unlockWallet(params) {
