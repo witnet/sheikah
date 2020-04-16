@@ -2,7 +2,7 @@ import router from '@/router'
 import { WalletApi } from '@/api'
 import { addToList, encodeDataRequest, standardizeWitUnits, createNotification } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
-import { WIT_UNIT } from '@/constants'
+import { WALLET_EVENTS, WIT_UNIT } from '@/constants'
 import warning from '@/resources/svg/warning.png'
 
 export default {
@@ -137,8 +137,6 @@ export default {
             title: error,
             body: message,
             icon: warning,
-            vibrate: [50, 100, 150],
-            closeTimeout: 5000,
           }
           // create notification
           createNotification(notificationProps)
@@ -376,6 +374,7 @@ export default {
       if (request.result) {
         // TODO(#706) We should receive a wallet structure instead a walletId
         context.commit('setWallet', { sessionId: request.result.session_id, walletId })
+        context.dispatch('subscribeToWalletNotifications')
       } else {
         context.commit('setError', { name: 'unlockWallet', error: request.error.message })
       }
@@ -483,13 +482,19 @@ export default {
       }
     },
     subscribeToWalletNotifications: async function(context) {
-      context.state.api.subscribeToNotifications(
+      await context.state.api.subscribeToNotifications(
         { session_id: this.state.wallet.sessionId },
-        notification =>
-          context.commit('setBalance', {
-            balance: { total: notification[0].accountBalance.amount },
-          })
+        ([notification]) => {
+          for (let event of notification.events) {
+            context.dispatch('processEvent', { event, status: notification.status })
+          }
+        }
       )
+    },
+    unsubscribeFromWalletNotifications: async function(context) {
+      await context.state.api.unsubscribeFromNotifications({
+        session_id: this.state.wallet.sessionId,
+      })
     },
     tryDataRequest: async function(context) {
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
@@ -517,6 +522,37 @@ export default {
         const key = variable.variable
         context.commit(UPDATE_TEMPLATE, { id, value: '$' + key })
       })
+    },
+
+    processEvent: async function(context, rawEvent) {
+      console.log('Got event', rawEvent.event, rawEvent.status)
+      const eventType = Object.keys(rawEvent.event)[0]
+      let event = rawEvent.event[eventType]
+      let status = rawEvent.status
+      if (eventType === WALLET_EVENTS.SYNC_START) {
+        let [start, finish] = event
+        if (finish - start > 100) {
+          createNotification({
+            title: 'Starting Wallet Synchronization',
+            body: `Will synchronize ${finish -
+              start} blocks in total, starting with block #${start} up to the latest block in the chain (#${finish}).`,
+          })
+        }
+      } else if (eventType === WALLET_EVENTS.SYNC_FINISH) {
+        let [start, finish] = event
+        context.commit('setBalances', {
+          balances: { total: status.account.balance },
+        })
+        createNotification({
+          title: 'Completed Wallet Synchronization',
+          body: `Synchronized ${finish -
+            start} blocks in total.\nYour wallet is now synchronized to the latest block in the chain (#${finish}).`,
+        })
+      } else if (eventType === WALLET_EVENTS.MOVEMENT) {
+        context.commit('setBalance', { total: status.account.balance })
+      } else {
+        console.log(`Unhandled ${eventType} event`, event)
+      }
     },
   },
 }

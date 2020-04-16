@@ -68,7 +68,7 @@ export default new Router({
               } else {
                 next('/ftu/welcome')
               }
-            }, 1000)
+            }, 5000)
           })
         }
       },
