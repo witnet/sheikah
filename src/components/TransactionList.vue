@@ -6,6 +6,19 @@
     </p>
     <div class="list">
       <Transaction
+        :currency="currency"
+        :inputs="inputs"
+        :outputs="outputs"
+        :fee="fee"
+        id="f92557f3a820dc10595fe594117f5f1c56b85be5"
+        label="jajaja"
+        amount="30"
+        address="twit1kkvtfhexalusqdsmggaxghnwudhdhm8nuw3qs7"
+        sending="twit1q30eenqw0mme5058npqt2cl5njgy4qe8zayz9x"
+        date="date"
+        block="block"
+      />
+      <Transaction
         v-for="(transaction, index) in paginatedItems"
         :currency="currency"
         :key="transaction.id"
@@ -18,10 +31,10 @@
         :block="transaction.block"
         :border="index !== transactionsLength - 1"
       />
-      <div v-if="transactions.length === 0" class="no-transactions-container">
+      <!-- <div v-if="transactions.length === 0" class="no-transactions-container">
         <img class="no-transactions-img" src="@/resources/svg/empty.svg" />
         <p class="no-transactions-text">You don't have transactions</p>
-      </div>
+      </div> -->
     </div>
     <div v-show="transactions.length" class="pagination-nav">
       <el-pagination
@@ -46,6 +59,12 @@ export default {
     return {
       currentPage: 1,
       itemsPerPage: 10,
+      inputs: [{ amount: 100000, address: 'twit1dj8enj85vcglhum9amjd00236dt3sfdmd6ss9s' }],
+      outputs: [
+        { amount: 98765, address: 'twit1n28rggnw3fz0e0dw657twc5qjv3q65xczqlywk' },
+        { amount: 735, address: 'twit1g4va4ewfjya7d4cu7chahemkwhqdxuhg5ha0lt' },
+      ],
+      fee: { amount: 500, address: 'twit1g93yvxdwltazk834mvzaah2egmth2pql8qt3rl' },
     }
   },
   computed: {
@@ -88,7 +107,6 @@ export default {
   .list {
     overflow: auto;
     max-height: 73vh;
-    padding: 0 16px;
     border: 0.5px solid rgb(224, 224, 224);
     box-shadow: 0 0px 5px 0px rgba(29, 29, 29, 0.1);
     background: $white;
