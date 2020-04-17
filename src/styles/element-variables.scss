@@ -135,4 +135,20 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   
 @import "~element-ui/packages/theme-chalk/src/index";
 
-
+.el-pagination {
+  button:disabled {
+    background-color: inherit;
+  }
+  .el-pager li.active {
+    background-color: inherit;
+  }
+  .el-pager li {
+    background-color: inherit;
+  }
+  .btn-next {
+    background-color: inherit;
+  }
+  .btn-prev {
+    background-color: inherit;
+  }
+}

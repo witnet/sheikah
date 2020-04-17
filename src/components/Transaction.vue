@@ -4,16 +4,18 @@
       <div class="transaction" @click="showDetails = !showDetails">
         <img class="icon" :src="arrowIcon" alt="" />
         <div class="amount">
-          <!-- <font-awesome-icon :class="`icon ${origin.toLowerCase()}`" :icon="arrowIcon" /> -->
           <span :class="`number ${origin.toLowerCase()}`">{{ amount }}</span>
           <span class="wit">{{ currency }}</span>
         </div>
-        <div class="address-container">
+        <div v-show="transactionType === 'vtt'" class="address-container">
           <p class="origin">{{ origin }}</p>
           <p class="address">{{ address }}</p>
         </div>
+        <div v-show="transactionType === 'dr'" class="address-container">
+          <p class="address">Data request</p>
+        </div>
         <div class="">
-          <p class="date">{{ date }}</p>
+          <p class="date">{{ timeAgo }}</p>
         </div>
       </div>
       <div v-if="showDetails">
@@ -24,6 +26,42 @@
           <p class="info">{{ block }}</p>
           <p class="label">Timestamp</p>
           <p class="info">{{ date }}</p>
+          <p v-show="transactionType === 'dr'" class="label">Witnessess</p>
+          <p v-show="transactionType === 'dr'" class="info">
+            {{ amount }}<span class="light"> as a minimum, with </span>{{ amount }}
+            <span class="light">as backup</span>
+          </p>
+          <p v-show="transactionType === 'dr'" class="label">Rewards</p>
+          <p v-show="transactionType === 'dr'" class="info">
+            {{ amount }} <span class="light">for each witness </span>+ {{ amount }}
+            <span class="light">in total for miners</span>
+          </p>
+          <p v-show="transactionType === 'dr'" class="label">Rounds</p>
+          <p v-show="transactionType === 'dr'" class="info">
+            <span class="light">Maximum</span> {{ amount }}
+            <span class="light">commit rounds </span>+ {{ amount }}
+            <span class="light">reveal rounds</span>
+          </p>
+          <p v-show="transactionType === 'dr'" class="label">Current stage</p>
+          <p v-show="transactionType === 'dr'" class="info">{{ state }}</p>
+          <p v-show="transactionType === 'dr'" class="label">Reveals</p>
+          <div class="info">
+            <div
+              v-for="reveal in reveals"
+              :key="reveal.address"
+              v-show="transactionType === 'dr'"
+              class="reveal"
+            >
+              <font-awesome-icon
+                :class="reveal.in_consensus ? 'consensed' : 'not-consensed'"
+                icon="circle"
+              />
+              <div class="address">{{ reveal.address }}</div>
+              <div class="result">{{ reveal.result }}</div>
+            </div>
+          </div>
+          <p v-show="transactionType === 'dr'" class="label">Final result</p>
+          <p v-show="transactionType === 'dr'" class="info">{{ result }}</p>
         </div>
         <div class="inputs-outputs">
           <div class="box inputs">
@@ -74,16 +112,24 @@ export default {
   },
   props: {
     currency: String,
-    address: String,
     amount: String,
     block: [String, Number],
     border: Boolean,
     date: String,
+    timeAgo: String,
     label: String,
     fee: Object,
     id: String,
     outputs: Array,
     inputs: Array,
+    type: String,
+    witnesses: Object,
+    rewards: Object,
+    rounds: Object,
+    state: String,
+    reveals: Array,
+    result: String,
+    transactionType: String,
   },
   methods: {
     hideDetails() {
@@ -91,11 +137,14 @@ export default {
     },
   },
   computed: {
+    address() {
+      return this.inputs.length > 1 ? 'several addresses' : this.inputs[0].address
+    },
     origin() {
-      return this.amount > 0 ? 'From' : 'To'
+      return this.type === 'POSITIVE' ? 'From' : 'To'
     },
     arrowIcon() {
-      return this.amount > 0
+      return this.type === 'POSITIVE'
         ? require('@/resources/svg/positive.svg')
         : require('@/resources/svg/negative.svg')
     },
@@ -106,17 +155,17 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+.border {
+  border-bottom: 1px solid $grey-1;
+}
 
 .transaction {
   padding: 16px;
   display: grid;
   grid-template-columns: max-content max-content auto max-content;
   grid-column-gap: 24px;
+  align-items: center;
   cursor: pointer;
-
-  &.border {
-    border-bottom: 1px solid lightgray;
-  }
 
   .amount,
   .address {
@@ -190,6 +239,28 @@ export default {
     font-size: 13px;
     justify-self: left;
     color: $alt-grey-5;
+    .light {
+      color: $grey-4;
+    }
+    .reveal {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      .consensed {
+        font-size: 10px;
+        margin-right: 8px;
+        color: $green-3;
+      }
+      .not-consensed {
+        font-size: 10px;
+        margin-right: 8px;
+        color: $red-2;
+      }
+      .address {
+        color: $grey-4;
+        margin-right: 8px;
+      }
+    }
   }
 }
 .inputs-outputs {
@@ -212,7 +283,6 @@ export default {
     .tx {
       margin-bottom: 8px;
       display: grid;
-      grid-gap: 10px;
       grid-template-columns: [col1-start] 30px [col2-start] auto;
       grid-template-rows: [row1-start] auto [row2-start];
       .index {

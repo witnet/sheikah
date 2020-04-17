@@ -89,19 +89,40 @@ export function match(value, options, result) {
   return search ? search.result : null
 }
 
-export function formatDateDash(string) {
-  let date = new Date(string)
-  let month = '' + (date.getMonth() + 1)
-  let day = '' + date.getDate()
-  let year = date.getFullYear()
+export function changeDateFormat(timestamp) {
+  let date = new Date(timestamp)
+  const formatedDate = date
+    .toString()
+    .split(' ')
+    .splice(1, 4)
+  const month = formatedDate[0].toUpperCase()
+  const day = formatedDate[1]
+  const year = formatedDate[2]
+  const time = formatedDate[3]
+  return `${month} ${day}, ${year} @ ${time}`
+}
 
-  if (month.length < 2) {
-    month = '0' + month
+export function timeAgo(date) {
+  const seconds = Math.floor((new Date() - date) / 1000)
+  const years = Math.floor(seconds / 31536000)
+  const months = Math.floor(seconds / 2592000)
+  const days = Math.floor(seconds / 86400)
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor(seconds / 60)
+
+  if (years > 1) {
+    return `${years} years ago`
+  } else if (months > 1) {
+    return `${months} months ago`
+  } else if (days > 1) {
+    return `${days} days ago`
+  } else if (hours > 1) {
+    return `${hours} hours ago`
+  } else if (minutes > 1) {
+    return `${minutes} minutes ago`
+  } else {
+    return `${Math.floor(seconds)} seconds ago`
   }
-  if (day.length < 2) {
-    day = '0' + day
-  }
-  return `${day}-${month}-${year}`
 }
 
 export function formatDateVerbose(date) {
