@@ -2,13 +2,9 @@
   <div
     @mouseover="expanded = true"
     @mouseleave="expanded = false"
-    :class="['sidebar', expanded ? 'expanded' : 'collapsed-sidebar']"
+    :class="['sidebar', expanded ? 'expanded' : 'collapsed']"
   >
-    <router-link
-      data-test="logo-to-main"
-      :class="['brand', expanded ? 'expanded' : 'collapsed-brand']"
-      to="/wallet/transactions"
-    >
+    <router-link data-test="logo-to-main" class="brand" to="/wallet/transactions">
       <img class="sheikah-logo" src="@/resources/svg/sheikah-small.svg" />
       <img v-if="expanded" class="sheikah-name" src="@/resources/svg/sheikah.svg" />
     </router-link>
@@ -35,18 +31,15 @@
 
       <router-link data-test="to-marketplace" class="link" to="/marketplace">
         <font-awesome-icon class="icon" icon="shopping-bag" />
-        <span v-show="expanded" class="label">Marketplace</span>
+        <span v-if="expanded" class="label">Marketplace</span>
       </router-link>
 
       <router-link data-test="to-community" class="link" to="/community">
         <font-awesome-icon class="icon" icon="users" />
-        <span v-show="expanded" class="label">Community</span>
+        <span v-if="expanded" class="label">Community</span>
       </router-link>
     </div>
-    <div
-      :class="['settings', expanded ? 'expanded' : 'collapsed-settings']"
-      @click="closeSession()"
-    >
+    <div class="settings" @click="closeSession()">
       <div class="icon-container">
         <img class="exit-icon" src="@/resources/svg/exit-icon.svg" alt="exit-icon" />
       </div>
@@ -116,15 +109,15 @@ export default {
   display: grid;
   background-color: $white;
   grid-template-rows: 70px max-content auto 70px;
-  transition: 300ms;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   z-index: 5;
   height: 100vh;
   font-family: 'Roboto';
+  overflow: hidden;
 }
 .expanded {
   width: 100%;
-  transition: width 0.2s ease;
+  transition: width 1.2s ease;
   transition: all 100ms ease-in 0s;
 }
 .brand {
@@ -133,6 +126,7 @@ export default {
   grid-template-columns: 70px auto;
   align-items: center;
   justify-items: center;
+  overflow: hidden;
 
   .sheikah-name {
     margin-left: 8px;
@@ -141,6 +135,7 @@ export default {
 }
 
 .current-wallet {
+  overflow: hidden;
   align-self: stretch;
   border-top: $sidebar-settings-border;
   border-bottom: $sidebar-settings-border;
@@ -150,9 +145,12 @@ export default {
   display: grid;
   grid-template-rows: 70px 70px 70px 70px;
   align-self: start;
+  overflow: hidden;
 
   .link {
     text-align: left;
+    display: flex;
+    flex-wrap: none;
     padding: 24px 0px;
     border-left: $sidebar-inactive-border;
     color: $sidebar-link-color;
@@ -170,9 +168,6 @@ export default {
     }
     .icon {
       width: 66px;
-    }
-    .label {
-      width: 100%;
     }
   }
 
@@ -201,15 +196,8 @@ export default {
     }
   }
 }
-
-.collapsed-sidebar {
-  width: 70px;
+.collapsed {
   grid-template-columns: 70px;
-}
-.collapsed-settings {
-  width: 70px;
-}
-.collapsed-brand {
   width: 70px;
 }
 </style>

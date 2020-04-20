@@ -5,18 +5,18 @@
         <DotIndicator :status="status" url="https://api.adorable.io/avatars/1/" />
       </div>
       <div class="wallet-info">
-        <p v-if="expanded" class="current-wallet-name">
+        <p v-show="expanded" class="current-wallet-name">
           Witnet wallet #Inx
         </p>
-        <div v-if="expanded" :class="nodeStatus">{{ status.toUpperCase() }}</div>
+        <div v-show="expanded" :class="nodeStatus">{{ status.toUpperCase() }}</div>
       </div>
-      <div v-if="expanded" class="icon">
+      <div v-show="expanded" class="icon">
         <img class="sort" v-if="showAll" src="@/resources/svg/short-up.svg" alt="sort-up" />
         <img class="sort" v-else src="@/resources/svg/short-down.svg" alt="sort-down" />
       </div>
     </div>
     <transition name="slide">
-      <div v-if="showAll && expanded" class="detail-info">
+      <div v-show="showAll && expanded" class="detail-info">
         <p class="text">
           Connected to <span class="bold"> {{ node }} </span>
         </p>
