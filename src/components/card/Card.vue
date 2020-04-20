@@ -84,7 +84,8 @@ export default {
   }
 
   .content {
-    border: 1px solid $purple-6;
+    max-width: 500px;
+    border: 1px solid $purple-4;
     background: $white;
     border: 1px solid $grey-1;
     border-radius: 2px;

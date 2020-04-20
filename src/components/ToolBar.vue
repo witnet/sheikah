@@ -83,7 +83,7 @@ export default {
 
 .top-bar {
   position: relative;
-  border-bottom: 1px solid $grey-0;
+  border-bottom: 1px solid $grey-1;
   display: flex;
   flex-flow: row wrap;
   height: 70px;
@@ -92,7 +92,7 @@ export default {
 
   .first,
   .end {
-    color: $grey-2;
+    color: $alt-grey-2;
     font-family: 'Titillium Web';
     font-weight: bold;
     font-size: 1em;

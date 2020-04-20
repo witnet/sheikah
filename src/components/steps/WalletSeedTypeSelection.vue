@@ -34,7 +34,7 @@
         </el-button>
       </li>
     </ul>
-  </Card>
+  </NavigationCard>
 </template>
 
 <script>

@@ -97,6 +97,7 @@ export default {
   border: 1px solid $purple-4;
   border-radius: 2px;
   box-shadow: $default-box-shadow;
+  border: 1px solid $purple-4;
   width: 600px;
 
   .header {

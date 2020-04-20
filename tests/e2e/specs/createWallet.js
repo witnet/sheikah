@@ -7,9 +7,13 @@ describe.skip('Create Wallet', () => {
     // Go to ftu form when the wallet contains a created wallet
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/')
-    // if (Cypress.env().is_wallet_created) {
+    if (Cypress.env().is_wallet_created) {
+      cy.get('[data-test=select-btn]').click({ force: true })
+      cy.get('[data-test=option-0]').click({ force: true })
+      cy.get('[data-test=password]').type('password')
+      cy.get('[data-test=unlock-wallet]').click({ force: true })
+    }
     cy.get('[data-test=create-wallet]').click({ force: true })
-    // }
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })
@@ -37,7 +41,7 @@ describe.skip('Create Wallet', () => {
 
   it('Show error when mnemonics don´t match', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
-    cy.visit('/ftu')
+    cy.visit('/')
     cy.get('[data-test=create-wallet]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
@@ -51,12 +55,12 @@ describe.skip('Create Wallet', () => {
         cy.get('input').type(val + '1')
       })
     cy.get('[data-test=next-step]').click({ force: true })
-    cy.get('[data-test=mnemonics-error-alert]').should('have.css', 'color', 'rgb(245, 108, 108)')
+    cy.get('[data-test=mnemonics-error-alert]').should('have.css', 'color', 'rgb(240, 132, 132)')
   })
 
   it('Show error when passwords don´t match', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
-    cy.visit('/ftu')
+    cy.visit('/')
     cy.get('[data-test=create-wallet]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
@@ -77,12 +81,12 @@ describe.skip('Create Wallet', () => {
       .last()
       .type('password1')
     cy.get('[data-test=next-step]').click({ force: true })
-    cy.get('[data-test=password-error-alert]').should('have.css', 'color', 'rgb(245, 108, 108)')
+    cy.get('[data-test=password-error-alert]').should('have.css', 'color', 'rgb(240, 132, 132)')
   })
 
   it('Show previous and next view when the button is clicked', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
-    cy.visit('/ftu')
+    cy.visit('/')
     cy.get('[data-test=create-wallet]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
@@ -110,27 +114,5 @@ describe.skip('Create Wallet', () => {
     cy.get('[data-test=header-2]')
     cy.get('[data-test=previous-step]').click({ force: true })
     cy.get('[data-test=header-1]')
-  })
-
-  it('logs out Sheikah', () => {
-    cy.visit('/ftu')
-    cy.get('[data-test=local-wallet]')
-      .first()
-      .click({ force: true })
-    cy.get('[data-test=password]')
-      .last()
-      .type('passwor')
-    cy.get('[data-test=unlock-wallet]')
-      .last()
-      .click({ force: true })
-    cy.get('[data-test=password-error-alert]').should('have.css', 'color', 'rgb(245, 108, 108)')
-    cy.get('[data-test=password]')
-      .last()
-      .clear()
-      .type('password')
-    cy.get('[data-test=unlock-wallet]')
-      .last()
-      .click({ force: true })
-    cy.get('[data-test=home]')
   })
 })

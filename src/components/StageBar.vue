@@ -44,14 +44,14 @@ export default {
   padding-left: 16px;
 
   .link-btn {
-    color: $grey-2;
+    color: $alt-grey-2;
     font-weight: bold;
     font-family: 'Titillium Web';
     font-size: 16px;
     padding: 24px;
     text-decoration: none;
     border: none;
-    border-bottom: 1.5px solid $grey-1;
+    border-bottom: 1.5px solid $alt-grey-1;
     outline: none;
     cursor: pointer;
     background: none;
@@ -60,8 +60,8 @@ export default {
     &:focus,
     &.active {
       outline: none;
-      border-bottom: 2px solid $purple-6;
-      color: $purple-6;
+      border-bottom: 2px solid $purple-4;
+      color: $purple-4;
     }
   }
 }

@@ -73,7 +73,7 @@ export default {
   }
   .copied {
     font-size: 16px;
-    color: $green-1;
+    color: $green-5;
 
     &:active :focus {
       outline: none;

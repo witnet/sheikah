@@ -11,7 +11,7 @@
     :disabledNextButton="disabledNextButton"
   >
     <p class="paragraph">
-      <strong>PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on this computer.
+      <strong class="bold">PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on this computer.
       This is not your backup and you cannot restore your wallet with this password. Your seed
       phrase is still your ultimate backup.
     </p>
@@ -137,7 +137,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .error {
-  color: $red-1;
+  color: $red-2;
   font-size: 14px;
   min-width: 270px;
   margin-top: 16px;
@@ -145,6 +145,10 @@ export default {
 
 .paragraph {
   margin-bottom: 32px;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .form-row {

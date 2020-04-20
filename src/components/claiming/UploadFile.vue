@@ -226,7 +226,7 @@ export default {
 }
 .error {
   font-size: 14px;
-  color: $red-1;
+  color: $red-2;
   margin-top: 8px;
 }
 </style>

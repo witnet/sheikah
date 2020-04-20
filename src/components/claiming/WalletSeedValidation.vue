@@ -114,7 +114,7 @@ export default {
 
 .match-error {
   font-size: 14px;
-  color: $red-1;
+  color: $red-2;
   margin-bottom: 8px;
 }
 .seed {

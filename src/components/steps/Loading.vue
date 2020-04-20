@@ -65,7 +65,7 @@ export default {
   }
 
   .description {
-    color: $purple-6;
+    color: $purple-4;
     font-size: 16px;
     margin: 32px 0 0 0;
   }
