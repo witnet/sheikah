@@ -6,8 +6,10 @@
   >
     <p class="text">
       To enhance your privacy, the Sheikah wallet divides your tokens among multiple addresses that
-      are difficult to associate with each other. Your first addresses are now being generated. This
-      process could take some time.
+      are difficult to associate with each other.
+    </p>
+    <p class="text">
+      Your first addresses are now being generated. This process could take some time.
     </p>
     <el-progress :percentage="percentage" :format="format"></el-progress>
   </NavigationCard>

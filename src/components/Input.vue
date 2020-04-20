@@ -1,5 +1,6 @@
 <template>
   <textarea
+    data-test="textarea"
     @keydown.enter.esc.prevent="toogleGoNextItem"
     v-model="inputValue"
     :class="`input ${getClass(type)}`"

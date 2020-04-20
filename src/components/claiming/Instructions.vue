@@ -2,8 +2,8 @@
   <NavigationCard
     :nextStep="nextStep"
     data-test="instructions"
-    nextText="Continue"
-    title="Claiming process information"
+    nextText="Start"
+    title="About the Witnet token claiming process"
     :disabledNextButton="false"
   >
     <p class="text bold">
@@ -43,7 +43,7 @@ export default {
 
   &.bold {
     font-weight: bold;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
   &:last-of-type {
     margin: 0px;

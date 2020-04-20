@@ -91,7 +91,7 @@ export default {
     display: flex;
     flex-flow: row nowrap;
     font-size: 24px;
-    font-weight: 100;
+    font-weight: medium;
     height: 100px;
   }
 

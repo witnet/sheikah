@@ -9,7 +9,7 @@
     :nextStep="() => this.$router.push('/claiming/seed-validation')"
     :disabledNextButton="false"
   >
-    <p class="text">Your 12 word seed phrase:</p>
+    <p>Your 12 word seed phrase:</p>
     <pre data-test="word-seed" class="seed">{{ seed }}</pre>
     <p class="text">
       Please copy these 12 words onto a piece of paper which you will be able to safely store and
@@ -88,7 +88,7 @@ export default {
   border: $input_big-border;
   box-sizing: border-box;
   color: $input_big-color;
-  font-size: 16px;
+  font-size: $input_big-font-size;
   line-break: auto;
   line-height: 1.5em;
   padding: 24px;
@@ -96,6 +96,9 @@ export default {
   width: 100%;
   margin: 16px 0;
   font-family: inherit;
-  font-size: 20px;
+  &:hover {
+    border: $input_big-hover-border;
+    box-shadow: $input_big-hover-box-shadow;
+  }
 }
 </style>

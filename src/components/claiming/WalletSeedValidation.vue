@@ -10,7 +10,7 @@
     :disabledNextButton="disabledNextButton"
     ref="navCard"
   >
-    <p class="text">
+    <p>
       Please type your 12 word seed phrase exactly as it was shown to you on the previous screen.
       This step is to confirm that you have copied your seed phrase correctly.
     </p>
@@ -103,22 +103,19 @@ export default {
   box-sizing: border-box;
   color: $input_big-color;
   display: inline-flex;
-  font-size: 16px;
+  font-size: $input_big-font-size;
   line-break: auto;
   line-height: 1.5em;
   padding: 16px;
   width: 100%;
   margin: 16px 0;
+  font-family: inherit;
 }
 
 .match-error {
   font-size: 14px;
   color: $red-2;
   margin-bottom: 8px;
-}
-.seed {
-  font-size: 20px;
-  font-family: inherit;
 }
 .text {
   margin-bottom: 8px;

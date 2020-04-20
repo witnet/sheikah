@@ -6,7 +6,7 @@
     nextText="Continue"
     :disabledNextButton="disabledNextButton"
   >
-    <p class="text bold">
+    <p class="text">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
       in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
     </p>
@@ -80,12 +80,7 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 .text {
-  margin-bottom: 8px;
-
-  &.bold {
-    font-weight: bold;
-    margin-bottom: 16px;
-  }
+  margin-bottom: 16px;
 }
 .file-container {
   display: flex;

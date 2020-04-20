@@ -1,6 +1,6 @@
 <template>
   <NavigationCard data-test="download-file" title="It's done!" :disabledNextButton="false">
-    <p class="text">
+    <p>
       You have completed the Witnet token claim process successfully on the Sheikah side, but please
       <span class="bold">REMEMBER TO SEND THE CLAIM FILE TO THIS ADDRESS:</span>
     </p>

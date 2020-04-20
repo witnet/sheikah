@@ -11,9 +11,9 @@
     ref="navCard"
   >
     <p class="paragraph">
-      <strong class="bold">PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on this computer.
-      This is not your backup and you cannot restore your wallet with this password. Your seed
-      phrase is still your ultimate backup.
+      <strong class="bold">PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on
+      this computer. This is not your backup and you cannot restore your wallet with this password.
+      Your seed phrase is still your ultimate backup.
     </p>
     <div class="form-row password">
       <p>Create a password</p>
