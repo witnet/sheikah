@@ -54,7 +54,6 @@ export default {
 
   &.bold {
     font-weight: bold;
-    margin-bottom: 16px;
   }
   &:last-of-type {
     margin: 0px;

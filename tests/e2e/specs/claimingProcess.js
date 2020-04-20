@@ -102,7 +102,7 @@ describe('claimingProcess', () => {
         })
         .then(val => {
           cy.get('[data-test=next-step]').click()
-          cy.get('input').type(val)
+          cy.get('[data-test=textarea]').type(val)
 
           cy.get('[data-test=next-step]').click()
         })
