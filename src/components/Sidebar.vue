@@ -134,7 +134,7 @@ export default {
 }
 
 .current-wallet {
-  background: $purple-6;
+  background: $purple-4;
   color: $sidebar-current_wallet-color;
   display: flex;
   flex-flow: row wrap;
@@ -216,7 +216,7 @@ export default {
     .dot {
       height: 10px;
       width: 10px;
-      background-color: $yellow-1;
+      background-color: $yellow-3;
       border-radius: 50%;
       display: inline-block;
     }

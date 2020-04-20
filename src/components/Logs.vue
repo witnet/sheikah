@@ -70,22 +70,22 @@ export default {
     .error {
       height: min-content;
       padding: 2px 4px;
-      background-color: $red-1;
+      background-color: $red-2;
       color: $white;
       font-size: 10px;
       margin-right: 8px;
       border-radius: 2px;
-      border: 2px solid $red-1;
+      border: 2px solid $red-2;
     }
     .info {
       height: min-content;
       padding: 2px 4px;
-      background-color: $purple-6;
+      background-color: $purple-4;
       color: $white;
       font-size: 10px;
       margin-right: 8px;
       border-radius: 2px;
-      border: 1px solid $purple-6;
+      border: 1px solid $purple-4;
     }
     .time {
       margin-right: 8px;

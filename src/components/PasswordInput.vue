@@ -63,10 +63,10 @@ export default {
   font-size: 16px;
   width: 300px;
   border: 0;
-  border-bottom: 1px solid $grey-3;
+  border-bottom: 1px solid $alt-grey-5;
   outline: 0;
   padding: 16px 0;
-  color: $grey-5;
+  color: $alt-grey-5;
   font-weight: 700;
   background: transparent;
   transition: border-color 0.2s;
@@ -91,7 +91,7 @@ export default {
   display: block;
   transition: 0.2s;
   font-size: 1rem;
-  color: $grey-4;
+  color: $alt-grey-3;
 }
 
 .input:focus {
@@ -101,14 +101,14 @@ export default {
     display: block;
     transition: 0.2s;
     font-size: 1rem;
-    color: $purple-6;
+    color: $purple-4;
     font-weight: 700;
     font-size: 16px;
   }
-  border-bottom: 1.7px solid $grey-4;
+  border-bottom: 1.7px solid $alt-grey-3;
   font-weight: 700;
   border-width: 2px;
-  border-image: linear-gradient(to right, $purple-6);
+  border-image: linear-gradient(to right, $purple-4);
   border-image-slice: 1;
 }
 </style>

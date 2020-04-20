@@ -52,33 +52,28 @@ export default {
 @import '@/styles/_colors.scss';
 
 .welcome-back {
-  background-color: $alpha-grey;
+  background-color: $alpha-purple;
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  .layout {
-    background: $white;
-    height: 400px;
-    width: 600px;
-    display: grid;
-    grid-template-columns: 160px 440px;
-    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
-
-    .bar {
-      background: $purple-6;
-      padding: 20px;
-      justify-content: space-between;
-      display: flex;
-      flex-direction: column;
-
-      .title {
-        font-size: 24px;
-        color: $white;
-        border: none;
-      }
+  .bar {
+    color: $alt-grey-5;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 100px;
+    width: 370px;
+    .row {
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .title {
+      font-size: 48px;
+      font-weight: bold;
+      line-height: inherit;
     }
 
     .content {

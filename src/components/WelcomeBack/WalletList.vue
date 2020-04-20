@@ -13,14 +13,16 @@
           />
         </li>
       </div>
-      <li>
-        <RedirectionOption
-          data-test="create-wallet"
-          type="forward"
-          link="/ftu/welcome"
-          name="Create import or recover a wallet"
+      <div class="row" @keydown.enter.esc.prevent="unlockWallet">
+        <el-input
+          @keydown.enter.esc.prevent="unlockWallet"
+          class="big"
+          data-test="password"
+          placeholder="Please input password"
+          v-model="password"
+          show-password
         />
-      </li>
+      </div>
     </ul>
   </div>
 </template>

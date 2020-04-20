@@ -276,7 +276,7 @@ export default {
 
       .delete {
         background-color: transparent;
-        color: $red-1;
+        color: $red-2;
         cursor: pointer;
         display: none;
         font-size: 12px;
@@ -296,7 +296,7 @@ export default {
 }
 
 .with-arguments {
-  background-color: $grey-0;
+  background-color: $grey-1;
   padding: 8px;
 }
 .input-container {

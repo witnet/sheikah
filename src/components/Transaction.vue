@@ -70,16 +70,16 @@ export default {
     }
 
     .from {
-      color: $green-1;
+      color: $green-5;
     }
 
     .to {
-      color: $red-3;
+      color: $red-4;
     }
 
     .wit {
       margin-left: 8px;
-      color: $grey-5;
+      color: $alt-grey-5;
       font-size: 16px;
       font-weight: 600;
     }
@@ -89,20 +89,20 @@ export default {
     align-items: center;
     display: flex;
     justify-content: center;
-    color: $grey-3;
+    color: $alt-grey-5;
     font-size: 16px;
     font-weight: 600;
   }
 
   .date {
-    color: $grey-5;
+    color: $alt-grey-5;
     font-size: 16px;
     font-weight: 600;
     text-align: right;
   }
 
   .block {
-    color: $grey-5;
+    color: $alt-grey-5;
     font-size: 16px;
     font-weight: 600;
   }

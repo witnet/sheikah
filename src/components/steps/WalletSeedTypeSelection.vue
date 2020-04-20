@@ -1,14 +1,9 @@
 <template>
-  <Card data-test="header-1" :width="600" :height="550" class="wallet-seed-type-selection">
-    <template v-slot:header>
-      <div class="header">
-        Create your wallet
-      </div>
-    </template>
-
-    <p class="create-wallet-text">
-      We will now help you create a new local wallet.
-    </p>
+  <NavigationCard
+    data-test="header-1"
+    class="wallet-disclaimer"
+    title="Create, import, or recover a wallet"
+  >
     <ul class="options">
       <li>
         <RedirectionOption
@@ -40,17 +35,17 @@
         </router-link>
       </li>
     </ul>
-  </Card>
+  </NavigationCard>
 </template>
 
 <script>
-import Card from '@/components/card/Card'
+import NavigationCard from '@/components/card/NavigationCard'
 import RedirectionOption from '@/components/RedirectionOption'
 
 export default {
   name: 'WalletSeedTypeSelection',
   components: {
-    Card,
+    NavigationCard,
     RedirectionOption,
   },
 }
@@ -62,7 +57,7 @@ export default {
 
 .header {
   align-items: center;
-  background: $purple-6;
+  background: $purple-4;
   display: flex;
   font-size: 24px;
   font-weight: 100;

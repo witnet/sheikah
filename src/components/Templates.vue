@@ -233,7 +233,7 @@ export default {
 <style lang="scss">
 @import '@/styles/_colors.scss';
 .templates-bar {
-  border-bottom: 1px solid $grey-0;
+  border-bottom: 1px solid $grey-1;
   display: flex;
   flex-flow: row wrap;
   height: 64px;
@@ -243,7 +243,7 @@ export default {
     margin-right: 8px;
   }
   .tool-btn {
-    color: $grey-2;
+    color: $alt-grey-2;
     font-family: 'Titillium Web';
     font-weight: bold;
     font-size: 1em;
@@ -293,7 +293,7 @@ export default {
   }
   .add {
     box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
-    border: 2px solid $grey-0;
+    border: 2px solid $grey-1;
     display: flex;
     width: 250px;
     height: 250px;
@@ -305,7 +305,7 @@ export default {
     }
     &:hover {
       cursor: pointer;
-      border: 2px solid $purple-6;
+      border: 2px solid $purple-4;
     }
   }
 }

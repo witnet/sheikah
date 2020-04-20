@@ -43,8 +43,8 @@ export default {
 .option {
   background: $white;
   border-radius: 3px;
-  border: 1px solid $grey-0;
-  color: $grey-5;
+  border: 1px solid $grey-1;
+  color: $alt-grey-5;
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -57,7 +57,7 @@ export default {
   &:hover {
     outline: none;
     cursor: pointer;
-    border-color: $purple-6;
+    border-color: $purple-4;
   }
 
   .name {
@@ -66,7 +66,7 @@ export default {
     overflow: hidden;
     padding: 0 16px 0 0;
     &:active {
-      color: $grey-5;
+      color: $alt-grey-5;
     }
   }
 

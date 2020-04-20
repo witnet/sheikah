@@ -1,74 +1,76 @@
 @import "./colors";
 
 // // COMMON
-$default-box-shadow: -10px 10px 0px 0px rgba(155, 81, 224, 0.30);
-$font-color-dark: $grey-6;
-$font-color-light: $grey-3;
-$sheikah-gradient: linear-gradient(to right, $purple-7, $purple-6);
+$default-box-shadow: 10px 10px 0px 0px rgba(155, 81, 224, 0.103);
+$font-color-dark: $alt-grey-5;
+$font-color-light: $alt-grey-5;
+$sheikah-gradient: linear-gradient(to right, $purple-5, $purple-4);
 
 // // // BUTTON_NAVIGATION
 $button_navigation-background: $white;
-$button_navigation-border-color: $grey-0;
+$button_navigation-border-color: $grey-1;
 $button_navigation-border-style: solid;
 $button_navigation-border-width: 1px;
-$button_navigation-color: $grey-5;
+$button_navigation-color: $alt-grey-5;
 $button_navigation-height: 100%;
-$button_navigation-hover-background: $grey-2;
+$button_navigation-hover-background: $alt-grey-2;
 $button_navigation-width: auto;
 
 // // // BUTTON_OPTION
 $button_option-active-background: $white;
-$button_option-active-border-color: $purple-5;
+$button_option-active-border-color: $purple-4;
 $button_option-active-box-shadow: 0 1px 5px 0 $purple-2;
-$button_option-active-color: $purple-6;
+$button_option-active-color: $purple-4;
 $button_option-background: $white;
 $button_option-border-color: $white;
 $button_option-border-style: solid;
 $button_option-border-width: 1px;
 $button_option-border: $button_option-border-width $button_option-border-style $button_option-border-color;
-$button_option-color: $grey-5;
-$button_option-hover-border-color: $purple-4;
+$button_option-color: $alt-grey-5;
+$button_option-hover-border-color: $purple-3;
 $button_option-hover-box-shadow: 0 1px 5px 0 $purple-1;
-$button_option-hover-color: $purple-5;
+$button_option-hover-color: $purple-4;
 
 // // // ICON
 $icon-settings-font_size: 14px;
 $icon_status-font_size: 12px;
 
 // // //INPUT BIG
+$input_border: 1px solid $grey-4;
+$input_border_color__active: $purple-4;
+$drag_drop_area: 1px dashed $grey-4;
+$drag_drop_area_focus: 1px dashed $purple-4;
 $input_big-border-radius: 2px;
-$drag_drop_area: 1px dashed $grey-1;
-$drag_drop_area_focus: 1px dashed $purple-6;
-$input_big-border: 2px dashed $grey-1;
+$input_big-border: 2px dashed $alt-grey-1;
 $input_big-color: $font-color-light;
-$input_big-hover-border: 2px dashed $purple-6 !important;
+$input_big-hover-border: 2px dashed $purple-4 !important;
 $input_big-hover-box-shadow: $button_option-hover-box-shadow;
 $input_big-width: 100%;
 
 // // // INPUT UNDERLINED
-$input_underlined-border: 1px solid $grey-3;
-$input_underlined-color: $grey-3;
+$input_underlined-border: 1px solid $alt-grey-5;
+$input_underlined-color: $alt-grey-5;
 
 // // // SIDEBAR
 $sidebar-inactive-border: 5px solid $white;
 $sidebar-inactive-border-hover:5px solid $purple-0;
-$sidebar-active-border: 5px solid $purple-6;
-$sidebar-active-color: $purple-6;
+$sidebar-active-border: 5px solid $purple-4;
+$sidebar-active-color: $purple-4;
 $sidebar-current_wallet-color: $white;
-$sidebar-label-color: $grey-2;
+$sidebar-label-color: $alt-grey-2;
 $sidebar-label-font_size: 9px;
-$sidebar-link-color: $grey-3;
+$sidebar-link-color: $alt-grey-5;
 $sidebar-link-font_size: 16px;
 $sidebar-link-font_weight: 700;
 $sidebar-logo-width: 125px;
-$sidebar-name-color: $grey-6;
+$sidebar-name-color: $alt-grey-5;
 $sidebar-name-font_size: 20px;
-$sidebar-settings-border: 1px solid $grey-0;
-$sidebar-settings-icon-color: $grey-5;
+$sidebar-settings-border: 1px solid $grey-1;
+$sidebar-settings-icon-color: $alt-grey-5;
 $sidebar-settings-icon-size: 20px;
-$sidebar-synced-color: $grey-5;
+$sidebar-synced-color: $alt-grey-5;
 $sidebar-synced-font_weight: 700;
-$sidebar-mainnet-color: $grey-2;
+$sidebar-mainnet-color: $alt-grey-2;
 $sidebar-mainnet-font_weight: 700;
 
 //COLOR TYPE VARIABLES

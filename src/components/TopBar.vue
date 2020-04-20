@@ -24,7 +24,7 @@ export default {
 
 .top-bar {
   width: 100%;
-  border-bottom: 1px solid $grey-0;
+  border-bottom: 1px solid $grey-1;
   display: flex;
   flex-flow: row wrap;
   height: 64px;
@@ -34,15 +34,15 @@ export default {
     display: flex;
     justify-content: flex-start;
     .link {
-      color: $grey-1;
+      color: $alt-grey-1;
       font-weight: bold;
       height: 64px;
       line-height: 25px;
       padding: 16px 24px;
       text-decoration: none;
       &.router-link-active {
-        border-bottom: 2px solid $purple-6;
-        color: $purple-6;
+        border-bottom: 2px solid $purple-4;
+        color: $purple-4;
       }
     }
   }

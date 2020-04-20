@@ -192,7 +192,7 @@ export default {
   position: relative;
   &:focus,
   &:focus-within {
-    border-color: $grey-0;
+    border-color: $grey-1;
     border-radius: 4px;
     box-shadow: 0 0 0 0.1rem $white;
   }
@@ -206,9 +206,9 @@ export default {
     z-index: 1;
     min-height: 35px;
     align-items: center;
-    background-color: $grey-1;
+    background-color: $alt-grey-1;
     border-radius: 4px;
-    border: 1px solid $grey-1;
+    border: 1px solid $alt-grey-1;
     color: $white;
     display: flex;
     padding: 0 0 0 16px;
@@ -256,15 +256,15 @@ export default {
     max-height: 200px;
     overflow-y: auto;
     box-sizing: border-box;
-    border-color: 1px solid $grey-3;
+    border-color: 1px solid $alt-grey-5;
     margin: 0;
     list-style-type: none;
     outline: none;
 
     .option {
-      background: $grey-0;
+      background: $grey-1;
       border-bottom: 1px solid $white;
-      color: $grey-3;
+      color: $alt-grey-5;
       padding: 8px;
       cursor: default;
       align-items: center;
@@ -276,7 +276,7 @@ export default {
 
       &.has-focus {
         background-color: $white;
-        color: $grey-1;
+        color: $alt-grey-1;
       }
     }
   }
@@ -350,8 +350,11 @@ export default {
     align-items: center;
     background: none;
     border-radius: 4px;
-    border: 1px solid $grey-2;
-    color: $grey-4;
+    border-top: 1px solid $purple-4;
+    border-right: 1px solid $purple-4;
+    border-bottom: 1px solid $purple-4;
+    border-left: 1px solid $purple-4;
+    color: $alt-grey-5;
     display: flex;
     padding: 0 8px 0 16px;
     .selected {
@@ -384,6 +387,11 @@ export default {
       }
     }
   }
+  .active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0px solid $purple-4;
+  }
 
   .hidden {
     display: none;
@@ -399,8 +407,19 @@ export default {
     padding-top: 8px;
     list-style-type: none;
     outline: none;
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 0px;
+    font-size: 16px;
+    border-right: 1px solid $purple-4;
+    border-bottom: 1px solid $purple-4;
+    border-left: 1px solid $purple-4;
 
     .option {
+      overflow: hidden;
+      background: $white;
+      color: $alt-grey-5;
       padding: 8px;
       cursor: default;
       align-items: center;

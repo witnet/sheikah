@@ -1,5 +1,6 @@
 @import "./colors";
-$--color-primary: $purple-6;
+@import "./theme";
+$--color-primary: $purple-4;
 $--color-success: #52c41a;
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
@@ -9,41 +10,112 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   border-color: #c5c2c2;
 }
 
+.el-input {
+  .el-input__inner{
+    border: $input_border;
+    color: $grey-5;
+    &::placeholder {
+      color: $grey-4;
+    }
+    &:hover, &:focus {
+      border-color: $input_border_color__active;
+    }
+  }
+  &.big .el-input__inner{
+    height: 60px;
+  }
+}
+
+.el-button {
+  .el-button--primary {
+    &.dark {
+      background-color: $white;
+      border-color: $white;
+      color: $purple-4;
+      &:hover, &:focus {
+        color: $purple-3;
+        border-color: $alpha-purple;
+        // background-color: $alpha-purple;
+      }
+      &:active {
+        background: $purple-4;
+        border-color: $white;
+        color: $white;
+        outline: none;
+      }
+    }
+  }
+  &.big {
+    width: 100%;
+    height: 60px;
+  }
+}
+.el-button {
+  &.el-button--primary {
+    color: #FFFFFF;
+    background-color: $purple-3;
+    border-color: $purple-4;
+    font-size: 15px;
+    font-weight: bold;
+    &:hover, &:focus {
+      background-color: $purple-2;
+      border-color: $purple-3;
+    }
+  }
+}
+
+.el-button {
+  &.el-button--default {
+    font-size: 15px;
+    font-weight: bold;
+    color: $alt-grey-3;
+    &:hover, &:focus {
+      color: $purple-3;
+      border-color: $alpha-purple;
+      background: $alpha-purple;
+    }
+  }
+}
 
 .el-button--primary {
   &.dark {
     background-color: $white;
     border-color: $white;
-    color: $purple-6;
+    color: $purple-4;
     &:hover, &:focus {
-      color: #9B51E0;
-      border-color: #e1cbf6;
-      background-color: #f5eefc;
+      color: $purple-3;
+      border-color: $alpha-purple;
+      background: $alpha-purple;
     }
     &:active {
-      background: $purple-6;
       border-color: $white;
       color: $white;
+      background-color: transparent;
       outline: none;
     }
   }
 }
+
 .el-button--default {
   &.dark {
-    background-color: $purple-6;
+    background-color: $purple-4;
     border-color: $white;
     color: $white;
     &:hover, &:focus {
       color: $white;
       border-color: $white;
-      background-color: rgb(156, 110, 199);
+      background-color: $purple-3;
     }
     &:active {
       background: $white;
-      border-color: $purple-6;
-      color: $purple-6;
+      border-color: $purple-4;
+      color: $purple-4;
       outline: none;
     }
+  }
+  &.big {
+    width: 100%;
+    height: 60px;
   }
 }
 
@@ -57,16 +129,6 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     }
     button:hover {
       color: rgb(255, 42, 127);
-    }
-  }
-}
-
-.upload-container {
-  .el-upload {
-    width: 100%;
-
-    .el-upload-dragger {
-      width: 100%;
     }
   }
 }

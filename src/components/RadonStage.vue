@@ -110,7 +110,7 @@ export default {
     }
 
     .number {
-      color: $purple-6;
+      color: $purple-4;
       font-weight: 800;
       font-size: 16px;
     }

@@ -154,7 +154,7 @@ export default {
   font-size: 20px;
   margin: 24px 0px 8px 0px;
   text-align: center;
-  color: $purple-6;
+  color: $purple-4;
 }
 .download-again {
   margin-bottom: 24px;

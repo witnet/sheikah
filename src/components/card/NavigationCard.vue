@@ -79,11 +79,12 @@ export default {
 .card-navigation {
   background-color: $white;
   box-shadow: $default-box-shadow;
+  border: 1px solid $purple-4;
   width: 600px;
-  border: 1px solid $purple-6;
+  border: 1px solid $purple-4;
 
   .header {
-    background: $purple-6;
+    background: $purple-4;
     padding: 0 32px;
     align-items: center;
     color: $white;

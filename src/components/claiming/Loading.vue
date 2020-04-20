@@ -62,12 +62,12 @@ export default {
 
   .title {
     border: none;
-    color: $purple-6;
+    color: $purple-4;
     font-size: 24px;
     margin: 0 0 48px 0;
   }
   .description {
-    color: $purple-6;
+    color: $purple-4;
     font-size: 16px;
     margin: 40px 0 0 0;
   }

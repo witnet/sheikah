@@ -113,12 +113,12 @@ export default {
       display: flex;
       font-size: 16px;
       align-items: center;
-      color: $grey-4;
+      color: $alt-grey-3;
       margin: 10px;
       width: 80px;
       height: 30px;
       &.label {
-        color: $purple-6;
+        color: $purple-4;
         width: 40px;
         font-weight: bold;
       }
@@ -137,7 +137,7 @@ export default {
     display: flex;
     align-items: center;
     padding-left: 16px;
-    color: $red-2;
+    color: $red-5;
   }
   .submit {
     width: 100%;

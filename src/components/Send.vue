@@ -286,7 +286,7 @@ export default {
   .entry {
     font-weight: bold;
     font-size: 16px;
-    color: $grey-6;
+    color: $alt-grey-5;
   }
   .value {
     max-width: 200px;
@@ -298,7 +298,7 @@ export default {
     width: 300px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid $grey-1;
+    border-bottom: 1px solid $alt-grey-1;
     .column {
       display: flex;
       flex-direction: column;

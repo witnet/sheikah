@@ -26,7 +26,7 @@
       </template>
       <InformativeContent :subtitle="subtitle" :texts="texts" />
       <div class="container">
-        <router-link data-test="next-step" class="router-link" to="/ftu/seed-type-selection">
+        <router-link data-test="create-a" class="router-link" to="/ftu/seed-type-selection">
           Let's do it
         </router-link>
       </div>
@@ -85,12 +85,12 @@ export default {
 
 .header {
   align-items: center;
-  background: $purple-6;
+  background: $purple-4;
   display: flex;
   font-size: 24px;
   font-weight: 100;
   height: 100px;
   padding: 0 24px;
-  color: $grey-0;
+  color: $grey-1;
 }
 </style>

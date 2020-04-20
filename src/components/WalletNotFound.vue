@@ -65,7 +65,7 @@ export default {
       background-color: $white;
       .link {
         line-height: 1.5;
-        color: $grey-3;
+        color: $alt-grey-5;
       }
     }
   }

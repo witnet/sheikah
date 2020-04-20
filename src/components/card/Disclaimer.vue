@@ -126,12 +126,12 @@ export default {
 }
 
 .card-navigation {
-  background: $purple-6;
+  background: $purple-4;
   color: $white;
   box-shadow: $default-box-shadow;
   width: 600px;
   min-height: 400px;
-  border: 1px solid $purple-6;
+  border: 1px solid $purple-4;
 
   .header {
     color: $white;
@@ -191,7 +191,7 @@ export default {
   max-width: 600px;
   .sub-title {
     text-align: center;
-    color: $grey-4;
+    color: $alt-grey-3;
     font-size: 14px;
     margin: 0px 32px;
   }

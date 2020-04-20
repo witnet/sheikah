@@ -56,7 +56,7 @@ export default {
       color: white;
     }
     &.dark {
-      color: $grey-5;
+      color: $alt-grey-5;
     }
   }
   .text {
@@ -68,7 +68,7 @@ export default {
     }
 
     &.dark {
-      color: $grey-5;
+      color: $alt-grey-5;
     }
   }
 }
@@ -79,9 +79,9 @@ export default {
 .el-dropdown-menu__item {
   padding: 0px 8px;
   font-weight: bold;
-  color: $grey-3;
+  color: $alt-grey-5;
   &:not(.is-disabled):hover {
-    color: $purple-6;
+    color: $purple-4;
     font-weight: bold;
   }
 }

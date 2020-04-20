@@ -14,7 +14,7 @@
       </p>
     </div>
     <div class="container-btn">
-      <el-button class="back-btn" type="text" data-test="unlock-wallet" @click="previousStep">
+      <el-button class="back-btn" data-test="unlock-wallet" @click="previousStep">
         Back
       </el-button>
       <div class="unlock-btn" @keydown.enter.esc.prevent="unlockWallet">
@@ -95,7 +95,7 @@ export default {
   .error {
     position: absolute;
     padding-top: 16px;
-    color: $red-1;
+    color: $red-2;
   }
 }
 </style>
