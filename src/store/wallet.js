@@ -4,6 +4,7 @@ import { encodeDataRequest, standardizeWitUnits, createNotification } from '@/ut
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { WALLET_EVENTS, WIT_UNIT } from '@/constants'
 import warning from '@/resources/svg/warning.png'
+import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 
 export default {
   state: {
@@ -32,6 +33,7 @@ export default {
     },
     currency: WIT_UNIT.NANO,
     balance: {},
+    walletIdx: null,
     sessionId: null,
     walletId: null,
     addresses: [],
@@ -39,6 +41,7 @@ export default {
     mnemonics: null,
     seed: null,
     networkStatus: 'error',
+    nodeStatus: null,
     radRequestResult: null,
     transactions: [],
     txLabels: {},
@@ -50,6 +53,9 @@ export default {
   mutations: {
     setTransactions(state, { transactions }) {
       state.transactions = transactions
+    },
+    setWalletIndex(state, { walletIndex }) {
+      state.walletIdx = walletIndex
     },
     setLabels(state, { labels }) {
       state.txLabels = labels
@@ -91,6 +97,15 @@ export default {
     },
     setMnemonics(state, result) {
       Object.assign(state, { mnemonics: result })
+    },
+    setNodeStatus(state, { status, eventType }) {
+      state.nodeStatus = {
+        node: status.node.address,
+        block: status.node.last_beacon.checkpoint.toString(),
+        network: null,
+        status: eventType,
+        timestamp: Date.now(),
+      }
     },
     setWallet(state, { walletId, sessionId }) {
       state.walletId = walletId
@@ -455,7 +470,14 @@ export default {
         }
       }
     },
-
+    getWalletIndex: function(context) {
+      const walletId = context.state.walletId
+      const walletInfos = context.state.walletInfos
+      if (walletInfos) {
+        const index = walletInfos.findIndex(wallet => wallet.id === walletId)
+        context.commit('setWalletIndex', { walletIndex: index })
+      }
+    },
     getWalletInfos: async function(context) {
       const request = await context.state.api.getWalletInfos()
       if (request.result) {
@@ -471,9 +493,9 @@ export default {
     subscribeToWalletNotifications: async function(context) {
       await context.state.api.subscribeToNotifications(
         { session_id: this.state.wallet.sessionId },
-        ([notification]) => {
-          for (let event of notification.events) {
-            context.dispatch('processEvent', { event, status: notification.status })
+        ([notifications]) => {
+          for (let event of notifications.events) {
+            context.dispatch('processEvent', { event, status: notifications.status })
           }
         }
       )
@@ -512,10 +534,10 @@ export default {
     },
 
     processEvent: async function(context, rawEvent) {
-      console.log('Got event', rawEvent.event, rawEvent.status)
       const eventType = Object.keys(rawEvent.event)[0]
       let event = rawEvent.event[eventType]
       let status = rawEvent.status
+      context.commit('setNodeStatus', { status, eventType })
       if (eventType === WALLET_EVENTS.SYNC_START) {
         let [start, finish] = event
         if (finish - start > 100) {
@@ -523,22 +545,22 @@ export default {
             title: 'Starting Wallet Synchronization',
             body: `Will synchronize ${finish -
               start} blocks in total, starting with block #${start} up to the latest block in the chain (#${finish}).`,
+            icon: sheikahIcon,
           })
         }
       } else if (eventType === WALLET_EVENTS.SYNC_FINISH) {
         let [start, finish] = event
-        context.commit('setBalances', {
+        context.commit('setBalance', {
           balances: { total: status.account.balance },
         })
         createNotification({
           title: 'Completed Wallet Synchronization',
           body: `Synchronized ${finish -
             start} blocks in total.\nYour wallet is now synchronized to the latest block in the chain (#${finish}).`,
+          icon: sheikahIcon,
         })
       } else if (eventType === WALLET_EVENTS.MOVEMENT) {
         context.commit('setBalance', { total: status.account.balance })
-      } else {
-        console.log(`Unhandled ${eventType} event`, event)
       }
     },
   },

@@ -2,13 +2,16 @@
   <div class="network-status" :class="{ expanded }">
     <div class="header" :class="{ expanded }" @click="showAll = !showAll">
       <div class="dot-status">
-        <DotIndicator :status="status" url="https://api.adorable.io/avatars/1/" />
+        <DotIndicator
+          :status="status"
+          :url="`https://api.adorable.io/avatars/:${this.walletIdx}/`"
+        />
       </div>
-      <div v-if="expanded" class="wallet-info">
+      <div v-show="expanded" class="wallet-info">
         <p class="current-wallet-name">
           Witnet wallet #Inx
         </p>
-        <div v-show="expanded" :class="nodeStatus">{{ status.toUpperCase() }}</div>
+        <div :class="nodeStatus">{{ status.toUpperCase() }}</div>
       </div>
       <div v-show="expanded" class="icon">
         <img class="sort" v-if="showAll" src="@/resources/svg/short-up.svg" alt="sort-up" />
@@ -24,7 +27,7 @@
           Tracking <span class="bold"> {{ network }} </span> network
         </p>
         <p class="text">
-          Last block is <span class="bold"> {{ lastBlock }} </span> (less than a 1m ago)
+          Last block is <span class="bold"> #{{ lastBlock }} </span> ({{ timeAgo }})
         </p>
       </div>
     </transition>
@@ -33,6 +36,8 @@
 
 <script>
 import DotIndicator from '@/components/DotIndicator'
+import { timeAgo } from '../utils'
+
 export default {
   name: 'NetworkStatus',
   props: {
@@ -42,6 +47,15 @@ export default {
     node: String,
     network: String,
     lastBlock: String,
+    walletIdx: [String, Number],
+  },
+  components: {
+    DotIndicator,
+  },
+  created() {
+    setInterval(() => {
+      this.timeAgo = timeAgo(this.timestamp)
+    }, 1000)
   },
   watch: {
     expanded(expanded) {
@@ -51,6 +65,7 @@ export default {
   data() {
     return {
       showAll: false,
+      timeAgo: null,
     }
   },
   computed: {
@@ -58,12 +73,9 @@ export default {
       if (this.status === 'synced') {
         return 'status synced'
       } else {
-        return 'status error'
+        return 'status syncing'
       }
     },
-  },
-  components: {
-    DotIndicator,
   },
 }
 </script>
@@ -75,11 +87,9 @@ export default {
 .network-status {
   display: grid;
   grid-template-rows: minmax(100px, max-content);
-  // grid-template-columns: auto;
   .header {
     cursor: pointer;
     display: grid;
-    // grid-template-columns: 70px minmax(max-content, auto) 40px;
     grid-template-columns: 70px;
     align-items: center;
     justify-items: center;

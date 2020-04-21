@@ -60,7 +60,7 @@ export function standardizeWitUnits(amount, currency) {
     [`${WIT_UNIT.NANO}`]: 0,
   }
   if (currency === WIT_UNIT.NANO) {
-    return amount.toString()
+    return amount ? amount.toString() : 0
   } else {
     return (amount / Math.pow(10, units[currency])).toFixed(units[currency]).replace(/\.?0+$/, '')
   }
@@ -151,6 +151,29 @@ export function calculateTimeAgo(date) {
 
 export function formatDateVerbose(date) {
   return format(date, 'MMM do yyy')
+}
+
+export function timeAgo(date) {
+  const seconds = Math.floor((new Date() - date) / 1000)
+  const years = Math.floor(seconds / 31536000)
+  const months = Math.floor(seconds / 2592000)
+  const days = Math.floor(seconds / 86400)
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor(seconds / 60)
+
+  if (years > 1) {
+    return `${years} years ago`
+  } else if (months > 1) {
+    return `${months} months ago`
+  } else if (days > 1) {
+    return `${days} days ago`
+  } else if (hours > 1) {
+    return `${hours} hours ago`
+  } else if (minutes > 1) {
+    return `${minutes} minutes ago`
+  } else {
+    return `${Math.floor(seconds)} seconds ago`
+  }
 }
 
 // TODO(#935): allow open links with electron.shell.openExternal

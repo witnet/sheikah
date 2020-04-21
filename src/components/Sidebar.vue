@@ -11,11 +11,13 @@
     <div class="current-wallet">
       <NetworkStatus
         :windowWidth="windowWidth"
+        :walletIdx="walletIdentifier"
         :expanded="expanded"
-        :status="status"
-        :node="node"
-        :network="network"
-        :lastBlock="block"
+        :status="nodeStatus ? nodeStatus.status : 'Unknown'"
+        :node="nodeStatus ? nodeStatus.node : 'Unknown'"
+        :network="nodeStatus ? nodeStatus.network : 'Unknown'"
+        :lastBlock="nodeStatus ? nodeStatus.block : 'Unknown'"
+        :timestamp="nodeStatus ? nodeStatus.timestamp : 'Unknown'"
       />
     </div>
     <div class="link-list">
@@ -57,9 +59,13 @@ export default {
       this.windowWidth = window.innerWidth
     }
   },
+  created() {
+    this.getWalletIndex()
+  },
   data() {
     return {
       expanded: false,
+      walletIdentifier: this.walletIdx,
       windowWidth: window.innerWidth,
       node: '127.0.0.1:21338',
       network: 'T8',
@@ -80,6 +86,7 @@ export default {
   },
   methods: {
     ...mapActions({
+      getWalletIndex: 'getWalletIndex',
       closeSession: 'closeSession',
     }),
     handleOpen(key, keyPath) {
@@ -92,9 +99,16 @@ export default {
   components: {
     NetworkStatus,
   },
+  watch: {
+    walletIdx(idx) {
+      this.walletIdentifier = idx
+    },
+  },
   computed: {
     ...mapState({
+      walletIdx: state => state.wallet.walletIdx,
       status: state => state.wallet.networkStatus,
+      nodeStatus: state => state.wallet.nodeStatus,
       walletInfos: state => state.wallet.walletInfos,
     }),
   },

@@ -7,9 +7,9 @@
       <div class="row wallets">
         <Select v-model="currentWallet" :options="walletOptions" />
       </div>
-      <div class="row" @keydown.enter.esc.prevent="unlock">
+      <div class="row" @keydown.enter.esc.prevent="unlock()">
         <el-input
-          @keydown.enter.esc.prevent="unlock"
+          @keydown.enter.esc.prevent="unlock()"
           class="big"
           data-test="password"
           placeholder="Please input password"
@@ -20,12 +20,12 @@
           Invalid password
         </p>
       </div>
-      <div class="row" @keydown.enter.esc.prevent="unlock">
+      <div class="row" @keydown.enter.esc.prevent="unlock()">
         <el-button
           class="big"
           ref="submit"
           data-test="unlock-wallet"
-          @click="unlock"
+          @click="unlock()"
           type="primary"
           :disabled="disableButton"
         >
@@ -116,7 +116,7 @@ export default {
         return {
           primaryText: `My personal Witnet Wallet #${index}`,
           value: wallet.id,
-          img: `https://api.adorable.io/avatars/${index}/`,
+          img: `https://api.adorable.io/avatars/:${index}/`,
         }
       })
     },

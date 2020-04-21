@@ -106,6 +106,10 @@ export default {
   padding: 24px;
   white-space: pre-wrap;
   width: 100%;
+  &:hover {
+    border: $input_big-hover-border;
+    box-shadow: $input_big-hover-box-shadow;
+  }
 }
 
 .seed-text {
