@@ -6,6 +6,7 @@ module.exports = {
     'src/components/AddressCard.vue',
     'src/components/AddressInformation.vue',
     'src/components/AddressCardButton.vue',
+    'src/components/AddressList.vue',
     'src/components/Balance.vue',
     'src/components/BalanceButtons.vue',
     'src/components/BalanceData.vue',
