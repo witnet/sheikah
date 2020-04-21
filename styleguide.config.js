@@ -3,6 +3,7 @@ const path = require('path')
 module.exports = {
   title: 'Sheikah Style Guide',
   components: [
+    'src/components/AddressCardButton.vue',
     'src/components/Balance.vue',
     'src/components/BalanceButtons.vue',
     'src/components/BalanceData.vue',
