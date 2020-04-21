@@ -1,6 +1,12 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
-import { addToList, encodeDataRequest, standardizeWitUnits, createNotification } from '@/utils'
+import {
+  encodeDataRequest,
+  standardizeWitUnits,
+  createNotification,
+  changeDateFormat,
+  timeAgo,
+} from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { WIT_UNIT } from '@/constants'
 import warning from '@/resources/svg/warning.png'
@@ -50,18 +56,40 @@ export default {
   mutations: {
     setTransactions(state, { transactions }) {
       state.transactions = transactions.map(transaction => {
-        let date = new Date(transaction.timestamp * 1000)
+        let transactionType = null
+        transaction.transaction.data.value_transfer
+          ? (transactionType = 'value_transfer')
+          : (transactionType = 'data_request')
+        const inputs = transaction.transaction.data[transactionType].inputs.map(input => {
+          return {
+            value: standardizeWitUnits(input.value, state.currency),
+            address: input.address,
+          }
+        })
+        const outputs = transaction.transaction.data[transactionType].outputs.map(output => {
+          return {
+            value: standardizeWitUnits(output.value, state.currency),
+            address: output.address,
+          }
+        })
         return {
-          id: transaction.hex_hash,
-          address: '',
-          amount: standardizeWitUnits(transaction.value, state.currency),
-          block: transaction.block ? transaction.block.epoch : 'PENDING',
-          date: `${date.toLocaleDateString('en-US')} at ${date.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false,
-          })}`,
-          label: addToList(transaction.hex_hash, state.txLabels, 'label'),
+          id: transaction.transaction.hash,
+          type: transaction.type,
+          inputs: inputs,
+          outputs: outputs,
+          fee: transaction.transaction.miner_fee,
+          date: changeDateFormat(transaction.transaction.timestamp),
+          timeAgo: timeAgo(transaction.transaction.timestamp),
+          label: '',
+          amount: standardizeWitUnits(transaction.amount, state.currency),
+          block: transaction.transaction.block.block_hash,
+          witnesses: null,
+          rewards: null,
+          rounds: null,
+          currentStage: transaction.transaction.tally ? 'FINALIZED' : 'IN PROGRESS',
+          reveals: transaction.transaction.tally ? transaction.transaction.tally.reveals : null,
+          finalResult: transaction.transaction.tally ? transaction.transaction.tally.result : null,
+          transactionType: transactionType,
         }
       })
     },
@@ -238,11 +266,13 @@ export default {
     },
     sendTransaction: async function(context, { label }) {
       const transactionToSend = context.state.generatedTransaction
+      console.log('transaction to send', transactionToSend)
       const request = await context.state.api.sendTransaction({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
-        transaction: context.state.generatedTransaction.transaction,
+        transaction: transactionToSend.transaction,
       })
+      console.log(request)
       if (request.result) {
         console.log('----- Template deployed successfully -----')
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
@@ -285,6 +315,7 @@ export default {
         fee: parameters.fee,
         request: {
           data_request: encodeDataRequest(request),
+          collateral: parameters.collateral,
           witness_reward: parameters.rewardFee,
           witnesses: parameters.witnesses,
           backup_witnesses: parameters.backupWitnesses,
@@ -298,10 +329,12 @@ export default {
       }
 
       const req = await context.state.api.createDataRequest(data)
+      console.log(req)
       if (req.result) {
         const generatedTransaction = req.result
         context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
       } else {
+        console.log(req.error)
         context.commit('setError', {
           name: 'createDataRequest',
           error: req.error.message,

@@ -36,7 +36,7 @@
       v-else-if="showFillVariablesForm"
       :backWord="variables.length ? 'Back' : 'Cancel'"
       v-on:go-back="() => goBack('FORM')"
-      v-on:create-dr="createDataRequest"
+      v-on:create-dr="createDR"
     />
     <CompleteVariablesForm
       v-else
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import CreateDataRequestForm from '@/components/CreateDataRequestForm'
 import CompleteVariablesForm from '@/components/CompleteVariablesForm'
 import ConfirmDataRequest from '@/components/ConfirmDataRequest'
@@ -111,15 +111,18 @@ export default {
       tallyFee: null,
       timelock: null,
       witnesses: null,
+      collateral: null,
     }
   },
   methods: {
     ...mapMutations({
       clearGeneratedTransaction: 'clearGeneratedTransaction',
       clearError: 'clearError',
-      createDataRequest: 'createDataRequest',
-      sendTransaction: 'sendTransaction',
       setCurrentTemplate: SET_CURRENT_TEMPLATE,
+    }),
+    ...mapActions({
+      sendTransaction: 'sendTransaction',
+      createDataRequest: 'createDataRequest',
     }),
     goBack(from) {
       if (from === 'CONFIRM') {
@@ -157,7 +160,7 @@ export default {
     showCreateDataRequestForm() {
       this.variablesUpdated = true
     },
-    createDataRequest(parameters) {
+    createDR(parameters) {
       this.backupWitnesses = parameters.backupWitnesses
       this.commitFee = parameters.commitFee
       this.extraCommitRounds = parameters.extraCommitRounds
@@ -169,6 +172,8 @@ export default {
       this.tallyFee = parameters.tallyFee
       this.timelock = this.template.radRequest.timelock
       this.witnesses = parameters.witnesses
+      this.collateral = parameters.collateral
+      console.log('params', parameters)
       this.createDataRequest({
         parameters: parameters,
         request: this.template.radRequest,

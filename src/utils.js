@@ -103,7 +103,11 @@ export function changeDateFormat(timestamp) {
 }
 
 export function timeAgo(date) {
-  const seconds = Math.floor((new Date() - date) / 1000)
+  let d = date
+  const timestamplength = date.toString().length
+  timestamplength < 13 ? (d = date + '000') : (d = date)
+
+  const seconds = Math.floor((new Date() - d) / 1000)
   const years = Math.floor(seconds / 31536000)
   const months = Math.floor(seconds / 2592000)
   const days = Math.floor(seconds / 86400)

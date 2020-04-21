@@ -7,11 +7,11 @@
           <span :class="`number ${origin.toLowerCase()}`">{{ amount }}</span>
           <span class="wit">{{ currency }}</span>
         </div>
-        <div v-show="transactionType === 'vtt'" class="address-container">
+        <div v-show="transactionType === 'value_transfer'" class="address-container">
           <p class="origin">{{ origin }}</p>
           <p class="address">{{ address }}</p>
         </div>
-        <div v-show="transactionType === 'dr'" class="address-container">
+        <div v-show="transactionType === 'data_request'" class="address-container">
           <p class="address">Data request</p>
         </div>
         <div class="">
@@ -26,30 +26,30 @@
           <p class="info">{{ block }}</p>
           <p class="label">Timestamp</p>
           <p class="info">{{ date }}</p>
-          <p v-show="transactionType === 'dr'" class="label">Witnessess</p>
-          <p v-show="transactionType === 'dr'" class="info">
-            {{ amount }}<span class="light"> as a minimum, with </span>{{ amount }}
+          <p v-show="transactionType === 'data_request' && witnesses" class="label">Witnessess</p>
+          <p v-show="transactionType === 'data_request' && witnesses" class="info">
+            {{ witnesses }}<span class="light"> as a minimum, with </span>{{ witnesses }}
             <span class="light">as backup</span>
           </p>
-          <p v-show="transactionType === 'dr'" class="label">Rewards</p>
-          <p v-show="transactionType === 'dr'" class="info">
-            {{ amount }} <span class="light">for each witness </span>+ {{ amount }}
+          <p v-show="transactionType === 'data_request' && rewards" class="label">Rewards</p>
+          <p v-show="transactionType === 'data_request' && rewards" class="info">
+            {{ rewards }} <span class="light">for each witness </span>+ {{ rewards }}
             <span class="light">in total for miners</span>
           </p>
-          <p v-show="transactionType === 'dr'" class="label">Rounds</p>
-          <p v-show="transactionType === 'dr'" class="info">
-            <span class="light">Maximum</span> {{ amount }}
-            <span class="light">commit rounds </span>+ {{ amount }}
+          <p v-show="transactionType === 'data_request' && rounds" class="label">Rounds</p>
+          <p v-show="transactionType === 'data_request' && rounds" class="info">
+            <span class="light">Maximum</span> {{ rounds }}
+            <span class="light">commit rounds </span>+ {{ rounds }}
             <span class="light">reveal rounds</span>
           </p>
-          <p v-show="transactionType === 'dr'" class="label">Current stage</p>
-          <p v-show="transactionType === 'dr'" class="info">{{ state }}</p>
-          <p v-show="transactionType === 'dr'" class="label">Reveals</p>
+          <p v-show="transactionType === 'data_request'" class="label">Current stage</p>
+          <p v-show="transactionType === 'data_request'" class="info">{{ state }}</p>
+          <p v-show="transactionType === 'data_request' && reveals" class="label">Reveals</p>
           <div class="info">
             <div
               v-for="reveal in reveals"
               :key="reveal.address"
-              v-show="transactionType === 'dr'"
+              v-show="transactionType === 'data_request'"
               class="reveal"
             >
               <font-awesome-icon
@@ -60,8 +60,8 @@
               <div class="result">{{ reveal.result }}</div>
             </div>
           </div>
-          <p v-show="transactionType === 'dr'" class="label">Final result</p>
-          <p v-show="transactionType === 'dr'" class="info">{{ result }}</p>
+          <p v-show="transactionType === 'data_request' && result" class="label">Final result</p>
+          <p v-show="transactionType === 'data_request'" class="info">{{ result }}</p>
         </div>
         <div class="inputs-outputs">
           <div class="box inputs">
@@ -69,7 +69,7 @@
             <div class="tx" v-for="(input, index) in inputs" :key="input.address">
               <p class="index"># {{ index }}</p>
               <p class="amount">
-                {{ input.amount }} <span class="currency"> {{ currency }} </span>
+                {{ input.value }} <span class="currency"> {{ currency }} </span>
               </p>
               <p class="address">{{ input.address }}</p>
             </div>
@@ -79,14 +79,14 @@
             <div class="tx" v-for="(output, index) in outputs" :key="output.address">
               <p class="index"># {{ index }}</p>
               <p class="amount">
-                {{ output.amount }} <span class="currency"> {{ currency }} </span>
+                {{ output.value }} <span class="currency"> {{ currency }} </span>
               </p>
               <p class="address">{{ output.address }}</p>
             </div>
             <div class="tx">
               <p class="index">FEE</p>
               <p class="amount">
-                {{ fee.amount }} <span class="currency"> {{ currency }} </span>
+                {{ fee }} <span class="currency"> {{ currency }} </span>
               </p>
               <p class="address">{{ fee.address }}</p>
             </div>
@@ -118,7 +118,7 @@ export default {
     date: String,
     timeAgo: String,
     label: String,
-    fee: Object,
+    fee: Number,
     id: String,
     outputs: Array,
     inputs: Array,

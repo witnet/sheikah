@@ -79,6 +79,7 @@ export default {
         rewardFee: 1,
         tallyFee: 1,
         witnesses: 3,
+        collateral: 1000000000,
       },
       rules: {
         backupWitnesses: [
