@@ -5,6 +5,7 @@ describe('Create Wallet', () => {
     // Go to ftu form when the wallet contains a created wallet
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/')
+    cy.wait(5000)
     if (Cypress.env().is_wallet_created) {
       cy.get('[data-test=select-btn]').click({ force: true })
       cy.get('[data-test=option-0]').click({ force: true })
@@ -39,6 +40,7 @@ describe('Create Wallet', () => {
   it('Show error when mnemonics don´t match', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/')
+    cy.wait(5000)
     cy.get('[data-test=create-wallet]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })
@@ -57,6 +59,7 @@ describe('Create Wallet', () => {
   it('Show error when passwords don´t match', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/')
+    cy.wait(5000)
     cy.get('[data-test=create-wallet]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })
@@ -82,6 +85,7 @@ describe('Create Wallet', () => {
   it('Show previous and next view when the button is clicked', () => {
     // Cypress.config('baseUrl', 'http://localhost:8080')
     cy.visit('/')
+    cy.wait(5000)
     cy.get('[data-test=create-wallet]').click({ force: true })
     cy.get('[data-test=new-seed-option]').click({ force: true })
     cy.get('[data-test=next-step]').click({ force: true })

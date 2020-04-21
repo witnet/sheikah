@@ -30,6 +30,7 @@ export default {
       checkNetworkStatus: 'checkNetworkStatus',
     }),
     ...mapActions({
+      getWalletIndex: 'getWalletIndex',
       getWalletInfos: 'getWalletInfos',
     }),
   },

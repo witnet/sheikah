@@ -1,22 +1,30 @@
 <template>
-  <img :class="setStatus(status)" :src="url" alt="avatar" />
+  <img :class="nodeStatus" :src="url" alt="avatar" />
 </template>
 
 <script>
+import { WALLET_EVENTS } from '@/constants'
+
 export default {
   name: 'DotIndicator',
   props: {
     status: String,
     url: String,
   },
-  methods: {
-    setStatus(status) {
-      if (status === 'synced') {
-        return 'synced'
-      } else if (status === 'syncing') {
-        return 'syncing'
+  computed: {
+    nodeStatus() {
+      if (this.status === WALLET_EVENTS.BLOCK) {
+        return 'status block'
+      } else if (this.status === WALLET_EVENTS.MOVEMENT) {
+        return 'status movement'
+      } else if (this.status === WALLET_EVENTS.SYNC_FINISH) {
+        return 'status sync-finished'
+      } else if (this.status === WALLET_EVENTS.SYNC_PROGRESS) {
+        return 'status sync-progress'
+      } else if (this.status === WALLET_EVENTS.SYNC_START) {
+        return 'status sync-start'
       } else {
-        return 'error'
+        return 'status syncing'
       }
     },
   },
@@ -26,21 +34,26 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
 
-.synced {
+.status {
   width: 30px;
+  border-radius: 4px;
+}
+.block {
   border: 2px solid $green-5;
-  border-radius: 4px;
 }
-
-.syncing {
-  width: 30px;
+.movement {
+  border: 2px solid $purple-4;
+}
+.sync-finished {
+  border: 2px solid $green-5;
+}
+.sync-progress {
   border: 2px solid $yellow-4;
-  border-radius: 4px;
 }
-
-.error {
-  width: 30px;
-  border: 2px solid $red-5;
-  border-radius: 4px;
+.sync-start {
+  border: 2px solid $yellow-4;
+}
+.syncing {
+  border: 2px solid $yellow-4;
 }
 </style>
