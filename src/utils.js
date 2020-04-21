@@ -1,4 +1,5 @@
 import cbor from 'cbor'
+import { format } from 'date-fns'
 import uuidv4 from 'uuid/v4'
 import { WIT_UNIT } from '@/constants'
 
@@ -88,7 +89,7 @@ export function match(value, options, result) {
   return search ? search.result : null
 }
 
-export function changeDateFormat(string) {
+export function formatDateDash(string) {
   let date = new Date(string)
   let month = '' + (date.getMonth() + 1)
   let day = '' + date.getDate()
@@ -101,6 +102,10 @@ export function changeDateFormat(string) {
     day = '0' + day
   }
   return `${day}-${month}-${year}`
+}
+
+export function formatDateVerbose(date) {
+  return format(date, 'MMM do yyy')
 }
 
 // TODO(#935): allow open links with electron.shell.openExternal
@@ -151,23 +156,13 @@ export function formatSectionApiErrorsByRoute(routeName, errorsMap, apiErrors) {
     }))
 }
 
-export function copyToClipboard(id) {
-  let textToCopy = document.getElementById(id)
-  let currentRange
-  if (document.getSelection().rangeCount > 0) {
-    currentRange = document.getSelection().getRangeAt(0)
-    window.getSelection().removeRange(currentRange)
-  } else {
-    currentRange = false
-  }
-  let CopyRange = document.createRange()
-  CopyRange.selectNode(textToCopy)
-  window.getSelection().addRange(CopyRange)
+export function copyToClipboard(str) {
+  const el = document.createElement('textarea')
+  el.value = str
+  document.body.appendChild(el)
+  el.select()
   document.execCommand('copy')
-  window.getSelection().removeRange(CopyRange)
-  if (currentRange) {
-    window.getSelection().addRange(currentRange)
-  }
+  document.body.removeChild(el)
 }
 
 // Get the native javascript type from the radon markup argument type

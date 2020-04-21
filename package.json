@@ -33,6 +33,7 @@
     "axios": "^0.19.1",
     "cbor": "^4.1.5",
     "core-js": "^3.4.4",
+    "date-fns": "^2.12.0",
     "element-ui": "^2.4.5",
     "rpc-websockets": "^4.3.5",
     "tar": "^6.0.1",

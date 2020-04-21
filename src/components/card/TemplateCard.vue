@@ -59,7 +59,7 @@
 
 <script>
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
-import { changeDateFormat } from '@/utils'
+import { formatDateDash } from '@/utils'
 import FrameOutside from '@/components/FrameOutside'
 import { mapActions, mapMutations } from 'vuex'
 
@@ -104,7 +104,7 @@ export default {
           },
         },
       ],
-      dateFormated: changeDateFormat(this.date),
+      dateFormated: formatDateDash(this.date),
       showInput: false,
       isModalActivated: false,
     }

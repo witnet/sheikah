@@ -4,6 +4,7 @@ module.exports = {
   title: 'Sheikah Style Guide',
   components: [
     'src/components/AddressCard.vue',
+    'src/components/AddressInformation.vue',
     'src/components/AddressCardButton.vue',
     'src/components/Balance.vue',
     'src/components/BalanceButtons.vue',
