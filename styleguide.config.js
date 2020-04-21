@@ -9,6 +9,7 @@ module.exports = {
     'src/components/Fieldset.vue',
     'src/components/LayoutSidebar.vue',
     'src/components/LayoutTransactions.vue',
+    'src/components/Tag.vue',
   ],
   require: [
     path.join(__dirname, './src/styles/reset.scss'),
