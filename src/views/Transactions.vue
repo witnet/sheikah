@@ -9,16 +9,16 @@
     </template>
 
     <template #addresses>
-      <ListAddresses :addresses="addresses" />
+      <Addresses :addresses="addresses" v-on:generate-address="() => generateAddress('')" />
     </template>
   </LayoutTransactions>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Balance from '@/components/Balance'
 import TransactionList from '@/components/TransactionList'
-import ListAddresses from '@/components/ListAddresses'
+import Addresses from '@/components/Addresses'
 import LayoutTransactions from '@/components/LayoutTransactions'
 
 export default {
@@ -27,7 +27,7 @@ export default {
     LayoutTransactions,
     TransactionList,
     Balance,
-    ListAddresses,
+    Addresses,
   },
   beforeCreate() {
     this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
@@ -41,9 +41,14 @@ export default {
       total: state => state.wallet.balance,
       txLabels: state => state.wallet.txLabels,
       transactions: state => state.wallet.transactions,
-      addresses: state => Array.from(state.wallet.addresses),
+      addresses: state => {
+        return Array.from(state.wallet.addresses)
+      },
       currency: state => state.wallet.currency,
     }),
+  },
+  methods: {
+    ...mapActions(['generateAddress']),
   },
 }
 </script>

@@ -42,7 +42,7 @@ export default {
   .col-right {
     display: grid;
     grid-template: auto 1fr / 1fr;
-    gap: 25px;
+    gap: 26px;
   }
 }
 </style>
