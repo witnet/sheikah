@@ -39,25 +39,26 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// TODO: change colors for variables before merge
+@import '@/styles/_colors.scss';
+
 .fieldset {
   .header {
-    margin-bottom: 25px;
+    margin-bottom: 14px;
     display: flex;
     .title {
-      color: #444258;
+      color: $alt-grey-5;
       font-size: 16px;
       font-weight: bold;
     }
 
     .subtitle {
-      color: #8280a4;
+      color: $grey-4;
       font-size: 14px;
       margin-left: 8px;
     }
 
     .helper {
-      color: #444258;
+      color: $alt-grey-5;
       font-size: 10px;
       opacity: 50%;
       font-style: italic;

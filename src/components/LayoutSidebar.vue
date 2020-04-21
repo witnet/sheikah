@@ -33,11 +33,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+
 .layout {
   display: grid;
   grid-template: 1fr / auto 1fr;
   max-height: 100vh;
   .content {
+    background: $alpha-purple;
     overflow: auto;
     padding: 25px;
   }

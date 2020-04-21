@@ -1,6 +1,5 @@
 // White & Grey
 $white: #fff;
-//TODO: update color palete
 $grey-0: #F6F6F9;
 $grey-1: #D9D8E3;
 $grey-2: #BCBBCE;
@@ -66,6 +65,13 @@ $green-7: #155C33;
 $green-8: #0B321C;
 //Orange
 $orange-0: #fdf6ec;
-$orange-1: #e6a23c;
-
-
+$orange-1: #fcf3d9;
+$orange-2: #e6a23c;
+// TODO(#1065): unify this colors to the standard palette
+$grey-icon: #828282;
+$grey-icon-background: #f2f2f2;
+$grey-border: #dfdfdb;
+$link-grey: #4f4f50;
+$link-border-grey: #e0e0e0;
+$scroll-grey: rgb(196, 196, 196, 0.5);
+$green-tag: #6fcf97;

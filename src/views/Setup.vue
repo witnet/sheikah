@@ -32,13 +32,13 @@ export default {
     background-color: $orange-0;
     width: 400px;
     .title {
-      color: $orange-1;
+      color: $orange-2;
       font-weight: bold;
       font-size: 18px;
       padding-bottom: 16px;
     }
     .description {
-      color: $orange-1;
+      color: $orange-2;
       font-size: 16px;
     }
     .link-container {

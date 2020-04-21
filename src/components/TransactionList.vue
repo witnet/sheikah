@@ -72,6 +72,7 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
+
 .transaction-list {
   width: 100%;
   .label {
@@ -90,6 +91,7 @@ export default {
     padding: 0 16px;
     border: 0.5px solid rgb(224, 224, 224);
     box-shadow: 0 0px 5px 0px rgba(29, 29, 29, 0.1);
+    background: $white;
   }
   .no-transactions-container {
     display: flex;

@@ -110,7 +110,7 @@ export default {
     background-color: $orange-0;
 
     .text {
-      color: $orange-1;
+      color: $orange-2;
     }
   }
 }
