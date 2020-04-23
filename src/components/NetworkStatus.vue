@@ -1,11 +1,11 @@
 <template>
-  <div class="network-status">
-    <div class="header" @click="showAll = !showAll">
+  <div class="network-status" :class="{ expanded }">
+    <div class="header" :class="{ expanded }" @click="showAll = !showAll">
       <div class="dot-status">
         <DotIndicator :status="status" url="https://api.adorable.io/avatars/1/" />
       </div>
-      <div class="wallet-info">
-        <p v-show="expanded" class="current-wallet-name">
+      <div v-if="expanded" class="wallet-info">
+        <p class="current-wallet-name">
           Witnet wallet #Inx
         </p>
         <div v-show="expanded" :class="nodeStatus">{{ status.toUpperCase() }}</div>
@@ -75,11 +75,12 @@ export default {
 .network-status {
   display: grid;
   grid-template-rows: minmax(100px, max-content);
-  grid-template-columns: 350px;
+  // grid-template-columns: auto;
   .header {
     cursor: pointer;
     display: grid;
-    grid-template-columns: 70px minmax(max-content, auto) 40px;
+    // grid-template-columns: 70px minmax(max-content, auto) 40px;
+    grid-template-columns: 70px;
     align-items: center;
     justify-items: center;
     font-size: $icon_status-font_size;
@@ -132,6 +133,16 @@ export default {
   .slide-leave-to {
     transform: translateY(-4%);
     transition: all 50ms ease-in 0s;
+  }
+}
+.network-status {
+  &.expanded {
+    grid-template-columns: 350px;
+  }
+}
+.header {
+  &.expanded {
+    grid-template-columns: 70px minmax(max-content, auto) 40px;
   }
 }
 </style>

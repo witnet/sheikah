@@ -4,6 +4,7 @@ $--color-primary: $purple-4;
 $--color-success: #52c41a;
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
+
 .el-input--mini .el-input__inner {
   background-color: $black;
   color: #c5c2c2;
@@ -150,5 +151,25 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   }
   .btn-prev {
     background-color: inherit;
+  }
+}
+
+.el-dropdown-menu {
+  display: block;
+  padding: 8px 0;
+  background-color: $white;
+  font-weight: bold;
+  .el-dropdown-menu__item:not(.is-disabled):hover {
+    display: block;
+    color: $purple-4;
+  }
+  &.marketplace .el-dropdown-menu__item:not(.is-disabled):hover {
+    display: block;
+    background-color: rgba(255, 183, 212, 0.246);
+    color: rgb(255, 42, 127);
+  }
+  .el-dropdown-menu__item:last-of-type:hover {
+    background-color: $red-0;
+    color: $red-5;
   }
 }

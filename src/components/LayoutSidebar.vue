@@ -34,6 +34,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
 
 .layout {
   display: grid;
@@ -42,7 +43,6 @@ export default {
   .content {
     background: $alpha-purple;
     overflow: auto;
-    padding: 25px;
   }
 }
 </style>

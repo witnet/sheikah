@@ -3,14 +3,14 @@
     <div :class="`card-layout ${style}`">
       <div class="option-btn">
         <el-dropdown @command="handleCommand">
-          <el-button class="button-options" split-button type="primary">
+          <div class="button-options" split-button type="primary">
             <img
               v-if="type === 'marketplace'"
               src="@/resources/svg/options-marketplace.svg"
               alt=""
             />
             <img v-else src="@/resources/svg/options.svg" alt="" />
-          </el-button>
+          </div>
           <el-dropdown-menu v-if="type === 'marketplace'" slot="dropdown" :class="style">
             <el-dropdown-item
               v-for="(option, index) in marketplaceOptions"
@@ -33,25 +33,25 @@
         </el-dropdown>
       </div>
       <div data-test="edit-template" class="content" @click="edit">
-        <div class="info">
-          <div class="title">
+        <div class="title">
+          <el-tooltip :content="name" placement="bottom" effect="light">
             <div ref="input" v-show="!showInput">
-              {{ name }}
+              {{ cropString(name, 15, 'end') }}
             </div>
-            <el-input
-              data-test="template-name-input"
-              v-show="showInput"
-              :placeholder="name"
-              v-model="updateName"
-            />
-          </div>
-          <div class="description">
-            {{ description }}
-          </div>
+          </el-tooltip>
+          <el-input
+            data-test="template-name-input"
+            v-show="showInput"
+            :placeholder="name"
+            v-model="updateName"
+          />
         </div>
-        <div v-show="style != 'marketplace'" class="date">
-          {{ dateFormated }}
+        <div class="description">
+          {{ description }}
         </div>
+      </div>
+      <div v-show="style != 'marketplace'" class="date">
+        {{ dateFormated }}
       </div>
     </div>
   </FrameOutside>
@@ -59,7 +59,7 @@
 
 <script>
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
-import { changeDateFormat } from '@/utils'
+import { changeDateFormat, cropString } from '@/utils'
 import FrameOutside from '@/components/FrameOutside'
 import { mapActions, mapMutations } from 'vuex'
 
@@ -130,6 +130,7 @@ export default {
     },
   },
   methods: {
+    cropString,
     ...mapMutations({
       setCurrentTemplate: SET_CURRENT_TEMPLATE,
     }),
@@ -170,79 +171,49 @@ export default {
     cursor: pointer;
   }
 }
-.el-dropdown-menu {
-  display: block;
-  padding: 8px 0;
-  font-weight: bold;
-  .el-dropdown-menu__item:not(.is-disabled):hover {
-    display: block;
-    color: $purple-4;
-  }
-  &.marketplace .el-dropdown-menu__item:not(.is-disabled):hover {
-    display: block;
-    background-color: rgba(255, 183, 212, 0.246);
-    color: rgb(255, 42, 127);
-  }
-  .el-dropdown-menu__item:last-of-type:hover {
-    background-color: $red-0;
-    color: $red-5;
-  }
-}
-.el-button--primary:focus,
-.el-button--primary:hover,
-.el-button--primary:active {
-  background: none;
-  color: inherit;
-}
 .card-layout {
-  width: 250px;
-  height: 250px;
-  background-color: $purple-0;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 50px 200px 50px;
+  align-items: center;
+  grid-template-columns: 250px;
+  background-color: $white;
   border-radius: 2px;
   margin: 16px;
-  padding: 16px;
-  border: 2px solid $grey-1;
+  height: 300px;
+  border: 1px solid $grey-1;
   box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
   &.marketplace {
     background: none;
   }
   &:hover {
-    border: 2px solid $purple-4;
+    border: 1px solid $purple-3;
   }
   &.marketplace:hover {
-    border: 2px solid rgb(255, 42, 127);
+    border: 1px solid rgb(255, 42, 127);
   }
   &.option-btn,
   .title,
   .description {
-    padding: 16px;
-  }
-  .date {
-    color: $alt-grey-3;
-    text-align: right;
+    overflow: hidden;
+    margin: 24px 32px;
+    width: inherit;
   }
   .edit-btn {
-    padding-left: 8px;
     display: block;
-    color: $purple-4;
+    color: $alpha-purple;
   }
   .option-btn {
-    flex: 1;
-    text-align: right;
-    padding: 0px;
+    padding-right: 16px;
+    justify-self: right;
   }
   .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex: 3;
+    align-self: flex-start;
     &:hover {
       cursor: pointer;
     }
     .title {
+      white-space: nowrap;
+      height: min-content;
       font-size: 20px;
       color: $black;
     }
@@ -250,6 +221,11 @@ export default {
       color: $alt-grey-3;
       line-height: 1.5em;
     }
+  }
+  .date {
+    padding-left: 16px;
+    width: 250px;
+    color: $alt-grey-3;
   }
 }
 </style>

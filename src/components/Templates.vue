@@ -237,10 +237,10 @@ export default {
 <style lang="scss">
 @import '@/styles/_colors.scss';
 .templates-bar {
-  border-bottom: 1px solid $grey-1;
+  background-color: $white;
   display: flex;
   flex-flow: row wrap;
-  height: 64px;
+  height: 70px;
   text-align: right;
 
   .icon {
@@ -263,7 +263,7 @@ export default {
 
     &:hover {
       cursor: pointer;
-      background-color: $purple-0;
+      background-color: $alpha-purple;
     }
   }
 }
@@ -297,10 +297,11 @@ export default {
   }
   .add {
     box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
-    border: 2px solid $grey-1;
+    border: 1px solid $grey-1;
+    background-color: $white;
     display: flex;
     width: 250px;
-    height: 250px;
+    height: 300px;
     justify-content: center;
     align-items: center;
     margin: 16px;
@@ -309,7 +310,7 @@ export default {
     }
     &:hover {
       cursor: pointer;
-      border: 2px solid $purple-4;
+      border: 1px solid $purple-4;
     }
   }
 }

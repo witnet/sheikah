@@ -8,6 +8,7 @@
         v-on:select-address="selectAddress"
       />
       <AddressInformation
+        v-if="selectedAddress"
         :pkh="selectedAddress.pkh"
         :index="selectedIndex"
         :used="selectedAddress.used"

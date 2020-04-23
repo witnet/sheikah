@@ -67,11 +67,6 @@ export default {
     },
   },
   methods: {
-    resize(address) {
-      return address.length > 32
-        ? `${address.substring(0, 16)}...${address.substring(17, 32)}`
-        : address
-    },
     handleCurrentChange(val) {
       this.currentPage = val
     },

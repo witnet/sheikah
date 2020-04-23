@@ -5,11 +5,10 @@
       class="card"
       v-for="social in socials"
       :key="social.content"
+      :url="social.url"
     >
       <template v-slot:header>
-        <a :href="social.url" target="_blank">
-          {{ social.header }}
-        </a>
+        {{ social.header }}
       </template>
       <template v-slot:content>
         {{ social.content }}
@@ -96,13 +95,11 @@ export default {
 @import '@/styles/theme.scss';
 
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 650px);
+  justify-content: center;
   .card {
-    flex: 0 1 calc(49% - 1em);
-    margin: 8px;
+    margin: 24px;
   }
 }
 

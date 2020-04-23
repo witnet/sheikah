@@ -1,5 +1,5 @@
 <template>
-  <div class="card-layout">
+  <a :href="url" target="_blank" class="card-layout">
     <div class="clip">
       <div class="header">
         <slot name="header"></slot>
@@ -11,12 +11,15 @@
         <slot name="icon-social"></slot>
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
 export default {
   name: 'CommunityCard',
+  props: {
+    url: String,
+  },
 }
 </script>
 
@@ -25,8 +28,10 @@ export default {
 @import '@/styles/theme.scss';
 
 .card-layout {
-  box-shadow: 1px 3px 11px 0px rgba(158, 158, 158, 0.445);
-  margin: 32px;
+  box-shadow: $default-box-shadow;
+  border: 1px solid $purple-4;
+  border-radius: 2px;
+  background: $white;
   padding: 32px 0px 0px 32px;
   display: flex;
 

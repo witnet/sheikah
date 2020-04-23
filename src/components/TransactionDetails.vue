@@ -58,7 +58,9 @@
             :class="reveal.in_consensus ? 'consensed' : 'not-consensed'"
             icon="circle"
           />
-          <div data-test="reveal-address" class="address">{{ reveal.address }}</div>
+          <div data-test="reveal-address" class="address">
+            {{ cropString(reveal.address, 32, 'middle') }}
+          </div>
           <div data-test="reveal-result" class="result">{{ reveal.result }}</div>
         </div>
       </div>
@@ -71,6 +73,8 @@
 </template>
 
 <script>
+import { cropString } from '@/utils'
+
 export default {
   name: 'Transaction',
   data() {
@@ -89,6 +93,9 @@ export default {
     reveals: Array,
     result: String,
     transactionType: String,
+  },
+  methods: {
+    cropString,
   },
 }
 </script>

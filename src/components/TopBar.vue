@@ -1,10 +1,5 @@
 <template>
   <div class="top-bar">
-    <div class="tabs">
-      <router-link v-for="tab in tabs" :key="tab.link" class="link" :to="tab.link">{{
-        tab.name
-      }}</router-link>
-    </div>
     <slot name="tool"></slot>
   </div>
 </template>
@@ -27,8 +22,8 @@ export default {
   border-bottom: 1px solid $grey-1;
   display: flex;
   flex-flow: row wrap;
-  height: 64px;
-  justify-content: space-between;
+  height: 70px;
+  justify-content: flex-end;
   padding-left: 24px;
   .tabs {
     display: flex;
@@ -36,7 +31,7 @@ export default {
     .link {
       color: $alt-grey-1;
       font-weight: bold;
-      height: 64px;
+      height: 70px;
       line-height: 25px;
       padding: 16px 24px;
       text-decoration: none;

@@ -82,6 +82,7 @@ export default {
 
 .top-bar {
   position: relative;
+  background-color: $white;
   border-bottom: 1px solid $grey-1;
   display: flex;
   flex-flow: row wrap;
@@ -107,7 +108,7 @@ export default {
 
     &:hover {
       cursor: pointer;
-      background-color: $purple-0;
+      background-color: $alpha-purple;
     }
   }
 
@@ -122,7 +123,7 @@ export default {
     align-items: center;
 
     &:hover {
-      background-color: $purple-0;
+      background-color: $alpha-purple;
     }
 
     .back-btn {
