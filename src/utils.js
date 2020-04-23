@@ -102,7 +102,8 @@ export function changeDateFormat(timestamp) {
   return `${month} ${day}, ${year} @ ${time}`
 }
 
-export function timeAgo(date) {
+/// calculate the time passed from a given date
+export function calculateTimeAgo(date) {
   let d = date
   const timestamplength = date.toString().length
   timestamplength < 13 ? (d = date + '000') : (d = date)

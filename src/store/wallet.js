@@ -5,7 +5,7 @@ import {
   standardizeWitUnits,
   createNotification,
   changeDateFormat,
-  timeAgo,
+  calculateTimeAgo,
 } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { WIT_UNIT } from '@/constants'
@@ -79,7 +79,7 @@ export default {
           outputs: outputs,
           fee: transaction.transaction.miner_fee,
           date: changeDateFormat(transaction.transaction.timestamp),
-          timeAgo: timeAgo(transaction.transaction.timestamp),
+          timeAgo: calculateTimeAgo(transaction.transaction.timestamp),
           label: '',
           amount: standardizeWitUnits(transaction.amount, state.currency),
           block: transaction.transaction.block.block_hash,
@@ -266,13 +266,11 @@ export default {
     },
     sendTransaction: async function(context, { label }) {
       const transactionToSend = context.state.generatedTransaction
-      console.log('transaction to send', transactionToSend)
       const request = await context.state.api.sendTransaction({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
         transaction: transactionToSend.transaction,
       })
-      console.log(request)
       if (request.result) {
         console.log('----- Template deployed successfully -----')
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
@@ -329,12 +327,10 @@ export default {
       }
 
       const req = await context.state.api.createDataRequest(data)
-      console.log(req)
       if (req.result) {
         const generatedTransaction = req.result
         context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
       } else {
-        console.log(req.error)
         context.commit('setError', {
           name: 'createDataRequest',
           error: req.error.message,

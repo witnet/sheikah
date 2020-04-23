@@ -173,7 +173,6 @@ export default {
       this.timelock = this.template.radRequest.timelock
       this.witnesses = parameters.witnesses
       this.collateral = parameters.collateral
-      console.log('params', parameters)
       this.createDataRequest({
         parameters: parameters,
         request: this.template.radRequest,
