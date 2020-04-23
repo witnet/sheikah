@@ -15,6 +15,7 @@ module.exports = {
     'src/components/TransactionDetails.vue',
     'src/components/InputsOutputs.vue',
     'src/components/Transaction.vue',
+    'src/components/NetworkStatus.vue',
     'src/components/LayoutSidebar.vue',
     'src/components/LayoutTransactions.vue',
     'src/components/Tag.vue',

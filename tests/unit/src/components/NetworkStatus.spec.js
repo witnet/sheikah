@@ -87,6 +87,9 @@ describe('Renders the correct elements when side bar is expanded, the click is t
   it('finds icon last block', () => {
     expect(wrapper.contains('[data-test="last-block"]')).toBe(true)
   })
+  it('finds icon last block', () => {
+    expect(wrapper.contains('[data-test="network"]')).toBe(true)
+  })
 })
 
 describe('Renders the correct elements when side bar is expanded, the click is triggered and data loaded', () => {
