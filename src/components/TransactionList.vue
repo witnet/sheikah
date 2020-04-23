@@ -29,7 +29,6 @@
         :transactionType="transaction.transactionType"
       />
       <div v-if="transactions.length === 0" class="no-transactions-container">
-        <img class="no-transactions-img" src="@/resources/svg/empty.svg" />
         <p class="no-transactions-text">You don't have transactions</p>
       </div>
     </div>

@@ -90,7 +90,6 @@ describe('Renders the correct elements when the transaction type is data_request
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       transactionType: 'data_request',
       state: 'IN PROGRESS',
-      result: null,
     },
   })
   it('finds the id element', () => {

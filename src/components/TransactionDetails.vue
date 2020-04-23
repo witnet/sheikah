@@ -4,7 +4,7 @@
       <p class="label">Transaction ID</p>
       <p data-test="id" class="info">{{ id }}</p>
       <p class="label">Block</p>
-      <p data-test="block" lass="info">{{ block }}</p>
+      <p data-test="block" class="info">{{ block }}</p>
       <p class="label">Timestamp</p>
       <p data-test="date" class="info">{{ date }}</p>
       <p
@@ -33,8 +33,8 @@
         Rounds
       </p>
       <p data-test="rounds" v-if="transactionType === 'data_request' && rounds" class="info">
-        <span class="light">Maximum</span> {{ rounds }} <span class="light">commit rounds </span>+
-        {{ rounds }}
+        <span class="light">Maximum</span> {{ rounds.commit }} <span class="light">commit rounds </span>+
+        {{ rounds.reveal }}
         <span class="light">reveal rounds</span>
       </p>
       <p data-test="current-stage-title" v-if="transactionType === 'data_request'" class="label">
