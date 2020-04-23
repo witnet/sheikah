@@ -173,3 +173,33 @@ export default {
   }
 }
 </style>
+
+<docs>
+### Example
+
+```jsx
+  <NetworkStatus
+    :expanded="true"
+    status="Block"
+    node="node"
+    lastBlock="last-block"
+    :walletIdx="1"
+  />
+```
+```jsx
+  <NetworkStatus
+    :expanded="true"
+    status="Unknown"
+    :walletIdx="1"
+  />
+```
+```jsx
+  <NetworkStatus
+    :expanded="true"
+    status="SyncProgress"
+    node="node"
+    lastBlock="last-block"
+    :walletIdx="1"
+  />
+```
+</docs>

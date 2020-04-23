@@ -172,7 +172,7 @@ export function timeAgo(date) {
   } else if (minutes > 1) {
     return `${minutes} minutes ago`
   } else {
-    return `${Math.floor(seconds)} seconds ago`
+    return `${seconds} seconds ago`
   }
 }
 

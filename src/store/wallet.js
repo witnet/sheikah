@@ -55,9 +55,8 @@ export default {
       state.transactions = transactions
     },
     setWalletIndex(state, { walletIndex }) {
-      let index = walletIndex
-      walletIndex === -1 ? (index = 0) : (index = walletIndex)
-      state.walletIdx = index
+      const walletInfos = state.walletInfos
+      state.walletIdx = walletIndex === -1 ? walletInfos.length : walletIndex
     },
     setLabels(state, { labels }) {
       state.txLabels = labels
@@ -104,7 +103,7 @@ export default {
       state.nodeStatus = {
         node: status.node.address,
         block: status.node.last_beacon.checkpoint.toString(),
-        network: null,
+        network: status.node.network,
         status: eventType,
         timestamp: Date.now(),
       }
@@ -378,6 +377,9 @@ export default {
       if (request.result) {
         // TODO(#706) We should receive a wallet structure instead a walletId
         context.commit('setWallet', { sessionId: request.result.session_id, walletId })
+        const walletInfos = context.state.walletInfos
+        const index = walletInfos.findIndex(wallet => wallet.id === walletId)
+        context.commit('setWalletIndex', { walletIndex: index })
         context.dispatch('subscribeToWalletNotifications')
       } else {
         context.commit('setError', { name: 'unlockWallet', error: request.error.message })
@@ -470,14 +472,6 @@ export default {
             message: 'An error occurred getting the balance',
           })
         }
-      }
-    },
-    getWalletIndex: function(context) {
-      const walletId = context.state.walletId
-      const walletInfos = context.state.walletInfos
-      if (walletInfos) {
-        const index = walletInfos.findIndex(wallet => wallet.id === walletId)
-        context.commit('setWalletIndex', { walletIndex: index })
       }
     },
     getWalletInfos: async function(context) {
