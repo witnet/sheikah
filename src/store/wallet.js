@@ -55,7 +55,9 @@ export default {
       state.transactions = transactions
     },
     setWalletIndex(state, { walletIndex }) {
-      state.walletIdx = walletIndex
+      let index = walletIndex
+      walletIndex === -1 ? (index = 0) : (index = walletIndex)
+      state.walletIdx = index
     },
     setLabels(state, { labels }) {
       state.txLabels = labels
