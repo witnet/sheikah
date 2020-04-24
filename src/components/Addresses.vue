@@ -1,13 +1,12 @@
 <template>
   <Fieldset title="Addresses" :subtitle="`${addresses.length} addresses`">
-    <div class="card">
+    <div class="card" :class="{ active: isRadiantBorderActive }">
       <AddressList
         :addresses="addresses"
         :selected="selectedIndex"
         v-on:generate-address="$emit('generate-address')"
         v-on:select-address="selectAddress"
       />
-      <!-- TODO: pass correct props when wallet implement addresses details -->
       <AddressInformation
         :pkh="selectedAddress.pkh"
         :index="selectedIndex"
@@ -26,6 +25,7 @@
 import Fieldset from '@/components/Fieldset'
 import AddressList from '@/components/AddressList'
 import AddressInformation from '@/components/AddressInformation'
+import { mapState, mapMutations } from 'vuex'
 
 /**
  * List all the addresses and show the information of the selected one
@@ -38,6 +38,11 @@ export default {
     AddressInformation,
   },
   computed: {
+    ...mapState({
+      isRadiantBorderActive: state => {
+        return state.uiInteractions.receiveTransactionClicked
+      },
+    }),
     selectedAddress() {
       return this.selectedIndex >= 0 ? this.addresses[this.selectedIndex] : { pkh: '', used: false }
     },
@@ -48,11 +53,21 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      clearTransactionClicked: 'clearTransactionClicked',
+    }),
     selectAddress(i) {
       this.selectedIndex = i
     },
   },
   watch: {
+    isRadiantBorderActive(val, oldVal) {
+      if (val) {
+        setTimeout(() => {
+          this.clearTransactionClicked()
+        }, 2000)
+      }
+    },
     addresses(val, oldVal) {
       if (val.length !== oldVal.length) {
         this.selectedIndex = val.length - 1
@@ -79,6 +94,13 @@ export default {
   border-radius: 4px;
   overflow: hidden;
   width: 350px;
+
+  box-shadow: 0px 0px 0px 0px $purple-2;
+  transition: box-shadow 0.4s linear;
+
+  &.active {
+    box-shadow: 0px 0px 6px 1px $purple-2;
+  }
 }
 </style>
 

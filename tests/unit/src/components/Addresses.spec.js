@@ -30,6 +30,15 @@ describe('Addresses.vue', () => {
             },
           ],
         },
+        ...createComponentMocks({
+          store: {
+            uiInteractions: {
+              state: {
+                receiveTransactionClicked: false,
+              },
+            },
+          },
+        }),
       })
 
       expect(wrapper.find(AddressList).exists()).toBe(true)
@@ -61,6 +70,15 @@ describe('Addresses.vue', () => {
             },
           ],
         },
+        ...createComponentMocks({
+          store: {
+            uiInteractions: {
+              state: {
+                receiveTransactionClicked: false,
+              },
+            },
+          },
+        }),
       })
 
       expect(wrapper.find(AddressInformation).exists()).toBe(true)
@@ -94,6 +112,15 @@ describe('Addresses.vue', () => {
             },
           ],
         },
+        ...createComponentMocks({
+          store: {
+            uiInteractions: {
+              state: {
+                receiveTransactionClicked: false,
+              },
+            },
+          },
+        }),
       })
 
       wrapper.find(AddressList).vm.$emit('generate-address')
@@ -129,6 +156,15 @@ describe('Addresses.vue', () => {
             },
           ],
         },
+        ...createComponentMocks({
+          store: {
+            uiInteractions: {
+              state: {
+                receiveTransactionClicked: false,
+              },
+            },
+          },
+        }),
       })
 
       wrapper.find(AddressList).vm.$emit('select-address', 0)

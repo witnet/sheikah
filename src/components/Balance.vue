@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 import BalanceButtons from '@/components/BalanceButtons'
 import BalanceData from '@/components/BalanceData'
@@ -32,7 +32,12 @@ export default {
     }
   },
   methods: {
-    onReceive() {},
+    ...mapMutations({
+      receiveTransactionClicked: 'receiveTransactionClicked',
+    }),
+    onReceive() {
+      this.receiveTransactionClicked()
+    },
     onSend() {
       this.isSendVisible = true
     },
