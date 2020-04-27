@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <p class="pkh">{{ used ? blindPkh : pkh }}</p>
+    <p class="pkh" v-if="pkh">{{ used ? blindPkh : pkh }}</p>
 
     <div v-if="!used" class="transactions">
       <Tag class="tag" color="green" text="NOT USED" />
