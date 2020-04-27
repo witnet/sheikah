@@ -128,7 +128,7 @@
             @keydown.enter.esc.prevent="createVTT"
             type="primary"
             data-test="sign-send-btn"
-            @click="createVTT"
+            @click="tryCreateVTT"
           >
             Sign and send
           </el-button>
@@ -148,6 +148,15 @@ export default {
     Alert,
   },
   data() {
+    const enoughFunds = (rule, value, callback) => {
+      const totalAmount = Number.isInteger(this.form.fee) ? value + this.form.fee : value
+      if (totalAmount > this.availableBalance) {
+        callback(new Error("You don't have enough funds"))
+      } else {
+        callback()
+      }
+    }
+
     return {
       isAdvancedVisible: false,
       form: {
@@ -165,6 +174,7 @@ export default {
         amount: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { type: 'number', message: 'This field must be a number' },
+          { validator: enoughFunds, trigger: 'submit' },
         ],
         fee: [
           { required: true, message: 'Required field', trigger: 'blur' },
@@ -175,6 +185,10 @@ export default {
   },
   computed: {
     ...mapState({
+      availableBalance: state => {
+        // TODO: change for available when wallet returns it
+        return state.wallet.balance.total
+      },
       createVTTError: state => {
         if (state.wallet.errors.createVTT) {
           return {
@@ -236,7 +250,7 @@ export default {
       this.sendTransaction({ label: this.form.label })
       this.closeDialog()
     },
-    createVTT() {
+    tryCreateVTT() {
       this.$refs['send-form'].validate(valid => {
         if (valid) {
           this.createVTT({
