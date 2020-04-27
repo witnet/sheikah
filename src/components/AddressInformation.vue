@@ -1,5 +1,9 @@
 <template>
-  <div v-if="pkh" class="information">
+  <div v-if="loading" class="information loading">
+    <DotsLoading size="10px" />
+  </div>
+
+  <div v-else-if="pkh" class="information">
     <div class="header">
       <p class="caption">
         Address <span class="number">#{{ index }}</span>
@@ -44,10 +48,10 @@
 </template>
 
 <script>
-import Tag from '@/components/Tag'
 import Amount from '@/components/Amount'
+import DotsLoading from '@/components/DotsLoading'
+import Tag from '@/components/Tag'
 import { formatDateVerbose, copyToClipboard } from '@/utils'
-
 /**
  * Show the information of a given address
  */
@@ -55,6 +59,7 @@ export default {
   name: 'AddressInformation',
   components: {
     Amount,
+    DotsLoading,
     Tag,
   },
   props: {
@@ -108,6 +113,13 @@ export default {
       required: false,
       type: Date,
     },
+    /**
+     * Indicates if a loading state should be shown
+     */
+    loading: {
+      required: false,
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -139,8 +151,14 @@ export default {
 @import '@/styles/_colors.scss';
 .information {
   padding: 25px;
-  // height: 200px;
+  min-height: 200px;
   background: $white;
+
+  &.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .header {
     align-items: center;

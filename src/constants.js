@@ -11,3 +11,6 @@ export const WALLET_EVENTS = {
   SYNC_PROGRESS: 'SyncProgress',
   SYNC_START: 'SyncStart',
 }
+
+// Generate address delay in ms
+export const GENERATE_ADDRESS_DELAY = 300

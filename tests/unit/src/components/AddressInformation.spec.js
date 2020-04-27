@@ -1,4 +1,5 @@
 import AddressInformation from '@/components/AddressInformation'
+import DotsLoading from '@/components/DotsLoading'
 import { formatDateVerbose } from '@/utils'
 
 describe('AddressInformation.vue', () => {
@@ -8,6 +9,24 @@ describe('AddressInformation.vue', () => {
       expect(wrapper.find('.information').text()).toBe(
         `You haven't generated addresses yet. Click above to generate one.`
       )
+    })
+
+    it('loading state', () => {
+      const wrapper = mount(AddressInformation, {
+        propsData: {
+          used: true,
+          index: 0,
+          pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+          unit: 'nanoWit',
+          amount: '100',
+          payments: 2,
+          firstDate: new Date(),
+          lastDate: new Date(),
+          loading: true,
+        },
+      })
+
+      expect(wrapper.find(DotsLoading).exists()).toBe(true)
     })
 
     describe('used address', () => {

@@ -3,7 +3,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'DotIndicator',
   props: {

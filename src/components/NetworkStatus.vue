@@ -13,7 +13,11 @@
           Witnet wallet #{{ walletIdx }}
         </p>
         <div class="status-container">
-          <div data-test="status" v-if="expanded" :class="['status', synced ? 'synced' : 'syncing']">
+          <div
+            data-test="status"
+            v-if="expanded"
+            :class="['status', synced ? 'synced' : 'syncing']"
+          >
             {{ synced ? 'SYNCED' : `SYNCING (${progress}%)` }}
           </div>
           <DotsLoading data-test="loading-spinner" v-if="expanded && !synced" class="spinner" />

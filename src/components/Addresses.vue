@@ -16,6 +16,7 @@
         :firstPaymentDate="selectedAddress.firstPaymentDate"
         :lastPaymentDate="selectedAddress.lastPaymentDate"
         :payments="selectedAddress.receivedPayments"
+        :loading="generateAddressLoading"
       />
     </div>
   </Fieldset>
@@ -39,6 +40,9 @@ export default {
   },
   computed: {
     ...mapState({
+      generateAddressLoading: state => {
+        return state.uiInteractions.generateAddressLoading
+      },
       isRadiantBorderActive: state => {
         return state.uiInteractions.receiveTransactionClicked
       },
@@ -55,6 +59,7 @@ export default {
   methods: {
     ...mapMutations({
       clearTransactionClicked: 'clearTransactionClicked',
+      clearGenerateAddressLoading: 'clearGenerateAddressLoading',
     }),
     selectAddress(i) {
       this.selectedIndex = i
@@ -71,6 +76,9 @@ export default {
     addresses(val, oldVal) {
       if (val.length !== oldVal.length) {
         this.selectedIndex = val.length - 1
+
+        // clear loading state
+        this.clearGenerateAddressLoading()
       }
     },
   },

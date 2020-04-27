@@ -2,7 +2,7 @@ import router from '@/router'
 import { WalletApi } from '@/api'
 import { encodeDataRequest, standardizeWitUnits, createNotification } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
-import { WALLET_EVENTS, WIT_UNIT } from '@/constants'
+import { GENERATE_ADDRESS_DELAY, WALLET_EVENTS, WIT_UNIT } from '@/constants'
 import warning from '@/resources/svg/warning.png'
 
 export default {
@@ -348,13 +348,19 @@ export default {
     },
 
     generateAddress: async function(context, { label }) {
+      context.commit('generateAddressLoading', null, { root: true })
+
       const request = await context.state.api.generateAddress({
         label,
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
       })
+
       if (request.result) {
-        context.commit('addAddress', { address: request.result })
+        // Delay to get a smoother flow
+        setTimeout(() => {
+          context.dispatch('getAddresses')
+        }, GENERATE_ADDRESS_DELAY)
       } else {
         context.commit('setError', {
           name: 'generateAddress',
