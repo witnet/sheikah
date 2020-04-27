@@ -4,8 +4,7 @@ import '../../../../src/fontAwesome'
 describe('Renders the correct elements when click is not triggered', () => {
   const wrapper = shallowMount(Transaction, {
     propsData: {
-      currency: 'nanoWits',
-      amount: '123',
+      amount: 123,
       block: '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
       border: true,
       date: 'JAN 19, 1970 @ 10:00:31',
@@ -27,12 +26,6 @@ describe('Renders the correct elements when click is not triggered', () => {
   })
   it('finds negative or positive icon', () => {
     expect(wrapper.contains('[data-test="negative-positive"]')).toBe(true)
-  })
-  it('finds the amount element', () => {
-    expect(wrapper.find('[data-test="amount"]').text()).toEqual('123')
-  })
-  it('finds the currency element', () => {
-    expect(wrapper.find('[data-test="currency"]').text()).toEqual('nanoWits')
   })
   it('finds the origin element', () => {
     expect(wrapper.find('[data-test="origin"]').text()).toEqual('From')
@@ -57,7 +50,6 @@ describe('Renders the correct elements when click is not triggered', () => {
 describe('Renders the correct elements when click is triggered and the transaction type is data_request', () => {
   const wrapper = shallowMount(Transaction, {
     propsData: {
-      currency: 'nanoWits',
       amount: '123',
       block: '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
       border: true,
@@ -80,12 +72,6 @@ describe('Renders the correct elements when click is triggered and the transacti
   })
   it('finds negative or positive icon', () => {
     expect(wrapper.contains('[data-test="negative-positive"]')).toBe(true)
-  })
-  it('finds the amount element', () => {
-    expect(wrapper.find('[data-test="amount"]').text()).toEqual('123')
-  })
-  it('finds the currency element', () => {
-    expect(wrapper.find('[data-test="currency"]').text()).toEqual('nanoWits')
   })
   it('does not find the data request element when the origin element when type is data_request', () => {
     expect(wrapper.contains('[data-test="origin"]')).toBe(false)

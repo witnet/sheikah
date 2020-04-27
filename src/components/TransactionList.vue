@@ -85,6 +85,7 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
 
 .transaction-list {
   width: 100%;
@@ -99,11 +100,11 @@ export default {
     margin-left: 8px;
   }
   .list {
-    height: 85vh;
+    height: 84vh;
     overflow: auto;
     border-radius: 4px;
     border: 0.5px solid rgb(224, 224, 224);
-    box-shadow: 0 0px 5px 0px rgba(29, 29, 29, 0.1);
+    box-shadow: $card-box-shadow;
     background-color: $white;
   }
   .no-transactions-container {
@@ -123,7 +124,7 @@ export default {
     }
   }
   .pagination-nav {
-    padding: 16px 0px 16px 0px;
+    padding: 16px 0px 0px 0px;
     text-align: center;
   }
   .title {

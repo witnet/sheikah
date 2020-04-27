@@ -33,7 +33,8 @@
         Rounds
       </p>
       <p data-test="rounds" v-if="transactionType === 'data_request' && rounds" class="info">
-        <span class="light">Maximum</span> {{ rounds.commit }} <span class="light">commit rounds </span>+
+        <span class="light">Maximum</span> {{ rounds.commit }}
+        <span class="light">commit rounds </span>+
         {{ rounds.reveal }}
         <span class="light">reveal rounds</span>
       </p>
@@ -94,9 +95,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
-@import '@/styles/theme.scss';
 
 .transaction-details {
+  margin-top: 24px;
   display: grid;
   grid-template-rows: auto auto auto;
   justify-items: center;

@@ -1,12 +1,6 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
-import {
-  encodeDataRequest,
-  standardizeWitUnits,
-  createNotification,
-  changeDateFormat,
-  calculateTimeAgo,
-} from '@/utils'
+import { encodeDataRequest, standardizeWitUnits, createNotification } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { WIT_UNIT } from '@/constants'
 import warning from '@/resources/svg/warning.png'
@@ -55,43 +49,7 @@ export default {
   },
   mutations: {
     setTransactions(state, { transactions }) {
-      state.transactions = transactions.map(transaction => {
-        let transactionType = null
-        transaction.transaction.data.value_transfer
-          ? (transactionType = 'value_transfer')
-          : (transactionType = 'data_request')
-        const inputs = transaction.transaction.data[transactionType].inputs.map(input => {
-          return {
-            value: standardizeWitUnits(input.value, state.currency),
-            address: input.address,
-          }
-        })
-        const outputs = transaction.transaction.data[transactionType].outputs.map(output => {
-          return {
-            value: standardizeWitUnits(output.value, state.currency),
-            address: output.address,
-          }
-        })
-        return {
-          id: transaction.transaction.hash,
-          type: transaction.type,
-          inputs: inputs,
-          outputs: outputs,
-          fee: transaction.transaction.miner_fee,
-          date: changeDateFormat(transaction.transaction.timestamp),
-          timeAgo: calculateTimeAgo(transaction.transaction.timestamp),
-          label: '',
-          amount: standardizeWitUnits(transaction.amount, state.currency),
-          block: transaction.transaction.block.block_hash,
-          witnesses: null,
-          rewards: null,
-          rounds: null,
-          currentStage: transaction.transaction.tally ? 'FINALIZED' : 'IN PROGRESS',
-          reveals: transaction.transaction.tally ? transaction.transaction.tally.reveals : null,
-          finalResult: transaction.transaction.tally ? transaction.transaction.tally.result : null,
-          transactionType: transactionType,
-        }
-      })
+      state.transactions = transactions
     },
     setLabels(state, { labels }) {
       state.txLabels = labels
@@ -466,7 +424,7 @@ export default {
       })
 
       if (request.result) {
-        context.commit('setTransactions', { transactions: request.result.transactions })
+        context.commit('setTransactions', { transactions: request.result })
         this.commit('clearError', { error: 'getTransactions' })
       } else {
         context.commit('setError', {

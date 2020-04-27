@@ -4,9 +4,7 @@
       <p data-test="inputs-title" class="title">INPUTS</p>
       <div class="tx" v-for="(input, index) in inputs" :key="input.address">
         <p data-test="inputs-index" class="index"># {{ index }}</p>
-        <p data-test="inputs-value" class="amount">
-          {{ input.value }}<span data-test="currency" class="currency"> {{ currency }} </span>
-        </p>
+        <Amount data-test="inputs-value" :amount="input.value" />
         <p data-test="inputs-address" class="address">{{ input.address }}</p>
       </div>
     </div>
@@ -14,16 +12,12 @@
       <p data-test="output-title" class="title">OUTPUTS</p>
       <div class="tx" v-for="(output, index) in outputs" :key="output.address">
         <p :data-test="`output-index-${index}`" class="index"># {{ index }}</p>
-        <p :data-test="`output-value-${index}`" class="amount">
-          {{ output.value }}<span data-test="currency" class="currency"> {{ currency }} </span>
-        </p>
+        <Amount :data-test="`output-value-${index}`" :amount="output.value" />
         <p :data-test="`output-address-${index}`" class="address">{{ output.address }}</p>
       </div>
       <div class="tx">
         <p data-test="fee-title" class="index">FEE</p>
-        <p data-test="fee-amount" class="amount">
-          {{ fee }}<span data-test="currency" class="currency"> {{ currency }} </span>
-        </p>
+        <Amount ata-test="fee-amount" :amount="fee" />
         <p class="address">{{ fee.address }}</p>
       </div>
     </div>
@@ -31,6 +25,8 @@
 </template>
 
 <script>
+import Amount from '@/components/Amount.vue'
+
 export default {
   name: 'Transaction',
   props: {
@@ -38,6 +34,9 @@ export default {
     fee: Number,
     outputs: Array,
     inputs: Array,
+  },
+  components: {
+    Amount,
   },
 }
 </script>

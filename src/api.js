@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { changeDateFormat, calculateTimeAgo } from '@/utils'
 const RPCWebsockets = require('rpc-websockets').Client
 
 const defaultOptions = {
@@ -47,6 +48,51 @@ class ApiClient {
   }
 }
 
+export function standardizeTransaction(response) {
+  if (response && response.error) {
+    return response
+  } else {
+    const res = response.transactions.map(transaction => {
+      let transactionType = null
+      transaction.transaction.data.value_transfer
+        ? (transactionType = 'value_transfer')
+        : (transactionType = 'data_request')
+      const inputs = transaction.transaction.data[transactionType].inputs.map(input => {
+        return {
+          value: input.value,
+          address: input.address,
+        }
+      })
+      const outputs = transaction.transaction.data[transactionType].outputs.map(output => {
+        return {
+          value: output.value,
+          address: output.address,
+        }
+      })
+      return {
+        id: transaction.transaction.hash,
+        type: transaction.type,
+        inputs: inputs,
+        outputs: outputs,
+        fee: transaction.transaction.miner_fee,
+        date: changeDateFormat(transaction.transaction.timestamp),
+        timeAgo: calculateTimeAgo(transaction.transaction.timestamp),
+        label: '',
+        amount: transaction.amount,
+        block: transaction.transaction.block.block_hash,
+        witnesses: null,
+        rewards: null,
+        rounds: null,
+        currentStage: transaction.transaction.tally ? 'FINALIZED' : 'IN PROGRESS',
+        reveals: transaction.transaction.tally ? transaction.transaction.tally.reveals : null,
+        finalResult: transaction.transaction.tally ? transaction.transaction.tally.result : null,
+        transactionType: transactionType,
+      }
+    })
+    return { result: res || true }
+  }
+}
+
 export class WalletApi {
   client
 
@@ -70,6 +116,13 @@ export class WalletApi {
         .catch(this._handleError)
   }
 
+  _callGetTransactionsMethod(methodName) {
+    return params =>
+      this.client
+        .request(methodName, params)
+        .then(standardizeTransaction)
+        .catch(this._handleError)
+  }
   async subscribeToNotifications(params, cb) {
     return this._callApiMethod('subscribe_notifications')([params.sessionId])
       .then(_ => {
@@ -94,7 +147,7 @@ export class WalletApi {
   }
 
   async getTransactions(params) {
-    return this._callApiMethod('get_transactions')(params)
+    return this._callGetTransactionsMethod('get_transactions')(params)
   }
 
   async getBalance(params) {

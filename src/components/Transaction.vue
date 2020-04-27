@@ -1,43 +1,47 @@
 <template>
   <FrameOutside @click="hideDetails" @focus="hideDetails">
-    <div class="transaction" @click="showDetails = !showDetails">
-      <img data-test="negative-positive" class="icon" :src="arrowIcon" alt="" />
-      <div class="amount">
-        <span data-test="amount" :class="`number ${origin.toLowerCase()}`">{{ amount }}</span>
-        <span data-test="currency" class="wit">{{ currency }}</span>
+    <div class="border">
+      <div class="transaction" @click="showDetails = !showDetails">
+        <img data-test="negative-positive" class="icon" :src="arrowIcon" alt="" />
+        <Amount
+          :keep="true"
+          data-test="amount"
+          :class="`amount ${origin.toLowerCase()}`"
+          :amount="amount"
+        />
+        <div v-if="transactionType === 'value_transfer'" class="address-container">
+          <p data-test="origin" class="origin">{{ origin }}</p>
+          <p data-test="address" class="address">{{ address }}</p>
+        </div>
+        <div v-if="transactionType === 'data_request'" class="address-container">
+          <p data-test="data-request-type" class="address">Data request</p>
+        </div>
+        <div class="">
+          <p data-test="time-ago" class="date">{{ timeAgo }}</p>
+        </div>
       </div>
-      <div v-if="transactionType === 'value_transfer'" class="address-container">
-        <p data-test="origin" class="origin">{{ origin }}</p>
-        <p data-test="address" class="address">{{ address }}</p>
+      <div v-if="showDetails">
+        <TransactionDetails
+          data-test="transaction-details"
+          :transactionType="transactionType"
+          :id="id"
+          :block="block"
+          :date="date"
+          :witnesses="witnesses"
+          :rewards="rewards"
+          :rounds="rounds"
+          :state="state"
+          :reveals="reveals"
+          :result="result"
+        />
+        <InputsOutputs
+          data-test="inputs-outputs"
+          :fee="fee"
+          :currency="currency"
+          :inputs="inputs"
+          :outputs="outputs"
+        />
       </div>
-      <div v-if="transactionType === 'data_request'" class="address-container">
-        <p data-test="data-request-type" class="address">Data request</p>
-      </div>
-      <div class="">
-        <p data-test="time-ago" class="date">{{ timeAgo }}</p>
-      </div>
-    </div>
-    <div v-if="showDetails">
-      <TransactionDetails
-        data-test="transaction-details"
-        :transactionType="transactionType"
-        :id="id"
-        :block="block"
-        :date="date"
-        :witnesses="witnesses"
-        :rewards="rewards"
-        :rounds="rounds"
-        :state="state"
-        :reveals="reveals"
-        :result="result"
-      />
-      <InputsOutputs
-        data-test="inputs-outputs"
-        :fee="fee"
-        :currency="currency"
-        :inputs="inputs"
-        :outputs="outputs"
-      />
     </div>
   </FrameOutside>
 </template>
@@ -46,6 +50,7 @@
 import FrameOutside from '@/components/FrameOutside'
 import TransactionDetails from '@/components/TransactionDetails'
 import InputsOutputs from '@/components/InputsOutputs'
+import Amount from '@/components/Amount.vue'
 
 export default {
   name: 'Transaction',
@@ -53,6 +58,7 @@ export default {
     FrameOutside,
     TransactionDetails,
     InputsOutputs,
+    Amount,
   },
   data() {
     return {
@@ -61,7 +67,7 @@ export default {
   },
   props: {
     currency: String,
-    amount: String,
+    amount: [String, Number],
     block: [String, Number],
     date: String,
     timeAgo: String,
@@ -104,8 +110,10 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
-.transaction {
+.border {
   border-bottom: 1px solid $grey-1;
+}
+.transaction {
   padding: 16px;
   display: grid;
   grid-template-columns: max-content max-content auto max-content;
@@ -120,23 +128,14 @@ export default {
   }
 
   .amount {
-    .number {
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-    .from {
+    font-size: 16px;
+    font-weight: bold;
+    &.from {
       color: $green-5;
     }
 
-    .to {
+    &.to {
       color: $red-4;
-    }
-
-    .wit {
-      color: $alt-grey-5;
-      margin-left: 8px;
-      font-size: 13px;
     }
   }
 
