@@ -1,4 +1,3 @@
-import { shallowMount } from '@vue/test-utils'
 import Transaction from '@/components/Transaction.vue'
 import '../../../../src/fontAwesome'
 
@@ -30,13 +29,13 @@ describe('Renders the correct elements when click is not triggered', () => {
     expect(wrapper.contains('[data-test="negative-positive"]')).toBe(true)
   })
   it('finds the amount element', () => {
-    expect(wrapper.contains('[data-test="amount"]')).toBe(true)
+    expect(wrapper.find('[data-test="amount"]').text()).toEqual('123')
   })
   it('finds the currency element', () => {
     expect(wrapper.find('[data-test="currency"]').text()).toEqual('nanoWits')
   })
   it('finds the origin element', () => {
-    expect(wrapper.contains('[data-test="origin"]')).toBe(true)
+    expect(wrapper.find('[data-test="origin"]').text()).toEqual('From')
   })
   it('finds the address element', () => {
     expect(wrapper.contains('[data-test="address"]')).toBe(true)
@@ -45,7 +44,7 @@ describe('Renders the correct elements when click is not triggered', () => {
     expect(wrapper.contains('[data-test="data-request-type"]')).toBe(false)
   })
   it('finds the time-ago element', () => {
-    expect(wrapper.contains('[data-test="time-ago"]')).toBe(true)
+    expect(wrapper.find('[data-test="time-ago"]').text()).toEqual('33 minutes ago')
   })
   it('does not find the transaction details element when the click is not triggered', () => {
     expect(wrapper.contains('[data-test="transaction-details"]')).toBe(false)
@@ -83,7 +82,7 @@ describe('Renders the correct elements when click is triggered and the transacti
     expect(wrapper.contains('[data-test="negative-positive"]')).toBe(true)
   })
   it('finds the amount element', () => {
-    expect(wrapper.contains('[data-test="amount"]')).toBe(true)
+    expect(wrapper.find('[data-test="amount"]').text()).toEqual('123')
   })
   it('finds the currency element', () => {
     expect(wrapper.find('[data-test="currency"]').text()).toEqual('nanoWits')
@@ -95,10 +94,10 @@ describe('Renders the correct elements when click is triggered and the transacti
     expect(wrapper.contains('[data-test="address"]')).toBe(false)
   })
   it('finds the data-request-type element', () => {
-    expect(wrapper.contains('[data-test="data-request-type"]')).toBe(true)
+    expect(wrapper.find('[data-test="data-request-type"]').text()).toEqual('Data request')
   })
   it('finds the time-ago element', () => {
-    expect(wrapper.contains('[data-test="time-ago"]')).toBe(true)
+    expect(wrapper.find('[data-test="time-ago"]').text()).toEqual('33 minutes ago')
   })
   it('does not find the transaction details element when the click is not triggered', () => {
     expect(wrapper.contains('[data-test="transaction-details"]')).toBe(true)

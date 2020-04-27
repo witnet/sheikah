@@ -1,45 +1,43 @@
 <template>
   <FrameOutside @click="hideDetails" @focus="hideDetails">
-    <div v-if="transactions => 1" :class="`${border ? 'border' : ''}`">
-      <div class="transaction" @click="showDetails = !showDetails">
-        <img data-test="negative-positive" class="icon" :src="arrowIcon" alt="" />
-        <div class="amount">
-          <span data-test="amount" :class="`number ${origin.toLowerCase()}`">{{ amount }}</span>
-          <span data-test="currency" class="wit">{{ currency }}</span>
-        </div>
-        <div v-if="transactionType === 'value_transfer'" class="address-container">
-          <p data-test="origin" class="origin">{{ origin }}</p>
-          <p data-test="address" class="address">{{ address }}</p>
-        </div>
-        <div v-if="transactionType === 'data_request'" class="address-container">
-          <p data-test="data-request-type" class="address">Data request</p>
-        </div>
-        <div class="">
-          <p data-test="time-ago" class="date">{{ timeAgo }}</p>
-        </div>
+    <div class="transaction" @click="showDetails = !showDetails">
+      <img data-test="negative-positive" class="icon" :src="arrowIcon" alt="" />
+      <div class="amount">
+        <span data-test="amount" :class="`number ${origin.toLowerCase()}`">{{ amount }}</span>
+        <span data-test="currency" class="wit">{{ currency }}</span>
       </div>
-      <div v-if="showDetails">
-        <TransactionDetails
-          data-test="transaction-details"
-          :transactionType="transactionType"
-          :id="id"
-          :block="block"
-          :date="date"
-          :witnesses="witnesses"
-          :rewards="rewards"
-          :rounds="rounds"
-          :state="state"
-          :reveals="reveals"
-          :result="result"
-        />
-        <InputsOutputs
-          data-test="inputs-outputs"
-          :fee="fee"
-          :currency="currency"
-          :inputs="inputs"
-          :outputs="outputs"
-        />
+      <div v-if="transactionType === 'value_transfer'" class="address-container">
+        <p data-test="origin" class="origin">{{ origin }}</p>
+        <p data-test="address" class="address">{{ address }}</p>
       </div>
+      <div v-if="transactionType === 'data_request'" class="address-container">
+        <p data-test="data-request-type" class="address">Data request</p>
+      </div>
+      <div class="">
+        <p data-test="time-ago" class="date">{{ timeAgo }}</p>
+      </div>
+    </div>
+    <div v-if="showDetails">
+      <TransactionDetails
+        data-test="transaction-details"
+        :transactionType="transactionType"
+        :id="id"
+        :block="block"
+        :date="date"
+        :witnesses="witnesses"
+        :rewards="rewards"
+        :rounds="rounds"
+        :state="state"
+        :reveals="reveals"
+        :result="result"
+      />
+      <InputsOutputs
+        data-test="inputs-outputs"
+        :fee="fee"
+        :currency="currency"
+        :inputs="inputs"
+        :outputs="outputs"
+      />
     </div>
   </FrameOutside>
 </template>
@@ -65,7 +63,6 @@ export default {
     currency: String,
     amount: String,
     block: [String, Number],
-    border: Boolean,
     date: String,
     timeAgo: String,
     label: String,
@@ -106,11 +103,9 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
-.border {
-  border-bottom: 1px solid $grey-1;
-}
 
 .transaction {
+  border-bottom: 1px solid $grey-1;
   padding: 16px;
   display: grid;
   grid-template-columns: max-content max-content auto max-content;

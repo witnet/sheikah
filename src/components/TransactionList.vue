@@ -6,7 +6,7 @@
     </p>
     <div class="list">
       <Transaction
-        v-for="(transaction, index) in paginatedItems"
+        v-for="transaction in paginatedItems"
         :key="transaction.id"
         :currency="currency"
         :type="transaction.type"
@@ -19,7 +19,6 @@
         :label="transaction.label"
         :amount="transaction.amount"
         :block="transaction.block"
-        :border="index !== transactionsLength - 1"
         :witnesses="transaction.witnesses"
         :rewards="transaction.rewards"
         :rounds="transaction.rounds"

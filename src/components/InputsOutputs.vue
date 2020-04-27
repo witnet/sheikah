@@ -5,7 +5,7 @@
       <div class="tx" v-for="(input, index) in inputs" :key="input.address">
         <p data-test="inputs-index" class="index"># {{ index }}</p>
         <p data-test="inputs-value" class="amount">
-          {{ input.value }} <span data-test="currency" class="currency"> {{ currency }} </span>
+          {{ input.value }}<span data-test="currency" class="currency"> {{ currency }} </span>
         </p>
         <p data-test="inputs-address" class="address">{{ input.address }}</p>
       </div>
@@ -13,16 +13,16 @@
     <div class="box outputs">
       <p data-test="output-title" class="title">OUTPUTS</p>
       <div class="tx" v-for="(output, index) in outputs" :key="output.address">
-        <p data-test="output-index" class="index"># {{ index }}</p>
-        <p data-test="output-value" class="amount">
-          {{ output.value }} <span data-test="currency" class="currency"> {{ currency }} </span>
+        <p :data-test="`output-index-${index}`" class="index"># {{ index }}</p>
+        <p :data-test="`output-value-${index}`" class="amount">
+          {{ output.value }}<span data-test="currency" class="currency"> {{ currency }} </span>
         </p>
-        <p data-test="output-address" class="address">{{ output.address }}</p>
+        <p :data-test="`output-address-${index}`" class="address">{{ output.address }}</p>
       </div>
       <div class="tx">
         <p data-test="fee-title" class="index">FEE</p>
         <p data-test="fee-amount" class="amount">
-          {{ fee }} <span data-test="currency" class="currency"> {{ currency }} </span>
+          {{ fee }}<span data-test="currency" class="currency"> {{ currency }} </span>
         </p>
         <p class="address">{{ fee.address }}</p>
       </div>

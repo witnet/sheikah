@@ -19,7 +19,6 @@ export default {
       this.$emit('send')
     },
     onReceive() {
-      this.$store.dispatch('generateAddress', { label: '' })
       /**
        * Emitted when send button is clicked
        * @event receive

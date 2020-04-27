@@ -104,9 +104,8 @@ export function changeDateFormat(timestamp) {
 
 /// calculate the time passed from a given date
 export function calculateTimeAgo(date) {
-  let d = date
-  const timestamplength = date.toString().length
-  timestamplength < 13 ? (d = date + '000') : (d = date)
+  const timestampLength = date.toString().length
+  const d = timestampLength < 13 ? date + '000' : date
 
   const seconds = Math.floor((new Date() - d) / 1000)
   const years = Math.floor(seconds / 31536000)

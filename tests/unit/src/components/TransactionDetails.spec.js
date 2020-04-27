@@ -1,4 +1,3 @@
-import { shallowMount } from '@vue/test-utils'
 import TransactionDetails from '@/components/TransactionDetails.vue'
 import '../../../../src/fontAwesome'
 
@@ -12,13 +11,17 @@ describe('Renders the correct elements when the transaction type is value_transf
     },
   })
   it('finds the id element', () => {
-    expect(wrapper.contains('[data-test="id"]')).toBe(true)
+    expect(wrapper.find('[data-test="id"]').text()).toBe(
+      '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109'
+    )
   })
   it('finds the block element', () => {
-    expect(wrapper.contains('[data-test="block"]')).toBe(true)
+    expect(wrapper.find('[data-test="block"]').text()).toBe(
+      '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f'
+    )
   })
   it('finds the date element', () => {
-    expect(wrapper.contains('[data-test="date"]')).toBe(true)
+    expect(wrapper.find('[data-test="date"]').text()).toBe('JAN 19, 1970 @ 10:00:31')
   })
   it('finds the current-stage-title element', () => {
     expect(wrapper.contains('[data-test="current-stage-title"]')).toBe(false)
@@ -93,13 +96,17 @@ describe('Renders the correct elements when the transaction type is data_request
     },
   })
   it('finds the id element', () => {
-    expect(wrapper.contains('[data-test="id"]')).toBe(true)
+    expect(wrapper.find('[data-test="id"]').text()).toBe(
+      '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109'
+    )
   })
   it('finds the block element', () => {
-    expect(wrapper.contains('[data-test="block"]')).toBe(true)
+    expect(wrapper.find('[data-test="block"]').text()).toBe(
+      '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f'
+    )
   })
   it('finds the date element', () => {
-    expect(wrapper.contains('[data-test="date"]')).toBe(true)
+    expect(wrapper.find('[data-test="date"]').text()).toBe('JAN 19, 1970 @ 10:00:31')
   })
   it('finds the current-stage-title element', () => {
     expect(wrapper.contains('[data-test="current-stage-title"]')).toBe(true)
@@ -186,13 +193,17 @@ describe('Renders the correct elements when the transaction type is data_request
     },
   })
   it('finds the id element', () => {
-    expect(wrapper.contains('[data-test="id"]')).toBe(true)
+    expect(wrapper.find('[data-test="id"]').text()).toBe(
+      '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109'
+    )
   })
   it('finds the block element', () => {
-    expect(wrapper.contains('[data-test="block"]')).toBe(true)
+    expect(wrapper.find('[data-test="block"]').text()).toBe(
+      '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f'
+    )
   })
   it('finds the date element', () => {
-    expect(wrapper.contains('[data-test="date"]')).toBe(true)
+    expect(wrapper.find('[data-test="date"]').text()).toBe('JAN 19, 1970 @ 10:00:31')
   })
   it('finds the current-stage-title element', () => {
     expect(wrapper.contains('[data-test="current-stage-title"]')).toBe(true)

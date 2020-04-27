@@ -51,7 +51,7 @@
         Reveals
       </p>
       <div class="info" v-if="transactionType === 'data_request'">
-        <div data-test="reveals" v-for="reveal in reveals" :key="reveal.address" class="reveal">
+        <div data-test="reveals" v-for="(reveal, index) in reveals" :key="index" class="reveal">
           <font-awesome-icon
             data-test="reveal-icon"
             :class="reveal.in_consensus ? 'consensed' : 'not-consensed'"
