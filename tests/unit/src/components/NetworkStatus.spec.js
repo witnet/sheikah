@@ -8,8 +8,8 @@ describe('Renders the correct elements when side bar is expanded but the click i
       expanded: true,
       status: 'Block',
       node: 'node',
-      network: 'network',
-      lastBlock: 'last-block',
+      network: 'Testnet',
+      lastBlock: 'last block',
       walletIdx: 1,
     },
   })
@@ -24,10 +24,10 @@ describe('Renders the correct elements when side bar is expanded but the click i
     expect(wrapper.contains('[data-test="dot-indicator"]')).toBe(true)
   })
   it('finds wallet name', () => {
-    expect(wrapper.contains('[data-test="wallet-name"]')).toBe(true)
+    expect(wrapper.find('[data-test="wallet-name"]').text()).toBe('Witnet wallet #1')
   })
   it('finds node status', () => {
-    expect(wrapper.contains('[data-test="status"]')).toBe(true)
+    expect(wrapper.find('[data-test="status"]').text()).toBe('BLOCK')
   })
   it('does not find loading spinner', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
@@ -47,6 +47,7 @@ describe('Renders the correct elements when side bar is expanded, the click is t
   const wrapper = shallowMount(NetworkStatus, {
     propsData: {
       expanded: true,
+      network: 'Testnet',
       status: 'Block',
       node: 'node',
       lastBlock: 'last-block',
@@ -67,7 +68,7 @@ describe('Renders the correct elements when side bar is expanded, the click is t
     expect(wrapper.contains('[data-test="wallet-name"]')).toBe(true)
   })
   it('finds node status', () => {
-    expect(wrapper.contains('[data-test="status"]')).toBe(true)
+    expect(wrapper.find('[data-test="status"]').text()).toBe('BLOCK')
   })
   it('does not find loading spinner', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
@@ -82,13 +83,13 @@ describe('Renders the correct elements when side bar is expanded, the click is t
     expect(wrapper.contains('[data-test="short-up"]')).toBe(true)
   })
   it('finds icon node', () => {
-    expect(wrapper.contains('[data-test="node"]')).toBe(true)
+    expect(wrapper.find('[data-test="node"]').text()).toBe('Connected to  node')
   })
   it('finds icon last block', () => {
-    expect(wrapper.contains('[data-test="last-block"]')).toBe(true)
+    expect(wrapper.find('[data-test="last-block"]').text()).toBe('Last block is  #last-block  ()')
   })
-  it('finds icon last block', () => {
-    expect(wrapper.contains('[data-test="network"]')).toBe(true)
+  it('finds network element', () => {
+    expect(wrapper.find('[data-test="network"]').text()).toBe('Tracking  Testnet  network')
   })
 })
 
@@ -128,6 +129,9 @@ describe('Renders the correct elements when the status is SyncFinished', () => {
   it('does not find loading spinner', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
   })
+  it('finds node status', () => {
+    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNC FINISHED')
+  })
 })
 
 describe('Renders the correct elements when the status is movement', () => {
@@ -146,6 +150,9 @@ describe('Renders the correct elements when the status is movement', () => {
   })
   it('does not find loading spinner', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
+  })
+  it('finds node status', () => {
+    expect(wrapper.find('[data-test="status"]').text()).toBe('MOVEMENT')
   })
 })
 
@@ -166,6 +173,9 @@ describe('Renders the correct elements when the status is sync start', () => {
   it('does not find loading spinner', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(true)
   })
+  it('finds node status', () => {
+    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNC START')
+  })
 })
 
 describe('Renders the correct elements when the status is Sync in progress', () => {
@@ -184,6 +194,9 @@ describe('Renders the correct elements when the status is Sync in progress', () 
   })
   it('does not find loading spinner', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(true)
+  })
+  it('finds node status', () => {
+    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNC IN PROGRESS')
   })
 })
 
