@@ -94,6 +94,24 @@ describe('Addresses.vue', () => {
 
       expect(wrapper.find(AddressInformation).exists()).toBe(true)
     })
+    it("should render an empty state if there aren't addresses", () => {
+      const wrapper = mount(Addresses, {
+        propsData: {
+          addresses: [],
+        },
+        ...createComponentMocks({
+          store: {
+            uiInteractions: {
+              state: {
+                receiveTransactionClicked: false,
+              },
+            },
+          },
+        }),
+      })
+
+      expect(wrapper.find(AddressInformation).exists()).toBe(true)
+    })
   })
 
   describe('should handle events correctly', () => {
