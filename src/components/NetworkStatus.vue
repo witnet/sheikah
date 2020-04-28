@@ -92,21 +92,16 @@ export default {
   },
   methods: {
     standardizedStatus(status) {
-      if (status === WALLET_EVENTS.BLOCK) {
+      if (
+        status === WALLET_EVENTS.BLOCK ||
+        status === WALLET_EVENTS.SYNC_FINISH ||
+        status === WALLET_EVENTS.MOVEMENT
+      ) {
         this.loading = false
-        return 'BLOCK'
-      } else if (status === WALLET_EVENTS.MOVEMENT) {
-        this.loading = false
-        return 'MOVEMENT'
-      } else if (status === WALLET_EVENTS.SYNC_FINISH) {
-        this.loading = false
-        return 'SYNC FINISHED'
-      } else if (status === WALLET_EVENTS.SYNC_PROGRESS) {
+        return 'SYNCED'
+      } else if (status === WALLET_EVENTS.SYNC_PROGRESS || status === WALLET_EVENTS.SYNC_START) {
         this.loading = true
-        return 'SYNC IN PROGRESS'
-      } else if (status === WALLET_EVENTS.SYNC_START) {
-        this.loading = true
-        return 'SYNC START'
+        return 'SYNCING'
       } else {
         this.loading = true
         return 'LOADING'

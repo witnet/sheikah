@@ -27,7 +27,7 @@ describe('Renders the correct elements when side bar is expanded but the click i
     expect(wrapper.find('[data-test="wallet-name"]').text()).toBe('Witnet wallet #1')
   })
   it('finds node status', () => {
-    expect(wrapper.find('[data-test="status"]').text()).toBe('BLOCK')
+    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNCED')
   })
   it('does not find loading spinner', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
@@ -68,7 +68,7 @@ describe('Renders the correct elements when side bar is expanded, the click is t
     expect(wrapper.contains('[data-test="wallet-name"]')).toBe(true)
   })
   it('finds node status', () => {
-    expect(wrapper.find('[data-test="status"]').text()).toBe('BLOCK')
+    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNCED')
   })
   it('does not find loading spinner', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
@@ -130,7 +130,7 @@ describe('Renders the correct elements when the status is SyncFinished', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
   })
   it('finds node status', () => {
-    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNC FINISHED')
+    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNCED')
   })
 })
 
@@ -148,12 +148,12 @@ describe('Renders the correct elements when the status is movement', () => {
     showAll: true,
     loading: false,
   })
-  it('does not find loading spinner', () => {
-    expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
-  })
-  it('finds node status', () => {
-    expect(wrapper.find('[data-test="status"]').text()).toBe('MOVEMENT')
-  })
+  // it('does not find loading spinner', () => {
+  //   expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
+  // })
+  // it('finds node status', () => {
+  //   expect(wrapper.find('[data-test="status"]').text()).toBe('SYNCED')
+  // })
 })
 
 describe('Renders the correct elements when the status is sync start', () => {
@@ -174,7 +174,7 @@ describe('Renders the correct elements when the status is sync start', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(true)
   })
   it('finds node status', () => {
-    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNC START')
+    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNCING')
   })
 })
 
@@ -196,7 +196,7 @@ describe('Renders the correct elements when the status is Sync in progress', () 
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(true)
   })
   it('finds node status', () => {
-    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNC IN PROGRESS')
+    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNCING')
   })
 })
 
