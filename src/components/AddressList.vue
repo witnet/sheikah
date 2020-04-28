@@ -4,7 +4,7 @@
       v-for="(address, index) in addresses"
       :key="index"
       class="item"
-      :used="false"
+      :used="address.used"
       :selected="selected === index"
       @click="() => selectAddress(index)"
     />
@@ -95,9 +95,9 @@ export default {
       index: 0,
       used: false,
       amount: 5000,
-      unit: 'nanoWits',
-      firstDate: new Date(),
-      lastDate: new Date(),
+      currency: 'nanoWits',
+      firstPaymentDate: new Date(),
+      lastPaymentDate: new Date(),
       payments: 0,
     },
     {
@@ -105,9 +105,9 @@ export default {
       index: 0,
       used: false,
       amount: 5000,
-      unit: 'nanoWits',
-      firstDate: new Date(),
-      lastDate: new Date(),
+      currency: 'nanoWits',
+      firstPaymentDate: new Date(),
+      lastPaymentDate: new Date(),
       payments: 1,
     }]"
   />

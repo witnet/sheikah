@@ -9,7 +9,11 @@
     </template>
 
     <template #addresses>
-      <Addresses :addresses="addresses" v-on:generate-address="() => generateAddress('')" />
+      <Addresses
+        :addresses="addresses"
+        :currency="currency"
+        v-on:generate-address="() => generateAddress('')"
+      />
     </template>
   </LayoutTransactions>
 </template>

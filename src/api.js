@@ -189,3 +189,59 @@ export class MarketplaceApi {
   postTemplate() {}
 }
 
+export function standardizeAddresses(response) {
+  if (response && response.error) {
+    return response
+  } else {
+    const addresses = response.result.addresses.map(address => {
+      const info = address.info
+
+      return {
+        receivedPayments: info.received_payments.length,
+        receivedAmount: info.received_amount,
+        lastPaymentDate: new Date(Number(info.last_payment_date + '000')),
+        firstPaymentDate: new Date(Number(info.first_payment_date + '000')),
+        index: address.index,
+        pkh: address.pkh,
+        used: info.received_payments.length > 0,
+      }
+    })
+
+    return { result: addresses }
+  }
+}
+
+export function standardizeTransactions(response) {
+  if (!response.result) return response
+
+  const transactions = response.result.transactions.map(transaction => {
+    const transactionType = transaction.transaction.data.value_transfer
+      ? 'value_transfer'
+      : 'data_request'
+    const { inputs, outputs } = transaction.transaction.data[transactionType]
+    // eslint-disable-next-line camelcase
+    const { hash, miner_fee, block, tally, timestamp } = transaction.transaction
+
+    return {
+      id: hash,
+      type: transaction.type,
+      inputs: inputs.map(input => ({ value: input.value, address: input.address })),
+      outputs: outputs.map(output => ({ value: output.value, address: output.address })),
+      fee: miner_fee,
+      date: changeDateFormat(timestamp),
+      timeAgo: calculateTimeAgo(timestamp),
+      label: '',
+      amount: transaction.amount,
+      block: block.block_hash,
+      witnesses: null,
+      rewards: null,
+      rounds: null,
+      currentStage: tally ? 'FINALIZED' : 'IN PROGRESS',
+      reveals: tally ? tally.reveals : null,
+      finalResult: tally ? tally.result : null,
+      transactionType,
+    }
+  })
+
+  return { result: transactions }
+}

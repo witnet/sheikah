@@ -48,16 +48,16 @@ function encodeAggregationTally(stage) {
   }
 }
 // Convert the received amount of nanoWits into selected unit
-export function standardizeWitUnits(amount, unit) {
+export function standardizeWitUnits(amount, currency) {
   const units = {
     [`${WIT_UNIT.WIT}`]: 9,
     [`${WIT_UNIT.MICRO}`]: 3,
     [`${WIT_UNIT.NANO}`]: 0,
   }
-  if (unit === WIT_UNIT.NANO) {
+  if (currency === WIT_UNIT.NANO) {
     return amount.toString()
   } else {
-    return (amount / Math.pow(10, units[unit])).toFixed(units[unit]).replace(/\.?0+$/, '')
+    return (amount / Math.pow(10, units[currency])).toFixed(units[currency]).replace(/\.?0+$/, '')
   }
 }
 
@@ -145,6 +145,7 @@ export function calculateTimeAgo(date) {
 }
 
 export function formatDateVerbose(date) {
+  console.log('...', date)
   return format(date, 'MMM do yyy')
 }
 

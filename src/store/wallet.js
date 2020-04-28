@@ -325,7 +325,7 @@ export default {
         limit: 300,
       })
       if (request.result) {
-        context.commit('setAddresses', { addresses: request.result.addresses })
+        context.commit('setAddresses', { addresses: request.result })
         this.commit('clearError', { error: 'getAddresses' })
       } else {
         context.commit('setError', {

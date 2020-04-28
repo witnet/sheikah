@@ -21,14 +21,13 @@
       <Tag class="tag" color="green" text="NOT USED" />
       <p class="description">Received <span class="bold">0 payments</span>.</p>
     </div>
-
     <div v-else class="transactions">
       <Tag class="tag" color="red" text="USED" />
       <p class="description">
         Received <span class="bold">{{ payments }} payments</span> totalling
-        <span class="bold">{{ amount }} {{ unit }}</span> from
-        <span class="bold">{{ formatDateVerbose(firstDate) }}</span> to
-        <span class="bold">{{ formatDateVerbose(lastDate) }}</span
+        <span class="bold"> {{ amount }} {{ currency }} </span> from
+        <span class="bold">{{ formatDateVerbose(firstPaymentDate) }}</span> to
+        <span class="bold">{{ formatDateVerbose(lastPaymentDate) }}</span
         >.
       </p>
     </div>
@@ -80,9 +79,9 @@ export default {
       type: String,
     },
     /**
-     * Unit to show the amount of wits
+     * Currency to show the amount of wits
      */
-    unit: {
+    currency: {
       required: false,
       type: String,
     },
@@ -91,7 +90,7 @@ export default {
      */
     amount: {
       required: false,
-      type: String,
+      type: Number,
     },
     /**
      * How many payments has receive the selected address
@@ -103,14 +102,14 @@ export default {
     /**
      * Date in which the address received the first payment
      */
-    firstDate: {
+    firstPaymentDate: {
       required: false,
       type: Date,
     },
     /**
      * Date in which the address received the last payment
      */
-    lastDate: {
+    lastPaymentDate: {
       required: false,
       type: Date,
     },
@@ -263,10 +262,10 @@ export default {
     :index="0"
     :used="false"
     pkh="twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft"
-    unit="nanoWits"
+    currency="nanoWits"
     :amount="5000"
-    :firstDate="new Date()"
-    :lastDate="new Date()"
+    :firstPaymentDate="new Date()"
+    :lastPaymentDate="new Date()"
     :payments="0"
   />
 ```
@@ -276,7 +275,7 @@ export default {
   <AddressInformation
     :style="{ width: '350px' }"
     :used="false"
-    unit="nanoWits"
+    currency="nanoWits"
   />
 ```
 </docs>

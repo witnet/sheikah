@@ -2,17 +2,17 @@
   <div class="table">
     <p class="label">Available</p>
     <p class="amount">
-      {{ available }} <span class="unit">{{ currency }}</span>
+      {{ available }} <span class="currency">{{ currency }}</span>
     </p>
 
     <p class="label">Locked</p>
     <p class="amount">
-      {{ locked }} <span class="unit">{{ currency }}</span>
+      {{ locked }} <span class="currency">{{ currency }}</span>
     </p>
 
     <p class="label total">Total</p>
     <p class="amount total">
-      {{ total }} <span class="unit">{{ currency }}</span>
+      {{ total }} <span class="currency">{{ currency }}</span>
     </p>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   name: 'BalanceData',
   props: {
     /**
-     * Specify in which unit display wits
+     * Specify in which currency display wits
      * @values wit, microWit, nanoWit
      */
     currency: {
@@ -86,7 +86,7 @@ export default {
     justify-self: end;
     width: max-content;
     font-size: 14px;
-    .unit {
+    .currency {
       font-size: 11px;
       font-weight: normal;
     }

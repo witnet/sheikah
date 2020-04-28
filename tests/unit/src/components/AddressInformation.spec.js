@@ -19,11 +19,11 @@ describe('AddressInformation.vue', () => {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 2,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -38,11 +38,11 @@ describe('AddressInformation.vue', () => {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 2,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -57,11 +57,11 @@ describe('AddressInformation.vue', () => {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 2,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -76,11 +76,11 @@ describe('AddressInformation.vue', () => {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 2,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -92,7 +92,7 @@ describe('AddressInformation.vue', () => {
         ).toBe('2 payments')
       })
 
-      it('should render the wit amount in given unit', () => {
+      it('should render the wit amount in given currency', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
@@ -100,11 +100,11 @@ describe('AddressInformation.vue', () => {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 2,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -124,11 +124,11 @@ describe('AddressInformation.vue', () => {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 2,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -148,11 +148,11 @@ describe('AddressInformation.vue', () => {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 2,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -174,11 +174,11 @@ describe('AddressInformation.vue', () => {
             used: false,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 2,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -193,11 +193,11 @@ describe('AddressInformation.vue', () => {
             used: false,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 2,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -212,11 +212,11 @@ describe('AddressInformation.vue', () => {
             used: false,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 0,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -236,11 +236,11 @@ describe('AddressInformation.vue', () => {
             used: false,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 0,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 
@@ -255,11 +255,11 @@ describe('AddressInformation.vue', () => {
             used: false,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            unit: 'nanoWit',
-            amount: '100',
+            currency: 'nanoWit',
+            amount: 100,
             payments: 2,
-            firstDate: date1,
-            lastDate: date2,
+            firstPaymentDate: date1,
+            lastPaymentDate: date2,
           },
         })
 

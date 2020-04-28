@@ -34,7 +34,7 @@ describe('areSoftEqualArrays', () => {
 })
 
 describe('standardizeWitUnits', () => {
-  describe('return the value in selected unit', () => {
+  describe('return the value in selected currency', () => {
     describe('wit', () => {
       it("without trim 0's", () => {
         const expected = '0.000000004'
