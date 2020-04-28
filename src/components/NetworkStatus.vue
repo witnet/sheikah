@@ -151,15 +151,30 @@ export default {
       }
     }
   }
-  .slide-enter-active,
+  .slide-enter-active {
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s;
+    -webkit-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+  }
+
   .slide-leave-active {
-    transition: transform 0.1s ease;
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s;
+    -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .slide-enter-to,
+  .slide-leave {
+    max-height: 100px;
+    overflow: hidden;
   }
 
   .slide-enter,
   .slide-leave-to {
-    transform: translateY(-4%);
-    transition: all 50ms ease-in 0s;
+    overflow: hidden;
+    max-height: 0;
   }
 }
 .network-status {
