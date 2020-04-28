@@ -23,73 +23,28 @@ class ApiClient {
     return new ApiClient({ ...this.options, ...opts })
   }
 
-  async notify(method, params) {
+  notify(method, params) {
     return this.ws.notify(method, params)
   }
 
-  async request(method, params) {
+  request(method, params) {
     return this.ws.call(method, params)
   }
 
-  async subscribe(method) {
+  subscribe(method) {
     return this.ws.subscribe(method)
   }
 
-  async unsubscribe(method) {
+  unsubscribe(method) {
     return this.ws.unsubscribe(method)
   }
 
-  async open(handler) {
+  open(handler) {
     return this.ws.on('open', handler)
   }
 
-  async on(event, handler) {
+  on(event, handler) {
     return this.ws.on(event, handler)
-  }
-}
-
-export function standardizeTransaction(response) {
-  if (response && response.error) {
-    return response
-  } else {
-    const res = response.transactions.map(transaction => {
-      let transactionType = null
-      transaction.transaction.data.value_transfer
-        ? (transactionType = 'value_transfer')
-        : (transactionType = 'data_request')
-      const inputs = transaction.transaction.data[transactionType].inputs.map(input => {
-        return {
-          value: input.value,
-          address: input.address,
-        }
-      })
-      const outputs = transaction.transaction.data[transactionType].outputs.map(output => {
-        return {
-          value: output.value,
-          address: output.address,
-        }
-      })
-      return {
-        id: transaction.transaction.hash,
-        type: transaction.type,
-        inputs: inputs,
-        outputs: outputs,
-        fee: transaction.transaction.miner_fee,
-        date: changeDateFormat(transaction.transaction.timestamp),
-        timeAgo: calculateTimeAgo(transaction.transaction.timestamp),
-        label: '',
-        amount: transaction.amount,
-        block: transaction.transaction.block.block_hash,
-        witnesses: null,
-        rewards: null,
-        rounds: null,
-        currentStage: transaction.transaction.tally ? 'FINALIZED' : 'IN PROGRESS',
-        reveals: transaction.transaction.tally ? transaction.transaction.tally.reveals : null,
-        finalResult: transaction.transaction.tally ? transaction.transaction.tally.result : null,
-        transactionType: transactionType,
-      }
-    })
-    return { result: res || true }
   }
 }
 
@@ -99,6 +54,7 @@ export class WalletApi {
   constructor() {
     this.client = new ApiClient()
   }
+
   // TODO(#594): Handle errors in a proper way
   _handleResponse(response) {
     return response && response.error ? response : { result: response || true }
@@ -109,69 +65,24 @@ export class WalletApi {
   }
 
   _callApiMethod(methodName) {
-    return params =>
+    return (params, normalizer = x => x) =>
       this.client
         .request(methodName, params)
         .then(this._handleResponse)
+        .then(normalizer)
         .catch(this._handleError)
   }
 
-  _callGetTransactionsMethod(methodName) {
-    return params =>
-      this.client
-        .request(methodName, params)
-        .then(standardizeTransaction)
-        .catch(this._handleError)
+  closeSession(params) {
+    return this._callApiMethod('close_session')(params)
   }
-  async subscribeToNotifications(params, cb) {
-    return this._callApiMethod('subscribe_notifications')([params.sessionId])
-      .then(_ => {
-        this.client.on('notifications', cb)
-      })
-      .catch(this._handleError)
-  }
-  async createDataRequest(params) {
+
+  createDataRequest(params) {
     return this._callApiMethod('create_data_request')(params)
   }
 
-  async createMnemonics(params) {
+  createMnemonics(params) {
     return this._callApiMethod('create_mnemonics')(params)
-  }
-
-  async createWallet(params) {
-    return this._callApiMethod('create_wallet')(params)
-  }
-
-  async generateAddress(params) {
-    return this._callApiMethod('generate_address')(params)
-  }
-
-  async getTransactions(params) {
-    return this._callGetTransactionsMethod('get_transactions')(params)
-  }
-
-  async getBalance(params) {
-    return this._callApiMethod('get_balance')(params)
-  }
-
-  async getWalletInfos(params) {
-    return this._callApiMethod('get_wallet_infos')(params)
-  }
-
-  async importSeed(params) {
-    return this._callApiMethod('import_seed')(params)
-  }
-
-  async lockWallet(params) {
-    return this._callApiMethod('lock_wallet')(params)
-  }
-
-  async runRadRequest(params) {
-    return this._callApiMethod('run_rad_request')(params)
-  }
-
-  async sendDataRequest(params) {
-    return this._callApiMethod('send_data_request')(params)
   }
 
   createVTT(params) {
@@ -179,28 +90,68 @@ export class WalletApi {
     return this._callApiMethod('create_vtt')({ ...defaultParams, ...params })
   }
 
-  async unlockWallet(params) {
-    return this._callApiMethod('unlock_wallet')(params)
+  createWallet(params) {
+    return this._callApiMethod('create_wallet')(params)
   }
 
-  async closeSession(params) {
-    return this._callApiMethod('close_session')(params)
+  generateAddress(params) {
+    return this._callApiMethod('generate_address')(params)
   }
 
   getAddresses(params) {
-    return this._callApiMethod('get_addresses')(params)
+    return this._callApiMethod('get_addresses')(params, standardizeAddresses)
   }
 
-  sendTransaction(params) {
-    return this._callApiMethod('send_transaction')(params)
+  getBalance(params) {
+    return this._callApiMethod('get_balance')(params)
+  }
+
+  getItem(params) {
+    return this._callApiMethod('get')(params)
+  }
+
+  getTransactions(params) {
+    return this._callApiMethod('get_transactions')(params, standardizeTransactions)
+  }
+
+  getWalletInfos(params) {
+    return this._callApiMethod('get_wallet_infos')(params)
+  }
+
+  importSeed(params) {
+    return this._callApiMethod('import_seed')(params)
+  }
+
+  lockWallet(params) {
+    return this._callApiMethod('lock_wallet')(params)
+  }
+
+  runRadRequest(params) {
+    return this._callApiMethod('run_rad_request')(params)
   }
 
   saveItem(params) {
     return this._callApiMethod('set')(params)
   }
 
-  getItem(params) {
-    return this._callApiMethod('get')(params)
+  sendDataRequest(params) {
+    return this._callApiMethod('send_data_request')(params)
+  }
+
+  sendTransaction(params) {
+    return this._callApiMethod('send_transaction')(params)
+  }
+
+  subscribeToNotifications(params, cb) {
+    return this._callApiMethod('subscribe_notifications')([params.sessionId])
+      .then(_ => {
+        this.client.on('notifications', cb)
+      })
+      .catch(this._handleError)
+  }
+
+  unlockWallet(params) {
+    return this._callApiMethod('unlock_wallet')(params)
   }
 }
 
@@ -237,3 +188,4 @@ export class MarketplaceApi {
 
   postTemplate() {}
 }
+
