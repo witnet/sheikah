@@ -54,7 +54,7 @@
 
 <script>
 import DotIndicator from '@/components/DotIndicator'
-import { timeAgo } from '../utils'
+import { timeAgo } from '@/utils'
 
 export default {
   name: 'NetworkStatus',
