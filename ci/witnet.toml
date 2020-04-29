@@ -19,7 +19,7 @@ genesis_path = "ci/genesis_block.json"
 checkpoints_period = 30
 checkpoint_zero_timestamp = 1583496000
 bootstrap_hash = "00000000000000000000000000000000000000007769746e65742d302e372e30"
-genesis_hash = "030b7c7cd76bc8d90bbcd179921412480751823124858ca0ff1901e66c5e3dbe"
+genesis_hash = "2af575959aeb9297fc452479325739b3a1cfff7d0ffb5d520bf523fa61b96771"
 
 [ntp]
 update_period_seconds = 8000000
