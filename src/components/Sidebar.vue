@@ -9,7 +9,7 @@
       <img v-if="expanded" class="sheikah-name" src="@/resources/svg/sheikah.svg" />
     </router-link>
     <div class="current-wallet">
-      <NetworkStatus v-if="status"
+      <NetworkStatus
         :windowWidth="windowWidth"
         :walletIdx="walletIdx"
         :expanded="expanded"

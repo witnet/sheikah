@@ -1,6 +1,6 @@
 <template>
-  <div class="network-status" :class="{ expanded }">
-    <div class="header" :class="{ expanded }" @click="showAll = !showAll">
+  <div class="network-status">
+    <div class="header" @click="showAll = !showAll">
       <div class="dot-status">
         <DotIndicator
           data-test="dot-indicator"
@@ -39,13 +39,13 @@
     <transition name="slide">
       <div data-test="detail-info" v-if="showAll && expanded" class="detail-info">
         <p data-test="node" class="text">
-          Connected to <span class="bold"> {{ address }} </span>
+          Connected to <span class="bold">{{ address }}</span>
         </p>
         <p data-test="network" class="text">
-          Tracking <span class="bold"> {{ network }} </span> network
+          Tracking <span class="bold">{{ network }}</span> network
         </p>
         <p data-test="last-block" class="text">
-          Last block is <span class="bold"> #{{ lastBlock }} </span> ({{ timeAgo }})
+          Last block is <span class="bold">#{{ lastBlock }}</span> ({{ timeAgo }})
         </p>
       </div>
     </transition>
@@ -92,13 +92,13 @@ export default {
       return this.status.node && this.status.node.network
     },
     progress() {
-      return this.status.progress
+      return this.status && this.status.progress
     },
     synced() {
-      return this.status.synced
+      return this.status && this.status.synced
     },
     timestamp() {
-      return this.status.timestamp
+      return this.status && this.status.timestamp
     },
   },
   data() {
