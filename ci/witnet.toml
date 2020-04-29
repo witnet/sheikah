@@ -1,0 +1,33 @@
+[connections]
+server_addr = "0.0.0.0:21337"
+known_peers = ["127.0.0.1:21337"]
+outbound_limit = 1
+bootstrap_peers_period_seconds = 1
+
+[storage]
+db_path = ".witnet-rust-testnet-7"
+
+[jsonrpc]
+enabled = true
+server_address = "127.0.0.1:21338"
+
+[mining]
+genesis_mining = true
+genesis_path = "ci/genesis_block.json"
+
+[consensus_constants]
+checkpoints_period = 30
+checkpoint_zero_timestamp = 1583496000
+bootstrap_hash = "00000000000000000000000000000000000000007769746e65742d302e372e30"
+genesis_hash = "2af575959aeb9297fc452479325739b3a1cfff7d0ffb5d520bf523fa61b96771"
+
+[ntp]
+update_period_seconds = 8000000
+
+[wallet]
+testnet = true
+node_url = "127.0.0.1:21338"
+db_path = ".witnet-rust-testnet-7-wallet"
+
+[log]
+level = "error"
