@@ -2,6 +2,7 @@ import cbor from 'cbor'
 import { format } from 'date-fns'
 import uuidv4 from 'uuid/v4'
 import { WIT_UNIT } from '@/constants'
+import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
@@ -32,6 +33,7 @@ function innerCreateNotification(partialProps) {
   const notificationProps = {
     vibrate: [50, 100, 150],
     closeTimeout: 8000,
+    icon: sheikahIcon,
     ...partialProps,
   }
   const notification = new Notification(notificationProps.title, notificationProps)

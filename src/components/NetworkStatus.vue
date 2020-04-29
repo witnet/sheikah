@@ -4,7 +4,7 @@
       <div class="dot-status">
         <DotIndicator
           data-test="dot-indicator"
-          :status="status"
+          :synced="synced"
           :url="`https://api.adorable.io/avatars/:${this.walletIdx}/`"
         />
       </div>
@@ -13,13 +13,13 @@
           Witnet wallet #{{ walletIdx }}
         </p>
         <div class="status-container">
-          <div data-test="status" v-if="expanded" :class="nodeStatus">
-            {{ standardizedStatus(status) }}
+          <div data-test="status" v-if="expanded" :class="['status', synced ? 'synced' : 'syncing']">
+            {{ synced ? 'SYNCED' : `SYNCING (${progress}%)` }}
           </div>
-          <DotsLoading data-test="loading-spinner" v-if="expanded && loading" class="spinner" />
+          <DotsLoading data-test="loading-spinner" v-if="expanded && !synced" class="spinner" />
         </div>
       </div>
-      <div v-if="expanded && synced" class="icon">
+      <div v-if="expanded" class="icon">
         <img
           data-test="short-up"
           class="sort"
@@ -37,11 +37,11 @@
       </div>
     </div>
     <transition name="slide">
-      <div data-test="detail-info" v-if="showAll && expanded && synced" class="detail-info">
+      <div data-test="detail-info" v-if="showAll && expanded" class="detail-info">
         <p data-test="node" class="text">
-          Connected to <span class="bold"> {{ node }} </span>
+          Connected to <span class="bold"> {{ address }} </span>
         </p>
-        <p data-test="network" v-show="network" class="text">
+        <p data-test="network" class="text">
           Tracking <span class="bold"> {{ network }} </span> network
         </p>
         <p data-test="last-block" class="text">
@@ -54,20 +54,22 @@
 
 <script>
 import DotIndicator from '@/components/DotIndicator'
+import DotsLoading from '@/components/DotsLoading.vue'
 import { timeAgo } from '@/utils'
 
 export default {
   name: 'NetworkStatus',
   props: {
     expanded: Boolean,
-    status: String,
-    node: String,
-    network: String,
-    lastBlock: String,
+    status: {
+      synced: Boolean,
+      timestamp: Date,
+    },
     walletIdx: [String, Number],
   },
   components: {
     DotIndicator,
+    DotsLoading,
   },
   created() {
     setInterval(() => {
@@ -79,20 +81,31 @@ export default {
       this.showAll = false
     },
   },
+  computed: {
+    address() {
+      return this.status.node && this.status.node.address
+    },
+    lastBlock() {
+      return this.status.node && this.status.node.last_beacon.checkpoint
+    },
+    network() {
+      return this.status.node && this.status.node.network
+    },
+    progress() {
+      return this.status.progress
+    },
+    synced() {
+      return this.status.synced
+    },
+    timestamp() {
+      return this.status.timestamp
+    },
+  },
   data() {
     return {
       showAll: false,
       timeAgo: null,
     }
-  },
-  computed: {
-    nodeStatus() {
-      if (this.status === 'synced') {
-        return 'status synced'
-      } else {
-        return 'status syncing'
-      }
-    },
   },
 }
 </script>
@@ -116,14 +129,17 @@ export default {
       .current-wallet-name {
         font-weight: bold;
       }
-      .status {
-        font-weight: bold;
-        margin-top: 8px;
-        &.synced {
-          color: $green-5;
-        }
-        &.error {
-          color: $red-5;
+      .status-container {
+        display: flex;
+        .status {
+          font-weight: bold;
+          margin-top: 8px;
+          &.synced {
+            color: $green-5;
+          }
+          &.syncing {
+            color: $yellow-4;
+          }
         }
       }
     }

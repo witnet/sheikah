@@ -16,11 +16,6 @@ export default {
   created() {
     this.pollData()
   },
-  data() {
-    return {
-      pollingInterval: setInterval(this.pollData, 1000),
-    }
-  },
   methods: {
     ...mapActions({
       getBalance: 'getBalance',
@@ -31,12 +26,10 @@ export default {
     pollData() {
       const currentRoute = this.$router.currentRoute.path
       const matchRoute = currentRoute.startsWith('/welcome-back') || currentRoute.startsWith('/ftu')
-      this.getWalletInfos()
-      if (!matchRoute) {
-        this.getBalance()
-        this.getTransactions({ limit: 50, page: 0 })
-        this.getAddresses()
+      if (matchRoute) {
+        this.getWalletInfos()
       }
+      setTimeout(this.pollData, 30000)
     },
   },
 }

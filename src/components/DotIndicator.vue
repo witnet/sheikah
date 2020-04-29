@@ -1,32 +1,14 @@
 <template>
-  <img :class="nodeStatus" :src="url" alt="avatar" />
+  <img :class="['status', synced ? 'synced' : 'syncing']" :src="url" alt="avatar" />
 </template>
 
 <script>
-import { WALLET_EVENTS } from '@/constants'
 
 export default {
   name: 'DotIndicator',
   props: {
-    status: String,
+    synced: Boolean,
     url: String,
-  },
-  computed: {
-    nodeStatus() {
-      if (this.status === WALLET_EVENTS.BLOCK) {
-        return 'status block'
-      } else if (this.status === WALLET_EVENTS.MOVEMENT) {
-        return 'status movement'
-      } else if (this.status === WALLET_EVENTS.SYNC_FINISH) {
-        return 'status sync-finished'
-      } else if (this.status === WALLET_EVENTS.SYNC_PROGRESS) {
-        return 'status sync-progress'
-      } else if (this.status === WALLET_EVENTS.SYNC_START) {
-        return 'status sync-start'
-      } else {
-        return 'status syncing'
-      }
-    },
   },
 }
 </script>
@@ -38,20 +20,8 @@ export default {
   width: 30px;
   border-radius: 4px;
 }
-.block {
+.synced {
   border: 2px solid $green-5;
-}
-.movement {
-  border: 2px solid $purple-4;
-}
-.sync-finished {
-  border: 2px solid $green-5;
-}
-.sync-progress {
-  border: 2px solid $yellow-4;
-}
-.sync-start {
-  border: 2px solid $yellow-4;
 }
 .syncing {
   border: 2px solid $yellow-4;

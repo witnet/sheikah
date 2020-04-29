@@ -9,15 +9,11 @@
       <img v-if="expanded" class="sheikah-name" src="@/resources/svg/sheikah.svg" />
     </router-link>
     <div class="current-wallet">
-      <NetworkStatus
+      <NetworkStatus v-if="status"
         :windowWidth="windowWidth"
         :walletIdx="walletIdx"
         :expanded="expanded"
-        :status="nodeStatus ? nodeStatus.status : 'Unknown'"
-        :node="nodeStatus ? nodeStatus.node : 'Unknown'"
-        :network="nodeStatus ? nodeStatus.network : 'Unknown'"
-        :lastBlock="nodeStatus ? nodeStatus.block : 'Unknown'"
-        :timestamp="nodeStatus ? nodeStatus.timestamp : 'Unknown'"
+        :status="status"
       />
     </div>
     <div class="link-list">
@@ -63,9 +59,6 @@ export default {
     return {
       expanded: false,
       windowWidth: window.innerWidth,
-      node: '127.0.0.1:21338',
-      network: 'T8',
-      block: ' #9633',
       settings: [
         {
           label: 'Close session',
@@ -97,8 +90,7 @@ export default {
   computed: {
     ...mapState({
       walletIdx: state => state.wallet.walletIdx,
-      status: state => state.wallet.networkStatus,
-      nodeStatus: state => state.wallet.nodeStatus,
+      status: state => state.wallet.status,
       walletInfos: state => state.wallet.walletInfos,
     }),
   },
