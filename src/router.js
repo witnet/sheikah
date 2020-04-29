@@ -104,13 +104,15 @@ export default new Router({
                 }
               } else {
                 clearInterval(polling)
-                next('/claiming/claiming-instructions')
-                // if (localStorage.getItem('completed') === 'true') {
-                //   const l = store.state.wallet.walletInfos.length
-                //   next(`/claiming/unlock/${store.state.wallet.walletInfos[l - 1].id}`)
-                // } else {
-                //   next('/claiming/claiming-instructions')
-                // }
+                if (!store.state.wallet.walletInfos.length) {
+                  localStorage.setItem('completed', false)
+                }
+                if (localStorage.getItem('completed') === 'true') {
+                  const index = store.state.wallet.walletInfos.length - 1
+                  next(`/claiming/unlock/${store.state.wallet.walletInfos[index].id}`)
+                } else {
+                  next('/claiming/claiming-instructions')
+                }
               }
             }, 5000)
           })
