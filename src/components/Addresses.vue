@@ -7,14 +7,12 @@
         v-on:generate-address="$emit('generate-address')"
         v-on:select-address="selectAddress"
       />
-      {{ selectedAddress }}
       <AddressInformation
         v-if="selectedAddress"
         :pkh="selectedAddress.pkh"
         :index="selectedIndex"
         :used="selectedAddress.used"
         :amount="selectedAddress.receivedAmount"
-        :currency="currency"
         :firstPaymentDate="selectedAddress.firstPaymentDate"
         :lastPaymentDate="selectedAddress.lastPaymentDate"
         :payments="selectedAddress.receivedPayments"
@@ -84,10 +82,6 @@ export default {
       required: true,
       type: Array,
     },
-    currency: {
-      required: true,
-      type: String,
-    },
   },
 }
 </script>
@@ -120,7 +114,6 @@ export default {
     index: 0,
     used: false,
     amount: 5000,
-    currency: 'nanoWits',
     firstPaymentDate: new Date(),
     lastPaymentDate: new Date(),
     payments: 0,
@@ -130,7 +123,6 @@ export default {
     index: 0,
     used: true,
     amount: 5000,
-    currency: 'nanoWits',
     firstPaymentDate: new Date(),
     lastPaymentDate: new Date(),
     payments: 1,

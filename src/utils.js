@@ -145,7 +145,6 @@ export function calculateTimeAgo(date) {
 }
 
 export function formatDateVerbose(date) {
-  console.log('...', date)
   return format(date, 'MMM do yyy')
 }
 

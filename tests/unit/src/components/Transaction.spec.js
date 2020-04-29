@@ -13,9 +13,9 @@ describe('Renders the correct elements when click is not triggered', () => {
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       outputs: [
         { value: '123', address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq' },
-        { value: '499999999865', address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' },
+        { value: 499999999865, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' },
       ],
-      inputs: [{ value: '500000000000', address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }],
+      inputs: [{ value: 500000000000, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }],
       type: 'POSITIVE',
       state: 'IN PROGRESS',
       transactionType: 'value_transfer',
@@ -50,7 +50,7 @@ describe('Renders the correct elements when click is not triggered', () => {
 describe('Renders the correct elements when click is triggered and the transaction type is data_request', () => {
   const wrapper = shallowMount(Transaction, {
     propsData: {
-      amount: '123',
+      amount: 123,
       block: '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
       border: true,
       date: 'JAN 19, 1970 @ 10:00:31',
@@ -59,9 +59,9 @@ describe('Renders the correct elements when click is triggered and the transacti
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       outputs: [
         { value: '123', address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq' },
-        { value: '499999999865', address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' },
+        { value: 499999999865, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' },
       ],
-      inputs: [{ value: '500000000000', address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }],
+      inputs: [{ value: 500000000000, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }],
       type: 'POSITIVE',
       state: 'IN PROGRESS',
       transactionType: 'data_request',

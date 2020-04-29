@@ -15,11 +15,19 @@ describe('AddressInformation.vue', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
           propsData: {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -34,11 +42,19 @@ describe('AddressInformation.vue', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
           propsData: {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -53,11 +69,19 @@ describe('AddressInformation.vue', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
           propsData: {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -76,12 +100,20 @@ describe('AddressInformation.vue', () => {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
         })
 
         expect(
@@ -92,30 +124,6 @@ describe('AddressInformation.vue', () => {
         ).toBe('2 payments')
       })
 
-      it('should render the wit amount in given currency', () => {
-        const date1 = new Date()
-        const date2 = new Date()
-        const wrapper = mount(AddressInformation, {
-          propsData: {
-            used: true,
-            index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
-            amount: 100,
-            payments: 2,
-            firstPaymentDate: date1,
-            lastPaymentDate: date2,
-          },
-        })
-
-        expect(
-          wrapper
-            .findAll('.bold')
-            .at(1)
-            .text()
-        ).toBe('100 nanoWit')
-      })
-
       it('should render the first date', () => {
         const date1 = new Date()
         const date2 = new Date()
@@ -124,12 +132,20 @@ describe('AddressInformation.vue', () => {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
         })
 
         expect(
@@ -144,11 +160,19 @@ describe('AddressInformation.vue', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
           propsData: {
             used: true,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -170,11 +194,19 @@ describe('AddressInformation.vue', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
           propsData: {
             used: false,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -189,11 +221,19 @@ describe('AddressInformation.vue', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
           propsData: {
             used: false,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -208,11 +248,19 @@ describe('AddressInformation.vue', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
           propsData: {
             used: false,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 0,
             firstPaymentDate: date1,
@@ -232,11 +280,19 @@ describe('AddressInformation.vue', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
           propsData: {
             used: false,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 0,
             firstPaymentDate: date1,
@@ -251,11 +307,19 @@ describe('AddressInformation.vue', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  currency: 'nanoWit',
+                },
+              },
+            },
+          }),
           propsData: {
             used: false,
             index: 0,
             pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-            currency: 'nanoWit',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,

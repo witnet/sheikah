@@ -2,22 +2,22 @@
   <div class="inputs-outputs">
     <div class="box inputs">
       <p data-test="inputs-title" class="title">INPUTS</p>
-      <div class="tx" v-for="(input, index) in inputs" :key="input.address">
+      <div class="transaction" v-for="(input, index) in inputs" :key="input.address">
         <p data-test="inputs-index" class="index"># {{ index }}</p>
-        <Amount data-test="inputs-value" :amount="input.value" />
+        <Amount class="amount" data-test="inputs-value" :amount="input.value" />
         <p data-test="inputs-address" class="address">{{ input.address }}</p>
       </div>
     </div>
     <div class="box outputs">
       <p data-test="output-title" class="title">OUTPUTS</p>
-      <div class="tx" v-for="(output, index) in outputs" :key="output.address">
+      <div class="transaction" v-for="(output, index) in outputs" :key="output.address">
         <p :data-test="`output-index-${index}`" class="index"># {{ index }}</p>
-        <Amount :data-test="`output-value-${index}`" :amount="output.value" />
+        <Amount class="amount" :amount="output.value" :data-test="`output-value-${index}`" />
         <p :data-test="`output-address-${index}`" class="address">{{ output.address }}</p>
       </div>
-      <div class="tx">
+      <div class="transaction">
         <p data-test="fee-title" class="index">FEE</p>
-        <Amount ata-test="fee-amount" :amount="fee" />
+        <Amount class="amount" :amount="fee" data-test="fee-amount" />
         <p class="address">{{ fee.address }}</p>
       </div>
     </div>
@@ -62,11 +62,13 @@ export default {
       font-size: 10px;
       font-weight: bold;
     }
-    .tx {
-      margin-bottom: 8px;
+    .transaction {
+      align-items: center;
       display: grid;
       grid-template-columns: [col1-start] 30px [col2-start] auto;
       grid-template-rows: [row1-start] auto [row2-start];
+      margin-bottom: 8px;
+
       .index {
         grid-area: index;
         font-size: 13px;

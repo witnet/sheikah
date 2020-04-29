@@ -1,19 +1,23 @@
 <template>
-  <p data-test="amount" class="amount">
+  <span data-test="amount">
     {{ standardizeWitUnits(amount, currency) }}
     <span data-test="currency" class="currency" :class="{ keep: keep }">
       {{ currency }}
     </span>
-  </p>
+  </span>
 </template>
 
 <script>
 import { standardizeWitUnits } from '@/utils'
 import { mapState } from 'vuex'
+
 export default {
   name: 'Transaction',
   props: {
-    amount: [Number, String],
+    amount: {
+      type: Number,
+      required: true,
+    },
     keep: {
       type: Boolean,
       default: false,
@@ -37,6 +41,7 @@ export default {
   color: inherit;
   font-size: 13px;
 }
+
 .keep {
   color: $alt-grey-5;
   font-weight: normal;

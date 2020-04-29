@@ -6,7 +6,8 @@
         <Amount
           :keep="true"
           data-test="amount"
-          :class="`amount ${origin.toLowerCase()}`"
+          class="amount"
+          :class="[origin.toLowerCase()]"
           :amount="amount"
         />
         <div v-if="transactionType === 'value_transfer'" class="address-container">
@@ -130,6 +131,7 @@ export default {
   .amount {
     font-size: 16px;
     font-weight: bold;
+    display: block;
     &.from {
       color: $green-5;
     }
@@ -185,9 +187,9 @@ export default {
     id="600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109"
     :outputs="[
         { value: '123', address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq' },
-        { value: '499999999865', address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }
+        { value: 499999999865, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }
       ]"
-    :inputs="[{ value: '500000000000', address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }]"
+    :inputs="[{ value: 500000000000, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }]"
     type="POSITIVE"
     transactionType="value_transfer"
   />
@@ -205,9 +207,9 @@ export default {
     id="600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109"
     :outputs="[
         { value: '123', address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq' },
-        { value: '499999999865', address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }
+        { value: 499999999865, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }
       ]"
-    :inputs="[{ value: '500000000000', address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }]"
+    :inputs="[{ value: 500000000000, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }]"
     type="NEGATIVE"
     state="IN PROGRESS"
     transactionType="data_request"
@@ -226,9 +228,9 @@ export default {
     id="600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109"
     :outputs="[
         { value: '123', address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq' },
-        { value: '499999999865', address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }
+        { value: 499999999865, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }
       ]"
-    :inputs="[{ value: '500000000000', address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }]"
+    :inputs="[{ value: 500000000000, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }]"
     type="NEGATIVE"
     state="IN PROGRESS"
     transactionType="data_request"

@@ -12,7 +12,7 @@ describe('Addresses.vue', () => {
               pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
-              amount: 5000,
+              receivedAmount: 5000,
               currency: 'nanoWits',
               lastPaymentDate: new Date(),
               firstPaymentDate: new Date(),
@@ -22,7 +22,7 @@ describe('Addresses.vue', () => {
               pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: true,
-              amount: 5000,
+              receivedAmount: 5000,
               currency: 'nanoWits',
               lastPaymentDate: new Date(),
               firstPaymentDate: new Date(),
@@ -35,6 +35,12 @@ describe('Addresses.vue', () => {
             uiInteractions: {
               state: {
                 receiveTransactionClicked: false,
+              },
+            },
+
+            wallet: {
+              state: {
+                currency: 'nanoWit',
               },
             },
           },
@@ -52,7 +58,7 @@ describe('Addresses.vue', () => {
               pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
-              amount: 5000,
+              receivedAmount: 5000,
               currency: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
@@ -62,7 +68,7 @@ describe('Addresses.vue', () => {
               pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: true,
-              amount: 5000,
+              receivedAmount: 5000,
               currency: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
@@ -75,6 +81,11 @@ describe('Addresses.vue', () => {
             uiInteractions: {
               state: {
                 receiveTransactionClicked: false,
+              },
+            },
+            wallet: {
+              state: {
+                currency: 'nanoWit',
               },
             },
           },
@@ -94,7 +105,7 @@ describe('Addresses.vue', () => {
               pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
-              amount: 5000,
+              receivedAmount: 5000,
               currency: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
@@ -104,7 +115,7 @@ describe('Addresses.vue', () => {
               pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: true,
-              amount: 5000,
+              receivedAmount: 5000,
               currency: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
@@ -117,6 +128,11 @@ describe('Addresses.vue', () => {
             uiInteractions: {
               state: {
                 receiveTransactionClicked: false,
+              },
+            },
+            wallet: {
+              state: {
+                currency: 'nanoWit',
               },
             },
           },
@@ -138,7 +154,7 @@ describe('Addresses.vue', () => {
               pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
-              amount: 5000,
+              receivedAmount: 5000,
               currency: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
@@ -148,7 +164,7 @@ describe('Addresses.vue', () => {
               pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: true,
-              amount: 5000,
+              receivedAmount: 5000,
               currency: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
@@ -161,6 +177,11 @@ describe('Addresses.vue', () => {
             uiInteractions: {
               state: {
                 receiveTransactionClicked: false,
+              },
+            },
+            wallet: {
+              state: {
+                currency: 'nanoWit',
               },
             },
           },

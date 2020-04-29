@@ -25,7 +25,7 @@
       <Tag class="tag" color="red" text="USED" />
       <p class="description">
         Received <span class="bold">{{ payments }} payments</span> totalling
-        <span class="bold"> {{ amount }} {{ currency }} </span> from
+        <span class="bold"><Amount :amount="amount"/></span> from
         <span class="bold">{{ formatDateVerbose(firstPaymentDate) }}</span> to
         <span class="bold">{{ formatDateVerbose(lastPaymentDate) }}</span
         >.
@@ -45,6 +45,7 @@
 
 <script>
 import Tag from '@/components/Tag'
+import Amount from '@/components/Amount'
 import { formatDateVerbose, copyToClipboard } from '@/utils'
 
 /**
@@ -53,6 +54,7 @@ import { formatDateVerbose, copyToClipboard } from '@/utils'
 export default {
   name: 'AddressInformation',
   components: {
+    Amount,
     Tag,
   },
   props: {
@@ -75,13 +77,6 @@ export default {
      * Pkh of the selected address
      */
     pkh: {
-      required: false,
-      type: String,
-    },
-    /**
-     * Currency to show the amount of wits
-     */
-    currency: {
       required: false,
       type: String,
     },
@@ -262,7 +257,6 @@ export default {
     :index="0"
     :used="false"
     pkh="twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft"
-    currency="nanoWits"
     :amount="5000"
     :firstPaymentDate="new Date()"
     :lastPaymentDate="new Date()"
@@ -275,7 +269,6 @@ export default {
   <AddressInformation
     :style="{ width: '350px' }"
     :used="false"
-    currency="nanoWits"
   />
 ```
 </docs>
