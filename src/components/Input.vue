@@ -1,24 +1,48 @@
 <template>
   <textarea
+    :ref="`input${Date.now()}`"
     data-test="textarea"
     @keydown.enter.esc.prevent="toogleGoNextItem"
     v-model="inputValue"
-    :class="`input ${getClass(type)}`"
+    class="input"
+    :class="{
+      big: type === 'big',
+      underlined: type === 'underlined',
+      default: type !== 'underlined' && type !== 'big',
+      autoresize,
+    }"
     :placeholder="placeholder"
     :type="nativeType"
+    :maxlength="maxlength"
   />
 </template>
 
 <script>
+import resizeMixin from '@/components/resizeMixin'
+
 export default {
   name: 'Input',
+  mixins: [resizeMixin],
   props: {
+    maxlength: {
+      type: Number,
+      required: false,
+    },
     nativeType: String,
     placeholder: String,
     type: [Number, String],
     value: {
       required: false,
     },
+    autoresize: {
+      type: Boolean,
+      required: false,
+    },
+  },
+  mounted() {
+    if (this.autoresize) {
+      this.makeItAutoresizeable(this.$refs[Object.keys(this.$refs)[0]])
+    }
   },
   computed: {
     inputValue: {
@@ -53,6 +77,12 @@ export default {
   display: inline-block;
   width: 100%;
   box-sizing: border-box;
+  resize: none;
+
+  &.autoresize {
+    overflow: hidden;
+  }
+
   &.big {
     font-size: 22px;
     border: $input_big-border;

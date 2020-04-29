@@ -14,7 +14,14 @@
       Please type your 12 word seed phrase exactly as it was shown to you on the previous screen.
       This step is to confirm that you have copied your seed phrase correctly.
     </p>
-    <Input type="big" class="seed" v-model="seed" v-on:go-next="nextStep" />
+    <Input
+      type="big"
+      class="seed"
+      v-model="seed"
+      :autoresize="true"
+      :maxlength="mnemonics.length"
+      v-on:go-next="nextStep"
+    />
     <p data-test="mnemonics-error-alert" class="match-error" v-if="mnemonicsError">
       Mnemonics must match
     </p>

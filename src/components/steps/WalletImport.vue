@@ -12,7 +12,24 @@
     <p>
       Please type your 12 word seed phrase.
     </p>
-    <Input type="big" class="seed" v-model="seed" v-on:go-next="nextStep" />
+    <!-- maxlength = longest_mnemonic_length * words + whitespaces -->
+    <!-- maxlength = 8 * 12 + 11 -->
+    <Input
+      type="big"
+      class="seed"
+      v-model="seed"
+      :autoresize="true"
+      :maxlength="107"
+      v-on:go-next="nextStep"
+    />
+    <Input
+      type="big"
+      class="seed"
+      v-model="seed"
+      :autoresize="true"
+      :maxlength="107"
+      v-on:go-next="nextStep"
+    />
     <p data-test="mnemonics-error-alert" class="match-error" v-if="seedError">
       {{ seedError.message }}
     </p>

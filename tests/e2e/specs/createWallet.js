@@ -50,7 +50,7 @@ describe('Create Wallet', () => {
       })
       .then(val => {
         cy.get('[data-test=next-step]').click()
-        cy.get('[data-test=textarea]').type(val + '1')
+        cy.get('[data-test=textarea]').type('1')
       })
     cy.get('[data-test=next-step]').click({ force: true })
     cy.get('[data-test=mnemonics-error-alert]').should('have.css', 'color', 'rgb(240, 132, 132)')
