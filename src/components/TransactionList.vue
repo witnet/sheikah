@@ -1,7 +1,7 @@
 <template>
   <div class="transaction-list">
     <p class="title">
-      <span class="label">TRANSACTIONS</span>
+      <span class="label">Transactions</span>
       <span class="number">{{ transactionsLength }} transactions</span>
     </p>
     <div class="list">
@@ -87,11 +87,11 @@ export default {
   .label {
     font-size: 16px;
     font-weight: 600;
-    color: $alt-grey-3;
+    color: $alt-grey-5;
   }
   .number {
-    font-size: 16px;
-    color: $alt-grey-5;
+    font-size: 14px;
+    color: $alt-grey-3;
     margin-left: 8px;
   }
   .list {

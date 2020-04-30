@@ -117,10 +117,11 @@ export default {
 .network-status {
   display: grid;
   grid-template-rows: minmax(100px, max-content);
+  grid-template-columns: 350px;
   .header {
     cursor: pointer;
     display: grid;
-    grid-template-columns: 70px;
+    grid-template-columns: 70px minmax(max-content, auto) 40px;
     align-items: center;
     justify-items: center;
     font-size: $icon_status-font_size;
