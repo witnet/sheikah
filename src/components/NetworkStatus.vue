@@ -135,8 +135,20 @@ export default {
         .status {
           font-weight: bold;
           margin-top: 8px;
-          &.synced {
+          &.block {
             color: $green-5;
+          }
+          &.movement {
+            color: $purple-4;
+          }
+          &.sync-finished {
+            color: $green-5;
+          }
+          &.sync-progress {
+            color: $yellow-4;
+          }
+          &.sync-start {
+            color: $yellow-4;
           }
           &.syncing {
             color: $yellow-4;
@@ -192,16 +204,6 @@ export default {
   .slide-leave-to {
     overflow: hidden;
     max-height: 0;
-  }
-}
-.network-status {
-  &.expanded {
-    grid-template-columns: 350px;
-  }
-}
-.header {
-  &.expanded {
-    grid-template-columns: 70px minmax(max-content, auto) 40px;
   }
 }
 </style>

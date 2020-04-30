@@ -112,7 +112,10 @@ export function match(value, options, result) {
 }
 
 export function changeDateFormat(timestamp) {
-  let date = new Date(timestamp)
+  const timestampLength = timestamp.toString().length
+  const t = timestampLength < 13 ? timestamp + '000' : timestamp
+  let date = new Date(Math.floor(t))
+  // let date = new Date(timestamp)
   const formatedDate = date
     .toString()
     .split(' ')
