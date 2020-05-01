@@ -231,6 +231,9 @@ export default {
     renameTemplate: function(state, { id, name }) {
       state.templates[id].name = name
     },
+    updateTemplateDescription: function(state, { id, description }) {
+      state.templates[id].description = description
+    },
     [TOGGLE_VARIABLES](state, { hasVariables }) {
       if (hasVariables === true) {
         state.hasVariables = true
@@ -247,6 +250,25 @@ export default {
     },
   },
   actions: {
+    changeTemplateDescription: async function(context, { id, description }) {
+      this.commit('updateTemplateDescription', { id, description })
+      const request = await context.rootState.wallet.api.saveItem({
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
+        key: 'templates',
+        value: context.state.templates,
+        creation_date: Date.now(),
+      })
+      if (request.result) {
+        await context.dispatch('getTemplates')
+      } else {
+        context.commit('setError', {
+          name: 'saveItem',
+          error: request.error,
+          message: 'An error occurred changing the template name',
+        })
+      }
+    },
     changeTemplateName: async function(context, { id, name }) {
       this.commit('renameTemplate', { id, name })
       const request = await context.rootState.wallet.api.saveItem({

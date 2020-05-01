@@ -59,7 +59,7 @@ describe('Create a complete deploy Data Request flow', () => {
       .type('1')
     cy.get('[data-test=to-templates]')
       .last()
-      .click()
+      .click({ force: true })
     cy.get('[data-test=template-name-input]')
       .last()
       .should('have.value', '1')

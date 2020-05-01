@@ -30,7 +30,6 @@
           :description="template.description"
           :key="template.id"
           :date="template.creationDate"
-          v-on:change-name="changeName"
           v-on:toggle-modal="displayModalCreateDR(template)"
         />
       </div>
@@ -48,7 +47,6 @@
       />
     </div>
     <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
-
     <DeployDataRequest
       v-if="dialogVisible"
       v-on:close="closeDeployModal"
@@ -109,7 +107,6 @@ export default {
       clearError: 'clearError',
     }),
     ...mapActions({
-      changeTemplateName: 'changeTemplateName',
       getTemplates: 'getTemplates',
       saveTemplate: 'saveTemplate',
     }),
@@ -128,9 +125,6 @@ export default {
     displayModalCreateDR: function(currentTemplate) {
       this.dialogVisible = true
       this.currentTemplate = currentTemplate
-    },
-    changeName({ name, id }) {
-      this.changeTemplateName({ id, name })
     },
     importTemplate() {
       this.$refs.fileInput.click()
@@ -202,16 +196,6 @@ export default {
 .pagination-nav {
   padding: 16px 0px 16px 0px;
   text-align: center;
-}
-.el-dialog {
-  min-width: 500px;
-  max-width: 700px;
-  .el-dialog__body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    word-break: keep-all;
-  }
 }
 .centered {
   display: flex;

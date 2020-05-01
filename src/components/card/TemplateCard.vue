@@ -1,72 +1,67 @@
 <template>
-  <FrameOutside @click="showInput = false" @focus="showInput = false">
-    <div :class="`card-layout ${style}`">
-      <div class="option-btn">
-        <el-dropdown @command="handleCommand">
-          <div class="button-options" split-button type="primary">
-            <img
-              v-if="type === 'marketplace'"
-              src="@/resources/svg/options-marketplace.svg"
-              alt=""
-            />
-            <img v-else src="@/resources/svg/options.svg" alt="" />
+  <div :class="`card-layout ${style}`">
+    <div class="option-btn">
+      <el-dropdown @command="handleCommand">
+        <div class="button-options" split-button type="primary">
+          <img v-if="type === 'marketplace'" src="@/resources/svg/options-marketplace.svg" alt="" />
+          <img v-else src="@/resources/svg/options.svg" alt="" />
+        </div>
+        <el-dropdown-menu v-if="type === 'marketplace'" slot="dropdown" :class="style">
+          <el-dropdown-item
+            v-for="(option, index) in marketplaceOptions"
+            :key="option.label"
+            :command="index"
+          >
+            {{ option.label }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+        <el-dropdown-menu v-else slot="dropdown" :class="style">
+          <el-dropdown-item
+            :data-test="`template-${option.label}`"
+            v-for="(option, index) in options"
+            :key="option.label"
+            :command="index"
+          >
+            {{ option.label }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+    <div data-test="edit-template" class="content" @click="edit">
+      <div class="title">
+        <el-tooltip :content="name" placement="bottom" effect="light">
+          <div ref="input">
+            {{ cropString(name, 15) }}
           </div>
-          <el-dropdown-menu v-if="type === 'marketplace'" slot="dropdown" :class="style">
-            <el-dropdown-item
-              v-for="(option, index) in marketplaceOptions"
-              :key="option.label"
-              :command="index"
-            >
-              {{ option.label }}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-          <el-dropdown-menu v-else slot="dropdown" :class="style">
-            <el-dropdown-item
-              :data-test="`template-${option.label}`"
-              v-for="(option, index) in options"
-              :key="option.label"
-              :command="index"
-            >
-              {{ option.label }}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        </el-tooltip>
       </div>
-      <div data-test="edit-template" class="content" @click="edit">
-        <div class="title">
-          <el-tooltip :content="name" placement="bottom" effect="light">
-            <div ref="input" v-show="!showInput">
-              {{ cropString(name, 15, 'end') }}
-            </div>
-          </el-tooltip>
-          <el-input
-            data-test="template-name-input"
-            v-show="showInput"
-            :placeholder="name"
-            v-model="updateName"
-          />
-        </div>
-        <div class="description">
-          {{ description }}
-        </div>
-      </div>
-      <div v-show="style != 'marketplace'" class="date">
-        {{ dateFormated }}
+      <div class="description">
+        {{ cropString(description, 75) }}
       </div>
     </div>
-  </FrameOutside>
+    <div v-show="style != 'marketplace'" class="date">
+      {{ dateFormated }}
+    </div>
+    <RenameTemplate
+      v-if="isRenameModalActivated"
+      v-on:close-modal="handleClose"
+      :name="name"
+      :description="description"
+      :id="id"
+    />
+  </div>
 </template>
 
 <script>
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import { changeDateFormat, cropString } from '@/utils'
-import FrameOutside from '@/components/FrameOutside'
 import { mapActions, mapMutations } from 'vuex'
+import RenameTemplate from '@/components/RenameTemplate.vue'
 
 export default {
   name: 'TemplateCard',
   components: {
-    FrameOutside,
+    RenameTemplate,
   },
   data() {
     return {
@@ -88,13 +83,13 @@ export default {
         {
           label: 'Rename',
           action: () => {
-            this.showInput = true
+            this.isRenameModalActivated = true
           },
         },
         {
           label: 'Deploy',
           action: () => {
-            this.displayModal()
+            this.displayDeployModal()
           },
         },
         {
@@ -106,7 +101,8 @@ export default {
       ],
       dateFormated: changeDateFormat(this.date),
       showInput: false,
-      isModalActivated: false,
+      isDeployModalActivated: false,
+      isRenameModalActivated: false,
     }
   },
   props: {
@@ -120,16 +116,11 @@ export default {
     style() {
       return this.type
     },
-    updateName: {
-      get() {
-        return this.name
-      },
-      set(newName) {
-        this.$emit('change-name', { name: newName, id: this.id })
-      },
-    },
   },
   methods: {
+    handleClose() {
+      this.isRenameModalActivated = false
+    },
     cropString,
     ...mapMutations({
       setCurrentTemplate: SET_CURRENT_TEMPLATE,
@@ -137,8 +128,8 @@ export default {
     ...mapActions({
       deleteTemplate: 'deleteTemplate',
     }),
-    displayModal() {
-      this.isModalActivated = true
+    displayDeployModal() {
+      this.isDeployModalActivated = true
       this.$emit('toggle-modal', { isModalActivated: this.isModalActivated })
     },
     edit() {
@@ -218,6 +209,7 @@ export default {
       color: $black;
     }
     .description {
+      word-wrap: break-word;
       color: $alt-grey-3;
       line-height: 1.5em;
     }
