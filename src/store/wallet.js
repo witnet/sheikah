@@ -60,6 +60,7 @@ export default {
     setWalletIndex(state, { walletIndex }) {
       const walletInfos = state.walletInfos
       state.walletIdx = walletIndex === -1 ? walletInfos.length : walletIndex
+      localStorage.setItem('walletIndex', state.walletIdx)
     },
     setLabels(state, { labels }) {
       state.txLabels = labels

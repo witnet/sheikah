@@ -59,7 +59,7 @@ export default {
     }
   },
   created() {
-    this.currentWallet = this.walletOptions[0]
+    this.currentWallet = this.walletOptions[this.lastWalletOpen]
   },
   methods: {
     ...mapActions({
@@ -103,6 +103,10 @@ export default {
       unlockWalletError: state => state.wallet.errors.unlockWallet,
       wallets: state => state.wallet.walletInfos,
     }),
+    lastWalletOpen() {
+      const savedIndex = localStorage.getItem('walletIndex')
+      return savedIndex || 0
+    },
     disableButton() {
       const passwordLength = this.password.split('').length
       if (!this.unlockWalletError && passwordLength >= 8) {

@@ -41,7 +41,7 @@
       </div>
     </div>
     <transition name="slide">
-      <div data-test="detail-info" v-if="showAll && expanded && network" class="detail-info">
+      <div data-test="detail-info" v-if="showAll && expanded" class="detail-info">
         <p data-test="node" class="text">
           Connected to <span class="bold">{{ address }}</span>
         </p>
@@ -50,7 +50,7 @@
         </p>
         <p data-test="last-block" class="text">
           Last block is <span class="bold">#{{ lastBlock }}</span>
-          <span v-if="status.timestamp > 0"> ({{ calculateTimeAgo(timeAgo) }})</span>
+          <span> ({{ calculateTimeAgo(timeAgo) }})</span>
         </p>
       </div>
     </transition>
