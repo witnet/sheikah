@@ -13,8 +13,8 @@
       <p class="text">
         Such allocation is conditioned to the succesful completion of this claiming process. Please
         verify that your information listed above is correct — if not, please ask
-        <a class="link" href="mailto:genesis@witnet.foundation">genesis@witnet.foundation</a> for
-        support.
+        <a class="link" href="mailto:genesis@witnet.foundation">genesis@witnet.foundation</a>
+        for support.
       </p>
       <p class="text">
         This information will be available after the token generation event through the main Sheikah
