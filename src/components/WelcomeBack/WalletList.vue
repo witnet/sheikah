@@ -10,6 +10,7 @@
       <div class="row" @keydown.enter.esc.prevent="unlock()">
         <el-input
           @keydown.enter.esc.prevent="unlock()"
+          v-focus
           class="big"
           data-test="password"
           placeholder="Please input password"

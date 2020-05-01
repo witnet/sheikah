@@ -2,6 +2,13 @@ import Vue from 'vue'
 
 let handleOutsideClick
 
+Vue.directive('focus', {
+  inserted: function(el) {
+    // Enfoca el elemento y añade soporte para element ui inputs
+    el.getElementsByTagName('input') ? el.getElementsByTagName('input')[0].focus() : el.focus()
+  },
+})
+
 Vue.directive('closable', {
   bind(el, binding, vnode) {
     handleOutsideClick = e => {
