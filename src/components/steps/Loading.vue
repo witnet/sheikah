@@ -55,7 +55,6 @@ export default {
   flex-direction: column;
   height: 250px;
   justify-content: center;
-  width: 300px;
   .title {
     border: none;
     color: $purple-4;
