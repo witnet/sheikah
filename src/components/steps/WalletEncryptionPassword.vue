@@ -16,6 +16,8 @@
     <div class="form-row password">
       <p>Create a password</p>
       <el-input
+        v-focus
+        class="password"
         data-test="password"
         placeholder="Please input password"
         v-model="password"
