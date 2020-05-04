@@ -81,9 +81,6 @@ describe('Renders the correct elements when wallet is synced, side bar is expand
   it('does not find loading spinner', () => {
     expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
   })
-  it('does not find loading spinner', () => {
-    expect(wrapper.contains('[data-test="loading-spinner"]')).toBe(false)
-  })
   it('does not find icon short-down', () => {
     expect(wrapper.contains('[data-test="short-down"]')).toBe(false)
   })
@@ -94,7 +91,7 @@ describe('Renders the correct elements when wallet is synced, side bar is expand
     expect(wrapper.find('[data-test="node"]').text()).toBe('Connected to 127.0.0.1:21337')
   })
   it('finds icon last block', () => {
-    expect(wrapper.find('[data-test="last-block"]').text()).toBe('Last block is #123456789 ()')
+    expect(wrapper.find('[data-test="last-block"]').text()).toBe('Last block is #123456789')
   })
   it('finds network element', () => {
     expect(wrapper.find('[data-test="network"]').text()).toBe('Tracking Testnet network')

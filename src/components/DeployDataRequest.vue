@@ -6,15 +6,6 @@
     v-on:close="closeAndClear"
     :show-close="false"
   >
-    <Alert
-      data-test="alert"
-      v-for="error in errors"
-      class="alert"
-      :key="error.message"
-      type="error"
-      :message="error.message"
-      :description="error.description"
-    />
     <ConfirmDataRequest
       v-if="generatedTransaction"
       :backupWitnesses="backupWitnesses"
@@ -74,15 +65,6 @@ export default {
         return 'Add custom values for the template variables'
       }
     },
-    errors() {
-      if (this.networkStatus !== 'error') {
-        return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(
-          error => !!error
-        )
-      } else {
-        return [this.networkError]
-      }
-    },
     showFillVariablesForm() {
       return this.variablesUpdated || !this.variables.length
     },
@@ -137,9 +119,6 @@ export default {
     },
     closeAndClear: function() {
       this.$emit('close')
-      if (this.createDataRequestError) {
-        this.clearError({ error: this.createDataRequestError.name })
-      }
       if (this.generatedTransaction) {
         this.clearGeneratedTransaction()
       }

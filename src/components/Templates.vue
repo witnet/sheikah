@@ -10,17 +10,6 @@
         </template>
       </TopBar>
     </div>
-    <div v-show="dialogVisible === false">
-      <Alert
-        data-test="alert"
-        v-for="error in errors"
-        :key="error.message"
-        type="error"
-        :message="error.message"
-        :description="error.description"
-        v-on:close="() => clearError({ error: error.name })"
-      />
-    </div>
     <div class="centered">
       <div v-if="Object.entries(paginatedItems)" class="container-templates">
         <div v-show="currentPage === 1" class="add">
@@ -74,7 +63,6 @@ import TemplateCard from './card/TemplateCard'
 import DeployDataRequest from '@/components/DeployDataRequest.vue'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import TopBar from '@/components/TopBar'
-import Alert from '@/components/Alert'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
 
 export default {
@@ -83,7 +71,6 @@ export default {
     TopBar,
     TemplateCard,
     DeployDataRequest,
-    Alert,
   },
   beforeMount() {
     this.getTemplates()
@@ -114,62 +101,7 @@ export default {
             }
           })
           .sort((a, b) => parseInt(a.creationDate) - parseInt(b.creationDate)),
-      createDataRequestError: state => {
-        if (state.wallet.errors.createDataRequest) {
-          return {
-            message: state.wallet.errors.createDataRequest.message,
-            description: state.wallet.errors.createDataRequest.error,
-            name: state.wallet.errors.createDataRequest.name,
-          }
-        }
-      },
-      sendTransactionError: state => {
-        if (state.wallet.errors.sendTransaction) {
-          return {
-            message: state.wallet.errors.sendTransaction.message,
-            description: state.rad.errors.sendTransaction.error.message,
-            name: state.rad.errors.sendTransaction.name,
-          }
-        }
-      },
-      saveItemError: state => {
-        if (state.rad.errors.saveItem) {
-          return {
-            message: state.rad.errors.saveItem.message,
-            description: state.rad.errors.saveItem.error,
-            name: state.rad.errors.saveItem.name,
-          }
-        }
-      },
-      networkError: state => {
-        if (state.wallet.errors.network) {
-          return {
-            message: state.wallet.errors.network.message,
-            description: state.wallet.errors.network.error,
-            name: state.wallet.errors.network.name,
-          }
-        }
-      },
-      getItemError: state => {
-        if (state.rad.errors.getItem) {
-          return {
-            message: state.rad.errors.getItem.message,
-            description: state.rad.errors.getItem.error,
-            name: state.rad.errors.getItem.name,
-          }
-        }
-      },
-      networkStatus: state => state.wallet.networkStatus,
     }),
-    errors() {
-      if (this.networkStatus !== 'error') {
-        return [this.getItemError, this.saveItemError, this.createDataRequestError].filter(
-          error => !!error
-        )
-      } else {
-        return [this.networkError]
-      }
-    },
   },
   methods: {
     ...mapMutations({

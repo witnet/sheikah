@@ -8,15 +8,6 @@
     :previousStep="() => this.$router.push('/ftu/disclaimer')"
     :nextStep="() => this.$router.push('/ftu/seed-validation')"
   >
-    <Alert
-      data-test="alert"
-      v-if="createMnemonicsError"
-      :key="createMnemonicsError.message"
-      type="error"
-      :message="createMnemonicsError.message"
-      :description="createMnemonicsError.description"
-      v-on:close="() => clearError({ error: createMnemonicsError.name })"
-    />
     <p class="paragraph-title">Your 12 word seed phrase:</p>
     <pre data-test="word-seed" class="seed">{{ seed }}</pre>
     <p class="paragraph">
@@ -32,7 +23,6 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import Alert from '@/components/Alert'
 import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
@@ -41,20 +31,10 @@ export default {
   computed: {
     ...mapState({
       seed: state => state.wallet.mnemonics,
-      createMnemonicsError: state => {
-        if (state.wallet.errors.createMnemonics) {
-          return {
-            message: state.wallet.errors.createMnemonics.message,
-            description: state.wallet.errors.createMnemonics.error.message,
-            name: state.wallet.errors.createMnemonics.name,
-          }
-        }
-      },
     }),
   },
   components: {
     NavigationCard,
-    Alert,
   },
   methods: {
     ...mapMutations({
@@ -76,11 +56,6 @@ export default {
   },
   created() {
     this.createMnemonics()
-  },
-  beforeDestroy() {
-    if (this.createMnemonicsError) {
-      this.clearError({ error: this.createMnemonicsError.name })
-    }
   },
 }
 </script>

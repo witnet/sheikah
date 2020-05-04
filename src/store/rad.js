@@ -315,7 +315,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'getItem',
-          error: request.error,
+          error: request.error.message,
           message: 'An error retrieving the templates list',
         })
       }
@@ -332,7 +332,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'saveItem',
-          error: request.error,
+          error: request.error.message,
           message: 'An error occurred deleting the template',
         })
       }

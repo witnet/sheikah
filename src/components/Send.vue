@@ -6,17 +6,6 @@
     v-on:close="closeAndClear"
     :show-close="false"
   >
-    <Alert
-      class="alert"
-      data-test="alert"
-      v-for="error in errors"
-      :key="error.message"
-      type="error"
-      :message="error.message"
-      :description="error.description"
-      v-on:close="() => clearError({ error: error.name })"
-    />
-
     <div class="">
       <div v-if="generatedTransaction" class="transaction-info">
         <div class="scroll">
@@ -140,13 +129,9 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import Alert from '@/components/Alert'
 
 export default {
   name: 'send',
-  components: {
-    Alert,
-  },
   data() {
     const enoughFunds = (rule, value, callback) => {
       const totalAmount = Number.isInteger(this.form.fee) ? value + this.form.fee : value
@@ -188,31 +173,6 @@ export default {
       availableBalance: state => {
         // TODO: change for available when wallet returns it
         return state.wallet.balance.total
-      },
-      createVTTError: state => {
-        if (state.wallet.errors.createVTT) {
-          return {
-            message: state.wallet.errors.createVTT.message,
-            description: state.wallet.errors.createVTT.error.message,
-            name: state.wallet.errors.createVTT.name,
-          }
-        }
-      },
-      saveItemError: state => {
-        if (state.wallet.errors.saveItem) {
-          return {
-            message: state.wallet.errors.saveItem.message,
-            description: state.wallet.errors.saveItem.error,
-            name: state.wallet.errors.saveItem.name,
-          }
-        }
-      },
-      errors() {
-        if (this.networkStatus !== 'error') {
-          return [this.sendTransactionError, this.createVTTError].filter(error => !!error)
-        } else {
-          return []
-        }
       },
       generatedTransaction: state => state.wallet.generatedTransaction,
       networkStatus: state => state.wallet.networkStatus,
@@ -263,23 +223,9 @@ export default {
       })
     },
     closeDialog() {
-      if (this.errors) {
-        this.isAdvancedVisible = false
-        this.$emit('close')
-      }
+      this.isAdvancedVisible = false
+      this.$emit('close')
     },
-  },
-  watch: {
-    generatedTransaction(value) {
-      // if (value) {
-      //   this.showModal = true
-      // }
-    },
-  },
-  beforeDestroy() {
-    if (this.saveItemError) {
-      this.clearError({ error: this.saveItemError.name })
-    }
   },
 }
 </script>

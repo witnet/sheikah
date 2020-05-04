@@ -41,15 +41,16 @@
       </div>
     </div>
     <transition name="slide">
-      <div data-test="detail-info" v-if="showAll && expanded" class="detail-info">
+      <div data-test="detail-info" v-if="showAll && expanded && network" class="detail-info">
         <p data-test="node" class="text">
           Connected to <span class="bold">{{ address }}</span>
         </p>
-        <p data-test="network" class="text">
+        <p v-if="network" data-test="network" class="text">
           Tracking <span class="bold">{{ network }}</span> network
         </p>
         <p data-test="last-block" class="text">
-          Last block is <span class="bold">#{{ lastBlock }}</span> ({{ timeAgo }})
+          Last block is <span class="bold">#{{ lastBlock }}</span>
+          <span v-if="status.timestamp > 0"> ({{ calculateTimeAgo(timeAgo) }})</span>
         </p>
       </div>
     </transition>
@@ -59,7 +60,7 @@
 <script>
 import DotIndicator from '@/components/DotIndicator'
 import DotsLoading from '@/components/DotsLoading.vue'
-import { timeAgo } from '@/utils'
+import { calculateTimeAgo } from '@/utils'
 
 export default {
   name: 'NetworkStatus',
@@ -75,15 +76,24 @@ export default {
     DotIndicator,
     DotsLoading,
   },
-  created() {
-    setInterval(() => {
-      this.timeAgo = timeAgo(this.timestamp)
-    }, 1000)
+  data() {
+    return {
+      showAll: false,
+      timeAgo: this.status ? this.status.timestamp : null,
+    }
   },
   watch: {
+    status(status) {
+      if (status) {
+        this.timeAgo = this.status.timestamp
+      }
+    },
     expanded(expanded) {
       this.showAll = false
     },
+  },
+  methods: {
+    calculateTimeAgo,
   },
   computed: {
     address() {
@@ -105,12 +115,6 @@ export default {
       return this.status && this.status.timestamp
     },
   },
-  data() {
-    return {
-      showAll: false,
-      timeAgo: null,
-    }
-  },
 }
 </script>
 
@@ -121,7 +125,7 @@ export default {
 .network-status {
   display: grid;
   grid-template-rows: minmax(100px, max-content);
-  grid-template-columns: 350px;
+  grid-template-columns: 400px;
   .header {
     cursor: pointer;
     display: grid;
@@ -135,24 +139,13 @@ export default {
         font-weight: bold;
       }
       .status-container {
+        margin-top: 8px;
         display: flex;
         .status {
           font-weight: bold;
-          margin-top: 8px;
-          &.block {
+          margin-right: 8px;
+          &.synced {
             color: $green-5;
-          }
-          &.movement {
-            color: $purple-4;
-          }
-          &.sync-finished {
-            color: $green-5;
-          }
-          &.sync-progress {
-            color: $yellow-4;
-          }
-          &.sync-start {
-            color: $yellow-4;
           }
           &.syncing {
             color: $yellow-4;
