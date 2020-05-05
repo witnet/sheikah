@@ -192,9 +192,9 @@ export default {
 
     .copy {
       align-items: center;
-      background: $grey-icon-background;
+      background: $grey-0;
       border-radius: 2px;
-      border: 1px solid $link-border-grey;
+      border: 1px solid $grey-1;
       cursor: pointer;
       display: flex;
       height: 24px;
@@ -203,7 +203,7 @@ export default {
       user-select: none;
       width: 24px;
       .icon {
-        color: $grey-icon;
+        color: $alt-grey-4;
         width: 11px;
       }
 
@@ -251,13 +251,13 @@ export default {
   }
 
   .help {
-    color: $link-grey;
+    color: $alt-grey-5;
     font-size: 12px;
     font-style: italic;
     line-height: 150%;
 
     .link {
-      color: $link-grey;
+      color: $alt-grey-5;
       font-weight: 500;
       text-decoration: underline;
     }

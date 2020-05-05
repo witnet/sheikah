@@ -356,7 +356,6 @@ export default {
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
       })
-
       if (request.result) {
         // Delay to get a smoother flow
         setTimeout(() => {

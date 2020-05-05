@@ -59,7 +59,7 @@ export default {
   align-content: center;
   align-items: center;
   background-color: $orange-1;
-  border-bottom: 1px solid $grey-border;
+  border-bottom: 1px solid $grey-1;
   box-sizing: border-box;
   display: grid;
   gap: 6px;
@@ -78,7 +78,7 @@ export default {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $scroll-grey;
+  background: $alpha-grey;
   -webkit-border-radius: 1ex;
   border-radius: 1ex;
 }
