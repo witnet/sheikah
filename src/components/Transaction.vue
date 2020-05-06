@@ -178,7 +178,7 @@ export default {
 ```jsx
   <Transaction
     currency="nanoWits"
-    amount="123"
+    :amount="123"
     block="511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f"
     :border="false"
     date="JAN 19, 1970 @ 10:00:31"
@@ -198,7 +198,7 @@ export default {
 ```jsx
   <Transaction
     currency="nanoWits"
-    amount="123"
+    :amount="123"
     block="511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f"
     :border="false"
     date="JAN 19, 1970 @ 10:00:31"
@@ -219,7 +219,7 @@ export default {
 ```jsx
   <Transaction
     currency="nanoWits"
-    amount="123"
+    :amount="123"
     block="511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f"
     :border="false"
     date="JAN 19, 1970 @ 10:00:31"

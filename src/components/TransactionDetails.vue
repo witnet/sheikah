@@ -76,7 +76,7 @@
 import { cropString } from '@/utils'
 
 export default {
-  name: 'Transaction',
+  name: 'TransactionDetails',
   data() {
     return {
       showDetails: false,
