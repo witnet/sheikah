@@ -1,7 +1,7 @@
 <script>
-// Layout to display the Transactions view
+// Layout to display the two columns: a main content in the left and two sections in the right side
 export default {
-  name: 'LayoutTransactions',
+  name: 'LayoutTwoColumns',
   render(createElement) {
     return createElement(
       'div',
@@ -11,8 +11,8 @@ export default {
         },
       },
       [
-        // slot to render transaction list on the left side
-        this.$slots.transactions,
+        // slot to render on the left side
+        this.$slots.left,
         createElement(
           'div',
           {
@@ -21,10 +21,10 @@ export default {
             },
           },
           [
-            // slot to render the balace on the upper right side
-            this.$slots.balance,
-            // slot to render addreses on the bottom of the right side
-            this.$slots.addresses,
+            // slot to render on the upper right side
+            this.$slots.upperRight,
+            // slot to render on the bottom of the right side
+            this.$slots.bottomRight,
           ]
         ),
       ]
@@ -52,26 +52,24 @@ export default {
 ### Example
 
 ```jsx
-  <LayoutTransactions>
-
-    <template #transactions>
+  <LayoutTwoColumns>
+    <template #left>
       <div :style="{ background: '#E6D4F7', height: '50vh' }">
-        Transactions
+        Main content
       </div>
     </template>
 
-    <template #balance>
+    <template #upperRight>
       <div :style="{ background: '#8AE5B1', height: '20vh'}">
-        Balance
+        Upper right
       </div>
     </template>
 
-    <template #addresses>
+    <template #upperBottom>
       <div :style="{ background: '#FCF4D9' }">
-        Addresses
+        Upper Bottom
       </div>
     </template>
-
-  </LayoutTransactions>
+  </LayoutTwoColumns>
 ```
 </docs>

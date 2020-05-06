@@ -1,21 +1,21 @@
 <template>
-  <LayoutTransactions data-test="transactions">
-    <template #transactions>
+  <LayoutTwoColumns data-test="transactions">
+    <template #left>
       <TransactionList class="list" :transactions="transactions" :currency="currency" />
     </template>
 
-    <template #balance>
+    <template #upperRight>
       <Balance :total="total" :currency="currency" />
     </template>
 
-    <template #addresses>
+    <template #bottomRight>
       <Addresses
         :addresses="addresses"
         :currency="currency"
         v-on:generate-address="() => generateAddress('')"
       />
     </template>
-  </LayoutTransactions>
+  </LayoutTwoColumns>
 </template>
 
 <script>
@@ -23,12 +23,12 @@ import { mapState, mapActions } from 'vuex'
 import Balance from '@/components/Balance'
 import TransactionList from '@/components/TransactionList'
 import Addresses from '@/components/Addresses'
-import LayoutTransactions from '@/components/LayoutTransactions'
+import LayoutTwoColumns from '@/components/LayoutTwoColumns'
 
 export default {
   name: 'Transactions',
   components: {
-    LayoutTransactions,
+    LayoutTwoColumns,
     TransactionList,
     Balance,
     Addresses,
