@@ -56,6 +56,8 @@ global.createComponentMocks = ({ store, router, style, mocks, stubs }) => {
               state: storeModule.state || {},
               getters: storeModule.getters || {},
               actions: storeModule.actions || {},
+              mutations: storeModule.mutations || {},
+              // namespaced by default is false
               namespaced:
                 typeof storeModule.namespaced === 'undefined' ? true : storeModule.namespaced,
             },
