@@ -65,9 +65,9 @@ export default {
       </div>
     </template>
 
-    <template #upperBottom>
+    <template #bottomRight>
       <div :style="{ background: '#FCF4D9' }">
-        Upper Bottom
+        Bottom right
       </div>
     </template>
   </LayoutTwoColumns>

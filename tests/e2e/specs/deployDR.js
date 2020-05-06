@@ -1,5 +1,5 @@
-// TODO: remove skip in tests when new rust realise is ready
-describe('Create a complete deploy Data Request flow', () => {
+// TODO: remove .skip when new editor is finished
+describe.skip('Create a complete deploy Data Request flow', () => {
   it('Redirects to Templates view', () => {
     cy.createAndUnlockWallet()
     cy.get('[data-test=to-templates]').click()
