@@ -1,6 +1,16 @@
 <template>
   <div :class="`card-layout ${style}`">
     <div class="option-btn">
+      <div class="title">
+        <el-tooltip v-if="name.length > 40" :content="name" placement="bottom" effect="light">
+          <div ref="input">
+            {{ cropString(name, 40) }}
+          </div>
+        </el-tooltip>
+        <div v-else>
+          {{ name }}
+        </div>
+      </div>
       <el-dropdown @command="handleCommand">
         <div class="button-options" split-button type="primary">
           <img v-if="type === 'marketplace'" src="@/resources/svg/options-marketplace.svg" alt="" />
@@ -28,41 +38,23 @@
       </el-dropdown>
     </div>
     <div data-test="edit-template" class="content" @click="edit">
-      <div class="title">
-        <el-tooltip :content="name" placement="bottom" effect="light">
-          <div ref="input">
-            {{ cropString(name, 15) }}
-          </div>
-        </el-tooltip>
-      </div>
       <div class="description">
-        {{ cropString(description, 75) }}
+        {{ cropString(description, 120) }}
       </div>
     </div>
-    <div v-show="style != 'marketplace'" class="date">
-      {{ dateFormated }}
+    <div v-show="style != 'marketplace'" class="sources">
+      <span class="number">{{ sources }}</span> sources
     </div>
-    <RenameTemplate
-      v-if="isRenameModalActivated"
-      v-on:close-modal="handleClose"
-      :name="name"
-      :description="description"
-      :id="id"
-    />
   </div>
 </template>
 
 <script>
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
-import { changeDateFormat, cropString } from '@/utils'
+import { cropString } from '@/utils'
 import { mapActions, mapMutations } from 'vuex'
-import RenameTemplate from '@/components/RenameTemplate.vue'
 
 export default {
   name: 'TemplateCard',
-  components: {
-    RenameTemplate,
-  },
   data() {
     return {
       marketplaceOptions: [
@@ -81,12 +73,6 @@ export default {
           },
         },
         {
-          label: 'Rename',
-          action: () => {
-            this.isRenameModalActivated = true
-          },
-        },
-        {
           label: 'Deploy',
           action: () => {
             this.displayDeployModal()
@@ -99,17 +85,15 @@ export default {
           },
         },
       ],
-      dateFormated: changeDateFormat(this.date),
       showInput: false,
       isDeployModalActivated: false,
-      isRenameModalActivated: false,
     }
   },
   props: {
     id: String,
     name: String,
     description: String,
-    date: [Number, String],
+    sources: Number,
     type: [Number, String],
   },
   computed: {
@@ -118,9 +102,6 @@ export default {
     },
   },
   methods: {
-    handleClose() {
-      this.isRenameModalActivated = false
-    },
     cropString,
     ...mapMutations({
       setCurrentTemplate: SET_CURRENT_TEMPLATE,
@@ -153,6 +134,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .button-options {
+  height: min-content;
   display: block;
   background-color: transparent;
   border: none;
@@ -162,15 +144,19 @@ export default {
     cursor: pointer;
   }
 }
+.el-dropdown {
+  height: min-content;
+}
 .card-layout {
   display: grid;
-  grid-template-rows: 50px 200px 50px;
-  align-items: center;
-  grid-template-columns: 250px;
+  grid-template-rows: 70px auto 30px;
+  align-items: flex-start;
+  grid-template-columns: 300px;
   background-color: $white;
   border-radius: 2px;
-  margin: 16px;
   height: 300px;
+  width: 300px;
+  border-radius: 2px;
   border: 1px solid $grey-1;
   box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
   &.marketplace {
@@ -186,7 +172,6 @@ export default {
   .title,
   .description {
     overflow: hidden;
-    margin: 24px 32px;
     width: inherit;
   }
   .edit-btn {
@@ -194,30 +179,52 @@ export default {
     color: $alpha-purple;
   }
   .option-btn {
-    padding-right: 16px;
-    justify-self: right;
+    margin: 24px 24px 0px 24px;
+    justify-content: space-between;
+    display: flex;
+  }
+  .title {
+    font-weight: bold;
+    font-size: 16px;
+    color: $grey-6;
+    line-height: 1.5em;
   }
   .content {
     align-self: flex-start;
     &:hover {
       cursor: pointer;
     }
-    .title {
-      white-space: nowrap;
-      height: min-content;
-      font-size: 20px;
-      color: $black;
-    }
     .description {
+      margin: 16px 24px;
       word-wrap: break-word;
-      color: $alt-grey-3;
+      color: $grey-5;
       line-height: 1.5em;
+      font-size: 14px;
+      font-style: italic;
     }
   }
-  .date {
-    padding-left: 16px;
+  .sources {
+    margin-left: 24px;
+    font-size: 12px;
     width: 250px;
-    color: $alt-grey-3;
+    color: $grey-3;
+    .number {
+      color: $grey-5;
+      font-weight: bold;
+    }
   }
 }
 </style>
+
+<docs>
+### Examples
+
+#### Template Card
+```jsx
+  <TemplateCard
+    name="Template"
+    description="Description"
+    :sources="1"
+  />
+```
+</docs>

@@ -17,6 +17,7 @@ module.exports = {
     'src/components/LayoutSidebar.vue',
     'src/components/LayoutTwoColumns.vue',
     'src/components/NetworkStatus.vue',
+    'src/components/card/TemplateCard.vue',
     'src/components/Tag.vue',
     'src/components/Transaction.vue',
     'src/components/StageBar.vue',

@@ -1,35 +1,33 @@
 <template>
   <div data-test="templates">
     <div class="templates-bar">
-      <TopBar :tabs="tabs">
-        <template v-slot:tool>
-          <button class="tool-btn" @click="importTemplate">
-            <font-awesome-icon class="icon" icon="file-import" />
-            Import template
-          </button>
-        </template>
-      </TopBar>
+      <p class="title">
+        Data Request Templates <span class="templates-number">{{ templates.length }}</span>
+      </p>
+      <el-button class="import-btn" @click="importTemplate" type="primary">
+        <font-awesome-icon class="icon" icon="file-import" />
+        Import template
+      </el-button>
     </div>
     <div class="centered">
       <div v-if="Object.entries(paginatedItems)" class="container-templates">
-        <div v-show="currentPage === 1" class="add">
-          <router-link to="/request/editor">
-            <img
-              data-test="create-template"
-              @click="createTemplate"
-              class="add-btn"
-              src="@/resources/svg/add.svg"
-            />
-          </router-link>
+        <div
+          data-test="create-template"
+          @click="createTemplateAndRedirect()"
+          v-show="currentPage === 1"
+          class="add"
+        >
+          <img class="add-btn" src="@/resources/svg/add.svg" />
+          <p class="text">Create a new template</p>
         </div>
         <TemplateCard
           v-for="template in paginatedItems"
           class="card"
           :name="template.name"
           :id="template.id"
+          :sources="template.radRequest.retrieve.length"
           :description="template.description"
           :key="template.id"
-          :date="template.creationDate"
           v-on:toggle-modal="displayModalCreateDR(template)"
         />
       </div>
@@ -60,13 +58,11 @@
 import TemplateCard from './card/TemplateCard'
 import DeployDataRequest from '@/components/DeployDataRequest.vue'
 import { mapState, mapActions, mapMutations } from 'vuex'
-import TopBar from '@/components/TopBar'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
 
 export default {
   name: 'Templates',
   components: {
-    TopBar,
     TemplateCard,
     DeployDataRequest,
   },
@@ -76,7 +72,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      itemsPerPage: 8,
+      itemsPerPage: 7,
       tabs: [{ name: 'Templates', link: '/request/templates' }],
       dialogVisible: false,
       currentTemplate: null,
@@ -113,8 +109,12 @@ export default {
     closeDeployModal() {
       this.dialogVisible = false
     },
+    createTemplateAndRedirect() {
+      this.createTemplate()
+      this.$router.push('/request/editor')
+    },
     getItemsPerPage() {
-      this.currentPage === 1 ? (this.itemsPerPage = 8) : (this.itemsPerPage = 9)
+      this.currentPage === 1 ? (this.itemsPerPage = 7) : (this.itemsPerPage = 8)
     },
     handleCurrentChange(val) {
       this.currentPage = val
@@ -163,34 +163,24 @@ export default {
 <style lang="scss">
 @import '@/styles/_colors.scss';
 .templates-bar {
-  background-color: $white;
   display: flex;
   flex-flow: row wrap;
-  height: 70px;
   text-align: right;
-
-  .icon {
-    margin-right: 8px;
-  }
-  .tool-btn {
-    color: $alt-grey-2;
-    font-family: 'Roboto';
+  justify-content: right;
+  align-items: center;
+  height: 70px;
+  .title {
+    margin: 16px 0px 0px 32px;
     font-weight: bold;
-    font-size: 1em;
-    padding: 16px 24px;
-    background-color: transparent;
-    border: none;
-
-    &:active,
-    &:focus,
-    &:hover {
-      outline: none;
+    .templates-number {
+      margin-left: 8px;
+      font-weight: normal;
+      font-size: 14px;
+      color: $grey-4;
     }
-
-    &:hover {
-      cursor: pointer;
-      background-color: $alpha-purple;
-    }
+  }
+  .import-btn {
+    margin: 0px 16px 0px auto;
   }
 }
 .pagination-nav {
@@ -198,31 +188,34 @@ export default {
   text-align: center;
 }
 .centered {
-  display: flex;
-  justify-content: center;
-  margin: 24px;
+  min-height: 700px;
+  margin: 0px 16px;
 }
 .container-templates {
-  width: 80vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-
-  .card {
-    margin: 16px;
-  }
+  width: 100%;
+  margin: 0px 16px;
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: repeat(auto-fill, 300px);
   .add {
     box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
     border: 1px solid $grey-1;
     background-color: $white;
+    border-radius: 2px;
     display: flex;
-    width: 250px;
+    width: 300px;
     height: 300px;
     justify-content: center;
     align-items: center;
-    margin: 16px;
+    flex-direction: column;
     .add-btn {
       width: 50px;
+    }
+    .text {
+      margin-top: 24px;
+      font-size: 12px;
+      color: $grey-3;
+      font-style: italic;
     }
     &:hover {
       cursor: pointer;

@@ -9,7 +9,6 @@ describe('Create a complete data request flow', () => {
 
   it('Creates template', () => {
     cy.get('[data-test=create-template]').click()
-    cy.get('[data-test=editor-view]')
   })
 
   it('Adds a source', () => {
@@ -174,12 +173,5 @@ describe('Create a complete data request flow', () => {
 
   it('Go back to templates list', () => {
     cy.get('[data-test=go-back-to-templates]').click()
-  })
-
-  it('Edit template', () => {
-    cy.get('[data-test=edit-template]')
-      .last()
-      .click()
-    cy.get('[data-test=editor-view]')
   })
 })

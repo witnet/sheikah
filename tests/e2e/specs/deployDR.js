@@ -49,22 +49,6 @@ describe('Create a complete deploy Data Request flow', () => {
     cy.get('[data-test=go-back-to-templates]').click({ force: true })
   })
 
-  it('Rename templates', () => {
-    cy.get('[data-test=template-Rename]')
-      .last()
-      .click({ force: true })
-    cy.get('[data-test=template-name-input]')
-      .last()
-      .clear()
-      .type('1')
-    cy.get('[data-test=to-templates]')
-      .last()
-      .click({ force: true })
-    cy.get('[data-test=template-name-input]')
-      .last()
-      .should('have.value', '1')
-  })
-
   it('Deploy', () => {
     cy.get('[data-test=template-Deploy]')
       .first()
