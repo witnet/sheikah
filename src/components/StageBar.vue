@@ -1,14 +1,14 @@
 <template>
   <div class="stage-bar">
-    <button
+    <div
       v-for="stage in stages"
       :key="stage.name"
-      class="link-btn"
-      :class="[current === stage.name ? 'active' : '']"
       @click="() => changeStage(stage.name)"
+      class="link-btn"
+      :class="{ active: current === stage.name }"
     >
       {{ stage.name }}
-    </button>
+    </div>
   </div>
 </template>
 
@@ -38,31 +38,61 @@ export default {
 @import '@/styles/theme.scss';
 
 .stage-bar {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  padding-left: 16px;
-
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: 50px;
+  overflow: hidden;
   .link-btn {
-    color: $alt-grey-2;
-    font-weight: bold;
-    font-family: 'Roboto';
-    font-size: 16px;
-    padding: 24px;
-    text-decoration: none;
-    border: none;
-    border-bottom: 1.5px solid $alt-grey-1;
-    outline: none;
+    height: 50px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $purple-2;
+    color: $white;
     cursor: pointer;
-    background: none;
-
     .link-btn:active,
     &:focus,
     &.active {
-      outline: none;
-      border-bottom: 2px solid $purple-4;
-      color: $purple-4;
+      background: $purple-3;
+      color: $white;
     }
+    &.active::after {
+      border-left-color: $purple-3;
+    }
+  }
+  .link-btn::before,
+  .link-btn::after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    border-top: 27px solid transparent;
+    border-bottom: 27px solid transparent;
+    border-left: 18px solid;
+    right: -18px;
+    border-left-color: $alpha-purple;
+  }
+  .link-btn::after {
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: 17px solid;
+    right: -17px;
+    border-left-color: $purple-2;
+  }
+  .link-btn:last-of-type::after,
+  .link-btn:last-of-type::before {
+    content: none;
   }
 }
 </style>
+
+<docs>
+### Example
+
+```jsx
+  <StageBar
+    initialStage="retrieve"
+  />
+```
+</docs>

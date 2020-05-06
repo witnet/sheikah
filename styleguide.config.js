@@ -19,6 +19,7 @@ module.exports = {
     'src/components/NetworkStatus.vue',
     'src/components/Tag.vue',
     'src/components/Transaction.vue',
+    'src/components/StageBar.vue',
     'src/components/TransactionDetails.vue',
   ],
   require: [
