@@ -1,11 +1,13 @@
 <template>
   <div class="fieldset">
     <header class="header">
-      <p class="title">{{ title }}</p>
+      <p class="title" :class="[type]">{{ title }}</p>
       <p v-if="subtitle" class="subtitle">{{ subtitle }}</p>
       <p v-if="helper" class="helper">{{ helper }}</p>
     </header>
-    <slot></slot>
+    <div :class="[type]">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -34,6 +36,10 @@ export default {
       type: String,
       required: false,
     },
+    type: {
+      type: String,
+      required: false,
+    },
   },
 }
 </script>
@@ -49,6 +55,10 @@ export default {
       color: $alt-grey-5;
       font-size: 16px;
       font-weight: bold;
+
+      &.help {
+        font-size: 13px;
+      }
     }
 
     .subtitle {
@@ -66,12 +76,25 @@ export default {
       align-self: center;
     }
   }
+
+  .help {
+    // default style for paragraphs added in the slot
+    ::v-deep p {
+      font-size: 13px;
+      font-weight: lighter;
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      color: #66648c;
+    }
+  }
 }
 </style>
 
 <docs>
-### Example
+### Examples
 
+#### Default
 ```jsx
   <Fieldset
     title="title"
@@ -80,6 +103,16 @@ export default {
   >
     <div :style="{ width: '200px', height: '100px' }">Content</div>
   </Fieldset>
-
 ```
+
+#### Text
+```jsx
+  <Fieldset
+    title="title"
+    type="text"
+  >
+    <p :style="{ width: '200px', height: '100px' }">Text content</p>
+  </Fieldset>
+```
+
 </docs>
