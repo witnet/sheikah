@@ -22,14 +22,6 @@
       :maxlength="107"
       v-on:go-next="nextStep"
     />
-    <Input
-      type="big"
-      class="seed"
-      v-model="seed"
-      :autoresize="true"
-      :maxlength="107"
-      v-on:go-next="nextStep"
-    />
     <p data-test="mnemonics-error-alert" class="match-error" v-if="seedError">
       {{ seedError.message }}
     </p>

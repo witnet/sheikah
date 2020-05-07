@@ -2,7 +2,7 @@
   <div class="inputs-outputs">
     <div class="box inputs">
       <p data-test="inputs-title" class="title">INPUTS</p>
-      <div class="transaction" v-for="(input, index) in inputs" :key="input.address">
+      <div class="transaction" v-for="(input, index) in inputs" :key="index">
         <p data-test="inputs-index" class="index"># {{ index }}</p>
         <Amount class="amount" data-test="inputs-value" :amount="input.value" />
         <p data-test="inputs-address" class="address">{{ input.address }}</p>
@@ -10,7 +10,7 @@
     </div>
     <div class="box outputs">
       <p data-test="output-title" class="title">OUTPUTS</p>
-      <div class="transaction" v-for="(output, index) in outputs" :key="output.address">
+      <div class="transaction" v-for="(output, index) in outputs" :key="index">
         <p :data-test="`output-index-${index}`" class="index"># {{ index }}</p>
         <Amount class="amount" :amount="output.value" :data-test="`output-value-${index}`" />
         <p :data-test="`output-address-${index}`" class="address">{{ output.address }}</p>

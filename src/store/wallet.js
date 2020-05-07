@@ -245,7 +245,6 @@ export default {
         console.log('----- Template deployed successfully -----')
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
         context.commit('clearGeneratedTransaction')
-        console.log(transactionToSend)
         createNotification({
           title: 'Transaction succesfully sent',
           body: `The transaction ${cropString(
