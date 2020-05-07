@@ -1,6 +1,6 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
-import { encodeDataRequest, standardizeWitUnits, createNotification } from '@/utils'
+import { encodeDataRequest, standardizeWitUnits, createNotification, cropString } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { GENERATE_ADDRESS_DELAY, WALLET_EVENTS, WIT_UNIT } from '@/constants'
 import warning from '@/resources/svg/warning.png'
@@ -245,6 +245,15 @@ export default {
         console.log('----- Template deployed successfully -----')
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
         context.commit('clearGeneratedTransaction')
+        console.log(transactionToSend)
+        createNotification({
+          title: 'Transaction succesfully sent',
+          body: `The transaction ${cropString(
+            transactionToSend.transaction_id,
+            12,
+            'middle'
+          )} has been sent succesfully into the Witnet network.\nIt should be written into a block soon.`,
+        })
       } else {
         context.commit('setError', {
           name: 'sendTransaction',
@@ -443,7 +452,6 @@ export default {
         limit,
         page,
       })
-
       if (request.result) {
         context.commit('setTransactions', { transactions: request.result })
         this.commit('clearError', { error: 'getTransactions' })
@@ -540,7 +548,6 @@ export default {
       const eventType = Object.keys(rawEvent.event)[0]
       const event = rawEvent.event[eventType]
       const status = rawEvent.status
-
       if (eventType === WALLET_EVENTS.BLOCK) {
         status.timestamp = Date.now()
       } else if (eventType === WALLET_EVENTS.MOVEMENT) {
