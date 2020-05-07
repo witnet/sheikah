@@ -1,6 +1,6 @@
 <template>
   <div data-test="editor-view" class="editor">
-    <ToolBar />
+    <EditorToolBar />
     <StageBar v-on:change-stage="changeStage" />
     <RadonStage class="stage" :stage="currentStage" :script="currentScript" />
     <Console :logs="logs" />
@@ -10,7 +10,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import RadonStage from '@/components/RadonStage.vue'
-import ToolBar from '@/components/ToolBar.vue'
+import EditorToolBar from '@/components/EditorToolBar.vue'
 import Console from '@/components/Console.vue'
 import StageBar from '@/components/StageBar.vue'
 
@@ -18,7 +18,7 @@ export default {
   name: 'Editor',
   components: {
     RadonStage,
-    ToolBar,
+    EditorToolBar,
     StageBar,
     Console,
   },

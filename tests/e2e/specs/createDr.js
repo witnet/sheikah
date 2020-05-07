@@ -23,11 +23,11 @@ describe('Create a complete data request flow', () => {
   })
 
   it('Undo changes', () => {
-    cy.get('[data-test=action-Undo]').click()
+    cy.get('[data-test=action-undo]').click()
   })
 
   it('Redo changes', () => {
-    cy.get('[data-test=action-Redo]').click()
+    cy.get('[data-test=action-redo]').click()
   })
 
   it('Add operator', () => {
@@ -148,7 +148,7 @@ describe('Create a complete data request flow', () => {
   })
 
   it('Saves template', () => {
-    cy.get('[data-test=action-Save]').click()
+    cy.get('[data-test=action-save]').click()
     cy.get('[data-test=source-content]')
       .its('length')
       .should('eq', 2)

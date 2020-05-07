@@ -12,7 +12,7 @@ describe('Create a complete deploy Data Request flow', () => {
   })
 
   it('Saves template', () => {
-    cy.get('[data-test=action-Save]').click()
+    cy.get('[data-test=action-save]').click()
   })
 
   it('Go back to templates list', () => {
@@ -31,7 +31,7 @@ describe('Create a complete deploy Data Request flow', () => {
   })
 
   it('Saves template', () => {
-    cy.get('[data-test=action-Save]').click()
+    cy.get('[data-test=action-save]').click()
   })
 
   it('Go back to templates list', () => {
