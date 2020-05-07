@@ -10,7 +10,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "ci": "yarn lint && yarn test --headless && yarn electron:build",
+    "ci": "yarn lint && yarn test --headless && yarn electron:build --publish=never",
     "clean": "yarn clean-deps && rm -rf dist_electron",
     "clean-deps": "rm -rf node_modules",
     "electron:build": "vue-cli-service electron:build",
