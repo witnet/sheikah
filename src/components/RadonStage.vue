@@ -1,5 +1,5 @@
 <template>
-  <div class v-if="stage === 'retrieve'">
+  <div data-test="retrieve-script" class v-if="stage === 'retrieve'">
     <Carousel
       :sources="
         script.map((x, index) => {
@@ -11,6 +11,7 @@
   </div>
   <div v-else-if="stage === 'aggregate'">
     <RadonAggregateTallyScript
+      data-test="aggregate-script"
       class="script"
       v-show="!error.aggregate"
       stage="aggregate"
@@ -20,6 +21,7 @@
   </div>
   <div v-else-if="stage === 'tally'">
     <RadonAggregateTallyScript
+      data-test="tally-script"
       class="script"
       v-show="!error.tally"
       stage="tally"

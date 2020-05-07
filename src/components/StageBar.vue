@@ -1,6 +1,7 @@
 <template>
   <div class="stage-bar">
     <div
+      :data-test="`stage-${stage.name}`"
       v-for="stage in stages"
       :key="stage.name"
       @click="() => changeStage(stage.name)"
@@ -40,7 +41,7 @@ export default {
 .stage-bar {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
   grid-template-rows: 50px;
   overflow: hidden;
   .link-btn {

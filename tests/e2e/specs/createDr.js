@@ -157,6 +157,21 @@ describe('Create a complete data request flow', () => {
       .should('eq', 3)
   })
 
+  it('Change stage', () => {
+    cy.get('[data-test=stage-aggregate]')
+      .last()
+      .click({ force: true })
+    cy.get('[data-test=aggregate-script]')
+    cy.get('[data-test=stage-tally]')
+      .last()
+      .click({ force: true })
+    cy.get('[data-test=tally-script]')
+    cy.get('[data-test=stage-retrieve]')
+      .last()
+      .click({ force: true })
+    cy.get('[data-test=retrieve-script]')
+  })
+
   it('Go back to templates list', () => {
     cy.get('[data-test=go-back-to-templates]').click()
   })
