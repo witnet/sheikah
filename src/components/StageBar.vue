@@ -8,12 +8,14 @@
       class="link-btn"
       :class="{ active: current === stage.name }"
     >
-      {{ stage.name }}
+      <span v-html="stage.label" />
     </div>
   </div>
 </template>
 
 <script>
+import { EDITOR_STAGES } from '@/constants'
+
 export default {
   name: 'StageBar',
   methods: {
@@ -23,12 +25,33 @@ export default {
     },
   },
   props: {
-    initialStage: { type: String, default: 'retrieve' },
+    initialStage: { type: String, default: EDITOR_STAGES.SETTINGS },
   },
   data() {
     return {
       current: this.initialStage,
-      stages: [{ name: 'retrieve' }, { name: 'aggregate' }, { name: 'tally' }],
+      stages: [
+        {
+          label: '<span>1. Enter Template <span class="bolder">Settings</span></span>',
+          name: EDITOR_STAGES.SETTINGS,
+        },
+        {
+          label: '<span class="link">2. Select your <span class="bolder">Data Sources<span></span>',
+          name: EDITOR_STAGES.SOURCES,
+        },
+        {
+          label: '<span>3. Edit <span class="bolder">Source Scripts</span></span>',
+          name: EDITOR_STAGES.SCRIPTS,
+        },
+        {
+          label: '<span>4. Set <span class="bolder">Aggregator</span></span>',
+          name: EDITOR_STAGES.AGGREGATIONS,
+        },
+        {
+          label: '<span>5. Set <span class="bolder">Tally</span></span>',
+          name: EDITOR_STAGES.TALLY,
+        },
+      ],
     }
   },
 }
@@ -44,25 +67,37 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(150px, auto));
   grid-template-rows: 50px;
   overflow: hidden;
+
   .link-btn {
-    height: 50px;
-    position: relative;
-    display: flex;
     align-items: center;
-    justify-content: center;
     background: $purple-2;
     color: $white;
     cursor: pointer;
+    display: flex;
+    font-size: 15px;
+    font-weight: 100;
+    height: 50px;
+    justify-content: center;
+    padding: 0 24px;
+    position: relative;
+
+    ::v-deep .bolder {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
     .link-btn:active,
     &:focus,
     &.active {
       background: $purple-3;
       color: $white;
     }
+
     &.active::after {
       border-left-color: $purple-3;
     }
   }
+
   .link-btn::before,
   .link-btn::after {
     content: '';
@@ -74,6 +109,7 @@ export default {
     right: -18px;
     border-left-color: $alpha-purple;
   }
+
   .link-btn::after {
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
@@ -81,6 +117,7 @@ export default {
     right: -17px;
     border-left-color: $purple-2;
   }
+
   .link-btn:last-of-type::after,
   .link-btn:last-of-type::before {
     content: none;

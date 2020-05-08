@@ -2,29 +2,45 @@
   <div data-test="editor-view" class="editor">
     <EditorToolBar />
     <StageBar v-on:change-stage="changeStage" />
-    <RadonStage class="stage" :stage="currentStage" :script="currentScript" />
+
+    <EditorStageSettings v-if="currentStage === EDITOR_STAGES.SETTINGS" />
+    <EditorStageSources v-if="currentStage === EDITOR_STAGES.SOURCES" />
+    <EditorStageScripts v-if="currentStage === EDITOR_STAGES.SCRIPTS" />
+    <EditorStageAggregations v-if="currentStage === EDITOR_STAGES.AGGREGATIONS" />
+    <EditorStageTally v-if="currentStage === EDITOR_STAGES.TALLY" />
+
     <Console :logs="logs" />
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import RadonStage from '@/components/RadonStage.vue'
-import EditorToolBar from '@/components/EditorToolBar.vue'
+import { EDITOR_STAGES } from '@/constants'
+import EditorToolBar from '@/components/EditorToolBar'
+import EditorStageAggregations from '@/components/EditorStageAggregations'
+import EditorStageScripts from '@/components/EditorStageScripts'
+import EditorStageSettings from '@/components/EditorStageSettings'
+import EditorStageSources from '@/components/EditorStageSources'
+import EditorStageTally from '@/components/EditorStageTally'
 import Console from '@/components/Console.vue'
 import StageBar from '@/components/StageBar.vue'
 
 export default {
   name: 'Editor',
   components: {
-    RadonStage,
     EditorToolBar,
     StageBar,
     Console,
+    EditorStageAggregations,
+    EditorStageScripts,
+    EditorStageSettings,
+    EditorStageSources,
+    EditorStageTally,
   },
   data() {
     return {
-      currentStage: 'retrieve',
+      EDITOR_STAGES,
+      currentStage: EDITOR_STAGES.SETTINGS,
       logs: [],
     }
   },

@@ -1,3 +1,11 @@
+export const EDITOR_STAGES = {
+  SETTINGS: 'settings',
+  SOURCES: 'sources',
+  SCRIPTS: 'scripts',
+  AGGREGATIONS: 'aggregations',
+  TALLY: 'tally',
+}
+
 export const WIT_UNIT = {
   WIT: 'wit',
   MICRO: 'microWit',
