@@ -1,7 +1,7 @@
 <template>
   <div data-test="welcome-back" class="welcome-back">
     <div class="bar">
-      <img class="row sheikah-icon" src="@/resources/svg/sheikah-icon.svg" />
+      c
       <p class="row title">Welcome back to Sheikah!</p>
       <p class="row subtitle">
         Sheikah keeps your Witnet wallet safe and helps you build, share and deploy data requests

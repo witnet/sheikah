@@ -1,6 +1,6 @@
 <template>
   <div @keydown.tab="tabKeyPressed = true" @blur.capture="handleBlur">
-    <div :class="[type === 'operator' ? 'select-box-operator' : 'select-box']">
+    <div :class="'select-box'">
       <button
         ref="button"
         data-test="select-btn"
@@ -9,18 +9,21 @@
         aria-labelledby="select-label select-button"
         :aria-expanded="areOptionsVisible"
         class="selected-btn"
-        :class="{ active: areOptionsVisible }"
+        :class="{ active: areOptionsVisible, operator: type === 'operator' }"
         @click="toggleOptions"
         @keyup.up.down.prevent="showOptions"
         @keyup.up.prevent="selectPrevOption"
         @keyup.down.prevent="selectNextOption"
       >
         <div class="selected">
-          <img class="item-icon" v-if="value.img" :src="value.img" alt="icon" />
-          <div class="label">
+          <div class="label" :class="{ operator: type === 'operator' }">
             <div class="primary" :data-test="'value' + value.primaryText">
+              <img class="item-icon" v-if="value.img" :src="value.img" alt="icon" />
               {{ value.primaryText }}
             </div>
+            <span v-if="value.secondaryText" :class="`value ${value.secondaryText}`">{{
+              value.secondaryText
+            }}</span>
             <div class="arrow">
               <img
                 v-if="areOptionsVisible"
@@ -36,9 +39,6 @@
               />
             </div>
           </div>
-          <span v-if="value.secondaryText" :class="`value ${value.secondaryText}`">{{
-            value.secondaryText
-          }}</span>
         </div>
       </button>
       <input v-if="!tabKeyPressed" :aria-hidden="true" class="hidden" @focus="handleFocus" />
@@ -50,8 +50,8 @@
         :aria-labelledby="`select-label`"
         :aria-activedescendant="activeDescendant"
         class="options"
+        :class="{ operator: type === 'operator' }"
         @focus="setupFocus"
-        @keydown="search"
         @keyup.up.prevent="selectPrevOption"
         @keyup.down.prevent="selectNextOption"
         @keydown.up.down.prevent
@@ -64,7 +64,7 @@
           :data-test="`option-${index}`"
           :key="index"
           :aria-selected="activeOptionIndex === index"
-          :class="activeOptionIndex === index && 'has-focus'"
+          :class="{ ['has-focus']: activeOptionIndex === index, operator: type === 'operator' }"
           class="option"
           role="option"
           @click="selectOption(option)"
@@ -73,7 +73,8 @@
             <img class="item-icon" v-if="option.img" :src="option.img" alt="icon" />
             <span class="primary">{{ option.primaryText }}</span>
           </div>
-          <span :class="`value ${option.secondaryText}`">
+          {{ index }}
+          <span :class="`value operator ${option.secondaryText}`">
             {{ option.secondaryText }}
           </span>
         </li>
@@ -112,6 +113,7 @@ export default {
       // TODO(#856): implement find for operator select, wait till the Radon Library is updated
       if (this.type === 'operator') {
         return this.options.findIndex(x => standardizeOperatorName(x.value) === this.value.value)
+        // return this.options.findIndex(x => standardizeOperatorName(x.value) === this.value.value)
       } else {
         return this.options.findIndex(x => x.value === this.value || x === this.value)
       }
@@ -214,148 +216,11 @@ export default {
 @import '@/styles/fonts.scss';
 //as Select-box for Operators
 
-.select-box-operator {
-  min-width: 300px;
-  position: relative;
-  &:focus,
-  &:focus-within {
-    border-color: $grey-1;
-    border-radius: 4px;
-    box-shadow: 0 0 0 0.1rem $white;
-  }
-  &:focus-within .selected-btn {
-    border: none;
-  }
-
-  .selected-btn {
-    box-sizing: border-box;
-    min-width: inherit;
-    z-index: 1;
-    min-height: 35px;
-    align-items: center;
-    background-color: $alt-grey-1;
-    border-radius: 4px;
-    border: 1px solid $alt-grey-1;
-    color: $white;
-    display: flex;
-    padding: 0 0 0 16px;
-    .selected {
-      width: 100%;
-      align-items: baseline;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      .label {
-        width: 100%;
-        margin-right: 32px;
-        display: flex;
-        align-items: center;
-        text-align: center;
-
-        .primary {
-          font-size: 16px;
-          margin-right: 16px;
-        }
-        .icon {
-          margin: 0;
-        }
-        .value {
-          font-size: 16px;
-          border-radius: 2px;
-          text-align: center;
-        }
-      }
-    }
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .options {
-    position: absolute;
-    top: 34px;
-    min-width: inherit;
-    font-weight: 500;
-    z-index: 1000;
-    max-height: 200px;
-    overflow-y: auto;
-    box-sizing: border-box;
-    border-color: 1px solid $alt-grey-5;
-    margin: 0;
-    list-style-type: none;
-    outline: none;
-
-    .option {
-      background: $grey-1;
-      border-bottom: 1px solid $white;
-      color: $alt-grey-5;
-      padding: 8px;
-      cursor: default;
-      align-items: center;
-      display: flex;
-      height: 32px;
-      font-size: 14px;
-      justify-content: space-between;
-      padding: 0px 0px 0px 16px;
-      &.has-focus {
-        background-color: $white;
-        color: $alt-grey-1;
-      }
-    }
-  }
-}
-.value {
-  font-size: 16px;
-  border-radius: 2px;
-  text-align: center;
-  padding: 8px;
-  color: $black;
-  &.string {
-    background-color: $string;
-  }
-  &.mixed {
-    background-color: $mixed;
-  }
-  &.boolean {
-    background-color: $boolean;
-  }
-  &.int {
-    background-color: $int;
-  }
-  &.float {
-    background-color: $float;
-  }
-  &.array {
-    background-color: $array;
-  }
-  &.map {
-    background-color: $map;
-  }
-  &.null {
-    background-color: $null;
-  }
-  &.result {
-    background-color: $result;
-  }
-  &.bytes {
-    background-color: $bytes;
-  }
-  &.boolean {
-    background-color: $boolean;
-  }
-  &.generic {
-    background-color: $generic;
-  }
-  &.integer {
-    background-color: $integer;
-  }
-}
 //as Select-box
 
 .select-box {
   width: 100%;
+  min-width: 270px;
   position: relative;
 
   .selected-btn {
@@ -371,15 +236,13 @@ export default {
     border: $select_border;
     color: $alt-grey-5;
     display: flex;
-    padding: 0 8px 0 16px;
-
+    padding-left: 16px;
+    &.operator {
+      font-size: 14px;
+      min-height: 40px;
+    }
     .selected {
       width: 100%;
-      align-items: baseline;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
 
       .item-icon {
         width: 30px;
@@ -390,18 +253,26 @@ export default {
         width: 100%;
         overflow: hidden;
         margin-right: 8px;
-        display: flex;
+        display: grid;
+        grid-template-columns: auto max-content max-content;
+        column-gap: 8px;
         align-items: center;
-        justify-content: space-between;
+        font-size: 16px;
+        &.operator {
+          font-size: 14px;
+          margin-right: 16px;
+        }
 
         .primary {
+          justify-self: left;
+          align-self: center;
           overflow: hidden;
-          font-size: 16px;
           margin-right: 16px;
+          display: flex;
+          align-items: center;
         }
         .value {
           overflow: hidden;
-          font-size: 20px;
           border-radius: 2px;
           text-align: center;
         }
@@ -446,6 +317,9 @@ export default {
     font-size: 16px;
     border: $select_border__active;
     border-top: none;
+    &.operator {
+      top: 40px;
+    }
 
     .option {
       overflow: hidden;
@@ -467,6 +341,9 @@ export default {
           width: 30px;
         }
       }
+      &.operator {
+        height: 40px;
+      }
       &:hover {
         background-color: $alpha-purple;
       }
@@ -477,6 +354,55 @@ export default {
         overflow: hidden;
       }
     }
+  }
+}
+.value {
+  border-radius: 2px;
+  font-weight: normal;
+  text-align: center;
+  padding: 4px;
+  &.operator {
+    font-size: 14px;
+    margin-right: 8px;
+  }
+  &.string {
+    border: 1px solid $string;
+  }
+  &.mixed {
+    border: 1px solid $mixed;
+  }
+  &.boolean {
+    border: 1px solid $boolean;
+  }
+  &.int {
+    border: 1px solid $int;
+  }
+  &.float {
+    border: 1px solid $float;
+  }
+  &.array {
+    border: 1px solid $array;
+  }
+  &.map {
+    border: 1px solid $map;
+  }
+  &.null {
+    border: 1px solid $null;
+  }
+  &.result {
+    border: 1px solid $result;
+  }
+  &.bytes {
+    border: 1px solid $bytes;
+  }
+  &.boolean {
+    border: 1px solid $boolean;
+  }
+  &.generic {
+    border: 1px solid $generic;
+  }
+  &.integer {
+    border: 1px solid $integer;
   }
 }
 </style>

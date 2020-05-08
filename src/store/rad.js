@@ -289,7 +289,7 @@ export default {
       }
     },
     saveTemplate: async function(context, args) {
-      const isImportingTemplate = !!args.template
+      const isImportingTemplate = args ? !!args.template : null
       const date = Date.now()
       let templates = context.state.templates
       const templateToSave = isImportingTemplate

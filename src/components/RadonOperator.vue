@@ -1,82 +1,75 @@
 <template>
   <div class="radon-operator">
-    <div class="selected-operator">
-      <el-select
-        data-test="select-btn"
-        class="operator-select"
-        v-model="selectedOptionValue"
-        @change="value => updateTemplateAndVariables(selectedOption.id, value)"
-        :clearable="true"
-        v-on:clear="
-          deleteOperator({
-            scriptId: scriptId,
-            operatorId: operator.id,
-          })
-        "
-      >
-        <el-option
-          v-for="(x, idx) in options"
-          :key="x.primaryText + selectedOption.id + idx"
-          :label="x.primaryText"
-          :value="x.value"
-        >
-          <span :data-test="`option-${idx}`" style="float: left">{{ x.primaryText }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">
-            {{ x.secondaryText }}
-          </span>
-        </el-option>
-      </el-select>
-    </div>
-    <div class="with-arguments" v-if="hasArguments">
-      <div v-for="(argument, index) in selectedOperator.arguments" :key="argument.label + index">
-        <div v-if="argument.markupType === 'input'" class="input-container">
-          <el-input
-            class="input-operator"
-            size="small"
-            data-test="argument-input"
-            :placeholder="argument.label"
-            :value="argument.value ? argument.value.toString() : ''"
-            @input="value => updateTemplateAndVariables(argument.id, value, argument.type)"
-          />
-          <font-awesome-icon
-            data-test="variable-link-icon"
-            class="link"
-            v-show="hasVariables(argument.value)"
-            icon="link"
-          />
-        </div>
-        <div
-          :style="{ display: 'flex', flexDirection: 'column' }"
-          v-if="argument.markupType === 'select'"
-        >
-          <p>{{ argument.label }}</p>
-          <el-select
-            class="argument-options"
-            v-model="selectedArgumentValue[index]"
-            :options="argumentOptions[index]"
+    <div class="border">
+      <p class="label">Operator</p>
+      <Select
+        :value="selectedOption"
+        type="operator"
+        :options="operatorOptions"
+        @input="option => updateTemplateAndVariables(selectedOption.id, option.value)"
+      />
+      <p class="label" v-if="hasArguments">Arguments</p>
+      <div class="with-arguments" v-if="hasArguments">
+        <div v-for="(argument, index) in selectedOperator.arguments" :key="argument.label + index">
+          <div v-if="argument.markupType === 'input'" class="input-container">
+            <el-input
+              class="input-operator"
+              data-test="argument-input"
+              :placeholder="argument.label"
+              :value="argument.value ? argument.value.toString() : ''"
+              @input="value => updateTemplateAndVariables(argument.id, value, argument.type)"
+            />
+            <div class="link">
+              <font-awesome-icon
+                data-test="variable-link-icon"
+                v-show="hasVariables(argument.value)"
+                icon="link"
+              />
+              <p :class="`type ${argument.type}`">
+                {{ argument.type }}
+              </p>
+            </div>
+          </div>
+          <div
+            :style="{ display: 'flex', flexDirection: 'column' }"
+            v-if="argument.markupType === 'select'"
           >
-            <el-option
-              v-for="o in argumentOptions[index]"
-              :key="o.primaryText"
-              :label="o.primaryText"
-              :value="o.primaryText"
+            <p>{{ argument.label }}</p>
+            <el-select
+              class="argument-options"
+              v-model="selectedArgumentValue[index]"
+              :options="argumentOptions[index]"
             >
-            </el-option>
-          </el-select>
-        </div>
-        <div v-if="argument.markupType === 'subscript'" class>
-          Subscipts are not supported yet.
+              <el-option
+                v-for="o in argumentOptions[index]"
+                :key="o.primaryText"
+                :label="o.primaryText"
+                :value="o.primaryText"
+              >
+              </el-option>
+            </el-select>
+          </div>
+          <div v-if="argument.markupType === 'subscript'" class>
+            Subscipts are not supported yet.
+          </div>
         </div>
       </div>
     </div>
-    <div v-if="showUnionIcon" class="icon-container">
-      <font-awesome-icon class="icon sort-down" icon="sort-down" />
+    <div class="operator-bottom">
+      <div class="icon-container">
+        <img class="row sheikah-icon" src="@/resources/svg/operator-arrow.svg" />
+      </div>
+      <div :class="`output ${selectedOption.secondaryText}`">
+        <p class="label">{{ selectedOption.secondaryText }}</p>
+        <div class="output-box" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
+import Select from '@/components/Select'
 import { standardizeOperatorName, getNativeValueFromMarkupArgumentType } from '@/utils'
 import {
   UPDATE_TEMPLATE,
@@ -87,11 +80,17 @@ import {
 
 export default {
   name: 'RadonOperator',
+  components: {
+    Select,
+  },
   data() {
     return {
       variableName: null,
       options: [],
-      selectedOptionValue: this.operator.label,
+      selectedOptionValue: {
+        primaryText: this.operator.label,
+        secondaryText: this.operator.outputType,
+      },
       selectedArgumentValue: [
         this.operator.selected.arguments[0] ? this.operator.selected.arguments[0].value : '',
         this.operator.selected.arguments[1] ? this.operator.selected.arguments[1].value : '',
@@ -185,7 +184,7 @@ export default {
         id: this.operator.id,
         primaryText: this.operator.selected.label,
         value: this.operator.selected.label,
-        secondaryText: this.showOutputType ? this.operator.selected.outputType : '',
+        secondaryText: this.operator.selected.outputType,
       }
     },
     hasArguments() {
@@ -234,20 +233,6 @@ export default {
         : []
     },
   },
-  watch: {
-    selectedOption(selected) {
-      this.selectedOptionValue = selected.value
-    },
-    operator(newOperator) {
-      const selectedOperatorArgs = newOperator.selected.arguments
-      this.selectedOptionValue = newOperator.label
-      this.selectedArgumentValue = [
-        selectedOperatorArgs[0] ? selectedOperatorArgs[0].value : '',
-        selectedOperatorArgs[1] ? selectedOperatorArgs[1].value : '',
-      ]
-      this.options = this.operatorOptions
-    },
-  },
   mounted() {
     this.options = this.operatorOptions
     this.selectedOperator.arguments.forEach(arg => {
@@ -264,6 +249,24 @@ export default {
 .radon-operator {
   border-radius: 5px;
   margin-bottom: 8px;
+  min-width: max-content;
+  position: relative;
+  .border {
+    padding: 16px;
+    border: $input_border;
+    border-radius: $input_big-border-radius;
+    display: grid;
+    row-gap: 16px;
+    column-gap: 16px;
+    align-items: center;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(auto-fit, auto);
+    .label {
+      font-size: 14px;
+      color: $grey-5;
+      font-weight: normal;
+    }
+  }
   .operator-select {
     width: 100%;
   }
@@ -297,42 +300,147 @@ export default {
   }
 }
 
-.with-arguments {
-  background-color: $grey-1;
-  padding: 8px;
-}
 .input-container {
+  position: relative;
   display: flex;
-  justify-content: center;
+  width: 100%;
+  justify-content: right;
   align-items: center;
-  .input-operator {
-    margin: 8px;
-    width: 90px;
-    height: 30px;
-  }
-  .variables {
-    position: fixed;
-    bottom: 40px;
-    width: 200px;
-    padding: 16px;
-    background-color: black;
-    color: $white;
-    .variable-value {
-      background-color: black;
-      width: 80px;
-      height: 20px;
+  .link {
+    color: $grey-5;
+    right: 16px;
+    position: absolute;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    .type {
+      font-size: 14px;
+      color: $grey-5;
+      padding: 0px 4px;
+      font-weight: normal;
+      margin-left: 8px;
+      border-radius: $input_big-border-radius;
+      background-color: $white;
+      &.string {
+        border: 1px solid $string;
+      }
+      &.mixed {
+        border: 1px solid $mixed;
+      }
+      &.boolean {
+        border: 1px solid $boolean;
+      }
+      &.int {
+        border: 1px solid $int;
+      }
+      &.float {
+        border: 1px solid $float;
+      }
+      &.array {
+        border: 1px solid $array;
+      }
+      &.map {
+        border: 1px solid $map;
+      }
+      &.null {
+        border: 1px solid $null;
+      }
+      &.result {
+        border: 1px solid $result;
+      }
+      &.bytes {
+        border: 1px solid $bytes;
+      }
+      &.boolean {
+        border: 1px solid $boolean;
+      }
+      &.generic {
+        border: 1px solid $generic;
+      }
+      &.integer {
+        border: 1px solid $integer;
+      }
     }
   }
-  .link {
-    font-size: 12px;
+}
+.operator-bottom {
+  display: flex;
+  align-items: center;
+  .icon-container {
+    text-align: left;
     margin-left: 16px;
   }
-}
-.icon-container {
-  text-align: right;
-  .icon {
-    font-size: 25px;
-    margin-right: 16px;
+  .output {
+    width: max-content;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border-radius: $input_big-border-radius;
+    margin-left: 8px;
+    overflow: hidden;
+    .label {
+      color: $white;
+      padding: 0px 4px;
+    }
+    &.string {
+      border: 1px solid $string;
+      background-color: $string;
+    }
+    &.mixed {
+      border: 1px solid $mixed;
+      background-color: $mixed;
+    }
+    &.boolean {
+      border: 1px solid $boolean;
+      background-color: $boolean;
+    }
+    &.int {
+      border: 1px solid $int;
+      background-color: $int;
+    }
+    &.float {
+      border: 1px solid $float;
+      background-color: $float;
+    }
+    &.array {
+      border: 1px solid $array;
+      background-color: $array;
+    }
+    &.map {
+      border: 1px solid $map;
+      background-color: $map;
+    }
+    &.null {
+      border: 1px solid $null;
+      background-color: $null;
+    }
+    &.result {
+      border: 1px solid $result;
+      background-color: $result;
+    }
+    &.bytes {
+      border: 1px solid $bytes;
+      background-color: $bytes;
+    }
+    &.boolean {
+      border: 1px solid $boolean;
+      background-color: $boolean;
+    }
+    &.generic {
+      border: 1px solid $generic;
+      background-color: $generic;
+    }
+    &.integer {
+      border: 1px solid $integer;
+      background-color: $integer;
+    }
+    .output-box {
+      min-width: 44px;
+      height: 24px;
+      background: $white;
+    }
   }
 }
 </style>
