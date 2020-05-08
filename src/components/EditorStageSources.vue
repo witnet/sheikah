@@ -49,7 +49,7 @@ import LayoutTwoColumns from '@/components/LayoutTwoColumns'
 import Fieldset from '@/components/Fieldset'
 
 export default {
-  name: 'EditorStagesSources',
+  name: 'EditorStageSources',
   components: {
     Fieldset,
     LayoutTwoColumns,
@@ -61,7 +61,6 @@ export default {
 ### Example
 
 ```jsx
-  <EditorStagesSources />
+  <EditorStageSources />
 ```
-
 </docs>
