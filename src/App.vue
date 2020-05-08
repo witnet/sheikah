@@ -11,10 +11,7 @@ export default {
   name: 'app',
   async created() {
     await this.getWalletInfos()
-    // Initialize polling interval to retrieve network status
-    setInterval(() => {
-      this.checkNetworkStatus()
-    }, 3000)
+    this.pollData()
     // Disable back and forward from keyboard and mouse buttons
     window.onpopstate = function(event) {
       event.stopImmediatePropagation()
@@ -23,6 +20,7 @@ export default {
   data() {
     return {
       loading: true,
+      polling: null,
     }
   },
   methods: {
@@ -32,6 +30,11 @@ export default {
     ...mapActions({
       getWalletInfos: 'getWalletInfos',
     }),
+    pollData() {
+      this.polling = setInterval(() => {
+        this.checkNetworkStatus()
+      }, 3000)
+    },
   },
   watch: {
     $route: function(from, to) {
@@ -42,6 +45,9 @@ export default {
     x() {
       return this.$route
     },
+  },
+  beforeDestroy() {
+    clearInterval(this.polling)
   },
 }
 </script>

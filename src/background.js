@@ -58,9 +58,14 @@ function createWindow() {
     // Hide electron toolbar in production environment
     win.setMenuBarVisibility(false)
   }
-
+  // Disables zooming with pinch
+  let webContents = win.webContents
+  webContents.on('did-finish-load', () => {
+    webContents.setZoomFactor(1)
+    webContents.setVisualZoomLevelLimits(1, 1)
+    webContents.setLayoutZoomLevelLimits(0, 0)
+  })
   loadUrl(status)
-
   win.on('closed', () => {
     win = null
   })
@@ -87,6 +92,8 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+  globalShortcut.register('CmdOrCtrl+-', () => {})
+  globalShortcut.register('Command+Plus', () => {})
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
