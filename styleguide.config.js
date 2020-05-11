@@ -23,7 +23,7 @@ module.exports = {
     'src/components/LayoutSidebar.vue',
     'src/components/LayoutTwoColumns.vue',
     'src/components/NetworkStatus.vue',
-    'src/components/StageBar.vue',
+    'src/components/EditorStageBar.vue',
     'src/components/Tag.vue',
     'src/components/Transaction.vue',
     'src/components/TransactionDetails.vue',

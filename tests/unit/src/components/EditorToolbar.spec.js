@@ -12,6 +12,7 @@ describe('EditorToolBar.vue', () => {
       const wrapper = shallowMount(
         EditorToolBar,
         createComponentMocks({
+          router: true,
           store: {
             rad: {
               state: {
@@ -42,6 +43,7 @@ describe('EditorToolBar.vue', () => {
       const wrapper = shallowMount(
         EditorToolBar,
         createComponentMocks({
+          router: true,
           store: {
             rad: {
               state: {
@@ -72,6 +74,7 @@ describe('EditorToolBar.vue', () => {
       const wrapper = shallowMount(
         EditorToolBar,
         createComponentMocks({
+          router: true,
           store: {
             rad: {
               state: {
@@ -102,6 +105,7 @@ describe('EditorToolBar.vue', () => {
       const wrapper = shallowMount(
         EditorToolBar,
         createComponentMocks({
+          router: true,
           store: {
             rad: {
               state: {
@@ -132,6 +136,7 @@ describe('EditorToolBar.vue', () => {
       const wrapper = shallowMount(
         EditorToolBar,
         createComponentMocks({
+          router: true,
           store: {
             rad: {
               state: {
@@ -162,6 +167,7 @@ describe('EditorToolBar.vue', () => {
       const wrapper = shallowMount(
         EditorToolBar,
         createComponentMocks({
+          router: true,
           store: {
             rad: {
               state: {
@@ -194,6 +200,7 @@ describe('EditorToolBar.vue', () => {
       const wrapper = mount(
         EditorToolBar,
         createComponentMocks({
+          router: true,
           store: {
             rad: {
               namespaced: false,
@@ -228,6 +235,7 @@ describe('EditorToolBar.vue', () => {
       const wrapper = mount(
         EditorToolBar,
         createComponentMocks({
+          router: true,
           store: {
             rad: {
               namespaced: false,
@@ -262,6 +270,7 @@ describe('EditorToolBar.vue', () => {
       const wrapper = mount(
         EditorToolBar,
         createComponentMocks({
+          router: true,
           store: {
             rad: {
               namespaced: false,
@@ -296,6 +305,7 @@ describe('EditorToolBar.vue', () => {
       const wrapper = mount(
         EditorToolBar,
         createComponentMocks({
+          router: true,
           store: {
             rad: {
               namespaced: false,

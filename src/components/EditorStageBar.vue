@@ -17,7 +17,7 @@
 import { EDITOR_STAGES } from '@/constants'
 
 export default {
-  name: 'StageBar',
+  name: 'EditorStageBar',
   methods: {
     changeStage: function(stage) {
       this.current = stage
@@ -129,7 +129,7 @@ export default {
 ### Example
 
 ```jsx
-  <StageBar
+  <EditorStageBar
     initialStage="retrieve"
   />
 ```

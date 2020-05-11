@@ -1,7 +1,7 @@
 <template>
   <div data-test="editor-view" class="editor">
     <EditorToolBar />
-    <StageBar v-on:change-stage="changeStage" />
+    <EditorStageBar v-on:change-stage="changeStage" />
 
     <EditorStageSettings v-if="currentStage === EDITOR_STAGES.SETTINGS" />
     <EditorStageSources v-if="currentStage === EDITOR_STAGES.SOURCES" />
@@ -23,13 +23,13 @@ import EditorStageSettings from '@/components/EditorStageSettings'
 import EditorStageSources from '@/components/EditorStageSources'
 import EditorStageTally from '@/components/EditorStageTally'
 import Console from '@/components/Console.vue'
-import StageBar from '@/components/StageBar.vue'
+import EditorStageBar from '@/components/EditorStageBar.vue'
 
 export default {
   name: 'Editor',
   components: {
     EditorToolBar,
-    StageBar,
+    EditorStageBar,
     Console,
     EditorStageAggregations,
     EditorStageScripts,

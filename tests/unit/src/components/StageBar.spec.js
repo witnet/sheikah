@@ -1,7 +1,7 @@
-import StageBar from '@/components/StageBar'
-describe('StageBar.vue', () => {
+import EditorStageBar from '@/components/EditorStageBar'
+describe('EditorStageBar.vue', () => {
   describe('should render properly', () => {
-    const wrapper = shallowMount(StageBar, {
+    const wrapper = shallowMount(EditorStageBar, {
       propsData: {
         initialStage: 'settings',
       },
