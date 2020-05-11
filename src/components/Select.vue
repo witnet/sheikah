@@ -218,9 +218,6 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 @import '@/styles/fonts.scss';
-//as Select-box for Operators
-
-//as Select-box
 
 .select-box {
   width: 100%;
@@ -410,3 +407,28 @@ export default {
   }
 }
 </style>
+
+<docs>
+### Example
+#### Operator select
+
+```jsx
+  <Select
+    type="operator"
+    :value="{
+      primaryText: 'option 1',
+    }"
+    :options="[{primaryText: 'option 1', secondaryText: 'value'},{primaryText: 'option 2', secondaryText: 'value'}]"
+  />
+```
+#### Big Select
+
+```jsx
+  <Select
+    :value="{
+      primaryText: 'option 1',
+    }"
+    :options="[{primaryText: 'option 1', secondaryText: 'value'},{primaryText: 'option 2', secondaryText: 'value'}]"
+  />
+```
+</docs>

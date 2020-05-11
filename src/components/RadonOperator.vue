@@ -3,8 +3,8 @@
     <div class="border">
       <p class="label">Operator</p>
       <Select
-        :value="selectedOption"
         type="operator"
+        :value="selectedOption"
         :options="operatorOptions"
         @input="option => updateTemplateAndVariables(selectedOption.id, option.value)"
       />

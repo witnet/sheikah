@@ -26,6 +26,7 @@ module.exports = {
     'src/components/EditorStageBar.vue',
     'src/components/Tag.vue',
     'src/components/Transaction.vue',
+    'src/components/Select.vue',
     'src/components/TransactionDetails.vue',
   ],
   require: [

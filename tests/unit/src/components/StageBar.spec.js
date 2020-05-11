@@ -15,7 +15,6 @@ describe('EditorStageBar.vue', () => {
       expect(wrapper.find('[data-test="stage-sources"]').text()).toBe('2. Select your Data Sources')
     })
 
-
     it('should render the scripts stage btn', () => {
       expect(wrapper.find('[data-test="stage-scripts"]').text()).toBe('3. Edit Source Scripts')
     })
