@@ -310,7 +310,7 @@ export default {
     color: $grey-5;
     right: 16px;
     position: absolute;
-    font-size: 12px;
+    font-size: 10px;
     display: flex;
     align-items: center;
     .type {

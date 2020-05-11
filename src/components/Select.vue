@@ -51,6 +51,7 @@
         :aria-activedescendant="activeDescendant"
         class="options"
         :class="{ operator: type === 'operator' }"
+        @keydown="search"
         @focus="setupFocus"
         @keyup.up.prevent="selectPrevOption"
         @keyup.down.prevent="selectNextOption"
@@ -58,7 +59,7 @@
         @keydown.enter.esc.prevent="reset"
       >
         <li
-          v-for="(option, index) in options"
+          v-for="(option, index) in filteredOptions"
           :id="`select-option-${index}`"
           :ref="`option-${index}`"
           :data-test="`option-${index}`"
@@ -73,7 +74,6 @@
             <img class="item-icon" v-if="option.img" :src="option.img" alt="icon" />
             <span class="primary">{{ option.primaryText }}</span>
           </div>
-          {{ index }}
           <span :class="`value operator ${option.secondaryText}`">
             {{ option.secondaryText }}
           </span>
@@ -106,27 +106,30 @@ export default {
       tabKeyPressed: false,
       areOptionsVisible: false,
       keysSoFar: '',
+      filteredOptions: this.options,
     }
   },
   computed: {
     activeOptionIndex() {
       // TODO(#856): implement find for operator select, wait till the Radon Library is updated
       if (this.type === 'operator') {
-        return this.options.findIndex(x => standardizeOperatorName(x.value) === this.value.value)
+        return this.filteredOptions.findIndex(
+          x => standardizeOperatorName(x.value) === this.value.value
+        )
         // return this.options.findIndex(x => standardizeOperatorName(x.value) === this.value.value)
       } else {
-        return this.options.findIndex(x => x.value === this.value || x === this.value)
+        return this.filteredOptions.findIndex(x => x.value === this.value || x === this.value)
       }
     },
     prevOptionIndex() {
       const next = this.activeOptionIndex - 1
-      this.scrollTop(next - 1)
-      return next >= 0 ? next : this.options.length - 1
+      this.scrollTop(next >= 0 ? next : this.filteredOptions.length - 1)
+      return next >= 0 ? next : this.filteredOptions.length - 1
     },
     nextOptionIndex() {
       const next = this.activeOptionIndex + 1
-      this.scrollTop(next - 1)
-      return next <= this.options.length - 1 ? next : 0
+      this.scrollTop(next <= this.filteredOptions.length - 1 ? next : 0)
+      return next <= this.filteredOptions.length - 1 ? next : 0
     },
     activeDescendant() {
       return `select-option-${this.activeOptionIndex}`
@@ -134,7 +137,7 @@ export default {
   },
   methods: {
     scrollTop(next) {
-      if (next >= 2 && next <= this.options.length - 2) {
+      if (next >= 2 && next <= this.filteredOptions.length - 2) {
         const top = this.$refs[`option-${next}`][0].offsetTop
         this.$refs.options.scrollTop = top
       }
@@ -169,6 +172,7 @@ export default {
     },
     async reset() {
       this.hideOptions()
+      this.filteredOptions = this.options
       await this.$nextTick()
       if (this.$refs.button) {
         this.$refs.button.focus()
@@ -176,34 +180,34 @@ export default {
     },
     setupFocus() {
       if (!this.value) {
-        this.$emit('input', this.options[0])
+        this.$emit('input', this.filteredOptions[0])
       }
     },
     selectPrevOption() {
-      this.$emit('input', this.options[this.prevOptionIndex])
+      this.$emit('input', this.filteredOptions[this.prevOptionIndex])
     },
     selectNextOption() {
-      this.$emit('input', this.options[this.nextOptionIndex])
+      this.$emit('input', this.filteredOptions[this.nextOptionIndex])
     },
     search(e) {
       clearTimeout(resetKeysSoFarTimer)
       // No alphanumeric key was pressed.
-      if (e.key.length <= 1) {
-        resetKeysSoFarTimer = setTimeout(() => {
-          this.keysSoFar = ''
-        }, 500)
-      }
+      resetKeysSoFarTimer = setTimeout(() => {
+        this.keysSoFar = ''
+      }, 500)
       this.keysSoFar += e.key
       const matchingOption = this.options.find(x =>
         x.primaryText.toLowerCase().includes(this.keysSoFar)
       )
-      const matchingOptions = this.options.filter(x => x.primaryText.indexOf(this.keysSoFar) !== -1)
+      const matchingOptions = this.options.filter(option =>
+        option.primaryText.toLowerCase().includes(this.keysSoFar.toLowerCase())
+      )
       if (matchingOption) {
-        this.$emit('filtered', matchingOptions)
+        this.filteredOptions = matchingOptions
       }
-      if (matchingOption && this.keysSoFar === 'neEnter') {
+      if (matchingOption && e.key === 'neEnter') {
         // TODO: implement filtered option
-        this.$emit('input--->', matchingOption)
+        this.filteredOptions = this.options
       }
     },
   },
