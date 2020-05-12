@@ -1,14 +1,16 @@
 <template>
-  <div class="stage-bar">
-    <div
-      :data-test="`stage-${stage.name}`"
-      v-for="stage in stages"
-      :key="stage.name"
-      @click="() => changeStage(stage.name)"
-      class="link-btn"
-      :class="{ active: current === stage.name }"
-    >
-      <span v-html="stage.label" />
+  <div>
+    <div class="stage-bar">
+      <div
+        :data-test="`stage-${stage.name}`"
+        v-for="stage in stages"
+        :key="stage.name"
+        @click="() => changeStage(stage.name)"
+        class="link-btn"
+        :class="{ active: current === stage.name }"
+      >
+        <span v-html="stage.label" />
+      </div>
     </div>
   </div>
 </template>

@@ -4,7 +4,7 @@
     <EditorStageBar v-on:change-stage="changeStage" />
     <EditorStageSettings v-if="currentStage === EDITOR_STAGES.SETTINGS" />
     <EditorStageSources v-if="currentStage === EDITOR_STAGES.SOURCES" />
-    <EditorStageScripts v-if="currentStage === EDITOR_STAGES.SCRIPTS" :script="currentScript" />
+    <EditorStageScripts v-if="currentStage === EDITOR_STAGES.SCRIPTS" />
     <EditorStageAggregations v-if="currentStage === EDITOR_STAGES.AGGREGATIONS" />
     <EditorStageTally v-if="currentStage === EDITOR_STAGES.TALLY" />
 
@@ -64,17 +64,6 @@ export default {
       radRequestResult: state => state.wallet.radRequestResult,
       networkStatus: state => state.wallet.networkStatus,
     }),
-    currentScript: function() {
-      if (this.currentStage === 'scripts') {
-        return this.radRequest.getMarkup().retrieve
-      } else if (this.currentStage === 'aggregate') {
-        return this.radRequest.getMarkup().aggregate
-      } else if (this.currentStage === 'tally') {
-        return this.radRequest.getMarkup().tally
-      } else {
-        return null
-      }
-    },
   },
 }
 </script>

@@ -1,9 +1,15 @@
 <template>
   <LayoutTwoColumns>
     <template #left>
-      <SourceCard v-for="(source, index) in sources" :key="index" :source="source" />
+      <div class="scripts">
+        <ScriptCard
+          class="script"
+          v-for="(source, index) in sources"
+          :key="index"
+          :source="source"
+        />
+      </div>
     </template>
-
     <template #upperRight>
       <Fieldset title="About companion scripts" type="help">
         <div>
@@ -50,19 +56,22 @@
 <script>
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
 import Fieldset from '@/components/Fieldset'
-import SourceCard from '@/components/card/SourceCard.vue'
+import { mapState } from 'vuex'
+import ScriptCard from '@/components/card/ScriptCard.vue'
 
 export default {
   name: 'EditorStageScripts',
   components: {
     Fieldset,
     LayoutTwoColumns,
-    SourceCard,
-  },
-  props: {
-    script: [Object, Array],
+    ScriptCard,
   },
   computed: {
+    ...mapState({
+      script: state => {
+        return state.rad.radRequest.getMarkup().retrieve
+      },
+    }),
     sources() {
       return this.script.map((x, index) => {
         x.index = index
@@ -72,6 +81,19 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="scss">
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+.scripts {
+  display: flex;
+  flex-direction: column;
+
+  .script {
+    margin-bottom: 25px;
+  }
+}
+</style>
 
 <docs>
 ### Example

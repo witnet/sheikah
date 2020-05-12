@@ -171,6 +171,11 @@ export default {
         state.templates = templates
       }
     },
+    [PUSH_OPERATOR](state, { scriptId }) {
+      state.currentRadonMarkupInterpreter.addOperator(scriptId)
+      state.radRequest = state.currentRadonMarkupInterpreter
+      this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
+    },
     [CREATE_TEMPLATE](state) {
       const name = Object.values(state.templates).reduce((acc, _, index, self) => {
         index = parseInt(acc.split(' ')[1]) + 1
@@ -214,6 +219,7 @@ export default {
       state.currentRadonMarkupInterpreter = new Radon(radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter
       state.history = [state.currentRadonMarkupInterpreter.getMir()]
+      this.commit(PUSH_OPERATOR, { scriptId: 2 })
     },
     [SET_CURRENT_TEMPLATE](state, { id }) {
       const template = state.templates[id]
@@ -221,11 +227,6 @@ export default {
       state.currentRadonMarkupInterpreter = new Radon(template.radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter
       state.history = [state.currentRadonMarkupInterpreter.getMir()]
-    },
-    [PUSH_OPERATOR](state, { scriptId }) {
-      state.currentRadonMarkupInterpreter.addOperator(scriptId)
-      state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },
     [DELETE_OPERATOR](state, { scriptId, operatorId }) {
       state.currentRadonMarkupInterpreter.deleteOperator(scriptId, operatorId)

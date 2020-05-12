@@ -1,8 +1,12 @@
 <template>
   <div class="card">
-    <p class="title">Data source #{{ source.index }} <span class="name"> url.com </span></p>
+    <p class="title">
+      Data source #{{ source.index }} <span class="name"> {{ source.url }} </span>
+    </p>
     <div class="container">
       <RadonScript
+        :url="source.url"
+        :kind="source.kind"
         :script="source.script"
         stage="retrieve"
         :sourceIndex="source.index"
@@ -16,7 +20,7 @@
 <script>
 import RadonScript from '@/components/RadonScript'
 export default {
-  name: 'SourceCard',
+  name: 'ScriptCard',
   props: {
     source: [Object, Array],
   },
@@ -37,8 +41,10 @@ export default {
     color: $alt-grey-5;
     margin-bottom: 8px;
     .name {
+      margin-left: 8px;
       color: $grey-3;
-      font-style: medium italic;
+      font-weight: medium;
+      font-style: italic;
     }
   }
 

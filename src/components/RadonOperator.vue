@@ -20,10 +20,17 @@
       </div>
     </div>
     <div class="operator-bottom">
-      <div class="icon-container">
+      <div v-if="showOutputType" class="icon-container">
         <img class="row sheikah-icon" src="@/resources/svg/operator-arrow.svg" />
       </div>
-      <OperatorOutput :label="selectedOption.secondaryText" />
+      <div v-else class="icon-container">
+        <img class="row sheikah-icon" src="@/resources/svg/long-arrow.svg" />
+        <div class="add-operator-container">
+          <img @click="addOperator" class="add-operator" src="@/resources/svg/add-operator.svg" />
+          <p class="add-operator-text">Click to add another operator</p>
+        </div>
+      </div>
+      <OperatorOutput class="output" :label="selectedOption.secondaryText" />
     </div>
   </div>
 </template>
@@ -76,6 +83,9 @@ export default {
     ...mapActions({
       saveTemplate: 'saveTemplate',
     }),
+    addOperator() {
+      this.$emit('add-operator')
+    },
     hasVariables(value) {
       if (typeof value === 'string') {
         const newValue = value.slice(1, value.length)
@@ -183,6 +193,11 @@ export default {
       color: $grey-5;
       font-weight: normal;
     }
+    .with-arguments {
+      display: grid;
+      grid-template-rows: repeat(auto-fit, auto);
+      row-gap: 16px;
+    }
   }
 
   .operator-select {
@@ -221,11 +236,28 @@ export default {
 
 .operator-bottom {
   display: flex;
-  align-items: center;
-
+  align-items: flex-start;
+  .output {
+    margin-top: 16px;
+  }
   .icon-container {
+    position: relative;
     text-align: left;
     margin-left: 16px;
+    .add-operator-container {
+      cursor: pointer;
+      display: flex;
+      position: absolute;
+      width: max-content;
+      bottom: 24px;
+      left: -4px;
+      .add-operator-text {
+        margin-left: 16px;
+        font-size: 12px;
+        font-weight: medium;
+        color: $grey-4;
+      }
+    }
   }
 }
 </style>

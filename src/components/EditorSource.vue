@@ -9,7 +9,6 @@
       <div class="form">
         <label>Protocol</label>
         <Select
-          type="operator"
           v-model="localProtocol"
           :options="[{ primaryText: 'HTTP-GET' }]"
           data-test="protocol-select"
@@ -18,13 +17,8 @@
         <el-input ref="url" v-model="localUrl" data-test="url-input" />
         <label>Content-Type</label>
         <Select
-          type="operator"
           v-model="currentContentType"
-          :options="[
-            { primaryText: 'JSON API' },
-            { primaryText: 'Plain UTF-8 text' },
-            { primaryText: 'Binary file' },
-          ]"
+          :options="currentContentTypeOptions"
           data-test="content-type-select"
         />
       </div>
@@ -51,9 +45,12 @@ export default {
   data() {
     return {
       currentProtocol: { primaryText: 'HTTP-GET' },
-      currentContentType: { primaryText: 'JSON API' },
+      currentContentType: [],
       currentUrl: '',
     }
+  },
+  created() {
+    this.currentContentType = this.currentContentTypeOptions[0]
   },
   props: {
     /**
@@ -97,6 +94,13 @@ export default {
     },
     subtitle() {
       return getDomainFromUrl(this.url)
+    },
+    currentContentTypeOptions() {
+      return [
+        { primaryText: 'JSON API' },
+        { primaryText: 'Plain UTF-8 text' },
+        { primaryText: 'Binary file' },
+      ]
     },
     localUrl: {
       get() {

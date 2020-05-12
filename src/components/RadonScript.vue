@@ -1,5 +1,13 @@
 <template>
   <div class="radon-script">
+    <div class="script-header">
+      <p class="url">
+        {{ url }} <span class="kind">({{ kind }})</span>
+      </p>
+    </div>
+    <div class="icon-container">
+      <img class="row sheikah-icon" src="@/resources/svg/operator-arrow.svg" />
+    </div>
     <div v-for="(operator, index) in script" :key="operator.toString() + index">
       <RadonOperator
         data-test="radon-operator"
@@ -8,12 +16,13 @@
         :scriptId="scriptId"
         :sourceIndex="sourceIndex"
         :showOutputType="index !== script.length - 1"
+        @add-operator="addOperator"
       />
     </div>
-    <div class="button-container">
-      <el-button data-test="add-operator-btn" @click="addOperator" type="primary">
-        Add operator
-      </el-button>
+    <div class="script-footer">
+      <p class="text">
+        Return and past into aggregator
+      </p>
     </div>
   </div>
 </template>
@@ -30,6 +39,8 @@ export default {
     sourceIndex: Number,
     script: Array,
     scriptId: Number,
+    kind: String,
+    url: String,
   },
   methods: {
     ...mapMutations({
@@ -48,6 +59,34 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+.script-header {
+  border: $operator-dashed-border;
+  display: flex;
+  align-items: center;
+  .url {
+    margin: 16px;
+    color: $grey-3;
+    font-weight: medium;
+    font-size: 14px;
+    .kind {
+      font-size: 12px;
+    }
+  }
+}
+.script-footer {
+  border: $operator-dashed-border;
+  display: flex;
+  align-items: center;
+  .text {
+    margin: 16px;
+    color: $grey-3;
+    font-weight: medium;
+    font-size: 14px;
+  }
+}
+.icon-container {
+  margin-left: 16px;
+}
 .radon-script {
   width: 100%;
   padding: 16px 24px;
