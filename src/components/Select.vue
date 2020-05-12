@@ -17,7 +17,7 @@
       >
         <div class="selected">
           <div class="label" :class="{ big: type === 'big' }">
-            <div class="primary" :data-test="'value' + value.primaryText">
+            <div class="primary" data-test="selected-option-primary">
               <img
                 class="item-icon"
                 v-if="selectedOption.img"
@@ -28,6 +28,7 @@
             </div>
             <span
               v-if="selectedOption.secondaryText"
+              data-test="selected-option-secondary"
               :class="`value ${selectedOption.secondaryText}`"
               >{{ selectedOption.secondaryText }}</span
             >
@@ -50,7 +51,8 @@
       </button>
       <input v-if="!tabKeyPressed" :aria-hidden="true" class="hidden" @focus="handleFocus" />
       <ul
-        v-show="areOptionsVisible"
+        v-if="areOptionsVisible"
+        data-test="options"
         ref="options"
         tabindex="-1"
         role="listbox"
@@ -77,11 +79,11 @@
           role="option"
           @click="selectOption(option)"
         >
-          <div class="label">
+          <div class="label" :data-test="`option-label-${index}`">
             <img class="item-icon" v-if="option.img" :src="option.img" alt="icon" />
             <span class="primary">{{ option.primaryText }}</span>
           </div>
-          <span :class="`value ${option.secondaryText}`">
+          <span :class="`value ${option.secondaryText}`" :data-test="`option-value-${index}`">
             {{ option.secondaryText }}
           </span>
         </li>
@@ -119,7 +121,6 @@ export default {
   },
   watch: {
     value() {
-      console.log('changeee>>>>>')
       this.selectedOption = this.value
     },
   },
@@ -439,7 +440,7 @@ export default {
     :value="{
       primaryText: 'option 1',
     }"
-    :options="[{primaryText: 'option 1', secondaryText: 'value'},{primaryText: 'option 2', secondaryText: 'value'}]"
+    :options="[{primaryText: 'option 1'},{primaryText: 'option 2'}]"
   />
 ```
 #### Big Select
@@ -449,7 +450,7 @@ export default {
     :value="{
       primaryText: 'option 1',
     }"
-    :options="[{primaryText: 'option 1', secondaryText: 'value'},{primaryText: 'option 2', secondaryText: 'value'}]"
+    :options="[{primaryText: 'option 1'},{primaryText: 'option 2'}]"
   />
 ```
 </docs>
