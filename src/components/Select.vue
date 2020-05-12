@@ -9,21 +9,28 @@
         aria-labelledby="select-label select-button"
         :aria-expanded="areOptionsVisible"
         class="selected-btn"
-        :class="{ active: areOptionsVisible, operator: type === 'operator' }"
+        :class="{ active: areOptionsVisible, big: type === 'big' }"
         @click="toggleOptions"
         @keyup.up.down.prevent="showOptions"
         @keyup.up.prevent="selectPrevOption"
         @keyup.down.prevent="selectNextOption"
       >
         <div class="selected">
-          <div class="label" :class="{ operator: type === 'operator' }">
+          <div class="label" :class="{ big: type === 'big' }">
             <div class="primary" :data-test="'value' + value.primaryText">
-              <img class="item-icon" v-if="value.img" :src="value.img" alt="icon" />
-              {{ value.primaryText }}
+              <img
+                class="item-icon"
+                v-if="selectedOption.img"
+                :src="selectedOption.img"
+                alt="icon"
+              />
+              {{ selectedOption.primaryText }}
             </div>
-            <span v-if="value.secondaryText" :class="`value ${value.secondaryText}`">{{
-              value.secondaryText
-            }}</span>
+            <span
+              v-if="selectedOption.secondaryText"
+              :class="`value ${selectedOption.secondaryText}`"
+              >{{ selectedOption.secondaryText }}</span
+            >
             <div class="arrow">
               <img
                 v-if="areOptionsVisible"
@@ -50,7 +57,7 @@
         :aria-labelledby="`select-label`"
         :aria-activedescendant="activeDescendant"
         class="options"
-        :class="{ operator: type === 'operator' }"
+        :class="{ big: type === 'big' }"
         @keydown="search"
         @focus="setupFocus"
         @keyup.up.prevent="selectPrevOption"
@@ -65,7 +72,7 @@
           :data-test="`option-${index}`"
           :key="index"
           :aria-selected="activeOptionIndex === index"
-          :class="{ ['has-focus']: activeOptionIndex === index, operator: type === 'operator' }"
+          :class="{ ['has-focus']: activeOptionIndex === index, big: type === 'big' }"
           class="option"
           role="option"
           @click="selectOption(option)"
@@ -74,7 +81,7 @@
             <img class="item-icon" v-if="option.img" :src="option.img" alt="icon" />
             <span class="primary">{{ option.primaryText }}</span>
           </div>
-          <span :class="`value operator ${option.secondaryText}`">
+          <span :class="`value ${option.secondaryText}`">
             {{ option.secondaryText }}
           </span>
         </li>
@@ -107,18 +114,27 @@ export default {
       areOptionsVisible: false,
       keysSoFar: '',
       filteredOptions: this.options,
+      selectedOption: this.value,
     }
+  },
+  watch: {
+    value() {
+      console.log('changeee>>>>>')
+      this.selectedOption = this.value
+    },
   },
   computed: {
     activeOptionIndex() {
       // TODO(#856): implement find for operator select, wait till the Radon Library is updated
       if (this.type === 'operator') {
         return this.filteredOptions.findIndex(
-          x => standardizeOperatorName(x.value) === this.value.value
+          x => standardizeOperatorName(x.value) === this.selectedOption.value
         )
         // return this.options.findIndex(x => standardizeOperatorName(x.value) === this.value.value)
       } else {
-        return this.filteredOptions.findIndex(x => x.value === this.value || x === this.value)
+        return this.filteredOptions.findIndex(
+          x => x.value === this.selectedOption || x === this.selectedOption
+        )
       }
     },
     prevOptionIndex() {
@@ -149,7 +165,8 @@ export default {
       }
     },
     selectOption(option) {
-      this.$emit('input', option)
+      this.selectedOption = option
+      this.$emit('input', this.selectedOption)
       this.reset()
     },
     handleBlur(e) {
@@ -179,15 +196,17 @@ export default {
       }
     },
     setupFocus() {
-      if (!this.value) {
+      if (!this.selectedOption) {
         this.$emit('input', this.filteredOptions[0])
       }
     },
     selectPrevOption() {
-      this.$emit('input', this.filteredOptions[this.prevOptionIndex])
+      this.selectedOption = this.filteredOptions[this.prevOptionIndex]
+      this.$emit('input', this.selectedOption)
     },
     selectNextOption() {
-      this.$emit('input', this.filteredOptions[this.nextOptionIndex])
+      this.selectedOption = this.filteredOptions[this.nextOptionIndex]
+      this.$emit('input', this.selectedOption)
     },
     search(e) {
       clearTimeout(resetKeysSoFarTimer)
@@ -230,7 +249,6 @@ export default {
     box-sizing: border-box;
     width: 100%;
     z-index: 1;
-    min-height: 60px;
     align-items: center;
     background: none;
     border-radius: 4px;
@@ -238,9 +256,11 @@ export default {
     color: $alt-grey-5;
     display: flex;
     padding-left: 16px;
-    &.operator {
-      font-size: 14px;
-      min-height: 40px;
+    min-height: 40px;
+    font-size: 14px;
+    &.big {
+      font-size: 16px;
+      min-height: 60px;
     }
     .selected {
       width: 100%;
@@ -253,15 +273,15 @@ export default {
       .label {
         width: 100%;
         overflow: hidden;
-        margin-right: 8px;
         display: grid;
         grid-template-columns: auto max-content max-content;
         column-gap: 8px;
         align-items: center;
-        font-size: 16px;
-        &.operator {
-          font-size: 14px;
-          margin-right: 16px;
+        font-size: 14px;
+        margin-right: 16px;
+        &.big {
+          margin-right: 8px;
+          font-size: 16px;
         }
 
         .primary {
@@ -299,7 +319,6 @@ export default {
 
   .options {
     position: absolute;
-    top: 60px;
     right: 0px;
     left: 0px;
     width: inherit;
@@ -318,8 +337,9 @@ export default {
     font-size: 16px;
     border: $select_border__active;
     border-top: none;
-    &.operator {
-      top: 40px;
+    top: 40px;
+    &.big {
+      top: 60px;
     }
 
     .option {
@@ -330,9 +350,9 @@ export default {
       cursor: pointer;
       align-items: center;
       display: flex;
-      height: 60px;
       justify-content: space-between;
       padding: 0px 0px 0px 16px;
+      height: 40px;
       .label {
         display: flex;
         align-items: center;
@@ -342,8 +362,8 @@ export default {
           width: 30px;
         }
       }
-      &.operator {
-        height: 40px;
+      &.big {
+        height: 60px;
       }
       &:hover {
         background-color: $alpha-purple;
@@ -362,9 +382,10 @@ export default {
   font-weight: normal;
   text-align: center;
   padding: 4px;
-  &.operator {
-    font-size: 14px;
-    margin-right: 8px;
+  font-size: 14px;
+  margin-right: 8px;
+  &.big {
+    font-size: 16px;
   }
   &.string {
     border: 1px solid $string;
@@ -414,7 +435,7 @@ export default {
 
 ```jsx
   <Select
-    type="operator"
+    type="big"
     :value="{
       primaryText: 'option 1',
     }"

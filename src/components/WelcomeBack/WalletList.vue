@@ -5,7 +5,7 @@
     </p>
     <div class="list">
       <div class="row wallets">
-        <Select v-model="currentWallet" :options="walletOptions" />
+        <Select type="big" v-model="currentWallet" :options="walletOptions" />
       </div>
       <div class="row" @keydown.enter.esc.prevent="unlock()">
         <el-input
