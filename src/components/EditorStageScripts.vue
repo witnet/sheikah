@@ -1,11 +1,7 @@
 <template>
   <LayoutTwoColumns>
     <template #left>
-      <SourceCard
-        v-for="(source, index) in sources"
-        :key="index"
-        :source="source"
-      />
+      <SourceCard v-for="(source, index) in sources" :key="index" :source="source" />
     </template>
 
     <template #upperRight>
