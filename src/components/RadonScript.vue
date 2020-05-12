@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="radon-script">
     <div v-for="(operator, index) in script" :key="operator.toString() + index">
       <RadonOperator
         data-test="radon-operator"
@@ -48,6 +48,10 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+.radon-script {
+  width: 100%;
+  padding: 16px 24px;
+}
 
 .circle {
   outline: none;

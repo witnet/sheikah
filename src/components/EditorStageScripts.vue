@@ -1,6 +1,12 @@
 <template>
   <LayoutTwoColumns>
-    <template #left>Scripts</template>
+    <template #left>
+      <SourceCard
+        v-for="(source, index) in sources"
+        :key="index"
+        :source="source"
+      />
+    </template>
 
     <template #upperRight>
       <Fieldset title="About companion scripts" type="help">
@@ -48,12 +54,26 @@
 <script>
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
 import Fieldset from '@/components/Fieldset'
+import SourceCard from '@/components/card/SourceCard.vue'
 
 export default {
   name: 'EditorStageScripts',
   components: {
     Fieldset,
     LayoutTwoColumns,
+    SourceCard,
+  },
+  props: {
+    script: [Object, Array],
+  },
+  computed: {
+    sources() {
+      return this.script.map((x, index) => {
+        x.index = index
+        console.log(x)
+        return x
+      })
+    },
   },
 }
 </script>

@@ -4,7 +4,7 @@
     <EditorStageBar v-on:change-stage="changeStage" />
     <EditorStageSettings v-if="currentStage === EDITOR_STAGES.SETTINGS" />
     <EditorStageSources v-if="currentStage === EDITOR_STAGES.SOURCES" />
-    <EditorStageScripts v-if="currentStage === EDITOR_STAGES.SCRIPTS" />
+    <EditorStageScripts v-if="currentStage === EDITOR_STAGES.SCRIPTS" :script="currentScript" />
     <EditorStageAggregations v-if="currentStage === EDITOR_STAGES.AGGREGATIONS" />
     <EditorStageTally v-if="currentStage === EDITOR_STAGES.TALLY" />
 
@@ -65,7 +65,7 @@ export default {
       networkStatus: state => state.wallet.networkStatus,
     }),
     currentScript: function() {
-      if (this.currentStage === 'retrieve') {
+      if (this.currentStage === 'scripts') {
         return this.radRequest.getMarkup().retrieve
       } else if (this.currentStage === 'aggregate') {
         return this.radRequest.getMarkup().aggregate
