@@ -66,7 +66,6 @@ export default {
     sources() {
       return this.script.map((x, index) => {
         x.index = index
-        console.log(x)
         return x
       })
     },
