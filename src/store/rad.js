@@ -147,7 +147,11 @@ export default {
       state.moveCarousel = false
     },
     [UPDATE_SOURCE](state, { index, source }) {
-      state.currentRadonMarkupInterpreter.updateSource(index, source)
+      state.currentRadonMarkupInterpreter.updateSource(index, {
+        kind: source.protocol,
+        url: source.url,
+        contentType: source.contentType,
+      })
       state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
     },

@@ -80,7 +80,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .console-container {
-  position: absolute;
+  position: sticky;
   right: 0px;
   left: 0px;
   display: flex;

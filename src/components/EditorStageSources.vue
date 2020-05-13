@@ -1,7 +1,22 @@
 <template>
   <LayoutTwoColumns>
-    <template #left>Sources</template>
-
+    <template #left>
+      <div class="sources">
+        <EditorSource
+          class="source"
+          v-for="(source, index) in sources"
+          :key="index"
+          title="title"
+          subtitle="subtitle"
+          :url="source.url"
+          :protocol="source.kind"
+          :index="index"
+        />
+        <el-button class="add-source" type="primary" @click="addSource" data-test="add-source">
+          Add another source
+        </el-button>
+      </div>
+    </template>
     <template #upperRight>
       <Fieldset title="About data sources" type="help">
         <div>
@@ -45,17 +60,50 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex'
+import { ADD_SOURCE, DELETE_SOURCE } from '@/store/mutation-types'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
 import Fieldset from '@/components/Fieldset'
+import EditorSource from '@/components/EditorSource'
 
 export default {
   name: 'EditorStageSources',
   components: {
+    EditorSource,
     Fieldset,
     LayoutTwoColumns,
   },
+  computed: {
+    ...mapState({
+      sources: state => {
+        return state.rad.radRequest.getMarkup().retrieve
+      },
+    }),
+  },
+  methods: {
+    ...mapMutations({
+      addSource: ADD_SOURCE,
+      deleteSource: DELETE_SOURCE,
+    }),
+  },
 }
 </script>
+
+<style scoped lang="scss">
+.sources {
+  display: flex;
+  flex-direction: column;
+
+  .source {
+    margin-bottom: 25px;
+  }
+
+  .add-source {
+    width: min-content;
+    align-self: flex-end;
+  }
+}
+</style>
 
 <docs>
 ### Example
