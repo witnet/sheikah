@@ -1,9 +1,12 @@
 <template>
   <div class="fieldset">
     <header class="header">
-      <p class="title" :class="[type]">{{ title }}</p>
-      <p v-if="subtitle" class="subtitle">{{ subtitle }}</p>
-      <p v-if="helper" class="helper">{{ helper }}</p>
+      <div class="texts">
+        <p class="title" :class="[type]">{{ title }}</p>
+        <p v-if="subtitle" class="subtitle">{{ subtitle }}</p>
+        <p v-if="helper" class="helper">{{ helper }}</p>
+      </div>
+      <font-awesome-icon v-if="closable" class="icon cross close" icon="times" @click="onClose" />
     </header>
     <div :class="[type]">
       <slot></slot>
@@ -40,6 +43,16 @@ export default {
       type: String,
       required: false,
     },
+    closable: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    onClose: {
+      type: Function,
+      required: false,
+      default: () => {},
+    },
   },
 }
 </script>
@@ -51,29 +64,42 @@ export default {
   .header {
     margin-bottom: 14px;
     display: flex;
-    .title {
-      color: $alt-grey-5;
-      font-size: 16px;
-      font-weight: bold;
+    justify-content: space-between;
 
-      &.help {
-        font-size: 13px;
+    .texts {
+      display: flex;
+
+      .title {
+        color: $alt-grey-5;
+        font-size: 16px;
+        font-weight: bold;
+
+        &.help {
+          font-size: 13px;
+        }
+      }
+
+      .subtitle {
+        color: $grey-4;
+        font-size: 14px;
+        margin-left: 8px;
+      }
+
+      .helper {
+        color: $alt-grey-5;
+        font-size: 10px;
+        opacity: 50%;
+        font-style: italic;
+        margin-left: 25px;
+        align-self: center;
       }
     }
 
-    .subtitle {
-      color: $grey-4;
+    .close {
+      align-self: flex-end;
+      cursor: pointer;
       font-size: 14px;
-      margin-left: 8px;
-    }
-
-    .helper {
-      color: $alt-grey-5;
-      font-size: 10px;
-      opacity: 50%;
-      font-style: italic;
-      margin-left: 25px;
-      align-self: center;
+      opacity: 0.4;
     }
   }
 
