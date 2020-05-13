@@ -51,7 +51,6 @@ export default {
   }
 
   .content {
-    max-width: 500px;
     border: 1px solid $purple-4;
     box-shadow: $default-box-shadow;
     background: $white;
