@@ -1,4 +1,4 @@
-import { areSoftEqualArrays, standardizeWitUnits } from '@/utils'
+import { areSoftEqualArrays, getDomainFromUrl, standardizeWitUnits } from '@/utils'
 import { WIT_UNIT } from '../../../src/constants'
 
 describe('areSoftEqualArrays', () => {
@@ -30,6 +30,38 @@ describe('areSoftEqualArrays', () => {
     const arr1 = [1, 3, 5, 4]
     const arr2 = [5, 2, 3, 4, 1]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
+  })
+})
+
+describe('getDomainFromUrl', () => {
+  it('should work url with protocol', () => {
+    const url = 'http://witnet.io'
+
+    expect(getDomainFromUrl(url)).toBe('witnet.io')
+  })
+
+  it('should work without protocol', () => {
+    const url = 'witnet.io'
+
+    expect(getDomainFromUrl(url)).toBe('witnet.io')
+  })
+
+  it('should work with subdomain', () => {
+    const url = 'http://docs.witnet.io'
+
+    expect(getDomainFromUrl(url)).toBe('docs.witnet.io')
+  })
+
+  it('should NOT work without tld', () => {
+    const url = 'http://witnet'
+
+    expect(getDomainFromUrl(url)).toBe('')
+  })
+
+  it('should NOT work with invalid tld', () => {
+    const url = 'http://witnet.abcdefghij'
+
+    expect(getDomainFromUrl(url)).toBe('')
   })
 })
 

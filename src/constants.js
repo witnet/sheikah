@@ -1,3 +1,5 @@
+export const EDITOR_ALLOWED_PROTOCOLS = ['http', 'https']
+
 export const EDITOR_STAGES = {
   SETTINGS: 'settings',
   SOURCES: 'sources',

@@ -1,7 +1,7 @@
 import cbor from 'cbor'
 import { format, formatDistanceToNow } from 'date-fns'
 import uuidv4 from 'uuid/v4'
-import { WIT_UNIT } from '@/constants'
+import { WIT_UNIT, EDITOR_ALLOWED_PROTOCOLS } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 
 // Create Notifications if notifications are supported
@@ -30,6 +30,19 @@ export function cropString(string, caracters, position) {
   } else {
     return ''
   }
+}
+
+// get domain from a given url
+export function getDomainFromUrl(url) {
+  // add default domain if the url doesn't include it
+  const fullUrl = EDITOR_ALLOWED_PROTOCOLS.find(domain => url.includes(`${domain}://`))
+    ? url
+    : `${EDITOR_ALLOWED_PROTOCOLS[0]}://${url}`
+  const parts = fullUrl.split('/')
+  const match =
+    Array.isArray(parts) && parts[2] ? parts[2].match(/([\w-]+\.)*([\w-]+\.\w{2,6}$)/) : ''
+
+  return match && match.length ? match[0] : ''
 }
 
 // Create Notifications with specified arguments
