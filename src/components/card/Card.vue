@@ -9,7 +9,7 @@
     </template>
 
     <template v-slot:content>
-      <div class="content">
+      <div class="content" :class="[shadowStyle, borderStyle]">
         <slot></slot>
       </div>
     </template>
@@ -31,6 +31,29 @@ export default {
       type: Number,
       default: 250,
     },
+    shadow: {
+      type: String,
+      required: false,
+      default: 'fat',
+    },
+    border: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+  },
+  computed: {
+    shadowStyle() {
+      const shadows = {
+        fat: 'shadow-fat',
+        thin: 'shadow-thin',
+      }
+
+      return shadows[this.shadow]
+    },
+    borderStyle() {
+      return this.border ? 'border-purple' : ''
+    },
   },
   components: {
     BaseCard,
@@ -51,8 +74,6 @@ export default {
   }
 
   .content {
-    border: 1px solid $purple-4;
-    box-shadow: $default-box-shadow;
     background: $white;
     display: flex;
     flex-direction: column;
@@ -60,6 +81,19 @@ export default {
     border-radius: 2px;
     font-size: 16px;
     padding: 32px;
+    border: 1px solid $grey-1;
+
+    &.border-purple {
+      border: 1px solid $purple-4;
+    }
+
+    &.shadow-thin {
+      box-shadow: $card-box-shadow;
+    }
+
+    &.shadow-fat {
+      box-shadow: $default-box-shadow;
+    }
   }
 }
 </style>

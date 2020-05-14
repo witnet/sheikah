@@ -5,7 +5,7 @@
     :closable="true"
     :onClose="() => deleteSource({ index })"
   >
-    <Card class="card" shadow="thin">
+    <Card class="card" shadow="thin" :border="false">
       <div class="form">
         <label>Protocol</label>
         <Select
