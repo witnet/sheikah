@@ -32,9 +32,6 @@ describe('Select.vue', () => {
     it('should render the selected value', () => {
       expect(wrapper.find('[data-test="selected-option-primary"]').text()).toBe('option 1')
     })
-    it('should render the selected value seconday text', () => {
-      expect(wrapper.find('[data-test="selected-option-secondary"]').text()).toBe('option value 1')
-    })
     it('finds does not find the options', () => {
       expect(wrapper.contains('[data-test="options"]')).toBe(false)
     })
@@ -73,20 +70,11 @@ describe('Select.vue', () => {
     it('should render the selected option 1', () => {
       expect(wrapper.find('[data-test="option-label-0"]').text()).toBe('option 1')
     })
-    it('should render the selected option 1', () => {
-      expect(wrapper.find('[data-test="option-value-0"]').text()).toBe('option value 1')
-    })
     it('should render the selected option 2', () => {
       expect(wrapper.find('[data-test="option-label-1"]').text()).toBe('option 2')
     })
-    it('should render the selected option 1', () => {
-      expect(wrapper.find('[data-test="option-value-1"]').text()).toBe('option value 2')
-    })
     it('should render the selected option 3', () => {
       expect(wrapper.find('[data-test="option-label-2"]').text()).toBe('option 3')
-    })
-    it('should render the selected option 1', () => {
-      expect(wrapper.find('[data-test="option-value-2"]').text()).toBe('option value 3')
     })
   })
   describe('delete file when click on delete', () => {

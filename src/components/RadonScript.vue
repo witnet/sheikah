@@ -7,7 +7,7 @@
         :stage="stage"
         :scriptId="scriptId"
         :sourceIndex="sourceIndex"
-        :showUnionIcon="index !== script.length - 1"
+        :showOutputType="index !== script.length - 1"
       />
     </div>
     <div class="button-container">

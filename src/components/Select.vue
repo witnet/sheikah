@@ -26,12 +26,11 @@
               />
               {{ selectedOption.primaryText }}
             </div>
-            <span
-              v-if="selectedOption.secondaryText"
+            <OperatorType
               data-test="selected-option-secondary"
-              :class="`value ${selectedOption.secondaryText}`"
-              >{{ selectedOption.secondaryText }}</span
-            >
+              v-if="selectedOption.secondaryText"
+              :type="selectedOption.secondaryText"
+            />
             <div class="arrow">
               <img
                 v-if="areOptionsVisible"
@@ -83,9 +82,11 @@
             <img class="item-icon" v-if="option.img" :src="option.img" alt="icon" />
             <span class="primary">{{ option.primaryText }}</span>
           </div>
-          <span :class="`value ${option.secondaryText}`" :data-test="`option-value-${index}`">
-            {{ option.secondaryText }}
-          </span>
+          <OperatorType
+            class="value"
+            :data-test="`option-value-${index}`"
+            :type="option.secondaryText"
+          />
         </li>
       </ul>
     </div>
@@ -94,12 +95,16 @@
 
 <script>
 import { standardizeOperatorName } from '@/utils'
+import OperatorType from '@/components/OperatorType.vue'
 
 let resetKeysSoFarTimer
 export default {
   name: 'Select',
   model: {
     event: 'input',
+  },
+  components: {
+    OperatorType,
   },
   props: {
     type: String,
@@ -296,7 +301,6 @@ export default {
         .value {
           overflow: hidden;
           border-radius: 2px;
-          text-align: center;
         }
         .icon {
           font-size: 16px;
@@ -363,6 +367,9 @@ export default {
           width: 30px;
         }
       }
+      .value {
+        margin-right: 8px;
+      }
       &.big {
         height: 60px;
       }
@@ -376,56 +383,6 @@ export default {
         overflow: hidden;
       }
     }
-  }
-}
-.value {
-  border-radius: 2px;
-  font-weight: normal;
-  text-align: center;
-  padding: 4px;
-  font-size: 14px;
-  margin-right: 8px;
-  &.big {
-    font-size: 16px;
-  }
-  &.string {
-    border: 1px solid $string;
-  }
-  &.mixed {
-    border: 1px solid $mixed;
-  }
-  &.boolean {
-    border: 1px solid $boolean;
-  }
-  &.int {
-    border: 1px solid $int;
-  }
-  &.float {
-    border: 1px solid $float;
-  }
-  &.array {
-    border: 1px solid $array;
-  }
-  &.map {
-    border: 1px solid $map;
-  }
-  &.null {
-    border: 1px solid $null;
-  }
-  &.result {
-    border: 1px solid $result;
-  }
-  &.bytes {
-    border: 1px solid $bytes;
-  }
-  &.boolean {
-    border: 1px solid $boolean;
-  }
-  &.generic {
-    border: 1px solid $generic;
-  }
-  &.integer {
-    border: 1px solid $integer;
   }
 }
 </style>

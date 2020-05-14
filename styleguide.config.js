@@ -27,6 +27,7 @@ module.exports = {
     'src/components/Tag.vue',
     'src/components/Transaction.vue',
     'src/components/Select.vue',
+    'src/components/RadonOperator.vue',
     'src/components/TransactionDetails.vue',
   ],
   require: [

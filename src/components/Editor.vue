@@ -2,7 +2,6 @@
   <div data-test="editor-view" class="editor">
     <EditorToolBar />
     <EditorStageBar v-on:change-stage="changeStage" />
-
     <EditorStageSettings v-if="currentStage === EDITOR_STAGES.SETTINGS" />
     <EditorStageSources v-if="currentStage === EDITOR_STAGES.SOURCES" />
     <EditorStageScripts v-if="currentStage === EDITOR_STAGES.SCRIPTS" />
