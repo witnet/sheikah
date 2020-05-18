@@ -9,7 +9,7 @@
     </template>
 
     <template v-slot:content>
-      <div class="content" :class="[shadowStyle, borderStyle]">
+      <div class="content" :class="[shadowStyle, borderStyle, paddingStyle]">
         <slot></slot>
       </div>
     </template>
@@ -30,6 +30,11 @@ export default {
     height: {
       type: Number,
       default: 250,
+    },
+    padding: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
     shadow: {
       type: String,
@@ -53,6 +58,9 @@ export default {
     },
     borderStyle() {
       return this.border ? 'border-purple' : ''
+    },
+    paddingStyle() {
+      return this.padding ? 'padding' : ''
     },
   },
   components: {
@@ -80,8 +88,10 @@ export default {
     justify-content: center;
     border-radius: 2px;
     font-size: 16px;
-    padding: 32px;
     border: 1px solid $grey-1;
+    &.padding {
+      padding: 32px;
+    }
 
     &.border-purple {
       border: 1px solid $purple-4;

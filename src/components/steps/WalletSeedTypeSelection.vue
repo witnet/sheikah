@@ -60,7 +60,6 @@ export default {
 
 .wallet-seed-type {
   min-width: 500px;
-
   .text {
     margin-bottom: 32px;
     &.header {

@@ -70,9 +70,9 @@ export default {
       display: flex;
 
       .title {
-        color: $alt-grey-5;
         font-size: 16px;
-        font-weight: bold;
+        font-weight: medium;
+        color: $alt-grey-5;
 
         &.help {
           font-size: 13px;
@@ -80,9 +80,10 @@ export default {
       }
 
       .subtitle {
-        color: $grey-4;
-        font-size: 14px;
         margin-left: 8px;
+        color: $grey-3;
+        font-weight: medium;
+        font-style: italic;
       }
 
       .helper {

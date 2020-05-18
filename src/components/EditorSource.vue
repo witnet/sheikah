@@ -7,15 +7,15 @@
   >
     <Card class="card" shadow="thin" :border="false">
       <div class="form">
-        <label>Protocol</label>
+        <label class="label">Protocol</label>
         <Select
           v-model="localProtocol"
           :options="[{ primaryText: 'HTTP-GET' }]"
           data-test="protocol-select"
         />
-        <label>URL</label>
+        <label class="label">URL</label>
         <el-input ref="url" v-model="localUrl" data-test="url-input" />
-        <label>Content-Type</label>
+        <label class="label">Content-Type</label>
         <Select
           v-model="currentContentType"
           :options="currentContentTypeOptions"
@@ -153,6 +153,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/_colors.scss';
 .card {
   .form {
     display: grid;
@@ -160,6 +161,10 @@ export default {
     row-gap: 22px;
     column-gap: 10px;
     align-items: center;
+    .label {
+      color: $grey-5;
+      font-size: 14px;
+    }
   }
 }
 </style>

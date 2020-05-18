@@ -2,7 +2,7 @@
   <div class="radon-script">
     <div class="script-header">
       <p class="url">
-        {{ url }} <span class="kind">({{ kind }})</span>
+        {{ url }} <span class="protocol">({{ protocol }})</span>
       </p>
     </div>
     <div class="icon-container">
@@ -39,7 +39,7 @@ export default {
     sourceIndex: Number,
     script: Array,
     scriptId: Number,
-    kind: String,
+    protocol: String,
     url: String,
   },
   methods: {
@@ -68,7 +68,7 @@ export default {
     color: $grey-3;
     font-weight: medium;
     font-size: 14px;
-    .kind {
+    .protocol {
       font-size: 12px;
     }
   }

@@ -1,31 +1,43 @@
 <template>
-  <div class="card">
-    <p class="title">
-      Data source #{{ source.index }} <span class="name"> {{ source.url }} </span>
-    </p>
-    <div class="container">
-      <RadonScript
-        :url="source.url"
-        :kind="source.kind"
-        :script="source.script"
-        stage="retrieve"
-        :sourceIndex="source.index"
-        :scriptId="source.scriptId"
-      />
-      <div class="script-info"></div>
-    </div>
-  </div>
+  <Fieldset :title="title" :subtitle="subtitle" :closable="false">
+    <Card class="card" shadow="thin" :border="false" :padding="false">
+      <div class="form">
+        <RadonScript
+          :url="source.url"
+          :protocol="source.kind"
+          :script="source.script"
+          stage="retrieve"
+          :sourceIndex="source.index"
+          :scriptId="source.scriptId"
+        />
+        <div class="script-info"></div>
+      </div>
+    </Card>
+  </Fieldset>
 </template>
 
 <script>
 import RadonScript from '@/components/RadonScript'
+import Card from '@/components/card/Card'
+import Fieldset from '@/components/Fieldset'
+
 export default {
   name: 'ScriptCard',
   props: {
-    source: [Object, Array],
+    source: Object,
   },
   components: {
+    Fieldset,
+    Card,
     RadonScript,
+  },
+  computed: {
+    title() {
+      return `Data source #${this.source.index}`
+    },
+    subtitle() {
+      return this.source.url
+    },
   },
 }
 </script>
@@ -35,24 +47,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .card {
-  .title {
-    font-size: 16px;
-    font-weight: medium;
-    color: $alt-grey-5;
-    margin-bottom: 8px;
-    .name {
-      margin-left: 8px;
-      color: $grey-3;
-      font-weight: medium;
-      font-style: italic;
-    }
-  }
-
-  .container {
-    border: 1px solid $grey-1;
-    box-shadow: $main-box-shadow;
-    background: $white;
-    border-radius: 2px;
+  .form {
     font-size: 16px;
     display: grid;
     grid-template-columns: 1fr 300px;
