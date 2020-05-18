@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: delete extra parent in template -->
   <div>
     <div class="stage-bar">
       <div
@@ -17,7 +18,6 @@
 
 <script>
 import { EDITOR_STAGES } from '@/constants'
-
 export default {
   name: 'EditorStageBar',
   methods: {

@@ -7,15 +7,15 @@
         type="operator"
         :value="selectedOption"
         :options="operatorOptions"
-        @input="option => updateTemplateAndVariables(selectedOption.id, option.value)"
+        @input="option => updateOperatorAndVariables(selectedOption.id, option.value)"
       />
       <p data-test="arguments-label" class="label" v-if="hasArguments">Arguments</p>
       <div data-test="has-arguments" class="with-arguments" v-if="hasArguments">
         <EditorOperatorArgument
-          v-for="(argument, index) in selectedOperator.arguments"
+          v-for="(argument, index) in selectedOperatorArguments"
           :key="argument.label + index"
           :argument="argument"
-          @update="value => updateTemplateAndVariables(argument.id, value, argument.type)"
+          @update="value => updateArgumentsAndVariables(value)"
         />
       </div>
     </div>
@@ -98,37 +98,39 @@ export default {
       }
       return false
     },
-    updateTemplateAndVariables(id, value, type) {
-      if (value && this.hasArguments) {
-        this.variableName = value
-        this.toggleVariables({ hasVariables: true })
-        if (this.hasVariables(value)) {
-          const variableMatch = this.variables.find(x => x.key === value.slice(1))
-          this.updateTemplate({
-            id,
-            value: '$' + variableMatch.key,
-          })
-          this.usedVariables({
-            id: id,
-            variable: variableMatch.key,
-            value: getNativeValueFromMarkupArgumentType(variableMatch.value, type),
-          })
-        } else {
-          this.toggleVariables({ hasVariables: false })
-          this.updateTemplate({
-            id,
-            value: getNativeValueFromMarkupArgumentType(value, type),
-          })
-        }
-        this.saveTemplate()
+    updateArgumentsAndVariables(input) {
+      const id = input.id
+      const value = input.value
+      const type = input.type
+      this.variableName = value
+      this.toggleVariables({ hasVariables: true })
+      if (this.hasVariables(value)) {
+        const variableMatch = this.variables.find(x => x.key === value.slice(1))
+        this.updateTemplate({
+          id,
+          value: '$' + variableMatch.key,
+        })
+        this.usedVariables({
+          id: id,
+          variable: variableMatch.key,
+          value: getNativeValueFromMarkupArgumentType(variableMatch.value, type),
+        })
       } else {
-        this.selected = { id: id, primaryText: value, value: value, secondaryText: 'boolean' }
+        this.toggleVariables({ hasVariables: false })
         this.updateTemplate({
           id,
           value: getNativeValueFromMarkupArgumentType(value, type),
         })
-        this.saveTemplate()
       }
+      this.saveTemplate()
+    },
+    updateOperatorAndVariables(id, value, type) {
+      this.selected = { id: id, primaryText: value, value: value, secondaryText: 'boolean' }
+      this.updateTemplate({
+        id,
+        value: getNativeValueFromMarkupArgumentType(value, type),
+      })
+      this.saveTemplate()
     },
   },
   computed: {
@@ -142,6 +144,9 @@ export default {
         value: this.operator.selected.label,
         secondaryText: this.operator.selected.outputType,
       }
+    },
+    selectedOperatorArguments() {
+      return this.operator.selected.arguments
     },
     hasArguments() {
       return !!this.selectedOperator.arguments.length

@@ -68,15 +68,10 @@ export default {
   },
   computed: {
     ...mapState({
-      script: state => {
-        return state.rad.radRequest.getMarkup().retrieve
-      },
+      script: state => state.rad.radRequest.getMarkup().retrieve,
     }),
     sources() {
-      return this.script.map((x, index) => {
-        x.index = index
-        return x
-      })
+      return this.script.map((operator, index) => ({ ...operator, index }))
     },
   },
 }

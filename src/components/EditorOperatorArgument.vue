@@ -4,8 +4,10 @@
       <el-input
         class="input-operator"
         :placeholder="argument.label"
-        :value="argument.value ? argument.value.toString() : ''"
-        @input="value => updateTemplateAndVariables(value)"
+        :value="argumentValue"
+        @input="
+          value => updateTemplateAndVariables({ id: argument.id, value, type: argument.markupType })
+        "
       />
       <div class="link">
         <font-awesome-icon data-test="variable-link-icon" v-show="hasVariables" icon="link" />
@@ -20,7 +22,14 @@
       <Select
         :value="selectedArgumentValue"
         :options="argumentOptions"
-        @input="value => updateTemplateAndVariables(value.primaryText)"
+        @input="
+          value =>
+            updateTemplateAndVariables({
+              id: argument.id,
+              value: value.primaryText,
+              type: argument.markupType,
+            })
+        "
       />
       <div data-test="select-argument" v-if="argument.selected.arguments" class="input-container">
         <el-input
@@ -30,10 +39,21 @@
           :value="
             argument.selected.arguments ? argument.selected.arguments[0].value.toString() : ''
           "
-          @input="value => updateTemplateAndVariables(value)"
+          @input="
+            value =>
+              updateTemplateAndVariables({
+                id: argument.selected.arguments[0].id,
+                value,
+                type: argument.selected.arguments[0].markupType,
+              })
+          "
         />
         <div class="link">
-          <font-awesome-icon data-test="variable-link-icon" v-show="hasVariables" icon="link" />
+          <font-awesome-icon
+            data-test="variable-link-icon"
+            v-show="hasArgumentVariables"
+            icon="link"
+          />
           <OperatorType :type="argument.selected.arguments[0].type" />
         </div>
       </div>
@@ -80,6 +100,24 @@ export default {
           })
         : []
     },
+    argumentValue() {
+      return this.argument.value || typeof this.argument.value === 'boolean'
+        ? this.argument.value.toString()
+        : ''
+    },
+    hasArgumentVariables() {
+      const argumentLabel = this.argument.selected.arguments[0].value
+      if (typeof argumentLabel === 'string') {
+        const newValue = argumentLabel.slice(1, argumentLabel.length)
+        if (this.variables.find(variable => variable.key === newValue)) {
+          const valueInVariable = this.variables.find(variable => variable.key === newValue).key
+          if (newValue === valueInVariable) {
+            return true
+          }
+        }
+      }
+      return false
+    },
     hasVariables() {
       if (typeof this.argument.value === 'string') {
         const newValue = this.argument.value.slice(1, this.argument.value.length)
@@ -94,6 +132,7 @@ export default {
     },
   },
   methods: {
+    // FIXME(#19): fix update select argument in radon.js library
     updateTemplateAndVariables(value) {
       this.$emit('update', value)
     },

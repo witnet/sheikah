@@ -219,7 +219,8 @@ export default {
       state.currentRadonMarkupInterpreter = new Radon(radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter
       state.history = [state.currentRadonMarkupInterpreter.getMir()]
-      this.commit(PUSH_OPERATOR, { scriptId: 2 })
+      const scriptId = state.radRequest.retrieve[0].script.scriptId
+      this.commit(PUSH_OPERATOR, { scriptId: scriptId })
     },
     [SET_CURRENT_TEMPLATE](state, { id }) {
       const template = state.templates[id]
@@ -311,7 +312,6 @@ export default {
             lastTimeOpened: date,
             radRequest: context.state.currentRadonMarkupInterpreter.getMir(),
           }
-
       if (!templateToSave.id) {
         templateToSave.id = generateId()
       }

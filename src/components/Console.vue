@@ -81,11 +81,6 @@ export default {
 
 .console-container {
   position: sticky;
-  right: 0px;
-  left: 70px;
-  display: flex;
-  flex-direction: column;
-  bottom: 0px;
   color: $alt-grey-1;
 }
 </style>

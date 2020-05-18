@@ -24,7 +24,10 @@ import Fieldset from '@/components/Fieldset'
 export default {
   name: 'ScriptCard',
   props: {
-    source: Object,
+    source: {
+      type: Object,
+      required: true,
+    },
   },
   components: {
     Fieldset,

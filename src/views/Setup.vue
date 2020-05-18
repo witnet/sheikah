@@ -28,7 +28,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
   .alert {
     background-color: $orange-0;
     width: 400px;
