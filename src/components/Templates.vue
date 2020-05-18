@@ -10,7 +10,7 @@
       </el-button>
     </div>
     <div class="centered">
-      <div v-if="Object.entries(paginatedItems)" class="container-templates">
+      <div v-if="Object.entries(paginatedTemplates)" class="container-templates">
         <div
           data-test="create-template"
           @click="createTemplateAndRedirect()"
@@ -21,7 +21,7 @@
           <p class="text">Create a new template</p>
         </div>
         <TemplateCard
-          v-for="template in paginatedItems"
+          v-for="template in paginatedTemplates"
           class="card"
           :name="template.name"
           :id="template.id"
@@ -38,7 +38,7 @@
     <div v-show="templates.length" class="pagination-nav">
       <el-pagination
         @current-change="handleCurrentChange"
-        :page-size="itemsPerPage"
+        :page-size="templatesPerPage"
         layout="prev, pager, next"
         :total="templates.length"
         :current-page="currentPage"
@@ -72,17 +72,18 @@ export default {
   data() {
     return {
       currentPage: 1,
-      itemsPerPage: 7,
       tabs: [{ name: 'Templates', link: '/request/templates' }],
       dialogVisible: false,
       currentTemplate: null,
     }
   },
   computed: {
-    paginatedItems() {
-      this.getItemsPerPage()
-      const from = this.currentPage * this.itemsPerPage - this.itemsPerPage
-      const to = this.currentPage * this.itemsPerPage
+    templatesPerPage() {
+      return this.currentPage === 1 ? 7 : 8
+    },
+    paginatedTemplates() {
+      const from = this.currentPage * this.templatesPerPage - this.templatesPerPage
+      const to = this.currentPage * this.templatesPerPage
       return this.templates.slice(from, to)
     },
     ...mapState({
@@ -94,7 +95,7 @@ export default {
               ...template[1],
             }
           })
-          .sort((a, b) => parseInt(a.creationDate) - parseInt(b.creationDate)),
+          .sort((a, b) => parseInt(b.lastTimeOpened) - parseInt(a.lastTimeOpened)),
     }),
   },
   methods: {
@@ -112,9 +113,6 @@ export default {
     createTemplateAndRedirect() {
       this.createTemplate()
       this.$router.push('/request/editor')
-    },
-    getItemsPerPage() {
-      this.currentPage === 1 ? (this.itemsPerPage = 7) : (this.itemsPerPage = 8)
     },
     handleCurrentChange(val) {
       this.currentPage = val

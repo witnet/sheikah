@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 import { EDITOR_STAGES } from '@/constants'
 import EditorToolBar from '@/components/EditorToolBar'
 import EditorStageAggregations from '@/components/EditorStageAggregations'
@@ -43,10 +43,12 @@ export default {
       logs: [],
     }
   },
+  created() {
+    this.saveTemplate()
+  },
   methods: {
-    ...mapMutations({
-      clearError: 'clearError',
-    }),
+    ...mapMutations(['clearError']),
+    ...mapActions(['saveTemplate']),
     changeStage: function(stage) {
       this.currentStage = stage
     },

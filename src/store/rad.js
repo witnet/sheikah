@@ -300,12 +300,14 @@ export default {
         ? {
             ...args.template,
             creationDate: date,
+            lastTimeOpened: date,
             variables: args.template.variables || [],
             variablesIndex: args.template.variablesIndex || 0,
             usedVariables: args.template.usedVariables || [],
           }
         : {
             ...context.state.currentTemplate,
+            lastTimeOpened: date,
             radRequest: context.state.currentRadonMarkupInterpreter.getMir(),
           }
 
@@ -313,13 +315,14 @@ export default {
         templateToSave.id = generateId()
       }
       templates[templateToSave.id] = templateToSave
+
       const request = await context.rootState.wallet.api.saveItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
         key: 'templates',
         value: templates,
-        creation_date: date,
       })
+
       if (request.result) {
         await context.dispatch('getTemplates')
       } else {
@@ -336,6 +339,7 @@ export default {
         session_id: context.rootState.wallet.sessionId,
         key: 'templates',
       })
+
       if (request.result) {
         context.commit(SET_TEMPLATES, { templates: request.result.value })
       } else {
