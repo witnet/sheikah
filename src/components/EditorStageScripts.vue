@@ -2,7 +2,7 @@
   <LayoutTwoColumns>
     <template v-slot:left>
       <div class="scripts">
-        <ScriptCard
+        <EditorScript
           v-for="(source, index) in sources"
           :key="index"
           class="script"
@@ -71,14 +71,14 @@
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
 import Fieldset from '@/components/Fieldset'
 import { mapState } from 'vuex'
-import ScriptCard from '@/components/card/ScriptCard.vue'
+import EditorScript from '@/components/card/EditorScript.vue'
 
 export default {
   name: 'EditorStageScripts',
   components: {
     Fieldset,
     LayoutTwoColumns,
-    ScriptCard,
+    EditorScript,
   },
   computed: {
     ...mapState({

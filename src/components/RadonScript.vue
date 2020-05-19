@@ -1,11 +1,12 @@
 <template>
   <div class="radon-script">
-    <div class="script-header">
-      <p class="url">
-        {{ url }} <span class="protocol">({{ protocol }})</span>
-      </p>
-    </div>
-    <div class="icon-container">
+    <div class="top">
+      <div class="script-header">
+        <p class="url">
+          {{ url }} <span class="protocol">({{ protocol }})</span>
+        </p>
+      </div>
+      <div class="icon-container">
       <img
         v-if="emptyScript"
         class="row sheikah-icon"
@@ -25,33 +26,51 @@
         <p class="add-operator-text">Click to add an operator</p>
       </div>
     </div>
-    <div v-for="(operator, index) in script" :key="operator.toString() + index">
-      <RadonOperator
-        data-test="radon-operator"
-        :operator="operator"
-        :stage="stage"
-        :script-id="scriptId"
-        :source-index="sourceIndex"
-        :show-output-type="index !== script.length - 1"
-        @add-operator="addOperator"
-      />
+    </div>
+    <!-- FIXME: Update text when the aggregation and tally stages are ready to merge -->
+    <ScriptInfo class="first description" :index="0" :info="scriptInfo[0].description" />
+    <div class="operators">
+      <div
+        v-for="(operator, index) in script"
+        :key="operator.toString() + index"
+        class="operator-container"
+      >
+        <RadonOperator
+          data-test="radon-operator"
+          class="operator"
+          :operator="operator"
+          :stage="stage"
+          :script-id="scriptId"
+          :source-index="sourceIndex"
+          :show-output-type="index !== script.length - 1"
+          @add-operator="addOperator"
+        />
+        <ScriptInfo class="description" :index="index + 1" :info="operator.selected.description" />
+      </div>
     </div>
     <div class="script-footer">
       <p class="text">
         Return and past into aggregator
       </p>
     </div>
+    <!-- FIXME: Update text when the aggregation and tally stages are ready to merge -->
+    <ScriptInfo
+      class="last description"
+      :index="scriptInfo.length - 1"
+      :info="scriptInfo[scriptInfo.length - 1].description"
+    />
   </div>
 </template>
 
 <script>
 import { PUSH_OPERATOR } from '@/store/mutation-types'
+import ScriptInfo from '@/components/ScriptInfo'
 import RadonOperator from '@/components/RadonOperator'
 import { mapMutations } from 'vuex'
 
 export default {
   name: 'RadonScript',
-  components: { RadonOperator },
+  components: { RadonOperator, ScriptInfo },
   props: {
     stage: {
       type: String,
@@ -82,6 +101,27 @@ export default {
     emptyScript() {
       return this.script.length < 1
     },
+    scriptInfo() {
+      // FIXME: Update text when the aggregation and tally stages are ready to merge
+      const operatorsInfo = []
+      this.script.forEach(info => {
+        operatorsInfo.push({
+          description:
+            'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+        })
+      })
+      const first = {
+        description:
+          'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+      }
+      const last = {
+        description:
+          'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+      }
+      const firstAdded = [first].concat(operatorsInfo)
+      const lastAdded = firstAdded.concat([last])
+      return lastAdded
+    },
   },
   methods: {
     ...mapMutations({
@@ -101,27 +141,70 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
-.script-header {
-  align-items: center;
-  border: $operator-dashed-border;
-  display: flex;
+.radon-script {
+  display: grid;
+  grid-template-columns: minmax(430px, 1fr) 300px;
+  grid-template-rows: min-content;
+}
 
-  .url {
-    color: $grey-3;
-    font-size: 14px;
-    font-weight: medium;
-    margin: 16px;
+.operators {
+  grid-column-end: -1;
+  grid-column-start: 1;
 
-    .protocol {
-      font-size: 12px;
+  .operator-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: min-content;
+
+    .operator {
+      margin: 0 16px;
     }
   }
 }
 
+.description {
+  border-left: 1px solid $yellow-3;
+  border-right: 1px solid $yellow-3;
+
+  &.last {
+    border-bottom: 1px solid $yellow-3;
+  }
+
+  &.first {
+    border-top: 1px solid $yellow-3;
+  }
+}
+
+.top {
+  margin: 16px 16px 0 16px;
+
+  .script-header {
+    align-items: center;
+    border: $operator-dashed-border;
+    display: flex;
+
+    .url {
+      color: $grey-3;
+      font-size: 14px;
+      font-weight: medium;
+      margin: 16px;
+
+      .protocol {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .icon-container {
+    margin-left: 16px;
+  }
+}
+
 .script-footer {
-  align-items: center;
   border: $operator-dashed-border;
   display: flex;
+  height: min-content;
+  margin: 0 16px 16px 16px;
 
   .text {
     color: $grey-3;
@@ -150,52 +233,6 @@ export default {
       margin-left: 16px;
     }
   }
-}
-
-.radon-script {
-  padding: 16px 24px;
-  width: 100%;
-}
-
-.circle {
-  background: transparent;
-  border: 2px solid $alt-grey-3;
-  border-radius: 100%;
-  box-shadow: none;
-  display: inline-block;
-  height: 30px;
-  margin: 16px 0;
-  outline: none;
-  position: relative;
-  vertical-align: middle;
-  width: 30px;
-}
-
-.circle::before,
-.circle::after {
-  bottom: 0;
-  content: '';
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.circle.plus::before,
-.circle.plus::after {
-  background: $alt-grey-3;
-  cursor: pointer;
-}
-
-.circle.plus::before {
-  margin: 8px auto;
-  width: 2px;
-}
-
-.circle.plus::after {
-  box-shadow: none;
-  height: 2px;
-  margin: auto 8px;
 }
 
 .button-container {
