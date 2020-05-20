@@ -6,7 +6,12 @@
       </p>
     </div>
     <div class="icon-container">
-      <img class="row sheikah-icon" src="@/resources/svg/operator-arrow.svg" />
+      <img v-if="emptyScript" class="row sheikah-icon" src="@/resources/svg/long-arrow.svg" />
+      <img v-else class="row sheikah-icon" src="@/resources/svg/operator-arrow.svg" />
+      <div v-if="emptyScript" class="add-operator-container">
+        <img @click="addOperator" class="add-operator" src="@/resources/svg/add-operator.svg" />
+        <p class="add-operator-text">Click to add an operator</p>
+      </div>
     </div>
     <div v-for="(operator, index) in script" :key="operator.toString() + index">
       <RadonOperator
@@ -61,6 +66,11 @@ export default {
       default: '',
     },
   },
+  computed: {
+    emptyScript() {
+      return this.script.length < 1
+    },
+  },
   methods: {
     ...mapMutations({
       pushOperator: PUSH_OPERATOR,
@@ -111,6 +121,21 @@ export default {
 
 .icon-container {
   margin-left: 16px;
+  position: relative;
+  .add-operator-container {
+    cursor: pointer;
+    display: flex;
+    position: absolute;
+    width: max-content;
+    bottom: 24px;
+    left: -4px;
+    .add-operator-text {
+      margin-left: 16px;
+      font-size: 12px;
+      font-weight: medium;
+      color: $grey-4;
+    }
+  }
 }
 
 .radon-script {
