@@ -22,12 +22,8 @@
       <div v-show="errors[index]" class="error">
         (This key is repeated. Change the variable name before continue editing)
       </div>
-      <div
-        data-test="delete-var-btn"
-        class="delete"
-        @click="deleteVariable({ index })"
-      >
-        <font-awesome-icon icon="times-circle" class="delete-btn" />
+      <div data-test="delete-var-btn" class="delete" @click="deleteVariable({ index })">
+        <img src="@/resources/svg/close-btn.svg" />
       </div>
     </div>
     <div class="img-container">
@@ -112,16 +108,18 @@ export default {
 
 .variables-container {
   color: $alt-grey-2;
-  height: 20vh;
-  overflow-y: auto;
-  padding-top: 32px;
+  display: grid;
+  row-gap: 16px;
   width: 100%;
 
   .variable {
+    border: 1px solid $grey-2;
     display: block;
     display: flex;
     justify-items: left;
+    padding: 24px;
     padding-left: 16px;
+    position: relative;
 
     .label {
       color: $alt-grey-2;
@@ -141,14 +139,10 @@ export default {
   }
 
   .delete {
-    align-items: center;
-    display: flex;
-    font-size: 12px;
-    padding-left: 16px;
-
-    &:hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
+    position: absolute;
+    right: 8px;
+    top: 8px;
   }
 
   .error {
