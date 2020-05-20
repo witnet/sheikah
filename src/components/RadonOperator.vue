@@ -1,6 +1,17 @@
 <template>
-  <div class="radon-operator">
+  <div @mouseover="showDelete = true" @mouseleave="showDelete = false" class="radon-operator">
     <div class="border">
+      <img
+        v-show="showDelete"
+        class="delete"
+        src="@/resources/svg/delete-btn.svg"
+        @click="
+          deleteOperator({
+            scriptId: scriptId,
+            operatorId: operator.id,
+          })
+        "
+      />
       <p data-test="operator-label" class="label">Operator</p>
       <Select
         data-test="operator"
@@ -91,6 +102,7 @@ export default {
   data() {
     return {
       variableName: null,
+      showDelete: false,
     }
   },
   computed: {
@@ -213,16 +225,22 @@ export default {
   position: relative;
 
   .border {
-    align-items: center;
+    padding: 16px 24px 16px 16px;
+    padding-right: 24;
     border: $input_border;
     border-radius: $input_big-border-radius;
     column-gap: 16px;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(auto-fit, auto);
-    padding: 16px;
-    row-gap: 16px;
-
+    position: relative;
+    .delete {
+      cursor: pointer;
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      width: 10px;
+    }
     .label {
       color: $grey-5;
       font-size: 14px;
