@@ -22,7 +22,10 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
       color: $grey-4;
     }
 
-    &:hover,
+    &:hover {
+      border-color: $grey-5;
+    }
+
     &:focus {
       border-color: $input_border_color__active;
     }
@@ -30,6 +33,25 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
   &.big .el-input__inner {
     height: 60px;
+  }
+}
+
+.el-textarea {
+  .el-textarea__inner {
+    border: $input_border;
+    color: $grey-5;
+
+    &::placeholder {
+      color: $grey-4;
+    }
+
+    &:hover {
+      border-color: $grey-5;
+    }
+
+    &:focus {
+      border-color: $input_border_color__active;
+    }
   }
 }
 

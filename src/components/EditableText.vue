@@ -10,9 +10,6 @@
         {{ value }}
       </div>
       <el-input
-        v-show="showInput"
-        v-model="inputValue"
-        size="mini"
         data-test="edit-var-input"
         :class="[error]"
         class="editVar"

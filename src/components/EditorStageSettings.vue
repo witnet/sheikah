@@ -1,6 +1,8 @@
 <template>
   <LayoutTwoColumns>
-    <template v-slot:left>Settings</template>
+    <template v-slot:left>
+      <EditorSettings :template="templates[currentTemplateId]" />
+    </template>
 
     <template v-slot:upperRight>
       <Fieldset title="What’s in a template?" type="help">
@@ -36,14 +38,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
+import EditorSettings from '@/components/EditorSettings'
 import Fieldset from '@/components/Fieldset'
 
 export default {
   name: 'EditorStageSettings',
   components: {
     Fieldset,
+    EditorSettings,
     LayoutTwoColumns,
+  },
+  computed: {
+    ...mapState({
+      currentTemplateId: state => state.rad.currentTemplate.id,
+      templates: state => state.rad.templates,
+    }),
   },
 }
 </script>

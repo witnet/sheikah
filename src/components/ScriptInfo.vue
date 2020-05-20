@@ -27,12 +27,13 @@ export default {
 
 .info {
   background-color: $yellow-0;
+  color: $grey-4;
+  display: grid;
+  font-size: 13px;
+  grid-template-columns: max-content auto;
   opacity: 40%;
   padding: 16px;
-  display: grid;
-  grid-template-columns: max-content auto;
-  color: $grey-4;
-  font-size: 13px;
+
   .description {
     margin-left: 16px;
   }

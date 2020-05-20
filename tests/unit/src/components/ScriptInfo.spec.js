@@ -14,7 +14,7 @@ describe('ScriptInfo.vue', () => {
     })
     it('finds the description', () => {
       expect(wrapper.find('[data-test="description"]').text()).toBe(
-        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.'
+        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
       )
     })
   })

@@ -7,28 +7,32 @@
         </p>
       </div>
       <div class="icon-container">
-      <img
-        v-if="emptyScript"
-        class="row sheikah-icon"
-        src="@/resources/svg/long-arrow.svg"
-      />
-      <img
-        v-else
-        class="row sheikah-icon"
-        src="@/resources/svg/operator-arrow.svg"
-      />
-      <div v-if="emptyScript" class="add-operator-container">
         <img
-          class="add-operator"
-          src="@/resources/svg/add-operator.svg"
-          @click="addOperator"
+          v-if="emptyScript"
+          class="row sheikah-icon"
+          src="@/resources/svg/long-arrow.svg"
         />
-        <p class="add-operator-text">Click to add an operator</p>
+        <img
+          v-else
+          class="row sheikah-icon"
+          src="@/resources/svg/operator-arrow.svg"
+        />
+        <div v-if="emptyScript" class="add-operator-container">
+          <img
+            class="add-operator"
+            src="@/resources/svg/add-operator.svg"
+            @click="addOperator"
+          />
+          <p class="add-operator-text">Click to add an operator</p>
+        </div>
       </div>
     </div>
-    </div>
     <!-- FIXME: Update text when the aggregation and tally stages are ready to merge -->
-    <ScriptInfo class="first description" :index="0" :info="scriptInfo[0].description" />
+    <ScriptInfo
+      class="first description"
+      :index="0"
+      :info="scriptInfo[0].description"
+    />
     <div class="operators">
       <div
         v-for="(operator, index) in script"
@@ -45,7 +49,11 @@
           :show-output-type="index !== script.length - 1"
           @add-operator="addOperator"
         />
-        <ScriptInfo class="description" :index="index + 1" :info="operator.selected.description" />
+        <ScriptInfo
+          class="description"
+          :index="index + 1"
+          :info="operator.selected.description"
+        />
       </div>
     </div>
     <div class="script-footer">

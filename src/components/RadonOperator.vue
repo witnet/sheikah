@@ -233,13 +233,13 @@ export default {
     border: $input_border;
     border-radius: $input_big-border-radius;
     column-gap: 16px;
-    row-gap: 16px;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(auto-fit, auto);
     padding: 16px 24px 16px 16px;
     padding-right: 24;
     position: relative;
+    row-gap: 16px;
 
     .delete {
       cursor: pointer;

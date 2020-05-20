@@ -1,26 +1,20 @@
 <template>
-  <el-dialog title="Rename template" :visible="true" width="30%">
-    <div class="info">
-      <p class="label">Name</p>
-      <el-input
-        v-model="updateName"
-        data-test="template-name-input"
-        :placeholder="name"
-      />
-      <p class="label">Description</p>
-      <el-input
-        v-model="updateDescription"
-        type="textarea"
-        :rows="3"
-        data-test="template-description-input"
-        :placeholder="description"
-      />
-    </div>
-    <span slot="footer" class="dialog-footer">
-      <el-button @click="handleClose">Cancel</el-button>
-      <el-button type="primary" @click="handleClose">Confirm</el-button>
-    </span>
-  </el-dialog>
+  <div class="info">
+    <label class="label">Name</label>
+    <el-input
+      v-model="updateName"
+      data-test="template-name-input"
+      :placeholder="name"
+    />
+    <label class="label">Description</label>
+    <el-input
+      v-model="updateDescription"
+      type="textarea"
+      :rows="3"
+      data-test="template-description-input"
+      :placeholder="description"
+    />
+  </div>
 </template>
 
 <script>
@@ -70,9 +64,6 @@ export default {
       changeTemplateName: 'changeTemplateName',
       changeTemplateDescription: 'changeTemplateDescription',
     }),
-    handleClose() {
-      this.$emit('close-modal')
-    },
   },
 }
 </script>
@@ -88,5 +79,10 @@ export default {
   grid-template-columns: max-content auto;
   grid-template-rows: auto auto;
   row-gap: 16px;
+
+  .label {
+    color: $grey-5;
+    font-size: 14px;
+  }
 }
 </style>

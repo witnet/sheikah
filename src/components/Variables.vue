@@ -12,7 +12,6 @@
       />
       <el-input
         class="variable-value input"
-        size="mini"
         data-test="edit-var-value-input"
         :placeholder="variable.value"
         :value="variable.value"
@@ -33,11 +32,11 @@
     </div>
     <div class="img-container">
       <img
-        data-test="add-var-btn"
-        class="add-btn"
-        src="@/resources/svg/add.svg"
+        class="add-operator"
+        src="@/resources/svg/add-operator.svg"
         @click="createVariable"
       />
+      <p class="add-operator-text">Click to create another variable</p>
     </div>
   </div>
 </template>
@@ -112,7 +111,6 @@ export default {
 @import '@/styles/theme.scss';
 
 .variables-container {
-  background-color: $black;
   color: $alt-grey-2;
   height: 20vh;
   overflow-y: auto;
@@ -132,8 +130,6 @@ export default {
     }
 
     .variable-value {
-      align-items: center;
-      background-color: $black;
       display: flex;
       height: 20px;
       margin: 8px;
@@ -163,16 +159,15 @@ export default {
   }
 
   .img-container {
-    bottom: 20px;
-    position: fixed;
-    right: 20px;
+    cursor: pointer;
+    display: flex;
+    width: max-content;
 
-    .add-btn {
-      width: 35px;
-    }
-
-    &:hover {
-      cursor: pointer;
+    .add-operator-text {
+      color: $grey-4;
+      font-size: 12px;
+      font-weight: medium;
+      margin-left: 16px;
     }
   }
 }

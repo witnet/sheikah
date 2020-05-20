@@ -296,7 +296,7 @@ export default {
         value: context.state.templates,
         creation_date: Date.now(),
       })
-      if (request.result) {
+      if (request) {
         await context.dispatch('getTemplates')
       } else {
         context.commit('setError', {
@@ -315,7 +315,7 @@ export default {
         value: context.state.templates,
         creation_date: Date.now(),
       })
-      if (request.result) {
+      if (request) {
         await context.dispatch('getTemplates')
       } else {
         context.commit('setError', {
