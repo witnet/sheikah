@@ -1,27 +1,69 @@
 <template>
   <div class="variables-container">
     <div v-for="(variable, index) in variables" :key="index" class="variable">
-      <p class="label">$</p>
-      <EditableText
-        class="variable-value"
-        :value="keys[index]"
-        :error="errors[index]"
-        :block-open="error"
-        @close="key => updateVariables({ index, key, value: variable.value })"
-        @input="key => updateKey(index, key)"
-      />
+      <label class="label">Name</label>
+      <div class="variable-key">
+        <p class="variable-icon">$</p>
+        <el-input
+          class="key"
+          data-test="edit-var-input"
+          :value="keys[index]"
+          :placeholder="keys[index]"
+          @input="key => updateKey(index, key)"
+        />
+        <div v-show="errors[index]" class="error">
+          This key is repeated. Change the variable name before continue editing
+        </div>
+        <label class="label">Data type</label>
+        <Select
+          :value="{ primaryText: variable.type }"
+          :options="dataTypeOptions"
+          @input="
+            val =>
+              updateVariables({
+                index,
+                key: variable.key,
+                value: variable.value,
+                description: variable.description,
+                type: val.primaryText,
+              })
+          "
+        />
+      </div>
+      <label class="label">Default value</label>
       <el-input
-        class="variable-value input"
+        class="variable-value"
         data-test="edit-var-value-input"
         :placeholder="variable.value"
         :value="variable.value"
         @input="
-          val => updateVariables({ index, key: variable.key, value: val })
+          val =>
+            updateVariables({
+              index,
+              key: variable.key,
+              value: val,
+              description: variable.description,
+              type: variable.type,
+            })
         "
       />
-      <div v-show="errors[index]" class="error">
-        (This key is repeated. Change the variable name before continue editing)
-      </div>
+      <label class="label">Description</label>
+      <el-input
+        class="variable-value"
+        data-test="edit-var-value-input"
+        :placeholder="variable.description"
+        :value="variable.description"
+        @input="
+          val =>
+            updateVariables({
+              index,
+              key: variable.key,
+              value: variable.value,
+              description: val,
+              type: variable.type,
+            })
+        "
+      />
       <div data-test="delete-var-btn" class="delete" @click="deleteVariable({ index })">
         <img src="@/resources/svg/close-btn.svg" />
       </div>
@@ -38,24 +80,21 @@
 </template>
 
 <script>
-import {
-  UPDATE_VARIABLES,
-  CREATE_VARIABLE,
-  DELETE_VARIABLE,
-} from '@/store/mutation-types'
-import EditableText from '@/components/EditableText'
+import { UPDATE_VARIABLES, CREATE_VARIABLE, DELETE_VARIABLE } from '@/store/mutation-types'
 import { mapGetters, mapState, mapMutations } from 'vuex'
+import Select from '@/components/Select'
 
 export default {
   name: 'Variables',
   components: {
-    EditableText,
+    Select,
   },
   data() {
     return {
       errors: [],
       isOpen: [],
       keys: this.$store.getters.variablesKeys,
+      selectedType: [],
     }
   },
   computed: {
@@ -71,11 +110,17 @@ export default {
     errorIndex() {
       return this.errors.findIndex(error => !!error)
     },
+    dataTypeOptions() {
+      return [{ primaryText: 'String' }, { primaryText: 'Boolean' }, { primaryText: 'Number' }]
+    },
   },
   watch: {
     variables() {
       this.keys = this.variablesKeys
     },
+  },
+  created() {
+    this.selectedType = this.dataTypeOptions[0]
   },
   methods: {
     ...mapMutations({
@@ -83,6 +128,9 @@ export default {
       createVariable: CREATE_VARIABLE,
       updateVariables: UPDATE_VARIABLES,
     }),
+    standardizeDataType(type) {
+      return this.dataTypeOptions.find(type => type.primaryText === type)
+    },
     updateKey(index, key) {
       this.$set(this.keys, index, key)
       if (this.isRepeated(key) && !this.isRepeatedIndex(key, index)) {
@@ -107,33 +155,53 @@ export default {
 @import '@/styles/theme.scss';
 
 .variables-container {
+  align-items: flex-start;
   color: $alt-grey-2;
   display: grid;
   row-gap: 16px;
-  width: 100%;
 
   .variable {
     border: 1px solid $grey-2;
-    display: block;
-    display: flex;
-    justify-items: left;
+    display: grid;
+    grid-template-columns: max-content 1fr;
     padding: 24px;
     padding-left: 16px;
-    position: relative;
+    padding-left: 8px;
+    row-gap: 16px;
 
     .label {
-      color: $alt-grey-2;
+      color: $grey-5;
+      font-size: 14px;
       margin: 8px;
       padding-right: 5px;
     }
 
     .variable-value {
+      align-items: center;
       display: flex;
-      height: 20px;
-      margin: 8px;
+    }
 
-      &.input {
-        width: 80px;
+    .variable-key {
+      column-gap: 16px;
+      display: grid;
+      grid-template-columns: max-content max-content max-content 1fr;
+      height: min-content;
+      margin-right: 100px;
+      position: relative;
+
+      .variable-icon {
+        color: $grey-4;
+        font-weight: lighter;
+        left: 8px;
+        position: absolute;
+        top: 8px;
+        z-index: 1;
+      }
+
+      .error {
+        color: $red-3;
+        font-size: 13px;
+        margin: 8px 0;
       }
     }
   }
@@ -143,13 +211,6 @@ export default {
     position: absolute;
     right: 8px;
     top: 8px;
-  }
-
-  .error {
-    align-items: center;
-    color: $red-5;
-    display: flex;
-    padding-left: 16px;
   }
 
   .img-container {

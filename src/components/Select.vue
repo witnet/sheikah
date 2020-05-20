@@ -152,7 +152,7 @@ export default {
         // return this.options.findIndex(x => standardizeOperatorName(x.value) === this.value.value)
       } else {
         return this.filteredOptions.findIndex(
-          x => x.value === this.selectedOption || x === this.selectedOption,
+          x => x.primaryText === this.selectedOption.primaryText || x === this.selectedOption
         )
       }
     },
@@ -263,7 +263,7 @@ export default {
 @import '@/styles/fonts.scss';
 
 .select-box {
-  min-width: 270px;
+  min-width: 170px;
   position: relative;
   width: 100%;
 

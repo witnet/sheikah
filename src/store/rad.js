@@ -48,7 +48,7 @@ export default {
     },
   },
   mutations: {
-    [UPDATE_VARIABLES](state, { index, key, value }) {
+    [UPDATE_VARIABLES](state, { index, key, value, description, type }) {
       const prevValue = state.currentTemplate.variables[index].key
       const usedVariables = state.currentTemplate.usedVariables.filter(
         x => x.variable === prevValue,
@@ -57,6 +57,8 @@ export default {
         state.currentTemplate.variables[index] = {
           key: key,
           value: value,
+          description: description,
+          type: type,
         }
         state.currentTemplate.variables = [...state.currentTemplate.variables]
         usedVariables.forEach(usedVariable => {
@@ -68,12 +70,16 @@ export default {
           this.commit(UPDATE_TEMPLATE, {
             id: usedVariable.id,
             value: '$' + usedVariable.variable,
+            description: description,
+            type: type,
           })
         })
       } else {
         state.currentTemplate.variables[index] = {
           key: key,
           value: value,
+          description: description,
+          type: type,
         }
         state.currentTemplate.variables = [...state.currentTemplate.variables]
       }
@@ -86,8 +92,10 @@ export default {
     [CREATE_VARIABLE](state) {
       state.currentTemplate.variablesIndex += 1
       state.currentTemplate.variables.push({
-        key: 'key_' + state.currentTemplate.variablesIndex,
-        value: 'value',
+        key: 'my_var_' + state.currentTemplate.variablesIndex,
+        value: 'The default String that this variable will take if an user does not override it',
+        description: 'Helps users of this template understand what this variable is used for',
+        type: 'String',
       })
       this.dispatch('saveTemplate')
     },
@@ -238,8 +246,10 @@ export default {
         radRequest,
         variables: [
           {
-            key: 'key_' + 0,
-            value: 'value',
+            key: 'my_var_' + 0,
+            value:
+              'The default String that this variable will take if an user does not override it',
+            description: 'Helps users of this template understand what this variable is used for',
           },
         ],
         variablesIndex: 0,
