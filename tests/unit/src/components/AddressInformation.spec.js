@@ -18,7 +18,7 @@ describe('AddressInformation.vue', () => {
           index: 0,
           pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
           unit: 'nanoWit',
-          amount: '100',
+          amount: 100,
           payments: 2,
           firstDate: new Date(),
           lastDate: new Date(),

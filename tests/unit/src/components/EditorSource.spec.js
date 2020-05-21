@@ -8,6 +8,7 @@ describe('EditorSource.vue', () => {
           index: 0,
           protocol: '',
           url: '',
+          contentType: '',
         },
       })
 
@@ -20,6 +21,7 @@ describe('EditorSource.vue', () => {
           index: 0,
           protocol: '',
           url: '',
+          contentType: '',
         },
       })
 
@@ -32,6 +34,7 @@ describe('EditorSource.vue', () => {
           index: 0,
           protocol: '',
           url: 'witnet.abcdefghij',
+          contentType: '',
         },
       })
 
@@ -44,6 +47,7 @@ describe('EditorSource.vue', () => {
           index: 0,
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
+          contentType: '',
         },
       })
 
@@ -56,6 +60,7 @@ describe('EditorSource.vue', () => {
           index: 0,
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
+          contentType: '',
         },
       })
 
@@ -68,6 +73,7 @@ describe('EditorSource.vue', () => {
           index: 0,
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
+          contentType: '',
         },
       })
 

@@ -10,6 +10,7 @@
           subtitle="subtitle"
           :url="source.url"
           :protocol="source.kind"
+          :contentType="source.contentType"
           :index="index"
         />
         <el-button class="add-source" type="primary" @click="addSource" data-test="add-source">

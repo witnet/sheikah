@@ -10,6 +10,7 @@ describe('Renders the correct elements when the transaction type is value_transf
         { value: 499999999865, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' },
       ],
       inputs: [{ value: 500000000000, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }],
+      currency: 'nanoWits',
     },
   })
   it('finds the inputs title element', () => {

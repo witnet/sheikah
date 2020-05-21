@@ -13,8 +13,8 @@ describe('EditorStageSources.vue', () => {
                 radRequest: {
                   getMarkup: () => ({
                     retrieve: [
-                      { url: 'url1', kind: 'HTTP-GET' },
-                      { url: 'url2', kind: 'HTTP-GET' },
+                      { url: 'url1', kind: 'HTTP-GET', contentType: 'JSON API' },
+                      { url: 'url2', kind: 'HTTP-GET', contentType: 'JSON API' },
                     ],
                   }),
                 },
@@ -37,8 +37,8 @@ describe('EditorStageSources.vue', () => {
                 radRequest: {
                   getMarkup: () => ({
                     retrieve: [
-                      { url: 'url1', kind: 'HTTP-GET' },
-                      { url: 'url2', kind: 'HTTP-GET' },
+                      { url: 'url1', kind: 'HTTP-GET', contentType: 'JSON API' },
+                      { url: 'url2', kind: 'HTTP-GET', contentType: 'JSON API' },
                     ],
                   }),
                 },

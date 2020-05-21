@@ -15,12 +15,11 @@
           <p data-test="origin" class="origin">{{ origin }}</p>
           <p data-test="address" class="address">{{ address }}</p>
         </div>
-        <div v-else-if="transactionType === 'value_transfer'" class="address-container">
-          <p data-test="origin" class="origin">{{ origin }}</p>
-          <p data-test="address" class="address">{{ address }}</p>
+        <div v-else-if="transactionType === 'data_request'" class="address-container">
+          <p data-test="transaction-type" class="address">Data request</p>
         </div>
-        <div v-else-if="transactionType === 'mint'" class="address-container">
-          <p data-test="data-request-type" class="address">Mint</p>
+        <div v-if="transactionType === 'mint'" class="address-container">
+          <p data-test="transaction-type" class="address">Mint</p>
         </div>
 
         <div class="">
@@ -99,8 +98,6 @@ export default {
   },
   computed: {
     address() {
-      console.log('---inputs--', this.inputs)
-
       return this.inputs.length > 1 ? 'several addresses' : this.inputs[0].address
     },
     origin() {
