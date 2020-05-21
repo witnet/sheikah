@@ -134,7 +134,9 @@ export default {
       // TODO(#856): implement find for operator select, wait till the Radon Library is updated
       if (this.type === 'operator') {
         return this.filteredOptions.findIndex(
-          x => standardizeOperatorName(x.value) === this.selectedOption.value
+          x =>
+            standardizeOperatorName(x.value).toLowerCase() ===
+            this.selectedOption.value.toLowerCase()
         )
         // return this.options.findIndex(x => standardizeOperatorName(x.value) === this.value.value)
       } else {

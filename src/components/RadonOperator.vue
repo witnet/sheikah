@@ -26,7 +26,12 @@
       <div v-else class="icon-container">
         <img class="row sheikah-icon" src="@/resources/svg/long-arrow.svg" />
         <div class="add-operator-container">
-          <img @click="addOperator" class="add-operator" src="@/resources/svg/add-operator.svg" />
+          <img
+            @click="addOperator"
+            class="add-operator"
+            data-test="add-operator"
+            src="@/resources/svg/add-operator.svg"
+          />
           <p class="add-operator-text">Click to add another operator</p>
         </div>
       </div>
@@ -149,7 +154,11 @@ export default {
       return this.operator.selected.arguments
     },
     hasArguments() {
-      return !!this.selectedOperator.arguments.length
+      if (this.selectedOperator) {
+        return !!this.selectedOperator.arguments.length
+      } else {
+        return false
+      }
     },
     selectedOperator() {
       return this.operator.selected
@@ -165,9 +174,11 @@ export default {
     },
   },
   mounted() {
-    this.selectedOperator.arguments.forEach(arg => {
-      this.variableName = arg.value
-    })
+    if (this.selectedOperator) {
+      this.selectedOperator.arguments.forEach(arg => {
+        this.variableName = arg.value
+      })
+    }
   },
 }
 </script>

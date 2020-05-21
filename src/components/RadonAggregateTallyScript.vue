@@ -1,31 +1,40 @@
 <template>
-  <div>
-    <p>Filters</p>
-    <div>
+  <div class="radon-script">
+    <div class="script-header">
+      <p class="url" data-test="header">
+        {{ header }}
+      </p>
+    </div>
+    <div class="icon-container">
+      <img class="row sheikah-icon" src="@/resources/svg/operator-arrow.svg" />
+    </div>
+    <div v-if="type === 'filters'">
       <div v-for="(operator, index) in filters" :key="operator.toString() + index">
         <RadonOperator
+          data-test="filter-operator"
           :operator="operator"
-          :stage="stage"
+          :scriptId="scriptId"
           :sourceIndex="sourceIndex"
-          :showOutputType="false"
-          :showUnionIcon="index !== filters.length - 1"
-          :scriptId="operator.scriptId"
+          :showOutputType="index !== filters.length - 1"
+          @add-operator="addOperator"
         />
       </div>
-      <div class="button-container">
-        <button class="add-operators-btn" @click="pushOperator({ scriptId: reducer.scriptId })">
-          Add Filter
-        </button>
-      </div>
     </div>
-    <p>Reducer</p>
-    <RadonOperator
-      :operator="reducer"
-      :stage="stage"
-      :sourceIndex="sourceIndex"
-      :showOutputType="false"
-      :scriptId="reducer.scriptId"
-    />
+    <div v-else>
+      <RadonOperator
+        data-test="reducer-operator"
+        :operator="reducer"
+        :scriptId="scriptId"
+        :sourceIndex="sourceIndex"
+        :showOutputType="true"
+        @add-operator="addOperator"
+      />
+    </div>
+    <div class="script-footer">
+      <p class="text" data-test="footer">
+        {{ footer }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -38,16 +47,33 @@ export default {
   name: 'RadonAggregateTallyScript',
   components: { RadonOperator },
   props: {
-    stage: String,
     sourceIndex: Number,
-    script: Object,
+    script: [Object, Array],
+    scriptId: Number,
+    type: String,
   },
   methods: {
     ...mapMutations({
       pushOperator: PUSH_OPERATOR,
     }),
+    addOperator() {
+      // TODO: get scriptId in a more consistent way
+      this.pushOperator({
+        scriptId: this.script[0] ? this.script[0].scriptId : this.scriptId,
+      })
+    },
   },
   computed: {
+    header() {
+      return this.type === 'filters'
+        ? 'From x sources and companion scripts'
+        : 'From aggregation filters'
+    },
+    footer() {
+      return this.type === 'filters'
+        ? 'Into aggregation reducer'
+        : 'Return and report to the network'
+    },
     filters() {
       return this.script.filters
     },
@@ -61,45 +87,40 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
-
-.circle {
-  outline: none;
-  border: 2px solid $alt-grey-5;
-  box-shadow: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  position: relative;
-  margin: 16px 0;
-  display: inline-block;
-  vertical-align: middle;
-  background: transparent;
+.script-header {
+  border: $operator-dashed-border;
+  display: flex;
+  align-items: center;
+  .url {
+    margin: 16px;
+    color: $grey-3;
+    font-weight: medium;
+    font-size: 14px;
+    .protocol {
+      font-size: 12px;
+    }
+  }
 }
-
-.circle:before,
-.circle:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.script-footer {
+  border: $operator-dashed-border;
+  display: flex;
+  align-items: center;
+  .text {
+    margin: 16px;
+    color: $grey-3;
+    font-weight: medium;
+    font-size: 14px;
+  }
 }
-.circle.plus:before,
-.circle.plus:after {
-  cursor: pointer;
-  background: $alt-grey-5;
+.icon-container {
+  margin-left: 16px;
 }
-.circle.plus:before {
-  width: 2px;
-  margin: 8px auto;
-}
-.circle.plus:after {
-  margin: auto 8px;
-  height: 2px;
-  box-shadow: none;
+.radon-script {
+  width: 100%;
+  padding: 16px 24px;
 }
 .button-container {
+  margin-top: 16px;
   text-align: center;
 
   .add-operators-btn {

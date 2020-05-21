@@ -10,6 +10,7 @@
     </div>
     <div v-for="(operator, index) in script" :key="operator.toString() + index">
       <RadonOperator
+        v-if="operator.selected > 1"
         data-test="radon-operator"
         :operator="operator"
         :stage="stage"
