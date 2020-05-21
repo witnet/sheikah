@@ -29,9 +29,13 @@ export default {
       default: 'Settings',
     },
     color: {
+      type: String,
       default: 'light',
     },
-    settings: Array,
+    settings: {
+      type: Array,
+      required: true,
+    },
   },
   methods: {
     handleCommand(index) {
@@ -46,22 +50,25 @@ export default {
 @import '@/styles/theme.scss';
 
 .button {
-  display: flex;
   align-items: center;
   cursor: pointer;
+  display: flex;
+
   .icon {
     font-size: 18px;
 
     &.light {
       color: white;
     }
+
     &.dark {
       color: $alt-grey-5;
     }
   }
+
   .text {
-    margin-left: 8px;
     font-size: 18px;
+    margin-left: 8px;
 
     &.light {
       color: white;
@@ -76,34 +83,39 @@ export default {
 .el-dropdown-menu {
   padding: 8px 0;
 }
+
 .el-dropdown-menu__item {
-  padding: 0px 8px;
-  font-weight: bold;
   color: $alt-grey-5;
+  font-weight: bold;
+  padding: 0 8px;
+
   &:not(.is-disabled):hover {
     color: $purple-4;
     font-weight: bold;
   }
 }
+
 .el-button {
-  padding: 8px 16px 8px 8px;
-  cursor: pointer;
   background: none;
-  color: inherit;
   border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 8px 16px 8px 8px;
 }
+
 .el-button,
 .el-dropdown-selfdefine :hover {
-  cursor: pointer;
   background: none;
-  color: inherit;
   border: none;
+  color: inherit;
+  cursor: pointer;
 
   &:hover .icon {
     background: none;
     border: none;
   }
 }
+
 .el-button--primary:focus,
 .el-button--primary:hover,
 .el-button--primary:active {

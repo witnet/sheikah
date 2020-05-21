@@ -36,14 +36,14 @@ export default {
 <style lang="scss" scoped>
 .layout {
   display: grid;
-  grid-template: 1fr / 1fr 350px;
   gap: 25px;
+  grid-template: 1fr / 1fr 350px;
   padding: 25px;
 
   .col-right {
     display: grid;
-    grid-template: auto 1fr / 1fr;
     gap: 26px;
+    grid-template: auto 1fr / 1fr;
   }
 }
 </style>

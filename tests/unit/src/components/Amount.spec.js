@@ -1,5 +1,5 @@
 import Amount from '@/components/Amount.vue'
-import '../../../../src/fontAwesome'
+import '@/fontAwesome'
 
 describe('Renders the correct elements', () => {
   const wrapper = shallowMount(Amount, {

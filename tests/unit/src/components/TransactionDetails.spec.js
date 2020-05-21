@@ -1,5 +1,5 @@
 import TransactionDetails from '@/components/TransactionDetails.vue'
-import '../../../../src/fontAwesome'
+import '@/fontAwesome'
 
 describe('Renders the correct elements when the transaction type is value_transfer', () => {
   const wrapper = shallowMount(TransactionDetails, {
@@ -21,7 +21,9 @@ describe('Renders the correct elements when the transaction type is value_transf
     )
   })
   it('finds the date element', () => {
-    expect(wrapper.find('[data-test="date"]').text()).toBe('JAN 19, 1970 @ 10:00:31')
+    expect(wrapper.find('[data-test="date"]').text()).toBe(
+      'JAN 19, 1970 @ 10:00:31'
+    )
   })
   it('finds the current-stage-title element', () => {
     expect(wrapper.contains('[data-test="current-stage-title"]')).toBe(false)
@@ -106,7 +108,9 @@ describe('Renders the correct elements when the transaction type is data_request
     )
   })
   it('finds the date element', () => {
-    expect(wrapper.find('[data-test="date"]').text()).toBe('JAN 19, 1970 @ 10:00:31')
+    expect(wrapper.find('[data-test="date"]').text()).toBe(
+      'JAN 19, 1970 @ 10:00:31'
+    )
   })
   it('finds the current-stage-title element', () => {
     expect(wrapper.contains('[data-test="current-stage-title"]')).toBe(true)
@@ -203,7 +207,9 @@ describe('Renders the correct elements when the transaction type is data_request
     )
   })
   it('finds the date element', () => {
-    expect(wrapper.find('[data-test="date"]').text()).toBe('JAN 19, 1970 @ 10:00:31')
+    expect(wrapper.find('[data-test="date"]').text()).toBe(
+      'JAN 19, 1970 @ 10:00:31'
+    )
   })
   it('finds the current-stage-title element', () => {
     expect(wrapper.contains('[data-test="current-stage-title"]')).toBe(true)

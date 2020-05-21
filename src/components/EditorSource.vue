@@ -3,7 +3,7 @@
     :title="title"
     :subtitle="subtitle"
     :closable="true"
-    :onClose="() => deleteSource({ index })"
+    :on-close="() => deleteSource({ index })"
   >
     <Card class="card" shadow="thin" :border="false">
       <div class="form">
@@ -42,16 +42,6 @@ export default {
     Card,
     Select,
   },
-  data() {
-    return {
-      currentProtocol: { primaryText: 'HTTP-GET' },
-      currentContentType: [],
-      currentUrl: '',
-    }
-  },
-  created() {
-    this.currentContentType = this.currentContentTypeOptions[0]
-  },
   props: {
     /**
      * Index of the source by creation date
@@ -82,11 +72,12 @@ export default {
       type: String,
     },
   },
-  methods: {
-    ...mapMutations({
-      deleteSource: DELETE_SOURCE,
-      updateSource: UPDATE_SOURCE,
-    }),
+  data() {
+    return {
+      currentProtocol: { primaryText: 'HTTP-GET' },
+      currentContentType: [],
+      currentUrl: '',
+    }
   },
   computed: {
     title() {
@@ -149,18 +140,29 @@ export default {
       },
     },
   },
+  created() {
+    this.currentContentType = this.currentContentTypeOptions[0]
+  },
+  methods: {
+    ...mapMutations({
+      deleteSource: DELETE_SOURCE,
+      updateSource: UPDATE_SOURCE,
+    }),
+  },
 }
 </script>
 
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
+
 .card {
   .form {
+    align-items: center;
+    column-gap: 10px;
     display: grid;
     grid-template: repeat(3, auto) / 130px 1fr;
     row-gap: 22px;
-    column-gap: 10px;
-    align-items: center;
+
     .label {
       color: $grey-5;
       font-size: 14px;

@@ -1,5 +1,6 @@
-// https://docs.cypress.io/api/introduction/api.html
+// eslint-disable-next-line
 import { createSelection } from '../utils'
+
 describe('Create Wallet', () => {
   it('Create a wallet succesfully', () => {
     // Go to ftu form when the wallet contains a created wallet
@@ -53,7 +54,11 @@ describe('Create Wallet', () => {
         cy.get('[data-test=textarea]').type('1')
       })
     cy.get('[data-test=next-step]').click({ force: true })
-    cy.get('[data-test=mnemonics-error-alert]').should('have.css', 'color', 'rgb(240, 132, 132)')
+    cy.get('[data-test=mnemonics-error-alert]').should(
+      'have.css',
+      'color',
+      'rgb(240, 132, 132)'
+    )
   })
 
   it('Show error when passwords don´t match', () => {
@@ -79,7 +84,11 @@ describe('Create Wallet', () => {
       .last()
       .type('password1')
     cy.get('[data-test=next-step]').click({ force: true })
-    cy.get('[data-test=password-error-alert]').should('have.css', 'color', 'rgb(240, 132, 132)')
+    cy.get('[data-test=password-error-alert]').should(
+      'have.css',
+      'color',
+      'rgb(240, 132, 132)'
+    )
   })
 
   it('Show previous and next view when the button is clicked', () => {

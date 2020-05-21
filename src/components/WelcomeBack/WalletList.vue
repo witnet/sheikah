@@ -5,30 +5,30 @@
     </p>
     <div class="list">
       <div class="row wallets">
-        <Select type="big" v-model="currentWallet" :options="walletOptions" />
+        <Select v-model="currentWallet" type="big" :options="walletOptions" />
       </div>
-      <div class="row" @keydown.enter.esc.prevent="unlock()">
+      <div class="row" @keydown.enter.esc.prevent="unlock">
         <el-input
-          @keydown.enter.esc.prevent="unlock()"
+          v-model="password"
           v-focus
           class="big"
           data-test="password"
           placeholder="Please input password"
-          v-model="password"
           show-password
+          @keydown.enter.esc.prevent="unlock"
         />
-        <p data-test="error-alert" v-if="unlockWalletError" class="error">
+        <p v-if="unlockWalletError" data-test="error-alert" class="error">
           Invalid password
         </p>
       </div>
-      <div class="row" @keydown.enter.esc.prevent="unlock()">
+      <div class="row" @keydown.enter.esc.prevent="unlock">
         <el-button
-          class="big"
           ref="submit"
+          class="big"
           data-test="unlock-wallet"
-          @click="unlock()"
           type="primary"
           :disabled="disableButton"
+          @click="unlock"
         >
           Unlock
         </el-button>
@@ -58,42 +58,6 @@ export default {
       currentWallet: {},
       password: '',
     }
-  },
-  created() {
-    this.currentWallet = this.walletOptions[this.lastWalletOpen]
-  },
-  methods: {
-    ...mapActions({
-      unlockWallet: 'unlockWallet',
-    }),
-    ...mapMutations({
-      clearError: 'clearError',
-    }),
-    nextStep() {
-      this.$router.push('/ftu/welcome')
-    },
-    unlock() {
-      this.unlockWallet({
-        walletId: this.currentWallet.value,
-        password: this.password,
-      })
-      this.sent = true
-    },
-    updateView() {
-      this.$router.push('/wallet/transactions')
-    },
-  },
-  watch: {
-    sessionId: function(newValue) {
-      if (newValue) {
-        this.updateView()
-      }
-    },
-    password() {
-      if (this.unlockWalletError) {
-        this.clearError({ error: this.unlockWalletError.name })
-      }
-    },
   },
   computed: {
     ...mapState({
@@ -126,6 +90,42 @@ export default {
       })
     },
   },
+  watch: {
+    sessionId: function(newValue) {
+      if (newValue) {
+        this.updateView()
+      }
+    },
+    password() {
+      if (this.unlockWalletError) {
+        this.clearError({ error: this.unlockWalletError.name })
+      }
+    },
+  },
+  created() {
+    this.currentWallet = this.walletOptions[this.lastWalletOpen]
+  },
+  methods: {
+    ...mapActions({
+      unlockWallet: 'unlockWallet',
+    }),
+    ...mapMutations({
+      clearError: 'clearError',
+    }),
+    nextStep() {
+      this.$router.push('/ftu/welcome')
+    },
+    unlock() {
+      this.unlockWallet({
+        walletId: this.currentWallet.value,
+        password: this.password,
+      })
+      this.sent = true
+    },
+    updateView() {
+      this.$router.push('/wallet/transactions')
+    },
+  },
 }
 </script>
 
@@ -135,28 +135,35 @@ export default {
 
 .wallet-list {
   min-width: 500px;
+
   .text {
     margin-bottom: 32px;
+
     &.header {
       font-size: 20px;
     }
   }
+
   .list {
     .row {
       margin-bottom: 16px;
+
       &:last-of-type {
-        margin-bottom: 0px;
+        margin-bottom: 0;
       }
+
       .error {
-        margin-top: 8px;
         color: $red-3;
+        margin-top: 8px;
       }
     }
+
     .wallets {
       .wallet {
         margin-bottom: 16px;
+
         &:last-of-type {
-          margin-bottom: 0px;
+          margin-bottom: 0;
         }
       }
     }

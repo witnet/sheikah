@@ -8,7 +8,18 @@
 import { mapMutations, mapActions } from 'vuex'
 
 export default {
-  name: 'app',
+  name: 'App',
+  data() {
+    return {
+      loading: true,
+      polling: null,
+    }
+  },
+  watch: {
+    $route: function(from, to) {
+      this.loading = false
+    },
+  },
   async created() {
     await this.getWalletInfos()
     this.pollData()
@@ -17,11 +28,8 @@ export default {
       event.stopImmediatePropagation()
     }
   },
-  data() {
-    return {
-      loading: true,
-      polling: null,
-    }
+  beforeDestroy() {
+    clearInterval(this.polling)
   },
   methods: {
     ...mapMutations({
@@ -36,27 +44,15 @@ export default {
       }, 3000)
     },
   },
-  watch: {
-    $route: function(from, to) {
-      this.loading = false
-    },
-  },
-  computed: {
-    x() {
-      return this.$route
-    },
-  },
-  beforeDestroy() {
-    clearInterval(this.polling)
-  },
 }
 </script>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 @import '@/styles/app.global.scss';
+
 .app {
-  min-width: 100vw;
   min-height: 100vh;
+  min-width: 100vw;
 }
 </style>

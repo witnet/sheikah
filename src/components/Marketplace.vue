@@ -3,28 +3,30 @@
     <div class="header">
       <p class="title">
         <span class="sheikah-title">Sheikah </span>Marketplace
-        <span class="subtitle">Hundreds of smart contracts ready to be deployed</span>
+        <span class="subtitle"
+          >Hundreds of smart contracts ready to be deployed</span
+        >
       </p>
     </div>
     <div class="row">
       <div v-if="Object.entries(templates)" class="col deployed-templates-list">
         <TemplateCard
-          type="marketplace"
           v-for="template in paginatedItems"
+          :id="template.id"
+          :key="template.id"
+          type="marketplace"
           class="card"
           :name="template.name"
-          :id="template.id"
           :description="template.description"
-          :key="template.id"
         />
         <div v-show="templates.length" class="pagination">
           <el-pagination
             class="marketplace"
-            @current-change="handleCurrentChange"
             :page-size="itemsPerPage"
             layout="prev, pager, next"
             :total="templates.length"
             :current-page="currentPage"
+            @current-change="handleCurrentChange"
           />
         </div>
       </div>
@@ -40,11 +42,11 @@
 </template>
 
 <script>
-import TemplateCard from './card/TemplateCard'
 import { mapState, mapActions } from 'vuex'
+import TemplateCard from './card/TemplateCard'
 
 export default {
-  name: 'marketplace',
+  name: 'Marketplace',
   components: {
     TemplateCard,
   },
@@ -54,14 +56,6 @@ export default {
       currentPage: 1,
       itemsPerPage: 4,
     }
-  },
-  methods: {
-    ...mapActions({
-      retrieveTemplates: 'retrieveTemplates',
-    }),
-    handleCurrentChange(val) {
-      this.currentPage = val
-    },
   },
   computed: {
     paginatedItems() {
@@ -75,11 +69,20 @@ export default {
       },
     }),
   },
+  methods: {
+    ...mapActions({
+      retrieveTemplates: 'retrieveTemplates',
+    }),
+    handleCurrentChange(val) {
+      this.currentPage = val
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
+
 .templates-bar {
   border-bottom: 1px solid $grey-1;
   display: flex;
@@ -90,73 +93,86 @@ export default {
   text-align: right;
 
   .title {
+    border-bottom: 2px solid $purple-4;
     color: $alt-grey-5;
+    color: $purple-4;
     font-weight: bold;
     height: 64px;
     line-height: 25px;
     padding: 16px;
     text-decoration: none;
-    border-bottom: 2px solid $purple-4;
-    color: $purple-4;
   }
+
   .button-container {
     padding: 8px;
   }
 }
+
 .header {
   background-color: rgb(255, 42, 127);
   margin: 40px;
   padding: 48px 48px 48px 100px;
   text-align: left;
+
   .title {
     color: $white;
     font-size: 32px;
+
     .sheikah-title {
-      font-weight: bold;
       color: rgb(150, 5, 62);
+      font-weight: bold;
     }
+
     .subtitle {
       color: $white;
-      margin-left: 32px;
       font-size: 18px;
       font-style: italic;
+      margin-left: 32px;
     }
   }
 }
+
 .row {
   display: flex;
   justify-content: center;
 }
+
 .deployed-templates-list {
+  display: flex;
   flex: 0 0 55vw;
   flex-wrap: wrap;
-  display: flex;
   justify-content: center;
-  margin: 32px 0px 32px 72px;
+  margin: 32px 0 32px 72px;
+
   .pagination {
-    padding: 16px 0px 16px 0px;
+    padding: 16px 0 16px 0;
     text-align: center;
+
     &.el-pagination {
       .el-pager li.active {
         color: red;
       }
     }
   }
+
   .card {
     flex: 0 1 calc(40% - 2em);
   }
 }
+
 .col-right {
   flex: 0 0 300px;
   height: 55vh;
   margin-top: 32px;
+
   .tags {
     min-width: 300px;
+
     .title {
       border-bottom: 1px solid $grey-1;
-      margin-bottom: 24px;
       color: $alt-grey-3;
       font-weight: bold;
+      margin-bottom: 24px;
     }
   }
 }

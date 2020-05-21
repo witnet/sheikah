@@ -2,7 +2,12 @@
   <FrameOutside @click="hideDetails" @focus="hideDetails">
     <div class="border">
       <div class="transaction" @click="showDetails = !showDetails">
-        <img data-test="negative-positive" class="icon" :src="arrowIcon" alt="" />
+        <img
+          data-test="negative-positive"
+          class="icon"
+          :src="arrowIcon"
+          alt=""
+        />
         <Amount
           :keep="true"
           data-test="amount"
@@ -11,11 +16,17 @@
           :amount="amount"
         />
 
-        <div v-if="transactionType === 'value_transfer'" class="address-container">
+        <div
+          v-if="transactionType === 'value_transfer'"
+          class="address-container"
+        >
           <p data-test="origin" class="origin">{{ origin }}</p>
           <p data-test="address" class="address">{{ address }}</p>
         </div>
-        <div v-else-if="transactionType === 'data_request'" class="address-container">
+        <div
+          v-else-if="transactionType === 'data_request'"
+          class="address-container"
+        >
           <p data-test="transaction-type" class="address">Data request</p>
         </div>
         <div v-if="transactionType === 'mint'" class="address-container">
@@ -28,9 +39,9 @@
       </div>
       <div v-if="showDetails">
         <TransactionDetails
-          data-test="transaction-details"
-          :transactionType="transactionType"
           :id="id"
+          data-test="transaction-details"
+          :transaction-type="transactionType"
           :block="block"
           :date="date"
           :witnesses="witnesses"
@@ -66,39 +77,90 @@ export default {
     InputsOutputs,
     Amount,
   },
+  props: {
+    currency: {
+      type: String,
+      required: true,
+    },
+    amount: {
+      type: [String, Number],
+      required: true,
+    },
+    block: {
+      type: [String, Number],
+      required: true,
+    },
+    date: {
+      type: String,
+      required: true,
+    },
+    timeAgo: {
+      type: String,
+      default: '',
+    },
+    label: {
+      type: String,
+      default: '',
+    },
+    fee: {
+      type: Number,
+      required: true,
+    },
+    id: {
+      type: String,
+      required: true,
+    },
+    outputs: {
+      type: Array,
+      required: true,
+    },
+    inputs: {
+      type: Array,
+      required: true,
+    },
+    type: {
+      type: String,
+      default: '',
+    },
+    witnesses: {
+      type: Object,
+      required: true,
+    },
+    rewards: {
+      type: Object,
+      required: true,
+    },
+    rounds: {
+      type: Object,
+      required: true,
+    },
+    state: {
+      type: String,
+      default: '',
+    },
+    reveals: {
+      type: Array,
+      required: true,
+    },
+    result: {
+      type: String,
+      default: '',
+    },
+    transactionType: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
       showDetails: false,
     }
   },
-  props: {
-    currency: String,
-    amount: [String, Number],
-    block: [String, Number],
-    date: String,
-    timeAgo: String,
-    label: String,
-    fee: Number,
-    id: String,
-    outputs: Array,
-    inputs: Array,
-    type: String,
-    witnesses: Object,
-    rewards: Object,
-    rounds: Object,
-    state: String,
-    reveals: Array,
-    result: String,
-    transactionType: String,
-  },
-  methods: {
-    hideDetails() {
-      this.showDetails = false
-    },
-  },
   computed: {
     address() {
-      return this.inputs.length > 1 ? 'several addresses' : this.inputs[0].address
+      return this.inputs.length > 1
+        ? 'several addresses'
+        : this.inputs[0].address
     },
     origin() {
       return this.type === 'POSITIVE' ? 'From' : 'To'
@@ -107,6 +169,11 @@ export default {
       return this.type === 'POSITIVE'
         ? require('@/resources/svg/positive.svg')
         : require('@/resources/svg/negative.svg')
+    },
+  },
+  methods: {
+    hideDetails() {
+      this.showDetails = false
     },
   },
 }
@@ -119,24 +186,27 @@ export default {
 .border {
   border-bottom: 1px solid $grey-1;
 }
+
 .transaction {
-  padding: 16px;
-  display: grid;
-  grid-template-columns: max-content max-content auto 100px;
-  grid-column-gap: 24px;
   align-items: center;
   cursor: pointer;
+  display: grid;
+  grid-column-gap: 24px;
+  grid-template-columns: max-content max-content auto 100px;
+  grid-template-columns: max-content max-content auto max-content;
+  padding: 16px;
 
   .amount,
   .address {
-    display: flex;
     align-items: center;
+    display: flex;
   }
 
   .amount {
+    display: block;
     font-size: 16px;
     font-weight: bold;
-    display: block;
+
     &.from {
       color: $green-5;
     }
@@ -148,15 +218,17 @@ export default {
 
   .address-container {
     align-items: center;
+    color: $alt-grey-5;
     display: flex;
     justify-content: center;
-    color: $alt-grey-5;
+
     .origin {
-      margin-right: 8px;
-      font-size: 12px;
       color: $grey-4;
+      font-size: 12px;
       font-weight: 600;
+      margin-right: 8px;
     }
+
     .address {
       font-size: 13px;
       font-style: italic;
@@ -164,10 +236,10 @@ export default {
   }
 
   .date {
-    font-size: 12px;
     color: $grey-4;
-    font-weight: 600;
+    font-size: 12px;
     font-style: italic;
+    font-weight: 600;
     text-align: right;
   }
 

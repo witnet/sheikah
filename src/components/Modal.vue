@@ -14,11 +14,8 @@ export default {
 }
 </script>
 
-<style></style>
-
 <docs>
 Basic modal component. Wrapper of the [Element Dialog](https://element.eleme.io/#/en-US/component/dialog) component.
-
 
 ## Examples
 

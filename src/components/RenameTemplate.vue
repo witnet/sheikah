@@ -2,14 +2,18 @@
   <el-dialog title="Rename template" :visible="true" width="30%">
     <div class="info">
       <p class="label">Name</p>
-      <el-input data-test="template-name-input" :placeholder="name" v-model="updateName" />
+      <el-input
+        v-model="updateName"
+        data-test="template-name-input"
+        :placeholder="name"
+      />
       <p class="label">Description</p>
       <el-input
+        v-model="updateDescription"
         type="textarea"
         :rows="3"
         data-test="template-description-input"
         :placeholder="description"
-        v-model="updateDescription"
       />
     </div>
     <span slot="footer" class="dialog-footer">
@@ -24,9 +28,18 @@ import { mapActions } from 'vuex'
 export default {
   name: 'TemplateCard',
   props: {
-    name: String,
-    description: String,
-    id: String,
+    name: {
+      type: String,
+      default: '',
+    },
+    description: {
+      type: String,
+      default: '',
+    },
+    id: {
+      type: String,
+      default: '',
+    },
   },
   computed: {
     style() {
@@ -45,7 +58,10 @@ export default {
         return this.description
       },
       set(newDescription) {
-        this.changeTemplateDescription({ id: this.id, description: newDescription })
+        this.changeTemplateDescription({
+          id: this.id,
+          description: newDescription,
+        })
       },
     },
   },
@@ -64,12 +80,13 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+
 .info {
+  align-items: center;
+  column-gap: 16px;
   display: grid;
   grid-template-columns: max-content auto;
   grid-template-rows: auto auto;
   row-gap: 16px;
-  column-gap: 16px;
-  align-items: center;
 }
 </style>

@@ -1,33 +1,38 @@
 <template>
   <NavigationCard
+    ref="navCard"
     data-test="header-4"
     class="wallet-seed-validation"
     title="Confirm your seed phrase"
-    previousText="Back"
-    nextText="Next"
-    :previousStep="previousStep"
-    :nextStep="nextStep"
-    :disabledNextButton="disabledNextButton"
-    ref="navCard"
+    previous-text="Back"
+    next-text="Next"
+    :previous-step="previousStep"
+    :next-step="nextStep"
+    :disabled-next-button="disabledNextButton"
   >
     <p class="text">
-      Please type your 12 word seed phrase exactly as it was shown to you on the previous screen.
-      This step is to confirm that you have copied your seed phrase correctly.
+      Please type your 12 word seed phrase exactly as it was shown to you on the
+      previous screen. This step is to confirm that you have copied your seed
+      phrase correctly.
     </p>
     <Input
+      v-model="seed"
       type="big"
       class="seed"
-      v-model="seed"
       :autoresize="true"
       :maxlength="mnemonics.length"
-      v-on:go-next="nextStep"
+      @go-next="nextStep"
     />
-    <p data-test="mnemonics-error-alert" class="match-error" v-if="mnemonicsError">
+    <p
+      v-if="mnemonicsError"
+      data-test="mnemonics-error-alert"
+      class="match-error"
+    >
       Mnemonics must match
     </p>
     <p class="text">
-      Please ensure you do not add any extra spaces between words or at the beginning or end of the
-      phrase.
+      Please ensure you do not add any extra spaces between words or at the
+      beginning or end of the phrase.
     </p>
   </NavigationCard>
 </template>
@@ -65,6 +70,11 @@ export default {
       this.validateForm()
     },
   },
+  beforeDestroy() {
+    if (this.mnemonicsError) {
+      this.clearError({ error: this.mnemonicsError.name })
+    }
+  },
   methods: {
     ...mapMutations({
       validateMnemonics: 'validateMnemonics',
@@ -97,13 +107,9 @@ export default {
       this.$router.push('/ftu/seed-backup')
     },
   },
-  beforeDestroy() {
-    if (this.mnemonicsError) {
-      this.clearError({ error: this.mnemonicsError.name })
-    }
-  },
 }
 </script>
+
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
@@ -122,14 +128,16 @@ export default {
   font-size: 16px;
   line-break: auto;
   line-height: 1.5em;
-  margin: 24px 0px;
+  margin: 24px 0;
   padding: 16px;
   width: 100%;
 }
+
 .match-error {
   color: $red-2;
   margin-bottom: 8px;
 }
+
 .paragraph {
   margin-top: 16px;
 }

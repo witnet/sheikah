@@ -5,7 +5,9 @@ let handleOutsideClick
 Vue.directive('focus', {
   inserted: function(el) {
     // It focus the element and add support for element ui inputs
-    el.getElementsByTagName('input') ? el.getElementsByTagName('input')[0].focus() : el.focus()
+    el.getElementsByTagName('input')
+      ? el.getElementsByTagName('input')[0].focus()
+      : el.focus()
   },
 })
 
@@ -16,7 +18,10 @@ Vue.directive('closable', {
       const { handler, exclude } = binding.value
       let clickedOnExcludedEl = false
       exclude.forEach(refName => {
-        if (!clickedOnExcludedEl && vnode.context.$refs[refName] !== undefined) {
+        if (
+          !clickedOnExcludedEl &&
+          vnode.context.$refs[refName] !== undefined
+        ) {
           const excludedEl = vnode.context.$refs[refName]
           clickedOnExcludedEl = excludedEl.contains(e.target)
         }

@@ -1,6 +1,10 @@
 <template>
   <div class="carousel-container">
-    <div class="card--to__left" @click="moveCarousel(-1)" :disabled="headOfList">
+    <div
+      class="card--to__left"
+      :disabled="headOfList"
+      @click="moveCarousel(-1)"
+    >
       <font-awesome-icon class="icon-left" icon="angle-left" />
     </div>
     <div class="card">
@@ -8,9 +12,9 @@
         <div class="card-cards">
           <transition-group tag="div" :class="animate" :name="animate">
             <div
-              class="card--card"
               v-for="(source, index) in sources.slice(counter)"
               :key="source.index"
+              class="card--card"
             >
               <div v-if="source" class="content" data-test="source-content">
                 <div class="header">
@@ -27,7 +31,7 @@
                   </button>
                 </div>
                 <div class="header-operators">
-                  <el-select class="select" v-model="selectedOperator[index]">
+                  <el-select v-model="selectedOperator[index]" class="select">
                     <el-option
                       v-for="item in ['HTTPS_GET']"
                       :key="item"
@@ -38,30 +42,36 @@
                   </el-select>
                   <div>
                     <el-input
+                      v-model="source.url"
                       class="input"
                       placeholder="url"
                       type="text"
-                      v-model="source.url"
-                      @input="e => update({ kind: source.kind, url: e }, source.index)"
+                      @input="
+                        e => update({ kind: source.kind, url: e }, source.index)
+                      "
                     />
                   </div>
                   <RadonScript
                     :script="source.script"
                     stage="retrieve"
-                    :sourceIndex="source.index"
-                    :scriptId="source.scriptId"
+                    :source-index="source.index"
+                    :script-id="source.scriptId"
                   />
                 </div>
               </div>
             </div>
           </transition-group>
-          <button data-test="add-source-btn" @click="addSourceToCarousel" class="add-source">
+          <button
+            data-test="add-source-btn"
+            class="add-source"
+            @click="addSourceToCarousel"
+          >
             <img src="@/resources/svg/add-grey.svg" />
           </button>
         </div>
       </div>
     </div>
-    <div class="card--to__right" @click="moveCarousel(1)" :disabled="endOfList">
+    <div class="card--to__right" :disabled="endOfList" @click="moveCarousel(1)">
       <font-awesome-icon class="icon-right" icon="angle-right" />
     </div>
   </div>
@@ -81,11 +91,14 @@ import {
 
 export default {
   name: 'Carousel',
-  props: {
-    sources: Array,
-  },
   components: {
     RadonScript,
+  },
+  props: {
+    sources: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -168,6 +181,7 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
@@ -178,10 +192,10 @@ export default {
 }
 
 .carousel-container {
-  padding: 24px 24px 0px 24px;
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
+  padding: 24px 24px 0 24px;
 }
 
 .card {
@@ -193,26 +207,30 @@ export default {
     height: 80vh;
     overflow: hidden;
   }
+
   &--to__left .icon-left,
   &--to__right .icon-right {
-    margin: auto;
-    font-size: 40px;
     color: $alt-grey-2;
+    font-size: 40px;
+    margin: auto;
   }
+
   &--to__left,
   &--to__right {
+    align-content: center;
     background-color: transparent;
-    height: 80vh;
-    width: 5vh;
     cursor: pointer;
     display: flex;
+    height: 80vh;
     justify-content: center;
-    align-content: center;
+    width: 5vh;
+
     &[disabled] {
-      opacity: 0.2;
       border-color: $alt-grey-5;
+      opacity: 0.2;
     }
   }
+
   &--to__left :active,
   &--to__right :active {
     transform: scale(0.9);
@@ -222,66 +240,78 @@ export default {
 .card-cards {
   display: flex;
   padding: 8px;
-  transform: translateX(0px);
+  transform: translateX(0);
+
   .add-source {
+    align-content: center;
     background: transparent;
-    padding: 40px;
-    height: 100px;
     border: none;
     display: flex;
+    height: 100px;
     justify-content: center;
-    align-content: center;
+    padding: 40px;
+
     &:hover,
     &:active,
     &:focus {
-      outline: none;
       cursor: pointer;
+      outline: none;
     }
-    & img {
+
+    img {
       width: 40px;
     }
   }
+
   .card--card {
-    z-index: 3;
-    margin-left: 30px;
     background-color: $white;
-    box-shadow: 1px 3px 11px 0px rgba(207, 207, 207, 0.329);
     border-radius: 20px;
+    box-shadow: 1px 3px 11px 0 rgba(207, 207, 207, 0.329);
+    margin-left: 30px;
+    z-index: 3;
 
     .content {
-      min-width: 300px;
-      height: 700px;
-      font-size: 18px;
-      font-weight: bold;
       display: flex;
       flex-direction: column;
+      font-size: 18px;
+      font-weight: bold;
+      height: 700px;
+      min-width: 300px;
       overflow-y: auto;
-      & > .header,
-      & > .header-operators {
+
+      .header,
+      .header-operators {
         margin: 32px;
       }
+
       .header {
-        max-height: 18px;
         display: flex;
+        max-height: 18px;
+
         .index {
           color: $black;
         }
+
         .delete-btn {
           display: none;
         }
       }
+
       .header-operators {
         height: 53px;
+
         .select {
           margin: 0 0 8px 0;
           width: 100%;
         }
+
         .input {
-          cursor: pointer;
           color: $alt-grey-5;
+          cursor: pointer;
           margin-bottom: 24px;
         }
       }
+
       &:hover {
         .delete-btn {
           background: transparent;
@@ -298,17 +328,21 @@ export default {
 .slide-right {
   display: flex;
 }
+
 .slide-right-move {
   transition: all 600ms ease-in-out 50ms;
 }
+
 .slide-right-enter-active {
   transition: all 400ms ease-out;
 }
+
 .slide-right-leave-active {
-  transition: all 200ms ease-in;
   position: absolute;
+  transition: all 200ms ease-in;
   z-index: 0;
 }
+
 .slide-right-enter,
 .slide-right-leave-to {
   opacity: 0;
@@ -317,17 +351,21 @@ export default {
 .slide-left {
   display: flex;
 }
+
 .slide-left-move {
   transition: all 200ms ease-in-out 30ms;
 }
+
 .slide-left-enter-active {
   transition: all 400ms ease-in;
 }
+
 .slide-left-leave-active {
-  transition: all 600ms ease-out;
   position: absolute;
+  transition: all 600ms ease-out;
   z-index: 0;
 }
+
 .slide-left-enter,
 .slide-left-leave-to {
   opacity: 0;

@@ -6,7 +6,12 @@
         <p v-if="subtitle" class="subtitle">{{ subtitle }}</p>
         <p v-if="helper" class="helper">{{ helper }}</p>
       </div>
-      <font-awesome-icon v-if="closable" class="icon cross close" icon="times" @click="onClose" />
+      <font-awesome-icon
+        v-if="closable"
+        class="icon cross close"
+        icon="times"
+        @click="onClose"
+      />
     </header>
     <div :class="[type]">
       <slot></slot>
@@ -30,23 +35,21 @@ export default {
      */
     subtitle: {
       type: String,
-      required: false,
+      default: '',
     },
     /**
      * Terciary title
      */
     helper: {
       type: String,
-      required: false,
+      default: '',
     },
     type: {
       type: String,
-      required: false,
+      default: '',
     },
     closable: {
       type: Boolean,
-      required: false,
-      default: false,
     },
     onClose: {
       type: Function,
@@ -62,17 +65,17 @@ export default {
 
 .fieldset {
   .header {
-    margin-bottom: 14px;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 14px;
 
     .texts {
       display: flex;
 
       .title {
+        color: $alt-grey-5;
         font-size: 16px;
         font-weight: medium;
-        color: $alt-grey-5;
 
         &.help {
           font-size: 13px;
@@ -80,19 +83,19 @@ export default {
       }
 
       .subtitle {
-        margin-left: 8px;
         color: $grey-3;
-        font-weight: medium;
         font-style: italic;
+        font-weight: medium;
+        margin-left: 8px;
       }
 
       .helper {
+        align-self: center;
         color: $alt-grey-5;
         font-size: 10px;
-        opacity: 50%;
         font-style: italic;
         margin-left: 25px;
-        align-self: center;
+        opacity: 50%;
       }
     }
 
@@ -106,13 +109,14 @@ export default {
 
   .help {
     // default style for paragraphs added in the slot
+    // stylelint-disable-next-line
     ::v-deep p {
+      color: #66648c;
       font-size: 13px;
-      font-weight: lighter;
       font-style: italic;
+      font-weight: lighter;
       line-height: 1.5;
       margin-bottom: 8px;
-      color: #66648c;
     }
   }
 }

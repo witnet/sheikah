@@ -4,8 +4,8 @@
       <AddressList
         :addresses="addresses"
         :selected="selectedIndex"
-        v-on:generate-address="$emit('generate-address')"
-        v-on:select-address="selectAddress"
+        @generate-address="$emit('generate-address')"
+        @select-address="selectAddress"
       />
       <AddressInformation
         v-if="selectedAddress"
@@ -13,8 +13,8 @@
         :index="selectedIndex"
         :used="selectedAddress.used"
         :amount="selectedAddress.receivedAmount"
-        :firstPaymentDate="selectedAddress.firstPaymentDate"
-        :lastPaymentDate="selectedAddress.lastPaymentDate"
+        :first-payment-date="selectedAddress.firstPaymentDate"
+        :last-payment-date="selectedAddress.lastPaymentDate"
         :payments="selectedAddress.receivedPayments"
         :loading="generateAddressLoading"
       />
@@ -38,6 +38,20 @@ export default {
     AddressList,
     AddressInformation,
   },
+  props: {
+    /**
+     * List of available addresses
+     */
+    addresses: {
+      required: true,
+      type: Array,
+    },
+  },
+  data() {
+    return {
+      selectedIndex: this.addresses.length - 1 || null,
+    }
+  },
   computed: {
     ...mapState({
       generateAddressLoading: state => {
@@ -48,21 +62,9 @@ export default {
       },
     }),
     selectedAddress() {
-      return this.selectedIndex >= 0 ? this.addresses[this.selectedIndex] : { pkh: '', used: false }
-    },
-  },
-  data() {
-    return {
-      selectedIndex: this.addresses.length - 1 || null,
-    }
-  },
-  methods: {
-    ...mapMutations({
-      clearTransactionClicked: 'clearTransactionClicked',
-      clearGenerateAddressLoading: 'clearGenerateAddressLoading',
-    }),
-    selectAddress(i) {
-      this.selectedIndex = i
+      return this.selectedIndex >= 0
+        ? this.addresses[this.selectedIndex]
+        : { pkh: '', used: false }
     },
   },
   watch: {
@@ -82,13 +84,13 @@ export default {
       }
     },
   },
-  props: {
-    /**
-     * List of available addresses
-     */
-    addresses: {
-      required: true,
-      type: Array,
+  methods: {
+    ...mapMutations({
+      clearTransactionClicked: 'clearTransactionClicked',
+      clearGenerateAddressLoading: 'clearGenerateAddressLoading',
+    }),
+    selectAddress(i) {
+      this.selectedIndex = i
     },
   },
 }
@@ -100,14 +102,13 @@ export default {
 .card {
   border: 1px solid $grey-1;
   border-radius: 4px;
+  box-shadow: 0 0 0 0 $purple-2;
   overflow: hidden;
+  transition: box-shadow 0.4s linear;
   width: 350px;
 
-  box-shadow: 0px 0px 0px 0px $purple-2;
-  transition: box-shadow 0.4s linear;
-
   &.active {
-    box-shadow: 0px 0px 6px 1px $purple-2;
+    box-shadow: 0 0 6px 1px $purple-2;
   }
 }
 </style>

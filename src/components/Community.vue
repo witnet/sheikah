@@ -1,10 +1,10 @@
 <template>
   <div data-test="community-page" class="container">
     <CommunityCard
-      :data-test="social.url"
-      class="card"
       v-for="social in socials"
       :key="social.content"
+      :data-test="social.url"
+      class="card"
       :url="social.url"
     >
       <template v-slot:header>
@@ -21,18 +21,13 @@
 </template>
 
 <script>
-import CommunityCard from './card/CommunityCard'
 import { openInExternalApp } from '@/utils'
+import CommunityCard from './card/CommunityCard'
 
 export default {
   name: 'Community',
   components: {
     CommunityCard,
-  },
-  methods: {
-    openExternalLink: async url => {
-      await openInExternalApp(url)
-    },
   },
   data() {
     return {
@@ -67,7 +62,8 @@ export default {
         },
         {
           header: 'Witnet Community on Telegram >',
-          content: 'Join other members of the Witnet Community at the official Telegram group.',
+          content:
+            'Join other members of the Witnet Community at the official Telegram group.',
           img: require('@/resources/svg/social/telegram.svg'),
           url: 'https://t.me/witnetio',
         },
@@ -88,8 +84,14 @@ export default {
       ],
     }
   },
+  methods: {
+    openExternalLink: async url => {
+      await openInExternalApp(url)
+    },
+  },
 }
 </script>
+
 <style lang="scss">
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
@@ -98,15 +100,17 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, 650px);
   justify-content: center;
+
   .card {
     margin: 24px;
   }
 }
 
-a {
-  text-decoration: none;
-  cursor: pointer;
+.link {
   color: $purple-4;
+  cursor: pointer;
+  text-decoration: none;
+
   &:hover,
   :active {
     color: $purple-4;
@@ -114,7 +118,7 @@ a {
 }
 
 .icon-social {
-  width: 100px;
   opacity: 0.1;
+  width: 100px;
 }
 </style>

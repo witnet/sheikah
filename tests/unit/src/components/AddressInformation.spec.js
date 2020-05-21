@@ -108,7 +108,9 @@ describe('AddressInformation.vue', () => {
           },
         })
 
-        expect(wrapper.find('.pkh').text()).toBe('twit1270yg7pkm2w9mlq ... wph3flrp862zw0ft')
+        expect(wrapper.find('.pkh').text()).toBe(
+          'twit1270yg7pkm2w9mlq ... wph3flrp862zw0ft'
+        )
       })
 
       it('should render payment number', () => {
@@ -260,7 +262,9 @@ describe('AddressInformation.vue', () => {
           },
         })
 
-        expect(wrapper.find('.pkh').text()).toBe('twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft')
+        expect(wrapper.find('.pkh').text()).toBe(
+          'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft'
+        )
       })
 
       it('should render payment number', () => {

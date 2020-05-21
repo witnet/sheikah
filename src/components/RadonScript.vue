@@ -13,9 +13,9 @@
         data-test="radon-operator"
         :operator="operator"
         :stage="stage"
-        :scriptId="scriptId"
-        :sourceIndex="sourceIndex"
-        :showOutputType="index !== script.length - 1"
+        :script-id="scriptId"
+        :source-index="sourceIndex"
+        :show-output-type="index !== script.length - 1"
         @add-operator="addOperator"
       />
     </div>
@@ -26,6 +26,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import { PUSH_OPERATOR } from '@/store/mutation-types'
 import RadonOperator from '@/components/RadonOperator'
@@ -35,12 +36,30 @@ export default {
   name: 'RadonScript',
   components: { RadonOperator },
   props: {
-    stage: String,
-    sourceIndex: Number,
-    script: Array,
-    scriptId: Number,
-    protocol: String,
-    url: String,
+    stage: {
+      type: String,
+      default: '',
+    },
+    sourceIndex: {
+      type: Number,
+      required: true,
+    },
+    script: {
+      type: Array,
+      required: true,
+    },
+    scriptId: {
+      type: Number,
+      required: true,
+    },
+    protocol: {
+      type: String,
+      default: '',
+    },
+    url: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
     ...mapMutations({
@@ -59,91 +78,102 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+
 .script-header {
+  align-items: center;
   border: $operator-dashed-border;
   display: flex;
-  align-items: center;
+
   .url {
-    margin: 16px;
     color: $grey-3;
-    font-weight: medium;
     font-size: 14px;
+    font-weight: medium;
+    margin: 16px;
+
     .protocol {
       font-size: 12px;
     }
   }
 }
+
 .script-footer {
+  align-items: center;
   border: $operator-dashed-border;
   display: flex;
-  align-items: center;
+
   .text {
-    margin: 16px;
     color: $grey-3;
-    font-weight: medium;
     font-size: 14px;
+    font-weight: medium;
+    margin: 16px;
   }
 }
+
 .icon-container {
   margin-left: 16px;
 }
+
 .radon-script {
-  width: 100%;
   padding: 16px 24px;
+  width: 100%;
 }
 
 .circle {
-  outline: none;
-  border: 2px solid $alt-grey-3;
-  box-shadow: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  position: relative;
-  margin: 16px 0;
-  display: inline-block;
-  vertical-align: middle;
   background: transparent;
+  border: 2px solid $alt-grey-3;
+  border-radius: 100%;
+  box-shadow: none;
+  display: inline-block;
+  height: 30px;
+  margin: 16px 0;
+  outline: none;
+  position: relative;
+  vertical-align: middle;
+  width: 30px;
 }
 
-.circle:before,
-.circle:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+.circle::before,
+.circle::after {
   bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
-.circle.plus:before,
-.circle.plus:after {
-  cursor: pointer;
+
+.circle.plus::before,
+.circle.plus::after {
   background: $alt-grey-3;
+  cursor: pointer;
 }
-.circle.plus:before {
-  width: 2px;
+
+.circle.plus::before {
   margin: 8px auto;
+  width: 2px;
 }
-.circle.plus:after {
-  margin: auto 8px;
-  height: 2px;
+
+.circle.plus::after {
   box-shadow: none;
+  height: 2px;
+  margin: auto 8px;
 }
+
 .button-container {
   margin-top: 16px;
   text-align: center;
 
   .add-operators-btn {
-    cursor: pointer;
-    margin: 32px;
-    width: 150px;
-    padding: 8px;
-    font-size: 16px;
     background-color: $purple-4;
     border-radius: 5px;
     color: $white;
+    cursor: pointer;
     font-family: 'Roboto';
+    font-size: 16px;
     font-weight: bold;
+    margin: 32px;
+    padding: 8px;
+    width: 150px;
 
     &:active,
     &:focus {

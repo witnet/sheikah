@@ -1,18 +1,22 @@
 <template>
   <LayoutTwoColumns data-test="transactions">
-    <template #left>
-      <TransactionList class="list" :transactions="transactions" :currency="currency" />
+    <template v-slot:left>
+      <TransactionList
+        class="list"
+        :transactions="transactions"
+        :currency="currency"
+      />
     </template>
 
-    <template #upperRight>
+    <template v-slot:upperRight>
       <Balance :total="total" :currency="currency" />
     </template>
 
-    <template #bottomRight>
+    <template v-slot:bottomRight>
       <Addresses
         :addresses="addresses"
         :currency="currency"
-        v-on:generate-address="() => generateAddress('')"
+        @generate-address="() => generateAddress('')"
       />
     </template>
   </LayoutTwoColumns>
@@ -33,13 +37,6 @@ export default {
     Balance,
     Addresses,
   },
-  beforeCreate() {
-    this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
-    this.$store.dispatch('getAddresses')
-    this.$store.dispatch('getBalance')
-    // TODO: place this methods in the correct place when the generated transaction from the wallet is ready
-    this.$store.dispatch('getLabels')
-  },
   computed: {
     ...mapState({
       total: state => state.wallet.balance,
@@ -50,6 +47,13 @@ export default {
       },
       currency: state => state.wallet.currency,
     }),
+  },
+  beforeCreate() {
+    this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
+    this.$store.dispatch('getAddresses')
+    this.$store.dispatch('getBalance')
+    // TODO: place this methods in the correct place when the generated transaction from the wallet is ready
+    this.$store.dispatch('getLabels')
   },
   methods: {
     ...mapActions(['generateAddress']),

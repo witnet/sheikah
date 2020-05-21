@@ -1,5 +1,9 @@
 <template>
-  <button :class="normalizeType(type)" @click="onClick" :nativeType="nativeType">
+  <button
+    :class="normalizeType(type)"
+    :nativeType="nativeType"
+    @click="onClick"
+  >
     <slot></slot>
   </button>
 </template>
@@ -8,9 +12,18 @@
 export default {
   name: 'Button',
   props: {
-    nativeType: String,
-    onClick: Function,
-    type: String,
+    nativeType: {
+      type: String,
+      default: '',
+    },
+    onClick: {
+      type: Function,
+      default: () => {},
+    },
+    type: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
     normalizeType(propType) {
@@ -38,17 +51,17 @@ export default {
 .danger,
 .dashed,
 .positive {
+  border: none;
   border-radius: 4px;
+  cursor: pointer;
   font-size: 16px;
   font-weight: 400;
   height: 42px;
   line-height: 1.5;
+  min-width: max-content;
   padding: 0 16px;
   text-align: center;
   transition: all 0.25s;
-  border: none;
-  cursor: pointer;
-  min-width: max-content;
   z-index: -1;
 }
 
@@ -126,6 +139,7 @@ export default {
   outline: inherit;
   padding: 0 24px;
   width: 450px;
+
   &:hover {
     border-color: $alt-grey-3;
   }

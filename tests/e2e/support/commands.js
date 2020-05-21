@@ -9,7 +9,8 @@ Cypress.Commands.add('createAndUnlockWallet', () => {
   cy.vuex().invoke('dispatch', 'createWallet', {
     sourceType: 'mnemonics',
     password: 'password',
-    mnemonics: 'soldier design onion below soldier judge lock discover load hour option atom',
+    mnemonics:
+      'soldier design onion below soldier judge lock discover load hour option atom',
   })
   cy.wait(2000)
 })

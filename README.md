@@ -9,14 +9,14 @@
 </div>
 
 ## Current status
-**Sheikah is still a *Technology Preview***. If you run it, you will find:
+
+**Sheikah is still a _Technology Preview_**. If you run it, you will find:
 
 - **Features that work**: wallets creation, seed phrase export, addresses generation and addresses listing.
 - **Features that are partially implemented**: transactions listing, data requests listing, data requests editor.
 - **Features that are still missing**: Sheikah Marketplace, data requests deployment and selection of full node to use as backend.
 
 All of these features will be made available along the first Witnet testnet during 2020 Q2.
-
 
 ## Sheikah Development
 
@@ -42,7 +42,7 @@ Once this has been achieved, you can run a `witnet-node` and a `witnet-wallet`.
 
 ### Running Sheikah
 
-``` bash
+```bash
 # clone the repository
 git clone git@github.com:witnet/sheikah.git
 
@@ -58,14 +58,14 @@ yarn electron:serve
 
 ### Formatter
 
-* Verify files are correctly formatted with `yarn lint`
-* Repair lint errors with (**this operation modifies your files!**) `yarn lint!`
+- Verify files are correctly formatted with `yarn lint`
+- Repair lint errors with (**this operation modifies your files!**) `yarn lint!`
 
 ### Test
 
 We use [Jest](https://facebook.github.io/jest/) and [Cypress](https://www.cypress.io/) for testing.
 
-``` bash
+```bash
 # run unit/e2e tests
 yarn test
 
@@ -92,15 +92,16 @@ When opening a pull request a job in [Travis](https://travis-ci.com/) will be fi
 
 #### Troubleshooting
 
-* Use `yarn clean` to remove the contents of the build directory (`dist_electron`)
-* Use `yarn clean-deps` to remove all installed dependencies
-* Use `yarn reinstall` to remove all installed dependencies and install them again
+- Use `yarn clean` to remove the contents of the build directory (`dist_electron`)
+- Use `yarn clean-deps` to remove all installed dependencies
+- Use `yarn reinstall` to remove all installed dependencies and install them again
 
 If the application doesn't boot correctly and no error is reported in the terminal, try running `yarn reinstall` and try again.
 
 ## Installation
 
 ### From Github Releases
+
 ⚠️ Due to this project is under development it doesn't have any release yet and has to be run as specified in [Sheikah Development](#Sheikah-development) ⚠️
 
 ~~Go to [releases](https://github.com/witnet/sheikah/releases) section and download the binary suitable for your system.~~

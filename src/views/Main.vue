@@ -25,7 +25,9 @@ export default {
     }),
     pollData() {
       const currentRoute = this.$router.currentRoute.path
-      const matchRoute = currentRoute.startsWith('/welcome-back') || currentRoute.startsWith('/ftu')
+      const matchRoute =
+        currentRoute.startsWith('/welcome-back') ||
+        currentRoute.startsWith('/ftu')
       if (matchRoute) {
         this.getWalletInfos()
       }

@@ -7,8 +7,8 @@
           :protocol="source.kind"
           :script="source.script"
           stage="retrieve"
-          :sourceIndex="source.index"
-          :scriptId="source.scriptId"
+          :source-index="source.index"
+          :script-id="source.scriptId"
         />
         <div class="script-info"></div>
       </div>
@@ -23,16 +23,16 @@ import Fieldset from '@/components/Fieldset'
 
 export default {
   name: 'ScriptCard',
+  components: {
+    Fieldset,
+    Card,
+    RadonScript,
+  },
   props: {
     source: {
       type: Object,
       required: true,
     },
-  },
-  components: {
-    Fieldset,
-    Card,
-    RadonScript,
   },
   computed: {
     title() {
@@ -51,10 +51,11 @@ export default {
 
 .card {
   .form {
-    font-size: 16px;
     display: grid;
+    font-size: 16px;
     grid-template-columns: 1fr 300px;
     grid-template-rows: auto;
+
     .script-info {
       background-color: $yellow-0;
       border: 1px solid $yellow-3;

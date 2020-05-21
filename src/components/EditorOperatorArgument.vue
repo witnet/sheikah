@@ -1,23 +1,36 @@
 <template>
   <div class="argument-container">
-    <div data-test="argument-input" v-if="argument.markupType === 'input'" class="input-container">
+    <div
+      v-if="argument.markupType === 'input'"
+      data-test="argument-input"
+      class="input-container"
+    >
       <el-input
         class="input-operator"
         :placeholder="argument.label"
         :value="argumentValue"
         @input="
-          value => updateTemplateAndVariables({ id: argument.id, value, type: argument.markupType })
+          value =>
+            updateTemplateAndVariables({
+              id: argument.id,
+              value,
+              type: argument.markupType,
+            })
         "
       />
       <div class="link">
-        <font-awesome-icon data-test="variable-link-icon" v-show="hasVariables" icon="link" />
+        <font-awesome-icon
+          v-show="hasVariables"
+          data-test="variable-link-icon"
+          icon="link"
+        />
         <OperatorType :type="argument.type" />
       </div>
     </div>
     <div
+      v-if="argument.markupType === 'select'"
       data-test="argument-select"
       class="select-argument"
-      v-if="argument.markupType === 'select'"
     >
       <Select
         :value="selectedArgumentValue"
@@ -31,13 +44,19 @@
             })
         "
       />
-      <div data-test="select-argument" v-if="argument.selected.arguments" class="input-container">
+      <div
+        v-if="argument.selected.arguments"
+        data-test="select-argument"
+        class="input-container"
+      >
         <el-input
           class="input-operator"
           data-test="argument-input"
           :placeholder="argument.selected.arguments[0].label"
           :value="
-            argument.selected.arguments ? argument.selected.arguments[0].value.toString() : ''
+            argument.selected.arguments
+              ? argument.selected.arguments[0].value.toString()
+              : ''
           "
           @input="
             value =>
@@ -50,8 +69,8 @@
         />
         <div class="link">
           <font-awesome-icon
-            data-test="variable-link-icon"
             v-show="hasArgumentVariables"
+            data-test="variable-link-icon"
             icon="link"
           />
           <OperatorType :type="argument.selected.arguments[0].type" />
@@ -75,16 +94,21 @@ export default {
     Select,
     OperatorType,
   },
+  props: {
+    argument: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       selectedArgumentValue: {
         primaryText: this.argument.selected ? this.argument.selected.label : '',
-        secondaryText: this.argument.selected ? this.argument.selected.outputType : '',
+        secondaryText: this.argument.selected
+          ? this.argument.selected.outputType
+          : '',
       },
     }
-  },
-  props: {
-    argument: Object,
   },
   computed: {
     ...mapState({
@@ -110,7 +134,9 @@ export default {
       if (typeof argumentLabel === 'string') {
         const newValue = argumentLabel.slice(1, argumentLabel.length)
         if (this.variables.find(variable => variable.key === newValue)) {
-          const valueInVariable = this.variables.find(variable => variable.key === newValue).key
+          const valueInVariable = this.variables.find(
+            variable => variable.key === newValue
+          ).key
           if (newValue === valueInVariable) {
             return true
           }
@@ -120,9 +146,14 @@ export default {
     },
     hasVariables() {
       if (typeof this.argument.value === 'string') {
-        const newValue = this.argument.value.slice(1, this.argument.value.length)
+        const newValue = this.argument.value.slice(
+          1,
+          this.argument.value.length
+        )
         if (this.variables.find(variable => variable.key === newValue)) {
-          const valueInVariable = this.variables.find(variable => variable.key === newValue).key
+          const valueInVariable = this.variables.find(
+            variable => variable.key === newValue
+          ).key
           if (newValue === valueInVariable) {
             return true
           }
@@ -143,6 +174,7 @@ export default {
 <style lang="scss">
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+
 .select-argument {
   display: grid;
   grid-template-rows: repeat(auto-fit, auto);
@@ -150,18 +182,19 @@ export default {
 }
 
 .input-container {
-  position: relative;
-  display: flex;
-  width: 100%;
-  justify-content: right;
   align-items: center;
+  display: flex;
+  justify-content: right;
+  position: relative;
+  width: 100%;
+
   .link {
-    color: $grey-5;
-    right: 16px;
-    position: absolute;
-    font-size: 10px;
-    display: flex;
     align-items: center;
+    color: $grey-5;
+    display: flex;
+    font-size: 10px;
+    position: absolute;
+    right: 16px;
   }
 }
 </style>

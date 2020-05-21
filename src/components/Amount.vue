@@ -23,23 +23,24 @@ export default {
       default: false,
     },
   },
-  methods: {
-    standardizeWitUnits,
-  },
   computed: {
     ...mapState({
       currency: state => state.wallet.currency,
     }),
+  },
+  methods: {
+    standardizeWitUnits,
   },
 }
 </script>
 
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
+
 .currency {
-  margin-left: 4px;
   color: inherit;
   font-size: 13px;
+  margin-left: 4px;
 }
 
 .keep {

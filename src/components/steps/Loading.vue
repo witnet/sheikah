@@ -19,16 +19,11 @@ export default {
     Card,
     Spinner,
   },
-  methods: {
-    goToFirstStep() {
-      this.$router.push('/ftu/welcome')
-    },
-    reloadView() {},
-  },
   computed: {
     ...mapState({
       sessionId: state => state.wallet.sessionId,
-      error: state => state.wallet.errors.unlockWallet || state.wallet.errors.createWallet,
+      error: state =>
+        state.wallet.errors.unlockWallet || state.wallet.errors.createWallet,
     }),
   },
   watch: {
@@ -43,6 +38,12 @@ export default {
       }
     },
   },
+  methods: {
+    goToFirstStep() {
+      this.$router.push('/ftu/welcome')
+    },
+    reloadView() {},
+  },
 }
 </script>
 
@@ -55,6 +56,7 @@ export default {
   flex-direction: column;
   height: 250px;
   justify-content: center;
+
   .title {
     border: none;
     color: $purple-4;
