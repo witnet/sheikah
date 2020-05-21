@@ -1,12 +1,8 @@
 <template>
   <div class="info">
-    <label class="label">Name</label>
-    <el-input
-      v-model="updateName"
-      data-test="template-name-input"
-      :placeholder="name"
-    />
-    <label class="label">Description</label>
+    <label class="label" data-test="name-label">Name</label>
+    <el-input v-model="updateName" data-test="template-name-input" :placeholder="name" />
+    <label class="label" data-test="description-label">Description</label>
     <el-input
       v-model="updateDescription"
       type="textarea"
@@ -36,9 +32,6 @@ export default {
     },
   },
   computed: {
-    style() {
-      return this.type
-    },
     updateName: {
       get() {
         return this.name
