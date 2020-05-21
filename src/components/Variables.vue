@@ -1,7 +1,7 @@
 <template>
   <div class="variables-container">
     <div v-for="(variable, index) in variables" :key="index" class="variable">
-      <label class="label">Name</label>
+      <label class="label" data-test="name-label">Name</label>
       <div class="variable-key">
         <p class="variable-icon">$</p>
         <el-input
@@ -11,11 +11,12 @@
           :placeholder="keys[index]"
           @input="key => updateKey(index, key)"
         />
-        <div v-show="errors[index]" class="error">
+        <div v-show="errors[index]" class="error" data-test="error">
           This key is repeated. Change the variable name before continue editing
         </div>
-        <label class="label">Data type</label>
+        <label class="label" data-test="type-label">Data type</label>
         <Select
+          data-test="select-type"
           :value="{ primaryText: variable.type }"
           :options="dataTypeOptions"
           @input="
@@ -30,7 +31,7 @@
           "
         />
       </div>
-      <label class="label">Default value</label>
+      <label class="label" data-test="value-label">Default value</label>
       <el-input
         class="variable-value"
         data-test="edit-var-value-input"
@@ -47,10 +48,10 @@
             })
         "
       />
-      <label class="label">Description</label>
+      <label class="label" data-test="description-label">Description</label>
       <el-input
         class="variable-value"
-        data-test="edit-var-value-input"
+        data-test="edit-var-description-input"
         :placeholder="variable.description"
         :value="variable.description"
         @input="
@@ -64,13 +65,14 @@
             })
         "
       />
-      <div data-test="delete-var-btn" class="delete" @click="deleteVariable({ index })">
+      <div class="delete" data-test="delete-var-btn" @click="deleteVariable({ index })">
         <img src="@/resources/svg/close-btn.svg" />
       </div>
     </div>
     <div class="img-container">
       <img
         class="add-operator"
+        data-test="add-variable"
         src="@/resources/svg/add-operator.svg"
         @click="createVariable"
       />
@@ -92,9 +94,7 @@ export default {
   data() {
     return {
       errors: [],
-      isOpen: [],
       keys: this.$store.getters.variablesKeys,
-      selectedType: [],
     }
   },
   computed: {
@@ -113,14 +113,6 @@ export default {
     dataTypeOptions() {
       return [{ primaryText: 'String' }, { primaryText: 'Boolean' }, { primaryText: 'Number' }]
     },
-  },
-  watch: {
-    variables() {
-      this.keys = this.variablesKeys
-    },
-  },
-  created() {
-    this.selectedType = this.dataTypeOptions[0]
   },
   methods: {
     ...mapMutations({

@@ -96,6 +96,7 @@
             <span class="primary">{{ option.primaryText }}</span>
           </div>
           <OperatorType
+            v-if="option.secondaryText"
             class="value"
             :data-test="`option-value-${index}`"
             :type="option.secondaryText"
