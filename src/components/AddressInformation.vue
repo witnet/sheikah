@@ -6,7 +6,7 @@
   <div v-else-if="pkh" class="information">
     <div class="header">
       <p class="caption">
-        Address <span class="number">#{{ index }}</span>
+        Address <span class="number">#{{ index + 1 }}</span>
       </p>
       <div v-if="!used && !copied" class="copy" @click="copy">
         <font-awesome-icon class="icon" icon="copy" />
