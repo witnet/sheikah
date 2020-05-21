@@ -1,9 +1,17 @@
 <template>
   <router-link :class="normalizeType(type)" :to="link">
     <button data-test="local-wallet" class="option">
-      <font-awesome-icon v-if="type === 'backward'" class="angle" icon="angle-left" />
+      <font-awesome-icon
+        v-if="type === 'backward'"
+        class="angle"
+        icon="angle-left"
+      />
       <p class="name">{{ name }}</p>
-      <font-awesome-icon v-if="type === 'forward'" class="angle" icon="angle-right" />
+      <font-awesome-icon
+        v-if="type === 'forward'"
+        class="angle"
+        icon="angle-right"
+      />
     </button>
   </router-link>
 </template>
@@ -12,9 +20,18 @@
 export default {
   name: 'RedirectionOption',
   props: {
-    link: String,
-    name: String,
-    type: String,
+    link: {
+      type: String,
+      default: '',
+    },
+    name: {
+      type: String,
+      default: '',
+    },
+    type: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
     normalizeType(propType) {
@@ -36,8 +53,8 @@ export default {
 
 .option {
   background: $white;
-  border-radius: 3px;
   border: 1px solid $grey-1;
+  border-radius: 3px;
   color: $alt-grey-5;
   cursor: pointer;
   display: flex;
@@ -46,18 +63,20 @@ export default {
   justify-content: space-between;
   padding: 0 24px;
   width: 100%;
+
   &:focus,
   &:hover {
-    outline: none;
-    cursor: pointer;
     border-color: $purple-4;
+    cursor: pointer;
+    outline: none;
   }
 
   .name {
-    text-overflow: ellipsis;
-    white-space: nowrap;
     overflow: hidden;
     padding: 0 16px 0 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
     &:active {
       color: $alt-grey-5;
     }

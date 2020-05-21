@@ -1,4 +1,4 @@
-import { standardizeOperatorName } from '../../src/utils'
+import { standardizeOperatorName } from '@/utils'
 
 describe('standardizeOperatorName', () => {
   it('works when no argument is provided', () => {

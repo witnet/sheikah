@@ -4,8 +4,8 @@
     :visible="true"
     height="100%"
     width="100%"
-    v-on:close="closeAndClear"
     :show-close="false"
+    @close="closeAndClear"
   >
     <div v-if="generatedTransaction" class="transaction-info">
       <div class="scroll">
@@ -21,27 +21,29 @@
           <p class="entry">Fee</p>
           <p class="value">{{ generatedTransaction.metadata.fee }} uWit/B</p>
         </div>
-        <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
+        <div v-if="isAdvancedVisible" data-test="advance-options" class="row">
           <p class="entry">Inputs</p>
           <p></p>
           <div class="column">
             <p
-              class="address value"
-              v-for="input in generatedTransaction.transaction.ValueTransfer.body.inputs"
+              v-for="input in generatedTransaction.transaction.ValueTransfer
+                .body.inputs"
               :key="input.output_pointer"
+              class="address value"
             >
               {{ input.output_pointer }}
             </p>
           </div>
         </div>
-        <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
+        <div v-if="isAdvancedVisible" data-test="advance-options" class="row">
           <p class="entry">Outputs</p>
           <p></p>
           <div class="column">
             <p
-              class="address value"
-              v-for="output in generatedTransaction.transaction.ValueTransfer.body.outputs"
+              v-for="output in generatedTransaction.transaction.ValueTransfer
+                .body.outputs"
               :key="output.pkh"
+              class="address value"
             >
               <span>PKH: {{ output.pkh }}</span>
               <span>Amount: {{ output.value }}</span>
@@ -49,7 +51,7 @@
           </div>
         </div>
 
-        <div data-test="advance-options" v-if="isAdvancedVisible" class="row">
+        <div v-if="isAdvancedVisible" data-test="advance-options" class="row">
           <p class="entry">Bytes</p>
           <p></p>
           <div class="column">
@@ -61,23 +63,28 @@
         <p
           v-if="isAdvancedVisible"
           data-test="advance-options"
-          @click="toggleAdvanceOptions"
           class="link"
+          @click="toggleAdvanceOptions"
         >
           Show less
         </p>
-        <p v-else data-test="show-advance-options" @click="toggleAdvanceOptions" class="link">
+        <p
+          v-else
+          data-test="show-advance-options"
+          class="link"
+          @click="toggleAdvanceOptions"
+        >
           Show advanced options
         </p>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="closeDialog" data-test="cancel-tx">
+          <el-button data-test="cancel-tx" @click="closeDialog">
             Cancel
           </el-button>
           <el-button
             tabindex="2"
-            @keydown.enter.esc.prevent="confirmTransaction"
             type="primary"
             data-test="confirm-tx"
+            @keydown.enter.esc.prevent="confirmTransaction"
             @click="confirmTransaction"
           >
             Confirm
@@ -87,18 +94,18 @@
     </div>
     <el-form
       v-else
+      ref="send-form"
       data-test="tx-form"
       :model="form"
       label-position="left"
       :rules="rules"
-      ref="send-form"
       label-width="120px"
     >
       <el-form-item label="Address" prop="address">
         <el-input
+          v-model="form.address"
           v-focus
           tabindex="1"
-          v-model="form.address"
           placeholder="Recipient address"
           data-test="tx-address"
           maxlength="43"
@@ -106,21 +113,25 @@
       </el-form-item>
 
       <el-form-item label="Label" prop="label">
-        <el-input tabindex="2" v-model="form.label" data-test="tx-label" />
+        <el-input v-model="form.label" tabindex="2" data-test="tx-label" />
       </el-form-item>
       <el-form-item label="Amount" prop="amount">
-        <el-input tabindex="3" v-model.number="form.amount" data-test="tx-amount" />
+        <el-input
+          v-model.number="form.amount"
+          tabindex="3"
+          data-test="tx-amount"
+        />
       </el-form-item>
       <el-form-item label="fee" prop="fee">
-        <el-input tabindex="4" v-model.number="form.fee" data-test="tx-fee" />
+        <el-input v-model.number="form.fee" tabindex="4" data-test="tx-fee" />
       </el-form-item>
 
       <div class="submit">
         <el-button
           tabindex="5"
-          @keydown.enter.esc.prevent="createVTT"
           type="primary"
           data-test="sign-send-btn"
+          @keydown.enter.esc.prevent="createVTT"
           @click="tryCreateVTT"
         >
           Sign and send
@@ -134,10 +145,12 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
-  name: 'send',
+  name: 'Send',
   data() {
     const enoughFunds = (rule, value, callback) => {
-      const totalAmount = Number.isInteger(this.form.fee) ? value + this.form.fee : value
+      const totalAmount = Number.isInteger(this.form.fee)
+        ? value + this.form.fee
+        : value
       if (totalAmount > this.availableBalance) {
         callback(new Error("You don't have enough funds"))
       } else {
@@ -242,41 +255,49 @@ export default {
 }
 
 .transaction-info {
-  overflow-y: auto;
   align-items: center;
   display: flex;
   flex-direction: column;
   max-height: 500px;
+  overflow-y: auto;
+
   .entry {
-    font-weight: bold;
-    font-size: 16px;
     color: $alt-grey-5;
+    font-size: 16px;
+    font-weight: bold;
   }
+
   .value {
-    max-width: 400px;
     font-size: 16px;
     font-weight: 400;
+    max-width: 400px;
   }
+
   .row {
-    padding: 16px 10px;
+    border-bottom: 1px solid $alt-grey-1;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid $alt-grey-1;
+    padding: 16px 10px;
+
     .column {
       display: flex;
       flex-direction: column;
     }
   }
+
   .scroll {
-    width: 100%;
-    overflow-y: auto;
     overflow-wrap: break-word;
-  }
-  .confirm-advance-btn {
+    overflow-y: auto;
     width: 100%;
+  }
+
+  .confirm-advance-btn {
     text-align: right;
+    width: 100%;
+
     .link {
       padding: 24px;
+
       &:hover {
         cursor: pointer;
       }
@@ -285,29 +306,32 @@ export default {
 }
 
 .row {
-  display: flex;
   align-items: flex-start;
+  display: flex;
   margin-bottom: 16px;
 
   .label {
-    min-width: 64px;
     margin-right: 24px;
     margin-top: 8px;
+    min-width: 64px;
     text-align: right;
   }
+
   .input {
-    text-align: left;
     padding-left: 16px;
+    text-align: left;
   }
 }
+
 .submit {
-  width: 100%;
-  text-align: right;
   padding-top: 10px;
+  text-align: right;
+  width: 100%;
 }
 
 .dialog-footer {
   margin-top: 16px;
+
   .button {
     margin-right: 15px;
   }

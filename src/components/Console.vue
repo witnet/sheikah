@@ -1,11 +1,11 @@
 <template>
   <div class="console-container">
     <ConsoleTabs
-      v-on:change-tab="changeTab"
       :current="currentTab"
       :tabs="tabs"
-      v-on:close="closeConsole"
-      :showConsole="showConsole"
+      :show-console="showConsole"
+      @change-tab="changeTab"
+      @close="closeConsole"
     />
     <Variables v-show="showVariables" />
     <Logs v-show="showLogs" :logs="logs" />
@@ -27,7 +27,10 @@ export default {
     Logs,
   },
   props: {
-    logs: Array,
+    logs: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -35,14 +38,6 @@ export default {
       tabs: [VARIABLES, LOGS],
       showConsole: false,
     }
-  },
-  watch: {
-    logs(val, old) {
-      if (val.length !== val.old) {
-        this.changeTab(LOGS)
-        this.openConsole()
-      }
-    },
   },
   computed: {
     showVariables: function() {
@@ -57,6 +52,14 @@ export default {
         return true
       } else {
         return false
+      }
+    },
+  },
+  watch: {
+    logs(val, old) {
+      if (val.length !== val.old) {
+        this.changeTab(LOGS)
+        this.openConsole()
       }
     },
   },
@@ -80,7 +83,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .console-container {
-  position: sticky;
   color: $alt-grey-1;
+  position: sticky;
 }
 </style>

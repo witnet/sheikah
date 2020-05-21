@@ -1,13 +1,13 @@
 <template>
   <NavigationCard
+    ref="navCard"
     data-test="header-4"
     class="wallet-seed-validation"
     title="Confirm your seed phrase"
-    previousText="Back"
-    nextText="Next"
-    :previousStep="previousStep"
-    :nextStep="nextStep"
-    ref="navCard"
+    previous-text="Back"
+    next-text="Next"
+    :previous-step="previousStep"
+    :next-step="nextStep"
   >
     <p>
       Please type your 12 word seed phrase.
@@ -15,19 +15,19 @@
     <!-- maxlength = longest_mnemonic_length * words + whitespaces -->
     <!-- maxlength = 8 * 12 + 11 -->
     <Input
+      v-model="seed"
       type="big"
       class="seed"
-      v-model="seed"
       :autoresize="true"
       :maxlength="107"
-      v-on:go-next="nextStep"
+      @go-next="nextStep"
     />
-    <p data-test="mnemonics-error-alert" class="match-error" v-if="seedError">
+    <p v-if="seedError" data-test="mnemonics-error-alert" class="match-error">
       {{ seedError.message }}
     </p>
     <p class="paragraph">
-      Please ensure you do not add any extra spaces between words or at the beginning or end of the
-      phrase.
+      Please ensure you do not add any extra spaces between words or at the
+      beginning or end of the phrase.
     </p>
   </NavigationCard>
 </template>
@@ -71,6 +71,14 @@ export default {
       }
     },
   },
+  beforeDestroy() {
+    if (this.mnemonicsError) {
+      this.clearError({ error: this.mnemonicsError.name })
+    }
+    if (this.seedError) {
+      this.clearError({ error: this.seedError.name })
+    }
+  },
   methods: {
     ...mapMutations({
       setSeed: 'setSeed',
@@ -99,16 +107,9 @@ export default {
       this.$router.push('/ftu/welcome')
     },
   },
-  beforeDestroy() {
-    if (this.mnemonicsError) {
-      this.clearError({ error: this.mnemonicsError.name })
-    }
-    if (this.seedError) {
-      this.clearError({ error: this.seedError.name })
-    }
-  },
 }
 </script>
+
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
@@ -135,6 +136,7 @@ export default {
 .match-error {
   color: $red-2;
 }
+
 .paragraph {
   margin-top: 16px;
 }

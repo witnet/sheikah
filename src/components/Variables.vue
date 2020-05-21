@@ -6,8 +6,8 @@
         class="variable-value"
         :value="keys[index]"
         :error="errors[index]"
-        :blockOpen="error"
-        v-on:close="key => updateVariables({ index, key, value: variable.value })"
+        :block-open="error"
+        @close="key => updateVariables({ index, key, value: variable.value })"
         @input="key => updateKey(index, key)"
       />
       <el-input
@@ -16,28 +16,38 @@
         data-test="edit-var-value-input"
         :placeholder="variable.value"
         :value="variable.value"
-        @input="val => updateVariables({ index, key: variable.key, value: val })"
+        @input="
+          val => updateVariables({ index, key: variable.key, value: val })
+        "
       />
-      <div class="error" v-show="errors[index]">
+      <div v-show="errors[index]" class="error">
         (This key is repeated. Change the variable name before continue editing)
       </div>
-      <div data-test="delete-var-btn" @click="deleteVariable({ index })" class="delete">
+      <div
+        data-test="delete-var-btn"
+        class="delete"
+        @click="deleteVariable({ index })"
+      >
         <font-awesome-icon icon="times-circle" class="delete-btn" />
       </div>
     </div>
     <div class="img-container">
       <img
         data-test="add-var-btn"
-        @click="createVariable"
         class="add-btn"
         src="@/resources/svg/add.svg"
+        @click="createVariable"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { UPDATE_VARIABLES, CREATE_VARIABLE, DELETE_VARIABLE } from '@/store/mutation-types'
+import {
+  UPDATE_VARIABLES,
+  CREATE_VARIABLE,
+  DELETE_VARIABLE,
+} from '@/store/mutation-types'
 import EditableText from '@/components/EditableText'
 import { mapGetters, mapState, mapMutations } from 'vuex'
 
@@ -52,6 +62,25 @@ export default {
       isOpen: [],
       keys: this.$store.getters.variablesKeys,
     }
+  },
+  computed: {
+    ...mapGetters({
+      variablesKeys: 'variablesKeys',
+    }),
+    ...mapState({
+      variables: state => state.rad.currentTemplate.variables,
+    }),
+    error() {
+      return this.errorIndex !== -1
+    },
+    errorIndex() {
+      return this.errors.findIndex(error => !!error)
+    },
+  },
+  watch: {
+    variables() {
+      this.keys = this.variablesKeys
+    },
   },
   methods: {
     ...mapMutations({
@@ -75,25 +104,6 @@ export default {
       return !!this.variables.find(variable => variable.key === key)
     },
   },
-  computed: {
-    ...mapGetters({
-      variablesKeys: 'variablesKeys',
-    }),
-    ...mapState({
-      variables: state => state.rad.currentTemplate.variables,
-    }),
-    error() {
-      return this.errorIndex !== -1
-    },
-    errorIndex() {
-      return this.errors.findIndex(error => !!error)
-    },
-  },
-  watch: {
-    variables() {
-      this.keys = this.variablesKeys
-    },
-  },
 }
 </script>
 
@@ -102,55 +112,65 @@ export default {
 @import '@/styles/theme.scss';
 
 .variables-container {
-  width: 100%;
-  padding-top: 32px;
-  height: 20vh;
-  overflow-y: auto;
   background-color: $black;
   color: $alt-grey-2;
+  height: 20vh;
+  overflow-y: auto;
+  padding-top: 32px;
+  width: 100%;
+
   .variable {
-    padding-left: 16px;
     display: block;
     display: flex;
     justify-items: left;
+    padding-left: 16px;
+
     .label {
       color: $alt-grey-2;
-      padding-right: 5px;
       margin: 8px;
+      padding-right: 5px;
     }
+
     .variable-value {
+      align-items: center;
       background-color: $black;
       display: flex;
-      align-items: center;
-      margin: 8px;
       height: 20px;
+      margin: 8px;
+
       &.input {
         width: 80px;
       }
     }
   }
+
   .delete {
-    display: flex;
     align-items: center;
-    padding-left: 16px;
+    display: flex;
     font-size: 12px;
+    padding-left: 16px;
+
     &:hover {
       cursor: pointer;
     }
   }
+
   .error {
-    display: flex;
     align-items: center;
-    padding-left: 16px;
     color: $red-5;
+    display: flex;
+    padding-left: 16px;
   }
+
   .img-container {
-    position: fixed;
     bottom: 20px;
+    position: fixed;
     right: 20px;
+
     .add-btn {
       width: 35px;
     }
+
     &:hover {
       cursor: pointer;
     }

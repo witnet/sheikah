@@ -1,5 +1,9 @@
 <template>
-  <img :class="['status', synced ? 'synced' : 'syncing']" :src="url" alt="avatar" />
+  <img
+    :class="['status', synced ? 'synced' : 'syncing']"
+    :src="url"
+    alt="avatar"
+  />
 </template>
 
 <script>
@@ -7,7 +11,10 @@ export default {
   name: 'DotIndicator',
   props: {
     synced: Boolean,
-    url: String,
+    url: {
+      type: String,
+      default: '',
+    },
   },
 }
 </script>
@@ -16,12 +23,14 @@ export default {
 @import '@/styles/_colors.scss';
 
 .status {
-  width: 30px;
   border-radius: 4px;
+  width: 30px;
 }
+
 .synced {
   border: 2px solid $green-5;
 }
+
 .syncing {
   border: 2px solid $yellow-4;
 }

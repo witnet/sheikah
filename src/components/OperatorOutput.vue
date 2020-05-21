@@ -9,7 +9,10 @@
 export default {
   name: 'OperatorOutput',
   props: {
-    label: String,
+    label: {
+      type: String,
+      default: '',
+    },
   },
 }
 </script>
@@ -19,75 +22,85 @@ export default {
 @import '@/styles/theme.scss';
 
 .output {
-  width: max-content;
-  font-size: 14px;
-  font-weight: normal;
-  text-align: center;
-  display: flex;
   align-items: center;
   border-radius: $input_big-border-radius;
+  display: flex;
+  font-size: 14px;
+  font-weight: normal;
   margin-left: 8px;
   overflow: hidden;
+  text-align: center;
+  width: max-content;
+
   .label {
     color: $white;
-    padding: 0px 4px;
+    padding: 0 4px;
   }
+
   &.string {
-    border: 1px solid $string;
     background-color: $string;
+    border: 1px solid $string;
   }
+
   &.mixed {
-    border: 1px solid $mixed;
     background-color: $mixed;
+    border: 1px solid $mixed;
   }
+
   &.boolean {
-    border: 1px solid $boolean;
     background-color: $boolean;
+    border: 1px solid $boolean;
   }
+
   &.int {
-    border: 1px solid $int;
     background-color: $int;
+    border: 1px solid $int;
   }
+
   &.float {
-    border: 1px solid $float;
     background-color: $float;
+    border: 1px solid $float;
   }
+
   &.array {
-    border: 1px solid $array;
     background-color: $array;
+    border: 1px solid $array;
   }
+
   &.map {
-    border: 1px solid $map;
     background-color: $map;
+    border: 1px solid $map;
   }
+
   &.null {
-    border: 1px solid $null;
     background-color: $null;
+    border: 1px solid $null;
   }
+
   &.result {
-    border: 1px solid $result;
     background-color: $result;
+    border: 1px solid $result;
   }
+
   &.bytes {
-    border: 1px solid $bytes;
     background-color: $bytes;
+    border: 1px solid $bytes;
   }
-  &.boolean {
-    border: 1px solid $boolean;
-    background-color: $boolean;
-  }
+
   &.generic {
-    border: 1px solid $generic;
     background-color: $generic;
+    border: 1px solid $generic;
   }
+
   &.integer {
-    border: 1px solid $integer;
     background-color: $integer;
+    border: 1px solid $integer;
   }
+
   .output-box {
-    min-width: 44px;
-    height: 24px;
     background: $white;
+    height: 24px;
+    min-width: 44px;
   }
 }
 </style>

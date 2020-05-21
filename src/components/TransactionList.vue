@@ -7,6 +7,7 @@
     <div class="list">
       <Transaction
         v-for="transaction in paginatedItems"
+        :id="transaction.id"
         :key="transaction.id"
         :currency="currency"
         :type="transaction.type"
@@ -14,8 +15,7 @@
         :outputs="transaction.outputs"
         :fee="transaction.fee"
         :date="transaction.date"
-        :timeAgo="transaction.timeAgo"
-        :id="transaction.id"
+        :time-ago="transaction.timeAgo"
         :label="transaction.label"
         :amount="transaction.amount"
         :block="transaction.block"
@@ -25,7 +25,7 @@
         :state="transaction.currentStage"
         :reveals="transaction.reveals"
         :result="transaction.finalResult"
-        :transactionType="transaction.transactionType"
+        :transaction-type="transaction.transactionType"
       />
       <div v-if="transactions.length === 0" class="no-transactions-container">
         <p class="no-transactions-text">You don't have transactions</p>
@@ -33,10 +33,10 @@
     </div>
     <div v-show="transactions.length" class="pagination-nav">
       <el-pagination
-        @current-change="handleCurrentChange"
         layout="prev, pager, next"
         :total="transactions.length"
         :current-page="currentPage"
+        @current-change="handleCurrentChange"
       />
     </div>
   </div>
@@ -49,6 +49,16 @@ export default {
   name: 'TransactionList',
   components: {
     Transaction,
+  },
+  props: {
+    currency: {
+      type: String,
+      required: true,
+    },
+    transactions: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -71,10 +81,6 @@ export default {
       this.currentPage = val
     },
   },
-  props: {
-    currency: String,
-    transactions: Array,
-  },
 }
 </script>
 
@@ -84,44 +90,52 @@ export default {
 
 .transaction-list {
   width: 100%;
+
   .label {
+    color: $alt-grey-5;
     font-size: 16px;
     font-weight: 600;
-    color: $alt-grey-5;
   }
+
   .number {
-    font-size: 14px;
     color: $alt-grey-3;
+    font-size: 14px;
     margin-left: 8px;
   }
+
   .list {
+    background-color: $white;
+    border: 0.5px solid rgb(224, 224, 224);
+    border-radius: 4px;
+    box-shadow: $card-box-shadow;
     height: 84vh;
     overflow: auto;
-    border-radius: 4px;
-    border: 0.5px solid rgb(224, 224, 224);
-    box-shadow: $card-box-shadow;
-    background-color: $white;
   }
+
   .no-transactions-container {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 24px;
+
     .no-transactions-text {
-      font-size: 16px;
-      font-weight: 400;
-      font-style: italic;
       color: $alt-grey-5;
+      font-size: 16px;
+      font-style: italic;
+      font-weight: 400;
     }
+
     .no-transactions-img {
-      width: 40px;
       margin-bottom: 16px;
+      width: 40px;
     }
   }
+
   .pagination-nav {
-    padding: 16px 0px 0px 0px;
+    padding: 16px 0 0 0;
     text-align: center;
   }
+
   .title {
     margin-bottom: 16px;
   }

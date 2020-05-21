@@ -60,7 +60,11 @@ export default {
         }
         state.currentTemplate.variables = [...state.currentTemplate.variables]
         usedVariables.forEach(usedVariable => {
-          this.commit(USED_VARIABLES, { id: usedVariable.id, variable: key, value })
+          this.commit(USED_VARIABLES, {
+            id: usedVariable.id,
+            variable: key,
+            value,
+          })
           this.commit(UPDATE_TEMPLATE, {
             id: usedVariable.id,
             value: '$' + usedVariable.variable,
@@ -89,13 +93,21 @@ export default {
     },
     [USED_VARIABLES](state, { id, variable, value }) {
       const usedVariable = state.currentTemplate.usedVariables.find(x => x.id)
-      const hasSameId = state.currentTemplate.usedVariables.find(x => x.id === id)
+      const hasSameId = state.currentTemplate.usedVariables.find(
+        x => x.id === id
+      )
       if (usedVariable && !!hasSameId) {
         hasSameId.variable = variable
         hasSameId.value = value
       } else {
-        state.currentTemplate.usedVariables.push({ id: id, variable: variable, value: value })
-        state.currentTemplate.usedVariables = [...state.currentTemplate.usedVariables]
+        state.currentTemplate.usedVariables.push({
+          id: id,
+          variable: variable,
+          value: value,
+        })
+        state.currentTemplate.usedVariables = [
+          ...state.currentTemplate.usedVariables,
+        ]
       }
     },
     [UPDATE_HISTORY](state, { mir }) {
@@ -106,13 +118,17 @@ export default {
     [UPDATE_TEMPLATE](state, { id, value }) {
       state.currentRadonMarkupInterpreter.update(id, value)
       state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+      })
     },
     [EDITOR_REDO](state) {
       const redolenght = state.currentRadonMarkupInterpreter.retrieve.length
       if (state.history[state.historyIndex + 1]) {
         state.historyIndex += 1
-        state.currentRadonMarkupInterpreter = new Radon(state.history[state.historyIndex])
+        state.currentRadonMarkupInterpreter = new Radon(
+          state.history[state.historyIndex]
+        )
         state.radRequest = state.currentRadonMarkupInterpreter
         const currentLenght = state.radRequest.retrieve.length
         if (redolenght > currentLenght) {
@@ -126,9 +142,11 @@ export default {
       const lenght = state.currentRadonMarkupInterpreter.retrieve.length
       if (state.history[state.historyIndex - 1]) {
         state.historyIndex = state.historyIndex - 1
-        state.currentRadonMarkupInterpreter = new Radon(state.history[state.historyIndex])
+        state.currentRadonMarkupInterpreter = new Radon(
+          state.history[state.historyIndex]
+        )
         state.radRequest = state.currentRadonMarkupInterpreter
-        let currentLenght = state.radRequest.retrieve.length
+        const currentLenght = state.radRequest.retrieve.length
         if (lenght > currentLenght) {
           this.commit(MOVE_CAROUSEL, { direction: 'right' })
         } else if (lenght < currentLenght) {
@@ -153,18 +171,24 @@ export default {
         contentType: source.contentType,
       })
       state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+      })
     },
     [DELETE_SOURCE](state, { index }) {
       state.currentRadonMarkupInterpreter.deleteSource(index)
       state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+      })
     },
     [ADD_SOURCE](state) {
       state.radRequest = state.currentRadonMarkupInterpreter
       state.currentRadonMarkupInterpreter.addSource()
       state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+      })
     },
     [SET_TEMPLATES](state, { templates }) {
       if (templates) {
@@ -174,14 +198,19 @@ export default {
     [PUSH_OPERATOR](state, { scriptId }) {
       state.currentRadonMarkupInterpreter.addOperator(scriptId)
       state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+      })
     },
     [CREATE_TEMPLATE](state) {
-      const name = Object.values(state.templates).reduce((acc, _, index, self) => {
-        index = parseInt(acc.split(' ')[1]) + 1
-        let name = 'template'
-        return self.find(template => template.name === acc) ? name : acc
-      }, 'template')
+      const name = Object.values(state.templates).reduce(
+        (acc, _, index, self) => {
+          index = parseInt(acc.split(' ')[1]) + 1
+          const name = 'template'
+          return self.find(template => template.name === acc) ? name : acc
+        },
+        'template'
+      )
 
       const radRequest = {
         timelock: 0,
@@ -232,7 +261,9 @@ export default {
     [DELETE_OPERATOR](state, { scriptId, operatorId }) {
       state.currentRadonMarkupInterpreter.deleteOperator(scriptId, operatorId)
       state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, { mir: state.currentRadonMarkupInterpreter.getMir() })
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+      })
     },
     renameTemplate: function(state, { id, name }) {
       state.templates[id].name = name
@@ -297,7 +328,7 @@ export default {
     saveTemplate: async function(context, args) {
       const isImportingTemplate = args ? !!args.template : null
       const date = Date.now()
-      let templates = context.state.templates
+      const templates = context.state.templates
       const templateToSave = isImportingTemplate
         ? {
             ...args.template,

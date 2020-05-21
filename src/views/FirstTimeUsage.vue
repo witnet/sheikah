@@ -28,12 +28,12 @@ export default {
 @import '@/styles/theme.scss';
 
 .centered {
-  background-color: $alpha-purple;
-  margin: 0;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  background-color: $alpha-purple;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin: 0;
+  width: 100vw;
 }
 </style>

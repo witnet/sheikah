@@ -57,10 +57,10 @@
     <div class="submit">
       <el-button @click="goBack">Back</el-button>
       <el-button
-        @keydown.enter.esc.prevent="confirmDataRequest"
         data-test="sign-send-btn"
-        @click="confirmDataRequest"
         type="primary"
+        @keydown.enter.esc.prevent="confirmDataRequest"
+        @click="confirmDataRequest"
       >
         Deploy
       </el-button>
@@ -72,18 +72,54 @@
 export default {
   name: 'ConfirmDataRequest',
   props: {
-    backupWitnesses: Number,
-    commitFee: Number,
-    extraCommitRounds: Number,
-    extraRevealRounds: Number,
-    fee: Number,
-    generatedTransaction: Object,
-    minConsensusPercentage: Number,
-    revealFee: Number,
-    rewardFee: Number,
-    tallyFee: Number,
-    witnesses: Number,
-    timelock: Number,
+    backupWitnesses: {
+      type: Number,
+      required: true,
+    },
+    commitFee: {
+      type: Number,
+      required: true,
+    },
+    extraCommitRounds: {
+      type: Number,
+      required: true,
+    },
+    extraRevealRounds: {
+      type: Number,
+      required: true,
+    },
+    fee: {
+      type: Number,
+      required: true,
+    },
+    generatedTransaction: {
+      type: Object,
+      required: true,
+    },
+    minConsensusPercentage: {
+      type: Number,
+      required: true,
+    },
+    revealFee: {
+      type: Number,
+      required: true,
+    },
+    rewardFee: {
+      type: Number,
+      required: true,
+    },
+    tallyFee: {
+      type: Number,
+      required: true,
+    },
+    witnesses: {
+      type: Number,
+      required: true,
+    },
+    timelock: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
@@ -111,19 +147,22 @@ export default {
 .generated-transaction {
   max-width: 250px;
 }
+
 .row {
-  display: flex;
   align-items: center;
+  display: flex;
   margin-bottom: 16px;
+
   .label {
-    min-width: 130px;
     font-size: 16px;
-    text-align: left;
     margin-right: 16px;
-  }
-  .input {
+    min-width: 130px;
     text-align: left;
+  }
+
+  .input {
     padding-left: 16px;
+    text-align: left;
   }
 }
 
@@ -131,11 +170,12 @@ export default {
   .title {
     color: $alt-grey-3;
     font-size: 18px;
-    margin: 0px 0px 40px 32px;
+    margin: 0 0 40px 32px;
   }
+
   .submit {
-    width: 100%;
     text-align: right;
+    width: 100%;
   }
 }
 </style>

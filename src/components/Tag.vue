@@ -34,13 +34,13 @@ export default {
 @import '@/styles/_colors.scss';
 
 .tag {
-  font-size: 10px;
-  font-weight: bold;
-  color: $white;
-  padding: 6px 10px;
-  display: flex;
   align-items: center;
   border-radius: 2px;
+  color: $white;
+  display: flex;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 6px 10px;
   user-select: none;
 
   &.green {

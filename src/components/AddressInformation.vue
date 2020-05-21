@@ -8,7 +8,7 @@
       <p class="caption">
         Address <span class="number">#{{ index }}</span>
       </p>
-      <div v-if="!used && !copied" @click="copy" class="copy">
+      <div v-if="!used && !copied" class="copy" @click="copy">
         <font-awesome-icon class="icon" icon="copy" />
       </div>
 
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <p class="pkh" v-if="pkh">{{ used ? blindPkh : pkh }}</p>
+    <p v-if="pkh" class="pkh">{{ used ? blindPkh : pkh }}</p>
 
     <div v-if="!used" class="transactions">
       <Tag class="tag" color="green" text="NOT USED" />
@@ -82,42 +82,41 @@ export default {
      * Pkh of the selected address
      */
     pkh: {
-      required: false,
       type: String,
+      default: '',
     },
     /**
      * Amount of wits of the address
      */
     amount: {
-      required: false,
       type: Number,
+      default: 0,
     },
     /**
      * How many payments has receive the selected address
      */
     payments: {
-      required: false,
       type: Number,
+      default: 0,
     },
     /**
      * Date in which the address received the first payment
      */
     firstPaymentDate: {
-      required: false,
       type: Date,
+      default: null,
     },
     /**
      * Date in which the address received the last payment
      */
     lastPaymentDate: {
-      required: false,
       type: Date,
+      default: null,
     },
     /**
      * Indicates if a loading state should be shown
      */
     loading: {
-      required: false,
       type: Boolean,
     },
   },
@@ -149,14 +148,15 @@ export default {
 
 <style lang="scss">
 @import '@/styles/_colors.scss';
+
 .information {
-  padding: 25px;
-  min-height: 200px;
   background: $white;
+  min-height: 200px;
+  padding: 25px;
 
   &.loading {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: center;
   }
 
@@ -178,12 +178,14 @@ export default {
 
     .checked {
       align-items: center;
+      color: $green-4;
       display: flex;
       height: 24px;
       justify-content: center;
       padding: 5px;
       user-select: none;
       width: 24px;
+
       .icon {
         color: $green-3;
         width: 14px;
@@ -193,8 +195,8 @@ export default {
     .copy {
       align-items: center;
       background: $grey-0;
-      border-radius: 2px;
       border: 1px solid $grey-1;
+      border-radius: 2px;
       cursor: pointer;
       display: flex;
       height: 24px;
@@ -202,6 +204,7 @@ export default {
       padding: 5px;
       user-select: none;
       width: 24px;
+
       .icon {
         color: $alt-grey-4;
         width: 11px;
@@ -214,10 +217,6 @@ export default {
           color: $purple-2;
         }
       }
-    }
-
-    .checked {
-      color: $green-4;
     }
   }
 

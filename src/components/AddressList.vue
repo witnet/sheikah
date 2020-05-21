@@ -37,8 +37,8 @@ export default {
      * Address selected
      */
     selected: {
-      required: false,
       type: Number,
+      default: null,
     },
   },
   methods: {
@@ -73,8 +73,8 @@ export default {
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
   background: transparent;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {

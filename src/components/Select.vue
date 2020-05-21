@@ -2,9 +2,9 @@
   <div @keydown.tab="tabKeyPressed = true" @blur.capture="handleBlur">
     <div :class="'select-box'">
       <button
+        id="select-button"
         ref="button"
         data-test="select-btn"
-        id="select-button"
         aria-haspopup="listbox"
         aria-labelledby="select-label select-button"
         :aria-expanded="areOptionsVisible"
@@ -19,16 +19,16 @@
           <div class="label" :class="{ big: type === 'big' }">
             <div class="primary" data-test="selected-option-primary">
               <img
-                class="item-icon"
                 v-if="selectedOption.img"
+                class="item-icon"
                 :src="selectedOption.img"
                 alt="icon"
               />
               {{ selectedOption.primaryText }}
             </div>
             <OperatorType
-              data-test="selected-option-secondary"
               v-if="selectedOption.secondaryText"
+              data-test="selected-option-secondary"
               :type="selectedOption.secondaryText"
             />
             <div class="arrow">
@@ -48,11 +48,16 @@
           </div>
         </div>
       </button>
-      <input v-if="!tabKeyPressed" :aria-hidden="true" class="hidden" @focus="handleFocus" />
+      <input
+        v-if="!tabKeyPressed"
+        :aria-hidden="true"
+        class="hidden"
+        @focus="handleFocus"
+      />
       <ul
         v-if="areOptionsVisible"
-        data-test="options"
         ref="options"
+        data-test="options"
         tabindex="-1"
         role="listbox"
         :aria-labelledby="`select-label`"
@@ -70,16 +75,24 @@
           v-for="(option, index) in filteredOptions"
           :id="`select-option-${index}`"
           :ref="`option-${index}`"
-          :data-test="`option-${index}`"
           :key="index"
+          :data-test="`option-${index}`"
           :aria-selected="activeOptionIndex === index"
-          :class="{ ['has-focus']: activeOptionIndex === index, big: type === 'big' }"
+          :class="{
+            ['has-focus']: activeOptionIndex === index,
+            big: type === 'big',
+          }"
           class="option"
           role="option"
           @click="selectOption(option)"
         >
           <div class="label" :data-test="`option-label-${index}`">
-            <img class="item-icon" v-if="option.img" :src="option.img" alt="icon" />
+            <img
+              v-if="option.img"
+              class="item-icon"
+              :src="option.img"
+              alt="icon"
+            />
             <span class="primary">{{ option.primaryText }}</span>
           </div>
           <OperatorType
@@ -100,19 +113,24 @@ import OperatorType from '@/components/OperatorType.vue'
 let resetKeysSoFarTimer
 export default {
   name: 'Select',
-  model: {
-    event: 'input',
-  },
   components: {
     OperatorType,
   },
+  model: {
+    event: 'input',
+  },
   props: {
-    type: String,
+    type: {
+      type: String,
+      default: '',
+    },
     options: {
       type: Array,
+      required: true,
     },
     value: {
       type: Object,
+      required: true,
     },
   },
   data() {
@@ -123,11 +141,6 @@ export default {
       filteredOptions: this.options,
       selectedOption: this.value,
     }
-  },
-  watch: {
-    value() {
-      this.selectedOption = this.value
-    },
   },
   computed: {
     activeOptionIndex() {
@@ -155,6 +168,11 @@ export default {
     },
     activeDescendant() {
       return `select-option-${this.activeOptionIndex}`
+    },
+  },
+  watch: {
+    value() {
+      this.selectedOption = this.value
     },
   },
   methods: {
@@ -245,63 +263,68 @@ export default {
 @import '@/styles/fonts.scss';
 
 .select-box {
-  width: 100%;
   min-width: 270px;
   position: relative;
+  width: 100%;
 
   .selected-btn {
-    outline: none;
-    cursor: pointer;
-    box-sizing: border-box;
-    width: 100%;
-    z-index: 1;
     align-items: center;
     background: none;
-    border-radius: 4px;
     border: $select_border;
+    border-radius: 4px;
+    box-sizing: border-box;
     color: $alt-grey-5;
+    cursor: pointer;
     display: flex;
-    padding-left: 16px;
-    min-height: 40px;
     font-size: 14px;
+    min-height: 40px;
+    outline: none;
+    padding-left: 16px;
+    width: 100%;
+    z-index: 1;
+
     &.big {
       font-size: 16px;
       min-height: 60px;
     }
+
     .selected {
       width: 100%;
 
       .item-icon {
-        width: 30px;
         margin-right: 16px;
         width: 30px;
       }
+
       .label {
-        width: 100%;
-        overflow: hidden;
-        display: grid;
-        grid-template-columns: auto max-content max-content;
-        column-gap: 8px;
         align-items: center;
+        column-gap: 8px;
+        display: grid;
         font-size: 14px;
+        grid-template-columns: auto max-content max-content;
         margin-right: 16px;
+        overflow: hidden;
+        width: 100%;
+
         &.big {
-          margin-right: 8px;
           font-size: 16px;
+          margin-right: 8px;
         }
 
         .primary {
-          justify-self: left;
-          align-self: center;
-          overflow: hidden;
-          margin-right: 16px;
-          display: flex;
           align-items: center;
-        }
-        .value {
+          align-self: center;
+          display: flex;
+          justify-self: left;
+          margin-right: 16px;
           overflow: hidden;
-          border-radius: 2px;
         }
+
+        .value {
+          border-radius: 2px;
+          overflow: hidden;
+        }
+
         .icon {
           font-size: 16px;
           margin: 0;
@@ -311,10 +334,10 @@ export default {
   }
 
   .active {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
     border: $select_border__active;
     border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     padding-bottom: 1px;
   }
 
@@ -323,62 +346,69 @@ export default {
   }
 
   .options {
-    position: absolute;
-    right: 0px;
-    left: 0px;
-    width: inherit;
-    font-weight: 500;
-    z-index: 1000;
-    max-height: 200px;
-    overflow-y: auto;
-    box-sizing: border-box;
-    margin: 0;
-    list-style-type: none;
-    outline: none;
+    border: $select_border__active;
     border-radius: 4px;
+    border-top: 0;
+    border-top: none;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    border-top: 0px;
+    box-sizing: border-box;
     font-size: 16px;
-    border: $select_border__active;
-    border-top: none;
+    font-weight: 500;
+    left: 0;
+    list-style-type: none;
+    margin: 0;
+    max-height: 200px;
+    outline: none;
+    overflow-y: auto;
+    position: absolute;
+    right: 0;
     top: 40px;
+    width: inherit;
+    z-index: 1000;
+
     &.big {
       top: 60px;
     }
 
     .option {
-      overflow: hidden;
+      align-items: center;
       background: $white;
       color: $alt-grey-5;
-      padding: 8px;
       cursor: pointer;
-      align-items: center;
       display: flex;
-      justify-content: space-between;
-      padding: 0px 0px 0px 16px;
       height: 40px;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: 8px;
+      padding: 0 0 0 16px;
+
       .label {
-        display: flex;
         align-items: center;
+        display: flex;
+
         .item-icon {
-          width: 30px;
           margin-right: 16px;
           width: 30px;
         }
       }
+
       .value {
         margin-right: 8px;
       }
+
       &.big {
         height: 60px;
       }
+
       &:hover {
         background-color: $alpha-purple;
       }
+
       &.has-focus {
         background-color: $alpha-purple;
       }
+
       .primary {
         overflow: hidden;
       }

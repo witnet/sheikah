@@ -18,7 +18,10 @@
 export default {
   name: 'CommunityCard',
   props: {
-    url: String,
+    url: {
+      type: String,
+      required: true,
+    },
   },
 }
 </script>
@@ -28,41 +31,46 @@ export default {
 @import '@/styles/theme.scss';
 
 .card-layout {
-  box-shadow: $default-box-shadow;
+  background: $white;
   border: 1px solid $purple-4;
   border-radius: 2px;
-  background: $white;
-  padding: 32px 0px 0px 32px;
+  box-shadow: $default-box-shadow;
   display: flex;
+  padding: 32px 0 0 32px;
 
   .clip {
-    clip-path: inset(0 0% 0% 0);
     border-radius: 5px;
+    clip-path: inset(0 0% 0% 0);
     display: flex;
     flex-wrap: wrap;
 
-    &:hover .icon-container {
-      transition: transform 0.2s ease;
-      transform: rotate(-3deg) scale(1);
+    .header {
+      color: $purple-4;
+      font-size: 18px;
     }
+
+    .icon-container {
+      margin: -48px -40px;
+      text-align: right;
+    }
+
+    &:hover .icon-container {
+      transform: rotate(-3deg) scale(1);
+      transition: transform 0.2s ease;
+    }
+
     &:hover .header {
       text-decoration: underline;
     }
-    & > * {
+
+    * {
       flex: 1 415px;
       padding: 16px;
     }
-    .header {
-      font-size: 18px;
-      color: $purple-4;
-    }
+
     .content {
       color: $alt-grey-5;
       line-height: 1.5em;
-    }
-    .icon-container {
-      text-align: right;
-      margin: -48px -40px;
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <el-form
+    ref="form"
     :model="form"
     label-position="left"
     :rules="rules"
-    ref="form"
     class="deploy-form"
     label-width="120px"
   >
@@ -11,7 +11,10 @@
       <el-input v-model.number="form.witnesses"></el-input>
     </el-form-item>
 
-    <el-form-item label="Min Consensus Percentage" prop="minConsensusPercentage">
+    <el-form-item
+      label="Min Consensus Percentage"
+      prop="minConsensusPercentage"
+    >
       <el-input v-model.number="form.minConsensusPercentage"></el-input>
     </el-form-item>
 
@@ -51,10 +54,10 @@
       <el-button @click="goBack">{{ backWord }}</el-button>
 
       <el-button
-        @keydown.enter.esc.prevent="createDataRequest"
         data-test="create-data-request-submit"
-        @click="createDataRequest"
         type="primary"
+        @keydown.enter.esc.prevent="createDataRequest"
+        @click="createDataRequest"
       >
         Continue
       </el-button>
@@ -65,6 +68,12 @@
 <script>
 export default {
   name: 'CreateDataRequestForm',
+  props: {
+    backWord: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
       form: {
@@ -129,9 +138,6 @@ export default {
       },
     }
   },
-  props: {
-    backWord: String,
-  },
   methods: {
     goBack() {
       this.$emit('go-back')
@@ -157,9 +163,9 @@ export default {
   }
 
   .submit {
-    width: 100%;
-    text-align: right;
     padding-top: 40px;
+    text-align: right;
+    width: 100%;
   }
 }
 </style>

@@ -1,7 +1,17 @@
 <template>
   <div class="group">
-    <el-button @click="onSend" type="primary" class="button" data-test="btn-send">Send</el-button>
-    <el-button @click="onReceive" type="primary" class="button" data-test="btn-receive"
+    <el-button
+      type="primary"
+      class="button"
+      data-test="btn-send"
+      @click="onSend"
+      >Send</el-button
+    >
+    <el-button
+      type="primary"
+      class="button"
+      data-test="btn-receive"
+      @click="onReceive"
       >Receive</el-button
     >
   </div>

@@ -1,5 +1,9 @@
 <template>
-  <div class="card" :class="{ selected: selected, used: used }" @click="onClick"></div>
+  <div
+    class="card"
+    :class="{ selected: selected, used: used }"
+    @click="onClick"
+  ></div>
 </template>
 
 <script>
@@ -42,13 +46,13 @@ export default {
 @import '@/styles/_colors.scss';
 
 .card {
-  width: 25px;
-  height: 40px;
   background: $green-3;
   border: 1px solid $green-5;
   border-radius: 3px;
   cursor: pointer;
+  height: 40px;
   position: relative;
+  width: 25px;
 
   .used {
     background: $red-2;
@@ -58,14 +62,14 @@ export default {
   .selected,
   &:hover {
     &::after {
-      content: ' ';
-      position: absolute;
-      top: -4px;
-      left: -4px;
-      right: -4px;
-      bottom: -4px;
       border: 1px solid $alt-grey-5;
       border-radius: 5px;
+      bottom: -4px;
+      content: ' ';
+      left: -4px;
+      position: absolute;
+      right: -4px;
+      top: -4px;
     }
   }
 }

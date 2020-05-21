@@ -8,4 +8,5 @@ module.exports = {
     createComponentMocks: false,
     nextTick: false,
   },
+  rules: {},
 }

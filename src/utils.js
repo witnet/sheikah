@@ -7,9 +7,14 @@ import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
   if (window.Notification) {
-    Notification.requestPermission(permission => innerCreateNotification(notificationProps))
+    Notification.requestPermission(permission =>
+      innerCreateNotification(notificationProps)
+    )
   } else {
-    console.err('Notifications not supported. Printing notification here:', notificationProps)
+    console.err(
+      'Notifications not supported. Printing notification here:',
+      notificationProps
+    )
   }
 }
 
@@ -25,7 +30,9 @@ export function cropString(string, caracters, position) {
           )}`
         : string
     } else {
-      return string.length > caracters ? `${string.substring(0, caracters)}...` : string
+      return string.length > caracters
+        ? `${string.substring(0, caracters)}...`
+        : string
     }
   } else {
     return ''
@@ -35,12 +42,16 @@ export function cropString(string, caracters, position) {
 // get domain from a given url
 export function getDomainFromUrl(url) {
   // add default domain if the url doesn't include it
-  const fullUrl = EDITOR_ALLOWED_PROTOCOLS.find(domain => url.includes(`${domain}://`))
+  const fullUrl = EDITOR_ALLOWED_PROTOCOLS.find(domain =>
+    url.includes(`${domain}://`)
+  )
     ? url
     : `${EDITOR_ALLOWED_PROTOCOLS[0]}://${url}`
   const parts = fullUrl.split('/')
   const match =
-    Array.isArray(parts) && parts[2] ? parts[2].match(/([\w-]+\.)*([\w-]+\.\w{2,6}$)/) : ''
+    Array.isArray(parts) && parts[2]
+      ? parts[2].match(/([\w-]+\.)*([\w-]+\.\w{2,6}$)/)
+      : ''
 
   return match && match.length ? match[0] : ''
 }
@@ -53,7 +64,10 @@ function innerCreateNotification(partialProps) {
     icon: sheikahIcon,
     ...partialProps,
   }
-  const notification = new Notification(notificationProps.title, notificationProps)
+  const notification = new Notification(
+    notificationProps.title,
+    notificationProps
+  )
   if (Number.isInteger(notificationProps.closeTimeout)) {
     setTimeout(() => {
       notification.close()
@@ -65,7 +79,10 @@ function encodeAggregationTally(stage) {
   return {
     filters: stage.filters.map(filter => {
       return Array.isArray(filter)
-        ? { op: filter[0], args: filter.slice(1).length ? cbor.encode(filter.slice(1)) : [] }
+        ? {
+            op: filter[0],
+            args: filter.slice(1).length ? cbor.encode(filter.slice(1)) : [],
+          }
         : { op: filter, args: [] }
     }),
     reducer: stage.reducer,
@@ -81,7 +98,9 @@ export function standardizeWitUnits(amount, currency) {
   if (currency === WIT_UNIT.NANO) {
     return amount ? amount.toString() : 0
   } else {
-    return (amount / Math.pow(10, units[currency])).toFixed(units[currency]).replace(/\.?0+$/, '')
+    return (amount / Math.pow(10, units[currency]))
+      .toFixed(units[currency])
+      .replace(/\.?0+$/, '')
   }
 }
 
@@ -131,7 +150,7 @@ export function match(value, options, result) {
 export function changeDateFormat(timestamp) {
   const timestampLength = timestamp.toString().length
   const t = timestampLength < 13 ? timestamp + '000' : timestamp
-  let date = new Date(Math.floor(t))
+  const date = new Date(Math.floor(t))
   // let date = new Date(timestamp)
   const formatedDate = date
     .toString()

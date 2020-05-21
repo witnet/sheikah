@@ -2,14 +2,17 @@
 /* global __static */
 import fs from 'fs'
 import os from 'os'
-import tar from 'tar'
-import axios from 'axios'
 import path from 'path'
 import stream from 'stream'
 import util from 'util'
 import { spawn } from 'child_process'
+import axios from 'axios'
+import tar from 'tar'
 import { BrowserWindow, app, protocol, globalShortcut } from 'electron'
-import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib'
+import {
+  createProtocol,
+  installVueDevtools,
+} from 'vue-cli-plugin-electron-builder/lib'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
@@ -20,7 +23,8 @@ const SHEIKAH_PATH = path.join(os.homedir(), '.sheikah')
 const VERSION_FILE_NAME = '.version'
 const WITNET_FILE_NAME = 'witnet'
 const WITNET_CONFIG_FILE_NAME = 'witnet.toml'
-const LATEST_RELEASES_URL = 'https://api.github.com/repos/witnet/witnet-rust/releases/latest'
+const LATEST_RELEASES_URL =
+  'https://api.github.com/repos/witnet/witnet-rust/releases/latest'
 const STATUS = {
   OS_NOT_SUPPORTED: 'OS_NOT_SUPPORTED',
   WAIT: 'WAIT',
@@ -59,7 +63,7 @@ function createWindow() {
     win.setMenuBarVisibility(false)
   }
   // Disables zooming with pinch
-  let webContents = win.webContents
+  const webContents = win.webContents
   webContents.on('did-finish-load', () => {
     webContents.setZoomFactor(1)
     webContents.setVisualZoomLevelLimits(1, 1)
@@ -133,7 +137,8 @@ function main() {
   axios.get(LATEST_RELEASES_URL).then(async result => {
     const release = result.data.assets.find(
       asset =>
-        asset.browser_download_url.includes(arch) && asset.browser_download_url.includes(platform)
+        asset.browser_download_url.includes(arch) &&
+        asset.browser_download_url.includes(platform)
     )
     if (release) {
       const releaseUrl = release.browser_download_url
@@ -147,9 +152,15 @@ function main() {
         fs.mkdirSync(SHEIKAH_PATH)
       }
 
-      const existWitnetFile = fs.existsSync(path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
-      const existConfigFile = fs.existsSync(path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME))
-      const existVersionFile = fs.existsSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME))
+      const existWitnetFile = fs.existsSync(
+        path.join(SHEIKAH_PATH, WITNET_FILE_NAME)
+      )
+      const existConfigFile = fs.existsSync(
+        path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME)
+      )
+      const existVersionFile = fs.existsSync(
+        path.join(SHEIKAH_PATH, VERSION_FILE_NAME)
+      )
       const isLastestVersion =
         existConfigFile &&
         existWitnetFile &&
@@ -191,8 +202,14 @@ async function downloadWalletRelease(releaseUrl, version) {
         })
         // TODO: tar is not decompressing correctly if a path is given.
         // Create these files in ./sheikah
-        fs.copyFileSync('witnet', path.join(`${SHEIKAH_PATH}`, WITNET_FILE_NAME))
-        fs.copyFileSync('witnet.toml', path.join(`${SHEIKAH_PATH}`, WITNET_CONFIG_FILE_NAME))
+        fs.copyFileSync(
+          'witnet',
+          path.join(`${SHEIKAH_PATH}`, WITNET_FILE_NAME)
+        )
+        fs.copyFileSync(
+          'witnet.toml',
+          path.join(`${SHEIKAH_PATH}`, WITNET_CONFIG_FILE_NAME)
+        )
         fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
 
         // Remove the compressed file

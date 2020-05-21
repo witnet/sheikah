@@ -1,5 +1,5 @@
 <template>
-  <div data-test="retrieve-script" class v-if="stage === 'retrieve'">
+  <div v-if="stage === 'retrieve'" data-test="retrieve-script" class>
     <Carousel
       :sources="
         script.map((x, index) => {
@@ -11,23 +11,27 @@
   </div>
   <div v-else-if="stage === 'aggregate'">
     <RadonAggregateTallyScript
+      v-show="!error.aggregate"
       data-test="aggregate-script"
       class="script"
-      v-show="!error.aggregate"
       stage="aggregate"
       :script="script"
     />
-    <p class="error" v-show="error.aggregate">There is an error in the aggregate stage</p>
+    <p v-show="error.aggregate" class="error"
+      >There is an error in the aggregate stage</p
+    >
   </div>
   <div v-else-if="stage === 'tally'">
     <RadonAggregateTallyScript
+      v-show="!error.tally"
       data-test="tally-script"
       class="script"
-      v-show="!error.tally"
       stage="tally"
       :script="script"
     />
-    <p class="error" v-show="error.tally">There is an error in the tally stage</p>
+    <p v-show="error.tally" class="error"
+      >There is an error in the tally stage</p
+    >
   </div>
 </template>
 
@@ -43,8 +47,14 @@ export default {
     Carousel,
   },
   props: {
-    stage: String,
-    script: [Array, Object],
+    stage: {
+      type: String,
+      default: '',
+    },
+    script: {
+      type: [Array, Object],
+      required: true,
+    },
   },
   data() {
     return {
@@ -71,6 +81,7 @@ export default {
 .script {
   width: 300px;
 }
+
 *:focus {
   outline: none;
 }
@@ -86,9 +97,9 @@ export default {
 }
 
 .name {
+  color: lightgrey;
   font-size: $font-size-30;
   font-weight: 200;
-  color: lightgrey;
   margin: 16px 0;
 }
 
@@ -100,9 +111,9 @@ export default {
   width: 300px;
 
   .tag {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 24px;
 
     .text {
@@ -114,8 +125,8 @@ export default {
 
     .number {
       color: $purple-4;
-      font-weight: 800;
       font-size: 16px;
+      font-weight: 800;
     }
   }
 
@@ -144,40 +155,43 @@ export default {
 }
 
 .circle {
-  outline: none;
-  border: 2px solid grey;
-  box-shadow: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  position: relative;
-  margin: 0 40px;
-  display: inline-block;
-  vertical-align: middle;
   background: transparent;
+  border: 2px solid grey;
+  border-radius: 100%;
+  box-shadow: none;
+  display: inline-block;
+  height: 30px;
+  margin: 0 40px;
+  outline: none;
+  position: relative;
+  vertical-align: middle;
+  width: 30px;
 }
 
-.circle:before,
-.circle:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+.circle::before,
+.circle::after {
   bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
-.circle.plus:before,
-.circle.plus:after {
-  cursor: pointer;
+
+.circle.plus::before,
+.circle.plus::after {
   background: grey;
+  cursor: pointer;
 }
-.circle.plus:before {
-  width: 2px;
+
+.circle.plus::before {
   margin: 8px auto;
+  width: 2px;
 }
-.circle.plus:after {
-  margin: auto 8px;
-  height: 2px;
+
+.circle.plus::after {
   box-shadow: none;
+  height: 2px;
+  margin: auto 8px;
 }
 </style>

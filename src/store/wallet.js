@@ -1,6 +1,11 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
-import { encodeDataRequest, standardizeWitUnits, createNotification, cropString } from '@/utils'
+import {
+  encodeDataRequest,
+  standardizeWitUnits,
+  createNotification,
+  cropString,
+} from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { GENERATE_ADDRESS_DELAY, WALLET_EVENTS, WIT_UNIT } from '@/constants'
 import warning from '@/resources/svg/warning.png'
@@ -81,7 +86,9 @@ export default {
         state.networkStatus = 'synced'
         this.commit('clearError', { error: 'network' })
         if (state.errors.length) {
-          state.errors.map(err => this.commit('clearError', { error: err.name }))
+          state.errors.map(err =>
+            this.commit('clearError', { error: err.name })
+          )
         }
       } else {
         state.networkStatus = 'error'
@@ -307,7 +314,9 @@ export default {
       const req = await context.state.api.createDataRequest(data)
       if (req.result) {
         const generatedTransaction = req.result
-        context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
+        context.commit('setGeneratedTransaction', {
+          transaction: generatedTransaction,
+        })
       } else {
         context.commit('setError', {
           name: 'createDataRequest',
@@ -328,7 +337,9 @@ export default {
       })
       if (request.result) {
         const generatedTransaction = request.result
-        context.commit('setGeneratedTransaction', { transaction: generatedTransaction })
+        context.commit('setGeneratedTransaction', {
+          transaction: generatedTransaction,
+        })
       } else {
         context.commit('setError', {
           name: 'createVTT',
@@ -387,18 +398,27 @@ export default {
       })
       if (request.result) {
         // TODO(#706) We should receive a wallet structure instead a walletId
-        context.commit('setWallet', { sessionId: request.result.session_id, walletId })
+        context.commit('setWallet', {
+          sessionId: request.result.session_id,
+          walletId,
+        })
         const walletInfos = context.state.walletInfos
         const index = walletInfos.findIndex(wallet => wallet.id === walletId)
         context.commit('setWalletIndex', { walletIndex: index })
         context.dispatch('subscribeToWalletNotifications')
       } else {
-        context.commit('setError', { name: 'unlockWallet', error: request.error.message })
+        context.commit('setError', {
+          name: 'unlockWallet',
+          error: request.error.message,
+        })
       }
     },
 
     lockWallet: async function(context, { walletId, wipe }) {
-      const request = await context.state.api.lockWallet({ wallet_id: walletId, wipe })
+      const request = await context.state.api.lockWallet({
+        wallet_id: walletId,
+        wipe,
+      })
       if (request.result) {
         context.commit('lockWallet', context.store.wallet.id)
       } else {
@@ -501,8 +521,11 @@ export default {
         { session_id: this.state.wallet.sessionId },
         ([notifications]) => {
           if (notifications.events.length > 0) {
-            for (let event of notifications.events) {
-              context.dispatch('processEvent', { event, status: notifications.status })
+            for (const event of notifications.events) {
+              context.dispatch('processEvent', {
+                event,
+                status: notifications.status,
+              })
             }
           } else {
             context.dispatch('processStatus', notifications.status)
@@ -554,7 +577,10 @@ export default {
         context.dispatch('getTransactions', { limit: 50, page: 0 })
         context.dispatch('getAddresses')
         const amount = standardizeWitUnits(event.amount, context.state.currency)
-        const balance = standardizeWitUnits(context.state.balance.total, context.state.currency)
+        const balance = standardizeWitUnits(
+          context.state.balance.total,
+          context.state.currency
+        )
         if (event.type === 'POSITIVE') {
           createNotification({
             title: `Received a payment of ${amount} ${context.state.currency}s`,
@@ -563,7 +589,7 @@ export default {
         }
       } else if (eventType === WALLET_EVENTS.SYNC_FINISH) {
         status.progress = 100
-        let [start, finish] = event
+        const [start, finish] = event
 
         if (finish > start) {
           createNotification({
@@ -573,10 +599,11 @@ export default {
           })
         }
       } else if (eventType === WALLET_EVENTS.SYNC_PROGRESS) {
-        let [start, current, finish] = event
-        status.progress = Math.floor(((current - start) / (finish - start)) * 100) || 0
+        const [start, current, finish] = event
+        status.progress =
+          Math.floor(((current - start) / (finish - start)) * 100) || 0
       } else if (eventType === WALLET_EVENTS.SYNC_START) {
-        let [start, finish] = event
+        const [start, finish] = event
         status.progress = 0
         if (finish - start > 100) {
           createNotification({
@@ -591,11 +618,15 @@ export default {
     },
 
     processStatus: async function(context, status) {
-      status.synced = status.wallet.last_sync.checkpoint === status.node.last_beacon.checkpoint
+      status.synced =
+        status.wallet.last_sync.checkpoint ===
+        status.node.last_beacon.checkpoint
       if (status.synced) {
         status.timestamp = Date.now()
       }
-      context.commit('setStatus', { status: { ...this.state.wallet.status, ...status } })
+      context.commit('setStatus', {
+        status: { ...this.state.wallet.status, ...status },
+      })
     },
   },
 }

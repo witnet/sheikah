@@ -136,7 +136,10 @@ export class WalletApi {
   }
 
   getTransactions(params) {
-    return this._callApiMethod('get_transactions')(params, standardizeTransactions)
+    return this._callApiMethod('get_transactions')(
+      params,
+      standardizeTransactions
+    )
   }
 
   getWalletInfos(params) {
@@ -173,7 +176,9 @@ export class WalletApi {
 }
 
 export class MarketplaceApi {
-  baseUrl = process.env.marketplaceUrl || 'https://witnet-marketplace-api-test.herokuapp.com'
+  baseUrl =
+    process.env.marketplaceUrl ||
+    'https://witnet-marketplace-api-test.herokuapp.com'
 
   _handleResponse(response) {
     if (response && response.data) {
@@ -242,8 +247,14 @@ export function standardizeTransactions(response) {
     return {
       id: hash,
       type: transaction.type,
-      inputs: inputs.map(input => ({ value: input.value, address: input.address })),
-      outputs: outputs.map(output => ({ value: output.value, address: output.address })),
+      inputs: inputs.map(input => ({
+        value: input.value,
+        address: input.address,
+      })),
+      outputs: outputs.map(output => ({
+        value: output.value,
+        address: output.address,
+      })),
       fee: miner_fee,
       date: changeDateFormat(timestamp),
       timeAgo: calculateTimeAgo(timestamp),

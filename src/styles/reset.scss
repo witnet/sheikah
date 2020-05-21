@@ -83,13 +83,13 @@ time,
 mark,
 audio,
 video {
-  border: 0;
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
   font: inherit;
   font-size: 100%;
-  margin: 0;
-  padding: 0;
   vertical-align: baseline;
+  border: 0;
 }
 
 // HTML5 display-role reset for older browsers
@@ -119,19 +119,19 @@ ul {
 blockquote,
 q {
   // sass-lint:disable no-duplicate-properties
-  content: "";
+  content: '';
   content: none;
   quotes: none;
 
   &::before,
   &::after {
     // sass-lint:disable no-duplicate-properties
-    content: "";
+    content: '';
     content: none;
   }
 }
 
 table {
-  border-collapse: collapse;
   border-spacing: 0;
+  border-collapse: collapse;
 }

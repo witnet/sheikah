@@ -16,16 +16,16 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  width: 25px;
-  height: 40px;
-  border-radius: 3px;
-  cursor: pointer;
-  position: relative;
-  border: 1px dashed rgb(68, 66, 64, 0.5);
-  color: rgb(68, 66, 64, 0.5);
-  display: flex;
-  justify-content: center;
   align-items: center;
+  border: 1px dashed rgb(68, 66, 64, 0.5);
+  border-radius: 3px;
+  color: rgb(68, 66, 64, 0.5);
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  position: relative;
+  width: 25px;
 }
 </style>
 

@@ -11,17 +11,17 @@
         :value="variable.value"
         @input="val => updateVariable({ index, key: variable.key, value: val })"
       />
-      <div class="error" v-show="errors[index]">
+      <div v-show="errors[index]" class="error">
         (This key is repeated. Change the variable name before continue editing)
       </div>
     </div>
     <div class="submit">
       <el-button @click="goBack">Cancel</el-button>
       <el-button
-        @keydown.enter.esc.prevent="nextStep"
         data-test="complete-variables-submit"
-        @click="nextStep"
         type="primary"
+        @keydown.enter.esc.prevent="nextStep"
+        @click="nextStep"
       >
         Continue
       </el-button>
@@ -45,6 +45,20 @@ export default {
       isOpen: [],
       keys: this.$store.getters.variablesKeys,
     }
+  },
+  computed: {
+    ...mapState({
+      variables: state => state.rad.currentTemplate.variables,
+    }),
+    ...mapGetters({
+      variablesKeys: 'variablesKeys',
+    }),
+    error() {
+      return this.errorIndex !== -1
+    },
+    errorIndex() {
+      return this.errors.findIndex(error => !!error)
+    },
   },
   methods: {
     ...mapMutations({
@@ -72,20 +86,6 @@ export default {
       return !!this.variables.find(variable => variable.key === key)
     },
   },
-  computed: {
-    ...mapState({
-      variables: state => state.rad.currentTemplate.variables,
-    }),
-    ...mapGetters({
-      variablesKeys: 'variablesKeys',
-    }),
-    error() {
-      return this.errorIndex !== -1
-    },
-    errorIndex() {
-      return this.errors.findIndex(error => !!error)
-    },
-  },
 }
 </script>
 
@@ -95,44 +95,51 @@ export default {
 
 .variables-container {
   overflow-y: auto;
+
   .variable {
     display: block;
     display: flex;
     justify-items: left;
+
     .variable-value {
-      display: flex;
-      font-size: 16px;
       align-items: center;
       color: $alt-grey-3;
+      display: flex;
+      font-size: 16px;
+      height: 30px;
       margin: 10px;
       width: 80px;
-      height: 30px;
+
       &.label {
         color: $purple-4;
-        width: 40px;
         font-weight: bold;
+        width: 40px;
       }
     }
   }
+
   .delete {
-    display: flex;
     align-items: center;
-    padding-left: 16px;
+    display: flex;
     font-size: 12px;
+    padding-left: 16px;
+
     &:hover {
       cursor: pointer;
     }
   }
+
   .error {
-    display: flex;
     align-items: center;
-    padding-left: 16px;
     color: $red-5;
+    display: flex;
+    padding-left: 16px;
   }
+
   .submit {
-    width: 100%;
-    text-align: right;
     padding-top: 40px;
+    text-align: right;
+    width: 100%;
   }
 }
 </style>

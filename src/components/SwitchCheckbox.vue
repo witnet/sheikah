@@ -11,22 +11,22 @@
 <script>
 export default {
   name: 'SwitchCheckbox',
+  props: {
+    value: Boolean,
+  },
   data() {
     return {
       checked: this.value,
     }
   },
-  props: {
-    value: Boolean,
+  watch: {
+    checked(value) {
+      this.$emit('switchCheckbox', value)
+    },
   },
   methods: {
     switchValue() {
       this.checked = !this.checked
-    },
-  },
-  watch: {
-    checked(value) {
-      this.$emit('switchCheckbox', value)
     },
   },
 }
@@ -36,28 +36,29 @@ export default {
 @import '@/styles/_colors.scss';
 
 .switch {
-  display: inline-block;
-  width: 40px;
-  height: 20px;
   background: $grey-1;
   border-radius: 10px;
+  display: inline-block;
+  height: 20px;
+  width: 40px;
 
   // This class will be helpull in a future if we want to add more padding
+
   .wrapper {
-    display: flex;
     align-items: center;
-    width: 40px;
-    height: 20px;
-    border-radius: 10px;
     background-color: $grey-1;
+    border-radius: 10px;
+    display: flex;
+    height: 20px;
+    width: 40px;
   }
 
   .dot {
     background-color: $white;
     border-radius: 10px;
-    width: 20px;
     height: 20px;
     transition: all 300ms;
+    width: 20px;
 
     &.checked {
       background-color: $purple-4;

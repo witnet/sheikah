@@ -13,18 +13,19 @@ export default {
   components: {
     Sidebar,
   },
-  created() {
-    this.pollData()
-  },
   data() {
     return {
       pollingInterval: setInterval(this.pollData, 10000),
     }
   },
+  created() {
+    this.pollData()
+  },
   methods: {
     pollData() {
       const currentRoute = this.$router.currentRoute.path
-      currentRoute.startsWith('/welcome-back') || currentRoute.startsWith('/ftu')
+      currentRoute.startsWith('/welcome-back') ||
+        currentRoute.startsWith('/ftu')
       this.$store.dispatch('getWalletInfos')
     },
   },
@@ -43,8 +44,9 @@ export default {
     overflow-y: auto;
     width: 100%;
   }
+
   .alert {
-    margin: 0px;
+    margin: 0;
   }
 }
 </style>

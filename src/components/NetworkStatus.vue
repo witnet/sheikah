@@ -1,3 +1,4 @@
+/* eslint-disable vue/require-prop-types */
 <template>
   <div class="network-status">
     <div class="header" @click="showAll = !showAll">
@@ -5,43 +6,51 @@
         <DotIndicator
           data-test="dot-indicator"
           :synced="synced"
-          :url="`https://api.adorable.io/avatars/:${this.walletIdx}/`"
+          :url="`https://api.adorable.io/avatars/:${walletIdx}/`"
         />
       </div>
       <div class="wallet-info">
-        <p data-test="wallet-name" v-if="expanded" class="current-wallet-name">
+        <p v-if="expanded" data-test="wallet-name" class="current-wallet-name">
           Witnet wallet #{{ walletIdx }}
         </p>
         <div class="status-container">
           <div
-            data-test="status"
             v-if="expanded"
+            data-test="status"
             :class="['status', synced ? 'synced' : 'syncing']"
           >
             {{ synced ? 'SYNCED' : `SYNCING (${progress}%)` }}
           </div>
-          <DotsLoading data-test="loading-spinner" v-if="expanded && !synced" class="spinner" />
+          <DotsLoading
+            v-if="expanded && !synced"
+            data-test="loading-spinner"
+            class="spinner"
+          />
         </div>
       </div>
       <div v-if="expanded" class="icon">
         <img
+          v-if="showAll"
           data-test="short-up"
           class="sort"
-          v-if="showAll"
           src="@/resources/svg/short-up.svg"
           alt="sort-up"
         />
         <img
+          v-else
           data-test="short-down"
           class="sort"
-          v-else
           src="@/resources/svg/short-down.svg"
           alt="sort-down"
         />
       </div>
     </div>
     <transition name="slide">
-      <div data-test="detail-info" v-if="showAll && expanded" class="detail-info">
+      <div
+        v-if="showAll && expanded"
+        data-test="detail-info"
+        class="detail-info"
+      >
         <p data-test="node" class="text">
           Connected to <span class="bold">{{ address }}</span>
         </p>
@@ -64,36 +73,27 @@ import { calculateTimeAgo } from '@/utils'
 
 export default {
   name: 'NetworkStatus',
+  components: {
+    DotIndicator,
+    DotsLoading,
+  },
   props: {
     expanded: Boolean,
+    // eslint-disable-next-line
     status: {
       synced: Boolean,
       timestamp: Date,
     },
-    walletIdx: [String, Number],
-  },
-  components: {
-    DotIndicator,
-    DotsLoading,
+    walletIdx: {
+      type: [String, Number],
+      default: '',
+    },
   },
   data() {
     return {
       showAll: false,
       timeAgo: this.status ? this.status.timestamp : null,
     }
-  },
-  watch: {
-    status(status) {
-      if (status) {
-        this.timeAgo = this.status.timestamp
-      }
-    },
-    expanded(expanded) {
-      this.showAll = false
-    },
-  },
-  methods: {
-    calculateTimeAgo,
   },
   computed: {
     address() {
@@ -115,6 +115,19 @@ export default {
       return this.status && this.status.timestamp
     },
   },
+  watch: {
+    status(status) {
+      if (status) {
+        this.timeAgo = this.status.timestamp
+      }
+    },
+    expanded(expanded) {
+      this.showAll = false
+    },
+  },
+  methods: {
+    calculateTimeAgo,
+  },
 }
 </script>
 
@@ -124,35 +137,43 @@ export default {
 
 .network-status {
   display: grid;
-  grid-template-rows: minmax(100px, max-content);
   grid-template-columns: 400px;
+  grid-template-rows: minmax(100px, max-content);
+
   .header {
+    align-items: center;
     cursor: pointer;
     display: grid;
-    grid-template-columns: 70px minmax(max-content, auto) 40px;
-    align-items: center;
-    justify-items: center;
     font-size: $icon_status-font_size;
+    grid-template-columns: 70px minmax(max-content, auto) 40px;
+    justify-items: center;
+
     .wallet-info {
       justify-self: start;
+
       .current-wallet-name {
         font-weight: bold;
       }
+
       .status-container {
-        margin-top: 8px;
         display: flex;
+        margin-top: 8px;
+
         .status {
           font-weight: bold;
           margin-right: 8px;
+
           &.synced {
             color: $green-5;
           }
+
           &.syncing {
             color: $yellow-4;
           }
         }
       }
     }
+
     .icon {
       .sort {
         width: 12px;
@@ -161,22 +182,26 @@ export default {
   }
 
   .detail-info {
-    min-width: max-content;
-    margin-left: 70px;
     margin-bottom: 20px;
+    margin-left: 70px;
+    min-width: max-content;
+
     .text {
       color: $alt-grey-3;
       font-size: 14px;
       margin-bottom: 8px;
+
       &:last-of-type {
-        margin-bottom: 0px;
+        margin-bottom: 0;
       }
+
       .bold {
-        font-weight: bold;
         color: $alt-grey-6;
+        font-weight: bold;
       }
     }
   }
+
   .slide-enter-active {
     -webkit-transition-duration: 0.1s;
     transition-duration: 0.1s;
@@ -199,8 +224,8 @@ export default {
 
   .slide-enter,
   .slide-leave-to {
-    overflow: hidden;
     max-height: 0;
+    overflow: hidden;
   }
 }
 </style>

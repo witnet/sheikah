@@ -21,8 +21,14 @@ import BaseCard from './BaseCard'
 
 export default {
   name: 'Card',
+  components: {
+    BaseCard,
+  },
   props: {
-    title: String,
+    title: {
+      type: String,
+      default: '',
+    },
     width: {
       type: Number,
       default: 250,
@@ -34,6 +40,7 @@ export default {
     padding: {
       type: Boolean,
       required: false,
+      // eslint-disable-next-line vue/no-boolean-default
       default: true,
     },
     shadow: {
@@ -44,6 +51,7 @@ export default {
     border: {
       type: Boolean,
       required: false,
+      // eslint-disable-next-line vue/no-boolean-default
       default: true,
     },
   },
@@ -63,9 +71,6 @@ export default {
       return this.padding ? 'padding' : ''
     },
   },
-  components: {
-    BaseCard,
-  },
 }
 </script>
 
@@ -75,20 +80,21 @@ export default {
 
 .card {
   .title {
+    color: $alt-grey-3;
     font-size: 16px;
     font-weight: 600;
-    color: $alt-grey-3;
     margin-bottom: 8px;
   }
 
   .content {
     background: $white;
+    border: 1px solid $grey-1;
+    border-radius: 2px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    border-radius: 2px;
     font-size: 16px;
-    border: 1px solid $grey-1;
+    justify-content: center;
+
     &.padding {
       padding: 32px;
     }

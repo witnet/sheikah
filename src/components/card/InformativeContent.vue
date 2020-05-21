@@ -4,7 +4,7 @@
       {{ subtitle }}
     </p>
     <div class="text-container">
-      <p class="text" v-for="text in texts" :key="text">
+      <p v-for="text in texts" :key="text" class="text">
         {{ text }}
       </p>
     </div>
@@ -15,28 +15,39 @@
 export default {
   name: 'InformativeContent',
   props: {
-    subtitle: String,
-    texts: Object,
+    subtitle: {
+      type: String,
+      default: '',
+    },
+    texts: {
+      type: Array,
+      required: true,
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
+
 .subtitle {
   color: $font-color-dark;
   padding-bottom: 24px;
 }
+
 .text-container {
   overflow-y: auto;
+
   .text {
-    padding-bottom: 8px;
     color: $font-color-light;
+    padding-bottom: 8px;
+
     &:last-of-type {
-      padding-bottom: 0px;
+      padding-bottom: 0;
     }
   }
 }
+
 .router-link {
   text-decoration: none;
 }

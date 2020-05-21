@@ -2,7 +2,7 @@ import EditorOperatorArgument from '@/components/EditorOperatorArgument'
 
 describe('RadonOperator.vue', () => {
   describe('should render properly when there is a select argument', () => {
-    let state = {
+    const state = {
       currentTemplate: {
         variables: [{}],
       },
@@ -80,7 +80,7 @@ describe('RadonOperator.vue', () => {
     })
   })
   describe('should render properly when there is an input argument and a select argument with no more arguments', () => {
-    let state = {
+    const state = {
       currentTemplate: {
         variables: [{}],
       },

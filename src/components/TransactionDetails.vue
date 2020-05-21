@@ -8,51 +8,82 @@
       <p class="label">Timestamp</p>
       <p data-test="date" class="info">{{ date }}</p>
       <p
-        data-test="witnesses-title"
         v-if="transactionType === 'data_request' && witnesses"
+        data-test="witnesses-title"
         class="label"
       >
         Witnessess
       </p>
-      <p data-test="witnesses" v-if="transactionType === 'data_request' && witnesses" class="info">
-        {{ witnesses.min }}<span class="light"> as a minimum, with </span>{{ witnesses.backup }}
+      <p
+        v-if="transactionType === 'data_request' && witnesses"
+        data-test="witnesses"
+        class="info"
+      >
+        {{ witnesses.min }}<span class="light"> as a minimum, with </span
+        >{{ witnesses.backup }}
         <span class="light">as backup</span>
       </p>
       <p
-        data-test="rewards-title"
         v-if="transactionType === 'data_request' && rewards"
+        data-test="rewards-title"
         class="label"
       >
         Rewards
       </p>
-      <p data-test="rewards" v-if="transactionType === 'data_request' && rewards" class="info">
-        {{ rewards.witness }} <span class="light">for each witness </span>+ {{ rewards.miners }}
+      <p
+        v-if="transactionType === 'data_request' && rewards"
+        data-test="rewards"
+        class="info"
+      >
+        {{ rewards.witness }} <span class="light">for each witness </span>+
+        {{ rewards.miners }}
         <span class="light">in total for miners</span>
       </p>
-      <p data-test="rounds-title" v-if="transactionType === 'data_request' && rounds" class="label">
+      <p
+        v-if="transactionType === 'data_request' && rounds"
+        data-test="rounds-title"
+        class="label"
+      >
         Rounds
       </p>
-      <p data-test="rounds" v-if="transactionType === 'data_request' && rounds" class="info">
+      <p
+        v-if="transactionType === 'data_request' && rounds"
+        data-test="rounds"
+        class="info"
+      >
         <span class="light">Maximum</span> {{ rounds.commit }}
         <span class="light">commit rounds </span>+
         {{ rounds.reveal }}
         <span class="light">reveal rounds</span>
       </p>
-      <p data-test="current-stage-title" v-if="transactionType === 'data_request'" class="label">
+      <p
+        v-if="transactionType === 'data_request'"
+        data-test="current-stage-title"
+        class="label"
+      >
         Current stage
       </p>
-      <p data-test="current-stage" v-if="transactionType === 'data_request'" class="info">
+      <p
+        v-if="transactionType === 'data_request'"
+        data-test="current-stage"
+        class="info"
+      >
         {{ state }}
       </p>
       <p
-        data-test="reveals-title"
         v-if="transactionType === 'data_request' && reveals"
+        data-test="reveals-title"
         class="label"
       >
         Reveals
       </p>
-      <div class="info" v-if="transactionType === 'data_request'">
-        <div data-test="reveals" v-for="(reveal, index) in reveals" :key="index" class="reveal">
+      <div v-if="transactionType === 'data_request'" class="info">
+        <div
+          v-for="(reveal, index) in reveals"
+          :key="index"
+          data-test="reveals"
+          class="reveal"
+        >
           <font-awesome-icon
             data-test="reveal-icon"
             :class="reveal.in_consensus ? 'consensed' : 'not-consensed'"
@@ -61,13 +92,24 @@
           <div data-test="reveal-address" class="address">
             {{ cropString(reveal.address, 32, 'middle') }}
           </div>
-          <div data-test="reveal-result" class="result">{{ reveal.result }}</div>
+          <div data-test="reveal-result" class="result">{{
+            reveal.result
+          }}</div>
         </div>
       </div>
-      <p data-test="result-title" v-if="transactionType === 'data_request' && result" class="label">
+      <p
+        v-if="transactionType === 'data_request' && result"
+        data-test="result-title"
+        class="label"
+      >
         Final result
       </p>
-      <p data-test="result" v-if="transactionType === 'data_request'" class="info">{{ result }}</p>
+      <p
+        v-if="transactionType === 'data_request'"
+        data-test="result"
+        class="info"
+        >{{ result }}</p
+      >
     </div>
   </div>
 </template>
@@ -77,22 +119,47 @@ import { cropString } from '@/utils'
 
 export default {
   name: 'TransactionDetails',
-  data() {
-    return {
-      showDetails: false,
-    }
-  },
   props: {
-    block: [String, Number],
-    date: String,
-    id: String,
-    witnesses: Object,
-    rewards: Object,
-    rounds: Object,
-    state: String,
-    reveals: Array,
-    result: String,
-    transactionType: String,
+    block: {
+      type: [String, Number],
+      required: true,
+    },
+    date: {
+      type: String,
+      default: '',
+    },
+    id: {
+      type: String,
+      required: true,
+    },
+    witnesses: {
+      type: Object,
+      required: true,
+    },
+    rewards: {
+      type: Object,
+      required: true,
+    },
+    rounds: {
+      type: Object,
+      required: true,
+    },
+    state: {
+      type: String,
+      required: true,
+    },
+    reveals: {
+      type: Array,
+      required: true,
+    },
+    result: {
+      type: String,
+      required: true,
+    },
+    transactionType: {
+      type: String,
+      required: true,
+    },
   },
   methods: {
     cropString,
@@ -104,39 +171,46 @@ export default {
 @import '@/styles/_colors.scss';
 
 .transaction-details {
-  margin-top: 24px;
   display: grid;
+  grid-gap: 16px;
+  grid-template-columns: auto auto;
   grid-template-rows: auto auto auto;
   justify-items: center;
-  grid-template-columns: auto auto;
-  grid-gap: 16px;
+  margin-top: 24px;
+
   .label {
-    justify-self: right;
+    color: $grey-4;
     font-size: 12px;
     font-weight: bold;
-    color: $grey-4;
+    justify-self: right;
   }
+
   .info {
+    color: $alt-grey-5;
     font-size: 13px;
     justify-self: left;
-    color: $alt-grey-5;
+
     .light {
       color: $grey-4;
     }
+
     .reveal {
-      display: flex;
       align-items: center;
+      display: flex;
       margin-bottom: 8px;
+
       .consensed {
-        font-size: 10px;
-        margin-right: 8px;
         color: $green-3;
-      }
-      .not-consensed {
         font-size: 10px;
         margin-right: 8px;
-        color: $red-2;
       }
+
+      .not-consensed {
+        color: $red-2;
+        font-size: 10px;
+        margin-right: 8px;
+      }
+
       .address {
         color: $grey-4;
         margin-right: 8px;

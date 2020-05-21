@@ -8,7 +8,7 @@
 <script>
 import sizeMixin from './sizeMixin'
 export default {
-  name: 'app-button',
+  name: 'AppButton',
   mixins: [sizeMixin],
   props: {
     /**
@@ -26,7 +26,10 @@ export default {
       default: 'white',
     },
     /** @deprecated Use color instead */
-    oldColor: String,
+    oldColor: {
+      type: String,
+      default: '',
+    },
   },
   computed: {
     styles() {
