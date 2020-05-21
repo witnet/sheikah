@@ -30,10 +30,22 @@ import Amount from '@/components/Amount.vue'
 export default {
   name: 'Transaction',
   props: {
-    currency: String,
-    fee: Number,
-    outputs: Array,
-    inputs: Array,
+    currency: {
+      type: String,
+      required: true,
+    },
+    fee: {
+      type: Number,
+      required: true,
+    },
+    outputs: {
+      type: Array,
+      required: true,
+    },
+    inputs: {
+      required: false,
+      type: Array,
+    },
   },
   components: {
     Amount,

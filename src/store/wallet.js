@@ -547,6 +547,7 @@ export default {
       const eventType = Object.keys(rawEvent.event)[0]
       const event = rawEvent.event[eventType]
       const status = rawEvent.status
+
       if (eventType === WALLET_EVENTS.BLOCK) {
         status.timestamp = Date.now()
       } else if (eventType === WALLET_EVENTS.MOVEMENT) {

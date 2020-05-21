@@ -10,13 +10,19 @@
           :class="[origin.toLowerCase()]"
           :amount="amount"
         />
+
         <div v-if="transactionType === 'value_transfer'" class="address-container">
           <p data-test="origin" class="origin">{{ origin }}</p>
           <p data-test="address" class="address">{{ address }}</p>
         </div>
-        <div v-if="transactionType === 'data_request'" class="address-container">
-          <p data-test="data-request-type" class="address">Data request</p>
+        <div v-else-if="transactionType === 'value_transfer'" class="address-container">
+          <p data-test="origin" class="origin">{{ origin }}</p>
+          <p data-test="address" class="address">{{ address }}</p>
         </div>
+        <div v-else-if="transactionType === 'mint'" class="address-container">
+          <p data-test="data-request-type" class="address">Mint</p>
+        </div>
+
         <div class="">
           <p data-test="time-ago" class="date">{{ timeAgo }}</p>
         </div>
@@ -93,6 +99,8 @@ export default {
   },
   computed: {
     address() {
+      console.log('---inputs--', this.inputs)
+
       return this.inputs.length > 1 ? 'several addresses' : this.inputs[0].address
     },
     origin() {
@@ -117,7 +125,7 @@ export default {
 .transaction {
   padding: 16px;
   display: grid;
-  grid-template-columns: max-content max-content auto max-content;
+  grid-template-columns: max-content max-content auto 100px;
   grid-column-gap: 24px;
   align-items: center;
   cursor: pointer;
@@ -163,6 +171,7 @@ export default {
     color: $grey-4;
     font-weight: 600;
     font-style: italic;
+    text-align: right;
   }
 
   .block {

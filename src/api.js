@@ -230,11 +230,9 @@ export function standardizeAddresses(response) {
 
 export function standardizeTransactions(response) {
   if (!response.result) return response
-
   const transactions = response.result.transactions.map(transaction => {
-    const transactionType = transaction.transaction.data.value_transfer
-      ? 'value_transfer'
-      : 'data_request'
+    const transactionType = Object.keys(transaction.transaction.data)[0]
+
     const { inputs, outputs } = transaction.transaction.data[transactionType]
     // eslint-disable-next-line camelcase
     const { hash, miner_fee, block, tally, timestamp } = transaction.transaction
@@ -242,7 +240,7 @@ export function standardizeTransactions(response) {
     return {
       id: hash,
       type: transaction.type,
-      inputs: inputs.map(input => ({ value: input.value, address: input.address })),
+      inputs: inputs ? inputs.map(input => ({ value: input.value, address: input.address })) : null,
       outputs: outputs.map(output => ({ value: output.value, address: output.address })),
       fee: miner_fee,
       date: changeDateFormat(timestamp),
