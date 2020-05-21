@@ -1,6 +1,8 @@
 <template>
   <LayoutTwoColumns>
-    <template v-slot:left>Aggregation function</template>
+    <template v-slot:left>
+      <EditorAggregations :script="aggregations" />
+    </template>
 
     <template v-slot:upperRight>
       <Fieldset title="What is an aggregator?" type="help">
@@ -46,7 +48,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
+import EditorAggregations from '@/components/card/EditorAggregations.vue'
 import Fieldset from '@/components/Fieldset'
 
 export default {
@@ -54,6 +58,12 @@ export default {
   components: {
     Fieldset,
     LayoutTwoColumns,
+    EditorAggregations,
+  },
+  computed: {
+    ...mapState({
+      aggregations: state => state.rad.radRequest.getMarkup().aggregate,
+    }),
   },
 }
 </script>

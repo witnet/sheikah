@@ -1,37 +1,40 @@
 <template>
-  <div>
-    <p>Filters</p>
-    <div>
-      <div
-        v-for="(operator, index) in filters"
-        :key="operator.toString() + index"
-      >
+  <div class="radon-script">
+    <div class="script-header">
+      <p class="url" data-test="header">
+        {{ header }}
+      </p>
+    </div>
+    <div class="icon-container">
+      <img class="row sheikah-icon" src="@/resources/svg/operator-arrow.svg" />
+    </div>
+    <div v-if="type === 'filters'">
+      <div v-for="(operator, index) in filters" :key="operator.toString() + index">
         <RadonOperator
+          data-test="filter-operator"
           :operator="operator"
-          :stage="stage"
+          :script-id="scriptId"
           :source-index="sourceIndex"
-          :show-output-type="false"
-          :show-union-icon="index !== filters.length - 1"
-          :script-id="operator.scriptId"
+          :show-output-type="index !== filters.length - 1"
+          @add-operator="addOperator"
         />
       </div>
-      <div class="button-container">
-        <button
-          class="add-operators-btn"
-          @click="pushOperator({ scriptId: reducer.scriptId })"
-        >
-          Add Filter
-        </button>
-      </div>
     </div>
-    <p>Reducer</p>
-    <RadonOperator
-      :operator="reducer"
-      :stage="stage"
-      :source-index="sourceIndex"
-      :show-output-type="false"
-      :script-id="reducer.scriptId"
-    />
+    <div v-else>
+      <RadonOperator
+        data-test="reducer-operator"
+        :operator="reducer"
+        :script-id="scriptId"
+        :source-index="sourceIndex"
+        :show-output-type="true"
+        @add-operator="addOperator"
+      />
+    </div>
+    <div class="script-footer">
+      <p class="text" data-test="footer">
+        {{ footer }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -44,20 +47,38 @@ export default {
   name: 'RadonAggregateTallyScript',
   components: { RadonOperator },
   props: {
-    stage: {
-      type: String,
-      default: '',
-    },
     sourceIndex: {
+      required: false,
+      default: null,
       type: Number,
-      required: true,
     },
     script: {
-      type: Object,
-      required: true,
+      required: false,
+      default: null,
+      type: [Object, Array]
     },
+    scriptId: {
+      required: false,
+      default: null,
+      type: Number,
+    },
+    type: {
+      required: false,
+      default: null,
+      type: String,
+    }
   },
   computed: {
+    header() {
+      return this.type === 'filters'
+        ? 'From x sources and companion scripts'
+        : 'From aggregation filters'
+    },
+    footer() {
+      return this.type === 'filters'
+        ? 'Into aggregation reducer'
+        : 'Return and report to the network'
+    },
     filters() {
       return this.script.filters
     },
@@ -69,6 +90,12 @@ export default {
     ...mapMutations({
       pushOperator: PUSH_OPERATOR,
     }),
+    addOperator() {
+      // TODO: get scriptId in a more consistent way
+      this.pushOperator({
+        scriptId: this.script[0] ? this.script[0].scriptId : this.scriptId,
+      })
+    },
   },
 }
 </script>
@@ -77,48 +104,47 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
-.circle {
-  background: transparent;
-  border: 2px solid $alt-grey-5;
-  border-radius: 100%;
-  box-shadow: none;
-  display: inline-block;
-  height: 30px;
-  margin: 16px 0;
-  outline: none;
-  position: relative;
-  vertical-align: middle;
-  width: 30px;
+.script-header {
+  align-items: center;
+  border: $operator-dashed-border;
+  display: flex;
+
+  .url {
+    color: $grey-3;
+    font-size: 14px;
+    font-weight: medium;
+    margin: 16px;
+
+    .protocol {
+      font-size: 12px;
+    }
+  }
 }
 
-.circle::before,
-.circle::after {
-  bottom: 0;
-  content: '';
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
+.script-footer {
+  align-items: center;
+  border: $operator-dashed-border;
+  display: flex;
+
+  .text {
+    color: $grey-3;
+    font-size: 14px;
+    font-weight: medium;
+    margin: 16px;
+  }
 }
 
-.circle.plus::before,
-.circle.plus::after {
-  background: $alt-grey-5;
-  cursor: pointer;
+.icon-container {
+  margin-left: 16px;
 }
 
-.circle.plus::before {
-  margin: 8px auto;
-  width: 2px;
-}
-
-.circle.plus::after {
-  box-shadow: none;
-  height: 2px;
-  margin: auto 8px;
+.radon-script {
+  padding: 16px 24px;
+  width: 100%;
 }
 
 .button-container {
+  margin-top: 16px;
   text-align: center;
 
   .add-operators-btn {

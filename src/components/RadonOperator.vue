@@ -50,6 +50,7 @@
         <div class="add-operator-container">
           <img
             class="add-operator"
+            data-test="add-operator"
             src="@/resources/svg/add-operator.svg"
             @click="addOperator"
           />
