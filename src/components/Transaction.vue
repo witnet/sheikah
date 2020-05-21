@@ -158,9 +158,18 @@ export default {
   },
   computed: {
     address() {
-      return this.inputs.length > 1
-        ? 'several addresses'
-        : this.inputs[0].address
+      if (this.type === 'POSITIVE') {
+        return this.inputs.length > 1
+          ? 'several addresses'
+          : this.inputs[0].address
+      } else {
+        // We are assumming that the first output is the address where we are
+        // sending and the second is for the change. So if there are more than 2,
+        // there are several addresses
+        return this.outputs.length > 2
+          ? 'several addresses'
+          : this.outputs[0].address
+      }
     },
     origin() {
       return this.type === 'POSITIVE' ? 'From' : 'To'
