@@ -202,8 +202,7 @@ export default {
     },
     setAddresses(state, { addresses }) {
       if (addresses) {
-        state.addresses = addresses
-        state.addresses = new Set(addresses)
+        state.addresses = addresses.reverse()
       }
     },
   },
