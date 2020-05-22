@@ -8,11 +8,11 @@ import util from 'util'
 import { spawn } from 'child_process'
 import axios from 'axios'
 import tar from 'tar'
-import { BrowserWindow, app, protocol, globalShortcut } from 'electron'
 import {
   createProtocol,
   installVueDevtools,
 } from 'vue-cli-plugin-electron-builder/lib'
+import { BrowserWindow, app, protocol, Menu } from 'electron'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
@@ -56,6 +56,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
+    autoHideMenuBar: true,
   })
 
   if (!isDevelopment) {
@@ -73,6 +74,22 @@ function createWindow() {
   win.on('closed', () => {
     win = null
   })
+  if (!isDevelopment) {
+    // Disable shortcuts defining a hidden menu and binding the shortcut we
+    // want to disable to an option
+    const menu = Menu.buildFromTemplate([
+      {
+        label: 'Menu',
+        submenu: [
+          { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
+          { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
+          { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+        ],
+      },
+    ])
+
+    Menu.setApplicationMenu(menu)
+  }
 }
 
 // Quit when all windows are closed.
@@ -96,8 +113,6 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-  globalShortcut.register('CmdOrCtrl+-', () => {})
-  globalShortcut.register('Command+Plus', () => {})
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
@@ -105,10 +120,6 @@ app.on('ready', async () => {
     } catch (e) {
       console.error('Vue Devtools failed to install:', e.toString())
     }
-  } else {
-    globalShortcut.register('CmdOrCtrl+R', () => {})
-    globalShortcut.register('CmdOrCtrl+Shift+R', () => {})
-    globalShortcut.register('CmdOrCtrl+Shift+I', () => {})
   }
 
   createWindow()
