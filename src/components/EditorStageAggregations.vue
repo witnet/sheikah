@@ -1,7 +1,11 @@
 <template>
   <LayoutTwoColumns>
-    <template v-slot:left>
-      <EditorAggregations :script="aggregations" />
+    <template #left>
+      <EditorAggregationsTally
+        :script="aggregations"
+        stage="aggregation"
+        :sources="sourcesLength"
+      />
     </template>
 
     <template v-slot:upperRight>
@@ -50,7 +54,7 @@
 <script>
 import { mapState } from 'vuex'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
-import EditorAggregations from '@/components/card/EditorAggregations.vue'
+import EditorAggregationsTally from '@/components/card/EditorAggregationsTally.vue'
 import Fieldset from '@/components/Fieldset'
 
 export default {
@@ -58,11 +62,12 @@ export default {
   components: {
     Fieldset,
     LayoutTwoColumns,
-    EditorAggregations,
+    EditorAggregationsTally,
   },
   computed: {
     ...mapState({
       aggregations: state => state.rad.radRequest.getMarkup().aggregate,
+      sourcesLength: state => state.rad.radRequest.getMarkup().retrieve.length,
     }),
   },
 }

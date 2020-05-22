@@ -5,6 +5,8 @@ describe('RadonAggregateTallyScript.vue', () => {
     const wrapper = mount(RadonAggregateTallyScript, {
       propsData: {
         type: 'filters',
+        header: 'a',
+        footer: 'b',
         scriptId: 4,
         script: {
           filters: [
@@ -169,12 +171,10 @@ describe('RadonAggregateTallyScript.vue', () => {
       }),
     })
     it('finds the header text', () => {
-      expect(wrapper.find('[data-test="header"]').text()).toBe(
-        'From x sources and companion scripts'
-      )
+      expect(wrapper.find('[data-test="header"]').text()).toBe('a')
     })
     it('finds the footer text', () => {
-      expect(wrapper.find('[data-test="footer"]').text()).toBe('Into aggregation reducer')
+      expect(wrapper.find('[data-test="footer"]').text()).toBe('b')
     })
     it('finds the filter operator', () => {
       expect(wrapper.contains('[data-test="filter-operator"]')).toBe(true)
@@ -187,6 +187,8 @@ describe('RadonAggregateTallyScript.vue', () => {
     const wrapper = mount(RadonAggregateTallyScript, {
       propsData: {
         type: 'reducer',
+        header: 'c',
+        footer: 'd',
         scriptId: 4,
         script: {
           filters: [
@@ -351,10 +353,10 @@ describe('RadonAggregateTallyScript.vue', () => {
       }),
     })
     it('finds the header text', () => {
-      expect(wrapper.find('[data-test="header"]').text()).toBe('From aggregation filters')
+      expect(wrapper.find('[data-test="header"]').text()).toBe('c')
     })
     it('finds the footer text', () => {
-      expect(wrapper.find('[data-test="footer"]').text()).toBe('Return and report to the network')
+      expect(wrapper.find('[data-test="footer"]').text()).toBe('d')
     })
     it('finds the filter operator', () => {
       expect(wrapper.contains('[data-test="filter-operator"]')).toBe(false)

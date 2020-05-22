@@ -57,7 +57,7 @@
           <p class="add-operator-text">Click to add another operator</p>
         </div>
       </div>
-      <OperatorOutput class="output" :label="selectedOption.secondaryText" />
+      <OperatorOutput class="output" :label="outputLabel" />
     </div>
   </div>
 </template>
@@ -115,19 +115,32 @@ export default {
     ...mapState({
       variables: state => state.rad.currentTemplate.variables,
     }),
-    selectedOption() {
-      return {
-        id: this.operator.id,
-        primaryText: this.operator.selected.label,
-        value: this.operator.selected.label,
-        secondaryText: standardizeOutputType(this.operator.selected.outputType),
-      }
+    isReducerOrFilter() {
+      return (
+        this.operator.selected.outputType === 'filterOutput' ||
+        this.operator.selected.outputType === 'reducerOutpur'
+      )
+    },
+    outputLabel() {
+      return this.operator.selected.outputType
     },
     selectedOperatorArguments() {
       return this.operator.selected.arguments
     },
     hasArguments() {
-      return !!this.selectedOperator.arguments.length
+      if (this.selectedOperator) {
+        return !!this.selectedOperator.arguments.length
+      } else {
+        return false
+      }
+    },
+    selectedOption() {
+      return {
+        id: this.operator.id,
+        primaryText: this.operator.selected.label,
+        value: this.operator.selected.label,
+        secondaryText: this.isReducerOrFilter ? null : standardizeOutputType(this.operator.selected.outputType),
+      }
     },
     selectedOperator() {
       return this.operator.selected
@@ -137,7 +150,7 @@ export default {
         return {
           primaryText: standardizeOperatorName(option.label),
           value: option.label,
-          secondaryText: standardizeOutputType(option.outputType),
+          secondaryText: this.isReducerOrFilter ? null : standardizeOutputType(option.outputType),
         }
       })
     },

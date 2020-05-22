@@ -1,5 +1,6 @@
 <template>
   <div :class="`output ${label}`">
+    <p v-show="filter" class="filter">{{ filter }}</p>
     <p class="label">{{ label }}</p>
     <div class="output-box" />
   </div>
@@ -12,6 +13,15 @@ export default {
     label: {
       type: String,
       default: '',
+    },
+  },
+  computed: {
+    filter() {
+      if (this.label === 'filterOutput') {
+        return 'Array'
+      } else {
+        return null
+      }
     },
   },
 }
@@ -35,6 +45,18 @@ export default {
   .label {
     color: $white;
     padding: 0 4px;
+  }
+
+  .filter {
+    background-color: $black;
+    color: $white;
+    padding: 0 4px;
+  }
+
+  // TODO: get the output of the filter when the library is ready
+  &.filterOutput {
+    background-color: $string;
+    border: 1px solid $string;
   }
 
   &.string {

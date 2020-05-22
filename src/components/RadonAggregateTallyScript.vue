@@ -66,19 +66,19 @@ export default {
       required: false,
       default: null,
       type: String,
+    },
+    header: {
+      required: true,
+      default: '',
+      type: String,
+    },
+    footer: {
+      required: true,
+      default: '',
+      type: String,
     }
   },
   computed: {
-    header() {
-      return this.type === 'filters'
-        ? 'From x sources and companion scripts'
-        : 'From aggregation filters'
-    },
-    footer() {
-      return this.type === 'filters'
-        ? 'Into aggregation reducer'
-        : 'Return and report to the network'
-    },
     filters() {
       return this.script.filters
     },

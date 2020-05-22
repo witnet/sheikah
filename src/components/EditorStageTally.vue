@@ -1,6 +1,8 @@
 <template>
   <LayoutTwoColumns>
-    <template v-slot:left>Tally function</template>
+    <template #left>
+      <EditorAggregationsTally :script="tally" stage="tally" />
+    </template>
 
     <template v-slot:upperRight>
       <Fieldset title="What is a tally?" type="help">
@@ -39,6 +41,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import EditorAggregationsTally from '@/components/card/EditorAggregationsTally.vue'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
 import Fieldset from '@/components/Fieldset'
 
@@ -47,6 +51,12 @@ export default {
   components: {
     Fieldset,
     LayoutTwoColumns,
+    EditorAggregationsTally,
+  },
+  computed: {
+    ...mapState({
+      tally: state => state.rad.radRequest.getMarkup().tally,
+    }),
   },
 }
 </script>
