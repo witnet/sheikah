@@ -1,7 +1,8 @@
 <template>
-  <div class="list">
+  <div class="list" :class="{ 'vertical-align': isMaxHeightExceeded }">
     <AddressCard
       v-for="(address, index) in addresses"
+      ref="address"
       :key="index"
       class="item"
       :used="address.used"
@@ -41,6 +42,12 @@ export default {
       default: null,
     },
   },
+  computed: {
+    isMaxHeightExceeded() {
+      // FIXME: calculate a the height in a more agnostic way
+      return this.addresses.length > 27
+    },
+  },
   methods: {
     selectAddress(index) {
       /**
@@ -56,7 +63,6 @@ export default {
 @import '@/styles/_colors.scss';
 
 .list {
-  align-content: center;
   align-items: center;
   background-color: $orange-1;
   border-bottom: 1px solid $grey-1;
@@ -70,6 +76,10 @@ export default {
   max-height: 170px;
   overflow: auto;
   padding: 25px;
+
+  &.vertical-align {
+    align-content: center;
+  }
 }
 
 ::-webkit-scrollbar {
