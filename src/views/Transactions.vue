@@ -48,12 +48,22 @@ export default {
       currency: state => state.wallet.currency,
     }),
   },
+  watch: {
+    transactions(val) {
+      if (val.length) {
+        this.$store.dispatch('startTransactionDateSync')
+      }
+    },
+  },
   beforeCreate() {
     this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
     this.$store.dispatch('getAddresses')
     this.$store.dispatch('getBalance')
     // TODO: place this methods in the correct place when the generated transaction from the wallet is ready
     this.$store.dispatch('getLabels')
+  },
+  destroyed() {
+    this.$store.dispatch('stopTransactionDateSync')
   },
   methods: {
     ...mapActions(['generateAddress']),

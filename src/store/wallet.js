@@ -5,6 +5,7 @@ import {
   standardizeWitUnits,
   createNotification,
   cropString,
+  calculateTimeAgo,
 } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { GENERATE_ADDRESS_DELAY, WALLET_EVENTS, WIT_UNIT } from '@/constants'
@@ -60,7 +61,10 @@ export default {
   },
   mutations: {
     setTransactions(state, { transactions }) {
-      state.transactions = transactions
+      state.transactions = transactions.map(transaction => ({
+        ...transaction,
+        timeAgo: calculateTimeAgo(transaction.timestamp),
+      }))
     },
     setWalletIndex(state, { walletIndex }) {
       const walletInfos = state.walletInfos
@@ -207,6 +211,18 @@ export default {
     },
   },
   actions: {
+    startTransactionDateSync(context) {
+      if (!this.transactionSync) {
+        this.transactionSync = setInterval(() => {
+          context.commit('setTransactions', {
+            transactions: context.state.transactions,
+          })
+        }, 15000)
+      }
+    },
+    stopTransactionDateSync(context) {
+      clearInterval(this.transactionSync)
+    },
     closeSession: async function(context) {
       const request = await context.state.api.closeSession({
         wallet_id: context.state.walletId,
@@ -471,6 +487,7 @@ export default {
         limit,
         page,
       })
+
       if (request.result) {
         context.commit('setTransactions', { transactions: request.result })
         this.commit('clearError', { error: 'getTransactions' })

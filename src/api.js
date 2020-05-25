@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { changeDateFormat, calculateTimeAgo } from '@/utils'
+import { changeDateFormat } from '@/utils'
 const RPCWebsockets = require('rpc-websockets').Client
 
 const defaultOptions = {
@@ -254,7 +254,7 @@ export function standardizeTransactions(response) {
       })),
       fee: miner_fee,
       date: changeDateFormat(timestamp),
-      timeAgo: calculateTimeAgo(timestamp),
+      timestamp,
       label: '',
       amount: transaction.amount,
       block: block.block_hash,
