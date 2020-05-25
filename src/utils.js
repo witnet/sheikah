@@ -129,13 +129,26 @@ export function isRepeated(key, list) {
 
 // Split the first word of a camelCase string
 export function standardizeOperatorName(name) {
-  if (name != null) {
+  if (name) {
     const capitalLetterRegex = /[A-Z][a-z]+/g
     const matchedArray = (name.match(capitalLetterRegex) || []).splice(1)
     if (matchedArray.length) {
       matchedArray[0] = matchedArray[0].toLowerCase()
       const standardizedWord = matchedArray.join('')
-      return standardizedWord
+      return standardizedWord === 'parse' ? 'parseXml' : standardizedWord
+    } else {
+      return name.toLowerCase()
+    }
+  }
+}
+// Split the last word of a camelCase string an return the first item
+export function standardizeOutputType(name) {
+  if (name) {
+    const capitalLetterRegex = /(?=[A-Z][a-z]+$)/
+    const arrayfromName = name.split(capitalLetterRegex)
+    if (arrayfromName.length > 1) {
+      arrayfromName[0] = arrayfromName[0].toLowerCase()
+      return arrayfromName[0]
     } else {
       return name.toLowerCase()
     }

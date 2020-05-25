@@ -1,5 +1,9 @@
 <template>
-  <div @mouseover="showDelete = true" @mouseleave="showDelete = false" class="radon-operator">
+  <div
+    class="radon-operator"
+    @mouseover="showDelete = true"
+    @mouseleave="showDelete = false"
+  >
     <div class="border">
       <img
         v-show="showDelete"
@@ -65,6 +69,7 @@ import Select from '@/components/Select'
 import {
   standardizeOperatorName,
   getNativeValueFromMarkupArgumentType,
+  standardizeOutputType,
 } from '@/utils'
 import {
   UPDATE_TEMPLATE,
@@ -114,7 +119,7 @@ export default {
         id: this.operator.id,
         primaryText: this.operator.selected.label,
         value: this.operator.selected.label,
-        secondaryText: this.operator.selected.outputType,
+        secondaryText: standardizeOutputType(this.operator.selected.outputType),
       }
     },
     selectedOperatorArguments() {
@@ -131,7 +136,7 @@ export default {
         return {
           primaryText: standardizeOperatorName(option.label),
           value: option.label,
-          secondaryText: option.outputType,
+          secondaryText: standardizeOutputType(option.outputType),
         }
       })
     },
@@ -225,15 +230,17 @@ export default {
   position: relative;
 
   .border {
-    padding: 16px 24px 16px 16px;
-    padding-right: 24;
     border: $input_border;
     border-radius: $input_big-border-radius;
     column-gap: 16px;
+    row-gap: 16px;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(auto-fit, auto);
+    padding: 16px 24px 16px 16px;
+    padding-right: 24;
     position: relative;
+
     .delete {
       cursor: pointer;
       position: absolute;
@@ -241,6 +248,7 @@ export default {
       top: 8px;
       width: 10px;
     }
+
     .label {
       color: $grey-5;
       font-size: 14px;

@@ -6,10 +6,22 @@
       </p>
     </div>
     <div class="icon-container">
-      <img v-if="emptyScript" class="row sheikah-icon" src="@/resources/svg/long-arrow.svg" />
-      <img v-else class="row sheikah-icon" src="@/resources/svg/operator-arrow.svg" />
+      <img
+        v-if="emptyScript"
+        class="row sheikah-icon"
+        src="@/resources/svg/long-arrow.svg"
+      />
+      <img
+        v-else
+        class="row sheikah-icon"
+        src="@/resources/svg/operator-arrow.svg"
+      />
       <div v-if="emptyScript" class="add-operator-container">
-        <img @click="addOperator" class="add-operator" src="@/resources/svg/add-operator.svg" />
+        <img
+          class="add-operator"
+          src="@/resources/svg/add-operator.svg"
+          @click="addOperator"
+        />
         <p class="add-operator-text">Click to add an operator</p>
       </div>
     </div>
@@ -122,18 +134,20 @@ export default {
 .icon-container {
   margin-left: 16px;
   position: relative;
+
   .add-operator-container {
+    bottom: 24px;
     cursor: pointer;
     display: flex;
+    left: -4px;
     position: absolute;
     width: max-content;
-    bottom: 24px;
-    left: -4px;
+
     .add-operator-text {
-      margin-left: 16px;
+      color: $grey-4;
       font-size: 12px;
       font-weight: medium;
-      color: $grey-4;
+      margin-left: 16px;
     }
   }
 }

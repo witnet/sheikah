@@ -97,6 +97,26 @@ export default {
     border: 1px solid $integer;
   }
 
+  &.match {
+    background-color: $matchOutput;
+    border: 1px solid $matchOutput;
+  }
+
+  &.inner {
+    background-color: $inner;
+    border: 1px solid $inner;
+  }
+
+  &.same {
+    background-color: $same;
+    border: 1px solid $same;
+  }
+
+  &.subscriptOutput {
+    background-color: $subscriptOutput;
+    border: 1px solid $subscriptOutput;
+  }
+
   .output-box {
     background: $white;
     height: 24px;

@@ -76,5 +76,21 @@ export default {
   &.integer {
     border: 1px solid $integer;
   }
+
+  &.match {
+    border: 1px solid $matchOutput;
+  }
+
+  &.inner {
+    border: 1px solid $inner;
+  }
+
+  &.same {
+    border: 1px solid $same;
+  }
+
+  &.subscriptOutput {
+    border: 1px solid $subscriptOutput;
+  }
 }
 </style>
