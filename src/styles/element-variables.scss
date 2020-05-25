@@ -75,9 +75,9 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
       }
 
       &:active {
-        background: $purple-4;
+        background-color: $white;
         border-color: $white;
-        color: $white;
+        color: $purple-4;
         outline: none;
       }
     }
@@ -99,6 +99,13 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     &:focus {
       background-color: $purple-2;
       border-color: $purple-3;
+    }
+
+    &:active {
+      background-color: $purple-3;
+      border-color: $purple-4;
+      color: #FFFFFF;
+      outline: none;
     }
   }
 

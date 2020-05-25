@@ -74,7 +74,7 @@ export default {
 .editor {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  height: 100vh;
-  position: relative;
+  grid-template-rows: max-content max-content 1fr max-content;
+  overflow: hidden;
 }
 </style>

@@ -32,6 +32,7 @@ export default {
     templates: {},
     currentTemplate: {},
     currentRadonMarkupInterpreter: null,
+    lastStageModified: null,
     radRequest: {},
     history: [],
     historyIndex: 0,
@@ -133,35 +134,21 @@ export default {
       })
     },
     [EDITOR_REDO](state) {
-      const redolenght = state.currentRadonMarkupInterpreter.retrieve.length
       if (state.history[state.historyIndex + 1]) {
         state.historyIndex += 1
         state.currentRadonMarkupInterpreter = new Radon(
           state.history[state.historyIndex],
         )
         state.radRequest = state.currentRadonMarkupInterpreter
-        const currentLenght = state.radRequest.retrieve.length
-        if (redolenght > currentLenght) {
-          this.commit(MOVE_CAROUSEL, { direction: 'right' })
-        } else if (redolenght < currentLenght) {
-          this.commit(MOVE_CAROUSEL, { direction: 'left' })
-        }
       }
     },
     [EDITOR_UNDO](state) {
-      const lenght = state.currentRadonMarkupInterpreter.retrieve.length
       if (state.history[state.historyIndex - 1]) {
         state.historyIndex = state.historyIndex - 1
         state.currentRadonMarkupInterpreter = new Radon(
           state.history[state.historyIndex],
         )
         state.radRequest = state.currentRadonMarkupInterpreter
-        const currentLenght = state.radRequest.retrieve.length
-        if (lenght > currentLenght) {
-          this.commit(MOVE_CAROUSEL, { direction: 'right' })
-        } else if (lenght < currentLenght) {
-          this.commit(MOVE_CAROUSEL, { direction: 'left' })
-        }
       }
     },
     [MOVE_CAROUSEL](state, { direction }) {
@@ -367,7 +354,6 @@ export default {
         key: 'templates',
         value: templates,
       })
-
       if (request.result) {
         await context.dispatch('getTemplates')
       } else {

@@ -39,6 +39,7 @@ export default {
   gap: 25px;
   grid-template: 1fr / 1fr 350px;
   padding: 25px;
+  overflow: auto;
 
   .col-right {
     display: grid;
