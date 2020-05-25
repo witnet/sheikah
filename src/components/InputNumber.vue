@@ -1,10 +1,13 @@
 <template>
   <div class="inputnumber">
-    <el-input data-test="tx-amount" v-model="inputValue">
+    <el-input v-model="inputValue" data-test="tx-amount">
       <template slot="append">
         <div class="increase" @click="increase">
           <div class="icon">
-            <font-awesome-icon data-test="send-increase-amount" icon="angle-up" />
+            <font-awesome-icon
+              data-test="send-increase-amount"
+              icon="angle-up"
+            />
           </div>
         </div>
       </template>
@@ -16,7 +19,10 @@
 export default {
   name: 'InputNumber',
   props: {
-    value: [String, Number],
+    value: {
+      type: [String, Number],
+      default: '',
+    },
   },
   computed: {
     inputValue: {
@@ -41,37 +47,41 @@ export default {
 @import '@/styles/theme.scss';
 
 .inputnumber {
-  display: flex;
   align-items: center;
-  width: max-content;
+  display: flex;
   min-width: max-content;
+  width: max-content;
+
   .increase {
-    display: flex;
     align-items: center;
     color: $alt-grey-3;
+    display: flex;
+
     &:hover {
-      cursor: pointer;
       color: $purple-4;
+      cursor: pointer;
     }
   }
+
   .text {
     color: $alt-grey-3;
     font-size: 14px;
     margin-left: 16px;
   }
+
   .unit {
-    width: 60px;
-    height: 35px;
-    padding: 8px;
-    display: flex;
     align-items: center;
-    justify-content: center;
     background-color: $alt-grey-2;
     border-radius: 0 4px 4px 0;
+    display: flex;
+    height: 35px;
+    justify-content: center;
+    padding: 8px;
+    width: 60px;
 
     .text {
-      margin: 0;
       color: $white;
+      margin: 0;
     }
   }
 }

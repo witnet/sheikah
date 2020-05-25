@@ -1,9 +1,8 @@
 <template>
   <textarea
     :ref="`input${Date.now()}`"
-    data-test="textarea"
-    @keydown.enter.esc.prevent="toogleGoNextItem"
     v-model="inputValue"
+    data-test="textarea"
     class="input"
     :class="{
       big: type === 'big',
@@ -14,6 +13,7 @@
     :placeholder="placeholder"
     :type="nativeType"
     :maxlength="maxlength"
+    @keydown.enter.esc.prevent="toogleGoNextItem"
   />
 </template>
 
@@ -26,23 +26,27 @@ export default {
   props: {
     maxlength: {
       type: Number,
-      required: false,
+      default: null,
     },
-    nativeType: String,
-    placeholder: String,
-    type: [Number, String],
+    nativeType: {
+      type: String,
+      default: '',
+    },
+    placeholder: {
+      type: String,
+      default: '',
+    },
+    type: {
+      type: [Number, String],
+      default: '',
+    },
     value: {
-      required: false,
+      type: String,
+      required: true,
     },
     autoresize: {
       type: Boolean,
-      required: false,
     },
-  },
-  mounted() {
-    if (this.autoresize) {
-      this.makeItAutoresizeable(this.$refs[Object.keys(this.$refs)[0]])
-    }
   },
   computed: {
     inputValue: {
@@ -54,6 +58,16 @@ export default {
       },
     },
   },
+  watch: {
+    inputValue(value) {
+      this.$emit('input', value)
+    },
+  },
+  mounted() {
+    if (this.autoresize) {
+      this.makeItAutoresizeable(this.$refs[Object.keys(this.$refs)[0]])
+    }
+  },
   methods: {
     toogleGoNextItem() {
       this.$emit('go-next')
@@ -63,30 +77,26 @@ export default {
       return classes.includes(className) ? className : 'default'
     },
   },
-  watch: {
-    inputValue(value) {
-      this.$emit('input', value)
-    },
-  },
 }
 </script>
 
 <style scoped lang="scss">
 @import '@/styles/theme.scss';
+
 .input {
-  display: inline-block;
-  width: 100%;
   box-sizing: border-box;
+  display: inline-block;
   resize: none;
+  width: 100%;
 
   &.autoresize {
     overflow: hidden;
   }
 
   &.big {
-    font-size: 22px;
     border: $input_big-border;
     border-radius: $input_big-border-radius;
+    font-size: 22px;
     min-height: 80px;
     transition: all 0.1s ease;
     width: $input_big-width;
@@ -102,13 +112,13 @@ export default {
   }
 
   &.default {
-    text-align: center;
     background-color: $white;
-    border-radius: 4px;
     border: 1px solid $alt-grey-1;
+    border-radius: 4px;
     color: $alt-grey-3;
     font-size: 16px;
     line-height: 32px;
+    text-align: center;
   }
 
   &.underlined {

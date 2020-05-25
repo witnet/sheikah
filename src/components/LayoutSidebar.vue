@@ -24,9 +24,9 @@ export default {
             },
           },
           /** @slot Default slot will be rendered next to the sidebar */
-          this.$slots.default
+          this.$slots.default,
         ),
-      ]
+      ],
     )
   },
 }
@@ -40,6 +40,7 @@ export default {
   display: grid;
   grid-template: 1fr / auto 1fr;
   max-height: 100vh;
+
   .content {
     background: $alpha-purple;
     overflow: auto;

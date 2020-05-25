@@ -1,11 +1,13 @@
 <template>
   <div data-test="editor-view" class="editor">
     <EditorToolBar />
-    <EditorStageBar v-on:change-stage="changeStage" />
+    <EditorStageBar @change-stage="changeStage" />
     <EditorStageSettings v-if="currentStage === EDITOR_STAGES.SETTINGS" />
     <EditorStageSources v-if="currentStage === EDITOR_STAGES.SOURCES" />
     <EditorStageScripts v-if="currentStage === EDITOR_STAGES.SCRIPTS" />
-    <EditorStageAggregations v-if="currentStage === EDITOR_STAGES.AGGREGATIONS" />
+    <EditorStageAggregations
+      v-if="currentStage === EDITOR_STAGES.AGGREGATIONS"
+    />
     <EditorStageTally v-if="currentStage === EDITOR_STAGES.TALLY" />
 
     <Console :logs="logs" />
@@ -43,6 +45,18 @@ export default {
       logs: [],
     }
   },
+  computed: {
+    ...mapState({
+      radRequest: state => state.rad.radRequest,
+      radRequestResult: state => state.wallet.radRequestResult,
+      networkStatus: state => state.wallet.networkStatus,
+    }),
+  },
+  watch: {
+    radRequestResult(val) {
+      this.logs.push(val)
+    },
+  },
   created() {
     this.saveTemplate()
   },
@@ -53,26 +67,14 @@ export default {
       this.currentStage = stage
     },
   },
-  watch: {
-    radRequestResult(val) {
-      this.logs.push(val)
-    },
-  },
-  computed: {
-    ...mapState({
-      radRequest: state => state.rad.radRequest,
-      radRequestResult: state => state.wallet.radRequestResult,
-      networkStatus: state => state.wallet.networkStatus,
-    }),
-  },
 }
 </script>
 
 <style scoped>
 .editor {
-  position: relative;
-  height: 100vh;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
+  height: 100vh;
+  position: relative;
 }
 </style>

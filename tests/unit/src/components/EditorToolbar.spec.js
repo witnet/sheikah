@@ -28,7 +28,7 @@ describe('EditorToolBar.vue', () => {
               },
             },
           },
-        })
+        }),
       )
 
       expect(wrapper.find('.name').text()).toBe('Template 1')
@@ -59,7 +59,7 @@ describe('EditorToolBar.vue', () => {
               },
             },
           },
-        })
+        }),
       )
 
       expect(wrapper.find('[data-test="action-redo"]').isVisible()).toBe(true)
@@ -90,7 +90,7 @@ describe('EditorToolBar.vue', () => {
               },
             },
           },
-        })
+        }),
       )
 
       expect(wrapper.find('[data-test="action-undo"]').isVisible()).toBe(true)
@@ -121,7 +121,7 @@ describe('EditorToolBar.vue', () => {
               },
             },
           },
-        })
+        }),
       )
 
       expect(wrapper.find('[data-test="action-save"]').isVisible()).toBe(true)
@@ -152,7 +152,7 @@ describe('EditorToolBar.vue', () => {
               },
             },
           },
-        })
+        }),
       )
 
       expect(wrapper.find('[data-test="action-export"]').isVisible()).toBe(true)
@@ -183,7 +183,7 @@ describe('EditorToolBar.vue', () => {
               },
             },
           },
-        })
+        }),
       )
 
       expect(wrapper.find('[data-test="action-try"]').isVisible()).toBe(true)
@@ -217,7 +217,7 @@ describe('EditorToolBar.vue', () => {
               },
             },
           },
-        })
+        }),
       )
 
       const redoButton = wrapper.find('[data-test="action-redo"]')
@@ -252,7 +252,7 @@ describe('EditorToolBar.vue', () => {
               },
             },
           },
-        })
+        }),
       )
 
       const undoButton = wrapper.find('[data-test="action-undo"]')
@@ -287,7 +287,7 @@ describe('EditorToolBar.vue', () => {
               },
             },
           },
-        })
+        }),
       )
 
       const saveButton = wrapper.find('[data-test="action-save"]')
@@ -322,7 +322,7 @@ describe('EditorToolBar.vue', () => {
               },
             },
           },
-        })
+        }),
       )
 
       const tryButton = wrapper.find('[data-test="action-try"]')

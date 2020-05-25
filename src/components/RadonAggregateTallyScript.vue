@@ -2,18 +2,24 @@
   <div>
     <p>Filters</p>
     <div>
-      <div v-for="(operator, index) in filters" :key="operator.toString() + index">
+      <div
+        v-for="(operator, index) in filters"
+        :key="operator.toString() + index"
+      >
         <RadonOperator
           :operator="operator"
           :stage="stage"
-          :sourceIndex="sourceIndex"
-          :showOutputType="false"
-          :showUnionIcon="index !== filters.length - 1"
-          :scriptId="operator.scriptId"
+          :source-index="sourceIndex"
+          :show-output-type="false"
+          :show-union-icon="index !== filters.length - 1"
+          :script-id="operator.scriptId"
         />
       </div>
       <div class="button-container">
-        <button class="add-operators-btn" @click="pushOperator({ scriptId: reducer.scriptId })">
+        <button
+          class="add-operators-btn"
+          @click="pushOperator({ scriptId: reducer.scriptId })"
+        >
           Add Filter
         </button>
       </div>
@@ -22,9 +28,9 @@
     <RadonOperator
       :operator="reducer"
       :stage="stage"
-      :sourceIndex="sourceIndex"
-      :showOutputType="false"
-      :scriptId="reducer.scriptId"
+      :source-index="sourceIndex"
+      :show-output-type="false"
+      :script-id="reducer.scriptId"
     />
   </div>
 </template>
@@ -38,14 +44,18 @@ export default {
   name: 'RadonAggregateTallyScript',
   components: { RadonOperator },
   props: {
-    stage: String,
-    sourceIndex: Number,
-    script: Object,
-  },
-  methods: {
-    ...mapMutations({
-      pushOperator: PUSH_OPERATOR,
-    }),
+    stage: {
+      type: String,
+      default: '',
+    },
+    sourceIndex: {
+      type: Number,
+      required: true,
+    },
+    script: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
     filters() {
@@ -55,6 +65,11 @@ export default {
       return this.script.reducer
     },
   },
+  methods: {
+    ...mapMutations({
+      pushOperator: PUSH_OPERATOR,
+    }),
+  },
 }
 </script>
 
@@ -63,56 +78,60 @@ export default {
 @import '@/styles/theme.scss';
 
 .circle {
-  outline: none;
-  border: 2px solid $alt-grey-5;
-  box-shadow: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  position: relative;
-  margin: 16px 0;
-  display: inline-block;
-  vertical-align: middle;
   background: transparent;
+  border: 2px solid $alt-grey-5;
+  border-radius: 100%;
+  box-shadow: none;
+  display: inline-block;
+  height: 30px;
+  margin: 16px 0;
+  outline: none;
+  position: relative;
+  vertical-align: middle;
+  width: 30px;
 }
 
-.circle:before,
-.circle:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+.circle::before,
+.circle::after {
   bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
-.circle.plus:before,
-.circle.plus:after {
-  cursor: pointer;
+
+.circle.plus::before,
+.circle.plus::after {
   background: $alt-grey-5;
+  cursor: pointer;
 }
-.circle.plus:before {
-  width: 2px;
+
+.circle.plus::before {
   margin: 8px auto;
+  width: 2px;
 }
-.circle.plus:after {
-  margin: auto 8px;
-  height: 2px;
+
+.circle.plus::after {
   box-shadow: none;
+  height: 2px;
+  margin: auto 8px;
 }
+
 .button-container {
   text-align: center;
 
   .add-operators-btn {
-    cursor: pointer;
-    margin: 32px;
-    width: 150px;
-    padding: 8px;
-    font-size: 16px;
     background-color: $purple-4;
     border-radius: 5px;
     color: $white;
+    cursor: pointer;
     font-family: 'Roboto';
+    font-size: 16px;
     font-weight: bold;
+    margin: 32px;
+    padding: 8px;
+    width: 150px;
 
     &:active,
     &:focus {

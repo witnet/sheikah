@@ -70,6 +70,6 @@ library.add(
   faTrash,
   faUndo,
   faUsers,
-  faWallet
+  faWallet,
 )
 Vue.component('font-awesome-icon', FontAwesomeIcon)

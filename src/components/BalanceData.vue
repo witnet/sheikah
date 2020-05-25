@@ -30,7 +30,7 @@ export default {
      */
     currency: {
       type: String,
-      requried: true,
+      required: true,
     },
     /**
      * Available wits the user owns
@@ -61,19 +61,19 @@ export default {
 @import '@/styles/_colors.scss';
 
 .table {
-  width: 100%;
-  padding: 25px;
   background-color: $purple-5;
   border-radius: 4px;
   box-shadow: 0 4px 4px rgb(155, 181, 224, 0.1);
-
   display: grid;
   grid-template: auto auto auto / auto 1fr;
-  row-gap: 15px;
   margin-bottom: 10px;
+  padding: 25px;
+  row-gap: 15px;
+  width: 100%;
+
   .label {
-    font-size: 14px;
     color: $white;
+    font-size: 14px;
 
     &.total {
       font-size: 16px;
@@ -83,9 +83,10 @@ export default {
 
   .amount {
     color: $white;
+    font-size: 14px;
     justify-self: end;
     width: max-content;
-    font-size: 14px;
+
     .currency {
       font-size: 11px;
       font-weight: normal;

@@ -23,32 +23,37 @@ export default {
 @import '@/styles/theme.scss';
 
 .container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+
   .alert {
     background-color: $orange-0;
     width: 400px;
+
     .title {
       color: $orange-2;
-      font-weight: bold;
       font-size: 18px;
+      font-weight: bold;
       padding-bottom: 16px;
     }
+
     .description {
       color: $orange-2;
       font-size: 16px;
     }
+
     .link-container {
+      background-color: $white;
       font-size: 14px;
       margin-top: 16px;
       padding: 8px;
-      background-color: $white;
+
       .link {
-        line-height: 1.5;
         color: $alt-grey-5;
+        line-height: 1.5;
       }
     }
   }

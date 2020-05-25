@@ -1,16 +1,21 @@
 <template>
   <FrameOutside @click="onClose" @focus="onClose">
     <div class="title" @click="allowOpen">
-      <div data-test="edit-var" ref="editable" v-show="!showInput" @click="allowEdit">
+      <div
+        v-show="!showInput"
+        ref="editable"
+        data-test="edit-var"
+        @click="allowEdit"
+      >
         {{ value }}
       </div>
       <el-input
+        v-show="showInput"
+        v-model="inputValue"
         size="mini"
         data-test="edit-var-input"
-        v-show="showInput"
         :class="[error]"
         class="editVar"
-        v-model="inputValue"
         :placeholder="placeholder"
       />
       <font-awesome-icon v-show="!showInput" class="edit-btn" icon="edit" />
@@ -27,8 +32,12 @@ export default {
   },
   props: {
     error: Boolean,
-    placeholder: String,
+    placeholder: {
+      type: String,
+      default: '',
+    },
     value: {
+      type: String,
       required: true,
     },
     blockOpen: Boolean,
@@ -46,6 +55,11 @@ export default {
       set(inputValue) {
         this.$emit('input', inputValue)
       },
+    },
+  },
+  watch: {
+    inputValue(value) {
+      this.$emit('input', value)
     },
   },
   methods: {
@@ -76,11 +90,6 @@ export default {
       }
     },
   },
-  watch: {
-    inputValue(value) {
-      this.$emit('input', value)
-    },
-  },
 }
 </script>
 
@@ -89,28 +98,32 @@ export default {
 @import '@/styles/theme.scss';
 
 .title {
-  font-size: 16px;
+  align-items: center;
   color: $alt-grey-1;
   display: flex;
-  align-items: center;
+  font-size: 16px;
   justify-content: center;
+
   .editVar {
     width: 80px;
+
     &.error {
-      color: $red-5;
       border-bottom: 1px solid $red-5;
+      color: $red-5;
     }
   }
+
   .edit-btn {
     margin-left: 8px;
     opacity: 0;
   }
+
   &:hover {
     .edit-btn {
-      padding-left: 8px;
-      opacity: 1;
-      font-size: 16px;
       color: $alt-grey-1;
+      font-size: 16px;
+      opacity: 1;
+      padding-left: 8px;
     }
   }
 }

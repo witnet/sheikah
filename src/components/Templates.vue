@@ -2,33 +2,37 @@
   <div data-test="templates">
     <div class="templates-bar">
       <p class="title">
-        Data Request Templates <span class="templates-number">{{ templates.length }}</span>
+        Data Request Templates
+        <span class="templates-number">{{ templates.length }}</span>
       </p>
-      <el-button class="import-btn" @click="importTemplate" type="primary">
+      <el-button class="import-btn" type="primary" @click="importTemplate">
         <font-awesome-icon class="icon" icon="file-import" />
         Import template
       </el-button>
     </div>
     <div class="centered">
-      <div v-if="Object.entries(paginatedTemplates)" class="container-templates">
+      <div
+        v-if="Object.entries(paginatedTemplates)"
+        class="container-templates"
+      >
         <div
-          data-test="create-template"
-          @click="createTemplateAndRedirect()"
           v-show="currentPage === 1"
+          data-test="create-template"
           class="add"
+          @click="createTemplateAndRedirect"
         >
           <img class="add-btn" src="@/resources/svg/add.svg" />
           <p class="text">Create a new template</p>
         </div>
         <TemplateCard
           v-for="template in paginatedTemplates"
+          :id="template.id"
+          :key="template.id"
           class="card"
           :name="template.name"
-          :id="template.id"
           :sources="template.radRequest.retrieve.length"
           :description="template.description"
-          :key="template.id"
-          v-on:toggle-modal="displayModalCreateDR(template)"
+          @toggle-modal="displayModalCreateDR(template)"
         />
       </div>
       <div v-else>
@@ -37,37 +41,39 @@
     </div>
     <div v-show="templates.length" class="pagination-nav">
       <el-pagination
-        @current-change="handleCurrentChange"
         :page-size="templatesPerPage"
         layout="prev, pager, next"
         :total="templates.length"
         :current-page="currentPage"
+        @current-change="handleCurrentChange"
       />
     </div>
-    <input :style="{ display: 'none' }" type="file" ref="fileInput" @change="readFile" />
+    <input
+      ref="fileInput"
+      :style="{ display: 'none' }"
+      type="file"
+      @change="readFile"
+    />
     <DeployDataRequest
       v-if="dialogVisible"
-      v-on:close="closeDeployModal"
       :template="currentTemplate"
       :visible="dialogVisible"
+      @close="closeDeployModal"
     />
   </div>
 </template>
 
 <script>
-import TemplateCard from './card/TemplateCard'
 import DeployDataRequest from '@/components/DeployDataRequest.vue'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
+import TemplateCard from './card/TemplateCard'
 
 export default {
   name: 'Templates',
   components: {
     TemplateCard,
     DeployDataRequest,
-  },
-  beforeMount() {
-    this.getTemplates()
   },
   data() {
     return {
@@ -82,7 +88,8 @@ export default {
       return this.currentPage === 1 ? 7 : 8
     },
     paginatedTemplates() {
-      const from = this.currentPage * this.templatesPerPage - this.templatesPerPage
+      const from =
+        this.currentPage * this.templatesPerPage - this.templatesPerPage
       const to = this.currentPage * this.templatesPerPage
       return this.templates.slice(from, to)
     },
@@ -95,8 +102,21 @@ export default {
               ...template[1],
             }
           })
-          .sort((a, b) => parseInt(b.lastTimeOpened) - parseInt(a.lastTimeOpened)),
+          .sort(
+            (a, b) => parseInt(b.lastTimeOpened) - parseInt(a.lastTimeOpened),
+          ),
     }),
+  },
+  beforeMount() {
+    this.getTemplates()
+  },
+  beforeDestroy() {
+    if (this.saveItemError) {
+      this.clearError({ error: this.saveItemError.name })
+    }
+    if (this.getItemError) {
+      this.clearError({ error: this.getItemError.name })
+    }
   },
   methods: {
     ...mapMutations({
@@ -142,82 +162,85 @@ export default {
             console.log('Error parsing json')
           }
         },
-        false
+        false,
       )
       reader.readAsText(file)
     },
-  },
-  beforeDestroy() {
-    if (this.saveItemError) {
-      this.clearError({ error: this.saveItemError.name })
-    }
-    if (this.getItemError) {
-      this.clearError({ error: this.getItemError.name })
-    }
   },
 }
 </script>
 
 <style lang="scss">
 @import '@/styles/_colors.scss';
+
 .templates-bar {
+  align-items: center;
   display: flex;
   flex-flow: row wrap;
-  text-align: right;
-  justify-content: right;
-  align-items: center;
   height: 70px;
+  justify-content: right;
+  text-align: right;
+
   .title {
-    margin: 16px 0px 0px 32px;
     font-weight: bold;
+    margin: 16px 0 0 32px;
+
     .templates-number {
-      margin-left: 8px;
-      font-weight: normal;
-      font-size: 14px;
       color: $grey-4;
+      font-size: 14px;
+      font-weight: normal;
+      margin-left: 8px;
     }
   }
+
   .import-btn {
-    margin: 0px 16px 0px auto;
+    margin: 0 16px 0 auto;
   }
 }
+
 .pagination-nav {
-  padding: 16px 0px 16px 0px;
+  padding: 16px 0 16px 0;
   text-align: center;
 }
+
 .centered {
+  margin: 0 16px;
   min-height: 700px;
-  margin: 0px 16px;
 }
+
 .container-templates {
-  width: 100%;
-  margin: 0px 16px;
   display: grid;
   grid-gap: 24px;
   grid-template-columns: repeat(auto-fill, 300px);
+  margin: 0 16px;
+  width: 100%;
+
   .add {
-    box-shadow: 1px 2px 8px 0px rgba(207, 207, 207, 0.329);
-    border: 1px solid $grey-1;
+    align-items: center;
     background-color: $white;
+    border: 1px solid $grey-1;
     border-radius: 2px;
+    box-shadow: 1px 2px 8px 0 rgba(207, 207, 207, 0.329);
     display: flex;
-    width: 300px;
+    flex-direction: column;
     height: 300px;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    width: 300px;
+
     .add-btn {
       width: 50px;
     }
+
     .text {
-      margin-top: 24px;
-      font-size: 12px;
       color: $grey-3;
+      font-size: 12px;
       font-style: italic;
+      margin-top: 24px;
     }
+
     &:hover {
-      cursor: pointer;
       border: 1px solid $purple-4;
+      cursor: pointer;
     }
   }
 }

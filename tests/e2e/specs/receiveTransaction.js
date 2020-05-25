@@ -12,7 +12,7 @@ describe.skip('Create a complete Receive transactions flow', () => {
     cy.get('[data-test=receive-modal]').should(
       'have.attr',
       'style',
-      'z-index: 2001; display: none;'
+      'z-index: 2001; display: none;',
     )
   })
 })

@@ -2,7 +2,7 @@ import RadonOperator from '@/components/RadonOperator'
 
 describe('RadonOperator.vue', () => {
   describe('should render properly when there is arguments', () => {
-    let state = {
+    const state = {
       currentTemplate: {
         variables: [{}],
       },
@@ -11,6 +11,7 @@ describe('RadonOperator.vue', () => {
       ...createComponentMocks({ store: { rad: { state: state } } }),
       propsData: {
         scriptId: 8,
+        sourceIndex: 0,
         operator: {
           selected: {
             label: 'asFloat',
@@ -45,20 +46,24 @@ describe('RadonOperator.vue', () => {
     })
 
     it('should render the operator label', () => {
-      expect(wrapper.find('[data-test="operator-label"]').text()).toBe('Operator')
+      expect(wrapper.find('[data-test="operator-label"]').text()).toBe(
+        'Operator',
+      )
     })
     it('should render the operator', () => {
       expect(wrapper.contains('[data-test="operator"]')).toBe(true)
     })
     it('should render the select', () => {
-      expect(wrapper.find('[data-test="arguments-label"]').text()).toBe('Arguments')
+      expect(wrapper.find('[data-test="arguments-label"]').text()).toBe(
+        'Arguments',
+      )
     })
     it('should render the selected value seconday text', () => {
       expect(wrapper.contains('[data-test="has-arguments"]')).toBe(true)
     })
   })
   describe('should render properly when there is no arguments', () => {
-    let state = {
+    const state = {
       currentTemplate: {
         variables: [{}],
       },
@@ -66,6 +71,7 @@ describe('RadonOperator.vue', () => {
     const wrapper = mount(RadonOperator, {
       ...createComponentMocks({ store: { rad: { state: state } } }),
       propsData: {
+        sourceIndex: 0,
         scriptId: 8,
         operator: {
           selected: {
@@ -92,7 +98,9 @@ describe('RadonOperator.vue', () => {
     })
 
     it('should render the operator label', () => {
-      expect(wrapper.find('[data-test="operator-label"]').text()).toBe('Operator')
+      expect(wrapper.find('[data-test="operator-label"]').text()).toBe(
+        'Operator',
+      )
     })
     it('should render the operator', () => {
       expect(wrapper.contains('[data-test="operator"]')).toBe(true)

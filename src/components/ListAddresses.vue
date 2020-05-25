@@ -9,21 +9,21 @@
         <p class="no-transactions-text">You don't have addresses</p>
       </div>
       <p
-        :data-test="'address-' + currentPage + '-' + index"
-        class="address"
         v-for="(address, index) in paginatedItems"
         :key="address.address"
+        :data-test="'address-' + currentPage + '-' + index"
+        class="address"
       >
         {{ address.address }}
       </p>
     </div>
     <div v-show="addresses.length" class="pagination-nav">
       <el-pagination
-        @current-change="handleCurrentChange"
         :page-size="itemsPerPage"
         layout="prev, pager, next"
         :total="addresses.length"
         :current-page="currentPage"
+        @current-change="handleCurrentChange"
       />
     </div>
   </div>
@@ -31,9 +31,12 @@
 
 <script>
 export default {
-  name: 'list',
+  name: 'List',
   props: {
-    addresses: Array,
+    addresses: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -61,45 +64,52 @@ export default {
 @import '@/styles/theme.scss';
 
 .card {
-  min-width: 200px;
   margin-top: 40px;
+  min-width: 200px;
+
   .header {
     border-bottom: 1px solid $grey-1;
-    margin-bottom: 24px;
     color: $alt-grey-3;
     font-weight: bold;
+    margin-bottom: 24px;
   }
+
   .content {
+    box-shadow: 0 0 5px 0 rgba(29, 29, 29, 0.1);
     overflow-wrap: break-word;
-    box-shadow: 0 0px 5px 0px rgba(29, 29, 29, 0.1);
     padding: 32px;
+
     .no-transactions-container {
+      align-items: center;
       display: flex;
       flex-direction: column;
-      align-items: center;
       padding: 24px;
+
       .no-transactions-text {
-        font-size: 16px;
-        font-weight: 400;
-        font-style: italic;
         color: $alt-grey-5;
+        font-size: 16px;
+        font-style: italic;
+        font-weight: 400;
       }
+
       .no-transactions-img {
-        width: 40px;
         margin-bottom: 16px;
+        width: 40px;
       }
     }
+
     .address {
-      text-align: center;
-      width: 250px;
       border-bottom: 1px solid $grey-1;
-      padding: 16px;
       color: $black;
       font-weight: 500;
+      padding: 16px;
+      text-align: center;
+      width: 250px;
     }
   }
+
   .pagination-nav {
-    padding: 16px 0px 16px 0px;
+    padding: 16px 0 16px 0;
     text-align: center;
   }
 }

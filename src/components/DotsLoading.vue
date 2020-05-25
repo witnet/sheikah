@@ -28,21 +28,21 @@ export default {
 
 <style lang="scss">
 @import '@/styles/_colors.scss';
-/*Thanks to @tobiasahlin at http://tobiasahlin.com/spinkit/ */
 
+/* Thanks to @tobiasahlin at http://tobiasahlin.com/spinkit/ */
 .base-dots-loading {
-  display: flex;
   align-items: center;
-  margin: 8px 8px 0px 8px;
+  display: flex;
+  margin: 8px 8px 0 8px;
 
   .dot {
-    width: 4px;
-    margin-right: 1px;
-    height: 4px;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
     background-color: $yellow-4;
     border-radius: 100%;
     display: inline-block;
-    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    height: 4px;
+    margin-right: 1px;
+    width: 4px;
 
     &.first {
       animation-delay: -0.32s;
@@ -60,6 +60,7 @@ export default {
   100% {
     transform: scale(0);
   }
+
   40% {
     transform: scale(1);
   }

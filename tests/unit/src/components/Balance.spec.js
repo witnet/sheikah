@@ -15,12 +15,12 @@ describe('Balance.vue', () => {
                 available: '1',
                 locked: '10',
                 total: '100',
-                currency: 'nanoWits',
               },
+              currency: 'nanoWits',
             },
           },
         },
-      })
+      }),
     )
 
     expect(wrapper.contains(BalanceData)).toBe(true)
@@ -38,12 +38,12 @@ describe('Balance.vue', () => {
                   available: '1',
                   locked: '10',
                   total: '100',
-                  currency: 'nanoWits',
                 },
+                currency: 'nanoWits',
               },
             },
           },
-        })
+        }),
       )
 
       expect(wrapper.contains(Send)).toBe(false)
@@ -60,12 +60,12 @@ describe('Balance.vue', () => {
                   available: '1',
                   locked: '10',
                   total: '100',
-                  currency: 'nanoWits',
                 },
+                currency: 'nanoWits',
               },
             },
           },
-        })
+        }),
       )
       wrapper.setData({
         isSendVisible: true,
@@ -89,13 +89,12 @@ describe('Balance.vue', () => {
                   available: '1',
                   locked: '10',
                   total: '100',
-                  currency: 'nanoWits',
-                  networkStatus: '',
                 },
+                currency: 'nanoWits',
               },
             },
           },
-        })
+        }),
       )
 
       wrapper.find(BalanceButtons).vm.$emit('send')

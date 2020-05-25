@@ -8,14 +8,19 @@
         <el-button
           class="big"
           data-test="new-seed-option"
-          @click="redirectTo('/ftu/disclaimer')"
           type="primary"
+          @click="redirectTo('/ftu/disclaimer')"
         >
           Create a new Witnet wallet
         </el-button>
       </li>
       <li class="option">
-        <el-button class="big" ref="submit" @click="redirectTo('/ftu/disclaimer')" type="primary">
+        <el-button
+          ref="submit"
+          class="big"
+          type="primary"
+          @click="redirectTo('/ftu/disclaimer')"
+        >
           Import a wallet from xpriv
         </el-button>
       </li>
@@ -23,14 +28,18 @@
         <el-button
           class="big"
           data-test="import-wallet"
-          @click="redirectTo('/ftu/import-wallet')"
           type="primary"
+          @click="redirectTo('/ftu/import-wallet')"
         >
           Import a wallet from mnemonics
         </el-button>
       </li>
       <li class="option">
-        <el-button class="big" data-test="back" @click="redirectTo('/welcome-back/wallet-list')">
+        <el-button
+          class="big"
+          data-test="back"
+          @click="redirectTo('/welcome-back/wallet-list')"
+        >
           Back
         </el-button>
       </li>
@@ -60,23 +69,29 @@ export default {
 
 .wallet-seed-type {
   min-width: 500px;
+
   .text {
     margin-bottom: 32px;
+
     &.header {
       font-size: 20px;
     }
   }
+
   .options {
     .option {
       margin-bottom: 16px;
+
       &:last-of-type {
-        margin-bottom: 0px;
+        margin-bottom: 0;
       }
     }
   }
+
   .cancel-btn {
     text-align: right;
   }
+
   .create-wallet-text {
     color: $font-color-dark;
   }

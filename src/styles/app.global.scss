@@ -2,10 +2,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap');
-  @import "theme";
-  @import "colors";
-  @import "reset";
-  @import "fonts";
+  @import 'theme';
+  @import 'colors';
+  @import 'reset';
+  @import 'fonts';
 
   * {
     box-sizing: border-box;
@@ -24,14 +24,14 @@
 
   pre,
   .pre-alike {
-    font-family: "Lucida Console", Monaco, monospace;
+    font-family: 'Lucida Console', Monaco, monospace;
   }
 
   body {
     font-family: $font-family;
   }
 
-  a[target="_blank"] {
+  a[target='_blank'] {
     font-style: italic;
   }
 }

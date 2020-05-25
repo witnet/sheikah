@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 import NetworkStatus from '@/components/NetworkStatus.vue'
-import '../../../../src/fontAwesome'
+import '@/fontAwesome'
 
 // TODO: delete skip in tests when witnet/witnet-rust#1224 is merged
 describe.skip('Renders the correct elements when wallet is synced, side bar is expanded but showAll is off', () => {
@@ -23,7 +23,9 @@ describe.skip('Renders the correct elements when wallet is synced, side bar is e
     expect(wrapper.contains('[data-test="dot-indicator"]')).toBe(true)
   })
   it('finds wallet name', () => {
-    expect(wrapper.find('[data-test="wallet-name"]').text()).toBe('Witnet wallet #1')
+    expect(wrapper.find('[data-test="wallet-name"]').text()).toBe(
+      'Witnet wallet #1',
+    )
   })
   it('finds node status', () => {
     expect(wrapper.find('[data-test="status"]').text()).toBe('SYNCED')
@@ -85,13 +87,19 @@ describe.skip('Renders the correct elements when wallet is synced, side bar is e
     expect(wrapper.contains('[data-test="short-up"]')).toBe(true)
   })
   it('finds icon node', () => {
-    expect(wrapper.find('[data-test="node"]').text()).toBe('Connected to 127.0.0.1:21337')
+    expect(wrapper.find('[data-test="node"]').text()).toBe(
+      'Connected to 127.0.0.1:21337',
+    )
   })
   it('finds icon last block', () => {
-    expect(wrapper.find('[data-test="last-block"]').text()).toBe('Last block is #123456789')
+    expect(wrapper.find('[data-test="last-block"]').text()).toBe(
+      'Last block is #123456789',
+    )
   })
   it('finds network element', () => {
-    expect(wrapper.find('[data-test="network"]').text()).toBe('Tracking Testnet network')
+    expect(wrapper.find('[data-test="network"]').text()).toBe(
+      'Tracking Testnet network',
+    )
   })
 })
 // TODO: delete skip in tests when witnet/witnet-rust#1224 is merged

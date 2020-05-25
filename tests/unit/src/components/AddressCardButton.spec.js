@@ -15,7 +15,7 @@ describe('AddressCardButton.vue', () => {
         wrapper
           .find('.icon')
           .classes()
-          .includes('fa-plus')
+          .includes('fa-plus'),
       ).toBe(true)
     })
   })

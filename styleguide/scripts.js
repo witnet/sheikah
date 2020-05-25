@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Element from 'element-ui'
-import '../src/styles/element-variables.scss'
+import '@/styles/element-variables.scss'
 import locale from 'element-ui/lib/locale/lang/es'
-import '../src/fontAwesome.js'
+import '@/fontAwesome.js'
 
 Vue.use(Element, { locale })

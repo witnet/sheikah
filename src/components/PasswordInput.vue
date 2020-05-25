@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <input
-      data-test="password"
-      @keydown.enter.esc.prevent="toogleGoNextItem"
       ref="passInput"
+      v-model="passwordValue"
+      data-test="password"
       type="password"
       class="input"
       :placeholder="label"
       name="password"
-      v-model="passwordValue"
+      @keydown.enter.esc.prevent="toogleGoNextItem"
     />
     <label for="password" class="label">{{ label }}</label>
   </div>
@@ -20,16 +20,17 @@ import { mapMutations } from 'vuex'
 export default {
   name: 'PasswordInput',
   props: {
-    value: String,
-    label: String,
-    error: String,
-  },
-  methods: {
-    ...mapMutations({
-      clearError: 'clearError',
-    }),
-    toogleGoNextItem() {
-      this.$emit('go-next')
+    value: {
+      type: String,
+      required: true,
+    },
+    label: {
+      type: String,
+      required: true,
+    },
+    error: {
+      type: String,
+      default: '',
     },
   },
   computed: {
@@ -48,30 +49,48 @@ export default {
       this.$emit('input', passwordValue)
     },
   },
+  methods: {
+    ...mapMutations({
+      clearError: 'clearError',
+    }),
+    toogleGoNextItem() {
+      this.$emit('go-next')
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+
 .container {
-  position: relative;
-  padding: 8px 0 0;
   margin: 0;
+  padding: 8px 0 0;
+  position: relative;
+}
+
+.label {
+  color: $alt-grey-3;
+  display: block;
+  font-size: 1rem;
+  position: absolute;
+  top: 0;
+  transition: 0.2s;
 }
 
 .input {
-  z-index: 1000;
-  font-size: 16px;
-  width: 300px;
+  background: transparent;
   border: 0;
   border-bottom: 1px solid $alt-grey-5;
+  color: $alt-grey-5;
+  font-size: 16px;
+  font-weight: 700;
   outline: 0;
   padding: 16px 0;
-  color: $alt-grey-5;
-  font-weight: 700;
-  background: transparent;
   transition: border-color 0.2s;
+  width: 300px;
+  z-index: 1000;
 
   &::placeholder {
     color: transparent;
@@ -87,30 +106,22 @@ export default {
   }
 }
 
-.label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: $alt-grey-3;
-}
-
 .input:focus {
-  ~ .label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: $purple-4;
-    font-weight: 700;
-    font-size: 16px;
-  }
   border-bottom: 1.7px solid $alt-grey-3;
-  font-weight: 700;
-  border-width: 2px;
   border-image: linear-gradient(to right, $purple-4);
   border-image-slice: 1;
+  border-width: 2px;
+  font-weight: 700;
+
+  ~ .label {
+    color: $purple-4;
+    display: block;
+    font-size: 1rem;
+    font-size: 16px;
+    font-weight: 700;
+    position: absolute;
+    top: 0;
+    transition: 0.2s;
+  }
 }
 </style>

@@ -90,7 +90,9 @@ describe('EditorSource.vue', () => {
         },
       })
 
-      expect(wrapper.find('[data-test="content-type-select"]').exists()).toBe(true)
+      expect(wrapper.find('[data-test="content-type-select"]').exists()).toBe(
+        true,
+      )
     })
   })
 

@@ -1,5 +1,5 @@
 import Amount from '@/components/Amount.vue'
-import '../../../../src/fontAwesome'
+import '@/fontAwesome'
 
 describe('Renders the correct elements', () => {
   const wrapper = shallowMount(Amount, {
@@ -22,7 +22,7 @@ describe('Renders the correct elements', () => {
       wrapper
         .find('[data-test="amount"]')
         .text()
-        .includes(12)
+        .includes(12),
     ).toBe(true)
   })
   it('shows the correct currency', () => {

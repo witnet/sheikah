@@ -1,10 +1,15 @@
 <template>
   <Fieldset title="Balance">
-    <BalanceData :available="available" :locked="locked" :total="total" :currency="currency" />
-    <BalanceButtons v-on:receive="onReceive" v-on:send="onSend" />
+    <BalanceData
+      :available="available"
+      :locked="locked"
+      :total="total"
+      :currency="currency"
+    />
+    <BalanceButtons @receive="onReceive" @send="onSend" />
 
     <!-- Modal with Send form open when send button is clicked -->
-    <Send v-if="isSendVisible" v-on:close="isSendVisible = false" />
+    <Send v-if="isSendVisible" @close="isSendVisible = false" />
   </Fieldset>
 </template>
 
@@ -31,17 +36,6 @@ export default {
       isSendVisible: false,
     }
   },
-  methods: {
-    ...mapMutations({
-      receiveTransactionClicked: 'receiveTransactionClicked',
-    }),
-    onReceive() {
-      this.receiveTransactionClicked()
-    },
-    onSend() {
-      this.isSendVisible = true
-    },
-  },
   computed: {
     ...mapState({
       currency: state => state.wallet.currency,
@@ -58,6 +52,17 @@ export default {
         return this.balance.total || '0'
       },
     }),
+  },
+  methods: {
+    ...mapMutations({
+      receiveTransactionClicked: 'receiveTransactionClicked',
+    }),
+    onReceive() {
+      this.receiveTransactionClicked()
+    },
+    onSend() {
+      this.isSendVisible = true
+    },
   },
 }
 </script>

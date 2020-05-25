@@ -7,7 +7,7 @@ describe('AddressInformation.vue', () => {
     it('empty state', () => {
       const wrapper = mount(AddressInformation)
       expect(wrapper.find('.information').text()).toBe(
-        `You haven't generated addresses yet. Click above to generate one.`
+        `You haven't generated addresses yet. Click above to generate one.`,
       )
     })
 
@@ -108,7 +108,9 @@ describe('AddressInformation.vue', () => {
           },
         })
 
-        expect(wrapper.find('.pkh').text()).toBe('twit1270yg7pkm2w9mlq ... wph3flrp862zw0ft')
+        expect(wrapper.find('.pkh').text()).toBe(
+          'twit1270yg7pkm2w9mlq ... wph3flrp862zw0ft',
+        )
       })
 
       it('should render payment number', () => {
@@ -139,7 +141,7 @@ describe('AddressInformation.vue', () => {
           wrapper
             .findAll('.bold')
             .at(0)
-            .text()
+            .text(),
         ).toBe('2 payments')
       })
 
@@ -171,7 +173,7 @@ describe('AddressInformation.vue', () => {
           wrapper
             .findAll('.bold')
             .at(2)
-            .text()
+            .text(),
         ).toBe(formatDateVerbose(date1))
       })
 
@@ -203,7 +205,7 @@ describe('AddressInformation.vue', () => {
           wrapper
             .findAll('.bold')
             .at(3)
-            .text()
+            .text(),
         ).toBe(formatDateVerbose(date2))
       })
     })
@@ -260,7 +262,9 @@ describe('AddressInformation.vue', () => {
           },
         })
 
-        expect(wrapper.find('.pkh').text()).toBe('twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft')
+        expect(wrapper.find('.pkh').text()).toBe(
+          'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+        )
       })
 
       it('should render payment number', () => {
@@ -291,7 +295,7 @@ describe('AddressInformation.vue', () => {
           wrapper
             .findAll('.bold')
             .at(0)
-            .text()
+            .text(),
         ).toBe('0 payments')
       })
 

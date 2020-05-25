@@ -1,0 +1,5 @@
+/build/
+/dist/
+/dist_electron/
+/tests/unit/coverage/
+/styleguide/

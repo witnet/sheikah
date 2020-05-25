@@ -15,8 +15,8 @@
     <template v-slot:footer>
       <div class="navigation-buttons">
         <el-button
-          tabindex="2"
           v-if="previousStep"
+          tabindex="2"
           data-test="previous-step"
           class="button"
           @click="previousStep"
@@ -24,13 +24,13 @@
           {{ previousText }}
         </el-button>
         <el-button
-          tabindex="1"
           v-if="nextStep"
+          ref="next"
+          tabindex="1"
           data-test="next-step"
           type="primary"
-          @click="nextStep"
           :disabled="disabledNextButton"
-          ref="next"
+          @click="nextStep"
         >
           {{ nextText }}
         </el-button>
@@ -44,16 +44,33 @@ import BaseCard from '@/components/card/BaseCard'
 
 export default {
   name: 'NavigationCard',
-  props: {
-    nextStep: Function,
-    nextText: String,
-    previousStep: Function,
-    previousText: String,
-    title: String,
-    disabledNextButton: Boolean,
-  },
   components: {
     BaseCard,
+  },
+  props: {
+    nextStep: {
+      type: Function,
+      default: () => {},
+    },
+    nextText: {
+      type: String,
+      default: '',
+    },
+    previousStep: {
+      type: Function,
+      default: () => {},
+    },
+    previousText: {
+      type: String,
+      default: '',
+    },
+    title: {
+      type: String,
+      default: '',
+    },
+    disabledNextButton: {
+      type: Boolean,
+    },
   },
   methods: {
     handleKeyUp: event => {
@@ -71,36 +88,37 @@ export default {
 
 .card-navigation {
   background-color: $white;
-  box-shadow: $default-box-shadow;
-  border-radius: 2px;
   border: 1px solid $purple-4;
+  border-radius: 2px;
+  box-shadow: $default-box-shadow;
   width: 600px;
 
   .header {
-    background: $purple-4;
-    padding: 0 32px;
     align-items: center;
+    background: $purple-4;
     color: $white;
     display: flex;
     flex-flow: row nowrap;
     font-size: 24px;
     font-weight: medium;
     height: 100px;
+    padding: 0 32px;
   }
 
   .content {
     background: $white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     font-size: 16px;
-    padding: 32px 32px 0px 32px;
+    justify-content: center;
+    padding: 32px 32px 0 32px;
   }
 
   .navigation-buttons {
     box-sizing: border-box;
-    text-align: right;
     padding: 32px;
+    text-align: right;
+
     .button,
     .default {
       margin-right: 8px;

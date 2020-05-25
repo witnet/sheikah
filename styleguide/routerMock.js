@@ -18,7 +18,7 @@ Vue.component('router-link', {
           },
         },
       },
-      this.$slots.default
+      this.$slots.default,
     )
   },
 })

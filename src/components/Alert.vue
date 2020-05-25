@@ -1,5 +1,10 @@
 <template>
-  <div data-test="alert" v-if="message" class="alert" :class="[type, { closed }]">
+  <div
+    v-if="message"
+    data-test="alert"
+    class="alert"
+    :class="[type, { closed }]"
+  >
     <div v-if="message" class="message">
       <p class="text">{{ message }}</p>
       <font-awesome-icon class="icon cross" icon="times" @click="close" />
@@ -27,7 +32,7 @@ export default {
     },
     description: {
       type: String,
-      required: false,
+      default: '',
     },
   },
   data() {
@@ -49,21 +54,21 @@ export default {
 @import '@/styles/theme.scss';
 
 .alert {
-  width: 100%;
+  border-radius: 4px;
   padding: 8px 16px;
   transition: opacity 0.2s;
-  border-radius: 4px;
+  width: 100%;
 
   .message {
     align-items: center;
-    justify-content: space-between;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 
     .cross {
       color: $alt-grey-5;
-      font-size: 12px;
       cursor: pointer;
+      font-size: 12px;
     }
 
     .text {

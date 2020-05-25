@@ -1,5 +1,5 @@
 import Transaction from '@/components/Transaction.vue'
-import '../../../../src/fontAwesome'
+import '@/fontAwesome'
 
 describe('Renders the correct elements when click is not triggered', () => {
   const wrapper = shallowMount(Transaction, {
@@ -12,10 +12,21 @@ describe('Renders the correct elements when click is not triggered', () => {
       fee: 12,
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       outputs: [
-        { value: '123', address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq' },
-        { value: 499999999865, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' },
+        {
+          value: '123',
+          address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq',
+        },
+        {
+          value: 499999999865,
+          address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
+        },
       ],
-      inputs: [{ value: 500000000000, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }],
+      inputs: [
+        {
+          value: 500000000000,
+          address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
+        },
+      ],
       type: 'POSITIVE',
       state: 'IN PROGRESS',
       transactionType: 'value_transfer',
@@ -38,7 +49,9 @@ describe('Renders the correct elements when click is not triggered', () => {
     expect(wrapper.contains('[data-test="transaction-type"]')).toBe(false)
   })
   it('finds the time-ago element', () => {
-    expect(wrapper.find('[data-test="time-ago"]').text()).toEqual('33 minutes ago')
+    expect(wrapper.find('[data-test="time-ago"]').text()).toEqual(
+      '33 minutes ago',
+    )
   })
   it('does not find the transaction details element when the click is not triggered', () => {
     expect(wrapper.contains('[data-test="transaction-details"]')).toBe(false)
@@ -60,10 +73,21 @@ describe('Renders the correct elements when click is triggered and the transacti
       fee: 12,
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       outputs: [
-        { value: '123', address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq' },
-        { value: 499999999865, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' },
+        {
+          value: '123',
+          address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq',
+        },
+        {
+          value: 499999999865,
+          address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
+        },
       ],
-      inputs: [{ value: 500000000000, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }],
+      inputs: [
+        {
+          value: 500000000000,
+          address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
+        },
+      ],
       type: 'POSITIVE',
       state: 'IN PROGRESS',
       transactionType: 'data_request',
@@ -83,10 +107,14 @@ describe('Renders the correct elements when click is triggered and the transacti
     expect(wrapper.contains('[data-test="address"]')).toBe(false)
   })
   it('finds the type element', () => {
-    expect(wrapper.find('[data-test="transaction-type"]').text()).toEqual('Data request')
+    expect(wrapper.find('[data-test="transaction-type"]').text()).toEqual(
+      'Data request',
+    )
   })
   it('finds the time-ago element', () => {
-    expect(wrapper.find('[data-test="time-ago"]').text()).toEqual('33 minutes ago')
+    expect(wrapper.find('[data-test="time-ago"]').text()).toEqual(
+      '33 minutes ago',
+    )
   })
 })
 
@@ -101,8 +129,14 @@ describe('Renders the correct elements when click is triggered and the transacti
       fee: 12,
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       outputs: [
-        { value: '123', address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq' },
-        { value: 499999999865, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' },
+        {
+          value: '123',
+          address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq',
+        },
+        {
+          value: 499999999865,
+          address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
+        },
       ],
       inputs: null,
       type: 'POSITIVE',
@@ -129,6 +163,8 @@ describe('Renders the correct elements when click is triggered and the transacti
   })
 
   it('should find time-ago element', () => {
-    expect(wrapper.find('[data-test="time-ago"]').text()).toEqual('33 minutes ago')
+    expect(wrapper.find('[data-test="time-ago"]').text()).toEqual(
+      '33 minutes ago',
+    )
   })
 })

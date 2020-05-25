@@ -1,28 +1,44 @@
 <template>
   <div
+    :class="['sidebar', expanded ? 'expanded' : 'collapsed']"
     @mouseover="expanded = true"
     @mouseleave="expanded = false"
-    :class="['sidebar', expanded ? 'expanded' : 'collapsed']"
   >
-    <router-link data-test="logo-to-main" class="brand" to="/wallet/transactions">
+    <router-link
+      data-test="logo-to-main"
+      class="brand"
+      to="/wallet/transactions"
+    >
       <img class="sheikah-logo" src="@/resources/svg/sheikah-small.svg" />
-      <img v-if="expanded" class="sheikah-name" src="@/resources/svg/sheikah.svg" />
+      <img
+        v-if="expanded"
+        class="sheikah-name"
+        src="@/resources/svg/sheikah.svg"
+      />
     </router-link>
     <div class="current-wallet">
       <NetworkStatus
-        :windowWidth="windowWidth"
-        :walletIdx="walletIdx"
+        :window-width="windowWidth"
+        :wallet-idx="walletIdx"
         :expanded="expanded"
         :status="status"
       />
     </div>
     <div class="link-list">
-      <router-link data-test="to-transactions" class="link" to="/wallet/transactions">
+      <router-link
+        data-test="to-transactions"
+        class="link"
+        to="/wallet/transactions"
+      >
         <font-awesome-icon class="icon" icon="wallet" />
         <span v-show="expanded" class="label">Transactions</span>
       </router-link>
 
-      <router-link data-test="to-templates" class="link" to="/request/templates">
+      <router-link
+        data-test="to-templates"
+        class="link"
+        to="/request/templates"
+      >
         <font-awesome-icon class="icon" icon="code" />
         <span v-show="expanded" class="label">Data request</span>
       </router-link>
@@ -37,9 +53,13 @@
         <span v-if="expanded" class="label">Community</span>
       </router-link>
     </div>
-    <div class="settings" @click="closeSession()">
+    <div class="settings" @click="closeSession">
       <div class="icon-container">
-        <img class="exit-icon" src="@/resources/svg/exit-icon.svg" alt="exit-icon" />
+        <img
+          class="exit-icon"
+          src="@/resources/svg/exit-icon.svg"
+          alt="exit-icon"
+        />
       </div>
     </div>
   </div>
@@ -50,10 +70,9 @@ import { mapState, mapActions } from 'vuex'
 import NetworkStatus from '@/components/NetworkStatus.vue'
 
 export default {
-  mounted() {
-    window.onresize = () => {
-      this.windowWidth = window.innerWidth
-    }
+  name: 'Sidebar',
+  components: {
+    NetworkStatus,
   },
   data() {
     return {
@@ -73,6 +92,18 @@ export default {
       ],
     }
   },
+  computed: {
+    ...mapState({
+      walletIdx: state => state.wallet.walletIdx,
+      status: state => state.wallet.status,
+      walletInfos: state => state.wallet.walletInfos,
+    }),
+  },
+  mounted() {
+    window.onresize = () => {
+      this.windowWidth = window.innerWidth
+    }
+  },
   methods: {
     ...mapActions({
       closeSession: 'closeSession',
@@ -84,16 +115,6 @@ export default {
       console.log(key, keyPath)
     },
   },
-  components: {
-    NetworkStatus,
-  },
-  computed: {
-    ...mapState({
-      walletIdx: state => state.wallet.walletIdx,
-      status: state => state.wallet.status,
-      walletInfos: state => state.wallet.walletInfos,
-    }),
-  },
 }
 </script>
 
@@ -102,66 +123,70 @@ export default {
 @import '@/styles/app.global.scss';
 
 .sidebar {
-  display: grid;
   background-color: $white;
-  grid-template-rows: 70px max-content auto 70px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  z-index: 5;
-  height: 100vh;
+  display: grid;
   font-family: 'Roboto';
+  grid-template-rows: 70px max-content auto 70px;
+  height: 100vh;
   overflow: hidden;
+  z-index: 5;
 }
+
 .expanded {
-  width: 100%;
   transition: width 1.2s ease;
   transition: all 100ms ease-in 0s;
-}
-.brand {
   width: 100%;
+}
+
+.brand {
+  align-items: center;
   display: grid;
   grid-template-columns: 70px auto;
-  align-items: center;
   justify-items: center;
   overflow: hidden;
+  width: 100%;
 
   .sheikah-name {
-    margin-left: 8px;
     justify-self: start;
+    margin-left: 8px;
   }
 }
 
 .current-wallet {
-  overflow: hidden;
   align-self: stretch;
-  border-top: $sidebar-settings-border;
   border-bottom: $sidebar-settings-border;
+  border-top: $sidebar-settings-border;
+  overflow: hidden;
 }
 
 .link-list {
+  align-self: start;
   display: grid;
   grid-template-rows: 70px 70px 70px 70px;
-  align-self: start;
   overflow: hidden;
 
   .link {
-    text-align: left;
-    display: flex;
-    flex-wrap: none;
-    padding: 24px 0px;
     border-left: $sidebar-inactive-border;
     color: $sidebar-link-color;
+    display: flex;
+    flex-wrap: none;
     font-size: $sidebar-link-font_size;
     font-weight: $sidebar-link-font_weight;
+    padding: 24px 0;
+    text-align: left;
     text-decoration: none;
 
     &:hover {
       background-color: $alpha-purple;
       border-left: $sidebar-inactive-border-hover;
     }
+
     &.router-link-active {
-      border-left: $sidebar-active-border;
       background-color: $alpha-purple;
+      border-left: $sidebar-active-border;
     }
+
     .icon {
       width: 66px;
     }
@@ -178,12 +203,12 @@ export default {
 }
 
 .settings {
+  align-items: center;
   border-top: $sidebar-settings-border;
-  font-size: $icon-settings-font_size;
   display: grid;
+  font-size: $icon-settings-font_size;
   grid-template-columns: 70px auto;
   justify-items: center;
-  align-items: center;
 
   .icon-container {
     .exit-icon {
@@ -192,6 +217,7 @@ export default {
     }
   }
 }
+
 .collapsed {
   grid-template-columns: 70px;
   width: 70px;

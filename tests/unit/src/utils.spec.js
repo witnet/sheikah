@@ -1,5 +1,9 @@
-import { areSoftEqualArrays, getDomainFromUrl, standardizeWitUnits } from '@/utils'
-import { WIT_UNIT } from '../../../src/constants'
+import {
+  areSoftEqualArrays,
+  getDomainFromUrl,
+  standardizeWitUnits,
+} from '@/utils'
+import { WIT_UNIT } from '@/constants'
 
 describe('areSoftEqualArrays', () => {
   it('check if two sorted arrays contains the same items', () => {

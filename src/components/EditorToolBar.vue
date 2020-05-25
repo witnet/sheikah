@@ -1,9 +1,18 @@
 <template>
   <div class="toolbar">
     <div class="left">
-      <a :href="dataStr" ref="download" download="template.json" style="display:none"></a>
+      <a
+        ref="download"
+        :href="dataStr"
+        download="template.json"
+        style="display:none"
+      ></a>
 
-      <router-link data-test="go-back-to-templates" class="back" to="/request/templates">
+      <router-link
+        data-test="go-back-to-templates"
+        class="back"
+        to="/request/templates"
+      >
         <el-button class="back-btn" type="primary"
           ><font-awesome-icon class="content" icon="angle-left"
         /></el-button>
@@ -16,10 +25,10 @@
     </div>
     <div class="tools">
       <el-button
-        type="primary"
-        :data-test="`action-${tab.name}`"
         v-for="tab in tabs"
         :key="tab.icon"
+        type="primary"
+        :data-test="`action-${tab.name}`"
         :class="tab.class"
         @click="tab.action"
       >
@@ -36,24 +45,6 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'EditorToolBar',
-  methods: {
-    ...mapActions(['tryDataRequest', 'saveTemplate']),
-    ...mapMutations({
-      editorUndo: EDITOR_UNDO,
-      editorRedo: EDITOR_REDO,
-    }),
-    exportTemplate: function() {
-      this.$refs.download.click()
-    },
-  },
-  computed: {
-    ...mapState({
-      template: state => state.rad.currentTemplate,
-    }),
-    dataStr() {
-      return `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.template))}`
-    },
-  },
   data() {
     return {
       tabs: [
@@ -85,6 +76,26 @@ export default {
       ],
     }
   },
+  computed: {
+    ...mapState({
+      template: state => state.rad.currentTemplate,
+    }),
+    dataStr() {
+      return `data:text/json;charset=utf-8,${encodeURIComponent(
+        JSON.stringify(this.template),
+      )}`
+    },
+  },
+  methods: {
+    ...mapActions(['tryDataRequest', 'saveTemplate']),
+    ...mapMutations({
+      editorUndo: EDITOR_UNDO,
+      editorRedo: EDITOR_REDO,
+    }),
+    exportTemplate: function() {
+      this.$refs.download.click()
+    },
+  },
 }
 </script>
 
@@ -92,14 +103,14 @@ export default {
 @import '@/styles/_colors.scss';
 
 .toolbar {
-  display: flex;
-  min-width: min-content;
-  width: 100%;
-  background-color: $purple-5;
-  padding: 0 25px 0 0;
-  height: 70px;
   align-items: center;
+  background-color: $purple-5;
+  display: flex;
+  height: 70px;
   justify-content: space-between;
+  min-width: min-content;
+  padding: 0 25px 0 0;
+  width: 100%;
 
   .el-button--primary {
     background: $purple-5;
@@ -108,6 +119,7 @@ export default {
 
   .left {
     display: flex;
+
     .current-template {
       align-self: center;
 
@@ -115,7 +127,6 @@ export default {
       .text {
         color: $white;
         font-size: 14px;
-        line-height: normal;
         line-height: normal;
       }
 
@@ -127,16 +138,17 @@ export default {
     }
 
     .back {
+      align-items: center;
       color: white;
       display: flex;
-      align-items: center;
       height: 70px;
 
       .back-btn {
-        margin-right: 25px;
-        height: 70px;
         border: none;
         border-radius: 0;
+        height: 70px;
+        margin-right: 25px;
+
         .content {
           font-size: 24px;
         }
@@ -156,6 +168,4 @@ export default {
 ```jsx
   <EditorToolBar />
 ```
-
-
 </docs>

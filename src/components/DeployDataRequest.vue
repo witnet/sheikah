@@ -3,36 +3,36 @@
     :visible="visible"
     :title="title"
     width="400px"
-    v-on:close="closeAndClear"
     :show-close="false"
+    @close="closeAndClear"
   >
     <ConfirmDataRequest
       v-if="generatedTransaction"
-      :backupWitnesses="backupWitnesses"
-      :commitFee="commitFee"
-      :extraCommitRounds="extraCommitRounds"
-      :extraRevealRounds="extraRevealRounds"
+      :backup-witnesses="backupWitnesses"
+      :commit-fee="commitFee"
+      :extra-commit-rounds="extraCommitRounds"
+      :extra-reveal-rounds="extraRevealRounds"
       :fee="fee"
-      :generatedTransaction="generatedTransaction"
-      :minConsensusPercentage="minConsensusPercentage"
-      :revealFee="revealFee"
-      :rewardFee="rewardFee"
-      :tallyFee="tallyFee"
+      :generated-transaction="generatedTransaction"
+      :min-consensus-percentage="minConsensusPercentage"
+      :reveal-fee="revealFee"
+      :reward-fee="rewardFee"
+      :tally-fee="tallyFee"
       :timelock="timelock"
       :witnesses="witnesses"
-      v-on:confirm-dr="confirmDataRequest"
-      v-on:go-back="() => goBack('CONFIRM')"
+      @confirm-dr="confirmDataRequest"
+      @go-back="() => goBack('CONFIRM')"
     />
     <CreateDataRequestForm
       v-else-if="showFillVariablesForm"
-      :backWord="variables.length ? 'Back' : 'Cancel'"
-      v-on:go-back="() => goBack('FORM')"
-      v-on:create-dr="createDR"
+      :back-word="variables.length ? 'Back' : 'Cancel'"
+      @go-back="() => goBack('FORM')"
+      @create-dr="createDR"
     />
     <CompleteVariablesForm
       v-else
-      v-on:go-to-next-step="showCreateDataRequestForm"
-      v-on:go-back="() => goBack('TEMPLATE_VARIABLES')"
+      @go-to-next-step="showCreateDataRequestForm"
+      @go-back="() => goBack('TEMPLATE_VARIABLES')"
     />
   </el-dialog>
 </template>
@@ -46,14 +46,36 @@ import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 
 export default {
   name: 'DeployDataRequest',
-  props: {
-    template: Object,
-    visible: Boolean,
-  },
   components: {
     CreateDataRequestForm,
     CompleteVariablesForm,
     ConfirmDataRequest,
+  },
+  props: {
+    template: {
+      type: Object,
+      required: true,
+    },
+    visible: Boolean,
+  },
+
+  data() {
+    return {
+      currentTemplate: '',
+      variablesUpdated: false,
+      backupWitnesses: null,
+      commitFee: null,
+      extraCommitRounds: null,
+      extraRevealRounds: null,
+      fee: null,
+      minConsensusPercentage: null,
+      revealFee: null,
+      rewardFee: null,
+      tallyFee: null,
+      timelock: null,
+      witnesses: null,
+      collateral: null,
+    }
   },
   computed: {
     title() {
@@ -78,23 +100,10 @@ export default {
       networkStatus: state => state.wallet.networkStatus,
     }),
   },
-  data() {
-    return {
-      currentTemplate: '',
-      variablesUpdated: false,
-      backupWitnesses: null,
-      commitFee: null,
-      extraCommitRounds: null,
-      extraRevealRounds: null,
-      fee: null,
-      minConsensusPercentage: null,
-      revealFee: null,
-      rewardFee: null,
-      tallyFee: null,
-      timelock: null,
-      witnesses: null,
-      collateral: null,
-    }
+  created() {
+    this.setCurrentTemplate({
+      id: this.template.id,
+    })
   },
   methods: {
     ...mapMutations({
@@ -162,12 +171,5 @@ export default {
       this.$emit('close', 'SENT')
     },
   },
-  created() {
-    this.setCurrentTemplate({
-      id: this.template.id,
-    })
-  },
 }
 </script>
-
-<style lang="scss" scoped></style>

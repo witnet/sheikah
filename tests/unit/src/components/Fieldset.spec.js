@@ -29,7 +29,7 @@ describe('Fieldset.vue', () => {
         wrapper
           .findAll('p')
           .at(0)
-          .isVisible()
+          .isVisible(),
       ).toBe(true)
     })
 
@@ -48,7 +48,7 @@ describe('Fieldset.vue', () => {
         wrapper
           .findAll('p')
           .at(1)
-          .isVisible()
+          .isVisible(),
       ).toBe(true)
     })
 
@@ -69,7 +69,7 @@ describe('Fieldset.vue', () => {
         wrapper
           .findAll('p')
           .at(2)
-          .isVisible()
+          .isVisible(),
       ).toBe(true)
     })
   })

@@ -7,10 +7,14 @@
         type="operator"
         :value="selectedOption"
         :options="operatorOptions"
-        @input="option => updateOperatorAndVariables(selectedOption.id, option.value)"
+        @input="
+          option => updateOperatorAndVariables(selectedOption.id, option.value)
+        "
       />
-      <p data-test="arguments-label" class="label" v-if="hasArguments">Arguments</p>
-      <div data-test="has-arguments" class="with-arguments" v-if="hasArguments">
+      <p v-if="hasArguments" data-test="arguments-label" class="label"
+        >Arguments</p
+      >
+      <div v-if="hasArguments" data-test="has-arguments" class="with-arguments">
         <EditorOperatorArgument
           v-for="(argument, index) in selectedOperatorArguments"
           :key="argument.label + index"
@@ -21,12 +25,19 @@
     </div>
     <div class="operator-bottom">
       <div v-if="showOutputType" class="icon-container">
-        <img class="row sheikah-icon" src="@/resources/svg/operator-arrow.svg" />
+        <img
+          class="row sheikah-icon"
+          src="@/resources/svg/operator-arrow.svg"
+        />
       </div>
       <div v-else class="icon-container">
         <img class="row sheikah-icon" src="@/resources/svg/long-arrow.svg" />
         <div class="add-operator-container">
-          <img @click="addOperator" class="add-operator" src="@/resources/svg/add-operator.svg" />
+          <img
+            class="add-operator"
+            src="@/resources/svg/add-operator.svg"
+            @click="addOperator"
+          />
           <p class="add-operator-text">Click to add another operator</p>
         </div>
       </div>
@@ -40,7 +51,10 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 import EditorOperatorArgument from '@/components/EditorOperatorArgument.vue'
 import OperatorOutput from '@/components/OperatorOutput.vue'
 import Select from '@/components/Select'
-import { standardizeOperatorName, getNativeValueFromMarkupArgumentType } from '@/utils'
+import {
+  standardizeOperatorName,
+  getNativeValueFromMarkupArgumentType,
+} from '@/utils'
 import {
   UPDATE_TEMPLATE,
   USED_VARIABLES,
@@ -55,83 +69,29 @@ export default {
     Select,
     EditorOperatorArgument,
   },
-  data() {
-    return {
-      variableName: null,
-    }
-  },
   props: {
     showOutputType: {
+      // eslint-disable-next-line vue/no-boolean-default
       default: true,
       type: Boolean,
     },
     scriptId: {
+      type: Number,
       required: true,
     },
     operator: {
+      type: Object,
       required: true,
     },
-    sourceIndex: Number,
+    sourceIndex: {
+      type: Number,
+      required: true,
+    },
   },
-  methods: {
-    ...mapMutations({
-      deleteOperator: DELETE_OPERATOR,
-      toggleVariables: TOGGLE_VARIABLES,
-      updateTemplate: UPDATE_TEMPLATE,
-      usedVariables: USED_VARIABLES,
-    }),
-    ...mapActions({
-      saveTemplate: 'saveTemplate',
-    }),
-    addOperator() {
-      this.$emit('add-operator')
-    },
-    hasVariables(value) {
-      if (typeof value === 'string') {
-        const newValue = value.slice(1, value.length)
-        if (this.variables.find(variable => variable.key === newValue)) {
-          const valueInVariable = this.variables.find(variable => variable.key === newValue).key
-          if (newValue === valueInVariable) {
-            return true
-          }
-        }
-      }
-      return false
-    },
-    updateArgumentsAndVariables(input) {
-      const id = input.id
-      const value = input.value
-      const type = input.type
-      this.variableName = value
-      this.toggleVariables({ hasVariables: true })
-      if (this.hasVariables(value)) {
-        const variableMatch = this.variables.find(x => x.key === value.slice(1))
-        this.updateTemplate({
-          id,
-          value: '$' + variableMatch.key,
-        })
-        this.usedVariables({
-          id: id,
-          variable: variableMatch.key,
-          value: getNativeValueFromMarkupArgumentType(variableMatch.value, type),
-        })
-      } else {
-        this.toggleVariables({ hasVariables: false })
-        this.updateTemplate({
-          id,
-          value: getNativeValueFromMarkupArgumentType(value, type),
-        })
-      }
-      this.saveTemplate()
-    },
-    updateOperatorAndVariables(id, value, type) {
-      this.selected = { id: id, primaryText: value, value: value, secondaryText: 'boolean' }
-      this.updateTemplate({
-        id,
-        value: getNativeValueFromMarkupArgumentType(value, type),
-      })
-      this.saveTemplate()
-    },
+  data() {
+    return {
+      variableName: null,
+    }
   },
   computed: {
     ...mapState({
@@ -169,6 +129,76 @@ export default {
       this.variableName = arg.value
     })
   },
+  methods: {
+    ...mapMutations({
+      deleteOperator: DELETE_OPERATOR,
+      toggleVariables: TOGGLE_VARIABLES,
+      updateTemplate: UPDATE_TEMPLATE,
+      usedVariables: USED_VARIABLES,
+    }),
+    ...mapActions({
+      saveTemplate: 'saveTemplate',
+    }),
+    addOperator() {
+      this.$emit('add-operator')
+    },
+    hasVariables(value) {
+      if (typeof value === 'string') {
+        const newValue = value.slice(1, value.length)
+        if (this.variables.find(variable => variable.key === newValue)) {
+          const valueInVariable = this.variables.find(
+            variable => variable.key === newValue,
+          ).key
+          if (newValue === valueInVariable) {
+            return true
+          }
+        }
+      }
+      return false
+    },
+    updateArgumentsAndVariables(input) {
+      const id = input.id
+      const value = input.value
+      const type = input.type
+      this.variableName = value
+      this.toggleVariables({ hasVariables: true })
+      if (this.hasVariables(value)) {
+        const variableMatch = this.variables.find(x => x.key === value.slice(1))
+        this.updateTemplate({
+          id,
+          value: '$' + variableMatch.key,
+        })
+        this.usedVariables({
+          id: id,
+          variable: variableMatch.key,
+          value: getNativeValueFromMarkupArgumentType(
+            variableMatch.value,
+            type,
+          ),
+        })
+      } else {
+        this.toggleVariables({ hasVariables: false })
+        this.updateTemplate({
+          id,
+          value: getNativeValueFromMarkupArgumentType(value, type),
+        })
+      }
+      this.saveTemplate()
+    },
+    updateOperatorAndVariables(id, value, type) {
+      this.selected = {
+        id: id,
+        primaryText: value,
+        value: value,
+        secondaryText: 'boolean',
+      }
+      this.updateTemplate({
+        id,
+        value: getNativeValueFromMarkupArgumentType(value, type),
+      })
+      this.saveTemplate()
+    },
+  },
 }
 </script>
 
@@ -183,21 +213,22 @@ export default {
   position: relative;
 
   .border {
-    padding: 16px;
+    align-items: center;
     border: $input_border;
     border-radius: $input_big-border-radius;
-    display: grid;
-    row-gap: 16px;
     column-gap: 16px;
-    align-items: center;
+    display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(auto-fit, auto);
+    padding: 16px;
+    row-gap: 16px;
 
     .label {
-      font-size: 14px;
       color: $grey-5;
+      font-size: 14px;
       font-weight: normal;
     }
+
     .with-arguments {
       display: grid;
       grid-template-rows: repeat(auto-fit, auto);
@@ -210,8 +241,8 @@ export default {
   }
 
   .selected-operator {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: flex-start;
 
     .el-input__prefix {
@@ -240,27 +271,31 @@ export default {
 }
 
 .operator-bottom {
-  display: flex;
   align-items: flex-start;
+  display: flex;
+
   .output {
     margin-top: 16px;
   }
+
   .icon-container {
+    margin-left: 16px;
     position: relative;
     text-align: left;
-    margin-left: 16px;
+
     .add-operator-container {
+      bottom: 24px;
       cursor: pointer;
       display: flex;
+      left: -4px;
       position: absolute;
       width: max-content;
-      bottom: 24px;
-      left: -4px;
+
       .add-operator-text {
-        margin-left: 16px;
+        color: $grey-4;
         font-size: 12px;
         font-weight: medium;
-        color: $grey-4;
+        margin-left: 16px;
       }
     }
   }

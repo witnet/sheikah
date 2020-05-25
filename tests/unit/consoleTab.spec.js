@@ -18,7 +18,7 @@ describe.skip('ConsoleTabs.vue', () => {
       wrapper
         .findAll('button')
         .at(1)
-        .trigger('click')
+        .trigger('click'),
     )
     expect(wrapper.emitted()['change-tab'][0][0]).toEqual('logs')
   })

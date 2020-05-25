@@ -15,13 +15,13 @@ describe('Balance.vue', () => {
       wrapper
         .findAll('p')
         .at(0)
-        .text()
+        .text(),
     ).toBe('Available')
     expect(
       wrapper
         .findAll('p')
         .at(1)
-        .text()
+        .text(),
     ).toBe('1 nanoWits')
   })
 
@@ -39,13 +39,13 @@ describe('Balance.vue', () => {
       wrapper
         .findAll('p')
         .at(2)
-        .text()
+        .text(),
     ).toBe('Locked')
     expect(
       wrapper
         .findAll('p')
         .at(3)
-        .text()
+        .text(),
     ).toBe('10 nanoWits')
   })
 
@@ -63,13 +63,13 @@ describe('Balance.vue', () => {
       wrapper
         .findAll('p')
         .at(4)
-        .text()
+        .text(),
     ).toBe('Total')
     expect(
       wrapper
         .findAll('p')
         .at(5)
-        .text()
+        .text(),
     ).toBe('100 nanoWits')
   })
 })
