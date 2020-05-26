@@ -7,8 +7,8 @@
         :key="stage.name"
         :data-test="`stage-${stage.name}`"
         class="link-btn"
-        :class="{ active: current === stage.name }"
-        @click="() => changeStage(stage.name)"
+        :class="{ active: currentStage === stage.name }"
+        @click="changeStage(stage.name)"
       >
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="stage.label" />
@@ -19,14 +19,11 @@
 
 <script>
 import { EDITOR_STAGES } from '@/constants'
+import { mapState } from 'vuex'
 export default {
   name: 'EditorStageBar',
-  props: {
-    initialStage: { type: String, default: EDITOR_STAGES.SETTINGS },
-  },
   data() {
     return {
-      current: this.initialStage,
       stages: [
         {
           label:
@@ -53,6 +50,11 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    ...mapState({
+      currentStage: state => state.rad.currentStage,
+    }),
   },
   methods: {
     changeStage: function(stage) {

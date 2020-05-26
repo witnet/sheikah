@@ -81,19 +81,25 @@ export default {
       template: state => state.rad.currentTemplate,
     }),
     dataStr() {
-      return `data:text/json;charset=utf-8,${encodeURIComponent(
-        JSON.stringify(this.template),
-      )}`
+      return `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.template))}`
     },
   },
   methods: {
     ...mapActions(['tryDataRequest', 'saveTemplate']),
     ...mapMutations({
-      editorUndo: EDITOR_UNDO,
-      editorRedo: EDITOR_REDO,
+      undo: EDITOR_UNDO,
+      redo: EDITOR_REDO,
     }),
     exportTemplate: function() {
       this.$refs.download.click()
+    },
+    editorUndo() {
+      this.undo()
+      this.$emit('undo-redo')
+    },
+    editorRedo() {
+      this.redo()
+      this.$emit('undo-redo')
     },
   },
 }

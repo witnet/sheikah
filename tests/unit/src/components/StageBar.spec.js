@@ -1,11 +1,18 @@
 import EditorStageBar from '@/components/EditorStageBar'
 describe('EditorStageBar.vue', () => {
   describe('should render properly', () => {
-    const wrapper = shallowMount(EditorStageBar, {
-      propsData: {
-        initialStage: 'settings',
-      },
-    })
+    const wrapper = mount(
+      EditorStageBar,
+      createComponentMocks({
+        store: {
+          rad: {
+            state: {
+              currentStage: 'settings',
+            },
+          },
+        },
+      })
+    )
 
     it('should render the settings stage btn', () => {
       expect(wrapper.find('[data-test="stage-settings"]').text()).toBe(

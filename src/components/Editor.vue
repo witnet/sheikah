@@ -1,7 +1,7 @@
 <template>
   <div data-test="editor-view" class="editor">
-    <EditorToolBar />
-    <EditorStageBar @change-stage="changeStage" />
+    <EditorToolBar @undo-redo="changeStage({ stage: lastStageModified })" />
+    <EditorStageBar @change-stage="value => changeStage({ stage: value })" />
     <EditorStageSettings v-if="currentStage === EDITOR_STAGES.SETTINGS" />
     <EditorStageSources v-if="currentStage === EDITOR_STAGES.SOURCES" />
     <EditorStageScripts v-if="currentStage === EDITOR_STAGES.SCRIPTS" />
@@ -17,6 +17,7 @@
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
 import { EDITOR_STAGES } from '@/constants'
+import { SET_CURRENT_STAGE } from '@/store/mutation-types'
 import EditorToolBar from '@/components/EditorToolBar'
 import EditorStageAggregations from '@/components/EditorStageAggregations'
 import EditorStageScripts from '@/components/EditorStageScripts'
@@ -41,7 +42,6 @@ export default {
   data() {
     return {
       EDITOR_STAGES,
-      currentStage: EDITOR_STAGES.SETTINGS,
       logs: [],
     }
   },
@@ -50,6 +50,8 @@ export default {
       radRequest: state => state.rad.radRequest,
       radRequestResult: state => state.wallet.radRequestResult,
       networkStatus: state => state.wallet.networkStatus,
+      lastStageModified: state => state.rad.lastStageModified,
+      currentStage: state => state.rad.currentStage,
     }),
   },
   watch: {
@@ -59,13 +61,14 @@ export default {
   },
   created() {
     this.saveTemplate()
+    this.changeStage({ stage: EDITOR_STAGES.SETTINGS })
   },
   methods: {
-    ...mapMutations(['clearError']),
+    ...mapMutations({
+      clearError: 'clearError',
+      changeStage: SET_CURRENT_STAGE,
+    }),
     ...mapActions(['saveTemplate']),
-    changeStage: function(stage) {
-      this.currentStage = stage
-    },
   },
 }
 </script>
@@ -75,6 +78,7 @@ export default {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   grid-template-rows: max-content max-content 1fr max-content;
+  height: 100vh;
   overflow: hidden;
 }
 </style>

@@ -1,5 +1,6 @@
 import { generateId } from '@/utils'
 import { Radon } from 'witnet-radon-js'
+import { EDITOR_STAGES } from '@/constants'
 import {
   UPDATE_HISTORY,
   UPDATE_TEMPLATE,
@@ -20,6 +21,7 @@ import {
   UPDATE_VARIABLES,
   TOGGLE_VARIABLES,
   DELETE_VARIABLE,
+  SET_CURRENT_STAGE,
 } from '@/store/mutation-types'
 import Vue from 'vue'
 
@@ -32,7 +34,8 @@ export default {
     templates: {},
     currentTemplate: {},
     currentRadonMarkupInterpreter: null,
-    lastStageModified: null,
+    lastStageModified: EDITOR_STAGES.SETTINGS,
+    currentStage: EDITOR_STAGES.SETTINGS,
     radRequest: {},
     history: [],
     historyIndex: 0,
@@ -49,6 +52,9 @@ export default {
     },
   },
   mutations: {
+    [SET_CURRENT_STAGE](state, { stage }) {
+      state.currentStage = stage
+    },
     [UPDATE_VARIABLES](state, { index, key, value, description, type }) {
       const prevValue = state.currentTemplate.variables[index].key
       const usedVariables = state.currentTemplate.usedVariables.filter(
@@ -122,6 +128,7 @@ export default {
       }
     },
     [UPDATE_HISTORY](state, { mir }) {
+      state.lastStageModified = state.currentStage
       state.history.push(mir)
       state.historyIndex += 1
       state.history.splice(state.historyIndex + 1)
