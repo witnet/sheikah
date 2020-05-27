@@ -171,6 +171,7 @@ export default {
     padding: 24px;
     padding-left: 16px;
     padding-left: 8px;
+    position: relative;
     row-gap: 16px;
 
     .label {
