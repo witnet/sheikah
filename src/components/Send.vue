@@ -3,7 +3,6 @@
     title="Create Value Transfer Transaction"
     :visible="true"
     height="100%"
-    width="100%"
     :show-close="false"
     @close="closeAndClear"
   >
