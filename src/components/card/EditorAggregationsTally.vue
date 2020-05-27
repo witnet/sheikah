@@ -2,30 +2,28 @@
   <div>
     <Fieldset :title="filtersTitle" :closable="false">
       <Card class="card" shadow="thin" :border="false" :padding="false">
-        <div class="form">
-          <RadonAggregateTallyScript
-            :script="script"
-            :script-id="script.reducer.scriptId"
-            type="filters"
-            :header="filtersHeader"
-            :footer="filtersFooter"
-          />
-          <div class="script-info"></div>
-        </div>
+        <RadonAggregateTallyScript
+          :script="script"
+          :scriptId="script.reducer.scriptId"
+          type="filters"
+          :header="filtersHeader"
+          :footer="filtersFooter"
+          :headerScriptInfo="filtersHeaderScriptInfo"
+          :footerScriptInfo="filtersFooterScriptInfo"
+        />
       </Card>
     </Fieldset>
     <Fieldset :title="reducerTitle" :closable="false">
       <Card class="card" shadow="thin" :border="false" :padding="false">
-        <div class="form">
-          <RadonAggregateTallyScript
-            :script="script"
-            stage="aggregate"
-            type="reducer"
-            :header="reducerHeader"
-            :footer="reducerFooter"
-          />
-          <div class="script-info"></div>
-        </div>
+        <RadonAggregateTallyScript
+          :script="script"
+          stage="aggregate"
+          type="reducer"
+          :header="reducerHeader"
+          :footer="reducerFooter"
+          :headerScriptInfo="reducerHeaderScriptInfo"
+          :footerScriptInfo="reducerFooterScriptInfo"
+        />
       </Card>
     </Fieldset>
   </div>
@@ -37,16 +35,12 @@ import Card from '@/components/card/Card'
 import Fieldset from '@/components/Fieldset'
 
 export default {
-<<<<<<< HEAD:src/components/card/EditorAggregations.vue
-  name: 'ScriptCard',
+  name: 'EditorAggregationsTally',
   components: {
     Fieldset,
     Card,
     RadonAggregateTallyScript,
   },
-=======
-  name: 'EditorAggregationsTally',
->>>>>>> feat: implement tally stage:src/components/card/EditorAggregationsTally.vue
   props: {
     script: {
       type: Object,
@@ -54,6 +48,7 @@ export default {
     },
     sources: {
       type: Number,
+      default: null,
       required: false,
     },
     stage: {
@@ -71,7 +66,9 @@ export default {
         : `Tally filters ${this.filtersLength}`
     },
     reducerTitle() {
-      return this.stage === 'aggregation' ? 'Aggregation reducer' : 'Tally reducer'
+      return this.stage === 'aggregation'
+        ? 'Aggregation reducer'
+        : 'Tally reducer'
     },
     filtersHeader() {
       return this.stage === 'aggregation'
@@ -83,13 +80,33 @@ export default {
         ? 'Into aggregation reducer'
         : 'Return results that pass the filters'
     },
+    filtersHeaderScriptInfo() {
+      return this.stage === 'aggregation'
+        ? 'Collect the results from the source scripts.'
+        : 'Collect the results reported by as many witnessing nodes as required in the request'
+    },
+    filtersFooterScriptInfo() {
+      return this.stage === 'aggregation'
+        ? 'Feed into the Aggregator reducer below only the values that passed the Aggregator filters.'
+        : 'Feed into the Tally reducer below only the values that passed the Tally filters.'
+    },
     reducerHeader() {
-      return this.stage === 'aggregation' ? 'From aggregation filters' : 'From tally filters'
+      return this.stage === 'aggregation'
+        ? 'From aggregation filters'
+        : 'From tally filters'
     },
     reducerFooter() {
       return this.stage === 'aggregation'
         ? 'Return and report to the network'
         : 'Return final data request result'
+    },
+    reducerHeaderScriptInfo() {
+      return 'Collect the results that passed the filters above.'
+    },
+    reducerFooterScriptInfo() {
+      return this.stage === 'aggregation'
+        ? 'Cryptographically commit to the result, and eventually reveal it once all the witnesses have committed their own result.'
+        : 'Publish the result into a Tally function in a new block on the Witnet block chain.'
     },
   },
 }
@@ -101,15 +118,5 @@ export default {
 
 .card {
   margin-bottom: 16px;
-  .form {
-    font-size: 16px;
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    grid-template-rows: auto;
-    .script-info {
-      background-color: $yellow-0;
-      border: 1px solid $yellow-3;
-    }
-  }
 }
 </style>

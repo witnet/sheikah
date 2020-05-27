@@ -93,8 +93,10 @@ export default {
       state.currentTemplate.variablesIndex += 1
       state.currentTemplate.variables.push({
         key: 'my_var_' + state.currentTemplate.variablesIndex,
-        value: 'The default String that this variable will take if an user does not override it',
-        description: 'Helps users of this template understand what this variable is used for',
+        value:
+          'The default String that this variable will take if an user does not override it',
+        description:
+          'Helps users of this template understand what this variable is used for',
         type: 'String',
       })
       this.dispatch('saveTemplate')
@@ -249,7 +251,8 @@ export default {
             key: 'my_var_' + 0,
             value:
               'The default String that this variable will take if an user does not override it',
-            description: 'Helps users of this template understand what this variable is used for',
+            description:
+              'Helps users of this template understand what this variable is used for',
           },
         ],
         variablesIndex: 0,

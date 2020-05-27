@@ -31,7 +31,7 @@
     <ScriptInfo
       class="first description"
       :index="0"
-      :info="scriptInfo[0].description"
+      :info="`Go to ${url} and retrieve the contents as a String.`"
     />
     <div class="operators">
       <div
@@ -64,8 +64,8 @@
     <!-- FIXME: Update text when the aggregation and tally stages are ready to merge -->
     <ScriptInfo
       class="last description"
-      :index="scriptInfo.length - 1"
-      :info="scriptInfo[scriptInfo.length - 1].description"
+      :index="script.length + 1"
+      info="Return the resulting value and feed it to the Aggregator."
     />
   </div>
 </template>
@@ -86,7 +86,8 @@ export default {
     },
     sourceIndex: {
       type: Number,
-      required: true,
+      default: null,
+      required: false,
     },
     script: {
       type: Array,
@@ -94,7 +95,8 @@ export default {
     },
     scriptId: {
       type: Number,
-      required: true,
+      default: null,
+      required: false,
     },
     protocol: {
       type: String,
@@ -110,25 +112,12 @@ export default {
       return this.script.length < 1
     },
     scriptInfo() {
-      // FIXME: Update text when the aggregation and tally stages are ready to merge
-      const operatorsInfo = []
-      this.script.forEach(info => {
-        operatorsInfo.push({
+      return [
+        {
           description:
             'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
-        })
-      })
-      const first = {
-        description:
-          'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
-      }
-      const last = {
-        description:
-          'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
-      }
-      const firstAdded = [first].concat(operatorsInfo)
-      const lastAdded = firstAdded.concat([last])
-      return lastAdded
+        },
+      ]
     },
   },
   methods: {

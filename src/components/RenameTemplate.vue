@@ -1,7 +1,11 @@
 <template>
   <div class="info">
     <label class="label" data-test="name-label">Name</label>
-    <el-input v-model="updateName" data-test="template-name-input" :placeholder="name" />
+    <el-input
+      v-model="updateName"
+      data-test="template-name-input"
+      :placeholder="name"
+    />
     <label class="label" data-test="description-label">Description</label>
     <el-input
       v-model="updateDescription"

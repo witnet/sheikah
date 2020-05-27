@@ -1,6 +1,6 @@
 <template>
   <LayoutTwoColumns>
-    <template #left>
+    <template v-slot:left>
       <EditorAggregationsTally :script="tally" stage="tally" />
     </template>
 

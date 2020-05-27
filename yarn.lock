@@ -15757,10 +15757,10 @@ with@^5.0.0:
     acorn "^3.1.0"
     acorn-globals "^3.0.0"
 
-witnet-radon-js@witnet-radon-js@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.5.0.tgz#a4a9c1112cb4b08ce3130c019f828320ca7e6c07"
-  integrity sha512-a3EQRAv1jWbDV9Xre5fmMJz9bY/UqvKdXJMR83oz56LiQ2otSvEYVLZm50qHNedgCtqILZ2fM31NKTzI/1JxLw==
+witnet-radon-js@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.6.0.tgz#9783e9619edd4bae5ba155e7e9d4d976847ca0d2"
+  integrity sha512-3wCA9KR87U6G7fBLRvOqjQMTQgFW5KwVzBa3WhC8HtOFuWey2J+y0cQuTjI5BIqLnzlz7+Ti8cu8inTWORUq+A==
 
 word-wrap@~1.2.3:
   version "1.2.3"

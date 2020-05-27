@@ -65,7 +65,11 @@
             })
         "
       />
-      <div class="delete" data-test="delete-var-btn" @click="deleteVariable({ index })">
+      <div
+        class="delete"
+        data-test="delete-var-btn"
+        @click="deleteVariable({ index })"
+      >
         <img src="@/resources/svg/close-btn.svg" />
       </div>
     </div>
@@ -82,7 +86,11 @@
 </template>
 
 <script>
-import { UPDATE_VARIABLES, CREATE_VARIABLE, DELETE_VARIABLE } from '@/store/mutation-types'
+import {
+  UPDATE_VARIABLES,
+  CREATE_VARIABLE,
+  DELETE_VARIABLE,
+} from '@/store/mutation-types'
 import { mapGetters, mapState, mapMutations } from 'vuex'
 import Select from '@/components/Select'
 
@@ -111,7 +119,11 @@ export default {
       return this.errors.findIndex(error => !!error)
     },
     dataTypeOptions() {
-      return [{ primaryText: 'String' }, { primaryText: 'Boolean' }, { primaryText: 'Number' }]
+      return [
+        { primaryText: 'String' },
+        { primaryText: 'Boolean' },
+        { primaryText: 'Number' },
+      ]
     },
   },
   methods: {

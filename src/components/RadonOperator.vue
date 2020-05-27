@@ -94,7 +94,8 @@ export default {
     },
     scriptId: {
       type: Number,
-      required: true,
+      default: null,
+      required: false,
     },
     operator: {
       type: Object,
@@ -102,7 +103,8 @@ export default {
     },
     sourceIndex: {
       type: Number,
-      required: true,
+      default: null,
+      required: false,
     },
   },
   data() {
@@ -118,7 +120,7 @@ export default {
     isReducerOrFilter() {
       return (
         this.operator.selected.outputType === 'filterOutput' ||
-        this.operator.selected.outputType === 'reducerOutpur'
+        this.operator.selected.outputType === 'reducerOutput'
       )
     },
     outputLabel() {
@@ -139,7 +141,9 @@ export default {
         id: this.operator.id,
         primaryText: this.operator.selected.label,
         value: this.operator.selected.label,
-        secondaryText: this.isReducerOrFilter ? null : standardizeOutputType(this.operator.selected.outputType),
+        secondaryText: this.isReducerOrFilter
+          ? null
+          : standardizeOutputType(this.operator.selected.outputType),
       }
     },
     selectedOperator() {
@@ -150,7 +154,9 @@ export default {
         return {
           primaryText: standardizeOperatorName(option.label),
           value: option.label,
-          secondaryText: this.isReducerOrFilter ? null : standardizeOutputType(option.outputType),
+          secondaryText: this.isReducerOrFilter
+            ? null
+            : standardizeOutputType(option.outputType),
         }
       })
     },

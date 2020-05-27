@@ -23,25 +23,33 @@ describe('RadonOperator.vue', () => {
       expect(wrapper.find('[data-test="name-label"]').text()).toEqual('Name')
     })
     it('should render the placeholder', () => {
-      expect(wrapper.find('[data-test="template-name-input"]').element.value).toEqual('Name')
+      expect(
+        wrapper.find('[data-test="template-name-input"]').element.value,
+      ).toEqual('Name')
     })
     it('should change the template name when trigger', () => {
       wrapper.find('[data-test="template-name-input"]').setValue('some value')
-      expect(wrapper.find('[data-test="template-name-input"]').element.value).toEqual('some value')
+      expect(
+        wrapper.find('[data-test="template-name-input"]').element.value,
+      ).toEqual('some value')
     })
     it('should render the description label', () => {
-      expect(wrapper.find('[data-test="description-label"]').text()).toEqual('Description')
+      expect(wrapper.find('[data-test="description-label"]').text()).toEqual(
+        'Description',
+      )
     })
     it('should render the placeholder', () => {
-      expect(wrapper.find('[data-test="template-description-input"]').element.value).toEqual(
-        'Description'
-      )
+      expect(
+        wrapper.find('[data-test="template-description-input"]').element.value,
+      ).toEqual('Description')
     })
     it('should should change the description name when trigger', () => {
-      wrapper.find('[data-test="template-description-input"]').setValue('some description')
-      expect(wrapper.find('[data-test="template-description-input"]').element.value).toEqual(
-        'some description'
-      )
+      wrapper
+        .find('[data-test="template-description-input"]')
+        .setValue('some description')
+      expect(
+        wrapper.find('[data-test="template-description-input"]').element.value,
+      ).toEqual('some description')
     })
   })
 })

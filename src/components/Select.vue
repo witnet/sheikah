@@ -96,7 +96,7 @@
             <span class="primary">{{ option.primaryText }}</span>
           </div>
           <OperatorType
-            v-show="option.secondaryText"
+            v-if="option.secondaryText"
             class="value"
             :data-test="`option-value-${index}`"
             :type="option.secondaryText"
@@ -150,12 +150,14 @@ export default {
         return this.filteredOptions.findIndex(
           x =>
             standardizeOperatorName(x.value).toLowerCase() ===
-            this.selectedOption.value.toLowerCase()
+            this.selectedOption.value.toLowerCase(),
         )
         // return this.options.findIndex(x => standardizeOperatorName(x.value) === this.value.value)
       } else {
         return this.filteredOptions.findIndex(
-          x => x.primaryText === this.selectedOption.primaryText || x === this.selectedOption
+          x =>
+            x.primaryText === this.selectedOption.primaryText ||
+            x === this.selectedOption,
         )
       }
     },

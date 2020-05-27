@@ -1,51 +1,102 @@
 <template>
   <div class="radon-script">
-    <div class="script-header">
-      <p class="url" data-test="header">
-        {{ header }}
-      </p>
+    <div class="top">
+      <div class="script-header">
+        <p class="url" data-test="header">
+          {{ header }}
+        </p>
+      </div>
+      <div class="icon-container">
+        <img
+          v-if="emptyScript"
+          class="row sheikah-icon"
+          src="@/resources/svg/long-arrow.svg"
+        />
+        <img
+          v-else
+          class="row sheikah-icon"
+          src="@/resources/svg/operator-arrow.svg"
+        />
+        <div v-if="emptyScript" class="add-operator-container">
+          <img
+            class="add-operator"
+            src="@/resources/svg/add-operator.svg"
+            @click="addOperator"
+          />
+          <p class="add-operator-text">Click to add an operator</p>
+        </div>
+      </div>
     </div>
-    <div class="icon-container">
-      <img class="row sheikah-icon" src="@/resources/svg/operator-arrow.svg" />
-    </div>
-    <div v-if="type === 'filters'">
-      <div v-for="(operator, index) in filters" :key="operator.toString() + index">
+    <ScriptInfo class="first description" :index="0" :info="headerScriptInfo" />
+    <div v-if="type === 'filters'" class="operators">
+      <div
+        v-for="(operator, index) in filters"
+        :key="operator.toString() + index"
+        class="operator-container"
+      >
         <RadonOperator
+          class="operator"
           data-test="filter-operator"
           :operator="operator"
-          :script-id="scriptId"
+          :script-id="operator.scriptId"
           :source-index="sourceIndex"
           :show-output-type="index !== filters.length - 1"
           @add-operator="addOperator"
         />
+        <ScriptInfo
+          class="description"
+          :index="index + 1"
+          :info="operator.selected.description"
+        />
       </div>
     </div>
-    <div v-else>
-      <RadonOperator
-        data-test="reducer-operator"
-        :operator="reducer"
-        :script-id="scriptId"
-        :source-index="sourceIndex"
-        :show-output-type="true"
-        @add-operator="addOperator"
-      />
+    <div v-else class="operators">
+      <div class="operator-container">
+        <RadonOperator
+          class="operator"
+          data-test="reducer-operator"
+          :operator="reducer"
+          :script-id="reducer.scriptId"
+          :source-index="sourceIndex"
+          :show-output-type="true"
+          @add-operator="addOperator"
+        />
+        <ScriptInfo
+          class="description"
+          :index="1"
+          :info="reducer.selected.description"
+        />
+      </div>
     </div>
     <div class="script-footer">
       <p class="text" data-test="footer">
         {{ footer }}
       </p>
     </div>
+    <ScriptInfo
+      v-if="type === 'filters'"
+      class="last description"
+      :index="filters.length + 1"
+      :info="footerScriptInfo"
+    />
+    <ScriptInfo
+      v-else
+      class="last description"
+      :index="2"
+      :info="footerScriptInfo"
+    />
   </div>
 </template>
 
 <script>
 import { PUSH_OPERATOR } from '@/store/mutation-types'
+import ScriptInfo from '@/components/ScriptInfo'
 import RadonOperator from '@/components/RadonOperator'
 import { mapMutations } from 'vuex'
 
 export default {
   name: 'RadonAggregateTallyScript',
-  components: { RadonOperator },
+  components: { RadonOperator, ScriptInfo },
   props: {
     sourceIndex: {
       required: false,
@@ -55,7 +106,7 @@ export default {
     script: {
       required: false,
       default: null,
-      type: [Object, Array]
+      type: [Object, Array],
     },
     scriptId: {
       required: false,
@@ -64,7 +115,7 @@ export default {
     },
     type: {
       required: false,
-      default: null,
+      default: '',
       type: String,
     },
     header: {
@@ -76,9 +127,24 @@ export default {
       required: true,
       default: '',
       type: String,
-    }
+    },
+    headerScriptInfo: {
+      required: true,
+      default: '',
+      type: String,
+    },
+    footerScriptInfo: {
+      required: true,
+      default: '',
+      type: String,
+    },
   },
   computed: {
+    emptyScript() {
+      return this.type === 'filters'
+        ? this.filters.length < 1
+        : this.reducer.length < 1
+    },
     filters() {
       return this.script.filters
     },
@@ -104,27 +170,70 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
-.script-header {
-  align-items: center;
-  border: $operator-dashed-border;
-  display: flex;
+.radon-script {
+  display: grid;
+  grid-template-columns: minmax(430px, 1fr) 300px;
+  grid-template-rows: min-content;
+}
 
-  .url {
-    color: $grey-3;
-    font-size: 14px;
-    font-weight: medium;
-    margin: 16px;
+.operators {
+  grid-column-end: -1;
+  grid-column-start: 1;
 
-    .protocol {
-      font-size: 12px;
+  .operator-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: min-content;
+
+    .operator {
+      margin: 0 16px;
     }
   }
 }
 
+.description {
+  border-left: 1px solid $yellow-3;
+  border-right: 1px solid $yellow-3;
+
+  &.last {
+    border-bottom: 1px solid $yellow-3;
+  }
+
+  &.first {
+    border-top: 1px solid $yellow-3;
+  }
+}
+
+.top {
+  margin: 16px 16px 0 16px;
+
+  .script-header {
+    align-items: center;
+    border: $operator-dashed-border;
+    display: flex;
+
+    .url {
+      color: $grey-3;
+      font-size: 14px;
+      font-weight: medium;
+      margin: 16px;
+
+      .protocol {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .icon-container {
+    margin-left: 16px;
+  }
+}
+
 .script-footer {
-  align-items: center;
   border: $operator-dashed-border;
   display: flex;
+  height: min-content;
+  margin: 0 16px 16px 16px;
 
   .text {
     color: $grey-3;
@@ -136,11 +245,23 @@ export default {
 
 .icon-container {
   margin-left: 16px;
-}
+  position: relative;
 
-.radon-script {
-  padding: 16px 24px;
-  width: 100%;
+  .add-operator-container {
+    bottom: 24px;
+    cursor: pointer;
+    display: flex;
+    left: -4px;
+    position: absolute;
+    width: max-content;
+
+    .add-operator-text {
+      color: $grey-4;
+      font-size: 12px;
+      font-weight: medium;
+      margin-left: 16px;
+    }
+  }
 }
 
 .button-container {

@@ -24,7 +24,7 @@
           data-test="variable-link-icon"
           icon="link"
         />
-        <OperatorType :type="argument.type" />
+        <OperatorType v-if="argument.type" :type="argument.type" />
       </div>
     </div>
     <div
