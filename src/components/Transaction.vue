@@ -249,6 +249,7 @@ export default {
     font-size: 12px;
     font-style: italic;
     font-weight: 600;
+    min-width: 100px;
     text-align: right;
   }
 

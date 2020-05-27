@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      itemsPerPage: 10,
+      itemsPerPage: 15,
     }
   },
   computed: {
@@ -108,7 +108,6 @@ export default {
     border: 0.5px solid rgb(224, 224, 224);
     border-radius: 4px;
     box-shadow: $card-box-shadow;
-    height: 84vh;
     overflow: auto;
   }
 
