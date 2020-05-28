@@ -1,11 +1,14 @@
 <template>
   <div class="container">
     <div class="alert">
-      <p class="title">Wallet disconnected</p>
-      <p class="description">
-        There is a connection problem. The wallet or the node is not running
-        properly. For more information visit:
-      </p>
+      <div class="content">
+        <p class="title">Wallet disconnected</p>
+        <img class="icon" src="@/resources/svg/disconnected2.svg" />
+        <p class="description">
+          There is a connection problem. The wallet or the node is not running
+          properly. For more information visit:
+        </p>
+      </div>
       <div class="link-container">
         <a
           class="link"
@@ -43,32 +46,48 @@ export default {
 
 .container {
   align-items: center;
+  background-color: $alpha-purple;
   display: flex;
   height: 100vh;
   justify-content: center;
   width: 100vw;
 
   .alert {
-    background-color: $orange-0;
-    width: 400px;
+    background-color: $yellow-0;
+    border: 1px solid $grey-1;
+    border-radius: 2px;
+    box-shadow: $card-box-shadow;
+    overflow: hidden;
+    width: 475px;
 
-    .title {
-      color: $orange-2;
-      font-size: 18px;
-      font-weight: bold;
-      padding-bottom: 16px;
-    }
+    .content {
+      align-items: center;
+      display: grid;
+      grid-template-columns: auto max-content;
+      padding: 16px;
 
-    .description {
-      color: $orange-2;
-      font-size: 16px;
+      .title {
+        color: $alt-grey-5;
+        font-size: 18px;
+        font-weight: 500;
+        padding-bottom: 16px;
+      }
+
+      .icon {
+        padding-bottom: 16px;
+      }
+
+      .description {
+        color: $alt-grey-5;
+        font-size: 16px;
+      }
     }
 
     .link-container {
       background-color: $white;
       font-size: 14px;
       margin-top: 16px;
-      padding: 8px;
+      padding: 16px;
 
       .link {
         color: $alt-grey-5;
