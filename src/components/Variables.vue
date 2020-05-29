@@ -9,7 +9,16 @@
           data-test="edit-var-input"
           :value="keys[index]"
           :placeholder="keys[index]"
-          @input="key => updateKey(index, key)"
+          @input="
+            key =>
+              updateKey({
+                index,
+                key,
+                value: variable.value,
+                description: variable.description,
+                type: variable.type,
+              })
+          "
         />
         <div v-show="errors[index]" class="error" data-test="error">
           This key is repeated. Change the variable name before continue editing
@@ -126,6 +135,11 @@ export default {
       ]
     },
   },
+  watch: {
+    variablesKeys() {
+      this.keys = this.variablesKeys
+    },
+  },
   methods: {
     ...mapMutations({
       deleteVariable: DELETE_VARIABLE,
@@ -135,12 +149,19 @@ export default {
     standardizeDataType(type) {
       return this.dataTypeOptions.find(type => type.primaryText === type)
     },
-    updateKey(index, key) {
+    updateKey({ index, key, value, description, type }) {
       this.$set(this.keys, index, key)
       if (this.isRepeated(key) && !this.isRepeatedIndex(key, index)) {
         this.$set(this.errors, index, true)
       } else {
         this.$set(this.errors, index, false)
+        this.updateVariables({
+          index,
+          key,
+          value,
+          description,
+          type,
+        })
       }
     },
     isRepeatedIndex(key, index) {
