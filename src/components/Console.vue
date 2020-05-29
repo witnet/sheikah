@@ -7,13 +7,11 @@
       @change-tab="changeTab"
       @close="closeConsole"
     />
-    <Variables v-show="showVariables" />
     <Logs v-show="showLogs" :logs="logs" />
   </div>
 </template>
 
 <script>
-import Variables from '@/components/Variables.vue'
 import Logs from '@/components/Logs.vue'
 import ConsoleTabs from '@/components/ConsoleTabs.vue'
 const VARIABLES = 'variables'
@@ -22,7 +20,6 @@ const LOGS = 'logs'
 export default {
   name: 'Console',
   components: {
-    Variables,
     ConsoleTabs,
     Logs,
   },
@@ -35,18 +32,11 @@ export default {
   data() {
     return {
       currentTab: VARIABLES,
-      tabs: [VARIABLES, LOGS],
+      tabs: [LOGS],
       showConsole: false,
     }
   },
   computed: {
-    showVariables: function() {
-      if (this.currentTab === VARIABLES && this.showConsole) {
-        return true
-      } else {
-        return false
-      }
-    },
     showLogs: function() {
       if (this.currentTab === LOGS && this.showConsole) {
         return true
