@@ -1,6 +1,9 @@
 <template>
   <div data-test="editor-view" class="editor">
-    <EditorToolBar @undo-redo="changeStage({ stage: lastStageModified })" />
+    <EditorToolBar
+      @undo-redo="changeStage({ stage: lastStageModified })"
+      @deploy="showDeployDR = true"
+    />
     <EditorStageBar @change-stage="value => changeStage({ stage: value })" />
     <EditorStageSettings v-if="currentStage === EDITOR_STAGES.SETTINGS" />
     <EditorStageSources v-if="currentStage === EDITOR_STAGES.SOURCES" />
@@ -9,7 +12,11 @@
       v-if="currentStage === EDITOR_STAGES.AGGREGATIONS"
     />
     <EditorStageTally v-if="currentStage === EDITOR_STAGES.TALLY" />
-
+    <DeployDataRequest
+      v-if="showDeployDR"
+      :template="currentTemplate"
+      @close="closeDeployModal"
+    />
     <Console :logs="logs" />
   </div>
 </template>
@@ -25,6 +32,7 @@ import EditorStageSettings from '@/components/EditorStageSettings'
 import EditorStageSources from '@/components/EditorStageSources'
 import EditorStageTally from '@/components/EditorStageTally'
 import Console from '@/components/Console.vue'
+import DeployDataRequest from '@/components/DeployDataRequest.vue'
 import EditorStageBar from '@/components/EditorStageBar.vue'
 
 export default {
@@ -38,11 +46,13 @@ export default {
     EditorStageSettings,
     EditorStageSources,
     EditorStageTally,
+    DeployDataRequest,
   },
   data() {
     return {
       EDITOR_STAGES,
       logs: [],
+      showDeployDR: false,
     }
   },
   computed: {
@@ -52,6 +62,7 @@ export default {
       networkStatus: state => state.wallet.networkStatus,
       lastStageModified: state => state.rad.lastStageModified,
       currentStage: state => state.rad.currentStage,
+      currentTemplate: state => state.rad.currentTemplate,
     }),
   },
   watch: {
@@ -69,6 +80,9 @@ export default {
       changeStage: SET_CURRENT_STAGE,
     }),
     ...mapActions(['saveTemplate']),
+    closeDeployModal() {
+      this.showDeployDR = false
+    },
   },
 }
 </script>

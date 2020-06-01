@@ -1,9 +1,11 @@
 <template>
   <el-dialog
-    :visible="visible"
+    class="dialog"
+    :visible="true"
     :title="title"
-    width="400px"
     :show-close="false"
+    width="max-content"
+    :top="generatedTransaction || showFillVariablesForm ? '6vh' : '15vh'"
     @close="closeAndClear"
   >
     <ConfirmDataRequest
@@ -56,7 +58,6 @@ export default {
       type: Object,
       required: true,
     },
-    visible: Boolean,
   },
 
   data() {

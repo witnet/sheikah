@@ -1,58 +1,49 @@
 <template>
-  <div data-test="confirm-deploy-dr" class="form">
-    <div class="row">
-      <label class="label">Witnesses</label>
-      <el-input v-model="witnesses" disabled />
-    </div>
-    <div class="row">
-      <label class="label">Min Consensus Percentage</label>
-      <el-input v-model="minConsensusPercentage" disabled />
-    </div>
+  <el-form
+    ref="form"
+    label-position="left"
+    class="deploy-form"
+    label-width="200px"
+  >
+    <el-form-item label="Witnesses" prop="witnesses">
+      <el-input v-model.number="witnesses" disabled></el-input>
+    </el-form-item>
 
-    <div class="row">
-      <label class="label">Extra reveal rounds</label>
-      <el-input v-model="extraRevealRounds" disabled />
-    </div>
+    <el-form-item label="Min Consensus Percentage">
+      <el-input v-model.number="minConsensusPercentage" disabled></el-input>
+    </el-form-item>
 
-    <div class="row">
-      <label class="label">Extra commit rounds</label>
-      <el-input v-model="extraCommitRounds" disabled />
-    </div>
+    <el-form-item label="Extra reveal rounds">
+      <el-input v-model.number="extraRevealRounds" disabled></el-input>
+    </el-form-item>
 
-    <div class="row">
-      <label class="label">Backup witnesses</label>
-      <el-input v-model="backupWitnesses" disabled />
-    </div>
+    <el-form-item label="Extra commit rounds">
+      <el-input v-model.number="extraCommitRounds" disabled></el-input>
+    </el-form-item>
 
-    <div class="row">
-      <label class="label">Data request fee</label>
-      <el-input v-model="fee" disabled />
-    </div>
+    <el-form-item label="Backup witnesses">
+      <el-input v-model.number="backupWitnesses" disabled></el-input>
+    </el-form-item>
 
-    <div class="row">
-      <label class="label">Reward fee</label>
-      <el-input v-model="rewardFee" disabled />
-    </div>
+    <el-form-item label="Data request fee">
+      <el-input v-model.number="fee" disabled></el-input>
+    </el-form-item>
 
-    <div class="row">
-      <label class="label">Commit fee</label>
-      <el-input v-model="commitFee" disabled />
-    </div>
+    <el-form-item label="Reward fee">
+      <el-input v-model.number="rewardFee" disabled></el-input>
+    </el-form-item>
 
-    <div class="row">
-      <label class="label">Reveal fee</label>
-      <el-input v-model="revealFee" disabled />
-    </div>
+    <el-form-item label="Commit fee">
+      <el-input v-model.number="commitFee" disabled></el-input>
+    </el-form-item>
 
-    <div class="row">
-      <label class="label">Tally fee</label>
-      <el-input v-model="tallyFee" disabled />
-    </div>
+    <el-form-item label="Reveal fee">
+      <el-input v-model.number="revealFee" disabled></el-input>
+    </el-form-item>
 
-    <div class="row">
-      <label class="label">Timelock</label>
-      <el-input v-model="timelock" disabled />
-    </div>
+    <el-form-item label="Tally fee">
+      <el-input v-model.number="tallyFee" disabled></el-input>
+    </el-form-item>
 
     <div class="submit">
       <el-button @click="goBack">Back</el-button>
@@ -65,7 +56,7 @@
         Deploy
       </el-button>
     </div>
-  </div>
+  </el-form>
 </template>
 
 <script>
@@ -144,38 +135,15 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
-.generated-transaction {
-  max-width: 250px;
+.title {
+  color: $alt-grey-3;
+  font-size: 18px;
+  margin: 0 0 40px 32px;
 }
 
-.row {
-  align-items: center;
-  display: flex;
-  margin-bottom: 16px;
-
-  .label {
-    font-size: 16px;
-    margin-right: 16px;
-    min-width: 130px;
-    text-align: left;
-  }
-
-  .input {
-    padding-left: 16px;
-    text-align: left;
-  }
-}
-
-.form {
-  .title {
-    color: $alt-grey-3;
-    font-size: 18px;
-    margin: 0 0 40px 32px;
-  }
-
-  .submit {
-    text-align: right;
-    width: 100%;
-  }
+.submit {
+  margin-top: 32px;
+  text-align: right;
+  width: 100%;
 }
 </style>

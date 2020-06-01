@@ -131,7 +131,7 @@ export default {
     },
 
     setError(state, { name, error, message }) {
-      if (error === 'Validation Error' || name === 'seed') {
+      if (name === 'seed' || error === 'Validation Error') {
         state.errors[name] = {
           name,
           error,

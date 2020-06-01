@@ -5,11 +5,21 @@
       <div class="variable-value">
         {{ keys[index] }}
       </div>
-      <Input
+      <el-input
         data-test="variable-value-input"
         class="variable-value"
+        :placeholder="variable.value"
         :value="variable.value"
-        @input="val => updateVariable({ index, key: variable.key, value: val })"
+        @input="
+          val =>
+            updateVariables({
+              index,
+              key: variable.key,
+              value: val,
+              description: variable.description,
+              type: variable.type,
+            })
+        "
       />
       <div v-show="errors[index]" class="error">
         (This key is repeated. Change the variable name before continue editing)
@@ -30,15 +40,11 @@
 </template>
 
 <script>
-import Input from '@/components/Input'
 import { UPDATE_VARIABLES } from '@/store/mutation-types'
 import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Variables',
-  components: {
-    Input,
-  },
   data() {
     return {
       errors: [],
@@ -97,23 +103,21 @@ export default {
   overflow-y: auto;
 
   .variable {
+    align-items: center;
+    column-gap: 16px;
     display: block;
-    display: flex;
-    justify-items: left;
+    display: grid;
+    grid-template-columns: max-content 1fr 500px;
+    margin: 16px 0;
 
     .variable-value {
-      align-items: center;
       color: $alt-grey-3;
-      display: flex;
       font-size: 16px;
-      height: 30px;
-      margin: 10px;
-      width: 80px;
+      overflow: hidden;
 
       &.label {
         color: $purple-4;
         font-weight: bold;
-        width: 40px;
       }
     }
   }
@@ -137,7 +141,7 @@ export default {
   }
 
   .submit {
-    padding-top: 40px;
+    margin-top: 32px;
     text-align: right;
     width: 100%;
   }

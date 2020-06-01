@@ -5,7 +5,7 @@
     label-position="left"
     :rules="rules"
     class="deploy-form"
-    label-width="120px"
+    label-width="200px"
   >
     <el-form-item label="Witnesses" prop="witnesses">
       <el-input v-model.number="form.witnesses"></el-input>
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'CreateDataRequestForm',
   props: {
@@ -75,6 +76,27 @@ export default {
     },
   },
   data() {
+    const enoughFunds = (rule, value, callback) => {
+      const totalAmount =
+        this.form.backupWitnesses +
+        this.form.commitFee +
+        this.form.dataRequest +
+        this.form.extraCommitRounds +
+        this.form.extraRevealRounds +
+        this.form.fee +
+        this.form.minConsensusPercentage +
+        this.form.revealFee +
+        this.form.rewardFee +
+        this.form.tallyFee +
+        this.form.witnesses +
+        this.form.collateral
+      if (totalAmount > this.availableBalance) {
+        callback(new Error("You don't have enough funds"))
+      } else {
+        callback()
+      }
+    }
+
     return {
       form: {
         backupWitnesses: 3,
@@ -114,6 +136,7 @@ export default {
         fee: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { type: 'number', message: 'This field must be a number' },
+          { validator: enoughFunds, trigger: 'submit' },
         ],
         minConsensusPercentage: [
           { required: true, message: 'Required field', trigger: 'blur' },
@@ -138,13 +161,21 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapState({
+      availableBalance: state => {
+        // TODO: change for available when wallet returns it
+        return state.wallet.balance.total
+      },
+    }),
+  },
   methods: {
     goBack() {
       this.$emit('go-back')
     },
     createDataRequest() {
-      this.$refs.form.validate(isValid => {
-        if (isValid) {
+      this.$refs.form.validate(valid => {
+        if (valid) {
           this.$emit('create-dr', { ...this.form })
         }
       })
@@ -158,12 +189,8 @@ export default {
 @import '@/styles/theme.scss';
 
 .deploy-form {
-  .el-form-item__label {
-    line-height: 20px;
-  }
-
   .submit {
-    padding-top: 40px;
+    margin-top: 32px;
     text-align: right;
     width: 100%;
   }

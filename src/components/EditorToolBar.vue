@@ -69,6 +69,11 @@ export default {
           name: 'export',
         },
         {
+          text: 'Deploy',
+          action: this.deployTemplate,
+          name: 'deploy',
+        },
+        {
           text: 'Try data request',
           action: this.tryDataRequest,
           name: 'try',
@@ -94,6 +99,9 @@ export default {
     }),
     exportTemplate: function() {
       this.$refs.download.click()
+    },
+    deployTemplate() {
+      this.$emit('deploy')
     },
     editorUndo() {
       this.undo()

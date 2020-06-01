@@ -45,12 +45,8 @@ describe.skip('Create a complete deploy Data Request flow', () => {
     cy.get('[data-test=editor-view]')
   })
 
-  it('Go back to templates list', () => {
-    cy.get('[data-test=go-back-to-templates]').click({ force: true })
-  })
-
   it('Deploy', () => {
-    cy.get('[data-test=template-Deploy]')
+    cy.get('[data-test=action-deploy]')
       .first()
       .click({ force: true })
     cy.get('[data-test=variables-dr-form]').should('be.visible')
