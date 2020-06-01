@@ -8,6 +8,8 @@ describe('RadonAggregateTallyScript.vue', () => {
         header: 'a',
         footer: 'b',
         scriptId: 4,
+        headerScriptInfo: 'headerScriptInfo',
+        footerScriptInfo: 'footerScriptInfo',
         script: {
           filters: [
             {
@@ -53,6 +55,7 @@ describe('RadonAggregateTallyScript.vue', () => {
                     value: '1',
                   },
                 ],
+                description: 'description',
                 hierarchicalType: 'selectedOperatorOption',
                 label: 'deviationAbsolute',
                 markupType: 'option',
@@ -102,6 +105,7 @@ describe('RadonAggregateTallyScript.vue', () => {
                     value: 1,
                   },
                 ],
+                description: 'description',
                 hierarchicalType: 'selectedOperatorOption',
                 label: 'deviationStandard',
                 markupType: 'option',
@@ -149,6 +153,7 @@ describe('RadonAggregateTallyScript.vue', () => {
             outputType: 'filterOutput',
             scriptId: 4,
             selected: {
+              description: 'description',
               arguments: [],
               hierarchicalType: 'selectedOperatorOption',
               label: 'averageMean',
@@ -170,19 +175,24 @@ describe('RadonAggregateTallyScript.vue', () => {
         },
       }),
     })
+
     it('finds the header text', () => {
       expect(wrapper.find('[data-test="header"]').text()).toBe('a')
     })
+
     it('finds the footer text', () => {
       expect(wrapper.find('[data-test="footer"]').text()).toBe('b')
     })
+
     it('finds the filter operator', () => {
       expect(wrapper.contains('[data-test="filter-operator"]')).toBe(true)
     })
+
     it('finds the add operator button', () => {
       expect(wrapper.contains('[data-test="reducer-operator"]')).toBe(false)
     })
   })
+
   describe('should render correctly', () => {
     const wrapper = mount(RadonAggregateTallyScript, {
       propsData: {
@@ -190,6 +200,8 @@ describe('RadonAggregateTallyScript.vue', () => {
         header: 'c',
         footer: 'd',
         scriptId: 4,
+        headerScriptInfo: 'headerScriptInfo',
+        footerScriptInfo: 'footerScriptInfo',
         script: {
           filters: [
             {
@@ -235,6 +247,7 @@ describe('RadonAggregateTallyScript.vue', () => {
                     value: '1',
                   },
                 ],
+                description: 'description',
                 hierarchicalType: 'selectedOperatorOption',
                 label: 'deviationAbsolute',
                 markupType: 'option',
@@ -284,6 +297,7 @@ describe('RadonAggregateTallyScript.vue', () => {
                     value: 1,
                   },
                 ],
+                description: 'description',
                 hierarchicalType: 'selectedOperatorOption',
                 label: 'deviationStandard',
                 markupType: 'option',
@@ -331,6 +345,7 @@ describe('RadonAggregateTallyScript.vue', () => {
             outputType: 'filterOutput',
             scriptId: 4,
             selected: {
+              description: 'description',
               arguments: [],
               hierarchicalType: 'selectedOperatorOption',
               label: 'averageMean',
@@ -352,15 +367,19 @@ describe('RadonAggregateTallyScript.vue', () => {
         },
       }),
     })
+
     it('finds the header text', () => {
       expect(wrapper.find('[data-test="header"]').text()).toBe('c')
     })
+
     it('finds the footer text', () => {
       expect(wrapper.find('[data-test="footer"]').text()).toBe('d')
     })
+
     it('finds the filter operator', () => {
       expect(wrapper.contains('[data-test="filter-operator"]')).toBe(false)
     })
+
     it('finds the add operator button', () => {
       expect(wrapper.contains('[data-test="reducer-operator"]')).toBe(true)
     })
