@@ -1,5 +1,5 @@
 <template>
-  <div class="list" :class="{ 'vertical-align': isMaxHeightExceeded }">
+  <div class="list" :class="{ 'vertical-align': !isMaxHeightExceeded }">
     <AddressCard
       v-for="(address, index) in addresses"
       ref="address"
@@ -45,7 +45,7 @@ export default {
   computed: {
     isMaxHeightExceeded() {
       // FIXME: calculate a the height in a more agnostic way
-      return this.addresses.length > 27
+      return this.addresses.length > 26
     },
   },
   methods: {
