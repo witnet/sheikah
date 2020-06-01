@@ -181,7 +181,7 @@ export function calculateTimeAgo(date) {
   const timestampLength = date.toString().length
   const d = timestampLength < 13 ? date + '000' : date
   const currentDate = new Date(Number(d))
-  return `${formatDistanceToNow(currentDate, { includeSeconds: true })} ago`
+  return `${formatDistanceToNow(currentDate)} ago`
 }
 
 export function formatDateVerbose(date) {
