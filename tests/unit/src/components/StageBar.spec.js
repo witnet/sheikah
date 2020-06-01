@@ -11,7 +11,7 @@ describe('EditorStageBar.vue', () => {
             },
           },
         },
-      })
+      }),
     )
 
     it('should render the settings stage btn', () => {

@@ -42,11 +42,10 @@ describe('calculateTimeAgo', () => {
   it('should end with "ago" copy', () => {
     const date = new Date()
 
-    date.setSeconds(date.getSeconds() - 4);
+    date.setSeconds(date.getSeconds() - 4)
 
     expect(calculateTimeAgo(date).endsWith('ago')).toBe(true)
   })
-
 })
 
 describe('getDomainFromUrl', () => {

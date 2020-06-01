@@ -81,7 +81,9 @@ export default {
       template: state => state.rad.currentTemplate,
     }),
     dataStr() {
-      return `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.template))}`
+      return `data:text/json;charset=utf-8,${encodeURIComponent(
+        JSON.stringify(this.template),
+      )}`
     },
   },
   methods: {
