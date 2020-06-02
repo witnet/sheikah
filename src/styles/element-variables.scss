@@ -41,6 +41,17 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   }
 }
 
+.el-dialog {
+  .el-dialog__header {
+    padding: 24px;
+    padding-bottom: 14px;
+  }
+
+  .el-dialog__body {
+    padding: 16px 24px;
+  }
+}
+
 .el-textarea {
   .el-textarea__inner {
     border: $input_border;

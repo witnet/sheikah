@@ -61,6 +61,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
+@import '@/styles/scroll.scss';
 
 .list {
   align-items: center;
@@ -80,17 +81,6 @@ export default {
   &.vertical-align {
     align-content: center;
   }
-}
-
-::-webkit-scrollbar {
-  background: transparent;
-  width: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: $alpha-grey;
-  -webkit-border-radius: 1ex;
-  border-radius: 1ex;
 }
 </style>
 
