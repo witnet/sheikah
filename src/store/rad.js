@@ -247,6 +247,7 @@ export default {
               'The default String that this variable will take if an user does not override it',
             description:
               'Helps users of this template understand what this variable is used for',
+            type: 'String',
           },
         ],
         variablesIndex: 0,

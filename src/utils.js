@@ -81,7 +81,9 @@ function encodeAggregationTally(stage) {
       return Array.isArray(filter)
         ? {
             op: filter[0],
-            args: filter.slice(1).length ? cbor.encode(filter.slice(1)) : [],
+            args: filter.slice(1).length
+              ? [...cbor.encode(filter.map(Number).slice(1)).values()]
+              : [],
           }
         : { op: filter, args: [] }
     }),
