@@ -62,6 +62,7 @@ export default {
 <docs>
 ### Example
 ```jsx
+
   <EditorStageSettings />
 ```
 </docs>

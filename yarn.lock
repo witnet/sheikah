@@ -15941,10 +15941,10 @@ with@^5.0.0:
     acorn "^3.1.0"
     acorn-globals "^3.0.0"
 
-witnet-radon-js@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.6.0.tgz#9783e9619edd4bae5ba155e7e9d4d976847ca0d2"
-  integrity sha512-3wCA9KR87U6G7fBLRvOqjQMTQgFW5KwVzBa3WhC8HtOFuWey2J+y0cQuTjI5BIqLnzlz7+Ti8cu8inTWORUq+A==
+witnet-radon-js@0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.6.1.tgz#656efd2a58d6a2823981f5330e69cccc7eae1084"
+  integrity sha512-CjpwofPuFpDDEm1Ql4DKSBE+LvOj+kZ2t4NyfiS8W9fOyEF/D0aSpXJp0xttI729oX6w7OIcS/IEFvUfQxRwTw==
 
 word-wrap@~1.2.3:
   version "1.2.3"

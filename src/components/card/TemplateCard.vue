@@ -269,6 +269,7 @@ export default {
     name="Template"
     description="Description"
     :sources="1"
+    id="0"
   />
 ```
 </docs>

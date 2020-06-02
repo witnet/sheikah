@@ -34,7 +34,7 @@
 import Amount from '@/components/Amount.vue'
 
 export default {
-  name: 'Transaction',
+  name: 'InputsOutputs',
   components: {
     Amount,
   },

@@ -89,7 +89,7 @@ import OperatorType from '@/components/OperatorType'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'RadonOperator',
+  name: 'EditorOperatorArgument',
   components: {
     Select,
     OperatorType,

@@ -48,13 +48,12 @@
     "date-fns": "^2.12.0",
     "element-ui": "^2.4.5",
     "rpc-websockets": "^4.3.5",
-    "stylelint-order": "^4.0.0",
     "tar": "^6.0.1",
     "uuid": "^3.3.2",
     "vue": "^2.6.11",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
-    "witnet-radon-js": "0.6.0"
+    "witnet-radon-js": "0.6.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.2",
@@ -85,6 +84,7 @@
     "stylelint-config-prettier": "8.0.x",
     "stylelint-config-recess-order": "2.0.x",
     "stylelint-config-standard": "20.0.x",
+    "stylelint-order": "^4.0.0",
     "stylelint-scss": "3.14.x",
     "vue-cli-plugin-electron-builder": "^1.4.5",
     "vue-cli-plugin-element": "^1.0.1",

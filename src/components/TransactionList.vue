@@ -140,3 +140,31 @@ export default {
   }
 }
 </style>
+
+<docs>
+### Example
+
+```jsx
+  const transactions = [{
+    block: "511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f",
+    border: "false",
+    date: "JAN 19, 1970 @ 10:00:31",
+    timeAgo: "33 minutes ago",
+    fee: 12,
+    id: "600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109",
+    outputs: [
+      { value: 123, address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq' },
+      { value: 499999999865, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }
+    ],
+    inputs: [{ value: 500000000000, address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44' }],
+    type: "POSITIVE",
+    transactionType: "value_transfer",
+    amount: 123
+  }]
+
+  <TransactionList
+    currency="nanoWits"
+    :transactions="transactions"
+  />
+```
+</docs>

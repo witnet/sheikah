@@ -175,7 +175,7 @@ export default {
 ### Example
 
 ```jsx
-  <EditorSource url="witnet.io" protocol="HTTP-GET" contentType="JSON API" />
+  <EditorSource url="witnet.io" protocol="HTTP-GET" contentType="JSON API" :index="0" />
 ```
 
 </docs>

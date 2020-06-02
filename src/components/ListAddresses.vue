@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: 'List',
+  name: 'ListAddresses',
   props: {
     addresses: {
       type: Array,

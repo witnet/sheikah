@@ -8,11 +8,13 @@ import uiInteractionsModule from './uiInteractions'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+export const storeInput = {
   modules: {
     uiInteractions: uiInteractionsModule,
     rad: radModule,
     wallet: walletModule,
     marketplace: marketplaceModule,
   },
-})
+}
+
+export default new Vuex.Store(storeInput)

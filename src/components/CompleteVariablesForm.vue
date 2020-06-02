@@ -44,7 +44,7 @@ import { UPDATE_VARIABLES } from '@/store/mutation-types'
 import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
-  name: 'Variables',
+  name: 'CompleteVariablesForm',
   data() {
     return {
       errors: [],

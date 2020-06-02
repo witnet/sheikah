@@ -20,7 +20,7 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
-  name: 'TemplateCard',
+  name: 'RenameTemplate',
   props: {
     name: {
       type: String,

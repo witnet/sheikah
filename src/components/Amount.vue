@@ -12,7 +12,7 @@ import { standardizeWitUnits } from '@/utils'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Transaction',
+  name: 'Amount',
   props: {
     amount: {
       type: Number,

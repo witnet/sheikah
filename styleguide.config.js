@@ -12,6 +12,7 @@ module.exports = {
     'src/components/BalanceButtons.vue',
     'src/components/BalanceData.vue',
     'src/components/card/TemplateCard.vue',
+    'src/components/EditorSettings.vue',
     'src/components/EditorSource.vue',
     'src/components/EditorStageAggregations.vue',
     'src/components/EditorStageBar.vue',
@@ -30,6 +31,7 @@ module.exports = {
     'src/components/Tag.vue',
     'src/components/Transaction.vue',
     'src/components/TransactionDetails.vue',
+    'src/components/TransactionList.vue',
   ],
   require: [
     path.join(__dirname, './src/styles/reset.scss'),

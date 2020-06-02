@@ -24,7 +24,7 @@ import Variables from '@/components/Variables'
 import RenameTemplate from '@/components/RenameTemplate'
 
 export default {
-  name: 'EditorSource',
+  name: 'EditorSettings',
   components: {
     Fieldset,
     Card,
