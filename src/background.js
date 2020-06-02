@@ -12,7 +12,7 @@ import {
   createProtocol,
   installVueDevtools,
 } from 'vue-cli-plugin-electron-builder/lib'
-import { BrowserWindow, app, protocol, Menu } from 'electron'
+import { BrowserWindow, app, protocol, Menu, Tray } from 'electron'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
@@ -38,6 +38,7 @@ const STATUS_PATH = {
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+let tray
 // open sheikah if is development environment
 let status = isDevelopment ? STATUS.READY : STATUS.WAIT
 // Scheme must be registered before the app is ready
@@ -70,10 +71,23 @@ function createWindow() {
     webContents.setVisualZoomLevelLimits(1, 1)
     webContents.setLayoutZoomLevelLimits(0, 0)
   })
+
   loadUrl(status)
+
   win.on('closed', () => {
     win = null
   })
+
+  win.on('close', function(event) {
+    if (win.isFullScreen()) {
+      win.once('leave-full-screen', () => win.hide())
+
+      win.setFullScreen(false)
+    } else {
+      win.hide()
+    }
+  })
+
   if (!isDevelopment) {
     // Disable shortcuts defining a hidden menu and binding the shortcut we
     // want to disable to an option
@@ -90,6 +104,34 @@ function createWindow() {
 
     Menu.setApplicationMenu(menu)
   }
+}
+
+function createTray() {
+  tray = new Tray(path.join(__static, 'icon.png'))
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Open Sheikah',
+      type: 'normal',
+      click: function() {
+        win.show()
+      },
+    },
+    {
+      label: 'Item2',
+      type: 'separator',
+    },
+    {
+      label: 'Quit Sheikah',
+      type: 'normal',
+      click: function() {
+        win.destroy()
+        app.quit()
+      },
+    },
+  ])
+
+  tray.setToolTip('Sheikah - Witnet wallet and data request editor')
+  tray.setContextMenu(contextMenu)
 }
 
 // Quit when all windows are closed.
@@ -121,6 +163,8 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
+
+  createTray()
 
   createWindow()
 })
