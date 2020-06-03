@@ -8,30 +8,40 @@
       <p class="label">Timestamp</p>
       <p data-test="date" class="info">{{ date }}</p>
       <p
-        v-if="transactionType === 'data_request' && witnesses"
+        v-if="
+          (transactionType === 'data_request' || transactionType === 'tally') &&
+            witnesses
+        "
         data-test="witnesses-title"
         class="label"
       >
         Witnessess
       </p>
       <p
-        v-if="transactionType === 'data_request' && witnesses"
+        v-if="
+          (transactionType === 'data_request' || transactionType === 'tally') &&
+            witnesses
+        "
         data-test="witnesses"
         class="info"
       >
-        {{ witnesses.min }}<span class="light"> as a minimum, with </span
-        >{{ witnesses.backup }}
-        <span class="light">as backup</span>
+        {{ witnesses.min }}<span class="light"> as a minimum</span>
       </p>
       <p
-        v-if="transactionType === 'data_request' && rewards"
+        v-if="
+          (transactionType === 'data_request' || transactionType === 'tally') &&
+            rewards
+        "
         data-test="rewards-title"
         class="label"
       >
         Rewards
       </p>
       <p
-        v-if="transactionType === 'data_request' && rewards"
+        v-if="
+          (transactionType === 'data_request' || transactionType === 'tally') &&
+            rewards
+        "
         data-test="rewards"
         class="info"
       >
@@ -40,14 +50,20 @@
         <span class="light">in total for miners</span>
       </p>
       <p
-        v-if="transactionType === 'data_request' && rounds"
+        v-if="
+          (transactionType === 'data_request' || transactionType === 'tally') &&
+            rounds
+        "
         data-test="rounds-title"
         class="label"
       >
         Rounds
       </p>
       <p
-        v-if="transactionType === 'data_request' && rounds"
+        v-if="
+          (transactionType === 'data_request' || transactionType === 'tally') &&
+            rounds
+        "
         data-test="rounds"
         class="info"
       >
@@ -57,27 +73,36 @@
         <span class="light">reveal rounds</span>
       </p>
       <p
-        v-if="transactionType === 'data_request'"
+        v-if="transactionType === 'data_request' || transactionType === 'tally'"
         data-test="current-stage-title"
         class="label"
       >
         Current stage
       </p>
       <p
-        v-if="transactionType === 'data_request'"
+        v-if="transactionType === 'data_request' || transactionType === 'tally'"
         data-test="current-stage"
         class="info"
       >
         {{ state }}
       </p>
       <p
-        v-if="transactionType === 'data_request' && reveals"
+        v-if="
+          (transactionType === 'data_request' || transactionType === 'tally') &&
+            reveals
+        "
         data-test="reveals-title"
         class="label"
       >
         Reveals
       </p>
-      <div v-if="transactionType === 'data_request'" class="info">
+      <div
+        v-if="
+          (transactionType === 'data_request' || transactionType === 'tally') &&
+            reveals
+        "
+        class="info"
+      >
         <div
           v-for="(reveal, index) in reveals"
           :key="index"
@@ -98,24 +123,27 @@
         </div>
       </div>
       <p
-        v-if="transactionType === 'data_request' && result"
+        v-if="
+          (transactionType === 'data_request' || transactionType === 'tally') &&
+            result
+        "
         data-test="result-title"
         class="label"
       >
         Final result
       </p>
       <p
-        v-if="transactionType === 'data_request'"
+        v-if="transactionType === 'data_request' || transactionType === 'tally'"
         data-test="result"
         class="info"
-        >{{ result }}</p
+        >{{ standardizeTransactionResult(result) }}</p
       >
     </div>
   </div>
 </template>
 
 <script>
-import { cropString } from '@/utils'
+import { cropString, standardizeTransactionResult } from '@/utils'
 
 export default {
   name: 'TransactionDetails',
@@ -165,6 +193,7 @@ export default {
   },
   methods: {
     cropString,
+    standardizeTransactionResult,
   },
 }
 </script>

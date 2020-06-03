@@ -143,6 +143,24 @@ export function standardizeOperatorName(name) {
     }
   }
 }
+export function standardizeTransactionResult(name) {
+  if (name) {
+    const capitalLetterRegex = /[A-Z][a-z]+/g
+    const matchedArray = (name.match(capitalLetterRegex) || []).splice(2)
+    if (matchedArray.length) {
+      const standardizedWord =
+        matchedArray[0] +
+        matchedArray[1] +
+        '(' +
+        matchedArray[2] +
+        matchedArray[3] +
+        ')'
+      return standardizedWord
+    } else {
+      return name
+    }
+  }
+}
 // Split the last word of a camelCase string an return the first item
 export function standardizeOutputType(name) {
   if (name) {

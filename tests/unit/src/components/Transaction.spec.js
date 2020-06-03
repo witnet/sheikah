@@ -30,6 +30,7 @@ describe('Renders the correct elements when click is not triggered', () => {
       type: 'POSITIVE',
       state: 'IN PROGRESS',
       transactionType: 'value_transfer',
+      reveals: [],
       currency: 'nanoWits',
     },
   })
@@ -100,6 +101,7 @@ describe('data request', () => {
         type: 'POSITIVE',
         state: 'IN PROGRESS',
         transactionType: 'data_request',
+        reveals: [],
         currency: 'nanoWits',
       },
     })
@@ -160,6 +162,7 @@ describe('mint', () => {
         type: 'POSITIVE',
         state: 'IN PROGRESS',
         transactionType: 'mint',
+        reveals: [],
         currency: 'nanoWits',
       },
     })
@@ -217,6 +220,7 @@ describe('render the correct address', () => {
           type: 'POSITIVE',
           state: 'IN PROGRESS',
           transactionType: 'value_transfer',
+          reveals: [],
           currency: 'nanoWits',
         },
       })
@@ -261,6 +265,7 @@ describe('render the correct address', () => {
           type: 'POSITIVE',
           state: 'IN PROGRESS',
           transactionType: 'value_transfer',
+          reveals: [],
           currency: 'nanoWits',
         },
       })
@@ -303,6 +308,7 @@ describe('render the correct address', () => {
           type: 'NEGATIVE',
           state: 'IN PROGRESS',
           transactionType: 'value_transfer',
+          reveals: [],
           currency: 'nanoWits',
         },
       })
@@ -347,6 +353,7 @@ describe('render the correct address', () => {
           type: 'NEGATIVE',
           state: 'IN PROGRESS',
           transactionType: 'value_transfer',
+          reveals: [],
           currency: 'nanoWits',
         },
       })

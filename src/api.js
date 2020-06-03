@@ -240,8 +240,8 @@ export function standardizeTransactions(response) {
 
     const { inputs, outputs } = transaction.transaction.data[transactionType]
     // eslint-disable-next-line camelcase
-    const { hash, miner_fee, block, tally, timestamp } = transaction.transaction
-
+    const { hash, miner_fee, block, timestamp, data } = transaction.transaction
+    const tally = data[transactionType].tally
     return {
       id: hash,
       type: transaction.type,
@@ -262,11 +262,10 @@ export function standardizeTransactions(response) {
       rewards: null,
       rounds: null,
       currentStage: tally ? 'FINALIZED' : 'IN PROGRESS',
-      reveals: tally ? tally.reveals : null,
+      reveals: tally ? tally.reveals : [],
       finalResult: tally ? tally.result : null,
       transactionType,
     }
   })
-
   return { result: transactions }
 }

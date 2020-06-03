@@ -29,6 +29,9 @@
         >
           <p data-test="transaction-type" class="address">Data request</p>
         </div>
+        <div v-else-if="transactionType === 'tally'" class="address-container">
+          <p data-test="transaction-type" class="address">Tally</p>
+        </div>
         <div v-if="transactionType === 'mint'" class="address-container">
           <p data-test="transaction-type" class="address">Mint</p>
         </div>
@@ -48,7 +51,7 @@
           :rewards="rewards"
           :rounds="rounds"
           :state="state"
-          :reveals="reveals"
+          :reveals="reveals.length ? reveals : null"
           :result="result"
         />
         <InputsOutputs

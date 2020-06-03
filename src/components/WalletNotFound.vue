@@ -12,13 +12,8 @@
       <div class="link-container">
         <a
           class="link"
-          @click="
-            () => {
-              openExternalLink(
-                'https://github.com/witnet/witnet-rust/tree/master/wallet',
-              )
-            }
-          "
+          href="https://github.com/witnet/witnet-rust/tree/master/wallet"
+          target="_blank"
         >
           https://github.com/witnet/witnet-rust/tree/master/wallet
         </a>
@@ -28,15 +23,8 @@
 </template>
 
 <script>
-import { openInExternalApp } from '@/utils'
-
 export default {
   name: 'WalletNotFound',
-  methods: {
-    openExternalLink: async url => {
-      await openInExternalApp(url)
-    },
-  },
 }
 </script>
 
@@ -91,7 +79,9 @@ export default {
 
       .link {
         color: $alt-grey-5;
+        cursor: pointer;
         line-height: 1.5;
+        text-decoration: none;
       }
     }
   }
