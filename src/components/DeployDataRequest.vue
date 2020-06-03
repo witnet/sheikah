@@ -10,10 +10,7 @@
   >
     <ConfirmDataRequest
       v-if="generatedTransaction"
-      :backup-witnesses="backupWitnesses"
       :commit-fee="commitFee"
-      :extra-commit-rounds="extraCommitRounds"
-      :extra-reveal-rounds="extraRevealRounds"
       :fee="fee"
       :generated-transaction="generatedTransaction"
       :min-consensus-percentage="minConsensusPercentage"
@@ -64,10 +61,7 @@ export default {
     return {
       currentTemplate: '',
       variablesUpdated: false,
-      backupWitnesses: null,
       commitFee: null,
-      extraCommitRounds: null,
-      extraRevealRounds: null,
       fee: null,
       minConsensusPercentage: null,
       revealFee: null,
@@ -134,10 +128,7 @@ export default {
       }
       this.currentTemplate = ''
       this.variablesUpdated = false
-      this.backupWitnesses = null
       this.commitFee = null
-      this.extraCommitRounds = null
-      this.extraRevealRounds = null
       this.fee = null
       this.minConsensusPercentage = null
       this.revealFee = null
@@ -150,10 +141,7 @@ export default {
       this.variablesUpdated = true
     },
     createDR(parameters) {
-      this.backupWitnesses = parameters.backupWitnesses
       this.commitFee = parameters.commitFee
-      this.extraCommitRounds = parameters.extraCommitRounds
-      this.extraRevealRounds = parameters.extraRevealRounds
       this.fee = parameters.fee
       this.minConsensusPercentage = parameters.minConsensusPercentage
       this.revealFee = parameters.revealFee

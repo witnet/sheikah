@@ -18,18 +18,6 @@
       <el-input v-model.number="form.minConsensusPercentage"></el-input>
     </el-form-item>
 
-    <el-form-item label="Extra reveal rounds" prop="extraRevealRounds">
-      <el-input v-model.number="form.extraRevealRounds"></el-input>
-    </el-form-item>
-
-    <el-form-item label="Extra commit rounds" prop="extraCommitRounds">
-      <el-input v-model.number="form.extraCommitRounds"></el-input>
-    </el-form-item>
-
-    <el-form-item label="Backup witnesses" prop="backupWitnesses">
-      <el-input v-model.number="form.backupWitnesses"></el-input>
-    </el-form-item>
-
     <el-form-item label="Data request fee" prop="fee">
       <el-input v-model.number="form.fee"></el-input>
     </el-form-item>
@@ -78,11 +66,8 @@ export default {
   data() {
     const enoughFunds = (rule, value, callback) => {
       const totalAmount =
-        this.form.backupWitnesses +
         this.form.commitFee +
         this.form.dataRequest +
-        this.form.extraCommitRounds +
-        this.form.extraRevealRounds +
         this.form.fee +
         this.form.minConsensusPercentage +
         this.form.revealFee +
@@ -99,11 +84,8 @@ export default {
 
     return {
       form: {
-        backupWitnesses: 3,
         commitFee: 1,
         dataRequest: 1,
-        extraCommitRounds: 3,
-        extraRevealRounds: 3,
         fee: 1,
         minConsensusPercentage: 51,
         revealFee: 1,
@@ -113,23 +95,11 @@ export default {
         collateral: 1000000000,
       },
       rules: {
-        backupWitnesses: [
-          { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
-        ],
         commitFee: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { type: 'number', message: 'This field must be a number' },
         ],
         dataRequest: [
-          { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
-        ],
-        extraCommitRounds: [
-          { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
-        ],
-        extraRevealRounds: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { type: 'number', message: 'This field must be a number' },
         ],

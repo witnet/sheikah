@@ -13,18 +13,6 @@
       <el-input v-model.number="minConsensusPercentage" disabled></el-input>
     </el-form-item>
 
-    <el-form-item label="Extra reveal rounds">
-      <el-input v-model.number="extraRevealRounds" disabled></el-input>
-    </el-form-item>
-
-    <el-form-item label="Extra commit rounds">
-      <el-input v-model.number="extraCommitRounds" disabled></el-input>
-    </el-form-item>
-
-    <el-form-item label="Backup witnesses">
-      <el-input v-model.number="backupWitnesses" disabled></el-input>
-    </el-form-item>
-
     <el-form-item label="Data request fee">
       <el-input v-model.number="fee" disabled></el-input>
     </el-form-item>
@@ -63,19 +51,7 @@
 export default {
   name: 'ConfirmDataRequest',
   props: {
-    backupWitnesses: {
-      type: Number,
-      required: true,
-    },
     commitFee: {
-      type: Number,
-      required: true,
-    },
-    extraCommitRounds: {
-      type: Number,
-      required: true,
-    },
-    extraRevealRounds: {
       type: Number,
       required: true,
     },

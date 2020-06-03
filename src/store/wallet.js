@@ -316,12 +316,9 @@ export default {
           collateral: parameters.collateral,
           witness_reward: parameters.rewardFee,
           witnesses: parameters.witnesses,
-          backup_witnesses: parameters.backupWitnesses,
           commit_fee: parameters.commitFee,
           reveal_fee: parameters.revealFee,
           tally_fee: parameters.tallyFee,
-          extra_commit_rounds: parameters.extraCommitRounds,
-          extra_reveal_rounds: parameters.extraRevealRounds,
           min_consensus_percentage: parameters.minConsensusPercentage,
         },
       }
@@ -561,7 +558,6 @@ export default {
         const value = variable.value
         context.commit(UPDATE_TEMPLATE, { id, value })
       })
-
       const request = await context.state.api.runRadRequest({
         rad_request: encodeDataRequest(
           context.rootState.rad.currentRadonMarkupInterpreter.getMir(),
