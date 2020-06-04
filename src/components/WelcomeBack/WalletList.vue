@@ -91,6 +91,9 @@ export default {
     },
   },
   watch: {
+    wallets() {
+      this.currentWallet = this.walletOptions[this.lastWalletOpen]
+    },
     sessionId: function(newValue) {
       if (newValue) {
         this.updateView()
@@ -102,12 +105,13 @@ export default {
       }
     },
   },
-  created() {
-    this.currentWallet = this.walletOptions[this.lastWalletOpen]
+  mounted() {
+    this.getWalletInfos()
   },
   methods: {
     ...mapActions({
       unlockWallet: 'unlockWallet',
+      getWalletInfos: 'getWalletInfos',
     }),
     ...mapMutations({
       clearError: 'clearError',
