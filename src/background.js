@@ -280,7 +280,17 @@ async function downloadWalletRelease(releaseUrl, version) {
 // Run Witnet wallet and load "ready" url
 async function runWallet() {
   console.log('Running wallet...')
-  const runWallet = spawn(`${SHEIKAH_PATH}/witnet`, ['wallet', 'server'])
+
+  const walletConfigurationPath = `./${
+    process.env.TRAVIS ? '' : SHEIKAH_PATH + '/'
+  }witnet.toml`
+
+  const runWallet = spawn(`${SHEIKAH_PATH}/witnet`, [
+    '-c',
+    walletConfigurationPath,
+    'wallet',
+    'server',
+  ])
 
   runWallet.stdout.on('data', function(data) {
     console.log('stdout: ' + data.toString())
