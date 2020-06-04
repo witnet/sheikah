@@ -12,7 +12,7 @@ import {
   createProtocol,
   installVueDevtools,
 } from 'vue-cli-plugin-electron-builder/lib'
-import { BrowserWindow, app, protocol, Menu, Tray } from 'electron'
+import { app, BrowserWindow, Menu, protocol, shell, Tray } from 'electron'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
@@ -316,6 +316,12 @@ function loadUrl(s) {
       // Load the index.html when not in development
       win.loadURL(`app://./index.html/#/${STATUS_PATH[s]}`)
     }
+
+    // prevent open a new electron window and open the url in os browser
+    win.webContents.on('new-window', (e, url) => {
+      e.preventDefault()
+      shell.openExternal(url)
+    })
   }
 }
 
