@@ -16,16 +16,6 @@
       </li>
       <li class="option">
         <el-button
-          ref="submit"
-          class="big"
-          type="primary"
-          @click="redirectTo('/ftu/disclaimer')"
-        >
-          Import a wallet from xpriv
-        </el-button>
-      </li>
-      <li class="option">
-        <el-button
           class="big"
           data-test="import-wallet"
           type="primary"
