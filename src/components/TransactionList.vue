@@ -31,7 +31,7 @@
         <p class="no-transactions-text">You don't have transactions</p>
       </div>
     </div>
-    <div v-show="transactions.length" class="pagination-nav">
+    <div v-show="transactions.length > itemsPerPage" class="pagination-nav">
       <el-pagination
         layout="prev, pager, next"
         :total="transactions.length"
