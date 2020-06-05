@@ -115,5 +115,35 @@ describe('standardizeWitUnits', () => {
       const result = standardizeWitUnits(40, WIT_UNIT.NANO)
       expect(result).toBe(expected)
     })
+
+    it('from wit to microWit', () => {
+      const expected = '1000'
+      const result = standardizeWitUnits(1, WIT_UNIT.MICRO, WIT_UNIT.WIT)
+      expect(result).toBe(expected)
+    })
+
+    it('from nanowit to wit', () => {
+      const expected = '0.000000001'
+      const result = standardizeWitUnits(1, WIT_UNIT.WIT, WIT_UNIT.NANO)
+      expect(result).toBe(expected)
+    })
+
+    it('from wit to nanoWit', () => {
+      const expected = '1000000000'
+      const result = standardizeWitUnits(1, WIT_UNIT.NANO, WIT_UNIT.WIT)
+      expect(result).toBe(expected)
+    })
+
+    it('from microWit to nanoWit', () => {
+      const expected = '1000'
+      const result = standardizeWitUnits(1, WIT_UNIT.NANO, WIT_UNIT.MICRO)
+      expect(result).toBe(expected)
+    })
+
+    it('from microWit to wit', () => {
+      const expected = '0.001'
+      const result = standardizeWitUnits(1, WIT_UNIT.WIT, WIT_UNIT.MICRO)
+      expect(result).toBe(expected)
+    })
   })
 })

@@ -9,7 +9,7 @@
           alt=""
         />
         <Amount
-          :keep="true"
+          :currencyDark="true"
           data-test="amount"
           class="amount"
           :class="[origin.toLowerCase()]"

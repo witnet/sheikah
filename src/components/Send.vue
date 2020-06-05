@@ -119,10 +119,14 @@
           v-model.number="form.amount"
           tabindex="3"
           data-test="tx-amount"
-        />
+        >
+        <InputAppend slot="append" />
+        </el-input>
       </el-form-item>
       <el-form-item label="fee" prop="fee">
-        <el-input v-model.number="form.fee" tabindex="4" data-test="tx-fee" />
+        <el-input v-model.number="form.fee" tabindex="4" data-test="tx-fee">
+        <InputAppend slot="append" />
+        </el-input>
       </el-form-item>
 
       <div class="submit">
@@ -142,9 +146,13 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
+import InputAppend from '@/components/InputAppend'
 
 export default {
   name: 'Send',
+  components: {
+    InputAppend,
+  },
   data() {
     const enoughFunds = (rule, value, callback) => {
       const totalAmount = Number.isInteger(this.form.fee)
@@ -191,6 +199,7 @@ export default {
       },
       generatedTransaction: state => state.wallet.generatedTransaction,
       networkStatus: state => state.wallet.networkStatus,
+      currency: state => state.wallet.currency,
     }),
   },
   methods: {
