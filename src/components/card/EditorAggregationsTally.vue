@@ -10,6 +10,8 @@
           :footer="filtersFooter"
           :headerScriptInfo="filtersHeaderScriptInfo"
           :footerScriptInfo="filtersFooterScriptInfo"
+          :partialResults="results"
+          :finalResult="finalResult ? finalResult : null"
         />
       </Card>
     </Fieldset>
@@ -23,6 +25,8 @@
           :footer="reducerFooter"
           :headerScriptInfo="reducerHeaderScriptInfo"
           :footerScriptInfo="reducerFooterScriptInfo"
+          :partialResults="results"
+          :finalResult="finalResult"
         />
       </Card>
     </Fieldset>
@@ -55,6 +59,16 @@ export default {
       type: String,
       required: true,
     },
+    finalResult: {
+      type: Object,
+      required: false,
+      default: () => {}
+    },
+    results: {
+      type: Array,
+      required: false,
+      default: () => []
+    }
   },
   computed: {
     filtersLength() {

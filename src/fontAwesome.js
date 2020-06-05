@@ -13,7 +13,10 @@ import {
   faCog,
   faCopy,
   faEdit,
+  faExclamationTriangle,
   faEye,
+  faEyeSlash,
+  faBan,
   faFile,
   faFileAlt,
   faFileDownload,
@@ -38,6 +41,9 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
+  faExclamationTriangle,
+  faBan,
+  faEyeSlash,
   faAngleLeft,
   faAngleRight,
   faAngleUp,

@@ -8,6 +8,8 @@
         stage="retrieve"
         :source-index="source.index"
         :script-id="source.scriptId"
+        :partialResults="results"
+        :finalResult="finalResult ? finalResult : null"
       />
     </Card>
   </Fieldset>
@@ -29,6 +31,16 @@ export default {
     source: {
       type: Object,
       required: true,
+    },
+    results: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
+    finalResult: {
+      type: Object,
+      required: false,
+      default: () => {}
     },
   },
   computed: {

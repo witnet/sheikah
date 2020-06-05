@@ -7,6 +7,8 @@
           :key="index"
           class="script"
           :source="source"
+          :results=" results ? results[index].partial_results : null"
+          :finalResult="finalResult[index]"
         />
       </div>
     </template>
@@ -83,9 +85,22 @@ export default {
   computed: {
     ...mapState({
       script: state => state.rad.radRequest.getMarkup().retrieve,
+      radRequestResult: state => state.wallet.radRequestResult,
     }),
     sources() {
       return this.script.map((operator, index) => ({ ...operator, index }))
+    },
+    results() {
+      return this.radRequestResult ? this.radRequestResult.result.retrieve : null
+    },
+    finalResult() {
+      if (this.results) {
+        return Array.from(this.results.map(result => {
+          return result.result
+        }))
+      } else {
+        return [null]
+      }
     },
   },
 }

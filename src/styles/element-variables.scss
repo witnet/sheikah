@@ -183,6 +183,14 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   }
 }
 
+.el-popover {
+  color: $red-2;
+
+  &.error-text {
+    color: $red-2;
+  }
+}
+
 .marketplace {
   &.el-pagination {
     .el-pager li.active {

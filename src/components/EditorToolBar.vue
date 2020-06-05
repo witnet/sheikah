@@ -13,7 +13,7 @@
         class="back"
         to="/request/templates"
       >
-        <el-button class="back-btn" type="primary"
+        <el-button class="back-btn" type="primary" @click="clearDataRequestResult"
           ><font-awesome-icon class="content" icon="angle-left"
         /></el-button>
       </router-link>
@@ -96,6 +96,7 @@ export default {
     ...mapMutations({
       undo: EDITOR_UNDO,
       redo: EDITOR_REDO,
+      clearDataRequestResult: 'clearDataRequestResult',
     }),
     exportTemplate: function() {
       this.$refs.download.click()
@@ -105,10 +106,12 @@ export default {
     },
     editorUndo() {
       this.undo()
+      this.clearDataRequestResult()
       this.$emit('undo-redo')
     },
     editorRedo() {
       this.redo()
+      this.clearDataRequestResult()
       this.$emit('undo-redo')
     },
   },

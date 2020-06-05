@@ -17,7 +17,6 @@
       :template="currentTemplate"
       @close="closeDeployModal"
     />
-    <Console :logs="logs" />
   </div>
 </template>
 
@@ -31,7 +30,6 @@ import EditorStageScripts from '@/components/EditorStageScripts'
 import EditorStageSettings from '@/components/EditorStageSettings'
 import EditorStageSources from '@/components/EditorStageSources'
 import EditorStageTally from '@/components/EditorStageTally'
-import Console from '@/components/Console.vue'
 import DeployDataRequest from '@/components/DeployDataRequest.vue'
 import EditorStageBar from '@/components/EditorStageBar.vue'
 
@@ -40,7 +38,6 @@ export default {
   components: {
     EditorToolBar,
     EditorStageBar,
-    Console,
     EditorStageAggregations,
     EditorStageScripts,
     EditorStageSettings,
@@ -58,7 +55,6 @@ export default {
   computed: {
     ...mapState({
       radRequest: state => state.rad.radRequest,
-      radRequestResult: state => state.wallet.radRequestResult,
       networkStatus: state => state.wallet.networkStatus,
       lastStageModified: state => state.rad.lastStageModified,
       currentStage: state => state.rad.currentStage,
@@ -67,6 +63,7 @@ export default {
   },
   watch: {
     radRequestResult(val) {
+      console.log('resulttt', val)
       this.logs.push(val)
     },
   },

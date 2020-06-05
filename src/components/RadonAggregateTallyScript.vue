@@ -41,6 +41,9 @@
           :script-id="operator.scriptId"
           :source-index="sourceIndex"
           :show-output-type="index !== filters.length - 1"
+          :operatorOutput="partialResults ? partialResults[index + 1] : null"
+          :error="radonError"
+          @delete-operator="removeOperator(operator.scriptId, operator.id)"
           @add-operator="addOperator"
         />
         <ScriptInfo
@@ -59,6 +62,9 @@
           :script-id="reducer.scriptId"
           :source-index="sourceIndex"
           :show-output-type="true"
+          :operatorOutput="partialResults ? partialResults[partialResults.length - 1] : null"
+          :error="radonError"
+          :hideDelete="true"
           @add-operator="addOperator"
         />
         <ScriptInfo
@@ -89,7 +95,7 @@
 </template>
 
 <script>
-import { PUSH_OPERATOR } from '@/store/mutation-types'
+import { PUSH_OPERATOR, DELETE_OPERATOR } from '@/store/mutation-types'
 import ScriptInfo from '@/components/ScriptInfo'
 import RadonOperator from '@/components/RadonOperator'
 import { mapMutations } from 'vuex'
@@ -98,6 +104,11 @@ export default {
   name: 'RadonAggregateTallyScript',
   components: { RadonOperator, ScriptInfo },
   props: {
+    partialResults: {
+      type: Array,
+      default: () => [],
+      required: false,
+    },
     sourceIndex: {
       required: false,
       default: null,
@@ -133,6 +144,11 @@ export default {
       default: '',
       type: String,
     },
+    finalResult: {
+      type: Object,
+      required: false,
+      default: () => {}
+    },
     footerScriptInfo: {
       required: true,
       default: '',
@@ -151,13 +167,28 @@ export default {
     reducer() {
       return this.script.reducer
     },
+    radonError() {
+      if (this.finalResult) {
+        return this.finalResult.RadonError ? this.finalResult.RadonError : null
+      } else {
+        return null
+      }
+    }
   },
   methods: {
     ...mapMutations({
       pushOperator: PUSH_OPERATOR,
+      deleteOperator: DELETE_OPERATOR,
+      clearDataRequestResult: 'clearDataRequestResult',
     }),
+    removeOperator(scriptId, operatorId) {
+      this.clearDataRequestResult()
+      console.log('delete', scriptId, operatorId)
+      this.deleteOperator({ scriptId, operatorId })
+    },
     addOperator() {
       // TODO: get scriptId in a more consistent way
+      this.clearDataRequestResult()
       this.pushOperator({
         scriptId: this.script[0] ? this.script[0].scriptId : this.scriptId,
       })

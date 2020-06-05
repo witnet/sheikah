@@ -6,15 +6,10 @@
   >
     <div class="border">
       <img
-        v-show="showDelete"
+        v-show="showDelete && !hideDelete"
         class="delete"
         src="@/resources/svg/delete-btn.svg"
-        @click="
-          deleteOperator({
-            scriptId: scriptId,
-            operatorId: operator.id,
-          })
-        "
+        @click="deleteOperator"
       />
       <p data-test="operator-label" class="label">Operator</p>
       <Select
@@ -57,7 +52,7 @@
           <p class="add-operator-text">Click to add another operator</p>
         </div>
       </div>
-      <OperatorOutput class="output" :label="outputLabel" />
+      <OperatorOutput class="output" :label="outputLabel" :output="operatorOutput" :error="error ? error : null"/>
     </div>
   </div>
 </template>
@@ -76,7 +71,6 @@ import {
   UPDATE_TEMPLATE,
   USED_VARIABLES,
   TOGGLE_VARIABLES,
-  DELETE_OPERATOR,
 } from '@/store/mutation-types'
 
 export default {
@@ -97,9 +91,23 @@ export default {
       default: null,
       required: false,
     },
+    hideDelete: {
+      default: false,
+      type: Boolean,
+    },
     operator: {
       type: Object,
       required: true,
+    },
+    error: {
+      type: String,
+      required: false,
+      default: null,
+    },
+    operatorOutput: {
+      type: Object,
+      required: false,
+      default: () => {},
     },
     sourceIndex: {
       type: Number,
@@ -117,6 +125,10 @@ export default {
     ...mapState({
       variables: state => state.rad.currentTemplate.variables,
     }),
+    radonError() {
+      console.log(this.finalResult)
+      return this.finalResult
+    },
     isReducerOrFilter() {
       return (
         this.operator.selected.outputType === 'filterOutput' ||
@@ -124,7 +136,7 @@ export default {
       )
     },
     outputLabel() {
-      return this.operator.selected.outputType
+      return standardizeOutputType(this.operator.selected.outputType)
     },
     selectedOperatorArguments() {
       return this.operator.selected.arguments
@@ -168,7 +180,6 @@ export default {
   },
   methods: {
     ...mapMutations({
-      deleteOperator: DELETE_OPERATOR,
       toggleVariables: TOGGLE_VARIABLES,
       updateTemplate: UPDATE_TEMPLATE,
       usedVariables: USED_VARIABLES,
@@ -178,6 +189,9 @@ export default {
     }),
     addOperator() {
       this.$emit('add-operator')
+    },
+    deleteOperator() {
+      this.$emit('delete-operator')
     },
     hasVariables(value) {
       if (typeof value === 'string') {

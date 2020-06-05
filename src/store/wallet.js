@@ -108,6 +108,9 @@ export default {
     setDataRequestResult(state, { result }) {
       state.radRequestResult = { ...result, timestamp: Date.now() }
     },
+    clearDataRequestResult(state) {
+      state.radRequestResult = null
+    },
     setSeed(state, result) {
       Object.assign(state, { seed: result })
     },
@@ -563,6 +566,10 @@ export default {
           context.rootState.rad.currentRadonMarkupInterpreter.getMir(),
         ),
       })
+      console.log(encodeDataRequest(
+        context.rootState.rad.currentRadonMarkupInterpreter.getMir(),
+      ))
+      console.log('result', request.result)
       if (request.result) {
         context.commit('setDataRequestResult', { result: request.result })
       } else {

@@ -17,7 +17,7 @@
           class="add-source"
           type="primary"
           data-test="add-source"
-          @click="addSource"
+          @click="pushNewSource"
         >
           Add another source
         </el-button>
@@ -94,7 +94,12 @@ export default {
     ...mapMutations({
       addSource: ADD_SOURCE,
       deleteSource: DELETE_SOURCE,
+      clearDataRequestResult: 'clearDataRequestResult',
     }),
+    pushNewSource() {
+      this.clearDataRequestResult()
+      this.addSource()
+    }
   },
 }
 </script>

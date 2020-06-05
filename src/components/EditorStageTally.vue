@@ -1,7 +1,7 @@
 <template>
   <LayoutTwoColumns>
     <template v-slot:left>
-      <EditorAggregationsTally :script="tally" stage="tally" />
+      <EditorAggregationsTally :script="tally" stage="tally" :results=" results ? results.partial_results : null" :finalResult="finalResult"/>
     </template>
 
     <template v-slot:upperRight>
@@ -56,7 +56,15 @@ export default {
   computed: {
     ...mapState({
       tally: state => state.rad.radRequest.getMarkup().tally,
+      radRequestResult: state => state.wallet.radRequestResult,
     }),
+    results() {
+      console.log('RAD REQUEST RESULT', this.radRequestResult)
+      return this.radRequestResult ? this.radRequestResult.result.tally : null
+    },
+    finalResult() {
+      return this.results ? this.results.result : null
+    },
   },
 }
 </script>
