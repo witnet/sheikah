@@ -3,6 +3,7 @@ import { format, formatDistanceToNow } from 'date-fns'
 import uuidv4 from 'uuid/v4'
 import { WIT_UNIT, EDITOR_ALLOWED_PROTOCOLS } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
+import Big from 'big.js'
 
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
@@ -91,19 +92,34 @@ function encodeAggregationTally(stage) {
   }
 }
 // Convert the received amount of nanoWits into selected unit
-export function standardizeWitUnits(amount, currency) {
-  const units = {
-    [`${WIT_UNIT.WIT}`]: 9,
-    [`${WIT_UNIT.MICRO}`]: 3,
-    [`${WIT_UNIT.NANO}`]: 0,
+export function standardizeWitUnits(
+  amount,
+  outputCurrency,
+  inputCurrency = WIT_UNIT.NANO,
+) {
+  // from input currency to output currency
+  const witUnitConversor = {
+    [`${WIT_UNIT.WIT}`]: {
+      [`${WIT_UNIT.WIT}`]: 0,
+      [`${WIT_UNIT.MICRO}`]: 6,
+      [`${WIT_UNIT.NANO}`]: 9,
+    },
+    [`${WIT_UNIT.MICRO}`]: {
+      [`${WIT_UNIT.WIT}`]: -6,
+      [`${WIT_UNIT.MICRO}`]: 0,
+      [`${WIT_UNIT.NANO}`]: 3,
+    },
+    [`${WIT_UNIT.NANO}`]: {
+      [`${WIT_UNIT.WIT}`]: -9,
+      [`${WIT_UNIT.MICRO}`]: -3,
+      [`${WIT_UNIT.NANO}`]: 0,
+    },
   }
-  if (currency === WIT_UNIT.NANO) {
-    return amount ? amount.toString() : 0
-  } else {
-    return (amount / Math.pow(10, units[currency]))
-      .toFixed(units[currency])
-      .replace(/\.?0+$/, '')
-  }
+
+  const num = Big(amount)
+  const exponent = witUnitConversor[inputCurrency][outputCurrency]
+
+  return num.times(Big(10).pow(exponent), 0).toFixed()
 }
 
 export function encodeDataRequest(radRequest) {

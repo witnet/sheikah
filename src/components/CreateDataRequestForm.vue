@@ -6,6 +6,7 @@
     :rules="rules"
     class="deploy-form"
     label-width="200px"
+    width="max-content"
   >
     <el-form-item label="Witnesses" prop="witnesses">
       <el-input v-model.number="form.witnesses"></el-input>
@@ -19,23 +20,33 @@
     </el-form-item>
 
     <el-form-item label="Data request fee" prop="fee">
-      <el-input v-model.number="form.fee"></el-input>
+      <el-input v-model.number="form.fee">
+        <AppendCurrency slot="append" />
+      </el-input>
     </el-form-item>
 
     <el-form-item label="Reward fee" prop="rewardFee">
-      <el-input v-model.number="form.rewardFee"></el-input>
+      <el-input v-model.number="form.rewardFee">
+        <AppendCurrency slot="append" />
+      </el-input>
     </el-form-item>
 
     <el-form-item label="Commit fee" prop="commitFee">
-      <el-input v-model.number="form.commitFee"></el-input>
+      <el-input v-model.number="form.commitFee">
+        <AppendCurrency slot="append" />
+      </el-input>
     </el-form-item>
 
     <el-form-item label="Reveal fee" prop="revealFee">
-      <el-input v-model.number="form.revealFee"></el-input>
+      <el-input v-model.number="form.revealFee">
+        <AppendCurrency slot="append" />
+      </el-input>
     </el-form-item>
 
     <el-form-item label="Tally fee" prop="tallyFee">
-      <el-input v-model.number="form.tallyFee"></el-input>
+      <el-input v-model.number="form.tallyFee">
+        <AppendCurrency slot="append" />
+      </el-input>
     </el-form-item>
 
     <div class="submit">
@@ -55,8 +66,15 @@
 
 <script>
 import { mapState } from 'vuex'
+import AppendCurrency from '@/components/AppendCurrency'
+import { standardizeWitUnits } from '@/utils'
+import { WIT_UNIT } from '@/constants'
+
 export default {
   name: 'CreateDataRequestForm',
+  components: {
+    AppendCurrency,
+  },
   props: {
     backWord: {
       type: String,
@@ -83,6 +101,11 @@ export default {
     }
 
     return {
+      units: {
+        [`${WIT_UNIT.WIT}`]: 9,
+        [`${WIT_UNIT.MICRO}`]: 3,
+        [`${WIT_UNIT.NANO}`]: 0,
+      },
       form: {
         commitFee: 1,
         dataRequest: 1,
@@ -137,9 +160,29 @@ export default {
         // TODO: change for available when wallet returns it
         return state.wallet.balance.total
       },
+      currency: state => state.wallet.currency,
     }),
   },
+  watch: {
+    currency(inputCurrency, outputCurrency) {
+      this.form = {
+        backupWitnesses: this.form.backupWitnesses,
+        commitFee: this.form.commitFee,
+        dataRequest: this.form.dataRequest,
+        extraCommitRounds: this.form.extraCommitRounds,
+        extraRevealRounds: this.form.extraRevealRounds,
+        fee: this.form.fee,
+        minConsensusPercentage: this.form.minConsensusPercentage,
+        revealFee: this.form.revealFee,
+        rewardFee: this.form.rewardFee,
+        tallyFee: this.form.tallyFee,
+        witnesses: this.form.witnesses,
+        collateral: this.form.collateral,
+      }
+    },
+  },
   methods: {
+    standardizeWitUnits,
     goBack() {
       this.$emit('go-back')
     },

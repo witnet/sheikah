@@ -9,7 +9,7 @@
           alt=""
         />
         <Amount
-          :keep="true"
+          :currencyDark="true"
           data-test="amount"
           class="amount"
           :class="[origin.toLowerCase()]"
@@ -204,7 +204,6 @@ export default {
   cursor: pointer;
   display: grid;
   grid-column-gap: 24px;
-  grid-template-columns: max-content max-content auto 100px;
   grid-template-columns: max-content max-content auto max-content;
   padding: 16px;
 

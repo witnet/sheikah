@@ -11,18 +11,20 @@
     </p>
 
     <p class="label total">Total</p>
-    <p class="amount total">
-      {{ total }} <span class="currency">{{ currency }}</span>
-    </p>
+    <Amount :currencyLight="true" class="amount" :amount="total" />
   </div>
 </template>
 
 <script>
+import Amount from '@/components/Amount.vue'
 /**
  * Show available, locked and total amount balances.
  */
 export default {
   name: 'BalanceData',
+  components: {
+    Amount,
+  },
   props: {
     /**
      * Specify in which currency display wits
@@ -83,7 +85,8 @@ export default {
 
   .amount {
     color: $white;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: bold;
     justify-self: end;
     width: max-content;
 

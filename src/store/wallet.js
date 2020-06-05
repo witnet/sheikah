@@ -81,6 +81,13 @@ export default {
         locked: 0,
       }
     },
+    changeCurrency(state) {
+      const unitsValues = Object.values(WIT_UNIT)
+      const unitsKeys = Object.keys(WIT_UNIT)
+      // Get index of the next currency
+      const index = (unitsValues.indexOf(state.currency) + 1) % 3
+      state.currency = WIT_UNIT[unitsKeys[index]]
+    },
     deleteSession(state) {
       state.sessionId = null
       state.walletId = null
@@ -313,7 +320,11 @@ export default {
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
         label,
-        fee: parameters.fee,
+        fee: standardizeWitUnits(
+          parameters.fee,
+          WIT_UNIT.NANO,
+          context.state.currency,
+        ),
         request: {
           data_request: encodeDataRequest(request),
           collateral: parameters.collateral,
@@ -346,8 +357,12 @@ export default {
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
         address,
-        amount: parseInt(amount),
-        fee: parseInt(fee),
+        amount: parseInt(
+          standardizeWitUnits(amount, WIT_UNIT.NANO, context.state.currency),
+        ),
+        fee: parseInt(
+          standardizeWitUnits(fee, WIT_UNIT.NANO, context.state.currency),
+        ),
         label,
       })
       if (request.result) {

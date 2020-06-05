@@ -114,14 +114,19 @@
         />
       </el-form-item>
       <el-form-item label="Amount" prop="amount">
+        <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
         <el-input
           v-model.number="form.amount"
           tabindex="3"
           data-test="tx-amount"
-        />
+        >
+          <AppendCurrency slot="append" />
+        </el-input>
       </el-form-item>
       <el-form-item label="fee" prop="fee">
-        <el-input v-model.number="form.fee" tabindex="4" data-test="tx-fee" />
+        <el-input v-model.number="form.fee" tabindex="4" data-test="tx-fee">
+          <AppendCurrency slot="append" />
+        </el-input>
       </el-form-item>
 
       <div class="submit">
@@ -142,11 +147,13 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import Amount from '@/components/Amount.vue'
+import AppendCurrency from '@/components/AppendCurrency'
 
 export default {
   name: 'Send',
   components: {
     Amount,
+    AppendCurrency,
   },
   data() {
     const enoughFunds = (rule, value, callback) => {
@@ -194,6 +201,7 @@ export default {
       },
       generatedTransaction: state => state.wallet.generatedTransaction,
       networkStatus: state => state.wallet.networkStatus,
+      currency: state => state.wallet.currency,
     }),
   },
   methods: {

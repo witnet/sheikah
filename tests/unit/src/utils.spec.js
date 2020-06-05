@@ -80,40 +80,205 @@ describe('getDomainFromUrl', () => {
   })
 })
 
-describe('standardizeWitUnits', () => {
+describe.only('standardizeWitUnits', () => {
   describe('return the value in selected currency', () => {
     describe('wit', () => {
-      it("without trim 0's", () => {
-        const expected = '0.000000004'
-        const result = standardizeWitUnits(4, WIT_UNIT.WIT)
-        expect(result).toBe(expected)
+      describe('to wit', () => {
+        it('with decimal', () => {
+          const expected = '0.00004'
+
+          const result = standardizeWitUnits(
+            '0.00004',
+            WIT_UNIT.WIT,
+            WIT_UNIT.WIT,
+          )
+
+          expect(result).toBe(expected)
+        })
+
+        it('without decimal', () => {
+          const expected = '1'
+
+          const result = standardizeWitUnits('1', WIT_UNIT.WIT, WIT_UNIT.WIT)
+
+          expect(result).toBe(expected)
+        })
       })
 
-      it("trim 0's", () => {
-        const expected = '0.0000004'
-        const result = standardizeWitUnits(400, WIT_UNIT.WIT)
-        expect(result).toBe(expected)
+      describe('to microWit', () => {
+        it('with decimal', () => {
+          const expected = '400000'
+
+          const result = standardizeWitUnits(
+            '0.4',
+            WIT_UNIT.MICRO,
+            WIT_UNIT.WIT,
+          )
+
+          expect(result).toBe(expected)
+        })
+
+        it('without decimal', () => {
+          const expected = '400000'
+
+          const result = standardizeWitUnits(
+            '0.4',
+            WIT_UNIT.MICRO,
+            WIT_UNIT.WIT,
+          )
+
+          expect(result).toBe(expected)
+        })
+      })
+
+      describe('to nanoWit', () => {
+        it('with decimal', () => {
+          const expected = '100000000'
+
+          const result = standardizeWitUnits('0.1', WIT_UNIT.NANO, WIT_UNIT.WIT)
+
+          expect(result).toBe(expected)
+        })
+        it('without decimal', () => {
+          const expected = '1000000000'
+
+          const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.WIT)
+
+          expect(result).toBe(expected)
+        })
       })
     })
 
     describe('microWit', () => {
-      it("without trim 0's", () => {
-        const expected = '0.004'
-        const result = standardizeWitUnits(4, WIT_UNIT.MICRO)
-        expect(result).toBe(expected)
+      describe('to wit', () => {
+        it('with decimal', () => {
+          const expected = '0.0000011'
+
+          const result = standardizeWitUnits(
+            '1.1',
+            WIT_UNIT.WIT,
+            WIT_UNIT.MICRO,
+          )
+
+          expect(result).toBe(expected)
+        })
+
+        it('without decimal', () => {
+          const expected = '1'
+
+          const result = standardizeWitUnits(
+            '1000000',
+            WIT_UNIT.WIT,
+            WIT_UNIT.MICRO,
+          )
+
+          expect(result).toBe(expected)
+        })
       })
 
-      it("trim 0's", () => {
-        const expected = '0.4'
-        const result = standardizeWitUnits(400, WIT_UNIT.MICRO)
-        expect(result).toBe(expected)
+      describe('to microWit', () => {
+        it('with decimal', () => {
+          const expected = '0.1'
+
+          const result = standardizeWitUnits(
+            '0.1',
+            WIT_UNIT.MICRO,
+            WIT_UNIT.MICRO,
+          )
+
+          expect(result).toBe(expected)
+        })
+
+        it('without decimal', () => {
+          const expected = '1'
+
+          const result = standardizeWitUnits(
+            '1',
+            WIT_UNIT.MICRO,
+            WIT_UNIT.MICRO,
+          )
+
+          expect(result).toBe(expected)
+        })
+      })
+
+      describe('to nanoWit', () => {
+        it('with decimal', () => {
+          const expected = '100'
+
+          const result = standardizeWitUnits(
+            '0.1',
+            WIT_UNIT.NANO,
+            WIT_UNIT.MICRO,
+          )
+
+          expect(result).toBe(expected)
+        })
+
+        it('without decimal', () => {
+          const expected = '1000'
+
+          const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.MICRO)
+
+          expect(result).toBe(expected)
+        })
       })
     })
 
-    it('nanoWit', () => {
-      const expected = '40'
-      const result = standardizeWitUnits(40, WIT_UNIT.NANO)
-      expect(result).toBe(expected)
+    describe('nanoWit', () => {
+      describe('to wit', () => {
+        it('without decimal', () => {
+          const expected = '0.000000001'
+
+          const result = standardizeWitUnits('1', WIT_UNIT.WIT, WIT_UNIT.NANO)
+
+          expect(result).toBe(expected)
+        })
+      })
+
+      describe('to microWit', () => {
+        it('with decimal', () => {
+          const expected = '0.0001'
+
+          const result = standardizeWitUnits(
+            '0.1',
+            WIT_UNIT.MICRO,
+            WIT_UNIT.NANO,
+          )
+
+          expect(result).toBe(expected)
+        })
+
+        it('without decimal', () => {
+          const expected = '0.001'
+
+          const result = standardizeWitUnits('1', WIT_UNIT.MICRO, WIT_UNIT.NANO)
+
+          expect(result).toBe(expected)
+        })
+      })
+
+      describe('to nanoWit', () => {
+        it('with decimal', () => {
+          const expected = '0.1'
+
+          const result = standardizeWitUnits(
+            '0.1',
+            WIT_UNIT.NANO,
+            WIT_UNIT.NANO,
+          )
+
+          expect(result).toBe(expected)
+        })
+
+        it('without decimal', () => {
+          const expected = '1'
+
+          const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.NANO)
+
+          expect(result).toBe(expected)
+        })
+      })
     })
   })
 })

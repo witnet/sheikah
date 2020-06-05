@@ -4,7 +4,7 @@
     :visible="true"
     :title="title"
     :show-close="false"
-    width="max-content"
+    width="600px"
     :top="generatedTransaction || showFillVariablesForm ? '6vh' : '15vh'"
     @close="closeAndClear"
   >

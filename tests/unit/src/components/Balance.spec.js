@@ -3,7 +3,7 @@ import BalanceData from '@/components/BalanceData'
 import BalanceButtons from '@/components/BalanceButtons'
 import Send from '@/components/Send'
 
-describe('Balance.vue', () => {
+describe.skip('Balance.vue', () => {
   it('render BalanceData component', () => {
     const wrapper = shallowMount(
       Balance,

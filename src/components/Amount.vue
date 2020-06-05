@@ -1,7 +1,11 @@
 <template>
-  <span data-test="amount">
+  <span class="amount-container" data-test="amount" @click="callChangeCurrency">
     {{ standardizeWitUnits(amount, currency) }}
-    <span data-test="currency" class="currency" :class="{ keep: keep }">
+    <span
+      data-test="currency"
+      class="currency"
+      :class="{ ['keep-dark']: currencyDark, ['keep-light']: currencyLight }"
+    >
       {{ currency }}
     </span>
   </span>
@@ -9,16 +13,20 @@
 
 <script>
 import { standardizeWitUnits } from '@/utils'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'Amount',
   props: {
     amount: {
-      type: Number,
+      type: [String, Number],
       required: true,
     },
-    keep: {
+    currencyLight: {
+      type: Boolean,
+      default: false,
+    },
+    currencyDark: {
       type: Boolean,
       default: false,
     },
@@ -29,7 +37,12 @@ export default {
     }),
   },
   methods: {
+    callChangeCurrency(e) {
+      this.changeCurrency()
+      e.stopPropagation()
+    },
     standardizeWitUnits,
+    ...mapMutations(['changeCurrency']),
   },
 }
 </script>
@@ -37,14 +50,27 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/_colors.scss';
 
-.currency {
-  color: inherit;
-  font-size: 13px;
-  margin-left: 4px;
-}
+.amount-container {
+  width: fit-content;
 
-.keep {
-  color: $alt-grey-5;
-  font-weight: normal;
+  .amount {
+    cursor: pointer;
+  }
+
+  .currency {
+    color: inherit;
+    font-size: 13px;
+    margin-left: 4px;
+  }
+
+  .keep-dark {
+    color: $alt-grey-5;
+    font-weight: normal;
+  }
+
+  .keep-light {
+    color: $white;
+    font-weight: normal;
+  }
 }
 </style>
