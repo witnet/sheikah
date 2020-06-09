@@ -62,13 +62,13 @@ export default {
     finalResult: {
       type: Object,
       required: false,
-      default: () => {}
+      default: () => {},
     },
     results: {
       type: Array,
       required: false,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   computed: {
     filtersLength() {

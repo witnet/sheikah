@@ -566,10 +566,6 @@ export default {
           context.rootState.rad.currentRadonMarkupInterpreter.getMir(),
         ),
       })
-      console.log(encodeDataRequest(
-        context.rootState.rad.currentRadonMarkupInterpreter.getMir(),
-      ))
-      console.log('result', request.result)
       if (request.result) {
         context.commit('setDataRequestResult', { result: request.result })
       } else {

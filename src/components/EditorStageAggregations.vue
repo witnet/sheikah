@@ -5,7 +5,7 @@
         :script="aggregations"
         stage="aggregation"
         :sources="sourcesLength"
-        :results=" results ? results.partial_results : null"
+        :results="results ? results.partial_results : null"
         :finalResult="finalResult"
       />
     </template>
@@ -73,7 +73,9 @@ export default {
       radRequestResult: state => state.wallet.radRequestResult,
     }),
     results() {
-      return this.radRequestResult ? this.radRequestResult.result.aggregate : null
+      return this.radRequestResult
+        ? this.radRequestResult.result.aggregate
+        : null
     },
     finalResult() {
       return this.results ? this.results.result : null

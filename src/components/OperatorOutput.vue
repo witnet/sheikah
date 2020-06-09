@@ -1,6 +1,6 @@
 <template>
   <div :class="`output ${label}`">
-    <p v-show="filter" class="filter">{{ filter }}</p>
+    <p v-show="filter && !error" class="filter">array</p>
     <p class="label">{{ label }}</p>
     <div class="output-box">
       <el-popover
@@ -10,14 +10,21 @@
         placement="top-start"
         width="500"
         trigger="hover"
-        :content="operatorOutput">
-        <font-awesome-icon v-if="operatorOutput" slot="reference" class="icon" icon="eye" />
+        :content="operatorOutput"
+      >
+        <font-awesome-icon
+          v-if="operatorOutput"
+          slot="reference"
+          class="icon"
+          icon="eye"
+        />
       </el-popover>
       <el-popover
         v-if="!output && !error"
         placement="top-start"
         trigger="hover"
-        content="Click try data request to see the result">
+        content="Click 'Try Data Request' to see the partial result"
+      >
         <font-awesome-icon slot="reference" class="icon ban" icon="eye-slash" />
       </el-popover>
       <el-popover
@@ -26,8 +33,13 @@
         popper-class="error"
         width="500"
         trigger="hover"
-        :content="error">
-        <font-awesome-icon slot="reference" class="icon error" icon="exclamation-triangle" />
+        :content="error"
+      >
+        <font-awesome-icon
+          slot="reference"
+          class="icon error"
+          icon="exclamation-triangle"
+        />
       </el-popover>
     </div>
   </div>
@@ -48,19 +60,16 @@ export default {
     error: {
       type: String,
       default: null,
-    }
+    },
+    filter: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
-    filter() {
-      if (this.label === 'filter') {
-        return 'array'
-      } else {
-        return null
-      }
-    },
     operatorOutput() {
       return JSON.stringify(this.output)
-    }
+    },
   },
 }
 </script>
@@ -133,6 +142,11 @@ export default {
   &.boolean {
     background-color: $boolean;
     border: 1px solid $boolean;
+  }
+
+  &.error {
+    background-color: $red-2;
+    border: 1px solid $red-2;
   }
 
   &.int {

@@ -13,7 +13,10 @@
         class="back"
         to="/request/templates"
       >
-        <el-button class="back-btn" type="primary" @click="clearDataRequestResult"
+        <el-button
+          class="back-btn"
+          type="primary"
+          @click="clearDataRequestResult"
           ><font-awesome-icon class="content" icon="angle-left"
         /></el-button>
       </router-link>

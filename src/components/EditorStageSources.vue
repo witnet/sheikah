@@ -99,7 +99,7 @@ export default {
     pushNewSource() {
       this.clearDataRequestResult()
       this.addSource()
-    }
+    },
   },
 }
 </script>

@@ -104,7 +104,7 @@ export default {
     finalResult: {
       type: Object,
       required: false,
-      default: () => {}
+      default: () => {},
     },
     scriptId: {
       type: Number,
@@ -138,7 +138,7 @@ export default {
       } else {
         return null
       }
-    }
+    },
   },
   methods: {
     ...mapMutations({

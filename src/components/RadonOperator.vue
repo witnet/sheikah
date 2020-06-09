@@ -52,7 +52,13 @@
           <p class="add-operator-text">Click to add another operator</p>
         </div>
       </div>
-      <OperatorOutput class="output" :label="outputLabel" :output="operatorOutput" :error="error ? error : null"/>
+      <OperatorOutput
+        class="output"
+        :label="outputLabel"
+        :filter="isFilter"
+        :output="operatorOutput"
+        :error="radonError"
+      />
     </div>
   </div>
 </template>
@@ -126,17 +132,24 @@ export default {
       variables: state => state.rad.currentTemplate.variables,
     }),
     radonError() {
-      console.log(this.finalResult)
-      return this.finalResult
+      return this.outputLabel === 'error' ? this.error : null
     },
-    isReducerOrFilter() {
-      return (
-        this.operator.selected.outputType === 'filterOutput' ||
-        this.operator.selected.outputType === 'reducerOutput'
-      )
+    isReducer() {
+      return this.operator.selected.outputType === 'reducerOutput'
+    },
+    isFilter() {
+      return this.operator.selected.outputType === 'filterOutput'
     },
     outputLabel() {
-      return standardizeOutputType(this.operator.selected.outputType)
+      if (this.operatorOutput) {
+        const output = this.isFilter
+          ? this.operatorOutput.RadonArray[0]
+          : this.operatorOutput
+        const innerOutput = Object.keys(output)[0]
+        return standardizeOperatorName(innerOutput)
+      } else {
+        return standardizeOutputType(this.operator.selected.outputType)
+      }
     },
     selectedOperatorArguments() {
       return this.operator.selected.arguments
@@ -153,9 +166,10 @@ export default {
         id: this.operator.id,
         primaryText: this.operator.selected.label,
         value: this.operator.selected.label,
-        secondaryText: this.isReducerOrFilter
-          ? null
-          : standardizeOutputType(this.operator.selected.outputType),
+        secondaryText:
+          this.isReducer || this.isFilter
+            ? null
+            : standardizeOutputType(this.operator.selected.outputType),
       }
     },
     selectedOperator() {
@@ -166,9 +180,10 @@ export default {
         return {
           primaryText: standardizeOperatorName(option.label),
           value: option.label,
-          secondaryText: this.isReducerOrFilter
-            ? null
-            : standardizeOutputType(option.outputType),
+          secondaryText:
+            this.isReducer || this.isFilter
+              ? null
+              : standardizeOutputType(option.outputType),
         }
       })
     },

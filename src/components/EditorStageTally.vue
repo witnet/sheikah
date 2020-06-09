@@ -1,7 +1,12 @@
 <template>
   <LayoutTwoColumns>
     <template v-slot:left>
-      <EditorAggregationsTally :script="tally" stage="tally" :results=" results ? results.partial_results : null" :finalResult="finalResult"/>
+      <EditorAggregationsTally
+        :script="tally"
+        stage="tally"
+        :results="results ? results.partial_results : null"
+        :finalResult="finalResult"
+      />
     </template>
 
     <template v-slot:upperRight>
@@ -59,7 +64,6 @@ export default {
       radRequestResult: state => state.wallet.radRequestResult,
     }),
     results() {
-      console.log('RAD REQUEST RESULT', this.radRequestResult)
       return this.radRequestResult ? this.radRequestResult.result.tally : null
     },
     finalResult() {

@@ -7,7 +7,7 @@
           :key="index"
           class="script"
           :source="source"
-          :results=" results ? results[index].partial_results : null"
+          :results="results ? results[index].partial_results : null"
           :finalResult="finalResult[index]"
         />
       </div>
@@ -91,13 +91,17 @@ export default {
       return this.script.map((operator, index) => ({ ...operator, index }))
     },
     results() {
-      return this.radRequestResult ? this.radRequestResult.result.retrieve : null
+      return this.radRequestResult
+        ? this.radRequestResult.result.retrieve
+        : null
     },
     finalResult() {
       if (this.results) {
-        return Array.from(this.results.map(result => {
-          return result.result
-        }))
+        return Array.from(
+          this.results.map(result => {
+            return result.result
+          }),
+        )
       } else {
         return [null]
       }

@@ -63,7 +63,6 @@ export default {
   },
   watch: {
     radRequestResult(val) {
-      console.log('resulttt', val)
       this.logs.push(val)
     },
   },

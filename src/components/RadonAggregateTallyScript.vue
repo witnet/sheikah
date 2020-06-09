@@ -62,7 +62,9 @@
           :script-id="reducer.scriptId"
           :source-index="sourceIndex"
           :show-output-type="true"
-          :operatorOutput="partialResults ? partialResults[partialResults.length - 1] : null"
+          :operatorOutput="
+            partialResults ? partialResults[partialResults.length - 1] : null
+          "
           :error="radonError"
           :hideDelete="true"
           @add-operator="addOperator"
@@ -147,7 +149,7 @@ export default {
     finalResult: {
       type: Object,
       required: false,
-      default: () => {}
+      default: () => {},
     },
     footerScriptInfo: {
       required: true,
@@ -173,7 +175,7 @@ export default {
       } else {
         return null
       }
-    }
+    },
   },
   methods: {
     ...mapMutations({
@@ -183,7 +185,6 @@ export default {
     }),
     removeOperator(scriptId, operatorId) {
       this.clearDataRequestResult()
-      console.log('delete', scriptId, operatorId)
       this.deleteOperator({ scriptId, operatorId })
     },
     addOperator() {
