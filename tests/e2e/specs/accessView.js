@@ -27,10 +27,11 @@ describe('Land correctly in every view accesible from the main page', () => {
     cy.get('[data-test=main]')
   })
 
-  it('Redirects to Marketplace view', () => {
-    cy.get('[data-test=to-marketplace]').click()
-    cy.get('[data-test=marketplace]')
-    cy.get('[data-test=to-transactions]').click()
-    cy.get('[data-test=transactions]')
-  })
+  // Uncomment when marketplace is implemented
+  // it('Redirects to Marketplace view', () => {
+  //   cy.get('[data-test=to-marketplace]').click()
+  //   cy.get('[data-test=marketplace]')
+  //   cy.get('[data-test=to-transactions]').click()
+  //   cy.get('[data-test=transactions]')
+  // })
 })

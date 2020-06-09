@@ -43,10 +43,11 @@
         <span v-show="expanded" class="label">Data request</span>
       </router-link>
 
-      <router-link data-test="to-marketplace" class="link" to="/marketplace">
+      <!-- Uncomment when marketplace is implemented -->
+      <!-- <router-link data-test="to-marketplace" class="link" to="/marketplace">
         <font-awesome-icon class="icon" icon="shopping-bag" />
         <span v-if="expanded" class="label">Marketplace</span>
-      </router-link>
+      </router-link> -->
 
       <router-link data-test="to-community" class="link" to="/community">
         <font-awesome-icon class="icon" icon="users" />
