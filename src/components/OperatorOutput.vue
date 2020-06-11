@@ -8,15 +8,21 @@
       <!-- Partial result of the operator -->
       <el-popover
         v-if="output && !error"
-        offset="300"
         popper-class="result"
         placement="top-start"
-        width="500"
         trigger="hover"
         :content="operatorOutput"
       >
+        <p
+          v-if="explicitOutput"
+          slot="reference"
+          data-test="output"
+          class="icon explicit-output "
+        >
+          {{ explicitOutput }}
+        </p>
         <font-awesome-icon
-          v-if="operatorOutput"
+          v-else-if="operatorOutput"
           slot="reference"
           data-test="output"
           class="icon"
@@ -79,6 +85,15 @@ export default {
     },
   },
   computed: {
+    // FIXME(#1192): include RadonString as explicit output and define max-width of the shown partial result
+    explicitOutput() {
+      return this.output &&
+        (this.output.RadonInteger ||
+          this.output.RadonFloat ||
+          this.output.RadonBoolean)
+        ? Object.values(this.output)[0]
+        : null
+    },
     operatorOutput() {
       return JSON.stringify(this.output)
     },
@@ -97,6 +112,7 @@ export default {
 
   &.result {
     max-height: 500px;
+    max-width: 500px;
     overflow-y: auto;
   }
 }
@@ -244,6 +260,14 @@ export default {
 
       &.error {
         color: $red-2;
+      }
+
+      &.explicit-output {
+        color: $grey-5;
+        font-size: 14px;
+        max-width: 150px;
+        padding: 4px;
+        text-overflow: ellipsis;
       }
     }
   }
