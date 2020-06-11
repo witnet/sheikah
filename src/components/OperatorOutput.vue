@@ -11,12 +11,20 @@
         offset="300"
         popper-class="result"
         placement="top-start"
-        width="500"
+        max-width="500"
         trigger="hover"
         :content="operatorOutput"
       >
+        <p
+          v-if="explicitOutput"
+          slot="reference"
+          data-test="output"
+          class="icon explicit-output "
+        >
+          {{ explicitOutput }}
+        </p>
         <font-awesome-icon
-          v-if="operatorOutput"
+          v-else-if="operatorOutput"
           slot="reference"
           data-test="output"
           class="icon"
@@ -79,6 +87,9 @@ export default {
     },
   },
   computed: {
+    explicitOutput() {
+      return this.output && (this.output.RadonInteger || this.output.RadonFloat || this.output.RadonBoolean) ? Object.values(this.output)[0] : null
+    },
     operatorOutput() {
       return JSON.stringify(this.output)
     },
@@ -233,6 +244,7 @@ export default {
     display: flex;
     height: 24px;
     justify-content: center;
+    max-width: 100px;
     min-width: 44px;
 
     .icon {
@@ -245,7 +257,20 @@ export default {
       &.error {
         color: $red-2;
       }
+
+      &.explicit-output {
+        color: $grey-5;
+        font-size: 14px;
+        padding: 4px;
+        text-overflow: ellipsis;
+
+      }
+
     }
+
+    // &.string {
+    //   text-overflow: ellipsis;
+    // }
   }
 }
 </style>
