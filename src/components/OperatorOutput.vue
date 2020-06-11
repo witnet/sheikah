@@ -1,7 +1,9 @@
 <template>
   <div :class="`output ${label}`">
-    <p v-show="filter && !error" class="filter">array</p>
-    <p class="label">{{ label }}</p>
+    <p v-if="filter && !error" data-test="filter-output" class="filter"
+      >array</p
+    >
+    <p class="label" data-test="label">{{ label }}</p>
     <div class="output-box">
       <el-popover
         v-if="output && !error"
@@ -15,6 +17,7 @@
         <font-awesome-icon
           v-if="operatorOutput"
           slot="reference"
+          data-test="output"
           class="icon"
           icon="eye"
         />
@@ -25,7 +28,12 @@
         trigger="hover"
         content="Click 'Try Data Request' to see the partial result"
       >
-        <font-awesome-icon slot="reference" class="icon ban" icon="eye-slash" />
+        <font-awesome-icon
+          slot="reference"
+          data-test="empty-output"
+          class="icon ban"
+          icon="eye-slash"
+        />
       </el-popover>
       <el-popover
         v-if="error"
@@ -37,6 +45,7 @@
       >
         <font-awesome-icon
           slot="reference"
+          data-test="error"
           class="icon error"
           icon="exclamation-triangle"
         />

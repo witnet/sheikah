@@ -97,6 +97,7 @@ describe('EditorStageSources.vue', () => {
 
   it('should create a new source on click "add source"', () => {
     const addSourceMock = jest.fn()
+    const mockclearDataRequestResult = jest.fn()
     const wrapper = mount(EditorStageSources, {
       ...createComponentMocks({
         store: {
@@ -110,12 +111,14 @@ describe('EditorStageSources.vue', () => {
             },
             mutations: {
               ADD_SOURCE: addSourceMock,
+              clearDataRequestResult: mockclearDataRequestResult,
             },
           },
         },
       }),
     })
     wrapper.find('[data-test="add-source"]').trigger('click')
+    expect(mockclearDataRequestResult).toHaveBeenCalled()
     expect(addSourceMock).toBeCalled()
   })
 })
