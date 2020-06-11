@@ -99,7 +99,8 @@ export default {
 @import '@/styles/theme.scss';
 
 .transaction-list {
-  width: 100%;
+  display: grid;
+  grid-template-rows: max-content max-content 1fr;
 
   .label {
     color: $alt-grey-5;
@@ -141,6 +142,7 @@ export default {
   }
 
   .pagination-nav {
+    align-self: flex-end;
     padding: 16px 0 0 0;
     text-align: center;
   }

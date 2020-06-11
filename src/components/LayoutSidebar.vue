@@ -38,12 +38,14 @@ export default {
 
 .layout {
   display: grid;
-  grid-template: 1fr / auto 1fr;
-  max-height: 100vh;
+  grid-template-rows: 1fr;
+  min-height: 100vh;
 
   .content {
     background: $alpha-purple;
-    overflow: auto;
+    overflow-y: auto;
+    padding-left: 70px;
+    position: relative;
   }
 }
 </style>

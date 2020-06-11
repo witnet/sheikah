@@ -129,15 +129,16 @@ export default {
   display: grid;
   font-family: 'Roboto';
   grid-template-rows: 70px max-content auto 70px;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
+  position: fixed;
   z-index: 5;
 }
 
 .expanded {
   transition: width 1.2s ease;
   transition: all 100ms ease-in 0s;
-  width: 100%;
+  width: 408px;
 }
 
 .brand {
