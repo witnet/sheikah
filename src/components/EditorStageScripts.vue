@@ -96,15 +96,9 @@ export default {
         : null
     },
     finalResult() {
-      if (this.results) {
-        return Array.from(
-          this.results.map(result => {
-            return result.result
-          }),
-        )
-      } else {
-        return [null]
-      }
+      return this.results
+        ? Array.from(this.results.map(result => result.result))
+        : []
     },
   },
 }

@@ -13,6 +13,7 @@ import {
   ADD_SOURCE,
   SET_TEMPLATES,
   CREATE_TEMPLATE,
+  CLEAR_HISTORY,
   SET_CURRENT_TEMPLATE,
   PUSH_OPERATOR,
   DELETE_OPERATOR,
@@ -127,18 +128,20 @@ export default {
         ]
       }
     },
+    [CLEAR_HISTORY](state) {
+      state.history = []
+      state.historyIndex = 0
+    },
     [UPDATE_HISTORY](state, { mir }) {
       state.lastStageModified = state.currentStage
       state.history.push(mir)
       state.historyIndex += 1
       state.history.splice(state.historyIndex + 1)
+      this.dispatch('saveTemplate')
     },
     [UPDATE_TEMPLATE](state, { id, value }) {
       state.currentRadonMarkupInterpreter.update(id, value)
       state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-      })
     },
     [EDITOR_REDO](state) {
       if (state.history[state.historyIndex + 1]) {
@@ -256,8 +259,6 @@ export default {
       state.currentRadonMarkupInterpreter = new Radon(radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter
       state.history = [state.currentRadonMarkupInterpreter.getMir()]
-      const scriptId = state.radRequest.retrieve[0].script.scriptId
-      this.commit(PUSH_OPERATOR, { scriptId: scriptId })
     },
     [SET_CURRENT_TEMPLATE](state, { id }) {
       const template = state.templates[id]

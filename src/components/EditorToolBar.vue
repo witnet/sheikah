@@ -13,10 +13,7 @@
         class="back"
         to="/request/templates"
       >
-        <el-button
-          class="back-btn"
-          type="primary"
-          @click="clearDataRequestResult"
+        <el-button class="back-btn" type="primary" @click="clear"
           ><font-awesome-icon class="content" icon="angle-left"
         /></el-button>
       </router-link>
@@ -43,7 +40,7 @@
 </template>
 
 <script>
-import { EDITOR_REDO, EDITOR_UNDO } from '@/store/mutation-types'
+import { EDITOR_REDO, EDITOR_UNDO, CLEAR_HISTORY } from '@/store/mutation-types'
 import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -99,8 +96,13 @@ export default {
     ...mapMutations({
       undo: EDITOR_UNDO,
       redo: EDITOR_REDO,
+      clearHistory: CLEAR_HISTORY,
       clearDataRequestResult: 'clearDataRequestResult',
     }),
+    clear() {
+      this.clearDataRequestResult()
+      this.clearHistory()
+    },
     exportTemplate: function() {
       this.$refs.download.click()
     },

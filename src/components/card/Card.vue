@@ -39,18 +39,15 @@ export default {
     },
     padding: {
       type: Boolean,
-      required: false,
       // eslint-disable-next-line vue/no-boolean-default
       default: true,
     },
     shadow: {
       type: String,
-      required: false,
       default: 'fat',
     },
     border: {
       type: Boolean,
-      required: false,
       // eslint-disable-next-line vue/no-boolean-default
       default: true,
     },

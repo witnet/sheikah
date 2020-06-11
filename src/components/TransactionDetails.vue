@@ -174,7 +174,6 @@ export default {
     },
     state: {
       type: String,
-      required: false,
       default: null,
     },
     reveals: {
@@ -183,7 +182,6 @@ export default {
     },
     result: {
       type: String,
-      required: false,
       default: null,
     },
     transactionType: {

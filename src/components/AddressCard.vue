@@ -19,7 +19,6 @@ export default {
      * Indicates if the card is selected
      */
     selected: {
-      required: false,
       default: false,
       type: Boolean,
     },

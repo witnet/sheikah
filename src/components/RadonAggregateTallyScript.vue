@@ -109,25 +109,20 @@ export default {
     partialResults: {
       type: Array,
       default: () => [],
-      required: false,
     },
     sourceIndex: {
-      required: false,
       default: null,
       type: Number,
     },
     script: {
-      required: false,
       default: null,
       type: [Object, Array],
     },
     scriptId: {
-      required: false,
       default: null,
       type: Number,
     },
     type: {
-      required: false,
       default: '',
       type: String,
     },
@@ -148,7 +143,6 @@ export default {
     },
     finalResult: {
       type: Object,
-      required: false,
       default: () => {},
     },
     footerScriptInfo: {

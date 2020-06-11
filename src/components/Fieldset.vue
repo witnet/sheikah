@@ -53,7 +53,6 @@ export default {
     },
     onClose: {
       type: Function,
-      required: false,
       default: () => {},
     },
   },

@@ -30,8 +30,9 @@ export default {
   color: $grey-4;
   display: grid;
   font-size: 13px;
-  grid-template-columns: max-content auto;
+  grid-template-columns: max-content 255px;
   opacity: 40%;
+  overflow-wrap: break-word;
   padding: 16px;
 
   .description {

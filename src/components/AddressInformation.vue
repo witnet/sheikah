@@ -67,7 +67,6 @@ export default {
      * Index of the address selected
      */
     index: {
-      required: false,
       default: 0,
       type: Number,
     },

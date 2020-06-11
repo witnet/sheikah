@@ -5,6 +5,7 @@
     >
     <p class="label" data-test="label">{{ label }}</p>
     <div class="output-box">
+      <!-- Partial result of the operator -->
       <el-popover
         v-if="output && !error"
         offset="300"
@@ -22,6 +23,7 @@
           icon="eye"
         />
       </el-popover>
+      <!-- Empty state of the operator output -->
       <el-popover
         v-if="!output && !error"
         placement="top-start"
@@ -35,6 +37,7 @@
           icon="eye-slash"
         />
       </el-popover>
+      <!-- Error when trying data request-->
       <el-popover
         v-if="error"
         placement="top-start"

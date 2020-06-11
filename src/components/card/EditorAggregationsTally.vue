@@ -11,7 +11,7 @@
           :headerScriptInfo="filtersHeaderScriptInfo"
           :footerScriptInfo="filtersFooterScriptInfo"
           :partialResults="results"
-          :finalResult="finalResult ? finalResult : null"
+          :finalResult="finalResult"
         />
       </Card>
     </Fieldset>
@@ -53,7 +53,6 @@ export default {
     sources: {
       type: Number,
       default: null,
-      required: false,
     },
     stage: {
       type: String,
@@ -61,12 +60,10 @@ export default {
     },
     finalResult: {
       type: Object,
-      required: false,
       default: () => {},
     },
     results: {
       type: Array,
-      required: false,
       default: () => [],
     },
   },

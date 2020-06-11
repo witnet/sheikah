@@ -9,7 +9,7 @@
         :source-index="source.index"
         :script-id="source.scriptId"
         :partialResults="results"
-        :finalResult="finalResult ? finalResult : null"
+        :finalResult="finalResult"
       />
     </Card>
   </Fieldset>
@@ -34,12 +34,10 @@ export default {
     },
     results: {
       type: Array,
-      required: false,
       default: () => [],
     },
     finalResult: {
       type: Object,
-      required: false,
       default: () => {},
     },
   },

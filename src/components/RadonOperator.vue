@@ -95,7 +95,6 @@ export default {
     scriptId: {
       type: Number,
       default: null,
-      required: false,
     },
     hideDelete: {
       default: false,
@@ -107,18 +106,15 @@ export default {
     },
     error: {
       type: String,
-      required: false,
       default: null,
     },
     operatorOutput: {
       type: Object,
-      required: false,
       default: () => {},
     },
     sourceIndex: {
       type: Number,
       default: null,
-      required: false,
     },
   },
   data() {
@@ -132,7 +128,9 @@ export default {
       variables: state => state.rad.currentTemplate.variables,
     }),
     radonError() {
-      return this.outputLabel === 'error' ? this.error : null
+      return this.outputLabel === 'error' || !this.operatorOutput
+        ? this.error
+        : null
     },
     isReducer() {
       return this.operator.selected.outputType === 'reducerOutput'
@@ -147,6 +145,8 @@ export default {
           : this.operatorOutput
         const innerOutput = Object.keys(output)[0]
         return standardizeOperatorName(innerOutput)
+      } else if (this.error) {
+        return 'error'
       } else {
         return standardizeOutputType(this.operator.selected.outputType)
       }

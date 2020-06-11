@@ -90,7 +90,6 @@ export default {
     sourceIndex: {
       type: Number,
       default: null,
-      required: false,
     },
     script: {
       type: Array,
@@ -99,17 +98,14 @@ export default {
     partialResults: {
       type: [Array, Object],
       default: () => [],
-      required: false,
     },
     finalResult: {
       type: Object,
-      required: false,
       default: () => {},
     },
     scriptId: {
       type: Number,
       default: null,
-      required: false,
     },
     protocol: {
       type: String,
@@ -133,11 +129,9 @@ export default {
       ]
     },
     radonError() {
-      if (this.finalResult) {
-        return this.finalResult.RadonError ? this.finalResult.RadonError : null
-      } else {
-        return null
-      }
+      return this.finalResult && this.finalResult.RadonError
+        ? this.finalResult.RadonError
+        : null
     },
   },
   methods: {

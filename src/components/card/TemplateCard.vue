@@ -83,12 +83,10 @@ export default {
     },
     description: {
       type: String,
-      required: false,
       default: '',
     },
     sources: {
       type: [Number, String],
-      required: false,
       default: 0,
     },
   },
