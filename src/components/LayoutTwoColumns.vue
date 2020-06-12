@@ -38,7 +38,6 @@ export default {
   display: grid;
   gap: 25px;
   grid-template: 1fr / 1fr 350px;
-  min-height: 100vh;
   overflow: auto;
   padding: 25px;
 

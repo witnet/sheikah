@@ -7,21 +7,21 @@ describe('Land correctly in every view accesible from the main page', () => {
   it('Redirects to the transactions view', () => {
     cy.get('[data-test=to-transactions]')
       .last()
-      .click()
+      .click({ force: true })
     cy.get('[data-test=transactions]')
   })
 
   it('Redirects to the templates view', () => {
     cy.get('[data-test=to-templates]')
       .last()
-      .click()
+      .click({ force: true })
     cy.get('[data-test=templates]')
   })
 
   it('Redirects to the correct social urls', () => {
     cy.get('[data-test=to-community]')
       .last()
-      .click()
+      .click({ force: true })
     cy.get('[data-test=community-page]')
     cy.get('[data-test=logo-to-main]').click()
     cy.get('[data-test=main]')

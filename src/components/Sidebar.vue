@@ -1,66 +1,65 @@
 <template>
-  <div
-    :class="['sidebar', expanded ? 'expanded' : 'collapsed']"
-    @mouseover="expanded = true"
-    @mouseleave="expanded = false"
-  >
-    <router-link
-      data-test="logo-to-main"
-      class="brand"
-      to="/wallet/transactions"
+  <div class="sidebar-container">
+    <div v-if="expanded" class="overlay" />
+    <div
+      :class="['sidebar', expanded ? 'expanded' : 'collapsed']"
+      @mouseover="expandSidebar"
+      @mouseleave="collapseSidebar"
     >
-      <img class="sheikah-logo" src="@/resources/svg/sheikah-small.svg" />
-      <img
-        v-if="expanded"
-        class="sheikah-name"
-        src="@/resources/svg/sheikah.svg"
-      />
-    </router-link>
-    <div class="current-wallet">
-      <NetworkStatus
-        :window-width="windowWidth"
-        :wallet-idx="walletIdx"
-        :expanded="expanded"
-        :status="status"
-      />
-    </div>
-    <div class="link-list">
       <router-link
-        data-test="to-transactions"
-        class="link"
+        data-test="logo-to-main"
+        class="brand"
         to="/wallet/transactions"
       >
-        <font-awesome-icon class="icon" icon="wallet" />
-        <span v-show="expanded" class="label">Transactions</span>
+        <img class="sheikah-logo" src="@/resources/svg/sheikah-small.svg" />
+        <img class="sheikah-name" src="@/resources/svg/sheikah.svg" />
       </router-link>
-
-      <router-link
-        data-test="to-templates"
-        class="link"
-        to="/request/templates"
-      >
-        <font-awesome-icon class="icon" icon="code" />
-        <span v-show="expanded" class="label">Data request</span>
-      </router-link>
-
-      <!-- Uncomment when marketplace is implemented -->
-      <!-- <router-link data-test="to-marketplace" class="link" to="/marketplace">
-        <font-awesome-icon class="icon" icon="shopping-bag" />
-        <span v-if="expanded" class="label">Marketplace</span>
-      </router-link> -->
-
-      <router-link data-test="to-community" class="link" to="/community">
-        <font-awesome-icon class="icon" icon="users" />
-        <span v-if="expanded" class="label">Community</span>
-      </router-link>
-    </div>
-    <div class="settings" @click="closeSession">
-      <div class="icon-container">
-        <img
-          class="exit-icon"
-          src="@/resources/svg/exit-icon.svg"
-          alt="exit-icon"
+      <div class="current-wallet">
+        <NetworkStatus
+          :window-width="windowWidth"
+          :wallet-idx="walletIdx"
+          :expanded="expanded"
+          :status="status"
         />
+      </div>
+      <div class="link-list">
+        <router-link
+          data-test="to-transactions"
+          class="link"
+          to="/wallet/transactions"
+        >
+          <font-awesome-icon class="icon" icon="wallet" />
+          <span class="label">Transactions</span>
+        </router-link>
+
+        <router-link
+          data-test="to-templates"
+          class="link"
+          to="/request/templates"
+        >
+          <font-awesome-icon class="icon" icon="code" />
+          <span class="label">Data request</span>
+        </router-link>
+
+        <!-- Uncomment when marketplace is implemented -->
+        <!-- <router-link data-test="to-marketplace" class="link" to="/marketplace">
+          <font-awesome-icon class="icon" icon="shopping-bag" />
+          <span v-if="expanded" class="label">Marketplace</span>
+        </router-link> -->
+
+        <router-link data-test="to-community" class="link" to="/community">
+          <font-awesome-icon class="icon" icon="users" />
+          <span class="label">Community</span>
+        </router-link>
+      </div>
+      <div class="settings" @click="closeSession">
+        <div class="icon-container">
+          <img
+            class="exit-icon"
+            src="@/resources/svg/exit-icon.svg"
+            alt="exit-icon"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -109,11 +108,11 @@ export default {
     ...mapActions({
       closeSession: 'closeSession',
     }),
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath)
+    expandSidebar() {
+      this.expanded = true
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath)
+    collapseSidebar() {
+      this.expanded = false
     },
   },
 }
@@ -122,6 +121,23 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/theme.scss';
 @import '@/styles/app.global.scss';
+
+.sidebar-container {
+  position: absolute;
+}
+
+.overlay {
+  background-color: $grey-6;
+  height: 100%;
+  opacity: 0.5;
+  position: fixed;
+  -webkit-transition: all 0.4s ease-in ease-out;
+  -o-transition: all 0.4s ease-in ease-out;
+  -moz-transition: all 0.4s ease-in ease-out;
+  transition: opacity 0.4s ease;
+  width: 100%;
+  z-index: 5;
+}
 
 .sidebar {
   background-color: $white;
@@ -136,8 +152,10 @@ export default {
 }
 
 .expanded {
-  transition: width 1.2s ease;
-  transition: all 100ms ease-in 0s;
+  -webkit-transition: all 0.4s ease-in ease-out;
+  -o-transition: all 0.4s ease-in ease-out;
+  -moz-transition: all 0.4s ease-in ease-out;
+  transition: width 0.4s ease;
   width: 408px;
 }
 
@@ -193,15 +211,6 @@ export default {
       width: 66px;
     }
   }
-
-  .active {
-    border-left: $sidebar-active-border;
-    color: $sidebar-active-color;
-    -webkit-transition: all 1s ease-in ease-out;
-    -moz-transition: all 1s ease-in ease-out;
-    -o-transition: all 1s ease-in ease-out;
-    transition: all 1s ease-in ease-out;
-  }
 }
 
 .settings {
@@ -221,7 +230,10 @@ export default {
 }
 
 .collapsed {
-  grid-template-columns: 70px;
+  -webkit-transition: all 0.4s ease-in ease-out;
+  -o-transition: all 0.4s ease-in ease-out;
+  -moz-transition: all 0.4s ease-in ease-out;
+  transition: width 0.4s ease;
   width: 70px;
 }
 </style>

@@ -10,25 +10,24 @@
         />
       </div>
       <div class="wallet-info">
-        <p v-if="expanded" data-test="wallet-name" class="current-wallet-name">
+        <p data-test="wallet-name" class="current-wallet-name">
           Witnet wallet #{{ walletIdx }}
         </p>
         <div class="status-container">
           <div
-            v-if="expanded"
             data-test="status"
             :class="['status', synced ? 'synced' : 'syncing']"
           >
             {{ synced ? 'SYNCED' : `SYNCING (${progress}%)` }}
           </div>
           <DotsLoading
-            v-if="expanded && !synced"
+            v-if="!synced"
             data-test="loading-spinner"
             class="spinner"
           />
         </div>
       </div>
-      <div v-if="expanded" class="icon">
+      <div class="icon">
         <img
           v-if="showAll"
           data-test="short-up"

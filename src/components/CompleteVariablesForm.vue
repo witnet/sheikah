@@ -107,7 +107,7 @@ export default {
     column-gap: 16px;
     display: block;
     display: grid;
-    grid-template-columns: max-content 1fr 500px;
+    grid-template-columns: max-content max-content 1fr;
     margin: 16px 0;
 
     .variable-value {
