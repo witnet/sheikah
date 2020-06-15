@@ -111,12 +111,10 @@ export default {
     },
     editorUndo() {
       this.undo()
-      this.clearDataRequestResult()
       this.$emit('undo-redo')
     },
     editorRedo() {
       this.redo()
-      this.clearDataRequestResult()
       this.$emit('undo-redo')
     },
   },

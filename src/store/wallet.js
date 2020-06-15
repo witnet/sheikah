@@ -571,6 +571,7 @@ export default {
       })
     },
     tryDataRequest: async function(context) {
+      context.commit('generateRadRequestResultLoading', { root: true })
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
         const id = variable.id
         const value = variable.value
@@ -583,6 +584,7 @@ export default {
       })
       if (request.result) {
         context.commit('setDataRequestResult', { result: request.result })
+        context.commit('clearGenerateRadRequestResultLoading', { root: true })
       } else {
         context.commit('setError', {
           name: 'tryDataRequest',

@@ -194,7 +194,6 @@ describe('EditorToolBar.vue', () => {
     it('redo', async () => {
       const mockEditorUndo = jest.fn(() => true)
       const mockEditorRedo = jest.fn(() => true)
-      const mockTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
       const mockclearDataRequestResult = jest.fn()
 
@@ -214,7 +213,6 @@ describe('EditorToolBar.vue', () => {
                 clearDataRequestResult: mockclearDataRequestResult,
               },
               actions: {
-                tryDataRequest: mockTryDataRequest,
                 saveTemplate: mockSaveTemplate,
               },
             },
@@ -223,7 +221,6 @@ describe('EditorToolBar.vue', () => {
       )
       const redoButton = wrapper.find('[data-test="action-redo"]')
       await redoButton.trigger('click')
-      expect(mockclearDataRequestResult).toHaveBeenCalled()
       expect(mockEditorRedo).toHaveBeenCalled()
     })
 
@@ -232,7 +229,6 @@ describe('EditorToolBar.vue', () => {
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
-      const mockclearDataRequestResult = jest.fn()
 
       const wrapper = mount(
         EditorToolBar,
@@ -247,7 +243,6 @@ describe('EditorToolBar.vue', () => {
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
-                clearDataRequestResult: mockclearDataRequestResult,
               },
               actions: {
                 tryDataRequest: mockTryDataRequest,
@@ -260,7 +255,6 @@ describe('EditorToolBar.vue', () => {
 
       const undoButton = wrapper.find('[data-test="action-undo"]')
       await undoButton.trigger('click')
-      expect(mockclearDataRequestResult).toHaveBeenCalled()
       expect(mockEditorUndo).toHaveBeenCalled()
     })
 

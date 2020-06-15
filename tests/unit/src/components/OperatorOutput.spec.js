@@ -12,6 +12,15 @@ describe('OperatorOutput.vue', () => {
         filter: false,
         error: null,
       },
+      ...createComponentMocks({
+        store: {
+          uiInteractions: {
+            state: {
+              generateRadRequestResultLoading: false,
+            },
+          },
+        },
+      }),
     })
     it('should not find the filter output label', () => {
       expect(wrapper.contains('[data-test="filter-output"]')).toBe(false)
@@ -37,6 +46,15 @@ describe('OperatorOutput.vue', () => {
         filter: false,
         error: null,
       },
+      ...createComponentMocks({
+        store: {
+          uiInteractions: {
+            state: {
+              generateRadRequestResultLoading: false,
+            },
+          },
+        },
+      }),
     })
     it('should not find the filter output label', () => {
       expect(wrapper.contains('[data-test="filter-output"]')).toBe(false)
@@ -62,6 +80,15 @@ describe('OperatorOutput.vue', () => {
         filter: false,
         error: 'error',
       },
+      ...createComponentMocks({
+        store: {
+          uiInteractions: {
+            state: {
+              generateRadRequestResultLoading: false,
+            },
+          },
+        },
+      }),
     })
     it('should not find the filter output label', () => {
       expect(wrapper.contains('[data-test="filter-output"]')).toBe(false)
@@ -87,6 +114,15 @@ describe('OperatorOutput.vue', () => {
         filter: true,
         error: null,
       },
+      ...createComponentMocks({
+        store: {
+          uiInteractions: {
+            state: {
+              generateRadRequestResultLoading: false,
+            },
+          },
+        },
+      }),
     })
     it('should not find the filter output label', () => {
       expect(wrapper.contains('[data-test="filter-output"]')).toBe(true)

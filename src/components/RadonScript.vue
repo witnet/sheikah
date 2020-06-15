@@ -141,12 +141,10 @@ export default {
       clearDataRequestResult: 'clearDataRequestResult',
     }),
     removeOperator(scriptId, operatorId) {
-      this.clearDataRequestResult()
       this.deleteOperator({ scriptId, operatorId })
     },
     addOperator() {
       // TODO: get scriptId in a more consistent way
-      this.clearDataRequestResult()
       this.pushOperator({
         scriptId: this.script[0] ? this.script[0].scriptId : this.scriptId,
       })

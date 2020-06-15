@@ -1,11 +1,15 @@
 <template functional>
-  <div class="base-dots-loading">
+  <div class="base-dots-loading" :style="{ margin: props.margin }">
     <div
       v-for="className in ['first', 'second', 'third']"
       :key="className"
       class="dot"
       :class="[className]"
-      :style="{ width: props.size, height: props.size }"
+      :style="{
+        width: props.size,
+        height: props.size,
+        ['background-color']: props.color,
+      }"
     />
   </div>
 </template>
@@ -21,6 +25,14 @@ export default {
       type: String,
       default: '4px',
     },
+    margin: {
+      type: String,
+      default: '8px 8px 0 8px',
+    },
+    color: {
+      type: String,
+      default: '#eeba1b',
+    },
   },
 }
 </script>
@@ -32,11 +44,9 @@ export default {
 .base-dots-loading {
   align-items: center;
   display: flex;
-  margin: 8px 8px 0 8px;
 
   .dot {
     animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-    background-color: $yellow-4;
     border-radius: 100%;
     display: inline-block;
     height: 4px;

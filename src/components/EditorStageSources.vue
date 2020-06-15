@@ -97,7 +97,6 @@ export default {
       clearDataRequestResult: 'clearDataRequestResult',
     }),
     pushNewSource() {
-      this.clearDataRequestResult()
       this.addSource()
     },
   },

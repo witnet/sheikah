@@ -6,9 +6,13 @@
     <p class="label" data-test="label">{{ label }}</p>
     <div class="output-box">
       <!-- Partial result of the operator -->
+      <div v-if="loading">
+        <DotsLoading size="5px" color="#8280a4" margin="0" />
+      </div>
       <el-popover
-        v-if="output && !error"
+        v-if="showOperatorOutput"
         popper-class="result"
+        :visible-arrow="false"
         placement="top-start"
         trigger="hover"
         :content="operatorOutput"
@@ -31,8 +35,9 @@
       </el-popover>
       <!-- Empty state of the operator output -->
       <el-popover
-        v-if="!output && !error"
+        v-if="showEmptyState"
         placement="top-start"
+        :visible-arrow="false"
         trigger="hover"
         content="Click 'Try Data Request' to see the partial result"
       >
@@ -45,8 +50,9 @@
       </el-popover>
       <!-- Error when trying data request-->
       <el-popover
-        v-if="error"
+        v-if="showError"
         placement="top-start"
+        :visible-arrow="false"
         popper-class="error"
         width="500"
         trigger="hover"
@@ -64,8 +70,14 @@
 </template>
 
 <script>
+import DotsLoading from '@/components/DotsLoading'
+import { mapState } from 'vuex'
+
 export default {
   name: 'OperatorOutput',
+  components: {
+    DotsLoading,
+  },
   props: {
     label: {
       type: String,
@@ -85,6 +97,9 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      loading: state => state.uiInteractions.generateRadRequestResultLoading,
+    }),
     explicitOutput() {
       return this.output &&
         (this.output.RadonInteger ||
@@ -97,6 +112,15 @@ export default {
     operatorOutput() {
       return JSON.stringify(this.output)
     },
+    showOperatorOutput() {
+      return this.output && !this.error && !this.loading
+    },
+    showEmptyState() {
+      return !this.output && !this.error && !this.loading
+    },
+    showError() {
+      return this.error && !this.loading
+    },
   },
 }
 </script>
@@ -104,6 +128,7 @@ export default {
 <style lang="scss">
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+@import '@/styles/scroll.scss';
 
 .el-popover {
   &.error {

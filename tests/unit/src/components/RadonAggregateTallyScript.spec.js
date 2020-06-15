@@ -165,6 +165,11 @@ describe('RadonAggregateTallyScript.vue', () => {
       },
       ...createComponentMocks({
         store: {
+          uiInteractions: {
+            state: {
+              generateRadRequestResultLoading: false,
+            },
+          },
           rad: {
             state: {
               currentTemplate: {
@@ -357,6 +362,11 @@ describe('RadonAggregateTallyScript.vue', () => {
       },
       ...createComponentMocks({
         store: {
+          uiInteractions: {
+            state: {
+              generateRadRequestResultLoading: false,
+            },
+          },
           rad: {
             state: {
               currentTemplate: {

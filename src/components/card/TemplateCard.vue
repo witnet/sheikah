@@ -136,6 +136,7 @@ export default {
     }),
     ...mapActions({
       deleteTemplate: 'deleteTemplate',
+      tryDataRequest: 'tryDataRequest',
     }),
     displayDeployModal() {
       this.isDeployModalActivated = true
@@ -145,6 +146,7 @@ export default {
       if (!this.showInput) {
         this.$router.push('/request/editor')
         this.setCurrentTemplate({ id: this.id })
+        this.tryDataRequest()
       }
     },
     onClose() {

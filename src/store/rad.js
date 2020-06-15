@@ -138,6 +138,7 @@ export default {
       state.historyIndex += 1
       state.history.splice(state.historyIndex + 1)
       this.dispatch('saveTemplate')
+      this.dispatch('tryDataRequest', { root: true })
     },
     [UPDATE_TEMPLATE](state, { id, value }) {
       state.currentRadonMarkupInterpreter.update(id, value)
@@ -150,6 +151,7 @@ export default {
           state.history[state.historyIndex],
         )
         state.radRequest = state.currentRadonMarkupInterpreter
+        this.dispatch('tryDataRequest', { root: true })
       }
     },
     [EDITOR_UNDO](state) {
@@ -159,6 +161,7 @@ export default {
           state.history[state.historyIndex],
         )
         state.radRequest = state.currentRadonMarkupInterpreter
+        this.dispatch('tryDataRequest', { root: true })
       }
     },
     [MOVE_CAROUSEL](state, { direction }) {

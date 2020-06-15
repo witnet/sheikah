@@ -7,8 +7,16 @@ describe('RadonOperator.vue', () => {
         variables: [{}],
       },
     }
+    const interactionsState = {
+      generateRadRequestResultLoading: false,
+    }
     const wrapper = mount(RadonOperator, {
-      ...createComponentMocks({ store: { rad: { state: state } } }),
+      ...createComponentMocks({
+        store: {
+          rad: { state: state },
+          uiInteractions: { state: interactionsState },
+        },
+      }),
       propsData: {
         scriptId: 8,
         sourceIndex: 0,
@@ -68,8 +76,16 @@ describe('RadonOperator.vue', () => {
         variables: [{}],
       },
     }
+    const interactionsState = {
+      generateRadRequestResultLoading: false,
+    }
     const wrapper = mount(RadonOperator, {
-      ...createComponentMocks({ store: { rad: { state: state } } }),
+      ...createComponentMocks({
+        store: {
+          rad: { state: state },
+          uiInteractions: { state: interactionsState },
+        },
+      }),
       propsData: {
         sourceIndex: 0,
         scriptId: 8,

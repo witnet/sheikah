@@ -201,6 +201,7 @@ export default {
     }),
     ...mapActions({
       saveTemplate: 'saveTemplate',
+      tryDataRequest: 'tryDataRequest',
     }),
     addOperator() {
       this.$emit('add-operator')
@@ -234,6 +235,7 @@ export default {
           id,
           value: '$' + variableMatch.key,
         })
+        this.tryDataRequest()
         this.usedVariables({
           id: id,
           variable: variableMatch.key,
@@ -248,6 +250,7 @@ export default {
           id,
           value: getNativeValueFromMarkupArgumentType(value, type),
         })
+        this.tryDataRequest()
       }
       this.saveTemplate()
     },
@@ -262,6 +265,7 @@ export default {
         id,
         value: getNativeValueFromMarkupArgumentType(value, type),
       })
+      this.tryDataRequest()
       this.saveTemplate()
     },
   },
