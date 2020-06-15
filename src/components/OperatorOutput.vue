@@ -17,7 +17,7 @@
           v-if="explicitOutput"
           slot="reference"
           data-test="output"
-          class="icon explicit-output "
+          class="icon explicit-output"
         >
           {{ explicitOutput }}
         </p>
@@ -85,11 +85,11 @@ export default {
     },
   },
   computed: {
-    // FIXME(#1192): include RadonString as explicit output and define max-width of the shown partial result
     explicitOutput() {
       return this.output &&
         (this.output.RadonInteger ||
           this.output.RadonFloat ||
+          this.output.RadonString ||
           this.output.RadonBoolean)
         ? Object.values(this.output)[0]
         : null
@@ -266,8 +266,10 @@ export default {
         color: $grey-5;
         font-size: 14px;
         max-width: 150px;
+        overflow: hidden;
         padding: 4px;
         text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
