@@ -1,11 +1,12 @@
 import router from '@/router'
 import { WalletApi } from '@/api'
 import {
-  encodeDataRequest,
-  standardizeWitUnits,
+  calculateTimeAgo,
   createNotification,
   cropString,
-  calculateTimeAgo,
+  encodeDataRequest,
+  isSyncEvent,
+  standardizeWitUnits,
 } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { GENERATE_ADDRESS_DELAY, WALLET_EVENTS, WIT_UNIT } from '@/constants'
@@ -647,14 +648,16 @@ export default {
           })
         }
       }
+      status.rawEventType = eventType
 
       context.dispatch('processStatus', status)
     },
 
     processStatus: async function(context, status) {
-      status.synced =
-        status.wallet.last_sync.checkpoint ===
-        status.node.last_beacon.checkpoint
+      if (isSyncEvent(status.rawEventType)) {
+        status.synced = status.rawEventType === WALLET_EVENTS.SYNC_FINISH
+      }
+
       if (status.synced) {
         status.timestamp = Date.now()
       }

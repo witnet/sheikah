@@ -1,9 +1,9 @@
+import Big from 'big.js'
 import cbor from 'cbor'
 import { format, formatDistanceToNow } from 'date-fns'
 import uuidv4 from 'uuid/v4'
-import { WIT_UNIT, EDITOR_ALLOWED_PROTOCOLS } from '@/constants'
+import { WIT_UNIT, EDITOR_ALLOWED_PROTOCOLS, WALLET_EVENTS } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
-import Big from 'big.js'
 
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
@@ -74,6 +74,14 @@ function innerCreateNotification(partialProps) {
       notification.close()
     }, notificationProps.closeTimeout)
   }
+}
+
+export function isSyncEvent(eventType) {
+  return [
+    WALLET_EVENTS.SYNC_FINISH,
+    WALLET_EVENTS.SYNC_PROGRESS,
+    WALLET_EVENTS.SYNC_START,
+  ].find(syncEvent => syncEvent === eventType)
 }
 
 function encodeAggregationTally(stage) {
