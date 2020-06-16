@@ -5,6 +5,7 @@
         <label class="label">Protocol</label>
         <Select
           v-model="localProtocol"
+          :disabled="true"
           :options="[{ primaryText: 'HTTP-GET' }]"
           data-test="protocol-select"
         />
@@ -13,6 +14,7 @@
         <label class="label">Content-Type</label>
         <Select
           v-model="currentContentType"
+          :disabled="true"
           :options="currentContentTypeOptions"
           data-test="content-type-select"
         />
@@ -71,6 +73,7 @@ export default {
     /**
      * Value to show in the content type field
      */
+    // FIXME: Support other content types and protocol options
     contentType: {
       required: true,
       type: String,

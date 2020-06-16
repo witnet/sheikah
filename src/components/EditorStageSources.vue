@@ -8,7 +8,7 @@
           class="source"
           :url="source.url"
           :protocol="source.kind"
-          :content-type="source.contentType"
+          :contentType="source.contentType"
           :index="index"
         />
         <el-button

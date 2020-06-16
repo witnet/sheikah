@@ -1,6 +1,6 @@
 <template>
   <div @keydown.tab="tabKeyPressed = true" @blur.capture="handleBlur">
-    <div :class="'select-box'">
+    <div class="select-box" :class="{ disabled }">
       <button
         id="select-button"
         ref="button"
@@ -9,7 +9,7 @@
         aria-labelledby="select-label select-button"
         :aria-expanded="areOptionsVisible"
         class="selected-btn"
-        :class="{ active: areOptionsVisible, big: type === 'big' }"
+        :class="{ active: areOptionsVisible, big: type === 'big', disabled }"
         @click="toggleOptions"
         @keyup.up.down.prevent="showOptions"
         @keyup.up.prevent="selectPrevOption"
@@ -133,6 +133,10 @@ export default {
       type: Object,
       required: true,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -204,7 +208,9 @@ export default {
       }
     },
     toggleOptions() {
-      this.areOptionsVisible ? this.hideOptions() : this.showOptions()
+      if (!this.disabled) {
+        this.areOptionsVisible ? this.hideOptions() : this.showOptions()
+      }
     },
     async showOptions() {
       this.areOptionsVisible = true
@@ -272,6 +278,11 @@ export default {
   position: relative;
   width: 100%;
 
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
   .selected-btn {
     align-items: center;
     background: none;
@@ -287,6 +298,10 @@ export default {
     padding-left: 16px;
     width: 100%;
     z-index: 1;
+
+    &.disabled {
+      cursor: not-allowed;
+    }
 
     &.big {
       font-size: 16px;
