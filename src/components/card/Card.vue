@@ -93,7 +93,7 @@ export default {
     justify-content: center;
 
     &.padding {
-      padding: 32px;
+      padding: 24px;
     }
 
     &.border-purple {

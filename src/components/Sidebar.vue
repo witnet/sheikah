@@ -54,11 +54,17 @@
       </div>
       <div class="settings" @click="closeSession">
         <div class="icon-container">
-          <img
-            class="exit-icon"
-            src="@/resources/svg/exit-icon.svg"
-            alt="exit-icon"
-          />
+          <el-tooltip
+            content="Go back to wallets list"
+            placement="right"
+            effect="light"
+          >
+            <img
+              class="exit-icon"
+              src="@/resources/svg/exit-icon.svg"
+              alt="exit-icon"
+            />
+          </el-tooltip>
         </div>
       </div>
     </div>

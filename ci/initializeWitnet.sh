@@ -2,7 +2,7 @@
 
 echo 'Initializing witnet'
 
-bash ci/initializeWallet.sh
+bash ci/initializeWallet.sh $1
 
 bash ci/waitUntilIsNodeSync.sh
 

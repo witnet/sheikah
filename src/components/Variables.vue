@@ -79,7 +79,9 @@
         data-test="delete-var-btn"
         @click="deleteVariable({ index })"
       >
-        <img src="@/resources/svg/close-btn.svg" />
+        <el-tooltip content="Delete variable" placement="right" effect="light">
+          <img src="@/resources/svg/close-btn.svg" />
+        </el-tooltip>
       </div>
     </div>
     <div class="img-container">

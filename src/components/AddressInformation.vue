@@ -9,7 +9,9 @@
         Address <span class="number">#{{ index + 1 }}</span>
       </p>
       <div v-if="!used && !copied" class="copy" @click="copy">
-        <font-awesome-icon class="icon" icon="copy" />
+        <el-tooltip content="Copy" placement="bottom" effect="light">
+          <font-awesome-icon class="icon" icon="copy" />
+        </el-tooltip>
       </div>
 
       <div v-if="!used && copied" class="checked">

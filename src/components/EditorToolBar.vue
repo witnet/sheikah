@@ -32,7 +32,14 @@
         :class="tab.class"
         @click="tab.action"
       >
-        <font-awesome-icon v-if="tab.icon" class="icon" :icon="tab.icon" />
+        <el-tooltip
+          v-if="tab.icon"
+          :content="tab.icon"
+          placement="bottom"
+          effect="light"
+        >
+          <font-awesome-icon class="icon" :icon="tab.name" />
+        </el-tooltip>
         <span v-else>{{ tab.text }}</span>
       </el-button>
     </div>
@@ -49,12 +56,12 @@ export default {
     return {
       tabs: [
         {
-          icon: 'redo',
+          icon: 'Redo changes',
           action: this.editorRedo,
           name: 'redo',
         },
         {
-          icon: 'undo',
+          icon: 'Undo changes',
           action: this.editorUndo,
           name: 'undo',
         },

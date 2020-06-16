@@ -11,7 +11,12 @@ done
 # Retry wget until success
 # https://stackoverflow.com/a/30986740
 while true; do
-    wget -T 15 -c $URL && break
+    if [ $# -eq 0 ]
+        then
+            wget -T 15 -c $URL && break
+    else
+        wget -T 15 -c $1 && break
+    fi
 done
 
 tar -zxvf witnet-*-x86_64-unknown-linux-gnu.tar.gz
@@ -24,4 +29,3 @@ sleep 10s
 
 echo 'Running witnet wallet'
 ./witnet -c ci/witnet.toml wallet server &
-

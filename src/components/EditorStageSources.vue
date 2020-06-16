@@ -6,8 +6,6 @@
           v-for="(source, index) in sources"
           :key="index"
           class="source"
-          title="title"
-          subtitle="subtitle"
           :url="source.url"
           :protocol="source.kind"
           :content-type="source.contentType"
