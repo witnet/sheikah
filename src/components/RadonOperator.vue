@@ -78,6 +78,7 @@ import {
   standardizeOperatorName,
   getNativeValueFromMarkupArgumentType,
   standardizeOutputType,
+  selectInnerError,
 } from '@/utils'
 import {
   UPDATE_TEMPLATE,
@@ -135,7 +136,7 @@ export default {
     }),
     radonError() {
       return this.outputLabel === 'error' || !this.operatorOutput
-        ? this.error
+        ? selectInnerError(this.error)
         : null
     },
     isReducer() {

@@ -153,6 +153,15 @@ export function isRepeated(key, list) {
   return list && list[key]
 }
 
+// Take the substring in between a string
+export function selectInnerError(string) {
+  if (string) {
+    const substringInBetweenRegex = /(?<=Inner: `Some\()(.*)(?=\))/
+    const matchedArray = string.match(substringInBetweenRegex)
+    return matchedArray ? matchedArray[0] : string
+  }
+}
+
 // Split the first word of a camelCase string
 export function standardizeOperatorName(name) {
   if (name) {
