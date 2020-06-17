@@ -436,6 +436,10 @@ export default {
         const walletInfos = context.state.walletInfos
         const index = walletInfos.findIndex(wallet => wallet.id === walletId)
         context.commit('setWalletIndex', { walletIndex: index })
+        // Redirect to wallet list when the session has expired
+        setTimeout(() => {
+          router.push('/welcome-back/wallet-list')
+        }, request.result.session_expiration_secs * 1000)
         context.dispatch('subscribeToWalletNotifications')
       } else {
         context.commit('setError', {
