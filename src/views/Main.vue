@@ -22,6 +22,7 @@ export default {
       getTransactions: 'getTransactions',
       getAddresses: 'getAddresses',
       getWalletInfos: 'getWalletInfos',
+      shutdown: 'shutdown',
     }),
     pollData() {
       const currentRoute = this.$router.currentRoute.path

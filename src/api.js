@@ -89,6 +89,10 @@ export class WalletApi {
     return this._callApiMethod('close_session')(params)
   }
 
+  shutdown(params) {
+    return this._callApiMethod('shutdown')(params)
+  }
+
   // This is overriding the native `client.subscribe` because it lacks support for `params`
   subscribeToNotifications(params, cb) {
     return this._callApiMethod('rpc.on')([params.session_id])

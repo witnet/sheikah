@@ -16,6 +16,7 @@ export default {
   state: {
     api: new WalletApi(),
     errors: {
+      shutdown: null,
       seed: null,
       createMnemonics: null,
       createWallet: null,
@@ -234,13 +235,17 @@ export default {
     stopTransactionDateSync(context) {
       clearInterval(this.transactionSync)
     },
+    shutdown: async function(context) {
+      await context.state.api.shutdown({
+        session_id: context.state.sessionId,
+      })
+    },
     closeSession: async function(context) {
       const request = await context.state.api.closeSession({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
       })
       if (request.result) {
-        context.commit('deleteSession')
         router.push('/welcome-back/wallet-list')
       } else {
         context.commit('setError', {
@@ -421,6 +426,7 @@ export default {
     },
 
     unlockWallet: async function(context, { walletId, password }) {
+      context.commit('deleteSession')
       const request = await context.state.api.unlockWallet({
         wallet_id: walletId,
         password,

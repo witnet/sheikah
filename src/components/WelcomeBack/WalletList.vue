@@ -127,7 +127,7 @@ export default {
       this.sent = true
     },
     updateView() {
-      this.$router.push('/wallet/transactions')
+      this.$router.push({ name: 'transactions', query: { id: this.sessionId } })
     },
   },
 }

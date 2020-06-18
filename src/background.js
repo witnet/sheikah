@@ -12,11 +12,18 @@ import {
   createProtocol,
   installVueDevtools,
 } from 'vue-cli-plugin-electron-builder/lib'
-import { app, BrowserWindow, Menu, protocol, shell, Tray } from 'electron'
+import {
+  app,
+  BrowserWindow,
+  Menu,
+  protocol,
+  shell,
+  Tray,
+  ipcMain,
+} from 'electron'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
-
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 const SHEIKAH_PATH = process.env.TRAVIS
@@ -80,20 +87,38 @@ function createWindow() {
     win = null
   })
 
-  win.on('close', function(event) {
-    if (process.platform !== 'darwin') {
-      // avoid close window
+  if (process.platform === 'darwin') {
+    var forceQuit = false
+    app.on('before-quit', function() {
+      forceQuit = true
+    })
+    win.on('close', function(event) {
+      if (!forceQuit) {
+        event.preventDefault()
+        if (win.isFullScreen()) {
+          win.once('leave-full-screen', () => win.hide())
+          win.setFullScreen(false)
+        } else {
+          win.hide()
+        }
+      } else {
+        win.webContents.send('shutdown')
+        ipcMain.on('shutdown-finished', () => {
+          app.quit()
+        })
+      }
+    })
+  } else {
+    win.on('close', function(event) {
       event.preventDefault()
-    }
-
-    if (win.isFullScreen()) {
-      win.once('leave-full-screen', () => win.hide())
-
-      win.setFullScreen(false)
-    } else {
-      win.hide()
-    }
-  })
+      if (win.isFullScreen()) {
+        win.once('leave-full-screen', () => win.hide())
+        win.setFullScreen(false)
+      } else {
+        win.hide()
+      }
+    })
+  }
 
   if (!isDevelopment) {
     // Disable shortcuts defining a hidden menu and binding the shortcut we
@@ -131,20 +156,21 @@ function createTray() {
       label: 'Quit Sheikah',
       type: 'normal',
       click: function() {
-        win.destroy()
-        app.quit()
+        win.webContents.send('shutdown')
+        ipcMain.on('shutdown-finished', () => {
+          win.destroy()
+          app.quit()
+        })
       },
     },
   ])
-
   tray.setToolTip('Sheikah - Witnet wallet and data request editor')
   tray.setContextMenu(contextMenu)
 }
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
+  console.log('close all windows')
   if (process.platform !== 'darwin') {
     app.quit()
   }
@@ -153,6 +179,7 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
+  win.show()
   if (win === null) {
     createWindow()
   }

@@ -28,7 +28,6 @@ import Balance from '@/components/Balance'
 import TransactionList from '@/components/TransactionList'
 import Addresses from '@/components/Addresses'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
-
 export default {
   name: 'Transactions',
   components: {

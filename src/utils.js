@@ -8,9 +8,9 @@ import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
   if (window.Notification) {
-    Notification.requestPermission(permission =>
-      innerCreateNotification(notificationProps),
-    )
+    Notification.requestPermission(permission => {
+      return innerCreateNotification(notificationProps)
+    })
   } else {
     console.err(
       'Notifications not supported. Printing notification here:',

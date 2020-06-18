@@ -29,7 +29,7 @@ export default {
   watch: {
     sessionId(value) {
       if (value) {
-        this.$router.push('/wallet/transactions')
+        this.$router.push(`/wallet/transactions?session_id=${this.sessionId}`)
       }
     },
     error(value) {

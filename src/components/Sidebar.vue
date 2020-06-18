@@ -52,7 +52,7 @@
           <span class="label">Community</span>
         </router-link>
       </div>
-      <div class="settings" @click="closeSession">
+      <div class="settings" @click="settings[0].action">
         <div class="icon-container">
           <el-tooltip
             content="Go back to wallets list"
@@ -113,6 +113,7 @@ export default {
   methods: {
     ...mapActions({
       closeSession: 'closeSession',
+      shutdown: 'shutdown',
     }),
     expandSidebar() {
       this.expanded = true

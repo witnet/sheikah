@@ -65,7 +65,6 @@ describe.skip('Renders the correct elements when wallet is synced, side bar is e
     showAll: true,
   })
   it('finds detail info if showAll is triggered', () => {
-    console.log(wrapper)
     expect(wrapper.contains('[data-test="detail-info"]')).toBe(true)
   })
   it('finds data test dot indicator', () => {

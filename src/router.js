@@ -75,12 +75,11 @@ export default new Router({
       children: [
         {
           alias: '',
-          name: 'wallet',
+          name: 'wallet/',
           path: 'wallet',
           component: Wallet,
           children: [
             {
-              alias: '',
               name: 'transactions',
               path: 'transactions',
               component: Transactions,
