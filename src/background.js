@@ -79,6 +79,11 @@ function createWindow() {
   })
 
   win.on('close', function(event) {
+    if (process.platform !== 'darwin') {
+      // avoid close window
+      event.preventDefault()
+    }
+
     if (win.isFullScreen()) {
       win.once('leave-full-screen', () => win.hide())
 
