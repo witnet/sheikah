@@ -19,7 +19,7 @@ const platform = os.platform()
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-const SHEIKAH_PATH = path.join(os.homedir(), '.sheikah')
+const SHEIKAH_PATH = process.env.TRAVIS ? '' : path.join(os.homedir(), '.sheikah')
 const VERSION_FILE_NAME = '.version'
 const WITNET_FILE_NAME = 'witnet'
 const WITNET_CONFIG_FILE_NAME = 'witnet.toml'
@@ -259,11 +259,11 @@ async function downloadWalletRelease(releaseUrl, version) {
         // Create these files in ./sheikah
         fs.copyFileSync(
           'witnet',
-          path.join(`${SHEIKAH_PATH}`, WITNET_FILE_NAME),
+          path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
         )
         fs.copyFileSync(
           'witnet.toml',
-          path.join(`${SHEIKAH_PATH}`, WITNET_CONFIG_FILE_NAME),
+          path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
         )
         fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
 
@@ -281,11 +281,9 @@ async function downloadWalletRelease(releaseUrl, version) {
 async function runWallet() {
   console.log('Running wallet...')
 
-  const walletConfigurationPath = `./${
-    process.env.TRAVIS ? '' : SHEIKAH_PATH + '/'
-  }witnet.toml`
+  const walletConfigurationPath = path.join(SHEIKAH_PATH, 'witnet.toml')
 
-  const runWallet = spawn(`${SHEIKAH_PATH}/witnet`, [
+  const runWallet = spawn(path.join(SHEIKAH_PATH, 'witnet'), [
     '-c',
     walletConfigurationPath,
     'wallet',
