@@ -19,7 +19,9 @@ const platform = os.platform()
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-const SHEIKAH_PATH = process.env.TRAVIS ? '' : path.join(os.homedir(), '.sheikah')
+const SHEIKAH_PATH = process.env.TRAVIS
+  ? ''
+  : path.join(os.homedir(), '.sheikah')
 const VERSION_FILE_NAME = '.version'
 const WITNET_FILE_NAME = 'witnet'
 const WITNET_CONFIG_FILE_NAME = 'witnet.toml'
@@ -189,7 +191,7 @@ if (isDevelopment) {
   }
 }
 
-if (!isDevelopment) {
+if (isDevelopment) {
   main()
 }
 
@@ -202,10 +204,13 @@ function main() {
     )
     if (release) {
       const releaseUrl = release.browser_download_url
-      const latestReleaseVersion = releaseUrl
-        .match(/[/](\d+[.]){2}(\d+)[/]/)[0]
-        .replace('/', '')
-        .replace('/', '')
+
+      const releaseName = releaseUrl.split('/')[8]
+
+      const latestReleaseVersion = releaseName.slice(
+        0,
+        releaseName.indexOf('-x86'),
+      )
       console.log('Latest release version: ' + latestReleaseVersion)
 
       if (!fs.existsSync(SHEIKAH_PATH)) {
@@ -262,10 +267,7 @@ async function downloadWalletRelease(releaseUrl, version) {
         })
         // TODO: tar is not decompressing correctly if a path is given.
         // Create these files in ./sheikah
-        fs.copyFileSync(
-          'witnet',
-          path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
-        )
+        fs.copyFileSync('witnet', path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
         fs.copyFileSync(
           'witnet.toml',
           path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),

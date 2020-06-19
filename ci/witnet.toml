@@ -30,4 +30,4 @@ node_url = "127.0.0.1:21338"
 db_path = ".witnet-rust-testnet-7-wallet"
 
 [log]
-level = "error"
+level = "trace"
