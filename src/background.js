@@ -184,7 +184,7 @@ if (isDevelopment) {
   }
 }
 
-if (!isDevelopment) {
+if (isDevelopment) {
   main()
 }
 
@@ -197,10 +197,10 @@ function main() {
     )
     if (release) {
       const releaseUrl = release.browser_download_url
-      const latestReleaseVersion = releaseUrl
-        .match(/[/](\d+[.]){2}(\d+)[/]/)[0]
-        .replace('/', '')
-        .replace('/', '')
+
+      const releaseName = releaseUrl.split('/')[8]
+
+      const latestReleaseVersion = releaseName.slice(0, releaseName.indexOf('-x86'))
       console.log('Latest release version: ' + latestReleaseVersion)
 
       if (!fs.existsSync(SHEIKAH_PATH)) {
