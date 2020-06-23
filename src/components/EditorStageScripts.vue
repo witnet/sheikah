@@ -84,7 +84,9 @@ export default {
   },
   computed: {
     ...mapState({
-      script: state => state.rad.radRequest.getMarkup().retrieve,
+      script: state => {
+        return state.rad.radRequest.getMarkup().retrieve
+      },
       radRequestResult: state => state.wallet.radRequestResult,
     }),
     sources() {

@@ -295,7 +295,6 @@ export default {
     column-gap: 16px;
     display: grid;
     grid-template-columns: auto auto;
-    grid-template-rows: repeat(auto-fit, auto);
     padding: 16px 24px 16px 16px;
     padding-right: 24;
     position: relative;
@@ -386,6 +385,13 @@ export default {
     }
   }
 }
+@media (max-width: 1300px) {
+  .radon-operator {
+    .border {
+      grid-template-columns: 1fr;
+    }
+  }
+}
 </style>
 
 <docs>
@@ -397,8 +403,8 @@ export default {
     :scriptId=1
     :operator="{
       selected:{
-        label: 'asFloat',
-        outputType: 'float',
+        label: 'map',
+        outputType: 'subscriptOutput',
         arguments: [{
           hierarchicalType: 'argument',
           id: 14,
@@ -406,6 +412,36 @@ export default {
           markupType: 'input',
           type: 'string',
           value: 'best_block_hash'
+        },{
+          hierarchicalType: 'argument',
+          id: 14,
+          label: 'key',
+          markupType: 'subscript',
+          script: [{
+            selected:{
+              label: 'map',
+              outputType: 'subscriptOutput',
+              arguments: [{
+                hierarchicalType: 'argument',
+                id: 14,
+                label: 'key',
+                markupType: 'input',
+                type: 'string',
+                value: 'best_block_hash'
+              }]
+            },
+            options: [{
+                label: 'asBoolean',
+                outputType: 'boolean',
+              },{
+                label: 'asBytes',
+                outputType: 'bytes',
+              },{
+                label: 'asFloat',
+                outputType: 'float',
+              },
+            ]
+          }]
         }]
       },
       options: [{
@@ -422,4 +458,193 @@ export default {
     }"
   />
 ```
+
+### Subscript
+
+```jsx
+  <RadonOperator
+    :showOutputType="true"
+    :scriptId=1
+    :operator="{
+      hierarchicalType: 'operator',
+      id: 9,
+      label: 'sort',
+      markupType: 'select',
+      outputType: 'same',
+      scriptId: 2,
+      options: [{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayCount',
+        markupType: 'option',
+        outputType: 'integer'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayFilter',
+        markupType: 'option',
+        outputType: 'same'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayFlatten',
+        markupType: 'option',
+        outputType: 'array'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayGetArray',
+        markupType: 'option',
+        outputType: 'array'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayGetBoolean',
+        markupType: 'option',
+        outputType: 'boolean'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayGetBytes',
+        markupType: 'option',
+        outputType: 'bytes'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayGetFloat',
+        markupType: 'option',
+        outputType: 'float'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayGetInteger',
+        markupType: 'option',
+        outputType: 'integer'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayGetMap',
+        markupType: 'option',
+        outputType: 'map'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayGetString',
+        markupType: 'option',
+        outputType: 'string'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayMap',
+        markupType: 'option',
+        outputType: 'arrayMap'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayReduce',
+        markupType: 'option',
+        outputType: 'inner'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArraySome',
+        markupType: 'option',
+        outputType: 'filterOutput'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArraySort',
+        markupType: 'option',
+        outputType: 'same'
+      },{
+        hierarchicalType: 'operatorOption',
+        label: 'ArrayTake',
+        markupType: 'option',
+        outputType: 'array'
+      }],
+      selected:{
+        description: 'Sort the input Array in 103,symbol order',
+        arguments:[{
+            hierarchicalType: 'argument',
+            id: 10,
+            label: 'mapFunction',
+            markupType: 'script',
+            outputType: 'subscriptOutput',
+            subscript:[{
+                hierarchicalType: 'operator',
+                id: 12,
+                label: 'getString',
+                markupType: 'select',
+                options: [{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringAsBoolean',
+                  markupType: 'option',
+                  outputType: 'boolean'
+                },{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringAsBytes',
+                  markupType: 'option',
+                  outputType: 'bytes'
+                },{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringAsFloat',
+                  markupType: 'option',
+                  outputType: 'float'
+                },{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringAsInteger',
+                  markupType: 'option',
+                  outputType: 'integer'
+                },{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringLength',
+                  markupType: 'option',
+                  outputType: 'integer'
+                },{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringMatch',
+                  markupType: 'option',
+                  outputType: 'matchOutput'
+                },{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringParseJsonArray',
+                  markupType: 'option',
+                  outputType: 'array'
+                },{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringParseJsonMap',
+                  markupType: 'option',
+                  outputType: 'map'
+                },{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringParseXML',
+                  markupType: 'option',
+                  outputType: 'map'
+                },{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringToLowerCase',
+                  markupType: 'option',
+                  outputType: 'string'
+                },{
+                  hierarchicalType: 'operatorOption',
+                  label: 'StringToUpperCase',
+                  markupType: 'option',
+                  outputType: 'string'
+                }],
+                outputType: 'string',
+                scriptId: 11,
+                selected:{
+                  arguments: [{
+                    hierarchicalType: 'argument',
+                    id: 13,
+                    label: 'key',
+                    markupType: 'input',
+                    value: 'symbol',
+                    type: 'string'
+                  }],
+                  description: 'Access to the “symbol” key of the input Map, and manage the value as String',
+                  hierarchicalType: 'selectedOperatorOption',
+                  label: 'getString',
+                  markupType: 'option',
+                  outputType: 'string'
+                }
+              }
+            ]
+          }
+        ],
+        hierarchicalType: 'selectedOperatorOption',
+        label: 'sort',
+        markupType: 'option',
+        outputType: 'same'
+      },
+    }"
+  />
+```
+
 </docs>

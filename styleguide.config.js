@@ -27,6 +27,7 @@ module.exports = {
     'src/components/LayoutTwoColumns.vue',
     'src/components/NetworkStatus.vue',
     'src/components/RadonOperator.vue',
+    'src/components/Subscript.vue',
     'src/components/Select.vue',
     'src/components/Tag.vue',
     'src/components/Transaction.vue',

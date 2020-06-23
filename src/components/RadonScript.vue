@@ -189,7 +189,7 @@ export default {
 
 .radon-script {
   display: grid;
-  grid-template-columns: minmax(430px, 1fr) 300px;
+  grid-template-columns: minmax(400px, 1fr) 300px;
   grid-template-rows: min-content;
 }
 

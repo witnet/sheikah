@@ -77,14 +77,20 @@
         </div>
       </div>
     </div>
-    <div v-if="argument.markupType === 'subscript'" class>
-      Subscipts are not supported yet.
+    <div v-if="argument.markupType === 'script'" class="subscripts">
+      <p v-if="!subscript" class="empty">
+        Subscipts are not supported yet.
+      </p>
+      <div v-else class="operators">
+        <Subscript :script="subscript" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Select from '@/components/Select'
+import Subscript from '@/components/Subscript'
 import OperatorType from '@/components/OperatorType'
 import { mapState } from 'vuex'
 
@@ -92,6 +98,7 @@ export default {
   name: 'EditorOperatorArgument',
   components: {
     Select,
+    Subscript,
     OperatorType,
   },
   props: {
@@ -114,6 +121,9 @@ export default {
     ...mapState({
       variables: state => state.rad.currentTemplate.variables,
     }),
+    subscript() {
+      return this.argument.subscript
+    },
     argumentOptions() {
       return this.argument.options
         ? this.argument.options.map(option => {
@@ -179,6 +189,17 @@ export default {
   display: grid;
   grid-template-rows: repeat(auto-fit, auto);
   row-gap: 8px;
+}
+
+.subscripts {
+  border: $input_border;
+  border-radius: $input_big-border-radius;
+
+  .empty {
+    color: $grey-5;
+    font-size: 14px;
+    padding: 16px;
+  }
 }
 
 .input-container {

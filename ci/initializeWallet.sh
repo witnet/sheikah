@@ -3,7 +3,7 @@
 echo 'Downloading latest witnet node release...'
 
 # Retry curl until success
-while URL=$(curl -s https://api.github.com/repos/witnet/witnet-rust/releases/latest | grep 'browser_' | cut -d\" -f4); [ "$URL" = "" ]; do
+while URL=$(curl -s https://github.com/witnet/witnet-rust/releases/tag/0.9.0-b | grep 'browser_' | cut -d\" -f4); [ "$URL" = "" ]; do
     echo 'Github is down, retrying in 10s'
     sleep 10s
 done

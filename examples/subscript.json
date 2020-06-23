@@ -1,0 +1,41 @@
+{
+  "name": "Subscript example",
+  "description": "Request to get the last bitcoin blockhash from three sources",
+  "radRequest": {
+    "timelock": 0,
+    "retrieve": [
+      {
+        "kind": "HTTP-GET",
+        "url": "source_1",
+        "contentType": "JSON API",
+        "script": [
+          119,
+          [97, "data"],
+          [
+            17,
+            [
+              [97, "symbol"],
+              [117, "{ \"BTC\": true, \"ETH\": true }"]
+            ]
+          ],
+          [30, [[103, "symbol"]]],
+          [27, [[103, "changePercent24h"]]]
+        ]
+      },
+      {
+        "kind": "HTTP-GET",
+        "url": "source_2",
+        "contentType": "JSON API",
+        "script": [112, [33, "", true], 116]
+      }
+    ],
+    "aggregate": {
+      "filters": [8, [3, 3]],
+      "reducer": 2
+    },
+    "tally": {
+      "filters": [8, [3, 3]],
+      "reducer": 2
+    }
+  }
+}
