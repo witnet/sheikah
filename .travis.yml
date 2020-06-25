@@ -26,6 +26,6 @@ install:
 - npm install -g xvfb-maybe
 - yarn
 before_script:
-- bash ci/initializeWitnet.sh
+- bash ci/initializeWitnet.sh https://github.com/witnet/witnet-rust/releases/download/0.9.0-b/witnet-0.9.0-b-x86_64-unknown-linux-gnu.tar.gz
 script:
 - yarn ci
