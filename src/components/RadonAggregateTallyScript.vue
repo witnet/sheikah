@@ -6,25 +6,35 @@
           {{ header }}
         </p>
       </div>
-      <div class="icon-container">
-        <img
-          v-if="emptyScript"
-          class="row sheikah-icon"
-          src="@/resources/svg/long-arrow.svg"
-        />
-        <img
-          v-else
-          class="row sheikah-icon"
-          src="@/resources/svg/operator-arrow.svg"
-        />
-        <div v-if="emptyScript" class="add-operator-container">
+      <div class="operator-bottom">
+        <div class="icon-container">
           <img
-            class="add-operator"
-            src="@/resources/svg/add-operator.svg"
-            @click="addOperator"
+            v-if="emptyScript"
+            class="row sheikah-icon"
+            src="@/resources/svg/long-arrow.svg"
           />
-          <p class="add-operator-text">Click to add an operator</p>
+          <img
+            v-else
+            class="row sheikah-icon"
+            src="@/resources/svg/operator-arrow.svg"
+          />
+          <div v-if="emptyScript" class="add-operator-container">
+            <img
+              class="add-operator"
+              src="@/resources/svg/add-operator.svg"
+              @click="addOperator"
+            />
+            <p class="add-operator-text">Click to add an operator</p>
+          </div>
         </div>
+        <OperatorOutput
+          v-if="outputLabel"
+          class="output"
+          :label="outputLabel"
+          :filter="false"
+          :output="firstOutput"
+          :error="firstError"
+        />
       </div>
     </div>
     <ScriptInfo class="first description" :index="0" :info="headerScriptInfo" />
@@ -99,12 +109,14 @@
 <script>
 import { PUSH_OPERATOR, DELETE_OPERATOR } from '@/store/mutation-types'
 import ScriptInfo from '@/components/ScriptInfo'
+import { standardizeOperatorName } from '@/utils'
+import OperatorOutput from '@/components/OperatorOutput.vue'
 import RadonOperator from '@/components/RadonOperator'
 import { mapMutations } from 'vuex'
 
 export default {
   name: 'RadonAggregateTallyScript',
-  components: { RadonOperator, ScriptInfo },
+  components: { RadonOperator, ScriptInfo, OperatorOutput },
   props: {
     partialResults: {
       type: Array,
@@ -170,6 +182,24 @@ export default {
         return null
       }
     },
+    firstOutput() {
+      return this.partialResults ? this.partialResults[0] : null
+    },
+    firstError() {
+      return this.firstOutput && this.firstOutput.RadonError
+        ? this.firstOutput.RadonError
+        : null
+    },
+    outputLabel() {
+      if (this.firstOutput) {
+        const innerOutput = Object.keys(this.firstOutput)[0]
+        return standardizeOperatorName(innerOutput)
+      } else if (this.firstError) {
+        return 'error'
+      } else {
+        return null
+      }
+    },
   },
   methods: {
     ...mapMutations({
@@ -231,6 +261,19 @@ export default {
 .top {
   margin: 16px 16px 0 16px;
 
+  .operator-bottom {
+    align-items: flex-start;
+    display: flex;
+
+    .icon-container {
+      margin-left: 16px;
+    }
+
+    .output {
+      margin-top: 16px;
+    }
+  }
+
   .script-header {
     align-items: center;
     border: $operator-dashed-border;
@@ -246,10 +289,6 @@ export default {
         font-size: 12px;
       }
     }
-  }
-
-  .icon-container {
-    margin-left: 16px;
   }
 }
 
