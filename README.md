@@ -63,7 +63,7 @@ yarn electron:serve
 
 ### Test
 
-We use [Jest](https://facebook.github.io/jest/) and [Cypress](https://www.cypress.io/) for testing.
+We use [Jest](https://facebook.github.io/jest/) for testing.
 
 ``` bash
 # run unit/e2e tests

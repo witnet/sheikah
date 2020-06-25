@@ -8,8 +8,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
-    "ci": "yarn lint:check && yarn test --headless && yarn electron:build --publish=never",
+    "ci": "yarn lint:check && yarn test && yarn electron:build --publish=never",
     "clean": "yarn clean-deps && rm -rf dist_electron",
     "clean-deps": "rm -rf node_modules",
     "electron:build": "vue-cli-service electron:build",
@@ -30,7 +29,7 @@
     "reinstall": "yarn clean-deps && yarn",
     "styleguide": "vue-cli-service styleguidist",
     "styleguide:build": "vue-cli-service styleguidist:build",
-    "test": "yarn test:unit && yarn test:e2e",
+    "test": "yarn test:unit",
     "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten"
   },
   "gitHooks": {
@@ -58,7 +57,6 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.2",
-    "@vue/cli-plugin-e2e-cypress": "^4.2.2",
     "@vue/cli-plugin-eslint": "4.2.x",
     "@vue/cli-plugin-unit-jest": "^4.2.2",
     "@vue/cli-service": "^3.7.0",
