@@ -191,7 +191,7 @@ if (isDevelopment) {
   }
 }
 
-if (isDevelopment) {
+if (!isDevelopment) {
   main()
 }
 
