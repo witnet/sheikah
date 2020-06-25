@@ -1,10 +1,5 @@
 <template>
-  <Fieldset
-    :title="title"
-    :subtitle="subtitle"
-    :closable="true"
-    :on-close="() => deleteSource({ index })"
-  >
+  <Fieldset :title="title" :subtitle="subtitle" :closable="false">
     <Card class="card" shadow="thin" :border="false">
       <div class="form">
         <label class="label">Protocol</label>
@@ -21,6 +16,15 @@
           :options="currentContentTypeOptions"
           data-test="content-type-select"
         />
+      </div>
+      <div
+        class="delete"
+        data-test="delete-btn"
+        @click="deleteSource({ index })"
+      >
+        <el-tooltip content="Delete source" placement="right" effect="light">
+          <img src="@/resources/svg/close-btn.svg" />
+        </el-tooltip>
       </div>
     </Card>
   </Fieldset>
@@ -156,6 +160,15 @@ export default {
 @import '@/styles/_colors.scss';
 
 .card {
+  position: relative;
+
+  .delete {
+    cursor: pointer;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+
   .form {
     align-items: center;
     column-gap: 10px;

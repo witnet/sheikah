@@ -5,12 +5,18 @@
     @mouseleave="showDelete = false"
   >
     <div class="border">
-      <img
+      <el-tooltip
         v-show="showDelete && !hideDelete"
-        class="delete"
-        src="@/resources/svg/delete-btn.svg"
-        @click="deleteOperator"
-      />
+        content="Delete operator"
+        placement="right"
+        effect="light"
+      >
+        <img
+          class="delete"
+          src="@/resources/svg/delete-btn.svg"
+          @click="deleteOperator"
+        />
+      </el-tooltip>
       <p data-test="operator-label" class="label">Operator</p>
       <Select
         data-test="operator"
