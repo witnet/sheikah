@@ -78,10 +78,7 @@
       </div>
     </div>
     <div v-if="argument.markupType === 'script'" class="subscripts">
-      <p v-if="!subscript" class="empty">
-        Subscipts are not supported yet.
-      </p>
-      <div v-else class="operators">
+      <div class="operators">
         <Subscript :script="subscript" />
       </div>
     </div>

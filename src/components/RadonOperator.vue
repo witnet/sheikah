@@ -59,6 +59,7 @@
         </div>
       </div>
       <OperatorOutput
+        :subscript="subscript"
         class="output"
         :label="outputLabel"
         :filter="isFilter"
@@ -99,12 +100,14 @@ export default {
       default: true,
       type: Boolean,
     },
+    subscript: {
+      type: Boolean,
+    },
     scriptId: {
       type: Number,
       default: null,
     },
     hideDelete: {
-      default: false,
       type: Boolean,
     },
     operator: {
@@ -312,6 +315,12 @@ export default {
       color: $grey-5;
       font-size: 14px;
       font-weight: normal;
+    }
+
+    .output {
+      .label {
+        color: white;
+      }
     }
 
     .with-arguments {

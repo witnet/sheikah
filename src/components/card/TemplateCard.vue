@@ -146,7 +146,6 @@ export default {
       if (!this.showInput) {
         this.$router.push('/request/editor')
         this.setCurrentTemplate({ id: this.id })
-        this.tryDataRequest()
       }
     },
     onClose() {

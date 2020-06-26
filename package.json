@@ -36,7 +36,7 @@
   "gitHooks": {
     "pre-commit": "cross-env PRE_COMMIT=true lint-staged"
   },
-  "main": "dist/src/index.js",
+  "main": "background.js",
   "dependencies": {
     "@chenfengyuan/vue-qrcode": "^1.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",

@@ -12,6 +12,7 @@
           :operator="operator"
           :script-id="scriptId"
           :show-output-type="index !== script.length - 1"
+          :subscript="true"
           :error="radonError"
           @add-operator="addOperator"
           @delete-operator="removeOperator(operator.scriptId, operator.id)"
@@ -41,17 +42,6 @@ export default {
     },
   },
   computed: {
-    emptyScript() {
-      return this.script.length < 1
-    },
-    scriptInfo() {
-      return [
-        {
-          description:
-            'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
-        },
-      ]
-    },
     radonError() {
       return this.finalResult && this.finalResult.RadonError
         ? this.finalResult.RadonError
@@ -62,7 +52,6 @@ export default {
     ...mapMutations({
       pushOperator: PUSH_OPERATOR,
       deleteOperator: DELETE_OPERATOR,
-      clearDataRequestResult: 'clearDataRequestResult',
     }),
     removeOperator(scriptId, operatorId) {
       this.deleteOperator({ scriptId, operatorId })
