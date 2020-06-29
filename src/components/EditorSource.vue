@@ -19,15 +19,15 @@
           data-test="content-type-select"
         />
       </div>
-      <div
-        class="delete"
-        data-test="delete-btn"
-        @click="deleteSource({ index })"
-      >
-        <el-tooltip content="Delete source" placement="right" effect="light">
+      <el-tooltip content="Delete source" placement="right" effect="light">
+        <div
+          class="delete"
+          data-test="delete-btn"
+          @click="deleteSource({ index })"
+        >
           <img src="@/resources/svg/close-btn.svg" />
-        </el-tooltip>
-      </div>
+        </div>
+      </el-tooltip>
     </Card>
   </Fieldset>
 </template>

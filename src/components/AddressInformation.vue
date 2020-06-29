@@ -8,17 +8,26 @@
       <p class="caption">
         Address <span class="number">#{{ index + 1 }}</span>
       </p>
-      <div v-if="!used && !copied" class="copy" @click="copy">
-        <el-tooltip content="Copy" placement="bottom" effect="light">
+      <el-tooltip
+        v-if="!used && !copied"
+        content="Copy"
+        placement="bottom"
+        effect="light"
+      >
+        <div class="copy" @click="copy">
           <font-awesome-icon class="icon" icon="copy" />
-        </el-tooltip>
-      </div>
-
-      <div v-if="!used && copied" class="checked">
-        <el-tooltip content="Copied" placement="bottom" effect="light">
+        </div>
+      </el-tooltip>
+      <el-tooltip
+        v-if="!used && copied"
+        content="Copied"
+        placement="bottom"
+        effect="light"
+      >
+        <div class="checked">
           <font-awesome-icon class="icon" icon="check" />
-        </el-tooltip>
-      </div>
+        </div>
+      </el-tooltip>
     </div>
 
     <p v-if="pkh" class="pkh">{{ used ? blindPkh : pkh }}</p>

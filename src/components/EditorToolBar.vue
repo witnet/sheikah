@@ -24,24 +24,26 @@
       </div>
     </div>
     <div class="tools">
-      <el-button
-        v-for="tab in tabs"
-        :key="tab.icon"
-        type="primary"
-        :data-test="`action-${tab.name}`"
-        :class="tab.class"
-        @click="tab.action"
-      >
+      <span v-for="tab in tabs" :key="tab.icon" class="btn">
         <el-tooltip
-          v-if="tab.icon"
+          :disabled="!!tab.text"
           :content="tab.icon"
+          :target="tab.name"
           placement="bottom"
           effect="light"
         >
-          <font-awesome-icon class="icon" :icon="tab.name" />
+          <el-button
+            :id="tab.name"
+            type="primary"
+            :data-test="`action-${tab.name}`"
+            :class="tab.class"
+            @click="tab.action"
+          >
+            <font-awesome-icon v-if="tab.icon" class="icon" :icon="tab.name" />
+            <span v-else>{{ tab.text }}</span>
+          </el-button>
         </el-tooltip>
-        <span v-else>{{ tab.text }}</span>
-      </el-button>
+      </span>
     </div>
   </div>
 </template>
@@ -187,6 +189,10 @@ export default {
 
   .tools {
     display: flex;
+
+    .btn {
+      margin-left: 8px;
+    }
   }
 }
 </style>
