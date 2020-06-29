@@ -1,5 +1,10 @@
 export const EDITOR_ALLOWED_PROTOCOLS = ['http', 'https']
 
+export const EDITOR_EXPORT_FORMAT = {
+  JSON: 'json',
+  js: 'js',
+}
+
 export const EDITOR_STAGES = {
   SETTINGS: 'settings',
   SOURCES: 'sources',

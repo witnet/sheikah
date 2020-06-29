@@ -4,7 +4,7 @@
       <a
         ref="download"
         :href="dataStr"
-        download="template.json"
+        :download="downloadName"
         style="display:none"
       ></a>
 
@@ -26,6 +26,7 @@
     <div class="tools">
       <span v-for="tab in tabs" :key="tab.icon" class="btn">
         <el-tooltip
+          v-if="tab.type === 'button'"
           :disabled="!!tab.text"
           :content="tab.icon"
           :target="tab.name"
@@ -43,6 +44,21 @@
             <span v-else>{{ tab.text }}</span>
           </el-button>
         </el-tooltip>
+
+        <el-dropdown v-else @command="handleCommand">
+          <el-button type="primary" data-test="export-selection">
+            {{ tab.text }} <i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item
+              v-for="option in tab.options"
+              :key="option.text"
+              :command="option.action"
+              :data-test="option.name"
+              >{{ option.text }}</el-dropdown-item
+            >
+          </el-dropdown-menu>
+        </el-dropdown>
       </span>
     </div>
   </div>
@@ -50,42 +66,66 @@
 
 <script>
 import { EDITOR_REDO, EDITOR_UNDO, CLEAR_HISTORY } from '@/store/mutation-types'
+import { EDITOR_EXPORT_FORMAT } from '@/constants'
 import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'EditorToolBar',
   data() {
     return {
+      exportFormat: EDITOR_EXPORT_FORMAT.JSON,
       tabs: [
         {
           icon: 'Redo changes',
           action: this.editorRedo,
           name: 'redo',
+          type: 'button',
         },
         {
           icon: 'Undo changes',
           action: this.editorUndo,
           name: 'undo',
+          type: 'button',
         },
         {
           text: 'Save',
           action: this.saveTemplate,
           name: 'save',
+          type: 'button',
         },
         {
-          text: 'Export',
+          text: 'Export as',
           action: this.exportTemplate,
           name: 'export',
+          type: 'selection',
+          options: [
+            {
+              text: 'Javascript file',
+              name: 'export-js',
+              action: () => {
+                this.export(EDITOR_EXPORT_FORMAT.JS)
+              },
+            },
+            {
+              text: 'Sheikah template',
+              name: 'export-template',
+              action: () => {
+                this.export(EDITOR_EXPORT_FORMAT.JSON)
+              },
+            },
+          ],
         },
         {
           text: 'Deploy',
           action: this.deployTemplate,
           name: 'deploy',
+          type: 'button',
         },
         {
           text: 'Try data request',
           action: this.tryDataRequest,
           name: 'try',
+          type: 'button',
         },
       ],
     }
@@ -93,11 +133,21 @@ export default {
   computed: {
     ...mapState({
       template: state => state.rad.currentTemplate,
+      radRequest: state => state.rad.radRequest,
     }),
     dataStr() {
-      return `data:text/json;charset=utf-8,${encodeURIComponent(
-        JSON.stringify(this.template),
-      )}`
+      return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
+        ? `data:text/json;charset=utf-8,${encodeURIComponent(
+            JSON.stringify(this.template),
+          )}`
+        : `data:text/plain;charset=utf-8,${encodeURIComponent(
+            this.radRequest.getJs(),
+          )}`
+    },
+    downloadName() {
+      return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
+        ? 'template.json'
+        : 'data_request.js'
     },
   },
   methods: {
@@ -112,8 +162,12 @@ export default {
       this.clearDataRequestResult()
       this.clearHistory()
     },
-    exportTemplate: function() {
-      this.$refs.download.click()
+    export(format) {
+      this.exportFormat = format
+      // wait for computed props update according to exportFormat
+      this.$nextTick().then(() => {
+        this.$refs.download.click()
+      })
     },
     deployTemplate() {
       this.$emit('deploy')
@@ -125,6 +179,9 @@ export default {
     editorRedo() {
       this.redo()
       this.$emit('undo-redo')
+    },
+    handleCommand(action) {
+      action()
     },
   },
 }
@@ -202,5 +259,5 @@ export default {
 
 ```jsx
   <EditorToolBar />
-```
+
 </docs>

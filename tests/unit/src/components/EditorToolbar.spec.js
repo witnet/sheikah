@@ -127,7 +127,7 @@ describe('EditorToolBar.vue', () => {
       expect(wrapper.find('[data-test="action-save"]').isVisible()).toBe(true)
     })
 
-    it('should render export button', () => {
+    it('should render export selection', () => {
       const mockEditorUndo = jest.fn()
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
@@ -155,7 +155,9 @@ describe('EditorToolBar.vue', () => {
         }),
       )
 
-      expect(wrapper.find('[data-test="action-export"]').isVisible()).toBe(true)
+      expect(wrapper.find('[data-test="export-selection"]').isVisible()).toBe(
+        true,
+      )
     })
 
     it('should render try button', () => {

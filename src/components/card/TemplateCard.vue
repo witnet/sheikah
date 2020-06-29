@@ -162,6 +162,11 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
+.el-dropdown-menu__item:last-of-type:hover {
+  background-color: $red-0 !important;
+  color: $red-5 !important;
+}
+
 .button-options {
   background-color: transparent;
   border: none;
