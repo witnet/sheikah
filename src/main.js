@@ -9,7 +9,7 @@ import './fontAwesome'
 import '@/directives'
 
 ipcRenderer.on('shutdown', async () => {
-  await store.dispatch('shutdown')
+  store.dispatch('shutdown')
   ipcRenderer.send('shutdown-finished')
 })
 

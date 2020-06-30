@@ -8,10 +8,8 @@ import util from 'util'
 import { spawn } from 'child_process'
 import axios from 'axios'
 import tar from 'tar'
-import {
-  createProtocol,
-  installVueDevtools,
-} from 'vue-cli-plugin-electron-builder/lib'
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import {
   app,
   BrowserWindow,
@@ -25,6 +23,7 @@ const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
 const isDevelopment = process.env.NODE_ENV !== 'production'
+const isTest = !!process.env.IS_TEST
 
 const SHEIKAH_PATH = process.env.TRAVIS
   ? ''
@@ -44,16 +43,86 @@ const STATUS_PATH = {
   [STATUS.WAIT]: 'setup',
   [STATUS.READY]: '',
 }
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 let tray
 // open sheikah if is development environment
 let status = isDevelopment ? STATUS.READY : STATUS.WAIT
+let forceQuit = false
+
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } },
 ])
+
+app.on('activate', () => {
+  // On macOS it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  win.show()
+  if (win === null) {
+    createWindow()
+  }
+})
+
+app.on('before-quit', function() {
+  if (process.platform === 'darwin') {
+    // flag to close sheikah from darwin's dock and prevent default darwin's close behavior
+    forceQuit = true
+  }
+})
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.on('ready', async () => {
+  if (isDevelopment && !isTest) {
+    // Install Vue Devtools
+    try {
+      await installExtension(VUEJS_DEVTOOLS)
+    } catch (e) {
+      console.error('Vue Devtools failed to install:', e.toString())
+    }
+  }
+
+  if (!isTest) {
+    createTray()
+  }
+
+  createWindow()
+})
+
+// Quit when all windows are closed.
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+// Ipc event received from the client to close sheikah
+ipcMain.on('shutdown-finished', () => {
+  if (win) win.destroy()
+  app.quit()
+})
+
+// Exit cleanly on request from parent process in development mode.
+if (isDevelopment) {
+  if (process.platform === 'win32') {
+    process.on('message', data => {
+      if (data === 'graceful-exit') {
+        app.quit()
+      }
+    })
+  } else {
+    process.on('SIGTERM', () => {
+      app.quit()
+    })
+  }
+} else {
+  // Download witnet node when is production environment
+  main()
+}
 
 function createWindow() {
   // Create the browser window.
@@ -73,26 +142,29 @@ function createWindow() {
     // Hide electron toolbar in production environment
     win.setMenuBarVisibility(false)
   }
-  // Disables zooming with pinch
-  const webContents = win.webContents
-  webContents.on('did-finish-load', () => {
-    webContents.setZoomFactor(1)
-    webContents.setVisualZoomLevelLimits(1, 1)
-    webContents.setLayoutZoomLevelLimits(0, 0)
-  })
 
   loadUrl(status)
+
+  win.webContents.on('did-finish-load', () => {
+    // Disables zooming with pinch
+    win.webContents.setZoomFactor(1)
+  })
+
+  win.webContents.on('new-window', (e, url) => {
+    e.preventDefault()
+
+    shell.openExternal(url)
+  })
 
   win.on('closed', () => {
     win = null
   })
 
-  if (process.platform === 'darwin') {
-    var forceQuit = false
-    app.on('before-quit', function() {
-      forceQuit = true
-    })
-    win.on('close', function(event) {
+  win.on('close', function(event) {
+    // don't set sheikah to system tray when tests are running to be able end tests
+    if (isTest) return app.quit()
+
+    if (process.platform === 'darwin') {
       if (!forceQuit) {
         event.preventDefault()
         if (win.isFullScreen()) {
@@ -103,13 +175,8 @@ function createWindow() {
         }
       } else {
         win.webContents.send('shutdown')
-        ipcMain.on('shutdown-finished', () => {
-          app.quit()
-        })
       }
-    })
-  } else {
-    win.on('close', function(event) {
+    } else {
       event.preventDefault()
       if (win.isFullScreen()) {
         win.once('leave-full-screen', () => win.hide())
@@ -117,8 +184,8 @@ function createWindow() {
       } else {
         win.hide()
       }
-    })
-  }
+    }
+  })
 
   if (!isDevelopment) {
     // Disable shortcuts defining a hidden menu and binding the shortcut we
@@ -157,10 +224,6 @@ function createTray() {
       type: 'normal',
       click: function() {
         win.webContents.send('shutdown')
-        ipcMain.on('shutdown-finished', () => {
-          win.destroy()
-          app.quit()
-        })
       },
     },
   ])
@@ -168,58 +231,62 @@ function createTray() {
   tray.setContextMenu(contextMenu)
 }
 
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  console.log('close all windows')
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+async function downloadWalletRelease(releaseUrl, version) {
+  status = STATUS.WAIT
+  loadUrl(STATUS.WAIT)
 
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  win.show()
-  if (win === null) {
-    createWindow()
-  }
-})
+  await sleep(5000)
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', async () => {
-  if (isDevelopment && !process.env.IS_TEST) {
-    // Install Vue Devtools
-    try {
-      await installVueDevtools()
-    } catch (e) {
-      console.error('Vue Devtools failed to install:', e.toString())
-    }
-  }
+  return new Promise((resolve, reject) => {
+    axios
+      .get(releaseUrl, { responseType: 'stream' })
+      .then(async response => {
+        const file = `witnet-release-${arch}-${platform}.tar.gz`
+        const pipeline = util.promisify(stream.pipeline)
+        // Promise equivalent for response.data.pipe(writeStream)
+        await pipeline(response.data, fs.createWriteStream(file))
+        console.log('witnet release downloaded succesfully')
+        console.log('Decompressing release...')
+        // Decompress tar.gz file
+        tar.x({
+          file,
+          sync: true,
+        })
+        // TODO: tar is not decompressing correctly if a path is given.
+        // Create these files in ./sheikah
+        fs.copyFileSync('witnet', path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
+        fs.copyFileSync(
+          'witnet.toml',
+          path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
+        )
+        fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
 
-  createTray()
-
-  createWindow()
-})
-
-// Exit cleanly on request from parent process in development mode.
-if (isDevelopment) {
-  if (process.platform === 'win32') {
-    process.on('message', data => {
-      if (data === 'graceful-exit') {
-        app.quit()
-      }
-    })
-  } else {
-    process.on('SIGTERM', () => {
-      app.quit()
-    })
-  }
+        // Remove the compressed file
+        fs.unlinkSync(file)
+        resolve()
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
+  })
 }
 
-if (!isDevelopment) {
-  main()
+// load a url if browser window is ready according to the current status
+function loadUrl(status) {
+  if (win) {
+    if (process.env.WEBPACK_DEV_SERVER_URL) {
+      // Load the url of the dev server if in development mode
+      win.loadURL(
+        `${process.env.WEBPACK_DEV_SERVER_URL}#/${STATUS_PATH[status]}`,
+      )
+      // win.loadURL(`${process.env.WEBPACK_DEV_SERVER_URL}`)
+      if (!isTest) win.webContents.openDevTools()
+    } else {
+      createProtocol('app')
+      // Load the index.html when not in development
+      win.loadURL(`app://./index.html/#/${STATUS_PATH[status]}`)
+    }
+  }
 }
 
 function main() {
@@ -273,44 +340,6 @@ function main() {
   })
 }
 
-async function downloadWalletRelease(releaseUrl, version) {
-  status = STATUS.WAIT
-  loadUrl(STATUS.WAIT)
-  await sleep(5000)
-  return new Promise((resolve, reject) => {
-    axios
-      .get(releaseUrl, { responseType: 'stream' })
-      .then(async response => {
-        const file = `witnet-release-${arch}-${platform}.tar.gz`
-        const pipeline = util.promisify(stream.pipeline)
-        // Promise equivalent for response.data.pipe(writeStream)
-        await pipeline(response.data, fs.createWriteStream(file))
-        console.log('witnet release downloaded succesfully')
-        console.log('Decompressing release...')
-        // Decompress tar.gz file
-        tar.x({
-          file,
-          sync: true,
-        })
-        // TODO: tar is not decompressing correctly if a path is given.
-        // Create these files in ./sheikah
-        fs.copyFileSync('witnet', path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
-        fs.copyFileSync(
-          'witnet.toml',
-          path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
-        )
-        fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
-
-        // Remove the compressed file
-        fs.unlinkSync(file)
-        resolve()
-      })
-      .catch(err => {
-        console.log('err', err)
-      })
-  })
-}
-
 // Run Witnet wallet and load "ready" url
 async function runWallet() {
   console.log('Running wallet...')
@@ -333,28 +362,6 @@ async function runWallet() {
   runWallet.stderr.on('data', function(data) {
     console.log('stderr: ' + data.toString())
   })
-}
-
-// load a url if browser window is ready according to the current status
-function loadUrl(s) {
-  if (win) {
-    if (process.env.WEBPACK_DEV_SERVER_URL) {
-      // Load the url of the dev server if in development mode
-      win.loadURL(`${process.env.WEBPACK_DEV_SERVER_URL}#/${STATUS_PATH[s]}`)
-      // win.loadURL(`${process.env.WEBPACK_DEV_SERVER_URL}`)
-      if (!process.env.IS_TEST) win.webContents.openDevTools()
-    } else {
-      createProtocol('app')
-      // Load the index.html when not in development
-      win.loadURL(`app://./index.html/#/${STATUS_PATH[s]}`)
-    }
-
-    // prevent open a new electron window and open the url in os browser
-    win.webContents.on('new-window', (e, url) => {
-      e.preventDefault()
-      shell.openExternal(url)
-    })
-  }
 }
 
 async function sleep(t) {

@@ -13,13 +13,18 @@ cache:
   - "$HOME/.cache"
 env:
   - RUST_LOG=error ELECTRON_ENABLE_LOGGING=true TRAVIS=true
+services:
+  - xvfb
 addons:
+  chrome: stable
   apt:
     packages:
     # - libgnome-keyring-dev
     - icnsutils
     - graphicsmagick
     - xz-utils
+before_install:
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash
 - source ~/.bashrc
