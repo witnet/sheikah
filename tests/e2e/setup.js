@@ -13,7 +13,8 @@ global.client = null
 jest.setTimeout(200000)
 
 // start electron before each test
-global.beforeEach(async () => {
+global.beforeAll(async () => {
+  console.log('1. Before Each')
   if (!global.app) {
     const { app, stopServe } = await testWithSpectron(spectron)
 
@@ -25,7 +26,8 @@ global.beforeEach(async () => {
 })
 
 // stop electron instance after each test
-global.afterEach(async () => {
+global.afterAll(async () => {
+  console.log('2. After Each')
   if (global.app && global.app.isRunning()) {
     await global.stopServe()
     global.app = null
