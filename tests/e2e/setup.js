@@ -14,7 +14,7 @@ jest.setTimeout(200000)
 
 global.beforeEach(async () => {
   console.log('beforeEach')
-  await sleep(1000)
+  await sleep(5000)
 })
 global.afterEach(() => {
   console.log('afterEach')
