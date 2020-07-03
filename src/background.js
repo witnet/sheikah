@@ -133,7 +133,8 @@ function createWindow() {
     minHeight: 720,
     icon: path.join(__static, 'icon.png'),
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
+
     },
     autoHideMenuBar: true,
   })
