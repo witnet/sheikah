@@ -24,7 +24,7 @@
           Import a wallet from mnemonics
         </el-button>
       </li>
-      <li class="option">
+      <li v-if="walletInfos.length" class="option">
         <el-button
           class="big"
           data-test="back"
@@ -39,11 +39,17 @@
 
 <script>
 import Card from '@/components/card/Card'
+import { mapState } from 'vuex'
 
 export default {
   name: 'WalletSeedTypeSelection',
   components: {
     Card,
+  },
+  computed: {
+    ...mapState({
+      walletInfos: state => state.wallet.walletInfos,
+    }),
   },
   methods: {
     redirectTo(path) {
