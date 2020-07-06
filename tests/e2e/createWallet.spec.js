@@ -1,7 +1,10 @@
 describe('Create wallet', () => {
   it('should create a wallet', async () => {
     console.log('file 1 describe 1 test 1')
-    const a = await app.client.waitUntilWindowLoaded(10000).$('body').getHTML()
+    const a = await app.client
+      .waitUntilWindowLoaded(10000)
+      .$('body')
+      .getHTML()
     console.log(a)
     expect(true).toBe(true)
   })

@@ -23,7 +23,9 @@ global.afterEach(() => {
 global.beforeAll(async () => {
   console.log('1. Before All')
   if (!global.app) {
-    const { app, stopServe } = await testWithSpectron(spectron, { forceDev: true })
+    const { app, stopServe } = await testWithSpectron(spectron, {
+      forceDev: true,
+    })
 
     global.app = app
     global.stopServe = stopServe
@@ -48,4 +50,3 @@ async function sleep(t) {
     }, t)
   })
 }
-
