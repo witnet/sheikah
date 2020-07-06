@@ -10,7 +10,7 @@ global.stopServe = null
 global.win = null
 global.client = null
 
-jest.setTimeout(200000)
+jest.setTimeout(500000)
 
 global.beforeEach(async () => {
   console.log('beforeEach')
@@ -42,6 +42,7 @@ global.afterAll(async () => {
     global.app = null
   }
 })
+global.sleep = sleep
 
 async function sleep(t) {
   return new Promise((resolve, reject) => {

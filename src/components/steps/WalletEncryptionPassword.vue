@@ -33,7 +33,7 @@
           ref="password"
           v-model="repeatPassword"
           class="password"
-          data-test="password"
+          data-test="repeat-password"
           placeholder="Confirm password"
           show-password
           @keydown.enter.native="nextStep"

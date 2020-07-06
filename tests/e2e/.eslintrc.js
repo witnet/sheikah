@@ -3,10 +3,11 @@ module.exports = {
     jest: true,
   },
   globals: {
-    client: false,
-    win: false,
     app: false,
+    client: false,
+    sleep: false,
     stopServe: false,
+    win: false,
   },
   rules: {},
 }

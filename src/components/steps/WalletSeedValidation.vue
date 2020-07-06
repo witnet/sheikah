@@ -21,6 +21,7 @@
       class="seed"
       :autoresize="true"
       :maxlength="mnemonics.length"
+      data-test="seed-input"
       @go-next="nextStep"
     />
     <p
