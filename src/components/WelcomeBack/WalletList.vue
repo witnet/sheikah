@@ -12,7 +12,7 @@
           v-model="password"
           v-focus
           class="big"
-          data-test="password"
+          data-test="password-input"
           placeholder="Please input password"
           show-password
           @keydown.enter.esc.prevent="unlock"

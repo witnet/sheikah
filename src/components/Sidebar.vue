@@ -52,7 +52,7 @@
           <span class="label">Community</span>
         </router-link>
       </div>
-      <div class="settings" @click="settings[0].action">
+      <div class="settings" data-test="close-session" @click="settings[0].action">
         <div class="icon-container">
           <el-tooltip
             content="Go back to wallets list"

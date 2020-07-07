@@ -2,7 +2,6 @@ describe('Create wallet', () => {
   it('should create a wallet', async () => {
     await app.client
       .waitUntilWindowLoaded(10000)
-      // .$('.el-button')
       .$('[data-test=new-seed-option]')
       .click()
 

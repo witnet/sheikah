@@ -20,7 +20,6 @@
       <el-button
         class="back-btn"
         type="text"
-        data-test="unlock-wallet"
         @click="previousStep"
       >
         Back

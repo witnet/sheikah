@@ -10,7 +10,7 @@ global.stopServe = null
 global.win = null
 global.client = null
 
-jest.setTimeout(500000)
+jest.setTimeout(200000)
 
 global.beforeEach(async () => {
   console.log('beforeEach')
@@ -51,3 +51,4 @@ async function sleep(t) {
     }, t)
   })
 }
+
