@@ -1,13 +1,8 @@
 describe('Create wallet', () => {
   it('should create a wallet', async () => {
-    await client
-      .waitUntilWindowLoaded()
-    const r = await app.client.$('body').getHTML()
+    await client.waitUntilWindowLoaded()
     await client.$('[data-test=password-input]').addValue('password')
-
     await client.$('[data-test=unlock-wallet]').click()
-    console.log('r', r)
-    expect(true).toBe(true)
   })
 
   // it('should create a wallet', async () => {
