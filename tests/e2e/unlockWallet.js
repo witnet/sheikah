@@ -8,11 +8,13 @@
 
 describe('Create wallet', () => {
   it('should create a wallet', async () => {
-    // await app.client
-    //   .waitUntilWindowLoaded(10000)
-    //   .$('[data-test=create-wallet]')
-    //   .click('')
 
+    await app.client
+      .waitUntilWindowLoaded(10000)
+      .click('')
+    const html = app.client.$('body').getHTML()
+
+    console.log('html', html)
     // await app.client.$('[data-test=new-seed-option]').click()
 
     // await app.client.$('[data-test=next-step]').click()
