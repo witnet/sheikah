@@ -1,5 +1,6 @@
 module.exports = {
   setupFilesAfterEnv: ['<rootDir>/tests/e2e/setup'],
+  testSequencer: '<rootDir>/tests/e2e/testSequencer',
   moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
   transform: {
     '^.+\\.vue$': 'vue-jest',
