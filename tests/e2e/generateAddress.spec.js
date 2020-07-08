@@ -12,12 +12,10 @@ describe('GenerateAddress', () => {
 
     await app.client.$('[data-test=generate-address]').click()
 
-    sleep(2000)
+    sleep(5000)
     const html = await app.client.$('body').getHTML()
     console.log("html", html)
 
     await app.client.$('[data-test=address-0]').click()
-
-
   })
 })
