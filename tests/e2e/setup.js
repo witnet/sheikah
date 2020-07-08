@@ -10,7 +10,7 @@ global.stopServe = null
 global.win = null
 global.client = null
 
-jest.setTimeout(100000)
+jest.setTimeout(200000)
 
 global.beforeEach(async () => {
   await sleep(5000)
@@ -18,6 +18,8 @@ global.beforeEach(async () => {
 
 // start electron before each test
 global.beforeAll(async () => {
+  console.log('global', global)
+  console.log('globalApp', global.app)
   if (!global.app) {
     const { app, stopServe } = await testWithSpectron(spectron, {
       forceDev: true,
@@ -38,6 +40,7 @@ global.afterAll(async () => {
     global.app = null
   }
 })
+
 global.sleep = sleep
 
 async function sleep(t) {

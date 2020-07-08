@@ -17,11 +17,7 @@
       </p>
     </div>
     <div class="container-btn">
-      <el-button
-        class="back-btn"
-        type="text"
-        @click="previousStep"
-      >
+      <el-button class="back-btn" type="text" @click="previousStep">
         Back
       </el-button>
       <div class="unlock-btn" @keydown.enter.esc.prevent="unlock">
