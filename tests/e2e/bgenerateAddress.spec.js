@@ -4,7 +4,7 @@ describe('GenerateAddress', () => {
 
     const html = app.client.$('body').getHTML()
     console.log(html)
-    
+
     await client.$('[data-test=password-input]').addValue('password')
 
     sleep(1000)
@@ -12,6 +12,5 @@ describe('GenerateAddress', () => {
     await client.$('[data-test=unlock-wallet]').click()
 
     // await unlockWallet()
-
   })
 })
