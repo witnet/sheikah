@@ -3,7 +3,10 @@ describe('Create wallet', () => {
     await app.client
       .waitUntilWindowLoaded(10000)
       .$('[data-test=create-wallet]')
-      .click()
+      .click('')
+    const html = await app.client.$('body')
+    
+    console.log('html', html)
 
     await app.client.$('[data-test=new-seed-option]').click()
 

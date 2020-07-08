@@ -21,6 +21,8 @@ describe('Import wallet', () => {
 
     await app.client.$('[data-test=repeat-password]').addValue('password')
 
+    await sleep(3000)
+
     await app.client.$('[data-test=main]').isDisplayed()
 
     expect(true).toBe(true)

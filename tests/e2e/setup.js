@@ -18,8 +18,6 @@ global.beforeEach(async () => {
 
 // start electron before each test
 global.beforeAll(async () => {
-  console.log('global', global)
-  console.log('globalApp', global.app)
   if (!global.app) {
     const { app, stopServe } = await testWithSpectron(spectron, {
       forceDev: true,
@@ -34,7 +32,6 @@ global.beforeAll(async () => {
 
 // stop electron instance after each test
 global.afterAll(async () => {
-  console.log('2. After All')
   if (global.app && global.app.isRunning()) {
     await global.stopServe()
     global.app = null
