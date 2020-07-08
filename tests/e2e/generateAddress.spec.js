@@ -10,8 +10,8 @@ describe('GenerateAddress', () => {
 
     sleep(1000)
 
-    await app.client.$('[data-test=generate-address]').click()
-
+    const isClickable = await app.client.$('[data-test=generate-address]').isClickable()
+    console.log('-.--', isClickable)
     sleep(5000)
     const html = await app.client.$('body').getHTML()
     console.log("html", html)
