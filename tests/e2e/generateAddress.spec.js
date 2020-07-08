@@ -8,6 +8,8 @@ describe('GenerateAddress', () => {
 
     await client.$('[data-test=unlock-wallet]').click()
 
-    // await unlockWallet()
+    sleep(1000)
+
+    await app.client.$('[data-test=main]')
   })
 })

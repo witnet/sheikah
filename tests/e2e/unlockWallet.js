@@ -16,7 +16,6 @@ describe('Unlock wallet', () => {
 
     console.log('html', html)
 
-    await app.client.$('[data-test=passwordInput]').addValue('password')
 
     await sleep(1000)
 
@@ -24,7 +23,6 @@ describe('Unlock wallet', () => {
 
     await sleep(1000)
 
-    await app.client.$('[data-test=main]')
 
     expect(true).toBe(true)
   })
