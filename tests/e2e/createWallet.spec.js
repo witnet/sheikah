@@ -31,8 +31,7 @@ describe('Create wallet', () => {
 
     await sleep(2000)
 
-    await app.client.$('[data-test=main]').isDisplayed()
-
+    await app.client.$('[data-test=main]')
     expect(true).toBe(true)
   })
 

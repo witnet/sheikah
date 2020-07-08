@@ -23,7 +23,7 @@ describe('Import wallet', () => {
 
     await sleep(3000)
 
-    await app.client.$('[data-test=main]').isDisplayed()
+    await app.client.$('[data-test=main]')
 
     expect(true).toBe(true)
   })
