@@ -17,7 +17,9 @@ describe('Import wallet', () => {
 
     await app.client
       .$('[data-test=textarea]')
-      .addValue('cook habit motor figure ring hint scheme club denial uncover regular become')
+      .addValue(
+        'cook habit motor figure ring hint scheme club denial uncover regular become',
+      )
 
     await sleep(1000)
 
