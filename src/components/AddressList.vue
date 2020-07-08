@@ -7,9 +7,10 @@
       class="item"
       :used="address.used"
       :selected="selected === index"
+      :data-test="`address-${index}`"
       @click="() => selectAddress(index)"
     />
-    <AddressCardButton @click="$emit('generate-address')" />
+    <AddressCardButton data-test="generate-address" @click="$emit('generate-address')" />
   </div>
 </template>
 

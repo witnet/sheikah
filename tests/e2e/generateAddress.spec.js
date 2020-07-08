@@ -10,6 +10,14 @@ describe('GenerateAddress', () => {
 
     sleep(1000)
 
-    await app.client.$('[data-test=main]')
+    await app.client.$('[data-test=generate-address]').click()
+
+    sleep(2000)
+
+    await app.client.$('[data-test=address-0]').click()
+
+    const html = await app.client.$('body').getHTML()
+
+    console.log(html)
   })
 })
