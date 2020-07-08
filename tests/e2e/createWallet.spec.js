@@ -5,6 +5,7 @@ describe('Create wallet', () => {
       .$('[data-test=create-wallet]')
       .click('')
     const html = app.client.$('body').getHTML()
+
     console.log('html', html)
 
     await app.client.$('[data-test=new-seed-option]').click()
