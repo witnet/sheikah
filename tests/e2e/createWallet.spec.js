@@ -1,37 +1,34 @@
-// describe('Import wallet', () => {
-//   it('should import a wallet', async () => {
-//     await client.waitUntilWindowLoaded()
-
-//     await client.$('[data-test=create-wallet').click()
-
-//     console.log('r', await client.$('body'))
-//   })
-// })
-
-describe('Import wallet', () => {
-  it('should import a wallet', async () => {
+describe('Create wallet', () => {
+  it('should create a wallet', async () => {
     await app.client
       .waitUntilWindowLoaded(10000)
-      .$('[data-test=import-wallet]')
+      .$('[data-test=create-wallet]')
       .click()
 
-    await app.client
-      .$('[data-test=textarea]')
-      .addValue(
-        'cook habit motor figure ring hint scheme club denial uncover regular become',
-      )
+    await app.client.$('[data-test=new-seed-option]').click()
+
+    await app.client.$('[data-test=next-step]').click()
+
+    const seed = await app.client.$('[data-test=word-seed]').getText()
+
+    await app.client.$('[data-test=next-step]').click()
+
+    await app.client.$('[data-test=seed-input]').addValue(seed)
+
+    await app.client.$('[data-test=next-step]').click()
+
+    await app.client.$('[data-test=password]').addValue('password')
+    await sleep(1000)
+
+    await app.client.$('[data-test=repeat-password]').addValue('password')
 
     await sleep(1000)
 
     await app.client.$('[data-test=next-step]').click()
 
-    await app.client.$('[data-test=password]').addValue('password')
+    await sleep(2000)
 
-    await sleep(1000)
-
-    await app.client.$('[data-test=repeat-password]').addValue('password')
-
-    await app.client.$('[data-test=main]').isDisplayed
+    await app.client.$('[data-test=main]').isDisplayed()
 
     expect(true).toBe(true)
   })
