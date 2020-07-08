@@ -6,12 +6,12 @@
 //   })
 // })
 
-describe('Create wallet', () => {
-  it('should create a wallet', async () => {
+describe('Unlock wallet', () => {
+  it('should unlock a wallet', async () => {
 
     await app.client
       .waitUntilWindowLoaded(10000)
-      .click('')
+
     const html = await app.client.$('body').getHTML()
 
     console.log('html', html)
