@@ -13,9 +13,10 @@ describe('GenerateAddress', () => {
     const isClickable = await app.client.$('[data-test=generate-address]').isClickable()
     console.log('-.--', isClickable)
     sleep(5000)
+
+    await app.client.$('[data-test=address-0]')
+
     const html = await app.client.$('body').getHTML()
     console.log("html", html)
-
-    await app.client.$('[data-test=address-0]').click()
   })
 })
