@@ -12,13 +12,8 @@ describe('GenerateAddress', () => {
 
     await app.client.$('[data-test=generate-address]').click()
 
-    await app.client.$('[data-test=address-card-btn]').click()
-
-    sleep(10000)
+    sleep(1000)
 
     await app.client.$('[data-test=address-0]')
-
-    const html = await app.client.$('body').getHTML()
-    console.log("html", html)
   })
 })
