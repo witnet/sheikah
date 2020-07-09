@@ -10,7 +10,10 @@
       :data-test="`address-${index}`"
       @click="() => selectAddress(index)"
     />
-    <AddressCardButton data-test="generate-address" @click="$emit('generate-address')" />
+    <AddressCardButton
+      data-test="generate-address"
+      @click="$emit('generate-address')"
+    />
   </div>
 </template>
 
