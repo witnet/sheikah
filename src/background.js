@@ -23,7 +23,6 @@ const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
 const isDevelopment = process.env.NODE_ENV !== 'production'
-const isTest = !!process.env.IS_TEST
 
 const SHEIKAH_PATH = process.env.TRAVIS
   ? ''
@@ -77,7 +76,7 @@ app.on('before-quit', function() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-  if (isDevelopment && !isTest) {
+  if (isDevelopment) {
     // Install Vue Devtools
     try {
       await installExtension(VUEJS_DEVTOOLS)
@@ -86,9 +85,7 @@ app.on('ready', async () => {
     }
   }
 
-  if (!isTest) {
-    createTray()
-  }
+  createTray()
 
   createWindow()
 })
@@ -161,9 +158,6 @@ function createWindow() {
   })
 
   win.on('close', function(event) {
-    // don't set sheikah to system tray when tests are running to be able end tests
-    if (isTest) return app.quit()
-
     if (process.platform === 'darwin') {
       if (!forceQuit) {
         event.preventDefault()
@@ -279,8 +273,6 @@ function loadUrl(status) {
       win.loadURL(
         `${process.env.WEBPACK_DEV_SERVER_URL}#/${STATUS_PATH[status]}`,
       )
-      // win.loadURL(`${process.env.WEBPACK_DEV_SERVER_URL}`)
-      if (!isTest) win.webContents.openDevTools()
     } else {
       createProtocol('app')
       // Load the index.html when not in development

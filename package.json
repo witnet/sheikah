@@ -8,7 +8,6 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --config=jest.unit.config.js",
-    "test:e2e": "IS_TEST=true NODE_ENV=development VUE_ENV=server vue-cli-service test:unit --config=jest.e2e.config.js",
     "ci": "yarn lint:check && yarn test && yarn electron:build --publish=never",
     "clean": "yarn clean-deps && rm -rf dist_electron",
     "clean-deps": "rm -rf node_modules",
@@ -30,7 +29,7 @@
     "reinstall": "yarn clean-deps && yarn",
     "styleguide": "vue-cli-service styleguidist",
     "styleguide:build": "vue-cli-service styleguidist:build",
-    "test": "yarn test:unit && yarn test:e2e",
+    "test": "yarn test:unit",
     "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten"
   },
   "gitHooks": {
@@ -81,7 +80,6 @@
     "lint-staged": "^10.2.7",
     "sass-loader": "^7.1.0",
     "sass": "^1.18.0",
-    "spectron": "11.0.0",
     "stylelint-config-css-modules": "2.2.x",
     "stylelint-config-prettier": "8.0.x",
     "stylelint-config-recess-order": "2.0.x",
