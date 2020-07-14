@@ -109,7 +109,7 @@
 <script>
 import { PUSH_OPERATOR, DELETE_OPERATOR } from '@/store/mutation-types'
 import ScriptInfo from '@/components/ScriptInfo'
-import { standardizeOperatorName } from '@/utils'
+import { standardizeOperatorName, selectInnerError } from '@/utils'
 import OperatorOutput from '@/components/OperatorOutput.vue'
 import RadonOperator from '@/components/RadonOperator'
 import { mapMutations } from 'vuex'
@@ -186,16 +186,19 @@ export default {
       return this.partialResults ? this.partialResults[0] : null
     },
     firstError() {
-      return this.firstOutput && this.firstOutput.RadonError
-        ? this.firstOutput.RadonError
+      return this.firstOutput &&
+        this.firstOutput.RadonArray.find(error => error.RadonError)
+        ? this.firstOutput.RadonArray.map(error =>
+            selectInnerError(error.RadonError),
+          ).toString()
         : null
     },
     outputLabel() {
-      if (this.firstOutput) {
+      if (this.firstError) {
+        return 'error'
+      } else if (this.firstOutput) {
         const innerOutput = Object.keys(this.firstOutput)[0]
         return standardizeOperatorName(innerOutput)
-      } else if (this.firstError) {
-        return 'error'
       } else {
         return null
       }

@@ -186,7 +186,7 @@ export default {
   },
   methods: {
     scrollTop(next) {
-      if (next >= 2 && next <= this.filteredOptions.length - 2) {
+      if (next <= this.filteredOptions.length - 2) {
         const top = this.$refs[`option-${next}`][0].offsetTop
         this.$refs.options.scrollTop = top
       }

@@ -150,9 +150,10 @@ export default {
     },
     outputLabel() {
       if (this.operatorOutput) {
-        const output = this.isFilter
-          ? this.operatorOutput.RadonArray[0]
-          : this.operatorOutput
+        const output =
+          this.isFilter && this.operatorOutput.RadonArray
+            ? this.operatorOutput.RadonArray[0]
+            : this.operatorOutput
         const innerOutput = Object.keys(output)[0]
         return standardizeOperatorName(innerOutput)
       } else if (this.error) {

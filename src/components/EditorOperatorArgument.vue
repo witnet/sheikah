@@ -14,7 +14,7 @@
             updateTemplateAndVariables({
               id: argument.id,
               value,
-              type: argument.markupType,
+              type: argument.type,
             })
         "
       />
@@ -45,7 +45,7 @@
         "
       />
       <div
-        v-if="argument.selected.arguments"
+        v-if="argument.selected.arguments[0].markupType === 'input'"
         data-test="select-argument"
         class="input-container"
       >
@@ -63,7 +63,7 @@
               updateTemplateAndVariables({
                 id: argument.selected.arguments[0].id,
                 value,
-                type: argument.selected.arguments[0].markupType,
+                type: argument.selected.arguments[0].type,
               })
           "
         />
@@ -75,6 +75,12 @@
           />
           <OperatorType :type="argument.selected.arguments[0].type" />
         </div>
+      </div>
+      <div
+        v-if="argument.selected.arguments[0].markupType === 'script'"
+        class="subscripts"
+      >
+        <Subscript :script="argument.selected.arguments[0].subscript" />
       </div>
     </div>
     <div v-if="argument.markupType === 'script'" class="subscripts">

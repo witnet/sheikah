@@ -1,5 +1,21 @@
 <template>
   <div class="radon-script">
+    <div class="operator-bottom">
+      <div v-if="emptyScript" class="icon-container">
+        <img
+          class="row sheikah-icon"
+          src="@/resources/svg/operator-arrow.svg"
+        />
+        <div class="add-operator-container">
+          <img
+            class="add-operator"
+            src="@/resources/svg/add-operator.svg"
+            @click="addOperator"
+          />
+          <p class="add-operator-text">Click to add an operator</p>
+        </div>
+      </div>
+    </div>
     <div class="operators">
       <div
         v-for="(operator, index) in script"
@@ -14,6 +30,7 @@
           :show-output-type="index !== script.length - 1"
           :subscript="true"
           :error="radonError"
+          :hideDelete="index === 0"
           @add-operator="addOperator"
           @delete-operator="removeOperator(operator.scriptId, operator.id)"
         />
@@ -42,6 +59,9 @@ export default {
     },
   },
   computed: {
+    emptyScript() {
+      return this.script.length < 1
+    },
     radonError() {
       return this.finalResult && this.finalResult.RadonError
         ? this.finalResult.RadonError
@@ -52,6 +72,7 @@ export default {
     ...mapMutations({
       pushOperator: PUSH_OPERATOR,
       deleteOperator: DELETE_OPERATOR,
+      clearDataRequestResult: 'clearDataRequestResult',
     }),
     removeOperator(scriptId, operatorId) {
       this.deleteOperator({ scriptId, operatorId })
@@ -74,6 +95,19 @@ export default {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content;
+}
+
+.operator-bottom {
+  align-items: flex-start;
+  display: flex;
+
+  .icon-container {
+    margin-left: 16px;
+  }
+
+  .output {
+    margin-top: 16px;
+  }
 }
 
 .operators {
