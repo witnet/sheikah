@@ -4,6 +4,7 @@ import { format, formatDistanceToNow } from 'date-fns'
 import uuidv4 from 'uuid/v4'
 import { WIT_UNIT, EDITOR_ALLOWED_PROTOCOLS, WALLET_EVENTS } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
+import { Radon } from 'witnet-radon-js'
 
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
@@ -314,4 +315,13 @@ export function getNativeValueFromMarkupArgumentType(value, type) {
     }
   }
   return value
+}
+
+export function isValidRadRequest(dr) {
+  try {
+    const radon = new Radon(dr)
+    return radon.getMarkup() && radon.getMir() && radon.getJs()
+  } catch (e) {
+    return false
+  }
 }

@@ -1,4 +1,4 @@
-import { generateId } from '@/utils'
+import { createNotification, generateId, isValidRadRequest } from '@/utils'
 import { Radon } from 'witnet-radon-js'
 import { EDITOR_STAGES } from '@/constants'
 import {
@@ -240,28 +240,36 @@ export default {
           reducer: 0x02,
         },
       }
-      state.currentTemplate = {
-        creationDate: Date.now(),
-        id: generateId(),
-        name: name,
-        description: 'Add a description for this template',
-        radRequest,
-        variables: [
-          {
-            key: 'my_var_' + 0,
-            value:
-              'The default String that this variable will take if an user does not override it',
-            description:
-              'Helps users of this template understand what this variable is used for',
-            type: 'String',
-          },
-        ],
-        variablesIndex: 0,
-        usedVariables: [],
+
+      if (isValidRadRequest(radRequest)) {
+        state.currentTemplate = {
+          creationDate: Date.now(),
+          id: generateId(),
+          name: name,
+          description: 'Add a description for this template',
+          radRequest,
+          variables: [
+            {
+              key: 'my_var_' + 0,
+              value:
+                'The default String that this variable will take if an user does not override it',
+              description:
+                'Helps users of this template understand what this variable is used for',
+              type: 'String',
+            },
+          ],
+          variablesIndex: 0,
+          usedVariables: [],
+        }
+        state.currentRadonMarkupInterpreter = new Radon(radRequest)
+        state.radRequest = state.currentRadonMarkupInterpreter
+        state.history = [state.currentRadonMarkupInterpreter.getMir()]
+      } else {
+        createNotification({
+          title: `Invalid data request template`,
+          body: `The data request you are trying to import is malformed`,
+        })
       }
-      state.currentRadonMarkupInterpreter = new Radon(radRequest)
-      state.radRequest = state.currentRadonMarkupInterpreter
-      state.history = [state.currentRadonMarkupInterpreter.getMir()]
     },
     [SET_CURRENT_TEMPLATE](state, { id }) {
       const template = state.templates[id]
@@ -341,39 +349,48 @@ export default {
       const isImportingTemplate = args ? !!args.template : null
       const date = Date.now()
       const templates = context.state.templates
-      const templateToSave = isImportingTemplate
-        ? {
-            ...args.template,
-            creationDate: date,
-            lastTimeOpened: date,
-            variables: args.template.variables || [],
-            variablesIndex: args.template.variablesIndex || 0,
-            usedVariables: args.template.usedVariables || [],
-          }
-        : {
-            ...context.state.currentTemplate,
-            lastTimeOpened: date,
-            radRequest: context.state.currentRadonMarkupInterpreter.getMir(),
-          }
-      if (!templateToSave.id) {
-        templateToSave.id = generateId()
-      }
-      templates[templateToSave.id] = templateToSave
 
-      const request = await context.rootState.wallet.api.saveItem({
-        wallet_id: context.rootState.wallet.walletId,
-        session_id: context.rootState.wallet.sessionId,
-        key: 'templates',
-        value: templates,
-      })
-      if (request.result) {
-        await context.dispatch('getTemplates')
-      } else {
-        context.commit('setError', {
-          name: 'saveItem',
-          error: request.error,
-          message: 'An error occurred saving changes',
+      if (isImportingTemplate && !isValidRadRequest(args.template.radRequest)) {
+        // data request is invalid
+        createNotification({
+          title: `Invalid data request template`,
+          body: `The data request you are trying to import is malformed`,
         })
+      } else {
+        const templateToSave = isImportingTemplate
+          ? {
+              ...args.template,
+              creationDate: date,
+              lastTimeOpened: date,
+              variables: args.template.variables || [],
+              variablesIndex: args.template.variablesIndex || 0,
+              usedVariables: args.template.usedVariables || [],
+            }
+          : {
+              ...context.state.currentTemplate,
+              lastTimeOpened: date,
+              radRequest: context.state.currentRadonMarkupInterpreter.getMir(),
+            }
+        if (!templateToSave.id) {
+          templateToSave.id = generateId()
+        }
+        templates[templateToSave.id] = templateToSave
+
+        const request = await context.rootState.wallet.api.saveItem({
+          wallet_id: context.rootState.wallet.walletId,
+          session_id: context.rootState.wallet.sessionId,
+          key: 'templates',
+          value: templates,
+        })
+        if (request.result) {
+          await context.dispatch('getTemplates')
+        } else {
+          context.commit('setError', {
+            name: 'saveItem',
+            error: request.error,
+            message: 'An error occurred saving changes',
+          })
+        }
       }
     },
     getTemplates: async function(context, params) {

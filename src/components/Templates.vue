@@ -156,8 +156,11 @@ export default {
           const fileText = reader.result
           try {
             const template = JSON.parse(fileText)
-            // TODO: Validate template before save
+            // try to save template if it is valid
             this.saveTemplate({ template })
+
+            // clear file input to be able to try to load the same file twitce
+            this.$refs.fileInput.value = ''
           } catch (error) {
             console.log('Error parsing json')
           }
