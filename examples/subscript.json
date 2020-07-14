@@ -15,11 +15,11 @@
             17,
             [
               [97, "symbol"],
-              [117, "{ \"BTC\": true, \"ETH\": true }"]
+              [117, { "BTC": true, "ETH": true }]
             ]
           ],
-          [30, [[103, "symbol"]]],
-          [27, [[103, "changePercent24h"]]]
+          [29, [[103, "symbol"]]],
+          [26, [[103, "changePercent24h"]]]
         ]
       },
       {

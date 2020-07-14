@@ -306,5 +306,12 @@ export function getNativeValueFromMarkupArgumentType(value, type) {
   if (type === 'boolean') {
     return value === 'true'
   }
+  if (type === 'map') {
+    try {
+      return JSON.parse(value)
+    } catch (error) {
+      console.log('Error parsing json')
+    }
+  }
   return value
 }

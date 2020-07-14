@@ -6,6 +6,7 @@
       class="input-container"
     >
       <el-input
+        :maxlength="60"
         class="input-operator"
         :placeholder="argument.label"
         :value="argumentValue"
@@ -45,7 +46,10 @@
         "
       />
       <div
-        v-if="argument.selected.arguments[0].markupType === 'input'"
+        v-if="
+          argument.selected.arguments &&
+            argument.selected.arguments[0].markupType === 'input'
+        "
         data-test="select-argument"
         class="input-container"
       >
@@ -77,7 +81,10 @@
         </div>
       </div>
       <div
-        v-if="argument.selected.arguments[0].markupType === 'script'"
+        v-if="
+          argument.selected.arguments &&
+            argument.selected.arguments[0].markupType === 'script'
+        "
         class="subscripts"
       >
         <Subscript :script="argument.selected.arguments[0].subscript" />
@@ -138,9 +145,19 @@ export default {
         : []
     },
     argumentValue() {
-      return this.argument.value || typeof this.argument.value === 'boolean'
-        ? this.argument.value.toString()
-        : ''
+      if (this.argument.type === 'map') {
+        if (typeof this.argument.value === 'string') {
+          return this.argument.value
+        } else {
+          return JSON.stringify(this.argument.value)
+        }
+      } else if (this.argument.type === 'number') {
+        return this.argument.value
+      } else if (this.argument.value || this.argument.type === 'boolean') {
+        return this.argument.value.toString()
+      } else {
+        return ''
+      }
     },
     hasArgumentVariables() {
       const argumentLabel = this.argument.selected.arguments[0].value

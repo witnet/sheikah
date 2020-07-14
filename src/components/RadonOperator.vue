@@ -166,11 +166,7 @@ export default {
       return this.operator.selected.arguments
     },
     hasArguments() {
-      if (this.selectedOperator) {
-        return !!this.selectedOperator.arguments.length
-      } else {
-        return false
-      }
+      return !!this.selectedOperator.arguments.length
     },
     selectedOption() {
       return {
