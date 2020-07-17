@@ -5,9 +5,11 @@
       <div
         v-for="stage in stages"
         :key="stage.name"
+        :ref="`stage-${stage.name}`"
         :data-test="`stage-${stage.name}`"
         class="link-btn"
         :class="{ active: currentStage === stage.name }"
+        tabindex="0"
         @click="changeStage(stage.name)"
       >
         <!-- eslint-disable-next-line vue/no-v-html -->
@@ -56,6 +58,16 @@ export default {
       currentStage: state => state.rad.currentStage,
     }),
   },
+  created() {
+    this.unsubscribe = this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'EDITOR_UNDO' || mutation.type === 'EDITOR_REDO') {
+        this.$refs[`stage-${this.currentStage}`][0].focus()
+      }
+    })
+  },
+  beforeDestroy() {
+    this.unsubscribe()
+  },
   methods: {
     changeStage: function(stage) {
       this.current = stage
@@ -86,9 +98,9 @@ export default {
     font-weight: 100;
     height: 50px;
     justify-content: center;
+    outline: none;
     padding: 0 24px;
     position: relative;
-
     // stylelint-disable-next-line
     ::v-deep .bolder {
       font-size: 15px;
@@ -96,13 +108,15 @@ export default {
     }
 
     &:focus,
+    &:active,
     .link-btn:active,
     &.active {
       background: $purple-3;
       color: $white;
     }
 
-    &.active::after {
+    &.active::after,
+    &:active::after {
       border-left-color: $purple-3;
     }
   }

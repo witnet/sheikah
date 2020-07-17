@@ -6,6 +6,15 @@ describe('AddressList.vue', () => {
   describe('should render correctly the component', () => {
     it('should contain the AddressCardButton to generate a new address', () => {
       const wrapper = mount(AddressList, {
+        ...createComponentMocks({
+          store: {
+            uiInteractions: {
+              state: {
+                receiveTransactionCLicked: false,
+              },
+            },
+          },
+        }),
         propsData: {
           addresses: [
             {
@@ -22,6 +31,15 @@ describe('AddressList.vue', () => {
 
     it('should list an addressCard for each address passed', () => {
       const wrapper = mount(AddressList, {
+        ...createComponentMocks({
+          store: {
+            uiInteractions: {
+              state: {
+                receiveTransactionCLicked: false,
+              },
+            },
+          },
+        }),
         propsData: {
           addresses: [
             {
@@ -52,9 +70,19 @@ describe('AddressList.vue', () => {
       expect(wrapper.findAll(AddressCard).length).toBe(2)
     })
   })
+
   describe('should emit events', () => {
     it('should emit event to generate address on AddressCardButton click', async () => {
       const wrapper = mount(AddressList, {
+        ...createComponentMocks({
+          store: {
+            uiInteractions: {
+              state: {
+                receiveTransactionCLicked: false,
+              },
+            },
+          },
+        }),
         propsData: {
           addresses: [
             {
@@ -91,6 +119,15 @@ describe('AddressList.vue', () => {
 
     it('should emit event to select an address on AddressCard click', async () => {
       const wrapper = mount(AddressList, {
+        ...createComponentMocks({
+          store: {
+            uiInteractions: {
+              state: {
+                receiveTransactionCLicked: false,
+              },
+            },
+          },
+        }),
         propsData: {
           addresses: [
             {

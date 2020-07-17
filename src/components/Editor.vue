@@ -57,11 +57,6 @@ export default {
       currentTemplate: state => state.rad.currentTemplate,
     }),
   },
-  watch: {
-    radRequestResult(val) {
-      this.logs.push(val)
-    },
-  },
   created() {
     this.saveTemplate()
     this.changeStage({ stage: EDITOR_STAGES.SETTINGS })

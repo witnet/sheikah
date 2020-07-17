@@ -1,9 +1,9 @@
 <template>
   <!--  Emit click event to indicate a new address should be created -->
   <el-tooltip content="Generate new address" placement="right" effect="light">
-    <div class="card" @click="$emit('click')">
+    <el-button ref="btn" class="card" @click="$emit('click')">
       <font-awesome-icon class="icon" icon="plus" />
-    </div>
+    </el-button>
   </el-tooltip>
 </template>
 
@@ -13,13 +13,19 @@
  */
 export default {
   name: 'AddressCardButton',
+  methods: {
+    focus() {
+      this.$refs.btn.focus()
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .card {
   align-items: center;
-  border: 1px dashed rgb(68, 66, 64, 0.5);
+  background: none;
+  border: 1px dashed rgb(102, 100, 140, 0.5);
   border-radius: 3px;
   color: rgb(68, 66, 64, 0.5);
   cursor: pointer;
@@ -28,6 +34,17 @@ export default {
   justify-content: center;
   position: relative;
   width: 25px;
+
+  &:focus,
+  &:hover {
+    border: 1px dashed rgb(170, 168, 189, 0.5);
+    color: rgb(170, 168, 189, 0.5);
+  }
+
+  &:active {
+    border: 1px dashed rgb(102, 100, 140, 0.5);
+    color: rgb(68, 66, 64, 0.5);
+  }
 }
 </style>
 
