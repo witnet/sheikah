@@ -70,7 +70,7 @@ export default {
   grid-template: auto auto auto / auto 1fr;
   margin-bottom: 10px;
   padding: 25px;
-  row-gap: 15px;
+  row-gap: 12px;
   width: 100%;
 
   .label {

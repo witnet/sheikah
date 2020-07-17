@@ -1,5 +1,6 @@
 <template>
   <div class="transaction-list">
+    <Fieldset title="Transactions" :subtitle="`${transactionsLength} transactions`" />
     <p class="title">
       <span class="label">Transactions</span>
       <span class="number" data-test="transactions-length"

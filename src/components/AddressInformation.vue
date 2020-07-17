@@ -241,7 +241,6 @@ export default {
   .transactions {
     align-items: center;
     display: flex;
-    height: 36px;
     margin-bottom: 15px;
 
     .tag {
