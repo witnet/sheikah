@@ -100,6 +100,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, 650px);
   justify-content: center;
+  overflow: hidden;
 
   .card {
     margin: 24px;
