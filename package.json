@@ -11,7 +11,7 @@
     "ci": "yarn lint:check && yarn test && yarn electron:build --publish=never",
     "clean": "yarn clean-deps && rm -rf dist_electron",
     "clean-deps": "rm -rf node_modules",
-    "electron:build": "vue-cli-service electron:build",
+    "electron:build": "vue-cli-service electron:build --config=electron-builder.json",
     "electron:serve": "vue-cli-service electron:serve",
     "lint:eslint": "eslint",
     "lint:stylelint": "stylelint",
@@ -35,7 +35,7 @@
   "gitHooks": {
     "pre-commit": "cross-env PRE_COMMIT=true lint-staged"
   },
-  "main": "background.js",
+  "main": "src/background.js",
   "dependencies": {
     "@chenfengyuan/vue-qrcode": "^1.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
