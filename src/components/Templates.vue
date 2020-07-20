@@ -1,5 +1,5 @@
 <template>
-  <div data-test="templates">
+  <div class="templates" data-test="templates">
     <div class="templates-bar">
       <p class="title">
         Data Request Templates
@@ -10,36 +10,30 @@
         Import template
       </el-button>
     </div>
-    <div class="centered">
+
+    <div class="container-templates">
       <div
-        v-if="Object.entries(paginatedTemplates)"
-        class="container-templates"
+        v-show="currentPage === 1"
+        data-test="create-template"
+        class="add"
+        @click="createTemplateAndRedirect"
       >
-        <div
-          v-show="currentPage === 1"
-          data-test="create-template"
-          class="add"
-          @click="createTemplateAndRedirect"
-        >
-          <img class="add-btn" src="@/resources/svg/add.svg" />
-          <p class="text">Create a new template</p>
-        </div>
-        <TemplateCard
-          v-for="template in paginatedTemplates"
-          :id="template.id"
-          :key="template.id"
-          class="card"
-          :name="template.name"
-          :sources="template.radRequest.retrieve.length"
-          :description="template.description"
-          @toggle-modal="displayModalCreateDR(template)"
-        />
+        <img class="add-btn" src="@/resources/svg/add.svg" />
+        <p class="text">Create a new template</p>
       </div>
-      <div v-else>
-        You don't have templates yet.
-      </div>
+      <TemplateCard
+        v-for="template in paginatedTemplates"
+        :id="template.id"
+        :key="template.id"
+        class="card"
+        :name="template.name"
+        :sources="template.radRequest.retrieve.length"
+        :description="template.description"
+        @toggle-modal="displayModalCreateDR(template)"
+      />
     </div>
-    <div v-show="templates.length" class="pagination-nav">
+
+    <div v-show="templates.length > templatesPerPage" class="pagination-nav">
       <el-pagination
         :page-size="templatesPerPage"
         layout="prev, pager, next"
@@ -85,7 +79,7 @@ export default {
   },
   computed: {
     templatesPerPage() {
-      return this.currentPage === 1 ? 7 : 8
+      return this.currentPage === 1 ? 8 : 9
     },
     paginatedTemplates() {
       const from =
@@ -176,74 +170,72 @@ export default {
 <style lang="scss">
 @import '@/styles/_colors.scss';
 
-.templates-bar {
-  align-items: center;
-  display: flex;
-  flex-flow: row wrap;
-  height: 70px;
-  justify-content: right;
-  text-align: right;
+.templates {
+  padding-bottom: 16px;
 
-  .title {
-    font-weight: bold;
-    margin: 16px 0 0 32px;
-
-    .templates-number {
-      color: $grey-4;
-      font-size: 14px;
-      font-weight: normal;
-      margin-left: 8px;
-    }
-  }
-
-  .import-btn {
-    margin: 0 16px 0 auto;
-  }
-}
-
-.pagination-nav {
-  padding: 16px 0 16px 0;
-  text-align: center;
-}
-
-.centered {
-  margin: 0 16px;
-  min-height: 700px;
-}
-
-.container-templates {
-  display: grid;
-  grid-gap: 24px;
-  grid-template-columns: repeat(auto-fill, 300px);
-  margin: 0 16px;
-  width: 100%;
-
-  .add {
+  .templates-bar {
     align-items: center;
-    background-color: $white;
-    border: 1px solid $grey-1;
-    border-radius: 2px;
-    box-shadow: 1px 2px 8px 0 rgba(207, 207, 207, 0.329);
     display: flex;
-    flex-direction: column;
-    height: 300px;
-    justify-content: center;
-    width: 300px;
+    flex-flow: row wrap;
+    height: 70px;
+    justify-content: right;
+    text-align: right;
 
-    .add-btn {
-      width: 50px;
+    .title {
+      font-weight: bold;
+      margin: 16px 0 0 32px;
+
+      .templates-number {
+        color: $grey-4;
+        font-size: 14px;
+        font-weight: normal;
+        margin-left: 8px;
+      }
     }
 
-    .text {
-      color: $grey-3;
-      font-size: 12px;
-      font-style: italic;
-      margin-top: 24px;
+    .import-btn {
+      margin: 0 16px 0 auto;
     }
+  }
 
-    &:hover {
-      border: 1px solid $purple-4;
-      cursor: pointer;
+  .pagination-nav {
+    padding: 16px 0 0 0;
+    text-align: center;
+  }
+
+  .container-templates {
+    display: grid;
+    grid-gap: 24px;
+    grid-template-columns: repeat(auto-fill, 300px);
+    margin: 0 32px;
+
+    .add {
+      align-items: center;
+      background-color: $white;
+      border: 1px solid $grey-1;
+      border-radius: 2px;
+      box-shadow: 1px 2px 8px 0 rgba(207, 207, 207, 0.329);
+      display: flex;
+      flex-direction: column;
+      height: 300px;
+      justify-content: center;
+      width: 300px;
+
+      .add-btn {
+        width: 50px;
+      }
+
+      .text {
+        color: $grey-3;
+        font-size: 12px;
+        font-style: italic;
+        margin-top: 24px;
+      }
+
+      &:hover {
+        border: 1px solid $purple-4;
+        cursor: pointer;
+      }
     }
   }
 }
