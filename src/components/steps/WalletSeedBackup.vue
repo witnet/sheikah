@@ -9,7 +9,12 @@
     :next-step="() => this.$router.push('/ftu/seed-validation')"
   >
     <p class="paragraph-title">Your 12 word seed phrase:</p>
-    <pre data-test="word-seed" class="seed">{{ seed }}</pre>
+    <pre
+      data-test="word-seed"
+      class="seed"
+      :class="{ 'copy-disabled': disableCopyMnemonics }"
+      >{{ seed }}</pre
+    >
     <p class="paragraph">
       Please copy these 12 words onto a piece of paper which you will be able to
       safely store and secure. You must write the complete words in the exact
@@ -35,6 +40,9 @@ export default {
     ...mapState({
       seed: state => state.wallet.mnemonics,
     }),
+    disableCopyMnemonics() {
+      return process.env.NODE_ENV !== 'development'
+    },
   },
   created() {
     this.createMnemonics()
@@ -83,11 +91,6 @@ export default {
   padding: 24px;
   white-space: pre-wrap;
   width: 100%;
-
-  &:hover {
-    border: $input_big-hover-border;
-    box-shadow: $input_big-hover-box-shadow;
-  }
 }
 
 .seed-text {
@@ -101,5 +104,9 @@ export default {
   &:last-of-type {
     margin-bottom: 0;
   }
+}
+
+.copy-disabled {
+  user-select: none;
 }
 </style>
