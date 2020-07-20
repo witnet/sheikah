@@ -10,12 +10,12 @@
         <DotsLoading size="5px" color="#8280a4" margin="0" />
       </div>
       <el-popover
-        v-if="showOperatorOutput"
+        v-if="showOutput"
         popper-class="result"
         :visible-arrow="false"
         placement="top-start"
         trigger="hover"
-        :content="operatorOutput"
+        :content="stringifiedOutput"
       >
         <p
           v-if="explicitOutput"
@@ -26,12 +26,14 @@
           {{ explicitOutput }}
         </p>
         <font-awesome-icon
-          v-else-if="operatorOutput"
+          v-else-if="stringifiedOutput"
           slot="reference"
           data-test="output"
           class="icon"
           icon="eye"
         />
+
+        <JsonTree :data="output" />
       </el-popover>
       <!-- Empty state of the operator output -->
       <el-popover
@@ -71,12 +73,15 @@
 
 <script>
 import DotsLoading from '@/components/DotsLoading'
+import JsonTree from '@/components/JsonTree'
+
 import { mapState } from 'vuex'
 
 export default {
   name: 'OperatorOutput',
   components: {
     DotsLoading,
+    JsonTree,
   },
   props: {
     label: {
@@ -112,10 +117,10 @@ export default {
         ? Object.values(this.output)[0]
         : null
     },
-    operatorOutput() {
+    stringifiedOutput() {
       return JSON.stringify(this.output)
     },
-    showOperatorOutput() {
+    showOutput() {
       return this.output && !this.error && !this.loading
     },
     showEmptyState() {
