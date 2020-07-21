@@ -1,9 +1,6 @@
 <template>
   <div data-test="editor-view" class="editor">
-    <EditorToolBar
-      @undo-redo="changeStage({ stage: lastStageModified })"
-      @deploy="showDeployDR = true"
-    />
+    <EditorToolBar @deploy="showDeployDR = true" />
     <EditorStageBar @change-stage="value => changeStage({ stage: value })" />
     <EditorStageSettings v-if="currentStage === EDITOR_STAGES.SETTINGS" />
     <EditorStageSources v-if="currentStage === EDITOR_STAGES.SOURCES" />
@@ -56,7 +53,6 @@ export default {
     ...mapState({
       radRequest: state => state.rad.radRequest,
       networkStatus: state => state.wallet.networkStatus,
-      lastStageModified: state => state.rad.lastStageModified,
       currentStage: state => state.rad.currentStage,
       currentTemplate: state => state.rad.currentTemplate,
     }),

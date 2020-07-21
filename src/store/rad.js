@@ -35,8 +35,8 @@ export default {
     templates: {},
     currentTemplate: {},
     currentRadonMarkupInterpreter: null,
-    lastStageModified: EDITOR_STAGES.SETTINGS,
     currentStage: EDITOR_STAGES.SETTINGS,
+    stageHistory: [],
     radRequest: {},
     history: [],
     historyIndex: 0,
@@ -130,13 +130,16 @@ export default {
     },
     [CLEAR_HISTORY](state) {
       state.history = []
+      state.stageHistory = []
       state.historyIndex = 0
     },
     [UPDATE_HISTORY](state, { mir }) {
-      state.lastStageModified = state.currentStage
+      state.stageHistory.push(state.currentStage)
       state.history.push(mir)
       state.historyIndex += 1
       state.history.splice(state.historyIndex + 1)
+      state.stageHistory.splice(state.historyIndex + 1)
+
       this.dispatch('saveTemplate')
       this.dispatch('tryDataRequest', { root: true })
     },
@@ -150,6 +153,7 @@ export default {
         state.currentRadonMarkupInterpreter = new Radon(
           state.history[state.historyIndex],
         )
+        state.currentStage = state.stageHistory[state.historyIndex]
         state.radRequest = state.currentRadonMarkupInterpreter
         this.dispatch('tryDataRequest', { root: true })
       }
@@ -160,6 +164,7 @@ export default {
         state.currentRadonMarkupInterpreter = new Radon(
           state.history[state.historyIndex],
         )
+        state.currentStage = state.stageHistory[state.historyIndex]
         state.radRequest = state.currentRadonMarkupInterpreter
         this.dispatch('tryDataRequest', { root: true })
       }
@@ -261,9 +266,11 @@ export default {
           variablesIndex: 0,
           usedVariables: [],
         }
+
         state.currentRadonMarkupInterpreter = new Radon(radRequest)
         state.radRequest = state.currentRadonMarkupInterpreter
         state.history = [state.currentRadonMarkupInterpreter.getMir()]
+        state.stageHistory = [EDITOR_STAGES.SETTINGS]
       } else {
         createNotification({
           title: `Invalid data request template`,
@@ -277,6 +284,7 @@ export default {
       state.currentRadonMarkupInterpreter = new Radon(template.radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter
       state.history = [state.currentRadonMarkupInterpreter.getMir()]
+      state.stageHistory = [EDITOR_STAGES.SETTINGS]
     },
     [DELETE_OPERATOR](state, { scriptId, operatorId }) {
       state.currentRadonMarkupInterpreter.deleteOperator(scriptId, operatorId)
