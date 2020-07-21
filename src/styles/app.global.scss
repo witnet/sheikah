@@ -29,6 +29,7 @@
 
   body {
     font-family: $font-family;
+    user-select: none;
   }
 
   a[target='_blank'] {
