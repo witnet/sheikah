@@ -84,12 +84,11 @@
         </div>
       </el-tooltip>
     </div>
-    <div class="img-container">
+    <div class="img-container" @click="createVariable">
       <img
         class="add-operator"
         data-test="add-variable"
         src="@/resources/svg/add-operator.svg"
-        @click="createVariable"
       />
       <p class="add-operator-text">Click to create another variable</p>
     </div>

@@ -18,12 +18,12 @@
             class="row sheikah-icon"
             src="@/resources/svg/operator-arrow.svg"
           />
-          <div v-if="emptyScript" class="add-operator-container">
-            <img
-              class="add-operator"
-              src="@/resources/svg/add-operator.svg"
-              @click="addOperator"
-            />
+          <div
+            v-if="emptyScript"
+            class="add-operator-container"
+            @click="addOperator"
+          >
+            <img class="add-operator" src="@/resources/svg/add-operator.svg" />
             <p class="add-operator-text">Click to add an operator</p>
           </div>
         </div>

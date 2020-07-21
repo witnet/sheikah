@@ -48,12 +48,11 @@
       </div>
       <div v-else class="icon-container">
         <img class="row sheikah-icon" src="@/resources/svg/long-arrow.svg" />
-        <div class="add-operator-container">
+        <div class="add-operator-container" @click="addOperator">
           <img
             class="add-operator"
             data-test="add-operator"
             src="@/resources/svg/add-operator.svg"
-            @click="addOperator"
           />
           <p class="add-operator-text">Click to add another operator</p>
         </div>
