@@ -291,12 +291,13 @@ export function formatSectionApiErrorsByRoute(routeName, errorsMap, apiErrors) {
 }
 
 export function copyToClipboard(str) {
-  const el = document.createElement('textarea')
-  el.value = str
-  document.body.appendChild(el)
-  el.select()
+  const listener = function(ev) {
+    ev.preventDefault()
+    ev.clipboardData.setData('text/plain', str)
+  }
+  document.addEventListener('copy', listener)
   document.execCommand('copy')
-  document.body.removeChild(el)
+  document.removeEventListener('copy', listener)
 }
 
 // Get the native javascript type from the radon markup argument type

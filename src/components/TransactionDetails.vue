@@ -1,10 +1,18 @@
 <template>
   <div>
+    <Notification
+      v-if="toggleNotification"
+      :message="notificationMessage"
+      :toggle="toggleNotification"
+      @vanish="toggleNotification = false"
+    />
     <div class="transaction-details">
       <p class="label">Transaction ID</p>
-      <p data-test="id" class="info">{{ id }}</p>
+      <p data-test="id" class="info" @click="toggleNotificationId">{{ id }}</p>
       <p class="label">Block</p>
-      <p data-test="block" class="info">{{ block }}</p>
+      <p data-test="block" class="info" @click="toggleNotificationBlock">{{
+        block
+      }}</p>
       <p class="label">Timestamp</p>
       <p data-test="date" class="info">{{ date }}</p>
       <p
@@ -143,10 +151,18 @@
 </template>
 
 <script>
-import { cropString, standardizeTransactionResult } from '@/utils'
+import {
+  cropString,
+  standardizeTransactionResult,
+  copyToClipboard,
+} from '@/utils'
+import Notification from '@/components/Notification'
 
 export default {
   name: 'TransactionDetails',
+  components: {
+    Notification,
+  },
   props: {
     block: {
       type: [String, Number],
@@ -189,9 +205,25 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      toggleNotification: false,
+      notificationMessage: '',
+    }
+  },
   methods: {
     cropString,
     standardizeTransactionResult,
+    toggleNotificationId(e) {
+      copyToClipboard(e.target.innerText)
+      this.notificationMessage = 'Transaction ID copied'
+      this.toggleNotification = true
+    },
+    toggleNotificationBlock(e) {
+      copyToClipboard(e.target.innerText)
+      this.notificationMessage = 'Block copied'
+      this.toggleNotification = true
+    },
   },
 }
 </script>
