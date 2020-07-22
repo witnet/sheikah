@@ -340,10 +340,12 @@ export default {
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
         label,
-        fee: standardizeWitUnits(
-          parameters.fee,
-          WIT_UNIT.NANO,
-          context.state.currency,
+        fee: Number(
+          standardizeWitUnits(
+            parameters.fee,
+            WIT_UNIT.NANO,
+            context.state.currency,
+          ),
         ),
         request: {
           data_request: encodeDataRequest(request),

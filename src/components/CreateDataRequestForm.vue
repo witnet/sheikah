@@ -84,15 +84,11 @@ export default {
   data() {
     const enoughFunds = (rule, value, callback) => {
       const totalAmount =
-        this.form.commitFee +
-        this.form.dataRequest +
+        this.form.witnesses * this.form.commitFee +
         this.form.fee +
-        this.form.minConsensusPercentage +
-        this.form.revealFee +
-        this.form.rewardFee +
-        this.form.tallyFee +
-        this.form.witnesses +
-        this.form.collateral
+        this.form.witnesses * this.form.revealFee +
+        this.form.witnesses * this.form.rewardFee +
+        this.form.tallyFee
       if (totalAmount > this.availableBalance) {
         callback(new Error("You don't have enough funds"))
       } else {
