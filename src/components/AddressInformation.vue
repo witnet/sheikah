@@ -29,6 +29,7 @@
         </div>
       </el-tooltip>
     </div>
+
     <p v-if="address" class="address">{{ used ? blindAddress : address }}</p>
 
     <div v-if="!used" class="transactions">
@@ -132,6 +133,7 @@ export default {
   data() {
     return {
       copied: false,
+      toogleNotification: false,
     }
   },
   computed: {

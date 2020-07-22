@@ -31,3 +31,6 @@ export const WALLET_EVENTS = {
 export const GENERATE_ADDRESS_DELAY = 300
 
 export const TEMPLATE_EMPTY_DESCRIPTION = 'No description provided'
+
+export const TEXT_NOTIFICATION_COPY_BLOCK = 'Block hash copied'
+export const TEXT_NOTIFICATION_COPY_TX = 'Transaction ID copied'

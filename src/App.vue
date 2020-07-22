@@ -1,14 +1,19 @@
 <template>
   <div id="app">
     <router-view />
+    <Notification />
   </div>
 </template>
 
 <script>
 import { mapMutations, mapActions } from 'vuex'
+import Notification from '@/components/Notification'
 
 export default {
   name: 'App',
+  components: {
+    Notification,
+  },
   data() {
     return {
       loading: true,

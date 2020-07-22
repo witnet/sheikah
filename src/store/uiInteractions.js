@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export default {
   state: {
     receiveTransactionClicked: false,
@@ -24,5 +26,9 @@ export default {
       state.generateRadRequestResultLoading = false
     },
   },
-  actions: {},
+  actions: {
+    notify(context, payload) {
+      Vue.prototype.$notify(payload.message)
+    },
+  },
 }
