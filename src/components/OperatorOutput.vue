@@ -270,7 +270,7 @@ export default {
     border: 1px solid $same;
   }
 
-  &.subscriptOutput {
+  &.subscript {
     background-color: $subscriptOutput;
     border: 1px solid $subscriptOutput;
   }

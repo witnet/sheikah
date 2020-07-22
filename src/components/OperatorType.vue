@@ -89,7 +89,7 @@ export default {
     border: 1px solid $same;
   }
 
-  &.subscriptOutput {
+  &.subscript {
     border: 1px solid $subscriptOutput;
   }
 }

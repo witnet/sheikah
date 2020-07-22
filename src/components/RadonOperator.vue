@@ -182,9 +182,12 @@ export default {
       return this.operator.selected
     },
     operatorOptions() {
+      const isFirstSubscriptOperator = this.subscript && this.hideDelete
       return this.operator.options.map(option => {
         return {
-          primaryText: standardizeOperatorName(option.label),
+          primaryText: isFirstSubscriptOperator
+            ? option.label
+            : standardizeOperatorName(option.label),
           value: option.label,
           secondaryText:
             this.isReducer || this.isFilter
