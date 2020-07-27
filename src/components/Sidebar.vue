@@ -142,7 +142,7 @@ export default {
     -moz-transition: all 0.4s ease-in ease-out;
     transition: opacity 0.4s ease;
     width: 100%;
-    z-index: 5;
+    z-index: 20;
   }
 
   .sidebar {
@@ -154,7 +154,7 @@ export default {
     min-height: 100vh;
     overflow: hidden;
     position: fixed;
-    z-index: 5;
+    z-index: 20;
 
     &.expanded {
       -webkit-transition: all 0.4s ease-in ease-out;

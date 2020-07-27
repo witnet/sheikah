@@ -385,7 +385,7 @@ export default {
     right: 0;
     top: 40px;
     width: inherit;
-    z-index: 1000;
+    z-index: 10;
 
     &.big {
       top: 60px;
