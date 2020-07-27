@@ -131,116 +131,116 @@ export default {
 
 .sidebar-container {
   position: absolute;
-}
 
-.overlay {
-  background-color: $grey-6;
-  height: 100%;
-  opacity: 0.5;
-  position: fixed;
-  -webkit-transition: all 0.4s ease-in ease-out;
-  -o-transition: all 0.4s ease-in ease-out;
-  -moz-transition: all 0.4s ease-in ease-out;
-  transition: opacity 0.4s ease;
-  width: 100%;
-  z-index: 5;
-}
-
-.sidebar {
-  background-color: $white;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  display: grid;
-  font-family: 'Roboto';
-  grid-template-rows: 70px max-content auto 70px;
-  min-height: 100vh;
-  overflow: hidden;
-  position: fixed;
-  z-index: 5;
-}
-
-.expanded {
-  -webkit-transition: all 0.4s ease-in ease-out;
-  -o-transition: all 0.4s ease-in ease-out;
-  -moz-transition: all 0.4s ease-in ease-out;
-  transition: width 0.4s ease;
-  width: 408px;
-}
-
-.brand {
-  align-items: center;
-  display: grid;
-  grid-template-columns: 70px auto;
-  justify-items: center;
-  overflow: hidden;
-  width: 100%;
-
-  .sheikah-name {
-    justify-self: start;
-    margin-left: 8px;
+  .overlay {
+    background-color: $grey-6;
+    height: 100%;
+    opacity: 0.5;
+    position: fixed;
+    -webkit-transition: all 0.4s ease-in ease-out;
+    -o-transition: all 0.4s ease-in ease-out;
+    -moz-transition: all 0.4s ease-in ease-out;
+    transition: opacity 0.4s ease;
+    width: 100%;
+    z-index: 5;
   }
-}
 
-.current-wallet {
-  align-self: stretch;
-  border-bottom: $sidebar-settings-border;
-  border-top: $sidebar-settings-border;
-  overflow: hidden;
-}
+  .sidebar {
+    background-color: $white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    display: grid;
+    font-family: 'Roboto';
+    grid-template-rows: 70px max-content auto 70px;
+    min-height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    z-index: 5;
 
-.link-list {
-  align-self: start;
-  display: grid;
-  grid-template-rows: 70px 70px 70px 70px;
-  overflow: hidden;
-
-  .link {
-    border-left: $sidebar-inactive-border;
-    color: $sidebar-link-color;
-    display: flex;
-    flex-wrap: none;
-    font-size: $sidebar-link-font_size;
-    font-weight: $sidebar-link-font_weight;
-    padding: 24px 0;
-    text-align: left;
-    text-decoration: none;
-
-    &:hover {
-      background-color: $alpha-purple;
-      border-left: $sidebar-inactive-border-hover;
+    &.expanded {
+      -webkit-transition: all 0.4s ease-in ease-out;
+      -o-transition: all 0.4s ease-in ease-out;
+      -moz-transition: all 0.4s ease-in ease-out;
+      transition: width 0.4s ease;
+      width: 408px;
     }
 
-    &.router-link-active {
-      background-color: $alpha-purple;
-      border-left: $sidebar-active-border;
+    &.collapsed {
+      -webkit-transition: all 0.4s ease-in ease-out;
+      -o-transition: all 0.4s ease-in ease-out;
+      -moz-transition: all 0.4s ease-in ease-out;
+      transition: width 0.4s ease;
+      width: 70px;
     }
 
-    .icon {
-      width: 66px;
+    .brand {
+      align-items: center;
+      display: grid;
+      grid-template-columns: 70px auto;
+      justify-items: center;
+      overflow: hidden;
+      width: 100%;
+
+      .sheikah-name {
+        justify-self: start;
+        margin-left: 8px;
+      }
+    }
+
+    .current-wallet {
+      align-self: stretch;
+      border-bottom: $sidebar-settings-border;
+      border-top: $sidebar-settings-border;
+      overflow: hidden;
+    }
+
+    .link-list {
+      align-self: start;
+      display: grid;
+      grid-template-rows: 70px 70px 70px 70px;
+      overflow: hidden;
+
+      .link {
+        border-left: $sidebar-inactive-border;
+        color: $sidebar-link-color;
+        display: flex;
+        flex-wrap: none;
+        font-size: $sidebar-link-font_size;
+        font-weight: $sidebar-link-font_weight;
+        padding: 24px 0;
+        text-align: left;
+        text-decoration: none;
+
+        &:hover {
+          background-color: $alpha-purple;
+          border-left: $sidebar-inactive-border-hover;
+        }
+
+        &.router-link-active {
+          background-color: $alpha-purple;
+          border-left: $sidebar-active-border;
+        }
+
+        .icon {
+          width: 66px;
+        }
+      }
+    }
+
+    .settings {
+      align-items: center;
+      border-top: $sidebar-settings-border;
+      display: grid;
+      font-size: $icon-settings-font_size;
+      grid-template-columns: 70px auto;
+      justify-items: center;
+
+      .icon-container {
+        .exit-icon {
+          cursor: pointer;
+          width: 20px;
+        }
+      }
     }
   }
-}
-
-.settings {
-  align-items: center;
-  border-top: $sidebar-settings-border;
-  display: grid;
-  font-size: $icon-settings-font_size;
-  grid-template-columns: 70px auto;
-  justify-items: center;
-
-  .icon-container {
-    .exit-icon {
-      cursor: pointer;
-      width: 20px;
-    }
-  }
-}
-
-.collapsed {
-  -webkit-transition: all 0.4s ease-in ease-out;
-  -o-transition: all 0.4s ease-in ease-out;
-  -moz-transition: all 0.4s ease-in ease-out;
-  transition: width 0.4s ease;
-  width: 70px;
 }
 </style>
