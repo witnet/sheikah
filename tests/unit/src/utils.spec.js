@@ -4,8 +4,11 @@ import {
   deleteKey,
   getDomainFromUrl,
   standardizeWitUnits,
+  calculateCurrentFocusAfterUndo,
+  calculateCurrentFocusAfterRedo,
 } from '@/utils'
 import { WIT_UNIT } from '@/constants'
+import { Radon } from 'witnet-radon-js'
 
 describe('areSoftEqualArrays', () => {
   it('check if two sorted arrays contains the same items', () => {
@@ -306,5 +309,720 @@ describe('standardizeWitUnits', () => {
 
       expect(entry).toStrictEqual({ a: 'a', b: 'b', c: 'c' })
     })
+  })
+})
+
+describe('calculateCurrentFocusAfterUndo', () => {
+  describe('should work for all HISTORY_UPDATE_TYPEs', () => {
+    describe('DELETE_OPERATOR', () => {
+      it('on retrieve stage', () => {
+        const historyCheckpoint = {
+          type: 'DELETE_OPERATOR',
+          scriptId: 2,
+          operatorid: 3,
+        }
+
+        const mir = {
+          timelock: 0,
+          retrieve: [
+            { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        }
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe('void')
+      })
+      it('on aggragation or tally stage', () => {
+        const historyCheckpoint = {
+          rad: {
+            timelock: 0,
+            retrieve: [
+              {
+                kind: 'HTTP-GET',
+                url: '',
+                contentType: 'JSON API',
+                script: [],
+              },
+            ],
+            aggregate: {
+              filters: [
+                [3, 1],
+                [3, 1],
+              ],
+              reducer: 2,
+            },
+            tally: { filters: [], reducer: 2 },
+          },
+          stage: 'aggregations',
+          type: 'PUSH_OPERATOR',
+          scriptId: 3,
+        }
+
+        const mir = {
+          timelock: 0,
+          retrieve: [
+            { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+          ],
+          aggregate: {
+            filters: [
+              [3, 1],
+              [3, 1],
+            ],
+            reducer: 2,
+          },
+          tally: { filters: [], reducer: 2 },
+        }
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe(6)
+      })
+    })
+    describe('PUSH_OPERATOR', () => {
+      it('on retrieve stage', () => {
+        const historyCheckpoint = {
+          rad: {
+            timelock: 0,
+            retrieve: [
+              {
+                kind: 'HTTP-GET',
+                url: '',
+                contentType: 'JSON API',
+                script: [],
+              },
+            ],
+            aggregate: { filters: [], reducer: 2 },
+            tally: { filters: [], reducer: 2 },
+          },
+          stage: 'settings',
+        }
+        const mir = {
+          timelock: 0,
+          retrieve: [
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [112],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        }
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe(undefined)
+      })
+    })
+
+    it('DELETE_SOURCE', () => {
+      const historyCheckpoint = {
+        rad: {
+          timelock: 0,
+          retrieve: [
+            { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        },
+        stage: 'sources',
+        type: 'ADD_SOURCE',
+      }
+      const mir = {
+        timelock: 0,
+        retrieve: [
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+        ],
+        aggregate: { filters: [], reducer: 2 },
+        tally: { filters: [], reducer: 2 },
+      }
+
+      const markup = new Radon(mir).getMarkup()
+      const variables = {}
+      const id = calculateCurrentFocusAfterUndo(
+        historyCheckpoint,
+        markup,
+        variables,
+      )
+
+      expect(id).toBe(0)
+    })
+
+    it('ADD_SOURCE', () => {
+      const historyCheckpoint = {
+        rad: {
+          timelock: 0,
+          retrieve: [
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [112],
+            },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        },
+        stage: 'sources',
+        type: 'ADD_SOURCE',
+      }
+      const mir = {
+        timelock: 0,
+        retrieve: [
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [112] },
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [114] },
+        ],
+        aggregate: { filters: [], reducer: 2 },
+        tally: { filters: [], reducer: 2 },
+      }
+      const markup = new Radon(mir).getMarkup()
+      const variables = {}
+      const id = calculateCurrentFocusAfterUndo(
+        historyCheckpoint,
+        markup,
+        variables,
+      )
+
+      expect(id).toBe(1)
+    })
+
+    it('UPDATE_TEMPLATE', () => {
+      const historyCheckpoint = {
+        rad: {
+          timelock: 0,
+          retrieve: [
+            {
+              kind: 'HTTP-GET',
+              url: 'asd',
+              contentType: 'JSON API',
+              script: [112, [33, '', true]],
+            },
+            {
+              kind: 'HTTP-GET',
+              url: 'asd',
+              contentType: 'JSON API',
+              script: [114],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        },
+        stage: 'scripts',
+        type: 'PUSH_OPERATOR',
+        scriptId: 2,
+      }
+      const mir = {
+        timelock: 0,
+        retrieve: [
+          {
+            kind: 'HTTP-GET',
+            url: 'asd',
+            contentType: 'JSON API',
+            script: [112, 34],
+          },
+          {
+            kind: 'HTTP-GET',
+            url: 'asd',
+            contentType: 'JSON API',
+            script: [114],
+          },
+        ],
+        aggregate: { filters: [], reducer: 2 },
+        tally: { filters: [], reducer: 2 },
+      }
+
+      const markup = new Radon(mir).getMarkup()
+      const variables = {}
+      const id = calculateCurrentFocusAfterUndo(
+        historyCheckpoint,
+        markup,
+        variables,
+      )
+
+      expect(id).toBe(4)
+    })
+
+    it('UPDATE_SOURCE', () => {
+      const historyCheckpoint = {
+        rad: {
+          timelock: 0,
+          retrieve: [
+            {
+              kind: 'HTTP-GET',
+              url: 'asd',
+              contentType: 'JSON API',
+              script: [],
+            },
+            {
+              kind: 'HTTP-GET',
+              url: 'asd',
+              contentType: 'JSON API',
+              script: [114],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        },
+        stage: 'sources',
+        type: 'UPDATE_SOURCE',
+        index: 0,
+        source: { protocol: 'HTTP-GET', url: 'asd' },
+      }
+      const mir = {
+        timelock: 0,
+        retrieve: [
+          { kind: 'HTTP-GET', url: 'asd', contentType: 'JSON API', script: [] },
+          {
+            kind: 'HTTP-GET',
+            url: 'asd',
+            contentType: 'JSON API',
+            script: [114],
+          },
+        ],
+        aggregate: { filters: [], reducer: 2 },
+        tally: { filters: [], reducer: 2 },
+      }
+
+      const markup = new Radon(mir).getMarkup()
+      const variables = {}
+      const id = calculateCurrentFocusAfterUndo(
+        historyCheckpoint,
+        markup,
+        variables,
+      )
+
+      expect(id).toBe(0)
+    })
+    // it('UPDATE_VARIABLE', () => {})
+    // it('ADD_VARIABLE', () => {})
+    // it('DELETE_VARIABLE', () => {})
+  })
+})
+
+describe('calculateCurrentFocusAfterRedo', () => {
+  describe('should work for all HISTORY_UPDATE_TYPEs', () => {
+    describe('DELETE_OPERATOR', () => {
+      it('on retrieve stage', () => {
+        const historyCheckpoint = {
+          rad: {
+            timelock: 0,
+            retrieve: [
+              {
+                kind: 'HTTP-GET',
+                url: '',
+                contentType: 'JSON API',
+                script: [112],
+              },
+            ],
+            aggregate: { filters: [], reducer: 2 },
+            tally: { filters: [], reducer: 2 },
+          },
+          stage: 'scripts',
+          type: 'PUSH_OPERATOR',
+          scriptId: 2,
+        }
+        const mir = {
+          timelock: 0,
+          retrieve: [
+            { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        }
+
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterRedo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe('void')
+      })
+
+      it('on aggragation or tally stage', () => {
+        const historyCheckpoint = {
+          rad: {
+            timelock: 0,
+            retrieve: [
+              {
+                kind: 'HTTP-GET',
+                url: '',
+                contentType: 'JSON API',
+                script: [],
+              },
+            ],
+            aggregate: { filters: [], reducer: 2 },
+            tally: { filters: [], reducer: 2 },
+          },
+          stage: 'aggregations',
+          type: 'DELETE_OPERATOR',
+          scriptId: 3,
+          operatorId: 7,
+        }
+        const mir = {
+          timelock: 0,
+          retrieve: [
+            { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+          ],
+          aggregate: { filters: [[3, 1]], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        }
+
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe(4)
+      })
+    })
+
+    describe('PUSH_OPERATOR', () => {
+      it('on retrieve stage', () => {
+        const historyCheckpoint = {
+          rad: {
+            timelock: 0,
+            retrieve: [
+              {
+                kind: 'HTTP-GET',
+                url: '',
+                contentType: 'JSON API',
+                script: [112, [33, '', true], 16, 64],
+              },
+            ],
+            aggregate: { filters: [], reducer: 2 },
+            tally: { filters: [], reducer: 2 },
+          },
+          stage: 'scripts',
+          type: 'PUSH_OPERATOR',
+          scriptId: 2,
+        }
+        const mir = {
+          timelock: 0,
+          retrieve: [
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [112, [33, '', true], 16],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        }
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe(7)
+      })
+
+      it('on aggregation tally stage', () => {
+        const historyCheckpoint = {
+          rad: {
+            timelock: 0,
+            retrieve: [
+              {
+                kind: 'HTTP-GET',
+                url: '',
+                contentType: 'JSON API',
+                script: [112, [33, '', true], 16, 64],
+              },
+            ],
+            aggregate: {
+              filters: [
+                [3, 1],
+                [3, 1],
+                [3, 1],
+              ],
+              reducer: 2,
+            },
+            tally: { filters: [], reducer: 2 },
+          },
+          stage: 'aggregations',
+          type: 'PUSH_OPERATOR',
+          scriptId: 9,
+        }
+        const mir = {
+          timelock: 0,
+          retrieve: [
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [112, [33, '', true], 16, 64],
+            },
+          ],
+          aggregate: {
+            filters: [
+              [3, 1],
+              [3, 1],
+            ],
+            reducer: 2,
+          },
+          tally: { filters: [], reducer: 2 },
+        }
+
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe(12)
+      })
+    })
+
+    it('DELETE_SOURCE', () => {
+      const historyCheckpoint = {
+        rad: {
+          timelock: 0,
+          retrieve: [
+            { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        },
+        stage: 'sources',
+        type: 'DELETE_SOURCE',
+        index: 5,
+      }
+      const mir = {
+        timelock: 0,
+        retrieve: [
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [114] },
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [114] },
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [114] },
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [114] },
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [114] },
+        ],
+        aggregate: { filters: [], reducer: 2 },
+        tally: { filters: [], reducer: 2 },
+      }
+
+      const markup = new Radon(mir).getMarkup()
+      const variables = {}
+      const id = calculateCurrentFocusAfterUndo(
+        historyCheckpoint,
+        markup,
+        variables,
+      )
+
+      expect(id).toBe(5)
+    })
+
+    it('ADD_SOURCE', () => {
+      const historyCheckpoint = {
+        rad: {
+          timelock: 0,
+          retrieve: [
+            { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        },
+        stage: 'sources',
+        type: 'ADD_SOURCE',
+      }
+      const mir = {
+        timelock: 0,
+        retrieve: [
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+        ],
+        aggregate: { filters: [], reducer: 2 },
+        tally: { filters: [], reducer: 2 },
+      }
+      const markup = new Radon(mir).getMarkup()
+
+      const variables = {}
+      const id = calculateCurrentFocusAfterUndo(
+        historyCheckpoint,
+        markup,
+        variables,
+      )
+
+      expect(id).toBe(0)
+    })
+
+    it('UPDATE_TEMPLATE', () => {
+      const historyCheckpoint = {
+        rad: {
+          timelock: 0,
+          retrieve: [
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [112, 34],
+            },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        },
+        stage: 'scripts',
+        type: 'UPDATE_TEMPLATE',
+        id: 11,
+        value: 'BooleanNegate',
+      }
+
+      const mir = {
+        timelock: 0,
+        retrieve: [
+          {
+            kind: 'HTTP-GET',
+            url: '',
+            contentType: 'JSON API',
+            script: [112, [33, '', true]],
+          },
+          { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [114] },
+        ],
+        aggregate: { filters: [], reducer: 2 },
+        tally: { filters: [], reducer: 2 },
+      }
+
+      const markup = new Radon(mir).getMarkup()
+      const variables = {}
+      const id = calculateCurrentFocusAfterUndo(
+        historyCheckpoint,
+        markup,
+        variables,
+      )
+
+      expect(id).toBe(11)
+    })
+
+    it('UPDATE_SOURCE', () => {
+      const historyCheckpoint = {
+        rad: {
+          timelock: 0,
+          retrieve: [
+            {
+              kind: 'HTTP-GET',
+              url: 'aaaaaaa',
+              contentType: 'JSON API',
+              script: [],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        },
+        stage: 'sources',
+        type: 'UPDATE_SOURCE',
+        index: 0,
+        source: { protocol: 'HTTP-GET', url: 'aaaaaaa' },
+      }
+      const mir = {
+        timelock: 0,
+        retrieve: [
+          {
+            kind: 'HTTP-GET',
+            url: 'aaaaaa',
+            contentType: 'JSON API',
+            script: [],
+          },
+        ],
+        aggregate: { filters: [], reducer: 2 },
+        tally: { filters: [], reducer: 2 },
+      }
+
+      const markup = new Radon(mir).getMarkup()
+      const variables = {}
+      const id = calculateCurrentFocusAfterUndo(
+        historyCheckpoint,
+        markup,
+        variables,
+      )
+
+      expect(id).toBe(0)
+    })
+
+    // it('UPDATE_VARIABLE', () => {})
+    // it('ADD_VARIABLE', () => {})
+    // it('DELETE_VARIABLE', () => {})
   })
 })

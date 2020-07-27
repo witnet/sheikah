@@ -19,6 +19,7 @@
       </el-tooltip>
       <p data-test="operator-label" class="label">Operator</p>
       <Select
+        ref="operator"
         data-test="operator"
         type="operator"
         :value="selectedOption"
@@ -140,6 +141,7 @@ export default {
   computed: {
     ...mapState({
       variables: state => state.rad.currentTemplate.variables,
+      currentFocus: state => state.rad.currentFocus,
     }),
     radonError() {
       return this.outputLabel === 'error' || !this.operatorOutput
@@ -202,10 +204,27 @@ export default {
       })
     },
   },
-  mounted() {
+  watch: {
+    async currentFocus(val) {
+      if ((val || Number.isInteger(val)) && val === this.operator.id) {
+        await this.$nextTick()
+        this.scrollToCurrentFocus()
+      }
+    },
+  },
+  async mounted() {
     this.selectedOperator.arguments.forEach(arg => {
       this.variableName = arg.value
     })
+
+    if (
+      (this.currentFocus || Number.isInteger(this.currentFocus)) &&
+      this.currentFocus === this.operator.id
+    ) {
+      await this.$nextTick()
+
+      this.scrollToCurrentFocus()
+    }
   },
   methods: {
     ...mapMutations({
@@ -275,6 +294,10 @@ export default {
         id,
         value: getNativeValueFromMarkupArgumentType(value, type),
       })
+    },
+    scrollToCurrentFocus() {
+      this.$refs.operator.$el.scrollIntoView()
+      this.$store.commit('clearCurrentFocus')
     },
   },
 }

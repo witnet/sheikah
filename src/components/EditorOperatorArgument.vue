@@ -6,6 +6,7 @@
       class="input-container"
     >
       <el-input
+        :ref="argument.id"
         :maxlength="60"
         class="input-operator"
         :placeholder="argument.label"
@@ -34,6 +35,7 @@
       class="select-argument"
     >
       <Select
+        :ref="argument.id"
         :value="selectedArgumentValue"
         :options="argumentOptions"
         @input="
@@ -55,6 +57,7 @@
         class="input-container"
       >
         <el-input
+          :ref="argument.selected.arguments[0].id"
           class="input-operator"
           data-test="argument-input"
           :placeholder="argument.selected.arguments[0].label"
@@ -143,6 +146,7 @@ export default {
   },
   computed: {
     ...mapState({
+      currentFocus: state => state.rad.currentFocus,
       variables: state => state.rad.currentTemplate.variables,
     }),
     subscript() {
@@ -206,7 +210,28 @@ export default {
       return false
     },
   },
+  watch: {
+    async currentFocus(val) {
+      if ((val || Number.isInteger(val)) && this.$refs[val]) {
+        await this.$nextTick()
+
+        this.scrollToCurrentFocus()
+      }
+    },
+  },
+  mounted() {
+    if (
+      (this.currentFocus || Number.isInteger(this.currentFocus)) &&
+      this.$refs[this.currentFocus]
+    ) {
+      this.scrollToCurrentFocus()
+    }
+  },
   methods: {
+    scrollToCurrentFocus() {
+      this.$refs[this.currentFocus].$el.scrollIntoView()
+      this.$store.commit('clearCurrentFocus')
+    },
     // FIXME(#19): fix update select argument in radon.js library
     updateTemplateAndVariables(value) {
       this.$emit('update', value)

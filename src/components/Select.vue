@@ -1,5 +1,9 @@
 <template>
-  <div @keydown.tab="tabKeyPressed = true" @blur.capture="handleBlur">
+  <div
+    tabindex="0"
+    @keydown.tab="tabKeyPressed = true"
+    @blur.capture="handleBlur"
+  >
     <div class="select-box" :class="{ disabled }">
       <button
         id="select-button"

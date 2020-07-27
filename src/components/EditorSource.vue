@@ -80,7 +80,6 @@ export default {
     },
   },
   data() {
-    console.log('this.protocol', this.protocol)
     return {
       currentProtocol: { primaryText: this.protocol || 'HTTP-GET' },
       currentContentType: { primaryText: this.contentType || 'JSON API' },
@@ -148,6 +147,17 @@ export default {
           },
         })
       },
+    },
+  },
+  watch: {
+    url(val) {
+      this.currentUrl = val
+    },
+    protocol(val) {
+      this.currentProtocol = val
+    },
+    contentType(val) {
+      this.currentContentType = val
     },
   },
   methods: {
