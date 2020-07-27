@@ -5,6 +5,7 @@
         <EditorSource
           v-for="(source, index) in sources"
           :key="index"
+          :ref="`source-${index}`"
           class="source"
           :url="source.url"
           :protocol="source.kind"
@@ -86,7 +87,34 @@ export default {
       sources: state => {
         return state.rad.radRequest.getMarkup().retrieve
       },
+      currentFocus: state => state.rad.currentFocus,
     }),
+  },
+  watch: {
+    async currentFocus(val, oldVal) {
+      if (val || Number.isInteger(val)) {
+        // wait to render deleted stage
+        await this.$nextTick()
+
+        const refs = this.$refs[`source-${val}`]
+        if (refs && refs.length) {
+          await this.$nextTick()
+
+          refs[0].$el.scrollIntoView()
+          this.$store.commit('clearCurrentFocus')
+        }
+      }
+    },
+  },
+  async mounted() {
+    const refs = this.$refs[`source-${this.currentFocus}`]
+
+    if (refs && refs.length) {
+      await this.$nextTick()
+
+      refs[0].$el.scrollIntoView()
+      this.$store.commit('clearCurrentFocus')
+    }
   },
   methods: {
     ...mapMutations({

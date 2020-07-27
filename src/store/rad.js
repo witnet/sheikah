@@ -25,6 +25,17 @@ import {
   SET_CURRENT_STAGE,
 } from '@/store/mutation-types'
 import Vue from 'vue'
+const HISTORY_UPDATE_TYPE = {
+  DELETE_OPERATOR: 'DELETE_OPERATOR',
+  PUSH_OPERATOR: 'PUSH_OPERATOR',
+  DELETE_SOURCE: 'DELETE_SOURCE',
+  ADD_SOURCE: 'ADD_SOURCE',
+  UPDATE_TEMPLATE: 'UPDATE_TEMPLATE',
+  UPDATE_SOURCE: 'UPDATE_SOURCE',
+  UPDATE_VARIABLE: 'UPDATE_VARIABLE',
+  ADD_VARIABLE: 'ADD_VARIABLE',
+  DELETE_VARIABLE: 'DELETE_VARIABLE'
+}
 
 export default {
   state: {
@@ -36,7 +47,6 @@ export default {
     currentTemplate: {},
     currentRadonMarkupInterpreter: null,
     currentStage: EDITOR_STAGES.SETTINGS,
-    stageHistory: [],
     radRequest: {},
     history: [],
     historyIndex: 0,
@@ -46,6 +56,7 @@ export default {
     subscriptIds: [],
     autoTry: false,
     dataRequestChangedSinceSaved: false,
+    currentFocus: null,
   },
   getters: {
     currentTemplate: state => {
@@ -109,14 +120,20 @@ export default {
         }
         state.currentTemplate.variables = [...state.currentTemplate.variables]
       }
+
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.UPDATE_VARIABLE,
+        info: { index },
       })
     },
     [DELETE_VARIABLE](state, { index }) {
       state.currentTemplate.variables.splice(index, 1)
+
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.DELETE_VARIABLE,
+        info: { index },
       })
     },
     [CREATE_VARIABLE](state) {
@@ -128,8 +145,11 @@ export default {
         description: '',
         type: 'String',
       })
+
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.DELETE_VARIABLE,
+        info: { },
       })
     },
     [USED_VARIABLES](state, { id, variable, value }) {
@@ -153,42 +173,76 @@ export default {
     },
     [CLEAR_HISTORY](state) {
       state.history = []
-      state.stageHistory = []
       state.historyIndex = 0
     },
-    [UPDATE_HISTORY](state, { mir }) {
-      state.dataRequestChangedSinceSaved = true
-      state.stageHistory.push(state.currentStage)
-      state.history.push(mir)
+    [UPDATE_HISTORY](state, { mir, type, info = {} }) {
+      state.history.push({ rad: mir, stage: state.currentStage, type, ...info })
       state.historyIndex += 1
       state.history.splice(state.historyIndex + 1)
-      state.stageHistory.splice(state.historyIndex + 1)
+
+      this.dispatch('saveTemplate')
+
+      if (state.autoTry) {
+        this.dispatch('tryDataRequest', { root: true })
+      }
     },
     [UPDATE_TEMPLATE](state, { id, value }) {
       state.currentRadonMarkupInterpreter.update(id, value)
-      state.radRequest = state.currentRadonMarkupInterpreter
+
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE,
+        info: { id, value },
       })
+
+      state.radRequest = state.currentRadonMarkupInterpreter
     },
     [EDITOR_REDO](state) {
       if (state.history[state.historyIndex + 1]) {
         state.historyIndex += 1
-        state.currentRadonMarkupInterpreter = new Radon(
-          state.history[state.historyIndex],
+
+        const currentHistoryCheckpoint = state.history[state.historyIndex]
+        const { rad, stage } = currentHistoryCheckpoint
+
+        state.currentRadonMarkupInterpreter = new Radon(rad)
+
+        state.currentFocus = calculateCurrentFocusAfterRedo(
+          currentHistoryCheckpoint,
+          state.currentRadonMarkupInterpreter.getMarkup(),
         )
-        state.currentStage = state.stageHistory[state.historyIndex]
+
+        state.currentStage = stage
         state.radRequest = state.currentRadonMarkupInterpreter
+
+        if (state.autoTry) {
+          this.dispatch('tryDataRequest', { root: true })
+        }
       }
+    },
+    clearCurrentFocus(state) {
+      state.currentFocus = null
     },
     [EDITOR_UNDO](state) {
       if (state.history[state.historyIndex - 1]) {
         state.historyIndex = state.historyIndex - 1
-        state.currentRadonMarkupInterpreter = new Radon(
-          state.history[state.historyIndex],
+
+        const { rad } = state.history[state.historyIndex]
+        const previousHistoryCheckpoint = state.history[state.historyIndex + 1]
+
+        state.currentRadonMarkupInterpreter = new Radon(rad)
+        state.currentStage = previousHistoryCheckpoint.stage
+
+        state.currentFocus = null
+        state.currentFocus = calculateCurrenFocusAfterUndo(
+          previousHistoryCheckpoint,
+          state.currentRadonMarkupInterpreter.getMarkup(),
         )
-        state.currentStage = state.stageHistory[state.historyIndex]
+
         state.radRequest = state.currentRadonMarkupInterpreter
+
+        if (state.autoTry) {
+          this.dispatch('tryDataRequest', { root: true })
+        }
       }
     },
     [MOVE_CAROUSEL](state, { direction }) {
@@ -210,6 +264,8 @@ export default {
       state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.UPDATE_SOURCE,
+        info: { index, source },
       })
     },
     [DELETE_SOURCE](state, { index }) {
@@ -217,6 +273,8 @@ export default {
       state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.DELETE_SOURCE,
+        info: { index },
       })
     },
     [ADD_SOURCE](state) {
@@ -225,6 +283,7 @@ export default {
       state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.ADD_SOURCE,
       })
     },
     [SET_TEMPLATES](state, { templates }) {
@@ -237,6 +296,8 @@ export default {
       state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.PUSH_OPERATOR,
+        info: { scriptId },
       })
     },
     [CREATE_TEMPLATE](state) {
@@ -290,8 +351,12 @@ export default {
 
         state.currentRadonMarkupInterpreter = new Radon(radRequest)
         state.radRequest = state.currentRadonMarkupInterpreter
-        state.history = [state.currentRadonMarkupInterpreter.getMir()]
-        state.stageHistory = [EDITOR_STAGES.SETTINGS]
+        state.history = [
+          {
+            rad: state.currentRadonMarkupInterpreter.getMir(),
+            stage: EDITOR_STAGES.SETTINGS,
+          },
+        ]
       } else {
         createNotification({
           title: `Invalid data request template`,
@@ -305,14 +370,20 @@ export default {
       state.currentTemplate = template
       state.currentRadonMarkupInterpreter = new Radon(template.radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter
-      state.history = [state.currentRadonMarkupInterpreter.getMir()]
-      state.stageHistory = [EDITOR_STAGES.SETTINGS]
+      state.history = [
+        {
+          rad: state.currentRadonMarkupInterpreter.getMir(),
+          stage: EDITOR_STAGES.SETTINGS,
+        },
+      ]
     },
     [DELETE_OPERATOR](state, { scriptId, operatorId }) {
       state.currentRadonMarkupInterpreter.deleteOperator(scriptId, operatorId)
       state.radRequest = state.currentRadonMarkupInterpreter
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.DELETE_OPERATOR,
+        info: { scriptId, operatorId },
       })
     },
     renameTemplate: function(state, { id, name }) {
@@ -471,4 +542,72 @@ export default {
       }
     },
   },
+}
+
+function calculateCurrenFocusAfterUndo(previousHistoryCheckpoint, markup) {
+  const { stage, type, scriptId, index, id } = previousHistoryCheckpoint
+  const markupRetrieve = markup.retrieve
+
+  if (
+    type === HISTORY_UPDATE_TYPE.DELETE_OPERATOR ||
+    type === HISTORY_UPDATE_TYPE.PUSH_OPERATOR
+  ) {
+    if (stage === EDITOR_STAGES.SCRIPTS) {
+      const scriptIdIndex = markupRetrieve.findIndex(
+        source => source.scriptId === scriptId,
+      )
+      const script = markupRetrieve[scriptIdIndex].script
+      const lastOperator = script[script.length - 1]
+
+      return lastOperator ? lastOperator.id : 'void'
+    } else {
+      const filters =
+        markup[stage === 'aggregations' ? 'aggregate' : 'tally'].filters
+      const lastOperator = filters[filters.length - 1]
+
+      return lastOperator ? lastOperator.id : 'void'
+    }
+  } else if (type === HISTORY_UPDATE_TYPE.DELETE_SOURCE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.ADD_SOURCE) {
+    return markupRetrieve.length - 1
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE) {
+    return id
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_SOURCE) {
+    return index
+  }
+}
+
+function calculateCurrentFocusAfterRedo(currentHistoryCheckpoint, markup) {
+  const { type, stage, scriptId, index, id } = currentHistoryCheckpoint
+  const markupRetrieve = markup.retrieve
+
+  if (
+    type === HISTORY_UPDATE_TYPE.DELETE_OPERATOR ||
+    type === HISTORY_UPDATE_TYPE.PUSH_OPERATOR
+  ) {
+    if (stage === EDITOR_STAGES.SCRIPTS) {
+      const index = markupRetrieve.findIndex(
+        source => source.scriptId === scriptId,
+      )
+      const script = markupRetrieve[index].script
+      const op = script[script.length - 1]
+
+      return op ? op.id : 'void'
+    } else {
+      const filters =
+        markup[stage === 'aggregations' ? 'aggregate' : 'tally'].filters
+      const op = filters[filters.length - 1]
+
+      return op ? op.id : 'void'
+    }
+  } else if (type === HISTORY_UPDATE_TYPE.DELETE_SOURCE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.ADD_SOURCE) {
+    return markupRetrieve.length - 1
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE) {
+    return id
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_SOURCE) {
+    return index
+  }
 }
