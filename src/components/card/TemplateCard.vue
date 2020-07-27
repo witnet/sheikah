@@ -1,5 +1,5 @@
 <template>
-  <div :class="`card-layout ${style}`">
+  <div :class="`card-layout ${style}`" @click="edit">
     <div class="option-btn">
       <div class="title">
         <el-tooltip
@@ -17,7 +17,7 @@
         </div>
       </div>
       <el-dropdown @command="handleCommand">
-        <div class="button-options" split-button type="primary">
+        <div class="button-options" split-button type="primary" @click.stop>
           <img
             v-if="type === 'marketplace'"
             src="@/resources/svg/options-marketplace.svg"
@@ -50,7 +50,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <div data-test="edit-template" class="content" @click="edit">
+    <div data-test="edit-template" class="content">
       <div class="description">
         {{ cropString(description, 120) }}
       </div>
@@ -120,7 +120,6 @@ export default {
           },
         },
       ],
-      showInput: false,
       isDeployModalActivated: false,
     }
   },
@@ -143,13 +142,8 @@ export default {
       this.$emit('toggle-modal', { isModalActivated: this.isModalActivated })
     },
     edit() {
-      if (!this.showInput) {
-        this.$router.push('/request/editor')
-        this.setCurrentTemplate({ id: this.id })
-      }
-    },
-    onClose() {
-      this.showInput = false
+      this.$router.push('/request/editor')
+      this.setCurrentTemplate({ id: this.id })
     },
     handleCommand(index) {
       this.options[index].action()
@@ -202,6 +196,7 @@ export default {
 
   &:hover {
     border: 1px solid $purple-3;
+    cursor: pointer;
   }
 
   &.marketplace:hover {
@@ -235,10 +230,6 @@ export default {
 
   .content {
     align-self: flex-start;
-
-    &:hover {
-      cursor: pointer;
-    }
 
     .description {
       color: $grey-5;
