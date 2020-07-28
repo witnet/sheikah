@@ -93,7 +93,7 @@ export default {
     },
     subscriptResults() {
       return this.radRequestResult
-        ? this.radRequestResult.result.retrieve[0].metadata.Retrieval
+        ? this.radRequestResult.result.retrieve[0].context.stage.Retrieval
             .subscript_partial_results
         : null
     },

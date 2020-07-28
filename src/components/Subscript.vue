@@ -31,8 +31,8 @@
           :subscript="true"
           :operatorOutput="
             subscriptPartialResults &&
-            subscriptPartialResults[subscriptIndex][index]
-              ? subscriptPartialResults[subscriptIndex][index][0]
+            subscriptPartialResults[subscriptIndex][index + 1]
+              ? subscriptPartialResults[subscriptIndex][index + 1][0]
               : null
           "
           :error="radonError"
@@ -74,7 +74,7 @@ export default {
   },
   computed: {
     ...mapState({
-      subscriptIds: state => state.uiInteractions.subscriptIds,
+      subscriptIds: state => state.rad.subscriptIds,
     }),
     subscriptIndex() {
       return this.subscriptIds.findIndex(id => id === this.subscriptId)

@@ -1,9 +1,9 @@
 <template>
   <!--  Emit click event to indicate a new address should be created -->
   <el-tooltip content="Generate new address" placement="right" effect="light">
-    <el-button ref="btn" class="card" @click="$emit('click')">
+    <button ref="btn" class="card" @click="$emit('click')">
       <font-awesome-icon class="icon" icon="plus" />
-    </el-button>
+    </button>
   </el-tooltip>
 </template>
 

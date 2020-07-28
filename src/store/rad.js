@@ -43,6 +43,7 @@ export default {
     moveCarousel: false,
     variablesIndex: 0,
     hasVariables: false,
+    subscriptIds: [],
   },
   getters: {
     currentTemplate: state => {
@@ -53,6 +54,12 @@ export default {
     },
   },
   mutations: {
+    setSubscriptId: function(state, { id }) {
+      state.subscriptIds.push(id)
+    },
+    clearSubscriptIds: function(state) {
+      state.subscriptIds = []
+    },
     [SET_CURRENT_STAGE](state, { stage }) {
       state.currentStage = stage
     },

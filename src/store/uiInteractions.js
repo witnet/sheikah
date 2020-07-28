@@ -3,7 +3,6 @@ export default {
     receiveTransactionClicked: false,
     generateAddressLoading: false,
     generateRadRequestResultLoading: false,
-    subscriptIds: [],
   },
   mutations: {
     receiveTransactionClicked: function(state) {
@@ -20,12 +19,6 @@ export default {
     },
     clearGenerateAddressLoading: function(state) {
       state.generateAddressLoading = false
-    },
-    setSubscriptId: function(state, { id }) {
-      state.subscriptIds.push(id)
-    },
-    clearSubscriptIds: function(state) {
-      state.subscriptIds = []
     },
     clearGenerateRadRequestResultLoading: function(state) {
       state.generateRadRequestResultLoading = false
