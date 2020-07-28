@@ -9,7 +9,7 @@
       />
       <AddressInformation
         v-if="selectedAddress"
-        :pkh="selectedAddress.pkh"
+        :address="selectedAddress.address"
         :index="selectedIndex"
         :used="selectedAddress.used"
         :amount="selectedAddress.receivedAmount"
@@ -64,7 +64,7 @@ export default {
     selectedAddress() {
       return this.selectedIndex >= 0
         ? this.addresses[this.selectedIndex]
-        : { pkh: '', used: false }
+        : { address: '', used: false }
     },
   },
   watch: {
@@ -119,7 +119,7 @@ export default {
 
 ```jsx
   <Addresses :addresses="[{
-    pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+    address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
     index: 0,
     used: false,
     receivedAmount: 5000,
@@ -128,7 +128,7 @@ export default {
     payments: 0,
   },
   {
-    pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
+    address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
     index: 0,
     used: true,
     receivedAmount: 5000,

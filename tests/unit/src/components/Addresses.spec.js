@@ -9,7 +9,7 @@ describe('Addresses.vue', () => {
         propsData: {
           addresses: [
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
               receivedAmount: 5000,
@@ -19,7 +19,7 @@ describe('Addresses.vue', () => {
               payments: 0,
             },
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: true,
               receivedAmount: 5000,
@@ -55,7 +55,7 @@ describe('Addresses.vue', () => {
         propsData: {
           addresses: [
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
               receivedAmount: 5000,
@@ -65,7 +65,7 @@ describe('Addresses.vue', () => {
               payments: 0,
             },
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: true,
               receivedAmount: 5000,
@@ -102,7 +102,7 @@ describe('Addresses.vue', () => {
         propsData: {
           addresses: [
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
               receivedAmount: 5000,
@@ -112,7 +112,7 @@ describe('Addresses.vue', () => {
               payments: 0,
             },
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: true,
               receivedAmount: 5000,
@@ -151,7 +151,7 @@ describe('Addresses.vue', () => {
         propsData: {
           addresses: [
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
               receivedAmount: 5000,
@@ -161,7 +161,7 @@ describe('Addresses.vue', () => {
               payments: 0,
             },
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: true,
               receivedAmount: 5000,

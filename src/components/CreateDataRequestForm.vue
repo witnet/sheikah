@@ -198,6 +198,8 @@ export default {
 @import '@/styles/theme.scss';
 
 .deploy-form {
+  padding-right: 24px;
+
   .submit {
     margin-top: 32px;
     text-align: right;

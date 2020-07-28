@@ -3,7 +3,7 @@
     <DotsLoading size="10px" />
   </div>
 
-  <div v-else-if="pkh" class="information">
+  <div v-else-if="address" class="information">
     <div class="header">
       <p class="caption">
         Address <span class="number">#{{ index + 1 }}</span>
@@ -29,8 +29,7 @@
         </div>
       </el-tooltip>
     </div>
-
-    <p v-if="pkh" class="pkh">{{ used ? blindPkh : pkh }}</p>
+    <p v-if="address" class="address">{{ used ? blindAddress : address }}</p>
 
     <div v-if="!used" class="transactions">
       <Tag class="tag" color="green" text="NOT USED" />
@@ -89,9 +88,9 @@ export default {
       default: false,
     },
     /**
-     * Pkh of the selected address
+     * selected address
      */
-    pkh: {
+    address: {
       type: String,
       default: '',
     },
@@ -136,16 +135,16 @@ export default {
     }
   },
   computed: {
-    blindPkh() {
-      const start = this.pkh.slice(0, 20)
-      const end = this.pkh.slice(-16)
+    blindAddress() {
+      const start = this.address.slice(0, 20)
+      const end = this.address.slice(-16)
 
       return start + ' ... ' + end
     },
   },
   methods: {
     copy() {
-      copyToClipboard(this.pkh)
+      copyToClipboard(this.address)
       this.copied = true
       setTimeout(() => {
         this.copied = false
@@ -230,7 +229,7 @@ export default {
     }
   }
 
-  .pkh {
+  .address {
     color: $alt-grey-5;
     font-family: 'Roboto Mono';
     font-size: 12px;
@@ -282,7 +281,7 @@ export default {
     :style="{ width: '350px' }"
     :index="0"
     :used="false"
-    pkh="twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft"
+    address="twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft"
     :amount="5000"
     :firstPaymentDate="new Date()"
     :lastPaymentDate="new Date()"

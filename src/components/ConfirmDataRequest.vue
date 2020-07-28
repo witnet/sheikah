@@ -1,55 +1,30 @@
 <template>
-  <el-form
-    ref="form"
-    label-position="left"
-    class="deploy-form"
-    label-width="200px"
-  >
-    <el-form-item label="Witnesses" prop="witnesses">
-      <el-input v-model.number="witnesses" disabled></el-input>
-    </el-form-item>
-
-    <el-form-item label="Min Consensus Percentage">
-      <el-input v-model.number="minConsensusPercentage" disabled></el-input>
-    </el-form-item>
-
-    <el-form-item label="Data request fee">
-      <el-input v-model.number="fee" disabled></el-input>
-    </el-form-item>
-
-    <el-form-item label="Reward fee">
-      <el-input v-model.number="rewardFee" disabled></el-input>
-    </el-form-item>
-
-    <el-form-item label="Commit fee">
-      <el-input v-model.number="commitFee" disabled></el-input>
-    </el-form-item>
-
-    <el-form-item label="Reveal fee">
-      <el-input v-model.number="revealFee" disabled></el-input>
-    </el-form-item>
-
-    <el-form-item label="Tally fee">
-      <el-input v-model.number="tallyFee" disabled></el-input>
-    </el-form-item>
-
-    <div class="submit">
-      <el-button @click="goBack">Back</el-button>
-      <el-button
-        data-test="sign-send-btn"
-        type="primary"
-        @keydown.enter.esc.prevent="confirmDataRequest"
-        @click="confirmDataRequest"
-      >
-        Deploy
-      </el-button>
-    </div>
+  <el-form ref="form" label-position="left" label-width="200px">
+    <FormInformation
+      :commitFee="commitFee"
+      :fee="fee"
+      :minConsensusPercentage="minConsensusPercentage"
+      :revealFee="revealFee"
+      :rewardFee="rewardFee"
+      :tallyFee="tallyFee"
+      :witnesses="witnesses"
+      :timelock="timelock"
+      :generatedTransaction="generatedTransaction"
+      type="DataRequest"
+      @close-clear="goBack"
+      @send="confirmDataRequest"
+    />
   </el-form>
 </template>
 
 <script>
+import FormInformation from '@/components/FormInformation.vue'
+
 export default {
   name: 'ConfirmDataRequest',
+  components: {
+    FormInformation,
+  },
   props: {
     commitFee: {
       type: Number,

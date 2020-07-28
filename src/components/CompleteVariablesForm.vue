@@ -101,6 +101,7 @@ export default {
 
 .variables-container {
   overflow-y: auto;
+  padding-right: 24px;
 
   .variable {
     align-items: center;

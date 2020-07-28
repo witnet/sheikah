@@ -16,7 +16,7 @@ describe('AddressInformation.vue', () => {
         propsData: {
           used: true,
           index: 0,
-          pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+          address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
           unit: 'nanoWit',
           amount: 100,
           payments: 2,
@@ -46,7 +46,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: true,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -73,7 +73,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: true,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -84,7 +84,7 @@ describe('AddressInformation.vue', () => {
         expect(wrapper.find('.copy').exists()).toBe(false)
       })
 
-      it('should render hidden pkh', () => {
+      it('should render hidden address', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
@@ -100,7 +100,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: true,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -108,7 +108,7 @@ describe('AddressInformation.vue', () => {
           },
         })
 
-        expect(wrapper.find('.pkh').text()).toBe(
+        expect(wrapper.find('.address').text()).toBe(
           'twit1270yg7pkm2w9mlq ... wph3flrp862zw0ft',
         )
       })
@@ -120,7 +120,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: true,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -152,7 +152,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: true,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -193,7 +193,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: true,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -227,7 +227,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: false,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -238,7 +238,7 @@ describe('AddressInformation.vue', () => {
         expect(wrapper.find('.tag').classes('green')).toBe(true)
       })
 
-      it('should render pkh', () => {
+      it('should render address', () => {
         const date1 = new Date()
         const date2 = new Date()
         const wrapper = mount(AddressInformation, {
@@ -254,7 +254,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: false,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,
@@ -262,7 +262,7 @@ describe('AddressInformation.vue', () => {
           },
         })
 
-        expect(wrapper.find('.pkh').text()).toBe(
+        expect(wrapper.find('.address').text()).toBe(
           'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
         )
       })
@@ -283,7 +283,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: false,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 0,
             firstPaymentDate: date1,
@@ -315,7 +315,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: false,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 0,
             firstPaymentDate: date1,
@@ -342,7 +342,7 @@ describe('AddressInformation.vue', () => {
           propsData: {
             used: false,
             index: 0,
-            pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+            address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
             amount: 100,
             payments: 2,
             firstPaymentDate: date1,

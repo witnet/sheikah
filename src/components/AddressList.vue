@@ -103,7 +103,7 @@ export default {
   <AddressList
     :style="{ width: '350px' }"
     :addresses="[ {
-      pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+      address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
       index: 0,
       used: false,
       amount: 5000,
@@ -113,7 +113,7 @@ export default {
       payments: 0,
     },
     {
-      pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
+      address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
       index: 0,
       used: false,
       amount: 5000,

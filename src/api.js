@@ -228,7 +228,7 @@ export function standardizeAddresses(response) {
         lastPaymentDate: new Date(Number(info.last_payment_date + '000')),
         firstPaymentDate: new Date(Number(info.first_payment_date + '000')),
         index: address.index,
-        pkh: address.pkh,
+        address: address.address,
         used: info.received_payments.length > 0,
       }
     })

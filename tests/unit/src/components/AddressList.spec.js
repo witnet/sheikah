@@ -19,7 +19,7 @@ describe('AddressList.vue', () => {
           addresses: [
             {
               used: false,
-              pkh: 'twit1pa6hu345psdc48klzrxx2v2vetgax729dwrcgl',
+              address: 'twit1pa6hu345psdc48klzrxx2v2vetgax729dwrcgl',
             },
           ],
           selected: 0,
@@ -43,7 +43,7 @@ describe('AddressList.vue', () => {
         propsData: {
           addresses: [
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
               amount: 5000,
@@ -53,7 +53,7 @@ describe('AddressList.vue', () => {
               payments: 0,
             },
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: false,
               amount: 5000,
@@ -86,7 +86,7 @@ describe('AddressList.vue', () => {
         propsData: {
           addresses: [
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
               amount: 5000,
@@ -96,7 +96,7 @@ describe('AddressList.vue', () => {
               payments: 0,
             },
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: false,
               amount: 5000,
@@ -131,7 +131,7 @@ describe('AddressList.vue', () => {
         propsData: {
           addresses: [
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
               index: 0,
               used: false,
               amount: 5000,
@@ -141,7 +141,7 @@ describe('AddressList.vue', () => {
               payments: 0,
             },
             {
-              pkh: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
+              address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
               index: 0,
               used: false,
               amount: 5000,
