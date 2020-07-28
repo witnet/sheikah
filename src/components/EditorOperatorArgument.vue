@@ -47,7 +47,7 @@
       />
       <div
         v-if="
-          argument.selected.arguments &&
+          argument.selected.arguments.length > 0 &&
             argument.selected.arguments[0].markupType === 'input'
         "
         data-test="select-argument"
@@ -82,7 +82,7 @@
       </div>
       <div
         v-if="
-          argument.selected.arguments &&
+          argument.selected.arguments.length > 0 &&
             argument.selected.arguments[0].markupType === 'script'
         "
         class="subscripts"

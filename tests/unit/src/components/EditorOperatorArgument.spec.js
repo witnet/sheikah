@@ -132,6 +132,7 @@ describe('RadonOperator.vue', () => {
             },
           ],
           selected: {
+            arguments: [],
             hierarchicalType: 'selectedOperatorOption',
             label: 'greaterThan',
             outputType: 'filterOutput',
