@@ -151,11 +151,12 @@ export default {
     activeOptionIndex() {
       // TODO(#856): implement find for operator select, wait till the Radon Library is updated
       if (this.type === 'operator') {
-        return this.filteredOptions.findIndex(
-          x =>
+        return this.filteredOptions.findIndex(x => {
+          return (
             standardizeOperatorName(x.value).toLowerCase() ===
-            this.selectedOption.value.toLowerCase(),
-        )
+            this.selectedOption.value.toLowerCase()
+          )
+        })
         // return this.options.findIndex(x => standardizeOperatorName(x.value) === this.value.value)
       } else {
         return this.filteredOptions.findIndex(
@@ -251,10 +252,16 @@ export default {
       }, 500)
       this.keysSoFar += e.key
       const matchingOption = this.options.find(x =>
-        x.primaryText.toLowerCase().includes(this.keysSoFar),
+        x.primaryText
+          .toString()
+          .toLowerCase()
+          .includes(this.keysSoFar),
       )
       const matchingOptions = this.options.filter(option =>
-        option.primaryText.toLowerCase().includes(this.keysSoFar.toLowerCase()),
+        option.primaryText
+          .toString()
+          .toLowerCase()
+          .includes(this.keysSoFar.toLowerCase()),
       )
       if (matchingOption) {
         this.filteredOptions = matchingOptions
