@@ -87,12 +87,20 @@
         "
         class="subscripts"
       >
-        <Subscript :script="argument.selected.arguments[0].subscript" />
+        <Subscript
+          :subscriptId="argument.selected.arguments[0].id"
+          :script="argument.selected.arguments[0].subscript"
+          :subscriptPartialResults="subscriptPartialResults"
+        />
       </div>
     </div>
     <div v-if="argument.markupType === 'script'" class="subscripts">
       <div class="operators">
-        <Subscript :script="subscript" />
+        <Subscript
+          :subscriptId="subscript[0].id"
+          :script="subscript"
+          :subscriptPartialResults="subscriptPartialResults"
+        />
       </div>
     </div>
   </div>
@@ -115,6 +123,10 @@ export default {
     argument: {
       type: Object,
       required: true,
+    },
+    subscriptPartialResults: {
+      type: Array,
+      default: null,
     },
   },
   data() {

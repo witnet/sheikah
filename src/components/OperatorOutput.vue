@@ -4,7 +4,7 @@
       >array</p
     >
     <p class="label" data-test="label">{{ label }}</p>
-    <div v-if="!subscript" class="output-box">
+    <div class="output-box">
       <!-- Partial result of the operator -->
       <div v-if="loading">
         <DotsLoading size="5px" color="#8280a4" margin="0" />
@@ -89,7 +89,7 @@ export default {
       default: '',
     },
     output: {
-      type: Object,
+      type: [Object, Array],
       default: () => {},
     },
     subscript: {

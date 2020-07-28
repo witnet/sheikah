@@ -58,6 +58,7 @@
           :source-index="sourceIndex"
           :show-output-type="index !== script.length - 1"
           :operatorOutput="partialResults ? partialResults[index + 1] : null"
+          :subscriptPartialResults="subscriptPartialResults"
           :error="radonError"
           @add-operator="addOperator"
           @delete-operator="removeOperator(operator.scriptId, operator.id)"
@@ -109,7 +110,11 @@ export default {
     },
     partialResults: {
       type: [Array, Object],
-      default: () => [],
+      default: null,
+    },
+    subscriptPartialResults: {
+      type: [Array, Object],
+      default: null,
     },
     finalResult: {
       type: Object,

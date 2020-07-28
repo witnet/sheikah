@@ -34,6 +34,7 @@
         <EditorOperatorArgument
           v-for="(argument, index) in selectedOperatorArguments"
           :key="argument.label + index"
+          :subscriptPartialResults="subscriptPartialResults"
           :argument="argument"
           @update="value => updateArgumentsAndVariables(value)"
         />
@@ -115,6 +116,10 @@ export default {
     },
     error: {
       type: String,
+      default: null,
+    },
+    subscriptPartialResults: {
+      type: Array,
       default: null,
     },
     operatorOutput: {

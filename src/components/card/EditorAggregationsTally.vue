@@ -60,11 +60,11 @@ export default {
     },
     finalResult: {
       type: Object,
-      default: () => {},
+      default: null,
     },
     results: {
       type: Array,
-      default: () => [],
+      default: null,
     },
   },
   computed: {

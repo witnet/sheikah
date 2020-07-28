@@ -29,6 +29,12 @@
           :script-id="scriptId"
           :show-output-type="index !== script.length - 1"
           :subscript="true"
+          :operatorOutput="
+            subscriptPartialResults &&
+            subscriptPartialResults[subscriptIndex][index]
+              ? subscriptPartialResults[subscriptIndex][index][0]
+              : null
+          "
           :error="radonError"
           :hideDelete="index === 0"
           @add-operator="addOperator"
@@ -41,7 +47,7 @@
 
 <script>
 import { PUSH_OPERATOR, DELETE_OPERATOR } from '@/store/mutation-types'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Subscript',
@@ -57,8 +63,22 @@ export default {
       type: Number,
       default: 2,
     },
+    subscriptPartialResults: {
+      type: Array,
+      default: null,
+    },
+    subscriptId: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
+    ...mapState({
+      subscriptIds: state => state.uiInteractions.subscriptIds,
+    }),
+    subscriptIndex() {
+      return this.subscriptIds.findIndex(id => id === this.subscriptId)
+    },
     emptyScript() {
       return this.script.length < 1
     },
@@ -68,11 +88,19 @@ export default {
         : null
     },
   },
+  created() {
+    this.setSubscriptId({ id: this.subscriptId })
+  },
+  beforeDestroy() {
+    this.clearSubscriptIds()
+  },
   methods: {
     ...mapMutations({
       pushOperator: PUSH_OPERATOR,
       deleteOperator: DELETE_OPERATOR,
       clearDataRequestResult: 'clearDataRequestResult',
+      setSubscriptId: 'setSubscriptId',
+      clearSubscriptIds: 'clearSubscriptIds',
     }),
     removeOperator(scriptId, operatorId) {
       this.deleteOperator({ scriptId, operatorId })

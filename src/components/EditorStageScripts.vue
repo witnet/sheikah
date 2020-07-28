@@ -8,6 +8,7 @@
           class="script"
           :source="source"
           :results="results ? results[index].partial_results : null"
+          :subscriptResults="subscriptResults"
           :finalResult="finalResult[index]"
         />
       </div>
@@ -89,6 +90,12 @@ export default {
     }),
     sources() {
       return this.script.map((operator, index) => ({ ...operator, index }))
+    },
+    subscriptResults() {
+      return this.radRequestResult
+        ? this.radRequestResult.result.retrieve[0].metadata.Retrieval
+            .subscript_partial_results
+        : null
     },
     results() {
       return this.radRequestResult

@@ -120,7 +120,7 @@ export default {
   props: {
     partialResults: {
       type: Array,
-      default: () => [],
+      default: null,
     },
     sourceIndex: {
       default: null,

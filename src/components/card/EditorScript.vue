@@ -9,6 +9,7 @@
         :source-index="source.index"
         :script-id="source.scriptId"
         :partialResults="results"
+        :subscriptPartialResults="subscriptResults"
         :finalResult="finalResult"
       />
     </Card>
@@ -32,13 +33,17 @@ export default {
       type: Object,
       required: true,
     },
+    subscriptResults: {
+      type: Array,
+      default: null,
+    },
     results: {
       type: Array,
-      default: () => [],
+      default: null,
     },
     finalResult: {
       type: Object,
-      default: () => {},
+      default: null,
     },
   },
   computed: {
