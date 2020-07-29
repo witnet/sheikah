@@ -30,12 +30,10 @@
           :show-output-type="index !== script.length - 1"
           :subscript="true"
           :operatorOutput="
-            subscriptPartialResults &&
-            subscriptPartialResults[subscriptIndex][index + 1]
+            subscriptPartialResults && subscriptPartialResults[subscriptIndex]
               ? subscriptPartialResults[subscriptIndex][index + 1][0]
               : null
           "
-          :error="radonError"
           :hideDelete="index === 0"
           @add-operator="addOperator"
           @delete-operator="removeOperator(operator.scriptId, operator.id)"
@@ -75,17 +73,13 @@ export default {
   computed: {
     ...mapState({
       subscriptIds: state => state.rad.subscriptIds,
+      radRequestResult: state => state.rad.radRequestResult,
     }),
     subscriptIndex() {
       return this.subscriptIds.findIndex(id => id === this.subscriptId)
     },
     emptyScript() {
       return this.script.length < 1
-    },
-    radonError() {
-      return this.finalResult && this.finalResult.RadonError
-        ? this.finalResult.RadonError
-        : null
     },
   },
   created() {

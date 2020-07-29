@@ -37,6 +37,7 @@
           :key="argument.label + index"
           :subscriptPartialResults="subscriptPartialResults"
           :argument="argument"
+          :error="error"
           @update="value => updateArgumentsAndVariables(value)"
         />
       </div>

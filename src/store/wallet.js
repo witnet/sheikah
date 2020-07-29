@@ -7,7 +7,6 @@ import {
   encodeDataRequest,
   isSyncEvent,
   standardizeWitUnits,
-  selectInnerError,
 } from '@/utils'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { GENERATE_ADDRESS_DELAY, WALLET_EVENTS, WIT_UNIT } from '@/constants'
@@ -120,14 +119,25 @@ export default {
       if (retrievePartialResults) {
         state.radRequestResult = { ...result, timestamp: Date.now() }
       } else {
-        const error = selectInnerError(
-          result.result.retrieve[0].result.RadonError,
-        )
-        this.commit('clearDataRequestResult')
-        createNotification({
-          title: `Error trying this data request`,
-          body: `Wrong operator: ${error}`,
-        })
+        if (state.radRequestResult) {
+          const lastUpdatedOperator =
+            state.radRequestResult.result.retrieve[0].context.call_index + 1
+          const radonError = result.result.retrieve[0].result
+          const prevRequestPartialResult =
+            state.radRequestResult.result.retrieve[0].partial_results
+          if (prevRequestPartialResult) {
+            state.radRequestResult.result.retrieve[0].result = radonError
+            state.radRequestResult.result.retrieve[0].partial_results[
+              lastUpdatedOperator
+            ] = null
+          } else {
+            state.radRequestResult = { ...result, timestamp: Date.now() }
+          }
+        } else {
+          const radonError = result.result.retrieve[0].result
+          state.radRequestResult = { ...result, timestamp: Date.now() }
+          state.radRequestResult.result.retrieve[0].result = radonError
+        }
       }
     },
     clearDataRequestResult(state) {

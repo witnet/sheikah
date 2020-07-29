@@ -133,6 +133,10 @@ export default {
       type: Array,
       default: null,
     },
+    error: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
