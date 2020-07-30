@@ -44,7 +44,7 @@
       <el-input
         class="variable-value"
         data-test="edit-var-value-input"
-        :placeholder="variable.value"
+        placeholder="The default String that this variable will take if an user does not override it"
         :value="variable.value"
         @input="
           val =>
@@ -61,7 +61,7 @@
       <el-input
         class="variable-value"
         data-test="edit-var-description-input"
-        :placeholder="variable.description"
+        placeholder="Helps users of this template understand what this variable is used for"
         :value="variable.description"
         @input="
           val =>

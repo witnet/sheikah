@@ -2,17 +2,17 @@
   <div class="info">
     <label class="label" data-test="name-label">Name</label>
     <el-input
-      v-model="updateName"
+      v-model="localName"
       data-test="template-name-input"
-      :placeholder="name"
+      placeholder="Add a template name"
     />
     <label class="label" data-test="description-label">Description</label>
     <el-input
-      v-model="updateDescription"
+      v-model="localDescription"
       type="textarea"
       :rows="3"
       data-test="template-description-input"
-      :placeholder="description"
+      placeholder="Add a description for this template"
     />
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
     },
   },
   computed: {
-    updateName: {
+    localName: {
       get() {
         return this.name
       },
@@ -44,7 +44,7 @@ export default {
         this.changeTemplateName({ id: this.id, name: newName })
       },
     },
-    updateDescription: {
+    localDescription: {
       get() {
         return this.description
       },

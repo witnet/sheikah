@@ -29,3 +29,5 @@ export const WALLET_EVENTS = {
 
 // Generate address delay in ms
 export const GENERATE_ADDRESS_DELAY = 300
+
+export const TEMPLATE_EMPTY_DESCRIPTION = 'No description provided'

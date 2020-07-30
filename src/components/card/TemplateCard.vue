@@ -52,7 +52,7 @@
     </div>
     <div data-test="edit-template" class="content">
       <div class="description">
-        {{ cropString(description, 120) }}
+        {{ cropString(localDescription, 120) }}
       </div>
     </div>
     <div v-show="style !== 'marketplace'" class="sources">
@@ -65,6 +65,7 @@
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import { cropString } from '@/utils'
 import { mapActions, mapMutations } from 'vuex'
+import { TEMPLATE_EMPTY_DESCRIPTION } from '@/constants'
 
 export default {
   name: 'TemplateCard',
@@ -126,6 +127,9 @@ export default {
   computed: {
     style() {
       return this.type
+    },
+    localDescription() {
+      return this.description || TEMPLATE_EMPTY_DESCRIPTION
     },
   },
   methods: {

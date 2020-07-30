@@ -110,8 +110,7 @@ export default {
         key: 'my_var_' + state.currentTemplate.variablesIndex,
         value:
           'The default String that this variable will take if an user does not override it',
-        description:
-          'Helps users of this template understand what this variable is used for',
+        description: '',
         type: 'String',
       })
       this.dispatch('saveTemplate')
@@ -225,13 +224,14 @@ export default {
       })
     },
     [CREATE_TEMPLATE](state) {
+      const TEMPLATE_DEFAULT_NAME = 'New template'
       const name = Object.values(state.templates).reduce(
         (acc, _, index, self) => {
-          index = parseInt(acc.split(' ')[1]) + 1
-          const name = 'template'
-          return self.find(template => template.name === acc) ? name : acc
+          const isRepeatedName = self.find(template => template.name === acc)
+
+          return isRepeatedName ? `${TEMPLATE_DEFAULT_NAME} ${index + 1}` : acc
         },
-        'template',
+        TEMPLATE_DEFAULT_NAME,
       )
 
       const radRequest = {
@@ -258,15 +258,13 @@ export default {
           creationDate: Date.now(),
           id: generateId(),
           name: name,
-          description: 'Add a description for this template',
+          description: '',
           radRequest,
           variables: [
             {
               key: 'my_var_' + 0,
-              value:
-                'The default String that this variable will take if an user does not override it',
-              description:
-                'Helps users of this template understand what this variable is used for',
+              value: '',
+              description: '',
               type: 'String',
             },
           ],
