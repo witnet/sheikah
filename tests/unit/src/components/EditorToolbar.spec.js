@@ -96,37 +96,6 @@ describe('EditorToolBar.vue', () => {
       expect(wrapper.find('[data-test="action-undo"]').isVisible()).toBe(true)
     })
 
-    it('should render save button', () => {
-      const mockEditorUndo = jest.fn()
-      const mockEditorRedo = jest.fn()
-      const mockTryDataRequest = jest.fn()
-      const mockSaveTemplate = jest.fn()
-
-      const wrapper = shallowMount(
-        EditorToolBar,
-        createComponentMocks({
-          router: true,
-          store: {
-            rad: {
-              state: {
-                currentTemplate: { name: 'Template 1' },
-              },
-              mutations: {
-                [EDITOR_UNDO]: mockEditorUndo,
-                [EDITOR_REDO]: mockEditorRedo,
-              },
-              actions: {
-                tryDataRequest: mockTryDataRequest,
-                saveTemplate: mockSaveTemplate,
-              },
-            },
-          },
-        }),
-      )
-
-      expect(wrapper.find('[data-test="action-save"]').isVisible()).toBe(true)
-    })
-
     it('should render export selection', () => {
       const mockEditorUndo = jest.fn()
       const mockEditorRedo = jest.fn()
@@ -258,41 +227,6 @@ describe('EditorToolBar.vue', () => {
       const undoButton = wrapper.find('[data-test="action-undo"]')
       await undoButton.trigger('click')
       expect(mockEditorUndo).toHaveBeenCalled()
-    })
-
-    it('save', async () => {
-      const mockEditorUndo = jest.fn()
-      const mockEditorRedo = jest.fn()
-      const mockTryDataRequest = jest.fn()
-      const mockSaveTemplate = jest.fn()
-
-      const wrapper = mount(
-        EditorToolBar,
-        createComponentMocks({
-          router: true,
-          store: {
-            rad: {
-              namespaced: false,
-              state: {
-                currentTemplate: { name: 'Template 1' },
-              },
-              mutations: {
-                [EDITOR_UNDO]: mockEditorUndo,
-                [EDITOR_REDO]: mockEditorRedo,
-              },
-              actions: {
-                tryDataRequest: mockTryDataRequest,
-                saveTemplate: mockSaveTemplate,
-              },
-            },
-          },
-        }),
-      )
-
-      const saveButton = wrapper.find('[data-test="action-save"]')
-      await saveButton.trigger('click')
-
-      expect(mockSaveTemplate).toHaveBeenCalled()
     })
 
     it('try', async () => {

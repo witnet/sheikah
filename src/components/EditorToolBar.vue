@@ -89,12 +89,6 @@ export default {
           type: 'button',
         },
         {
-          text: 'Save',
-          action: this.saveTemplate,
-          name: 'save',
-          type: 'button',
-        },
-        {
           text: 'Export as',
           action: this.exportTemplate,
           name: 'export',
@@ -152,7 +146,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['tryDataRequest', 'saveTemplate']),
+    ...mapActions(['tryDataRequest']),
     ...mapMutations({
       undo: EDITOR_UNDO,
       redo: EDITOR_REDO,

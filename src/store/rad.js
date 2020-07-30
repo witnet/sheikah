@@ -331,6 +331,9 @@ export default {
       })
       if (request.result) {
         await context.dispatch('getTemplates')
+        this.commit(SET_CURRENT_TEMPLATE, {
+          id: context.state.currentTemplate.id,
+        })
       } else {
         context.commit('setError', {
           name: 'saveItem',
@@ -350,6 +353,9 @@ export default {
       })
       if (request.result) {
         await context.dispatch('getTemplates')
+        this.commit(SET_CURRENT_TEMPLATE, {
+          id: context.state.currentTemplate.id,
+        })
       } else {
         context.commit('setError', {
           name: 'saveItem',
@@ -398,6 +404,9 @@ export default {
         })
         if (request.result) {
           await context.dispatch('getTemplates')
+          this.commit(SET_CURRENT_TEMPLATE, {
+            id: context.state.currentTemplate.id,
+          })
         } else {
           context.commit('setError', {
             name: 'saveItem',
@@ -413,7 +422,6 @@ export default {
         session_id: context.rootState.wallet.sessionId,
         key: 'templates',
       })
-
       if (request.result) {
         context.commit(SET_TEMPLATES, { templates: request.result.value })
       } else {
