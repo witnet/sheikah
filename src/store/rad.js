@@ -373,6 +373,7 @@ export default {
         const templateToSave = isImportingTemplate
           ? {
               ...args.template,
+              id: generateId(),
               creationDate: date,
               lastTimeOpened: date,
               variables: args.template.variables || [],

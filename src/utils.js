@@ -325,3 +325,11 @@ export function isValidRadRequest(dr) {
     return false
   }
 }
+
+export function deleteKey(obj, key) {
+  const newObj = { ...obj }
+
+  delete newObj[key]
+
+  return newObj
+}

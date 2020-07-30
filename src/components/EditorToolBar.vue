@@ -68,6 +68,7 @@
 import { EDITOR_REDO, EDITOR_UNDO, CLEAR_HISTORY } from '@/store/mutation-types'
 import { EDITOR_EXPORT_FORMAT } from '@/constants'
 import { mapState, mapMutations, mapActions } from 'vuex'
+import { deleteKey } from '@/utils'
 
 export default {
   name: 'EditorToolBar',
@@ -138,7 +139,7 @@ export default {
     dataStr() {
       return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
         ? `data:text/json;charset=utf-8,${encodeURIComponent(
-            JSON.stringify(this.template),
+            JSON.stringify(deleteKey(this.template, 'id')),
           )}`
         : `data:text/plain;charset=utf-8,${encodeURIComponent(
             this.radRequest.getJs(),

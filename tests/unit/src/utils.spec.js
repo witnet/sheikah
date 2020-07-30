@@ -1,6 +1,7 @@
 import {
   areSoftEqualArrays,
   calculateTimeAgo,
+  deleteKey,
   getDomainFromUrl,
   standardizeWitUnits,
 } from '@/utils'
@@ -80,7 +81,7 @@ describe('getDomainFromUrl', () => {
   })
 })
 
-describe.only('standardizeWitUnits', () => {
+describe('standardizeWitUnits', () => {
   describe('return the value in selected currency', () => {
     describe('wit', () => {
       describe('to wit', () => {
@@ -279,6 +280,31 @@ describe.only('standardizeWitUnits', () => {
           expect(result).toBe(expected)
         })
       })
+    })
+  })
+
+  describe('deleteKey', () => {
+    it('delete if the key is found', () => {
+      const result = deleteKey({ a: 'a', b: 'b', c: 'c' }, 'b')
+      const expected = { a: 'a', c: 'c' }
+
+      expect(result).toStrictEqual(expected)
+    })
+
+    it('should not change if key is not found', () => {
+      const entry = { a: 'a', b: 'b', c: 'c' }
+      const result = deleteKey(entry, 'd')
+      const expected = { a: 'a', b: 'b', c: 'c' }
+
+      expect(result).toStrictEqual(expected)
+    })
+
+    it('should not mutate the object', () => {
+      const entry = { a: 'a', b: 'b', c: 'c' }
+
+      deleteKey(entry, 'b')
+
+      expect(entry).toStrictEqual({ a: 'a', b: 'b', c: 'c' })
     })
   })
 })
