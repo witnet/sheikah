@@ -598,6 +598,7 @@ export default {
       })
     },
     tryDataRequest: async function(context) {
+      context.commit('setDataRequestChanged', { value: false }, { root: true })
       context.commit('generateRadRequestResultLoading', { root: true })
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
         const id = variable.id
