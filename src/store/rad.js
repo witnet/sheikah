@@ -45,7 +45,8 @@ export default {
     hasVariables: false,
     subscriptIds: [],
     autoTry: false,
-    dataRequestChanged: false,
+    dataRequestChangedSinceTried: false,
+    dataRequestChangedSinceSaved: false,
   },
   getters: {
     currentTemplate: state => {
@@ -62,12 +63,15 @@ export default {
     clearSubscriptIds: function(state) {
       state.subscriptIds = []
     },
-    setDataRequestChanged(state, payload) {
-      state.dataRequestChanged = payload.value
+    setDataRequestChangedSinceTried(state, payload) {
+      state.dataRequestChangedSinceTried = payload.value
+    },
+    setDataRequestChangedSinceSaved(state, payload) {
+      state.dataRequestChangedSinceSaved = payload.value
     },
     toggleTryDataRequest(state) {
       state.autoTry = !state.autoTry
-      state.dataRequestChanged = true
+      state.dataRequestChangedSinceTried = true
     },
     [SET_CURRENT_STAGE](state, { stage }) {
       state.currentStage = stage
@@ -107,11 +111,9 @@ export default {
         }
         state.currentTemplate.variables = [...state.currentTemplate.variables]
       }
-      this.dispatch('saveTemplate')
     },
     [DELETE_VARIABLE](state, { index }) {
       state.currentTemplate.variables.splice(index, 1)
-      this.dispatch('saveTemplate')
     },
     [CREATE_VARIABLE](state) {
       state.currentTemplate.variablesIndex += 1
@@ -122,7 +124,6 @@ export default {
         description: '',
         type: 'String',
       })
-      this.dispatch('saveTemplate')
     },
     [USED_VARIABLES](state, { id, variable, value }) {
       const usedVariable = state.currentTemplate.usedVariables.find(x => x.id)
@@ -150,19 +151,22 @@ export default {
     },
     [UPDATE_HISTORY](state, { mir }) {
       // activate flag to try data request
-      state.dataRequestChanged = true
+      state.dataRequestChangedSinceTried = true
+      state.dataRequestChangedSinceSaved = true
+
       state.stageHistory.push(state.currentStage)
       state.history.push(mir)
       state.historyIndex += 1
       state.history.splice(state.historyIndex + 1)
       state.stageHistory.splice(state.historyIndex + 1)
-
-      this.dispatch('saveTemplate')
-      this.dispatch('tryDataRequest', { root: true })
     },
     [UPDATE_TEMPLATE](state, { id, value }) {
       state.currentRadonMarkupInterpreter.update(id, value)
       state.radRequest = state.currentRadonMarkupInterpreter
+
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+      })
     },
     [EDITOR_REDO](state) {
       if (state.history[state.historyIndex + 1]) {
@@ -172,7 +176,6 @@ export default {
         )
         state.currentStage = state.stageHistory[state.historyIndex]
         state.radRequest = state.currentRadonMarkupInterpreter
-        this.dispatch('tryDataRequest', { root: true })
       }
     },
     [EDITOR_UNDO](state) {
@@ -183,7 +186,6 @@ export default {
         )
         state.currentStage = state.stageHistory[state.historyIndex]
         state.radRequest = state.currentRadonMarkupInterpreter
-        this.dispatch('tryDataRequest', { root: true })
       }
     },
     [MOVE_CAROUSEL](state, { direction }) {
@@ -296,7 +298,7 @@ export default {
     },
     [SET_CURRENT_TEMPLATE](state, { id }) {
       this.autoTry = false
-      this.dataRequestChanged = false
+      this.dataRequestChangedSinceTried = false
 
       const template = state.templates[id]
       state.currentTemplate = template
@@ -355,6 +357,9 @@ export default {
           message: 'An error occurred changing the template name',
         })
       }
+      context.commit('setDataRequestChangedSinceSaved', { value: true })
+      context.commit('setDataRequestChangedSinceTried', { value: true })
+
     },
     changeTemplateName: async function(context, { id, name }) {
       this.commit('renameTemplate', { id, name })
@@ -377,8 +382,12 @@ export default {
           message: 'An error occurred changing the template name',
         })
       }
+
+      context.commit('setDataRequestChangedSinceSaved', { value: true })
+      context.commit('setDataRequestChangedSinceTried', { value: true })
     },
     saveTemplate: async function(context, args) {
+      context.commit('setDataRequestChangedSinceSaved', { value: false })
       const isImportingTemplate = args ? !!args.template : null
       const date = Date.now()
       const templates = context.state.templates
