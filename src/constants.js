@@ -5,6 +5,8 @@ export const EDITOR_EXPORT_FORMAT = {
   js: 'js',
 }
 
+export const EDITOR_TRY_INTERVAL = 3000
+
 export const EDITOR_STAGES = {
   SETTINGS: 'settings',
   SOURCES: 'sources',

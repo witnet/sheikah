@@ -44,6 +44,8 @@ export default {
     variablesIndex: 0,
     hasVariables: false,
     subscriptIds: [],
+    autoTry: false,
+    dataRequestChanged: false,
   },
   getters: {
     currentTemplate: state => {
@@ -59,6 +61,13 @@ export default {
     },
     clearSubscriptIds: function(state) {
       state.subscriptIds = []
+    },
+    setDataRequestChanged(state, payload) {
+      state.dataRequestChanged = payload.value
+    },
+    toggleTryDataRequest(state) {
+      state.autoTry = !state.autoTry
+      state.dataRequestChanged = true
     },
     [SET_CURRENT_STAGE](state, { stage }) {
       state.currentStage = stage
@@ -140,6 +149,8 @@ export default {
       state.historyIndex = 0
     },
     [UPDATE_HISTORY](state, { mir }) {
+      // activate flag to try data request
+      state.dataRequestChanged = true
       state.stageHistory.push(state.currentStage)
       state.history.push(mir)
       state.historyIndex += 1
@@ -284,6 +295,9 @@ export default {
       }
     },
     [SET_CURRENT_TEMPLATE](state, { id }) {
+      this.autoTry = false
+      this.dataRequestChanged = false
+
       const template = state.templates[id]
       state.currentTemplate = template
       state.currentRadonMarkupInterpreter = new Radon(template.radRequest)
