@@ -19,7 +19,7 @@
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
-import { EDITOR_STAGES } from '@/constants'
+import { EDITOR_STAGES, EDITOR_TRY_INTERVAL } from '@/constants'
 import { SET_CURRENT_STAGE } from '@/store/mutation-types'
 import EditorToolBar from '@/components/EditorToolBar'
 import EditorStageAggregations from '@/components/EditorStageAggregations'
@@ -47,6 +47,11 @@ export default {
       EDITOR_STAGES,
       logs: [],
       showDeployDR: false,
+      tryInterval: setInterval(() => {
+        if (this.autoTry && this.dataRequestChanged) {
+          this.tryDataRequest()
+        }
+      }, EDITOR_TRY_INTERVAL),
     }
   },
   computed: {
@@ -55,7 +60,12 @@ export default {
       networkStatus: state => state.wallet.networkStatus,
       currentStage: state => state.rad.currentStage,
       currentTemplate: state => state.rad.currentTemplate,
+      autoTry: state => state.rad.autoTry,
+      dataRequestChanged: state => state.rad.dataRequestChanged,
     }),
+  },
+  beforeDestroy() {
+    this.tryInterval = null
   },
   created() {
     this.saveTemplate()
@@ -66,7 +76,7 @@ export default {
       clearError: 'clearError',
       changeStage: SET_CURRENT_STAGE,
     }),
-    ...mapActions(['saveTemplate']),
+    ...mapActions(['saveTemplate', 'tryDataRequest']),
     closeDeployModal() {
       this.showDeployDR = false
     },

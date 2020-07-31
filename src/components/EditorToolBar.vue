@@ -45,6 +45,14 @@
           </el-button>
         </el-tooltip>
 
+        <!-- TODO: improve color -->
+        <el-switch
+          v-else-if="tab.type === 'switch'"
+          v-model="autoTryDataRequest"
+          class="center"
+          active-text="Try data request"
+        ></el-switch>
+
         <el-dropdown v-else @command="handleCommand">
           <el-button type="primary" data-test="export-selection">
             {{ tab.text }} <i class="el-icon-arrow-down el-icon--right"></i>
@@ -120,7 +128,7 @@ export default {
           text: 'Try data request',
           action: this.tryDataRequest,
           name: 'try',
-          type: 'button',
+          type: 'switch',
         },
       ],
     }
@@ -129,6 +137,7 @@ export default {
     ...mapState({
       template: state => state.rad.currentTemplate,
       radRequest: state => state.rad.radRequest,
+      autoTry: state => state.rad.autoTry,
     }),
     dataStr() {
       return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
@@ -144,14 +153,22 @@ export default {
         ? 'template.json'
         : 'data_request.js'
     },
+    autoTryDataRequest: {
+      set() {
+        this.toggleTryDataRequest()
+      },
+      get() {
+        return this.autoTry
+      },
+    },
   },
   methods: {
-    ...mapActions(['tryDataRequest']),
     ...mapMutations({
       undo: EDITOR_UNDO,
       redo: EDITOR_REDO,
       clearHistory: CLEAR_HISTORY,
       clearDataRequestResult: 'clearDataRequestResult',
+      toggleTryDataRequest: 'toggleTryDataRequest',
     }),
     clear() {
       this.clearDataRequestResult()
@@ -243,6 +260,8 @@ export default {
     display: flex;
 
     .btn {
+      align-items: center;
+      display: flex;
       margin-left: 8px;
     }
   }
