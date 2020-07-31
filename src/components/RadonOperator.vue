@@ -214,7 +214,6 @@ export default {
       usedVariables: USED_VARIABLES,
     }),
     ...mapActions({
-      saveTemplate: 'saveTemplate',
       tryDataRequest: 'tryDataRequest',
     }),
     addOperator() {
@@ -266,7 +265,6 @@ export default {
         })
         this.tryDataRequest()
       }
-      this.saveTemplate()
     },
     updateOperatorAndVariables(id, value, type) {
       this.selected = {
@@ -279,8 +277,6 @@ export default {
         id,
         value: getNativeValueFromMarkupArgumentType(value, type),
       })
-      this.tryDataRequest()
-      this.saveTemplate()
     },
   },
 }
