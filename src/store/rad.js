@@ -174,7 +174,6 @@ export default {
       state.history.push({ rad: mir, stage: state.currentStage, type, ...info })
       state.historyIndex += 1
       state.history.splice(state.historyIndex + 1)
-
       this.dispatch('saveTemplate')
 
       if (state.autoTry) {
