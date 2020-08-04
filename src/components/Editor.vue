@@ -19,7 +19,7 @@
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
-import { EDITOR_STAGES, EDITOR_TRY_INTERVAL, EDITOR_SAVE_INTERVAL } from '@/constants'
+import { EDITOR_STAGES, EDITOR_SAVE_INTERVAL } from '@/constants'
 import { SET_CURRENT_STAGE } from '@/store/mutation-types'
 import EditorToolBar from '@/components/EditorToolBar'
 import EditorStageAggregations from '@/components/EditorStageAggregations'
@@ -53,11 +53,6 @@ export default {
           this.saveTemplate()
         }
       }, EDITOR_SAVE_INTERVAL),
-      tryInterval: setInterval(() => {
-        if (this.autoTry && this.dataRequestChangedSinceTried) {
-          this.tryDataRequest()
-        }
-      }, EDITOR_TRY_INTERVAL),
     }
   },
   computed: {
@@ -67,9 +62,16 @@ export default {
       currentStage: state => state.rad.currentStage,
       currentTemplate: state => state.rad.currentTemplate,
       autoTry: state => state.rad.autoTry,
-      dataRequestChangedSinceTried: state => state.rad.dataRequestChangedSinceTried,
-      dataRequestChangedSinceSaved: state => state.rad.dataRequestChangedSinceSaved,
+      dataRequestChangedSinceSaved: state =>
+        state.rad.dataRequestChangedSinceSaved,
     }),
+  },
+  watch: {
+    dataRequestChangedSinceSaved(newValue) {
+      if (newValue && this.autoTry) {
+        this.tryDataRequest()
+      }
+    },
   },
   beforeDestroy() {
     clearInterval(this.tryInterval)

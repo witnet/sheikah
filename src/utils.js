@@ -302,7 +302,7 @@ export function copyToClipboard(str) {
 // Get the native javascript type from the radon markup argument type
 export function getNativeValueFromMarkupArgumentType(value, type) {
   if (type === 'number') {
-    return Number(value)
+    return Number(value) || value === '0' ? Number(value) : null
   }
   if (type === 'boolean') {
     return value === 'true'

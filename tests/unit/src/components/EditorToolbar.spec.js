@@ -229,41 +229,6 @@ describe('EditorToolBar.vue', () => {
       expect(mockEditorUndo).toHaveBeenCalled()
     })
 
-    it('try', async () => {
-      const mockEditorUndo = jest.fn()
-      const mockEditorRedo = jest.fn()
-      const mockTryDataRequest = jest.fn()
-      const mockSaveTemplate = jest.fn()
-
-      const wrapper = mount(
-        EditorToolBar,
-        createComponentMocks({
-          router: true,
-          store: {
-            rad: {
-              namespaced: false,
-              state: {
-                currentTemplate: { name: 'Template 1' },
-              },
-              mutations: {
-                [EDITOR_UNDO]: mockEditorUndo,
-                [EDITOR_REDO]: mockEditorRedo,
-              },
-              actions: {
-                tryDataRequest: mockTryDataRequest,
-                saveTemplate: mockSaveTemplate,
-              },
-            },
-          },
-        }),
-      )
-
-      const tryButton = wrapper.find('[data-test="action-try"]')
-      await tryButton.trigger('click')
-
-      expect(mockTryDataRequest).toHaveBeenCalled()
-    })
-
     it('deploy', async () => {
       const mockEditorUndo = jest.fn()
       const mockEditorRedo = jest.fn()
