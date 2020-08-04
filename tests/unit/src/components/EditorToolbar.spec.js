@@ -232,7 +232,7 @@ describe('EditorToolBar.vue', () => {
     it('try', async () => {
       const mockEditorUndo = jest.fn()
       const mockEditorRedo = jest.fn()
-      const mockTryDataRequest = jest.fn()
+      const mockToggleTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
 
       const wrapper = mount(
@@ -244,13 +244,14 @@ describe('EditorToolBar.vue', () => {
               namespaced: false,
               state: {
                 currentTemplate: { name: 'Template 1' },
+                autoTry: false,
               },
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
+                toggleTryDataRequest: mockToggleTryDataRequest,
               },
               actions: {
-                tryDataRequest: mockTryDataRequest,
                 saveTemplate: mockSaveTemplate,
               },
             },
@@ -261,7 +262,7 @@ describe('EditorToolBar.vue', () => {
       const tryButton = wrapper.find('[data-test="action-try"]')
       await tryButton.trigger('click')
 
-      expect(mockTryDataRequest).toHaveBeenCalled()
+      expect(mockToggleTryDataRequest).toHaveBeenCalled()
     })
 
     it('deploy', async () => {

@@ -45,7 +45,6 @@ export default {
     hasVariables: false,
     subscriptIds: [],
     autoTry: false,
-    dataRequestChangedSinceTried: false,
     dataRequestChangedSinceSaved: false,
   },
   getters: {
@@ -63,15 +62,14 @@ export default {
     clearSubscriptIds: function(state) {
       state.subscriptIds = []
     },
-    setDataRequestChangedSinceTried(state, payload) {
-      state.dataRequestChangedSinceTried = payload.value
-    },
     setDataRequestChangedSinceSaved(state, payload) {
       state.dataRequestChangedSinceSaved = payload.value
     },
     toggleTryDataRequest(state) {
       state.autoTry = !state.autoTry
-      state.dataRequestChangedSinceTried = true
+      state.autoTry
+        ? this.dispatch('tryDataRequest')
+        : this.commit('clearDataRequestResult')
     },
     [SET_CURRENT_STAGE](state, { stage }) {
       state.currentStage = stage
@@ -111,9 +109,15 @@ export default {
         }
         state.currentTemplate.variables = [...state.currentTemplate.variables]
       }
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+      })
     },
     [DELETE_VARIABLE](state, { index }) {
       state.currentTemplate.variables.splice(index, 1)
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+      })
     },
     [CREATE_VARIABLE](state) {
       state.currentTemplate.variablesIndex += 1
@@ -123,6 +127,9 @@ export default {
           'The default String that this variable will take if an user does not override it',
         description: '',
         type: 'String',
+      })
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
       })
     },
     [USED_VARIABLES](state, { id, variable, value }) {
@@ -150,10 +157,7 @@ export default {
       state.historyIndex = 0
     },
     [UPDATE_HISTORY](state, { mir }) {
-      // activate flag to try data request
-      state.dataRequestChangedSinceTried = true
       state.dataRequestChangedSinceSaved = true
-
       state.stageHistory.push(state.currentStage)
       state.history.push(mir)
       state.historyIndex += 1
@@ -163,7 +167,6 @@ export default {
     [UPDATE_TEMPLATE](state, { id, value }) {
       state.currentRadonMarkupInterpreter.update(id, value)
       state.radRequest = state.currentRadonMarkupInterpreter
-
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
       })
@@ -298,8 +301,6 @@ export default {
     },
     [SET_CURRENT_TEMPLATE](state, { id }) {
       this.autoTry = false
-      this.dataRequestChangedSinceTried = false
-
       const template = state.templates[id]
       state.currentTemplate = template
       state.currentRadonMarkupInterpreter = new Radon(template.radRequest)
@@ -358,8 +359,6 @@ export default {
         })
       }
       context.commit('setDataRequestChangedSinceSaved', { value: true })
-      context.commit('setDataRequestChangedSinceTried', { value: true })
-
     },
     changeTemplateName: async function(context, { id, name }) {
       this.commit('renameTemplate', { id, name })
@@ -384,7 +383,6 @@ export default {
       }
 
       context.commit('setDataRequestChangedSinceSaved', { value: true })
-      context.commit('setDataRequestChangedSinceTried', { value: true })
     },
     saveTemplate: async function(context, args) {
       context.commit('setDataRequestChangedSinceSaved', { value: false })

@@ -45,10 +45,11 @@
           </el-button>
         </el-tooltip>
 
-        <!-- TODO: improve color -->
         <el-switch
           v-else-if="tab.type === 'switch'"
           v-model="autoTryDataRequest"
+          data-test="action-try"
+          active-color="#b47de8"
           class="center"
           active-text="Try data request"
         ></el-switch>
@@ -75,7 +76,7 @@
 <script>
 import { EDITOR_REDO, EDITOR_UNDO, CLEAR_HISTORY } from '@/store/mutation-types'
 import { EDITOR_EXPORT_FORMAT } from '@/constants'
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { deleteKey } from '@/utils'
 
 export default {
@@ -172,6 +173,7 @@ export default {
     }),
     clear() {
       this.clearDataRequestResult()
+      this.toggleTryDataRequest()
       this.clearHistory()
     },
     export(format) {
