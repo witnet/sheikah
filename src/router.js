@@ -44,8 +44,14 @@ export default new Router({
         const isReady = store.state.wallet.api.client.ws.ready
         if (isReady) {
           next()
+          // when the computer is blocked the client closes but it should not redirect to
+          // wallet not found if the wallet is not closed
           store.state.wallet.api.client.ws.on('close', () => {
-            next('/wallet-not-found')
+            setTimeout(() => {
+              if (!store.state.wallet.api.client.ws.ready) {
+                next('/wallet-not-found')
+              }
+            }, 1000)
           })
         } else {
           let error = true
@@ -142,9 +148,7 @@ export default new Router({
               const walletInfos = store.state.wallet.walletInfos
               const isSessionId = store.state.wallet.sessionId
               clearInterval(polling)
-              if (isSessionId) {
-                next()
-              } else if (walletInfos.length > 0) {
+              if (isSessionId && walletInfos.length > 0) {
                 next('/welcome-back/wallet-list')
               } else {
                 next('/ftu/welcome')
