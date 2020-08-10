@@ -377,6 +377,7 @@ export default {
   }
 
   .options {
+    background: white;
     border: $select_border__active;
     border-radius: 4px;
     border-top: 0;
