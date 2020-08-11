@@ -5,6 +5,7 @@
       <div class="variable-key">
         <p class="variable-icon">$</p>
         <el-input
+        :ref="`variable-${index}`"
           class="key"
           data-test="edit-var-input"
           :value="keys[index]"
@@ -115,11 +116,32 @@ export default {
       keys: this.$store.getters.variablesKeys,
     }
   },
+  watch: {
+    variablesKeys() {
+      this.keys = this.variablesKeys
+    },
+    async currentFocus(val) {
+      if ((val || Number.isInteger(val)) && this.$refs[val]) {
+        await this.$nextTick()
+
+        this.scrollToCurrentFocus()
+      }
+    },
+  },
+  mounted() {
+    if (
+      (this.currentFocus || Number.isInteger(this.currentFocus)) &&
+      this.$refs[this.currentFocus]
+    ) {
+      this.scrollToCurrentFocus()
+    }
+  },
   computed: {
     ...mapGetters({
       variablesKeys: 'variablesKeys',
     }),
     ...mapState({
+      currentFocus: state => state.rad.currentFocus,
       variables: state => state.rad.currentTemplate.variables,
     }),
     error() {
@@ -136,17 +158,16 @@ export default {
       ]
     },
   },
-  watch: {
-    variablesKeys() {
-      this.keys = this.variablesKeys
-    },
-  },
   methods: {
     ...mapMutations({
       deleteVariable: DELETE_VARIABLE,
       createVariable: CREATE_VARIABLE,
       updateVariables: UPDATE_VARIABLES,
     }),
+    scrollToCurrentFocus() {
+      this.$refs[`variable-${this.currentFocus}`].$el.scrollIntoView()
+      this.$store.commit('clearCurrentFocus')
+    },
     standardizeDataType(type) {
       return this.dataTypeOptions.find(type => type.primaryText === type)
     },

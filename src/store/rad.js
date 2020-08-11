@@ -148,7 +148,7 @@ export default {
 
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.DELETE_VARIABLE,
+        type: HISTORY_UPDATE_TYPE.ADD_VARIABLE,
         info: { },
       })
     },
@@ -209,6 +209,7 @@ export default {
         state.currentFocus = calculateCurrentFocusAfterRedo(
           currentHistoryCheckpoint,
           state.currentRadonMarkupInterpreter.getMarkup(),
+          state.variablesIndex,
         )
 
         state.currentStage = stage
@@ -225,7 +226,6 @@ export default {
     [EDITOR_UNDO](state) {
       if (state.history[state.historyIndex - 1]) {
         state.historyIndex = state.historyIndex - 1
-
         const { rad } = state.history[state.historyIndex]
         const previousHistoryCheckpoint = state.history[state.historyIndex + 1]
 
@@ -236,7 +236,10 @@ export default {
         state.currentFocus = calculateCurrenFocusAfterUndo(
           previousHistoryCheckpoint,
           state.currentRadonMarkupInterpreter.getMarkup(),
+          state.variablesIndex
         )
+
+        console.log('-----A-----', state.currentFocus)
 
         state.radRequest = state.currentRadonMarkupInterpreter
 
@@ -544,7 +547,7 @@ export default {
   },
 }
 
-function calculateCurrenFocusAfterUndo(previousHistoryCheckpoint, markup) {
+export function calculateCurrenFocusAfterUndo(previousHistoryCheckpoint, markup, variables) {
   const { stage, type, scriptId, index, id } = previousHistoryCheckpoint
   const markupRetrieve = markup.retrieve
 
@@ -575,10 +578,16 @@ function calculateCurrenFocusAfterUndo(previousHistoryCheckpoint, markup) {
     return id
   } else if (type === HISTORY_UPDATE_TYPE.UPDATE_SOURCE) {
     return index
+  } else if (type === HISTORY_UPDATE_TYPE.DELETE_VARIABLE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.ADD_VARIABLE) {
+    return variables && variables.length ? variables.length - 1 : 0
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_VARIABLE) {
+    return index
   }
 }
 
-function calculateCurrentFocusAfterRedo(currentHistoryCheckpoint, markup) {
+export function calculateCurrentFocusAfterRedo(currentHistoryCheckpoint, markup, variables) {
   const { type, stage, scriptId, index, id } = currentHistoryCheckpoint
   const markupRetrieve = markup.retrieve
 
@@ -608,6 +617,12 @@ function calculateCurrentFocusAfterRedo(currentHistoryCheckpoint, markup) {
   } else if (type === HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE) {
     return id
   } else if (type === HISTORY_UPDATE_TYPE.UPDATE_SOURCE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.DELETE_VARIABLE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.ADD_VARIABLE) {
+    return variables && variables.length ? variables.length - 1 : 0
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_VARIABLE) {
     return index
   }
 }
