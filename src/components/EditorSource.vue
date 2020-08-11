@@ -80,10 +80,11 @@ export default {
     },
   },
   data() {
+    console.log('this.protocol', this.protocol)
     return {
-      currentProtocol: { primaryText: 'HTTP-GET' },
-      currentContentType: [],
-      currentUrl: '',
+      currentProtocol: { primaryText: this.protocol || 'HTTP-GET' },
+      currentContentType: { primaryText: this.contentType || 'JSON API' },
+      currentUrl: this.url || '',
     }
   },
   computed: {
@@ -102,9 +103,10 @@ export default {
     },
     localUrl: {
       get() {
-        return this.url
+        return this.currentUrl
       },
       set(val) {
+        this.currentUrl = val
         this.updateSource({
           index: this.index,
           source: {
@@ -118,9 +120,10 @@ export default {
     },
     localProtocol: {
       get() {
-        return { primaryText: this.protocol }
+        return this.currentProtocol
       },
       set(val) {
+        this.currentProtocol = val
         this.updateSource({
           index: this.index,
           source: {
@@ -133,7 +136,7 @@ export default {
     },
     localContentType: {
       get() {
-        return { primaryText: this.contentType }
+        return this.contentType
       },
       set(val) {
         this.updateSource({
@@ -146,9 +149,6 @@ export default {
         })
       },
     },
-  },
-  created() {
-    this.currentContentType = this.currentContentTypeOptions[0]
   },
   methods: {
     ...mapMutations({

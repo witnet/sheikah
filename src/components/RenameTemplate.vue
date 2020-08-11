@@ -35,32 +35,22 @@ export default {
       default: '',
     },
   },
-  computed: {
-    localName: {
-      get() {
-        return this.name
-      },
-      set(newName) {
-        this.changeTemplateName({ id: this.id, name: newName })
-      },
+  data() {
+    return {
+      localName: this.name,
+      localDescription: this.description,
+    }
+  },
+  watch: {
+    localName(val) {
+      this.changeTemplateName({ id: this.id, name: val })
     },
-    localDescription: {
-      get() {
-        return this.description
-      },
-      set(newDescription) {
-        this.changeTemplateDescription({
-          id: this.id,
-          description: newDescription,
-        })
-      },
+    localDescription(val) {
+      this.changeTemplateDescription({ id: this.id, description: val })
     },
   },
   methods: {
-    ...mapActions({
-      changeTemplateName: 'changeTemplateName',
-      changeTemplateDescription: 'changeTemplateDescription',
-    }),
+    ...mapActions(['changeTemplateName', 'changeTemplateDescription']),
   },
 }
 </script>
