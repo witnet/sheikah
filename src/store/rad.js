@@ -174,7 +174,6 @@ export default {
       if (state.autoTry) {
         this.dispatch('tryDataRequest', { root: true })
       }
-      debugger
     },
     [UPDATE_TEMPLATE](state, { id, value }) {
       state.currentRadonMarkupInterpreter.update(id, value)
@@ -201,7 +200,6 @@ export default {
           state.currentRadonMarkupInterpreter.getMarkup(),
           state.variablesIndex,
         )
-
         state.currentStage = stage
         state.radRequest = state.currentRadonMarkupInterpreter
 
@@ -214,14 +212,16 @@ export default {
       state.currentFocus = null
     },
     [EDITOR_UNDO](state) {
-      debugger
       if (state.history[state.historyIndex - 1]) {
         state.historyIndex = state.historyIndex - 1
         const { rad } = state.history[state.historyIndex]
         const previousHistoryCheckpoint = state.history[state.historyIndex]
 
         state.currentRadonMarkupInterpreter = new Radon(rad)
-        state.currentStage = previousHistoryCheckpoint.stage
+
+        if (state.historyIndex !== 0) {
+          state.currentStage = previousHistoryCheckpoint.stage
+        }
 
         state.currentFocus = null
         state.currentFocus = calculateCurrentFocusAfterUndo(
@@ -286,13 +286,11 @@ export default {
     [PUSH_OPERATOR](state, { scriptId }) {
       state.currentRadonMarkupInterpreter.addOperator(scriptId)
       state.radRequest = state.currentRadonMarkupInterpreter
-      debugger
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
         type: HISTORY_UPDATE_TYPE.PUSH_OPERATOR,
         info: { scriptId },
       })
-      debugger
     },
     [CREATE_TEMPLATE](state) {
       const TEMPLATE_DEFAULT_NAME = 'New template'
@@ -358,6 +356,7 @@ export default {
         })
       }
     },
+    // overwrite the current template
     [SET_CURRENT_TEMPLATE](state, { id }) {
       this.autoTry = false
       const template = state.templates[id]
@@ -413,9 +412,6 @@ export default {
       })
       if (request.result) {
         await context.dispatch('getTemplates')
-        this.commit(SET_CURRENT_TEMPLATE, {
-          id: context.state.currentTemplate.id,
-        })
       } else {
         context.commit('setError', {
           name: 'saveItem',
@@ -436,9 +432,6 @@ export default {
       })
       if (request.result) {
         await context.dispatch('getTemplates')
-        this.commit(SET_CURRENT_TEMPLATE, {
-          id: context.state.currentTemplate.id,
-        })
       } else {
         context.commit('setError', {
           name: 'saveItem',
@@ -490,9 +483,9 @@ export default {
         })
         if (request.result) {
           await context.dispatch('getTemplates')
-          this.commit(SET_CURRENT_TEMPLATE, {
-            id: context.state.currentTemplate.id,
-          })
+          // this.commit(SET_CURRENT_TEMPLATE, {
+          //   id: context.state.currentTemplate.id,
+          // })
         } else {
           context.commit('setError', {
             name: 'saveItem',
