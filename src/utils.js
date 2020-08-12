@@ -384,3 +384,47 @@ export function calculateCurrentFocusAfterUndo(
     return index
   }
 }
+
+export function calculateCurrentFocusAfterRedo(
+  currentHistoryCheckpoint,
+  markup,
+  variables,
+) {
+  const { type, stage, scriptId, index, id } = currentHistoryCheckpoint
+  const markupRetrieve = markup.retrieve
+
+  if (
+    type === HISTORY_UPDATE_TYPE.DELETE_OPERATOR ||
+    type === HISTORY_UPDATE_TYPE.PUSH_OPERATOR
+  ) {
+    if (stage === EDITOR_STAGES.SCRIPTS) {
+      const index = markupRetrieve.findIndex(
+        source => source.scriptId === scriptId,
+      )
+      const script = markupRetrieve[index].script
+      const op = script[script.length - 1]
+
+      return op ? op.id : 'void'
+    } else {
+      const filters =
+        markup[stage === 'aggregations' ? 'aggregate' : 'tally'].filters
+      const op = filters[filters.length - 1]
+
+      return op ? op.id : 'void'
+    }
+  } else if (type === HISTORY_UPDATE_TYPE.DELETE_SOURCE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.ADD_SOURCE) {
+    return markupRetrieve.length - 1
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE) {
+    return id
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_SOURCE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.DELETE_VARIABLE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.ADD_VARIABLE) {
+    return variables && variables.length ? variables.length - 1 : 0
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_VARIABLE) {
+    return index
+  }
+}
