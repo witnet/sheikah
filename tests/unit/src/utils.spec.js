@@ -321,20 +321,119 @@ describe('calculateCurrentFocusAfterUndo', () => {
           operatorid: 3,
         }
 
-        const mir = {"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}}
-        const markup = (new Radon(mir)).getMarkup()
+        const mir = {
+          timelock: 0,
+          retrieve: [
+            { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        }
+        const markup = new Radon(mir).getMarkup()
         const variables = {}
-        const id = calculateCurrentFocusAfterUndo(historyCheckpoint, markup, variables)
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
 
         expect(id).toBe('void')
       })
-      // it('on aggragation or tally stage', () => {})
+      it('on aggragation or tally stage', () => {
+        const historyCheckpoint = {"rad":{"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[]}],"aggregate":{"filters":[[3,1],[3,1]],"reducer":2},"tally":{"filters":[],"reducer":2}},"stage":"aggregations","type":"PUSH_OPERATOR","scriptId":3}
+
+        const mir = {"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[]}],"aggregate":{"filters":[[3,1],[3,1]],"reducer":2},"tally":{"filters":[],"reducer":2}}
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe(6)
+      })
     })
-    // it('PUSH_OPERATOR', () => {})
-    // it('DELETE_SOURCE', () => {})
-    // it('ADD_SOURCE', () => {})
-    // it('UPDATE_TEMPLATE', () => {})
-    // it('UPDATE_SOURCE', () => {})
+    describe('PUSH_OPERATOR', () => {
+      it('on retrieve stage', () => {
+        const historyCheckpoint = {"rad":{"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}},"stage":"settings"}
+        const mir = {"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[112]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}}
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe(undefined)
+      })
+    })
+
+    it('DELETE_SOURCE', () => {
+        const historyCheckpoint = {"rad":{"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}},"stage":"sources","type":"ADD_SOURCE"}
+        const mir = {"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}}
+
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe(0)
+    })
+
+    it('ADD_SOURCE', () => {
+        const historyCheckpoint = {"rad":{"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[112]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}},"stage":"sources","type":"ADD_SOURCE"}
+        const mir = {"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[112]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}}
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe(1)
+    })
+
+    it('UPDATE_TEMPLATE', () => {
+        const historyCheckpoint = {"rad":{"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"asd","contentType":"JSON API","script":[112,[33,"",true]]},{"kind":"HTTP-GET","url":"asd","contentType":"JSON API","script":[114]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}},"stage":"scripts","type":"PUSH_OPERATOR","scriptId":2}
+        const mir = {"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"asd","contentType":"JSON API","script":[112,34]},{"kind":"HTTP-GET","url":"asd","contentType":"JSON API","script":[114]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}}
+
+        const markup = new Radon(mir).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(
+          historyCheckpoint,
+          markup,
+          variables,
+        )
+
+        expect(id).toBe(4)
+    })
+
+    it('UPDATE_SOURCE', () => {
+      const historyCheckpoint = {"rad":{"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"asd","contentType":"JSON API","script":[]},{"kind":"HTTP-GET","url":"asd","contentType":"JSON API","script":[114]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}},"stage":"sources","type":"UPDATE_SOURCE","index":0,"source":{"protocol":"HTTP-GET","url":"asd"}}
+      const mir = {"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"asd","contentType":"JSON API","script":[]},{"kind":"HTTP-GET","url":"asd","contentType":"JSON API","script":[114]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}}
+
+      const markup = new Radon(mir).getMarkup()
+      const variables = {}
+      const id = calculateCurrentFocusAfterUndo(
+        historyCheckpoint,
+        markup,
+        variables,
+      )
+
+      expect(id).toBe(0)
+    })
     // it('UPDATE_VARIABLE', () => {})
     // it('ADD_VARIABLE', () => {})
     // it('DELETE_VARIABLE', () => {})

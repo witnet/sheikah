@@ -5,7 +5,7 @@
       <div class="variable-key">
         <p class="variable-icon">$</p>
         <el-input
-        :ref="`variable-${index}`"
+          :ref="`variable-${index}`"
           class="key"
           data-test="edit-var-input"
           :value="keys[index]"

@@ -2,7 +2,13 @@ import Big from 'big.js'
 import cbor from 'cbor'
 import { format, formatDistanceToNow } from 'date-fns'
 import uuidv4 from 'uuid/v4'
-import { WIT_UNIT, EDITOR_ALLOWED_PROTOCOLS, WALLET_EVENTS, HISTORY_UPDATE_TYPE, EDITOR_STAGES } from '@/constants'
+import {
+  WIT_UNIT,
+  EDITOR_ALLOWED_PROTOCOLS,
+  WALLET_EVENTS,
+  HISTORY_UPDATE_TYPE,
+  EDITOR_STAGES,
+} from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import { Radon } from 'witnet-radon-js'
 
@@ -335,7 +341,11 @@ export function deleteKey(obj, key) {
   return newObj
 }
 // Calculate the id or index of the element to focus. It receives the previous history checkpoint
-export function calculateCurrentFocusAfterUndo(previousHistoryCheckpoint, markup, variables) {
+export function calculateCurrentFocusAfterUndo(
+  previousHistoryCheckpoint,
+  markup,
+  variables,
+) {
   const { stage, type, scriptId, index, id } = previousHistoryCheckpoint
   const markupRetrieve = markup.retrieve
 
@@ -374,4 +384,3 @@ export function calculateCurrentFocusAfterUndo(previousHistoryCheckpoint, markup
     return index
   }
 }
-

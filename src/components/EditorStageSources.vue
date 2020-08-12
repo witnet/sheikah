@@ -4,7 +4,7 @@
       <div class="sources">
         <EditorSource
           v-for="(source, index) in sources"
-          :key="index"
+          :key="`${sources[index].scriptId}-${index}`"
           :ref="`source-${index}`"
           class="source"
           :url="source.url"
@@ -70,7 +70,7 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-import { ADD_SOURCE, DELETE_SOURCE } from '@/store/mutation-types'
+import { ADD_SOURCE } from '@/store/mutation-types'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
 import Fieldset from '@/components/Fieldset'
 import EditorSource from '@/components/EditorSource'
@@ -119,7 +119,6 @@ export default {
   methods: {
     ...mapMutations({
       addSource: ADD_SOURCE,
-      deleteSource: DELETE_SOURCE,
       clearDataRequestResult: 'clearDataRequestResult',
     }),
     pushNewSource() {

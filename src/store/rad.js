@@ -1,4 +1,9 @@
-import { createNotification, generateId, isValidRadRequest, calculateCurrentFocusAfterUndo } from '@/utils'
+import {
+  createNotification,
+  generateId,
+  isValidRadRequest,
+  calculateCurrentFocusAfterUndo,
+} from '@/utils'
 import { Radon } from 'witnet-radon-js'
 import { EDITOR_STAGES, HISTORY_UPDATE_TYPE } from '@/constants'
 import {
@@ -138,7 +143,7 @@ export default {
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
         type: HISTORY_UPDATE_TYPE.ADD_VARIABLE,
-        info: { },
+        info: {},
       })
     },
     [USED_VARIABLES](state, { id, variable, value }) {
@@ -227,7 +232,7 @@ export default {
         state.currentFocus = calculateCurrentFocusAfterUndo(
           previousHistoryCheckpoint,
           state.currentRadonMarkupInterpreter.getMarkup(),
-          state.variablesIndex
+          state.variablesIndex,
         )
 
         state.radRequest = state.currentRadonMarkupInterpreter
@@ -530,7 +535,11 @@ export default {
     },
   },
 }
-export function calculateCurrentFocusAfterRedo(currentHistoryCheckpoint, markup, variables) {
+export function calculateCurrentFocusAfterRedo(
+  currentHistoryCheckpoint,
+  markup,
+  variables,
+) {
   const { type, stage, scriptId, index, id } = currentHistoryCheckpoint
   const markupRetrieve = markup.retrieve
 
