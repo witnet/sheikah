@@ -2,7 +2,7 @@ import Big from 'big.js'
 import cbor from 'cbor'
 import { format, formatDistanceToNow } from 'date-fns'
 import uuidv4 from 'uuid/v4'
-import { WIT_UNIT, EDITOR_ALLOWED_PROTOCOLS, WALLET_EVENTS } from '@/constants'
+import { WIT_UNIT, EDITOR_ALLOWED_PROTOCOLS, WALLET_EVENTS, HISTORY_UPDATE_TYPE, EDITOR_STAGES } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import { Radon } from 'witnet-radon-js'
 
@@ -334,3 +334,44 @@ export function deleteKey(obj, key) {
 
   return newObj
 }
+// Calculate the id or index of the element to focus. It receives the previous history checkpoint
+export function calculateCurrentFocusAfterUndo(previousHistoryCheckpoint, markup, variables) {
+  const { stage, type, scriptId, index, id } = previousHistoryCheckpoint
+  const markupRetrieve = markup.retrieve
+
+  if (
+    type === HISTORY_UPDATE_TYPE.DELETE_OPERATOR ||
+    type === HISTORY_UPDATE_TYPE.PUSH_OPERATOR
+  ) {
+    if (stage === EDITOR_STAGES.SCRIPTS) {
+      const scriptIdIndex = markupRetrieve.findIndex(
+        source => source.scriptId === scriptId,
+      )
+      const script = markupRetrieve[scriptIdIndex].script
+      const lastOperator = script[script.length - 1]
+
+      return lastOperator ? lastOperator.id : 'void'
+    } else {
+      const filters =
+        markup[stage === 'aggregations' ? 'aggregate' : 'tally'].filters
+      const lastOperator = filters[filters.length - 1]
+
+      return lastOperator ? lastOperator.id : 'void'
+    }
+  } else if (type === HISTORY_UPDATE_TYPE.DELETE_SOURCE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.ADD_SOURCE) {
+    return markupRetrieve.length - 1
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE) {
+    return id
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_SOURCE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.DELETE_VARIABLE) {
+    return index
+  } else if (type === HISTORY_UPDATE_TYPE.ADD_VARIABLE) {
+    return variables && variables.length ? variables.length - 1 : 0
+  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_VARIABLE) {
+    return index
+  }
+}
+

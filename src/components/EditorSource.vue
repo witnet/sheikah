@@ -80,7 +80,6 @@ export default {
     },
   },
   data() {
-    console.log('this.protocol', this.protocol)
     return {
       currentProtocol: { primaryText: this.protocol || 'HTTP-GET' },
       currentContentType: { primaryText: this.contentType || 'JSON API' },

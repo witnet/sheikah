@@ -4,8 +4,10 @@ import {
   deleteKey,
   getDomainFromUrl,
   standardizeWitUnits,
+  calculateCurrentFocusAfterUndo,
 } from '@/utils'
 import { WIT_UNIT } from '@/constants'
+import { Radon } from 'witnet-radon-js'
 
 describe('areSoftEqualArrays', () => {
   it('check if two sorted arrays contains the same items', () => {
@@ -306,5 +308,35 @@ describe('standardizeWitUnits', () => {
 
       expect(entry).toStrictEqual({ a: 'a', b: 'b', c: 'c' })
     })
+  })
+})
+
+describe('calculateCurrentFocusAfterUndo', () => {
+  describe('should work for all HISTORY_UPDATE_TYPEs', () => {
+    describe('DELETE_OPERATOR', () => {
+      it('on retrieve stage', () => {
+        const historyCheckpoint = {
+          type: 'DELETE_OPERATOR',
+          scriptId: 2,
+          operatorid: 3,
+        }
+
+        const mir = {"timelock":0,"retrieve":[{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]},{"kind":"HTTP-GET","url":"","contentType":"JSON API","script":[114]}],"aggregate":{"filters":[],"reducer":2},"tally":{"filters":[],"reducer":2}}
+        const markup = (new Radon(mir)).getMarkup()
+        const variables = {}
+        const id = calculateCurrentFocusAfterUndo(historyCheckpoint, markup, variables)
+
+        expect(id).toBe('void')
+      })
+      // it('on aggragation or tally stage', () => {})
+    })
+    // it('PUSH_OPERATOR', () => {})
+    // it('DELETE_SOURCE', () => {})
+    // it('ADD_SOURCE', () => {})
+    // it('UPDATE_TEMPLATE', () => {})
+    // it('UPDATE_SOURCE', () => {})
+    // it('UPDATE_VARIABLE', () => {})
+    // it('ADD_VARIABLE', () => {})
+    // it('DELETE_VARIABLE', () => {})
   })
 })

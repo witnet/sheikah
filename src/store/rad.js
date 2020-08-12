@@ -1,6 +1,6 @@
-import { createNotification, generateId, isValidRadRequest } from '@/utils'
+import { createNotification, generateId, isValidRadRequest, calculateCurrentFocusAfterUndo } from '@/utils'
 import { Radon } from 'witnet-radon-js'
-import { EDITOR_STAGES } from '@/constants'
+import { EDITOR_STAGES, HISTORY_UPDATE_TYPE } from '@/constants'
 import {
   UPDATE_HISTORY,
   UPDATE_TEMPLATE,
@@ -25,17 +25,6 @@ import {
   SET_CURRENT_STAGE,
 } from '@/store/mutation-types'
 import Vue from 'vue'
-const HISTORY_UPDATE_TYPE = {
-  DELETE_OPERATOR: 'DELETE_OPERATOR',
-  PUSH_OPERATOR: 'PUSH_OPERATOR',
-  DELETE_SOURCE: 'DELETE_SOURCE',
-  ADD_SOURCE: 'ADD_SOURCE',
-  UPDATE_TEMPLATE: 'UPDATE_TEMPLATE',
-  UPDATE_SOURCE: 'UPDATE_SOURCE',
-  UPDATE_VARIABLE: 'UPDATE_VARIABLE',
-  ADD_VARIABLE: 'ADD_VARIABLE',
-  DELETE_VARIABLE: 'DELETE_VARIABLE'
-}
 
 export default {
   state: {
@@ -185,6 +174,7 @@ export default {
       if (state.autoTry) {
         this.dispatch('tryDataRequest', { root: true })
       }
+      debugger
     },
     [UPDATE_TEMPLATE](state, { id, value }) {
       state.currentRadonMarkupInterpreter.update(id, value)
@@ -224,22 +214,21 @@ export default {
       state.currentFocus = null
     },
     [EDITOR_UNDO](state) {
+      debugger
       if (state.history[state.historyIndex - 1]) {
         state.historyIndex = state.historyIndex - 1
         const { rad } = state.history[state.historyIndex]
-        const previousHistoryCheckpoint = state.history[state.historyIndex + 1]
+        const previousHistoryCheckpoint = state.history[state.historyIndex]
 
         state.currentRadonMarkupInterpreter = new Radon(rad)
         state.currentStage = previousHistoryCheckpoint.stage
 
         state.currentFocus = null
-        state.currentFocus = calculateCurrenFocusAfterUndo(
+        state.currentFocus = calculateCurrentFocusAfterUndo(
           previousHistoryCheckpoint,
           state.currentRadonMarkupInterpreter.getMarkup(),
           state.variablesIndex
         )
-
-        console.log('-----A-----', state.currentFocus)
 
         state.radRequest = state.currentRadonMarkupInterpreter
 
@@ -297,11 +286,13 @@ export default {
     [PUSH_OPERATOR](state, { scriptId }) {
       state.currentRadonMarkupInterpreter.addOperator(scriptId)
       state.radRequest = state.currentRadonMarkupInterpreter
+      debugger
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
         type: HISTORY_UPDATE_TYPE.PUSH_OPERATOR,
         info: { scriptId },
       })
+      debugger
     },
     [CREATE_TEMPLATE](state) {
       const TEMPLATE_DEFAULT_NAME = 'New template'
@@ -546,47 +537,6 @@ export default {
     },
   },
 }
-
-export function calculateCurrenFocusAfterUndo(previousHistoryCheckpoint, markup, variables) {
-  const { stage, type, scriptId, index, id } = previousHistoryCheckpoint
-  const markupRetrieve = markup.retrieve
-
-  if (
-    type === HISTORY_UPDATE_TYPE.DELETE_OPERATOR ||
-    type === HISTORY_UPDATE_TYPE.PUSH_OPERATOR
-  ) {
-    if (stage === EDITOR_STAGES.SCRIPTS) {
-      const scriptIdIndex = markupRetrieve.findIndex(
-        source => source.scriptId === scriptId,
-      )
-      const script = markupRetrieve[scriptIdIndex].script
-      const lastOperator = script[script.length - 1]
-
-      return lastOperator ? lastOperator.id : 'void'
-    } else {
-      const filters =
-        markup[stage === 'aggregations' ? 'aggregate' : 'tally'].filters
-      const lastOperator = filters[filters.length - 1]
-
-      return lastOperator ? lastOperator.id : 'void'
-    }
-  } else if (type === HISTORY_UPDATE_TYPE.DELETE_SOURCE) {
-    return index
-  } else if (type === HISTORY_UPDATE_TYPE.ADD_SOURCE) {
-    return markupRetrieve.length - 1
-  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE) {
-    return id
-  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_SOURCE) {
-    return index
-  } else if (type === HISTORY_UPDATE_TYPE.DELETE_VARIABLE) {
-    return index
-  } else if (type === HISTORY_UPDATE_TYPE.ADD_VARIABLE) {
-    return variables && variables.length ? variables.length - 1 : 0
-  } else if (type === HISTORY_UPDATE_TYPE.UPDATE_VARIABLE) {
-    return index
-  }
-}
-
 export function calculateCurrentFocusAfterRedo(currentHistoryCheckpoint, markup, variables) {
   const { type, stage, scriptId, index, id } = currentHistoryCheckpoint
   const markupRetrieve = markup.retrieve
