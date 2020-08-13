@@ -4,7 +4,7 @@
       <div class="sources">
         <EditorSource
           v-for="(source, index) in sources"
-          :key="`${sources[index].scriptId}-${index}`"
+          :key="sources[index].scriptId"
           :ref="`source-${index}`"
           class="source"
           :url="source.url"

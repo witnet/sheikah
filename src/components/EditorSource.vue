@@ -149,6 +149,17 @@ export default {
       },
     },
   },
+  watch: {
+    url(val){
+      this.currentUrl = val
+    },
+    protocol(val) {
+      this.currentProtocol = val
+    },
+    contentType(val) {
+      this.currentContentType = val
+    }
+  },
   methods: {
     ...mapMutations({
       deleteSource: DELETE_SOURCE,
