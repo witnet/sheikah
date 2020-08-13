@@ -150,7 +150,7 @@ export default {
     },
   },
   watch: {
-    url(val){
+    url(val) {
       this.currentUrl = val
     },
     protocol(val) {
@@ -158,7 +158,7 @@ export default {
     },
     contentType(val) {
       this.currentContentType = val
-    }
+    },
   },
   methods: {
     ...mapMutations({

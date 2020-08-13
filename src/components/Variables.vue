@@ -116,26 +116,6 @@ export default {
       keys: this.$store.getters.variablesKeys,
     }
   },
-  watch: {
-    variablesKeys() {
-      this.keys = this.variablesKeys
-    },
-    async currentFocus(val) {
-      if ((val || Number.isInteger(val)) && this.$refs[val]) {
-        await this.$nextTick()
-
-        this.scrollToCurrentFocus()
-      }
-    },
-  },
-  mounted() {
-    if (
-      (this.currentFocus || Number.isInteger(this.currentFocus)) &&
-      this.$refs[this.currentFocus]
-    ) {
-      this.scrollToCurrentFocus()
-    }
-  },
   computed: {
     ...mapGetters({
       variablesKeys: 'variablesKeys',
@@ -157,6 +137,26 @@ export default {
         { primaryText: 'Number' },
       ]
     },
+  },
+  watch: {
+    variablesKeys() {
+      this.keys = this.variablesKeys
+    },
+    async currentFocus(val) {
+      if ((val || Number.isInteger(val)) && this.$refs[val]) {
+        await this.$nextTick()
+
+        this.scrollToCurrentFocus()
+      }
+    },
+  },
+  mounted() {
+    if (
+      (this.currentFocus || Number.isInteger(this.currentFocus)) &&
+      this.$refs[this.currentFocus]
+    ) {
+      this.scrollToCurrentFocus()
+    }
   },
   methods: {
     ...mapMutations({

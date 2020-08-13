@@ -193,7 +193,6 @@ export default {
       state.radRequest = state.currentRadonMarkupInterpreter
     },
     [EDITOR_REDO](state) {
-      debugger
       if (state.history[state.historyIndex + 1]) {
         state.historyIndex += 1
 
@@ -214,7 +213,6 @@ export default {
           this.dispatch('tryDataRequest', { root: true })
         }
       }
-      debugger
     },
     clearCurrentFocus(state) {
       state.currentFocus = null
@@ -364,7 +362,6 @@ export default {
         })
       }
     },
-    // overwrite the current template
     [SET_CURRENT_TEMPLATE](state, { id }) {
       this.autoTry = false
       const template = state.templates[id]
