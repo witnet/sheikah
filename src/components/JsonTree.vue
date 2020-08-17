@@ -1,14 +1,15 @@
 <template>
-  <JsonViewer :value="data" :expand-depth="2" theme="json-tree-viewer-theme" />
+  <!-- <JsonViewer :value="data" :expand-depth="2" theme="json-tree-viewer-theme" /> -->
+  <div></div>
 </template>
 
 <script>
-import JsonViewer from 'vue-json-viewer'
+// import JsonViewer from 'vue-json-viewer'
 
 export default {
   name: 'JsonTree',
   components: {
-    JsonViewer,
+    // JsonViewer,
   },
   props: {
     data: {

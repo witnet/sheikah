@@ -1,4 +1,5 @@
 'use strict'
+
 /* global __static */
 import fs from 'fs'
 import os from 'os'
@@ -47,6 +48,7 @@ const STATUS_PATH = {
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 let tray
+let createdProtocol
 // open sheikah if is development environment
 let status = isDevelopment ? STATUS.READY : STATUS.WAIT
 let forceQuit = false
@@ -181,22 +183,22 @@ function createWindow() {
     }
   })
 
-  if (!isDevelopment) {
-    // Disable shortcuts defining a hidden menu and binding the shortcut we
-    // want to disable to an option
-    const menu = Menu.buildFromTemplate([
-      {
-        label: 'Menu',
-        submenu: [
-          { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
-          { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
-          { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
-        ],
-      },
-    ])
+  // if (!isDevelopment) {
+  //   // Disable shortcuts defining a hidden menu and binding the shortcut we
+  //   // want to disable to an option
+  //   const menu = Menu.buildFromTemplate([
+  //     {
+  //       label: 'Menu',
+  //       submenu: [
+  //         { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
+  //         { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
+  //         { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+  //       ],
+  //     },
+  //   ])
 
-    Menu.setApplicationMenu(menu)
-  }
+  //   Menu.setApplicationMenu(menu)
+  // }
 }
 
 function createTray() {
@@ -274,7 +276,10 @@ function loadUrl(status) {
         `${process.env.WEBPACK_DEV_SERVER_URL}#/${STATUS_PATH[status]}`,
       )
     } else {
-      createProtocol('app')
+      if (!createdProtocol) {
+        createProtocol('app')
+        createdProtocol = true
+      }
       // Load the index.html when not in development
       win.loadURL(`app://./index.html/#/${STATUS_PATH[status]}`)
     }
