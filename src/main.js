@@ -17,7 +17,7 @@ Vue.component(VueQrcode.name, VueQrcode)
 Vue.config.productionTip = false
 
 runApp()
-
+console.log('router', router)
 function runApp() {
   const vm = new Vue({
     router,

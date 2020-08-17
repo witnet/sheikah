@@ -35,6 +35,7 @@ function redirectOnReload(to, from, next) {
 }
 
 export default new Router({
+  mode: process.env.IS_ELECTRON ? 'hash' : 'history',
   routes: [
     {
       path: '/',

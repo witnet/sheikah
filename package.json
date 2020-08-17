@@ -11,7 +11,7 @@
     "ci": "yarn lint:check && yarn test && yarn electron:build --publish=never",
     "clean": "yarn clean-deps && rm -rf dist_electron",
     "clean-deps": "rm -rf node_modules",
-    "electron:build": "vue-cli-service electron:build --config=electron-builder.json",
+    "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "lint:eslint": "eslint",
     "lint:stylelint": "stylelint",
@@ -35,7 +35,7 @@
   "gitHooks": {
     "pre-commit": "cross-env PRE_COMMIT=true lint-staged"
   },
-  "main": "src/background.js",
+  "main": "background.js",
   "dependencies": {
     "@chenfengyuan/vue-qrcode": "^1.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
@@ -44,6 +44,7 @@
     "axios": "^0.19.1",
     "big.js": "^5.2.2",
     "cbor": "^4.1.5",
+    "clipboard": "2.0.4",
     "core-js": "^3.4.4",
     "date-fns": "^2.12.0",
     "element-ui": "^2.4.5",
@@ -51,8 +52,7 @@
     "tar": "^6.0.1",
     "uuid": "^3.3.2",
     "vue": "^2.6.11",
-    "vue-json-pretty": "^1.6.5",
-    "vue-json-viewer": "^2.2.13",
+    "vue-json-viewer": "2.2.14",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
     "witnet-radon-js": "0.7.3"
