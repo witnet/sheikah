@@ -79,6 +79,6 @@ export default {
 }
 
 .variables {
-  margin-top: 24px;
+  margin: 24px 0 24px 0;
 }
 </style>
