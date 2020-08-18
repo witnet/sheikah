@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 export default {
   name: 'RenameTemplate',
   props: {
@@ -37,20 +37,40 @@ export default {
   },
   data() {
     return {
-      localName: this.name,
-      localDescription: this.description,
+      currentName: this.name,
+      currentDescription: this.description,
     }
   },
-  watch: {
-    localName(val) {
-      this.changeTemplateName({ id: this.id, name: val })
+  computed: {
+    localName: {
+      get() {
+        return this.name
+      },
+      set(val) {
+        this.currentName = val
+        this.renameTemplate({ id: this.id, name: val })
+      },
     },
-    localDescription(val) {
-      this.changeTemplateDescription({ id: this.id, description: val })
+    localDescription: {
+      get() {
+        return this.description
+      },
+      set(val) {
+        this.currentDescription = val
+        this.updateTemplateDescription({ id: this.id, description: val })
+      },
+    },
+  },
+  watch: {
+    name(val) {
+      this.currentName = val
+    },
+    description(val) {
+      this.currentDescription = val
     },
   },
   methods: {
-    ...mapActions(['changeTemplateName', 'changeTemplateDescription']),
+    ...mapMutations(['renameTemplate', 'updateTemplateDescription']),
   },
 }
 </script>
