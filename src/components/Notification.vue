@@ -32,7 +32,6 @@ export default {
       this.counter += 1
 
       setTimeout(() => {
-        console.log('inside settimeout')
         this.$emit('vanish')
         this.counter -= 1
         this.toggle = this.counter !== 0

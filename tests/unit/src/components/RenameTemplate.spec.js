@@ -6,9 +6,9 @@ describe('RadonOperator.vue', () => {
       ...createComponentMocks({
         store: {
           rad: {
-            actions: {
-              changeTemplateName: () => {},
-              changeTemplateDescription: () => {},
+            mutations: {
+              renameTemplate: () => {},
+              updateTemplateDescription: () => {},
             },
           },
         },

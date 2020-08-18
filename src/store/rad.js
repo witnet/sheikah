@@ -171,11 +171,16 @@ export default {
       state.historyIndex = 0
     },
     [UPDATE_HISTORY](state, { mir, type, info = {} }) {
-      state.history.push({ rad: mir, stage: state.currentStage, type, ...info })
+      state.history.push({
+        rad: mir,
+        stage: state.currentStage,
+        type,
+        ...info,
+        currentTemplate: state.currentTemplate,
+      })
       state.historyIndex += 1
       state.history.splice(state.historyIndex + 1)
       this.dispatch('saveTemplate')
-
       if (state.autoTry) {
         this.dispatch('tryDataRequest', { root: true })
       }
@@ -220,6 +225,16 @@ export default {
       if (state.history[state.historyIndex - 1]) {
         state.historyIndex = state.historyIndex - 1
         const { rad } = state.history[state.historyIndex]
+        if (
+          state.history[state.historyIndex].type ===
+            HISTORY_UPDATE_TYPE.UPDATE_DESCRIPTION ||
+          state.history[state.historyIndex].type ===
+            HISTORY_UPDATE_TYPE.UPDATE_NAME
+        ) {
+          state.currentTemplate =
+            state.history[state.historyIndex].currentTemplate
+          this.commit('setDataRequestChangedSinceSaved', { value: true })
+        }
         const previousHistoryCheckpoint = state.history[state.historyIndex]
 
         state.currentRadonMarkupInterpreter = new Radon(rad)
@@ -352,6 +367,7 @@ export default {
           {
             rad: state.currentRadonMarkupInterpreter.getMir(),
             stage: EDITOR_STAGES.SETTINGS,
+            currentTemplate: { ...state.currentTemplate },
           },
         ]
       } else {
@@ -367,12 +383,6 @@ export default {
       state.currentTemplate = template
       state.currentRadonMarkupInterpreter = new Radon(template.radRequest)
       state.radRequest = state.currentRadonMarkupInterpreter
-      state.history = [
-        {
-          rad: state.currentRadonMarkupInterpreter.getMir(),
-          stage: EDITOR_STAGES.SETTINGS,
-        },
-      ]
     },
     [DELETE_OPERATOR](state, { scriptId, operatorId }) {
       state.currentRadonMarkupInterpreter.deleteOperator(scriptId, operatorId)
@@ -385,9 +395,21 @@ export default {
     },
     renameTemplate: function(state, { id, name }) {
       state.templates[id].name = name
+      this.commit('setDataRequestChangedSinceSaved', { value: true })
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.UPDATE_NAME,
+        info: { currentTemplate: state.currentTemplate },
+      })
     },
     updateTemplateDescription: function(state, { id, description }) {
       state.templates[id].description = description
+      this.commit('setDataRequestChangedSinceSaved', { value: true })
+      this.commit(UPDATE_HISTORY, {
+        mir: state.currentRadonMarkupInterpreter.getMir(),
+        type: HISTORY_UPDATE_TYPE.UPDATE_DESCRIPTION,
+        info: { currentTemplate: state.currentTemplate },
+      })
     },
     [TOGGLE_VARIABLES](state, { hasVariables }) {
       if (hasVariables === true) {
@@ -405,47 +427,6 @@ export default {
     },
   },
   actions: {
-    changeTemplateDescription: async function(context, { id, description }) {
-      this.commit('updateTemplateDescription', { id, description })
-      const request = await context.rootState.wallet.api.saveItem({
-        wallet_id: context.rootState.wallet.walletId,
-        session_id: context.rootState.wallet.sessionId,
-        key: 'templates',
-        value: context.state.templates,
-        creation_date: Date.now(),
-      })
-      if (request.result) {
-        await context.dispatch('getTemplates')
-      } else {
-        context.commit('setError', {
-          name: 'saveItem',
-          error: request.error,
-          message: 'An error occurred changing the template name',
-        })
-      }
-      context.commit('setDataRequestChangedSinceSaved', { value: true })
-    },
-    changeTemplateName: async function(context, { id, name }) {
-      this.commit('renameTemplate', { id, name })
-      const request = await context.rootState.wallet.api.saveItem({
-        wallet_id: context.rootState.wallet.walletId,
-        session_id: context.rootState.wallet.sessionId,
-        key: 'templates',
-        value: context.state.templates,
-        creation_date: Date.now(),
-      })
-      if (request.result) {
-        await context.dispatch('getTemplates')
-      } else {
-        context.commit('setError', {
-          name: 'saveItem',
-          error: request.error,
-          message: 'An error occurred changing the template name',
-        })
-      }
-
-      context.commit('setDataRequestChangedSinceSaved', { value: true })
-    },
     saveTemplate: async function(context, args) {
       context.commit('setDataRequestChangedSinceSaved', { value: false })
       const isImportingTemplate = args ? !!args.template : null
@@ -487,9 +468,9 @@ export default {
         })
         if (request.result) {
           await context.dispatch('getTemplates')
-          // this.commit(SET_CURRENT_TEMPLATE, {
-          //   id: context.state.currentTemplate.id,
-          // })
+          this.commit(SET_CURRENT_TEMPLATE, {
+            id: context.state.currentTemplate.id,
+          })
         } else {
           context.commit('setError', {
             name: 'saveItem',
