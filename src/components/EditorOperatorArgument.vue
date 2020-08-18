@@ -168,11 +168,9 @@ export default {
     },
     argumentValue() {
       if (this.argument.type === 'map') {
-        if (typeof this.argument.value === 'string') {
-          return this.argument.value
-        } else {
-          return JSON.stringify(this.argument.value)
-        }
+        return typeof this.argument.value === 'object'
+          ? JSON.stringify(this.argument.value)
+          : this.argument.value
       } else if (this.argument.type === 'number') {
         return this.argument.value
       } else if (this.argument.value || this.argument.type === 'boolean') {
@@ -237,8 +235,8 @@ export default {
       this.$store.commit('clearCurrentFocus')
     },
     // FIXME(#19): fix update select argument in radon.js library
-    updateTemplateAndVariables(value) {
-      this.$emit('update', value)
+    updateTemplateAndVariables(updater) {
+      this.$emit('update', updater)
     },
   },
 }

@@ -38,7 +38,7 @@
           :subscriptPartialResults="subscriptPartialResults"
           :argument="argument"
           :error="error"
-          @update="value => updateArgumentsAndVariables(value)"
+          @update="updater => updateArgumentsAndVariables(updater)"
         />
       </div>
     </div>
@@ -260,6 +260,7 @@ export default {
       const id = input.id
       const value = input.value
       const type = input.type
+
       this.variableName = value
       this.toggleVariables({ hasVariables: true })
       if (this.hasVariables(value)) {

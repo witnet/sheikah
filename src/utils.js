@@ -307,19 +307,13 @@ export function copyToClipboard(str) {
 }
 
 // Get the native javascript type from the radon markup argument type
+// Map types are handled by witnet-radon-js library
 export function getNativeValueFromMarkupArgumentType(value, type) {
   if (type === 'number') {
     return Number(value)
   }
   if (type === 'boolean') {
     return value === 'true'
-  }
-  if (type === 'map') {
-    try {
-      return JSON.parse(value)
-    } catch (error) {
-      console.log('Error parsing json')
-    }
   }
   return value
 }
