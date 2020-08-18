@@ -5,7 +5,7 @@
       <div class="variable-key">
         <p class="variable-icon">$</p>
         <el-input
-          :ref="`variable-${index}`"
+          v-focus:[focusHandler(index,key)]
           class="key"
           data-test="edit-var-input"
           :value="keys[index]"
@@ -18,6 +18,7 @@
                 value: variable.value,
                 description: variable.description,
                 type: variable.type,
+                variableField: key,
               })
           "
         />
@@ -26,6 +27,7 @@
         </div>
         <label class="label" data-test="type-label">Data type</label>
         <Select
+          v-focus:[focusHandler(index,type)]
           data-test="select-type"
           :value="{ primaryText: variable.type }"
           :options="dataTypeOptions"
@@ -37,12 +39,14 @@
                 value: variable.value,
                 description: variable.description,
                 type: val.primaryText,
+                variableField: type,
               })
           "
         />
       </div>
       <label class="label" data-test="value-label">Default value</label>
       <el-input
+        v-focus:[focusHandler(index,value)]
         class="variable-value"
         data-test="edit-var-value-input"
         placeholder="The default String that this variable will take if an user does not override it"
@@ -55,11 +59,13 @@
               value: val,
               description: variable.description,
               type: variable.type,
+              variableField: value,
             })
         "
       />
       <label class="label" data-test="description-label">Description</label>
       <el-input
+        v-focus:[focusHandler(index,description)]
         class="variable-value"
         data-test="edit-var-description-input"
         placeholder="Helps users of this template understand what this variable is used for"
@@ -72,6 +78,7 @@
               value: variable.value,
               description: val,
               type: variable.type,
+              variableField: description,
             })
         "
       />
@@ -114,6 +121,10 @@ export default {
     return {
       errors: [],
       keys: this.$store.getters.variablesKeys,
+      key: 'key',
+      description: 'description',
+      value: 'value',
+      type: 'type',
     }
   },
   computed: {
@@ -142,21 +153,9 @@ export default {
     variablesKeys() {
       this.keys = this.variablesKeys
     },
-    async currentFocus(val) {
-      if ((val || Number.isInteger(val)) && this.$refs[val]) {
-        await this.$nextTick()
-
-        this.scrollToCurrentFocus()
-      }
-    },
   },
-  mounted() {
-    if (
-      (this.currentFocus || Number.isInteger(this.currentFocus)) &&
-      this.$refs[this.currentFocus]
-    ) {
-      this.scrollToCurrentFocus()
-    }
+  beforeDestroy() {
+    this.$store.commit('clearCurrentFocus')
   },
   methods: {
     ...mapMutations({
@@ -164,9 +163,20 @@ export default {
       createVariable: CREATE_VARIABLE,
       updateVariables: UPDATE_VARIABLES,
     }),
-    scrollToCurrentFocus() {
-      this.$refs[`variable-${this.currentFocus}`].$el.scrollIntoView()
-      this.$store.commit('clearCurrentFocus')
+    focusHandler(index, field) {
+      if (field === 'key') {
+        return (
+          this.currentFocus === index || this.currentFocus === `key_${index}`
+        )
+      } else if (field === 'value') {
+        return this.currentFocus === `value_${index}`
+      } else if (field === 'description') {
+        return this.currentFocus === `description_${index}`
+      } else if (field === 'type') {
+        return this.currentFocus === `type_${index}`
+      } else {
+        return false
+      }
     },
     standardizeDataType(type) {
       return this.dataTypeOptions.find(type => type.primaryText === type)
@@ -183,6 +193,7 @@ export default {
           value,
           description,
           type,
+          variableField: 'key',
         })
       }
     },

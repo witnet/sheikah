@@ -80,7 +80,10 @@ export default {
     [SET_CURRENT_STAGE](state, { stage }) {
       state.currentStage = stage
     },
-    [UPDATE_VARIABLES](state, { index, key, value, description, type }) {
+    [UPDATE_VARIABLES](
+      state,
+      { index, key, value, description, type, variableField = '' },
+    ) {
       const prevValue = state.currentTemplate.variables[index].key
       const usedVariables = state.currentTemplate.usedVariables.filter(
         x => x.variable === prevValue,
@@ -119,7 +122,7 @@ export default {
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
         type: HISTORY_UPDATE_TYPE.UPDATE_VARIABLE,
-        info: { index },
+        info: { index, currentTemplate: state.currentTemplate, variableField },
       })
     },
     [DELETE_VARIABLE](state, { index }) {
@@ -128,7 +131,7 @@ export default {
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
         type: HISTORY_UPDATE_TYPE.DELETE_VARIABLE,
-        info: { index },
+        info: { index, currentTemplate: state.currentTemplate },
       })
     },
     [CREATE_VARIABLE](state) {
@@ -201,7 +204,9 @@ export default {
 
         const currentHistoryCheckpoint = state.history[state.historyIndex]
         const { rad, stage } = currentHistoryCheckpoint
-
+        state.currentTemplate =
+          state.history[state.historyIndex].currentTemplate
+        this.commit('setDataRequestChangedSinceSaved', { value: true })
         state.currentRadonMarkupInterpreter = new Radon(rad)
 
         state.currentFocus = calculateCurrentFocusAfterRedo(
@@ -224,21 +229,9 @@ export default {
       if (state.history[state.historyIndex - 1]) {
         state.historyIndex = state.historyIndex - 1
         const { rad } = state.history[state.historyIndex]
-        if (
-          state.history[state.historyIndex].type ===
-            HISTORY_UPDATE_TYPE.UPDATE_DESCRIPTION ||
-          state.history[state.historyIndex].type ===
-            HISTORY_UPDATE_TYPE.UPDATE_NAME ||
-          state.history[state.historyIndex].type ===
-          HISTORY_UPDATE_TYPE.ADD_VARIABLE || 
-          state.history[state.historyIndex].type ===
-          HISTORY_UPDATE_TYPE.DELETE_VARIABLE
-        ) {
-          state.currentTemplate =
-            state.history[state.historyIndex].currentTemplate
-          this.commit('setDataRequestChangedSinceSaved', { value: true })
-          console.log('currentTemplate', state.currentTemplate)
-        }
+        state.currentTemplate =
+          state.history[state.historyIndex].currentTemplate
+        this.commit('setDataRequestChangedSinceSaved', { value: true })
         const previousHistoryCheckpoint = state.history[state.historyIndex]
 
         state.currentRadonMarkupInterpreter = new Radon(rad)
@@ -252,8 +245,8 @@ export default {
           previousHistoryCheckpoint,
           state.currentRadonMarkupInterpreter.getMarkup(),
           state.variablesIndex,
+          state.history[state.historyIndex].variableField,
         )
-
         state.radRequest = state.currentRadonMarkupInterpreter
 
         if (state.autoTry) {

@@ -47,6 +47,7 @@ export default {
         return this.name
       },
       set(val) {
+        this.$store.commit('clearCurrentFocus')
         this.currentName = val
         this.renameTemplate({ id: this.id, name: val })
       },
@@ -56,6 +57,7 @@ export default {
         return this.description
       },
       set(val) {
+        this.$store.commit('clearCurrentFocus')
         this.currentDescription = val
         this.updateTemplateDescription({ id: this.id, description: val })
       },

@@ -340,7 +340,14 @@ export function calculateCurrentFocusAfterUndo(
   markup,
   variables,
 ) {
-  const { stage, type, scriptId, index, id } = previousHistoryCheckpoint
+  const {
+    stage,
+    type,
+    scriptId,
+    index,
+    id,
+    variableField,
+  } = previousHistoryCheckpoint
   const markupRetrieve = markup.retrieve
 
   if (
@@ -371,11 +378,11 @@ export function calculateCurrentFocusAfterUndo(
   } else if (type === HISTORY_UPDATE_TYPE.UPDATE_SOURCE) {
     return index
   } else if (type === HISTORY_UPDATE_TYPE.DELETE_VARIABLE) {
-    return index
+    return index - 1
   } else if (type === HISTORY_UPDATE_TYPE.ADD_VARIABLE) {
     return variables && variables.length ? variables.length - 1 : 0
   } else if (type === HISTORY_UPDATE_TYPE.UPDATE_VARIABLE) {
-    return index
+    return `${variableField}_${index}`
   }
 }
 
@@ -384,7 +391,14 @@ export function calculateCurrentFocusAfterRedo(
   markup,
   variables,
 ) {
-  const { type, stage, scriptId, index, id } = currentHistoryCheckpoint
+  const {
+    type,
+    stage,
+    scriptId,
+    index,
+    id,
+    variableField,
+  } = currentHistoryCheckpoint
   const markupRetrieve = markup.retrieve
 
   if (
@@ -415,10 +429,10 @@ export function calculateCurrentFocusAfterRedo(
   } else if (type === HISTORY_UPDATE_TYPE.UPDATE_SOURCE) {
     return index
   } else if (type === HISTORY_UPDATE_TYPE.DELETE_VARIABLE) {
-    return index
+    return index - 1
   } else if (type === HISTORY_UPDATE_TYPE.ADD_VARIABLE) {
     return variables && variables.length ? variables.length - 1 : 0
   } else if (type === HISTORY_UPDATE_TYPE.UPDATE_VARIABLE) {
-    return index
+    return `${variableField}_${index}`
   }
 }

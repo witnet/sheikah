@@ -53,6 +53,23 @@ global.createComponentMocks = ({ store, router, style, mocks, stubs }) => {
   returnOptions.stubs = stubs || {}
   // https://vue-test-utils.vuejs.org/api/options.html#mocks
   returnOptions.mocks = mocks || {}
+  const mockedDirective = {
+    inserted(el, binding) {
+      el.getElementsByTagName('input')
+        ? el.getElementsByTagName('input')[0].focus()
+        : el.focus()
+    },
+    update(el, binding) {
+      if (binding.arg === true) {
+        if (el.getElementsByTagName('input')) {
+          el.getElementsByTagName('input')[0].focus()
+        } else {
+          el.focus()
+        }
+      }
+    },
+  }
+  localVue.directive('focus', mockedDirective)
 
   if (store) {
     localVue.use(Vuex)

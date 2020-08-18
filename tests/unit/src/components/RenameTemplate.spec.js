@@ -9,6 +9,7 @@ describe('RadonOperator.vue', () => {
             mutations: {
               renameTemplate: () => {},
               updateTemplateDescription: () => {},
+              clearCurrentFocus: () => {},
             },
           },
         },

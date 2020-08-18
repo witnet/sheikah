@@ -1,7 +1,7 @@
 <template>
   <LayoutTwoColumns>
     <template v-slot:left>
-      <EditorSettings :template="templates[currentTemplateId]" />
+      <EditorSettings :template="currentTemplate" />
     </template>
 
     <template v-slot:upperRight>
@@ -52,8 +52,7 @@ export default {
   },
   computed: {
     ...mapState({
-      currentTemplateId: state => state.rad.currentTemplate.id,
-      templates: state => state.rad.templates,
+      currentTemplate: state => state.rad.currentTemplate,
     }),
   },
 }
