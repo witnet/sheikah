@@ -32,7 +32,6 @@
           class="icon"
           icon="eye"
         />
-
         <JsonTree :data="output" />
       </el-popover>
       <!-- Empty state of the operator output -->
@@ -74,7 +73,6 @@
 <script>
 import DotsLoading from '@/components/DotsLoading'
 import JsonTree from '@/components/JsonTree'
-
 import { mapState } from 'vuex'
 
 export default {

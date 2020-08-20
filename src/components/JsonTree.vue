@@ -1,9 +1,9 @@
 <template>
-  <JsonViewer :value="data" :expand-depth="2" theme="json-tree-viewer-theme" />
+  <JsonViewer :data="data" :level="2" />
 </template>
 
 <script>
-import JsonViewer from 'vue-json-viewer'
+import JsonViewer from 'vue-json-tree'
 
 export default {
   name: 'JsonTree',
@@ -22,31 +22,42 @@ export default {
 <style lang="scss">
 @import '@/styles/_colors.scss';
 
-.json-tree-viewer-theme {
-  .jv-item {
-    &.jv-array {
-      color: $black;
-    }
+.json-tree-root {
+  background-color: white;
+  border-radius: 3px;
+  margin: 2px 0;
+  min-width: max-content;
+  padding: 10px;
+}
 
-    &.jv-boolean {
-      color: $black;
-    }
+.json-tree {
+  color: $alt-grey-3;
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 20px;
+}
 
-    &.jv-number {
-      color: $black;
-    }
+.json-tree-row:hover {
+  background-color: #f9f5fe;
+}
 
-    &.jv-object {
-      color: $black;
-    }
+.json-tree-key {
+  word-wrap: none;
+}
 
-    &.jv-undefined {
-      color: $black;
-    }
-
-    &.jv-string {
-      color: $black;
-    }
+.json-tree-ending {
+  &.json-tree-paired {
+    background-color: #f9f5fe;
   }
+}
+
+.json-tree-value-string {
+  color: $alt-grey-6;
+  max-width: 300px;
+  overflow-wrap: break-word;
+}
+
+.json-tree-value-boolean {
+  color: $alt-grey-6;
 }
 </style>
