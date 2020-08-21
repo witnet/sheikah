@@ -41,6 +41,10 @@ export default {
   background-color: #f9f5fe;
 }
 
+.json-tree-key {
+  word-wrap: none;
+}
+
 .json-tree-ending {
   &.json-tree-paired {
     background-color: #f9f5fe;
@@ -48,7 +52,9 @@ export default {
 }
 
 .json-tree-value-string {
-    color: $alt-grey-6;
+  color: $alt-grey-6;
+  max-width: 300px;
+  overflow-wrap: break-word;
 }
 
 .json-tree-value-boolean {

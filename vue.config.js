@@ -3,7 +3,7 @@ module.exports = {
     electronBuilder: {
       builderOptions: {
         linux: {
-          category: "Network"
+          category: 'Network',
         },
       },
       nodeIntegration: true,
