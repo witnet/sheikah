@@ -146,9 +146,8 @@ export default new Router({
             store.dispatch('getWalletInfos')
             const polling = setInterval(() => {
               const walletInfos = store.state.wallet.walletInfos
-              const isSessionId = store.state.wallet.sessionId
               clearInterval(polling)
-              if (isSessionId && walletInfos.length > 0) {
+              if (walletInfos.length > 0) {
                 next('/welcome-back/wallet-list')
               } else {
                 next('/ftu/welcome')
