@@ -38,7 +38,7 @@ export default {
 }
 
 .json-tree-row:hover {
-  background-color: #f9f5fe;
+  background-color: $alpha-purple;
 }
 
 .json-tree-key {
@@ -47,7 +47,7 @@ export default {
 
 .json-tree-ending {
   &.json-tree-paired {
-    background-color: #f9f5fe;
+    background-color: $alpha-purple;
   }
 }
 
