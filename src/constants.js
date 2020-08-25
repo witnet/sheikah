@@ -51,3 +51,7 @@ export const HISTORY_UPDATE_TYPE = {
   UPDATE_DESCRIPTION: 'UPDATE_DESCRIPTION',
   UPDATE_NAME: 'UPDATE_NAME',
 }
+
+export const EXTERNAL_URL = {
+  BALANCE_LOCKED: 'https://witnet.io',
+}

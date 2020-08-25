@@ -5,7 +5,21 @@
       {{ available }} <span class="currency">{{ currency }}</span>
     </p>
 
-    <p class="label">Locked</p>
+    <p class="label"
+      >Locked
+      <el-tooltip trigger="hover" effect="light">
+        <font-awesome-icon class="info" icon="info-circle" />
+        <div slot="content" class="info-message">
+          Locked Wits are tokens which belong to you. These tokens can't be
+          spent until a certain date. You can learn more about locked wits
+          <a class="link" :href="balanceLockedUrl" target="_blank"
+            >here<font-awesome-icon
+              class="external-link"
+              icon="external-link-alt"/></a
+          >.
+        </div>
+      </el-tooltip>
+    </p>
     <p class="amount">
       {{ locked }} <span class="currency">{{ currency }}</span>
     </p>
@@ -16,6 +30,8 @@
 </template>
 
 <script>
+import { EXTERNAL_URL } from '@/constants'
+
 import Amount from '@/components/Amount.vue'
 /**
  * Show available, locked and total amount balances.
@@ -56,11 +72,36 @@ export default {
       required: true,
     },
   },
+  computed: {
+    /**
+     * External link to locked balances explanation
+     */
+
+    balanceLockedUrl() {
+      return EXTERNAL_URL.BALANCE_LOCKED
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
+
+.info-message {
+  color: $alt-grey-5;
+  font-size: 13px;
+  max-width: 250px;
+
+  .link {
+    color: $purple-2;
+    text-decoration: underline;
+
+    .external-link {
+      font-size: 10px;
+      margin-left: 4px;
+    }
+  }
+}
 
 .table {
   background-color: $purple-5;
@@ -80,6 +121,12 @@ export default {
     &.total {
       font-size: 16px;
       font-weight: bold;
+    }
+
+    .info {
+      color: $white;
+      font-size: 13px;
+      margin-left: 4px;
     }
   }
 
