@@ -5,6 +5,8 @@ export default {
     receiveTransactionClicked: false,
     generateAddressLoading: false,
     generateRadRequestResultLoading: false,
+    setupMessage: 'Downloading wallet',
+    setupProgress: 0,
   },
   mutations: {
     receiveTransactionClicked: function(state) {
@@ -24,6 +26,15 @@ export default {
     },
     clearGenerateRadRequestResultLoading: function(state) {
       state.generateRadRequestResultLoading = false
+    },
+    setMessage: function(state, { message }) {
+      state.setupMessage = message
+    },
+    setProgress: function(state, { progress }) {
+      state.setupProgress = progress
+    },
+    cleanMessage: function(state) {
+      state.setupMessage = 'Downloading wallet'
     },
   },
   actions: {

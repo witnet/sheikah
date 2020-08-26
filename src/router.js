@@ -43,11 +43,12 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         const isReady = store.state.wallet.api.client.ws.ready
         if (isReady) {
+          store.dispatch('getWalletInfos')
+          const isSessionId = store.state.wallet.sessionId
           const walletInfos = store.state.wallet.walletInfos
-          const sessionId = store.state.wallet.sessionId
-          if (sessionId) {
+          if (isSessionId) {
             next()
-          } else if (walletInfos.length > 0) {
+          } else if (walletInfos) {
             next('/welcome-back/wallet-list')
           } else {
             next('/ftu/welcome')
@@ -74,7 +75,7 @@ export default new Router({
             const polling = setInterval(() => {
               const walletInfos = store.state.wallet.walletInfos
               clearInterval(polling)
-              if (walletInfos.length > 0) {
+              if (walletInfos && walletInfos.length > 0) {
                 next('/welcome-back/wallet-list')
               } else {
                 next('/ftu/welcome')
@@ -126,7 +127,6 @@ export default new Router({
         },
       ],
     },
-
     {
       path: '/setup',
       name: 'setup',

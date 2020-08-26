@@ -19,6 +19,7 @@ import {
   Tray,
   ipcMain,
 } from 'electron'
+import progress from 'progress-stream'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
@@ -48,7 +49,7 @@ const STATUS_PATH = {
 let win
 let tray
 let walletProcess
-let protocolCreated
+let createdProtocol
 
 // open sheikah if is development environment
 let status = isDevelopment ? STATUS.READY : STATUS.WAIT
@@ -239,16 +240,21 @@ async function downloadWalletRelease(releaseUrl, version) {
   status = STATUS.WAIT
   loadUrl(STATUS.WAIT)
 
-  await sleep(5000)
-
   return new Promise((resolve, reject) => {
     axios
       .get(releaseUrl, { responseType: 'stream' })
       .then(async response => {
         const file = `witnet-release-${arch}-${platform}.tar.gz`
+        const str = progress({
+          length: response.headers['content-length'],
+          time: 100 /* ms */,
+        })
+        str.on('progress', function(progress) {
+          win.webContents.send('progress', progress)
+        })
         const pipeline = util.promisify(stream.pipeline)
         // Promise equivalent for response.data.pipe(writeStream)
-        await pipeline(response.data, fs.createWriteStream(file))
+        await pipeline(response.data, str, fs.createWriteStream(file))
         console.info('witnet release downloaded succesfully')
         console.info('Decompressing release...')
         // Decompress tar.gz file
@@ -267,6 +273,7 @@ async function downloadWalletRelease(releaseUrl, version) {
 
         // Remove the compressed file
         fs.unlinkSync(file)
+        await sleep(3000)
         resolve()
       })
       .catch(err => {
@@ -287,9 +294,9 @@ function loadUrl(status) {
         `${process.env.WEBPACK_DEV_SERVER_URL}#/${STATUS_PATH[status]}`,
       )
     } else {
-      if (!protocolCreated) {
+      if (!createdProtocol) {
         createProtocol('app')
-        protocolCreated = true
+        createdProtocol = true
       }
       // Load the index.html when not in development
       win.loadURL(`app://./index.html/#/${STATUS_PATH[status]}`)
@@ -299,16 +306,13 @@ function loadUrl(status) {
 
 function main() {
   console.info('Fetching releases from: ' + LATEST_RELEASES_URL)
-
   axios.get(LATEST_RELEASES_URL).then(async result => {
     const release = result.data.assets.find(
       asset =>
         asset.browser_download_url.includes(arch) &&
         asset.browser_download_url.includes(platform),
     )
-
     if (release) {
-      console.info('Release found')
       const releaseUrl = release.browser_download_url
 
       const releaseName = releaseUrl.split('/')[8]
@@ -317,10 +321,7 @@ function main() {
         0,
         releaseName.indexOf('-x86'),
       )
-      console.info('Latest release url: ' + releaseUrl)
       console.info('Latest release version: ' + latestReleaseVersion)
-      console.info('Latest release name: ' + releaseName)
-
       if (!fs.existsSync(SHEIKAH_PATH)) {
         console.info(
           "Sheikah's directory not found. Create a new one in: ",
@@ -349,16 +350,15 @@ function main() {
         existVersionFile &&
         latestReleaseVersion ===
           fs.readFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME)).toString()
-
       if (!isLastestVersion) {
-        console.info(
-          'There is a newer version. Downloading latest wallet release...',
-        )
+        win.webContents.send('downloading')
+        await sleep(2500)
         await downloadWalletRelease(releaseUrl, latestReleaseVersion)
       } else {
+        win.webContents.send('up-to-date')
+        await sleep(2500)
         console.info('The wallet is up to date')
       }
-
       runWallet()
     } else {
       status = STATUS.OS_NOT_SUPPORTED
@@ -372,6 +372,8 @@ function main() {
 // Run Witnet wallet and load "ready" url
 async function runWallet() {
   console.info('Running wallet...')
+  win.webContents.send('running')
+  await sleep(3000)
 
   const walletConfigurationPath = path.join(SHEIKAH_PATH, 'witnet.toml')
 
@@ -385,12 +387,13 @@ async function runWallet() {
     'server',
   ])
 
-  walletProcess.stdout.on('data', function(data) {
+  walletProcess.stdout.on('data', async function(data) {
     console.info('stdout: ' + data.toString())
     status = STATUS.READY
+    win.webContents.send('loaded')
+    await sleep(3000)
     loadUrl(status)
   })
-
   walletProcess.stderr.on('data', function(data) {
     console.info('stderr: ' + data.toString())
   })

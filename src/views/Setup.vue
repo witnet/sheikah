@@ -1,20 +1,98 @@
 <template>
   <div class="container">
-    <Card class="setup">
-      <div>
-        <p>We are preparing Sheikah</p>
+    <div class="center">
+      <div class="header">
+        <div class="filling-icon">
+          <font-awesome-icon
+            v-if="
+              setupMessage === 'Downloading wallet' ||
+                setupMessage === 'wallet up to date'
+            "
+            class="icon"
+            icon="wallet"
+          />
+          <font-awesome-icon
+            v-if="setupMessage === 'Running wallet'"
+            class="icon"
+            icon="cogs"
+          />
+          <font-awesome-icon
+            v-if="setupMessage === 'loaded'"
+            class="icon"
+            icon="check"
+          />
+          <div class="banner" />
+        </div>
+        <div>
+          <p class="progress-title">We are preparing Sheikah</p>
+          <p class="progress-subtitle">
+            {{ format(percentage) }}
+            <DotsLoading
+              v-if="!synced"
+              color="#444258"
+              data-test="loading-spinner"
+              class="spinner"
+            />
+          </p>
+        </div>
       </div>
-    </Card>
+      <el-progress
+        :text-inside="true"
+        :stroke-width="20"
+        :percentage="percentage"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import Card from '@/components/card/Card.vue'
+import { mapState, mapMutations } from 'vuex'
+import DotsLoading from '@/components/DotsLoading.vue'
 
 export default {
   name: 'WalletNotFound',
-  components: { Card },
-  methods: {},
+  components: {
+    DotsLoading,
+  },
+  computed: {
+    ...mapState({
+      setupMessage: state => state.uiInteractions.setupMessage,
+      client: state => state.wallet.api.client,
+      progress: state => state.uiInteractions.setupProgress,
+    }),
+    percentage() {
+      if (this.setupMessage === 'Downloading wallet') {
+        return Math.round(this.progress / 3)
+      } else if (this.setupMessage === 'wallet up to date') {
+        return 60
+      } else if (this.setupMessage === 'Running wallet') {
+        return 66
+      } else if (this.setupMessage === 'loaded') {
+        return 100
+      } else {
+        return 0
+      }
+    },
+  },
+  beforeDestroy() {
+    this.cleanMessage()
+  },
+  methods: {
+    ...mapMutations({
+      cleanMessage: 'cleanMessage',
+    }),
+    format(percentage) {
+      if (percentage <= 33) {
+        return 'Downloading wallet'
+      } else if (percentage <= 60 && percentage >= 33) {
+        return 'The wallet is up to date'
+      } else if (percentage <= 70) {
+        return 'Running wallet'
+      } else if (percentage > 70) {
+        return 'We are preparing Sheikah'
+      }
+    },
+  },
 }
 </script>
 
@@ -29,33 +107,58 @@ export default {
   justify-content: center;
   width: 100vw;
 
-  .alert {
-    background-color: $orange-0;
-    width: 400px;
+  .center {
+    min-width: 500px;
 
-    .title {
-      color: $orange-2;
-      font-size: 18px;
-      font-weight: bold;
-      padding-bottom: 16px;
-    }
+    .header {
+      align-items: center;
+      column-gap: 32px;
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      justify-items: left;
+      margin-bottom: 24px;
 
-    .description {
-      color: $orange-2;
-      font-size: 16px;
-    }
+      .filling-icon {
+        align-items: center;
+        display: flex;
+        justify-content: center;
 
-    .link-container {
-      background-color: $white;
-      font-size: 14px;
-      margin-top: 16px;
-      padding: 8px;
+        .icon {
+          color: $alpha-purple;
+          font-size: 50px;
+          position: absolute;
+          z-index: 100;
+        }
+      }
 
-      .link {
+      .progress-title {
         color: $alt-grey-5;
-        line-height: 1.5;
+        font-size: 24px;
+        line-height: 1.3;
+      }
+
+      .progress-subtitle {
+        color: $alt-grey-5;
+        display: flex;
+        margin-top: 8px;
       }
     }
   }
+}
+
+.el-progress-bar {
+  .el-progress-bar__outer {
+    background-color: $alpha-purple;
+  }
+}
+
+.banner {
+  background: $purple-4;
+  border: 4px solid $alpha-purple;
+  border-radius: 50%;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  width: 100px;
 }
 </style>
