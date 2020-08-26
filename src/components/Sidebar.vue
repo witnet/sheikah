@@ -12,7 +12,10 @@
         to="/wallet/transactions"
       >
         <img class="sheikah-logo" src="@/resources/svg/sheikah-small.svg" />
-        <img class="sheikah-name" src="@/resources/svg/sheikah.svg" />
+        <div class="sheikah-name">
+          <img class="name" src="@/resources/svg/sheikah.svg" />
+          <span class="version">{{ version }}</span>
+        </div>
       </router-link>
       <div class="current-wallet">
         <NetworkStatus
@@ -104,6 +107,9 @@ export default {
       status: state => state.wallet.status,
       walletInfos: state => state.wallet.walletInfos,
     }),
+    version() {
+      return `v${process.env.VUE_APP_VERSION || 0}`
+    },
   },
   mounted() {
     window.onresize = () => {
@@ -128,6 +134,7 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/theme.scss';
 @import '@/styles/app.global.scss';
+@import '@/styles/_colors.scss';
 
 .sidebar-container {
   position: absolute;
@@ -178,11 +185,22 @@ export default {
       grid-template-columns: 70px auto;
       justify-items: center;
       overflow: hidden;
+      text-decoration: none;
       width: 100%;
 
       .sheikah-name {
+        align-items: flex-end;
+        display: flex;
         justify-self: start;
         margin-left: 8px;
+        min-width: 100px;
+
+        .version {
+          color: $grey-4;
+          font-size: 13px;
+          font-weight: 600;
+          margin-left: 4px;
+        }
       }
     }
 
