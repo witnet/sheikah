@@ -258,9 +258,10 @@ export default {
     stopTransactionDateSync(context) {
       clearInterval(this.transactionSync)
     },
-    shutdown: function(context) {
-      // don't handle the response because the wallet is being closed
-      context.state.api.shutdown({
+    shutdown: async function(context) {
+      // don't handle the response in client because the wallet is being closed.
+      // This is handled in background.js when 'exit' event is emitted
+      return context.state.api.shutdown({
         session_id: context.state.sessionId,
       })
     },

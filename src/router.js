@@ -43,7 +43,15 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         const isReady = store.state.wallet.api.client.ws.ready
         if (isReady) {
-          next()
+          const walletInfos = store.state.wallet.walletInfos
+          const sessionId = store.state.wallet.sessionId
+          if (sessionId) {
+            next()
+          } else if (walletInfos.length > 0) {
+            next('/welcome-back/wallet-list')
+          } else {
+            next('/ftu/welcome')
+          }
           // when the computer is blocked the client closes but it should not redirect to
           // wallet not found if the wallet is not closed
           store.state.wallet.api.client.ws.on('close', () => {
@@ -64,12 +72,9 @@ export default new Router({
             error = false
             store.dispatch('getWalletInfos')
             const polling = setInterval(() => {
-              const isSessionId = store.state.wallet.sessionId
               const walletInfos = store.state.wallet.walletInfos
               clearInterval(polling)
-              if (isSessionId) {
-                next()
-              } else if (walletInfos.length > 0) {
+              if (walletInfos.length > 0) {
                 next('/welcome-back/wallet-list')
               } else {
                 next('/ftu/welcome')
@@ -132,7 +137,12 @@ export default new Router({
       name: 'runWalletAlert',
       beforeEnter: (to, from, next) => {
         if (store.state.wallet.api.client.ws.ready) {
-          next()
+          const walletInfos = store.state.wallet.walletInfos
+          if (walletInfos.length > 0) {
+            next('/welcome-back/wallet-list')
+          } else {
+            next('/ftu/welcome')
+          }
         } else {
           let error = true
           setTimeout(() => {

@@ -47,6 +47,8 @@ const STATUS_PATH = {
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 let tray
+let walletProcess
+
 // open sheikah if is development environment
 let status = isDevelopment ? STATUS.READY : STATUS.WAIT
 let forceQuit = false
@@ -99,8 +101,11 @@ app.on('window-all-closed', () => {
 
 // Ipc event received from the client to close sheikah
 ipcMain.on('shutdown-finished', () => {
-  if (win) win.destroy()
-  app.quit()
+  walletProcess.on('close', code => {
+    console.info(`Wallet process exited with code ${code}`)
+    if (win) win.destroy()
+    app.quit()
+  })
 })
 
 // Exit cleanly on request from parent process in development mode.
@@ -148,7 +153,7 @@ function createWindow() {
   })
 
   win.webContents.on('new-window', (e, url) => {
-    console.log('Open link: ' + url + '  in os browser')
+    console.info('Opening link: ' + url + '  in os browser')
     e.preventDefault()
 
     shell.openExternal(url)
@@ -159,7 +164,7 @@ function createWindow() {
   })
 
   win.on('close', function(event) {
-    console.log('Closing Sheikah window')
+    console.info('Closing Sheikah window')
     if (process.platform === 'darwin') {
       if (!forceQuit) {
         event.preventDefault()
@@ -170,7 +175,7 @@ function createWindow() {
           win.hide()
         }
       } else {
-        console.log('Sending shutdown message to Sheikah')
+        console.info('Sending shutdown message to Sheikah')
         win.webContents.send('shutdown')
       }
     } else {
@@ -220,7 +225,7 @@ function createTray() {
       label: 'Quit Sheikah',
       type: 'normal',
       click: function() {
-        console.log('Sending shutdown message to Sheikah')
+        console.info('Sending shutdown message to Sheikah')
         win.webContents.send('shutdown')
       },
     },
@@ -243,8 +248,8 @@ async function downloadWalletRelease(releaseUrl, version) {
         const pipeline = util.promisify(stream.pipeline)
         // Promise equivalent for response.data.pipe(writeStream)
         await pipeline(response.data, fs.createWriteStream(file))
-        console.log('witnet release downloaded succesfully')
-        console.log('Decompressing release...')
+        console.info('witnet release downloaded succesfully')
+        console.info('Decompressing release...')
         // Decompress tar.gz file
         tar.x({
           file,
@@ -264,7 +269,10 @@ async function downloadWalletRelease(releaseUrl, version) {
         resolve()
       })
       .catch(err => {
-        console.log('err', err)
+        console.error(
+          'An error happened while trying to download the wallet',
+          err,
+        )
       })
   })
 }
@@ -286,10 +294,9 @@ function loadUrl(status) {
 }
 
 function main() {
-  console.log('Fetching releases from: ' + LATEST_RELEASES_URL)
+  console.info('Fetching releases from: ' + LATEST_RELEASES_URL)
 
   axios.get(LATEST_RELEASES_URL).then(async result => {
-
     const release = result.data.assets.find(
       asset =>
         asset.browser_download_url.includes(arch) &&
@@ -297,7 +304,7 @@ function main() {
     )
 
     if (release) {
-      console.log('Release found')
+      console.info('Release found')
       const releaseUrl = release.browser_download_url
 
       const releaseName = releaseUrl.split('/')[8]
@@ -306,12 +313,15 @@ function main() {
         0,
         releaseName.indexOf('-x86'),
       )
-      console.log('Latest release url: ' + releaseUrl)
-      console.log('Latest release version: ' + latestReleaseVersion)
-      console.log('Latest release name: ' + releaseName)
+      console.info('Latest release url: ' + releaseUrl)
+      console.info('Latest release version: ' + latestReleaseVersion)
+      console.info('Latest release name: ' + releaseName)
 
       if (!fs.existsSync(SHEIKAH_PATH)) {
-        console.log("Sheikah's directory not found. Create a new one in: ", SHEIKAH_PATH)
+        console.info(
+          "Sheikah's directory not found. Create a new one in: ",
+          SHEIKAH_PATH,
+        )
         fs.mkdirSync(SHEIKAH_PATH)
       }
 
@@ -325,9 +335,9 @@ function main() {
         path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
       )
 
-      if(existWitnetFile) console.log("Witnet's wallet file found")
-      if(existConfigFile) console.log("Witnet's config file found")
-      if(existVersionFile) console.log("Witnet's version file found")
+      if (existWitnetFile) console.info("Witnet's wallet file found")
+      if (existConfigFile) console.info("Witnet's config file found")
+      if (existVersionFile) console.info("Witnet's version file found")
 
       const isLastestVersion =
         existConfigFile &&
@@ -337,10 +347,12 @@ function main() {
           fs.readFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME)).toString()
 
       if (!isLastestVersion) {
-        console.log('There is a newer version. Downloading latest wallet release...')
+        console.info(
+          'There is a newer version. Downloading latest wallet release...',
+        )
         await downloadWalletRelease(releaseUrl, latestReleaseVersion)
       } else {
-        console.log('The wallet is up to date.')
+        console.info('The wallet is up to date')
       }
 
       runWallet()
@@ -348,34 +360,35 @@ function main() {
       status = STATUS.OS_NOT_SUPPORTED
       loadUrl(status)
 
-      console.log('Your OS is not supported yet')
+      console.info('Your OS is not supported yet')
     }
   })
 }
 
 // Run Witnet wallet and load "ready" url
 async function runWallet() {
-  console.log('Running wallet...')
+  console.info('Running wallet...')
 
   const walletConfigurationPath = path.join(SHEIKAH_PATH, 'witnet.toml')
 
-  console.log('... with witnet.toml from ' + walletConfigurationPath)
+  console.info('... with witnet.toml from ' + walletConfigurationPath)
 
-  const runWallet = spawn(path.join(SHEIKAH_PATH, 'witnet'), [
+  walletProcess = spawn(path.join(SHEIKAH_PATH, 'witnet'), [
     '-c',
     walletConfigurationPath,
+    '--trace',
     'wallet',
     'server',
   ])
 
-  runWallet.stdout.on('data', function(data) {
-    console.log('stdout: ' + data.toString())
+  walletProcess.stdout.on('data', function(data) {
+    console.info('stdout: ' + data.toString())
     status = STATUS.READY
     loadUrl(status)
   })
 
-  runWallet.stderr.on('data', function(data) {
-    console.log('stderr: ' + data.toString())
+  walletProcess.stderr.on('data', function(data) {
+    console.info('stderr: ' + data.toString())
   })
 }
 
