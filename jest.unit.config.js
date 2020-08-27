@@ -1,3 +1,5 @@
+const esModules = ['@agm', 'vue-json-tree'].join('|')
+
 module.exports = {
   setupFiles: ['<rootDir>/tests/unit/setup'],
   moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
@@ -7,7 +9,7 @@ module.exports = {
       'jest-transform-stub',
     '^.+\\.jsx?$': 'babel-jest',
   },
-  transformIgnorePatterns: ['/node_modules/'],
+  transformIgnorePatterns: [`/node_modules/(?!${esModules})`],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },

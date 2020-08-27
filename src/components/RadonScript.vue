@@ -28,6 +28,7 @@
           </div>
         </div>
         <OperatorOutput
+          v-if="outputLabel"
           class="output"
           :label="outputLabel"
           :filter="false"
