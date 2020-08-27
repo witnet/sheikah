@@ -48,6 +48,7 @@ const STATUS_PATH = {
 let win
 let tray
 let walletProcess
+let protocolCreated
 
 // open sheikah if is development environment
 let status = isDevelopment ? STATUS.READY : STATUS.WAIT
@@ -286,7 +287,10 @@ function loadUrl(status) {
         `${process.env.WEBPACK_DEV_SERVER_URL}#/${STATUS_PATH[status]}`,
       )
     } else {
-      createProtocol('app')
+      if (!protocolCreated) {
+        createProtocol('app')
+        protocolCreated = true
+      }
       // Load the index.html when not in development
       win.loadURL(`app://./index.html/#/${STATUS_PATH[status]}`)
     }
