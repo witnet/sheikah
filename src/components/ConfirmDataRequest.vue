@@ -6,7 +6,6 @@
       :minConsensusPercentage="minConsensusPercentage"
       :revealFee="revealFee"
       :rewardFee="rewardFee"
-      :tallyFee="tallyFee"
       :witnesses="witnesses"
       :timelock="timelock"
       :generatedTransaction="generatedTransaction"
@@ -47,10 +46,6 @@ export default {
       required: true,
     },
     rewardFee: {
-      type: Number,
-      required: true,
-    },
-    tallyFee: {
       type: Number,
       required: true,
     },

@@ -46,12 +46,6 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item label="Tally fee" prop="tallyFee">
-      <el-input v-model.number="form.tallyFee" type="number">
-        <AppendCurrency slot="append" />
-      </el-input>
-    </el-form-item>
-
     <div class="submit">
       <el-button @click="goBack">{{ backWord }}</el-button>
 
@@ -90,8 +84,7 @@ export default {
         this.form.witnesses * this.form.commitFee +
         this.form.fee +
         this.form.witnesses * this.form.revealFee +
-        this.form.witnesses * this.form.rewardFee +
-        this.form.tallyFee
+        this.form.witnesses * this.form.rewardFee
       if (totalAmount > this.availableBalance) {
         callback(new Error("You don't have enough funds"))
       } else {
@@ -112,7 +105,6 @@ export default {
         minConsensusPercentage: 51,
         revealFee: 1,
         rewardFee: 1,
-        tallyFee: 1,
         witnesses: 3,
         collateral: 1000000000,
       },
@@ -139,10 +131,6 @@ export default {
           { type: 'number', message: 'This field must be a number' },
         ],
         revealFee: [
-          { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
-        ],
-        tallyFee: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { type: 'number', message: 'This field must be a number' },
         ],
@@ -174,7 +162,6 @@ export default {
         minConsensusPercentage: this.form.minConsensusPercentage,
         revealFee: this.form.revealFee,
         rewardFee: this.form.rewardFee,
-        tallyFee: this.form.tallyFee,
         witnesses: this.form.witnesses,
         collateral: this.form.collateral,
       }

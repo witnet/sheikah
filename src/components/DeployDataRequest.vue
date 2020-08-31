@@ -16,7 +16,6 @@
       :min-consensus-percentage="minConsensusPercentage"
       :reveal-fee="revealFee"
       :reward-fee="rewardFee"
-      :tally-fee="tallyFee"
       :timelock="timelock"
       :witnesses="witnesses"
       @confirm-dr="confirmDataRequest"
@@ -66,7 +65,6 @@ export default {
       minConsensusPercentage: null,
       revealFee: null,
       rewardFee: null,
-      tallyFee: null,
       timelock: null,
       witnesses: null,
       collateral: null,
@@ -133,7 +131,6 @@ export default {
       this.minConsensusPercentage = null
       this.revealFee = null
       this.rewardFee = null
-      this.tallyFee = null
       this.timelock = null
       this.witnesses = null
     },
@@ -146,7 +143,6 @@ export default {
       this.minConsensusPercentage = parameters.minConsensusPercentage
       this.revealFee = parameters.revealFee
       this.rewardFee = parameters.rewardFee
-      this.tallyFee = parameters.tallyFee
       this.timelock = this.template.radRequest.timelock
       this.witnesses = parameters.witnesses
       this.collateral = parameters.collateral

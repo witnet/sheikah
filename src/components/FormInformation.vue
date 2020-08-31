@@ -22,8 +22,6 @@
         <el-input v-model.number="commitFee" disabled></el-input>
         <p class="entry">Reveal fee</p>
         <el-input v-model.number="revealFee" disabled></el-input>
-        <p class="entry">Tally fee</p>
-        <el-input v-model.number="tallyFee" disabled></el-input>
       </div>
       <transition name="slide">
         <div v-if="isAdvancedVisible" class="info advanced">
@@ -133,10 +131,6 @@ export default {
       default: null,
     },
     rewardFee: {
-      type: Number,
-      default: null,
-    },
-    tallyFee: {
       type: Number,
       default: null,
     },
