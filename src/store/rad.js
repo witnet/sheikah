@@ -346,14 +346,7 @@ export default {
           name: name,
           description: '',
           radRequest,
-          variables: [
-            {
-              key: 'my_var_' + 0,
-              value: '',
-              description: '',
-              type: 'String',
-            },
-          ],
+          variables: [],
           variablesIndex: 0,
           usedVariables: [],
         }
