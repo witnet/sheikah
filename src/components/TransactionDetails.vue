@@ -20,6 +20,8 @@
       >
       <p class="label">Timestamp</p>
       <p data-test="date" class="info">{{ date }}</p>
+      <p class="label">Timelocked</p>
+      <p data-test="timelocked" class="info">{{ timelocked }}</p>
       <p
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
@@ -185,6 +187,9 @@ export default {
     id: {
       type: String,
       required: true,
+    },
+    timelocked: {
+      type: Boolean,
     },
     witnesses: {
       type: Object,

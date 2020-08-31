@@ -1,6 +1,9 @@
 <template>
   <FrameOutside @click="hideDetails" @focus="hideDetails">
-    <div class="border">
+    <div
+      class="border"
+      :class="{ locked: !inputs && transactionType !== 'tally' }"
+    >
       <div class="transaction" @click="showDetails = !showDetails">
         <img
           data-test="negative-positive"
@@ -53,6 +56,7 @@
           :state="state"
           :reveals="reveals.length ? reveals : null"
           :result="result"
+          :timelocked="!inputs && transactionType !== 'tally'"
         />
         <InputsOutputs
           data-test="inputs-outputs"
@@ -197,6 +201,10 @@ export default {
 
 .border {
   border-bottom: 1px solid $grey-1;
+
+  &.locked {
+    opacity: 0.6;
+  }
 }
 
 .transaction {
