@@ -9,42 +9,45 @@
     width="max-content"
   >
     <el-form-item label="Witnesses" prop="witnesses">
-      <el-input v-model.number="form.witnesses"></el-input>
+      <el-input v-model.number="form.witnesses" type="number"></el-input>
     </el-form-item>
 
     <el-form-item
       label="Min Consensus Percentage"
       prop="minConsensusPercentage"
     >
-      <el-input v-model.number="form.minConsensusPercentage"></el-input>
+      <el-input
+        v-model.number="form.minConsensusPercentage"
+        type="number"
+      ></el-input>
     </el-form-item>
 
     <el-form-item label="Data request fee" prop="fee">
-      <el-input v-model.number="form.fee">
+      <el-input v-model.number="form.fee" type="number">
         <AppendCurrency slot="append" />
       </el-input>
     </el-form-item>
 
     <el-form-item label="Reward fee" prop="rewardFee">
-      <el-input v-model.number="form.rewardFee">
+      <el-input v-model.number="form.rewardFee" type="number">
         <AppendCurrency slot="append" />
       </el-input>
     </el-form-item>
 
     <el-form-item label="Commit fee" prop="commitFee">
-      <el-input v-model.number="form.commitFee">
+      <el-input v-model.number="form.commitFee" type="number">
         <AppendCurrency slot="append" />
       </el-input>
     </el-form-item>
 
     <el-form-item label="Reveal fee" prop="revealFee">
-      <el-input v-model.number="form.revealFee">
+      <el-input v-model.number="form.revealFee" type="number">
         <AppendCurrency slot="append" />
       </el-input>
     </el-form-item>
 
     <el-form-item label="Tally fee" prop="tallyFee">
-      <el-input v-model.number="form.tallyFee">
+      <el-input v-model.number="form.tallyFee" type="number">
         <AppendCurrency slot="append" />
       </el-input>
     </el-form-item>

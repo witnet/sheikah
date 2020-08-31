@@ -38,6 +38,7 @@
         <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
         <el-input
           v-model.number="form.amount"
+          type="number"
           tabindex="3"
           data-test="tx-amount"
         >
@@ -45,7 +46,12 @@
         </el-input>
       </el-form-item>
       <el-form-item label="fee" prop="fee">
-        <el-input v-model.number="form.fee" tabindex="4" data-test="tx-fee">
+        <el-input
+          v-model.number="form.fee"
+          type="number"
+          tabindex="4"
+          data-test="tx-fee"
+        >
           <AppendCurrency slot="append" />
         </el-input>
       </el-form-item>
