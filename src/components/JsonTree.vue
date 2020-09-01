@@ -12,7 +12,7 @@ export default {
   },
   props: {
     data: {
-      type: [Boolean, Number, Object, String],
+      type: [Boolean, Number, Object, String, Array],
       required: true,
     },
   },
