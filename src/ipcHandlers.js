@@ -14,8 +14,7 @@ ipcRenderer.on('downloading', async () => {
 ipcRenderer.on('loaded', async () => {
   store.commit('setMessage', { message: 'loaded' })
 })
-ipcRenderer.on('up-to-date', async () => {
-  console.log('up-to-date')
+ipcRenderer.on('downloaded', async () => {
   store.commit('setMessage', { message: 'wallet up to date' })
 })
 ipcRenderer.on('progress', async (event, progress) => {

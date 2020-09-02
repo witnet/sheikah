@@ -1,13 +1,13 @@
 'use strict'
 /* global __static */
-import fs from 'fs'
 import os from 'os'
 import path from 'path'
 import stream from 'stream'
 import util from 'util'
-import { spawn } from 'child_process'
+import cp from 'child_process'
 import axios from 'axios'
-import tar from 'tar'
+// import tar from 'tar'
+import fs from 'fs-extra'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import {
@@ -24,10 +24,17 @@ const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
 const isDevelopment = process.env.NODE_ENV !== 'production'
-
+const SHEIKAH_PATH_BY_PLATFORM = {
+  darwin: path.join(os.homedir(), 'Desktop', '.sheikah'),
+  linux: path.join(os.homedir(), '.sheikah'),
+}
 const SHEIKAH_PATH = process.env.TRAVIS
   ? ''
-  : path.join(os.homedir(), '.sheikah')
+  : SHEIKAH_PATH_BY_PLATFORM[platform]
+const FILE_NAME = {
+  darwin: `witnet-0.9.3-${arch}-apple-${platform}.tar.gz`,
+  linux: `release-${arch}-${platform}.tar.gz`,
+}
 const VERSION_FILE_NAME = '.version'
 const WITNET_FILE_NAME = 'witnet'
 const WITNET_CONFIG_FILE_NAME = 'witnet.toml'
@@ -190,23 +197,22 @@ function createWindow() {
       }
     }
   })
+  // if (!isDevelopment) {
+  //   // Disable shortcuts defining a hidden menu and binding the shortcut we
+  //   // want to disable to an option
+  //   const menu = Menu.buildFromTemplate([
+  //     {
+  //       label: 'Menu',
+  //       submenu: [
+  //         { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
+  //         { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
+  //         { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+  //       ],
+  //     },
+  //   ])
 
-  if (!isDevelopment) {
-    // Disable shortcuts defining a hidden menu and binding the shortcut we
-    // want to disable to an option
-    const menu = Menu.buildFromTemplate([
-      {
-        label: 'Menu',
-        submenu: [
-          { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
-          { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
-          { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
-        ],
-      },
-    ])
-
-    Menu.setApplicationMenu(menu)
-  }
+  //   Menu.setApplicationMenu(menu)
+  // }
 }
 
 function createTray() {
@@ -239,12 +245,11 @@ function createTray() {
 async function downloadWalletRelease(releaseUrl, version) {
   status = STATUS.WAIT
   loadUrl(STATUS.WAIT)
-
+  const file = path.join(SHEIKAH_PATH, FILE_NAME[platform])
   return new Promise((resolve, reject) => {
     axios
       .get(releaseUrl, { responseType: 'stream' })
       .then(async response => {
-        const file = `witnet-release-${arch}-${platform}.tar.gz`
         const str = progress({
           length: response.headers['content-length'],
           time: 100 /* ms */,
@@ -258,22 +263,15 @@ async function downloadWalletRelease(releaseUrl, version) {
         console.info('witnet release downloaded succesfully')
         console.info('Decompressing release...')
         // Decompress tar.gz file
-        tar.x({
-          file,
-          sync: true,
-        })
-        // TODO: tar is not decompressing correctly if a path is given.
-        // Create these files in ./sheikah
-        fs.copyFileSync('witnet', path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
-        fs.copyFileSync(
-          'witnet.toml',
-          path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
-        )
-        fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
-
-        // Remove the compressed file
-        fs.unlinkSync(file)
-        await sleep(3000)
+        try {
+          const currentCwd = process.cwd()
+          process.chdir(SHEIKAH_PATH)
+          cp.execSync(`tar -xvf ${file}`)
+          process.chdir(currentCwd)
+        } catch (err) {
+          console.error(err)
+        }
+        await sleep(4000)
         resolve()
       })
       .catch(err => {
@@ -344,20 +342,15 @@ function main() {
       if (existConfigFile) console.info("Witnet's config file found")
       if (existVersionFile) console.info("Witnet's version file found")
 
-      const isLastestVersion =
-        existConfigFile &&
-        existWitnetFile &&
-        existVersionFile &&
-        latestReleaseVersion ===
-          fs.readFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME)).toString()
+      const isLastestVersion = existConfigFile && existWitnetFile
+
       if (!isLastestVersion) {
         win.webContents.send('downloading')
         await sleep(2500)
         await downloadWalletRelease(releaseUrl, latestReleaseVersion)
       } else {
-        win.webContents.send('up-to-date')
-        await sleep(2500)
-        console.info('The wallet is up to date')
+        win.webContents.send('downloaded')
+        await sleep(3000)
       }
       runWallet()
     } else {
@@ -379,14 +372,13 @@ async function runWallet() {
 
   console.info('... with witnet.toml from ' + walletConfigurationPath)
 
-  walletProcess = spawn(path.join(SHEIKAH_PATH, 'witnet'), [
+  walletProcess = cp.spawn(path.join(SHEIKAH_PATH, 'witnet'), [
     '-c',
     walletConfigurationPath,
     '--trace',
     'wallet',
     'server',
   ])
-
   walletProcess.stdout.on('data', async function(data) {
     console.info('stdout: ' + data.toString())
     status = STATUS.READY

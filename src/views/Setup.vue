@@ -62,11 +62,11 @@ export default {
     }),
     percentage() {
       if (this.setupMessage === 'Downloading wallet') {
-        return Math.round(this.progress / 3)
+        return Math.round(this.progress * 0.8)
       } else if (this.setupMessage === 'wallet up to date') {
-        return 60
+        return 80
       } else if (this.setupMessage === 'Running wallet') {
-        return 66
+        return 90
       } else if (this.setupMessage === 'loaded') {
         return 100
       } else {
@@ -82,13 +82,11 @@ export default {
       cleanMessage: 'cleanMessage',
     }),
     format(percentage) {
-      if (percentage <= 33) {
+      if (percentage <= 80) {
         return 'Downloading wallet'
-      } else if (percentage <= 60 && percentage >= 33) {
-        return 'The wallet is up to date'
-      } else if (percentage <= 70) {
+      } else if (percentage <= 90) {
         return 'Running wallet'
-      } else if (percentage > 70) {
+      } else if (percentage > 90) {
         return 'We are preparing Sheikah'
       }
     },

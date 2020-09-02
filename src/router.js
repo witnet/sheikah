@@ -43,16 +43,19 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         const isReady = store.state.wallet.api.client.ws.ready
         if (isReady) {
+          // FIXME: use await instead of setTimeout
           store.dispatch('getWalletInfos')
-          const isSessionId = store.state.wallet.sessionId
-          const walletInfos = store.state.wallet.walletInfos
-          if (isSessionId) {
-            next()
-          } else if (walletInfos) {
-            next('/welcome-back/wallet-list')
-          } else {
-            next('/ftu/welcome')
-          }
+          setTimeout(() => {
+            const isSessionId = store.state.wallet.sessionId
+            const walletInfos = store.state.wallet.walletInfos
+            if (isSessionId) {
+              next()
+            } else if (walletInfos && walletInfos.length) {
+              next('/welcome-back/wallet-list')
+            } else {
+              next('/ftu/welcome')
+            }
+          }, 3000)
           // when the computer is blocked the client closes but it should not redirect to
           // wallet not found if the wallet is not closed
           store.state.wallet.api.client.ws.on('close', () => {
