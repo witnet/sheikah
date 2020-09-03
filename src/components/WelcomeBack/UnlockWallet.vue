@@ -65,11 +65,6 @@ export default {
         this.updateView()
       }
     },
-    password() {
-      if (this.unlockWalletError) {
-        this.$store.commit('clearError', { error: this.unlockWalletError.name })
-      }
-    },
   },
   methods: {
     ...mapActions({
@@ -94,11 +89,6 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/theme.scss';
-
-.text {
-  font-size: 16px;
-  margin-bottom: 32px;
-}
 
 .unlock-wallet {
   display: flex;

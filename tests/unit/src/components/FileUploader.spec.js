@@ -1,6 +1,8 @@
 import { shallowMount, mount } from '@vue/test-utils'
 import FileUploader from '@/components/FileUploader.vue'
+// eslint-disable-next-line import/no-relative-parent-imports
 import claimingFileSuccess from '../../../../claiming_file_success'
+// eslint-disable-next-line import/no-relative-parent-imports
 import '../../../../src/fontAwesome'
 
 describe('Renders the correct elements when there is no file uploaded', () => {
@@ -133,10 +135,6 @@ describe('Shows delete file button when showDelete is activated', () => {
 
 describe('Upload file', () => {
   it('uploads a file', async () => {
-    let localImageInput
-    let localImageInputFilesGet
-    let localImageInputValueGet
-    let localImageInputValueSet
     let localImageInputValue = ''
 
     const wrapper = shallowMount(FileUploader, {
@@ -148,10 +146,12 @@ describe('Upload file', () => {
       },
     })
 
-    localImageInput = wrapper.find('input[type="file"]')
-    localImageInputFilesGet = jest.fn()
-    localImageInputValueGet = jest.fn().mockReturnValue(localImageInputValue)
-    localImageInputValueSet = jest.fn().mockImplementation(v => {
+    const localImageInput = wrapper.find('input[type="file"]')
+    const localImageInputFilesGet = jest.fn()
+    const localImageInputValueGet = jest
+      .fn()
+      .mockReturnValue(localImageInputValue)
+    const localImageInputValueSet = jest.fn().mockImplementation(v => {
       localImageInputValue = v
     })
     Object.defineProperty(localImageInput.element, 'files', {
@@ -164,7 +164,9 @@ describe('Upload file', () => {
     })
 
     localImageInputFilesGet.mockReturnValue([
-      new Blob([JSON.stringify(claimingFileSuccess)], { type: 'application/json' }),
+      new Blob([JSON.stringify(claimingFileSuccess)], {
+        type: 'application/json',
+      }),
     ])
 
     localImageInput.trigger('change')

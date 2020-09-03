@@ -7,8 +7,9 @@
     :disabledNextButton="disabledNextButton"
   >
     <p class="text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
-      in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum
+      cursus, consequat quam in, vestibulum erat. Duis ut diam fringilla, varius
+      diam ac, ornare arcu.
     </p>
     <div class="file-container">
       <el-button
@@ -21,8 +22,8 @@
         Export my claim file...
       </el-button>
       <a
-        :href="exportFileLink"
         ref="file"
+        :href="exportFileLink"
         download="claiming-information.json"
         style="display:none"
       ></a>
@@ -80,39 +81,47 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
+
 .text {
   margin-bottom: 16px;
 }
+
 .file-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   .file {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     align-items: center;
+    display: flex;
+    flex-direction: column;
     font-size: 34px;
+    justify-content: center;
+
     .el-icon-document {
       margin-right: 8px;
       padding-left: 4px;
     }
+
     .name {
       border: 1px solid transparent;
       border-radius: 3px;
-      margin: 16px 16px 0px 0px;
       font-size: 14px;
+      margin: 16px 16px 0 0;
+
       &:hover {
-        transition: color 0.3s;
-        border: 1px solid #f5f7fa;
         background-color: #f5f7fa;
+        border: 1px solid #f5f7fa;
+        transition: color 0.3s;
+
         .text {
           color: $purple-6;
         }
       }
     }
   }
+
   .download-btn {
     width: 225px;
   }

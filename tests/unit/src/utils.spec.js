@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {
   areSoftEqualArrays,
   calculateTimeAgo,
@@ -8,14 +7,10 @@ import {
   calculateCurrentFocusAfterUndo,
   calculateCurrentFocusAfterRedo,
   simplifyDrResult,
-  calculateAddressesAmount,
+  groupAmountByUnlockedDate,
 } from '@/utils'
 import { WIT_UNIT } from '@/constants'
 import { Radon } from 'witnet-radon-js'
-=======
-import { areSoftEqualArrays, standardizeWitUnits, groupAmountByUnlockedDate } from '@/utils'
-import { WIT_UNIT } from '../../../src/constants'
->>>>>>> 38a182da... fix: ensure that exported file is valid
 
 describe('areSoftEqualArrays', () => {
   it('check if two sorted arrays contains the same items', () => {

@@ -53,6 +53,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import NavigationCard from '@/components/card/NavigationCard'
+
 export default {
   name: 'WalletEncryptionPassword',
   components: {
@@ -125,6 +126,9 @@ export default {
         password: this.password,
         repeatPassword: this.repeatPassword,
       })
+    },
+    goNextInput() {
+      this.$refs.password.focus()
     },
     nextStep() {
       this.validateForm()

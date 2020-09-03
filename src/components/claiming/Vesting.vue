@@ -11,15 +11,18 @@
     <ClaimingInfo />
     <div class="info">
       <p class="text">
-        Such allocation is conditioned to the succesful completion of this claiming process. Please
-        verify that your information listed above is correct — if not, please ask
-        <a class="link" href="mailto:genesis@witnet.foundation">genesis@witnet.foundation</a>
+        Such allocation is conditioned to the succesful completion of this
+        claiming process. Please verify that your information listed above is
+        correct — if not, please ask
+        <a class="link" href="mailto:genesis@witnet.foundation"
+          >genesis@witnet.foundation</a
+        >
         for support.
       </p>
       <p class="text">
-        This information will be available after the token generation event through the main Sheikah
-        wallet interface. However, feel free to take a screenshot or picture using your phone as a
-        means of backup.
+        This information will be available after the token generation event
+        through the main Sheikah wallet interface. However, feel free to take a
+        screenshot or picture using your phone as a means of backup.
       </p>
     </div>
   </NavigationCard>
@@ -53,8 +56,9 @@ export default {
 
 <style lang="scss" scoped>
 .info {
-  margin: 32px 16px 0px 16px;
+  margin: 32px 16px 0 16px;
 }
+
 .text {
   margin-bottom: 8px;
 
@@ -62,12 +66,14 @@ export default {
     font-weight: bold;
     margin-bottom: 16px;
   }
+
   &:last-of-type {
-    margin: 0px;
+    margin: 0;
   }
+
   .link {
-    text-decoration: underline;
     color: inherit;
+    text-decoration: underline;
   }
 }
 </style>

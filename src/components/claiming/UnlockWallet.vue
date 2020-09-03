@@ -16,7 +16,11 @@
           placeholder="Please input password"
           show-password
         />
-        <p v-if="unlockWalletError" data-test="password-error-alert" class="error">
+        <p
+          v-if="unlockWalletError"
+          data-test="password-error-alert"
+          class="error"
+        >
           Invalid password
         </p>
       </div>
@@ -30,23 +34,14 @@ import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
   name: 'UnlockWallet',
+  components: {
+    NavigationCard,
+  },
   data() {
     return {
       password: '',
       sent: false,
     }
-  },
-  methods: {
-    unlockWallet() {
-      this.$store.dispatch('unlockWallet', {
-        walletId: this.$route.params.id,
-        password: this.password,
-      })
-      this.sent = true
-    },
-    updateView() {
-      this.$router.push('/claiming/countdown')
-    },
   },
   computed: {
     ...mapState({
@@ -69,8 +64,17 @@ export default {
       }
     },
   },
-  components: {
-    NavigationCard,
+  methods: {
+    unlockWallet() {
+      this.$store.dispatch('unlockWallet', {
+        walletId: this.$route.params.id,
+        password: this.password,
+      })
+      this.sent = true
+    },
+    updateView() {
+      this.$router.push('/claiming/countdown')
+    },
   },
 }
 </script>
@@ -79,22 +83,24 @@ export default {
 @import '@/styles/theme.scss';
 
 .text {
-  margin-bottom: 32px;
   font-size: 16px;
+  margin-bottom: 32px;
 }
+
 .unlock-wallet {
+  align-items: left;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: left;
 
   .input {
     width: 100%;
   }
+
   .error {
-    position: absolute;
-    padding-top: 16px;
     color: $red-2;
+    padding-top: 16px;
+    position: absolute;
   }
 }
 </style>

@@ -20,17 +20,12 @@ export default {
     Card,
     Spinner,
   },
-  methods: {
-    goToFirstStep() {
-      this.$router.push('/claiming/claiming-instructions')
-    },
-    reloadView() {},
-  },
   computed: {
     ...mapState({
       sessionId: state => state.wallet.sessionId,
       disclaimers: state => state.wallet.disclaimers,
-      error: state => state.wallet.errors.unlockWallet || state.wallet.errors.createWallet,
+      error: state =>
+        state.wallet.errors.unlockWallet || state.wallet.errors.createWallet,
     }),
   },
   watch: {
@@ -48,17 +43,24 @@ export default {
       }
     },
   },
+  methods: {
+    goToFirstStep() {
+      this.$router.push('/claiming/claiming-instructions')
+    },
+    reloadView() {},
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
+
 .card {
-  width: max-content;
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: max-content;
 
   .title {
     border: none;
@@ -66,11 +68,13 @@ export default {
     font-size: 24px;
     margin: 0 0 48px 0;
   }
+
   .description {
     color: $purple-4;
     font-size: 16px;
     margin: 40px 0 0 0;
   }
+
   .spinner {
     grid-row: 3;
     margin: 0 auto;

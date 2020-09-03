@@ -11,11 +11,13 @@
       nextText="Let's do it"
     >
       <p class="text bold">
-        This assistant will guide you through the process of creating your own Witnet wallet.
+        This assistant will guide you through the process of creating your own
+        Witnet wallet.
       </p>
       <p class="text">
-        A wallet is an app that keeps your credentials safe and lets you interface with the Witnet
-        blockchain in many ways: from transferring Wit to someone else to creating smart contracts.
+        A wallet is an app that keeps your credentials safe and lets you
+        interface with the Witnet blockchain in many ways: from transferring Wit
+        to someone else to creating smart contracts.
       </p>
     </NavigationCard>
   </div>
@@ -49,14 +51,16 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/theme.scss';
+
 .text {
   margin-bottom: 8px;
 
   &.bold {
     font-weight: bold;
   }
+
   &:last-of-type {
-    margin: 0px;
+    margin: 0;
   }
 }
 </style>

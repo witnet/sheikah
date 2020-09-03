@@ -32,11 +32,6 @@ export default {
       status: state => state.wallet.networkStatus,
       walletInfos: state => state.wallet.walletInfos,
     }),
-    mainnetReady: state => state.wallet.mainnetReady,
-    sessionId() {
-      const walletInfosLength = this.$store.state.wallet.walletInfos.length
-      return walletInfosLength > 0
-    },
   },
   watch: {
     status(status) {

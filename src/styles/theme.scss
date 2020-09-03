@@ -59,6 +59,8 @@ $input_big-font-size: 22px;
 $input_big-hover-border: 2px dashed $purple-4 !important;
 $input_big-hover-box-shadow: $button_option-hover-box-shadow;
 $input_big-width: 100%;
+$drag_drop_area: 1px dashed $grey-4;
+$drag_drop_area_focus: 1px dashed $purple-4;
 
 // INPUT UNDERLINED
 $input_underlined-border: 1px solid $alt-grey-5;

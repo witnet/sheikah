@@ -11,22 +11,27 @@
     :disabledNextButton="disabledNextButton"
   >
     <p>
-      Please type your 12 word seed phrase exactly as it was shown to you on the previous screen.
-      This step is to confirm that you have copied your seed phrase correctly.
+      Please type your 12 word seed phrase exactly as it was shown to you on the
+      previous screen. This step is to confirm that you have copied your seed
+      phrase correctly.
     </p>
     <Input v-model="seed" type="big" class="seed" @go-next="nextStep" />
-    <p v-if="mnemonicsError" data-test="mnemonics-error-alert" class="match-error">
+    <p
+      v-if="mnemonicsError"
+      data-test="mnemonics-error-alert"
+      class="match-error"
+    >
       Mnemonics must match
     </p>
     <p class="text">
-      Please ensure you do not add any extra spaces between words or at the beginning or end of the
-      phrase.
+      Please ensure you do not add any extra spaces between words or at the
+      beginning or end of the phrase.
     </p>
   </NavigationCard>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 import NavigationCard from '@/components/card/NavigationCard'
 import Input from '@/components/Input.vue'
@@ -44,11 +49,6 @@ export default {
       disabledNextButton: true,
     }
   },
-  watch: {
-    seed(seed) {
-      this.validateForm()
-    },
-  },
   computed: {
     ...mapState({
       mnemonics: state => state.wallet.mnemonics,
@@ -58,17 +58,27 @@ export default {
       validatedMnemonics: state => state.wallet.validatedMnemonics,
     }),
   },
+  watch: {
+    seed(seed) {
+      this.validateForm()
+    },
+  },
   beforeDestroy() {
     if (this.mnemonicsError) {
       this.clearError(this.mnemonicsError.name)
     }
   },
   methods: {
+    ...mapMutations({
+      validateMnemonics: 'validateMnemonics',
+      clearError: 'clearError',
+    }),
     validateForm() {
-      this.$store.commit('validateMnemonics', {
+      this.validateMnemonics({
         seed: this.seed,
         mnemonics: this.mnemonics,
       })
+
       if (this.validatedMnemonics) {
         if (this.mnemonicsError) {
           this.clearError(this.mnemonicsError.name)
@@ -104,24 +114,26 @@ export default {
   box-sizing: border-box;
   color: $input_big-color;
   display: inline-flex;
+  font-family: inherit;
   font-size: $input_big-font-size;
   line-break: auto;
   line-height: 1.5em;
+  margin: 16px 0;
   padding: 16px;
   width: 100%;
-  margin: 16px 0;
-  font-family: inherit;
 }
 
 .match-error {
-  font-size: 14px;
   color: $red-2;
+  font-size: 14px;
   margin-bottom: 8px;
 }
+
 .text {
   margin-bottom: 8px;
+
   &:last-of-type {
-    margin: 0px;
+    margin: 0;
   }
 }
 </style>

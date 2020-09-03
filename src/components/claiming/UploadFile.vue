@@ -11,33 +11,24 @@
       nextText="Continue"
     >
       <p class="text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum cursus, consequat quam
-        in, vestibulum erat. Duis ut diam fringilla, varius diam ac, ornare arcu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum
+        cursus, consequat quam in, vestibulum erat. Duis ut diam fringilla,
+        varius diam ac, ornare arcu.
       </p>
       <FileUploader
         :errorMessage="uploadFileError ? uploadFileError.message : ''"
         :file="claimingFileInfo ? claimingFileInfo.info : null"
-        v-on:clear-file="clearClaimingInfo"
         :validateFile="validateClaimingImportFile"
         acceptedFormat=".json"
-        v-on:file-name="updateName"
-        v-on:file-validated="setFileInfo"
-        v-on:error-uploading-file="setError"
+        @clear-file="clearClaimingInfo"
+        @file-name="updateName"
+        @file-validated="setFileInfo"
+        @error-uploading-file="setError"
       >
-        <i v-if="claimingFileInfo" class="el-icon-upload-success el-icon-circle-check" />
-        <i v-else class="el-icon-upload"></i>
-        <div class="el-upload__text">Drag your file here or <em>click to import</em></div>
-        <div slot="tip" class="el-upload__tip">Only json files supported</div>
-      </el-upload>
-      <p v-if="uploadFileError" class="error" data-test="error">
-        {{ uploadFileError.message }}
-      </p>
-      <a
-        ref="download"
-        :href="dataStr"
-        download="claiming-information.json"
-        style="display:none"
-      ></a>
+        Drag your <span class="upload">participant_proof.json</span> file here
+        or
+        <span class="underline">click to import</span>
+      </FileUploader>
     </NavigationCard>
   </div>
 </template>
@@ -87,7 +78,6 @@ export default {
   },
   created() {
     if (this.claimingFileInfo) {
-      this.file.push(this.claimingFileInfo.info)
       this.disabledNextButton = false
     }
   },
@@ -116,7 +106,9 @@ export default {
     },
     dataStr() {
       const claimingFileInfo = this.$store.state.wallet.claimingFileInfo
-      return `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(claimingFileInfo))}`
+      return `data:text/json;charset=utf-8,${encodeURIComponent(
+        JSON.stringify(claimingFileInfo),
+      )}`
     },
     downloadFile() {
       this.$refs.download.click()
@@ -163,70 +155,84 @@ export default {
 @import '@/styles/theme.scss';
 
 .paragraph {
-  margin-bottom: 16px;
   font-size: 16px;
+  margin-bottom: 16px;
   padding: 0 8px;
 }
+
 .format-warning {
-  margin-top: 8px;
   color: $grey-3;
   font-size: 12px;
+  margin-top: 8px;
 }
+
 .file {
-  display: flex;
-  cursor: pointer;
-  justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  display: flex;
   font-size: 34px;
-  margin-top: 16px;
   height: min-content;
+  justify-content: space-between;
+  margin-top: 16px;
+
   .el-icon-document {
     margin-right: 8px;
     padding-left: 4px;
   }
+
   .name {
     border: 1px solid transparent;
     border-radius: 3px;
     font-size: 14px;
   }
+
   &:hover {
-    transition: color 0.3s;
-    border-radius: 4px;
     background-color: #f5f7fa;
+    border-radius: 4px;
+    transition: color 0.3s;
+
     .text {
       color: $purple-6;
     }
   }
+
   .file-icon {
-    padding-right: 8px;
     font-size: 14px;
+    padding-right: 8px;
   }
+
   .el-icon-upload-success {
     color: #52c41a;
   }
 }
+
 .fade-enter-active {
   transition: all 0.3s ease;
 }
+
 .fade-leave-active {
   transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
+
 .fade-enter,
 .fade-leave-to {
-  transform: translateY(-10px);
   opacity: 0;
+  transform: translateY(-10px);
 }
+
 .icon {
   color: $grey-3;
   font-size: 40px;
   padding-bottom: 8px;
 }
+
 .text {
   margin-bottom: 24px;
 }
+
 .error {
-  font-size: 14px;
   color: $red-2;
+  font-size: 14px;
   margin-top: 8px;
 }
 </style>

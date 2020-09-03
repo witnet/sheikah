@@ -43,7 +43,7 @@ export default {
       getItem: null,
     },
     exportFileLink: '',
-    checkTokenGenerationEventDate: new Date(2020, 4, 16, 17, 23, 42, 0),
+    checkTokenGenerationEventDate: new Date(2020, 9, 14, 17, 23, 42, 0),
     claimingFileInfo: null,
     claimingProcessState: null,
     mainnetReady: false,
@@ -80,7 +80,9 @@ export default {
       const addresses = [...state.claimingAddresses]
       state.claimingAddresses = addressesAmount
         .map((amount, index) => {
-          const timelock = Math.floor(state.computedVesting[index].date.getTime() / 1000)
+          const timelock = Math.floor(
+            state.computedVesting[index].date.getTime() / 1000,
+          )
           return amount.map(y => {
             return {
               address: addresses.shift(),
@@ -217,14 +219,15 @@ export default {
     },
 
     setError(state, { name, error, message }) {
-      if (error === 'Validation Error' || name === 'seed' || name === 'uploadFile') {
-        state.errors = {
-          ...state.errros,
-          [name]: {
-            name,
-            error,
-            message,
-          },
+      if (
+        error === 'Validation Error' ||
+        name === 'seed' ||
+        name === 'uploadFile'
+      ) {
+        state.errors[name] = {
+          name,
+          error,
+          message,
         }
       } else {
         const socketNotReady = error === 'socket not ready'
@@ -287,7 +290,7 @@ export default {
       if (password.length < 8) {
         this.commit('setError', {
           name: 'createValidPassword',
-          error: 'Validation Error',
+
           message: 'Password must be at least 8 characters',
         })
         state.validatedPassword = false
@@ -334,13 +337,13 @@ export default {
       const claimingAddresses = buildClaimingAddresses(
         amountByUnlockedDate,
         context.state.vesting,
-        addresses
+        addresses,
       )
 
       const link = createExportClaimingFileLink(
         context.state.claimingFileInfo.info,
         claimingAddresses,
-        context.state.disclaimers
+        context.state.disclaimers,
       )
 
       const request = await context.state.api.saveItem({
@@ -369,7 +372,7 @@ export default {
       if (request.result) {
         context.commit('setExportFileLink', request.result.value.link)
       } else {
-        // TODO1: handle error properly
+        // TODO: improve errror handling
         context.commit('setError', {
           name: 'getItem',
           error: request.error.message,
@@ -401,7 +404,7 @@ export default {
       if (request.result) {
         context.commit('setLabels', { labels: request.result.value || {} })
       } else {
-        // TODO1: handle error properly
+        // TODO: improve error handling
         context.commit('setError', {
           name: 'getItem',
           error: request.error.message,
@@ -410,7 +413,9 @@ export default {
       }
     },
     getClaimingProcessState: function(context) {
-      context.commit('setClaimingState', { completed: localStorage.getItem('completed') })
+      context.commit('setClaimingState', {
+        completed: localStorage.getItem('completed'),
+      })
     },
     getClaimingInfo: async function(context) {
       const request = await context.state.api.getItem({
@@ -421,7 +426,7 @@ export default {
       if (request.result) {
         context.commit('setClaimingInfo', { info: request.result.value || {} })
       } else {
-        // TODO1: handle error properly
+        // TODO: improve error handling
         context.commit('setError', {
           name: 'getItem',
           error: request.error.message,
@@ -468,7 +473,7 @@ export default {
       if (request.result) {
         console.log('claiming info saved!', request.result)
       } else {
-        // TODO1: handle error propery
+        // TODO: improve error handling
         context.commit('setError', {
           name: 'saveItem',
           error: request.error.message,
@@ -493,7 +498,7 @@ export default {
       if (request.result) {
         console.log('label saved!', request.result)
       } else {
-        // TODO1: handle error propery
+        // TODO: improve error handling
         context.commit('setError', {
           name: 'saveItem',
           error: request.error.message,

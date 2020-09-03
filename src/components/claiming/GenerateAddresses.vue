@@ -5,11 +5,12 @@
     :disabledNextButton="false"
   >
     <p class="text">
-      To enhance your privacy, the Sheikah wallet divides your tokens among multiple addresses that
-      are difficult to associate with each other.
+      To enhance your privacy, the Sheikah wallet divides your tokens among
+      multiple addresses that are difficult to associate with each other.
     </p>
     <p class="text">
-      Your first addresses are now being generated. This process could take some time.
+      Your first addresses are now being generated. This process could take some
+      time.
     </p>
     <el-progress :percentage="percentage" :format="format"></el-progress>
   </NavigationCard>
@@ -29,28 +30,6 @@ export default {
     return {
       subtitle: 'GenerateAddresses',
     }
-  },
-  mounted() {
-    this.generateAddresses()
-  },
-  methods: {
-    generateAddresses() {
-      let count = 0
-      const interval = setInterval(() => {
-        if (count < this.addressesToGenerate) {
-          this.generateAddress()
-          count += 1
-        } else {
-          clearInterval(interval)
-        }
-      }, 0)
-    },
-    format() {
-      return `${this.generatedAddresses}/${this.addressesToGenerate}`
-    },
-    generateAddress() {
-      this.$store.dispatch('generateMultipleAddresses')
-    },
   },
   computed: {
     ...mapState({
@@ -76,16 +55,43 @@ export default {
       return this.generatedAddresses === this.addressesToGenerate
     },
     percentage() {
-      return Math.round((this.generatedAddresses / this.addressesToGenerate) * 100)
+      return Math.round(
+        (this.generatedAddresses / this.addressesToGenerate) * 100,
+      )
     },
   },
   watch: {
     async areAddressesGenerated(areGenerated) {
       if (areGenerated) {
-        this.$store.dispatch('createAndSaveExportFileLink', this.amountByUnlockedDate)
+        this.$store.dispatch(
+          'createAndSaveExportFileLink',
+          this.amountByUnlockedDate,
+        )
         await sleep(2000)
         this.$router.push('/claiming/download-file')
       }
+    },
+  },
+  mounted() {
+    this.generateAddresses()
+  },
+  methods: {
+    generateAddresses() {
+      let count = 0
+      const interval = setInterval(() => {
+        if (count < this.addressesToGenerate) {
+          this.generateAddress()
+          count += 1
+        } else {
+          clearInterval(interval)
+        }
+      }, 0)
+    },
+    format() {
+      return `${this.generatedAddresses}/${this.addressesToGenerate}`
+    },
+    generateAddress() {
+      this.$store.dispatch('generateMultipleAddresses')
     },
   },
 }

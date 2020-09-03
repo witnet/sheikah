@@ -11,9 +11,10 @@
     :disabledNextButton="disabledNextButton"
   >
     <p class="paragraph">
-      <strong class="bold">PLEASE NOTE:</strong> this password encrypts your Witnet wallet only on
-      this computer. This is not your backup and you cannot restore your wallet with this password.
-      Your seed phrase is still your ultimate backup.
+      <strong class="bold">PLEASE NOTE:</strong> this password encrypts your
+      Witnet wallet only on this computer. This is not your backup and you
+      cannot restore your wallet with this password. Your seed phrase is still
+      your ultimate backup.
     </p>
     <div class="form-row password">
       <p>Create a password</p>
@@ -37,7 +38,11 @@
           show-password
           @keydown.enter.native="nextStep"
         />
-        <div v-if="createValidPasswordError" data-test="password-error-alert" class="error">
+        <div
+          v-if="createValidPasswordError"
+          data-test="password-error-alert"
+          class="error"
+        >
           {{ createValidPasswordError.message }}
         </div>
       </div>
@@ -51,6 +56,9 @@ import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
   name: 'WalletEncryptionPassword',
+  components: {
+    NavigationCard,
+  },
   data() {
     return {
       password: '',
@@ -58,6 +66,15 @@ export default {
       error: false,
       disabledNextButton: true,
     }
+  },
+  computed: {
+    ...mapState({
+      mnemonics: state => state.wallet.mnemonics,
+      createWalletError: state => state.wallet.errors.createWallet,
+      createValidPasswordError: state =>
+        state.wallet.errors.createValidPassword,
+      validatedPassword: state => state.wallet.validatedPassword,
+    }),
   },
   watch: {
     password() {
@@ -85,6 +102,11 @@ export default {
         this.disabledNextButton = true
       }
     },
+  },
+  beforeDestroy() {
+    if (this.createValidPasswordError) {
+      this.clearError(this.createValidPasswordError.name)
+    }
   },
   methods: {
     validateForm() {
@@ -114,22 +136,6 @@ export default {
       this.$store.commit('clearError', { error: errorName })
     },
   },
-  computed: {
-    ...mapState({
-      mnemonics: state => state.wallet.mnemonics,
-      createWalletError: state => state.wallet.errors.createWallet,
-      createValidPasswordError: state => state.wallet.errors.createValidPassword,
-      validatedPassword: state => state.wallet.validatedPassword,
-    }),
-  },
-  components: {
-    NavigationCard,
-  },
-  beforeDestroy() {
-    if (this.createValidPasswordError) {
-      this.clearError(this.createValidPasswordError.name)
-    }
-  },
 }
 </script>
 
@@ -139,8 +145,8 @@ export default {
 .error {
   color: $red-2;
   font-size: 14px;
-  min-width: 270px;
   margin-top: 16px;
+  min-width: 270px;
 }
 
 .paragraph {
@@ -152,19 +158,22 @@ export default {
 }
 
 .form-row {
+  align-items: center;
   display: flex;
-  max-width: 500px;
   flex-flow: row nowrap;
   margin-bottom: 32px;
-  align-items: center;
+  max-width: 500px;
+
   &.password {
-    max-width: none;
     display: flex;
     justify-content: space-between;
+    max-width: none;
   }
+
   &.form-row:last-of-type {
-    margin: 0px;
+    margin: 0;
   }
+
   .password {
     width: 350px;
   }

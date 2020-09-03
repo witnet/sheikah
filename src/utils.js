@@ -250,21 +250,6 @@ export function formatDateVerbose(date) {
   return format(date, 'MMM do yyyy')
 }
 
-// export function changeDateFormat(string) {
-//   let date = new Date(string)
-//   let month = '' + (date.getMonth() + 1)
-//   let day = '' + date.getDate()
-//   let year = date.getFullYear()
-
-//   if (month.length < 2) {
-//     month = '0' + month
-//   }
-//   if (day.length < 2) {
-//     day = '0' + day
-//   }
-//   return `${day}-${month}-${year}`
-// }
-
 // TODO(#935): allow open links with electron.shell.openExternal
 export async function openInExternalApp(url) {
   // if (process.env.IS_ELECTRON) {
@@ -491,7 +476,9 @@ export function groupAmountByUnlockedDate(amount) {
   const ceil = precision => x => Math.ceil(x / precision) * precision
   // round the amount of wits for convenience and deniability
   const roundedAmount =
-    amount % CLAIMING_ADDRESS_MIN_WITS === 0 ? amount : ceil(CLAIMING_ADDRESS_MIN_WITS)(amount)
+    amount % CLAIMING_ADDRESS_MIN_WITS === 0
+      ? amount
+      : ceil(CLAIMING_ADDRESS_MIN_WITS)(amount)
 
   return (roundedAmount / CLAIMING_ADDRESS_MIN_WITS)
     .toString()
@@ -504,7 +491,11 @@ export function groupAmountByUnlockedDate(amount) {
     .reduce((a, b) => [...a, ...b])
 }
 
-export function createExportClaimingFileLink(importedFile, addresses, disclaimers) {
+export function createExportClaimingFileLink(
+  importedFile,
+  addresses,
+  disclaimers,
+) {
   return `data:text/json;charset=utf-8,${encodeURIComponent(
     JSON.stringify({
       email_address: importedFile.data.emailAddress,
@@ -512,14 +503,18 @@ export function createExportClaimingFileLink(importedFile, addresses, disclaimer
       addresses,
       disclaimers: disclaimers,
       signature: importedFile.signature,
-    })
+    }),
   )}`
 }
 
-export function buildClaimingAddresses(amountByUnlockedDate, vesting, addresses) {
+export function buildClaimingAddresses(
+  amountByUnlockedDate,
+  vesting,
+  addresses,
+) {
   return amountByUnlockedDate
     .map((amount, index) => {
-      let timelock = Math.floor(vesting[index].date.getTime() / 1000)
+      const timelock = Math.floor(vesting[index].date.getTime() / 1000)
       return amount.map(wits => {
         return {
           address: addresses.shift(),
@@ -559,7 +554,7 @@ export function validateClaimingImportFile(importedFile) {
         },
       },
       signature: ow.string,
-    })
+    }),
   )
 }
 
@@ -570,7 +565,9 @@ export function calculateVesting(vestingInfo, amount, genesisDate) {
     .fill(0)
     .map((_, index) => {
       const date = new Date(genesisDate)
-      date.setSeconds(date.getSeconds() + delay + cliff + installmentLength * index)
+      date.setSeconds(
+        date.getSeconds() + delay + cliff + installmentLength * index,
+      )
       const currentAmount = amount >= installmentWits ? installmentWits : amount
       amount -= installmentWits
       return {

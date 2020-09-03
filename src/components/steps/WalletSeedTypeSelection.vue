@@ -34,12 +34,13 @@
         </el-button>
       </li>
     </ul>
-  </NavigationCard>
+  </Card>
 </template>
 
 <script>
 import Card from '@/components/card/Card'
 import { mapState } from 'vuex'
+
 export default {
   name: 'WalletSeedTypeSelection',
   components: {

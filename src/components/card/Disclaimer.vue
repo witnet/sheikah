@@ -25,7 +25,6 @@
       <template v-if="previousStep || nextStep" v-slot:footer>
         <div ref="hi" class="navigation-buttons">
           <el-button
-            tabindex="2"
             v-if="previousStep"
             tabindex="2"
             data-test="previous-step"
@@ -35,7 +34,6 @@
             {{ previousText }}
           </el-button>
           <el-button
-            tabindex="1"
             v-if="nextStep"
             ref="next"
             tabindex="1"

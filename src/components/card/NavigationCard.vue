@@ -18,10 +18,9 @@
       </div>
     </template>
 
-    <template v-if="previousStep || nextStep" v-slot:footer>
+    <template v-slot:footer>
       <div class="navigation-buttons">
         <el-button
-          tabindex="2"
           v-if="previousStep"
           tabindex="2"
           data-test="previous-step"
@@ -31,7 +30,6 @@
           {{ previousText }}
         </el-button>
         <el-button
-          tabindex="1"
           v-if="nextStep"
           ref="next"
           tabindex="1"
@@ -49,7 +47,6 @@
 
 <script>
 import BaseCard from '@/components/card/BaseCard'
-
 export default {
   name: 'NavigationCard',
   components: {
@@ -58,7 +55,7 @@ export default {
   props: {
     nextStep: {
       type: Function,
-      default: () => {},
+      default: null,
     },
     nextText: {
       type: String,
@@ -66,7 +63,7 @@ export default {
     },
     previousStep: {
       type: Function,
-      default: () => {},
+      default: null,
     },
     previousText: {
       type: String,
@@ -99,7 +96,6 @@ export default {
   border: 1px solid $purple-4;
   border-radius: 2px;
   box-shadow: $default-box-shadow;
-  border: 1px solid $purple-4;
   width: 600px;
 
   .header {
@@ -119,7 +115,8 @@ export default {
     display: flex;
     flex-direction: column;
     font-size: 16px;
-    padding: 32px;
+    justify-content: center;
+    padding: 32px 32px 0 32px;
   }
 
   .navigation-buttons {

@@ -4,29 +4,40 @@
     data-test="header-4"
     class="wallet-seed-validation"
     title="Confirm your seed phrase"
-    previousText="Back"
-    nextText="Next"
-    :previousStep="previousStep"
-    :nextStep="nextStep"
+    previous-text="Back"
+    next-text="Next"
+    :previous-step="previousStep"
+    :next-step="nextStep"
   >
     <p>
       Please type your 12 word seed phrase.
     </p>
-    <Input v-model="seed" type="big" class="seed" @go-next="nextStep" />
+    <!-- maxlength = longest_mnemonic_length * words + whitespaces -->
+    <!-- maxlength = 8 * 12 + 11 -->
+    <Input
+      v-model="seed"
+      type="big"
+      class="seed"
+      :autoresize="true"
+      :maxlength="107"
+      @go-next="nextStep"
+    />
     <p v-if="seedError" data-test="mnemonics-error-alert" class="match-error">
       {{ seedError.message }}
     </p>
     <p class="paragraph">
-      Please ensure you do not add any extra spaces between words or at the beginning or end of the
-      phrase.
+      Please ensure you do not add any extra spaces between words or at the
+      beginning or end of the phrase.
     </p>
   </NavigationCard>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+
 import NavigationCard from '@/components/card/NavigationCard'
 import Input from '@/components/Input.vue'
+
 export default {
   name: 'WalletSeedValidation',
   components: {
@@ -50,37 +61,37 @@ export default {
         return state.wallet.errors.seed
       },
       validatedMnemonics: state => state.wallet.validatedMnemonics,
-      wallets: state => this.$store.state.wallet.walletInfos,
+      wallets: state => state.wallet.walletInfos,
     }),
   },
   watch: {
     seed() {
       if (this.seedError) {
-        this.clearError(this.seedError.name)
+        this.clearError({ error: this.seedError.name })
       }
     },
   },
   beforeDestroy() {
     if (this.mnemonicsError) {
-      this.clearError(this.mnemonicsError.name)
+      this.clearError({ error: this.mnemonicsError.name })
     }
     if (this.seedError) {
-      this.clearError(this.seedError.name)
+      this.clearError({ error: this.seedError.name })
     }
   },
   methods: {
-    setSeed() {
-      this.$store.commit('setSeed', {
-        result: this.seed,
-      })
-    },
+    ...mapMutations({
+      setSeed: 'setSeed',
+      setError: 'setError',
+      clearError: 'clearError',
+    }),
     validateForm() {
       const seedLength = this.seed.split(' ').length
       if (this.seed && seedLength === 12) {
         // TODO: set seed only if validated by the wallet
-        this.setSeed()
+        this.setSeed({ result: this.seed })
       } else {
-        this.$store.commit('setError', {
+        this.setError({
           name: 'seed',
           message: 'You must provide a valid seed to import a wallet',
         })
@@ -92,11 +103,8 @@ export default {
         this.$router.push(`/ftu/encryption-pass`)
       }
     },
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
-    },
     previousStep() {
-      this.$router.push('/ftu/seed-type-selection')
+      this.$router.push('/ftu/welcome')
     },
   },
 }
@@ -117,11 +125,10 @@ export default {
   box-sizing: border-box;
   color: $input_big-color;
   display: inline-flex;
-  font-size: 16px;
+  font-size: 22px;
   line-break: auto;
   line-height: 1.5em;
-  margin: 32px 0;
-  margin-top: 40px;
+  margin: 24px 0;
   padding: 16px;
   width: 100%;
 }

@@ -1,10 +1,10 @@
 <template>
   <div>
     <div
+      v-cloak
       data-test="drag-and-drop"
       class="drag-file-area"
       @click="uploadFile"
-      v-cloak
       @drop.prevent="readFile"
       @dragover.prevent
     >
@@ -31,7 +31,11 @@
         <slot></slot>
       </p>
     </div>
-    <p v-if="acceptedFormat" data-test="accepted-file-subtitle" class="format-warning">
+    <p
+      v-if="acceptedFormat"
+      data-test="accepted-file-subtitle"
+      class="format-warning"
+    >
       {{ subtitle }}
     </p>
     <transition name="fade" mode="out-in">
@@ -50,8 +54,8 @@
           v-if="showDelete"
           icon="times"
           data-test="delete-icon"
-          @click="clearFile"
           class="file-icon close"
+          @click="clearFile"
         />
         <font-awesome-icon
           v-else
@@ -67,16 +71,16 @@
       </p>
     </transition>
     <input
+      ref="fileInput"
       :accept="acceptedFormat"
       :style="{ display: 'none' }"
       type="file"
-      ref="fileInput"
-      v-on:change="readFile"
+      @change="readFile"
     />
     <a
       v-if="localFile"
-      :href="fileLink"
       ref="download"
+      :href="fileLink"
       :download="localFile.name"
       style="display:none"
     />
@@ -94,19 +98,31 @@ export default {
     /**
      * Type of the file to be accepted
      */
-    acceptedFormat: String,
+    acceptedFormat: {
+      type: String,
+      default: '',
+    },
     /**
      * Initial file loaded. Util to load the component in a success state
      */
-    file: Object,
+    file: {
+      type: Object,
+      default: null,
+    },
     /**
      * Gets called when a file is uploaded to ensure its validity
      */
-    validateFile: Function,
+    validateFile: {
+      type: Function,
+      default: null,
+    },
     /**
      * Error text to show if validateFile fails
      */
-    errorMessage: String,
+    errorMessage: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -119,7 +135,9 @@ export default {
   },
   methods: {
     fileLink() {
-      return `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.localFile))}`
+      return `data:text/json;charset=utf-8,${encodeURIComponent(
+        JSON.stringify(this.localFile),
+      )}`
     },
     downloadFile() {
       this.$refs.download.click()
@@ -176,7 +194,7 @@ export default {
             this.$emit('error-uploading-file')
           }
         },
-        false
+        false,
       )
       if (file) {
         reader.readAsText(file)
@@ -191,101 +209,119 @@ export default {
 @import '@/styles/theme.scss';
 
 .drag-file-area {
+  align-items: center;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
   height: 100%;
-  padding: 50px;
+  justify-content: center;
   outline: $drag_drop_area;
-  cursor: pointer;
+  padding: 50px;
+  width: 100%;
+
   .sub-text {
-    margin-bottom: 16px;
-    font-size: 14px;
     color: $grey-3;
+    font-size: 14px;
+    margin-bottom: 16px;
+
     .upload {
       font-weight: 600;
     }
+
     .underline {
       text-decoration: underline;
     }
   }
+
   .icon-upload {
-    margin-bottom: 16px;
-    font-size: 56px;
     color: $grey-2;
+    font-size: 56px;
+    margin-bottom: 16px;
   }
+
   .icon-error {
-    margin-bottom: 16px;
-    font-size: 56px;
     color: $red-2;
-  }
-  .icon-circle-check {
     font-size: 56px;
-    color: #52c41a;
     margin-bottom: 16px;
-    line-height: 50px;
   }
+
+  .icon-circle-check {
+    color: #52c41a;
+    font-size: 56px;
+    line-height: 50px;
+    margin-bottom: 16px;
+  }
+
   &:hover {
     outline: $drag_drop_area_focus;
   }
 }
+
 .format-warning {
-  margin-top: 8px;
   color: $grey-3;
   font-size: 12px;
+  margin-top: 8px;
 }
+
 .file {
-  display: flex;
-  cursor: pointer;
-  justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  display: flex;
   font-size: 34px;
+  height: min-content;
+  justify-content: space-between;
   margin-top: 16px;
   padding: 4px;
-  height: min-content;
+
   .icon-document {
     color: $grey-3;
-    margin-right: 8px;
     margin-left: 4px;
+    margin-right: 8px;
   }
+
   .name {
+    align-items: center;
     border: 1px solid transparent;
     border-radius: 3px;
-    font-size: 14px;
     color: $grey-6;
     display: flex;
+    font-size: 14px;
     justify-content: center;
-    align-items: center;
   }
+
   &:hover {
-    transition: color 0.3s;
-    border-radius: 4px;
     background-color: #f5f7fa;
+    border-radius: 4px;
+    transition: color 0.3s;
+
     .text {
       color: $purple-6;
     }
   }
+
   .file-icon {
     color: $grey-3;
-    margin-right: 8px;
     font-size: 12px;
+    margin-right: 8px;
   }
+
   .success {
     color: #52c41a;
   }
 }
+
 .fade-enter-active {
   transition: all 0.3s ease;
 }
+
 .fade-enter {
-  transform: translateY(-10px);
   opacity: 0;
+  transform: translateY(-10px);
 }
+
 .error {
-  font-size: 14px;
   color: $red-2;
+  font-size: 14px;
   margin-top: 8px;
 }
 </style>

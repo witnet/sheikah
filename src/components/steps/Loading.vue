@@ -1,5 +1,5 @@
 <template>
-  <Card>
+  <Card class="">
     <div class="card">
       <p class="title">Sheikah is loading your wallet</p>
       <Spinner class="spinner" :active="true" />
@@ -65,7 +65,7 @@ export default {
   }
 
   .description {
-    color: $purple-4;
+    color: $purple-6;
     font-size: 16px;
     margin: 32px 0 0 0;
   }

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex'
+import { mapMutations, mapActions, mapState } from 'vuex'
 import Notification from '@/components/Notification'
 
 export default {
@@ -20,6 +20,11 @@ export default {
       polling: null,
     }
   },
+  computed: {
+    ...mapState({
+      tokenGenerationEventOccurred: state => state.wallet.tokenGenerationEventOccurred,
+    })
+  },
   watch: {
     $route: function(from, to) {
       this.loading = false
@@ -28,9 +33,22 @@ export default {
   async created() {
     await this.getWalletInfos()
     this.pollData()
+
     // Disable back and forward from keyboard and mouse buttons
     window.onpopstate = function(event) {
       event.stopImmediatePropagation()
+    }
+
+    this.$store.dispatch('getWalletInfos')
+
+    if (process.env.VUE_APP_CLAIMING_PROCESS) {
+      const tokenGenerationInterval = setInterval(() => {
+        if (this.tokenGenerationEventOccurred) {
+          clearInterval(tokenGenerationInterval)
+        }
+
+        this.$store.commit('checkTokenGenerationEventDate')
+      }, 3000)
     }
   },
   beforeDestroy() {
@@ -48,15 +66,6 @@ export default {
         this.checkNetworkStatus()
       }, 3000)
     },
-  },
-  async beforeCreate() {
-    this.$store.dispatch('getWalletInfos')
-
-    // Initialize polling interval to retrieve network status
-    setInterval(() => {
-      this.$store.commit('checkNetworkStatus')
-      this.$store.commit('checkTokenGenerationEventDate')
-    }, 3000)
   },
 }
 </script>

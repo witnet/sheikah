@@ -18,10 +18,8 @@ import {
   shell,
   Tray,
   ipcMain,
-  globalShortcut
 } from 'electron'
 import progress from 'progress-stream'
-import { sleep } from '@/utils'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
@@ -96,9 +94,6 @@ app.on('ready', async () => {
     } catch (e) {
       console.error('Vue Devtools failed to install:', e.toString())
     }
-  } else {
-    globalShortcut.register('CmdOrCtrl+R', () => {})
-    globalShortcut.register('CmdOrCtrl+Shift+R', () => {})
   }
 
   createTray()
@@ -393,5 +388,13 @@ async function runWallet() {
   })
   walletProcess.stderr.on('data', function(data) {
     console.info('stderr: ' + data.toString())
+  })
+}
+
+async function sleep(t) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve()
+    }, t)
   })
 }
