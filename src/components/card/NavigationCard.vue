@@ -7,7 +7,10 @@
     </template>
 
     <template v-slot:content>
-      <div class="content">
+      <div
+        class="content"
+        :class="{ 'full-padding': !nextStep && !previousStep }"
+      >
         <slot></slot>
       </div>
     </template>
@@ -19,7 +22,7 @@
     </template>
 
     <template v-slot:footer>
-      <div class="navigation-buttons">
+      <div v-if="previousStep || nextStep" class="navigation-buttons">
         <el-button
           v-if="previousStep"
           tabindex="2"
@@ -117,6 +120,10 @@ export default {
     font-size: 16px;
     justify-content: center;
     padding: 32px 32px 0 32px;
+
+    &.full-padding {
+      padding: 32px;
+    }
   }
 
   .navigation-buttons {

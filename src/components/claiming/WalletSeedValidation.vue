@@ -15,7 +15,14 @@
       previous screen. This step is to confirm that you have copied your seed
       phrase correctly.
     </p>
-    <Input v-model="seed" type="big" class="seed" @go-next="nextStep" />
+    <Input
+      v-model="seed"
+      type="big"
+      class="seed"
+      :autoresize="true"
+      :maxlength="mnemonics.length"
+      @go-next="nextStep"
+    />
     <p
       v-if="mnemonicsError"
       data-test="mnemonics-error-alert"
@@ -31,7 +38,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 import NavigationCard from '@/components/card/NavigationCard'
 import Input from '@/components/Input.vue'
@@ -89,12 +96,13 @@ export default {
       }
     },
     nextStep() {
+      this.validateForm()
       if (this.validatedMnemonics) {
+        if (this.mnemonicsError) {
+          this.clearError({ error: this.mnemonicsError.name })
+        }
         this.$router.push('/claiming/encryption-pass')
       }
-    },
-    clearError(errorName) {
-      this.$store.commit('clearError', { error: errorName })
     },
     previousStep() {
       this.$router.push('/claiming/seed-backup')
@@ -114,18 +122,16 @@ export default {
   box-sizing: border-box;
   color: $input_big-color;
   display: inline-flex;
-  font-family: inherit;
-  font-size: $input_big-font-size;
+  font-size: 16px;
   line-break: auto;
   line-height: 1.5em;
-  margin: 16px 0;
+  margin: 24px 0;
   padding: 16px;
   width: 100%;
 }
 
 .match-error {
   color: $red-2;
-  font-size: 14px;
   margin-bottom: 8px;
 }
 

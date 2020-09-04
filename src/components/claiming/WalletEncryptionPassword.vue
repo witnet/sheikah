@@ -1,11 +1,10 @@
 <template>
   <NavigationCard
     ref="navCard"
-    data-test="password"
     class="wallet-encryption"
     title="Encrypt your wallet with a password"
     previousText="Back"
-    nextText="Continue"
+    nextText="Next"
     :previousStep="previousStep"
     :nextStep="nextStep"
     :disabledNextButton="disabledNextButton"
@@ -20,6 +19,7 @@
       <p>Create a password</p>
       <el-input
         v-model="password"
+        v-focus
         class="password"
         data-test="password-input"
         placeholder="Please input password"
