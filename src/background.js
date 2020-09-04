@@ -110,8 +110,8 @@ app.on('window-all-closed', () => {
 
 // Ipc event received from the client to close sheikah
 ipcMain.on('shutdown-finished', () => {
-    if (win) win.destroy()
-    app.quit()
+  if (win) win.destroy()
+  app.quit()
 })
 
 // Exit cleanly on request from parent process in development mode.

@@ -22,8 +22,9 @@ export default {
   },
   computed: {
     ...mapState({
-      tokenGenerationEventOccurred: state => state.wallet.tokenGenerationEventOccurred,
-    })
+      tokenGenerationEventOccurred: state =>
+        state.wallet.tokenGenerationEventOccurred,
+    }),
   },
   watch: {
     $route: function(from, to) {

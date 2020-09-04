@@ -5,7 +5,7 @@
     class="wallet-seed-validation"
     title="Confirm your seed phrase"
     previous-text="Back"
-    next-text="Next"
+    next-text="Confirm and continue"
     :previous-step="previousStep"
     :next-step="nextStep"
     :disabled-next-button="disabledNextButton"
@@ -114,10 +114,6 @@ export default {
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
 
-.content {
-  padding: 40px;
-}
-
 .seed {
   align-items: center;
   border: $input_big-border;
@@ -138,7 +134,11 @@ export default {
   margin-bottom: 8px;
 }
 
-.paragraph {
-  margin-top: 16px;
+.text {
+  margin-bottom: 8px;
+
+  &:last-of-type {
+    margin: 0;
+  }
 }
 </style>
