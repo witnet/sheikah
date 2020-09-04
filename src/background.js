@@ -110,11 +110,8 @@ app.on('window-all-closed', () => {
 
 // Ipc event received from the client to close sheikah
 ipcMain.on('shutdown-finished', () => {
-  walletProcess.on('close', code => {
-    console.info(`Wallet process exited with code ${code}`)
     if (win) win.destroy()
     app.quit()
-  })
 })
 
 // Exit cleanly on request from parent process in development mode.
@@ -386,6 +383,7 @@ async function runWallet() {
     await sleep(3000)
     loadUrl(status)
   })
+
   walletProcess.stderr.on('data', function(data) {
     console.info('stderr: ' + data.toString())
   })
