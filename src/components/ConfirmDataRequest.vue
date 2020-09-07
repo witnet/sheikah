@@ -1,10 +1,9 @@
 <template>
   <el-form ref="form" label-position="left" label-width="200px">
     <FormInformation
-      :commitFee="commitFee"
+      :commitRevealFee="commitRevealFee"
       :fee="fee"
       :minConsensusPercentage="minConsensusPercentage"
-      :revealFee="revealFee"
       :rewardFee="rewardFee"
       :witnesses="witnesses"
       :timelock="timelock"
@@ -25,7 +24,7 @@ export default {
     FormInformation,
   },
   props: {
-    commitFee: {
+    commitAndRevealFee: {
       type: Number,
       required: true,
     },
@@ -38,10 +37,6 @@ export default {
       required: true,
     },
     minConsensusPercentage: {
-      type: Number,
-      required: true,
-    },
-    revealFee: {
       type: Number,
       required: true,
     },

@@ -363,9 +363,7 @@ export default {
           collateral: parameters.collateral,
           witness_reward: parameters.rewardFee,
           witnesses: parameters.witnesses,
-          commit_fee: parameters.commitFee,
-          reveal_fee: parameters.revealFee,
-          tally_fee: parameters.tallyFee,
+          commit_and_reveal_fee: parameters.commitAndRevealFee,
           min_consensus_percentage: parameters.minConsensusPercentage,
         },
       }

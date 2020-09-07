@@ -34,14 +34,8 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item label="Commit fee" prop="commitFee">
-      <el-input v-model.number="form.commitFee" type="number">
-        <AppendCurrency slot="append" />
-      </el-input>
-    </el-form-item>
-
-    <el-form-item label="Reveal fee" prop="revealFee">
-      <el-input v-model.number="form.revealFee" type="number">
+    <el-form-item label="Commit and reveal fee" prop="commitAndRevealFee">
+      <el-input v-model.number="form.commitAndRevealFee" type="number">
         <AppendCurrency slot="append" />
       </el-input>
     </el-form-item>
@@ -81,9 +75,8 @@ export default {
   data() {
     const enoughFunds = (rule, value, callback) => {
       const totalAmount =
-        this.form.witnesses * this.form.commitFee +
+        this.form.witnesses * 2 * this.form.commitAndRevealFee +
         this.form.fee +
-        this.form.witnesses * this.form.revealFee +
         this.form.witnesses * this.form.rewardFee
       if (totalAmount > this.availableBalance) {
         callback(new Error("You don't have enough funds"))
@@ -99,17 +92,16 @@ export default {
         [`${WIT_UNIT.NANO}`]: 0,
       },
       form: {
-        commitFee: 1,
+        commitAndRevealFee: 1,
         dataRequest: 1,
         fee: 1,
         minConsensusPercentage: 51,
-        revealFee: 1,
         rewardFee: 1,
         witnesses: 3,
         collateral: 1000000000,
       },
       rules: {
-        commitFee: [
+        commitAndRevealFee: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { type: 'number', message: 'This field must be a number' },
         ],
@@ -127,10 +119,6 @@ export default {
           { type: 'number', message: 'This field must be a number' },
         ],
         rewardFee: [
-          { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
-        ],
-        revealFee: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { type: 'number', message: 'This field must be a number' },
         ],
@@ -154,13 +142,12 @@ export default {
     currency(inputCurrency, outputCurrency) {
       this.form = {
         backupWitnesses: this.form.backupWitnesses,
-        commitFee: this.form.commitFee,
+        commitAndRevealFee: this.form.commitAndRevealFee,
         dataRequest: this.form.dataRequest,
         extraCommitRounds: this.form.extraCommitRounds,
         extraRevealRounds: this.form.extraRevealRounds,
         fee: this.form.fee,
         minConsensusPercentage: this.form.minConsensusPercentage,
-        revealFee: this.form.revealFee,
         rewardFee: this.form.rewardFee,
         witnesses: this.form.witnesses,
         collateral: this.form.collateral,

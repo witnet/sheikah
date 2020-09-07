@@ -18,10 +18,8 @@
         <el-input v-model.number="fee" disabled></el-input>
         <p class="entry">Reward fee</p>
         <el-input v-model.number="rewardFee" disabled></el-input>
-        <p class="entry">Commit fee</p>
-        <el-input v-model.number="commitFee" disabled></el-input>
-        <p class="entry">Reveal fee</p>
-        <el-input v-model.number="revealFee" disabled></el-input>
+        <p class="entry">Commit and reveal fee</p>
+        <el-input v-model.number="commitAndRevealFee" disabled></el-input>
       </div>
       <transition name="slide">
         <div v-if="isAdvancedVisible" class="info advanced">
@@ -114,7 +112,7 @@ export default {
       type: String,
       default: null,
     },
-    commitFee: {
+    commitAndRevealFee: {
       type: Number,
       default: null,
     },
@@ -123,10 +121,6 @@ export default {
       default: null,
     },
     minConsensusPercentage: {
-      type: Number,
-      default: null,
-    },
-    revealFee: {
       type: Number,
       default: null,
     },

@@ -10,12 +10,11 @@
   >
     <ConfirmDataRequest
       v-if="generatedTransaction"
-      :commit-fee="commitFee"
+      :commitAndRevealFee="commitAndRevealFee"
       :fee="fee"
-      :generated-transaction="generatedTransaction"
-      :min-consensus-percentage="minConsensusPercentage"
-      :reveal-fee="revealFee"
-      :reward-fee="rewardFee"
+      :generatedTransaction="generatedTransaction"
+      :minConsensusPercentage="minConsensusPercentage"
+      :rewardFee="rewardFee"
       :timelock="timelock"
       :witnesses="witnesses"
       @confirm-dr="confirmDataRequest"
@@ -60,10 +59,9 @@ export default {
     return {
       currentTemplate: '',
       variablesUpdated: false,
-      commitFee: null,
+      commitAndRevealFee: null,
       fee: null,
       minConsensusPercentage: null,
-      revealFee: null,
       rewardFee: null,
       timelock: null,
       witnesses: null,
@@ -126,10 +124,9 @@ export default {
       }
       this.currentTemplate = ''
       this.variablesUpdated = false
-      this.commitFee = null
+      this.commitAndRevealFee = null
       this.fee = null
       this.minConsensusPercentage = null
-      this.revealFee = null
       this.rewardFee = null
       this.timelock = null
       this.witnesses = null
@@ -138,10 +135,9 @@ export default {
       this.variablesUpdated = true
     },
     createDR(parameters) {
-      this.commitFee = parameters.commitFee
+      this.commitAndRevealFee = parameters.commitAndRevealFee
       this.fee = parameters.fee
       this.minConsensusPercentage = parameters.minConsensusPercentage
-      this.revealFee = parameters.revealFee
       this.rewardFee = parameters.rewardFee
       this.timelock = this.template.radRequest.timelock
       this.witnesses = parameters.witnesses
