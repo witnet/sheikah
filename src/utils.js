@@ -436,3 +436,34 @@ export function calculateCurrentFocusAfterRedo(
     return `${variableField}_${index}`
   }
 }
+
+export function simplifyDrResult(input, radonType) {
+  if (input instanceof Array) {
+    // Simplification of Array is the Array of its simplified values
+    return input.map(value => simplifyDrResult(value))
+  } else if (typeof input === 'object') {
+    const keys = Object.keys(input)
+    if (keys.length > 0) {
+      const isRadonType = Object.keys(input)[0].match(/Radon(.*)/)
+      if (isRadonType) {
+        // If the first key in an Object starts with `Radon`, simplify the value that corresponds to that key, and ignore any further entries
+        return simplifyDrResult(Object.values(input)[0], isRadonType[1])
+      } else {
+        // In any other case, simplify each of the entries of the Object in place
+        return Object.entries(input).reduce(
+          (acc, [key, value]) => ({
+            ...acc,
+            [key]: simplifyDrResult(value),
+          }),
+          {},
+        )
+      }
+    } else {
+      // Empty Object are left unchanged
+      return input
+    }
+  } else {
+    // Types different than Array and Object are converted to a string that is tagged with the type
+    return `${radonType}(${input})`
+  }
+}

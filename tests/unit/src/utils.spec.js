@@ -6,6 +6,7 @@ import {
   standardizeWitUnits,
   calculateCurrentFocusAfterUndo,
   calculateCurrentFocusAfterRedo,
+  simplifyDrResult,
 } from '@/utils'
 import { WIT_UNIT } from '@/constants'
 import { Radon } from 'witnet-radon-js'
@@ -81,6 +82,120 @@ describe('getDomainFromUrl', () => {
     const url = 'http://witnet.abcdefghij'
 
     expect(getDomainFromUrl(url)).toBe('')
+  })
+})
+
+describe('simplifyDrResult', () => {
+  it('with object', () => {
+    const drResult = {
+      RadonMap: {
+        AUD: {
+          RadonMap: {
+            '15m': {
+              RadonFloat: 16135.65,
+            },
+            buy: {
+              RadonFloat: 16135.65,
+            },
+            last: {
+              RadonFloat: 16135.65,
+            },
+            sell: {
+              RadonFloat: 16135.65,
+            },
+            symbol: {
+              RadonString: '$',
+            },
+          },
+        },
+      },
+    }
+
+    const drResultSimplified = {
+      AUD: {
+        '15m': 'Float(16135.65)',
+        buy: 'Float(16135.65)',
+        last: 'Float(16135.65)',
+        sell: 'Float(16135.65)',
+        symbol: 'String($)',
+      },
+    }
+
+    expect(drResultSimplified).toStrictEqual(simplifyDrResult(drResult))
+  })
+
+  it('with array', () => {
+    const drResult = [
+      {
+        RadonMap: {
+          AUD: {
+            RadonMap: {
+              '15m': {
+                RadonFloat: 16135.65,
+              },
+              buy: {
+                RadonFloat: 16135.65,
+              },
+              last: {
+                RadonFloat: 16135.65,
+              },
+              sell: {
+                RadonFloat: 16135.65,
+              },
+              symbol: {
+                RadonString: '$',
+              },
+            },
+          },
+        },
+      },
+      {
+        RadonMap: {
+          AUD: {
+            RadonMap: {
+              '15m': {
+                RadonFloat: 16135.65,
+              },
+              buy: {
+                RadonFloat: 16135.65,
+              },
+              last: {
+                RadonFloat: 16135.65,
+              },
+              sell: {
+                RadonFloat: 16135.65,
+              },
+              symbol: {
+                RadonString: '$',
+              },
+            },
+          },
+        },
+      },
+    ]
+
+    const drResultSimplified = [
+      {
+        AUD: {
+          '15m': 'Float(16135.65)',
+          buy: 'Float(16135.65)',
+          last: 'Float(16135.65)',
+          sell: 'Float(16135.65)',
+          symbol: 'String($)',
+        },
+      },
+      {
+        AUD: {
+          '15m': 'Float(16135.65)',
+          buy: 'Float(16135.65)',
+          last: 'Float(16135.65)',
+          sell: 'Float(16135.65)',
+          symbol: 'String($)',
+        },
+      },
+    ]
+
+    expect(drResultSimplified).toStrictEqual(simplifyDrResult(drResult))
   })
 })
 
