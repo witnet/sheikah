@@ -197,22 +197,22 @@ function createWindow() {
       }
     }
   })
-  // if (!isDevelopment) {
-  //   // Disable shortcuts defining a hidden menu and binding the shortcut we
-  //   // want to disable to an option
-  //   const menu = Menu.buildFromTemplate([
-  //     {
-  //       label: 'Menu',
-  //       submenu: [
-  //         { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
-  //         { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
-  //         { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
-  //       ],
-  //     },
-  //   ])
+  if (!isDevelopment) {
+    // Disable shortcuts defining a hidden menu and binding the shortcut we
+    // want to disable to an option
+    const menu = Menu.buildFromTemplate([
+      {
+        label: 'Menu',
+        submenu: [
+          { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
+          { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
+          { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+        ],
+      },
+    ])
 
-  //   Menu.setApplicationMenu(menu)
-  // }
+    Menu.setApplicationMenu(menu)
+  }
 }
 
 function createTray() {
