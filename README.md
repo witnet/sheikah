@@ -9,6 +9,7 @@
 </div>
 
 ## Current status
+
 **Sheikah is still a *Technology Preview***. If you run it, you will find:
 
 - **Features that work**: wallets creation, seed phrase export, addresses generation and addresses listing.
@@ -17,6 +18,17 @@
 
 All of these features will be made available along the first Witnet testnet during 2020 Q2.
 
+## Installation
+
+### Dependencies
+
+At this time, you have to install the following dependencies to run sheikah:
+
+- `openssl`
+
+### From Github Releases
+
+Go to [releases](https://github.com/witnet/sheikah/releases) section and download the binary suitable for your system.
 
 ## Sheikah Development
 
@@ -98,9 +110,3 @@ When opening a pull request a job in [Travis](https://travis-ci.com/) will be fi
 
 If the application doesn't boot correctly and no error is reported in the terminal, try running `yarn reinstall` and try again.
 
-## Installation
-
-### From Github Releases
-⚠️ Due to this project is under development it doesn't have any release yet and has to be run as specified in [Sheikah Development](#Sheikah-development) ⚠️
-
-~~Go to [releases](https://github.com/witnet/sheikah/releases) section and download the binary suitable for your system.~~
