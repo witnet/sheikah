@@ -7,7 +7,10 @@
     </template>
 
     <template v-slot:content>
-      <div class="content" :class="{ 'full-padding': !nextStep && !previousStep }">
+      <div
+        class="content"
+        :class="{ 'full-padding': !nextStep && !previousStep }"
+      >
         <slot></slot>
       </div>
     </template>
