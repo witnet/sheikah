@@ -5,7 +5,9 @@
     title="Wallet seed phrase backup"
     previousText="Back"
     nextText="Continue"
-    :previousStep="() => this.$router.push('/claiming/disclaimer')"
+    :previousStep="
+      () => this.$router.push(`/claiming/disclaimer/${disclaimers.length - 1}`)
+    "
     :nextStep="() => this.$router.push('/claiming/seed-validation')"
     :disabledNextButton="false"
   >
@@ -26,11 +28,17 @@
 <script>
 import { mapState } from 'vuex'
 import NavigationCard from '@/components/card/NavigationCard'
+import disclaimers from '@/claimingDisclaimers'
 
 export default {
   name: 'WalletSeedBackup',
   components: {
     NavigationCard,
+  },
+  data() {
+    return {
+      disclaimers,
+    }
   },
   computed: {
     ...mapState({

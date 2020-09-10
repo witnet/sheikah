@@ -14,10 +14,16 @@
         <div ref="disclaimer" :class="disclaimerClass">
           <slot></slot>
         </div>
-        <p v-show="!readAll && showButton" class="underline" @click="handleRead"
+        <p
+          v-show="!textExpanded && textOverflow"
+          class="underline"
+          @click="handleRead"
           >Read more</p
         >
-        <p v-show="readAll && showButton" class="underline" @click="handleRead"
+        <p
+          v-show="textExpanded && textOverflow"
+          class="underline"
+          @click="handleRead"
           >Show less</p
         >
       </template>
@@ -88,14 +94,14 @@ export default {
   },
   data() {
     return {
-      readAll: false,
-      showButton: false,
+      textExpanded: false,
+      textOverflow: false,
     }
   },
   computed: {
     disclaimerClass() {
-      if (this.showButton) {
-        if (this.readAll) {
+      if (this.textOverflow) {
+        if (this.textExpanded) {
           return 'content long-content show-more'
         } else {
           return 'content long-content'
@@ -105,15 +111,20 @@ export default {
       }
     },
   },
-  mounted() {
-    this.checkoverflow()
+  watch: {
+    title: {
+      handler() {
+        this.checkTextOverflow()
+      },
+      immediate: true,
+    },
   },
   methods: {
     handleRead() {
-      if (!this.readAll && this.showButton) {
-        this.readAll = true
+      if (!this.textExpanded && this.textOverflow) {
+        this.textExpanded = true
       } else {
-        this.readAll = false
+        this.textExpanded = false
         this.$refs.disclaimer.scrollTop = 0
       }
     },
@@ -122,12 +133,14 @@ export default {
         this.props.nextStep()
       }
     },
-    async checkoverflow() {
+    async checkTextOverflow() {
+      this.textOverflow = false
+      this.textExpanded = false
       await this.$nextTick()
-      if (this.$refs.disclaimer.clientHeight > 300) {
-        this.showButton = true
+      if (this.$refs.disclaimer.clientHeight > 320) {
+        this.textOverflow = true
       } else {
-        this.showButton = false
+        this.textOverflow = false
       }
     },
   },
@@ -159,8 +172,8 @@ export default {
     display: flex;
     font-size: 32px;
     font-weight: 500;
-    height: 100px;
     justify-content: space-between;
+    margin-top: 16px;
     padding: 0 32px;
 
     .big-title {
@@ -168,6 +181,7 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      margin-right: 8px;
 
       .title {
         color: $white;

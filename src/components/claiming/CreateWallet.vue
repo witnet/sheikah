@@ -43,7 +43,7 @@ export default {
       this.$router.push('/claiming/vesting')
     },
     nextStep() {
-      this.$router.push('/claiming/disclaimer')
+      this.$router.push('/claiming/disclaimer/0')
     },
   },
 }
