@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 import Community from '@/components/Community.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
@@ -326,7 +325,7 @@ export default new Router({
         },
         {
           name: 'claimingInformation',
-          path: 'disclaimer',
+          path: 'disclaimer/:index',
           component: ClaimingWalletDisclaimer,
         },
         {
