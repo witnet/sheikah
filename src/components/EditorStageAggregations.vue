@@ -6,7 +6,7 @@
         stage="aggregation"
         :sources="sourcesLength"
         :results="results ? results.partial_results : null"
-        :finalResult="finalResult"
+        :final-result="finalResult"
       />
     </template>
 

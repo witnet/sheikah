@@ -2,9 +2,9 @@
   <NavigationCard
     data-test="download-file"
     title="Export and send your token claim file"
-    :nextStep="nextStep"
-    nextText="Continue"
-    :disabledNextButton="disabledNextButton"
+    :next-step="nextStep"
+    next-text="Continue"
+    :disabled-next-button="disabledNextButton"
   >
     <p class="text">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum

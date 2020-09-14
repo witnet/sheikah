@@ -1,13 +1,13 @@
 <template>
   <el-form ref="form" label-position="left" label-width="200px">
     <FormInformation
-      :commitRevealFee="commitRevealFee"
+      :commit-reveal-fee="commitRevealFee"
       :fee="fee"
-      :minConsensusPercentage="minConsensusPercentage"
-      :rewardFee="rewardFee"
+      :min-consensus-percentage="minConsensusPercentage"
+      :reward-fee="rewardFee"
       :witnesses="witnesses"
       :timelock="timelock"
-      :generatedTransaction="generatedTransaction"
+      :generated-transaction="generatedTransaction"
       type="DataRequest"
       @close-clear="goBack"
       @send="confirmDataRequest"

@@ -1,11 +1,11 @@
 <template>
   <NavigationCard
     data-test="vesting"
-    :nextStep="nextStep"
-    :previousStep="previousStep"
-    nextText="Continue"
-    previousText="Back"
-    :disabledNextButton="false"
+    :next-step="nextStep"
+    :previous-step="previousStep"
+    next-text="Continue"
+    previous-text="Back"
+    :disabled-next-button="false"
     :title="`${name}, this is your token allocation`"
   >
     <ClaimingInfo />

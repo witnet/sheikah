@@ -3,11 +3,11 @@
     ref="navCard"
     class="wallet-encryption"
     title="Encrypt your wallet with a password"
-    previousText="Back"
-    nextText="Next"
-    :previousStep="previousStep"
-    :nextStep="nextStep"
-    :disabledNextButton="disabledNextButton"
+    previous-text="Back"
+    next-text="Next"
+    :previous-step="previousStep"
+    :next-step="nextStep"
+    :disabled-next-button="disabledNextButton"
   >
     <p class="paragraph">
       <strong class="bold">PLEASE NOTE:</strong> this password encrypts your

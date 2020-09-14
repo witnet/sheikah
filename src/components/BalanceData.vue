@@ -25,7 +25,7 @@
     </p>
 
     <p class="label total">Total</p>
-    <Amount :currencyLight="true" class="amount" :amount="total" />
+    <Amount :currency-light="true" class="amount" :amount="total" />
   </div>
 </template>
 

@@ -1,10 +1,10 @@
 <template>
   <NavigationCard
-    :nextStep="nextStep"
+    :next-step="nextStep"
     data-test="instructions"
-    nextText="Start"
+    next-text="Start"
     title="About the Witnet token claiming process"
-    :disabledNextButton="false"
+    :disabled-next-button="false"
   >
     <p class="text bold">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum

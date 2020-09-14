@@ -4,11 +4,11 @@
       data-test="create-wallet"
       class="introduction"
       title="Create your wallet"
-      :previousStep="previousStep"
-      :nextStep="nextStep"
-      :disabledNextButton="false"
-      previousText="Back"
-      nextText="Let's do it"
+      :previous-step="previousStep"
+      :next-step="nextStep"
+      :disabled-next-button="false"
+      previous-text="Back"
+      next-text="Let's do it"
     >
       <p class="text bold">
         This assistant will guide you through the process of creating your own

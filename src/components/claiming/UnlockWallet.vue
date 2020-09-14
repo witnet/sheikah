@@ -2,9 +2,9 @@
   <NavigationCard
     data-test=""
     title="Unlock wallet"
-    :nextStep="unlockWallet"
-    nextText="Unlock"
-    :disabledNextButton="false"
+    :next-step="unlockWallet"
+    next-text="Unlock"
+    :disabled-next-button="false"
   >
     <div class="unlock-wallet">
       <div class="text">Insert a password to unlock wallet</div>

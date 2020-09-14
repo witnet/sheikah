@@ -4,11 +4,11 @@
       data-test="import-file"
       class="wallet-disclaimer"
       title="Import claiming file"
-      :previousStep="previousStep"
-      :nextStep="nextStep"
-      :disabledNextButton="disabledNextButton"
-      previousText="Back"
-      nextText="Continue"
+      :previous-step="previousStep"
+      :next-step="nextStep"
+      :disabled-next-button="disabledNextButton"
+      previous-text="Back"
+      next-text="Continue"
     >
       <p class="text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum
@@ -16,10 +16,10 @@
         varius diam ac, ornare arcu.
       </p>
       <FileUploader
-        :errorMessage="uploadFileError ? uploadFileError.message : ''"
+        :error-message="uploadFileError ? uploadFileError.message : ''"
         :file="claimingFileInfo ? claimingFileInfo.info : null"
-        :validateFile="validateClaimingImportFile"
-        acceptedFormat=".json"
+        :validate-file="validateClaimingImportFile"
+        accepted-format=".json"
         @clear-file="clearClaimingInfo"
         @file-name="updateName"
         @file-validated="setFileInfo"

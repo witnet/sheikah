@@ -8,9 +8,9 @@
         stage="retrieve"
         :source-index="source.index"
         :script-id="source.scriptId"
-        :partialResults="results"
-        :subscriptPartialResults="subscriptResults"
-        :finalResult="finalResult"
+        :partial-results="results"
+        :subscript-partial-results="subscriptResults"
+        :final-result="finalResult"
       />
     </Card>
   </Fieldset>

@@ -51,7 +51,7 @@
           :script-id="operator.scriptId"
           :source-index="sourceIndex"
           :show-output-type="index !== filters.length - 1"
-          :operatorOutput="partialResults ? partialResults[index + 1] : null"
+          :operator-output="partialResults ? partialResults[index + 1] : null"
           :error="radonError"
           @delete-operator="removeOperator(operator.scriptId, operator.id)"
           @add-operator="addOperator"
@@ -72,11 +72,11 @@
           :script-id="reducer.scriptId"
           :source-index="sourceIndex"
           :show-output-type="true"
-          :operatorOutput="
+          :operator-output="
             partialResults ? partialResults[partialResults.length - 1] : null
           "
           :error="radonError"
-          :hideDelete="true"
+          :hide-delete="true"
           @add-operator="addOperator"
         />
         <ScriptInfo

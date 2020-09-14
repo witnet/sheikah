@@ -2,7 +2,7 @@
   <NavigationCard
     data-test="generate-addresses"
     title="Generate addresses"
-    :disabledNextButton="false"
+    :disabled-next-button="false"
   >
     <p class="text">
       To enhance your privacy, the Sheikah wallet divides your tokens among

@@ -10,11 +10,11 @@
   >
     <ConfirmDataRequest
       v-if="generatedTransaction"
-      :commitAndRevealFee="commitAndRevealFee"
+      :commit-and-reveal-fee="commitAndRevealFee"
       :fee="fee"
-      :generatedTransaction="generatedTransaction"
-      :minConsensusPercentage="minConsensusPercentage"
-      :rewardFee="rewardFee"
+      :generated-transaction="generatedTransaction"
+      :min-consensus-percentage="minConsensusPercentage"
+      :reward-fee="rewardFee"
       :timelock="timelock"
       :witnesses="witnesses"
       @confirm-dr="confirmDataRequest"

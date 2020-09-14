@@ -8,8 +8,8 @@
           class="script"
           :source="source"
           :results="results ? results[index].partial_results : null"
-          :subscriptResults="subscriptResults"
-          :finalResult="finalResult[index]"
+          :subscript-results="subscriptResults"
+          :final-result="finalResult[index]"
         />
       </div>
     </template>

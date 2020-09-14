@@ -29,12 +29,12 @@
           :script-id="scriptId"
           :show-output-type="index !== script.length - 1"
           :subscript="true"
-          :operatorOutput="
+          :operator-output="
             subscriptPartialResults && subscriptPartialResults[subscriptIndex]
               ? subscriptPartialResults[subscriptIndex][index + 1][0]
               : null
           "
-          :hideDelete="index === 0"
+          :hide-delete="index === 0"
           @add-operator="addOperator"
           @delete-operator="removeOperator(operator.scriptId, operator.id)"
         />

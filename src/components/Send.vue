@@ -8,7 +8,7 @@
   >
     <FormInformation
       v-if="generatedTransaction"
-      :generatedTransaction="generatedTransaction"
+      :generated-transaction="generatedTransaction"
       type="ValueTransfer"
       @close-clear="closeAndClear"
       @send="confirmTransaction"

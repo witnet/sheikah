@@ -18,7 +18,6 @@ module.exports = {
     'no-multiple-empty-lines': ['error', { max: 1 }],
     'import/no-relative-parent-imports': 'error',
     'import/order': 'error',
-    'vue/attribute-hyphenation': 0,
     'vue/array-bracket-spacing': 'error',
     'vue/arrow-spacing': 'error',
     'vue/block-spacing': 'error',

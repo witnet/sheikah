@@ -2,7 +2,7 @@
   <NavigationCard
     data-test="download-file"
     title="It's done!"
-    :disabledNextButton="false"
+    :disabled-next-button="false"
   >
     <p>
       You have completed the Witnet token claim process successfully on the

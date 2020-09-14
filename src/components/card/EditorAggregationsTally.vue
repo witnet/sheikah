@@ -4,14 +4,14 @@
       <Card class="card" shadow="thin" :border="false" :padding="false">
         <RadonAggregateTallyScript
           :script="script"
-          :scriptId="script.reducer.scriptId"
+          :script-id="script.reducer.scriptId"
           type="filters"
           :header="filtersHeader"
           :footer="filtersFooter"
-          :headerScriptInfo="filtersHeaderScriptInfo"
-          :footerScriptInfo="filtersFooterScriptInfo"
-          :partialResults="results"
-          :finalResult="finalResult"
+          :header-script-info="filtersHeaderScriptInfo"
+          :footer-script-info="filtersFooterScriptInfo"
+          :partial-results="results"
+          :final-result="finalResult"
         />
       </Card>
     </Fieldset>
@@ -23,10 +23,10 @@
           type="reducer"
           :header="reducerHeader"
           :footer="reducerFooter"
-          :headerScriptInfo="reducerHeaderScriptInfo"
-          :footerScriptInfo="reducerFooterScriptInfo"
-          :partialResults="results"
-          :finalResult="finalResult"
+          :header-script-info="reducerHeaderScriptInfo"
+          :footer-script-info="reducerFooterScriptInfo"
+          :partial-results="results"
+          :final-result="finalResult"
         />
       </Card>
     </Fieldset>

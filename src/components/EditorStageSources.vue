@@ -9,7 +9,7 @@
           class="source"
           :url="source.url"
           :protocol="source.kind"
-          :contentType="source.contentType"
+          :content-type="source.contentType"
           :index="index"
         />
         <el-button

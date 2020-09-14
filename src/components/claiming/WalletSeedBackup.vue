@@ -3,13 +3,13 @@
     data-test="wallet-seed-backup"
     class="wallet-seed-backup"
     title="Wallet seed phrase backup"
-    previousText="Back"
-    nextText="Continue"
-    :previousStep="
+    previous-text="Back"
+    next-text="Continue"
+    :previous-step="
       () => this.$router.push(`/claiming/disclaimer/${disclaimers.length - 1}`)
     "
-    :nextStep="() => this.$router.push('/claiming/seed-validation')"
-    :disabledNextButton="false"
+    :next-step="() => this.$router.push('/claiming/seed-validation')"
+    :disabled-next-button="false"
   >
     <p>Your 12 word seed phrase:</p>
     <pre data-test="word-seed" class="seed">{{ seed }}</pre>

@@ -93,18 +93,18 @@
         class="subscripts"
       >
         <Subscript
-          :subscriptId="argument.selected.arguments[0].id"
+          :subscript-id="argument.selected.arguments[0].id"
           :script="argument.selected.arguments[0].subscript"
-          :subscriptPartialResults="subscriptPartialResults"
+          :subscript-partial-results="subscriptPartialResults"
         />
       </div>
     </div>
     <div v-if="argument.markupType === 'script'" class="subscripts">
       <div class="operators">
         <Subscript
-          :subscriptId="subscript[0].id"
+          :subscript-id="subscript[0].id"
           :script="subscript"
-          :subscriptPartialResults="subscriptPartialResults"
+          :subscript-partial-results="subscriptPartialResults"
         />
       </div>
     </div>
