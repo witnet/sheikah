@@ -204,6 +204,9 @@ function createWindow() {
           { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
           { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
           { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+          { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+          { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+          { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
         ],
       },
     ])
