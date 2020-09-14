@@ -171,9 +171,9 @@ function createWindow() {
 
   win.on('close', function(event) {
     console.info('Closing Sheikah window')
+    event.preventDefault()
     if (process.platform === 'darwin') {
       if (!forceQuit) {
-        event.preventDefault()
         if (win.isFullScreen()) {
           win.once('leave-full-screen', () => win.hide())
           win.setFullScreen(false)
@@ -185,7 +185,6 @@ function createWindow() {
         win.webContents.send('shutdown')
       }
     } else {
-      event.preventDefault()
       if (win.isFullScreen()) {
         win.once('leave-full-screen', () => win.hide())
         win.setFullScreen(false)
