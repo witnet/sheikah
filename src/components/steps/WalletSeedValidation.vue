@@ -8,7 +8,7 @@
     next-text="Confirm and continue"
     :previous-step="previousStep"
     :next-step="nextStep"
-    :disabled-next-button="disabledNextButton"
+    :disabled-next-button="isNextButtonDisabled"
   >
     <p class="text">
       Please type your 12 word seed phrase exactly as it was shown to you on the
@@ -24,7 +24,7 @@
       @go-next="nextStep"
     />
     <p
-      v-if="mnemonicsError"
+      v-if="seed && !areMnemonicsValid"
       data-test="mnemonics-error-alert"
       class="match-error"
     >
@@ -53,16 +53,13 @@ export default {
     return {
       seed: '',
       showError: '',
-      disabledNextButton: true,
+      isNextButtonDisabled: true,
     }
   },
   computed: {
     ...mapState({
       mnemonics: state => state.wallet.mnemonics,
-      mnemonicsError: state => {
-        return state.wallet.errors.mnemonics
-      },
-      validatedMnemonics: state => state.wallet.validatedMnemonics,
+      areMnemonicsValid: state => state.wallet.areMnemonicsValid,
     }),
   },
   watch: {
@@ -70,36 +67,27 @@ export default {
       this.validateForm()
     },
   },
-  beforeDestroy() {
-    if (this.mnemonicsError) {
-      this.clearError({ error: this.mnemonicsError.name })
-    }
-  },
   methods: {
     ...mapMutations({
       validateMnemonics: 'validateMnemonics',
-      clearError: 'clearError',
     }),
     validateForm() {
       this.validateMnemonics({
         seed: this.seed,
         mnemonics: this.mnemonics,
       })
-      if (this.validatedMnemonics) {
-        if (this.mnemonicsError) {
-          this.clearError({ error: this.mnemonicsError.name })
-        }
-        this.disabledNextButton = false
+      if (
+        this.areMnemonicsValid &&
+        this.seed.trim().length === this.mnemonics.trim().length
+      ) {
+        this.isNextButtonDisabled = false
       } else {
-        this.disabledNextButton = true
+        this.isNextButtonDisabled = true
       }
     },
     nextStep() {
       this.validateForm()
-      if (this.validatedMnemonics) {
-        if (this.mnemonicsError) {
-          this.clearError({ error: this.mnemonicsError.name })
-        }
+      if (this.areMnemonicsValid) {
         this.$router.push('/ftu/encryption-pass')
       }
     },

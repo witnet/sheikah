@@ -60,7 +60,7 @@ export default {
       seedError: state => {
         return state.wallet.errors.seed
       },
-      validatedMnemonics: state => state.wallet.validatedMnemonics,
+      areMnemonicsValid: state => state.wallet.areMnemonicsValid,
       wallets: state => state.wallet.walletInfos,
     }),
   },

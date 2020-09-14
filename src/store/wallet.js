@@ -69,7 +69,7 @@ export default {
     walletInfos: null,
     walletLocked: false,
     validatedPassword: false,
-    validatedMnemonics: false,
+    areMnemonicsValid: false,
     claimingAddresses: [],
   },
   mutations: {
@@ -219,11 +219,7 @@ export default {
     },
 
     setError(state, { name, error, message }) {
-      if (
-        error === 'Validation Error' ||
-        name === 'seed' ||
-        name === 'uploadFile'
-      ) {
+      if (error === 'Validation Error' || name === 'uploadFile') {
         state.errors[name] = {
           name,
           error,
@@ -274,16 +270,23 @@ export default {
         state.claimingAddresses.push(address.address)
       }
     },
-    validateMnemonics(state, { seed, mnemonics }) {
-      if (seed && seed.trim() === mnemonics.trim()) {
-        state.validatedMnemonics = true
+    validateMnemonics(state, { seed = '', mnemonics = '' }) {
+      const validate = (s = '', m = '') => {
+        return (
+          s &&
+          s.trim() ===
+            m
+              .trim()
+              .split('')
+              .slice(0, s.trim().length)
+              .join('')
+        )
+      }
+
+      if (validate(seed, mnemonics)) {
+        state.areMnemonicsValid = true
       } else {
-        this.commit('setError', {
-          name: 'mnemonics',
-          error: 'Validation Error',
-          message: 'Mnemonics must match',
-        })
-        state.validatedMnemonics = false
+        state.areMnemonicsValid = false
       }
     },
     validatePassword(state, { password, repeatPassword }) {
