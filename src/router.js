@@ -54,11 +54,8 @@ export default new Router({
       path: '/',
       name: 'main',
       component: Main,
-      beforeEnter: (to, from, next) => {
+      beforeEnter: async (to, from, next) => {
         const isReady = store.state.wallet.api.client.ws.ready
-        const walletInfos = store.state.wallet.walletInfos
-        const sessionId = store.state.wallet.sessionId
-
         if (process.env.VUE_APP_CLAIMING_PROCESS) {
           if (isReady) {
             next()
@@ -78,8 +75,10 @@ export default new Router({
               error = false
               store.dispatch('getWalletInfos')
               setTimeout(() => {
+                const walletInfos = store.state.wallet.walletInfos
                 const tokenGenerationEventOccurred =
                   store.state.wallet.tokenGenerationEventOccurred
+                const sessionId = store.state.wallet.sessionId
                 if (tokenGenerationEventOccurred) {
                   if (sessionId) {
                     next()
@@ -92,7 +91,6 @@ export default new Router({
                   if (!walletInfos || !walletInfos.length) {
                     localStorage.setItem('completed', false)
                   }
-
                   if (localStorage.getItem('completed') === 'true') {
                     const index = walletInfos.length - 1
                     next(`/claiming/unlock/${walletInfos[index].id}`)
@@ -105,8 +103,10 @@ export default new Router({
           }
         } else {
           if (isReady) {
-            store.dispatch('getWalletInfos')
-            if (sessionId) {
+            await store.dispatch('getWalletInfos')
+            const isSessionId = store.state.wallet.sessionId
+            const walletInfos = store.state.wallet.walletInfos
+            if (isSessionId) {
               next()
             } else if (walletInfos && walletInfos.length > 0) {
               next('/welcome-back/wallet-list')
@@ -134,6 +134,7 @@ export default new Router({
               store.dispatch('getWalletInfos')
               const polling = setInterval(() => {
                 clearInterval(polling)
+                const walletInfos = store.state.wallet.walletInfos
                 if (walletInfos && walletInfos.length > 0) {
                   next('/welcome-back/wallet-list')
                 } else {
