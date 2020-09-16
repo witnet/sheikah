@@ -75,6 +75,8 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import FormInformation from '@/components/FormInformation.vue'
 import AppendCurrency from '@/components/AppendCurrency'
+import { standardizeWitUnits } from '@/utils'
+import { WIT_UNIT } from '@/constants'
 
 export default {
   name: 'Send',
@@ -87,7 +89,10 @@ export default {
       const totalAmount = Number.isInteger(this.form.fee)
         ? value + this.form.fee
         : value
-      if (totalAmount > this.availableBalance) {
+      if (
+        standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency) >
+        this.availableBalance
+      ) {
         callback(new Error("You don't have enough funds"))
       } else {
         callback()

@@ -117,9 +117,9 @@ export default {
     },
     setBalance(state, { total }) {
       state.balance = {
-        total: standardizeWitUnits(total, state.currency),
-        available: 0,
-        locked: 0,
+        total: total.toString(),
+        available: '0',
+        locked: '0',
       }
     },
     changeCurrency(state) {
