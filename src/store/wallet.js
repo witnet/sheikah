@@ -100,10 +100,12 @@ export default {
       state.vesting = vesting
     },
     setTransactions(state, { transactions }) {
-      state.transactions = transactions.map(transaction => ({
-        ...transaction,
-        timeAgo: calculateTimeAgo(transaction.timestamp),
-      }))
+      state.transactions = transactions
+        .map(transaction => ({
+          ...transaction,
+          timeAgo: calculateTimeAgo(transaction.timestamp),
+        }))
+        .sort((t1, t2) => t1.timestamp < t2.timestamp)
     },
     setWalletIndex(state, { walletIndex }) {
       const walletInfos = state.walletInfos
