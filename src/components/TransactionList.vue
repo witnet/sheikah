@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import Transaction from './Transaction'
 
 export default {
@@ -77,7 +78,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      itemsPerPage: 15,
+      itemsPerPage: 13,
     }
   },
   computed: {
@@ -90,7 +91,15 @@ export default {
       return this.transactions.length
     },
   },
+  watch: {
+    currentPage(value) {
+      this.setCurrentTransactionsPage({ page: value })
+    },
+  },
   methods: {
+    ...mapMutations({
+      setCurrentTransactionsPage: 'setCurrentTransactionsPage',
+    }),
     handleCurrentChange(val) {
       this.currentPage = val
     },

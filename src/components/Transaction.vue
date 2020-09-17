@@ -212,7 +212,7 @@ export default {
   cursor: pointer;
   display: grid;
   grid-column-gap: 24px;
-  grid-template-columns: max-content max-content auto max-content;
+  grid-template-columns: max-content 200px auto max-content;
   padding: 16px;
 
   .amount,

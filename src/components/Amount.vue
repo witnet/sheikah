@@ -1,6 +1,20 @@
 <template>
-  <span class="amount-container" data-test="amount" @click="callChangeCurrency">
-    {{ standardizeWitUnits(amount, currency) }}
+  <div class="amount-container" data-test="amount" @click="callChangeCurrency">
+    <el-tooltip
+      v-if="standardizeWitUnits(amount, currency).length > 13"
+      :content="'hola'"
+      placement="bottom"
+      effect="light"
+    >
+    <span>
+      {{ cropString(standardizeWitUnits(amount, currency), 13, 'middle') }}
+    </span>
+    </el-tooltip>
+    <span
+      v-else
+    >
+      {{ standardizeWitUnits(amount, currency) }}
+    </span>
     <span
       data-test="currency"
       class="currency"
@@ -8,11 +22,11 @@
     >
       {{ currency }}
     </span>
-  </span>
+  </div>
 </template>
 
 <script>
-import { standardizeWitUnits } from '@/utils'
+import { standardizeWitUnits, cropString} from '@/utils'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
@@ -42,6 +56,7 @@ export default {
       e.stopPropagation()
     },
     standardizeWitUnits,
+    cropString,
     ...mapMutations(['changeCurrency']),
   },
 }
