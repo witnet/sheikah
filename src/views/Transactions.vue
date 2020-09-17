@@ -55,7 +55,6 @@ export default {
     },
   },
   beforeCreate() {
-    this.$store.dispatch('getTransactions', { limit: 50, page: 0 })
     this.$store.dispatch('getAddresses')
     this.$store.dispatch('getBalance')
     // TODO: place this methods in the correct place when the generated transaction from the wallet is ready

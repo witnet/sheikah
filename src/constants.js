@@ -30,6 +30,8 @@ export const WALLET_EVENTS = {
   SYNC_FINISH: 'SyncFinish',
   SYNC_PROGRESS: 'SyncProgress',
   SYNC_START: 'SyncStart',
+  BLOCK_CONSOLIDATE: 'BlocksConsolidate',
+  BLOCK_ORPHAN: 'BlocksOrphan',
 }
 
 // Generate address delay in ms

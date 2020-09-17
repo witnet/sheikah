@@ -64,6 +64,7 @@ export default {
     },
     radRequestResult: null,
     transactions: [],
+    currentTransactionsPage: 1,
     disclaimers: {},
     txLabels: {},
     walletInfos: null,
@@ -98,6 +99,9 @@ export default {
     },
     setVesting(state, vesting) {
       state.vesting = vesting
+    },
+    setCurrentTransactionsPage(state, { page }) {
+      state.currentTransactionsPage = page
     },
     setTransactions(state, { transactions }) {
       state.transactions = transactions
@@ -735,7 +739,6 @@ export default {
         limit,
         page,
       })
-
       if (request.result) {
         context.commit('setTransactions', { transactions: request.result })
         this.commit('clearError', { error: 'getTransactions' })
@@ -831,12 +834,10 @@ export default {
         context.commit(UPDATE_TEMPLATE, { id, value: '$' + key })
       })
     },
-
     processEvent: async function(context, rawEvent) {
       const eventType = Object.keys(rawEvent.event)[0]
       const event = rawEvent.event[eventType]
       const status = rawEvent.status
-
       if (eventType === WALLET_EVENTS.BLOCK) {
         status.timestamp = Date.now()
       } else if (eventType === WALLET_EVENTS.MOVEMENT) {
@@ -855,9 +856,14 @@ export default {
           })
         }
       } else if (eventType === WALLET_EVENTS.SYNC_FINISH) {
+        context.commit('setBalance', { total: status.account.balance })
+        context.dispatch('getTransactions', {
+          limit: 50,
+          page: context.state.currentTransactionsPage,
+        })
+        context.dispatch('getAddresses')
         status.progress = 100
         const [start, finish] = event
-
         if (finish > start) {
           createNotification({
             title: 'Completed Wallet Synchronization',
@@ -879,9 +885,18 @@ export default {
               start} blocks in total, starting with block #${start} up to the latest block in the chain (#${finish}).`,
           })
         }
+      } else if (
+        eventType === WALLET_EVENTS.BLOCK_CONSOLIDATE ||
+        eventType === WALLET_EVENTS.BLOCK_ORPHAN
+      ) {
+        context.commit('setBalance', { total: status.account.balance })
+        context.dispatch('getTransactions', {
+          limit: 50,
+          page: context.state.currentTransactionsPage,
+        })
+        context.dispatch('getAddresses')
       }
       status.rawEventType = eventType
-
       context.dispatch('processStatus', status)
     },
 
