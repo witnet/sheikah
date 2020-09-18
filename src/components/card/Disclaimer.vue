@@ -11,21 +11,9 @@
         </div>
       </template>
       <template v-slot:content>
-        <div ref="disclaimer" :class="disclaimerClass">
+        <div ref="disclaimer" class="content">
           <slot></slot>
         </div>
-        <p
-          v-show="!textExpanded && textOverflow"
-          class="underline"
-          @click="handleRead"
-          >Read more</p
-        >
-        <p
-          v-show="textExpanded && textOverflow"
-          class="underline"
-          @click="handleRead"
-          >Show less</p
-        >
       </template>
 
       <template v-if="previousStep || nextStep" v-slot:footer>
@@ -98,49 +86,10 @@ export default {
       textOverflow: false,
     }
   },
-  computed: {
-    disclaimerClass() {
-      if (this.textOverflow) {
-        if (this.textExpanded) {
-          return 'content long-content show-more'
-        } else {
-          return 'content long-content'
-        }
-      } else {
-        return 'content'
-      }
-    },
-  },
-  watch: {
-    title: {
-      handler() {
-        this.checkTextOverflow()
-      },
-      immediate: true,
-    },
-  },
   methods: {
-    handleRead() {
-      if (!this.textExpanded && this.textOverflow) {
-        this.textExpanded = true
-      } else {
-        this.textExpanded = false
-        this.$refs.disclaimer.scrollTop = 0
-      }
-    },
     handleKeyUp: event => {
       if (event.keyCode === 13) {
         this.props.nextStep()
-      }
-    },
-    async checkTextOverflow() {
-      this.textOverflow = false
-      this.textExpanded = false
-      await this.$nextTick()
-      if (this.$refs.disclaimer.clientHeight > 320) {
-        this.textOverflow = true
-      } else {
-        this.textOverflow = false
       }
     },
   },
@@ -201,16 +150,10 @@ export default {
     display: flex;
     flex-direction: column;
     font-size: 16px;
+    max-height: 400px;
+    overflow-y: auto;
     overflow-y: hidden;
     padding: 32px 32px 0 32px;
-  }
-
-  .show-more {
-    overflow-y: auto;
-  }
-
-  .long-content {
-    height: 300px;
   }
 
   .underline {
@@ -229,8 +172,8 @@ export default {
 
 .sub-title-container {
   bottom: -80px;
+  margin-top: 16px;
   max-width: 600px;
-  position: absolute;
 
   .sub-title {
     color: $grey-4;
