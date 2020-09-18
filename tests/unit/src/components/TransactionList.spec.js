@@ -30,7 +30,7 @@ describe('Renders the correct elements when click is not triggered', () => {
     )
   })
 
-  it('should render less than 15 address', () => {
+  it('should render less than 13 address', () => {
     const wrapper = shallowMount(TransactionList, {
       propsData: {
         transactions: [
@@ -45,7 +45,7 @@ describe('Renders the correct elements when click is not triggered', () => {
     expect(wrapper.findAll(Transaction).length).toBe(3)
   })
 
-  it('should not render the pagination with less than 15 address', () => {
+  it('should not render the pagination with less than 13 address', () => {
     const wrapper = shallowMount(TransactionList, {
       propsData: {
         transactions: [
@@ -60,7 +60,7 @@ describe('Renders the correct elements when click is not triggered', () => {
     expect(wrapper.find('[data-test="pagination"]').isVisible()).toBe(false)
   })
 
-  describe('should render the pagination with more than 15 address', () => {
+  describe('should render the pagination with more than 13 address', () => {
     it('should render pagination', () => {
       const wrapper = shallowMount(TransactionList, {
         propsData: {
@@ -69,7 +69,7 @@ describe('Renders the correct elements when click is not triggered', () => {
         },
       })
 
-      expect(wrapper.findAll(Transaction).length).toBe(15)
+      expect(wrapper.findAll(Transaction).length).toBe(13)
     })
 
     it('should render 15 addresses', () => {

@@ -6,13 +6,11 @@
       placement="bottom"
       effect="light"
     >
-    <span>
-      {{ cropString(standardizeWitUnits(amount, currency), 13, 'middle') }}
-    </span>
+      <span>
+        {{ cropString(standardizeWitUnits(amount, currency), 13, 'middle') }}
+      </span>
     </el-tooltip>
-    <span
-      v-else
-    >
+    <span v-else>
       {{ standardizeWitUnits(amount, currency) }}
     </span>
     <span
@@ -26,7 +24,7 @@
 </template>
 
 <script>
-import { standardizeWitUnits, cropString} from '@/utils'
+import { standardizeWitUnits, cropString } from '@/utils'
 import { mapState, mapMutations } from 'vuex'
 
 export default {

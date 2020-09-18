@@ -856,12 +856,12 @@ export default {
           })
         }
       } else if (eventType === WALLET_EVENTS.SYNC_FINISH) {
-        context.commit('setBalance', { total: status.account.balance })
-        context.dispatch('getTransactions', {
+        await context.dispatch('getTransactions', {
           limit: 50,
           page: context.state.currentTransactionsPage,
         })
-        context.dispatch('getAddresses')
+        await context.commit('setBalance', { total: status.account.balance })
+        await context.dispatch('getAddresses')
         status.progress = 100
         const [start, finish] = event
         if (finish > start) {

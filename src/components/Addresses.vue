@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      selectedIndex: this.addresses.length - 1 || null,
+      selectedIndex: this.addresses.length ? this.addresses.length - 1 : 0,
     }
   },
   computed: {

@@ -40,7 +40,7 @@ export default {
      */
     selected: {
       type: Number,
-      default: null,
+      default: 0,
     },
   },
   computed: {
