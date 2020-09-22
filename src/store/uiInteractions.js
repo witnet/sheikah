@@ -7,19 +7,21 @@ export default {
     generateRadRequestResultLoading: false,
     setupMessage: 'Updating wallet backend',
     setupProgress: 0,
-    updateNotification: false,
+    isUpdateNotificationVisible: false,
     updateNotificationMessage: '',
+    isUpdateAvailable: false,
   },
   mutations: {
     receiveTransactionClicked: function(state) {
       state.receiveTransactionClicked = true
     },
     toggleUpdateNotification: function(state, { msg }) {
-      state.updateNotification = true
+      state.isUpdateNotificationVisible = true
       state.updateNotificationMessage = msg
+      state.isUpdateAvailable = true
     },
     clearUpdateNotification: function(state) {
-      state.updateNotification = false
+      state.isUpdateNotificationVisible = false
       state.updateNotificationMessage = null
     },
     clearTransactionClicked: function(state) {

@@ -62,4 +62,5 @@ export const HISTORY_UPDATE_TYPE = {
 
 export const EXTERNAL_URL = {
   BALANCE_LOCKED: 'https://witnet.io',
+  SHEIKAH_WEBSITE: 'https://twitter.com/witnet_io',
 }
