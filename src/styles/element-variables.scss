@@ -173,6 +173,31 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   }
 }
 
+.el-button--text {
+  &.notify {
+    background: $alpha-purple;
+    border-color: transparent;
+    color: $alt-grey-5;
+    font-family: 'Roboto';
+    font-size: 14px;
+    padding: 4px 8px;
+
+    &:hover,
+    &:focus {
+      background-color: $purple-0;
+      border-color: $purple-0;
+      color: $alt-grey-5;
+    }
+
+    &:active {
+      background-color: $purple-1;
+      border-color: $purple-1;
+      color: $alt-grey-5;
+      outline: none;
+    }
+  }
+}
+
 .el-button--default {
   &.dark {
     background-color: $purple-4;

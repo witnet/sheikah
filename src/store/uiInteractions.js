@@ -7,10 +7,22 @@ export default {
     generateRadRequestResultLoading: false,
     setupMessage: 'Downloading wallet',
     setupProgress: 0,
+    isUpdateNotificationVisible: false,
+    updateNotificationMessage: '',
+    isUpdateAvailable: false,
   },
   mutations: {
     receiveTransactionClicked: function(state) {
       state.receiveTransactionClicked = true
+    },
+    showUpdateNotification: function(state, { msg }) {
+      state.isUpdateNotificationVisible = true
+      state.updateNotificationMessage = msg
+      state.isUpdateAvailable = true
+    },
+    clearUpdateNotification: function(state) {
+      state.isUpdateNotificationVisible = false
+      state.updateNotificationMessage = null
     },
     clearTransactionClicked: function(state) {
       state.receiveTransactionClicked = false
@@ -39,6 +51,7 @@ export default {
   },
   actions: {
     notify(context, payload) {
+      console.log('notify', payload)
       Vue.prototype.$notify(payload.message)
     },
   },

@@ -10,6 +10,7 @@ import axios from 'axios'
 import fs from 'fs-extra'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import { autoUpdater } from 'electron-updater'
 import {
   app,
   BrowserWindow,
@@ -114,6 +115,15 @@ ipcMain.on('shutdown-finished', () => {
   app.quit()
 })
 
+ipcMain.on('app_version', event => {
+  event.sender.send('app_version', { version: app.getVersion() })
+})
+
+// Ipc event received from the client to restart Sheikah and install new version
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall()
+})
+
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
@@ -152,6 +162,7 @@ function createWindow() {
   }
 
   loadUrl(status)
+  autoUpdater.checkForUpdatesAndNotify()
 
   win.webContents.on('did-finish-load', () => {
     // Disables zooming with pinch
@@ -398,3 +409,7 @@ async function sleep(t) {
     }, t)
   })
 }
+
+autoUpdater.on('update-available', () => {
+  win.webContents.send('update_available')
+})

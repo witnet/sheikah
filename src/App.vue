@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <router-view />
-    <Notification />
+    <UpdateNotification v-if="isUpdateNotificationVisible" />
   </div>
 </template>
 
 <script>
 import { mapMutations, mapActions, mapState } from 'vuex'
-import Notification from '@/components/Notification'
+import UpdateNotification from '@/components/UpdateNotification'
 
 export default {
   name: 'App',
   components: {
-    Notification,
+    UpdateNotification,
   },
   data() {
     return {
@@ -22,6 +22,8 @@ export default {
   },
   computed: {
     ...mapState({
+      isUpdateNotificationVisible: state =>
+        state.uiInteractions.isUpdateNotificationVisible,
       tokenGenerationEventOccurred: state =>
         state.wallet.tokenGenerationEventOccurred,
     }),
