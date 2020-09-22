@@ -31,6 +31,10 @@ export const WALLET_EVENTS = {
   SYNC_PROGRESS: 'SyncProgress',
   SYNC_START: 'SyncStart',
 }
+export const DOWNLOADING_NEW_RELEASE_MSG =
+  'A new update is available, Downloading now...'
+export const RE_START_MSG =
+  'Update downloaded. Please restart the application to install new Sheikah update'
 
 // Generate address delay in ms
 export const GENERATE_ADDRESS_DELAY = 300
