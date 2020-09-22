@@ -10,6 +10,7 @@ import tar from 'tar'
 import fs from 'fs-extra'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import { autoUpdater } from 'electron-updater'
 import {
   app,
   BrowserWindow,
@@ -116,6 +117,15 @@ ipcMain.on('shutdown-finished', () => {
   app.quit()
 })
 
+ipcMain.on('app_version', event => {
+  event.sender.send('app_version', { version: app.getVersion() })
+})
+
+// Ipc event received from the client to restart Sheikah and install new version
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall()
+})
+
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   main()
@@ -197,25 +207,30 @@ function createWindow() {
       }
     }
   })
-  if (!isDevelopment) {
-    // Disable shortcuts defining a hidden menu and binding the shortcut we
-    // want to disable to an option
-    const menu = Menu.buildFromTemplate([
-      {
-        label: 'Menu',
-        submenu: [
-          { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
-          { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
-          { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
-          { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
-          { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
-          { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
-        ],
-      },
-    ])
+  // if (!isDevelopment) {
+  //   // Disable shortcuts defining a hidden menu and binding the shortcut we
+  //   // want to disable to an option
+  //   const menu = Menu.buildFromTemplate([
+  //     {
+  //       label: 'Menu',
+  //       submenu: [
+  //         { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
+  //         { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
+  //         { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+  //         { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+  //         { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+  //         { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+  //       ],
+  //     },
+  //   ])
 
-    Menu.setApplicationMenu(menu)
-  }
+  //   Menu.setApplicationMenu(menu)
+  // }
+
+  // Check for updates and notify
+  win.once('ready-to-show', () => {
+    autoUpdater.checkForUpdatesAndNotify()
+  })
 }
 
 function createTray() {
@@ -432,3 +447,10 @@ async function sleep(t) {
     }, t)
   })
 }
+
+autoUpdater.on('update-available', () => {
+  win.webContents.send('update_available')
+})
+autoUpdater.on('update-downloaded', () => {
+  win.webContents.send('update_downloaded')
+})
