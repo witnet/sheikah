@@ -162,6 +162,7 @@ function createWindow() {
   }
 
   loadUrl(status)
+  autoUpdater.checkForUpdatesAndNotify()
 
   win.webContents.on('did-finish-load', () => {
     // Disables zooming with pinch
@@ -416,7 +417,4 @@ async function sleep(t) {
 
 autoUpdater.on('update-available', () => {
   win.webContents.send('update_available')
-})
-autoUpdater.on('update-downloaded', () => {
-  win.webContents.send('update_downloaded')
 })

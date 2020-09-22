@@ -75,28 +75,20 @@ export default {
   opacity: 0;
 }
 
-.container {
-  align-items: center;
+.notification {
   background-color: $alt-grey-5;
-  border-radius: 4px;
-  bottom: 40px;
+  bottom: 0;
   display: flex;
-  left: 0;
-  margin-left: auto;
-  margin-right: auto;
+  justify-content: flex-end;
+  padding: 16px 16px;
   position: fixed;
-  right: 0;
-  width: max-content;
+  width: 100%;
+  z-index: 20;
 
   .text {
     color: $white;
     font-size: 14px;
-    padding: 8px 16px;
-    width: 400px;
-  }
-
-  .btn-container {
-    padding: 8px 16px;
+    margin-right: 16px;
   }
 }
 </style>

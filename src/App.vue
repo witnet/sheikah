@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view />
-    <UpdateNotification />
+    <UpdateNotification v-if="isUpdateNotificationVisible" />
   </div>
 </template>
 
@@ -22,6 +22,8 @@ export default {
   },
   computed: {
     ...mapState({
+      isUpdateNotificationVisible: state =>
+        state.uiInteractions.isUpdateNotificationVisible,
       tokenGenerationEventOccurred: state =>
         state.wallet.tokenGenerationEventOccurred,
     }),
