@@ -28,14 +28,14 @@ const SHEIKAH_PATH_BY_PLATFORM = {
   darwin: path.join(os.homedir(), 'Desktop', '.sheikah'),
   linux: path.join(os.homedir(), '.sheikah'),
 }
+const VERSION_FILE_NAME = '.version'
 const SHEIKAH_PATH = process.env.TRAVIS
   ? ''
   : SHEIKAH_PATH_BY_PLATFORM[platform]
 const FILE_NAME = {
-  darwin: `witnet-0.9.3-${arch}-apple-${platform}.tar.gz`,
+  darwin: `witnet-${arch}-apple-${platform}.tar.gz`,
   linux: `release-${arch}-${platform}.tar.gz`,
 }
-const VERSION_FILE_NAME = '.version'
 const WITNET_FILE_NAME = 'witnet'
 const WITNET_CONFIG_FILE_NAME = 'witnet.toml'
 const LATEST_RELEASES_URL =
@@ -257,6 +257,7 @@ async function downloadWalletRelease(releaseUrl, version) {
           win.webContents.send('progress', progress)
         })
         const pipeline = util.promisify(stream.pipeline)
+        fs.writeFile(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
         // Promise equivalent for response.data.pipe(writeStream)
         await pipeline(response.data, str, fs.createWriteStream(file))
         console.info('witnet release downloaded succesfully')
@@ -337,11 +338,25 @@ function main() {
         path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
       )
 
+      let isLastestVersion = existConfigFile && existWitnetFile
+
+      if (existVersionFile) {
+        fs.readFile(
+          path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
+          'utf8',
+          function(err, data) {
+            if (err) {
+              return console.error(err)
+            }
+            if (data !== latestReleaseVersion) {
+              isLastestVersion = false
+            }
+          },
+        )
+      }
       if (existWitnetFile) console.info("Witnet's wallet file found")
       if (existConfigFile) console.info("Witnet's config file found")
       if (existVersionFile) console.info("Witnet's version file found")
-
-      const isLastestVersion = existConfigFile && existWitnetFile
 
       if (!isLastestVersion) {
         win.webContents.send('downloading')
