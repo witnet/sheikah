@@ -6,7 +6,7 @@ import stream from 'stream'
 import util from 'util'
 import cp from 'child_process'
 import axios from 'axios'
-// import tar from 'tar'
+import tar from 'tar'
 import fs from 'fs-extra'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
@@ -27,6 +27,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 const SHEIKAH_PATH_BY_PLATFORM = {
   darwin: path.join(os.homedir(), 'Desktop', '.sheikah'),
   linux: path.join(os.homedir(), '.sheikah'),
+  win32: path.join(os.homedir(), '.sheikah'),
 }
 const VERSION_FILE_NAME = '.version'
 const SHEIKAH_PATH = process.env.TRAVIS
@@ -35,6 +36,7 @@ const SHEIKAH_PATH = process.env.TRAVIS
 const FILE_NAME = {
   darwin: `witnet-${arch}-apple-${platform}.tar.gz`,
   linux: `release-${arch}-${platform}.tar.gz`,
+  win32: `witnet-x86_64-pc-windows-msvc.tar.gz`,
 }
 const WITNET_FILE_NAME = 'witnet'
 const WITNET_CONFIG_FILE_NAME = 'witnet.toml'
@@ -116,6 +118,8 @@ ipcMain.on('shutdown-finished', () => {
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
+  main()
+
   if (process.platform === 'win32') {
     process.on('message', data => {
       if (data === 'graceful-exit') {
@@ -263,13 +267,27 @@ async function downloadWalletRelease(releaseUrl, version) {
         console.info('witnet release downloaded succesfully')
         console.info('Decompressing release...')
         // Decompress tar.gz file
-        try {
-          const currentCwd = process.cwd()
-          process.chdir(SHEIKAH_PATH)
-          cp.execSync(`tar -xvf ${file}`)
-          process.chdir(currentCwd)
-        } catch (err) {
-          console.error(err)
+        if (platform === 'win32') {
+          tar.x({ file, sync: true })
+          fs.copyFileSync(
+            'witnet.exe',
+            path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
+          )
+          fs.copyFileSync(
+            'witnet.toml',
+            path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
+          )
+          fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
+          fs.unlinkSync(file)
+        } else {
+          try {
+            const currentCwd = process.cwd()
+            process.chdir(SHEIKAH_PATH)
+            cp.execSync(`tar -xvf ${file}`)
+            process.chdir(currentCwd)
+          } catch (err) {
+            console.error(err)
+          }
         }
         await sleep(4000)
         resolve()
@@ -308,13 +326,14 @@ function main() {
     const release = result.data.assets.find(
       asset =>
         asset.browser_download_url.includes(arch) &&
-        asset.browser_download_url.includes(platform),
+        asset.browser_download_url.includes(
+          platform === 'win32' ? 'windows' : platform,
+        ),
     )
     if (release) {
       const releaseUrl = release.browser_download_url
 
       const releaseName = releaseUrl.split('/')[8]
-
       const latestReleaseVersion = releaseName.slice(
         0,
         releaseName.indexOf('-x86'),
