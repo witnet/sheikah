@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { openInExternalApp } from '@/utils'
 import CommunityCard from './card/CommunityCard'
 
 export default {
@@ -83,11 +82,6 @@ export default {
         },
       ],
     }
-  },
-  methods: {
-    openExternalLink: async url => {
-      await openInExternalApp(url)
-    },
   },
 }
 </script>
