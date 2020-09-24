@@ -11,6 +11,7 @@ import fs from 'fs-extra'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
+import electronLog from 'electron-log'
 import {
   app,
   BrowserWindow,
@@ -65,6 +66,9 @@ let createdProtocol
 let status = isDevelopment ? STATUS.READY : STATUS.WAIT
 let forceQuit = false
 
+autoUpdater.logger = electronLog
+autoUpdater.logger.transports.file.level = 'info'
+
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } },
@@ -115,15 +119,6 @@ app.on('window-all-closed', () => {
 ipcMain.on('shutdown-finished', () => {
   if (win) win.destroy()
   app.quit()
-})
-
-ipcMain.on('app_version', event => {
-  event.sender.send('app_version', { version: app.getVersion() })
-})
-
-// Ipc event received from the client to restart Sheikah and install new version
-ipcMain.on('restart_app', () => {
-  autoUpdater.quitAndInstall()
 })
 
 // Exit cleanly on request from parent process in development mode.
@@ -208,30 +203,25 @@ function createWindow() {
       }
     }
   })
-  // if (!isDevelopment) {
-  //   // Disable shortcuts defining a hidden menu and binding the shortcut we
-  //   // want to disable to an option
-  //   const menu = Menu.buildFromTemplate([
-  //     {
-  //       label: 'Menu',
-  //       submenu: [
-  //         { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
-  //         { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
-  //         { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
-  //         { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
-  //         { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
-  //         { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
-  //       ],
-  //     },
-  //   ])
+  if (!isDevelopment) {
+    // Disable shortcuts defining a hidden menu and binding the shortcut we
+    // want to disable to an option
+    const menu = Menu.buildFromTemplate([
+      {
+        label: 'Menu',
+        submenu: [
+          { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
+          { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
+          { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+          { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+          { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+          { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+        ],
+      },
+    ])
 
-  //   Menu.setApplicationMenu(menu)
-  // }
-
-  // Check for updates and notify
-  win.once('ready-to-show', () => {
-    autoUpdater.checkForUpdatesAndNotify()
-  })
+    Menu.setApplicationMenu(menu)
+  }
 }
 
 function createTray() {
@@ -451,4 +441,13 @@ async function sleep(t) {
 
 autoUpdater.on('update-available', () => {
   win.webContents.send('update_available')
+})
+
+autoUpdater.on('update-downloaded', () => {
+  app.removeAllListeners('close')
+  forceQuit = true
+  if (win != null) {
+    win.close()
+  }
+  autoUpdater.quitAndInstall(false)
 })
