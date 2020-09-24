@@ -250,17 +250,8 @@ export function formatDateVerbose(date) {
   return format(date, 'MMM do yyyy')
 }
 
-// TODO(#935): allow open links with electron.shell.openExternal
-export async function openInExternalApp(url) {
-  // if (process.env.IS_ELECTRON) {
-  //     .then(electron => {
-  // electron.shell.openExternal(url)
-  //     })
-  //     .catch(error => {
-  //       throw Error(error)
-  //     })
-  // } else {
-  window.location.href = url
+export function openInExternalApp(url) {
+  window.open(url, '_blank')
 }
 
 export function generateId(random) {
