@@ -1,17 +1,19 @@
 <template>
   <div class="main">
     <div class="header">
-      <div class="main-col border">
+      <div v-if="participation > 0" class="main-col border">
         <p class="title">PARTICIPATION</p>
-        <p class="sub-title">${{ participation }}</p>
+        <p class="sub-title">${{ formatNumber(participation) }}</p>
       </div>
       <div class="main-col border">
         <p class="title">TOTAL TOKENS ALLOCATION</p>
-        <p class="sub-title">{{ amount }} <span class="currency">WIT</span></p>
+        <p class="sub-title"
+          >{{ formatNumber(amount) }} <span class="currency">WIT</span></p
+        >
       </div>
       <div class="main-col">
         <p class="title">LOCK-UPS</p>
-        <p v-show="vesting.length >= 1" class="sub-title">Yes</p>
+        <p v-show="vesting.length > 1" class="sub-title">Yes</p>
         <p v-show="vesting.length <= 1" class="sub-title">No</p>
       </div>
     </div>
@@ -22,7 +24,7 @@
         </div>
         <p class="data date">{{ changeDateFormat(step.date, 'claiming') }}</p>
         <p class="data amount"
-          >{{ step.amount }}<span class="currency"> WIT</span></p
+          >{{ formatNumber(step.amount) }}<span class="currency"> WIT</span></p
         >
       </div>
     </div>
@@ -31,7 +33,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { calculateVesting, changeDateFormat } from '@/utils'
+import { calculateVesting, changeDateFormat, formatNumber } from '@/utils'
 export default {
   name: 'ClaimingInfo',
   computed: {
@@ -42,12 +44,9 @@ export default {
       participation: state => state.wallet.claimingFileInfo.info.data.usd,
     }),
     type() {
-      const genesis = this.vesting.lenght <= 1
-      const delay = this.vestingInfo.delay > 0 && !genesis
+      const genesis = this.vesting.length <= 1
       if (genesis) {
         return 'GENESIS'
-      } else if (delay) {
-        return 'DELAY'
       } else {
         return 'LOCK-UP'
       }
@@ -66,6 +65,7 @@ export default {
   },
   methods: {
     changeDateFormat,
+    formatNumber,
   },
 }
 </script>

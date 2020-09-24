@@ -20,19 +20,17 @@
 
 <script>
 import Disclaimer from '@/components/card/Disclaimer'
-import disclaimers from '@/claimingDisclaimers'
+import { mapState } from 'vuex'
 
 export default {
   name: 'WalletDisclaimer',
   components: {
     Disclaimer,
   },
-  data() {
-    return {
-      disclaimers: disclaimers,
-    }
-  },
   computed: {
+    ...mapState({
+      disclaimers: state => state.wallet.disclaimers,
+    }),
     index() {
       return parseInt(this.$route.params.index)
     },

@@ -10,6 +10,8 @@ import {
   createExportClaimingFileLink,
   buildClaimingAddresses,
 } from '@/utils'
+import disclaimers from '@/claimingDisclaimers'
+import reducedDisclaimers from '@/reducedClaimingDisclaimers'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import { GENERATE_ADDRESS_DELAY, WALLET_EVENTS, WIT_UNIT } from '@/constants'
 import warning from '@/resources/svg/warning.png'
@@ -65,6 +67,7 @@ export default {
     radRequestResult: null,
     transactions: [],
     currentTransactionsPage: 1,
+    signedDisclaimers: {},
     disclaimers: {},
     txLabels: {},
     walletInfos: null,
@@ -204,9 +207,11 @@ export default {
     },
     setClaimingInfo(state, { info }) {
       Object.assign(state, { claimingFileInfo: info })
+      const participation = state.claimingFileInfo.info.data.usd
+      state.disclaimers = participation > 0 ? disclaimers : reducedDisclaimers
     },
     setDisclaimers(state, { result }) {
-      state.disclaimers = result
+      state.signedDisclaimers = result
     },
     setClaimingState(state, { completed }) {
       Object.assign(state, { claimingProcessState: completed })
@@ -352,7 +357,7 @@ export default {
       const link = createExportClaimingFileLink(
         context.state.claimingFileInfo.info,
         claimingAddresses,
-        context.state.disclaimers,
+        context.state.signedDisclaimers,
       )
 
       const request = await context.state.api.saveItem({
@@ -696,6 +701,7 @@ export default {
       const request = await context.state.api.signDisclaimers({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
+        disclaimers: context.state.disclaimers,
       })
       if (request) {
         context.commit('setDisclaimers', { result: request })

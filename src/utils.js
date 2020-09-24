@@ -246,6 +246,10 @@ export function calculateTimeAgo(date) {
   return `${formatDistanceToNow(currentDate)} ago`
 }
 
+export function formatNumber(num) {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
 export function formatDateVerbose(date) {
   return format(date, 'MMM do yyyy')
 }
@@ -497,13 +501,17 @@ export function createExportClaimingFileLink(
   disclaimers,
 ) {
   return `data:text/json;charset=utf-8,${encodeURIComponent(
-    JSON.stringify({
-      email_address: importedFile.data.emailAddress,
-      name: importedFile.data.name,
-      addresses,
-      disclaimers: disclaimers,
-      signature: importedFile.signature,
-    }),
+    JSON.stringify(
+      {
+        email_address: importedFile.data.emailAddress,
+        name: importedFile.data.name,
+        addresses,
+        disclaimers: disclaimers,
+        signature: importedFile.signature,
+      },
+      null,
+      2,
+    ),
   )}`
 }
 

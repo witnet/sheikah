@@ -99,12 +99,8 @@ export class WalletApi {
 
   // sign all disclaimers at once
   signDisclaimers(params) {
-    const disclaimers = {
-      disclaimer_1: 'disclaimer_1',
-      disclaimer_2: 'disclaimer_2',
-    }
     const requests = []
-    Object.entries(disclaimers).forEach(elm => {
+    Object.entries(params.disclaimers).forEach(elm => {
       const request = this.signData({
         wallet_id: params.wallet_id,
         session_id: params.session_id,
@@ -118,7 +114,7 @@ export class WalletApi {
         return { error: 'Error signing data' }
       } else {
         // assign disclaimer names to its signature
-        return Object.keys(disclaimers).reduce((acc, key, index) => {
+        return Object.keys(params.disclaimers).reduce((acc, key, index) => {
           acc[key] = request[index].result
           return acc
         }, {})

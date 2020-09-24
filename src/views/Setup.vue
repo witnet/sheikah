@@ -5,7 +5,7 @@
         <div class="filling-icon">
           <font-awesome-icon
             v-if="
-              setupMessage === 'Downloading wallet' ||
+              setupMessage === 'Updating wallet backend' ||
                 setupMessage === 'wallet up to date'
             "
             class="icon"
@@ -61,7 +61,7 @@ export default {
       progress: state => state.uiInteractions.setupProgress,
     }),
     percentage() {
-      if (this.setupMessage === 'Downloading wallet') {
+      if (this.setupMessage === 'Updating wallet backend') {
         return Math.round(this.progress * 0.8)
       } else if (this.setupMessage === 'wallet up to date') {
         return 80
@@ -83,11 +83,11 @@ export default {
     }),
     format(percentage) {
       if (percentage <= 80) {
-        return 'Downloading wallet'
+        return 'Updating wallet backend'
       } else if (percentage <= 90) {
         return 'Running wallet'
       } else if (percentage > 90) {
-        return 'We are preparing Sheikah'
+        return 'Connecting to wallet backend'
       }
     },
   },

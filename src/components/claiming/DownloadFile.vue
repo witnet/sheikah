@@ -24,13 +24,13 @@
       <a
         ref="file"
         :href="exportFileLink"
-        download="claiming-information.json"
+        :download="`${email}-witnet-tokens-claim.json`"
         style="display:none"
       ></a>
       <div class="file">
         <p class="name">
           <i class="el-icon-document"></i>
-          <span class="text"> claiming-information.json </span>
+          <span class="text"> {{ `${email}-witnet-tokens-claim.json` }} </span>
         </p>
       </div>
     </div>
@@ -60,6 +60,7 @@ export default {
       exportFileLink: state => {
         return state.wallet.exportFileLink
       },
+      email: state => state.wallet.claimingFileInfo.info.data.emailAddress,
     }),
   },
   beforeCreate() {

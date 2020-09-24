@@ -9,7 +9,7 @@ ipcRenderer.on('running', async () => {
   store.commit('setMessage', { message: 'Running wallet' })
 })
 ipcRenderer.on('downloading', async () => {
-  store.commit('setMessage', { message: 'Downloading wallet' })
+  store.commit('setMessage', { message: 'Updating wallet backend' })
 })
 ipcRenderer.on('loaded', async () => {
   store.commit('setMessage', { message: 'loaded' })

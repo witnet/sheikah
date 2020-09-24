@@ -53,7 +53,7 @@
       v-show="exportFileLink"
       ref="file"
       :href="exportFileLink"
-      download="claiming-information.json"
+      :download="`${email}-witnet-tokens-claim.json`"
       style="display:none"
     />
   </NavigationCard>
@@ -80,6 +80,7 @@ export default {
       exportFileLink: state => {
         return state.wallet.exportFileLink
       },
+      email: state => state.wallet.claimingFileInfo.info.data.emailAddress,
     }),
     dateInMilliseconds() {
       return Math.trunc(Date.parse(this.date) / 1000)

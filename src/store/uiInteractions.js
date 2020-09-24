@@ -5,7 +5,7 @@ export default {
     receiveTransactionClicked: false,
     generateAddressLoading: false,
     generateRadRequestResultLoading: false,
-    setupMessage: 'Downloading wallet',
+    setupMessage: 'Updating wallet backend',
     setupProgress: 0,
   },
   mutations: {
@@ -34,7 +34,7 @@ export default {
       state.setupProgress = progress
     },
     cleanMessage: function(state) {
-      state.setupMessage = 'Downloading wallet'
+      state.setupMessage = 'Updating wallet backend'
     },
   },
   actions: {

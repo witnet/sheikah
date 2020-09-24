@@ -28,20 +28,15 @@
 <script>
 import { mapState } from 'vuex'
 import NavigationCard from '@/components/card/NavigationCard'
-import disclaimers from '@/claimingDisclaimers'
 
 export default {
   name: 'WalletSeedBackup',
   components: {
     NavigationCard,
   },
-  data() {
-    return {
-      disclaimers,
-    }
-  },
   computed: {
     ...mapState({
+      disclaimers: state => state.wallet.disclaimers,
       seed: state => state.wallet.mnemonics,
       createMnemonicsError: state => {
         if (state.wallet.errors.createMnemonics) {
