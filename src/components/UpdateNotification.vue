@@ -1,8 +1,8 @@
 <template>
   <transition name="slide">
-    <div v-if="updateNotification" class="container">
+    <div class="notification">
       <p class="text">{{ updateNotificationMessage }}</p>
-      <div class="btn-container">
+      <div class="buttons">
         <el-button type="text" class="notify" @click="handleClick">{{
           btnMessage
         }}</el-button>
@@ -11,7 +11,7 @@
           type="text"
           class="notify"
           @click="clearUpdateNotification"
-          >Close</el-button
+          >Later</el-button
         >
       </div>
     </div>
@@ -21,7 +21,7 @@
 <script>
 import { ipcRenderer } from 'electron'
 import { mapState, mapMutations } from 'vuex'
-import { RE_START_MSG } from '@/constants'
+import { RE_START_MSG, DOWNLOADING_NEW_RELEASE_MSG } from '@/constants'
 export default {
   name: 'Tag',
   computed: {
@@ -37,9 +37,13 @@ export default {
       return this.updateNotificationMessage === RE_START_MSG
     },
   },
+  created() {
+    this.toggleUpdateNotification({ msg: DOWNLOADING_NEW_RELEASE_MSG })
+  },
   methods: {
     ...mapMutations({
       clearUpdateNotification: 'clearUpdateNotification',
+      toggleUpdateNotification: 'toggleUpdateNotification',
     }),
     restartApp() {
       console.log('click')

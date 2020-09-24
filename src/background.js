@@ -121,6 +121,7 @@ ipcMain.on('app_version', event => {
 
 // Ipc event received from the client to restart Sheikah and install new version
 ipcMain.on('restart_app', () => {
+  win.webContents.send('log', 'restart app')
   autoUpdater.quitAndInstall()
 })
 
@@ -223,11 +224,6 @@ function createWindow() {
 
   //   Menu.setApplicationMenu(menu)
   // }
-
-  // Check for updates and notify
-  win.once('ready-to-show', () => {
-    autoUpdater.checkForUpdatesAndNotify()
-  })
 }
 
 function createTray() {
@@ -416,5 +412,11 @@ async function sleep(t) {
 }
 
 autoUpdater.on('update-available', () => {
+  win.webContents.send('log', 'update available')
   win.webContents.send('update_available')
 })
+
+autoUpdater.on('update-downloaded', () => {
+  win.webContents.send('log', 'update downloaded')
+  win.webContents.send('update_downloaded');
+});

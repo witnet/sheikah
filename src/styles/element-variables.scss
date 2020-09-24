@@ -175,7 +175,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 .el-button--text {
   &.notify {
-    background: $alpha-purple;
+    background: $white;
     border-color: transparent;
     color: $alt-grey-5;
     font-family: 'Roboto';
@@ -184,14 +184,14 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
     &:hover,
     &:focus {
-      background-color: $purple-0;
-      border-color: $purple-0;
+      background-color: $alpha-purple;
+      border-color: $alpha-purple;
       color: $alt-grey-5;
     }
 
     &:active {
-      background-color: $purple-1;
-      border-color: $purple-1;
+      background-color: $purple-0;
+      border-color: $purple-0;
       color: $alt-grey-5;
       outline: none;
     }
