@@ -1,6 +1,6 @@
 {
   "name": "sheikah-witnet-wallet",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "description": "A Witnet compatible desktop wallet interface and data requests development environment.",
   "author": "Witnet Foundation <info@witnet.foundation>",
@@ -48,6 +48,7 @@
     "cbor": "^4.1.5",
     "core-js": "^3.4.4",
     "date-fns": "^2.12.0",
+    "electron-log": "^4.2.4",
     "electron-updater": "^4.3.5",
     "element-ui": "^2.4.5",
     "fs-extra": "^9.0.1",

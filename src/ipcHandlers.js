@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron'
 import store from './store'
-import { RE_START_MSG } from './constants'
+import { RE_START_MSG, DOWNLOADING_NEW_RELEASE_MSG } from './constants'
 
 ipcRenderer.on('shutdown', async () => {
   await store.dispatch('shutdown')
@@ -33,5 +33,10 @@ ipcRenderer.on('update_available', () => {
   console.log('update available')
   ipcRenderer.removeAllListeners('update_available')
   // create Notification for downloading new Sheikah release
+  store.commit('toggleUpdateNotification', { msg: DOWNLOADING_NEW_RELEASE_MSG })
+})
+ipcRenderer.on('update_downloaded', () => {
+  ipcRenderer.removeAllListeners('update_downloaded')
+  // create Notification for restarting Sheikah
   store.commit('toggleUpdateNotification', { msg: RE_START_MSG })
 })
