@@ -415,8 +415,3 @@ autoUpdater.on('update-available', () => {
   win.webContents.send('log', 'update available')
   win.webContents.send('update_available')
 })
-
-autoUpdater.on('update-downloaded', () => {
-  win.webContents.send('log', 'update downloaded')
-  win.webContents.send('update_downloaded');
-});

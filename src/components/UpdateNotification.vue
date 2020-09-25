@@ -21,7 +21,7 @@
 <script>
 import { ipcRenderer } from 'electron'
 import { mapState, mapMutations } from 'vuex'
-import { RE_START_MSG, DOWNLOADING_NEW_RELEASE_MSG } from '@/constants'
+import { RE_START_MSG } from '@/constants'
 export default {
   name: 'Tag',
   computed: {
@@ -36,9 +36,6 @@ export default {
     isRestartMsg() {
       return this.updateNotificationMessage === RE_START_MSG
     },
-  },
-  created() {
-    this.toggleUpdateNotification({ msg: DOWNLOADING_NEW_RELEASE_MSG })
   },
   methods: {
     ...mapMutations({
