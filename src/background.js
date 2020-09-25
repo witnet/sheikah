@@ -166,6 +166,8 @@ function createWindow() {
 
   loadUrl(status)
   autoUpdater.checkForUpdatesAndNotify()
+  autoUpdater.logger = require("electron-log")
+  autoUpdater.logger.transports.file.level = "info"
 
   win.webContents.on('did-finish-load', () => {
     // Disables zooming with pinch
@@ -417,3 +419,7 @@ autoUpdater.on('update-available', () => {
   win.webContents.send('log', 'update available')
   win.webContents.send('update_available')
 })
+
+autoUpdater.on('update-downloaded', () => {
+  win.webContents.send('log', 'update downloaded')
+});
