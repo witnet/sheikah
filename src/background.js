@@ -122,7 +122,9 @@ ipcMain.on('app_version', event => {
 // Ipc event received from the client to restart Sheikah and install new version
 ipcMain.on('restart_app', () => {
   win.webContents.send('log', 'restart app')
-  autoUpdater.quitAndInstall()
+  setImmediate(() => {
+    autoUpdater.quitAndInstall();
+  })
 })
 
 // Exit cleanly on request from parent process in development mode.
