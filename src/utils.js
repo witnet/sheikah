@@ -496,12 +496,13 @@ export function createExportClaimingFileLink(
       {
         email_address: importedFile.data.emailAddress,
         name: importedFile.data.name,
+        source: importedFile.data.source,
         addresses,
         disclaimers: disclaimers,
         signature: importedFile.signature,
       },
       null,
-      2,
+      4,
     ),
   )}`
 }
@@ -542,6 +543,7 @@ export function validateClaimingImportFile(importedFile) {
       data: {
         email_address: ow.string,
         name: ow.string,
+        source: ow.string,
         usd: ow.number,
         wit: ow.number,
         genesis_date: ow.number,

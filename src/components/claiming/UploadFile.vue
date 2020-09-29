@@ -125,6 +125,7 @@ export default {
           data: {
             emailAddress: file.data.email_address,
             name: file.data.name,
+            source: file.data.source,
             usd: file.data.usd,
             wit: file.data.wit,
             genesisDate: file.data.genesis_date * 10 ** 3,
@@ -136,7 +137,6 @@ export default {
             },
           },
           signature: file.signature,
-          source: file.source,
         },
       }
     },

@@ -100,11 +100,11 @@ export class WalletApi {
   // sign all disclaimers at once
   signDisclaimers(params) {
     const requests = []
-    Object.entries(params.disclaimers).forEach(elm => {
+    Object.values(params.disclaimers).forEach(disclaimer => {
       const request = this.signData({
         wallet_id: params.wallet_id,
         session_id: params.session_id,
-        data: elm[0],
+        data: JSON.stringify(disclaimer),
       })
       requests.push(request)
     })
