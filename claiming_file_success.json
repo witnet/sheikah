@@ -1,16 +1,17 @@
 {
   "data": {
-    "email_address": "johndoe@example.tld",
-    "name": "John Doe",
-    "usd": 1000,
-    "wit": 99000,
-    "genesis_date": 1587081600,
+    "email_address": "founder@example.tld",
+    "name": "John Founder",
+    "usd": 0,
+    "source": "founder",
+    "wit": 125000000111111111,
     "vesting": {
       "delay": 0,
       "cliff": 15552000,
-      "installment_length": 2592000,
-      "installment_wits": 5000
-    }
+      "installment_length": 1296000,
+      "installment_wits": 2604166000000000
+    },
+    "genesis_date": 1602666000
   },
-  "signature": "3046022100fe42e296341afdd66f0574ca214b961f87ec548c003d23d89e3c2cc3ed0523830221008b28566d539d45e84f8db25408661403c08fc68a6ed99aac475a8a7a75d82401"
+  "signature": "3045022076142a9beae2c9987aa42f99880811ae7b6734ac0fa6f699183bc7813778e0d3022100b6ec833bf62cf41a89c7d9bdc812dd5f0445f45102781a4c704316652f3594d4"
 }

@@ -8,7 +8,7 @@
       <div class="main-col border">
         <p class="title">TOTAL TOKENS ALLOCATION</p>
         <p class="sub-title"
-          >{{ formatNumber(amount) }} <span class="currency">WIT</span></p
+          >{{ formatWits(amount) }} <span class="currency">WIT</span></p
         >
       </div>
       <div class="main-col">
@@ -24,7 +24,7 @@
         </div>
         <p class="data date">{{ changeDateFormat(step.date, 'claiming') }}</p>
         <p class="data amount"
-          >{{ formatNumber(step.amount) }}<span class="currency"> WIT</span></p
+          >{{ formatWits(step.amount) }}<span class="currency"> WIT</span></p
         >
       </div>
     </div>
@@ -33,7 +33,14 @@
 
 <script>
 import { mapState } from 'vuex'
-import { calculateVesting, changeDateFormat, formatNumber } from '@/utils'
+import {
+  calculateVesting,
+  changeDateFormat,
+  formatNumber,
+  standardizeWitUnits,
+} from '@/utils'
+import { WIT_UNIT } from '@/constants'
+
 export default {
   name: 'ClaimingInfo',
   computed: {
@@ -64,8 +71,14 @@ export default {
     },
   },
   methods: {
+    formatWits(amount) {
+      return this.formatNumber(
+        this.standardizeWitUnits(amount, WIT_UNIT.WIT, WIT_UNIT.NANO, 2),
+      )
+    },
     changeDateFormat,
     formatNumber,
+    standardizeWitUnits,
   },
 }
 </script>

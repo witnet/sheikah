@@ -216,6 +216,19 @@ describe('standardizeWitUnits', () => {
           expect(result).toBe(expected)
         })
 
+        it('with truncated decimal', () => {
+          const expected = '1.10'
+
+          const result = standardizeWitUnits(
+            '1.10002',
+            WIT_UNIT.WIT,
+            WIT_UNIT.WIT,
+            2,
+          )
+
+          expect(result).toBe(expected)
+        })
+
         it('without decimal', () => {
           const expected = '1'
 
@@ -283,6 +296,19 @@ describe('standardizeWitUnits', () => {
           expect(result).toBe(expected)
         })
 
+        it('with truncated decimal', () => {
+          const expected = '0.0000'
+
+          const result = standardizeWitUnits(
+            '1.0000001',
+            WIT_UNIT.WIT,
+            WIT_UNIT.MICRO,
+            4,
+          )
+
+          expect(result).toBe(expected)
+        })
+
         it('without decimal', () => {
           const expected = '1'
 
@@ -298,12 +324,13 @@ describe('standardizeWitUnits', () => {
 
       describe('to microWit', () => {
         it('with decimal', () => {
-          const expected = '0.1'
+          const expected = '0.10000'
 
           const result = standardizeWitUnits(
             '0.1',
             WIT_UNIT.MICRO,
             WIT_UNIT.MICRO,
+            5,
           )
 
           expect(result).toBe(expected)
@@ -401,30 +428,30 @@ describe('standardizeWitUnits', () => {
       })
     })
   })
+})
 
-  describe('deleteKey', () => {
-    it('delete if the key is found', () => {
-      const result = deleteKey({ a: 'a', b: 'b', c: 'c' }, 'b')
-      const expected = { a: 'a', c: 'c' }
+describe('deleteKey', () => {
+  it('delete if the key is found', () => {
+    const result = deleteKey({ a: 'a', b: 'b', c: 'c' }, 'b')
+    const expected = { a: 'a', c: 'c' }
 
-      expect(result).toStrictEqual(expected)
-    })
+    expect(result).toStrictEqual(expected)
+  })
 
-    it('should not change if key is not found', () => {
-      const entry = { a: 'a', b: 'b', c: 'c' }
-      const result = deleteKey(entry, 'd')
-      const expected = { a: 'a', b: 'b', c: 'c' }
+  it('should not change if key is not found', () => {
+    const entry = { a: 'a', b: 'b', c: 'c' }
+    const result = deleteKey(entry, 'd')
+    const expected = { a: 'a', b: 'b', c: 'c' }
 
-      expect(result).toStrictEqual(expected)
-    })
+    expect(result).toStrictEqual(expected)
+  })
 
-    it('should not mutate the object', () => {
-      const entry = { a: 'a', b: 'b', c: 'c' }
+  it('should not mutate the object', () => {
+    const entry = { a: 'a', b: 'b', c: 'c' }
 
-      deleteKey(entry, 'b')
+    deleteKey(entry, 'b')
 
-      expect(entry).toStrictEqual({ a: 'a', b: 'b', c: 'c' })
-    })
+    expect(entry).toStrictEqual({ a: 'a', b: 'b', c: 'c' })
   })
 })
 
@@ -1210,23 +1237,23 @@ describe('groupAmountByUnlockedDate', () => {
   })
 
   describe('divide several times', () => {
-    it('737', () => {
+    it('737 000 000 000', () => {
       const expected = 6
-      const result = groupAmountByUnlockedDate(737).length
+      const result = groupAmountByUnlockedDate(737 * 10 ** 9).length
 
       expect(result).toBe(expected)
     })
 
-    it('1 000 532', () => {
+    it('1 000 532 000 000 000', () => {
       const expected = 4
-      const result = groupAmountByUnlockedDate(1000532).length
+      const result = groupAmountByUnlockedDate(1000533 * 10 ** 9).length
 
       expect(result).toBe(expected)
     })
 
-    it('2 523 432', () => {
+    it('2 523 432 000 000 000', () => {
       const expected = 24
-      const result = groupAmountByUnlockedDate(2523432).length
+      const result = groupAmountByUnlockedDate(2523432 * 10 ** 9).length
 
       expect(result).toBe(expected)
     })

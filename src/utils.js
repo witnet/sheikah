@@ -8,7 +8,7 @@ import {
   WALLET_EVENTS,
   HISTORY_UPDATE_TYPE,
   EDITOR_STAGES,
-  CLAIMING_ADDRESS_MIN_WITS,
+  CLAIMING_ADDRESS_MIN_NANOWITS,
 } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import { Radon } from 'witnet-radon-js'
@@ -113,6 +113,7 @@ export function standardizeWitUnits(
   amount,
   outputCurrency,
   inputCurrency = WIT_UNIT.NANO,
+  truncate,
 ) {
   // from input currency to output currency
   const witUnitConversor = {
@@ -136,7 +137,7 @@ export function standardizeWitUnits(
   const num = Big(amount)
   const exponent = witUnitConversor[inputCurrency][outputCurrency]
 
-  return num.times(Big(10).pow(exponent), 0).toFixed()
+  return num.times(Big(10).pow(exponent), 0).toFixed(truncate)
 }
 
 export function encodeDataRequest(radRequest) {
@@ -471,17 +472,17 @@ export function groupAmountByUnlockedDate(amount) {
   const ceil = precision => x => Math.ceil(x / precision) * precision
   // round the amount of wits for convenience and deniability
   const roundedAmount =
-    amount % CLAIMING_ADDRESS_MIN_WITS === 0
+    amount % CLAIMING_ADDRESS_MIN_NANOWITS === 0
       ? amount
-      : ceil(CLAIMING_ADDRESS_MIN_WITS)(amount)
+      : ceil(CLAIMING_ADDRESS_MIN_NANOWITS)(amount)
 
-  return (roundedAmount / CLAIMING_ADDRESS_MIN_WITS)
+  return (roundedAmount / CLAIMING_ADDRESS_MIN_NANOWITS)
     .toString()
     .split('')
     .map(Number)
     .reverse()
     .map((x, exp) => {
-      return new Array(x).fill(50 * 10 ** exp)
+      return new Array(x).fill(CLAIMING_ADDRESS_MIN_NANOWITS * 10 ** exp)
     })
     .reduce((a, b) => [...a, ...b])
 }
