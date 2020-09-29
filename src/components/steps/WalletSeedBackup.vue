@@ -12,7 +12,7 @@
     <pre
       data-test="word-seed"
       class="seed"
-      :class="{ 'copy-disabled': disableCopyMnemonics }"
+      :class="{ 'copy-disabled': isCopyMnemonicsDisabled }"
       >{{ seed }}</pre
     >
     <p class="paragraph">
@@ -40,7 +40,7 @@ export default {
     ...mapState({
       seed: state => state.wallet.mnemonics,
     }),
-    disableCopyMnemonics() {
+    isCopyMnemonicsDisabled() {
       return process.env.NODE_ENV !== 'development'
     },
   },

@@ -56,7 +56,7 @@ export default {
         }
       },
     }),
-    disableCopyMnemonics() {
+    isCopyMnemonicsDisabled() {
       return process.env.NODE_ENV !== 'development'
     },
   },
