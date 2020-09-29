@@ -6,12 +6,12 @@
     next-text="Continue"
     previous-text="Back"
     :disabled-next-button="false"
-    :title="`${name}, this is your token allocation`"
+    :title="`${name.split(' ')[0]}, this is your token allocation`"
   >
     <ClaimingInfo />
     <div class="info">
       <p class="text">
-        Such allocation is conditioned to the succesful completion of this
+        Such allocation is conditioned to the successful completion of this
         claiming process. Please verify that your information listed above is
         correct — if not, please ask
         <a class="link" href="mailto:genesis@witnet.foundation"

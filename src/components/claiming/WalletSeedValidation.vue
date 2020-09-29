@@ -3,17 +3,17 @@
     ref="navCard"
     data-test="header-4"
     class="wallet-seed-validation"
-    title="Confirm your seed phrase"
+    title="Confirm your Seed Phrase"
     previous-text="Back"
     next-text="Confirm and continue"
     :previous-step="previousStep"
     :next-step="nextStep"
     :disabled-next-button="isNextButtonDisabled"
   >
-    <p>
-      Please type your 12 word seed phrase exactly as it was shown to you on the
-      previous screen. This step is to confirm that you have copied your seed
-      phrase correctly.
+    <p class="text">
+      Please type your 12 word <em>seed phrase</em> exactly as it was shown to
+      you on the previous screen. This step is to confirm that you have noted
+      down your seed phrase correctly.
     </p>
     <Input
       v-model="seed"
@@ -31,8 +31,8 @@
       Mnemonics must match
     </p>
     <p class="text">
-      Please ensure you do not add any extra spaces between words or at the
-      beginning or end of the phrase.
+      Please make sure that you do not add any extra spaces between words or at
+      the beginning or end of the phrase.
     </p>
   </NavigationCard>
 </template>
@@ -125,6 +125,10 @@ export default {
 
 .text {
   margin-bottom: 8px;
+
+  em {
+    font-style: italic;
+  }
 
   &:last-of-type {
     margin: 0;

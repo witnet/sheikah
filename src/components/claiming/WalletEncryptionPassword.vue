@@ -2,7 +2,7 @@
   <NavigationCard
     ref="navCard"
     class="wallet-encryption"
-    title="Encrypt your wallet with a password"
+    title="Protect your Tokens with a Password"
     previous-text="Back"
     next-text="Next"
     :previous-step="previousStep"
@@ -11,12 +11,12 @@
   >
     <p class="paragraph">
       <strong class="bold">PLEASE NOTE:</strong> this password encrypts your
-      Witnet wallet only on this computer. This is not your backup and you
-      cannot restore your wallet with this password. Your seed phrase is still
-      your ultimate backup.
+      Witnet wallet only on this computer. This is not your seed phrase and you
+      cannot restore your wallet with this password. Your 12 word
+      <em>seed phrase</em> is still your ultimate backup.
     </p>
     <div class="form-row password">
-      <p>Create a password</p>
+      <p>Choose a password</p>
       <el-input
         v-model="password"
         v-focus

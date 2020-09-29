@@ -2,7 +2,7 @@
   <NavigationCard
     data-test="wallet-seed-backup"
     class="wallet-seed-backup"
-    title="Wallet seed phrase backup"
+    title="Wallet Seed Phrase Backup"
     previous-text="Back"
     next-text="Continue"
     :previous-step="
@@ -11,16 +11,24 @@
     :next-step="() => this.$router.push('/claiming/seed-validation')"
     :disabled-next-button="false"
   >
-    <p>Your 12 word seed phrase:</p>
+    <p class="text"
+      >These 12 random words are your Witnet <em>seed phrase</em>. They will
+      allow you to recover your tokens in case you uninstall Sheikah or forget
+      your password:</p
+    >
     <pre data-test="word-seed" class="seed">{{ seed }}</pre>
     <p class="text">
-      Please copy these 12 words onto a piece of paper which you will be able to
-      safely store and secure. You must write the complete words in the exact
-      order they are presented to you.
+      Please note down these 12 words on a piece of paper. You must write the
+      complete words in the exact order they are presented to you.
     </p>
+    <p class="text"
+      >Keeping your seed phrase secret is paramount. If someone guesses the 12
+      words, they will be able to seize and spend your tokens.</p
+    >
     <p class="text">
-      We do not store your seed phrase - if you exit this setup or fail to write
-      down your seed phrase, we cannot help you access your wallet.
+      It is your complete responsibility to store the paper with your seed
+      phrase in a safe place—if you exit this setup or fail to write down or
+      keep your seed phrase safe, we cannot help you access your tokens.
     </p>
   </NavigationCard>
 </template>
@@ -80,6 +88,10 @@ export default {
 
 .text {
   margin-bottom: 8px;
+
+  em {
+    font-style: italic;
+  }
 
   &:last-of-type {
     margin: 0;

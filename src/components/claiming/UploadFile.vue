@@ -3,7 +3,7 @@
     <NavigationCard
       data-test="import-file"
       class="wallet-disclaimer"
-      title="Import claiming file"
+      title="Import your Participant Proof File"
       :previous-step="previousStep"
       :next-step="nextStep"
       :disabled-next-button="disabledNextButton"
@@ -11,9 +11,14 @@
       next-text="Continue"
     >
       <p class="text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ipsum
-        cursus, consequat quam in, vestibulum erat. Duis ut diam fringilla,
-        varius diam ac, ornare arcu.
+        As a participant of the Witnet Token Generation Event, you must have
+        received an email from Witnet Foundation with a
+        <em>Participant Proof File</em>
+        attached to it. If you have not, please double check your SPAM inbox,
+        and if it is not there, please contact
+        <a class="link" href="mailto:genesis@witnet.foundation"
+          >genesis@witnet.foundation</a
+        >.
       </p>
       <FileUploader
         :error-message="uploadFileError ? uploadFileError.message : ''"
@@ -228,6 +233,15 @@ export default {
 
 .text {
   margin-bottom: 24px;
+
+  em {
+    font-style: italic;
+  }
+
+  .link {
+    color: inherit;
+    text-decoration: underline;
+  }
 }
 
 .error {
