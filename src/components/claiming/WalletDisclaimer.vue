@@ -38,7 +38,7 @@ export default {
   methods: {
     previousStep() {
       if (this.index === 0) {
-        this.$router.push('/claiming/create-wallet')
+        this.$router.push('/claiming/vesting')
       } else {
         this.$router.push(`/claiming/disclaimer/${this.index - 1}`)
       }

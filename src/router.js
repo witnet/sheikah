@@ -24,7 +24,6 @@ import Setup from '@/views/Setup.vue'
 
 import ClaimingProcess from '@/views/ClaimingProcess.vue'
 import ClaimingInstructions from '@/components/claiming/Instructions.vue'
-import ClaimingCreateWallet from '@/components/claiming/CreateWallet.vue'
 import GenerateClaimingAddresses from '@/components/claiming/GenerateAddresses.vue'
 import DownloadClaimingFile from '@/components/claiming/DownloadFile.vue'
 import UploadClaimingFile from '@/components/claiming/UploadFile.vue'
@@ -318,11 +317,6 @@ export default new Router({
           name: 'claimingVesting',
           path: 'vesting',
           component: Vesting,
-        },
-        {
-          name: 'claimingCreateWallet',
-          path: 'create-wallet',
-          component: ClaimingCreateWallet,
         },
         {
           name: 'claimingInformation',

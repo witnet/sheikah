@@ -1,14 +1,5 @@
 export default [
   {
-    title: 'Hey, listen!',
-    nextText: 'I will be careful, I promise!',
-    content: [
-      'You should never share your seed phrase with anyone. We at Witnet do not store your seed phrase and will never ask you to share it with us. If you lose your seed phrase, you will permanently lose access to your wallet and your funds.',
-      'If someone finds or sees your seed phrase, they will have access to your wallet and all of your funds.',
-      'We recommend storing your seed phrase on paper somewhere safe. Do not store it in a file on your computer or anywhere electronically.',
-    ],
-  },
-  {
     title:
       'Your Initial Instrument is canceled, converted and exchanged into the Tokens',
     nextText: 'Accept and continue',
