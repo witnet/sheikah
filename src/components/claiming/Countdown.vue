@@ -53,7 +53,7 @@
       v-show="exportFileLink"
       ref="file"
       :href="exportFileLink"
-      :download="`${email}-witnet-tokens-claim.json`"
+      :download="download"
       style="display:none"
     />
   </NavigationCard>
@@ -70,6 +70,7 @@ export default {
   data() {
     return {
       now: Math.trunc(new Date().getTime() / 1000),
+      download: '',
     }
   },
   computed: {
@@ -104,6 +105,10 @@ export default {
       )
       return this.standardizeDigits(days)
     },
+  },
+  async created() {
+    await this.$store.dispatch('getClaimingInfo')
+    this.download = `${this.email}-witnet-tokens-claim.json`
   },
   beforeCreate() {
     this.$store.dispatch('getExportFile')

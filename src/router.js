@@ -47,6 +47,31 @@ function redirectOnReload(to, from, next) {
   }
 }
 
+async function redirectOnClaiming(next) {
+  await store.dispatch('getWalletInfos')
+  const walletInfos = store.state.wallet.walletInfos
+  const tokenGenerationEventOccurred =
+    store.state.wallet.tokenGenerationEventOccurred
+  if (tokenGenerationEventOccurred) {
+    if (walletInfos && walletInfos.length > 0) {
+      next('/welcome-back/wallet-list')
+    } else {
+      next('/ftu/welcome')
+    }
+  } else {
+    const walletInfos = store.state.wallet.walletInfos
+    if (!walletInfos || !walletInfos.length) {
+      localStorage.setItem('completed', false)
+    }
+    if (localStorage.getItem('completed') === 'true') {
+      const index = walletInfos.length - 1
+      next(`/claiming/unlock/${walletInfos[index].id}`)
+    } else {
+      next('/claiming/claiming-instructions')
+    }
+  }
+}
+
 export default new Router({
   routes: [
     {
@@ -57,7 +82,7 @@ export default new Router({
         const isReady = store.state.wallet.api.client.ws.ready
         if (process.env.VUE_APP_CLAIMING_PROCESS) {
           if (isReady) {
-            next()
+            redirectOnClaiming(next)
             store.state.wallet.api.client.ws.on('close', () => {
               next('/wallet-not-found')
             })
@@ -72,32 +97,7 @@ export default new Router({
 
             store.state.wallet.api.client.ws.on('open', () => {
               error = false
-              store.dispatch('getWalletInfos')
-              setTimeout(() => {
-                const walletInfos = store.state.wallet.walletInfos
-                const tokenGenerationEventOccurred =
-                  store.state.wallet.tokenGenerationEventOccurred
-                const sessionId = store.state.wallet.sessionId
-                if (tokenGenerationEventOccurred) {
-                  if (sessionId) {
-                    next()
-                  } else if (walletInfos && walletInfos.length > 0) {
-                    next('/welcome-back/wallet-list')
-                  } else {
-                    next('/ftu/welcome')
-                  }
-                } else {
-                  if (!walletInfos || !walletInfos.length) {
-                    localStorage.setItem('completed', false)
-                  }
-                  if (localStorage.getItem('completed') === 'true') {
-                    const index = walletInfos.length - 1
-                    next(`/claiming/unlock/${walletInfos[index].id}`)
-                  } else {
-                    next('/claiming/claiming-instructions')
-                  }
-                }
-              }, 1000)
+              redirectOnClaiming(next)
             })
           }
         } else {
