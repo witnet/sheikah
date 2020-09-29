@@ -1,7 +1,7 @@
 <template>
   <el-form ref="form" label-position="left" label-width="200px">
     <FormInformation
-      :commit-reveal-fee="commitRevealFee"
+      :commit-and-reveal-fee="commitAndRevealFee"
       :fee="fee"
       :min-consensus-percentage="minConsensusPercentage"
       :reward-fee="rewardFee"
