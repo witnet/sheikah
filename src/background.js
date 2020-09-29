@@ -178,9 +178,9 @@ function createWindow() {
   })
 
   win.on('close', function(event) {
-    console.info('Closing Sheikah window')
-    event.preventDefault()
     if (process.platform === 'darwin') {
+      event.preventDefault()
+
       if (!forceQuit) {
         if (win.isFullScreen()) {
           win.once('leave-full-screen', () => win.hide())
@@ -193,11 +193,14 @@ function createWindow() {
         win.webContents.send('shutdown')
       }
     } else {
-      if (win.isFullScreen()) {
-        win.once('leave-full-screen', () => win.hide())
-        win.setFullScreen(false)
-      } else {
-        win.hide()
+      if (!forceQuit) {
+        event.preventDefault()
+        if (win.isFullScreen()) {
+          win.once('leave-full-screen', () => win.hide())
+          win.setFullScreen(false)
+        } else {
+          win.hide()
+        }
       }
     }
   })
@@ -443,9 +446,11 @@ autoUpdater.on('update-available', () => {
 
 autoUpdater.on('update-downloaded', () => {
   app.removeAllListeners('close')
+
   forceQuit = true
   if (win != null) {
     win.close()
   }
+
   autoUpdater.quitAndInstall(false)
 })
