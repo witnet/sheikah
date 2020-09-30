@@ -122,11 +122,13 @@ export default {
     setLabels(state, { labels }) {
       state.txLabels = labels
     },
-    setBalance(state, { total }) {
+    setBalance(state, { balance }) {
       state.balance = {
-        total: total.toString(),
-        available: '0',
-        locked: '0',
+        available: balance.unconfirmed.available.toString(),
+        locked: balance.unconfirmed.locked.toString(),
+        total: (
+          balance.unconfirmed.available + balance.unconfirmed.locked
+        ).toString(),
       }
     },
     changeCurrency(state) {
@@ -763,7 +765,7 @@ export default {
         session_id: context.state.sessionId,
       })
       if (request.result) {
-        context.commit('setBalance', request.result)
+        context.commit('setBalance', { balance: request.result })
         this.commit('clearError', { error: 'getBalance' })
       } else {
         if (request.error.message === 'Unauthorized') {
@@ -847,7 +849,7 @@ export default {
       if (eventType === WALLET_EVENTS.BLOCK) {
         status.timestamp = Date.now()
       } else if (eventType === WALLET_EVENTS.MOVEMENT) {
-        context.commit('setBalance', { total: status.account.balance })
+        context.commit('setBalance', { balance: status.account.balance })
         context.dispatch('getTransactions', { limit: 50, page: 0 })
         context.dispatch('getAddresses')
         const amount = standardizeWitUnits(event.amount, context.state.currency)
