@@ -43,6 +43,7 @@ export default {
   },
   actions: {
     notify(context, payload) {
+      console.log(payload.message)
       Vue.prototype.$notify(payload.message)
     },
   },

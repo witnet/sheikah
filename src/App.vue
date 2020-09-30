@@ -2,17 +2,20 @@
   <div id="app">
     <router-view />
     <UpdateNotification v-if="isUpdateNotificationVisible" />
+    <Notification />
   </div>
 </template>
 
 <script>
 import { mapMutations, mapActions, mapState } from 'vuex'
 import UpdateNotification from '@/components/UpdateNotification'
+import Notification from '@/components/Notification'
 
 export default {
   name: 'App',
   components: {
     UpdateNotification,
+    Notification,
   },
   data() {
     return {

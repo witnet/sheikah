@@ -1,11 +1,5 @@
 <template>
   <div>
-    <Notification
-      v-if="toggleNotification"
-      :message="notificationMessage"
-      :toggle="toggleNotification"
-      @vanish="toggleNotification = false"
-    />
     <div class="transaction-details">
       <p class="label">Transaction ID</p>
       <p data-test="id" class="info click" @click="toggleNotificationId">{{
@@ -164,7 +158,6 @@ import {
   standardizeTransactionResult,
   copyToClipboard,
 } from '@/utils'
-import Notification from '@/components/Notification'
 import {
   TEXT_NOTIFICATION_COPY_BLOCK,
   TEXT_NOTIFICATION_COPY_TX,
@@ -172,9 +165,6 @@ import {
 
 export default {
   name: 'TransactionDetails',
-  components: {
-    Notification,
-  },
   props: {
     block: {
       type: [String, Number],
