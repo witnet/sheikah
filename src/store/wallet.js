@@ -850,8 +850,8 @@ export default {
       if (eventType === WALLET_EVENTS.BLOCK) {
         status.timestamp = Date.now()
       } else if (eventType === WALLET_EVENTS.MOVEMENT) {
-        context.commit('setBalance', { balance: status.account.balance })
-        context.dispatch('getTransactions', { limit: 50, page: 0 })
+        context.commit('setBalance', { total: status.account.balance })
+        context.dispatch('getTransactions', { limit: 50, page: 1 })
         context.dispatch('getAddresses')
         const amount = standardizeWitUnits(event.amount, context.state.currency)
         const balance = standardizeWitUnits(

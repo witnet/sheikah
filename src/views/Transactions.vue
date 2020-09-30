@@ -54,9 +54,12 @@ export default {
       }
     },
   },
+  created() {
+    this.getTransactions({})
+    this.getAddresses()
+    this.getBalance()
+  },
   beforeCreate() {
-    this.$store.dispatch('getAddresses')
-    this.$store.dispatch('getBalance')
     // TODO: place this methods in the correct place when the generated transaction from the wallet is ready
     this.$store.dispatch('getLabels')
   },
@@ -64,7 +67,13 @@ export default {
     this.$store.dispatch('stopTransactionDateSync')
   },
   methods: {
-    ...mapActions(['generateAddress']),
+    ...mapActions([
+      'generateAddress',
+      'getTransactions',
+      'getAddresses',
+      'getBalance',
+      'getLabels',
+    ]),
   },
 }
 </script>
