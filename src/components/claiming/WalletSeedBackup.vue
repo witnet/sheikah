@@ -16,15 +16,21 @@
       allow you to recover your tokens in case you uninstall Sheikah or forget
       your password:</p
     >
-    <pre data-test="word-seed" class="seed">{{ seed }}</pre>
+    <p
+      data-test="word-seed"
+      class="seed"
+      :class="{ 'copy-disabled': isCopyMnemonicsDisabled }"
+    >
+      {{ seed }}
+    </p>
     <p class="text">
       Please note down these 12 words on a piece of paper. You must write the
       complete words in the exact order they are presented to you.
     </p>
-    <p class="text"
-      >Keeping your seed phrase secret is paramount. If someone guesses the 12
-      words, they will be able to seize and spend your tokens.</p
-    >
+    <p class="text">
+      Keeping your seed phrase secret is paramount. If someone guesses the 12
+      words, they will be able to seize and spend your tokens.
+    </p>
     <p class="text">
       It is your complete responsibility to store the paper with your seed
       phrase in a safe place—if you exit this setup or fail to write down or
@@ -102,19 +108,13 @@ export default {
 }
 
 .seed {
-  align-items: center;
   border: $input_big-border;
   border-radius: $input_big-border-radius;
-  box-sizing: border-box;
   color: $input_big-color;
-  font-family: inherit;
   font-size: $input_big-font-size;
-  line-break: auto;
   line-height: 1.5em;
   margin: 16px 0;
   padding: 24px;
-  white-space: pre-wrap;
-  width: 100%;
 }
 
 .copy-disabled {
