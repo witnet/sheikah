@@ -291,6 +291,7 @@ export function standardizeTransactions(response) {
       label: '',
       amount: transaction.amount,
       block: block.block_hash,
+      timelocked: outputs.some(output => output.time_lock !== 0),
       witnesses: null,
       rewards: null,
       rounds: null,

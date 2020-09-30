@@ -29,6 +29,7 @@
         :rewards="transaction.rewards"
         :rounds="transaction.rounds"
         :state="transaction.currentStage"
+        :timelocked="transaction.timelocked"
         :reveals="transaction.reveals"
         :result="transaction.finalResult"
         :transaction-type="transaction.transactionType"

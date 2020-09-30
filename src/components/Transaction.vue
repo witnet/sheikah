@@ -1,9 +1,6 @@
 <template>
   <FrameOutside @click="hideDetails" @focus="hideDetails">
-    <div
-      class="border"
-      :class="{ locked: !inputs && transactionType !== 'tally' }"
-    >
+    <div class="border" :class="{ locked: timelocked }">
       <div class="transaction" @click="showDetails = !showDetails">
         <img
           data-test="negative-positive"
@@ -56,7 +53,7 @@
           :state="state"
           :reveals="reveals.length ? reveals : null"
           :result="result"
-          :timelocked="!inputs && transactionType !== 'tally'"
+          :timelocked="timelocked"
         />
         <InputsOutputs
           data-test="inputs-outputs"
@@ -91,6 +88,10 @@ export default {
     },
     amount: {
       type: [String, Number],
+      required: true,
+    },
+    timelocked: {
+      type: Boolean,
       required: true,
     },
     block: {
@@ -281,6 +282,7 @@ export default {
     :border="false"
     date="JAN 19, 1970 @ 10:00:31"
     timeAgo="33 minutes ago"
+    :timelocked="false"
     :fee="12"
     id="600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109"
     :outputs="[
@@ -296,6 +298,7 @@ export default {
 ```jsx
   <Transaction
     currency="nanoWits"
+    :timelocked="false"
     :amount="123"
     block="511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f"
     :border="false"
@@ -317,6 +320,7 @@ export default {
 ```jsx
   <Transaction
     currency="nanoWits"
+    :timelocked="false"
     :amount="123"
     block="511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f"
     :border="false"

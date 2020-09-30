@@ -748,6 +748,7 @@ export default {
         page,
       })
       if (request.result) {
+        console.log(request.result)
         context.commit('setTransactions', { transactions: request.result })
         this.commit('clearError', { error: 'getTransactions' })
       } else {
