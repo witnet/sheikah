@@ -1,10 +1,7 @@
 <template>
   <div class="table">
     <p class="label">Available</p>
-    <p class="amount">
-      {{ available }} <span class="currency">{{ currency }}</span>
-    </p>
-
+    <Amount :currency-light="true" class="amount" :amount="available" />
     <p class="label"
       >Locked
       <el-tooltip trigger="hover" effect="light">
@@ -20,9 +17,7 @@
         </div>
       </el-tooltip>
     </p>
-    <p class="amount">
-      {{ locked }} <span class="currency">{{ currency }}</span>
-    </p>
+    <Amount :currency-light="true" class="amount" :amount="locked" />
 
     <p class="label total">Total</p>
     <Amount :currency-light="true" class="amount" :amount="total" />
