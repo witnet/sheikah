@@ -18,8 +18,7 @@
     </p>
     <p class="text"
       >At the end of the process, a "tokens claim file" will be generated and
-      you will be required to send it via email so as to confirm your token
-      claim.</p
+      you will receive an email as a confirmation of your token claim.</p
     >
     <p class="text bold">
       IMPORTANT: completing this process by October 10—including sending the
