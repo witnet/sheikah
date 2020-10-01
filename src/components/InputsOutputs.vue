@@ -87,7 +87,7 @@ export default {
     .transaction {
       align-items: center;
       display: grid;
-      grid-template-columns: [col1-start] 30px [col2-start] auto;
+      grid-template-columns: [col1-start] 40px [col2-start] auto;
       grid-template-rows: [row1-start] auto [row2-start];
       margin-bottom: 8px;
 

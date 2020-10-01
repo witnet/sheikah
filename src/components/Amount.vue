@@ -1,17 +1,12 @@
 <template>
   <div class="amount-container" data-test="amount" @click="callChangeCurrency">
-    <el-tooltip
-      v-if="standardizeWitUnits(amount, currency).length > 13"
-      :content="amount"
-      placement="bottom"
-      effect="light"
-    >
-      <span>
-        {{ cropString(standardizeWitUnits(amount, currency), 13, 'middle') }}
-      </span>
-    </el-tooltip>
+    <span v-if="standardizeWitUnits(amount, currency) >= 1">
+      {{
+        formatNumber(standardizeWitUnits(amount, currency, WIT_UNIT.NANO, 2))
+      }}
+    </span>
     <span v-else>
-      {{ standardizeWitUnits(amount, currency) }}
+      {{ formatNumber(standardizeWitUnits(amount, currency)) }}
     </span>
     <span
       data-test="currency"
@@ -24,7 +19,8 @@
 </template>
 
 <script>
-import { standardizeWitUnits, cropString } from '@/utils'
+import { WIT_UNIT } from '@/constants'
+import { standardizeWitUnits, cropString, formatNumber } from '@/utils'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
@@ -43,6 +39,11 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      WIT_UNIT,
+    }
+  },
   computed: {
     ...mapState({
       currency: state => state.wallet.currency,
@@ -54,6 +55,7 @@ export default {
       e.stopPropagation()
     },
     standardizeWitUnits,
+    formatNumber,
     cropString,
     ...mapMutations(['changeCurrency']),
   },

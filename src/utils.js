@@ -133,11 +133,11 @@ export function standardizeWitUnits(
       [`${WIT_UNIT.NANO}`]: 0,
     },
   }
-
   const num = Big(amount)
   const exponent = witUnitConversor[inputCurrency][outputCurrency]
-
-  return num.times(Big(10).pow(exponent), 0).toFixed(truncate)
+  return outputCurrency === WIT_UNIT.NANO
+    ? num.times(Big(10).pow(exponent), 0).toFixed(0)
+    : num.times(Big(10).pow(exponent), 0).toFixed(truncate)
 }
 
 export function encodeDataRequest(radRequest) {
@@ -244,7 +244,12 @@ export function calculateTimeAgo(date) {
 }
 
 export function formatNumber(num) {
-  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  num += ''
+  const splitedNumber = num.split('.')
+  const decimals = splitedNumber.length > 1 ? '.' + splitedNumber[1] : ''
+  const rgx = /(\d)(?=(\d{3})+(?!\d))/g
+  const unit = splitedNumber[0].replace(rgx, '$1,')
+  return unit + decimals
 }
 
 export function formatDateVerbose(date) {

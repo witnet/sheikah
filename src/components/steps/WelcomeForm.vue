@@ -40,8 +40,8 @@ export default {
       }
     },
   },
-  created() {
-    this.getWalletInfos()
+  async created() {
+    await this.getWalletInfos()
   },
   methods: {
     ...mapActions({

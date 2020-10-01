@@ -25,7 +25,7 @@
       >
         <div class="data">
           <p :class="`type_${type}`">{{
-            type === 'LOCK-UP' ? 'AVAILABLE SINCE' : type
+            type === 'LOCK-UP' ? 'AVAILABLE FROM' : type
           }}</p>
         </div>
         <p class="data date">{{ changeDateFormat(step.date, 'claiming') }}</p>
