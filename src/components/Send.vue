@@ -89,10 +89,11 @@ export default {
       const totalAmount = Number.isInteger(this.form.fee)
         ? value + this.form.fee
         : value
-      if (
-        standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency) >
-        this.availableBalance
-      ) {
+      const isGreaterThanBalance =
+        parseFloat(
+          standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency),
+        ) > parseFloat(this.availableBalance)
+      if (isGreaterThanBalance) {
         callback(new Error("You don't have enough funds"))
       } else {
         callback()

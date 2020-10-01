@@ -123,12 +123,14 @@ export default {
       state.txLabels = labels
     },
     setBalance(state, { balance }) {
-      state.balance = {
-        available: balance.unconfirmed.available.toString(),
-        locked: balance.unconfirmed.locked.toString(),
-        total: (
-          balance.unconfirmed.available + balance.unconfirmed.locked
-        ).toString(),
+      if (balance) {
+        state.balance = {
+          available: balance.unconfirmed.available.toString(),
+          locked: balance.unconfirmed.locked.toString(),
+          total: (
+            balance.unconfirmed.available + balance.unconfirmed.locked
+          ).toString(),
+        }
       }
     },
     changeCurrency(state) {
@@ -581,7 +583,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'createVTT',
-          error: request.error.message,
+          error: request.error.data[0][1],
           message: 'An error occurred creating a Value Transfer Transaction',
         })
       }
@@ -748,7 +750,6 @@ export default {
         page,
       })
       if (request.result) {
-        console.log(request.result)
         context.commit('setTransactions', { transactions: request.result })
         this.commit('clearError', { error: 'getTransactions' })
       } else {
@@ -898,7 +899,7 @@ export default {
         eventType === WALLET_EVENTS.BLOCK_CONSOLIDATE ||
         eventType === WALLET_EVENTS.BLOCK_ORPHAN
       ) {
-        context.commit('setBalance', { total: status.account.balance })
+        context.dispatch('getBalance')
         context.dispatch('getTransactions', {
           limit: 50,
           page: context.state.currentTransactionsPage,

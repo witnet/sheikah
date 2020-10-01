@@ -58,7 +58,7 @@
         </p>
         <p data-test="last-block" class="text">
           Last block is <span class="bold">#{{ lastBlock }}</span>
-          <span> ({{ calculateTimeAgo(timeAgo) }})</span>
+          <span v-if="lastBlock !== 0"> ({{ calculateTimeAgo(timeAgo) }})</span>
         </p>
       </div>
     </transition>
