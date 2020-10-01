@@ -82,7 +82,6 @@ export default {
         parseFloat(
           standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency),
         ) > parseFloat(this.availableBalance)
-      console.log(isGreaterThanBalance)
       if (isGreaterThanBalance) {
         callback(new Error("You don't have enough funds"))
       } else {

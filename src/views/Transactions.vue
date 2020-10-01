@@ -40,7 +40,8 @@ export default {
     ...mapState({
       total: state => state.wallet.balance,
       txLabels: state => state.wallet.txLabels,
-      transactions: state => state.wallet.transactions,
+      transactions: state =>
+        state.wallet.transactions.sort((t1, t2) => t2.timestamp - t1.timestamp),
       addresses: state => {
         return Array.from(state.wallet.addresses)
       },

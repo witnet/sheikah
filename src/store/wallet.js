@@ -107,12 +107,10 @@ export default {
       state.currentTransactionsPage = page
     },
     setTransactions(state, { transactions }) {
-      state.transactions = transactions
-        .map(transaction => ({
-          ...transaction,
-          timeAgo: calculateTimeAgo(transaction.timestamp),
-        }))
-        .sort((t1, t2) => t1.timestamp < t2.timestamp)
+      state.transactions = transactions.map(transaction => ({
+        ...transaction,
+        timeAgo: calculateTimeAgo(transaction.timestamp),
+      }))
     },
     setWalletIndex(state, { walletIndex }) {
       const walletInfos = state.walletInfos
@@ -851,7 +849,7 @@ export default {
       if (eventType === WALLET_EVENTS.BLOCK) {
         status.timestamp = Date.now()
       } else if (eventType === WALLET_EVENTS.MOVEMENT) {
-        context.commit('setBalance', { total: status.account.balance })
+        context.commit('setBalance', { balance: status.account.balance })
         context.dispatch('getTransactions', { limit: 50, page: 1 })
         context.dispatch('getAddresses')
         const amount = standardizeWitUnits(event.amount, context.state.currency)
@@ -870,7 +868,7 @@ export default {
           limit: 50,
           page: context.state.currentTransactionsPage,
         })
-        await context.commit('setBalance', { total: status.account.balance })
+        await context.commit('setBalance', { balance: status.account.balance })
         await context.dispatch('getAddresses')
         status.progress = 100
         const [start, finish] = event
@@ -899,7 +897,7 @@ export default {
         eventType === WALLET_EVENTS.BLOCK_CONSOLIDATE ||
         eventType === WALLET_EVENTS.BLOCK_ORPHAN
       ) {
-        context.dispatch('getBalance')
+        context.dispatch('setBalance', { balance: status.account.balance })
         context.dispatch('getTransactions', {
           limit: 50,
           page: context.state.currentTransactionsPage,
