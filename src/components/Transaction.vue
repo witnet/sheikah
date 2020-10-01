@@ -167,7 +167,8 @@ export default {
   computed: {
     address() {
       if (this.type === 'POSITIVE') {
-        return this.inputs.length > 1
+        return this.inputs.length > 1 &&
+          this.inputs.some(input => input.address !== this.inputs[0].address)
           ? 'several addresses'
           : this.inputs[0].address
       } else {

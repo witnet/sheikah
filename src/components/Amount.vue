@@ -2,7 +2,7 @@
   <div class="amount-container" data-test="amount" @click="callChangeCurrency">
     <el-tooltip
       v-if="standardizeWitUnits(amount, currency).length > 13"
-      :content="'hola'"
+      :content="amount"
       placement="bottom"
       effect="light"
     >
