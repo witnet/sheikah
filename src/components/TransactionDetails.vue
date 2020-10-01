@@ -12,6 +12,8 @@
         @click="toggleNotificationBlock"
         >{{ block }}</p
       >
+      <p class="label">Epoch</p>
+      <p class="info">#{{ epoch }}</p>
       <p class="label">Timestamp</p>
       <p data-test="date" class="info">{{ date }}</p>
       <p class="label">Timelocked</p>
@@ -167,6 +169,10 @@ export default {
       type: [String, Number],
       required: true,
     },
+    epoch: {
+      type: [String, Number],
+      required: true,
+    },
     date: {
       type: String,
       default: '',
@@ -176,7 +182,8 @@ export default {
       required: true,
     },
     timelocked: {
-      type: Boolean,
+      type: [String, Boolean],
+      required: true,
     },
     witnesses: {
       type: Object,

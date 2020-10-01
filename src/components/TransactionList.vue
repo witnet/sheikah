@@ -25,6 +25,7 @@
         :label="transaction.label"
         :amount="transaction.amount"
         :block="transaction.block"
+        :epoch="transaction.epoch"
         :witnesses="transaction.witnesses"
         :rewards="transaction.rewards"
         :rounds="transaction.rounds"
