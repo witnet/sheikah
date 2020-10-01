@@ -22,7 +22,7 @@
       label-position="left"
       :rules="rules"
       width="max-content"
-      label-width="90px"
+      label-width="150px"
     >
       <el-form-item label="Address" prop="address">
         <el-input
@@ -37,7 +37,7 @@
       <el-form-item label="Amount" prop="amount">
         <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
         <el-input
-          v-model.number="form.amount"
+          v-model="form.amount"
           type="number"
           tabindex="3"
           data-test="tx-amount"
@@ -45,9 +45,9 @@
           <AppendCurrency slot="append" />
         </el-input>
       </el-form-item>
-      <el-form-item label="fee" prop="fee">
+      <el-form-item label="fee per weight unit" prop="fee">
         <el-input
-          v-model.number="form.fee"
+          v-model="form.fee"
           type="number"
           tabindex="4"
           data-test="tx-fee"
@@ -87,14 +87,40 @@ export default {
   data() {
     const enoughFunds = (rule, value, callback) => {
       const totalAmount = Number.isInteger(this.form.fee)
-        ? value + this.form.fee
-        : value
+        ? Number(value) + Number(this.form.fee)
+        : Number(value)
       const isGreaterThanBalance =
         parseFloat(
           standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency),
         ) > parseFloat(this.availableBalance)
       if (isGreaterThanBalance) {
         callback(new Error("You don't have enough funds"))
+      } else {
+        callback()
+      }
+    }
+
+    const integerNanoWit = (rule, value, callback) => {
+      const isNanoWit = this.currency === WIT_UNIT.NANO
+      if (isNanoWit && !Number.isInteger(Number(value))) {
+        callback(new Error('Only integer nanoWits values allowed'))
+      } else {
+        callback()
+      }
+    }
+
+    const minAmount = (rule, value, callback) => {
+      const isNanoWit = this.currency === WIT_UNIT.NANO
+      if (isNanoWit && value < 1) {
+        callback(new Error('The minimun fee cannot be less than 1 nanoWit'))
+      } else {
+        callback()
+      }
+    }
+
+    const isNumber = (rule, value, callback) => {
+      if (!Number(value)) {
+        callback(new Error('This should be a number'))
       } else {
         callback()
       }
@@ -111,17 +137,21 @@ export default {
       rules: {
         address: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { min: 42, max: 42, message: 'Length should be 42', trigger: 'blur' },
+          { min: 42, max: 43, message: 'Length should be 43', trigger: 'blur' },
         ],
         label: [],
         amount: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
+          { validator: isNumber, trigger: 'change' },
           { validator: enoughFunds, trigger: 'submit' },
+          { validator: minAmount, trigger: 'submit' },
+          { validator: integerNanoWit, trigger: 'submit' },
         ],
         fee: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
+          { validator: isNumber, trigger: 'change' },
+          { validator: minAmount, trigger: 'submit' },
+          { validator: integerNanoWit, trigger: 'submit' },
         ],
       },
     }

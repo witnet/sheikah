@@ -9,33 +9,30 @@
     width="max-content"
   >
     <el-form-item label="Witnesses" prop="witnesses">
-      <el-input v-model.number="form.witnesses" type="number"></el-input>
+      <el-input v-model="form.witnesses" type="number"></el-input>
     </el-form-item>
 
     <el-form-item
       label="Min Consensus Percentage"
       prop="minConsensusPercentage"
     >
-      <el-input
-        v-model.number="form.minConsensusPercentage"
-        type="number"
-      ></el-input>
+      <el-input v-model="form.minConsensusPercentage" type="number"></el-input>
     </el-form-item>
 
     <el-form-item label="Data request fee" prop="fee">
-      <el-input v-model.number="form.fee" type="number">
+      <el-input v-model="form.fee" type="number">
         <AppendCurrency slot="append" />
       </el-input>
     </el-form-item>
 
     <el-form-item label="Reward fee" prop="rewardFee">
-      <el-input v-model.number="form.rewardFee" type="number">
+      <el-input v-model="form.rewardFee" type="number">
         <AppendCurrency slot="append" />
       </el-input>
     </el-form-item>
 
     <el-form-item label="Commit and reveal fee" prop="commitAndRevealFee">
-      <el-input v-model.number="form.commitAndRevealFee" type="number">
+      <el-input v-model="form.commitAndRevealFee" type="number">
         <AppendCurrency slot="append" />
       </el-input>
     </el-form-item>
@@ -75,15 +72,41 @@ export default {
   data() {
     const enoughFunds = (rule, value, callback) => {
       const totalAmount =
-        this.form.witnesses * 2 * this.form.commitAndRevealFee +
-        this.form.fee +
-        this.form.witnesses * this.form.rewardFee
+        Number(this.form.witnesses) * 2 * Number(this.form.commitAndRevealFee) +
+        Number(this.form.fee) +
+        Number(this.form.witnesses) * Number(this.form.rewardFee)
       const isGreaterThanBalance =
         parseFloat(
           standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency),
         ) > parseFloat(this.availableBalance)
       if (isGreaterThanBalance) {
         callback(new Error("You don't have enough funds"))
+      } else {
+        callback()
+      }
+    }
+
+    const integerNanoWit = (rule, value, callback) => {
+      const isNanoWit = this.currency === WIT_UNIT.NANO
+      if (isNanoWit && !Number.isInteger(Number(value))) {
+        callback(new Error('Only integer nanoWits values allowed'))
+      } else {
+        callback()
+      }
+    }
+
+    const minAmount = (rule, value, callback) => {
+      const isNanoWit = this.currency === WIT_UNIT.NANO
+      if (isNanoWit && value < 1) {
+        callback(new Error('The minimun fee cannot be less than 1 nanoWit'))
+      } else {
+        callback()
+      }
+    }
+
+    const isNumber = (rule, value, callback) => {
+      if (!Number(value)) {
+        callback(new Error('This should be a number'))
       } else {
         callback()
       }
@@ -107,28 +130,34 @@ export default {
       rules: {
         commitAndRevealFee: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
+          { validator: isNumber, trigger: 'change' },
+          { validator: minAmount, trigger: 'submit' },
+          { validator: integerNanoWit, trigger: 'submit' },
         ],
         dataRequest: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
+          { validator: isNumber, trigger: 'change' },
         ],
         fee: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
+          { validator: isNumber, trigger: 'change' },
           { validator: enoughFunds, trigger: 'submit' },
+          { validator: minAmount, trigger: 'submit' },
+          { validator: integerNanoWit, trigger: 'submit' },
         ],
         minConsensusPercentage: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
+          { validator: isNumber, trigger: 'change' },
         ],
         rewardFee: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
+          { validator: isNumber, trigger: 'change' },
+          { validator: minAmount, trigger: 'submit' },
+          { validator: integerNanoWit, trigger: 'submit' },
         ],
         witnesses: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { type: 'number', message: 'This field must be a number' },
+          { validator: isNumber, trigger: 'change' },
         ],
       },
     }

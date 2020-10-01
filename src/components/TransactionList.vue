@@ -179,7 +179,8 @@ export default {
 ```jsx
   const transactions = [{
     block: "511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f",
-    border: "false",
+    border: "No",
+    epoch: 5432,
     date: "JAN 19, 1970 @ 10:00:31",
     timeAgo: "33 minutes ago",
     fee: 12,

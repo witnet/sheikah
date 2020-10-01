@@ -564,13 +564,24 @@ export default {
         request: {
           data_request: encodeDataRequest(request),
           collateral: parameters.collateral,
-          witness_reward: parameters.rewardFee,
+          witness_reward: Number(
+            standardizeWitUnits(
+              parameters.rewardFee,
+              WIT_UNIT.NANO,
+              context.state.currency,
+            ),
+          ),
           witnesses: parameters.witnesses,
-          commit_and_reveal_fee: parameters.commitAndRevealFee,
+          commit_and_reveal_fee: Number(
+            standardizeWitUnits(
+              parameters.commitAndRevealFee,
+              WIT_UNIT.NANO,
+              context.state.currency,
+            ),
+          ),
           min_consensus_percentage: parameters.minConsensusPercentage,
         },
       }
-
       const req = await context.state.api.createDataRequest(data)
       if (req.result) {
         const generatedTransaction = req.result

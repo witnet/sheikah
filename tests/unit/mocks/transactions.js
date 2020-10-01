@@ -4,6 +4,7 @@ export default [
     type: 'POSITIVE',
     inputs: null,
     timelocked: false,
+    epoch: 5345,
     outputs: [
       {
         value: 250000000000,
@@ -31,6 +32,7 @@ export default [
   {
     id: '6e80fe8b495661c8c8a409ee0dd7a6f92eb1cd682d874e26aad8e7c0d1dc36cb',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -60,6 +62,7 @@ export default [
   {
     id: 'd3f1f6271c5da7207d518262c13714a258e6ea6acb8e781e4b49cc82e31d2c66',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -89,6 +92,7 @@ export default [
   {
     id: '5b7911f0bc47b58687b776ae94bfd054115ba8d31887fb24b51b45480f59950f',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -118,6 +122,7 @@ export default [
   {
     id: '058e206f9a510ca8f16b32f233a0a4d42e265c4fa45ffcb21556c6544de73330',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -147,6 +152,7 @@ export default [
   {
     id: '7f7e3fd7e9d869bfe532c6a67d8781191fb21a9780a072eabedcd776ff3a7f04',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -176,6 +182,7 @@ export default [
   {
     id: 'e412d20b12b0997276ff8dce57be5aa75b10d8f678c23f11d0a0a46c50e10cca',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -205,6 +212,7 @@ export default [
   {
     id: 'de163e82e60aeed550009d16223d4060852b90ea15b4d678126312c1da02fdb8',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -234,6 +242,7 @@ export default [
   {
     id: '3618b7ac2351ee27102d34f26efc3ee1b02423bce1b432f45635a0d5cc2722ef',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -263,6 +272,7 @@ export default [
   {
     id: '5ba580a081aefd6082232659508b289d5c6fb3a93bc03ffcac050e178ecc9ac3',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -292,6 +302,7 @@ export default [
   {
     id: 'e3dad41acb8514f4855d15c42bee1df8b0365baede6d95a0a624112d56c26499',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -321,6 +332,7 @@ export default [
   {
     id: '7abbe3053d87f3572748ecd249d0b797bffcda8a4a5ee5fb6e08952717106d99',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -350,6 +362,7 @@ export default [
   {
     id: '9a08cb803625aa5ff053c7e0cd8598fa6c4512b9755c115055e4929871c8eea7',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -379,6 +392,7 @@ export default [
   {
     id: 'b84c0b56e6e9198f98928ce8aa270b473eb1755cc67ec194b3261bfd77daebc9',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -408,6 +422,7 @@ export default [
   {
     id: 'a9ea936c75d6d3ae3c672f9774198a8ac78b11873d93713367c6f62046cb0583',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -437,6 +452,7 @@ export default [
   {
     id: '567a2133e209dc3838afe010580bc7e19353bd18aed60bb9608012d1d832f1cd',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -466,6 +482,7 @@ export default [
   {
     id: 'c03dbd32902c75a7d66d55cae44857fff92db68f34c169c1df2aa1c8bc51b24b',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -495,6 +512,7 @@ export default [
   {
     id: '2a41dfa04b0f52539b90eecf5799ce578994f382925eddff93638339f6d079d8',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -524,6 +542,7 @@ export default [
   {
     id: 'e2b55f7dc40d3b4916602e864adfb464bb31aad858c0ddfc546ef8bf4ea6c0d1',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -553,6 +572,7 @@ export default [
   {
     id: '0d624fc6ca5d74dbe1fe14fa2f9f5230d3a2bb000705412eda54596aab3a7cbf',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -582,6 +602,7 @@ export default [
   {
     id: 'bb872a14f8094961201067df2b8f45c3e0aa19c6376ec597cab4bd18904bf924',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -611,6 +632,7 @@ export default [
   {
     id: '2e84a58e857e1e6aded48bbb82d30688d725ce6038f468453269b0e128aa98cb',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -640,6 +662,7 @@ export default [
   {
     id: '9349c795db1293b4815cae1413213505a48829201b97eba873225ec63af3efdc',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -669,6 +692,7 @@ export default [
   {
     id: '094a431b11ea4d089d853600c3068baab95b3b053ab468dbd13a0474393fd9e7',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -698,6 +722,7 @@ export default [
   {
     id: '47717c4fb7586386ff4f9f7b222d0011019c7cb1be76a7c03c7215ef47376b2a',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -727,6 +752,7 @@ export default [
   {
     id: '80d97536e44bf3a0cbb0e93943bbc72e01b2d03409db9bd9a465ebec1341dd82',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -756,6 +782,7 @@ export default [
   {
     id: '8c727d9c17d02fb70e3c6485b4f581edc2b2ad470e194dbbc561a4c54e20bb61',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -785,6 +812,7 @@ export default [
   {
     id: '855400f7846be7551cee7ec10a2aa77ffaef645cdc772eff28d7519bcd5613c9',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -814,6 +842,7 @@ export default [
   {
     id: '6cb3fe233dd9af5d76bacc6e9a600de6ffa7b7c011caf59b204fd3640f0ab843',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -843,6 +872,7 @@ export default [
   {
     id: '87798a1264932ab37b447f32bcd94efa60567b737137758025a5845690c4a8cb',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -872,6 +902,7 @@ export default [
   {
     id: 'c411fdfef65bb983c009ac6fc71b245cdab12e8a24b8b62b7bc4ed2b1ab449a3',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -901,6 +932,7 @@ export default [
   {
     id: '7c65a5489556420087c14bbf5028d736dc28123d71c58e2bb022ed0f552ebb7d',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -930,6 +962,7 @@ export default [
   {
     id: 'af645f7df56d8bd0b17902d3c52b5dae4a84774e4b1ce0fa10d1366ee85ef5b6',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -959,6 +992,7 @@ export default [
   {
     id: '65a92afafbc8a7056f2f8d09d5c6d6092fe9fbdd3cacfb47a2bb5e7ba564831b',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -988,6 +1022,7 @@ export default [
   {
     id: '1d3285392db9cf7acbacd6e513bbc5db536482c073f6ecd41bbb37d1d6b2e66e',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [
@@ -1017,6 +1052,7 @@ export default [
   {
     id: 'caa9ac4d2d510da5dbd4ba2d0ba6695f2b995d6e89920dfa4687eb4f37cc83e0',
     timelocked: false,
+    epoch: 5345,
     type: 'POSITIVE',
     inputs: null,
     outputs: [

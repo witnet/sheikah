@@ -292,7 +292,7 @@ export function standardizeTransactions(response) {
       amount: transaction.amount,
       block: block.block_hash,
       epoch: block.epoch,
-      timelocked: outputs.some(output => output.time_lock !== 0) ? 'Yes' : 'No',
+      timelocked: outputs.some(output => output.time_lock !== 0),
       witnesses: null,
       rewards: null,
       rounds: null,

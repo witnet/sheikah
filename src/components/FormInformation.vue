@@ -113,27 +113,27 @@ export default {
       default: null,
     },
     commitAndRevealFee: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
     fee: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
     minConsensusPercentage: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
     rewardFee: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
     witnesses: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
     timelock: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
   },

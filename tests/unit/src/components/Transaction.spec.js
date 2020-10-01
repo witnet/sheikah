@@ -10,6 +10,7 @@ describe('Renders the correct elements when click is not triggered', () => {
       date: 'JAN 19, 1970 @ 10:00:31',
       timeAgo: '33 minutes ago',
       timelocked: false,
+      epoch: 5432,
       fee: 12,
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       outputs: [
@@ -77,6 +78,7 @@ describe('data request', () => {
       propsData: {
         amount: 123,
         timelocked: false,
+        epoch: 5432,
         block:
           '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
         border: true,
@@ -144,6 +146,7 @@ describe('mint', () => {
       propsData: {
         amount: 123,
         timelocked: false,
+        epoch: 5432,
         block:
           '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
         border: true,
@@ -197,6 +200,7 @@ describe('render the correct address', () => {
         propsData: {
           amount: 123,
           timelocked: false,
+          epoch: 5432,
           block:
             '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
           border: true,
@@ -239,6 +243,7 @@ describe('render the correct address', () => {
         propsData: {
           amount: 123,
           timelocked: false,
+          epoch: 5432,
           block:
             '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
           border: true,
@@ -287,6 +292,7 @@ describe('render the correct address', () => {
         propsData: {
           amount: 123,
           timelocked: false,
+          epoch: 5432,
           block:
             '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
           border: true,
@@ -335,6 +341,7 @@ describe('render the correct address', () => {
           timeAgo: '33 minutes ago',
           fee: 12,
           timelocked: false,
+          epoch: 5432,
           id:
             '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
           outputs: [

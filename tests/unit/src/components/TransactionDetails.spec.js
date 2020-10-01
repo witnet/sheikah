@@ -6,6 +6,8 @@ describe('Renders the correct elements when the transaction type is value_transf
     propsData: {
       block: '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
       date: 'JAN 19, 1970 @ 10:00:31',
+      timelocked: false,
+      epoch: 5342,
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       transactionType: 'value_transfer',
     },
@@ -92,6 +94,8 @@ describe('Renders the correct elements when the transaction type is data_request
     propsData: {
       block: '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
       date: 'JAN 19, 1970 @ 10:00:31',
+      timelocked: false,
+      epoch: 5342,
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       transactionType: 'data_request',
       state: 'IN PROGRESS',
@@ -185,6 +189,8 @@ describe('Renders the correct elements when the transaction type is data_request
       witnesses: { min: 'min', backup: 'backup' },
       rewards: { witness: 'reward', miners: 'reward' },
       rounds: { commit: 'round', reveal: 'round' },
+      timelocked: false,
+      epoch: 5342,
       reveals: [
         {
           in_consensus: true,
@@ -282,6 +288,8 @@ describe('adds the correct class to reveal icon when all the reveals are in cons
       block: '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       transactionType: 'data_request',
+      epoch: 5342,
+      timelocked: false,
       reveals: [
         {
           in_consensus: true,

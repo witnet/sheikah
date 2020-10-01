@@ -1,6 +1,6 @@
 <template>
   <FrameOutside @click="hideDetails" @focus="hideDetails">
-    <div class="border" :class="{ locked: timelocked === 'Yes' }">
+    <div class="border" :class="{ locked: timelocked }">
       <div class="transaction" @click="showDetails = !showDetails">
         <img
           data-test="negative-positive"
@@ -92,7 +92,7 @@ export default {
       required: true,
     },
     timelocked: {
-      type: [String, Boolean],
+      type: Boolean,
       required: true,
     },
     block: {

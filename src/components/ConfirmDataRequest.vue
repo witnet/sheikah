@@ -25,11 +25,11 @@ export default {
   },
   props: {
     commitAndRevealFee: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
     fee: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
     generatedTransaction: {
@@ -37,19 +37,19 @@ export default {
       required: true,
     },
     minConsensusPercentage: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
     rewardFee: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
     witnesses: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
     timelock: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
   },
