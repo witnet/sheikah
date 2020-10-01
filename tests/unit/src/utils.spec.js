@@ -9,6 +9,7 @@ import {
   calculateCurrentFocusAfterRedo,
   simplifyDrResult,
   groupAmountByUnlockedDate,
+  encodeAggregationTally,
 } from '@/utils'
 import { WIT_UNIT } from '@/constants'
 import { Radon } from 'witnet-radon-js'
@@ -1261,5 +1262,45 @@ describe('groupAmountByUnlockedDate', () => {
 
       expect(result).toStrictEqual(expected)
     })
+  })
+})
+
+describe('encodeAggregationTally', () => {
+  it('without filter argument', () => {
+    const expected = {
+      filters: [
+        {
+          args: [],
+          op: 8,
+        },
+      ],
+      reducer: 3,
+    }
+
+    const result = encodeAggregationTally({
+      filters: [[8]],
+      reducer: 3,
+    })
+
+    expect(result).toStrictEqual(expected)
+  })
+
+  it('with a single filter argument', () => {
+    const expected = {
+      filters: [
+        {
+          args: [251, 63, 185, 153, 153, 153, 153, 153, 154],
+          op: 5,
+        },
+      ],
+      reducer: 3,
+    }
+
+    const result = encodeAggregationTally({
+      filters: [[5, '0.1']],
+      reducer: 3,
+    })
+
+    expect(result).toStrictEqual(expected)
   })
 })

@@ -93,21 +93,24 @@ export function isSyncEvent(eventType) {
   ].find(syncEvent => syncEvent === eventType)
 }
 
-function encodeAggregationTally(stage) {
+export function encodeAggregationTally(stage) {
   return {
     filters: stage.filters.map(filter => {
+      const rawArguments = Array.isArray(filter)
+        ? filter.map(Number).slice(1)
+        : []
+      const args = rawArguments.length > 1 ? rawArguments : rawArguments[0]
       return Array.isArray(filter)
         ? {
             op: filter[0],
-            args: filter.slice(1).length
-              ? [...cbor.encode(filter.map(Number).slice(1)).values()]
-              : [],
+            args: filter.slice(1).length ? [...cbor.encode(args).values()] : [],
           }
         : { op: filter, args: [] }
     }),
     reducer: stage.reducer,
   }
 }
+
 // Convert the received amount of nanoWits into selected unit
 export function standardizeWitUnits(
   amount,
