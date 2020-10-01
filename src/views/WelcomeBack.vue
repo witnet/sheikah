@@ -7,9 +7,6 @@
         Sheikah keeps your Witnet wallet safe and helps you build, share and
         deploy data requests into the Witnet network.
       </p>
-      <a target="_blank" class="row link" type="text">
-        Discover more features >
-      </a>
     </div>
     <router-view />
   </div>
