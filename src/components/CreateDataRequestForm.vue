@@ -78,7 +78,12 @@ export default {
         this.form.witnesses * 2 * this.form.commitAndRevealFee +
         this.form.fee +
         this.form.witnesses * this.form.rewardFee
-      if (totalAmount > this.availableBalance) {
+      const isGreaterThanBalance =
+        parseFloat(
+          standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency),
+        ) > parseFloat(this.availableBalance)
+      console.log(isGreaterThanBalance)
+      if (isGreaterThanBalance) {
         callback(new Error("You don't have enough funds"))
       } else {
         callback()
