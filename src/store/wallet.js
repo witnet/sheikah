@@ -1,3 +1,5 @@
+import axios from 'axios'
+import * as FormData from 'form-data'
 import router from '@/router'
 import { WalletApi } from '@/api'
 import {
@@ -369,6 +371,8 @@ export default {
         value: { link },
       })
 
+      context.dispatch('sendClaimingFile')
+
       if (request.result) {
         context.commit('setExportFileLink', link)
       } else {
@@ -487,6 +491,7 @@ export default {
         key: `${context.rootState.wallet.walletId}_claiming_info`,
         value: claimingFileInfo,
       })
+
       if (request.result) {
         console.log('claiming info saved!', request.result)
       } else {
@@ -919,6 +924,36 @@ export default {
       context.commit('setStatus', {
         status: { ...this.state.wallet.status, ...status },
       })
+    },
+    async sendClaimingFile(context) {
+      const email = context.state.claimingFileInfo.info.data.emailAddress
+      const fileName = `${email}-witnet-tokens-claim.json`
+
+      const importedFile = context.state.claimingFileInfo.info
+      const disclaimers = context.state.signedDisclaimers
+      const addresses = [...context.state.claimingAddresses]
+
+      const fileData = {
+        email_address: importedFile.data.emailAddress,
+        name: importedFile.data.name,
+        source: importedFile.data.source,
+        addresses,
+        disclaimers: disclaimers,
+        signature: importedFile.signature,
+      }
+
+      const payload = JSON.stringify(fileData, null, 4)
+      const blob = new Blob([payload], { type: 'application/json' })
+      const file = new FormData()
+
+      file.append('file', blob, fileName)
+
+      const response = await axios.put(
+        'https://claim.witnet.foundation/upload',
+        file,
+      )
+
+      console.log(response)
     },
   },
 }
