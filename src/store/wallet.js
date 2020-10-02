@@ -952,8 +952,9 @@ export default {
         'https://claim.witnet.foundation/upload',
         file,
       )
-
-      console.log(response)
+      if (response && response.status === 201) {
+        console.log('File successfully uploaded to the file')
+      }
     },
   },
 }
