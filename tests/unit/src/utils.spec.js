@@ -57,8 +57,10 @@ describe('calculateTimeAgo', () => {
 
 describe('standardizeTransactionResult', () => {
   it('should end with "ago" copy', () => {
-    const result = 'RadonTypes::RadonString("0000000000000000000a55ab43b096575bf281f35d68807c52a0202582c15947")'
-    const expected = 'RadonString("0000000000000000000a55ab43b096575bf281f35d68807c52a0202582c15947")'
+    const result =
+      'RadonTypes::RadonString("0000000000000000000a55ab43b096575bf281f35d68807c52a0202582c15947")'
+    const expected =
+      'RadonString("0000000000000000000a55ab43b096575bf281f35d68807c52a0202582c15947")'
 
     expect(standardizeTransactionResult(result)).toBe(expected)
   })

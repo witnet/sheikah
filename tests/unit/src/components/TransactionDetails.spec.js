@@ -265,9 +265,6 @@ describe('Renders the correct elements when the transaction type is data_request
   it('finds the reveal-icon element', () => {
     expect(wrapper.contains('[data-test="reveal-icon"]')).toBe(true)
   })
-  it('finds the reveal-address element', () => {
-    expect(wrapper.contains('[data-test="reveal-address"]')).toBe(true)
-  })
   it('finds the reveal-result element', () => {
     expect(wrapper.contains('[data-test="reveal-result"]')).toBe(true)
   })
