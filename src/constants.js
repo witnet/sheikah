@@ -16,7 +16,7 @@ export const EDITOR_STAGES = {
   TALLY: 'tally',
 }
 export const CLAIM_WITS_PER_ADDRESS = 1
-export const CLAIMING_ADDRESS_MIN_NANOWITS = 50000000000
+export const CLAIMING_ADDRESS_MIN_NANOWITS = 8388608
 
 export const WIT_UNIT = {
   WIT: 'wit',
@@ -60,3 +60,5 @@ export const EXTERNAL_URL = {
   BALANCE_LOCKED: 'https://witnet.io',
   SHEIKAH_WEBSITE: 'https://twitter.com/witnet_io',
 }
+
+export const CLAIMING_WIT_PRECISION = 1

@@ -1170,53 +1170,61 @@ describe('calculateCurrentFocusAfterRedo', () => {
   })
 })
 
-describe('groupAmountByUnlockedDate', () => {
+describe.only('groupAmountByUnlockedDate', () => {
   describe('amount is equal to address gap', () => {
-    it('50 000 000', () => {
-      const expected = 1
-      const result = groupAmountByUnlockedDate(50000000).length
+    it('54321', () => {
+      const expected = [8388608]
+      const result = groupAmountByUnlockedDate(54321, 2)
 
-      expect(result).toBe(expected)
+      expect(result).toStrictEqual(expected)
+    })
+
+    it.only('50 000 000', () => {
+      const expected = [33554432, 8388608, 8388608]
+
+      const result = groupAmountByUnlockedDate(50000000, 2)
+
+      expect(result).toStrictEqual(expected)
     })
 
     it('5 000 000', () => {
       const expected = 1
-      const result = groupAmountByUnlockedDate(5000000).length
+      const result = groupAmountByUnlockedDate(5000000, 2)
 
       expect(result).toBe(expected)
     })
 
     it('500 000', () => {
       const expected = 1
-      const result = groupAmountByUnlockedDate(500000).length
+      const result = groupAmountByUnlockedDate(500000, 2).length
 
       expect(result).toBe(expected)
     })
 
     it('50 000', () => {
       const expected = 1
-      const result = groupAmountByUnlockedDate(50000).length
+      const result = groupAmountByUnlockedDate(50000, 2).length
 
       expect(result).toBe(expected)
     })
 
     it('5 000', () => {
       const expected = 1
-      const result = groupAmountByUnlockedDate(5000).length
+      const result = groupAmountByUnlockedDate(5000, 2).length
 
       expect(result).toBe(expected)
     })
 
     it('500', () => {
       const expected = 1
-      const result = groupAmountByUnlockedDate(500).length
+      const result = groupAmountByUnlockedDate(500, 2).length
 
       expect(result).toBe(expected)
     })
 
     it('50', () => {
       const expected = 1
-      const result = groupAmountByUnlockedDate(50).length
+      const result = groupAmountByUnlockedDate(50, 2).length
 
       expect(result).toBe(expected)
     })
@@ -1224,14 +1232,14 @@ describe('groupAmountByUnlockedDate', () => {
 
   it('amount is lower than address minimum', () => {
     const expected = 1
-    const result = groupAmountByUnlockedDate(5).length
+    const result = groupAmountByUnlockedDate(5, 2).length
 
     expect(result).toBe(expected)
   })
 
   it('amount is 0', () => {
     const expected = 0
-    const result = groupAmountByUnlockedDate(0).length
+    const result = groupAmountByUnlockedDate(0, 2).length
 
     expect(result).toBe(expected)
   })
@@ -1239,21 +1247,21 @@ describe('groupAmountByUnlockedDate', () => {
   describe('divide several times', () => {
     it('737 000 000 000', () => {
       const expected = 6
-      const result = groupAmountByUnlockedDate(737 * 10 ** 9).length
+      const result = groupAmountByUnlockedDate(737 * 10 ** 9, 2).length
 
       expect(result).toBe(expected)
     })
 
     it('1 000 532 000 000 000', () => {
       const expected = 4
-      const result = groupAmountByUnlockedDate(1000533 * 10 ** 9).length
+      const result = groupAmountByUnlockedDate(1000533 * 10 ** 9, 2).length
 
       expect(result).toBe(expected)
     })
 
     it('2 523 432 000 000 000', () => {
       const expected = 24
-      const result = groupAmountByUnlockedDate(2523432 * 10 ** 9).length
+      const result = groupAmountByUnlockedDate(2523432 * 10 ** 9, 2).length
 
       expect(result).toBe(expected)
     })

@@ -466,27 +466,6 @@ export function simplifyDrResult(input, radonType) {
   }
 }
 
-// calculate the number of addresses and its amount according to the amount of wits passed
-export function groupAmountByUnlockedDate(amount) {
-  if (amount === 0) return []
-  const ceil = precision => x => Math.ceil(x / precision) * precision
-  // round the amount of wits for convenience and deniability
-  const roundedAmount =
-    amount % CLAIMING_ADDRESS_MIN_NANOWITS === 0
-      ? amount
-      : ceil(CLAIMING_ADDRESS_MIN_NANOWITS)(amount)
-
-  return (roundedAmount / CLAIMING_ADDRESS_MIN_NANOWITS)
-    .toString()
-    .split('')
-    .map(Number)
-    .reverse()
-    .map((x, exp) => {
-      return new Array(x).fill(CLAIMING_ADDRESS_MIN_NANOWITS * 10 ** exp)
-    })
-    .reduce((a, b) => [...a, ...b])
-}
-
 export function createExportClaimingFileLink(
   importedFile,
   addresses,
@@ -563,7 +542,7 @@ export function validateClaimingImportFile(importedFile) {
 export function calculateVesting(vestingInfo, amount, genesisDate) {
   const { delay, installmentLength, cliff, installmentWits } = vestingInfo
   const numberOfSteps = Math.ceil(amount / installmentWits)
-  return Array(numberOfSteps)
+  const result = Array(numberOfSteps)
     .fill(0)
     .map((_, index) => {
       const date = new Date(genesisDate)
@@ -577,4 +556,26 @@ export function calculateVesting(vestingInfo, amount, genesisDate) {
         amount: currentAmount,
       }
     })
+  return result
+}
+
+export function groupAmountByUnlockedDate(amount, base = 2) {
+  const exp = Math.log(amount) / Math.log(base)
+
+  return factor(amount, base, exp.toFixed())
+}
+
+function factor(amount, base = 10, exp = 100) {
+  if (amount === 0) return []
+
+  const power = base ** exp
+
+  if (CLAIMING_ADDRESS_MIN_NANOWITS > amount)
+    return [CLAIMING_ADDRESS_MIN_NANOWITS]
+
+  if (power > amount) {
+    return factor(amount, base, exp - 1)
+  }
+
+  return [power, ...factor(amount - power, base, exp)]
 }
