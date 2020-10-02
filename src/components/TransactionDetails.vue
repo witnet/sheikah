@@ -124,7 +124,7 @@
             icon="circle"
           />
           <div data-test="reveal-result" class="result">{{
-            reveal.value
+            standardizeTransactionResult(reveal.value)
           }}</div>
         </div>
       </div>
@@ -142,7 +142,7 @@
         v-if="transactionType === 'data_request' || transactionType === 'tally'"
         data-test="result"
         class="info"
-        >{{ result }}</p
+        >{{ standardizeTransactionResult(result) }}</p
       >
     </div>
   </div>

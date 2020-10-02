@@ -4,6 +4,7 @@ import {
   deleteKey,
   getDomainFromUrl,
   standardizeWitUnits,
+  standardizeTransactionResult,
   calculateCurrentFocusAfterUndo,
   calculateCurrentFocusAfterRedo,
   simplifyDrResult,
@@ -51,6 +52,15 @@ describe('calculateTimeAgo', () => {
     date.setSeconds(date.getSeconds() - 4)
 
     expect(calculateTimeAgo(date).endsWith('ago')).toBe(true)
+  })
+})
+
+describe('standardizeTransactionResult', () => {
+  it('should end with "ago" copy', () => {
+    const result = 'RadonTypes::RadonString("0000000000000000000a55ab43b096575bf281f35d68807c52a0202582c15947")'
+    const expected = 'RadonString("0000000000000000000a55ab43b096575bf281f35d68807c52a0202582c15947")'
+
+    expect(standardizeTransactionResult(result)).toBe(expected)
   })
 })
 
