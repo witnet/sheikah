@@ -123,11 +123,8 @@
             :class="reveal.in_consensus ? 'consensed' : 'not-consensed'"
             icon="circle"
           />
-          <div data-test="reveal-address" class="address">
-            {{ cropString(reveal.address, 32, 'middle') }}
-          </div>
           <div data-test="reveal-result" class="result">{{
-            reveal.result
+            reveal.value
           }}</div>
         </div>
       </div>
@@ -145,7 +142,7 @@
         v-if="transactionType === 'data_request' || transactionType === 'tally'"
         data-test="result"
         class="info"
-        >{{ standardizeTransactionResult(result) }}</p
+        >{{ result }}</p
       >
     </div>
   </div>
