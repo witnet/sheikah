@@ -17,7 +17,11 @@ export const EDITOR_STAGES = {
 }
 
 export const CLAIMING_ADDRESS_MIN_NANOWITS = 8388608
-
+export const SOURCES_WITH_REDUCED_DISCLAIMERS = [
+  'tip',
+  'stakeholder',
+  'founder',
+]
 export const WIT_UNIT = {
   WIT: 'wit',
   MICRO: 'microWit',

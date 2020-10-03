@@ -15,7 +15,12 @@ import {
 import disclaimers from '@/claimingDisclaimers'
 import reducedDisclaimers from '@/reducedClaimingDisclaimers'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
-import { GENERATE_ADDRESS_DELAY, WALLET_EVENTS, WIT_UNIT } from '@/constants'
+import {
+  GENERATE_ADDRESS_DELAY,
+  SOURCES_WITH_REDUCED_DISCLAIMERS,
+  WALLET_EVENTS,
+  WIT_UNIT,
+} from '@/constants'
 import warning from '@/resources/svg/warning.png'
 
 export default {
@@ -211,8 +216,13 @@ export default {
     },
     setClaimingInfo(state, { info }) {
       Object.assign(state, { claimingFileInfo: info })
-      const participation = state.claimingFileInfo.info.data.usd
-      state.disclaimers = participation > 0 ? disclaimers : reducedDisclaimers
+      const source = state.claimingFileInfo.info.data.source
+      const sourcesWithReducedDisclaimers = SOURCES_WITH_REDUCED_DISCLAIMERS
+      if (sourcesWithReducedDisclaimers.includes(source)) {
+        state.disclaimers = reducedDisclaimers
+      } else {
+        state.disclaimers = disclaimers
+      }
     },
     setDisclaimers(state, { result }) {
       state.signedDisclaimers = result
