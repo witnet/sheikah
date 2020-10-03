@@ -14,7 +14,12 @@
         data-test="success-icon"
         class="icon-circle-check"
       />
-      <p v-if="localFile" data-test="success-text">{{ fileName }}</p>
+      <p v-if="localFile && fileName.length <= 50" data-test="success-text">{{
+        fileName
+      }}</p>
+      <el-tooltip v-else :content="fileName" placement="bottom" effect="light">
+        <p data-test="success-text">{{ cropString(fileName, 50, 'middle') }}</p>
+      </el-tooltip>
       <font-awesome-icon
         v-if="!localFile && !error"
         icon="cloud-upload-alt"
@@ -48,7 +53,9 @@
       >
         <div class="name" @click="downloadFile">
           <font-awesome-icon icon="file-alt" class="icon-document" />
-          <div data-test="file-name" class="text">{{ fileName }}</div>
+          <div data-test="file-name" class="text">{{
+            cropString(fileName, 50, 'middle')
+          }}</div>
         </div>
         <font-awesome-icon
           v-if="showDelete"
@@ -88,6 +95,7 @@
 </template>
 
 <script>
+import { cropString } from '@/utils'
 /**
  * File uploader component
  * @displayName FileUploader
@@ -134,6 +142,7 @@ export default {
     }
   },
   methods: {
+    cropString,
     fileLink() {
       return `data:text/json;charset=utf-8,${encodeURIComponent(
         JSON.stringify(this.localFile),

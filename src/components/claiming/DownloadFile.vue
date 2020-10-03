@@ -30,7 +30,9 @@
       <div class="file">
         <p class="name">
           <i class="el-icon-document"></i>
-          <span class="text"> {{ `${email}-witnet-tokens-claim.json` }} </span>
+          <span class="text">
+            {{ cropString(`${email}-witnet-tokens-claim.json`, 50, 'middle') }}
+          </span>
         </p>
       </div>
     </div>
@@ -40,6 +42,7 @@
 <script>
 import NavigationCard from '@/components/card/NavigationCard'
 import { mapState } from 'vuex'
+import { cropString } from '@/utils'
 
 export default {
   name: 'DownloadFile',
@@ -68,6 +71,7 @@ export default {
     this.$store.dispatch('saveCompletedProcess')
   },
   methods: {
+    cropString,
     exportFile() {
       this.$refs.file.click()
       this.disabledNextButton = false
