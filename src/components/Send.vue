@@ -111,7 +111,7 @@ export default {
       rules: {
         address: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { min: 42, max: 42, message: 'Length should be 42', trigger: 'blur' },
+          { min: 43, max: 43, message: 'Length should be 43', trigger: 'blur' },
         ],
         label: [],
         amount: [
