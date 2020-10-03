@@ -11,8 +11,7 @@
       next-text="Continue"
     >
       <p class="text">
-        As a participant of the Witnet Token Generation Event, you must have
-        received an email from Witnet Foundation with a
+        You must have received an email from the Witnet Foundation with a
         <em>Participant Proof File</em>
         attached to it. If you cannot find it in your inbox, please double check
         your SPAM folder, if there is no sign of it anywhere, please contact

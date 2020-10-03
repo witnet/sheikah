@@ -8,21 +8,21 @@
   >
     <p class="text">
       This wallet app will guide you through the process of taking full
-      ownership of your Witnet tokens and protecting them with a password.
+      ownership of your Witnet tokens and protecting them with a secure
+      password.
     </p>
-    <p class="text"
-      >At the end of the process, you will receive a confirmation to verify your
-      token claim.</p
-    >
     <p class="text bold">
-      IMPORTANT: You must complete this process by October 10th 2020 to ensure
-      you have full ownership of your Witnet tokens.
+      IMPORTANT: You must complete this process by 08:00am UTC, October 12th,
+      2020 to ensure you have full ownership of your Witnet tokens.
     </p>
     <p class="text">
       The entire process will take no more than 5 minutes to complete. Before
-      you start, please make sure to have pen and paper on hand (THIS IS VERY
-      IMPORTANT), as you will be required to write down some important
-      information along the way.
+      you start,
+      <b class="text bold"
+        >please make sure to have pen and paper on hand (THIS IS VERY
+        IMPORTANT)</b
+      >, as you will be required to write down some important information along
+      the way.
     </p>
   </NavigationCard>
 </template>

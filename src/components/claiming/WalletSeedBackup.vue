@@ -23,20 +23,23 @@
     >
       {{ seed }}
     </p>
-    <p class="text">
+    <p class="text bold">
       Please write down these 12 words on a piece of paper and store them
       somewhere private and secure. You must write the complete words in the
       exact order they are presented to you.
     </p>
     <p class="text">
-      Keeping your seed phrase secret is paramount. If someone gains access
+      Keeping your seed phrase secret is paramount. If someone gains access to
       these 12 words, they will be able to take and spend your tokens.
     </p>
     <p class="text">
       Do not store these words on a computer or an electronic device. It is your
       sole responsibility to store the paper with your seed phrase in a safe
-      place-if you exit this setup or fail to write down or keep your seed
-      phrase safe, we cannot help you access or recover your tokens.
+      place -
+      <b class="text bold"
+        >if you exit this setup or fail to write down or keep your seed phrase
+        safe, we cannot help you access or recover your tokens.</b
+      >
     </p>
   </NavigationCard>
 </template>
@@ -107,6 +110,10 @@ export default {
   &:last-of-type {
     margin: 0;
   }
+}
+
+.bold {
+  font-weight: 600;
 }
 
 .seed {

@@ -8,27 +8,34 @@
     :previous-step="() => this.$router.push('/ftu/disclaimer')"
     :next-step="() => this.$router.push('/ftu/seed-validation')"
   >
-    <p class="paragraph-title">Your 12 word seed phrase:</p>
+    <p class="paragraph-title"
+      >These 12 random words are your Witnet <em>seed phrase</em>. They will
+      allow you to recover your tokens if you uninstall Sheikah or forget your
+      password:</p
+    >
     <pre
       data-test="word-seed"
       class="seed"
       :class="{ 'copy-disabled': isCopyMnemonicsDisabled }"
       >{{ seed }}</pre
     >
-    <p class="paragraph">
+    <p class="paragraph bold">
       Please write down these 12 words on a piece of paper and store them
       somewhere private and secure. You must write the complete words in the
       exact order they are presented to you.
     </p>
-    <p class="text">
-      Keeping your seed phrase secret is paramount. If someone gains access
+    <p class="paragraph">
+      Keeping your seed phrase secret is paramount. If someone gains access to
       these 12 words, they will be able to take and spend your tokens.
     </p>
     <p class="paragraph">
       Do not store these words on a computer or an electronic device. It is your
       sole responsibility to store the paper with your seed phrase in a safe
-      place-if you exit this setup or fail to write down or keep your seed
-      phrase safe, we cannot help you access your wallet.
+      place -
+      <b class="text bold"
+        >if you exit this setup or fail to write down or keep your seed phrase
+        safe, we cannot help you access your wallet.</b
+      >
     </p>
   </NavigationCard>
 </template>
@@ -110,6 +117,10 @@ export default {
   &:last-of-type {
     margin-bottom: 0;
   }
+}
+
+.bold {
+  font-weight: 600;
 }
 
 .copy-disabled {
