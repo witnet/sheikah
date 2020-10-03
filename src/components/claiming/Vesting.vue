@@ -15,9 +15,7 @@
         Your allocation is dependent on the successful completion of this
         claiming process. Please verify that the participation amount displayed
         above is correct — if not, please contact
-        <a class="link" :href="`mailto:${witnetEmail}`">
-          {{ witnetEmail }}
-        </a>
+        <a class="link" :href="`mailto:${witnetEmail}`">{{ witnetEmail }}</a>
         immediately for support.
       </p>
       <p class="text">
