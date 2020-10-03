@@ -211,6 +211,13 @@ function createWindow() {
       {
         label: 'Menu',
         submenu: [
+          {
+            label: 'Quit',
+            accelerator: 'CmdOrCtrl+Q',
+            click: () => {
+              app.quit()
+            },
+          },
           { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
           { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
           { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
