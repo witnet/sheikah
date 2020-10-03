@@ -1,14 +1,6 @@
 export default [
   {
     title:
-      'The Tokens constitute payment in full of the Initial Instrument and you provide the Company with a full release of claims',
-    nextText: 'Accept and continue',
-    content: [
-      'The release of the Tokens shall constitute payment in full of the Initial Instrument(s) held by the Token Holder, and following the Conversion, the Company shall have no further liability to the Token Holder with respect to the Initial Instrument(s) held by the Token Holder, and upon the release of the Tokens, the Token Holder hereby releases and discharges the Company and its successors in interest, predecessors in interest, parents, subsidiaries, affiliates, and the officers, directors, stockholders, partners, employees and agents of any and all of them from any and all claims, defaults, debts, charges, damages, demands, obligations, causes, actions or rights of actions related to the Initial Instruments or arising thereunder and whether known or unknown.',
-    ],
-  },
-  {
-    title:
       'The Tokens constitute payment in full of the Initial Instrument and you waive any rights you may have thereunder',
     nextText: 'Accept and continue',
     content: [
