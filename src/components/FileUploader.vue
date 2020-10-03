@@ -14,11 +14,15 @@
         data-test="success-icon"
         class="icon-circle-check"
       />
-      <p v-if="localFile && fileName.length <= 50" data-test="success-text">{{
-        fileName
-      }}</p>
+      <p
+        v-if="fileName && fileName.length <= 50 && localFile"
+        data-test="success-text"
+        >{{ fileName }}</p
+      >
       <el-tooltip v-else :content="fileName" placement="bottom" effect="light">
-        <p data-test="success-text">{{ cropString(fileName, 50, 'middle') }}</p>
+        <p v-if="localFile" data-test="success-text">{{
+          cropString(fileName, 50, 'middle')
+        }}</p>
       </el-tooltip>
       <font-awesome-icon
         v-if="!localFile && !error"
