@@ -17,11 +17,21 @@ export const EDITOR_STAGES = {
 }
 
 export const CLAIMING_ADDRESS_MIN_NANOWITS = 8388608
+export const CLAIMING_EMAILS = {
+  DPA: 'dpa@witnet.foundation',
+  FOUNDER: 'stampery@witnet.foundation',
+  PPA: 'saft@witnet.foundation',
+  SAFT: 'saft@witnet.foundation',
+  STAKEHOLDER: 'stampery@witnet.foundation',
+  TIP: 'testnet@witnet.foundation',
+  DEFAULT: 'genesis@witent.foundation',
+}
 export const SOURCES_WITH_REDUCED_DISCLAIMERS = [
   'tip',
   'stakeholder',
   'founder',
 ]
+
 export const WIT_UNIT = {
   WIT: 'wit',
   MICRO: 'microWit',

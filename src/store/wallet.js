@@ -16,6 +16,7 @@ import disclaimers from '@/claimingDisclaimers'
 import reducedDisclaimers from '@/reducedClaimingDisclaimers'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import {
+  CLAIMING_EMAILS,
   GENERATE_ADDRESS_DELAY,
   SOURCES_WITH_REDUCED_DISCLAIMERS,
   WALLET_EVENTS,
@@ -76,6 +77,7 @@ export default {
     currentTransactionsPage: 1,
     signedDisclaimers: {},
     disclaimers: {},
+    witnetEmail: CLAIMING_EMAILS.DEFAULT,
     txLabels: {},
     walletInfos: null,
     walletLocked: false,
@@ -223,6 +225,10 @@ export default {
       } else {
         state.disclaimers = disclaimers
       }
+
+      state.witnetEmail =
+        CLAIMING_EMAILS[info.info.data.source.toUpperCase()] ||
+        CLAIMING_EMAILS.DEFAULT
     },
     setDisclaimers(state, { result }) {
       state.signedDisclaimers = result

@@ -15,9 +15,9 @@
         Your allocation is dependent on the successful completion of this
         claiming process. Please verify that the participation amount displayed
         above is correct — if not, please contact
-        <a class="link" href="mailto:genesis@witnet.foundation"
-          >genesis@witnet.foundation</a
-        >
+        <a class="link" :href="`mailto:${witnetEmail}`">
+          {{ witnetEmail }}
+        </a>
         immediately for support.
       </p>
       <p class="text">
@@ -42,6 +42,7 @@ export default {
   computed: {
     ...mapState({
       name: state => state.wallet.claimingFileInfo.info.data.name,
+      witnetEmail: state => state.wallet.witnetEmail,
     }),
   },
   methods: {

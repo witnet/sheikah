@@ -10,11 +10,12 @@
       <span class="bold">YOU SHOULD HAVE RECEIVED A CONFIRMATION EMAIL-</span>
       if you have not, please double check your SPAM inbox, and if it is not
       there, please contact
-
-      <a class="e-mail" href="mailto:genesis@witnet.foundation">
-        genesis@witnet.foundation
-      </a>
     </p>
+
+    <a class="e-mail" :href="`mailto:${witnetEmail}`">
+      {{ witnetEmail }}
+    </a>
+
     <p class="download-again">
       If you lost your claim file, do not panic!
       <span class="underline" @click="exportFile">Click here to download</span>
@@ -90,6 +91,7 @@ export default {
         return state.wallet.exportFileLink
       },
       email: state => state.wallet.claimingFileInfo.info.data.emailAddress,
+      witnetEmail: state => state.wallet.witnetEmail,
     }),
     dateInMilliseconds() {
       return Math.trunc(Date.parse(this.date) / 1000)
