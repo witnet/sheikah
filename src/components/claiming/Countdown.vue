@@ -5,11 +5,10 @@
     :disabled-next-button="false"
   >
     <p>
-      You have completed the Witnet token claim process successfully on this
-      wallet, at this point
-      <span class="bold">YOU SHOULD HAVE RECEIVED A CONFIRMATION EMAIL-</span>
-      if you have not, please double check your SPAM inbox, and if it is not
-      there, please contact
+      You have completed the Witnet token claiming process successfully on this
+      wallet, at this point YOU SHOULD HAVE RECEIVED A CONFIRMATION EMAIL -
+      <b class="text bold">if you have not</b>, please double check your SPAM
+      inbox, and if it is not there, <b class="text bold">please contact:</b>
     </p>
 
     <a class="e-mail" :href="`mailto:${witnetEmail}`">
@@ -17,9 +16,8 @@
     </a>
 
     <p class="download-again">
-      If you lost your claim file, do not panic!
-      <span class="underline" @click="exportFile">Click here to download</span>
-      it again
+      if you need to download again your receipt of the claiming process,
+      <span class="underline" @click="exportFile">click here</span>
     </p>
     <p class="text">
       There is nothing left to do on this wallet until the Witnet Mainnet
@@ -32,10 +30,8 @@
       and
       <a href="https://t.me/witnetio" target="_blank" class="underline">
         Telegram</a
-      >. For a tutorial on how to use your tokens, please check
-      <a href="https://discord.gg/X4uurfP" target="_blank" class="underline">
-        this Medium post </a
-      >.
+      >
+      channels.
     </p>
     <div slot="alt-footer" class="countdown-background">
       <p class="countdown-header">TIME TO GENESIS EVENT</p>

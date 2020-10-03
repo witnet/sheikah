@@ -4,7 +4,7 @@ export default [
       'Your Initial Instrument is canceled, converted and exchanged into the Tokens',
     nextText: 'Accept and continue',
     content: [
-      'Each and any of the agreements, contracts, instruments or documents, including without limitation Simple Agreements for Future Tokens, Debt Payable by Assets or Prepaid Forward Purchase Agreements (each, an “Initial Instrument”) executed by the Token Holder and Witnet Foundation (the “Company”) is hereby automatically converted and exchanged into the Tokens and such Initial Instrument(s) are hereby canceled, released, extinguished and of no further force and effect and therefore, all outstanding indebtedness and all other obligations set forth therein are immediately deemed repaid and satisfied in full and irrevocably discharged, terminated and released in their entirety and all assets, property and rights of the Company shall be deemed to be free and clear of any security interests or liens of the Token Holder (the “Conversion”).',
+      'Each and any of the agreements, contracts, instruments or documents, including without limitation Simple Agreements for Future Tokens, Debt Payable by Assets or Prepaid Forward Purchase Agreements (each, an “Initial Instrument”) executed by the Token Holder and the Witnet Foundation (the “Company”) is hereby automatically converted and exchanged into the Tokens and such Initial Instrument(s) are hereby canceled, released, extinguished and of no further force and effect and therefore, all outstanding indebtedness and all other obligations set forth therein are immediately deemed repaid and satisfied in full and irrevocably discharged, terminated and released in their entirety and all assets, property and rights of the Company shall be deemed to be free and clear of any security interests or liens of the Token Holder (the “Conversion”).',
     ],
   },
   {
@@ -25,10 +25,10 @@ export default [
   },
   {
     title:
-      'Tokens are designed to be used. Company will not arrange or promote any trading of the Tokens',
+      'The Tokens are designed to be used for their intended functionality within the Witnet network. Company will not arrange trading',
     nextText: 'Accept and continue',
     content: [
-      'The Tokens are designed to be used for their intended functionality as compensation for nodes that retrieve, aggregate and deliver data upon request from third party software developers. The consumptive orientation of the Tokens diminishes the possibility that the Tokens could appreciate in value or that Token holders might be inclined to trade the Tokens on secondary marketplaces. The Company will never arrange for, the trading of the Tokens on secondary markets or platforms. The Company will not engage in buybacks with respect to the Tokens.',
+      'The Tokens are designed to be used for their intended functionality as compensation for nodes that retrieve, aggregate and deliver data upon request from third party software developers. The consumptive orientation of the Tokens diminishes the possibility that the Tokens could appreciate in value or that Token holders might be inclined to trade the Tokens on secondary marketplaces. The Company will not arrange for the trading of the Tokens on secondary markets or platforms. The Company will not engage in buybacks with respect to the Tokens.',
     ],
   },
   {

@@ -1,14 +1,15 @@
 <template>
   <NavigationCard
     data-test="download-file"
-    title="Export your token claim receipt"
+    title="Export your token claiming receipt"
     :next-step="nextStep"
     next-text="Continue"
     :disabled-next-button="disabledNextButton"
   >
     <p class="text">
-      A claiming receipt has been successfully sent! Before you finish, export
-      the file to retain a copy of the claiming receipt for future reference.
+      Claiming process complete! After the genesis event, scheduled for October
+      14th, your tokens will appear on this wallet. Before you finish, export a
+      receipt with details on the claiming process you just completed.
     </p>
     <div class="file-container">
       <el-button
