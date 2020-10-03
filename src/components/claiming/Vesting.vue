@@ -16,8 +16,8 @@
         claiming process. Please verify that the participation amount displayed
         above is correct — if not, please contact
         <a class="link" :href="`mailto:${witnetEmail}`">
-          >{{ witnetEmail }}</a
-        >
+          {{ witnetEmail }}
+        </a>
         immediately for support.
       </p>
       <p class="text">
