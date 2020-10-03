@@ -1,5 +1,5 @@
 <template>
-  <BaseCard class="card-navigation">
+  <BaseCard class="card-navigation" :style="{ width: `${width}px` }">
     <template v-slot:header>
       <div v-if="title" class="header">
         {{ title }}
@@ -72,6 +72,10 @@ export default {
       type: String,
       default: '',
     },
+    width: {
+      type: Number,
+      default: 600,
+    },
     title: {
       type: String,
       default: '',
@@ -99,7 +103,6 @@ export default {
   border: 1px solid $purple-4;
   border-radius: 2px;
   box-shadow: $default-box-shadow;
-  width: 600px;
 
   .header {
     align-items: center;

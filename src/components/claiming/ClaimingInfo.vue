@@ -18,13 +18,23 @@
       </div>
     </div>
     <div class="list-data">
-      <div v-for="step in vesting" :key="step.date.getTime()" class="list-row">
+      <div
+        v-for="(step, index) in vesting"
+        :key="step.date.getTime()"
+        class="list-row"
+      >
         <div class="data">
-          <p :class="`type_${type}`">{{ type }}</p>
+          <p :class="`type_${type}`">{{
+            type === 'LOCK-UP' ? 'AVAILABLE SINCE' : type
+          }}</p>
         </div>
         <p class="data date">{{ changeDateFormat(step.date, 'claiming') }}</p>
         <p class="data amount"
           >{{ formatWits(step.amount) }}<span class="currency"> WIT</span></p
+        >
+        <p class="data amount"
+          >{{ formatWits(accumulatedAvailable(index))
+          }}<span class="currency"> WIT</span></p
         >
       </div>
     </div>
@@ -71,6 +81,14 @@ export default {
     },
   },
   methods: {
+    accumulatedAvailable(index) {
+      if (this.vesting) {
+        const accumudatedVesting = this.vesting.slice(0, index + 1)
+        return accumudatedVesting.reduce((acc, vesting) => {
+          return vesting.amount + acc
+        }, 0)
+      }
+    },
     formatWits(amount) {
       return this.formatNumber(
         this.standardizeWitUnits(amount, WIT_UNIT.WIT, WIT_UNIT.NANO, 2),
@@ -127,12 +145,14 @@ export default {
     overflow-y: auto;
 
     .list-row {
-      display: flex;
+      column-gap: 16px;
+      display: grid;
+      grid-template-columns: auto auto 1fr 1fr;
+      justify-content: left;
       padding: 16px;
 
       .data {
         font-size: 16px;
-        margin-right: 24px;
 
         .currency {
           font-size: 12px;
@@ -141,6 +161,7 @@ export default {
 
       .amount {
         flex-basis: 100%;
+        text-align: center;
       }
 
       .date {

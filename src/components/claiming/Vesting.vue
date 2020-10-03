@@ -6,6 +6,7 @@
     next-text="Continue"
     previous-text="Back"
     :disabled-next-button="false"
+    :width="700"
     :title="`${name.split(' ')[0]}, this is your token allocation`"
   >
     <ClaimingInfo />
