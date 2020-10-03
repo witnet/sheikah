@@ -16,13 +16,19 @@
       >{{ seed }}</pre
     >
     <p class="paragraph">
-      Please copy these 12 words onto a piece of paper which you will be able to
-      safely store and secure. You must write the complete words in the exact
-      order they are presented to you.
+      Please write down these 12 words on a piece of paper and store them
+      somewhere private and secure. You must write the complete words in the
+      exact order they are presented to you.
+    </p>
+    <p class="text">
+      Keeping your seed phrase secret is paramount. If someone gains access
+      these 12 words, they will be able to take and spend your tokens.
     </p>
     <p class="paragraph">
-      We do not store your seed phrase - if you exit this setup or fail to write
-      down your seed phrase, we cannot help you access your wallet.
+      Do not store these words on a computer or an electronic device. It is your
+      sole responsibility to store the paper with your seed phrase in a safe
+      place-if you exit this setup or fail to write down or keep your seed
+      phrase safe, we cannot help you access your wallet.
     </p>
   </NavigationCard>
 </template>

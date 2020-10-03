@@ -6,7 +6,7 @@
         <p class="sub-title">${{ formatNumber(participation) }}</p>
       </div>
       <div class="main-col border">
-        <p class="title">TOTAL TOKENS ALLOCATION</p>
+        <p class="title">TOKEN ALLOCATION</p>
         <p class="sub-title"
           >{{ formatWits(amount) }} <span class="currency">WIT</span></p
         >

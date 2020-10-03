@@ -12,18 +12,18 @@
     <ClaimingInfo />
     <div class="info">
       <p class="text">
-        Such allocation is conditioned to the successful completion of this
-        claiming process. Please verify that your information listed above is
-        correct — if not, please ask
+        Your allocation is dependent on the successful completion of this
+        claiming process. Please verify that the participation amount displayed
+        above is correct — if not, please contact
         <a class="link" href="mailto:genesis@witnet.foundation"
           >genesis@witnet.foundation</a
         >
-        for support.
+        immediately for support.
       </p>
       <p class="text">
-        This information will be available after the token generation event
-        through the main Sheikah wallet interface. However, feel free to take a
-        screenshot or picture using your phone as a means of backup.
+        You will always be able to retrieve this information through this wallet
+        interface. However, feel free to take a screenshot or picture using your
+        phone as a means of backup.
       </p>
     </div>
   </NavigationCard>

@@ -13,8 +13,8 @@
   >
     <p class="text"
       >These 12 random words are your Witnet <em>seed phrase</em>. They will
-      allow you to recover your tokens in case you uninstall Sheikah or forget
-      your password:</p
+      allow you to recover your tokens if you uninstall Sheikah or forget your
+      password:</p
     >
     <p
       data-test="word-seed"
@@ -24,17 +24,19 @@
       {{ seed }}
     </p>
     <p class="text">
-      Please note down these 12 words on a piece of paper. You must write the
-      complete words in the exact order they are presented to you.
+      Please write down these 12 words on a piece of paper and store them
+      somewhere private and secure. You must write the complete words in the
+      exact order they are presented to you.
     </p>
     <p class="text">
-      Keeping your seed phrase secret is paramount. If someone guesses the 12
-      words, they will be able to seize and spend your tokens.
+      Keeping your seed phrase secret is paramount. If someone gains access
+      these 12 words, they will be able to take and spend your tokens.
     </p>
     <p class="text">
-      It is your complete responsibility to store the paper with your seed
-      phrase in a safe place—if you exit this setup or fail to write down or
-      keep your seed phrase safe, we cannot help you access your tokens.
+      Do not store these words on a computer or an electronic device. It is your
+      sole responsibility to store the paper with your seed phrase in a safe
+      place-if you exit this setup or fail to write down or keep your seed
+      phrase safe, we cannot help you access or recover your tokens.
     </p>
   </NavigationCard>
 </template>

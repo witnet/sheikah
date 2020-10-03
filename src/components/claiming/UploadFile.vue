@@ -14,8 +14,8 @@
         As a participant of the Witnet Token Generation Event, you must have
         received an email from Witnet Foundation with a
         <em>Participant Proof File</em>
-        attached to it. If you have not, please double check your SPAM inbox,
-        and if it is not there, please contact
+        attached to it. If you cannot find it in your inbox, please double check
+        your SPAM folder, if there is no sign of it anywhere, please contact
         <a class="link" href="mailto:genesis@witnet.foundation"
           >genesis@witnet.foundation</a
         >.

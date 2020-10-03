@@ -1,31 +1,39 @@
 <template>
   <NavigationCard
     data-test="download-file"
-    title="It's done!"
+    title="That's it!"
     :disabled-next-button="false"
   >
     <p>
-      You have completed the Witnet token claim process successfully on the
-      Sheikah side, but please
-      <span class="bold">REMEMBER TO SEND THE CLAIM FILE TO THIS ADDRESS:</span>
+      You have completed the Witnet token claim process successfully on this
+      wallet, at this point
+      <span class="bold">YOU SHOULD HAVE RECEIVED A CONFIRMATION EMAIL-</span>
+      if you have not, please double check your SPAM inbox, and if it is not
+      there, please contact
+
+      <a class="e-mail" href="mailto:genesis@witnet.foundation">
+        genesis@witnet.foundation
+      </a>
     </p>
-    <a class="e-mail" href="mailto:genesis@witnet.foundation">
-      genesis@witnet.foundation
-    </a>
     <p class="download-again">
       If you lost your claim file, do not panic!
       <span class="underline" @click="exportFile">Click here to download</span>
       it again
     </p>
     <p class="text">
-      There is nothing to do on Sheikah until the genesis event takes place. In
-      the meanwhile, you are invited to join other community members in our
+      There is nothing left to do on this wallet until the Witnet Mainnet
+      Genesis event. After the Genesis event, you will be able to access and use
+      your tokens on this wallet. In the meantime, you are invited to join other
+      community members in our
       <a href="https://discord.gg/X4uurfP" target="_blank" class="underline">
         Discord
       </a>
       and
       <a href="https://t.me/witnetio" target="_blank" class="underline">
         Telegram</a
+      >. For a tutorial on how to use your tokens, please check
+      <a href="https://discord.gg/X4uurfP" target="_blank" class="underline">
+        this Medium post </a
       >.
     </p>
     <div slot="alt-footer" class="countdown-background">

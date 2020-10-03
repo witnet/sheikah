@@ -11,8 +11,8 @@
     :disabled-next-button="isNextButtonDisabled"
   >
     <p class="text">
-      Please type your 12 word seed phrase exactly as it was shown to you on the
-      previous screen. This step is to confirm that you have copied your seed
+      Please type your 12 word <em>seed phrase</em> exactly as shown to you on
+      the previous screen. This will ensure that you have noted down your seed
       phrase correctly.
     </p>
     <Input

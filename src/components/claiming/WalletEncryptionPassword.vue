@@ -13,7 +13,7 @@
       <strong class="bold">PLEASE NOTE:</strong> this password encrypts your
       Witnet wallet only on this computer. This is not your seed phrase and you
       cannot restore your wallet with this password. Your 12 word
-      <em>seed phrase</em> is still your ultimate backup.
+      <em>seed phrase</em> is still your ultimate recovery method.
     </p>
     <div class="form-row password">
       <p>Choose a password</p>
