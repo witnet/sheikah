@@ -1,8 +1,8 @@
 <template>
   <div class="notification">
     <p class="text"
-      >There is an available update. A new Sheikah version is being
-      downloaded.</p
+      >There is an available update. A new Sheikah version is being downloaded.
+      This could take a few minutes...</p
     >
   </div>
 </template>
