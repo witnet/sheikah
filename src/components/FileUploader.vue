@@ -147,13 +147,15 @@ export default {
       subtitle: `(Only ${this.acceptedFormat} files are allowed)`,
     }
   },
-  methods: {
-    cropString,
+  computed: {
     fileLink() {
-      return `data:text/json;charset=utf-8,${encodeURIComponent(
+      return `data:application/json;charset=utf-8,${encodeURIComponent(
         JSON.stringify(this.localFile),
       )}`
     },
+  },
+  methods: {
+    cropString,
     downloadFile() {
       this.$refs.download.click()
     },
@@ -192,7 +194,7 @@ export default {
                * Emit the content of the file validated
                */
               this.$emit('file-validated', fileInfo)
-              this.localFile = fileInfo
+              this.localFile = { ...fileInfo, name: file.name }
               this.error = false
             } else {
               this.clearFile()
