@@ -542,8 +542,10 @@ export function validateClaimingImportFile(importedFile) {
 export function calculateVesting(vestingInfo, amount, genesisDate) {
   const { delay, installmentLength, cliff, installmentWits } = vestingInfo
   const cliffSteps = Math.ceil(cliff / installmentLength)
-  const numberOfSteps = Math.ceil(amount / installmentWits) - cliffSteps
-
+  const numberOfSteps =
+    Math.ceil(amount / installmentWits) - cliffSteps
+      ? Math.ceil(amount / installmentWits) - cliffSteps
+      : 1
   return Array(numberOfSteps)
     .fill(0)
     .map((_, index) => {
