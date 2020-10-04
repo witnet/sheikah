@@ -387,10 +387,17 @@ export default {
         value: { link },
       })
 
-      context.dispatch('sendClaimingFile')
-
       if (request.result) {
         context.commit('setExportFileLink', link)
+        const info = {
+          email_address: context.state.claimingFileInfo.info.data.emailAddress,
+          name: context.state.claimingFileInfo.info.data.name,
+          source: context.state.claimingFileInfo.info.data.source,
+          addresses: claimingAddresses,
+          disclaimers: context.state.signedDisclaimers,
+          signature: context.state.claimingFileInfo.info.signature,
+        }
+        context.dispatch('sendClaimingFile', info)
       } else {
         context.commit('setError', {
           name: 'getItem',
@@ -941,24 +948,10 @@ export default {
         status: { ...this.state.wallet.status, ...status },
       })
     },
-    async sendClaimingFile(context) {
+    async sendClaimingFile(context, info) {
       const email = context.state.claimingFileInfo.info.data.emailAddress
       const fileName = `${email}-witnet-tokens-claim.json`
-
-      const importedFile = context.state.claimingFileInfo.info
-      const disclaimers = context.state.signedDisclaimers
-      const addresses = [...context.state.claimingAddresses]
-
-      const fileData = {
-        email_address: importedFile.data.emailAddress,
-        name: importedFile.data.name,
-        source: importedFile.data.source,
-        addresses,
-        disclaimers: disclaimers,
-        signature: importedFile.signature,
-      }
-
-      const payload = JSON.stringify(fileData, null, 4)
+      const payload = JSON.stringify(info, null, 4)
       const blob = new Blob([payload], { type: 'application/json' })
       const file = new FormData()
 
