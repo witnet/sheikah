@@ -126,8 +126,25 @@ ipcMain.on('shutdown-finished', () => {
   app.quit()
 })
 
+// check if the second instance in locked
+const lock = app.requestSingleInstanceLock()
+
+if (!lock) {
+  app.quit()
+} else {
+  // if someone executes a second instace we should focus on the main window
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    if (win) {
+      if (win.isMinimized()) win.restore()
+      win.focus()
+    }
+  })
+  app.whenReady().then(() => {})
+}
+
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
+  main()
   if (process.platform === 'win32') {
     process.on('message', data => {
       if (data === 'graceful-exit') {
