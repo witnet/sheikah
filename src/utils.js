@@ -466,25 +466,27 @@ export function simplifyDrResult(input, radonType) {
   }
 }
 
-export function createExportClaimingFileLink(
+export function createDownloadableLink(data) {
+  return `data:application/json;charset=utf-8,${encodeURIComponent(
+    JSON.stringify(data),
+    null,
+    4,
+  )}`
+}
+
+export function createExportClaimingFileInfo(
   importedFile,
   addresses,
   disclaimers,
 ) {
-  return `data:text/json;charset=utf-8,${encodeURIComponent(
-    JSON.stringify(
-      {
-        email_address: importedFile.data.emailAddress,
-        name: importedFile.data.name,
-        source: importedFile.data.source,
-        addresses,
-        disclaimers: disclaimers,
-        signature: importedFile.signature,
-      },
-      null,
-      4,
-    ),
-  )}`
+  return {
+    email_address: importedFile.data.emailAddress,
+    name: importedFile.data.name,
+    source: importedFile.data.source,
+    addresses,
+    disclaimers: disclaimers,
+    signature: importedFile.signature,
+  }
 }
 
 export function buildClaimingAddresses(

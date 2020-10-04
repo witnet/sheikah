@@ -9,7 +9,8 @@ import {
   encodeDataRequest,
   isSyncEvent,
   standardizeWitUnits,
-  createExportClaimingFileLink,
+  createDownloadableLink,
+  createExportClaimingFileInfo,
   buildClaimingAddresses,
 } from '@/utils'
 import disclaimers from '@/claimingDisclaimers'
@@ -374,11 +375,13 @@ export default {
         addresses,
       )
 
-      const link = createExportClaimingFileLink(
+      const fileInfo = createExportClaimingFileInfo(
         context.state.claimingFileInfo.info,
         claimingAddresses,
         context.state.signedDisclaimers,
       )
+
+      const link = createDownloadableLink(fileInfo)
 
       const request = await context.state.api.saveItem({
         wallet_id: context.rootState.wallet.walletId,
@@ -387,10 +390,9 @@ export default {
         value: { link },
       })
 
-      context.dispatch('sendClaimingFile')
-
       if (request.result) {
         context.commit('setExportFileLink', link)
+        context.dispatch('sendClaimingFile', fileInfo)
       } else {
         context.commit('setError', {
           name: 'getItem',
@@ -941,24 +943,10 @@ export default {
         status: { ...this.state.wallet.status, ...status },
       })
     },
-    async sendClaimingFile(context) {
+    async sendClaimingFile(context, info) {
       const email = context.state.claimingFileInfo.info.data.emailAddress
       const fileName = `${email}-witnet-tokens-claim.json`
-
-      const importedFile = context.state.claimingFileInfo.info
-      const disclaimers = context.state.signedDisclaimers
-      const addresses = [...context.state.claimingAddresses]
-
-      const fileData = {
-        email_address: importedFile.data.emailAddress,
-        name: importedFile.data.name,
-        source: importedFile.data.source,
-        addresses,
-        disclaimers: disclaimers,
-        signature: importedFile.signature,
-      }
-
-      const payload = JSON.stringify(fileData, null, 4)
+      const payload = JSON.stringify(info, null, 4)
       const blob = new Blob([payload], { type: 'application/json' })
       const file = new FormData()
 
@@ -968,6 +956,7 @@ export default {
         'https://claim.witnet.foundation/upload',
         file,
       )
+
       if (response && response.status === 201) {
         console.log('File successfully uploaded to the file')
       }
