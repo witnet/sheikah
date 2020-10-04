@@ -2,7 +2,7 @@
   <div class="notification">
     <p class="text"
       >There is an available update. A new Sheikah version is being downloaded.
-      This could take a few minutes...</p
+      This may take several minutes.</p
     >
   </div>
 </template>

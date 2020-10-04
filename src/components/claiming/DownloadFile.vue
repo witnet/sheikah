@@ -1,7 +1,7 @@
 <template>
   <NavigationCard
     data-test="download-file"
-    title="Export your token claiming receipt"
+    title="Save your tokens claiming receipt"
     :next-step="nextStep"
     next-text="Continue"
     :disabled-next-button="disabledNextButton"
@@ -19,7 +19,7 @@
         data-test="download-claiming"
         @click="exportFile"
       >
-        Export my claim file...
+        Save my tokens claiming receipt...
       </el-button>
       <a
         ref="file"
@@ -128,7 +128,7 @@ export default {
   }
 
   .download-btn {
-    width: 225px;
+    width: 300px;
   }
 }
 </style>
