@@ -53,7 +53,7 @@ export default {
       getItem: null,
     },
     exportFileLink: '',
-    checkTokenGenerationEventDate: new Date(2020, 9, 14, 17, 23, 42, 0),
+    checkTokenGenerationEventDate: new Date(1602666000000),
     claimingFileInfo: null,
     claimingProcessState: null,
     mainnetReady: false,
