@@ -8,7 +8,8 @@
       You have completed the Witnet token claiming process successfully on this
       wallet, at this point YOU SHOULD HAVE RECEIVED A CONFIRMATION EMAIL -
       <b class="text bold">if you have not</b>, please double check your SPAM
-      inbox, and if it is not there, <b class="text bold">please contact:</b>
+      inbox, and if it is not there,
+      <b class="text bold">please contact us immediately at:</b>
     </p>
 
     <a class="e-mail" :href="`mailto:${witnetEmail}`">
