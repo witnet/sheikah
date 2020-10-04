@@ -1,14 +1,6 @@
 export default [
   {
     title:
-      'The Tokens constitute payment in full of the Initial Instrument and you waive any rights you may have thereunder',
-    nextText: 'Accept and continue',
-    content: [
-      'To the extent necessary or required to effectuate the Conversion, the Company and the Token Holder agree that the foregoing constitutes an amendment to the outstanding Initial Instruments and shall supersede all terms of the Initial Instruments and the Loan Agreements that are inconsistent with the terms hereof and (ii) any notices required in connection with the Conversion pursuant to the Initial Instruments are hereby waived.',
-    ],
-  },
-  {
-    title:
       'The Tokens are designed to be used for their intended functionality within the Witnet network. Company will not arrange trading',
     nextText: 'Accept and continue',
     content: [
