@@ -541,22 +541,36 @@ export function validateClaimingImportFile(importedFile) {
 
 export function calculateVesting(vestingInfo, amount, genesisDate) {
   const { delay, installmentLength, cliff, installmentWits } = vestingInfo
-  const numberOfSteps = Math.ceil(amount / installmentWits)
-  const result = Array(numberOfSteps)
+  const cliffSteps = Math.ceil(cliff / installmentLength)
+  const numberOfSteps = Math.ceil(amount / installmentWits) - cliffSteps
+
+  return Array(numberOfSteps)
     .fill(0)
     .map((_, index) => {
       const date = new Date(genesisDate)
       date.setSeconds(
         date.getSeconds() + delay + cliff + installmentLength * index,
       )
-      const currentAmount = amount >= installmentWits ? installmentWits : amount
-      amount -= installmentWits
+
+      let currentAmount
+      if (cliff && index === 0) {
+        if (amount >= installmentWits) {
+          currentAmount = installmentWits * cliffSteps
+          amount -= installmentWits * cliffSteps
+        } else {
+          currentAmount = amount
+          amount -= installmentWits
+        }
+      } else {
+        currentAmount = amount >= installmentWits ? installmentWits : amount
+        amount -= installmentWits
+      }
+
       return {
-        date: date,
+        date,
         amount: currentAmount,
       }
     })
-  return result
 }
 
 export function groupAmountByUnlockedDate(amount, base = 2) {

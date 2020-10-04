@@ -1,15 +1,15 @@
 {
   "data": {
-    "email_address": "asdf@gmail.com",
+    "email_address": "aaaaaaa.com",
     "name": "asdf",
     "source": "tip",
     "usd": 0,
-    "wit": 784654841545,
+    "wit": 67556739024111000,
     "vesting": {
       "delay": 0,
-      "cliff": 1209600,
-      "installment_length": 1209600,
-      "installment_wits": 65387903462
+      "cliff": 15552000,
+      "installment_length": 1296000,
+      "installment_wits": 1407432063002312
     },
     "genesis_date": 1602666000
   },
