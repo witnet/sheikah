@@ -40,7 +40,12 @@ const FILE_NAME = {
   linux: `release-${arch}-${platform}.tar.gz`,
   win32: `witnet-x86_64-pc-windows-msvc.tar.gz`,
 }
-const WITNET_FILE_NAME = 'witnet'
+const WITNET_FILE_NAME = {
+  win32: 'witnet.exe',
+  linux: 'witnet',
+  darwin: 'witnet',
+}[platform]
+
 const WITNET_CONFIG_FILE_NAME = 'witnet.toml'
 const LATEST_RELEASES_URL =
   'https://api.github.com/repos/witnet/witnet-rust/releases/latest'
@@ -419,13 +424,14 @@ async function runWallet() {
 
   console.info('... with witnet.toml from ' + walletConfigurationPath)
 
-  walletProcess = cp.spawn(path.join(SHEIKAH_PATH, 'witnet'), [
+  walletProcess = cp.spawn(path.join(SHEIKAH_PATH, WITNET_FILE_NAME), [
     '-c',
     walletConfigurationPath,
     '--trace',
     'wallet',
     'server',
   ])
+
   walletProcess.stdout.on('data', async function(data) {
     console.info('stdout: ' + data.toString())
     status = STATUS.READY
