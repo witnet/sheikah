@@ -1,5 +1,6 @@
 {
   "name": "sheikah-witnet-wallet",
+  "productName": "Sheikah Witnet wallet",
   "version": "1.0.0",
   "private": true,
   "description": "A Witnet compatible desktop wallet interface and data requests development environment.",
