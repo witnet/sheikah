@@ -24,7 +24,7 @@ export const CLAIMING_EMAILS = {
   SAFT: 'saft@witnet.foundation',
   STAKEHOLDER: 'stampery@witnet.foundation',
   TIP: 'testnet@witnet.foundation',
-  DEFAULT: 'genesis@witent.foundation',
+  DEFAULT: 'genesis@witnet.foundation',
 }
 export const SOURCES_WITH_REDUCED_DISCLAIMERS = [
   'tip',
