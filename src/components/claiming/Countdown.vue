@@ -31,7 +31,14 @@
       <a href="https://t.me/witnetio" target="_blank" class="underline">
         Telegram</a
       >
-      channels.
+      channels. For a tutorial on how to use your tokens, please
+      <a
+        href="https://medium.com/witnet/a-brief-guide-to-the-wit-token-and-how-to-use-it-within-the-witnet-network-6a0a620a580b"
+        target="_blank"
+        class="underline"
+      >
+        see this blog post</a
+      >.
     </p>
     <div slot="alt-footer" class="countdown-background">
       <p class="countdown-header">TIME TO GENESIS EVENT</p>
