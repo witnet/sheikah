@@ -197,34 +197,54 @@ export default new Router({
       path: '/wallet-not-found',
       name: 'runWalletAlert',
       beforeEnter: (to, from, next) => {
-        if (store.state.wallet.api.client.ws.ready) {
-          const walletInfos = store.state.wallet.walletInfos
-          if (walletInfos.length > 0) {
-            next('/welcome-back/wallet-list')
+        if (process.env.VUE_APP_CLAIMING_PROCESS) {
+          const isReady = store.state.wallet.api.client.ws.ready
+          if (isReady) {
+            redirectOnClaiming(next)
           } else {
-            next('/ftu/welcome')
+            let error = true
+
+            setTimeout(() => {
+              if (error) {
+                next()
+              }
+            }, 3000)
+
+            store.state.wallet.api.client.ws.on('open', () => {
+              error = false
+              redirectOnClaiming(next)
+            })
           }
         } else {
-          let error = true
-          setTimeout(() => {
-            if (error) {
-              next()
+          if (store.state.wallet.api.client.ws.ready) {
+            const walletInfos = store.state.wallet.walletInfos
+            if (walletInfos.length > 0) {
+              next('/welcome-back/wallet-list')
+            } else {
+              next('/ftu/welcome')
             }
-          }, 2000)
-
-          store.state.wallet.api.client.ws.on('open', () => {
-            error = false
-            store.dispatch('getWalletInfos')
-            const polling = setInterval(() => {
-              const walletInfos = store.state.wallet.walletInfos
-              clearInterval(polling)
-              if (walletInfos.length > 0) {
-                next('/welcome-back/wallet-list')
-              } else {
-                next('/ftu/welcome')
+          } else {
+            let error = true
+            setTimeout(() => {
+              if (error) {
+                next()
               }
-            }, 1000)
-          })
+            }, 2000)
+
+            store.state.wallet.api.client.ws.on('open', () => {
+              error = false
+              store.dispatch('getWalletInfos')
+              const polling = setInterval(() => {
+                const walletInfos = store.state.wallet.walletInfos
+                clearInterval(polling)
+                if (walletInfos.length > 0) {
+                  next('/welcome-back/wallet-list')
+                } else {
+                  next('/ftu/welcome')
+                }
+              }, 1000)
+            })
+          }
         }
       },
       component: WalletNotFound,
