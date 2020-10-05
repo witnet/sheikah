@@ -144,7 +144,6 @@ if (!lock) {
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
-  main()
   if (process.platform === 'win32') {
     process.on('message', data => {
       if (data === 'graceful-exit') {
@@ -315,17 +314,28 @@ async function downloadWalletRelease(releaseUrl, version) {
           )
           fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
           fs.unlinkSync(file)
-        } else {
+        } else if (platform === 'darwin') {
           try {
             const currentCwd = process.cwd()
             process.chdir(SHEIKAH_PATH)
             cp.execSync(`tar -xvf ${file}`)
             process.chdir(currentCwd)
+            await sleep(4000)
           } catch (err) {
             console.error(err)
           }
+        } else {
+          tar.x({ file, sync: true })
+          fs.copyFileSync('witnet', path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
+          fs.copyFileSync(
+            'witnet.toml',
+            path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
+          )
+          cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
+          fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
+          fs.unlinkSync(file)
+          await sleep(3000)
         }
-        await sleep(4000)
         resolve()
       })
       .catch(err => {
@@ -433,6 +443,7 @@ function main() {
 
 // Run Witnet wallet and load "ready" url
 async function runWallet() {
+  await sleep(3000)
   console.info('Running wallet...')
   win.webContents.send('running')
   await sleep(3000)
