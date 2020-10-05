@@ -23,13 +23,13 @@
         :error-message="uploadFileError ? uploadFileError.message : ''"
         :file="claimingFileInfo ? claimingFileInfo.info : null"
         :validate-file="validateClaimingImportFile"
-        accepted-format=".json"
+        accepted-format=".proof"
         @clear-file="clearClaimingInfo"
         @file-name="updateName"
         @file-validated="setFileInfo"
         @error-uploading-file="setError"
       >
-        Drag your <span class="upload">participant_proof.json</span> file here
+        Drag your <span class="upload">participant_proof.proof</span> file here
         or
         <span class="underline">click to import</span>
       </FileUploader>
