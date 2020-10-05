@@ -31,7 +31,7 @@
           tabindex="1"
           placeholder="Recipient address"
           data-test="tx-address"
-          maxlength="43"
+          maxlength="42"
         />
       </el-form-item>
       <el-form-item label="Amount" prop="amount">
@@ -111,7 +111,7 @@ export default {
       rules: {
         address: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { min: 43, max: 43, message: 'Length should be 43', trigger: 'blur' },
+          { min: 42, max: 42, message: 'Length should be 42', trigger: 'blur' },
         ],
         label: [],
         amount: [
