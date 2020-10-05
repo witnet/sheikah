@@ -629,11 +629,14 @@ export default {
         })
       }
     },
+    // Despite the name of this method, this actually generates a single address.
+    // This is only used for the claiming process.
     generateMultipleAddresses: async function(context) {
       const request = await context.state.api.generateAddress({
         label: '',
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
+        external: false,
       })
 
       if (request.result) {
@@ -646,13 +649,14 @@ export default {
         })
       }
     },
-    generateAddress: async function(context, { label }) {
+    generateAddress: async function(context, { label, external = true }) {
       context.commit('generateAddressLoading', null, { root: true })
 
       const request = await context.state.api.generateAddress({
         label,
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
+        external,
       })
       if (request.result) {
         // Delay to get a smoother flow
