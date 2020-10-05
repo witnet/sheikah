@@ -33,7 +33,7 @@
     "styleguide": "vue-cli-service styleguidist",
     "styleguide:build": "vue-cli-service styleguidist:build",
     "test": "yarn test:unit",
-    "electron:generate-icons": "electron-icon-builder --input=./public/icons/icon.png --output=build --flatten"
+    "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten"
   },
   "gitHooks": {
     "pre-commit": "cross-env PRE_COMMIT=true lint-staged"
