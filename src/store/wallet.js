@@ -22,6 +22,7 @@ import {
   SOURCES_WITH_REDUCED_DISCLAIMERS,
   WALLET_EVENTS,
   WIT_UNIT,
+  GENESIS_EVENT_TIMESTAMP,
 } from '@/constants'
 import warning from '@/resources/svg/warning.png'
 
@@ -54,7 +55,7 @@ export default {
       getItem: null,
     },
     exportFileLink: '',
-    checkTokenGenerationEventDate: new Date(1602666000000),
+    checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
     claimingFileInfo: null,
     claimingProcessState: null,
     mainnetReady: false,
@@ -85,6 +86,8 @@ export default {
     validatedPassword: false,
     areMnemonicsValid: false,
     claimingAddresses: [],
+    tokenGenerationEventOccurred:
+      new Date(GENESIS_EVENT_TIMESTAMP) < new Date(),
   },
   mutations: {
     setComputedVesting(state, computedVesting) {
@@ -153,7 +156,7 @@ export default {
       state.walletId = null
     },
     checkTokenGenerationEventDate(state) {
-      const tokenGenerationEventDate = state.tokenGenerationEventDate
+      const tokenGenerationEventDate = state.checkTokenGenerationEventDate
       const currentDate = new Date()
       if (tokenGenerationEventDate < currentDate) {
         state.tokenGenerationEventOccurred = true

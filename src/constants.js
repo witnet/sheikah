@@ -74,3 +74,5 @@ export const EXTERNAL_URL = {
   BALANCE_LOCKED: 'https://witnet.io',
   SHEIKAH_WEBSITE: 'https://sheikah.app/',
 }
+
+export const GENESIS_EVENT_TIMESTAMP = 1602666000000

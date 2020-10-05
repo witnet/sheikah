@@ -82,7 +82,11 @@ export default new Router({
         const isReady = store.state.wallet.api.client.ws.ready
         if (process.env.VUE_APP_CLAIMING_PROCESS) {
           if (isReady) {
-            redirectOnClaiming(next)
+            if (!store.state.wallet.sessionId) {
+              redirectOnClaiming(next)
+            } else {
+              next()
+            }
             store.state.wallet.api.client.ws.on('close', () => {
               next('/wallet-not-found')
             })

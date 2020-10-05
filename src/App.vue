@@ -51,10 +51,11 @@ export default {
       const tokenGenerationInterval = setInterval(() => {
         if (this.tokenGenerationEventOccurred) {
           clearInterval(tokenGenerationInterval)
+          this.$router.push('/welcome-back/wallet-list')
         }
 
         this.$store.commit('checkTokenGenerationEventDate')
-      }, 3000)
+      }, 1000)
     }
   },
   beforeDestroy() {
