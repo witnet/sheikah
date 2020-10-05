@@ -468,9 +468,7 @@ export function simplifyDrResult(input, radonType) {
 
 export function createDownloadableLink(data) {
   return `data:application/json;charset=utf-8,${encodeURIComponent(
-    JSON.stringify(data),
-    null,
-    4,
+    JSON.stringify(data, null, 4),
   )}`
 }
 
