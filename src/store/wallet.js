@@ -617,7 +617,6 @@ export default {
       const request = await context.state.api.getAddresses({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
-        limit: 300,
       })
       if (request.result) {
         context.commit('setAddresses', { addresses: request.result })
