@@ -167,10 +167,17 @@ export default {
   computed: {
     address() {
       if (this.type === 'POSITIVE') {
-        return this.inputs.length > 1 &&
+        if (
+          this.inputs.length > 1 &&
           this.inputs.some(input => input.address !== this.inputs[0].address)
-          ? 'several addresses'
-          : this.inputs[0].address
+        ) {
+          return 'several addresses'
+        } else if (this.inputs.length > 0) {
+          return this.inputs[0].address
+        } else {
+          // this.inputs.length == 0: assume this is a genesis transaction
+          return 'genesis'
+        }
       } else {
         // We are assumming that the first output is the address where we are
         // sending and the second is for the change. So if there are more than 2,
