@@ -551,8 +551,9 @@ export function calculateVesting(vestingInfo, amount, genesisDate) {
     .fill(0)
     .map((_, index) => {
       const date = new Date(genesisDate)
-      date.setSeconds(
-        date.getSeconds() + delay + cliff + installmentLength * index,
+
+      date.setUTCSeconds(
+        date.getUTCSeconds() + delay + cliff + installmentLength * index,
       )
 
       let currentAmount
