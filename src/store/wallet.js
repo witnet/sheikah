@@ -58,7 +58,6 @@ export default {
     checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
     claimingFileInfo: null,
     claimingProcessState: null,
-    mainnetReady: false,
     currency: WIT_UNIT.NANO,
     balance: {},
     walletIdx: null,
