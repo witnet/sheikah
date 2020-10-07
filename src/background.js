@@ -66,6 +66,7 @@ let status = isDevelopment ? STATUS.READY : STATUS.WAIT
 
 autoUpdater.logger = electronLog
 autoUpdater.logger.transports.file.level = 'info'
+autoUpdater.autoDownload = false
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -449,16 +450,6 @@ async function sleep(t) {
 autoUpdater.on('update-available', () => {
   win.webContents.send('update_available')
   isBeingUpdated = true
-})
-
-autoUpdater.on('update-downloaded', () => {
-  if (walletProcess) {
-    walletProcess.kill(9)
-  }
-  if (win != null) {
-    win.close()
-  }
-  autoUpdater.quitAndInstall(false)
 })
 
 // Overwrite wallet config file only when new version is downloaded

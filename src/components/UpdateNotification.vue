@@ -1,8 +1,8 @@
 <template>
   <div class="notification">
     <p class="text"
-      >There is an available update. A new Sheikah version is being downloaded.
-      This may take several minutes.</p
+      >There is an available update. Get the latest Sheikah version
+      <a class="link" target="_blank" href="https://sheikah.app/">here</a>.</p
     >
   </div>
 </template>
@@ -30,6 +30,11 @@ export default {
     color: $white;
     font-size: 14px;
     margin-right: 16px;
+
+    .link {
+      color: $white;
+      font-size: 14px;
+    }
   }
 }
 </style>
