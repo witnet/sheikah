@@ -66,6 +66,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import DotIndicator from '@/components/DotIndicator'
 import DotsLoading from '@/components/DotsLoading.vue'
 import { calculateTimeAgo } from '@/utils'
@@ -95,14 +97,12 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['network']),
     address() {
       return this.status.node && this.status.node.address
     },
     lastBlock() {
       return this.status.node && this.status.node.last_beacon.checkpoint
-    },
-    network() {
-      return this.status.node && this.status.node.network
     },
     progress() {
       return this.status && this.status.progress

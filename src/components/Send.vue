@@ -31,7 +31,7 @@
           tabindex="1"
           placeholder="Recipient address"
           data-test="tx-address"
-          maxlength="42"
+          :maxlength="addressLength"
         />
       </el-form-item>
       <el-form-item label="Amount" prop="amount">
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import FormInformation from '@/components/FormInformation.vue'
 import AppendCurrency from '@/components/AppendCurrency'
 import { standardizeWitUnits } from '@/utils'
@@ -135,6 +135,7 @@ export default {
         fee: null,
       },
       rules: {
+        // address validation is updated on runtime according to the network
         address: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { min: 42, max: 43, message: 'Length should be 43', trigger: 'blur' },
@@ -157,16 +158,36 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['network']),
     ...mapState({
       availableBalance: state => {
         // TODO: change for available when wallet returns it
         return state.wallet.balance.total
       },
       generatedTransaction: state => state.wallet.generatedTransaction,
-      networkStatus: state => state.wallet.networkStatus,
       currency: state => state.wallet.currency,
     }),
+    addressLength() {
+      return this.network && this.network.toLowerCase() === 'mainnet' ? 42 : 43
+    },
   },
+  watch: {
+    addressLength: {
+      handler(len) {
+        this.rules.address = [
+          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            min: len,
+            max: len,
+            message: `Length should be ${len}`,
+            trigger: 'blur',
+          },
+        ]
+      },
+      immediate: true,
+    },
+  },
+
   methods: {
     ...mapMutations({
       clearError: 'clearError',

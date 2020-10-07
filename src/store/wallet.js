@@ -89,6 +89,11 @@ export default {
     tokenGenerationEventOccurred:
       new Date(GENESIS_EVENT_TIMESTAMP) < new Date(),
   },
+  getters: {
+    network: state => {
+      return state.status.node && state.status.node.network
+    },
+  },
   mutations: {
     setComputedVesting(state, computedVesting) {
       state.computedVesting = computedVesting
