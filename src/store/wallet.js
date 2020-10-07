@@ -254,7 +254,11 @@ export default {
     },
 
     setError(state, { name, error, message }) {
-      if (error === 'Validation Error' || name === 'uploadFile') {
+      if (
+        error === 'Validation Error' ||
+        name === 'uploadFile' ||
+        name === 'seed'
+      ) {
         state.errors[name] = {
           name,
           error,
@@ -752,6 +756,22 @@ export default {
           name: 'signDisclaimer',
           message: 'An error occurred signing the data',
         })
+      }
+    },
+
+    validateImportedMnemonics: async function(context, params) {
+      const request = await context.state.api.validateMnemonics({
+        seed_source: 'mnemonics',
+        seed_data: params.mnemonics,
+      })
+      if (request.result.valid) {
+        console.log('Validated mnemonics', request.result.valid)
+      } else {
+        context.commit('setError', {
+          name: 'seed',
+          message: 'You must provide a valid seed to import a wallet',
+        })
+        router.push('/ftu/import-wallet')
       }
     },
 

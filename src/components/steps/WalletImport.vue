@@ -33,13 +33,13 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 import NavigationCard from '@/components/card/NavigationCard'
 import Input from '@/components/Input.vue'
 
 export default {
-  name: 'WalletSeedValidation',
+  name: 'WalletImport',
   components: {
     NavigationCard,
     Input,
@@ -85,20 +85,17 @@ export default {
       setError: 'setError',
       clearError: 'clearError',
     }),
-    validateForm() {
-      const seedLength = this.seed.split(' ').length
-      if (this.seed && seedLength === 12) {
-        // TODO: set seed only if validated by the wallet
+    ...mapActions({
+      validateImportedMnemonics: 'validateImportedMnemonics',
+    }),
+    async validateForm() {
+      await this.validateImportedMnemonics({ mnemonics: this.seed })
+      if (!this.seedError) {
         this.setSeed({ result: this.seed })
-      } else {
-        this.setError({
-          name: 'seed',
-          message: 'You must provide a valid seed to import a wallet',
-        })
       }
     },
-    nextStep() {
-      this.validateForm()
+    async nextStep() {
+      await this.validateForm()
       if (!this.seedError) {
         this.$router.push(`/ftu/encryption-pass`)
       }

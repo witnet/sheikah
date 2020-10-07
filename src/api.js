@@ -152,6 +152,10 @@ export class WalletApi {
     return this._callApiMethod('create_wallet')(params)
   }
 
+  validateMnemonics(params) {
+    return this._callApiMethod('validate_mnemonics')(params)
+  }
+
   generateAddress(params) {
     return this._callApiMethod('generate_address')(params)
   }
