@@ -1182,7 +1182,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
   })
 })
 
-describe.only('groupAmountByUnlockedDate', () => {
+describe('groupAmountByUnlockedDate', () => {
   describe('amount is equal to address gap', () => {
     it('54321', () => {
       const expected = [8388608]
@@ -1191,7 +1191,7 @@ describe.only('groupAmountByUnlockedDate', () => {
       expect(result).toStrictEqual(expected)
     })
 
-    it.only('50 000 000', () => {
+    it('50 000 000', () => {
       const expected = [33554432, 8388608, 8388608]
 
       const result = groupAmountByUnlockedDate(50000000, 2)
@@ -1200,82 +1200,57 @@ describe.only('groupAmountByUnlockedDate', () => {
     })
 
     it('5 000 000', () => {
-      const expected = 1
+      const expected = [8388608]
       const result = groupAmountByUnlockedDate(5000000, 2)
 
-      expect(result).toBe(expected)
+      expect(result).toStrictEqual(expected)
     })
 
     it('500 000', () => {
-      const expected = 1
-      const result = groupAmountByUnlockedDate(500000, 2).length
+      const expected = [8388608]
+      const result = groupAmountByUnlockedDate(500000, 2)
 
-      expect(result).toBe(expected)
+      expect(result).toStrictEqual(expected)
     })
 
     it('50 000', () => {
-      const expected = 1
-      const result = groupAmountByUnlockedDate(50000, 2).length
+      const expected = [8388608]
+      const result = groupAmountByUnlockedDate(50000, 2)
 
-      expect(result).toBe(expected)
+      expect(result).toStrictEqual(expected)
     })
-
-    it('5 000', () => {
-      const expected = 1
-      const result = groupAmountByUnlockedDate(5000, 2).length
-
-      expect(result).toBe(expected)
-    })
-
-    it('500', () => {
-      const expected = 1
-      const result = groupAmountByUnlockedDate(500, 2).length
-
-      expect(result).toBe(expected)
-    })
-
-    it('50', () => {
-      const expected = 1
-      const result = groupAmountByUnlockedDate(50, 2).length
-
-      expect(result).toBe(expected)
-    })
-  })
-
-  it('amount is lower than address minimum', () => {
-    const expected = 1
-    const result = groupAmountByUnlockedDate(5, 2).length
-
-    expect(result).toBe(expected)
   })
 
   it('amount is 0', () => {
-    const expected = 0
-    const result = groupAmountByUnlockedDate(0, 2).length
+    const expected = []
+    const result = groupAmountByUnlockedDate(0, 2)
 
-    expect(result).toBe(expected)
+    expect(result).toStrictEqual(expected)
   })
 
   describe('divide several times', () => {
     it('737 000 000 000', () => {
-      const expected = 6
-      const result = groupAmountByUnlockedDate(737 * 10 ** 9, 2).length
+      const expected = [549755813888, 137438953472, 34359738368, 8589934592, 4294967296, 2147483648, 268435456, 134217728, 8388608, 8388608]
 
-      expect(result).toBe(expected)
+      const result = groupAmountByUnlockedDate(737 * 10 ** 9, 2)
+
+      expect(result).toStrictEqual(expected)
     })
 
     it('1 000 532 000 000 000', () => {
-      const expected = 4
-      const result = groupAmountByUnlockedDate(1000533 * 10 ** 9, 2).length
+      const expected = [562949953421312, 281474976710656, 140737488355328, 8796093022208, 4398046511104, 1099511627776, 549755813888, 274877906944, 137438953472, 68719476736, 34359738368, 8589934592, 2147483648, 536870912, 268435456, 134217728, 67108864, 33554432, 8388608]
 
-      expect(result).toBe(expected)
+      const result = groupAmountByUnlockedDate(1000533 * 10 ** 9, 2)
+
+      expect(result).toStrictEqual(expected)
     })
 
     it('2 523 432 000 000 000', () => {
-      const expected = 24
-      const result = groupAmountByUnlockedDate(2523432 * 10 ** 9, 2).length
+      const expected = [2251799813685248, 140737488355328, 70368744177664, 35184372088832, 17592186044416, 4398046511104, 2199023255552, 1099511627776, 34359738368, 17179869184, 1073741824, 134217728, 33554432, 16777216, 8388608, 8388608]
 
-      expect(result).toBe(expected)
+      const result = groupAmountByUnlockedDate(2523432 * 10 ** 9, 2)
+
+      expect(result).toStrictEqual(expected)
     })
   })
 })
