@@ -91,7 +91,7 @@ export default {
         : Number(value)
       const isGreaterThanBalance =
         parseFloat(
-          standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency),
+          standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency, -1),
         ) > parseFloat(this.availableBalance)
       if (isGreaterThanBalance) {
         callback(new Error("You don't have enough funds"))

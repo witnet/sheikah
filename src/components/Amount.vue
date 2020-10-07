@@ -1,12 +1,9 @@
 <template>
   <div class="amount-container" data-test="amount" @click="callChangeCurrency">
-    <span v-if="standardizeWitUnits(amount, currency) >= 1">
+    <span>
       {{
         formatNumber(standardizeWitUnits(amount, currency, WIT_UNIT.NANO, 2))
       }}
-    </span>
-    <span v-else>
-      {{ formatNumber(standardizeWitUnits(amount, currency)) }}
     </span>
     <span
       data-test="currency"

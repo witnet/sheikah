@@ -91,7 +91,7 @@ export default {
     },
     formatWits(amount) {
       return this.formatNumber(
-        this.standardizeWitUnits(amount, WIT_UNIT.WIT, WIT_UNIT.NANO, 2),
+        this.standardizeWitUnits(amount, WIT_UNIT.WIT, WIT_UNIT.NANO),
       )
     },
     changeDateFormat,
