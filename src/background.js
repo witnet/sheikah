@@ -404,21 +404,23 @@ function main() {
       )
 
       let isLastestVersion = existConfigFile && existWitnetFile
-
       if (existVersionFile) {
-        fs.readFile(
-          path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
-          'utf8',
-          function(err, data) {
-            if (err) {
-              return console.error(err)
-            }
-            if (data !== latestReleaseVersion) {
-              isLastestVersion = false
-            }
-          },
-        )
+        try {
+          const versionFile = fs.readFileSync(
+            path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
+            'utf8',
+          )
+          if (versionFile !== latestReleaseVersion) {
+            isLastestVersion = false
+          }
+        } catch (err) {
+          return console.error(
+            'An error occured trying to read version file',
+            err,
+          )
+        }
       }
+
       if (existWitnetFile) console.info("Witnet's wallet file found")
       if (existConfigFile) console.info("Witnet's config file found")
       if (existVersionFile) console.info("Witnet's version file found")
