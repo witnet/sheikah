@@ -63,7 +63,7 @@
     "vue-json-tree": "^0.4.3",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
-    "witnet-radon-js": "0.7.4"
+    "witnet-radon-js": "0.8.0"
   },
   "devDependencies": {
     "@babel/compat-data": "7.9.0",
