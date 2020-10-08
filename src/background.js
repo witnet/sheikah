@@ -26,6 +26,7 @@ const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
 const isDevelopment = process.env.NODE_ENV !== 'production'
+const URL_PUBLIC_WITNET_NODE = '52.166.178.145:21338'
 const SHEIKAH_PATH_BY_PLATFORM = {
   darwin: path.join(os.homedir(), 'Desktop', '.sheikah'),
   linux: path.join(os.homedir(), '.sheikah'),
@@ -144,6 +145,7 @@ if (!lock) {
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
+  main()
   if (process.platform === 'win32') {
     process.on('message', data => {
       if (data === 'graceful-exit') {
@@ -312,6 +314,14 @@ async function downloadWalletRelease(releaseUrl, version) {
             'witnet.toml',
             path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
           )
+
+          fs.readFileSync(path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME))
+            .toString()
+            .replace(
+              'node_url = "127.0.0.1:21338"',
+              `node_url = "${URL_PUBLIC_WITNET_NODE}"\n`,
+            )
+
           fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
           fs.unlinkSync(file)
         } else if (platform === 'darwin') {
@@ -320,6 +330,19 @@ async function downloadWalletRelease(releaseUrl, version) {
             process.chdir(SHEIKAH_PATH)
             cp.execSync(`tar -xvf ${file}`)
             process.chdir(currentCwd)
+
+            fs.writeFileSync(
+              path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
+
+              fs
+                .readFileSync(path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME))
+                .toString()
+                .replace(
+                  'node_url = "127.0.0.1:21338"',
+                  `node_url = "${URL_PUBLIC_WITNET_NODE}"\n`,
+                ),
+            )
+
             await sleep(4000)
           } catch (err) {
             console.error(err)
@@ -331,11 +354,24 @@ async function downloadWalletRelease(releaseUrl, version) {
             'witnet.toml',
             path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
           )
+          fs.writeFileSync(
+            path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
+
+            fs
+              .readFileSync(path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME))
+              .toString()
+              .replace(
+                'node_url = "127.0.0.1:21338"',
+                `node_url = "${URL_PUBLIC_WITNET_NODE}"\n`,
+              ),
+          )
+
           cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
           fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
           fs.unlinkSync(file)
           await sleep(3000)
         }
+
         resolve()
       })
       .catch(err => {
