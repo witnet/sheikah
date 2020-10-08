@@ -37,16 +37,12 @@ export default {
     },
   },
   async created() {
-    await this.getWalletInfos()
     this.pollData()
 
     // Disable back and forward from keyboard and mouse buttons
     window.onpopstate = function(event) {
       event.stopImmediatePropagation()
     }
-
-    this.$store.dispatch('getWalletInfos')
-
     if (process.env.VUE_APP_CLAIMING_PROCESS) {
       const tokenGenerationInterval = setInterval(() => {
         if (this.tokenGenerationEventOccurred) {

@@ -24,7 +24,7 @@
           Import a wallet from mnemonics
         </el-button>
       </li>
-      <li v-if="walletInfos.length" class="option">
+      <li v-if="walletInfos && walletInfos.length" class="option">
         <el-button
           class="big"
           data-test="back"

@@ -809,6 +809,7 @@ export default {
       })
       if (request.result) {
         context.commit('setTransactions', { transactions: request.result })
+        context.dispatch('getBalance')
         this.commit('clearError', { error: 'getTransactions' })
       } else {
         context.commit('setError', {
@@ -907,6 +908,12 @@ export default {
       const event = rawEvent.event[eventType]
       const status = rawEvent.status
       if (eventType === WALLET_EVENTS.BLOCK) {
+        await context.dispatch('getTransactions', {
+          limit: 50,
+          page: context.state.currentTransactionsPage,
+        })
+        context.commit('setBalance', { balance: status.account.balance })
+        context.dispatch('getAddresses')
         status.timestamp = Date.now()
       } else if (eventType === WALLET_EVENTS.MOVEMENT) {
         context.commit('setBalance', { balance: status.account.balance })
@@ -957,7 +964,7 @@ export default {
         eventType === WALLET_EVENTS.BLOCK_CONSOLIDATE ||
         eventType === WALLET_EVENTS.BLOCK_ORPHAN
       ) {
-        context.dispatch('setBalance', { balance: status.account.balance })
+        context.commit('setBalance', { balance: status.account.balance })
         context.dispatch('getTransactions', {
           limit: 50,
           page: context.state.currentTransactionsPage,

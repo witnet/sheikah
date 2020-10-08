@@ -274,7 +274,6 @@ export function standardizeTransactions(response) {
   if (!response.result) return response
   const transactions = response.result.transactions.map(transaction => {
     const transactionType = Object.keys(transaction.transaction.data)[0]
-
     const { inputs, outputs } = transaction.transaction.data[transactionType]
     // eslint-disable-next-line camelcase
     const { hash, miner_fee, block, timestamp, data } = transaction.transaction
@@ -288,6 +287,7 @@ export function standardizeTransactions(response) {
       outputs: outputs.map(output => ({
         value: output.value,
         address: output.address,
+        timelock: output.time_lock,
       })),
       fee: miner_fee,
       date: changeDateFormat(timestamp),
@@ -296,7 +296,11 @@ export function standardizeTransactions(response) {
       amount: transaction.amount,
       block: block.block_hash,
       epoch: block.epoch,
-      timelocked: outputs.some(output => output.time_lock !== 0),
+      timelocked: outputs.some(
+        output =>
+          output.time_lock !== 0 &&
+          Date.now() <= Number(`${output.time_lock}000`),
+      ),
       witnesses: null,
       rewards: null,
       rounds: null,

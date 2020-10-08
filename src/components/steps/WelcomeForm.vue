@@ -2,7 +2,7 @@
   <div data-test="welcome-back" class="welcome-back">
     <div class="bar">
       <img class="row sheikah-icon" src="@/resources/svg/sheikah-icon.svg" />
-      <p v-if="walletInfos.length" class="row title"
+      <p v-if="walletInfos && walletInfos.length" class="row title"
         >Welcome back to Sheikah!</p
       >
       <p v-else class="row title">Welcome to Sheikah!</p>

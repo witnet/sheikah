@@ -20,6 +20,12 @@
         <p :data-test="`output-address-${index}`" class="address">{{
           output.address
         }}</p>
+        <p
+          v-if="output.timelock !== 0"
+          :data-test="`output-timelock-${index}`"
+          class="timelock"
+          >{{ changeDateFormat(Number(`${output.timelock}000`)) }}</p
+        >
       </div>
       <div class="transaction">
         <p data-test="fee-title" class="index">FEE</p>
@@ -32,6 +38,7 @@
 
 <script>
 import Amount from '@/components/Amount.vue'
+import { changeDateFormat } from '@/utils'
 
 export default {
   name: 'InputsOutputs',
@@ -55,6 +62,9 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  methods: {
+    changeDateFormat,
   },
 }
 </script>
@@ -88,7 +98,7 @@ export default {
       align-items: center;
       display: grid;
       grid-template-columns: [col1-start] 40px [col2-start] auto;
-      grid-template-rows: [row1-start] auto [row2-start];
+      grid-template-rows: [row1-start] auto [row2-start] auto;
       margin-bottom: 8px;
 
       .index {
@@ -119,6 +129,13 @@ export default {
         font-style: italic;
         grid-column: col2-start;
         grid-row: row2-start;
+      }
+
+      .timelock {
+        color: $white;
+        font-size: 12px;
+        font-style: italic;
+        grid-column: col2-start;
       }
     }
   }
