@@ -59,6 +59,7 @@
         <InputsOutputs
           data-test="inputs-outputs"
           :fee="fee"
+          :genesis="address === 'genesis'"
           :currency="currency"
           :inputs="inputs"
           :outputs="outputs"
@@ -159,6 +160,10 @@ export default {
       type: String,
       default: '',
     },
+    address: {
+      type: String,
+      default: '',
+    },
     transactionType: {
       type: String,
       default: '',
@@ -170,28 +175,6 @@ export default {
     }
   },
   computed: {
-    address() {
-      if (this.type === 'POSITIVE') {
-        if (
-          this.inputs.length > 1 &&
-          this.inputs.some(input => input.address !== this.inputs[0].address)
-        ) {
-          return 'several addresses'
-        } else if (this.inputs.length > 0) {
-          return this.inputs[0].address
-        } else {
-          // this.inputs.length == 0: assume this is a genesis transaction
-          return 'genesis'
-        }
-      } else {
-        // We are assumming that the first output is the address where we are
-        // sending and the second is for the change. So if there are more than 2,
-        // there are several addresses
-        return this.outputs.length > 2
-          ? 'several addresses'
-          : this.outputs[0].address
-      }
-    },
     origin() {
       return this.type === 'POSITIVE' ? 'From' : 'To'
     },

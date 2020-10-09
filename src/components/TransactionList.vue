@@ -33,6 +33,7 @@
         :timelocked="transaction.timelocked"
         :reveals="transaction.reveals"
         :result="transaction.finalResult"
+        :address="transaction.address"
         :transaction-type="transaction.transactionType"
       />
       <div

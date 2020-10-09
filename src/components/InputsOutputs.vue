@@ -11,7 +11,7 @@
     <div class="box outputs">
       <p data-test="output-title" class="title">OUTPUTS</p>
       <div v-for="(output, index) in outputs" :key="index" class="transaction">
-        <p :data-test="`output-index-${index}`" class="index"># {{ index }}</p>
+        <p :data-test="`output-index-${index}`" class="index"># {{ output.index }}</p>
         <Amount
           class="amount"
           :amount="output.value"
@@ -57,6 +57,10 @@ export default {
     outputs: {
       type: Array,
       default: () => [],
+    },
+    genesis: {
+      type: Boolean,
+      default: false,
     },
     inputs: {
       type: Array,

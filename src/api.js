@@ -278,16 +278,34 @@ export function standardizeTransactions(response) {
     // eslint-disable-next-line camelcase
     const { hash, miner_fee, block, timestamp, data } = transaction.transaction
     const tally = data[transactionType].tally
+    const type = transaction.type
+    const address = computeTransactionAddress(inputs, outputs, type)
+    const filteredOutputs =
+      address === 'genesis'
+        ? outputs.map((output, index) => {
+            return {
+              output,
+              index,
+            }
+        }).filter(({ output }) => output.output_type !== 'OTHER')
+        : outputs.map((output, index) => {
+          return {
+            output,
+            index,
+          }
+        })
     return {
       id: hash,
-      type: transaction.type,
+      type,
       inputs: inputs
         ? inputs.map(input => ({ value: input.value, address: input.address }))
         : null,
-      outputs: outputs.map(output => ({
+      outputs: filteredOutputs.map(({ output, index }) => ({
         value: output.value,
         address: output.address,
         timelock: output.time_lock,
+        outputType: output.output_type,
+        index: index,
       })),
       fee: miner_fee,
       date: changeDateFormat(timestamp),
@@ -302,6 +320,7 @@ export function standardizeTransactions(response) {
           Date.now() <= Number(`${output.time_lock}000`),
       ),
       witnesses: null,
+      address,
       rewards: null,
       rounds: null,
       currentStage: tally ? 'FINALIZED' : 'IN PROGRESS',
@@ -311,4 +330,25 @@ export function standardizeTransactions(response) {
     }
   })
   return { result: transactions }
+}
+
+function computeTransactionAddress(inputs, outputs, type) {
+  if (type === 'POSITIVE') {
+    if (
+      inputs.length > 1 &&
+      inputs.some(input => input.address !== inputs[0].address)
+    ) {
+      return 'several addresses'
+    } else if (inputs.length > 0) {
+      return inputs[0].address
+    } else {
+      // inputs.length == 0: assume this is a genesis transaction
+      return 'genesis'
+    }
+  } else {
+    // We are assumming that the first output is the address where we are
+    // sending and the second is for the change. So if there are more than 2,
+    // there are several addresses
+    return outputs.length > 2 ? 'several addresses' : outputs[0].address
+  }
 }
