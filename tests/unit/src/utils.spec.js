@@ -476,8 +476,8 @@ describe('calculateCurrentFocusAfterUndo', () => {
             ],
             aggregate: {
               filters: [
-                [3, 1],
-                [3, 1],
+                [5, 1],
+                [5, 1],
               ],
               reducer: 2,
             },
@@ -495,8 +495,8 @@ describe('calculateCurrentFocusAfterUndo', () => {
           ],
           aggregate: {
             filters: [
-              [3, 1],
-              [3, 1],
+              [5, 1],
+              [5, 1],
             ],
             reducer: 2,
           },
@@ -819,7 +819,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
           retrieve: [
             { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
           ],
-          aggregate: { filters: [[3, 1]], reducer: 2 },
+          aggregate: { filters: [[5, 1]], reducer: 2 },
           tally: { filters: [], reducer: 2 },
         }
 
@@ -893,9 +893,9 @@ describe('calculateCurrentFocusAfterRedo', () => {
             ],
             aggregate: {
               filters: [
-                [3, 1],
-                [3, 1],
-                [3, 1],
+                [5, 1],
+                [5, 1],
+                [5, 1],
               ],
               reducer: 2,
             },
@@ -917,8 +917,8 @@ describe('calculateCurrentFocusAfterRedo', () => {
           ],
           aggregate: {
             filters: [
-              [3, 1],
-              [3, 1],
+              [5, 1],
+              [5, 1],
             ],
             reducer: 2,
           },
