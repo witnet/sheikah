@@ -282,18 +282,20 @@ export function standardizeTransactions(response) {
     const address = computeTransactionAddress(inputs, outputs, type)
     const filteredOutputs =
       address === 'genesis'
-        ? outputs.map((output, index) => {
+        ? outputs
+            .map((output, index) => {
+              return {
+                output,
+                index,
+              }
+            })
+            .filter(({ output }) => output.output_type !== 'OTHER')
+        : outputs.map((output, index) => {
             return {
               output,
               index,
             }
-        }).filter(({ output }) => output.output_type !== 'OTHER')
-        : outputs.map((output, index) => {
-          return {
-            output,
-            index,
-          }
-        })
+          })
     return {
       id: hash,
       type,

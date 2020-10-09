@@ -10,19 +10,21 @@
     </div>
     <div class="box outputs">
       <p data-test="output-title" class="title">OUTPUTS</p>
-      <div v-for="(output, index) in outputs" :key="index" class="transaction">
-        <p :data-test="`output-index-${index}`" class="index"># {{ output.index }}</p>
+      <div v-for="output in outputs" :key="output.index" class="transaction">
+        <p :data-test="`output-index-${output.index}`" class="index"
+          ># {{ output.index }}</p
+        >
         <Amount
           class="amount"
           :amount="output.value"
-          :data-test="`output-value-${index}`"
+          :data-test="`output-value-${output.index}`"
         />
-        <p :data-test="`output-address-${index}`" class="address">{{
+        <p :data-test="`output-address-${output.index}`" class="address">{{
           output.address
         }}</p>
         <p
           v-if="output.timelock !== 0"
-          :data-test="`output-timelock-${index}`"
+          :data-test="`output-timelock-${output.index}`"
           class="timelock"
           >{{ changeDateFormat(Number(`${output.timelock}000`)) }}</p
         >
