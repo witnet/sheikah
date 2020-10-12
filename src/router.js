@@ -92,7 +92,6 @@ export default new Router({
             })
           } else {
             let error = true
-
             setTimeout(() => {
               if (error) {
                 next('/wallet-not-found')

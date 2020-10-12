@@ -47,9 +47,9 @@ export default {
       const tokenGenerationInterval = setInterval(() => {
         if (this.tokenGenerationEventOccurred) {
           clearInterval(tokenGenerationInterval)
-          this.$router.push('/welcome-back/wallet-list')
+          this.deleteSession()
+          this.$router.push('/')
         }
-
         this.$store.commit('checkTokenGenerationEventDate')
       }, 1000)
     }
@@ -60,6 +60,7 @@ export default {
   methods: {
     ...mapMutations({
       checkNetworkStatus: 'checkNetworkStatus',
+      deleteSession: 'deleteSession',
     }),
     ...mapActions({
       getWalletInfos: 'getWalletInfos',
