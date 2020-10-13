@@ -51,7 +51,7 @@
     >
       <el-pagination
         layout="prev, pager, next"
-        :total="transactions.length"
+        :page-count="numberOfPages"
         :current-page="currentPage"
         @current-change="handleCurrentChange"
       />
@@ -62,7 +62,6 @@
 <script>
 import { mapMutations } from 'vuex'
 import Transaction from './Transaction'
-
 export default {
   name: 'TransactionList',
   components: {
@@ -85,6 +84,9 @@ export default {
     }
   },
   computed: {
+    numberOfPages() {
+      return Math.ceil(this.transactions.length / this.itemsPerPage)
+    },
     paginatedItems() {
       const from = this.currentPage * this.itemsPerPage - this.itemsPerPage
       const to = this.currentPage * this.itemsPerPage
