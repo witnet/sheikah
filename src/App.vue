@@ -48,16 +48,6 @@ export default {
     window.onpopstate = function(event) {
       event.stopImmediatePropagation()
     }
-    if (process.env.VUE_APP_CLAIMING_PROCESS) {
-      const tokenGenerationInterval = setInterval(() => {
-        if (this.tokenGenerationEventOccurred) {
-          clearInterval(tokenGenerationInterval)
-          this.deleteSession()
-          this.$router.push('/')
-        }
-        this.$store.commit('checkTokenGenerationEventDate')
-      }, 1000)
-    }
   },
   beforeDestroy() {
     clearInterval(this.polling)

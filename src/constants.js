@@ -16,16 +16,6 @@ export const EDITOR_STAGES = {
   TALLY: 'tally',
 }
 
-export const CLAIMING_ADDRESS_MIN_NANOWITS = 8388608
-export const CLAIMING_EMAILS = {
-  DPA: 'dpa@witnet.foundation',
-  FOUNDER: 'stampery@witnet.foundation',
-  PPA: 'saft@witnet.foundation',
-  SAFT: 'saft@witnet.foundation',
-  STAKEHOLDER: 'stampery@witnet.foundation',
-  TIP: 'testnet@witnet.foundation',
-  DEFAULT: 'genesis@witnet.foundation',
-}
 export const SOURCES_WITH_REDUCED_DISCLAIMERS = [
   'tip',
   'stakeholder',

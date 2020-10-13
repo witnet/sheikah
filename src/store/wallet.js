@@ -1,5 +1,3 @@
-import axios from 'axios'
-import * as FormData from 'form-data'
 import router from '@/router'
 import { WalletApi } from '@/api'
 import {
@@ -9,19 +7,12 @@ import {
   encodeDataRequest,
   isSyncEvent,
   standardizeWitUnits,
-  createDownloadableLink,
-  createExportClaimingFileInfo,
-  buildClaimingAddresses,
 } from '@/utils'
-import disclaimers from '@/claimingDisclaimers'
-import reducedDisclaimers from '@/reducedClaimingDisclaimers'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import {
-  CLAIMING_EMAILS,
   DEFAULT_WIT_UNIT,
-  GENERATE_ADDRESS_DELAY,
   GENESIS_EVENT_TIMESTAMP,
-  SOURCES_WITH_REDUCED_DISCLAIMERS,
+  GENERATE_ADDRESS_DELAY,
   WALLET_EVENTS,
   WIT_UNIT,
 } from '@/constants'
@@ -58,8 +49,6 @@ export default {
     repeatedMnemonics: null,
     exportFileLink: '',
     checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
-    claimingFileInfo: null,
-    claimingProcessState: null,
     mainnetReady: false,
     currency: DEFAULT_WIT_UNIT,
     balance: {},
@@ -83,13 +72,11 @@ export default {
     currentTransactionsPage: 1,
     signedDisclaimers: {},
     disclaimers: {},
-    witnetEmail: CLAIMING_EMAILS.DEFAULT,
     txLabels: {},
     walletInfos: null,
     walletLocked: false,
     validatedPassword: false,
     areMnemonicsValid: false,
-    claimingAddresses: [],
     tokenGenerationEventOccurred:
       new Date(GENESIS_EVENT_TIMESTAMP) < new Date(),
   },
@@ -110,23 +97,6 @@ export default {
     },
     setComputedVesting(state, computedVesting) {
       state.computedVesting = computedVesting
-    },
-    addAmountToClamingAddresses(state, addressesAmount) {
-      const addresses = [...state.claimingAddresses]
-      state.claimingAddresses = addressesAmount
-        .map((amount, index) => {
-          const timelock = Math.floor(
-            state.computedVesting[index].date.getTime() / 1000,
-          )
-          return amount.map(y => {
-            return {
-              address: addresses.shift(),
-              amount: y,
-              timelock,
-            }
-          })
-        })
-        .reduce((acc, arr) => [...acc, ...arr])
     },
     setExportFileLink(state, link) {
       state.exportFileLink = link
@@ -238,26 +208,6 @@ export default {
     setStatus(state, { status }) {
       state.status = status
     },
-    setClaimingInfo(state, { info }) {
-      Object.assign(state, { claimingFileInfo: info })
-      const source = state.claimingFileInfo.info.data.source
-      const sourcesWithReducedDisclaimers = SOURCES_WITH_REDUCED_DISCLAIMERS
-      if (sourcesWithReducedDisclaimers.includes(source)) {
-        state.disclaimers = reducedDisclaimers
-      } else {
-        state.disclaimers = disclaimers
-      }
-
-      state.witnetEmail =
-        CLAIMING_EMAILS[info.info.data.source.toUpperCase()] ||
-        CLAIMING_EMAILS.DEFAULT
-    },
-    setDisclaimers(state, { result }) {
-      state.signedDisclaimers = result
-    },
-    setClaimingState(state, { completed }) {
-      Object.assign(state, { claimingProcessState: completed })
-    },
     setWallet(state, { walletId, sessionId }) {
       state.walletId = walletId
       state.sessionId = sessionId
@@ -305,9 +255,6 @@ export default {
     setGeneratedTransaction(state, { transaction }) {
       state.generatedTransaction = transaction
     },
-    clearClaimingInfo(state) {
-      state.claimingFileInfo = null
-    },
     clearGeneratedTransaction(state) {
       state.generatedTransaction = null
     },
@@ -320,11 +267,6 @@ export default {
     addAddress(state, { address }) {
       if (address) {
         state.addresses.add(address)
-      }
-    },
-    addClaimingAddress(state, { address }) {
-      if (address) {
-        state.claimingAddresses.push(address.address)
       }
     },
     validateMnemonics(state, { seed = '', mnemonics = '' }) {
@@ -391,58 +333,6 @@ export default {
         session_id: context.state.sessionId,
       })
     },
-    async createAndSaveExportFileLink(context, amountByUnlockedDate) {
-      const addresses = [...context.state.claimingAddresses]
-
-      const claimingAddresses = buildClaimingAddresses(
-        amountByUnlockedDate,
-        context.state.vesting,
-        addresses,
-      )
-
-      const fileInfo = createExportClaimingFileInfo(
-        context.state.claimingFileInfo.info,
-        claimingAddresses,
-        context.state.signedDisclaimers,
-      )
-
-      const link = createDownloadableLink(fileInfo)
-
-      const request = await context.state.api.saveItem({
-        wallet_id: context.rootState.wallet.walletId,
-        session_id: context.rootState.wallet.sessionId,
-        key: `${context.rootState.wallet.walletId}_claiming_link`,
-        value: { link },
-      })
-
-      if (request.result) {
-        context.commit('setExportFileLink', link)
-        context.dispatch('sendClaimingFile', fileInfo)
-      } else {
-        context.commit('setError', {
-          name: 'getItem',
-          error: request.error.message,
-          message: 'An error occurred retrieving claiming file link',
-        })
-      }
-    },
-    async getExportFile(context) {
-      const request = await context.state.api.getItem({
-        wallet_id: context.rootState.wallet.walletId,
-        session_id: context.rootState.wallet.sessionId,
-        key: `${context.rootState.wallet.walletId}_claiming_link`,
-      })
-      if (request.result) {
-        context.commit('setExportFileLink', request.result.value.link)
-      } else {
-        // TODO: improve errror handling
-        context.commit('setError', {
-          name: 'getItem',
-          error: request.error.message,
-          message: 'An error occurred retrieving the label for the transaction',
-        })
-      }
-    },
     closeSession: async function(context) {
       const request = await context.state.api.closeSession({
         wallet_id: context.state.walletId,
@@ -476,28 +366,6 @@ export default {
         })
       }
     },
-    getClaimingProcessState: function(context) {
-      context.commit('setClaimingState', {
-        completed: localStorage.getItem('completed'),
-      })
-    },
-    getClaimingInfo: async function(context) {
-      const request = await context.state.api.getItem({
-        wallet_id: context.rootState.wallet.walletId,
-        session_id: context.rootState.wallet.sessionId,
-        key: `${context.rootState.wallet.walletId}_claiming_info`,
-      })
-      if (request.result) {
-        context.commit('setClaimingInfo', { info: request.result.value || {} })
-      } else {
-        // TODO: improve error handling
-        context.commit('setError', {
-          name: 'getItem',
-          error: request.error.message,
-          message: 'An error occurred retrieving the claiming information',
-        })
-      }
-    },
     sendTransaction: async function(context, { label }) {
       const transactionToSend = context.state.generatedTransaction
       const request = await context.state.api.sendTransaction({
@@ -525,30 +393,6 @@ export default {
         })
         context.commit('clearGeneratedTransaction')
       }
-    },
-    saveClaimingInfo: async function(context) {
-      const claimingFileInfo = context.state.claimingFileInfo
-      const request = await context.state.api.saveItem({
-        wallet_id: context.rootState.wallet.walletId,
-        session_id: context.rootState.wallet.sessionId,
-        key: `${context.rootState.wallet.walletId}_claiming_info`,
-        value: claimingFileInfo,
-      })
-
-      if (request.result) {
-        console.log('claiming info saved!', request.result)
-      } else {
-        // TODO: improve error handling
-        context.commit('setError', {
-          name: 'saveItem',
-          error: request.error.message,
-          message: 'An error occurred saving the claiming information',
-        })
-      }
-    },
-    saveCompletedProcess: async function(context) {
-      localStorage.setItem('completed', true)
-      context.dispatch('getClaimingProcessState')
     },
     saveLabel: async function(context, { label, transaction }) {
       const transactionId = transaction.transactionId
@@ -665,26 +509,6 @@ export default {
           name: 'getAddresses',
           error: request.error.message,
           message: 'An error occurred retrieving the addresses list',
-        })
-      }
-    },
-    // Despite the name of this method, this actually generates a single address.
-    // This is only used for the claiming process.
-    generateMultipleAddresses: async function(context) {
-      const request = await context.state.api.generateAddress({
-        label: '',
-        wallet_id: context.state.walletId,
-        session_id: context.state.sessionId,
-        external: false,
-      })
-
-      if (request.result) {
-        context.commit('addClaimingAddress', { address: request.result })
-      } else {
-        context.commit('setError', {
-          name: 'generateAddress',
-          error: request.error.message,
-          message: 'An error occurred generating the address',
         })
       }
     },
@@ -1040,30 +864,6 @@ export default {
       }
       context.commit('setStatus', {
         status: { ...this.state.wallet.status, ...status },
-      })
-    },
-    async sendClaimingFile(context, info) {
-      const email = context.state.claimingFileInfo.info.data.emailAddress
-      const fileName = `${email}-witnet-tokens-claim.json`
-      const payload = JSON.stringify(info, null, 4)
-      const blob = new Blob([payload], { type: 'application/json' })
-      const file = new FormData()
-
-      file.append('file', blob, fileName)
-
-      const response = await axios.put(
-        'https://claim.witnet.foundation/upload',
-        file,
-      )
-
-      if (response && response.status === 201) {
-        console.log('File successfully uploaded to the file')
-      }
-    },
-    resync(context) {
-      context.state.api.resync({
-        wallet_id: context.state.walletId,
-        session_id: context.state.sessionId,
       })
     },
   },

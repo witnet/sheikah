@@ -8,11 +8,9 @@ import {
   WALLET_EVENTS,
   HISTORY_UPDATE_TYPE,
   EDITOR_STAGES,
-  CLAIMING_ADDRESS_MIN_NANOWITS,
 } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import { Radon } from 'witnet-radon-js'
-import ow from 'ow'
 
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
@@ -490,71 +488,12 @@ export function createDownloadableLink(data) {
   )}`
 }
 
-export function createExportClaimingFileInfo(
-  importedFile,
-  addresses,
-  disclaimers,
-) {
-  return {
-    email_address: importedFile.data.emailAddress,
-    name: importedFile.data.name,
-    source: importedFile.data.source,
-    addresses,
-    disclaimers: disclaimers,
-    signature: importedFile.signature,
-  }
-}
-
-export function buildClaimingAddresses(
-  amountByUnlockedDate,
-  vesting,
-  addresses,
-) {
-  return amountByUnlockedDate
-    .map((amount, index) => {
-      const timelock = Math.floor(vesting[index].date.getTime() / 1000)
-      return amount.map(wits => {
-        return {
-          address: addresses.shift(),
-          amount: wits,
-          timelock,
-        }
-      })
-    })
-    .reduce((acc, arr) => [...acc, ...arr])
-}
-
 export async function sleep(t) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve()
     }, t)
   })
-}
-
-// validate imported file structure
-export function validateClaimingImportFile(importedFile) {
-  return ow.isValid(
-    importedFile,
-    // imported file schema
-    ow.object.exactShape({
-      data: {
-        email_address: ow.string,
-        name: ow.string,
-        source: ow.string,
-        usd: ow.number,
-        wit: ow.number,
-        genesis_date: ow.number,
-        vesting: {
-          delay: ow.number,
-          cliff: ow.number,
-          installment_length: ow.number,
-          installment_wits: ow.number,
-        },
-      },
-      signature: ow.string,
-    }),
-  )
 }
 
 export function calculateVesting(vestingInfo, amount, genesisDate) {
@@ -592,25 +531,4 @@ export function calculateVesting(vestingInfo, amount, genesisDate) {
         amount: currentAmount,
       }
     })
-}
-
-export function groupAmountByUnlockedDate(amount, base = 2) {
-  const exp = Math.log(amount) / Math.log(base)
-
-  return factor(amount, base, exp.toFixed())
-}
-
-function factor(amount, base = 10, exp = 100) {
-  if (amount === 0) return []
-
-  const power = base ** exp
-
-  if (CLAIMING_ADDRESS_MIN_NANOWITS > amount)
-    return [CLAIMING_ADDRESS_MIN_NANOWITS]
-
-  if (power > amount) {
-    return factor(amount, base, exp - 1)
-  }
-
-  return [power, ...factor(amount - power, base, exp)]
 }
