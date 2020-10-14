@@ -315,12 +315,7 @@ async function downloadWalletRelease(releaseUrl, version) {
             path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
           )
 
-          fs.readFileSync(path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME))
-            .toString()
-            .replace(
-              'node_url = "127.0.0.1:21338"',
-              `node_url = "${URL_PUBLIC_WITNET_NODE}"\n`,
-            )
+          overwriteWalletConfigFile()
 
           fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
           fs.unlinkSync(file)
@@ -331,17 +326,7 @@ async function downloadWalletRelease(releaseUrl, version) {
             cp.execSync(`tar -xvf ${file}`)
             process.chdir(currentCwd)
 
-            fs.writeFileSync(
-              path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
-
-              fs
-                .readFileSync(path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME))
-                .toString()
-                .replace(
-                  'node_url = "127.0.0.1:21338"',
-                  `node_url = "${URL_PUBLIC_WITNET_NODE}"\n`,
-                ),
-            )
+            overwriteWalletConfigFile()
 
             await sleep(4000)
           } catch (err) {
@@ -354,17 +339,8 @@ async function downloadWalletRelease(releaseUrl, version) {
             'witnet.toml',
             path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
           )
-          fs.writeFileSync(
-            path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
 
-            fs
-              .readFileSync(path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME))
-              .toString()
-              .replace(
-                'node_url = "127.0.0.1:21338"',
-                `node_url = "${URL_PUBLIC_WITNET_NODE}"\n`,
-              ),
-          )
+          overwriteWalletConfigFile()
 
           cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
           fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
@@ -466,6 +442,7 @@ function main() {
         await sleep(2500)
         await downloadWalletRelease(releaseUrl, latestReleaseVersion)
       } else {
+        overwriteWalletConfigFile()
         win.webContents.send('downloaded')
         await sleep(3000)
       }
@@ -533,3 +510,17 @@ autoUpdater.on('update-downloaded', () => {
 
   autoUpdater.quitAndInstall(false)
 })
+
+function overwriteWalletConfigFile() {
+  fs.writeFileSync(
+    path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
+
+    fs
+      .readFileSync(path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME))
+      .toString()
+      .replace(
+        'node_url = "127.0.0.1:21338"',
+        `node_url = "${URL_PUBLIC_WITNET_NODE}"\n`,
+      ),
+  )
+}
