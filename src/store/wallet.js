@@ -18,11 +18,12 @@ import reducedDisclaimers from '@/reducedClaimingDisclaimers'
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import {
   CLAIMING_EMAILS,
+  DEFAULT_WIT_UNIT,
   GENERATE_ADDRESS_DELAY,
+  GENESIS_EVENT_TIMESTAMP,
   SOURCES_WITH_REDUCED_DISCLAIMERS,
   WALLET_EVENTS,
   WIT_UNIT,
-  GENESIS_EVENT_TIMESTAMP,
 } from '@/constants'
 import warning from '@/resources/svg/warning.png'
 
@@ -59,7 +60,7 @@ export default {
     claimingFileInfo: null,
     claimingProcessState: null,
     mainnetReady: false,
-    currency: WIT_UNIT.NANO,
+    currency: DEFAULT_WIT_UNIT,
     balance: {},
     walletIdx: null,
     sessionId: null,

@@ -37,6 +37,7 @@ export const WIT_UNIT = {
   MICRO: 'microWit',
   NANO: 'nanoWit',
 }
+export const DEFAULT_WIT_UNIT = WIT_UNIT.WIT
 
 export const WALLET_EVENTS = {
   BLOCK: 'Block',
