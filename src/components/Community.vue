@@ -95,14 +95,10 @@ export default {
   margin-bottom: 24px;
   text-decoration: none;
 
-  &:hover,
-  :active {
-    color: $purple-4;
+  .icon-social {
+    opacity: 0.1;
+    width: 100px;
   }
 }
 
-.icon-social {
-  opacity: 0.1;
-  width: 100px;
-}
 </style>

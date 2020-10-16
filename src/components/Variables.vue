@@ -6,7 +6,6 @@
         <p class="variable-icon">$</p>
         <el-input
           v-focus:[focusHandler(index,key)]
-          class="key"
           data-test="edit-var-input"
           :value="keys[index]"
           :placeholder="keys[index]"

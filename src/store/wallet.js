@@ -520,6 +520,7 @@ export default {
         session_id: context.state.sessionId,
         transaction: transactionToSend.transaction,
       })
+
       if (request.result) {
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
         context.commit('clearGeneratedTransaction')

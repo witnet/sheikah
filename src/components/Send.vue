@@ -316,13 +316,6 @@ export default {
   width: 600px;
 }
 
-.transaction-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  max-height: 500px;
-}
-
 .submit {
   text-align: right;
   width: 100%;

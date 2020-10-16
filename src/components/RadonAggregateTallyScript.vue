@@ -8,16 +8,8 @@
       </div>
       <div class="operator-bottom">
         <div class="icon-container">
-          <img
-            v-if="emptyScript"
-            class="row sheikah-icon"
-            src="@/resources/svg/long-arrow.svg"
-          />
-          <img
-            v-else
-            class="row sheikah-icon"
-            src="@/resources/svg/operator-arrow.svg"
-          />
+          <img v-if="emptyScript" src="@/resources/svg/long-arrow.svg" />
+          <img v-else src="@/resources/svg/operator-arrow.svg" />
           <div
             v-if="emptyScript"
             class="add-operator-container"
@@ -37,7 +29,7 @@
         />
       </div>
     </div>
-    <ScriptInfo class="first description" :index="0" :info="headerScriptInfo" />
+    <ScriptInfo class="description first" :index="0" :info="headerScriptInfo" />
     <div v-if="type === 'filters'" class="operators">
       <div
         v-for="(operator, index) in filters"
@@ -93,13 +85,13 @@
     </div>
     <ScriptInfo
       v-if="type === 'filters'"
-      class="last description"
+      class="description last"
       :index="filters.length + 1"
       :info="footerScriptInfo"
     />
     <ScriptInfo
       v-else
-      class="last description"
+      class="description last"
       :index="2"
       :info="footerScriptInfo"
     />
@@ -231,124 +223,93 @@ export default {
   display: grid;
   grid-template-columns: minmax(400px, 1fr) 300px;
   grid-template-rows: min-content;
-}
 
-.operators {
-  grid-column-end: -1;
-  grid-column-start: 1;
+  .top {
+    margin: 16px 16px 0 16px;
 
-  .operator-container {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    grid-template-rows: min-content;
+    .script-header {
+      align-items: center;
+      border: $operator-dashed-border;
+      display: flex;
 
-    .operator {
-      margin: 0 16px;
-    }
-  }
-}
-
-.description {
-  border-left: 1px solid $yellow-3;
-  border-right: 1px solid $yellow-3;
-
-  &.last {
-    border-bottom: 1px solid $yellow-3;
-  }
-
-  &.first {
-    border-top: 1px solid $yellow-3;
-  }
-}
-
-.top {
-  margin: 16px 16px 0 16px;
-
-  .operator-bottom {
-    align-items: flex-start;
-    display: flex;
-
-    .icon-container {
-      margin-left: 16px;
+      .url {
+        color: $grey-3;
+        font-size: 14px;
+        font-weight: medium;
+        margin: 16px;
+      }
     }
 
-    .output {
-      margin-top: 16px;
+    .operator-bottom {
+      align-items: flex-start;
+      display: flex;
+
+      .icon-container {
+        margin-left: 16px;
+        position: relative;
+
+        .add-operator-container {
+          bottom: 24px;
+          cursor: pointer;
+          display: flex;
+          left: -4px;
+          position: absolute;
+          width: max-content;
+
+          .add-operator-text {
+            color: $grey-4;
+            font-size: 12px;
+            font-weight: medium;
+            margin-left: 16px;
+          }
+        }
+      }
+
+      .output {
+        margin-top: 16px;
+      }
     }
   }
 
-  .script-header {
-    align-items: center;
+  .operators {
+    grid-column-end: -1;
+    grid-column-start: 1;
+
+    .operator-container {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      grid-template-rows: min-content;
+
+      .operator {
+        margin: 0 16px;
+      }
+    }
+  }
+
+  .description {
+    border-left: 1px solid $yellow-3;
+    border-right: 1px solid $yellow-3;
+
+    &.first {
+      border-top: 1px solid $yellow-3;
+    }
+
+    &.last {
+      border-bottom: 1px solid $yellow-3;
+    }
+  }
+
+  .script-footer {
     border: $operator-dashed-border;
     display: flex;
+    height: min-content;
+    margin: 0 16px 16px 16px;
 
-    .url {
+    .text {
       color: $grey-3;
       font-size: 14px;
       font-weight: medium;
       margin: 16px;
-
-      .protocol {
-        font-size: 12px;
-      }
-    }
-  }
-}
-
-.script-footer {
-  border: $operator-dashed-border;
-  display: flex;
-  height: min-content;
-  margin: 0 16px 16px 16px;
-
-  .text {
-    color: $grey-3;
-    font-size: 14px;
-    font-weight: medium;
-    margin: 16px;
-  }
-}
-
-.icon-container {
-  margin-left: 16px;
-  position: relative;
-
-  .add-operator-container {
-    bottom: 24px;
-    cursor: pointer;
-    display: flex;
-    left: -4px;
-    position: absolute;
-    width: max-content;
-
-    .add-operator-text {
-      color: $grey-4;
-      font-size: 12px;
-      font-weight: medium;
-      margin-left: 16px;
-    }
-  }
-}
-
-.button-container {
-  margin-top: 16px;
-  text-align: center;
-
-  .add-operators-btn {
-    background-color: $purple-4;
-    border-radius: 5px;
-    color: $white;
-    cursor: pointer;
-    font-family: 'Roboto';
-    font-size: 16px;
-    font-weight: bold;
-    margin: 32px;
-    padding: 8px;
-    width: 150px;
-
-    &:active,
-    &:focus {
-      outline: none;
     }
   }
 }

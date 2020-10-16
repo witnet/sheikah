@@ -42,7 +42,7 @@
           }}</p>
         </div>
 
-        <div class="">
+        <div>
           <p data-test="time-ago" class="date">{{ timeAgo }}</p>
         </div>
       </div>
@@ -208,67 +208,62 @@ export default {
   &.locked {
     opacity: 0.6;
   }
-}
 
-.transaction {
-  align-items: center;
-  cursor: pointer;
-  display: grid;
-  grid-column-gap: 24px;
-  grid-template-columns: max-content 210px auto max-content;
-  padding: 16px;
-
-  .amount,
-  .address {
+  .transaction {
     align-items: center;
-    display: flex;
-  }
+    cursor: pointer;
+    display: grid;
+    grid-column-gap: 24px;
+    grid-template-columns: max-content 210px auto max-content;
+    padding: 16px;
 
-  .amount {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-
-    &.from {
-      color: $green-5;
+    .amount,
+    .address {
+      align-items: center;
+      display: flex;
     }
 
-    &.to {
-      color: $red-4;
+    .amount {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+
+      &.from {
+        color: $green-5;
+      }
+
+      &.to {
+        color: $red-4;
+      }
     }
-  }
 
-  .address-container {
-    align-items: center;
-    color: $alt-grey-5;
-    display: flex;
-    justify-content: center;
+    .address-container {
+      align-items: center;
+      color: $alt-grey-5;
+      display: flex;
+      justify-content: center;
 
-    .origin {
+      .origin {
+        color: $grey-4;
+        font-size: 12px;
+        font-weight: 600;
+        margin-right: 8px;
+      }
+
+      .address {
+        font-size: 13px;
+        font-style: italic;
+      }
+    }
+
+    .date {
       color: $grey-4;
       font-size: 12px;
-      font-weight: 600;
-      margin-right: 8px;
-    }
-
-    .address {
-      font-size: 13px;
       font-style: italic;
+      font-weight: 600;
+      min-width: 100px;
+      text-align: right;
     }
-  }
-
-  .date {
-    color: $grey-4;
-    font-size: 12px;
-    font-style: italic;
-    font-weight: 600;
-    min-width: 100px;
-    text-align: right;
-  }
-
-  .block {
-    color: $alt-grey-5;
-    font-size: 13px;
   }
 }
 </style>
