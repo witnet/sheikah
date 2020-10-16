@@ -2,14 +2,10 @@
   <div class="transaction-list">
     <Fieldset
       title="Transactions"
+      data-test="transactions-length"
       :subtitle="`${transactionsLength} transactions`"
     />
-    <p class="title">
-      <span class="label">Transactions</span>
-      <span class="number" data-test="transactions-length"
-        >{{ transactionsLength }} transactions</span
-      >
-    </p>
+
     <div class="list">
       <Transaction
         v-for="transaction in paginatedItems"
@@ -61,11 +57,15 @@
 
 <script>
 import { mapMutations } from 'vuex'
+
 import Transaction from './Transaction'
+import Fieldset from './Fieldset'
+
 export default {
   name: 'TransactionList',
   components: {
     Transaction,
+    Fieldset,
   },
   props: {
     currency: {
@@ -120,42 +120,25 @@ export default {
   display: grid;
   grid-template-rows: max-content max-content 1fr;
 
-  .label {
-    color: $alt-grey-5;
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-  .number {
-    color: $alt-grey-3;
-    font-size: 14px;
-    margin-left: 8px;
-  }
-
   .list {
     background-color: $white;
     border: 0.5px solid rgb(224, 224, 224);
     border-radius: 4px;
     box-shadow: $card-box-shadow;
     overflow: auto;
-  }
 
-  .no-transactions-container {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
+    .no-transactions-container {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
 
-    .no-transactions-text {
-      color: $alt-grey-5;
-      font-size: 16px;
-      font-style: italic;
-      font-weight: 400;
-    }
-
-    .no-transactions-img {
-      margin-bottom: 16px;
-      width: 40px;
+      .no-transactions-text {
+        color: $alt-grey-5;
+        font-size: 16px;
+        font-style: italic;
+        font-weight: 400;
+      }
     }
   }
 
@@ -163,10 +146,6 @@ export default {
     align-self: flex-end;
     padding: 16px 0 0 0;
     text-align: center;
-  }
-
-  .title {
-    margin-bottom: 16px;
   }
 }
 </style>

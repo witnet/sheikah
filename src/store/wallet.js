@@ -452,6 +452,7 @@ export default {
         session_id: context.state.sessionId,
         transaction: transactionToSend.transaction,
       })
+
       if (request.result) {
         console.log('----- Template deployed successfully -----')
         context.dispatch('saveLabel', { label, transaction: transactionToSend })

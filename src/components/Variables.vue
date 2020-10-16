@@ -6,7 +6,6 @@
         <p class="variable-icon">$</p>
         <el-input
           v-focus:[focusHandler(index,key)]
-          class="key"
           data-test="edit-var-input"
           :value="keys[index]"
           :placeholder="keys[index]"
@@ -93,11 +92,7 @@
       </el-tooltip>
     </div>
     <div class="img-container" @click="createVariable">
-      <img
-        class="add-operator"
-        data-test="add-variable"
-        src="@/resources/svg/add-operator.svg"
-      />
+      <img data-test="add-variable" src="@/resources/svg/add-operator.svg" />
       <p class="add-operator-text">Click to create another variable</p>
     </div>
   </div>

@@ -12,8 +12,8 @@ describe('Renders the correct elements when click is not triggered', () => {
       },
     })
 
-    expect(wrapper.find('[data-test="transactions-length"]').text()).toBe(
-      '36 transactions',
+    expect(
+      wrapper.find('[data-test="transactions-length"]').text('36 transactions'),
     )
   })
 

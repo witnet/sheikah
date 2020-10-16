@@ -16,6 +16,7 @@
           {{ name }}
         </div>
       </div>
+
       <el-dropdown @command="handleCommand">
         <div class="button-options" split-button type="primary" @click.stop>
           <img
@@ -171,23 +172,10 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
-
+// Overwrite element UI styles
 .el-dropdown-menu__item:last-of-type:hover {
   background-color: $red-0 !important;
   color: $red-5 !important;
-}
-
-.button-options {
-  background-color: transparent;
-  border: none;
-  display: block;
-  height: min-content;
-
-  &:focus,
-  &:hover {
-    cursor: pointer;
-    outline: none;
-  }
 }
 
 .el-dropdown {
@@ -208,6 +196,10 @@ export default {
 
   &.marketplace {
     background: none;
+
+    &:hover {
+      border: 1px solid rgb(255, 42, 127);
+    }
   }
 
   &:hover {
@@ -215,33 +207,30 @@ export default {
     cursor: pointer;
   }
 
-  &.marketplace:hover {
-    border: 1px solid rgb(255, 42, 127);
-  }
-
-  &.option-btn,
-  .title,
-  .description {
-    overflow: hidden;
-    width: inherit;
-  }
-
-  .edit-btn {
-    color: $alpha-purple;
-    display: block;
-  }
-
   .option-btn {
     display: flex;
     justify-content: space-between;
     margin: 24px 24px 0 24px;
-  }
 
-  .title {
-    color: $grey-6;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1.5em;
+    .title {
+      color: $grey-6;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.5em;
+    }
+
+    .button-options {
+      background-color: transparent;
+      border: none;
+      display: block;
+      height: min-content;
+
+      &:focus,
+      &:hover {
+        cursor: pointer;
+        outline: none;
+      }
+    }
   }
 
   .content {

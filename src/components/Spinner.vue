@@ -1,5 +1,5 @@
 <template>
-  <div :class="active ? 'spinner' : ''" />
+  <div :class="{ spinner: active }" />
 </template>
 
 <script>

@@ -10,6 +10,7 @@
           <font-awesome-icon class="icon" icon="file-signature" />
         </div>
       </template>
+
       <template v-slot:content>
         <div ref="disclaimer" class="content">
           <slot></slot>
@@ -17,12 +18,12 @@
       </template>
 
       <template v-if="previousStep || nextStep" v-slot:footer>
-        <div ref="hi" class="navigation-buttons">
+        <div class="navigation-buttons">
           <el-button
             v-if="previousStep"
+            class="dark"
             tabindex="2"
             data-test="previous-step"
-            class="dark button"
             @click="previousStep"
           >
             {{ previousText }}
@@ -30,8 +31,8 @@
           <el-button
             v-if="nextStep"
             ref="next"
-            tabindex="1"
             class="dark"
+            tabindex="1"
             data-test="next-step"
             type="primary"
             @click="nextStep"
@@ -41,6 +42,7 @@
         </div>
       </template>
     </BaseCard>
+
     <div class="sub-title-container">
       <p class="sub-title">
         By accepting these disclaimers, you commit to comply with the explained
@@ -104,82 +106,75 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
-}
 
-.card-navigation {
-  background: $purple-4;
-  border: 1px solid $purple-3;
-  border-radius: 2px;
-  box-shadow: $default-box-shadow;
-  color: $white;
-  min-height: 400px;
-  width: 600px;
-
-  .header {
-    align-items: center;
+  .card-navigation {
+    background: $purple-4;
+    border: 1px solid $purple-3;
+    border-radius: 2px;
+    box-shadow: $default-box-shadow;
     color: $white;
-    display: flex;
-    font-size: 32px;
-    font-weight: 500;
-    justify-content: space-between;
-    margin-top: 16px;
-    padding: 0 32px;
+    min-height: 400px;
+    width: 600px;
 
-    .big-title {
-      align-items: left;
+    .header {
+      align-items: center;
+      color: $white;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-right: 8px;
+      font-size: 32px;
+      font-weight: 500;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding: 0 32px;
 
-      .title {
-        color: $white;
-        font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 8px;
+      .big-title {
+        align-items: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 8px;
+
+        .title {
+          color: $white;
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 8px;
+        }
+      }
+
+      .icon {
+        font-size: 50px;
       }
     }
 
-    .icon {
-      font-size: 50px;
+    .content {
+      color: $white;
+      display: flex;
+      flex-direction: column;
+      font-size: 16px;
+      max-height: 400px;
+      overflow-y: auto;
+      overflow-y: hidden;
+      padding: 32px 32px 0 32px;
+    }
+
+    .navigation-buttons {
+      box-sizing: border-box;
+      padding: 32px;
+      text-align: right;
     }
   }
 
-  .content {
-    color: $white;
-    display: flex;
-    flex-direction: column;
-    font-size: 16px;
-    max-height: 400px;
-    overflow-y: auto;
-    overflow-y: hidden;
-    padding: 32px 32px 0 32px;
-  }
+  .sub-title-container {
+    bottom: -80px;
+    margin-top: 16px;
+    max-width: 600px;
 
-  .underline {
-    color: $white;
-    cursor: pointer;
-    margin: 16px 32px 0 32px;
-    text-decoration: underline;
-  }
-
-  .navigation-buttons {
-    box-sizing: border-box;
-    padding: 32px;
-    text-align: right;
-  }
-}
-
-.sub-title-container {
-  bottom: -80px;
-  margin-top: 16px;
-  max-width: 600px;
-
-  .sub-title {
-    color: $grey-4;
-    font-size: 14px;
-    margin: 0 32px;
-    text-align: center;
+    .sub-title {
+      color: $grey-4;
+      font-size: 14px;
+      margin: 0 32px;
+      text-align: center;
+    }
   }
 }
 </style>

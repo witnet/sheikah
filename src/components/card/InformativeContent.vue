@@ -47,8 +47,4 @@ export default {
     }
   }
 }
-
-.router-link {
-  text-decoration: none;
-}
 </style>
