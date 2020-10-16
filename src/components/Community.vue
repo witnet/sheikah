@@ -98,22 +98,11 @@ export default {
 
   .card {
     margin: 24px;
+
+    .icon-social {
+      opacity: 0.1;
+      width: 100px;
+    }
   }
-}
-
-.community-link {
-  color: $purple-4;
-  cursor: pointer;
-  text-decoration: none;
-
-  &:hover,
-  :active {
-    color: $purple-4;
-  }
-}
-
-.icon-social {
-  opacity: 0.1;
-  width: 100px;
 }
 </style>

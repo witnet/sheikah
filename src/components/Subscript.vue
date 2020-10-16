@@ -2,17 +2,10 @@
   <div class="radon-script">
     <div class="operator-bottom">
       <div v-if="emptyScript" class="icon-container">
-        <img
-          class="row sheikah-icon"
-          src="@/resources/svg/operator-arrow.svg"
-        />
-        <div class="add-operator-container">
-          <img
-            class="add-operator"
-            src="@/resources/svg/add-operator.svg"
-            @click="addOperator"
-          />
-          <p class="add-operator-text">Click to add an operator</p>
+        <img src="@/resources/svg/operator-arrow.svg" />
+        <div>
+          <img src="@/resources/svg/add-operator.svg" @click="addOperator" />
+          <p>Click to add an operator</p>
         </div>
       </div>
     </div>
@@ -117,32 +110,32 @@ export default {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content;
-}
 
-.operator-bottom {
-  align-items: flex-start;
-  display: flex;
+  .operator-bottom {
+    align-items: flex-start;
+    display: flex;
 
-  .icon-container {
-    margin-left: 16px;
+    .icon-container {
+      margin-left: 16px;
+    }
+
+    .output {
+      margin-top: 16px;
+    }
   }
 
-  .output {
-    margin-top: 16px;
-  }
-}
+  .operators {
+    grid-column-end: -1;
+    grid-column-start: 1;
 
-.operators {
-  grid-column-end: -1;
-  grid-column-start: 1;
+    .operator-container {
+      display: grid;
+      grid-template-rows: min-content;
+      margin: 16px;
 
-  .operator-container {
-    display: grid;
-    grid-template-rows: min-content;
-    margin: 16px;
-
-    .operator {
-      margin: 0 16px;
+      .operator {
+        margin: 0 16px;
+      }
     }
   }
 }

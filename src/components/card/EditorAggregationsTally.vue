@@ -15,6 +15,7 @@
         />
       </Card>
     </Fieldset>
+
     <Fieldset :title="reducerTitle" :closable="false">
       <Card class="card" shadow="thin" :border="false" :padding="false">
         <RadonAggregateTallyScript
@@ -124,9 +125,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/_colors.scss';
-@import '@/styles/theme.scss';
-
 .card {
   margin-bottom: 16px;
 }

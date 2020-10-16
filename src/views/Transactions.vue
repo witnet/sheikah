@@ -1,11 +1,7 @@
 <template>
   <LayoutTwoColumns data-test="transactions">
     <template v-slot:left>
-      <TransactionList
-        class="list"
-        :transactions="transactions"
-        :currency="currency"
-      />
+      <TransactionList :transactions="transactions" :currency="currency" />
     </template>
 
     <template v-slot:upperRight>

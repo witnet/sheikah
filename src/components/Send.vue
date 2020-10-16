@@ -274,18 +274,11 @@ export default {
 .form {
   padding-right: 24px;
   width: 600px;
-}
 
-.transaction-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  max-height: 500px;
-}
-
-.submit {
-  margin-top: 32px;
-  text-align: right;
-  width: 100%;
+  .submit {
+    margin-top: 32px;
+    text-align: right;
+    width: 100%;
+  }
 }
 </style>

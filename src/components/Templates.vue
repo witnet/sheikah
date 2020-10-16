@@ -25,7 +25,6 @@
         v-for="template in paginatedTemplates"
         :id="template.id"
         :key="template.id"
-        class="card"
         :name="template.name"
         :sources="template.radRequest.retrieve.length"
         :description="template.description"

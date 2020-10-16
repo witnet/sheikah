@@ -247,10 +247,6 @@ export default {
   justify-items: center;
   margin-top: 24px;
 
-  .click {
-    cursor: pointer;
-  }
-
   .label {
     color: $grey-4;
     font-size: 12px;
@@ -262,6 +258,10 @@ export default {
     color: $alt-grey-5;
     font-size: 13px;
     justify-self: left;
+
+    &.click {
+      cursor: pointer;
+    }
 
     .light {
       color: $grey-4;
@@ -281,11 +281,6 @@ export default {
       .not-consensed {
         color: $red-2;
         font-size: 10px;
-        margin-right: 8px;
-      }
-
-      .address {
-        color: $grey-4;
         margin-right: 8px;
       }
     }

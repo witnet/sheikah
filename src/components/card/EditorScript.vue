@@ -1,6 +1,6 @@
 <template>
   <Fieldset :title="title" :subtitle="subtitle" :closable="false">
-    <Card class="card" shadow="thin" :border="false" :padding="false">
+    <Card shadow="thin" :border="false" :padding="false">
       <RadonScript
         :url="source.url"
         :protocol="source.kind"
