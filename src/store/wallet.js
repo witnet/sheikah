@@ -573,7 +573,7 @@ export default {
         ),
         request: {
           data_request: encodeDataRequest(request),
-          collateral: parameters.collateral,
+          collateral: Number(parameters.collateral),
           witness_reward: Number(
             standardizeWitUnits(
               parameters.rewardFee,
@@ -581,7 +581,7 @@ export default {
               context.state.currency,
             ),
           ),
-          witnesses: parameters.witnesses,
+          witnesses: Number(parameters.witnesses),
           commit_and_reveal_fee: Number(
             standardizeWitUnits(
               parameters.commitAndRevealFee,
@@ -589,7 +589,7 @@ export default {
               context.state.currency,
             ),
           ),
-          min_consensus_percentage: parameters.minConsensusPercentage,
+          min_consensus_percentage: Number(parameters.minConsensusPercentage),
         },
       }
       const req = await context.state.api.createDataRequest(data)
