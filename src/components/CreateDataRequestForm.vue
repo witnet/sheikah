@@ -12,6 +12,12 @@
       <el-input v-model="form.witnesses" type="number"></el-input>
     </el-form-item>
 
+    <el-form-item label="Collateral" prop="collateral">
+      <el-input v-model="form.collateral" type="number">
+        <AppendCurrency slot="append" />
+      </el-input>
+    </el-form-item>
+
     <el-form-item
       label="Min Consensus Percentage"
       prop="minConsensusPercentage"
@@ -95,6 +101,17 @@ export default {
       }
     }
 
+    const minCollateralAmount = (rule, value, callback) => {
+      const isLessThanMin =
+        Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.currency)) <
+        1000000000
+      if (isLessThanMin) {
+        callback(new Error('The minimun collateral cannot be less than 1 wit'))
+      } else {
+        callback()
+      }
+    }
+
     const minAmount = (rule, value, callback) => {
       const isNanoWit = this.currency === WIT_UNIT.NANO
       if (isNanoWit && value < 1) {
@@ -133,6 +150,11 @@ export default {
           { validator: isNumber, trigger: 'change' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
+        ],
+        collateral: [
+          { required: true, message: 'Required field', trigger: 'blur' },
+          { validator: isNumber, trigger: 'change' },
+          { validator: minCollateralAmount, trigger: 'submit' },
         ],
         dataRequest: [
           { required: true, message: 'Required field', trigger: 'blur' },
