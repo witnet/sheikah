@@ -919,6 +919,7 @@ export default {
       const eventType = Object.keys(rawEvent.event)[0]
       const event = rawEvent.event[eventType]
       const status = rawEvent.status
+
       if (eventType === WALLET_EVENTS.BLOCK) {
         await context.dispatch('getTransactions', {
           limit: 50,
@@ -1000,6 +1001,16 @@ export default {
       }
       status.rawEventType = eventType
       context.dispatch('processStatus', status)
+
+      if (eventType === WALLET_EVENTS.NODE_STATUS_CHANGED) {
+        if (event === 'Synced') {
+          context.state.status.synced = true
+          context.state.status.progress = null
+        } else {
+          context.state.status.synced = false
+          context.state.status.progress = null
+        }
+      }
     },
 
     processStatus: async function(context, status) {

@@ -15,10 +15,18 @@
         </p>
         <div class="status-container">
           <div
+            v-if="progress"
             data-test="status"
             :class="['status', synced ? 'synced' : 'syncing']"
           >
             {{ synced ? 'SYNCED' : `SYNCING (${progress}%)` }}
+          </div>
+          <div
+            v-else
+            data-test="status"
+            :class="['status', synced ? 'synced' : 'syncing']"
+          >
+            {{ synced ? 'SYNCED' : `SYNCING` }}
           </div>
           <DotsLoading
             v-if="!synced"

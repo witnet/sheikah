@@ -139,6 +139,7 @@ export default {
       template: state => state.rad.currentTemplate,
       radRequest: state => state.rad.radRequest,
       autoTry: state => state.rad.autoTry,
+      synced: state => state.wallet.status.synced,
     }),
     dataStr() {
       return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
@@ -170,6 +171,7 @@ export default {
       clearHistory: CLEAR_HISTORY,
       clearDataRequestResult: 'clearDataRequestResult',
       toggleTryDataRequest: 'toggleTryDataRequest',
+      setError: 'setError',
     }),
     clear() {
       this.clearDataRequestResult()
@@ -184,7 +186,15 @@ export default {
       })
     },
     deployTemplate() {
-      this.$emit('deploy')
+      if (this.synced) {
+        this.$emit('deploy')
+      } else {
+        this.setError({
+          name: 'syncing',
+          error: 'The node is not yet synced',
+          message: 'Wait till the synchronization is finished',
+        })
+      }
     },
     editorUndo() {
       this.undo()

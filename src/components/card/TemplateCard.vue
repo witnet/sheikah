@@ -64,7 +64,7 @@
 <script>
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import { cropString } from '@/utils'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 import { TEMPLATE_EMPTY_DESCRIPTION } from '@/constants'
 
 export default {
@@ -111,7 +111,15 @@ export default {
         {
           label: 'Deploy',
           action: () => {
-            this.displayDeployModal()
+            if (this.synced) {
+              this.displayDeployModal()
+            } else {
+              this.setError({
+                name: 'syncing',
+                error: 'The node is not yet synced',
+                message: 'Wait till the synchronization is finished',
+              })
+            }
           },
         },
         {
@@ -125,6 +133,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      synced: state => state.wallet.status.synced,
+    }),
     style() {
       return this.type
     },
@@ -136,6 +147,7 @@ export default {
     cropString,
     ...mapMutations({
       setCurrentTemplate: SET_CURRENT_TEMPLATE,
+      setError: 'setError',
     }),
     ...mapActions({
       deleteTemplate: 'deleteTemplate',

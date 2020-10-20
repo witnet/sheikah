@@ -18,15 +18,32 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex'
 export default {
   name: 'BalanceButtons',
+  computed: {
+    ...mapState({
+      synced: state => state.wallet.status.synced,
+    }),
+  },
   methods: {
+    ...mapMutations({
+      setError: 'setError',
+    }),
     onSend() {
       /**
        * Emitted when send button is clicked
        * @event send
        */
-      this.$emit('send')
+      if (this.synced) {
+        this.$emit('send')
+      } else {
+        this.setError({
+          name: 'syncing',
+          error: 'The node is not yet synced',
+          message: 'Wait till the synchronization is finished',
+        })
+      }
     },
     onReceive() {
       /**
