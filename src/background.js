@@ -12,15 +12,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
 import electronLog from 'electron-log'
-import {
-  app,
-  BrowserWindow,
-  Menu,
-  protocol,
-  shell,
-  Tray,
-  ipcMain,
-} from 'electron'
+import { app, BrowserWindow, Menu, protocol, shell, ipcMain } from 'electron'
 import progress from 'progress-stream'
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
@@ -64,13 +56,11 @@ const STATUS_PATH = {
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
-let tray
 let walletProcess
 let createdProtocol
 
 // open sheikah if is development environment
 let status = isDevelopment ? STATUS.READY : STATUS.WAIT
-let forceQuit = false
 
 autoUpdater.logger = electronLog
 autoUpdater.logger.transports.file.level = 'info'
@@ -89,11 +79,10 @@ app.on('activate', () => {
   }
 })
 
-app.on('before-quit', function() {
-  if (process.platform === 'darwin') {
-    // flag to close sheikah from darwin's dock and prevent default darwin's close behavior
-    forceQuit = true
-  }
+// Quit when all windows are closed.
+app.on('window-all-closed', event => {
+  event.preventDefault()
+  win.webContents.send('shutdown')
 })
 
 // This method will be called when Electron has finished
@@ -109,22 +98,13 @@ app.on('ready', async () => {
     }
   }
 
-  createTray()
-
   createWindow()
-})
-
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
 })
 
 // Ipc event received from the client to close sheikah
 ipcMain.on('shutdown-finished', () => {
-  if (win) win.destroy()
-  app.quit()
+  win.hide()
+  app.exit()
 })
 
 // check if the second instance in locked
@@ -201,32 +181,10 @@ function createWindow() {
   })
 
   win.on('close', function(event) {
-    if (process.platform === 'darwin') {
-      event.preventDefault()
-
-      if (!forceQuit) {
-        if (win.isFullScreen()) {
-          win.once('leave-full-screen', () => win.hide())
-          win.setFullScreen(false)
-        } else {
-          win.hide()
-        }
-      } else {
-        console.info('Sending shutdown message to Sheikah')
-        win.webContents.send('shutdown')
-      }
-    } else {
-      if (!forceQuit) {
-        event.preventDefault()
-        if (win.isFullScreen()) {
-          win.once('leave-full-screen', () => win.hide())
-          win.setFullScreen(false)
-        } else {
-          win.hide()
-        }
-      }
-    }
+    event.preventDefault()
+    win.webContents.send('shutdown')
   })
+
   if (!isDevelopment) {
     // Disable shortcuts defining a hidden menu and binding the shortcut we
     // want to disable to an option
@@ -238,7 +196,7 @@ function createWindow() {
             label: 'Quit',
             accelerator: 'CmdOrCtrl+Q',
             click: () => {
-              app.quit()
+              win.webContents.send('shutdown')
             },
           },
           { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
@@ -253,33 +211,6 @@ function createWindow() {
 
     Menu.setApplicationMenu(menu)
   }
-}
-
-function createTray() {
-  tray = new Tray(path.join(__static, 'icon.png'))
-  const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Open Sheikah',
-      type: 'normal',
-      click: function() {
-        win.show()
-      },
-    },
-    {
-      label: 'Item2',
-      type: 'separator',
-    },
-    {
-      label: 'Quit Sheikah',
-      type: 'normal',
-      click: function() {
-        console.info('Sending shutdown message to Sheikah')
-        win.webContents.send('shutdown')
-      },
-    },
-  ])
-  tray.setToolTip('Sheikah - Witnet wallet and data request editor')
-  tray.setContextMenu(contextMenu)
 }
 
 async function downloadWalletRelease(releaseUrl, version) {
@@ -502,8 +433,6 @@ autoUpdater.on('update-available', () => {
 
 autoUpdater.on('update-downloaded', () => {
   app.removeAllListeners('close')
-
-  forceQuit = true
   if (win != null) {
     win.close()
   }
