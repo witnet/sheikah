@@ -210,6 +210,10 @@ export class WalletApi {
   unlockWallet(params) {
     return this._callApiMethod('unlock_wallet')(params)
   }
+
+  resync(params) {
+    return this._callApiMethod('resync_wallet')(params)
+  }
 }
 
 export class MarketplaceApi {

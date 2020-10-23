@@ -3,6 +3,8 @@
     <router-view />
     <UpdateNotification v-if="isUpdateNotificationVisible" />
     <Notification />
+
+    <ResyncConfirmation v-if="isResyncConfirmationVisible" />
   </div>
 </template>
 
@@ -16,6 +18,7 @@ export default {
   components: {
     UpdateNotification,
     Notification,
+    ResyncConfirmation: () => import('@/components/ResyncConfirmation'),
   },
   data() {
     return {
@@ -29,6 +32,8 @@ export default {
         state.uiInteractions.isUpdateNotificationVisible,
       tokenGenerationEventOccurred: state =>
         state.wallet.tokenGenerationEventOccurred,
+      isResyncConfirmationVisible: state =>
+        state.uiInteractions.isResyncConfirmationVisible,
     }),
   },
   watch: {

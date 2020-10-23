@@ -8,8 +8,15 @@ export default {
     setupMessage: 'Updating wallet backend',
     setupProgress: 0,
     isUpdateNotificationVisible: false,
+    isResyncConfirmationVisible: false,
   },
   mutations: {
+    showResyncConfirmation(state) {
+      state.isResyncConfirmationVisible = true
+    },
+    closeResyncConfirmation(state) {
+      state.isResyncConfirmationVisible = false
+    },
     receiveTransactionClicked: function(state) {
       state.receiveTransactionClicked = true
     },

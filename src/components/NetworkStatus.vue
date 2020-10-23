@@ -44,12 +44,23 @@
         />
       </div>
     </div>
+
     <transition name="slide">
       <div
         v-if="showAll && expanded"
         data-test="detail-info"
         class="detail-info"
       >
+        <el-button
+          type="primary"
+          size="mini"
+          class="resync"
+          @click="$store.commit('showResyncConfirmation')"
+        >
+          <font-awesome-icon class="icon" icon="sync-alt" />
+          Resync
+        </el-button>
+
         <p data-test="node" class="text">
           Connected to <span class="bold">{{ address }}</span>
         </p>
@@ -177,6 +188,15 @@ export default {
       .sort {
         width: 12px;
       }
+    }
+  }
+
+  .resync {
+    margin-bottom: 10px;
+    width: min-content;
+
+    .icon {
+      font-size: 14px;
     }
   }
 

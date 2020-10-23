@@ -956,9 +956,24 @@ export default {
         const [start, current, finish] = event
         status.progress =
           Math.floor(((current - start) / (finish - start)) * 100) || 0
+        // Re-render transactions, balances and wallets every 2000 blocks
+        if (Math.floor((current - 50) / 2000) < Math.floor(current / 2000)) {
+          context.commit('setBalance', { balance: status.account.balance })
+          context.dispatch('getTransactions', {
+            limit: 50,
+            page: context.state.currentTransactionsPage,
+          })
+          context.dispatch('getAddresses')
+        }
       } else if (eventType === WALLET_EVENTS.SYNC_START) {
         const [start, finish] = event
         status.progress = 0
+        context.commit('setBalance', { balance: status.account.balance })
+        context.dispatch('getTransactions', {
+          limit: 50,
+          page: context.state.currentTransactionsPage,
+        })
+        context.dispatch('getAddresses')
         if (finish - start > 100) {
           createNotification({
             title: 'Starting Wallet Synchronization',
@@ -1010,6 +1025,12 @@ export default {
       if (response && response.status === 201) {
         console.log('File successfully uploaded to the file')
       }
+    },
+    resync(context) {
+      context.state.api.resync({
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
+      })
     },
   },
 }
