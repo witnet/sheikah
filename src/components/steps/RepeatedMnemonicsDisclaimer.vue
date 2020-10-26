@@ -1,0 +1,76 @@
+<template>
+  <div>
+    <NavigationCard
+      ref="navCard"
+      data-test="header-4"
+      class="wallet-seed-validation"
+      title="Wallet already imported"
+      previous-text="Back"
+      next-text="Next"
+      :previous-step="previousStep"
+      :next-step="nextStep"
+    >
+      <p
+        ><strong class="bold">PLEASE NOTE:</strong> this wallet has already been
+        imported into your Sheikah app. By re-importing this wallet into
+        Sheikah, you will overwrite your wallet's password.</p
+      >
+    </NavigationCard>
+  </div>
+</template>
+
+<script>
+import NavigationCard from '@/components/card/NavigationCard'
+
+export default {
+  name: 'WalletAlreadyImported',
+  components: {
+    NavigationCard,
+  },
+  methods: {
+    nextStep() {
+      this.$router.push(`/ftu/encryption-pass?import=true`)
+    },
+    previousStep() {
+      this.$store.commit('setRepeatedMnemonics', { exist: null })
+      this.$router.push('/ftu/import-wallet')
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+@import '@/styles/theme.scss';
+@import '@/styles/_colors.scss';
+
+.content {
+  padding: 40px;
+}
+
+.seed {
+  align-items: center;
+  border: $input_big-border;
+  border-radius: $input_big-border-radius;
+  box-sizing: border-box;
+  color: $input_big-color;
+  display: inline-flex;
+  font-size: 22px;
+  line-break: auto;
+  line-height: 1.5em;
+  margin: 24px 0;
+  padding: 16px;
+  width: 100%;
+}
+
+.match-error {
+  color: $red-2;
+}
+
+.paragraph {
+  margin-top: 16px;
+}
+
+.bold {
+  font-weight: bold;
+}
+</style>

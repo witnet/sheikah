@@ -20,6 +20,7 @@ import WelcomeBack from '@/views/WelcomeBack.vue'
 import WelcomeForm from '@/components/steps/WelcomeForm.vue'
 import WalletImport from '@/components/steps/WalletImport.vue'
 import WalletNotFound from '@/components/WalletNotFound.vue'
+import RepeatedMnemonicsDisclaimer from '@/components/steps/RepeatedMnemonicsDisclaimer.vue'
 import Setup from '@/views/Setup.vue'
 
 import ClaimingProcess from '@/views/ClaimingProcess.vue'
@@ -308,6 +309,11 @@ export default new Router({
           name: 'createWallet',
           path: 'create-wallet',
           component: Loading,
+        },
+        {
+          name: 'repeatedMnemonics',
+          path: 'repeated-mnemonics',
+          component: RepeatedMnemonicsDisclaimer,
         },
       ],
     },

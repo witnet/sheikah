@@ -62,6 +62,7 @@ export default {
       },
       areMnemonicsValid: state => state.wallet.areMnemonicsValid,
       wallets: state => state.wallet.walletInfos,
+      repeatedMnemonics: state => state.wallet.repeatedMnemonics,
     }),
   },
   watch: {
@@ -96,8 +97,10 @@ export default {
     },
     async nextStep() {
       await this.validateForm()
-      if (!this.seedError) {
-        this.$router.push(`/ftu/encryption-pass`)
+      if (this.repeatedMnemonics) {
+        this.$router.push('/ftu/repeated-mnemonics')
+      } else if (!this.seedError) {
+        this.$router.push(`/ftu/encryption-pass?import=true`)
       }
     },
     previousStep() {

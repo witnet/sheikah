@@ -55,6 +55,7 @@ export default {
       saveItem: null,
       getItem: null,
     },
+    repeatedMnemonics: null,
     exportFileLink: '',
     checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
     claimingFileInfo: null,
@@ -75,6 +76,8 @@ export default {
       timestamp: 0,
       synced: false,
     },
+    description: '',
+    title: '',
     radRequestResult: null,
     transactions: [],
     currentTransactionsPage: 1,
@@ -96,6 +99,15 @@ export default {
     },
   },
   mutations: {
+    setRepeatedMnemonics(state, payload) {
+      state.repeatedMnemonics = payload.exist
+    },
+    setWalletDescription(state, payload) {
+      // set title and description when received
+      Object.entries(payload).forEach(entry => {
+        state[entry[0]] = entry[1]
+      })
+    },
     setComputedVesting(state, computedVesting) {
       state.computedVesting = computedVesting
     },
@@ -776,25 +788,29 @@ export default {
         seed_source: 'mnemonics',
         seed_data: params.mnemonics,
       })
-      if (request.result.valid) {
-        console.log('Validated mnemonics', request.result.valid)
-      } else {
+
+      if (request.error) {
         context.commit('setError', {
           name: 'seed',
           message: 'You must provide a valid seed to import a wallet',
         })
-        router.push('/ftu/import-wallet')
+      } else if (request.result.exist) {
+        this.commit('setRepeatedMnemonics', { exist: request.result.exist })
+        router.push('/ftu/repeated-mnemonics')
       }
     },
 
     createWallet: async function(context, params) {
       const request = await context.state.api.createWallet({
-        name: 'first',
-        caption: '1',
+        overwrite: context.state.repeatedMnemonics,
+        name: context.state.title,
+        description: context.state.description,
         seed_data: params[params.sourceType],
         seed_source: params.sourceType,
         password: params.password,
       })
+
+      context.commit('setRepeatedMnemonics', { exist: null })
       if (request.result) {
         context.dispatch('unlockWallet', {
           walletId: request.result.wallet_id,
@@ -855,6 +871,7 @@ export default {
     },
     getWalletInfos: async function(context) {
       const request = await context.state.api.getWalletInfos()
+
       if (request.result) {
         context.commit('setWalletInfos', { walletInfos: request.result.infos })
       } else {

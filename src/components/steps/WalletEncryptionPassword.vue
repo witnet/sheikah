@@ -5,15 +5,15 @@
     title="Encrypt your wallet with a password"
     previous-text="Back"
     next-text="Next"
-    :previous-step="previousStep"
+    :previous-step="() => $router.push(previousRoute)"
     :next-step="nextStep"
     :disabled-next-button="disabledNextButton"
   >
     <p class="paragraph">
-      <span class="bold"> PLEASE NOTE: </span> this password encrypts your
-      Witnet wallet only on this computer. This is not your backup and you
-      cannot restore your wallet with this password. Your 12 word seed phrase is
-      still your ultimate recovery method.
+      <span class="bold">PLEASE NOTE: </span> this password encrypts your Witnet
+      wallet only on this computer. This is not your backup and you cannot
+      restore your wallet with this password. Your 12 word seed phrase is still
+      your ultimate recovery method.
     </p>
     <div class="form-row password">
       <p>Create a password</p>
@@ -75,7 +75,20 @@ export default {
       createValidPasswordError: state =>
         state.wallet.errors.createValidPassword,
       validatedPassword: state => state.wallet.validatedPassword,
+      repeatedMnemonics: state => state.wallet.repeatedMnemonics,
     }),
+    isImporting() {
+      return this.$route.query && this.$route.query.import
+    },
+    previousRoute() {
+      if (this.repeatedMnemonics) {
+        return `/ftu/repeated-mnemonics`
+      } else if (this.isImporting) {
+        return `/ftu/import-wallet`
+      } else {
+        return `/ftu/seed-validation`
+      }
+    },
   },
   watch: {
     password() {
@@ -143,13 +156,6 @@ export default {
           mnemonics: words,
         })
         this.$router.push('/ftu/create-wallet')
-      }
-    },
-    previousStep() {
-      if (this.mnemonics) {
-        this.$router.push('/ftu/seed-validation')
-      } else if (this.seed) {
-        this.$router.push('/ftu/import-wallet')
       }
     },
   },
