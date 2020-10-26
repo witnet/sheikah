@@ -573,7 +573,13 @@ export default {
         ),
         request: {
           data_request: encodeDataRequest(request),
-          collateral: Number(parameters.collateral),
+          collateral: Number(
+            standardizeWitUnits(
+              parameters.collateral,
+              WIT_UNIT.NANO,
+              context.state.currency,
+            ),
+          ),
           witness_reward: Number(
             standardizeWitUnits(
               parameters.rewardFee,

@@ -341,11 +341,12 @@ export function standardizeTransactions(response) {
 function computeTransactionAddress(inputs, outputs, type) {
   if (type === 'POSITIVE') {
     if (
+      inputs &&
       inputs.length > 1 &&
       inputs.some(input => input.address !== inputs[0].address)
     ) {
       return 'several addresses'
-    } else if (inputs.length > 0) {
+    } else if (inputs && inputs.length > 0) {
       return inputs[0].address
     } else {
       // inputs.length == 0: assume this is a genesis transaction

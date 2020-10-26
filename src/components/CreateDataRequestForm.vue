@@ -154,7 +154,7 @@ export default {
         minConsensusPercentage: 51,
         rewardFee: 1,
         witnesses: 3,
-        collateral: 1000000000,
+        collateral: 1,
       },
       rules: {
         commitAndRevealFee: [

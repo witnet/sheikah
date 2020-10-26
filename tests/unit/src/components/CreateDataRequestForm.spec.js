@@ -110,7 +110,8 @@ describe('CreateDataRequestForm.vue', () => {
       }),
     )
     it('should emit create data request event', async () => {
-      wrapper.find('[data-test="commit-reveal-fee"]').setValue('100')
+      wrapper.find('[data-test="commit-reveal-fee"]').setValue('1')
+      wrapper.find('[data-test="collateral"]').setValue('10000000000')
       const tryButton = wrapper.find('[data-test="create-data-request-submit"]')
       await tryButton.trigger('click')
       await nextTick()
@@ -128,6 +129,7 @@ describe('CreateDataRequestForm.vue', () => {
     })
     it('should show an error if the input is less than 1 nanoWit', async () => {
       wrapper.find('[data-test="dr-fee"]').setValue('0.1')
+      wrapper.find('[data-test="collateral"]').setValue('10000000000')
       const tryButton = wrapper.find('[data-test="create-data-request-submit"]')
       await tryButton.trigger('click')
       await nextTick()
