@@ -1,6 +1,7 @@
 <template>
   <div class="group">
     <el-button
+      ref="alt"
       type="primary"
       class="button"
       data-test="btn-send"
@@ -30,7 +31,7 @@ export default {
     ...mapMutations({
       setError: 'setError',
     }),
-    onSend() {
+    onSend(e) {
       /**
        * Emitted when send button is clicked
        * @event send
@@ -43,6 +44,9 @@ export default {
           error: 'The node is not yet synced',
           message: 'Wait till the synchronization is finished',
         })
+        setTimeout(() => {
+          e.target.blur()
+        }, 2000)
       }
     },
     onReceive() {
