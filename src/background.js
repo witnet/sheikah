@@ -228,16 +228,19 @@ async function downloadWalletRelease(releaseUrl, version) {
           win.webContents.send('progress', progress)
         })
         const pipeline = util.promisify(stream.pipeline)
-        fs.writeFile(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
         // Promise equivalent for response.data.pipe(writeStream)
         await pipeline(response.data, str, fs.createWriteStream(file))
         console.info('witnet release downloaded succesfully')
+
+        // delete witnet before decompress
+        fs.unlinkSync(path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
+
         console.info('Decompressing release...')
         // Decompress tar.gz file
         if (platform === 'win32') {
           tar.x({ file, sync: true })
           fs.copyFileSync(
-            'witnet.exe',
+            WITNET_FILE_NAME,
             path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
           )
           fs.copyFileSync(
@@ -248,7 +251,6 @@ async function downloadWalletRelease(releaseUrl, version) {
           overwriteWalletConfigFile()
 
           fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
-          fs.unlinkSync(file)
         } else if (platform === 'darwin') {
           try {
             const currentCwd = process.cwd()
@@ -258,7 +260,10 @@ async function downloadWalletRelease(releaseUrl, version) {
 
             overwriteWalletConfigFile()
 
-            await sleep(4000)
+            fs.writeFileSync(
+              path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
+              version,
+            )
           } catch (err) {
             console.error(err)
           }
@@ -274,9 +279,10 @@ async function downloadWalletRelease(releaseUrl, version) {
 
           cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
           fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
-          fs.unlinkSync(file)
-          await sleep(3000)
         }
+        fs.unlinkSync(file)
+
+        await sleep(3000)
 
         resolve()
       })
