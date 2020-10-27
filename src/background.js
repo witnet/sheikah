@@ -233,8 +233,13 @@ async function downloadWalletRelease(releaseUrl, version) {
         await pipeline(response.data, str, fs.createWriteStream(file))
         console.info('witnet release downloaded succesfully')
 
-        // delete witnet before decompress
-        fs.unlinkSync(path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
+      const existWitnetFile = fs.existsSync(
+        path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
+      )
+        // delete witnet file before decompress
+        if (existWitnetFile) {
+          fs.unlinkSync(path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
+        }
 
         console.info('Decompressing release...')
         // Decompress tar.gz file
