@@ -17,6 +17,7 @@ describe('Renders the correct elements', () => {
       keep: true,
     },
   })
+
   it('shows the correct amount', () => {
     expect(
       wrapper
@@ -25,6 +26,7 @@ describe('Renders the correct elements', () => {
         .includes(12),
     ).toBe(true)
   })
+
   it('shows the correct currency', () => {
     expect(wrapper.find('[data-test="currency"]').text()).toEqual('nanoWit')
   })

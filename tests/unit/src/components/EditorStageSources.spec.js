@@ -32,7 +32,7 @@ describe('EditorStageSources.vue', () => {
         }),
       })
 
-      expect(wrapper.findAll(EditorSource).length).toBe(2)
+      expect(wrapper.findAllComponents(EditorSource).length).toBe(2)
     })
 
     it('should contains an add source button', () => {
@@ -91,7 +91,7 @@ describe('EditorStageSources.vue', () => {
         }),
       })
 
-      expect(wrapper.findAll(Fieldset).length).toBe(2)
+      expect(wrapper.findAllComponents(Fieldset).length).toBe(2)
     })
   })
 

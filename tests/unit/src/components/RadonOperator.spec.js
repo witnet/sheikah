@@ -58,16 +58,19 @@ describe('RadonOperator.vue', () => {
         'Operator',
       )
     })
+
     it('should render the operator', () => {
-      expect(wrapper.contains('[data-test="operator"]')).toBe(true)
+      expect(wrapper.find('[data-test="operator"]').exists()).toBe(true)
     })
+
     it('should render the select', () => {
       expect(wrapper.find('[data-test="arguments-label"]').text()).toBe(
         'Arguments',
       )
     })
+
     it('should render the selected value seconday text', () => {
-      expect(wrapper.contains('[data-test="has-arguments"]')).toBe(true)
+      expect(wrapper.find('[data-test="has-arguments"]').exists()).toBe(true)
     })
   })
   describe('should render properly when there is no arguments', () => {
@@ -118,14 +121,17 @@ describe('RadonOperator.vue', () => {
         'Operator',
       )
     })
+
     it('should render the operator', () => {
-      expect(wrapper.contains('[data-test="operator"]')).toBe(true)
+      expect(wrapper.find('[data-test="operator"]').exists()).toBe(true)
     })
+
     it('should render the select', () => {
-      expect(wrapper.contains('[data-test="arguments-label"]')).toBe(false)
+      expect(wrapper.find('[data-test="arguments-label"]').exists()).toBe(false)
     })
+
     it('should render the selected value seconday text', () => {
-      expect(wrapper.contains('[data-test="has-arguments"]')).toBe(false)
+      expect(wrapper.find('[data-test="has-arguments"]').exists()).toBe(false)
     })
   })
 })

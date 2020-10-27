@@ -109,3 +109,17 @@ global.createComponentMocks = ({ store, router, style, mocks, stubs }) => {
 
   return returnOptions
 }
+
+// FIXME: https://github.com/witnet/sheikah/issues/1500
+global.getNormalizedFormRules = function(wrapper) {
+  const overwriteTriggerOnSubmitRule = rule =>
+    rule.trigger === 'submit' ? { ...rule, trigger: 'change' } : rule
+
+  return Object.entries(wrapper.vm.rules).reduce(
+    (acc, entry) => ({
+      ...acc,
+      [entry[0]]: entry[1].map(overwriteTriggerOnSubmitRule),
+    }),
+    {},
+  )
+}

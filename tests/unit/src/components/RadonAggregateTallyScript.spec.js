@@ -190,11 +190,13 @@ describe('RadonAggregateTallyScript.vue', () => {
     })
 
     it('finds the filter operator', () => {
-      expect(wrapper.contains('[data-test="filter-operator"]')).toBe(true)
+      expect(wrapper.find('[data-test="filter-operator"]').exists()).toBe(true)
     })
 
     it('finds the add operator button', () => {
-      expect(wrapper.contains('[data-test="reducer-operator"]')).toBe(false)
+      expect(wrapper.find('[data-test="reducer-operator"]').exists()).toBe(
+        false,
+      )
     })
   })
 
@@ -387,11 +389,11 @@ describe('RadonAggregateTallyScript.vue', () => {
     })
 
     it('finds the filter operator', () => {
-      expect(wrapper.contains('[data-test="filter-operator"]')).toBe(false)
+      expect(wrapper.find('[data-test="filter-operator"]').exists()).toBe(false)
     })
 
     it('finds the add operator button', () => {
-      expect(wrapper.contains('[data-test="reducer-operator"]')).toBe(true)
+      expect(wrapper.find('[data-test="reducer-operator"]').exists()).toBe(true)
     })
   })
 })

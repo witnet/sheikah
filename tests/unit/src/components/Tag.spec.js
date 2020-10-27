@@ -11,6 +11,7 @@ describe('Tag.vue', () => {
 
     expect(wrapper.find('.tag').text()).toBe('SUCCESS')
   })
+
   it('should contain the color class', () => {
     const wrapper = shallowMount(Tag, {
       propsData: {

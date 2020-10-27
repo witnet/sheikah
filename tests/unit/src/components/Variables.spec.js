@@ -38,36 +38,44 @@ describe('Variables.vue', () => {
         }
       },
     })
+
     it('should render the name label', () => {
       expect(wrapper.find('[data-test="name-label"]').text()).toEqual('Name')
     })
+
     it('should render the description label', () => {
       expect(wrapper.find('[data-test="description-label"]').text()).toEqual(
         'Description',
       )
     })
+
     it('should render the data type label', () => {
       expect(wrapper.find('[data-test="type-label"]').text()).toEqual(
         'Data type',
       )
     })
+
     it('should render the value label', () => {
       expect(wrapper.find('[data-test="value-label"]').text()).toEqual(
         'Default value',
       )
     })
+
     it('should render the delete variable button', () => {
-      expect(wrapper.contains('[data-test="delete-var-btn"]')).toBe(true)
+      expect(wrapper.find('[data-test="delete-var-btn"]').exists()).toBe(true)
     })
+
     it('should render the add variable button', () => {
-      expect(wrapper.contains('[data-test="add-variable"]')).toBe(true)
+      expect(wrapper.find('[data-test="add-variable"]').exists()).toBe(true)
     })
+
     it('should change the variable value when trigger', () => {
       wrapper.find('[data-test="edit-var-value-input"]').setValue('new_value')
       expect(
         wrapper.find('[data-test="edit-var-value-input"]').element.value,
       ).toEqual('new_value')
     })
+
     it('should change the variable description when trigger', () => {
       wrapper
         .find('[data-test="edit-var-description-input"]')
@@ -76,6 +84,7 @@ describe('Variables.vue', () => {
         wrapper.find('[data-test="edit-var-description-input"]').element.value,
       ).toEqual('new_description')
     })
+
     it('should change the variable description when trigger', () => {
       wrapper.find('[data-test="edit-var-input"]').setValue('new_key')
       expect(
@@ -120,12 +129,14 @@ describe('Variables.vue', () => {
         }
       },
     })
+
     it('should change the variable value when trigger', () => {
       wrapper.find('[data-test="edit-var-value-input"]').setValue('new_value')
       expect(
         wrapper.find('[data-test="edit-var-value-input"]').element.value,
       ).toEqual('new_value')
     })
+
     it('should change the variable description when trigger', () => {
       wrapper
         .find('[data-test="edit-var-description-input"]')
@@ -134,6 +145,7 @@ describe('Variables.vue', () => {
         wrapper.find('[data-test="edit-var-description-input"]').element.value,
       ).toEqual('new_description')
     })
+
     it('should change the variable description when trigger', () => {
       wrapper.find('[data-test="edit-var-input"]').setValue('new_key')
       expect(

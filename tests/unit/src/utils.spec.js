@@ -463,6 +463,7 @@ describe('calculateCurrentFocusAfterUndo', () => {
 
         expect(id).toBe('void')
       })
+
       it('on aggragation or tally stage', () => {
         const historyCheckpoint = {
           rad: {

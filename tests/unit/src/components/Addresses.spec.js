@@ -47,7 +47,7 @@ describe('Addresses.vue', () => {
         }),
       })
 
-      expect(wrapper.find(AddressList).exists()).toBe(true)
+      expect(wrapper.findComponent(AddressList).exists()).toBe(true)
     })
 
     it('should render AddressInformation', () => {
@@ -92,7 +92,7 @@ describe('Addresses.vue', () => {
         }),
       })
 
-      expect(wrapper.find(AddressInformation).exists()).toBe(true)
+      expect(wrapper.findComponent(AddressInformation).exists()).toBe(true)
     })
   })
 
@@ -139,7 +139,7 @@ describe('Addresses.vue', () => {
         }),
       })
 
-      wrapper.find(AddressList).vm.$emit('generate-address')
+      wrapper.findComponent(AddressList).vm.$emit('generate-address')
 
       await nextTick()
 
@@ -188,7 +188,7 @@ describe('Addresses.vue', () => {
         }),
       })
 
-      wrapper.find(AddressList).vm.$emit('select-address', 0)
+      wrapper.findComponent(AddressList).vm.$emit('select-address', 0)
 
       await nextTick()
 

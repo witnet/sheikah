@@ -7,6 +7,7 @@ module.exports = {
     shallowMount: false,
     createComponentMocks: false,
     nextTick: false,
+    getNormalizedFormRules: false,
   },
   rules: {},
 }

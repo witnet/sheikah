@@ -6,13 +6,13 @@ describe('ResyncConfirmation.vue', () => {
   it('should contain an element dialog component', () => {
     const wrapper = shallowMount(ResyncConfirmation)
 
-    expect(wrapper.find(Dialog).exists()).toBe(true)
+    expect(wrapper.findComponent(Dialog).exists()).toBe(true)
   })
 
   it('should contain a visible element dialog component', () => {
     const wrapper = shallowMount(ResyncConfirmation)
 
-    expect(wrapper.find(Dialog).isVisible()).toBe(true)
+    expect(wrapper.findComponent(Dialog).isVisible()).toBe(true)
   })
 
   it('should contain cancel button', () => {
@@ -20,7 +20,7 @@ describe('ResyncConfirmation.vue', () => {
 
     expect(
       wrapper
-        .findAll(Button)
+        .findAllComponents(Button)
         .at(0)
         .text(),
     ).toBe('Cancel')
@@ -31,7 +31,7 @@ describe('ResyncConfirmation.vue', () => {
 
     expect(
       wrapper
-        .findAll(Button)
+        .findAllComponents(Button)
         .at(1)
         .text(),
     ).toBe('Resynchronize')
@@ -57,7 +57,7 @@ describe('ResyncConfirmation.vue', () => {
       }),
     })
     await wrapper
-      .findAll(Button)
+      .findAllComponents(Button)
       .at(0)
       .trigger('click')
 
@@ -85,7 +85,7 @@ describe('ResyncConfirmation.vue', () => {
     })
 
     await wrapper
-      .findAll(Button)
+      .findAllComponents(Button)
       .at(1)
       .trigger('click')
 
@@ -113,7 +113,7 @@ describe('ResyncConfirmation.vue', () => {
     })
 
     await wrapper
-      .findAll(Button)
+      .findAllComponents(Button)
       .at(1)
       .trigger('click')
 

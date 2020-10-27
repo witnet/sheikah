@@ -34,8 +34,9 @@ describe('Select.vue', () => {
         'option 1',
       )
     })
+
     it('finds does not find the options', () => {
-      expect(wrapper.contains('[data-test="options"]')).toBe(false)
+      expect(wrapper.find('[data-test="options"]').exists()).toBe(false)
     })
   })
   describe('should render properly', () => {
@@ -67,18 +68,21 @@ describe('Select.vue', () => {
     })
 
     it('finds does not find the options', () => {
-      expect(wrapper.contains('[data-test="options"]')).toBe(true)
+      expect(wrapper.find('[data-test="options"]').exists()).toBe(true)
     })
+
     it('should render the selected option 1', () => {
       expect(wrapper.find('[data-test="option-label-0"]').text()).toBe(
         'option 1',
       )
     })
+
     it('should render the selected option 2', () => {
       expect(wrapper.find('[data-test="option-label-1"]').text()).toBe(
         'option 2',
       )
     })
+
     it('should render the selected option 3', () => {
       expect(wrapper.find('[data-test="option-label-2"]').text()).toBe(
         'option 3',
@@ -112,9 +116,11 @@ describe('Select.vue', () => {
     wrapper.setData({
       areOptionsVisible: true,
     })
+
     it('triggers click', () => {
       expect(wrapper.find('[data-test="option-1"]').trigger('click'))
     })
+
     it('should render the selected value', () => {
       expect(wrapper.find('[data-test="selected-option-primary"]').text()).toBe(
         'option 2',

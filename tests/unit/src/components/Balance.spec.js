@@ -2,8 +2,9 @@ import Balance from '@/components/Balance'
 import BalanceData from '@/components/BalanceData'
 import BalanceButtons from '@/components/BalanceButtons'
 import Send from '@/components/Send'
+import { WIT_UNIT } from '@/constants'
 
-describe.skip('Balance.vue', () => {
+describe('Balance.vue', () => {
   it('render BalanceData component', () => {
     const wrapper = shallowMount(
       Balance,
@@ -16,14 +17,14 @@ describe.skip('Balance.vue', () => {
                 locked: '10',
                 total: '100',
               },
-              currency: 'nanoWits',
+              currency: WIT_UNIT.NANO,
             },
           },
         },
       }),
     )
 
-    expect(wrapper.contains(BalanceData)).toBe(true)
+    expect(wrapper.findComponent(BalanceData).exists()).toBe(true)
   })
 
   describe('should render send modal on click', () => {
@@ -39,17 +40,17 @@ describe.skip('Balance.vue', () => {
                   locked: '10',
                   total: '100',
                 },
-                currency: 'nanoWits',
+                currency: WIT_UNIT.NANO,
               },
             },
           },
         }),
       )
 
-      expect(wrapper.contains(Send)).toBe(false)
+      expect(wrapper.findComponent(Send).exists()).toBe(false)
     })
 
-    it('should be visible when property isSendVisible is true', () => {
+    it('should be visible when property isSendVisible is true', async () => {
       const wrapper = shallowMount(
         Balance,
         createComponentMocks({
@@ -67,21 +68,19 @@ describe.skip('Balance.vue', () => {
           },
         }),
       )
+
       wrapper.setData({
         isSendVisible: true,
       })
+      await nextTick()
 
-      expect(wrapper.contains(Send)).toBe(true)
+      expect(wrapper.findComponent(Send).exists()).toBe(true)
     })
 
-    it('BalanceButtons event send should show the modal', () => {
-      // TODO: emit event from balanceData component
+    it('BalanceButtons event send should show the modal', async () => {
       const wrapper = mount(
         Balance,
         createComponentMocks({
-          stubs: {
-            Send: true,
-          },
           store: {
             wallet: {
               state: {
@@ -90,20 +89,20 @@ describe.skip('Balance.vue', () => {
                   locked: '10',
                   total: '100',
                 },
-                currency: 'nanoWits',
+                currency: WIT_UNIT.NANO,
+              },
+              getters: {
+                network: () => 'mainnet',
               },
             },
           },
         }),
       )
 
-      wrapper.find(BalanceButtons).vm.$emit('send')
+      wrapper.findComponent(BalanceButtons).vm.$emit('send')
+      await nextTick()
 
-      expect(wrapper.find(Send).isVisible()).toBe(true)
-    })
-
-    it('BalanceButtons event receive should do something TBD', () => {
-      // TODO: handle event when addresses implemented
+      expect(wrapper.findComponent(Send).isVisible()).toBe(true)
     })
   })
 })

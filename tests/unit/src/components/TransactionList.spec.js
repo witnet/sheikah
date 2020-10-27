@@ -42,7 +42,7 @@ describe('Renders the correct elements when click is not triggered', () => {
       },
     })
 
-    expect(wrapper.findAll(Transaction).length).toBe(3)
+    expect(wrapper.findAllComponents(Transaction).length).toBe(3)
   })
 
   it('should not render the pagination with less than 13 address', () => {
@@ -69,7 +69,7 @@ describe('Renders the correct elements when click is not triggered', () => {
         },
       })
 
-      expect(wrapper.findAll(Transaction).length).toBe(13)
+      expect(wrapper.findAllComponents(Transaction).length).toBe(13)
     })
 
     it('should render 15 addresses', () => {

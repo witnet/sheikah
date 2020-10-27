@@ -26,7 +26,7 @@ describe('AddressList.vue', () => {
         },
       })
 
-      expect(wrapper.find(AddressCardButton).exists()).toBe(true)
+      expect(wrapper.findComponent(AddressCardButton).exists()).toBe(true)
     })
 
     it('should list an addressCard for each address passed', () => {
@@ -67,7 +67,7 @@ describe('AddressList.vue', () => {
         },
       })
 
-      expect(wrapper.findAll(AddressCard).length).toBe(2)
+      expect(wrapper.findAllComponents(AddressCard).length).toBe(2)
     })
   })
 
@@ -110,7 +110,7 @@ describe('AddressList.vue', () => {
         },
       })
 
-      wrapper.find(AddressCardButton).trigger('click')
+      wrapper.findComponent(AddressCardButton).trigger('click')
 
       await nextTick()
 
@@ -156,7 +156,7 @@ describe('AddressList.vue', () => {
       })
 
       wrapper
-        .findAll(AddressCard)
+        .findAllComponents(AddressCard)
         .at(1)
         .trigger('click')
 

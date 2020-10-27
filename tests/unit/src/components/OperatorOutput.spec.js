@@ -22,20 +22,25 @@ describe('OperatorOutput.vue', () => {
         },
       }),
     })
+
     it('should not find the filter output label', () => {
-      expect(wrapper.contains('[data-test="filter-output"]')).toBe(false)
+      expect(wrapper.find('[data-test="filter-output"]').exists()).toBe(false)
     })
+
     it('finds the label', () => {
       expect(wrapper.find('[data-test="label"]').text()).toBe('string')
     })
+
     it('should find the output icon', () => {
-      expect(wrapper.contains('[data-test="output"]')).toBe(true)
+      expect(wrapper.find('[data-test="output"]').exists()).toBe(true)
     })
+
     it('should not find the error icon', () => {
-      expect(wrapper.contains('[data-test="error"]')).toBe(false)
+      expect(wrapper.find('[data-test="error"]').exists()).toBe(false)
     })
+
     it('should not find the empty output icon', () => {
-      expect(wrapper.contains('[data-test="empty-output"]')).toBe(false)
+      expect(wrapper.find('[data-test="empty-output"]').exists()).toBe(false)
     })
   })
   describe('should render correctly when there is not an output', () => {
@@ -56,20 +61,25 @@ describe('OperatorOutput.vue', () => {
         },
       }),
     })
+
     it('should not find the filter output label', () => {
-      expect(wrapper.contains('[data-test="filter-output"]')).toBe(false)
+      expect(wrapper.find('[data-test="filter-output"]').exists()).toBe(false)
     })
+
     it('finds the label', () => {
       expect(wrapper.find('[data-test="label"]').text()).toBe('string')
     })
+
     it('should not find the output icon', () => {
-      expect(wrapper.contains('[data-test="output"]')).toBe(false)
+      expect(wrapper.find('[data-test="output"]').exists()).toBe(false)
     })
+
     it('should not find the error icon', () => {
-      expect(wrapper.contains('[data-test="error"]')).toBe(false)
+      expect(wrapper.find('[data-test="error"]').exists()).toBe(false)
     })
+
     it('should find the empty output icon', () => {
-      expect(wrapper.contains('[data-test="empty-output"]')).toBe(true)
+      expect(wrapper.find('[data-test="empty-output"]').exists()).toBe(true)
     })
   })
   describe('should render correctly when there is an error', () => {
@@ -90,20 +100,25 @@ describe('OperatorOutput.vue', () => {
         },
       }),
     })
+
     it('should not find the filter output label', () => {
-      expect(wrapper.contains('[data-test="filter-output"]')).toBe(false)
+      expect(wrapper.find('[data-test="filter-output"]').exists()).toBe(false)
     })
+
     it('finds the label', () => {
       expect(wrapper.find('[data-test="label"]').text()).toBe('string')
     })
+
     it('should not find the output icon', () => {
-      expect(wrapper.contains('[data-test="output"]')).toBe(false)
+      expect(wrapper.find('[data-test="output"]').exists()).toBe(false)
     })
+
     it('should find the error icon', () => {
-      expect(wrapper.contains('[data-test="error"]')).toBe(true)
+      expect(wrapper.find('[data-test="error"]').exists()).toBe(true)
     })
+
     it('should not find the empty output icon', () => {
-      expect(wrapper.contains('[data-test="empty-output"]')).toBe(false)
+      expect(wrapper.find('[data-test="empty-output"]').exists()).toBe(false)
     })
   })
   describe('should render correctly when the output is a filter', () => {
@@ -124,20 +139,25 @@ describe('OperatorOutput.vue', () => {
         },
       }),
     })
+
     it('should not find the filter output label', () => {
-      expect(wrapper.contains('[data-test="filter-output"]')).toBe(true)
+      expect(wrapper.find('[data-test="filter-output"]').exists()).toBe(true)
     })
+
     it('finds the label', () => {
       expect(wrapper.find('[data-test="label"]').text()).toBe('string')
     })
+
     it('should not find the output icon', () => {
-      expect(wrapper.contains('[data-test="output"]')).toBe(false)
+      expect(wrapper.find('[data-test="output"]').exists()).toBe(false)
     })
+
     it('should find the error icon', () => {
-      expect(wrapper.contains('[data-test="error"]')).toBe(false)
+      expect(wrapper.find('[data-test="error"]').exists()).toBe(false)
     })
+
     it('should not find the empty output icon', () => {
-      expect(wrapper.contains('[data-test="empty-output"]')).toBe(true)
+      expect(wrapper.find('[data-test="empty-output"]').exists()).toBe(true)
     })
   })
 })

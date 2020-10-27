@@ -26,7 +26,7 @@ describe('AddressInformation.vue', () => {
         },
       })
 
-      expect(wrapper.find(DotsLoading).exists()).toBe(true)
+      expect(wrapper.findComponent(DotsLoading).exists()).toBe(true)
     })
 
     describe('used address', () => {

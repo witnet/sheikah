@@ -42,7 +42,7 @@ describe('Renders the correct elements when click is not triggered', () => {
   })
 
   it('finds negative or positive icon', () => {
-    expect(wrapper.contains('[data-test="negative-positive"]')).toBe(true)
+    expect(wrapper.find('[data-test="negative-positive"]').exists()).toBe(true)
   })
 
   it('finds the origin element', () => {
@@ -50,11 +50,11 @@ describe('Renders the correct elements when click is not triggered', () => {
   })
 
   it('finds the address element', () => {
-    expect(wrapper.contains('[data-test="address"]')).toBe(true)
+    expect(wrapper.find('[data-test="address"]').exists()).toBe(true)
   })
 
   it('does not find the data request element when the transaction type is value_transfer', () => {
-    expect(wrapper.contains('[data-test="transaction-type"]')).toBe(false)
+    expect(wrapper.find('[data-test="transaction-type"]').exists()).toBe(false)
   })
 
   it('finds the time-ago element', () => {
@@ -64,11 +64,13 @@ describe('Renders the correct elements when click is not triggered', () => {
   })
 
   it('does not find the transaction details element when the click is not triggered', () => {
-    expect(wrapper.contains('[data-test="transaction-details"]')).toBe(false)
+    expect(wrapper.find('[data-test="transaction-details"]').exists()).toBe(
+      false,
+    )
   })
 
   it('does not find the inputs and outputs element when the click is not triggered', () => {
-    expect(wrapper.contains('[data-test="inputs-outputs"]')).toBe(false)
+    expect(wrapper.find('[data-test="inputs-outputs"]').exists()).toBe(false)
   })
 })
 
@@ -115,15 +117,17 @@ describe('data request', () => {
     })
 
     it('finds negative or positive icon', () => {
-      expect(wrapper.contains('[data-test="negative-positive"]')).toBe(true)
+      expect(wrapper.find('[data-test="negative-positive"]').exists()).toBe(
+        true,
+      )
     })
 
     it('does not find the data request element when the origin element when type is data_request', () => {
-      expect(wrapper.contains('[data-test="origin"]')).toBe(false)
+      expect(wrapper.find('[data-test="origin"]').exists()).toBe(false)
     })
 
     it('does not find the data request element when the address element when type is data_request', () => {
-      expect(wrapper.contains('[data-test="address"]')).toBe(false)
+      expect(wrapper.find('[data-test="address"]').exists()).toBe(false)
     })
 
     it('finds the type element', () => {
@@ -178,11 +182,13 @@ describe('mint', () => {
     })
 
     it('should finds negative or positive icon', () => {
-      expect(wrapper.contains('[data-test="negative-positive"]')).toBe(true)
+      expect(wrapper.find('[data-test="negative-positive"]').exists()).toBe(
+        true,
+      )
     })
 
     it('should not find the origin element', () => {
-      expect(wrapper.contains('[data-test="origin"]')).toBe(false)
+      expect(wrapper.find('[data-test="origin"]').exists()).toBe(false)
     })
 
     it('should find time-ago element', () => {

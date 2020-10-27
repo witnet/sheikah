@@ -19,6 +19,6 @@ describe('LayoutSidebar.vue', () => {
         default: slotContent,
       },
     })
-    expect(wrapper.contains(Sidebar)).toBe(true)
+    expect(wrapper.findComponent(Sidebar).exists()).toBe(true)
   })
 })
