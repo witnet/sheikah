@@ -58,6 +58,7 @@ const STATUS_PATH = {
 let win
 let walletProcess
 let createdProtocol
+let isBeingUpdated
 
 // open sheikah if is development environment
 let status = isDevelopment ? STATUS.READY : STATUS.WAIT
@@ -402,26 +403,28 @@ async function runWallet() {
   const walletConfigurationPath = path.join(SHEIKAH_PATH, 'witnet.toml')
 
   console.info('... with witnet.toml from ' + walletConfigurationPath)
+  if (!isBeingUpdated) {
+    win.webContents.send('log', isBeingUpdated)
+    walletProcess = cp.spawn(path.join(SHEIKAH_PATH, WITNET_FILE_NAME), [
+      '-c',
+      walletConfigurationPath,
+      '--trace',
+      'wallet',
+      'server',
+    ])
 
-  walletProcess = cp.spawn(path.join(SHEIKAH_PATH, WITNET_FILE_NAME), [
-    '-c',
-    walletConfigurationPath,
-    '--trace',
-    'wallet',
-    'server',
-  ])
+    walletProcess.stdout.on('data', async function(data) {
+      console.info('stdout: ' + data.toString())
+      status = STATUS.READY
+      win.webContents.send('loaded')
+      await sleep(3000)
+      loadUrl(status)
+    })
 
-  walletProcess.stdout.on('data', async function(data) {
-    console.info('stdout: ' + data.toString())
-    status = STATUS.READY
-    win.webContents.send('loaded')
-    await sleep(3000)
-    loadUrl(status)
-  })
-
-  walletProcess.stderr.on('data', function(data) {
-    console.info('stderr: ' + data.toString())
-  })
+    walletProcess.stderr.on('data', function(data) {
+      console.info('stderr: ' + data.toString())
+    })
+  }
 }
 
 async function sleep(t) {
@@ -434,14 +437,16 @@ async function sleep(t) {
 
 autoUpdater.on('update-available', () => {
   win.webContents.send('update_available')
+  isBeingUpdated = true
 })
 
 autoUpdater.on('update-downloaded', () => {
-  app.removeAllListeners('close')
+  if (walletProcess) {
+    walletProcess.kill(9)
+  }
   if (win != null) {
     win.close()
   }
-
   autoUpdater.quitAndInstall(false)
 })
 
