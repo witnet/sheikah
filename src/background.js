@@ -233,9 +233,9 @@ async function downloadWalletRelease(releaseUrl, version) {
         await pipeline(response.data, str, fs.createWriteStream(file))
         console.info('witnet release downloaded succesfully')
 
-      const existWitnetFile = fs.existsSync(
-        path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
-      )
+        const existWitnetFile = fs.existsSync(
+          path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
+        )
         // delete witnet file before decompress
         if (existWitnetFile) {
           fs.unlinkSync(path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
@@ -253,6 +253,7 @@ async function downloadWalletRelease(releaseUrl, version) {
             'witnet.toml',
             path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
           )
+          await sleep(3000)
 
           overwriteWalletConfigFile()
 
@@ -264,6 +265,7 @@ async function downloadWalletRelease(releaseUrl, version) {
             cp.execSync(`tar -xvf ${file}`)
             process.chdir(currentCwd)
 
+            await sleep(3000)
             overwriteWalletConfigFile()
 
             fs.writeFileSync(
@@ -281,14 +283,15 @@ async function downloadWalletRelease(releaseUrl, version) {
             path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
           )
 
+          await sleep(3000)
           overwriteWalletConfigFile()
 
           cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
           fs.writeFileSync(path.join(SHEIKAH_PATH, VERSION_FILE_NAME), version)
         }
-        fs.unlinkSync(file)
 
-        await sleep(3000)
+        // remove compressed file
+        fs.unlinkSync(file)
 
         resolve()
       })
