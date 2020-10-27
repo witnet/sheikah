@@ -6,7 +6,7 @@
         <DotIndicator
           data-test="dot-indicator"
           :synced="synced"
-          :url="`https://api.adorable.io/avatars/:${walletIdx}/`"
+          :url="getAvatarUrl(walletIdx)"
         />
       </div>
       <div class="wallet-info">
@@ -86,10 +86,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
 import DotIndicator from '@/components/DotIndicator'
 import DotsLoading from '@/components/DotsLoading.vue'
-import { calculateTimeAgo } from '@/utils'
+import { calculateTimeAgo, getAvatarUrl } from '@/utils'
 
 export default {
   name: 'NetworkStatus',
@@ -145,6 +144,7 @@ export default {
   },
   methods: {
     calculateTimeAgo,
+    getAvatarUrl,
   },
 }
 </script>

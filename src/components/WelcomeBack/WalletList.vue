@@ -46,6 +46,7 @@
 import Select from '@/components/Select'
 import Card from '@/components/card/Card'
 import { mapState, mapActions, mapMutations } from 'vuex'
+import { getAvatarUrl } from '@/utils'
 
 export default {
   name: 'WalletList',
@@ -85,7 +86,7 @@ export default {
         return {
           primaryText: `My personal Witnet Wallet #${index}`,
           value: wallet.id,
-          img: `https://api.adorable.io/avatars/:${index}/`,
+          img: getAvatarUrl(index),
         }
       })
     },

@@ -49,6 +49,11 @@ export function cropString(string, caracters, position) {
   }
 }
 
+// get avatar url
+export function getAvatarUrl(hash) {
+  return `https://github.com/identicons/${hash}.png`
+}
+
 // get domain from a given url
 export function getDomainFromUrl(url) {
   // add default domain if the url doesn't include it
