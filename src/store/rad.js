@@ -71,6 +71,9 @@ export default {
     setDataRequestChangedSinceSaved(state, payload) {
       state.dataRequestChangedSinceSaved = payload.value
     },
+    resetAutoTry(state) {
+      state.autoTry = false
+    },
     toggleTryDataRequest(state) {
       state.autoTry = !state.autoTry
       state.autoTry

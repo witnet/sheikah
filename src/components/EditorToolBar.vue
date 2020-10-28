@@ -171,11 +171,12 @@ export default {
       clearHistory: CLEAR_HISTORY,
       clearDataRequestResult: 'clearDataRequestResult',
       toggleTryDataRequest: 'toggleTryDataRequest',
+      resetAutoTry: 'resetAutoTry',
       setError: 'setError',
     }),
     clear() {
       this.clearDataRequestResult()
-      this.toggleTryDataRequest()
+      this.resetAutoTry()
       this.clearHistory()
     },
     export(format) {
