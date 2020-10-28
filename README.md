@@ -49,7 +49,7 @@ Once this has been achieved, you can run a `witnet-node` and a `witnet-wallet`.
 #### witnet-wallet
 
 ```bash
-./witnet --trace wallet server
+./witnet wallet server
 ```
 
 ### Running Sheikah

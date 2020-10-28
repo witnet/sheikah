@@ -416,7 +416,6 @@ async function runWallet() {
     walletProcess = cp.spawn(path.join(SHEIKAH_PATH, WITNET_FILE_NAME), [
       '-c',
       walletConfigurationPath,
-      '--trace',
       'wallet',
       'server',
     ])
