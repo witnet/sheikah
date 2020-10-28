@@ -113,6 +113,17 @@ export default {
       }
     }
 
+    const minConsensusPercentage = (rule, value, callback) => {
+      const isLessThanMin = value < 51
+      if (isLessThanMin) {
+        callback(
+          new Error('The minimun consensus percentage cannot be less than 51'),
+        )
+      } else {
+        callback()
+      }
+    }
+
     const minCollateralAmount = (rule, value, callback) => {
       const isLessThanMin =
         Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.currency)) <
@@ -181,7 +192,8 @@ export default {
         ],
         minConsensusPercentage: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { validator: isNumber, trigger: 'change' },
+          { validator: minAmount, trigger: 'submit' },
+          { validator: minConsensusPercentage, trigger: 'change' },
         ],
         rewardFee: [
           { required: true, message: 'Required field', trigger: 'blur' },
