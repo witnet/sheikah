@@ -35,7 +35,7 @@
       </div>
       <div class="row">
         <el-button data-test="create-wallet" type="text" @click="nextStep">
-          Create import or recover a wallet ></el-button
+          Create, import or recover a wallet ></el-button
         >
       </div>
     </div>
