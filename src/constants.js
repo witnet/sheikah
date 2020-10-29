@@ -39,6 +39,7 @@ export const WALLET_EVENTS = {
   BLOCK_CONSOLIDATE: 'BlocksConsolidate',
   BLOCK_ORPHAN: 'BlocksOrphan',
   NODE_STATUS_CHANGED: 'NodeStatus',
+  NODE_SYNC_ERROR: 'SyncError',
 }
 
 // Generate address delay in ms

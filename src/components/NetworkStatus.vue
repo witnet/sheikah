@@ -14,8 +14,11 @@
           {{ unlockedWallet.name }}
         </p>
         <div class="status-container">
+          <div v-if="syncingError" data-test="status" class="status sync-error">
+            SYNC ERROR
+          </div>
           <div
-            v-if="progress || progress === 0"
+            v-else-if="progress || progress === 0"
             data-test="status"
             :class="['status', synced ? 'synced' : 'syncing']"
           >
@@ -29,7 +32,7 @@
             {{ synced ? 'SYNCED' : `WAITING FOR NODE TO SYNC` }}
           </div>
           <DotsLoading
-            v-if="!synced"
+            v-if="!synced && !syncingError"
             data-test="loading-spinner"
             class="spinner"
           />
@@ -60,6 +63,7 @@
         class="detail-info"
       >
         <el-button
+          v-if="syncingError && nodeSynced"
           type="primary"
           size="mini"
           class="resync"
@@ -92,7 +96,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import DotIndicator from '@/components/DotIndicator'
 import DotsLoading from '@/components/DotsLoading.vue'
 import { calculateTimeAgo } from '@/utils'
@@ -119,6 +123,10 @@ export default {
   },
   computed: {
     ...mapGetters(['network', 'unlockedWallet']),
+    ...mapState({
+      syncingError: state => state.wallet.errors.nodeSync,
+      nodeSynced: state => state.wallet.status.nodeSynced,
+    }),
     address() {
       return this.status.node && this.status.node.address
     },
@@ -192,6 +200,10 @@ export default {
 
           &.syncing {
             color: $yellow-4;
+          }
+
+          &.sync-error {
+            color: $red-3;
           }
         }
       }

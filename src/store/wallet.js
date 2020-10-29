@@ -45,6 +45,7 @@ export default {
       network: null,
       saveItem: null,
       getItem: null,
+      nodeSync: false,
     },
     repeatedMnemonics: null,
     exportFileLink: '',
@@ -65,6 +66,7 @@ export default {
       progress: 0,
       timestamp: 0,
       synced: false,
+      nodeSynced: false,
     },
     description: '',
     title: '',
@@ -233,7 +235,8 @@ export default {
       if (
         error === 'Validation Error' ||
         name === 'uploadFile' ||
-        name === 'seed'
+        name === 'seed' ||
+        name === 'nodeSync'
       ) {
         state.errors[name] = {
           name,
@@ -792,6 +795,7 @@ export default {
           })
         }
       } else if (eventType === WALLET_EVENTS.SYNC_FINISH) {
+        context.state.errors.nodeSync = false
         await context.dispatch('getTransactions', {
           limit: 50,
           page: context.state.currentTransactionsPage,
@@ -809,6 +813,7 @@ export default {
           })
         }
       } else if (eventType === WALLET_EVENTS.SYNC_PROGRESS) {
+        context.state.errors.nodeSync = false
         // eslint-disable-next-line
         const [start, current, finish] = event
         status.progress = (current / finish) * 100 || 0
@@ -822,6 +827,7 @@ export default {
           context.dispatch('getAddresses')
         }
       } else if (eventType === WALLET_EVENTS.SYNC_START) {
+        context.state.errors.nodeSync = false
         const [start, finish] = event
         status.progress = 0
         context.commit('setBalance', { balance: status.account.balance })
@@ -852,14 +858,19 @@ export default {
       context.dispatch('processStatus', status)
 
       if (eventType === WALLET_EVENTS.NODE_STATUS_CHANGED) {
-        console.log('event type------->', event)
+        context.state.errors.nodeSync = false
         if (event === 'Synced') {
-          context.state.status.synced = true
+          context.state.status.nodeSynced = true
           context.state.status.progress = null
         } else {
           context.state.status.synced = false
+          context.state.status.nodeSynced = false
           context.state.status.progress = null
         }
+      }
+
+      if (eventType === WALLET_EVENTS.NODE_SYNC_ERROR) {
+        context.state.errors.nodeSync = true
       }
     },
 
