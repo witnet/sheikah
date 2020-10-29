@@ -852,6 +852,7 @@ export default {
       context.dispatch('processStatus', status)
 
       if (eventType === WALLET_EVENTS.NODE_STATUS_CHANGED) {
+        console.log('event type------->', event)
         if (event === 'Synced') {
           context.state.status.synced = true
           context.state.status.progress = null

@@ -15,7 +15,7 @@
         </p>
         <div class="status-container">
           <div
-            v-if="progress"
+            v-if="progress || progress === 0"
             data-test="status"
             :class="['status', synced ? 'synced' : 'syncing']"
           >
@@ -26,7 +26,7 @@
             data-test="status"
             :class="['status', synced ? 'synced' : 'syncing']"
           >
-            {{ synced ? 'SYNCED' : `SYNCING` }}
+            {{ synced ? 'SYNCED' : `WAITING FOR NODE TO SYNC` }}
           </div>
           <DotsLoading
             v-if="!synced"
