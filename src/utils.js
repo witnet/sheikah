@@ -125,16 +125,25 @@ export function standardizeWitUnits(
   const witUnitConversor = {
     [`${WIT_UNIT.WIT}`]: {
       [`${WIT_UNIT.WIT}`]: 0,
+      [`${WIT_UNIT.MILLI}`]: 3,
       [`${WIT_UNIT.MICRO}`]: 6,
       [`${WIT_UNIT.NANO}`]: 9,
     },
+    [`${WIT_UNIT.MILLI}`]: {
+      [`${WIT_UNIT.WIT}`]: -3,
+      [`${WIT_UNIT.MILLI}`]: 0,
+      [`${WIT_UNIT.MICRO}`]: 3,
+      [`${WIT_UNIT.NANO}`]: 6,
+    },
     [`${WIT_UNIT.MICRO}`]: {
       [`${WIT_UNIT.WIT}`]: -6,
+      [`${WIT_UNIT.MILLI}`]: -3,
       [`${WIT_UNIT.MICRO}`]: 0,
       [`${WIT_UNIT.NANO}`]: 3,
     },
     [`${WIT_UNIT.NANO}`]: {
       [`${WIT_UNIT.WIT}`]: -9,
+      [`${WIT_UNIT.MILLI}`]: -6,
       [`${WIT_UNIT.MICRO}`]: -3,
       [`${WIT_UNIT.NANO}`]: 0,
     },

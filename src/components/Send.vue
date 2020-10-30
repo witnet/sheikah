@@ -36,13 +36,8 @@
       </el-form-item>
       <el-form-item label="Amount" prop="amount">
         <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
-        <el-input
-          v-model="form.amount"
-          type="number"
-          tabindex="3"
-          data-test="tx-amount"
-        >
-          <AppendCurrency slot="append" />
+        <el-input v-model="form.amount" tabindex="3" data-test="tx-amount">
+          <AppendCurrency slot="append" @change-currency="changeCurrency" />
         </el-input>
       </el-form-item>
       <el-form-item label="fee per weight unit" prop="fee">
@@ -52,7 +47,7 @@
           tabindex="4"
           data-test="tx-fee"
         >
-          <AppendCurrency slot="append" />
+          <AppendCurrency slot="append" @change-currency="changeCurrency" />
         </el-input>
       </el-form-item>
 
@@ -128,6 +123,7 @@ export default {
 
     return {
       isAdvancedVisible: false,
+      WIT_UNIT,
       form: {
         address: '',
         label: '',
@@ -197,11 +193,23 @@ export default {
       sendTransaction: 'sendTransaction',
       createVTT: 'createVTT',
     }),
+    changeCurrency(prevCurrency, newCurrency) {
+      this.form = {
+        address: '',
+        label: '',
+        amount: this.form.amount
+          ? standardizeWitUnits(this.form.amount, newCurrency, prevCurrency, 2)
+          : null,
+        fee: this.form.fee
+          ? standardizeWitUnits(this.form.fee, newCurrency, prevCurrency, 2)
+          : null,
+      }
+    },
     clearSendForm() {
       this.form.address = ''
       this.form.label = ''
-      this.form.amount = 0
-      this.form.fee = 0
+      this.form.amount = null
+      this.form.fee = null
     },
     closeAndClear() {
       this.clearSendForm()
@@ -236,6 +244,7 @@ export default {
       this.isAdvancedVisible = false
       this.$emit('close')
     },
+    standardizeWitUnits,
   },
 }
 </script>

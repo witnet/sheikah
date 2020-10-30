@@ -24,6 +24,7 @@ export const SOURCES_WITH_REDUCED_DISCLAIMERS = [
 
 export const WIT_UNIT = {
   WIT: 'wit',
+  MILLI: 'milliWit',
   MICRO: 'microWit',
   NANO: 'nanoWit',
 }

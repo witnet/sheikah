@@ -18,7 +18,7 @@
 
     <el-form-item label="Collateral" prop="collateral">
       <el-input v-model="form.collateral" data-test="collateral" type="number">
-        <AppendCurrency slot="append" />
+        <AppendCurrency slot="append" @change-currency="changeCurrency" />
       </el-input>
     </el-form-item>
 
@@ -35,13 +35,13 @@
 
     <el-form-item label="Data request fee" prop="fee">
       <el-input v-model="form.fee" data-test="dr-fee" type="number">
-        <AppendCurrency slot="append" />
+        <AppendCurrency slot="append" @change-currency="changeCurrency" />
       </el-input>
     </el-form-item>
 
     <el-form-item label="Reward fee" prop="rewardFee">
       <el-input v-model="form.rewardFee" data-test="reward-fee" type="number">
-        <AppendCurrency slot="append" />
+        <AppendCurrency slot="append" @change-currency="changeCurrency" />
       </el-input>
     </el-form-item>
 
@@ -51,7 +51,7 @@
         data-test="commit-reveal-fee"
         type="number"
       >
-        <AppendCurrency slot="append" />
+        <AppendCurrency slot="append" @change-currency="changeCurrency" />
       </el-input>
     </el-form-item>
 
@@ -235,6 +235,43 @@ export default {
   },
   methods: {
     standardizeWitUnits,
+    changeCurrency(prevCurrency, newCurrency) {
+      this.form = {
+        backupWitnesses: this.form.backupWitnesses,
+        commitAndRevealFee: this.form.commitAndRevealFee
+          ? standardizeWitUnits(
+              this.form.commitAndRevealFee,
+              newCurrency,
+              prevCurrency,
+              2,
+            )
+          : null,
+        dataRequest: this.form.dataRequest,
+        extraCommitRounds: this.form.extraCommitRounds,
+        extraRevealRounds: this.form.extraRevealRounds,
+        fee: this.form.fee
+          ? standardizeWitUnits(this.form.fee, newCurrency, prevCurrency, 2)
+          : null,
+        minConsensusPercentage: this.form.minConsensusPercentage,
+        rewardFee: this.form.rewardFee
+          ? standardizeWitUnits(
+              this.form.rewardFee,
+              newCurrency,
+              prevCurrency,
+              2,
+            )
+          : null,
+        witnesses: this.form.witnesses,
+        collateral: this.form.collateral
+          ? standardizeWitUnits(
+              this.form.collateral,
+              newCurrency,
+              prevCurrency,
+              2,
+            )
+          : null,
+      }
+    },
     goBack() {
       this.$emit('go-back')
     },

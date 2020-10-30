@@ -51,6 +51,7 @@ export default {
     checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
     mainnetReady: false,
     currency: DEFAULT_WIT_UNIT,
+    prevCurrency: DEFAULT_WIT_UNIT,
     balance: {},
     walletIdx: null,
     sessionId: null,
@@ -136,7 +137,9 @@ export default {
       const unitsValues = Object.values(WIT_UNIT)
       const unitsKeys = Object.keys(WIT_UNIT)
       // Get index of the next currency
-      const index = (unitsValues.indexOf(state.currency) + 1) % 3
+      state.prevCurrency = state.currency
+      const index =
+        (unitsValues.indexOf(state.currency) + 1) % unitsValues.length
       state.currency = WIT_UNIT[unitsKeys[index]]
     },
     deleteSession(state) {
@@ -695,7 +698,6 @@ export default {
     },
     getWalletInfos: async function(context) {
       const request = await context.state.api.getWalletInfos()
-
       if (request.result) {
         context.commit('setWalletInfos', { walletInfos: request.result.infos })
       } else {

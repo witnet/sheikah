@@ -1,5 +1,5 @@
 <template>
-  <div class="currency" @click="changeCurrency">{{ currency }}</div>
+  <div class="currency" @click="change">{{ currency }}</div>
 </template>
 
 <script>
@@ -10,10 +10,15 @@ export default {
   computed: {
     ...mapState({
       currency: state => state.wallet.currency,
+      prevCurrency: state => state.wallet.prevCurrency,
     }),
   },
   methods: {
     ...mapMutations(['changeCurrency']),
+    change() {
+      this.changeCurrency()
+      this.$emit('change-currency', this.prevCurrency, this.currency)
+    },
   },
 }
 </script>
