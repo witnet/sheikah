@@ -15,6 +15,7 @@ import WalletDisclaimer from '@/components/steps/WalletDisclaimer.vue'
 import WalletEncryptionPassword from '@/components/steps/WalletEncryptionPassword.vue'
 import WalletList from '@/components/WelcomeBack/WalletList.vue'
 import WalletSeedBackup from '@/components/steps/WalletSeedBackup.vue'
+import WalletDescription from '@/components/steps/WalletDescription.vue'
 import WalletSeedValidation from '@/components/steps/WalletSeedValidation.vue'
 import WelcomeBack from '@/views/WelcomeBack.vue'
 import WelcomeForm from '@/components/steps/WelcomeForm.vue'
@@ -216,6 +217,11 @@ export default new Router({
           name: 'seedBackup',
           path: 'seed-backup',
           component: WalletSeedBackup,
+        },
+        {
+          name: 'walletDescription',
+          path: 'wallet-description',
+          component: WalletDescription,
         },
         {
           name: 'seedValidation',

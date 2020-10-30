@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { changeDateFormat } from '@/utils'
+import { changeDateFormat, getAvatarUrl } from '@/utils'
 const RPCWebsockets = require('rpc-websockets').Client
 
 const defaultOptions = {
@@ -180,7 +180,10 @@ export class WalletApi {
   }
 
   getWalletInfos(params) {
-    return this._callApiMethod('get_wallet_infos')(params)
+    return this._callApiMethod('get_wallet_infos')(
+      params,
+      standardizeWalletInfos,
+    )
   }
 
   importSeed(params) {
@@ -357,5 +360,17 @@ function computeTransactionAddress(inputs, outputs, type) {
     // sending and the second is for the change. So if there are more than 2,
     // there are several addresses
     return outputs.length > 2 ? 'several addresses' : outputs[0].address
+  }
+}
+
+function standardizeWalletInfos(response) {
+  if (!response.result) return response
+
+  return {
+    result: response.result.infos.map((info, index) => ({
+      ...info,
+      name: info.name || `My personal Witnet Wallet #${index}`,
+      image: getAvatarUrl(index),
+    })),
   }
 }

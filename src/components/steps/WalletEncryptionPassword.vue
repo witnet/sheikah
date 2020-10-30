@@ -81,13 +81,7 @@ export default {
       return this.$route.query && this.$route.query.import
     },
     previousRoute() {
-      if (this.repeatedMnemonics) {
-        return `/ftu/repeated-mnemonics`
-      } else if (this.isImporting) {
-        return `/ftu/import-wallet`
-      } else {
-        return `/ftu/seed-validation`
-      }
+      return `/ftu/wallet-description${this.isImporting ? '?import=true' : ''}`
     },
   },
   watch: {

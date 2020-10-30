@@ -46,7 +46,6 @@
 import Select from '@/components/Select'
 import Card from '@/components/card/Card'
 import { mapState, mapActions, mapMutations } from 'vuex'
-import { getAvatarUrl } from '@/utils'
 
 export default {
   name: 'WalletList',
@@ -84,9 +83,9 @@ export default {
     walletOptions() {
       return this.wallets.map((wallet, index) => {
         return {
-          primaryText: `My personal Witnet Wallet #${index}`,
+          primaryText: wallet.name,
           value: wallet.id,
-          img: getAvatarUrl(index),
+          img: wallet.image,
         }
       })
     },

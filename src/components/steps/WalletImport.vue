@@ -97,10 +97,8 @@ export default {
     },
     async nextStep() {
       await this.validateForm()
-      if (this.repeatedMnemonics) {
-        this.$router.push('/ftu/repeated-mnemonics')
-      } else if (!this.seedError) {
-        this.$router.push(`/ftu/encryption-pass?import=true`)
+      if (!this.seedError) {
+        this.$router.push(`/ftu/wallet-description?import=true`)
       }
     },
     previousStep() {

@@ -33,6 +33,7 @@
 
 <script>
 import Disclaimer from '@/components/card/Disclaimer'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'WalletDisclaimer',
@@ -40,7 +41,9 @@ export default {
     Disclaimer,
   },
   methods: {
+    ...mapMutations(['setWalletDescription']),
     previousStep() {
+      this.setWalletDescription({ title: '', description: '' })
       this.$router.push('/ftu/welcome')
     },
     nextStep() {

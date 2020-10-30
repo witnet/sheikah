@@ -85,6 +85,11 @@ export default {
     network: state => {
       return state.status.node && state.status.node.network
     },
+    unlockedWallet: state => {
+      return Number.isInteger(state.walletIdx)
+        ? state.walletInfos[state.walletIdx]
+        : null
+    },
   },
   mutations: {
     setRepeatedMnemonics(state, payload) {
@@ -638,6 +643,7 @@ export default {
       })
 
       context.commit('setRepeatedMnemonics', { exist: null })
+      context.commit('setWalletDescription', { title: '', description: '' })
       if (request.result) {
         context.dispatch('unlockWallet', {
           walletId: request.result.wallet_id,
@@ -699,7 +705,7 @@ export default {
     getWalletInfos: async function(context) {
       const request = await context.state.api.getWalletInfos()
       if (request.result) {
-        context.commit('setWalletInfos', { walletInfos: request.result.infos })
+        context.commit('setWalletInfos', { walletInfos: request.result })
       } else {
         context.commit('setError', {
           name: 'getWalletInfos',

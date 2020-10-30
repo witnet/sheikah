@@ -6,12 +6,12 @@
         <DotIndicator
           data-test="dot-indicator"
           :synced="synced"
-          :url="getAvatarUrl(walletIdx)"
+          :url="unlockedWallet.image"
         />
       </div>
       <div class="wallet-info">
         <p data-test="wallet-name" class="current-wallet-name">
-          Witnet wallet #{{ walletIdx }}
+          {{ unlockedWallet.name }}
         </p>
         <div class="status-container">
           <div
@@ -95,7 +95,7 @@
 import { mapGetters } from 'vuex'
 import DotIndicator from '@/components/DotIndicator'
 import DotsLoading from '@/components/DotsLoading.vue'
-import { calculateTimeAgo, getAvatarUrl } from '@/utils'
+import { calculateTimeAgo } from '@/utils'
 
 export default {
   name: 'NetworkStatus',
@@ -110,10 +110,6 @@ export default {
       synced: Boolean,
       timestamp: Date,
     },
-    walletIdx: {
-      type: [String, Number],
-      default: '',
-    },
   },
   data() {
     return {
@@ -122,7 +118,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['network']),
+    ...mapGetters(['network', 'unlockedWallet']),
     address() {
       return this.status.node && this.status.node.address
     },
@@ -154,7 +150,6 @@ export default {
   },
   methods: {
     calculateTimeAgo,
-    getAvatarUrl,
   },
 }
 </script>
@@ -276,14 +271,12 @@ export default {
     status="Block"
     node="node"
     lastBlock="last-block"
-    :walletIdx="1"
   />
 ```
 ```jsx
   <NetworkStatus
     :expanded="true"
     status="Unknown"
-    :walletIdx="1"
   />
 ```
 ```jsx
@@ -292,7 +285,6 @@ export default {
     status="SyncProgress"
     node="node"
     lastBlock="last-block"
-    :walletIdx="1"
   />
 ```
 </docs>

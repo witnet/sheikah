@@ -88,7 +88,7 @@ export default {
     nextStep() {
       this.validateForm()
       if (this.areMnemonicsValid) {
-        this.$router.push('/ftu/encryption-pass')
+        this.$router.push('/ftu/wallet-description')
       }
     },
     previousStep() {
