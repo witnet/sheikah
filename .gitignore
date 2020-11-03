@@ -10,6 +10,7 @@ witnet
 sheikah-darwin-x64
 
 # local env files
+.env
 .env.local
 .env.*.local
 

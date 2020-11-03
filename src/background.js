@@ -52,6 +52,7 @@ const STATUS_PATH = {
   [STATUS.WAIT]: 'setup',
   [STATUS.READY]: '',
 }
+const DEFAULT_WALLET_LOG_LEVEL = 'error'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -413,12 +414,16 @@ async function runWallet() {
   console.info('... with witnet.toml from ' + walletConfigurationPath)
   if (!isBeingUpdated) {
     win.webContents.send('log', isBeingUpdated)
-    walletProcess = cp.spawn(path.join(SHEIKAH_PATH, WITNET_FILE_NAME), [
-      '-c',
-      walletConfigurationPath,
-      'wallet',
-      'server',
-    ])
+    walletProcess = cp.spawn(
+      path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
+      ['-c', walletConfigurationPath, 'wallet', 'server'],
+      {
+        env: {
+          RUST_LOG: `witnet=${DEFAULT_WALLET_LOG_LEVEL}`,
+          ...process.env,
+        },
+      },
+    )
 
     walletProcess.stdout.on('data', async function(data) {
       console.info('stdout: ' + data.toString())
