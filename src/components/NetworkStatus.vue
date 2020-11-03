@@ -19,7 +19,7 @@
             data-test="status"
             :class="['status', synced ? 'synced' : 'syncing']"
           >
-            {{ synced ? 'SYNCED' : `SYNCING (${progress}%)` }}
+            {{ synced ? 'SYNCED' : `SYNCING (${progress.toFixed(2)}%)` }}
           </div>
           <div
             v-else
@@ -75,9 +75,16 @@
         <p v-if="network" data-test="network" class="text">
           Tracking <span class="bold">{{ network }}</span> network
         </p>
-        <p data-test="last-block" class="text">
-          Last block is <span class="bold">#{{ lastBlock }}</span>
+        <p v-if="!synced" data-test="last-block" class="text">
+          <span class="bold">{{ lastBlock - lastSync }}</span> blocks left
+        </p>
+        <p v-if="synced" data-test="last-block" class="text">
+          Last block <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo !== 0"> ({{ calculateTimeAgo(timeAgo) }})</span>
+        </p>
+        <p v-else data-test="last-block" class="text">
+          Block <span class="bold">#{{ lastSync }}</span> of
+          <span class="bold">#{{ lastBlock }}</span>
         </p>
       </div>
     </transition>
@@ -121,6 +128,9 @@ export default {
     },
     lastBlock() {
       return this.status.node && this.status.node.last_beacon.checkpoint
+    },
+    lastSync() {
+      return this.status.node && this.status.wallet.last_sync.checkpoint
     },
     progress() {
       return this.status && this.status.progress

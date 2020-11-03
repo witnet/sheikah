@@ -760,7 +760,6 @@ export default {
       const eventType = Object.keys(rawEvent.event)[0]
       const event = rawEvent.event[eventType]
       const status = rawEvent.status
-
       if (eventType === WALLET_EVENTS.BLOCK) {
         await context.dispatch('getTransactions', {
           limit: 50,
@@ -792,6 +791,7 @@ export default {
         await context.commit('setBalance', { balance: status.account.balance })
         await context.dispatch('getAddresses')
         status.progress = 100
+        status.synced = true
         const [start, finish] = event
         if (finish > start) {
           createNotification({
@@ -801,9 +801,9 @@ export default {
           })
         }
       } else if (eventType === WALLET_EVENTS.SYNC_PROGRESS) {
+        // eslint-disable-next-line
         const [start, current, finish] = event
-        status.progress =
-          Math.floor(((current - start) / (finish - start)) * 100) || 0
+        status.progress = (current / finish) * 100 || 0
         // Re-render transactions, balances and wallets every 2000 blocks
         if (Math.floor((current - 50) / 2000) < Math.floor(current / 2000)) {
           context.commit('setBalance', { balance: status.account.balance })
