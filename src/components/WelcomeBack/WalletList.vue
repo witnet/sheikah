@@ -92,9 +92,6 @@ export default {
     },
   },
   watch: {
-    wallets() {
-      this.currentWallet = this.walletOptions[this.lastWalletOpen]
-    },
     sessionId: function(newValue) {
       if (newValue) {
         this.updateView()
@@ -108,6 +105,7 @@ export default {
   },
   mounted() {
     this.getWalletInfos()
+    this.currentWallet = this.walletOptions[this.lastWalletOpen]
   },
   methods: {
     ...mapActions({
