@@ -123,3 +123,7 @@ global.getNormalizedFormRules = function(wrapper) {
     {},
   )
 }
+
+global.sleep = function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}

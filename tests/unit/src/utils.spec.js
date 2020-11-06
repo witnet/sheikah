@@ -1,6 +1,5 @@
 import {
   areSoftEqualArrays,
-  calculateTimeAgo,
   deleteKey,
   getDomainFromUrl,
   standardizeWitUnits,
@@ -42,16 +41,6 @@ describe('areSoftEqualArrays', () => {
     const arr1 = [1, 3, 5, 4]
     const arr2 = [5, 2, 3, 4, 1]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
-  })
-})
-
-describe('calculateTimeAgo', () => {
-  it('should end with "ago" copy', () => {
-    const date = new Date()
-
-    date.setSeconds(date.getSeconds() - 4)
-
-    expect(calculateTimeAgo(date).endsWith('ago')).toBe(true)
   })
 })
 

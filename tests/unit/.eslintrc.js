@@ -8,6 +8,7 @@ module.exports = {
     createComponentMocks: false,
     nextTick: false,
     getNormalizedFormRules: false,
+    sleep: false,
   },
   rules: {},
 }

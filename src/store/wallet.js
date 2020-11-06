@@ -8,6 +8,9 @@ import {
   isSyncEvent,
   standardizeWitUnits,
 } from '@/utils'
+import SyncingTimeEstimator from '@/services/SyncingTimeEstimator'
+import formatMillisecondsDuration from '@/services/format/formatMillisecondsDuration'
+
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import {
   DEFAULT_WIT_UNIT,
@@ -65,6 +68,8 @@ export default {
       progress: 0,
       timestamp: 0,
       synced: false,
+      timeSyncStart: null,
+      syncingTimeEstimator: new SyncingTimeEstimator(),
     },
     description: '',
     title: '',
@@ -90,8 +95,25 @@ export default {
         ? state.walletInfos[state.walletIdx]
         : null
     },
+    estimatedTimeOfSync: state => {
+      return formatMillisecondsDuration(
+        state.status.syncingTimeEstimator.calculate(),
+      )
+    },
   },
   mutations: {
+    stopSyncEstimator(state) {
+      state.status.syncingTimeEstimator.reset()
+    },
+    startSyncEstimator(state) {
+      state.status.syncingTimeEstimator.start(Date.now())
+    },
+    addSyncEstimatorSample(state, { current, finish }) {
+      state.status.syncingTimeEstimator.addSample({
+        currentBlock: current,
+        lastBlock: finish,
+      })
+    },
     setRepeatedMnemonics(state, payload) {
       state.repeatedMnemonics = payload.exist
     },
@@ -800,11 +822,12 @@ export default {
           })
         }
       } else if (eventType === WALLET_EVENTS.SYNC_FINISH) {
+        context.commit('stopEtaSync')
         await context.dispatch('getTransactions', {
           limit: 50,
           page: context.state.currentTransactionsPage,
         })
-        await context.commit('setBalance', { balance: status.account.balance })
+        context.commit('setBalance', { balance: status.account.balance })
         await context.dispatch('getAddresses')
         status.progress = 100
         status.synced = true
@@ -818,8 +841,10 @@ export default {
         }
       } else if (eventType === WALLET_EVENTS.SYNC_PROGRESS) {
         // eslint-disable-next-line
-        const [start, current, finish] = event
+        const [_start, current, finish] = event
         status.progress = (current / finish) * 100 || 0
+        context.commit('addSyncEstimatorSample', { current, finish })
+
         // Re-render transactions, balances and wallets every 2000 blocks
         if (Math.floor((current - 50) / 2000) < Math.floor(current / 2000)) {
           context.commit('setBalance', { balance: status.account.balance })
@@ -831,6 +856,11 @@ export default {
         }
       } else if (eventType === WALLET_EVENTS.SYNC_START) {
         const [start, finish] = event
+
+        if (!context.state.status.syncingTimeEstimator.hasStarted()) {
+          context.commit('startSyncEstimator')
+        }
+
         status.progress = 0
         context.commit('setBalance', { balance: status.account.balance })
         context.dispatch('getTransactions', {
@@ -879,7 +909,7 @@ export default {
         status.timestamp = Date.now()
       }
       context.commit('setStatus', {
-        status: { ...this.state.wallet.status, ...status },
+        status: { ...context.state.status, ...status },
       })
     },
   },

@@ -69,3 +69,6 @@ export const EXTERNAL_URL = {
 }
 
 export const GENESIS_EVENT_TIMESTAMP = 1602666000000
+
+// Syncing time estimador
+export const SYNCING_TIME_WINDOW_LENGTH = 100

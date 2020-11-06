@@ -14,25 +14,27 @@
           {{ unlockedWallet.name }}
         </p>
         <div class="status-container">
-          <div
-            v-if="progress"
-            data-test="status"
-            :class="['status', synced ? 'synced' : 'syncing']"
-          >
-            {{ synced ? 'SYNCED' : `SYNCING (${progress.toFixed(2)}%)` }}
+          <div class="progress">
+            <div v-if="!synced" data-test="status" class="status syncing">
+              SYNCING&nbsp;<span v-if="progress">{{
+                ` (${progress.toFixed(2)}%)`
+              }}</span>
+              <DotsLoading v-else data-test="loading-spinner" class="spinner" />
+            </div>
+            <div v-else data-test="status" class="status synced">
+              SYNCED
+            </div>
           </div>
-          <div
-            v-else
-            data-test="status"
-            :class="['status', synced ? 'synced' : 'syncing']"
-          >
-            {{ synced ? 'SYNCED' : `SYNCING` }}
-          </div>
-          <DotsLoading
-            v-if="!synced"
-            data-test="loading-spinner"
-            class="spinner"
-          />
+
+          <p v-if="!synced" data-test="time-left" class="estimation">
+            ETA&nbsp;
+            <span
+              v-if="estimatedTimeOfSync && estimatedTimeOfSync !== '00:00:00'"
+              class=""
+              >{{ estimatedTimeOfSync }}</span
+            >
+            <DotsLoading v-else data-test="loading-spinner" class="spinner" />
+          </p>
         </div>
       </div>
       <div class="icon">
@@ -59,6 +61,14 @@
         data-test="detail-info"
         class="detail-info"
       >
+        <p v-if="!synced" data-test="last-block" class="text">
+          <span class="bold">{{ lastBlock - lastSync }}</span> blocks left
+        </p>
+        <p v-if="!synced" data-test="last-block" class="text">
+          Block <span class="bold">#{{ lastSync }}</span> of
+          <span class="bold">#{{ lastBlock }}</span>
+        </p>
+
         <el-button
           type="primary"
           size="mini"
@@ -68,23 +78,15 @@
           <font-awesome-icon class="icon" icon="sync-alt" />
           Resync
         </el-button>
-
         <p data-test="node" class="text">
           Connected to <span class="bold">{{ address }}</span>
         </p>
         <p v-if="network" data-test="network" class="text">
           Tracking <span class="bold">{{ network }}</span> network
         </p>
-        <p v-if="!synced" data-test="last-block" class="text">
-          <span class="bold">{{ lastBlock - lastSync }}</span> blocks left
-        </p>
         <p v-if="synced" data-test="last-block" class="text">
           Last block <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo !== 0"> ({{ calculateTimeAgo(timeAgo) }})</span>
-        </p>
-        <p v-else data-test="last-block" class="text">
-          Block <span class="bold">#{{ lastSync }}</span> of
-          <span class="bold">#{{ lastBlock }}</span>
         </p>
       </div>
     </transition>
@@ -118,7 +120,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['network', 'unlockedWallet']),
+    ...mapGetters(['network', 'estimatedTimeOfSync', 'unlockedWallet']),
     address() {
       return this.status.node && this.status.node.address
     },
@@ -180,19 +182,32 @@ export default {
 
       .status-container {
         display: flex;
+        flex-direction: column;
         margin-top: 8px;
 
-        .status {
+        .progress {
+          display: flex;
+
+          .status {
+            font-weight: bold;
+            margin-right: 8px;
+
+            &.synced {
+              color: $green-5;
+            }
+
+            &.syncing {
+              color: $yellow-4;
+              display: flex;
+            }
+          }
+        }
+
+        .estimation {
+          color: $yellow-4;
+          display: flex;
+          font-size: 12px;
           font-weight: bold;
-          margin-right: 8px;
-
-          &.synced {
-            color: $green-5;
-          }
-
-          &.syncing {
-            color: $yellow-4;
-          }
         }
       }
     }

@@ -164,6 +164,14 @@ export function standardizeWitUnits(
   }
 }
 
+export function getTimeToSync(startingTime, currentBlock, finalBlock) {
+  const currentTimestamp = Date.now()
+  const timeToCurrentBlock = currentTimestamp - startingTime
+  const timeToSync = Math.floor(finalBlock * timeToCurrentBlock) / currentBlock
+
+  return timeToSync - timeToCurrentBlock
+}
+
 export function encodeDataRequest(radRequest) {
   return {
     // TODO: Use only one timelock argument when the wallet standarize calls
