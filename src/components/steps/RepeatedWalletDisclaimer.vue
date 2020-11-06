@@ -32,7 +32,7 @@ export default {
       this.$router.push(`/ftu/encryption-pass?import=true`)
     },
     previousStep() {
-      this.$store.commit('setRepeatedMnemonics', { exist: null })
+      this.$store.commit('setRepeatedWallet', { exist: null })
       this.$router.push('/ftu/import-wallet')
     },
   },

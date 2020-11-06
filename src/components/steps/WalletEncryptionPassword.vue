@@ -75,13 +75,24 @@ export default {
       createValidPasswordError: state =>
         state.wallet.errors.createValidPassword,
       validatedPassword: state => state.wallet.validatedPassword,
-      repeatedMnemonics: state => state.wallet.repeatedMnemonics,
+      repeatedWallet: state => state.wallet.repeatedWallet,
     }),
-    isImporting() {
+    isImportingMnemonics() {
       return this.$route.query && this.$route.query.import
     },
+    isImportingXprv() {
+      return this.$route.query && this.$route.query.xprv
+    },
     previousRoute() {
-      return `/ftu/wallet-description${this.isImporting ? '?import=true' : ''}`
+      if (this.repeatedWallet) {
+        return `/ftu/repeated-mnemonics`
+      } else if (this.isImportingMnemonics) {
+        return `/ftu/import-wallet`
+      } else if (this.isImportingXprv) {
+        return `/ftu/import-xprv`
+      } else {
+        return `/ftu/seed-validation`
+      }
     },
   },
   watch: {

@@ -20,8 +20,9 @@ import WalletSeedValidation from '@/components/steps/WalletSeedValidation.vue'
 import WelcomeBack from '@/views/WelcomeBack.vue'
 import WelcomeForm from '@/components/steps/WelcomeForm.vue'
 import WalletImport from '@/components/steps/WalletImport.vue'
+import ImportXprv from '@/components/steps/ImportXprv.vue'
 import WalletNotFound from '@/components/WalletNotFound.vue'
-import RepeatedMnemonicsDisclaimer from '@/components/steps/RepeatedMnemonicsDisclaimer.vue'
+import RepeatedWalletDisclaimer from '@/components/steps/RepeatedWalletDisclaimer.vue'
 import Setup from '@/views/Setup.vue'
 
 import store from '@/store'
@@ -199,6 +200,11 @@ export default new Router({
           component: WalletImport,
         },
         {
+          name: 'importXprv',
+          path: 'import-xprv',
+          component: ImportXprv,
+        },
+        {
           name: 'welcome',
           path: 'welcome',
           component: WelcomeForm,
@@ -234,9 +240,9 @@ export default new Router({
           component: Loading,
         },
         {
-          name: 'repeatedMnemonics',
-          path: 'repeated-mnemonics',
-          component: RepeatedMnemonicsDisclaimer,
+          name: 'repeatedWallet',
+          path: 'repeated-wallet',
+          component: RepeatedWalletDisclaimer,
         },
       ],
     },

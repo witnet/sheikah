@@ -34,6 +34,7 @@ export default {
       generateAddress: null,
       createValidPassword: null,
       mnemonics: null,
+      xprv: null,
       getTransactions: null,
       getBalance: null,
       getWalletInfos: null,
@@ -49,7 +50,7 @@ export default {
       saveItem: null,
       getItem: null,
     },
-    repeatedMnemonics: null,
+    repeatedWallet: null,
     exportFileLink: '',
     checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
     mainnetReady: false,
@@ -62,6 +63,7 @@ export default {
     addresses: [],
     generatedTransaction: null,
     mnemonics: null,
+    xprv: null,
     seed: null,
     networkStatus: 'error',
     status: {
@@ -82,7 +84,9 @@ export default {
     walletInfos: null,
     walletLocked: false,
     validatedPassword: false,
+    fileInfo: null,
     areMnemonicsValid: false,
+    isXprvValid: false,
     tokenGenerationEventOccurred:
       new Date(GENESIS_EVENT_TIMESTAMP) < new Date(),
   },
@@ -114,8 +118,8 @@ export default {
         lastBlock: finish,
       })
     },
-    setRepeatedMnemonics(state, payload) {
-      state.repeatedMnemonics = payload.exist
+    setRepeatedWallet(state, payload) {
+      state.repeatedWallet = payload.exist
     },
     setWalletDescription(state, payload) {
       // set title and description when received
@@ -123,8 +127,14 @@ export default {
         state[entry[0]] = entry[1]
       })
     },
+    clearXprvInfo(state) {
+      state.errors.xprv = null
+    },
     setComputedVesting(state, computedVesting) {
       state.computedVesting = computedVesting
+    },
+    setXprvInfo(state, info) {
+      state.fileInfo = info
     },
     setExportFileLink(state, link) {
       state.exportFileLink = link
@@ -235,6 +245,9 @@ export default {
     setMnemonics(state, result) {
       Object.assign(state, { mnemonics: result })
     },
+    setXprv(state, result) {
+      Object.assign(state, { xprv: result })
+    },
     setStatus(state, { status }) {
       state.status = status
     },
@@ -255,7 +268,8 @@ export default {
       if (
         error === 'Validation Error' ||
         name === 'uploadFile' ||
-        name === 'seed'
+        name === 'seed' ||
+        name === 'xprv'
       ) {
         state.errors[name] = {
           name,
@@ -645,26 +659,25 @@ export default {
       }
     },
 
-    validateImportedMnemonics: async function(context, params) {
+    validateImportedWallet: async function(context, params) {
+      const importType = params.mnemonics ? 'mnemonics' : 'xprv'
       const request = await context.state.api.validateMnemonics({
-        seed_source: 'mnemonics',
-        seed_data: params.mnemonics,
+        seed_source: importType,
+        seed_data: params[importType],
       })
-
       if (request.error) {
         context.commit('setError', {
-          name: 'seed',
-          message: 'You must provide a valid seed to import a wallet',
+          name: importType,
+          message: `You must provide a valid ${importType} to import a wallet`,
         })
       } else if (request.result.exist) {
-        this.commit('setRepeatedMnemonics', { exist: request.result.exist })
-        router.push('/ftu/repeated-mnemonics')
+        this.commit('setRepeatedWallet', { exist: request.result.exist })
       }
     },
 
     createWallet: async function(context, params) {
       const request = await context.state.api.createWallet({
-        overwrite: context.state.repeatedMnemonics,
+        overwrite: context.state.repeatedWallet,
         name: context.state.title,
         description: context.state.description,
         seed_data: params[params.sourceType],
@@ -672,8 +685,8 @@ export default {
         password: params.password,
       })
 
-      context.commit('setRepeatedMnemonics', { exist: null })
       context.commit('setWalletDescription', { title: '', description: '' })
+      context.commit('setRepeatedWallet', { exist: null })
       if (request.result) {
         context.dispatch('unlockWallet', {
           walletId: request.result.wallet_id,

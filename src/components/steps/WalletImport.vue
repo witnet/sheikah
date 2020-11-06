@@ -62,7 +62,7 @@ export default {
       },
       areMnemonicsValid: state => state.wallet.areMnemonicsValid,
       wallets: state => state.wallet.walletInfos,
-      repeatedMnemonics: state => state.wallet.repeatedMnemonics,
+      repeatedWallet: state => state.wallet.repeatedWallet,
     }),
   },
   watch: {
@@ -87,18 +87,20 @@ export default {
       clearError: 'clearError',
     }),
     ...mapActions({
-      validateImportedMnemonics: 'validateImportedMnemonics',
+      validateImportedWallet: 'validateImportedWallet',
     }),
     async validateForm() {
-      await this.validateImportedMnemonics({ mnemonics: this.seed })
+      await this.validateImportedWallet({ mnemonics: this.seed })
       if (!this.seedError) {
         this.setSeed({ result: this.seed })
       }
     },
     async nextStep() {
       await this.validateForm()
-      if (!this.seedError) {
-        this.$router.push(`/ftu/wallet-description?import=true`)
+      if (this.repeatedWallet) {
+        this.$router.push('/ftu/repeated-wallet')
+      } else if (!this.seedError) {
+        this.$router.push(`/ftu/encryption-pass?import=true`)
       }
     },
     previousStep() {

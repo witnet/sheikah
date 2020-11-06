@@ -24,6 +24,15 @@
           Import a wallet from mnemonics
         </el-button>
       </li>
+      <li class="option">
+        <el-button
+          class="big"
+          type="primary"
+          @click="redirectTo('/ftu/import-xprv')"
+        >
+          Import a wallet from xprv
+        </el-button>
+      </li>
       <li v-if="walletInfos && walletInfos.length" class="option">
         <el-button
           class="big"
