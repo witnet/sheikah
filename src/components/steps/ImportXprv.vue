@@ -14,7 +14,7 @@
     </p>
     <FileUploader
       :error-message="xprvError ? xprvError.message : ''"
-      :file="fileInfo ? fileInfo.info : null"
+      :file="fileInfo ? fileInfo : null"
       :validate-file="validateXprv"
       accepted-format=".json"
       @clear-file="clearXprvInfo"
@@ -68,21 +68,13 @@ export default {
       }
     },
     uploadFileError(error) {
-      if (error) {
-        this.disabledNextButton = true
-      } else {
-        this.disabledNextButton = false
-      }
+      this.disabledNextButton = !!error
     },
     fileInfo(info) {
       if (info && this.uploadFileError) {
         this.clearError()
       }
-      if (info) {
-        this.disabledNextButton = false
-      } else {
-        this.disabledNextButton = true
-      }
+      this.disabledNextButton = !info
     },
   },
   beforeDestroy() {
@@ -129,10 +121,8 @@ export default {
     },
     normalizeFile(file) {
       return {
-        info: {
-          name: this.fileName,
-          data: { file },
-        },
+        name: this.fileName,
+        data: file,
       }
     },
     setError() {
@@ -157,7 +147,9 @@ export default {
       this.$router.push(`/ftu/decrypt-xprv`)
     },
     previousStep() {
-      this.clearError({ error: this.xprvError.name })
+      if (this.xprvError) {
+        this.clearError({ error: this.xprvError.name })
+      }
       this.$router.push('/ftu/welcome')
     },
   },

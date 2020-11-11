@@ -27,13 +27,34 @@ export default {
   components: {
     NavigationCard,
   },
+  computed: {
+    isImportingMnemonics() {
+      return this.$route.query && this.$route.query.import
+    },
+    isImportingXprv() {
+      return this.$route.query && this.$route.query.xprv
+    },
+    previousRoute() {
+      if (this.isImportingMnemonics) {
+        return `/ftu/import-wallet`
+      } else if (this.isImportingXprv) {
+        return `/ftu/import-xprv`
+      } else {
+        return `/ftu/seed-validation`
+      }
+    },
+  },
   methods: {
     nextStep() {
-      this.$router.push(`/ftu/encryption-pass?import=true`)
+      if (this.isImportingXprv) {
+        this.$router.push(`/ftu/encryption-pass?xprv=true`)
+      } else {
+        this.$router.push(`/ftu/encryption-pass?import=true`)
+      }
     },
     previousStep() {
       this.$store.commit('setRepeatedWallet', { exist: null })
-      this.$router.push('/ftu/import-wallet')
+      this.$router.push(this.previousRoute)
     },
   },
 }

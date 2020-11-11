@@ -64,6 +64,7 @@ export default {
     generatedTransaction: null,
     mnemonics: null,
     xprv: null,
+    xprvBackupPassword: null,
     seed: null,
     networkStatus: 'error',
     status: {
@@ -130,6 +131,9 @@ export default {
     clearXprvInfo(state) {
       state.xprv = null
       state.fileInfo = null
+    },
+    clearXprvBackupPassword(state) {
+      state.xprvBackupPassword = null
     },
     setComputedVesting(state, computedVesting) {
       state.computedVesting = computedVesting
@@ -240,14 +244,17 @@ export default {
     clearDataRequestResult(state) {
       state.radRequestResult = null
     },
-    setSeed(state, result) {
+    setSeed(state, { result }) {
       Object.assign(state, { seed: result })
     },
     setMnemonics(state, result) {
       Object.assign(state, { mnemonics: result })
     },
-    setXprv(state, result) {
+    setXprv(state, { result }) {
       Object.assign(state, { xprv: result })
+    },
+    setBackupPassword(state, { result }) {
+      Object.assign(state, { xprvBackupPassword: result })
     },
     setStatus(state, { status }) {
       state.status = status
@@ -266,7 +273,6 @@ export default {
     },
 
     setError(state, { name, error, message }) {
-      console.log('SER ERROR', name, error, message)
       if (
         error === 'Validation Error' ||
         name === 'uploadFile' ||
@@ -334,21 +340,31 @@ export default {
         state.areMnemonicsValid = false
       }
     },
-    validatePassword(state, { password, repeatPassword }) {
-      if (password.length < 8) {
-        this.commit('setError', {
-          name: 'createValidPassword',
-
-          message: 'Password must be at least 8 characters',
-        })
+    validatePassword(state, { password, repeatedPassword, showError }) {
+      const passwordLength = password ? password.split('').length : 0
+      const repeatedPasswordLength = repeatedPassword
+        ? repeatedPassword.split('').length
+        : 0
+      if (passwordLength < 8 || repeatedPasswordLength < 8) {
+        if (showError) {
+          this.commit('setError', {
+            name: 'createValidPassword',
+            error: 'Validation Error',
+            message: 'Password must be at least 8 characters',
+          })
+        }
         state.validatedPassword = false
-      } else if (password !== repeatPassword) {
-        this.commit('setError', {
-          name: 'createValidPassword',
-          error: 'Validation Error',
-          message: 'Passwords must match',
-        })
-        state.validatedPassword = false
+      } else if (password !== repeatedPassword) {
+        if (showError) {
+          this.commit('setError', {
+            name: 'createValidPassword',
+            error: 'Validation Error',
+            message: 'Passwords must match',
+          })
+          state.validatedPassword = false
+        } else {
+          state.validatedPassword = true
+        }
       } else {
         state.validatedPassword = true
       }
@@ -392,6 +408,23 @@ export default {
           name: 'closeSession',
           error: request.error.message,
           message: 'An error occurred trying to close the session',
+        })
+      }
+    },
+    exportPrivateKey: async function(context, { password }) {
+      const request = await context.state.api.exportPrivateKey({
+        wallet_id: context.rootState.wallet.walletId,
+        session_id: context.rootState.wallet.sessionId,
+        password,
+      })
+      if (request.result) {
+        context.commit('setXprv', { result: request.result })
+      } else {
+        // TODO: improve error handling
+        context.commit('setError', {
+          name: 'exportXprv',
+          error: request.error.message,
+          message: 'An error occurred exporting your xprv file',
         })
       }
     },
@@ -666,9 +699,9 @@ export default {
       const request = await context.state.api.validateMnemonics({
         seed_source: importType,
         seed_data: params[importType],
-        password: params.password ? params.password : null
+        backup_password: params.backupPassword ? params.backupPassword : null,
+        password: params.password ? params.password : null,
       })
-      console.log('VALIDATE IMPORTED WALLET', request)
       if (request.error) {
         context.commit('setError', {
           name: importType,
@@ -687,6 +720,7 @@ export default {
         seed_data: params[params.sourceType],
         seed_source: params.sourceType,
         password: params.password,
+        backup_password: params.backupPassword,
       })
 
       context.commit('setWalletDescription', { title: '', description: '' })
@@ -698,13 +732,21 @@ export default {
         })
         context.commit('clearSeed')
         context.commit('clearMnemonics')
+        context.commit('clearXprvInfo')
+        context.commit('clearXprvBackupPassword')
       } else {
         context.commit('setError', {
           name: 'createWallet',
           error: request.error.data[0][1],
           message: 'An error occurred creating the wallet',
         })
-        router.push('/ftu/import-wallet')
+        context.commit('clearSeed')
+        context.commit('clearMnemonics')
+        context.commit('clearXprvInfo')
+        context.commit('clearXprvBackupPassword')
+        params.sourceType === 'mnemonics'
+          ? router.push('/ftu/import-wallet')
+          : router.push('/ftu/import-xprv')
       }
     },
 

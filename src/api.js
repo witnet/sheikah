@@ -186,6 +186,10 @@ export class WalletApi {
     )
   }
 
+  exportPrivateKey(params) {
+    return this._callApiMethod('export_master_key')(params)
+  }
+
   importSeed(params) {
     return this._callApiMethod('import_seed')(params)
   }

@@ -71,17 +71,13 @@
         </div>
         <el-dropdown @command="handleCommand">
           <div class="button-options" split-button type="primary" @click.stop>
-            <font-awesome-icon
-              icon="cog"
-              class="icon"
-            />
+            <font-awesome-icon icon="cog" class="icon" />
           </div>
-          <el-dropdown-menu
-            slot="dropdown"
-          >
+          <el-dropdown-menu slot="dropdown">
             <el-dropdown-item
               v-for="(option, index) in settings"
               :key="option.label"
+              v-observe-visibility="visibilityChanged"
               :command="index"
             >
               {{ option.label }}
@@ -90,26 +86,38 @@
         </el-dropdown>
       </div>
     </div>
+    <ExportXprv
+      v-if="isEncryptXprvVisible"
+      @close="isEncryptXprvVisible = false"
+    />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 import NetworkStatus from '@/components/NetworkStatus.vue'
+import ExportXprv from '@/components/ExportXprv.vue'
+import { ObserveVisibility } from 'vue-observe-visibility'
 
 export default {
   name: 'Sidebar',
   components: {
     NetworkStatus,
+    ExportXprv,
+  },
+  directives: {
+    ObserveVisibility,
   },
   data() {
     return {
       expanded: false,
       windowWidth: window.innerWidth,
+      isEncryptXprvVisible: false,
+      settingVisible: false,
       settings: [
         {
           label: 'Export xprv',
-          action: () => null,
+          action: () => this.exportXprv(),
         },
       ],
     }
@@ -134,11 +142,25 @@ export default {
       closeSession: 'closeSession',
       shutdown: 'shutdown',
     }),
+    visibilityChanged(isVisible, entry) {
+      if (isVisible) {
+        this.settingVisible = true
+      } else {
+        this.settingVisible = false
+      }
+    },
+    exportXprv() {
+      this.isEncryptXprvVisible = true
+    },
     expandSidebar() {
       this.expanded = true
     },
     collapseSidebar() {
-      this.expanded = false
+      if (this.settingVisible) {
+        this.expanded = true
+      } else {
+        this.expanded = false
+      }
     },
     handleCommand(index) {
       this.settings[index].action()

@@ -4,33 +4,9 @@
       Create, import, or recover a wallet
     </p>
     <ul class="options">
-      <li class="option">
-        <el-button
-          class="big"
-          data-test="new-seed-option"
-          type="primary"
-          @click="redirectTo('/ftu/disclaimer')"
-        >
-          Create a new Witnet wallet
-        </el-button>
-      </li>
-      <li class="option">
-        <el-button
-          class="big"
-          data-test="import-wallet"
-          type="primary"
-          @click="redirectTo('/ftu/import-wallet')"
-        >
-          Import a wallet from mnemonics
-        </el-button>
-      </li>
-      <li class="option">
-        <el-button
-          class="big"
-          type="primary"
-          @click="redirectTo('/ftu/import-xprv')"
-        >
-          Import a wallet from xprv
+      <li v-for="option in options" :key="option.name" class="option">
+        <el-button class="big" type="primary" @click="redirectTo(option.route)">
+          {{ option.name }}
         </el-button>
       </li>
       <li v-if="walletInfos && walletInfos.length" class="option">
@@ -54,6 +30,24 @@ export default {
   name: 'WalletSeedTypeSelection',
   components: {
     Card,
+  },
+  data() {
+    return {
+      options: [
+        {
+          name: 'Create a new Witnet wallet',
+          route: '/ftu/disclaimer',
+        },
+        {
+          name: 'Import a wallet from mnemonics',
+          route: '/ftu/import-wallet',
+        },
+        {
+          name: 'Import a wallet from xprv',
+          route: '/ftu/import-xprv',
+        },
+      ],
+    }
   },
   computed: {
     ...mapState({

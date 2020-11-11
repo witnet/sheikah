@@ -9,68 +9,44 @@
     :next-step="nextStep"
     :disabled-next-button="disabledNextButton"
   >
-    <p class="paragraph">
-      <span class="bold">PLEASE NOTE: </span> this password encrypts your Witnet
-      wallet only on this computer. This is not your backup and you cannot
-      restore your wallet with this password. Your 12 word seed phrase is still
-      your ultimate recovery method.
-    </p>
-    <div class="form-row password">
-      <p>Create a password</p>
-      <el-input
-        v-model="password"
-        v-focus
-        class="password"
-        data-test="password"
-        placeholder="Please input password"
-        show-password
-      />
-    </div>
-    <div ref="confirm" class="form-row password">
-      <p>Confirm your password</p>
-      <div class="col">
-        <el-input
-          ref="password"
-          v-model="repeatPassword"
-          class="password"
-          data-test="password"
-          placeholder="Confirm password"
-          show-password
-          @keydown.enter.native="nextStep"
-        />
-        <div
-          v-if="createValidPasswordError"
-          data-test="password-error-alert"
-          class="error"
-        >
-          {{ createValidPasswordError.message }}
-        </div>
-      </div>
-    </div>
+    <PasswordValidation
+      :error="createValidPasswordError"
+      :opening="openingLine"
+      :text="text"
+      @enable-next-button="enableNextButton"
+      @disable-next-button="disableNextButton"
+      @validate="nextStep"
+    />
   </NavigationCard>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import NavigationCard from '@/components/card/NavigationCard'
+import PasswordValidation from '@/components/PasswordValidation'
 
 export default {
   name: 'WalletEncryptionPassword',
   components: {
     NavigationCard,
+    PasswordValidation,
   },
   data() {
     return {
       password: '',
-      repeatPassword: '',
-      error: false,
+      repeatedPassword: '',
       disabledNextButton: true,
+      openingLine: 'PLEASE NOTE:',
+      text:
+        'this password encrypts your Witnet wallet only on this computer. This is not your backup and you cannot restore your wallet with this password. Your 12 word seed phrase is still your ultimate recovery method.',
     }
   },
   computed: {
     ...mapState({
       mnemonics: state => state.wallet.mnemonics,
       seed: state => state.wallet.seed,
+      xprv: state => state.wallet.xprv,
+      xprvBackupPassword: state => state.wallet.xprvBackupPassword,
       createWalletError: state => state.wallet.errors.createWallet,
       createValidPasswordError: state =>
         state.wallet.errors.createValidPassword,
@@ -84,45 +60,12 @@ export default {
       return this.$route.query && this.$route.query.xprv
     },
     previousRoute() {
-      if (this.repeatedWallet) {
-        return `/ftu/repeated-mnemonics`
-      } else if (this.isImportingMnemonics) {
+      if (this.isImportingMnemonics) {
         return `/ftu/import-wallet`
       } else if (this.isImportingXprv) {
         return `/ftu/import-xprv`
       } else {
         return `/ftu/seed-validation`
-      }
-    },
-  },
-  watch: {
-    password() {
-      if (this.createValidPasswordError) {
-        this.clearError({ error: this.createValidPasswordError.name })
-      }
-      const passwordLength = this.password.split('').length
-      const repeatedPasswordLength = this.repeatPassword.split('').length
-      if (passwordLength >= 8 && repeatedPasswordLength >= 8) {
-        this.disabledNextButton = false
-      } else {
-        this.disabledNextButton = true
-      }
-    },
-    createValidPasswordError(error) {
-      if (error) {
-        this.disabledNextButton = true
-      }
-    },
-    repeatPassword() {
-      if (this.createValidPasswordError) {
-        this.clearError({ error: this.createValidPasswordError.name })
-      }
-      const passwordLength = this.password.split('').length
-      const repeatedPasswordLength = this.repeatPassword.split('').length
-      if (passwordLength >= 8 && repeatedPasswordLength >= 8) {
-        this.disabledNextButton = false
-      } else {
-        this.disabledNextButton = true
       }
     },
   },
@@ -139,26 +82,36 @@ export default {
     ...mapActions({
       createWallet: 'createWallet',
     }),
-    validateForm() {
-      this.validatePassword({
-        password: this.password,
-        repeatPassword: this.repeatPassword,
-      })
+    disableNextButton() {
+      this.disabledNextButton = true
+    },
+    enableNextButton(password, repeatedPassword) {
+      this.disabledNextButton = false
+      this.password = password
+      this.repeatedPassword = repeatedPassword
     },
     goNextInput() {
       this.$refs.password.focus()
     },
     nextStep() {
-      this.validateForm()
+      this.validatePassword({
+        password: this.password,
+        repeatedPassword: this.repeatedPassword,
+        showError: true,
+      })
       if (this.validatedPassword) {
         if (this.createValidPasswordError) {
           this.clearError({ error: this.createValidPasswordError.name })
         }
-        const words = this.mnemonics || this.seed.result
+        const sourceType = this.mnemonics || this.seed ? 'mnemonics' : 'xprv'
+        const words = this.mnemonics || this.seed || this.xprv
         this.createWallet({
-          sourceType: 'mnemonics',
+          sourceType,
           password: this.password,
-          mnemonics: words,
+          [sourceType]: words,
+          backupPassword: this.xprvBackupPassword
+            ? this.xprvBackupPassword
+            : null,
         })
         this.$router.push('/ftu/create-wallet')
       }
@@ -166,49 +119,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import '@/styles/theme.scss';
-
-.error {
-  color: $red-2;
-  font-size: 14px;
-  margin-top: 16px;
-  min-width: 270px;
-}
-
-.paragraph {
-  margin-bottom: 32px;
-}
-
-.form-row {
-  align-items: center;
-  display: flex;
-  flex-flow: row nowrap;
-  margin-bottom: 32px;
-  max-width: 500px;
-
-  &.password {
-    display: flex;
-    justify-content: space-between;
-    max-width: none;
-  }
-
-  &.form-row:last-of-type {
-    margin: 0;
-  }
-
-  .password {
-    width: 350px;
-  }
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.label {
-  color: $font-color-light;
-  width: 100px;
-}
-</style>

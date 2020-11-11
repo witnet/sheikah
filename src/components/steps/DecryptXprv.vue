@@ -7,10 +7,10 @@
     next-text="Next"
     :previous-step="prevStep"
     :next-step="nextStep"
-    :disabled-next-button="disabledNextButton"
   >
     <p class="paragraph">
-      Please, decrypt your xprv file with the password you used to export the file.
+      Please, decrypt your xprv file with the password you used to export the
+      file.
     </p>
     <div ref="confirm" class="form-row password">
       <el-input
@@ -22,11 +22,7 @@
         show-password
         @keydown.enter.native="nextStep"
       />
-      <div
-        v-if="xprvError"
-        data-test="password-error-alert"
-        class="error"
-      >
+      <div v-if="xprvError" data-test="password-error-alert" class="error">
         {{ xprvError.message }}
       </div>
     </div>
@@ -72,6 +68,7 @@ export default {
       setXprv: 'setXprv',
       setError: 'setError',
       clearError: 'clearError',
+      setBackupPassword: 'setBackupPassword',
     }),
     ...mapActions({
       validateImportedWallet: 'validateImportedWallet',
@@ -98,11 +95,15 @@ export default {
       return this.$router.push('/ftu/import-xprv')
     },
     async nextStep() {
-      await this.validateImportedWallet({ xprv: this.fileInfo, password: this.password })
+      await this.validateImportedWallet({
+        xprv: this.fileInfo.data.private_key,
+        backupPassword: this.password,
+      })
       if (!this.xprvError) {
-        this.setXprv({ result: this.fileInfo })
+        await this.setXprv({ result: this.fileInfo.data.private_key })
+        await this.setBackupPassword({ result: this.password })
         if (this.repeatedWallet) {
-          this.$router.push('/ftu/repeated-wallet')
+          this.$router.push('/ftu/repeated-wallet?xprv=true')
         } else if (!this.xprvError) {
           this.$router.push(`/ftu/encryption-pass?xprv=true`)
         }
