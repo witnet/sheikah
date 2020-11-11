@@ -128,7 +128,8 @@ export default {
       })
     },
     clearXprvInfo(state) {
-      state.errors.xprv = null
+      state.xprv = null
+      state.fileInfo = null
     },
     setComputedVesting(state, computedVesting) {
       state.computedVesting = computedVesting
@@ -265,6 +266,7 @@ export default {
     },
 
     setError(state, { name, error, message }) {
+      console.log('SER ERROR', name, error, message)
       if (
         error === 'Validation Error' ||
         name === 'uploadFile' ||
@@ -664,7 +666,9 @@ export default {
       const request = await context.state.api.validateMnemonics({
         seed_source: importType,
         seed_data: params[importType],
+        password: params.password ? params.password : null
       })
+      console.log('VALIDATE IMPORTED WALLET', request)
       if (request.error) {
         context.commit('setError', {
           name: importType,

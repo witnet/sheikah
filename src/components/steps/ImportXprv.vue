@@ -16,7 +16,7 @@
       :error-message="xprvError ? xprvError.message : ''"
       :file="fileInfo ? fileInfo.info : null"
       :validate-file="validateXprv"
-      accepted-format=".xprv"
+      accepted-format=".json"
       @clear-file="clearXprvInfo"
       @file-name="updateName"
       @file-validated="setFileInfo"
@@ -91,6 +91,7 @@ export default {
     }
   },
   created() {
+    this.validateXprv(this.fileInfo)
     if (this.fileInfo) {
       this.disabledNextButton = false
     }
@@ -108,13 +109,11 @@ export default {
       this.fileName = name
     },
     setFileInfo(file) {
-      this.$store.commit('setXprvInfo', {
-        info: this.normalizeFile(file),
-      })
+      this.$store.commit('setXprvInfo', this.normalizeFile(file))
       this.clearError()
     },
     clearError() {
-      this.$store.commit('clearError', { error: 'uploadFile' })
+      this.$store.commit('clearError', { error: 'xprv' })
     },
     clearXprvInfo() {
       this.$store.commit('clearXprvInfo')
@@ -148,22 +147,17 @@ export default {
       this.$refs.fileInput.click()
     },
     async validateXprv(fileInfo) {
-      await this.validateImportedWallet({ xprv: fileInfo })
       if (!this.xprvError) {
-        this.setXprv({ result: fileInfo })
         return true
       } else {
         return false
       }
     },
-    async nextStep() {
-      if (this.repeatedWallet) {
-        this.$router.push('/ftu/repeated-wallet')
-      } else if (!this.xprvError) {
-        this.$router.push(`/ftu/encryption-pass?xprv=true`)
-      }
+    nextStep() {
+      this.$router.push(`/ftu/decrypt-xprv`)
     },
     previousStep() {
+      this.clearError({ error: this.xprvError.name })
       this.$router.push('/ftu/welcome')
     },
   },

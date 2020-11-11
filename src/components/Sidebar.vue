@@ -55,8 +55,8 @@
           <span class="label">Community</span>
         </router-link>
       </div>
-      <div class="settings" @click="settings[0].action">
-        <div class="icon-container">
+      <div class="settings">
+        <div class="icon-container" @click="closeSession">
           <el-tooltip
             content="Go back to wallets list"
             placement="right"
@@ -69,6 +69,25 @@
             />
           </el-tooltip>
         </div>
+        <el-dropdown @command="handleCommand">
+          <div class="button-options" split-button type="primary" @click.stop>
+            <font-awesome-icon
+              icon="cog"
+              class="icon"
+            />
+          </div>
+          <el-dropdown-menu
+            slot="dropdown"
+          >
+            <el-dropdown-item
+              v-for="(option, index) in settings"
+              :key="option.label"
+              :command="index"
+            >
+              {{ option.label }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </div>
   </div>
@@ -89,14 +108,8 @@ export default {
       windowWidth: window.innerWidth,
       settings: [
         {
-          label: 'Close session',
-          action: () => {
-            this.closeSession()
-          },
-        },
-        {
-          label: 'Quit app',
-          action: () => window.close(),
+          label: 'Export xprv',
+          action: () => null,
         },
       ],
     }
@@ -127,13 +140,15 @@ export default {
     collapseSidebar() {
       this.expanded = false
     },
+    handleCommand(index) {
+      this.settings[index].action()
+    },
   },
 }
 </script>
 
 <style scoped lang="scss">
 @import '@/styles/theme.scss';
-@import '@/styles/app.global.scss';
 @import '@/styles/_colors.scss';
 
 .sidebar-container {
@@ -249,14 +264,22 @@ export default {
       border-top: $sidebar-settings-border;
       display: grid;
       font-size: $icon-settings-font_size;
-      grid-template-columns: 70px auto;
+      grid-template-columns: 70px 70px auto;
       justify-items: center;
 
       .icon-container {
-        .exit-icon {
-          cursor: pointer;
-          width: 20px;
-        }
+        display: flex;
+      }
+
+      .exit-icon {
+        cursor: pointer;
+        width: 20px;
+      }
+
+      .icon {
+        color: $alt-grey-5;
+        cursor: pointer;
+        font-size: 20px;
       }
     }
   }

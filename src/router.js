@@ -21,6 +21,7 @@ import WelcomeBack from '@/views/WelcomeBack.vue'
 import WelcomeForm from '@/components/steps/WelcomeForm.vue'
 import WalletImport from '@/components/steps/WalletImport.vue'
 import ImportXprv from '@/components/steps/ImportXprv.vue'
+import DecryptXprv from '@/components/steps/DecryptXprv.vue'
 import WalletNotFound from '@/components/WalletNotFound.vue'
 import RepeatedWalletDisclaimer from '@/components/steps/RepeatedWalletDisclaimer.vue'
 import Setup from '@/views/Setup.vue'
@@ -203,6 +204,11 @@ export default new Router({
           name: 'importXprv',
           path: 'import-xprv',
           component: ImportXprv,
+        },
+        {
+          name: 'decryptXprv',
+          path: 'decrypt-xprv',
+          component: DecryptXprv,
         },
         {
           name: 'welcome',

@@ -140,7 +140,7 @@ export default {
   },
   data() {
     return {
-      error: false,
+      error: !!this.errorMessage,
       localFile: this.file,
       fileName: this.file ? this.file.name : null,
       showDelete: false,
@@ -153,6 +153,11 @@ export default {
         JSON.stringify(this.localFile),
       )}`
     },
+  },
+  created() {
+    if (this.errorMessage) {
+      this.clearFile()
+    }
   },
   methods: {
     cropString,
@@ -189,7 +194,7 @@ export default {
           this.fileName = file.name
           this.$emit('file-name', file.name)
           try {
-            const validated = await this.validateFile(fileInfo)
+            const validated = this.validateFile(fileInfo)
             if (validated) {
               /**
                * Emit the content of the file validated
@@ -206,7 +211,6 @@ export default {
               this.error = true
             }
           } catch (error) {
-            console.log('error', error)
             /**
              * Nofity file uploaded is not valid
              */
