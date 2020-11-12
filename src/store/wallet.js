@@ -481,10 +481,18 @@ export default {
       const request = await context.state.api.createVTT({
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
-        address,
-        amount: parseInt(
-          standardizeWitUnits(amount, WIT_UNIT.NANO, context.state.currency),
-        ),
+        outputs: [
+          {
+            address: address,
+            amount: parseInt(
+              standardizeWitUnits(
+                amount,
+                WIT_UNIT.NANO,
+                context.state.currency,
+              ),
+            ),
+          },
+        ],
         fee: parseInt(
           standardizeWitUnits(fee, WIT_UNIT.NANO, context.state.currency),
         ),

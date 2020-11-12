@@ -3,9 +3,14 @@
     <div class="scroll">
       <div v-if="type === 'ValueTransfer'" class="info">
         <p class="entry">Amount</p>
-        <Amount class="amount" :amount="generatedTransaction.metadata.value" />
+        <Amount
+          class="amount"
+          :amount="generatedTransaction.metadata.outputs[0].amount"
+        />
         <p class="entry">To</p>
-        <p class="value address">{{ generatedTransaction.metadata.to }}</p>
+        <p class="value address">{{
+          generatedTransaction.metadata.outputs[0].address
+        }}</p>
         <p class="entry">Fee</p>
         <Amount class="amount" :amount="generatedTransaction.metadata.fee" />
       </div>
