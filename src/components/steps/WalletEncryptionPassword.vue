@@ -13,8 +13,7 @@
       :error="createValidPasswordError"
       :opening="openingLine"
       :text="text"
-      @enable-next-button="enableNextButton"
-      @disable-next-button="disableNextButton"
+      @input-password="setPassword"
       @validate="nextStep"
     />
   </NavigationCard>
@@ -35,7 +34,7 @@ export default {
     return {
       password: '',
       repeatedPassword: '',
-      disabledNextButton: true,
+      disabledNextButton: false,
       openingLine: 'PLEASE NOTE:',
       text:
         'this password encrypts your Witnet wallet only on this computer. This is not your backup and you cannot restore your wallet with this password. Your 12 word seed phrase is still your ultimate recovery method.',
@@ -85,8 +84,7 @@ export default {
     disableNextButton() {
       this.disabledNextButton = true
     },
-    enableNextButton(password, repeatedPassword) {
-      this.disabledNextButton = false
+    setPassword(password, repeatedPassword) {
       this.password = password
       this.repeatedPassword = repeatedPassword
     },
@@ -97,7 +95,6 @@ export default {
       this.validatePassword({
         password: this.password,
         repeatedPassword: this.repeatedPassword,
-        showError: true,
       })
       if (this.validatedPassword) {
         if (this.createValidPasswordError) {

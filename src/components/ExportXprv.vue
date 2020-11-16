@@ -17,16 +17,14 @@
         :error="createValidPasswordError"
         :opening="openingLine"
         :text="text"
-        @enable-next-button="enableNextButton"
-        @disable-next-button="disableNextButton"
         @validate="encryptAndExport"
+        @input-password="setPassword"
       />
       <div class="submit">
         <el-button
           tabindex="5"
           type="primary"
           data-test="sign-send-btn"
-          :disabled="disabledNextButton"
           @keydown.enter.esc.prevent="encryptAndExport"
           @click="encryptAndExport"
         >
@@ -41,6 +39,7 @@
 import { EDITOR_EXPORT_FORMAT } from '@/constants'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import PasswordValidation from '@/components/PasswordValidation'
+import { createNotification } from '@/utils'
 
 export default {
   name: 'Send',
@@ -51,7 +50,7 @@ export default {
     return {
       password: '',
       repeatedPassword: '',
-      disabledNextButton: true,
+      disabledNextButton: false,
       downloadName: 'xprv.json',
       openingLine: 'PLEASE NOTE:',
       text:
@@ -66,12 +65,17 @@ export default {
       validatedPassword: state => state.wallet.validatedPassword,
     }),
     dataStr() {
-      return `data:text/json;charset=utf-8,${encodeURIComponent(
-        JSON.stringify(this.xprv),
-      )}`
+      if (this.xprv) {
+        return `data:text/json;charset=utf-8,${encodeURIComponent(
+          JSON.stringify(this.xprv),
+        )}`
+      } else {
+        return null
+      }
     },
   },
   methods: {
+    createNotification,
     ...mapMutations({
       clearError: 'clearError',
       validatePassword: 'validatePassword',
@@ -79,20 +83,18 @@ export default {
     ...mapActions({
       exportPrivateKey: 'exportPrivateKey',
     }),
-    disableNextButton() {
-      this.disabledNextButton = true
-    },
-    enableNextButton(password, repeatedPassword) {
-      this.disabledNextButton = false
+    setPassword(password, repeatedPassword) {
       this.password = password
       this.repeatedPassword = repeatedPassword
     },
     export(format) {
-      this.exportFormat = format
-      // wait for computed props update according to exportFormat
-      this.$nextTick().then(() => {
-        this.$refs.download.click()
-      })
+      if (this.dataStr) {
+        this.exportFormat = format
+        // wait for computed props update according to exportFormat
+        this.$nextTick().then(() => {
+          this.$refs.download.click()
+        })
+      }
     },
     closeAndClear() {
       if (this.createValidPasswordError) {
@@ -104,7 +106,6 @@ export default {
       await this.validatePassword({
         password: this.password,
         repeatedPassword: this.repeatedPassword,
-        showError: true,
       })
       if (this.validatedPassword) {
         await this.exportPrivateKey({ password: this.password })

@@ -78,16 +78,7 @@ export default {
       if (this.error) {
         this.clearError({ error: this.error.name })
       }
-      this.validatePassword({
-        password: this.password,
-        repeatedPassword: this.repeatedPassword,
-        showError: false,
-      })
-      if (this.validatedPassword) {
-        this.$emit('enable-next-button', this.password, this.repeatedPassword)
-      } else {
-        this.$emit('disable-next-button')
-      }
+      this.$emit('input-password', this.password, this.repeatedPassword)
     },
     error(error) {
       if (error) {
@@ -98,15 +89,7 @@ export default {
       if (this.error) {
         this.clearError({ error: this.error.name })
       }
-      this.validatePassword({
-        password: this.password,
-        repeatedPassword: this.repeatedPassword,
-      })
-      if (this.validatedPassword) {
-        this.$emit('enable-next-button', this.password, this.repeatedPassword)
-      } else {
-        this.$emit('disable-next-button')
-      }
+      this.$emit('input-password', this.password, this.repeatedPassword)
     },
   },
   methods: {

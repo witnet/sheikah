@@ -340,31 +340,25 @@ export default {
         state.areMnemonicsValid = false
       }
     },
-    validatePassword(state, { password, repeatedPassword, showError }) {
+    validatePassword(state, { password, repeatedPassword }) {
       const passwordLength = password ? password.split('').length : 0
       const repeatedPasswordLength = repeatedPassword
         ? repeatedPassword.split('').length
         : 0
       if (passwordLength < 8 || repeatedPasswordLength < 8) {
-        if (showError) {
-          this.commit('setError', {
-            name: 'createValidPassword',
-            error: 'Validation Error',
-            message: 'Password must be at least 8 characters',
-          })
-        }
+        this.commit('setError', {
+          name: 'createValidPassword',
+          error: 'Validation Error',
+          message: 'Password must be at least 8 characters',
+        })
         state.validatedPassword = false
       } else if (password !== repeatedPassword) {
-        if (showError) {
-          this.commit('setError', {
-            name: 'createValidPassword',
-            error: 'Validation Error',
-            message: 'Passwords must match',
-          })
-          state.validatedPassword = false
-        } else {
-          state.validatedPassword = true
-        }
+        this.commit('setError', {
+          name: 'createValidPassword',
+          error: 'Validation Error',
+          message: 'Passwords must match',
+        })
+        state.validatedPassword = false
       } else {
         state.validatedPassword = true
       }
