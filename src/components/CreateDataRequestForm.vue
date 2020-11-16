@@ -54,7 +54,12 @@
         <AppendCurrency slot="append" @change-currency="changeCurrency" />
       </el-input>
     </el-form-item>
-
+    <p
+      v-if="createDataRequestError"
+      data-test="create-data-request-error"
+      class="error"
+      >{{ createDataRequestError.message }}</p
+    >
     <div class="submit">
       <el-button @click="goBack">{{ backWord }}</el-button>
 
@@ -71,7 +76,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import AppendCurrency from '@/components/AppendCurrency'
 import { standardizeWitUnits } from '@/utils'
 import { WIT_UNIT } from '@/constants'
@@ -215,9 +220,18 @@ export default {
         return state.wallet.balance.total
       },
       currency: state => state.wallet.currency,
+      createDataRequestError: state => state.wallet.errors.createDataRequest,
     }),
+    fee() {
+      return this.form.fee
+    },
   },
   watch: {
+    fee(value) {
+      if (this.createDataRequestError) {
+        this.clearError({ error: this.createDataRequestError.name })
+      }
+    },
     currency(inputCurrency, outputCurrency) {
       this.form = {
         backupWitnesses: this.form.backupWitnesses,
@@ -235,6 +249,9 @@ export default {
   },
   methods: {
     standardizeWitUnits,
+    ...mapMutations({
+      clearError: 'clearError',
+    }),
     changeCurrency(prevCurrency, newCurrency) {
       this.form = {
         backupWitnesses: this.form.backupWitnesses,
@@ -297,6 +314,12 @@ export default {
     margin-top: 32px;
     text-align: right;
     width: 100%;
+  }
+
+  .error {
+    color: $red-2;
+    font-size: 14px;
+    position: absolute;
   }
 }
 </style>

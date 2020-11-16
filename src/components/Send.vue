@@ -50,7 +50,7 @@
           <AppendCurrency slot="append" @change-currency="changeCurrency" />
         </el-input>
       </el-form-item>
-
+      <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
       <div class="submit">
         <el-button
           tabindex="5"
@@ -162,12 +162,21 @@ export default {
       },
       generatedTransaction: state => state.wallet.generatedTransaction,
       currency: state => state.wallet.currency,
+      createVTTError: state => state.wallet.errors.createVTT,
     }),
     addressLength() {
       return this.network && this.network.toLowerCase() === 'mainnet' ? 42 : 43
     },
+    fee() {
+      return this.form.fee
+    },
   },
   watch: {
+    fee(value) {
+      if (this.createVTTError) {
+        this.clearError({ error: this.createVTTError.name })
+      }
+    },
     addressLength: {
       handler(len) {
         this.rules.address = [
@@ -280,6 +289,12 @@ export default {
   overflow: hidden;
 }
 
+.error {
+  color: $red-2;
+  font-size: 14px;
+  position: absolute;
+}
+
 .form {
   padding-right: 24px;
   width: 600px;
@@ -293,7 +308,6 @@ export default {
 }
 
 .submit {
-  margin-top: 32px;
   text-align: right;
   width: 100%;
 }

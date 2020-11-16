@@ -494,7 +494,7 @@ export default {
         context.commit('setError', {
           name: 'createDataRequest',
           error: req.error.message,
-          message: 'An error occurred deploying a data request',
+          message: req.error.data[0][1],
         })
       }
     },
@@ -526,10 +526,10 @@ export default {
           transaction: generatedTransaction,
         })
       } else {
-        context.commit('setError', {
+        await context.commit('setError', {
           name: 'createVTT',
-          error: request.error.data[0][1],
-          message: 'An error occurred creating a Value Transfer Transaction',
+          error: request.error.message,
+          message: request.error.data[0][1],
         })
       }
     },

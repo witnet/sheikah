@@ -9,6 +9,9 @@ describe('CreateDataRequestForm.vue', () => {
         store: {
           wallet: {
             state: {
+              errors: {
+                createDataRequest: false,
+              },
               balance: { total: 400000000000 },
               currency: 'nanoWit',
             },
@@ -58,6 +61,9 @@ describe('CreateDataRequestForm.vue', () => {
         store: {
           wallet: {
             state: {
+              errors: {
+                createDataRequest: false,
+              },
               balance: { total: 400000000000 },
               currency: 'nanoWit',
             },
@@ -107,6 +113,31 @@ describe('CreateDataRequestForm.vue', () => {
     })
   })
 
+  describe('should show an error id there is a problem creating the data request', () => {
+    it('should show the error', async () => {
+      const wrapper = mount(
+        CreateDataRequestForm,
+        createComponentMocks({
+          router: true,
+          store: {
+            wallet: {
+              state: {
+                errors: {
+                  createDataRequest: true,
+                },
+                balance: { total: 400000000000 },
+                currency: 'nanoWit',
+              },
+            },
+          },
+        }),
+      )
+      expect(
+        wrapper.find('[data-test="create-data-request-error"]').isVisible(),
+      ).toBe(true)
+    })
+  })
+
   describe('should emit the event if the form has no errors', () => {
     it('should emit create data request event', async () => {
       const wrapper = mount(
@@ -116,6 +147,9 @@ describe('CreateDataRequestForm.vue', () => {
           store: {
             wallet: {
               state: {
+                errors: {
+                  createDataRequest: false,
+                },
                 balance: { total: 400000000000 },
                 currency: 'nanoWit',
               },
@@ -142,6 +176,9 @@ describe('CreateDataRequestForm.vue', () => {
           store: {
             wallet: {
               state: {
+                errors: {
+                  createDataRequest: false,
+                },
                 balance: { total: 400000000000 },
                 currency: 'nanoWit',
               },
@@ -166,6 +203,9 @@ describe('CreateDataRequestForm.vue', () => {
           store: {
             wallet: {
               state: {
+                errors: {
+                  createDataRequest: false,
+                },
                 balance: { total: 400000000000 },
                 currency: 'nanoWit',
               },
@@ -173,9 +213,7 @@ describe('CreateDataRequestForm.vue', () => {
           },
         }),
       )
-      // https://github.com/witnet/sheikah/issues/1500
       wrapper.setData({ rules: getNormalizedFormRules(wrapper) })
-
       wrapper.find('[data-test="dr-fee"]').setValue('0.000000000001')
       wrapper.find('[data-test="collateral"]').setValue('10000000000')
       await wrapper
@@ -195,6 +233,9 @@ describe('CreateDataRequestForm.vue', () => {
           store: {
             wallet: {
               state: {
+                errors: {
+                  createDataRequest: false,
+                },
                 balance: { total: 400000000000 },
                 currency: 'nanoWit',
               },
@@ -220,6 +261,9 @@ describe('CreateDataRequestForm.vue', () => {
           store: {
             wallet: {
               state: {
+                errors: {
+                  createDataRequest: false,
+                },
                 balance: { total: 400000000000 },
                 currency: 'nanoWit',
               },

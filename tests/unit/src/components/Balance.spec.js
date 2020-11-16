@@ -84,6 +84,9 @@ describe('Balance.vue', () => {
           store: {
             wallet: {
               state: {
+                errors: {
+                  createDataRequest: false,
+                },
                 balance: {
                   available: '1',
                   locked: '10',
