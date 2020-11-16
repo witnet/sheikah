@@ -96,16 +96,16 @@ export default {
     },
     async nextStep() {
       await this.validateImportedWallet({
-        xprv: this.fileInfo.data.private_key,
+        xprv: this.fileInfo.data.master_key,
         backupPassword: this.password,
       })
       if (!this.xprvError) {
-        await this.setXprv({ result: this.fileInfo.data.private_key })
+        await this.setXprv({ result: this.fileInfo.data.master_key })
         await this.setBackupPassword({ result: this.password })
         if (this.repeatedWallet) {
           this.$router.push('/ftu/repeated-wallet?xprv=true')
         } else if (!this.xprvError) {
-          this.$router.push(`/ftu/encryption-pass?xprv=true`)
+          this.$router.push(`/ftu/wallet-description?xprv=true`)
         }
       } else {
         this.prevStep()

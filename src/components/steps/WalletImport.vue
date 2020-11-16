@@ -22,8 +22,12 @@
       :maxlength="107"
       @go-next="nextStep"
     />
-    <p v-if="seedError" data-test="mnemonics-error-alert" class="match-error">
-      {{ seedError.message }}
+    <p
+      v-if="mnemonicsError"
+      data-test="mnemonics-error-alert"
+      class="match-error"
+    >
+      {{ mnemonicsError.message }}
     </p>
     <p class="paragraph">
       Please ensure you do not add any extra spaces between words or at the
@@ -57,9 +61,6 @@ export default {
       mnemonicsError: state => {
         return state.wallet.errors.mnemonics
       },
-      seedError: state => {
-        return state.wallet.errors.seed
-      },
       areMnemonicsValid: state => state.wallet.areMnemonicsValid,
       wallets: state => state.wallet.walletInfos,
       repeatedWallet: state => state.wallet.repeatedWallet,
@@ -67,8 +68,8 @@ export default {
   },
   watch: {
     seed() {
-      if (this.seedError) {
-        this.clearError({ error: this.seedError.name })
+      if (this.mnemonicsError) {
+        this.clearError({ error: this.mnemonicsError.name })
       }
     },
   },
@@ -76,14 +77,10 @@ export default {
     if (this.mnemonicsError) {
       this.clearError({ error: this.mnemonicsError.name })
     }
-    if (this.seedError) {
-      this.clearError({ error: this.seedError.name })
-    }
   },
   methods: {
     ...mapMutations({
       setSeed: 'setSeed',
-      setError: 'setError',
       clearError: 'clearError',
     }),
     ...mapActions({
@@ -91,7 +88,7 @@ export default {
     }),
     async validateForm() {
       await this.validateImportedWallet({ mnemonics: this.seed })
-      if (!this.seedError) {
+      if (!this.mnemonicsError) {
         this.setSeed({ result: this.seed })
       }
     },
@@ -99,7 +96,7 @@ export default {
       await this.validateForm()
       if (this.repeatedWallet) {
         this.$router.push('/ftu/repeated-wallet')
-      } else if (!this.seedError) {
+      } else if (!this.mnemonicsError) {
         this.$router.push(`/ftu/encryption-pass?import=true`)
       }
     },

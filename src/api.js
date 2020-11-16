@@ -186,7 +186,7 @@ export class WalletApi {
     )
   }
 
-  exportPrivateKey(params) {
+  exportMasterKey(params) {
     return this._callApiMethod('export_master_key')(params)
   }
 

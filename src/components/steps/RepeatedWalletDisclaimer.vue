@@ -47,9 +47,9 @@ export default {
   methods: {
     nextStep() {
       if (this.isImportingXprv) {
-        this.$router.push(`/ftu/encryption-pass?xprv=true`)
+        this.$router.push(`/ftu/wallet-description?xprv=true`)
       } else {
-        this.$router.push(`/ftu/encryption-pass?import=true`)
+        this.$router.push(`/ftu/wallet-description?import=true`)
       }
     },
     previousStep() {

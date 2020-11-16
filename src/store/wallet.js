@@ -276,7 +276,7 @@ export default {
       if (
         error === 'Validation Error' ||
         name === 'uploadFile' ||
-        name === 'seed' ||
+        name === 'mnemonics' ||
         name === 'xprv'
       ) {
         state.errors[name] = {
@@ -405,8 +405,8 @@ export default {
         })
       }
     },
-    exportPrivateKey: async function(context, { password }) {
-      const request = await context.state.api.exportPrivateKey({
+    exportMasterKey: async function(context, { password }) {
+      const request = await context.state.api.exportMasterKey({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
         password,
@@ -699,7 +699,8 @@ export default {
       if (request.error) {
         context.commit('setError', {
           name: importType,
-          message: `You must provide a valid ${importType} to import a wallet`,
+          error: `Invalid ${importType}`,
+          message: request.error.data[0][1],
         })
       } else if (request.result.exist) {
         this.commit('setRepeatedWallet', { exist: request.result.exist })

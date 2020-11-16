@@ -81,7 +81,7 @@ export default {
       validatePassword: 'validatePassword',
     }),
     ...mapActions({
-      exportPrivateKey: 'exportPrivateKey',
+      exportMasterKey: 'exportMasterKey',
     }),
     setPassword(password, repeatedPassword) {
       this.password = password
@@ -108,7 +108,7 @@ export default {
         repeatedPassword: this.repeatedPassword,
       })
       if (this.validatedPassword) {
-        await this.exportPrivateKey({ password: this.password })
+        await this.exportMasterKey({ password: this.password })
         await this.export(EDITOR_EXPORT_FORMAT.JSON)
         this.closeAndClear()
       }

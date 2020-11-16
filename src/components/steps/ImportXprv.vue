@@ -8,9 +8,20 @@
     next-text="Next"
     :previous-step="previousStep"
     :next-step="nextStep"
+    :disabled-next-button="!fileInfo"
   >
     <p class="text">
-      Please import your xprv.
+      Please import your wallet's xprv.json file.
+    </p>
+    <p class="text">
+      You will have downloaded this file when exporting your wallet in Sheikah.
+      You do not have to open the file: simply drag and drop it into the box
+      below, or open the "click to import" link to select it from your device.
+    </p>
+    <p class="text">
+      <span class="bold"> Please Note:</span> this file contains your wallet's
+      private key. Do not share it with anyone, including members of the Witnet
+      community.
     </p>
     <FileUploader
       :error-message="xprvError ? xprvError.message : ''"
@@ -162,6 +173,10 @@ export default {
 
 .text {
   padding-bottom: 16px;
+
+  .bold {
+    font-weight: 600;
+  }
 }
 
 .seed {

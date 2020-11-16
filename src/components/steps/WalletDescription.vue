@@ -63,14 +63,29 @@ export default {
       walletTitle: state => state.wallet.title,
       walletDescription: state => state.wallet.description,
     }),
-    isImporting() {
+    isImportingMnemonics() {
       return this.$route.query && this.$route.query.import
     },
+    isImportingXprv() {
+      return this.$route.query && this.$route.query.xprv
+    },
     nextRoute() {
-      return `/ftu/encryption-pass${this.isImporting ? '?import=true' : ''}`
+      if (this.isImportingMnemonics) {
+        return `/ftu/encryption-pass?import=true`
+      } else if (this.isImportingXprv) {
+        return `/ftu/encryption-pass?xprv=true`
+      } else {
+        return `/ftu/encryption-pass`
+      }
     },
     previousRoute() {
-      return this.isImporting ? '/ftu/import-wallet' : '/ftu/seed-validation'
+      if (this.isImportingMnemonics) {
+        return '/ftu/import-wallet'
+      } else if (this.isImportingXprv) {
+        return `/ftu/import-xprv`
+      } else {
+        return '/ftu/seed-validation'
+      }
     },
     title: {
       set(val) {
