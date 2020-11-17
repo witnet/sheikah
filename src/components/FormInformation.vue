@@ -16,43 +16,43 @@
       </div>
       <div v-else class="info">
         <p class="entry">Witnesses</p>
-        <el-input v-model.number="witnesses" disabled></el-input>
+        <p class="value">{{ witnesses }}</p>
         <p class="entry">Min Consensus Percentage</p>
-        <el-input v-model.number="minConsensusPercentage" disabled></el-input>
+        <p class="value">{{ minConsensusPercentage }}</p>
         <p class="entry">Data request fee</p>
-        <el-input v-model.number="fee" disabled></el-input>
+        <Amount class="amount" :amount="fee" />
         <p class="entry">Reward fee</p>
-        <el-input v-model.number="rewardFee" disabled></el-input>
+        <Amount class="amount" :amount="rewardFee" />
         <p class="entry">Commit and reveal fee</p>
-        <el-input v-model.number="commitAndRevealFee" disabled></el-input>
+        <Amount class="amount" :amount="commitAndRevealFee" />
+        <p class="entry">Inputs</p>
+        <div data-test="advance-options" class="value-transfer">
+          <div
+            v-for="(input, index) in generatedTransaction.transaction[type].body
+              .inputs"
+            :key="input.pkh"
+            class="transaction"
+          >
+            <p class="index"> #{{ index }} </p>
+            <p class="output-pointer"> {{ input.output_pointer }}</p>
+          </div>
+        </div>
+        <p class="entry">Outputs</p>
+        <div data-test="advance-options" class="value-transfer">
+          <div
+            v-for="(output, index) in generatedTransaction.transaction[type]
+              .body.outputs"
+            :key="output.pkh"
+            class="transaction"
+          >
+            <p class="index"> #{{ index }} </p>
+            <Amount :amount="output.value" />
+            <p class="address"> {{ output.pkh }}</p>
+          </div>
+        </div>
       </div>
       <transition name="slide">
         <div v-if="isAdvancedVisible" class="info advanced">
-          <p class="entry">Inputs</p>
-          <div data-test="advance-options" class="value-transfer">
-            <div
-              v-for="(input, index) in generatedTransaction.transaction[type]
-                .body.inputs"
-              :key="input.pkh"
-              class="transaction"
-            >
-              <p class="index"> #{{ index }} </p>
-              <p class="output-pointer"> {{ input.output_pointer }}</p>
-            </div>
-          </div>
-          <p class="entry">Outputs</p>
-          <div data-test="advance-options" class="value-transfer">
-            <div
-              v-for="(output, index) in generatedTransaction.transaction[type]
-                .body.outputs"
-              :key="output.pkh"
-              class="transaction"
-            >
-              <p class="index"> #{{ index }} </p>
-              <Amount :amount="output.value" />
-              <p class="address"> {{ output.pkh }}</p>
-            </div>
-          </div>
           <p class="entry">Bytes</p>
           <p data-test="advance-options" class="address value">{{
             generatedTransaction.bytes
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import Amount from '@/components/Amount.vue'
 
 export default {
@@ -153,13 +153,6 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations({
-      clearError: 'clearError',
-      clearGeneratedTransaction: 'clearGeneratedTransaction',
-    }),
-    ...mapActions({
-      sendTransaction: 'sendTransaction',
-    }),
     closeAndClear() {
       this.isAdvancedVisible = false
       this.$emit('close-clear')
@@ -221,7 +214,7 @@ export default {
     color: $alt-grey-5;
     column-gap: 24px;
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr 350px;
     grid-template-rows: max-content;
     overflow-wrap: break-word;
     padding-right: 24px;

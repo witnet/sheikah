@@ -2,7 +2,7 @@
   <el-form ref="form" label-position="left" label-width="200px">
     <FormInformation
       :commit-and-reveal-fee="commitAndRevealFee"
-      :fee="fee"
+      :fee="generatedTransaction.fee ? generatedTransaction.fee : fee"
       :min-consensus-percentage="minConsensusPercentage"
       :reward-fee="rewardFee"
       :witnesses="witnesses"

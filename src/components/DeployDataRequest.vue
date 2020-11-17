@@ -89,6 +89,8 @@ export default {
         return state.wallet.generatedTransaction
       },
       networkStatus: state => state.wallet.networkStatus,
+      createDataRequestError: state => state.wallet.errors.createDataRequest,
+      sendTransactionError: state => state.wallet.errors.sendTransaction,
     }),
   },
   created() {
@@ -109,6 +111,12 @@ export default {
     goBack(from) {
       if (from === 'CONFIRM') {
         this.clearGeneratedTransaction()
+        if (this.sendTransactionError) {
+          this.clearError({ error: this.sendTransactionError.name })
+        }
+        if (this.createDataRequestError) {
+          this.clearError({ error: this.createDataRequestError.name })
+        }
       } else if (from === 'TEMPLATE_VARIABLES') {
         this.closeAndClear()
       } else if (from === 'FORM' && !this.variables.length) {
@@ -121,6 +129,12 @@ export default {
       this.$emit('close')
       if (this.generatedTransaction) {
         this.clearGeneratedTransaction()
+      }
+      if (this.sendTransactionError) {
+        this.clearError({ error: this.sendTransactionError.name })
+      }
+      if (this.createDataRequestError) {
+        this.clearError({ error: this.createDataRequestError.name })
       }
       this.currentTemplate = ''
       this.variablesUpdated = false

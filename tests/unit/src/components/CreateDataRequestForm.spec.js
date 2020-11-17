@@ -252,36 +252,5 @@ describe('CreateDataRequestForm.vue', () => {
         `The minimun collateral cannot be less than 1 wit`,
       )
     })
-
-    it('should show an error if the total amount is greater than balance', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                errors: {
-                  createDataRequest: false,
-                },
-                balance: { total: 400000000000 },
-                currency: 'nanoWit',
-              },
-            },
-          },
-        }),
-      )
-      wrapper.setData({ rules: getNormalizedFormRules(wrapper) })
-
-      wrapper.find('[data-test="collateral"]').setValue('100000000000')
-      wrapper.find('[data-test="dr-fee"]').setValue('500000000000')
-      await wrapper
-        .find('[data-test="create-data-request-submit"]')
-        .trigger('click')
-
-      expect(wrapper.find('.el-form-item__error').text()).toBe(
-        `You don't have enough funds`,
-      )
-    })
   })
 })

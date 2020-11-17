@@ -80,25 +80,18 @@ export default {
     FormInformation,
   },
   data() {
-    const enoughFunds = (rule, value, callback) => {
-      const totalAmount = Number.isInteger(this.form.fee)
-        ? Number(value) + Number(this.form.fee)
-        : Number(value)
-      const isGreaterThanBalance =
-        parseFloat(
-          standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency, -1),
-        ) > parseFloat(this.availableBalance)
-      if (isGreaterThanBalance) {
-        callback(new Error("You don't have enough funds"))
+    const integerNanoWit = (rule, value, callback) => {
+      const isNanoWit = this.currency === WIT_UNIT.NANO
+      if (isNanoWit && !Number.isInteger(Number(value))) {
+        callback(new Error('Only integer nanoWits values allowed'))
       } else {
         callback()
       }
     }
 
-    const integerNanoWit = (rule, value, callback) => {
-      const isNanoWit = this.currency === WIT_UNIT.NANO
-      if (isNanoWit && !Number.isInteger(Number(value))) {
-        callback(new Error('Only integer nanoWits values allowed'))
+    const maxNumber = (rule, value, callback) => {
+      if (value > Number.MAX_SAFE_INTEGER) {
+        callback(new Error('This number is greater than the maximum'))
       } else {
         callback()
       }
@@ -140,15 +133,16 @@ export default {
         amount: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { validator: isNumber, trigger: 'change' },
-          { validator: enoughFunds, trigger: 'submit' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
+          { validator: maxNumber, trigger: 'change' },
         ],
         fee: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { validator: isNumber, trigger: 'change' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
+          { validator: maxNumber, trigger: 'change' },
         ],
       },
     }
@@ -160,22 +154,24 @@ export default {
         // TODO: change for available when wallet returns it
         return state.wallet.balance.total
       },
-      generatedTransaction: state => state.wallet.generatedTransaction,
+      generatedTransaction: state => {
+        return state.wallet.generatedTransaction
+      },
       currency: state => state.wallet.currency,
       createVTTError: state => state.wallet.errors.createVTT,
     }),
     addressLength() {
       return this.network && this.network.toLowerCase() === 'mainnet' ? 42 : 43
     },
-    fee() {
-      return this.form.fee
-    },
   },
   watch: {
-    fee(value) {
-      if (this.createVTTError) {
-        this.clearError({ error: this.createVTTError.name })
-      }
+    form: {
+      handler(val) {
+        if (this.createVTTError) {
+          this.clearError({ error: this.createVTTError.name })
+        }
+      },
+      deep: true,
     },
     addressLength: {
       handler(len) {
@@ -196,6 +192,7 @@ export default {
   methods: {
     ...mapMutations({
       clearError: 'clearError',
+      setError: 'setError',
       clearGeneratedTransaction: 'clearGeneratedTransaction',
     }),
     ...mapActions({
@@ -204,7 +201,7 @@ export default {
     }),
     changeCurrency(prevCurrency, newCurrency) {
       this.form = {
-        address: '',
+        address: this.form.address ? this.form.address : '',
         label: '',
         amount: this.form.amount
           ? standardizeWitUnits(this.form.amount, newCurrency, prevCurrency, 2)
@@ -223,12 +220,10 @@ export default {
     closeAndClear() {
       this.clearSendForm()
       this.clearGeneratedTransaction()
-      this.$emit('close')
       if (this.createVTTError) {
         this.clearError({ error: this.createVTTError.name })
-      } else if (this.sendTransactionError) {
-        this.clearError({ error: this.sendTransactionError.name })
       }
+      this.$emit('close')
     },
     toggleAdvanceOptions() {
       this.isAdvancedVisible = !this.isAdvancedVisible

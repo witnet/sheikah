@@ -33,7 +33,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Data request fee" prop="fee">
+    <el-form-item label="Fee per weight unit" prop="fee">
       <el-input v-model="form.fee" data-test="dr-fee" type="number">
         <AppendCurrency slot="append" @change-currency="changeCurrency" />
       </el-input>
@@ -93,17 +93,9 @@ export default {
     },
   },
   data() {
-    const enoughFunds = (rule, value, callback) => {
-      const totalAmount =
-        Number(this.form.witnesses) * 2 * Number(this.form.commitAndRevealFee) +
-        Number(this.form.fee) +
-        Number(this.form.witnesses) * Number(this.form.rewardFee)
-      const isGreaterThanBalance =
-        parseFloat(
-          standardizeWitUnits(totalAmount, WIT_UNIT.NANO, this.currency),
-        ) > parseFloat(this.availableBalance)
-      if (isGreaterThanBalance) {
-        callback(new Error("You don't have enough funds"))
+    const maxNumber = (rule, value, callback) => {
+      if (value > Number.MAX_SAFE_INTEGER) {
+        callback(new Error('This number is greater than the maximum'))
       } else {
         callback()
       }
@@ -178,11 +170,13 @@ export default {
           { validator: isNumber, trigger: 'change' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
+          { validator: maxNumber, trigger: 'change' },
         ],
         collateral: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { validator: isNumber, trigger: 'change' },
           { validator: minCollateralAmount, trigger: 'submit' },
+          { validator: maxNumber, trigger: 'change' },
         ],
         dataRequest: [
           { required: true, message: 'Required field', trigger: 'blur' },
@@ -191,24 +185,27 @@ export default {
         fee: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { validator: isNumber, trigger: 'change' },
-          { validator: enoughFunds, trigger: 'submit' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
+          { validator: maxNumber, trigger: 'change' },
         ],
         minConsensusPercentage: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: minConsensusPercentage, trigger: 'change' },
+          { validator: maxNumber, trigger: 'change' },
         ],
         rewardFee: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { validator: isNumber, trigger: 'change' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
+          { validator: maxNumber, trigger: 'change' },
         ],
         witnesses: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { validator: isNumber, trigger: 'change' },
+          { validator: maxNumber, trigger: 'change' },
         ],
       },
     }
@@ -227,10 +224,13 @@ export default {
     },
   },
   watch: {
-    fee(value) {
-      if (this.createDataRequestError) {
-        this.clearError({ error: this.createDataRequestError.name })
-      }
+    form: {
+      handler(val) {
+        if (this.createDataRequestError) {
+          this.clearError({ error: this.createDataRequestError.name })
+        }
+      },
+      deep: true,
     },
     currency(inputCurrency, outputCurrency) {
       this.form = {
@@ -251,6 +251,7 @@ export default {
     standardizeWitUnits,
     ...mapMutations({
       clearError: 'clearError',
+      setError: 'setError',
     }),
     changeCurrency(prevCurrency, newCurrency) {
       this.form = {
