@@ -119,6 +119,7 @@ export default {
 
 .paragraph {
   margin-bottom: 24px;
+  word-break: break-word;
 }
 
 .form-row {

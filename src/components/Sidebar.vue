@@ -86,10 +86,7 @@
         </el-dropdown>
       </div>
     </div>
-    <ExportXprv
-      v-if="isEncryptXprvVisible"
-      @close="isEncryptXprvVisible = false"
-    />
+    <ExportXprv v-if="isEncryptXprvVisible" @close="collapseSidebar" />
   </div>
 </template>
 
@@ -156,6 +153,7 @@ export default {
       this.expanded = true
     },
     collapseSidebar() {
+      this.isEncryptXprvVisible = false
       if (this.settingVisible) {
         this.expanded = true
       } else {
