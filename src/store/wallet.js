@@ -876,7 +876,7 @@ export default {
           })
         }
       } else if (eventType === WALLET_EVENTS.SYNC_FINISH) {
-        context.commit('stopEtaSync')
+        context.commit('stopSyncEstimator')
         await context.dispatch('getTransactions', {
           limit: 50,
           page: context.state.currentTransactionsPage,

@@ -50,7 +50,6 @@ export default class SyncingTimeEstimator {
       return this.window.reduce((acc, item) => acc + item) / this.window.length
     } else {
       console.log("[WARN]: You haven't added a sample")
-
       return 0
     }
   }
