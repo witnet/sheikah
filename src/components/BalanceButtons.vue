@@ -24,7 +24,7 @@ export default {
   name: 'BalanceButtons',
   computed: {
     ...mapState({
-      synced: state => state.wallet.status.synced,
+      synced: state => state.wallet.walletStatus.synced,
     }),
   },
   methods: {

@@ -16,7 +16,7 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                status: {
+                walletwalletStatus: {
                   synced: true,
                 },
               },
@@ -54,7 +54,7 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                status: {
+                walletwalletStatus: {
                   synced: true,
                 },
               },
@@ -92,7 +92,7 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                status: {
+                walletwalletStatus: {
                   synced: true,
                 },
               },
@@ -130,7 +130,7 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                status: {
+                walletwalletStatus: {
                   synced: true,
                 },
               },
@@ -170,7 +170,7 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                status: {
+                walletStatus: {
                   synced: true,
                 },
               },
@@ -210,7 +210,7 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                status: {
+                walletStatus: {
                   synced: true,
                 },
               },
@@ -250,7 +250,7 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                status: {
+                walletStatus: {
                   synced: true,
                 },
               },
@@ -291,7 +291,7 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                status: {
+                walletStatus: {
                   synced: true,
                 },
               },
@@ -335,7 +335,7 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                status: {
+                walletStatus: {
                   synced: false,
                 },
               },
@@ -378,7 +378,7 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                status: {
+                walletStatus: {
                   synced: true,
                 },
               },

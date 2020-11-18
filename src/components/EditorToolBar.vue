@@ -139,7 +139,7 @@ export default {
       template: state => state.rad.currentTemplate,
       radRequest: state => state.rad.radRequest,
       autoTry: state => state.rad.autoTry,
-      synced: state => state.wallet.status.synced,
+      synced: state => state.wallet.walletStatus.synced,
     }),
     dataStr() {
       return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
