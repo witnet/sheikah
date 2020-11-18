@@ -18,12 +18,7 @@
         </div>
       </router-link>
       <div class="current-wallet">
-        <NetworkStatus
-          :window-width="windowWidth"
-          :wallet-idx="walletIdx"
-          :expanded="expanded"
-          :status="status"
-        />
+        <NetworkStatus :window-width="windowWidth" :expanded="expanded" />
       </div>
       <div class="link-list">
         <router-link
@@ -91,7 +86,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import NetworkStatus from '@/components/NetworkStatus.vue'
 import ExportXprv from '@/components/ExportXprv.vue'
 import { ObserveVisibility } from 'vue-observe-visibility'
@@ -120,11 +115,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      walletIdx: state => state.wallet.walletIdx,
-      status: state => state.wallet.status,
-      walletInfos: state => state.wallet.walletInfos,
-    }),
     version() {
       return `v${process.env.VUE_APP_VERSION || 0}`
     },

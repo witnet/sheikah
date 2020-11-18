@@ -1,180 +1,463 @@
-import { shallowMount } from '@vue/test-utils'
-import NetworkStatus from '@/components/NetworkStatus.vue'
+import { mount } from '@vue/test-utils'
+
 import '@/fontAwesome'
 
-// TODO: delete skip in tests when witnet/witnet-rust#1224 is merged
-describe.skip('Renders the correct elements when wallet is synced, side bar is expanded but showAll is off', () => {
-  const wrapper = shallowMount(NetworkStatus, {
-    propsData: {
-      expanded: true,
-      status: {
-        progress: 70,
-        synced: true,
-      },
-    },
-  })
-  wrapper.setData({
-    showAll: false,
-  })
+import NetworkStatus from '@/components/NetworkStatus.vue'
+import Avatar from '@/components/Avatar.vue'
 
-  it('does not find detail info if the showAll is not triggered', () => {
-    expect(wrapper.find('[data-test="detail-info"]').exists()).toBe(false)
-  })
-
-  it('finds data test dot indicator', () => {
-    expect(wrapper.find('[data-test="dot-indicator"]').exists()).toBe(true)
-  })
-
-  it('finds wallet name', () => {
-    expect(wrapper.find('[data-test="wallet-name"]').text()).toBe(
-      'Witnet wallet #1',
-    )
-  })
-
-  it('finds node status', () => {
-    expect(
-      wrapper
-        .find('[data-test="status"]')
-        .text()
-        .exists(),
-    ).toBe('SYNCED')
-  })
-
-  it('does not find loading spinner', () => {
-    expect(wrapper.find('[data-test="loading-spinner"]'.exists())).toBe(false)
-  })
-
-  it('does not find loading spinner', () => {
-    expect(wrapper.find('[data-test="loading-spinner"]').exists()).toBe(false)
-  })
-
-  it('finds icon short-down', () => {
-    expect(wrapper.find('[data-test="short-down"]').exists()).toBe(true)
-  })
-
-  it('does not find icon short-up', () => {
-    expect(wrapper.find('[data-test="short-up"]').exists()).toBe(false)
-  })
-})
-// TODO: delete skip in tests when witnet/witnet-rust#1224 is merged
-describe.skip('Renders the correct elements when wallet is synced, side bar is expanded and showAll is on', () => {
-  const wrapper = shallowMount(NetworkStatus, {
-    propsData: {
-      expanded: true,
-      status: {
-        synced: true,
-        node: {
-          address: '127.0.0.1:21337',
-          last_beacon: {
-            checkpoint: '123456789',
+describe('NetworkStatus', () => {
+  describe('when is minimized', () => {
+    describe('and is synced', () => {
+      function getMinimizedSyncedData() {
+        return {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  walletStatus: {
+                    progress: 100,
+                    timestamp: 1605195393912,
+                    synced: true,
+                    nodeSynced: true,
+                  },
+                  errors: {},
+                },
+                getters: {
+                  network: () => 'mainnet',
+                  unlockedWallet: () => ({
+                    id: '1',
+                    name: 'wallet_1',
+                    description: 'description',
+                    image: 'wallet_img',
+                  }),
+                },
+              },
+            },
+          }),
+          propsData: {
+            expanded: false,
           },
-          network: 'Testnet',
-        },
-      },
-      walletIdx: 1,
-    },
-  })
-  wrapper.setData({
-    showAll: true,
+        }
+      }
+
+      describe('should show an avatar', () => {
+        it('should include Avatar', () => {
+          const wrapper = mount(NetworkStatus, getMinimizedSyncedData())
+
+          expect(wrapper.findComponent(Avatar))
+        })
+
+        describe('should pass correct props to Avatar', () => {
+          it('should pass borderColor with value green', () => {
+            const wrapper = mount(NetworkStatus, getMinimizedSyncedData())
+
+            const avatar = wrapper.findComponent(Avatar)
+
+            expect(avatar.props().borderColor).toBe('green')
+          })
+
+          it('should pass prop src', () => {
+            const wrapper = mount(NetworkStatus, getMinimizedSyncedData())
+
+            const avatar = wrapper.findComponent(Avatar)
+
+            expect(avatar.props().src).toBe('wallet_img')
+          })
+        })
+      })
+
+      it('should hide information detils', () => {
+        const wrapper = mount(NetworkStatus, getMinimizedSyncedData())
+
+        const informationDetails = wrapper.find('.detail-info')
+
+        expect(informationDetails.exists()).toBe(false)
+      })
+    })
+
+    describe('and is syncing', () => {
+      function getMinimizedSyncingData() {
+        return {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  walletStatus: {
+                    progress: 100,
+                    timestamp: 1605195393912,
+                    synced: false,
+                    nodeSynced: true,
+                  },
+                  errors: {},
+                },
+                getters: {
+                  network: () => 'mainnet',
+                  estimatedTimeOfSync: () => '00:32:22',
+                  unlockedWallet: () => ({
+                    id: '1',
+                    name: 'wallet_1',
+                    description: 'description',
+                    image: 'wallet_img',
+                  }),
+                },
+              },
+            },
+          }),
+          propsData: {
+            expanded: false,
+          },
+        }
+      }
+
+      describe('should show an avatar', () => {
+        it('should include Avatar', () => {
+          const wrapper = mount(NetworkStatus, getMinimizedSyncingData())
+
+          expect(wrapper.findComponent(Avatar))
+        })
+
+        describe('should pass correct props to Avatar', () => {
+          it('should pass color with value yellow', () => {
+            const wrapper = mount(NetworkStatus, getMinimizedSyncingData())
+
+            const avatar = wrapper.findComponent(Avatar)
+
+            expect(avatar.props().borderColor).toBe('yellow')
+          })
+
+          it('should pass prop src', () => {
+            const wrapper = mount(NetworkStatus, getMinimizedSyncingData())
+
+            const avatar = wrapper.findComponent(Avatar)
+
+            expect(avatar.props().src).toBe('wallet_img')
+          })
+        })
+      })
+
+      it('should hide information details', () => {
+        const wrapper = mount(NetworkStatus, getMinimizedSyncingData())
+
+        const informationDetails = wrapper.find('.detail-info')
+
+        expect(informationDetails.exists()).toBe(false)
+      })
+    })
+
+    describe('and exist sync error', () => {
+      function getMinimizedSyncErrorData() {
+        return {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  walletStatus: {
+                    progress: 100,
+                    timestamp: 1605195393912,
+                    synced: false,
+                    nodeSynced: true,
+                  },
+                  errors: {
+                    nodeSync: true,
+                  },
+                },
+                getters: {
+                  network: () => 'mainnet',
+                  unlockedWallet: () => ({
+                    id: '1',
+                    name: 'wallet_1',
+                    description: 'description',
+                    image: 'wallet_img',
+                  }),
+                },
+              },
+            },
+          }),
+          propsData: {
+            expanded: false,
+          },
+        }
+      }
+
+      describe('should show an avatar', () => {
+        describe('should show an avatar', () => {
+          it('should include Avatar', () => {
+            const wrapper = mount(NetworkStatus, getMinimizedSyncErrorData())
+
+            expect(wrapper.findComponent(Avatar))
+          })
+
+          describe('should pass correct props to Avatar', () => {
+            it('should pass borderColor with value red', () => {
+              const wrapper = mount(NetworkStatus, getMinimizedSyncErrorData())
+
+              const avatar = wrapper.findComponent(Avatar)
+
+              expect(avatar.props().borderColor).toBe('red')
+            })
+
+            it('should pass prop src', () => {
+              const wrapper = mount(NetworkStatus, getMinimizedSyncErrorData())
+
+              const avatar = wrapper.findComponent(Avatar)
+
+              expect(avatar.props().src).toBe('wallet_img')
+            })
+          })
+        })
+      })
+
+      it('should hide information detils', () => {
+        const wrapper = mount(NetworkStatus, getMinimizedSyncErrorData())
+
+        const informationDetails = wrapper.find('.detail-info')
+
+        expect(informationDetails.exists()).toBe(false)
+      })
+    })
+
+    describe('and node is disconnected', () => {
+      describe('should show an avatar', () => {
+        describe('should show an avatar', () => {
+          it.todo('should include Avatar')
+
+          describe('should pass correct props to Avatar', () => {
+            it.todo('should pass sync with value syncing')
+
+            it.todo('should pass prop src')
+          })
+        })
+      })
+
+      it.todo('should hide information detils')
+    })
   })
 
-  it('finds detail info if showAll is triggered', () => {
-    expect(wrapper.find('[data-test="detail-info"]').exists()).toBe(true)
+  describe('when is closed', () => {
+    describe('and is synced', () => {
+      function getClosedSyncedData() {
+        return {
+          ...createComponentMocks({
+            store: {
+              wallet: {
+                state: {
+                  walletStatus: {
+                    progress: 100,
+                    timestamp: 1605195393912,
+                    synced: true,
+                    nodeSynced: true,
+                  },
+                  errors: {},
+                },
+                getters: {
+                  network: () => 'mainnet',
+                  unlockedWallet: () => ({
+                    id: '1',
+                    name: 'wallet_1',
+                    description: 'description',
+                    image: 'wallet_img',
+                  }),
+                },
+              },
+            },
+          }),
+          propsData: {
+            expanded: true,
+          },
+        }
+      }
+
+      describe('should show an avatar', () => {
+        it('should include Avatar', () => {
+          const wrapper = mount(NetworkStatus, getClosedSyncedData())
+
+          expect(wrapper.findComponent(Avatar))
+        })
+
+        describe('should pass correct props to Avatar', () => {
+          it('should pass borderColor with value green', () => {
+            const wrapper = mount(NetworkStatus, getClosedSyncedData())
+
+            const avatar = wrapper.findComponent(Avatar)
+
+            expect(avatar.props().borderColor).toBe('green')
+          })
+
+          it('should pass prop src', () => {
+            const wrapper = mount(NetworkStatus, getClosedSyncedData())
+
+            const avatar = wrapper.findComponent(Avatar)
+
+            expect(avatar.props().src).toBe('wallet_img')
+          })
+        })
+      })
+
+      it('should show the wallet name', () => {
+        const wrapper = mount(NetworkStatus, getClosedSyncedData())
+
+        const name = wrapper.find('.current-wallet-name').text()
+
+        expect(name).toBe('wallet_1')
+      })
+
+      it('should show status label as sync ', () => {
+        const wrapper = shallowMount(NetworkStatus, getClosedSyncedData())
+
+        const name = wrapper.find('.status').text()
+
+        expect(name).toBe('SYNCED')
+      })
+
+      it('should hide network details', () => {
+        const wrapper = shallowMount(NetworkStatus, getClosedSyncedData())
+
+        const existsNetworkDetails = wrapper.find('.details-info').exists()
+
+        expect(existsNetworkDetails).toBe(false)
+      })
+    })
+
+    describe('and is syncing', () => {
+      describe('should show an avatar', () => {
+        it('should include Avatar', () => {})
+
+        describe('should pass correct props to Avatar', () => {
+          it.todo('should pass borderColor with value yellow')
+
+          it('should pass prop src', () => {})
+        })
+      })
+
+      it.todo('should show the wallet name')
+      it.todo('should show sync label with percentage')
+    })
+
+    describe('and exists sync error', () => {
+      describe('should show an avatar', () => {
+        it('should include Avatar', () => {})
+
+        describe('should pass correct props to Avatar', () => {
+          it.todo('should pass borderColor with value red')
+
+          it.todo('should pass prop src')
+        })
+      })
+
+      it.todo('should show the wallet name')
+      it.todo('should show sync error label')
+    })
+
+    describe('and node is disconnected', () => {
+      describe('should show an avatar', () => {
+        it('should include Avatar', () => {})
+
+        describe('should pass correct props to Avatar', () => {
+          it.todo('should pass borderColor with value red')
+
+          it.todo('should pass prop src')
+        })
+      })
+
+      it.todo('should show wallet disconnected as label')
+      it.todo('should show the wallet name')
+    })
   })
 
-  it('finds data test dot indicator', () => {
-    expect(wrapper.find('[data-test="dot-indicator"]').exists()).toBe(true)
-  })
+  describe('when is expanded', () => {
+    describe('and is synced', () => {
+      describe('should show an avatar', () => {
+        it('should include Avatar', () => {})
 
-  it('finds wallet name', () => {
-    expect(wrapper.find('[data-test="wallet-name"]').exists()).toBe(true)
-  })
+        describe('should pass correct props to Avatar', () => {
+          it.todo('should pass borderColor with value green')
 
-  it('finds node status', () => {
-    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNCED')
-  })
+          it.todo('should pass prop src')
+        })
+      })
 
-  it('does not find loading spinner', () => {
-    expect(wrapper.find('[data-test="loading-spinner"]').exists()).toBe(false)
-  })
+      it.todo('should show the wallet name')
+      it.todo('should show synced as label')
+      it.todo('should show RESYNC button')
+      it.todo('should show wallet url')
+      it.todo('should show network connected at')
+      it.todo('should show current block')
 
-  it('does not find icon short-down', () => {
-    expect(wrapper.find('[data-test="short-down"]').exists()).toBe(false)
-  })
+      describe('should NOT show block information', () => {
+        it.todo('should NOT show blocks left previous getting error')
+        it.todo('should NOT synched blocks previous error')
+      })
+    })
 
-  it('finds icon short-up', () => {
-    expect(wrapper.find('[data-test="short-up"]').exists()).toBe(true)
-  })
+    describe('and is syncing', () => {
+      describe('should show an avatar', () => {
+        it('should include Avatar', () => {})
 
-  it('finds icon node', () => {
-    expect(wrapper.find('[data-test="node"]').text()).toBe(
-      'Connected to 127.0.0.1:21337',
-    )
-  })
+        describe('should pass correct props to Avatar', () => {
+          it.todo('should pass borderColor with value yellow')
 
-  it('finds icon last block', () => {
-    expect(wrapper.find('[data-test="last-block"]').text()).toBe(
-      'Last block is #123456789',
-    )
-  })
+          it.todo('should pass prop src')
+        })
+      })
 
-  it('finds network element', () => {
-    expect(wrapper.find('[data-test="network"]').text()).toBe(
-      'Tracking Testnet network',
-    )
-  })
-})
-// TODO: delete skip in tests when witnet/witnet-rust#1224 is merged
-describe.skip('Renders the correct elements when the while syncing', () => {
-  const wrapper = shallowMount(NetworkStatus, {
-    propsData: {
-      expanded: true,
-      status: {
-        synced: false,
-        progress: 70,
-      },
-      walletIdx: 1,
-    },
-  })
-  wrapper.setData({
-    showAll: true,
-    loading: true,
-  })
+      it.todo('should show the wallet name')
+      it.todo('should show syncing label')
+      it.todo('should show ETA')
+      it.todo('should show percentage')
+      it.todo('should show RESYNC button')
 
-  it('does not find loading spinner', () => {
-    expect(wrapper.find('[data-test="loading-spinner"]').exists()).toBe(true)
-  })
+      it.todo('should show wallet url')
+      it.todo('should show network connected at')
+      describe('should show block information', () => {
+        it.todo('should show blocks left')
+        it.todo('should show synched blocks')
+      })
+    })
 
-  it('finds node status', () => {
-    expect(wrapper.find('[data-test="status"]').text()).toBe('SYNCING (70%)')
-  })
-})
-// TODO: delete skip in tests when witnet/witnet-rust#1224 is merged
-describe.skip('Renders the correct elements when the status is unknown', () => {
-  const wrapper = shallowMount(NetworkStatus, {
-    propsData: {
-      expanded: true,
-      status: null,
-    },
-  })
-  wrapper.setData({
-    showAll: false,
-    loading: true,
-  })
+    describe('and exists sync error', () => {
+      describe('should show an avatar', () => {
+        it('should include Avatar', () => {})
 
-  it('does not find loading spinner', () => {
-    expect(wrapper.find('[data-test="loading-spinner"]').exists()).toBe(true)
-  })
+        describe('should pass correct props to Avatar', () => {
+          it.todo('should pass borderColor with value red')
 
-  it('finds icon short-down', () => {
-    expect(wrapper.find('[data-test="short-down"]').exists()).toBe(true)
-  })
+          it.todo('should pass prop src')
+        })
+      })
 
-  it('does not find icon short-up', () => {
-    expect(wrapper.find('[data-test="short-up"]').exists()).toBe(false)
-  })
+      it.todo('should show the wallet name')
+      it.todo('should show syncing label')
+      it.todo('should hide ETA')
+      it.todo('should show percentage')
+      it.todo('should show RESYNC button if node synced')
+      it.todo('should hide RESYNC button if node is not synced')
+      it.todo('should show wallet url')
+      it.todo('should show network connected at')
+      describe('should show block information', () => {
+        it.todo('should show blocks left previous getting error')
+        it.todo('should show synched blocks previous error')
+      })
+    })
 
-  it('does not find detail info if the showAll is not triggered', () => {
-    expect(wrapper.find('[data-test="detail-info"]').exists()).toBe(false)
+    describe('and node is disconnected', () => {
+      describe('should show an avatar', () => {
+        it('should include Avatar', () => {})
+
+        describe('should pass correct props to Avatar', () => {
+          it.todo('should pass borderColor with value red')
+
+          it.todo('should pass prop src')
+        })
+      })
+
+      it.todo('should show wallet disconnected as label')
+      it.todo('should show the wallet name')
+      it.todo('should show wallet url')
+
+      describe('should NOT show block information', () => {
+        it.todo('should NOT show blocks left previous getting error')
+        it.todo('should NOT synched blocks previous error')
+      })
+    })
   })
 })

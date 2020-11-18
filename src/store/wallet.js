@@ -49,6 +49,7 @@ export default {
       network: null,
       saveItem: null,
       getItem: null,
+      nodeSync: false,
     },
     repeatedWallet: null,
     exportFileLink: '',
@@ -67,12 +68,14 @@ export default {
     xprvBackupPassword: null,
     seed: null,
     networkStatus: 'error',
-    status: {
+    walletStatus: {
       progress: 0,
       timestamp: 0,
       synced: false,
       timeSyncStart: null,
       syncingTimeEstimator: new SyncingTimeEstimator(),
+      nodeSynced: true,
+      nodeDisconnected: false,
     },
     description: '',
     title: '',
@@ -93,7 +96,7 @@ export default {
   },
   getters: {
     network: state => {
-      return state.status.node && state.status.node.network
+      return state.walletStatus.node && state.walletStatus.node.network
     },
     unlockedWallet: state => {
       return Number.isInteger(state.walletIdx)
@@ -102,19 +105,19 @@ export default {
     },
     estimatedTimeOfSync: state => {
       return formatMillisecondsDuration(
-        state.status.syncingTimeEstimator.calculate(),
+        state.walletStatus.syncingTimeEstimator.calculate(),
       )
     },
   },
   mutations: {
     stopSyncEstimator(state) {
-      state.status.syncingTimeEstimator.reset()
+      state.walletStatus.syncingTimeEstimator.reset()
     },
     startSyncEstimator(state) {
-      state.status.syncingTimeEstimator.start(Date.now())
+      state.walletStatus.syncingTimeEstimator.start(Date.now())
     },
     addSyncEstimatorSample(state, { current, finish }) {
-      state.status.syncingTimeEstimator.addSample({
+      state.walletStatus.syncingTimeEstimator.addSample({
         currentBlock: current,
         lastBlock: finish,
       })
@@ -256,8 +259,8 @@ export default {
     setBackupPassword(state, { result }) {
       Object.assign(state, { xprvBackupPassword: result })
     },
-    setStatus(state, { status }) {
-      state.status = status
+    setWalletStatus(state, { status }) {
+      state.walletStatus = status
     },
     setWallet(state, { walletId, sessionId }) {
       state.walletId = walletId
@@ -277,7 +280,9 @@ export default {
         error === 'Validation Error' ||
         name === 'uploadFile' ||
         name === 'mnemonics' ||
-        name === 'xprv'
+        name === 'xprv' ||
+        name === 'seed' ||
+        name === 'nodeSync'
       ) {
         state.errors[name] = {
           name,
@@ -849,7 +854,10 @@ export default {
       })
     },
     processEvent: async function(context, rawEvent) {
-      const eventType = Object.keys(rawEvent.event)[0]
+      const eventType =
+        typeof rawEvent.event === 'string'
+          ? rawEvent.event
+          : Object.keys(rawEvent.event)[0]
       const event = rawEvent.event[eventType]
       const status = rawEvent.status
       if (eventType === WALLET_EVENTS.BLOCK) {
@@ -877,6 +885,7 @@ export default {
         }
       } else if (eventType === WALLET_EVENTS.SYNC_FINISH) {
         context.commit('stopSyncEstimator')
+        context.state.errors.nodeSync = false
         await context.dispatch('getTransactions', {
           limit: 50,
           page: context.state.currentTransactionsPage,
@@ -893,7 +902,14 @@ export default {
               start} blocks in total.\nYour wallet is now synchronized to the latest block in the chain (#${finish}).`,
           })
         }
+        status.nodeDisconnected = false
       } else if (eventType === WALLET_EVENTS.SYNC_PROGRESS) {
+        if (!context.state.walletStatus.syncingTimeEstimator.hasStarted()) {
+          context.commit('startSyncEstimator')
+        }
+
+        context.state.errors.nodeSync = false
+        context.state.walletStatus.nodeDisconnected = false
         // eslint-disable-next-line
         const [_start, current, finish] = event
         status.progress = (current / finish) * 100 || 0
@@ -909,11 +925,12 @@ export default {
           context.dispatch('getAddresses')
         }
       } else if (eventType === WALLET_EVENTS.SYNC_START) {
+        context.state.errors.nodeSync = false
         const [start, finish] = event
 
-        if (!context.state.status.syncingTimeEstimator.hasStarted()) {
-          context.commit('startSyncEstimator')
-        }
+        context.commit('stopSyncEstimator')
+
+        context.commit('startSyncEstimator')
 
         status.progress = 0
         context.commit('setBalance', { balance: status.account.balance })
@@ -939,19 +956,31 @@ export default {
           page: context.state.currentTransactionsPage,
         })
         context.dispatch('getAddresses')
+      } else if (eventType === WALLET_EVENTS.NODE_STATUS_CHANGED) {
+        context.state.errors.nodeSync = false
+        if (event === 'Synced') {
+          status.nodeSynced = true
+          status.progress = null
+        } else {
+          status.synced = false
+          status.nodeSynced = false
+          status.progress = null
+        }
+
+        status.nodeDisconnected = false
+      } else if (eventType === WALLET_EVENTS.NODE_SYNC_ERROR) {
+        context.state.errors.nodeSync = true
+      } else if (eventType === WALLET_EVENTS.NODE_DISCONNECTED) {
+        context.state.errors.nodeSync = false
+        status.progress = 0
+        status.timestamp = 0
+        status.synced = false
+        status.nodeSynced = false
+        status.nodeDisconnected = true
       }
+
       status.rawEventType = eventType
       context.dispatch('processStatus', status)
-
-      if (eventType === WALLET_EVENTS.NODE_STATUS_CHANGED) {
-        if (event === 'Synced') {
-          context.state.status.synced = true
-          context.state.status.progress = null
-        } else {
-          context.state.status.synced = false
-          context.state.status.progress = null
-        }
-      }
     },
 
     processStatus: async function(context, status) {
@@ -962,8 +991,14 @@ export default {
       if (status.synced) {
         status.timestamp = Date.now()
       }
-      context.commit('setStatus', {
-        status: { ...context.state.status, ...status },
+      context.commit('setWalletStatus', {
+        status: { ...context.state.walletStatus, ...status },
+      })
+    },
+    resync(context) {
+      context.state.api.resync({
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
       })
     },
   },

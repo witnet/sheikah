@@ -1,32 +1,29 @@
-/* eslint-disable vue/require-prop-types */
 <template>
   <div class="network-status">
     <div class="header" @click="showAll = !showAll">
-      <div class="dot-status">
-        <DotIndicator
-          data-test="dot-indicator"
-          :synced="synced"
-          :url="unlockedWallet.image"
-        />
-      </div>
+      <Avatar
+        data-test="status-avatar"
+        :border-color="statusData.color"
+        :src="unlockedWallet.image"
+      />
       <div class="wallet-info">
         <p data-test="wallet-name" class="current-wallet-name">
           {{ unlockedWallet.name }}
         </p>
         <div class="status-container">
           <div class="progress">
-            <div v-if="!synced" data-test="status" class="status syncing">
-              SYNCING&nbsp;<span v-if="progress">{{
-                ` (${progress.toFixed(2)}%)`
-              }}</span>
-              <DotsLoading v-else data-test="loading-spinner" class="spinner" />
+            <div data-test="status" :class="['status', statusData.color]">
+              {{ statusData.label }}
             </div>
-            <div v-else data-test="status" class="status synced">
-              SYNCED
-            </div>
+
+            <DotsLoading
+              v-if="isLoadingVisible"
+              data-test="loading-spinner"
+              class="spinner"
+            />
           </div>
 
-          <p v-if="!synced" data-test="time-left" class="estimation">
+          <p v-if="isSyncing" data-test="time-left" class="estimation">
             ETA&nbsp;
             <span
               v-if="estimatedTimeOfSync && estimatedTimeOfSync !== '00:00:00'"
@@ -61,15 +58,8 @@
         data-test="detail-info"
         class="detail-info"
       >
-        <p v-if="!synced" data-test="last-block" class="text">
-          <span class="bold">{{ lastBlock - lastSync }}</span> blocks left
-        </p>
-        <p v-if="!synced" data-test="last-block" class="text">
-          Block <span class="bold">#{{ lastSync }}</span> of
-          <span class="bold">#{{ lastBlock }}</span>
-        </p>
-
         <el-button
+          v-if="isResyncButtonVisible"
           type="primary"
           size="mini"
           class="resync"
@@ -78,13 +68,22 @@
           <font-awesome-icon class="icon" icon="sync-alt" />
           Resync
         </el-button>
+
+        <p v-if="isSyncing" data-test="last-block" class="text">
+          <span class="bold">{{ lastBlock - lastSync }}</span> blocks left
+        </p>
+        <p v-if="isSyncing" data-test="last-block" class="text">
+          Block <span class="bold">#{{ lastSync }}</span> of
+          <span class="bold">#{{ lastBlock }}</span>
+        </p>
+
         <p data-test="node" class="text">
           Connected to <span class="bold">{{ address }}</span>
         </p>
         <p v-if="network" data-test="network" class="text">
           Tracking <span class="bold">{{ network }}</span> network
         </p>
-        <p v-if="synced" data-test="last-block" class="text">
+        <p v-if="isWalletSynced" data-test="last-block" class="text">
           Last block <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo !== 0"> ({{ calculateTimeAgo(timeAgo) }})</span>
         </p>
@@ -94,56 +93,113 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import DotIndicator from '@/components/DotIndicator'
+import { mapGetters, mapState } from 'vuex'
+import Avatar from '@/components/Avatar'
 import DotsLoading from '@/components/DotsLoading.vue'
 import { calculateTimeAgo } from '@/utils'
 
 export default {
   name: 'NetworkStatus',
   components: {
-    DotIndicator,
+    Avatar,
     DotsLoading,
   },
   props: {
     expanded: Boolean,
-    // eslint-disable-next-line
-    status: {
-      synced: Boolean,
-      timestamp: Date,
-    },
   },
   data() {
     return {
       showAll: false,
-      timeAgo: this.status ? this.status.timestamp : null,
+      timeAgo: this.walletstatus ? this.walletstatus.timestamp : null,
     }
   },
   computed: {
-    ...mapGetters(['network', 'estimatedTimeOfSync', 'unlockedWallet']),
+    ...mapGetters(['network', 'unlockedWallet', 'estimatedTimeOfSync']),
+    ...mapState({
+      walletStatus: state => state.wallet.walletStatus,
+      syncingError: state =>
+        state.wallet.errors && state.wallet.errors.nodeSync,
+    }),
+    isResyncButtonVisible() {
+      return (
+        (this.isWalletSynced && this.isNodeSynced) ||
+        (this.syncingError && this.isNodeSynced)
+      )
+    },
+    statusData() {
+      if (this.syncingError) {
+        return {
+          label: 'SYNC ERROR',
+          color: 'red',
+        }
+      } else if (this.isNodeDisconnected) {
+        return {
+          label: 'NODE DISCONNECTED',
+          color: 'red',
+        }
+      } else if (!this.isNodeSynced) {
+        return {
+          label: 'WAITING FOR NODE TO SYNC',
+          color: 'yellow',
+        }
+      } else if (this.isWalletSynced) {
+        return {
+          label: 'SYNCED',
+          color: 'green',
+        }
+      } else {
+        return {
+          label: `SYNCING (${this.progress.toFixed(2)}%)`,
+          color: 'yellow',
+        }
+      }
+    },
+    isSyncing() {
+      return (
+        !this.syncingError &&
+        !this.isNodeDisconnected &&
+        this.isNodeSynced &&
+        !this.isWalletSynced
+      )
+    },
+    isNodeDisconnected() {
+      return this.walletStatus.nodeDisconnected
+    },
+    isNodeSynced() {
+      return this.walletStatus.nodeSynced
+    },
     address() {
-      return this.status.node && this.status.node.address
+      return this.walletStatus.node && this.walletStatus.node.address
     },
     lastBlock() {
-      return this.status.node && this.status.node.last_beacon.checkpoint
+      return (
+        this.walletStatus.node && this.walletStatus.node.last_beacon.checkpoint
+      )
     },
     lastSync() {
-      return this.status.node && this.status.wallet.last_sync.checkpoint
+      return (
+        this.walletStatus.node && this.walletStatus.wallet.last_sync.checkpoint
+      )
     },
     progress() {
-      return this.status && this.status.progress
+      return (this.walletStatus && this.walletStatus.progress) || 0
     },
-    synced() {
-      return this.status && this.status.synced
+    isWalletSynced() {
+      return this.walletStatus && this.walletStatus.synced
     },
     timestamp() {
-      return this.status && this.status.timestamp
+      return this.walletStatus && this.walletStatus.timestamp
+    },
+    isLoadingVisible() {
+      return (
+        !this.isWalletSynced && !this.syncingError && !this.isNodeDisconnected
+      )
     },
   },
   watch: {
-    status(status) {
-      if (status) {
-        this.timeAgo = this.status.timestamp
+    walletStatus(val) {
+      if (val) {
+        this.timeAgo = val.timestamp
       }
     },
     expanded(expanded) {
@@ -192,13 +248,16 @@ export default {
             font-weight: bold;
             margin-right: 8px;
 
-            &.synced {
+            &.green {
               color: $green-5;
             }
 
-            &.syncing {
+            &.yellow {
               color: $yellow-4;
-              display: flex;
+            }
+
+            &.red {
+              color: $red-3;
             }
           }
         }
@@ -210,21 +269,12 @@ export default {
           font-weight: bold;
         }
       }
-    }
 
-    .icon {
-      .sort {
-        width: 12px;
+      .icon {
+        .sort {
+          width: 12px;
+        }
       }
-    }
-  }
-
-  .resync {
-    margin-bottom: 10px;
-    width: min-content;
-
-    .icon {
-      font-size: 14px;
     }
   }
 
@@ -232,6 +282,15 @@ export default {
     margin-bottom: 20px;
     margin-left: 70px;
     min-width: max-content;
+
+    .resync {
+      margin-bottom: 10px;
+      width: min-content;
+
+      .icon {
+        font-size: 14px;
+      }
+    }
 
     .text {
       color: $alt-grey-3;
