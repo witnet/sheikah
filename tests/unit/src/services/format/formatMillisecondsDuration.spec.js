@@ -19,9 +19,27 @@ describe('formatMillisecondsDuration format seconds as hh:mm:ss', () => {
     expect(formatDuration(ms)).toBe('02:00:00')
   })
 
-  it.only('should show hours if there is hour overflow', () => {
+  it('should show hours if there is hour overflow', () => {
     const ms = 1000 * 60 * 60 * 48
 
     expect(formatDuration(ms)).toBe('48:00:00')
+  })
+
+  it('should show 00:00:00 when input is negative', () => {
+    const ms = -10
+
+    expect(formatDuration(ms)).toBe('00:00:00')
+  })
+
+  it('should show 00:00:00 when input is not a number', () => {
+    const ms = 'text'
+
+    expect(formatDuration(ms)).toBe('00:00:00')
+  })
+
+  it('should show hour when input has decimals 20270393.538179483', () => {
+    const ms = 20270393.538179483
+
+    expect(formatDuration(ms)).toBe('05:37:50')
   })
 })
