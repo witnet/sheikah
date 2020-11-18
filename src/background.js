@@ -388,7 +388,6 @@ function main() {
         await sleep(2500)
         await downloadWalletRelease(releaseUrl, latestReleaseVersion)
       } else {
-        overwriteWalletConfigFile()
         win.webContents.send('downloaded')
         await sleep(3000)
       }
@@ -462,6 +461,7 @@ autoUpdater.on('update-downloaded', () => {
   autoUpdater.quitAndInstall(false)
 })
 
+// Overwrite wallet config file only when new version is downloaded
 function overwriteWalletConfigFile() {
   fs.writeFileSync(
     path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
