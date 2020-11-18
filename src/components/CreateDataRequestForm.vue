@@ -94,7 +94,10 @@ export default {
   },
   data() {
     const maxNumber = (rule, value, callback) => {
-      if (value > Number.MAX_SAFE_INTEGER) {
+      if (
+        Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.currency)) >
+        Number.MAX_SAFE_INTEGER
+      ) {
         callback(new Error('This number is greater than the maximum'))
       } else {
         callback()
@@ -111,10 +114,19 @@ export default {
     }
 
     const minConsensusPercentage = (rule, value, callback) => {
-      const isLessThanMin = value < 51
-      if (isLessThanMin) {
+      if (value < 51) {
         callback(
           new Error('The minimun consensus percentage cannot be less than 51'),
+        )
+      } else {
+        callback()
+      }
+    }
+
+    const maxConsensusPercentage = (rule, value, callback) => {
+      if (value > 100) {
+        callback(
+          new Error('The minimun consensus percentage cannot be more than 100'),
         )
       } else {
         callback()
@@ -193,6 +205,7 @@ export default {
           { required: true, message: 'Required field', trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: minConsensusPercentage, trigger: 'change' },
+          { validator: maxConsensusPercentage, trigger: 'change' },
           { validator: maxNumber, trigger: 'change' },
         ],
         rewardFee: [

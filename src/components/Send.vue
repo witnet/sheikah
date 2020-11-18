@@ -90,7 +90,10 @@ export default {
     }
 
     const maxNumber = (rule, value, callback) => {
-      if (value > Number.MAX_SAFE_INTEGER) {
+      if (
+        Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.currency)) >
+        Number.MAX_SAFE_INTEGER
+      ) {
         callback(new Error('This number is greater than the maximum'))
       } else {
         callback()
