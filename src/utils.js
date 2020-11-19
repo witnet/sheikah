@@ -1,4 +1,4 @@
-import Big from 'big.js'
+import BigNumber from '@/utils/BigNumber'
 import cbor from 'cbor'
 import { format, formatDistanceToNow } from 'date-fns'
 import uuidv4 from 'uuid/v4'
@@ -139,19 +139,23 @@ export function standardizeWitUnits(
       [`${WIT_UNIT.NANO}`]: 0,
     },
   }
-  const num = Big(amount)
-  const exponent = witUnitConversor[inputCurrency][outputCurrency]
-  const result = num.times(Big(10).pow(exponent), 0)
+  if (amount && amount !== '0') {
+    const num = new BigNumber(amount)
+    const exponent = witUnitConversor[inputCurrency][outputCurrency]
+    const result = num.times(new BigNumber(10).pow(exponent), 0)
 
-  if (truncate === -1) {
-    return Number(result.toString())
-  } else if (result.cmp(1) === -1) {
-    // result < 1
-    return result.toFixed()
+    if (truncate === -1) {
+      return result.toString()
+    } else if (result.cmp(1) === -1) {
+      // result < 1
+      return result.toFixed()
+    } else {
+      return outputCurrency === WIT_UNIT.NANO
+        ? result.toString()
+        : result.toFixed(truncate)
+    }
   } else {
-    return outputCurrency === WIT_UNIT.NANO
-      ? result.toString()
-      : result.toFixed(truncate)
+    return '0'
   }
 }
 
@@ -267,6 +271,7 @@ export function calculateTimeAgo(date) {
 }
 
 export function formatNumber(num) {
+  // TODO: When the wallet is ready, it should receive a string
   num += ''
   const splitedNumber = num.split('.')
   const decimals = splitedNumber.length > 1 ? '.' + splitedNumber[1] : ''

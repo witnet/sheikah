@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { changeDateFormat, getAvatarUrl } from '@/utils'
+import BigNumber from '@/utils/BigNumber'
 const RPCWebsockets = require('rpc-websockets').Client
 
 const defaultOptions = {
@@ -165,7 +166,7 @@ export class WalletApi {
   }
 
   getBalance(params) {
-    return this._callApiMethod('get_balance')(params)
+    return this._callApiMethod('get_balance')(params, standardizeBalance)
   }
 
   getItem(params) {
@@ -268,7 +269,7 @@ export function standardizeAddresses(response) {
 
       return {
         receivedPayments: info.received_payments.length,
-        receivedAmount: info.received_amount,
+        receivedAmount: new BigNumber(info.received_amount).toString(),
         lastPaymentDate: new Date(Number(info.last_payment_date + '000')),
         firstPaymentDate: new Date(Number(info.first_payment_date + '000')),
         index: address.index,
@@ -282,6 +283,7 @@ export function standardizeAddresses(response) {
 }
 
 export function standardizeTransactions(response) {
+  // TODO(#1760): When the wallet is ready, it should receive the transaction amount, fees, inputs and outputs values as a string
   if (!response.result) return response
   const transactions = response.result.transactions.map(transaction => {
     const transactionType = Object.keys(transaction.transaction.data)[0]
@@ -311,22 +313,25 @@ export function standardizeTransactions(response) {
       id: hash,
       type,
       inputs: inputs
-        ? inputs.map(input => ({ value: input.value, address: input.address }))
+        ? inputs.map(input => ({
+            value: new BigNumber(input.value).toString(),
+            address: input.address,
+          }))
         : null,
       outputs: filteredOutputs.map(({ output, index }) => ({
-        value: output.value,
+        value: new BigNumber(output.value).toString(),
         address: output.address,
         timelock: output.time_lock,
         outputType: output.output_type,
         index: index,
       })),
-      fee: miner_fee,
+      fee: new BigNumber(miner_fee).toString(),
       date: changeDateFormat(timestamp),
       timestamp,
       label: '',
-      amount: transaction.amount,
-      block: block.block_hash,
-      epoch: block.epoch,
+      amount: new BigNumber(transaction.amount).toString(),
+      block: block.block_hash.toString(),
+      epoch: block.epoch.toString(),
       timelocked: outputs.some(
         output =>
           output.time_lock !== 0 &&
@@ -364,6 +369,19 @@ function computeTransactionAddress(inputs, outputs, type) {
     // sending and the second is for the change. So if there are more than 2,
     // there are several addresses
     return outputs.length > 2 ? 'several addresses' : outputs[0].address
+  }
+}
+
+export function standardizeBalance(response) {
+  if (!response.result) return response
+  const balance = response.result.unconfirmed
+  // TODO(#1760): When the wallet is ready, it should receive the balance info as strings
+  return {
+    result: {
+      available: new BigNumber(balance.available).toString(),
+      locked: new BigNumber(balance.locked).toString(),
+      total: new BigNumber(balance.available).plus(balance.locked).toString(),
+    },
   }
 }
 

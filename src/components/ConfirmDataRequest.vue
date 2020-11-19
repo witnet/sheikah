@@ -1,10 +1,14 @@
 <template>
   <el-form ref="form" label-position="left" label-width="200px">
     <FormInformation
-      :commit-and-reveal-fee="commitAndRevealFee"
-      :fee="generatedTransaction.fee ? generatedTransaction.fee : fee"
+      :commit-and-reveal-fee="commitAndRevealFee.toString()"
+      :fee="
+        generatedTransaction.fee
+          ? generatedTransaction.fee.toString()
+          : fee.toString()
+      "
       :min-consensus-percentage="minConsensusPercentage"
-      :reward-fee="rewardFee"
+      :reward-fee="rewardFee.toString()"
       :witnesses="witnesses"
       :timelock="timelock"
       :generated-transaction="generatedTransaction"

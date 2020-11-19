@@ -89,7 +89,7 @@ export default {
       required: true,
     },
     amount: {
-      type: [String, Number],
+      type: String,
       required: true,
     },
     timelocked: {
@@ -97,11 +97,11 @@ export default {
       required: true,
     },
     block: {
-      type: [String, Number],
+      type: String,
       required: true,
     },
     epoch: {
-      type: [String, Number],
+      type: String,
       required: true,
     },
     date: {
@@ -117,7 +117,7 @@ export default {
       default: '',
     },
     fee: {
-      type: Number,
+      type: String,
       required: true,
     },
     id: {

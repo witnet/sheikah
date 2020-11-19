@@ -1,5 +1,5 @@
 import router from '@/router'
-import { WalletApi } from '@/api'
+import { WalletApi, standardizeBalance } from '@/api'
 import {
   calculateTimeAgo,
   createNotification,
@@ -87,7 +87,7 @@ export default {
     title: '',
     radRequestResult: null,
     transactions: [],
-    totalTransactions: 0,
+    transactionsLength: 0,
     currentTransactionsPage: 1,
     signedDisclaimers: {},
     disclaimers: {},
@@ -115,7 +115,6 @@ export default {
   },
   mutations: {
     setWalletOwner(status, { isDefaultWallet }) {
-      console.log('isDefaultWallet', isDefaultWallet)
       status.isDefaultWallet = isDefaultWallet
     },
     setStatus(state, status) {
@@ -162,7 +161,7 @@ export default {
       state.vesting = vesting
     },
     setTransactions(state, { transactions, total }) {
-      state.totalTransactions = total
+      state.transactionsLength = total
       state.transactions = transactions.map(transaction => ({
         ...transaction,
         timeAgo: calculateTimeAgo(transaction.timestamp),
@@ -178,13 +177,7 @@ export default {
     },
     setBalance(state, { balance }) {
       if (balance) {
-        state.balance = {
-          available: balance.unconfirmed.available.toString(),
-          locked: balance.unconfirmed.locked.toString(),
-          total: (
-            balance.unconfirmed.available + balance.unconfirmed.locked
-          ).toString(),
-        }
+        state.balance = balance
       }
     },
     changeCurrency(state) {
@@ -396,7 +389,7 @@ export default {
         this.transactionSync = setInterval(() => {
           context.commit('setTransactions', {
             transactions: context.state.transactions,
-            total: context.state.totalTransactions,
+            total: context.state.transactionsLength,
           })
         }, 15000)
       }
@@ -471,7 +464,6 @@ export default {
         transaction: transactionToSend.transaction,
       })
       if (request.result) {
-        console.log('----- Template deployed successfully -----')
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
         context.commit('clearGeneratedTransaction')
         createNotification({
@@ -513,6 +505,7 @@ export default {
       }
     },
     createDataRequest: async function(context, { label, parameters, request }) {
+      // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
       const data = {
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
@@ -567,6 +560,7 @@ export default {
     },
 
     createVTT: async function(context, { address, amount, fee, label }) {
+      // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
       const request = await context.state.api.createVTT({
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
@@ -593,10 +587,16 @@ export default {
           transaction: generatedTransaction,
         })
       } else {
+        let error = 'An error occured creating the transaction'
+        if (request.error.data[0]) {
+          error = request.error.data[0][1]
+        } else if (request.error.data.cause) {
+          error = request.error.data.cause
+        }
         await context.commit('setError', {
           name: 'createVTT',
           error: request.error.message,
-          message: request.error.data[0][1],
+          message: error,
         })
       }
     },
@@ -881,19 +881,22 @@ export default {
     },
     nodeMovement: async function(context, event) {
       await context.dispatch('getTransactions')
+      const balance = standardizeBalance({
+        result: context.state.status.balance,
+      })
       context.commit('setBalance', {
-        balance: context.state.status.balance,
+        balance,
       })
       context.dispatch('getAddresses')
       const amount = standardizeWitUnits(event.amount, context.state.currency)
-      const balance = standardizeWitUnits(
+      const total = standardizeWitUnits(
         context.state.balance.total,
         context.state.currency,
       )
       if (event.type === 'POSITIVE') {
         createNotification({
           title: `Received a payment of ${amount} ${context.state.currency}s`,
-          body: `The total balance of your wallet is now ${balance} ${context.state.currency}s.`,
+          body: `The total balance of your wallet is now ${total} ${context.state.currency}s.`,
         })
       }
     },
@@ -936,8 +939,11 @@ export default {
     },
     retrieveWalletMovements: async function(context) {
       await context.dispatch('getTransactions')
+      const balance = standardizeBalance({
+        result: context.state.status.balance,
+      })
       context.commit('setBalance', {
-        balance: context.state.status.balance,
+        balance,
       })
       context.dispatch('getAddresses')
     },

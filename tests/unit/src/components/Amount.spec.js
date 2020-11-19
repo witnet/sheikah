@@ -13,7 +13,7 @@ describe('Renders the correct elements', () => {
       },
     }),
     propsData: {
-      amount: 12,
+      amount: '12',
       keep: true,
     },
   })
@@ -23,7 +23,7 @@ describe('Renders the correct elements', () => {
       wrapper
         .find('[data-test="amount"]')
         .text()
-        .includes(12),
+        .includes('12'),
     ).toBe(true)
   })
 

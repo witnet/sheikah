@@ -53,8 +53,8 @@ export default {
       default: '',
     },
     fee: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: '0',
     },
     outputs: {
       type: Array,
