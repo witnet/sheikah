@@ -14,6 +14,7 @@
     "clean-deps": "rm -rf node_modules",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
+    "electron:serve:wallet": "vue-cli-service electron:serve --wallet",
     "lint:eslint": "eslint",
     "lint:stylelint": "stylelint",
     "lint:prettier": "prettier --loglevel warn",
@@ -45,6 +46,7 @@
     "axios": "^0.19.1",
     "big.js": "^5.2.2",
     "cbor": "^4.1.5",
+    "commander": "^6.2.0",
     "core-js": "^3.4.4",
     "date-fns": "^2.12.0",
     "electron-log": "^4.2.4",
@@ -62,7 +64,8 @@
     "vue-observe-visibility": "^0.4.6",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
-    "witnet-radon-js": "0.8.1"
+    "witnet-radon-js": "0.8.1",
+    "yargs": "^16.1.1"
   },
   "devDependencies": {
     "@babel/compat-data": "7.9.0",

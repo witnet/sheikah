@@ -14,10 +14,19 @@ import { autoUpdater } from 'electron-updater'
 import electronLog from 'electron-log'
 import { app, BrowserWindow, Menu, protocol, shell, ipcMain } from 'electron'
 import progress from 'progress-stream'
+import { Command } from 'commander'
+
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
+// Read CLI commands
+const program = new Command()
+program.version('0.0.1')
+program.option('-w, --wallet', 'Run witnet wallet for development')
+program.parse(process.argv)
+
 const osArch = os.arch()
 const arch = osArch === 'x64' ? 'x86_64' : osArch
 const platform = os.platform()
-const isDevelopment = process.env.NODE_ENV !== 'production'
 const URL_PUBLIC_WITNET_NODE = '52.166.178.145:21338'
 const SHEIKAH_PATH_BY_PLATFORM = {
   darwin: path.join(os.homedir(), 'Desktop', '.sheikah'),
@@ -127,15 +136,19 @@ if (!lock) {
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
+  if (program.wallet) {
+    main()
+  }
+
   if (process.platform === 'win32') {
     process.on('message', data => {
       if (data === 'graceful-exit') {
-        app.quit()
+        win.webContents.send('shutdown')
       }
     })
   } else {
     process.on('SIGTERM', () => {
-      app.quit()
+      win.webContents.send('shutdown')
     })
   }
 } else {
