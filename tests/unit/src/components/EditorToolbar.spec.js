@@ -16,8 +16,8 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                walletwalletStatus: {
-                  synced: true,
+                status: {
+                  isWalletSynced: true,
                 },
               },
             },
@@ -54,8 +54,8 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                walletwalletStatus: {
-                  synced: true,
+                status: {
+                  isWalletSynced: true,
                 },
               },
             },
@@ -92,8 +92,8 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                walletwalletStatus: {
-                  synced: true,
+                status: {
+                  isWalletSynced: true,
                 },
               },
             },
@@ -130,8 +130,8 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                walletwalletStatus: {
-                  synced: true,
+                status: {
+                  isWalletisWalletSynced: true,
                 },
               },
             },
@@ -170,8 +170,8 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: true,
+                status: {
+                  isWalletisWalletSynced: true,
                 },
               },
             },
@@ -210,8 +210,8 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: true,
+                status: {
+                  isWalletisWalletSynced: true,
                 },
               },
             },
@@ -250,8 +250,8 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: true,
+                status: {
+                  isWalletisWalletSynced: true,
                 },
               },
             },
@@ -291,8 +291,8 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: true,
+                status: {
+                  isWalletisWalletSynced: true,
                 },
               },
             },
@@ -321,7 +321,7 @@ describe('EditorToolBar.vue', () => {
       expect(mockToggleTryDataRequest).toHaveBeenCalled()
     })
 
-    it('does not deploy when node status is not synced', async () => {
+    it('does not deploy when node status is not isWalletSynced', async () => {
       const mockEditorUndo = jest.fn()
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
@@ -335,8 +335,8 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: false,
+                status: {
+                  isWalletSynced: false,
                 },
               },
             },
@@ -365,7 +365,7 @@ describe('EditorToolBar.vue', () => {
       expect(wrapper.emitted().deploy).toBeFalsy()
     })
 
-    it('deploy when node status is synced', async () => {
+    it('deploy when node status is isWalletSynced', async () => {
       const mockEditorUndo = jest.fn()
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
@@ -378,8 +378,8 @@ describe('EditorToolBar.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: true,
+                status: {
+                  isWalletSynced: true,
                 },
               },
             },

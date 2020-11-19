@@ -10,8 +10,8 @@ describe('BalanceButtons.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: true,
+                status: {
+                  isWalletsynced: true,
                 },
                 sendClicked: true,
               },
@@ -66,8 +66,8 @@ describe('BalanceButtons.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: true,
+                status: {
+                  currentState: 'SYNCED',
                 },
               },
               mutations: {
@@ -100,8 +100,8 @@ describe('BalanceButtons.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: true,
+                status: {
+                  currentState: 'SYNCED',
                 },
                 sendClicked: true,
               },
@@ -135,8 +135,8 @@ describe('BalanceButtons.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: false,
+                status: {
+                  currentState: 'SYNCING',
                 },
               },
               mutations: {
@@ -170,8 +170,8 @@ describe('BalanceButtons.vue', () => {
           store: {
             wallet: {
               state: {
-                walletStatus: {
-                  synced: true,
+                status: {
+                  currentState: 'SYNCED',
                 },
               },
             },

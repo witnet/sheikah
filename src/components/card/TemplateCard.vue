@@ -65,7 +65,7 @@
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import { cropString } from '@/utils'
 import { mapActions, mapMutations, mapState } from 'vuex'
-import { TEMPLATE_EMPTY_DESCRIPTION } from '@/constants'
+import { TEMPLATE_EMPTY_DESCRIPTION, NETWORK_STATUS } from '@/constants'
 
 export default {
   name: 'TemplateCard',
@@ -111,12 +111,12 @@ export default {
         {
           label: 'Deploy',
           action: () => {
-            if (this.synced) {
+            if (this.currentStatus === NETWORK_STATUS.SYNCED) {
               this.displayDeployModal()
             } else {
               this.setError({
                 name: 'syncing',
-                error: 'The node is not yet synced',
+                error: 'The wallet is not yet synced',
                 message: 'Wait till the synchronization is finished',
               })
             }
@@ -134,7 +134,7 @@ export default {
   },
   computed: {
     ...mapState({
-      synced: state => state.wallet.walletStatus.synced,
+      currentStatus: state => state.wallet.status.currentState,
     }),
     style() {
       return this.type

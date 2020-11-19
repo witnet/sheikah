@@ -5,7 +5,6 @@ import uuidv4 from 'uuid/v4'
 import {
   WIT_UNIT,
   EDITOR_ALLOWED_PROTOCOLS,
-  WALLET_EVENTS,
   HISTORY_UPDATE_TYPE,
   EDITOR_STAGES,
 } from '@/constants'
@@ -86,14 +85,6 @@ function innerCreateNotification(partialProps) {
       notification.close()
     }, notificationProps.closeTimeout)
   }
-}
-
-export function isSyncEvent(eventType) {
-  return [
-    WALLET_EVENTS.SYNC_FINISH,
-    WALLET_EVENTS.SYNC_PROGRESS,
-    WALLET_EVENTS.SYNC_START,
-  ].find(syncEvent => syncEvent === eventType)
 }
 
 export function encodeAggregationTally(stage) {

@@ -20,11 +20,12 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
+import { NETWORK_STATUS } from '@/constants'
 export default {
   name: 'BalanceButtons',
   computed: {
     ...mapState({
-      synced: state => state.wallet.walletStatus.synced,
+      currentStatus: state => state.wallet.status.currentState,
     }),
   },
   methods: {
@@ -36,12 +37,12 @@ export default {
        * Emitted when send button is clicked
        * @event send
        */
-      if (this.synced) {
+      if (this.currentStatus === NETWORK_STATUS.SYNCED) {
         this.$emit('send')
       } else {
         this.setError({
           name: 'syncing',
-          error: 'The node is not yet synced',
+          error: 'The wallet is not yet synced',
           message: 'Wait till the synchronization is finished',
         })
         setTimeout(() => {

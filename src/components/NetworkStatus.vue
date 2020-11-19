@@ -3,7 +3,7 @@
     <div class="header" @click="showAll = !showAll">
       <Avatar
         data-test="status-avatar"
-        :border-color="statusData.color"
+        :border-color="currentState.color"
         :src="unlockedWallet.image"
       />
       <div class="wallet-info">
@@ -12,8 +12,8 @@
         </p>
         <div class="status-container">
           <div class="progress">
-            <div data-test="status" :class="['status', statusData.color]">
-              {{ statusData.label }}
+            <div data-test="status" :class="['status', currentState.color]">
+              {{ currentState.label }}
             </div>
 
             <DotsLoading
@@ -22,7 +22,6 @@
               class="spinner"
             />
           </div>
-
           <p v-if="isSyncing" data-test="time-left" class="estimation">
             ETA&nbsp;
             <span
@@ -76,14 +75,16 @@
           Block <span class="bold">#{{ lastSync }}</span> of
           <span class="bold">#{{ lastBlock }}</span>
         </p>
-
-        <p data-test="node" class="text">
+        <p v-if="isSynced" data-test="node" class="text">
           Connected to <span class="bold">{{ address }}</span>
+        </p>
+        <p v-else data-test="node" class="text">
+          Trying to connect to <span class="bold">{{ address }}</span>
         </p>
         <p v-if="network" data-test="network" class="text">
           Tracking <span class="bold">{{ network }}</span> network
         </p>
-        <p v-if="isWalletSynced" data-test="last-block" class="text">
+        <p v-if="isSynced" data-test="last-block" class="text">
           Last block <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo !== 0"> ({{ calculateTimeAgo(timeAgo) }})</span>
         </p>
@@ -97,6 +98,7 @@ import { mapGetters, mapState } from 'vuex'
 import Avatar from '@/components/Avatar'
 import DotsLoading from '@/components/DotsLoading.vue'
 import { calculateTimeAgo } from '@/utils'
+import { NETWORK_STATUS } from '@/constants'
 
 export default {
   name: 'NetworkStatus',
@@ -110,96 +112,73 @@ export default {
   data() {
     return {
       showAll: false,
-      timeAgo: this.walletstatus ? this.walletstatus.timestamp : null,
+      timeAgo: this.status ? this.lastBlockTimestamp : null,
     }
   },
   computed: {
     ...mapGetters(['network', 'unlockedWallet', 'estimatedTimeOfSync']),
     ...mapState({
-      walletStatus: state => state.wallet.walletStatus,
-      syncingError: state =>
-        state.wallet.errors && state.wallet.errors.nodeSync,
+      status: state => state.wallet.status,
+      syncingError: state => state.wallet.status.syncError,
+      address: state => state.wallet.status.address,
+      lastBlock: state => state.wallet.status.lastBlock,
+      lastSync: state => state.wallet.status.lastSync,
+      progress: state => state.wallet.status.progress,
+      lastBlockTimestamp: state => state.wallet.status.lastBlockTimestamp,
+      isNodeSynced: state => state.wallet.status.isNodeSynced,
     }),
-    isResyncButtonVisible() {
-      return (
-        (this.isWalletSynced && this.isNodeSynced) ||
-        (this.syncingError && this.isNodeSynced)
-      )
-    },
-    statusData() {
-      if (this.syncingError) {
+    currentState() {
+      if (this.status.currentState === NETWORK_STATUS.NODE_DISCONNECTED) {
         return {
-          label: 'SYNC ERROR',
+          label: NETWORK_STATUS.NODE_DISCONNECTED,
           color: 'red',
         }
-      } else if (this.isNodeDisconnected) {
+      } else if (this.status.currentState === NETWORK_STATUS.SYNC_ERROR) {
         return {
-          label: 'NODE DISCONNECTED',
+          label: NETWORK_STATUS.SYNC_ERROR,
           color: 'red',
         }
-      } else if (!this.isNodeSynced) {
+      } else if (this.status.currentState === NETWORK_STATUS.SYNCED) {
         return {
-          label: 'WAITING FOR NODE TO SYNC',
-          color: 'yellow',
-        }
-      } else if (this.isWalletSynced) {
-        return {
-          label: 'SYNCED',
+          label: NETWORK_STATUS.SYNCED,
           color: 'green',
+        }
+      } else if (this.status.currentState === NETWORK_STATUS.SYNCING) {
+        return {
+          label: `${NETWORK_STATUS.SYNCING} ${this.progress.toFixed(2)}%`,
+          color: 'yellow',
         }
       } else {
         return {
-          label: `SYNCING (${this.progress.toFixed(2)}%)`,
+          label: NETWORK_STATUS.WAITING_FOR_NODE_TO_SYNC,
           color: 'yellow',
         }
       }
     },
-    isSyncing() {
-      return (
-        !this.syncingError &&
-        !this.isNodeDisconnected &&
-        this.isNodeSynced &&
-        !this.isWalletSynced
-      )
-    },
-    isNodeDisconnected() {
-      return this.walletStatus.nodeDisconnected
-    },
-    isNodeSynced() {
-      return this.walletStatus.nodeSynced
-    },
-    address() {
-      return this.walletStatus.node && this.walletStatus.node.address
-    },
-    lastBlock() {
-      return (
-        this.walletStatus.node && this.walletStatus.node.last_beacon.checkpoint
-      )
-    },
-    lastSync() {
-      return (
-        this.walletStatus.node && this.walletStatus.wallet.last_sync.checkpoint
-      )
-    },
-    progress() {
-      return (this.walletStatus && this.walletStatus.progress) || 0
-    },
-    isWalletSynced() {
-      return this.walletStatus && this.walletStatus.synced
-    },
-    timestamp() {
-      return this.walletStatus && this.walletStatus.timestamp
-    },
     isLoadingVisible() {
       return (
-        !this.isWalletSynced && !this.syncingError && !this.isNodeDisconnected
+        this.status.currentState === NETWORK_STATUS.SYNCING ||
+        this.status.currentState === NETWORK_STATUS.WAITING_FOR_NODE_TO_SYNC
       )
+    },
+    isResyncButtonVisible() {
+      return (
+        this.status.currentState === NETWORK_STATUS.SYNCED ||
+        (this.status.currentState === NETWORK_STATUS.SYNC_ERROR &&
+          this.isNodeSynced)
+      )
+    },
+    isSyncing() {
+      return this.status.currentState === NETWORK_STATUS.SYNCING
+    },
+    isSynced() {
+      return this.status.currentState === NETWORK_STATUS.SYNCED
     },
   },
   watch: {
-    walletStatus(val) {
+    status(val) {
       if (val) {
-        this.timeAgo = val.timestamp
+        this.timeAgo = val.lastBlockTimestamp
       }
     },
     expanded(expanded) {

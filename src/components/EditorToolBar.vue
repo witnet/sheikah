@@ -139,7 +139,7 @@ export default {
       template: state => state.rad.currentTemplate,
       radRequest: state => state.rad.radRequest,
       autoTry: state => state.rad.autoTry,
-      synced: state => state.wallet.walletStatus.synced,
+      isWalletSynced: state => state.wallet.status.isWalletSynced,
     }),
     dataStr() {
       return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
@@ -187,12 +187,12 @@ export default {
       })
     },
     deployTemplate() {
-      if (this.synced) {
+      if (this.isWalletSynced) {
         this.$emit('deploy')
       } else {
         this.setError({
           name: 'syncing',
-          error: 'The node is not yet synced',
+          error: 'The wallet is not yet synced',
           message: 'Wait till the synchronization is finished',
         })
       }
