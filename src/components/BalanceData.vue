@@ -18,7 +18,6 @@
       </el-tooltip>
     </p>
     <Amount :currency-light="true" class="amount" :amount="locked" />
-
     <p class="label total">Total</p>
     <Amount :currency-light="true" class="amount" :amount="total" />
   </div>

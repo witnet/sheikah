@@ -4,14 +4,14 @@ import '@/fontAwesome'
 describe('Renders the correct elements when click is not triggered', () => {
   const wrapper = shallowMount(Transaction, {
     propsData: {
-      amount: 123,
+      amount: '123',
       block: '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
       border: true,
       date: 'JAN 19, 1970 @ 10:00:31',
       timeAgo: '33 minutes ago',
       timelocked: false,
-      epoch: 5432,
-      fee: 12,
+      epoch: '5432',
+      fee: '12',
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       outputs: [
         {
@@ -78,15 +78,15 @@ describe('data request', () => {
   describe('Renders the correct elements when click is triggered', () => {
     const wrapper = shallowMount(Transaction, {
       propsData: {
-        amount: 123,
+        amount: '123',
         timelocked: false,
-        epoch: 5432,
+        epoch: '5432',
         block:
           '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
         border: true,
         date: 'JAN 19, 1970 @ 10:00:31',
         timeAgo: '33 minutes ago',
-        fee: 12,
+        fee: '12',
         id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
         outputs: [
           {
@@ -148,15 +148,15 @@ describe('mint', () => {
   describe('Renders the correct elements when click is triggered', () => {
     const wrapper = shallowMount(Transaction, {
       propsData: {
-        amount: 123,
+        amount: '123',
         timelocked: false,
-        epoch: 5432,
+        epoch: '5432',
         block:
           '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
         border: true,
         date: 'JAN 19, 1970 @ 10:00:31',
         timeAgo: '33 minutes ago',
-        fee: 12,
+        fee: '12',
         id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
         outputs: [
           {

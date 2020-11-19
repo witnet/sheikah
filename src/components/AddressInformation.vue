@@ -99,8 +99,8 @@ export default {
      * Amount of wits of the address
      */
     amount: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: '0',
     },
     /**
      * How many payments has receive the selected address
