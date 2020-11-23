@@ -101,6 +101,7 @@ export default {
     tokenGenerationEventOccurred:
       new Date(GENESIS_EVENT_TIMESTAMP) < new Date(),
     isDefaultWallet: false,
+    sessionTimeout: null,
   },
   getters: {
     network: state => state.status.network,
@@ -376,6 +377,16 @@ export default {
         state.addresses = addresses.reverse()
       }
     },
+    startSessionTimeout(state, ms) {
+      // Redirect to wallet list when the session has expired
+      state.sessionTimeout = setTimeout(() => {
+        router.push('/welcome-back/wallet-list')
+      }, ms)
+    },
+    stopSessionTimeout(state) {
+      clearTimeout(state.sessionTimeout)
+      state.sessionTimeout = null
+    },
   },
   actions: {
     async setCurrentTransactionsPage(context, { page }) {
@@ -412,6 +423,7 @@ export default {
         session_id: context.state.sessionId,
       })
       if (request.result) {
+        context.commit('stopSessionTimeout')
         context.commit('deleteSession')
         router.push('/welcome-back/wallet-list')
       } else {
@@ -656,11 +668,13 @@ export default {
         })
         const walletInfos = context.state.walletInfos
         const index = walletInfos.findIndex(wallet => wallet.id === walletId)
+
         context.commit('setWalletIndex', { walletIndex: index })
-        // Redirect to wallet list when the session has expired
-        setTimeout(() => {
-          router.push('/welcome-back/wallet-list')
-        }, request.result.session_expiration_secs * 1000)
+        context.commit(
+          'startSessionTimeout',
+          request.result.session_expiration_secs * 1000,
+        )
+
         context.dispatch('subscribeToWalletNotifications')
       } else {
         context.commit('setError', {
