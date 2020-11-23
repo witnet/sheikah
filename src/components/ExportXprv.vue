@@ -54,7 +54,7 @@ export default {
       downloadName: 'xprv.json',
       openingLine: 'PLEASE NOTE:',
       text:
-        'This password encrypts your xprv file. You will be asked to type this password if you want to import this file as a backup.',
+        'this password encrypts your xprv file. You will be asked to type this password if you want to import this file as a backup.',
     }
   },
   computed: {
