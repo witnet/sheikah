@@ -79,6 +79,7 @@ export default {
       address: null,
       isNodeSynced: false,
       balance: null,
+      network: 'mainnet',
     },
     syncingTimeEstimator: new SyncingTimeEstimator(),
     description: '',
@@ -99,9 +100,7 @@ export default {
       new Date(GENESIS_EVENT_TIMESTAMP) < new Date(),
   },
   getters: {
-    network: state => {
-      return state.status.node && state.status.node.network
-    },
+    network: state => state.status.network,
     unlockedWallet: state => {
       return Number.isInteger(state.walletIdx)
         ? state.walletInfos[state.walletIdx]

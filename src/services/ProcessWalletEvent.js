@@ -53,6 +53,7 @@ export default class NetworkStatus {
       event: this.event,
       eventType: this.eventType,
       balance: status.account.balance,
+      network: getNetworkName(status),
     }
   }
 
@@ -124,6 +125,11 @@ export default class NetworkStatus {
       event: this.event,
       eventType: this.eventType,
       balance: status.account.balance,
+      network: getNetworkName(status),
     }
   }
+}
+
+function getNetworkName(status) {
+  return status.node.network.toLowerCase()
 }
