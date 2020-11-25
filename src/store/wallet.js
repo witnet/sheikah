@@ -858,7 +858,7 @@ export default {
       })
     },
     nodeMovement: async function(context, event) {
-      await context.dispatch('getTransactions', { limit: 50, page: 1 })
+      await context.dispatch('getTransactions', { page: 1 })
       context.commit('setBalance', {
         balance: context.state.status.balance,
       })
@@ -914,7 +914,6 @@ export default {
     },
     retrieveWalletMovements: async function(context) {
       await context.dispatch('getTransactions', {
-        limit: 50,
         page: context.state.currentTransactionsPage,
       })
       context.commit('setBalance', {
