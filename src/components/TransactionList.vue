@@ -2,17 +2,17 @@
   <div class="transaction-list">
     <Fieldset
       title="Transactions"
-      :subtitle="`${transactionsLength} transactions`"
+      :subtitle="`${totalTransactions} transactions`"
     />
     <p class="title">
       <span class="label">Transactions</span>
       <span class="number" data-test="transactions-length"
-        >{{ transactionsLength }} transactions</span
+        >{{ totalTransactions }} transactions</span
       >
     </p>
     <div class="list">
       <Transaction
-        v-for="transaction in paginatedItems"
+        v-for="transaction in transactions"
         :id="transaction.id"
         :key="transaction.id"
         :currency="currency"
@@ -37,7 +37,7 @@
         :transaction-type="transaction.transactionType"
       />
       <div
-        v-if="transactions.length === 0"
+        v-if="totalTransactions === 0"
         class="no-transactions-container"
         data-test="empty-transactions"
       >
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div
-      v-show="transactions.length > itemsPerPage"
+      v-show="totalTransactions > itemsPerPage"
       class="pagination-nav"
       data-test="pagination"
     >
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import Transaction from './Transaction'
 export default {
   name: 'TransactionList',
@@ -76,6 +76,10 @@ export default {
       type: Array,
       required: true,
     },
+    totalTransactions: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
@@ -85,15 +89,7 @@ export default {
   },
   computed: {
     numberOfPages() {
-      return Math.ceil(this.transactions.length / this.itemsPerPage)
-    },
-    paginatedItems() {
-      const from = this.currentPage * this.itemsPerPage - this.itemsPerPage
-      const to = this.currentPage * this.itemsPerPage
-      return this.transactions.slice(from, to)
-    },
-    transactionsLength() {
-      return this.transactions.length
+      return Math.ceil(this.totalTransactions / this.itemsPerPage)
     },
   },
   watch: {
@@ -102,7 +98,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
+    ...mapActions({
       setCurrentTransactionsPage: 'setCurrentTransactionsPage',
     }),
     handleCurrentChange(val) {
