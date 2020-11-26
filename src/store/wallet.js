@@ -86,6 +86,7 @@ export default {
     title: '',
     radRequestResult: null,
     transactions: [],
+    totalTransactions: 0,
     currentTransactionsPage: 1,
     signedDisclaimers: {},
     disclaimers: {},
@@ -154,10 +155,8 @@ export default {
     setVesting(state, vesting) {
       state.vesting = vesting
     },
-    setCurrentTransactionsPage(state, { page }) {
-      state.currentTransactionsPage = page
-    },
-    setTransactions(state, { transactions }) {
+    setTransactions(state, { transactions, total }) {
+      state.totalTransactions = total
       state.transactions = transactions.map(transaction => ({
         ...transaction,
         timeAgo: calculateTimeAgo(transaction.timestamp),
@@ -369,6 +368,9 @@ export default {
         state.validatedPassword = true
       }
     },
+    setCurrentTransactionPage(state, { page }) {
+      state.currentTransactionsPage = page
+    },
     setAddresses(state, { addresses }) {
       if (addresses) {
         state.addresses = addresses.reverse()
@@ -376,11 +378,18 @@ export default {
     },
   },
   actions: {
+    async setCurrentTransactionsPage(context, { page }) {
+      await context.dispatch('getTransactions', { page })
+      if (!context.state.errors.getTransactions) {
+        context.commit('setCurrentTransactionPage', { page })
+      }
+    },
     startTransactionDateSync(context) {
       if (!this.transactionSync) {
         this.transactionSync = setInterval(() => {
           context.commit('setTransactions', {
             transactions: context.state.transactions,
+            total: context.state.totalTransactions,
           })
         }, 15000)
       }
@@ -751,15 +760,17 @@ export default {
       }
     },
 
-    getTransactions: async function(context, { limit, page }) {
+    getTransactions: async function(context, payload = { page: null }) {
+      const currentPage = Number.isInteger(payload.page) ? payload.page : context.state.currentTransactionsPage
+      const offset = (currentPage - 1) * 13
       const request = await context.state.api.getTransactions({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
-        limit,
-        page,
+        limit: 13,
+        offset, 
       })
       if (request.result) {
-        context.commit('setTransactions', { transactions: request.result })
+        context.commit('setTransactions', request.result)
         context.dispatch('getBalance')
         this.commit('clearError', { error: 'getTransactions' })
       } else {
@@ -858,7 +869,7 @@ export default {
       })
     },
     nodeMovement: async function(context, event) {
-      await context.dispatch('getTransactions', { page: 1 })
+      await context.dispatch('getTransactions')
       context.commit('setBalance', {
         balance: context.state.status.balance,
       })
@@ -913,9 +924,7 @@ export default {
       }
     },
     retrieveWalletMovements: async function(context) {
-      await context.dispatch('getTransactions', {
-        page: context.state.currentTransactionsPage,
-      })
+      await context.dispatch('getTransactions')
       context.commit('setBalance', {
         balance: context.state.status.balance,
       })

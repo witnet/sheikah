@@ -3,6 +3,7 @@
     <template v-slot:left>
       <TransactionList
         class="list"
+        :total-transactions="totalTransactions"
         :transactions="transactions"
         :currency="currency"
       />
@@ -40,6 +41,7 @@ export default {
     ...mapState({
       total: state => state.wallet.balance,
       txLabels: state => state.wallet.txLabels,
+      totalTransactions: state => state.wallet.totalTransactions,
       transactions: state =>
         state.wallet.transactions.sort(
           (t1, t2) =>
@@ -60,7 +62,7 @@ export default {
     },
   },
   created() {
-    this.getTransactions({})
+    this.getTransactions()
     this.getAddresses()
     this.getBalance()
   },

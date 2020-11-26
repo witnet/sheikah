@@ -342,7 +342,7 @@ export function standardizeTransactions(response) {
       transactionType,
     }
   })
-  return { result: transactions }
+  return { result: { transactions, total: response.result.total } }
 }
 
 function computeTransactionAddress(inputs, outputs, type) {
