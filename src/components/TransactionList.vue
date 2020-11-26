@@ -2,19 +2,20 @@
   <div class="transaction-list">
     <Fieldset
       title="Transactions"
-      :subtitle="`${totalTransactions} transactions`"
+      :subtitle="`${transactionsLength} transactions`"
     />
     <p class="title">
       <span class="label">Transactions</span>
       <span class="number" data-test="transactions-length"
-        >{{ totalTransactions }} transactions</span
+        >{{ transactionsLength }} transactions</span
       >
     </p>
     <div class="list">
       <Transaction
-        v-for="transaction in transactions"
+        v-for="(transaction, index) in transactions"
         :id="transaction.id"
         :key="transaction.id"
+        :data-test="`transaction-${index}`"
         :currency="currency"
         :type="transaction.type"
         :inputs="transaction.inputs"
@@ -37,7 +38,7 @@
         :transaction-type="transaction.transactionType"
       />
       <div
-        v-if="totalTransactions === 0"
+        v-if="transactionsLength === 0"
         class="no-transactions-container"
         data-test="empty-transactions"
       >
@@ -45,7 +46,7 @@
       </div>
     </div>
     <div
-      v-show="totalTransactions > itemsPerPage"
+      v-show="transactionsLength > itemsPerPage"
       class="pagination-nav"
       data-test="pagination"
     >
@@ -61,7 +62,9 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { TRANSACTIONS_LIMIT } from '@/constants'
 import Transaction from './Transaction'
+
 export default {
   name: 'TransactionList',
   components: {
@@ -76,7 +79,7 @@ export default {
       type: Array,
       required: true,
     },
-    totalTransactions: {
+    transactionsLength: {
       type: Number,
       required: true,
     },
@@ -84,12 +87,12 @@ export default {
   data() {
     return {
       currentPage: 1,
-      itemsPerPage: 13,
+      itemsPerPage: TRANSACTIONS_LIMIT,
     }
   },
   computed: {
     numberOfPages() {
-      return Math.ceil(this.totalTransactions / this.itemsPerPage)
+      return Math.ceil(this.transactionsLength / this.itemsPerPage)
     },
   },
   watch: {

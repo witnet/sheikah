@@ -5,6 +5,7 @@ export const EDITOR_EXPORT_FORMAT = {
   js: 'js',
 }
 
+export const TRANSACTIONS_LIMIT = 13
 export const EDITOR_TRY_INTERVAL = 3000
 export const EDITOR_SAVE_INTERVAL = 3000
 

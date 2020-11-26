@@ -9,6 +9,7 @@ module.exports = {
       'jest-transform-stub',
     '^.+\\.jsx?$': 'babel-jest',
   },
+  clearMocks: true,
   transformIgnorePatterns: [`/node_modules/(?!${esModules})`],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',

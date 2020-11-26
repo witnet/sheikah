@@ -19,6 +19,7 @@ import {
   WALLET_EVENTS,
   WIT_UNIT,
   NETWORK_STATUS,
+  TRANSACTIONS_LIMIT,
 } from '@/constants'
 import warning from '@/resources/svg/warning.png'
 
@@ -761,13 +762,15 @@ export default {
     },
 
     getTransactions: async function(context, payload = { page: null }) {
-      const currentPage = Number.isInteger(payload.page) ? payload.page : context.state.currentTransactionsPage
-      const offset = (currentPage - 1) * 13
+      const currentPage = Number.isInteger(payload.page)
+        ? payload.page
+        : context.state.currentTransactionsPage
+      const offset = (currentPage - 1) * TRANSACTIONS_LIMIT
       const request = await context.state.api.getTransactions({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
-        limit: 13,
-        offset, 
+        limit: TRANSACTIONS_LIMIT,
+        offset,
       })
       if (request.result) {
         context.commit('setTransactions', request.result)
