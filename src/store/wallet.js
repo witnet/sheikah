@@ -761,13 +761,15 @@ export default {
     },
 
     getTransactions: async function(context, payload = { page: null }) {
-      const currentPage = Number.isInteger(payload.page) ? payload.page : context.state.currentTransactionsPage
+      const currentPage = Number.isInteger(payload.page)
+        ? payload.page
+        : context.state.currentTransactionsPage
       const offset = (currentPage - 1) * 13
       const request = await context.state.api.getTransactions({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
         limit: 13,
-        offset, 
+        offset,
       })
       if (request.result) {
         context.commit('setTransactions', request.result)

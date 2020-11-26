@@ -14,7 +14,8 @@ Vue.config.productionTip = false
 runApp()
 function runApp() {
   const vm = new Vue({
-    router,
+    // inject store to avoid cyclical dependence between router and store
+    router: router(store),
     store,
     render: h => h(App),
   }).$mount('#app')
