@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <router-view />
-    <UpdateNotification v-if="isUpdateNotificationVisible" />
     <Notification />
 
     <ResyncConfirmation v-if="isResyncConfirmationVisible" />
@@ -10,13 +9,11 @@
 
 <script>
 import { mapMutations, mapActions, mapState } from 'vuex'
-import UpdateNotification from '@/components/UpdateNotification'
 import Notification from '@/components/Notification'
 
 export default {
   name: 'App',
   components: {
-    UpdateNotification,
     Notification,
     ResyncConfirmation: () => import('@/components/ResyncConfirmation'),
   },
@@ -28,8 +25,6 @@ export default {
   },
   computed: {
     ...mapState({
-      isUpdateNotificationVisible: state =>
-        state.uiInteractions.isUpdateNotificationVisible,
       tokenGenerationEventOccurred: state =>
         state.wallet.tokenGenerationEventOccurred,
       isResyncConfirmationVisible: state =>
