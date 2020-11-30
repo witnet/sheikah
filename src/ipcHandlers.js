@@ -33,7 +33,6 @@ ipcRenderer.on('progress', async (event, progress) => {
 })
 
 ipcRenderer.on('update_available', () => {
-  ipcRenderer.removeAllListeners('update_available')
   // create Notification for downloading new Sheikah release
   store.commit('showUpdateNotification')
 })

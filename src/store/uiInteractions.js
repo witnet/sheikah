@@ -7,7 +7,6 @@ export default {
     generateRadRequestResultLoading: false,
     setupMessage: 'Updating wallet backend',
     setupProgress: 0,
-    isUpdateNotificationVisible: false,
     isResyncConfirmationVisible: false,
   },
   mutations: {
@@ -19,9 +18,6 @@ export default {
     },
     receiveTransactionClicked: function(state) {
       state.receiveTransactionClicked = true
-    },
-    showUpdateNotification: function(state) {
-      state.isUpdateNotificationVisible = true
     },
     clearTransactionClicked: function(state) {
       state.receiveTransactionClicked = false

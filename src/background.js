@@ -12,7 +12,15 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
 import electronLog from 'electron-log'
-import { app, BrowserWindow, Menu, protocol, shell, ipcMain } from 'electron'
+import {
+  app,
+  BrowserWindow,
+  Menu,
+  protocol,
+  shell,
+  ipcMain,
+  dialog,
+} from 'electron'
 import progress from 'progress-stream'
 import { Command } from 'commander'
 import kill from 'tree-kill'
@@ -180,6 +188,7 @@ function createWindow() {
   }
 
   loadUrl(status)
+  autoUpdater.autoDownload = false
   autoUpdater.checkForUpdatesAndNotify()
 
   win.webContents.on('did-finish-load', () => {
@@ -429,7 +438,6 @@ async function runWallet() {
 
   console.info('... with witnet.toml from ' + walletConfigurationPath)
   if (!isBeingUpdated) {
-    win.webContents.send('log', isBeingUpdated)
     walletProcess = cp.spawn(
       path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
       ['-c', walletConfigurationPath, 'wallet', 'server'],
@@ -464,8 +472,34 @@ async function sleep(t) {
 }
 
 autoUpdater.on('update-available', () => {
-  win.webContents.send('update_available')
+  const options = {
+    type: 'info',
+    title: 'DOClever',
+    message: `There is a new Sheikah version`,
+    buttons: ['Download and install', 'Cancel'],
+    defaultId: 0, // bound to buttons array
+    cancelId: 1, // bound to buttons array
+  }
   isBeingUpdated = true
+  dialog.showMessageBox(null, options).then(result => {
+    if (result.response === 0) {
+      autoUpdater
+        .downloadUpdate()
+        .then(path => {
+          win.webContents.send('log', `${path}`)
+          console.log('Release path to download', path)
+        })
+        .catch(e => {
+          console.log('Error', e)
+        })
+    } else if (result.response === 1) {
+      isBeingUpdated = false
+    }
+  })
+})
+
+autoUpdater.on('error', err => {
+  console.log('Error in auto-updater. ' + err)
 })
 
 autoUpdater.on('update-downloaded', () => {
@@ -475,7 +509,7 @@ autoUpdater.on('update-downloaded', () => {
   if (win != null) {
     win.close()
   }
-  autoUpdater.quitAndInstall(false)
+  autoUpdater.quitAndInstall()
 })
 
 // Overwrite wallet config file only when new version is downloaded
