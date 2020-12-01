@@ -75,7 +75,7 @@
 
 <script>
 import { EDITOR_REDO, EDITOR_UNDO, CLEAR_HISTORY } from '@/store/mutation-types'
-import { EDITOR_EXPORT_FORMAT } from '@/constants'
+import { EDITOR_EXPORT_FORMAT, NETWORK_STATUS } from '@/constants'
 import { mapState, mapMutations } from 'vuex'
 import { deleteKey } from '@/utils'
 
@@ -139,7 +139,7 @@ export default {
       template: state => state.rad.currentTemplate,
       radRequest: state => state.rad.radRequest,
       autoTry: state => state.rad.autoTry,
-      isWalletSynced: state => state.wallet.status.isWalletSynced,
+      currentStatus: state => state.wallet.status.currentState,
     }),
     dataStr() {
       return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
@@ -187,7 +187,7 @@ export default {
       })
     },
     deployTemplate() {
-      if (this.isWalletSynced) {
+      if (this.currentStatus === NETWORK_STATUS.SYNCED) {
         this.$emit('deploy')
       } else {
         this.setError({
