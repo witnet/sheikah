@@ -427,7 +427,7 @@ async function runWallet() {
     walletProcess.stdout.on('data', async function(data) {
       console.info('stdout: ' + data.toString())
       status = STATUS.READY
-      win.webContents.send('loaded')
+      win.webContents.send('loaded', [{ isDefaultWallet: true }])
       await sleep(3000)
       loadUrl(status)
     })

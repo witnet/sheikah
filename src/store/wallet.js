@@ -100,6 +100,7 @@ export default {
     isXprvValid: false,
     tokenGenerationEventOccurred:
       new Date(GENESIS_EVENT_TIMESTAMP) < new Date(),
+    isDefaultWallet: false,
   },
   getters: {
     network: state => state.status.network,
@@ -113,6 +114,10 @@ export default {
     },
   },
   mutations: {
+    setWalletOwner(status, { isDefaultWallet }) {
+      console.log('isDefaultWallet', isDefaultWallet)
+      status.isDefaultWallet = isDefaultWallet
+    },
     setStatus(state, status) {
       state.status = status
     },
@@ -212,6 +217,7 @@ export default {
           )
         }
       } else {
+        this.commit('setWalletOwner', { isDefaultWallet: false })
         state.networkStatus = 'error'
         if (state.networkStatus === 'error') {
           this.commit('setError', {
@@ -399,11 +405,13 @@ export default {
       clearInterval(this.transactionSync)
     },
     shutdown: async function(context) {
-      // don't handle the response in client because the wallet is being closed.
-      // This is handled in background.js when 'exit' event is emitted
-      context.state.api.shutdown({
-        session_id: context.state.sessionId,
-      })
+      if (context.state.isDefaultWallet) {
+        // don't handle the response in client because the wallet is being closed.
+        // This is handled in background.js when 'exit' event is emitted
+        context.state.api.shutdown({
+          session_id: context.state.sessionId,
+        })
+      }
     },
     closeSession: async function(context) {
       const request = await context.state.api.closeSession({
