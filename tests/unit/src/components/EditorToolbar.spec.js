@@ -8,6 +8,7 @@ describe('EditorToolBar.vue', () => {
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
+      const mockSetError = jest.fn()
 
       const wrapper = shallowMount(
         EditorToolBar,
@@ -17,7 +18,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  isWalletSynced: true,
+                  currentState: 'SYNCED',
                 },
               },
             },
@@ -28,6 +29,7 @@ describe('EditorToolBar.vue', () => {
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
+                setError: mockSetError,
               },
               actions: {
                 tryDataRequest: mockTryDataRequest,
@@ -46,6 +48,7 @@ describe('EditorToolBar.vue', () => {
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
+      const mockSetError = jest.fn()
 
       const wrapper = shallowMount(
         EditorToolBar,
@@ -55,7 +58,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  isWalletSynced: true,
+                  currentState: 'SYNCED',
                 },
               },
             },
@@ -66,6 +69,7 @@ describe('EditorToolBar.vue', () => {
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
+                setError: mockSetError,
               },
               actions: {
                 tryDataRequest: mockTryDataRequest,
@@ -84,6 +88,7 @@ describe('EditorToolBar.vue', () => {
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
+      const mockSetError = jest.fn()
 
       const wrapper = shallowMount(
         EditorToolBar,
@@ -93,7 +98,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  isWalletSynced: true,
+                  currentState: 'SYNCED',
                 },
               },
             },
@@ -104,6 +109,7 @@ describe('EditorToolBar.vue', () => {
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
+                setError: mockSetError,
               },
               actions: {
                 tryDataRequest: mockTryDataRequest,
@@ -122,6 +128,7 @@ describe('EditorToolBar.vue', () => {
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
+      const mockSetError = jest.fn()
 
       const wrapper = shallowMount(
         EditorToolBar,
@@ -131,7 +138,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  isWalletisWalletSynced: true,
+                  currentState: 'SYNCED',
                 },
               },
             },
@@ -142,6 +149,7 @@ describe('EditorToolBar.vue', () => {
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
+                setError: mockSetError,
               },
               actions: {
                 tryDataRequest: mockTryDataRequest,
@@ -162,6 +170,7 @@ describe('EditorToolBar.vue', () => {
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
+      const mockSetError = jest.fn()
 
       const wrapper = shallowMount(
         EditorToolBar,
@@ -171,7 +180,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  isWalletisWalletSynced: true,
+                  currentState: 'SYNCED',
                 },
               },
             },
@@ -182,6 +191,7 @@ describe('EditorToolBar.vue', () => {
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
+                setError: mockSetError,
               },
               actions: {
                 tryDataRequest: mockTryDataRequest,
@@ -202,6 +212,7 @@ describe('EditorToolBar.vue', () => {
       const mockEditorRedo = jest.fn(() => true)
       const mockSaveTemplate = jest.fn()
       const mockclearDataRequestResult = jest.fn()
+      const mockSetError = jest.fn()
 
       const wrapper = mount(
         EditorToolBar,
@@ -211,7 +222,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  isWalletisWalletSynced: true,
+                  currentState: 'SYNCED',
                 },
               },
             },
@@ -223,6 +234,7 @@ describe('EditorToolBar.vue', () => {
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
+                setError: mockSetError,
                 clearDataRequestResult: mockclearDataRequestResult,
               },
               actions: {
@@ -242,6 +254,7 @@ describe('EditorToolBar.vue', () => {
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
+      const mockSetError = jest.fn()
 
       const wrapper = mount(
         EditorToolBar,
@@ -251,7 +264,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  isWalletisWalletSynced: true,
+                  currentState: 'SYNCED',
                 },
               },
             },
@@ -263,6 +276,7 @@ describe('EditorToolBar.vue', () => {
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
+                setError: mockSetError,
               },
               actions: {
                 tryDataRequest: mockTryDataRequest,
@@ -283,6 +297,7 @@ describe('EditorToolBar.vue', () => {
       const mockEditorRedo = jest.fn()
       const mockToggleTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
+      const mockSetError = jest.fn()
 
       const wrapper = mount(
         EditorToolBar,
@@ -292,7 +307,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  isWalletisWalletSynced: true,
+                  currentState: 'SYNCED',
                 },
               },
             },
@@ -305,6 +320,7 @@ describe('EditorToolBar.vue', () => {
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
+                setError: mockSetError,
                 toggleTryDataRequest: mockToggleTryDataRequest,
               },
               actions: {
@@ -321,7 +337,7 @@ describe('EditorToolBar.vue', () => {
       expect(mockToggleTryDataRequest).toHaveBeenCalled()
     })
 
-    it('does not deploy when node status is not isWalletSynced', async () => {
+    it('does not deploy when node status is not SYNCED', async () => {
       const mockEditorUndo = jest.fn()
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
@@ -336,7 +352,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  isWalletSynced: false,
+                  currentState: 'NODE DISCONNECTED',
                 },
               },
             },
@@ -365,11 +381,12 @@ describe('EditorToolBar.vue', () => {
       expect(wrapper.emitted().deploy).toBeFalsy()
     })
 
-    it('deploy when node status is isWalletSynced', async () => {
+    it('deploy when node status is SYNCED', async () => {
       const mockEditorUndo = jest.fn()
       const mockEditorRedo = jest.fn()
       const mockTryDataRequest = jest.fn()
       const mockSaveTemplate = jest.fn()
+      const mockSetError = jest.fn()
 
       const wrapper = mount(
         EditorToolBar,
@@ -379,7 +396,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  isWalletSynced: true,
+                  currentState: 'SYNCED',
                 },
               },
             },
@@ -391,6 +408,7 @@ describe('EditorToolBar.vue', () => {
               mutations: {
                 [EDITOR_UNDO]: mockEditorUndo,
                 [EDITOR_REDO]: mockEditorRedo,
+                setError: mockSetError,
               },
               actions: {
                 tryDataRequest: mockTryDataRequest,
