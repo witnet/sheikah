@@ -15,6 +15,7 @@ import electronLog from 'electron-log'
 import { app, BrowserWindow, Menu, protocol, shell, ipcMain } from 'electron'
 import progress from 'progress-stream'
 import { Command } from 'commander'
+import kill from 'tree-kill'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -115,6 +116,9 @@ app.on('ready', async () => {
 // Ipc event received from the client to close sheikah
 ipcMain.on('shutdown-finished', () => {
   win.hide()
+  if (walletProcess) {
+    kill(walletProcess.pid)
+  }
   app.exit()
 })
 
