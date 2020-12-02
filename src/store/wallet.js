@@ -89,8 +89,6 @@ export default {
     transactions: [],
     transactionsLength: 0,
     currentTransactionsPage: 1,
-    signedDisclaimers: {},
-    disclaimers: {},
     txLabels: {},
     walletInfos: null,
     walletLocked: false,
@@ -706,22 +704,6 @@ export default {
           name: 'createMnemonics',
           error: request.error.message,
           message: 'An error occurred creating the mnemonics',
-        })
-      }
-    },
-
-    signData: async function(context) {
-      const request = await context.state.api.signDisclaimers({
-        wallet_id: context.state.walletId,
-        session_id: context.state.sessionId,
-        disclaimers: context.state.disclaimers,
-      })
-      if (request) {
-        context.commit('setDisclaimers', { result: request })
-      } else {
-        context.commit('setError', {
-          name: 'signDisclaimer',
-          message: 'An error occurred signing the data',
         })
       }
     },

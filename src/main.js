@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import VueQrcode from '@chenfengyuan/vue-qrcode'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -8,7 +7,6 @@ import './fontAwesome'
 import '@/directives'
 import '@/ipcHandlers'
 
-Vue.component(VueQrcode.name, VueQrcode)
 Vue.config.productionTip = false
 
 runApp()

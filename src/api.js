@@ -22,28 +22,8 @@ class ApiClient {
     this.ws = new RPCWebsockets(this.options.url, { ...this.options })
   }
 
-  withOptions(opts) {
-    return new ApiClient({ ...this.options, ...opts })
-  }
-
-  notify(method, params) {
-    return this.ws.notify(method, params)
-  }
-
   request(method, params) {
     return this.ws.call(method, params)
-  }
-
-  subscribe(method) {
-    return this.ws.subscribe(method)
-  }
-
-  unsubscribe(method) {
-    return this.ws.unsubscribe(method)
-  }
-
-  open(handler) {
-    return this.ws.on('open', handler)
   }
 
   on(event, handler) {
@@ -92,35 +72,6 @@ export class WalletApi {
 
   shutdown(params) {
     return this._callApiMethod('shutdown')(params)
-  }
-
-  signData(params) {
-    return this._callApiMethod('sign_data')(params)
-  }
-
-  // sign all disclaimers at once
-  signDisclaimers(params) {
-    const requests = []
-    Object.values(params.disclaimers).forEach(disclaimer => {
-      const request = this.signData({
-        wallet_id: params.wallet_id,
-        session_id: params.session_id,
-        data: JSON.stringify(disclaimer),
-      })
-      requests.push(request)
-    })
-    return Promise.all(requests).then(request => {
-      const isError = request.find(x => !x.result)
-      if (isError) {
-        return { error: 'Error signing data' }
-      } else {
-        // assign disclaimer names to its signature
-        return Object.keys(params.disclaimers).reduce((acc, key, index) => {
-          acc[key] = request[index].result
-          return acc
-        }, {})
-      }
-    })
   }
 
   // This is overriding the native `client.subscribe` because it lacks support for `params`
@@ -205,10 +156,6 @@ export class WalletApi {
 
   saveItem(params) {
     return this._callApiMethod('set')(params)
-  }
-
-  sendDataRequest(params) {
-    return this._callApiMethod('send_data_request')(params)
   }
 
   sendTransaction(params) {
