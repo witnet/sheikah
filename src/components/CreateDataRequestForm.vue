@@ -333,7 +333,6 @@ export default {
   .error {
     color: $red-2;
     font-size: 14px;
-    position: absolute;
   }
 }
 </style>
