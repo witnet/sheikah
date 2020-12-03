@@ -886,7 +886,7 @@ export default {
       context.dispatch('getAddresses')
       const amount = standardizeWitUnits(event.amount, context.state.currency)
       const total = standardizeWitUnits(
-        context.state.balance.total,
+        balance.result.total,
         context.state.currency,
       )
       if (event.type === 'POSITIVE') {
