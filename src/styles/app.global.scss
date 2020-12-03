@@ -40,4 +40,8 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
+  img {
+    user-select: none;
+  }
 }
