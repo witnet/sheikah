@@ -1,38 +1,35 @@
 import { ipcRenderer } from 'electron'
-import store from './store'
 
-ipcRenderer.send('app_version')
+export default function createIpcHandlers(store) {
+  ipcRenderer.send('app_version')
 
-ipcRenderer.on('shutdown', async () => {
-  await store.dispatch('shutdown')
-  ipcRenderer.send('shutdown-finished')
-})
+  ipcRenderer.on('shutdown', async () => {
+    await store.dispatch('shutdown')
+    ipcRenderer.send('shutdown-finished')
+  })
 
-ipcRenderer.on('running', async (event, message) => {
-  store.commit('setMessage', { message: 'Running wallet' })
-})
+  ipcRenderer.on('running', async () => {
+    store.commit('setMessage', { message: 'Running wallet' })
+  })
 
-ipcRenderer.on('downloading', async () => {
-  store.commit('setMessage', { message: 'Updating wallet backend' })
-})
+  ipcRenderer.on('downloading', async () => {
+    store.commit('setMessage', { message: 'Updating wallet backend' })
+  })
 
-ipcRenderer.on('loaded', async (e, message) => {
-  if (Array.isArray(message) && message[0].isDefaultWallet) {
-    store.commit('setWalletOwner', { isDefaultWallet: true })
-  }
+  ipcRenderer.on('loaded', async () => {
+    store.commit('setMessage', { message: 'loaded' })
+  })
 
-  store.commit('setMessage', { message: 'loaded' })
-})
+  ipcRenderer.on('downloaded', async () => {
+    store.commit('setMessage', { message: 'wallet up to date' })
+  })
 
-ipcRenderer.on('downloaded', async () => {
-  store.commit('setMessage', { message: 'wallet up to date' })
-})
+  ipcRenderer.on('progress', async (event, progress) => {
+    store.commit('setProgress', { progress: progress.percentage })
+  })
 
-ipcRenderer.on('progress', async (event, progress) => {
-  store.commit('setProgress', { progress: progress.percentage })
-})
-
-ipcRenderer.on('update_available', () => {
-  // create Notification for downloading new Sheikah release
-  store.commit('showUpdateNotification')
-})
+  ipcRenderer.on('update_available', () => {
+    // create Notification for downloading new Sheikah release
+    store.commit('showUpdateNotification')
+  })
+}

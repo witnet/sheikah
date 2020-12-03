@@ -26,231 +26,234 @@ import WalletNotFound from '@/components/WalletNotFound.vue'
 import RepeatedWalletDisclaimer from '@/components/steps/RepeatedWalletDisclaimer.vue'
 import Setup from '@/views/Setup.vue'
 
-import store from '@/store'
-
 Vue.use(Router)
-function redirectOnReload(to, from, next) {
-  if (store.state.wallet.api.client.ws.ready) {
-    next()
-  } else {
-    next('/')
+
+function redirectOnReload(api) {
+  return (to, from, next) => {
+    if (api.wallet.client.ws.ready) {
+      next()
+    } else {
+      next('/')
+    }
   }
 }
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'main',
-      component: Main,
-      beforeEnter: async (to, from, next) => {
-        const isReady = store.state.wallet.api.client.ws.ready
+export default function createRouter({ api, store }) {
+  return new Router({
+    routes: [
+      {
+        path: '/',
+        name: 'main',
+        component: Main,
+        beforeEnter: async (to, from, next) => {
+          const isReady = api.wallet.client.ws.ready
 
-        if (isReady) {
-          await store.dispatch('getWalletInfos')
-          const isSessionId = store.state.wallet.sessionId
-          const walletInfos = store.state.wallet.walletInfos
-          if (isSessionId) {
-            next()
-          } else if (walletInfos && walletInfos.length > 0) {
-            next('/welcome-back/wallet-list')
+          if (isReady) {
+            await store.dispatch('getWalletInfos')
+            const isSessionId = store.state.wallet.sessionId
+            const walletInfos = store.state.wallet.walletInfos
+            if (isSessionId) {
+              next()
+            } else if (walletInfos && walletInfos.length > 0) {
+              next('/welcome-back/wallet-list')
+            } else {
+              next('/ftu/welcome')
+            }
+            // when the computer is blocked the client closes but it should not redirect to
+            // wallet not found if the wallet is not closed
+            api.wallet.client.ws.on('close', () => {
+              setTimeout(() => {
+                if (!api.wallet.client.ws.ready) {
+                  next('/wallet-not-found')
+                }
+              }, 1000)
+            })
           } else {
-            next('/ftu/welcome')
-          }
-          // when the computer is blocked the client closes but it should not redirect to
-          // wallet not found if the wallet is not closed
-          store.state.wallet.api.client.ws.on('close', () => {
+            let error = true
             setTimeout(() => {
-              if (!store.state.wallet.api.client.ws.ready) {
+              if (error) {
                 next('/wallet-not-found')
               }
-            }, 1000)
-          })
-        } else {
-          let error = true
-          setTimeout(() => {
-            if (error) {
-              next('/wallet-not-found')
-            }
-          }, 3000)
-          store.state.wallet.api.client.ws.on('open', async () => {
-            error = false
-            await store.dispatch('getWalletInfos')
-            const polling = setInterval(async () => {
-              clearInterval(polling)
-              const walletInfos = store.state.wallet.walletInfos
-              if (walletInfos && walletInfos.length > 0) {
-                next('/welcome-back/wallet-list')
-              } else {
-                next('/ftu/welcome')
-              }
-            }, 5000)
-          })
-        }
-      },
-      children: [
-        {
-          alias: '',
-          name: 'wallet/',
-          path: 'wallet',
-          component: Wallet,
-          children: [
-            {
-              name: 'transactions',
-              path: 'transactions',
-              component: Transactions,
-            },
-          ],
-        },
-        {
-          name: 'request',
-          path: 'request',
-          component: DataRequest,
-          children: [
-            {
-              name: 'templates',
-              path: 'templates',
-              component: Templates,
-            },
-            {
-              name: 'editor',
-              path: 'editor',
-              component: Editor,
-            },
-          ],
-        },
-        {
-          name: 'community',
-          path: 'community',
-          component: Community,
-        },
-        {
-          name: 'marketplace',
-          path: 'marketplace',
-          component: Marketplace,
-        },
-      ],
-    },
-
-    {
-      path: '/setup',
-      name: 'setup',
-      component: Setup,
-    },
-    {
-      path: '/wallet-not-found',
-      name: 'runWalletAlert',
-      beforeEnter: (to, from, next) => {
-        if (store.state.wallet.api.client.ws.ready) {
-          const walletInfos = store.state.wallet.walletInfos
-          if (walletInfos.length > 0) {
-            next('/welcome-back/wallet-list')
-          } else {
-            next('/ftu/welcome')
+            }, 3000)
+            api.wallet.client.ws.on('open', async () => {
+              error = false
+              await store.dispatch('getWalletInfos')
+              const polling = setInterval(async () => {
+                clearInterval(polling)
+                const walletInfos = store.state.wallet.walletInfos
+                if (walletInfos && walletInfos.length > 0) {
+                  next('/welcome-back/wallet-list')
+                } else {
+                  next('/ftu/welcome')
+                }
+              }, 5000)
+            })
           }
-        } else {
-          let error = true
-          setTimeout(() => {
-            if (error) {
-              next()
-            }
-          }, 2000)
+        },
+        children: [
+          {
+            alias: '',
+            name: 'wallet/',
+            path: 'wallet',
+            component: Wallet,
+            children: [
+              {
+                name: 'transactions',
+                path: 'transactions',
+                component: Transactions,
+              },
+            ],
+          },
+          {
+            name: 'request',
+            path: 'request',
+            component: DataRequest,
+            children: [
+              {
+                name: 'templates',
+                path: 'templates',
+                component: Templates,
+              },
+              {
+                name: 'editor',
+                path: 'editor',
+                component: Editor,
+              },
+            ],
+          },
+          {
+            name: 'community',
+            path: 'community',
+            component: Community,
+          },
+          {
+            name: 'marketplace',
+            path: 'marketplace',
+            component: Marketplace,
+          },
+        ],
+      },
 
-          store.state.wallet.api.client.ws.on('open', async () => {
-            error = false
-            await store.dispatch('getWalletInfos')
-            const polling = setInterval(() => {
-              const walletInfos = store.state.wallet.walletInfos
-              clearInterval(polling)
-              if (walletInfos.length > 0) {
-                next('/welcome-back/wallet-list')
-              } else {
-                next('/ftu/welcome')
+      {
+        path: '/setup',
+        name: 'setup',
+        component: Setup,
+      },
+      {
+        path: '/wallet-not-found',
+        name: 'runWalletAlert',
+        beforeEnter: (to, from, next) => {
+          if (api.wallet.client.ws.ready) {
+            const walletInfos = store.state.wallet.walletInfos
+            if (walletInfos.length > 0) {
+              next('/welcome-back/wallet-list')
+            } else {
+              next('/ftu/welcome')
+            }
+          } else {
+            let error = true
+            setTimeout(() => {
+              if (error) {
+                next()
               }
             }, 2000)
-          })
-        }
+
+            api.wallet.client.ws.on('open', async () => {
+              error = false
+              await store.dispatch('getWalletInfos')
+              const polling = setInterval(() => {
+                const walletInfos = store.state.wallet.walletInfos
+                clearInterval(polling)
+                if (walletInfos.length > 0) {
+                  next('/welcome-back/wallet-list')
+                } else {
+                  next('/ftu/welcome')
+                }
+              }, 2000)
+            })
+          }
+        },
+        component: WalletNotFound,
       },
-      component: WalletNotFound,
-    },
-    {
-      path: '/welcome-back',
-      name: 'welcomeBack',
-      component: WelcomeBack,
-      beforeEnter: redirectOnReload,
-      children: [
-        {
-          path: 'unlock/:id',
-          component: UnlockWallet,
-        },
-        {
-          path: 'wallet-list',
-          component: WalletList,
-        },
-      ],
-    },
-    {
-      path: `/ftu`,
-      name: 'ftu',
-      beforeEnter: redirectOnReload,
-      component: FirstTimeUsage,
-      children: [
-        {
-          name: 'importWallet',
-          path: 'import-wallet',
-          component: WalletImport,
-        },
-        {
-          name: 'importXprv',
-          path: 'import-xprv',
-          component: ImportXprv,
-        },
-        {
-          name: 'decryptXprv',
-          path: 'decrypt-xprv',
-          component: DecryptXprv,
-        },
-        {
-          name: 'welcome',
-          path: 'welcome',
-          component: WelcomeForm,
-        },
-        {
-          name: 'disclaimer',
-          path: 'disclaimer',
-          component: WalletDisclaimer,
-        },
-        {
-          name: 'encryptionPass',
-          path: 'encryption-pass',
-          component: WalletEncryptionPassword,
-        },
-        {
-          name: 'seedBackup',
-          path: 'seed-backup',
-          component: WalletSeedBackup,
-        },
-        {
-          name: 'walletDescription',
-          path: 'wallet-description',
-          component: WalletDescription,
-        },
-        {
-          name: 'seedValidation',
-          path: 'seed-validation',
-          component: WalletSeedValidation,
-        },
-        {
-          name: 'createWallet',
-          path: 'create-wallet',
-          component: Loading,
-        },
-        {
-          name: 'repeatedWallet',
-          path: 'repeated-wallet',
-          component: RepeatedWalletDisclaimer,
-        },
-      ],
-    },
-  ],
-})
+      {
+        path: '/welcome-back',
+        name: 'welcomeBack',
+        component: WelcomeBack,
+        beforeEnter: redirectOnReload(api),
+        children: [
+          {
+            path: 'unlock/:id',
+            component: UnlockWallet,
+          },
+          {
+            path: 'wallet-list',
+            component: WalletList,
+          },
+        ],
+      },
+      {
+        path: `/ftu`,
+        name: 'ftu',
+        beforeEnter: redirectOnReload(api),
+        component: FirstTimeUsage,
+        children: [
+          {
+            name: 'importWallet',
+            path: 'import-wallet',
+            component: WalletImport,
+          },
+          {
+            name: 'importXprv',
+            path: 'import-xprv',
+            component: ImportXprv,
+          },
+          {
+            name: 'decryptXprv',
+            path: 'decrypt-xprv',
+            component: DecryptXprv,
+          },
+          {
+            name: 'welcome',
+            path: 'welcome',
+            component: WelcomeForm,
+          },
+          {
+            name: 'disclaimer',
+            path: 'disclaimer',
+            component: WalletDisclaimer,
+          },
+          {
+            name: 'encryptionPass',
+            path: 'encryption-pass',
+            component: WalletEncryptionPassword,
+          },
+          {
+            name: 'seedBackup',
+            path: 'seed-backup',
+            component: WalletSeedBackup,
+          },
+          {
+            name: 'walletDescription',
+            path: 'wallet-description',
+            component: WalletDescription,
+          },
+          {
+            name: 'seedValidation',
+            path: 'seed-validation',
+            component: WalletSeedValidation,
+          },
+          {
+            name: 'createWallet',
+            path: 'create-wallet',
+            component: Loading,
+          },
+          {
+            name: 'repeatedWallet',
+            path: 'repeated-wallet',
+            component: RepeatedWalletDisclaimer,
+          },
+        ],
+      },
+    ],
+  })
+}

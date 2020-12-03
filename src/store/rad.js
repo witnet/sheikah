@@ -1,11 +1,3 @@
-import {
-  createNotification,
-  generateId,
-  isValidRadRequest,
-  calculateCurrentFocusAfterUndo,
-  calculateCurrentFocusAfterRedo,
-} from '@/utils'
-import { Radon } from 'witnet-radon-js'
 import { EDITOR_STAGES, HISTORY_UPDATE_TYPE } from '@/constants'
 import {
   UPDATE_HISTORY,
@@ -32,479 +24,499 @@ import {
 } from '@/store/mutation-types'
 import Vue from 'vue'
 
-export default {
-  state: {
-    errors: {
-      saveItem: null,
-      getItem: null,
+export default function createRadModule({
+  api,
+  Radon,
+  createNotification,
+  generateId,
+  isValidRadRequest,
+  calculateCurrentFocusAfterUndo,
+  calculateCurrentFocusAfterRedo,
+}) {
+  return {
+    state: {
+      errors: {
+        saveItem: null,
+        getItem: null,
+      },
+      templates: {},
+      currentTemplate: {},
+      currentRadonMarkupInterpreter: null,
+      currentStage: EDITOR_STAGES.SETTINGS,
+      radRequest: {},
+      history: [],
+      historyIndex: 0,
+      moveCarousel: false,
+      variablesIndex: 0,
+      hasVariables: false,
+      subscriptIds: [],
+      autoTry: false,
+      dataRequestChangedSinceSaved: false,
+      currentFocus: null,
     },
-    templates: {},
-    currentTemplate: {},
-    currentRadonMarkupInterpreter: null,
-    currentStage: EDITOR_STAGES.SETTINGS,
-    radRequest: {},
-    history: [],
-    historyIndex: 0,
-    moveCarousel: false,
-    variablesIndex: 0,
-    hasVariables: false,
-    subscriptIds: [],
-    autoTry: false,
-    dataRequestChangedSinceSaved: false,
-    currentFocus: null,
-  },
-  getters: {
-    currentTemplate: state => {
-      return state.currentTemplate
+    getters: {
+      currentTemplate: state => {
+        return state.currentTemplate
+      },
+      variablesKeys: state => {
+        return state.currentTemplate.variables.map(x => x.key)
+      },
     },
-    variablesKeys: state => {
-      return state.currentTemplate.variables.map(x => x.key)
-    },
-  },
-  mutations: {
-    setSubscriptId: function(state, { id }) {
-      state.subscriptIds.push(id)
-    },
-    clearSubscriptIds: function(state) {
-      state.subscriptIds = []
-    },
-    setDataRequestChangedSinceSaved(state, payload) {
-      state.dataRequestChangedSinceSaved = payload.value
-    },
-    resetAutoTry(state) {
-      state.autoTry = false
-    },
-    toggleTryDataRequest(state) {
-      state.autoTry = !state.autoTry
-      state.autoTry
-        ? this.dispatch('tryDataRequest')
-        : this.commit('clearDataRequestResult')
-    },
-    [SET_CURRENT_STAGE](state, { stage }) {
-      state.currentStage = stage
-    },
-    [UPDATE_VARIABLES](
-      state,
-      { index, key, value, description, type, variableField = '' },
-    ) {
-      const prevValue = state.currentTemplate.variables[index].key
-      const usedVariables = state.currentTemplate.usedVariables.filter(
-        x => x.variable === prevValue,
-      )
-      if (state.hasVariables && usedVariables) {
-        state.currentTemplate.variables[index] = {
-          key: key,
-          value: value,
-          description: description,
-          type: type,
-        }
-        state.currentTemplate.variables = [...state.currentTemplate.variables]
-        usedVariables.forEach(usedVariable => {
-          this.commit(USED_VARIABLES, {
-            id: usedVariable.id,
-            variable: key,
-            value,
-          })
-          this.commit(UPDATE_TEMPLATE, {
-            id: usedVariable.id,
-            value: '$' + usedVariable.variable,
+    mutations: {
+      setSubscriptId: function(state, { id }) {
+        state.subscriptIds.push(id)
+      },
+      clearSubscriptIds: function(state) {
+        state.subscriptIds = []
+      },
+      setDataRequestChangedSinceSaved(state, payload) {
+        state.dataRequestChangedSinceSaved = payload.value
+      },
+      resetAutoTry(state) {
+        state.autoTry = false
+      },
+      toggleTryDataRequest(state) {
+        state.autoTry = !state.autoTry
+        state.autoTry
+          ? this.dispatch('tryDataRequest')
+          : this.commit('clearDataRequestResult')
+      },
+      [SET_CURRENT_STAGE](state, { stage }) {
+        state.currentStage = stage
+      },
+      [UPDATE_VARIABLES](
+        state,
+        { index, key, value, description, type, variableField = '' },
+      ) {
+        const prevValue = state.currentTemplate.variables[index].key
+        const usedVariables = state.currentTemplate.usedVariables.filter(
+          x => x.variable === prevValue,
+        )
+        if (state.hasVariables && usedVariables) {
+          state.currentTemplate.variables[index] = {
+            key: key,
+            value: value,
             description: description,
             type: type,
+          }
+          state.currentTemplate.variables = [...state.currentTemplate.variables]
+          usedVariables.forEach(usedVariable => {
+            this.commit(USED_VARIABLES, {
+              id: usedVariable.id,
+              variable: key,
+              value,
+            })
+            this.commit(UPDATE_TEMPLATE, {
+              id: usedVariable.id,
+              value: '$' + usedVariable.variable,
+              description: description,
+              type: type,
+            })
           })
-        })
-      } else {
-        state.currentTemplate.variables[index] = {
-          key: key,
-          value: value,
-          description: description,
-          type: type,
-        }
-        state.currentTemplate.variables = [...state.currentTemplate.variables]
-      }
-
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.UPDATE_VARIABLE,
-        info: { index, currentTemplate: state.currentTemplate, variableField },
-      })
-    },
-    [DELETE_VARIABLE](state, { index }) {
-      state.currentTemplate.variables.splice(index, 1)
-
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.DELETE_VARIABLE,
-        info: { index, currentTemplate: state.currentTemplate },
-      })
-    },
-    [CREATE_VARIABLE](state) {
-      state.currentTemplate.variablesIndex += 1
-      state.currentTemplate.variables.push({
-        key: 'my_var_' + state.currentTemplate.variablesIndex,
-        value:
-          'The default String that this variable will take if an user does not override it',
-        description: '',
-        type: 'String',
-      })
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.ADD_VARIABLE,
-        info: { currentTemplate: state.currentTemplate },
-      })
-    },
-    [USED_VARIABLES](state, { id, variable, value }) {
-      const usedVariable = state.currentTemplate.usedVariables.find(x => x.id)
-      const hasSameId = state.currentTemplate.usedVariables.find(
-        x => x.id === id,
-      )
-      if (usedVariable && !!hasSameId) {
-        hasSameId.variable = variable
-        hasSameId.value = value
-      } else {
-        state.currentTemplate.usedVariables.push({
-          id: id,
-          variable: variable,
-          value: value,
-        })
-        state.currentTemplate.usedVariables = [
-          ...state.currentTemplate.usedVariables,
-        ]
-      }
-    },
-    [CLEAR_HISTORY](state) {
-      state.history = []
-      state.historyIndex = 0
-    },
-    [UPDATE_HISTORY](state, { mir, type, info = {} }) {
-      state.history.push({
-        rad: mir,
-        stage: state.currentStage,
-        type,
-        ...info,
-        currentTemplate: state.currentTemplate,
-      })
-      state.historyIndex += 1
-      state.history.splice(state.historyIndex + 1)
-      this.dispatch('saveTemplate')
-      if (state.autoTry) {
-        this.dispatch('tryDataRequest', { root: true })
-      }
-    },
-    [UPDATE_TEMPLATE](state, { id, value }) {
-      state.currentRadonMarkupInterpreter.update(id, value)
-
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE,
-        info: { id, value },
-      })
-
-      state.radRequest = state.currentRadonMarkupInterpreter
-    },
-    [EDITOR_REDO](state) {
-      if (state.history[state.historyIndex + 1]) {
-        state.historyIndex += 1
-
-        const currentHistoryCheckpoint = state.history[state.historyIndex]
-        const { rad, stage } = currentHistoryCheckpoint
-        state.currentTemplate =
-          state.history[state.historyIndex].currentTemplate
-        this.commit('setDataRequestChangedSinceSaved', { value: true })
-        state.currentRadonMarkupInterpreter = new Radon(rad)
-
-        state.currentFocus = calculateCurrentFocusAfterRedo(
-          currentHistoryCheckpoint,
-          state.currentRadonMarkupInterpreter.getMarkup(),
-          state.variablesIndex,
-        )
-        state.currentStage = stage
-        state.radRequest = state.currentRadonMarkupInterpreter
-
-        if (state.autoTry) {
-          this.dispatch('tryDataRequest', { root: true })
-        }
-      }
-    },
-    clearCurrentFocus(state) {
-      state.currentFocus = null
-    },
-    [EDITOR_UNDO](state) {
-      if (state.history[state.historyIndex - 1]) {
-        state.historyIndex = state.historyIndex - 1
-        const { rad } = state.history[state.historyIndex]
-        state.currentTemplate =
-          state.history[state.historyIndex].currentTemplate
-        this.commit('setDataRequestChangedSinceSaved', { value: true })
-        const previousHistoryCheckpoint = state.history[state.historyIndex]
-
-        state.currentRadonMarkupInterpreter = new Radon(rad)
-
-        if (state.historyIndex !== 0) {
-          state.currentStage = previousHistoryCheckpoint.stage
+        } else {
+          state.currentTemplate.variables[index] = {
+            key: key,
+            value: value,
+            description: description,
+            type: type,
+          }
+          state.currentTemplate.variables = [...state.currentTemplate.variables]
         }
 
-        state.currentFocus = null
-        state.currentFocus = calculateCurrentFocusAfterUndo(
-          previousHistoryCheckpoint,
-          state.currentRadonMarkupInterpreter.getMarkup(),
-          state.variablesIndex,
-          state.history[state.historyIndex].variableField,
-        )
-        state.radRequest = state.currentRadonMarkupInterpreter
-
-        if (state.autoTry) {
-          this.dispatch('tryDataRequest', { root: true })
-        }
-      }
-    },
-    [MOVE_CAROUSEL](state, { direction }) {
-      if (direction === 'right') {
-        state.moveCarousel = 'right'
-      } else if (direction === 'left') {
-        state.moveCarousel = 'left'
-      }
-    },
-    [CLEAR_MOVE_CAROUSEL](state) {
-      state.moveCarousel = false
-    },
-    [UPDATE_SOURCE](state, { index, source }) {
-      state.currentRadonMarkupInterpreter.updateSource(index, {
-        kind: source.protocol,
-        url: source.url,
-        contentType: source.contentType,
-      })
-      state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.UPDATE_SOURCE,
-        info: { index, source },
-      })
-    },
-    [DELETE_SOURCE](state, { index }) {
-      state.currentRadonMarkupInterpreter.deleteSource(index)
-      state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.DELETE_SOURCE,
-        info: { index },
-      })
-    },
-    [ADD_SOURCE](state) {
-      state.radRequest = state.currentRadonMarkupInterpreter
-      state.currentRadonMarkupInterpreter.addSource()
-      state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.ADD_SOURCE,
-      })
-    },
-    [SET_TEMPLATES](state, { templates }) {
-      if (templates) {
-        state.templates = templates
-      }
-    },
-    [PUSH_OPERATOR](state, { scriptId }) {
-      state.currentRadonMarkupInterpreter.addOperator(scriptId)
-      state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.PUSH_OPERATOR,
-        info: { scriptId },
-      })
-    },
-    [CREATE_TEMPLATE](state) {
-      const TEMPLATE_DEFAULT_NAME = 'New template'
-      const name = Object.values(state.templates).reduce(
-        (acc, _, index, self) => {
-          const isRepeatedName = self.find(template => template.name === acc)
-
-          return isRepeatedName ? `${TEMPLATE_DEFAULT_NAME} ${index + 1}` : acc
-        },
-        TEMPLATE_DEFAULT_NAME,
-      )
-
-      const radRequest = {
-        timelock: 0,
-        retrieve: [
-          {
-            url: '',
-            kind: 'HTTP-GET',
-            script: [],
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.UPDATE_VARIABLE,
+          info: {
+            index,
+            currentTemplate: state.currentTemplate,
+            variableField,
           },
-        ],
-        aggregate: {
-          filters: [],
-          reducer: 0x02,
-        },
-        tally: {
-          filters: [],
-          reducer: 0x02,
-        },
-      }
+        })
+      },
+      [DELETE_VARIABLE](state, { index }) {
+        state.currentTemplate.variables.splice(index, 1)
 
-      if (isValidRadRequest(radRequest)) {
-        state.currentTemplate = {
-          creationDate: Date.now(),
-          id: generateId(),
-          name: name,
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.DELETE_VARIABLE,
+          info: { index, currentTemplate: state.currentTemplate },
+        })
+      },
+      [CREATE_VARIABLE](state) {
+        state.currentTemplate.variablesIndex += 1
+        state.currentTemplate.variables.push({
+          key: 'my_var_' + state.currentTemplate.variablesIndex,
+          value:
+            'The default String that this variable will take if an user does not override it',
           description: '',
-          radRequest,
-          variables: [],
-          variablesIndex: 0,
-          usedVariables: [],
+          type: 'String',
+        })
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.ADD_VARIABLE,
+          info: { currentTemplate: state.currentTemplate },
+        })
+      },
+      [USED_VARIABLES](state, { id, variable, value }) {
+        const usedVariable = state.currentTemplate.usedVariables.find(x => x.id)
+        const hasSameId = state.currentTemplate.usedVariables.find(
+          x => x.id === id,
+        )
+        if (usedVariable && !!hasSameId) {
+          hasSameId.variable = variable
+          hasSameId.value = value
+        } else {
+          state.currentTemplate.usedVariables.push({
+            id: id,
+            variable: variable,
+            value: value,
+          })
+          state.currentTemplate.usedVariables = [
+            ...state.currentTemplate.usedVariables,
+          ]
         }
+      },
+      [CLEAR_HISTORY](state) {
+        state.history = []
+        state.historyIndex = 0
+      },
+      [UPDATE_HISTORY](state, { mir, type, info = {} }) {
+        state.history.push({
+          rad: mir,
+          stage: state.currentStage,
+          type,
+          ...info,
+          currentTemplate: state.currentTemplate,
+        })
+        state.historyIndex += 1
+        state.history.splice(state.historyIndex + 1)
+        this.dispatch('saveTemplate')
+        if (state.autoTry) {
+          this.dispatch('tryDataRequest', { root: true })
+        }
+      },
+      [UPDATE_TEMPLATE](state, { id, value }) {
+        state.currentRadonMarkupInterpreter.update(id, value)
 
-        state.currentRadonMarkupInterpreter = new Radon(radRequest)
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE,
+          info: { id, value },
+        })
+
         state.radRequest = state.currentRadonMarkupInterpreter
-        state.history = [
-          {
-            rad: state.currentRadonMarkupInterpreter.getMir(),
-            stage: EDITOR_STAGES.SETTINGS,
-            currentTemplate: { ...state.currentTemplate },
-          },
-        ]
-      } else {
-        createNotification({
-          title: `Invalid data request template`,
-          body: `The data request you are trying to import is malformed`,
-        })
-      }
-    },
-    [SET_CURRENT_TEMPLATE](state, { id }) {
-      this.autoTry = false
-      const template = state.templates[id]
-      state.currentTemplate = template
-      state.currentRadonMarkupInterpreter = new Radon(template.radRequest)
-      state.radRequest = state.currentRadonMarkupInterpreter
-    },
-    [DELETE_OPERATOR](state, { scriptId, operatorId }) {
-      state.currentRadonMarkupInterpreter.deleteOperator(scriptId, operatorId)
-      state.radRequest = state.currentRadonMarkupInterpreter
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.DELETE_OPERATOR,
-        info: { scriptId, operatorId },
-      })
-    },
-    renameTemplate: function(state, { id, name }) {
-      state.templates[id].name = name
-      this.commit('setDataRequestChangedSinceSaved', { value: true })
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.UPDATE_NAME,
-        info: { currentTemplate: state.currentTemplate },
-      })
-    },
-    updateTemplateDescription: function(state, { id, description }) {
-      state.templates[id].description = description
-      this.commit('setDataRequestChangedSinceSaved', { value: true })
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.UPDATE_DESCRIPTION,
-        info: { currentTemplate: state.currentTemplate },
-      })
-    },
-    [TOGGLE_VARIABLES](state, { hasVariables }) {
-      if (hasVariables === true) {
-        state.hasVariables = true
-      } else {
-        state.hasVariables = false
-      }
-    },
-    setError(state, { name, error, message }) {
-      state.errors[name] = {
-        name,
-        error,
-        message,
-      }
-    },
-  },
-  actions: {
-    saveTemplate: async function(context, args) {
-      context.commit('setDataRequestChangedSinceSaved', { value: false })
-      const isImportingTemplate = args ? !!args.template : null
-      const date = Date.now()
-      const templates = context.state.templates
+      },
+      [EDITOR_REDO](state) {
+        if (state.history[state.historyIndex + 1]) {
+          state.historyIndex += 1
 
-      if (isImportingTemplate && !isValidRadRequest(args.template.radRequest)) {
-        // data request is invalid
-        createNotification({
-          title: `Invalid data request template`,
-          body: `The data request you are trying to import is malformed`,
-        })
-      } else {
-        const templateToSave = isImportingTemplate
-          ? {
-              ...args.template,
-              id: generateId(),
-              creationDate: date,
-              lastTimeOpened: date,
-              variables: args.template.variables || [],
-              variablesIndex: args.template.variablesIndex || 0,
-              usedVariables: args.template.usedVariables || [],
-            }
-          : {
-              ...context.state.currentTemplate,
-              lastTimeOpened: date,
-              radRequest: context.state.currentRadonMarkupInterpreter.getMir(),
-            }
-        if (!templateToSave.id) {
-          templateToSave.id = generateId()
+          const currentHistoryCheckpoint = state.history[state.historyIndex]
+          const { rad, stage } = currentHistoryCheckpoint
+          state.currentTemplate =
+            state.history[state.historyIndex].currentTemplate
+          this.commit('setDataRequestChangedSinceSaved', { value: true })
+          state.currentRadonMarkupInterpreter = new Radon(rad)
+
+          state.currentFocus = calculateCurrentFocusAfterRedo(
+            currentHistoryCheckpoint,
+            state.currentRadonMarkupInterpreter.getMarkup(),
+            state.variablesIndex,
+          )
+          state.currentStage = stage
+          state.radRequest = state.currentRadonMarkupInterpreter
+
+          if (state.autoTry) {
+            this.dispatch('tryDataRequest', { root: true })
+          }
         }
-        templates[templateToSave.id] = templateToSave
+      },
+      clearCurrentFocus(state) {
+        state.currentFocus = null
+      },
+      [EDITOR_UNDO](state) {
+        if (state.history[state.historyIndex - 1]) {
+          state.historyIndex = state.historyIndex - 1
+          const { rad } = state.history[state.historyIndex]
+          state.currentTemplate =
+            state.history[state.historyIndex].currentTemplate
+          this.commit('setDataRequestChangedSinceSaved', { value: true })
+          const previousHistoryCheckpoint = state.history[state.historyIndex]
 
-        const request = await context.rootState.wallet.api.saveItem({
+          state.currentRadonMarkupInterpreter = new Radon(rad)
+
+          if (state.historyIndex !== 0) {
+            state.currentStage = previousHistoryCheckpoint.stage
+          }
+
+          state.currentFocus = null
+          state.currentFocus = calculateCurrentFocusAfterUndo(
+            previousHistoryCheckpoint,
+            state.currentRadonMarkupInterpreter.getMarkup(),
+            state.variablesIndex,
+            state.history[state.historyIndex].variableField,
+          )
+          state.radRequest = state.currentRadonMarkupInterpreter
+
+          if (state.autoTry) {
+            this.dispatch('tryDataRequest', { root: true })
+          }
+        }
+      },
+      [MOVE_CAROUSEL](state, { direction }) {
+        if (direction === 'right') {
+          state.moveCarousel = 'right'
+        } else if (direction === 'left') {
+          state.moveCarousel = 'left'
+        }
+      },
+      [CLEAR_MOVE_CAROUSEL](state) {
+        state.moveCarousel = false
+      },
+      [UPDATE_SOURCE](state, { index, source }) {
+        state.currentRadonMarkupInterpreter.updateSource(index, {
+          kind: source.protocol,
+          url: source.url,
+          contentType: source.contentType,
+        })
+        state.radRequest = state.currentRadonMarkupInterpreter
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.UPDATE_SOURCE,
+          info: { index, source },
+        })
+      },
+      [DELETE_SOURCE](state, { index }) {
+        state.currentRadonMarkupInterpreter.deleteSource(index)
+        state.radRequest = state.currentRadonMarkupInterpreter
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.DELETE_SOURCE,
+          info: { index },
+        })
+      },
+      [ADD_SOURCE](state) {
+        state.radRequest = state.currentRadonMarkupInterpreter
+        state.currentRadonMarkupInterpreter.addSource()
+        state.radRequest = state.currentRadonMarkupInterpreter
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.ADD_SOURCE,
+        })
+      },
+      [SET_TEMPLATES](state, { templates }) {
+        if (templates) {
+          state.templates = templates
+        }
+      },
+      [PUSH_OPERATOR](state, { scriptId }) {
+        state.currentRadonMarkupInterpreter.addOperator(scriptId)
+        state.radRequest = state.currentRadonMarkupInterpreter
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.PUSH_OPERATOR,
+          info: { scriptId },
+        })
+      },
+      [CREATE_TEMPLATE](state) {
+        const TEMPLATE_DEFAULT_NAME = 'New template'
+        const name = Object.values(state.templates).reduce(
+          (acc, _, index, self) => {
+            const isRepeatedName = self.find(template => template.name === acc)
+
+            return isRepeatedName
+              ? `${TEMPLATE_DEFAULT_NAME} ${index + 1}`
+              : acc
+          },
+          TEMPLATE_DEFAULT_NAME,
+        )
+
+        const radRequest = {
+          timelock: 0,
+          retrieve: [
+            {
+              url: '',
+              kind: 'HTTP-GET',
+              script: [],
+            },
+          ],
+          aggregate: {
+            filters: [],
+            reducer: 0x02,
+          },
+          tally: {
+            filters: [],
+            reducer: 0x02,
+          },
+        }
+
+        if (isValidRadRequest(radRequest)) {
+          state.currentTemplate = {
+            creationDate: Date.now(),
+            id: generateId(),
+            name: name,
+            description: '',
+            radRequest,
+            variables: [],
+            variablesIndex: 0,
+            usedVariables: [],
+          }
+
+          state.currentRadonMarkupInterpreter = new Radon(radRequest)
+          state.radRequest = state.currentRadonMarkupInterpreter
+          state.history = [
+            {
+              rad: state.currentRadonMarkupInterpreter.getMir(),
+              stage: EDITOR_STAGES.SETTINGS,
+              currentTemplate: { ...state.currentTemplate },
+            },
+          ]
+        } else {
+          createNotification({
+            title: `Invalid data request template`,
+            body: `The data request you are trying to import is malformed`,
+          })
+        }
+      },
+      [SET_CURRENT_TEMPLATE](state, { id }) {
+        this.autoTry = false
+        const template = state.templates[id]
+        state.currentTemplate = template
+        state.currentRadonMarkupInterpreter = new Radon(template.radRequest)
+        state.radRequest = state.currentRadonMarkupInterpreter
+      },
+      [DELETE_OPERATOR](state, { scriptId, operatorId }) {
+        state.currentRadonMarkupInterpreter.deleteOperator(scriptId, operatorId)
+        state.radRequest = state.currentRadonMarkupInterpreter
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.DELETE_OPERATOR,
+          info: { scriptId, operatorId },
+        })
+      },
+      renameTemplate: function(state, { id, name }) {
+        state.templates[id].name = name
+        this.commit('setDataRequestChangedSinceSaved', { value: true })
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.UPDATE_NAME,
+          info: { currentTemplate: state.currentTemplate },
+        })
+      },
+      updateTemplateDescription: function(state, { id, description }) {
+        state.templates[id].description = description
+        this.commit('setDataRequestChangedSinceSaved', { value: true })
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.UPDATE_DESCRIPTION,
+          info: { currentTemplate: state.currentTemplate },
+        })
+      },
+      [TOGGLE_VARIABLES](state, { hasVariables }) {
+        if (hasVariables === true) {
+          state.hasVariables = true
+        } else {
+          state.hasVariables = false
+        }
+      },
+      setError(state, { name, error, message }) {
+        state.errors[name] = {
+          name,
+          error,
+          message,
+        }
+      },
+    },
+    actions: {
+      saveTemplate: async function(context, args) {
+        context.commit('setDataRequestChangedSinceSaved', { value: false })
+        const isImportingTemplate = args ? !!args.template : null
+        const date = Date.now()
+        const templates = context.state.templates
+
+        if (
+          isImportingTemplate &&
+          !isValidRadRequest(args.template.radRequest)
+        ) {
+          // data request is invalid
+          createNotification({
+            title: `Invalid data request template`,
+            body: `The data request you are trying to import is malformed`,
+          })
+        } else {
+          const templateToSave = isImportingTemplate
+            ? {
+                ...args.template,
+                id: generateId(),
+                creationDate: date,
+                lastTimeOpened: date,
+                variables: args.template.variables || [],
+                variablesIndex: args.template.variablesIndex || 0,
+                usedVariables: args.template.usedVariables || [],
+              }
+            : {
+                ...context.state.currentTemplate,
+                lastTimeOpened: date,
+                radRequest: context.state.currentRadonMarkupInterpreter.getMir(),
+              }
+          if (!templateToSave.id) {
+            templateToSave.id = generateId()
+          }
+          templates[templateToSave.id] = templateToSave
+
+          const request = await api.wallet.saveItem({
+            wallet_id: context.rootState.wallet.walletId,
+            session_id: context.rootState.wallet.sessionId,
+            key: 'templates',
+            value: templates,
+          })
+          if (request.result) {
+            await context.dispatch('getTemplates')
+            this.commit(SET_CURRENT_TEMPLATE, {
+              id: context.state.currentTemplate.id,
+            })
+          } else {
+            context.commit('setError', {
+              name: 'saveItem',
+              error: request.error,
+              message: 'An error occurred saving changes',
+            })
+          }
+        }
+      },
+      getTemplates: async function(context, params) {
+        console.log('context', context)
+        const request = await api.wallet.getItem({
           wallet_id: context.rootState.wallet.walletId,
           session_id: context.rootState.wallet.sessionId,
           key: 'templates',
-          value: templates,
         })
         if (request.result) {
-          await context.dispatch('getTemplates')
-          this.commit(SET_CURRENT_TEMPLATE, {
-            id: context.state.currentTemplate.id,
+          context.commit(SET_TEMPLATES, { templates: request.result.value })
+        } else {
+          context.commit('setError', {
+            name: 'getItem',
+            error: request.error.message,
+            message: 'An error retrieving the templates list',
           })
+        }
+      },
+      deleteTemplate: async function(context, { id }) {
+        Vue.delete(context.state.templates, id)
+        const request = await api.wallet.saveItem({
+          wallet_id: context.rootState.wallet.walletId,
+          session_id: context.rootState.wallet.sessionId,
+          key: 'templates',
+          value: context.state.templates,
+        })
+        if (request.result) {
         } else {
           context.commit('setError', {
             name: 'saveItem',
-            error: request.error,
-            message: 'An error occurred saving changes',
+            error: request.error.message,
+            message: 'An error occurred deleting the template',
           })
         }
-      }
+      },
     },
-    getTemplates: async function(context, params) {
-      const request = await context.rootState.wallet.api.getItem({
-        wallet_id: context.rootState.wallet.walletId,
-        session_id: context.rootState.wallet.sessionId,
-        key: 'templates',
-      })
-      if (request.result) {
-        context.commit(SET_TEMPLATES, { templates: request.result.value })
-      } else {
-        context.commit('setError', {
-          name: 'getItem',
-          error: request.error.message,
-          message: 'An error retrieving the templates list',
-        })
-      }
-    },
-    deleteTemplate: async function(context, { id }) {
-      Vue.delete(context.state.templates, id)
-      const request = await context.rootState.wallet.api.saveItem({
-        wallet_id: context.rootState.wallet.walletId,
-        session_id: context.rootState.wallet.sessionId,
-        key: 'templates',
-        value: context.state.templates,
-      })
-      if (request.result) {
-      } else {
-        context.commit('setError', {
-          name: 'saveItem',
-          error: request.error.message,
-          message: 'An error occurred deleting the template',
-        })
-      }
-    },
-  },
+  }
 }

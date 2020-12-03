@@ -1,20 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import radModule from './rad'
-import walletModule from './wallet'
-import marketplaceModule from './marketplace'
-import uiInteractionsModule from './uiInteractions'
+import createRadModule from './rad'
+import createWalletModule from './wallet'
+// import marketplaceModule from './marketplace'
+import createUiInteractions from './uiInteractions'
 
 Vue.use(Vuex)
 
-export const storeInput = {
+export const storeInput = deps => ({
   modules: {
-    uiInteractions: uiInteractionsModule,
-    rad: radModule,
-    wallet: walletModule,
-    marketplace: marketplaceModule,
+    uiInteractions: createUiInteractions(deps),
+    rad: createRadModule(deps),
+    wallet: createWalletModule(deps),
+    // marketplace: marketplaceModule,
   },
-}
+})
 
-export default new Vuex.Store(storeInput)
+export default function createStore(deps) {
+  return new Vuex.Store(storeInput(deps))
+}
