@@ -28,67 +28,26 @@ import Setup from '@/views/Setup.vue'
 
 Vue.use(Router)
 
-function redirectOnReload(api) {
-  return (to, from, next) => {
-    if (api.wallet.client.ws.ready) {
-      next()
-    } else {
-      next('/')
-    }
-  }
-}
+// function redirectOnReload(api) {
+//   return (to, from, next) => {
+//     if (api.wallet.client.ws.ready) {
+//       next()
+//     } else {
+//       next('/')
+//     }
+//   }
+// }
 
-export default function createRouter({ api, store }) {
+export default function createRouter({ emit }) {
   return new Router({
     routes: [
       {
         path: '/',
         name: 'main',
         component: Main,
-        beforeEnter: async (to, from, next) => {
-          const isReady = api.wallet.client.ws.ready
-
-          if (isReady) {
-            await store.dispatch('getWalletInfos')
-            const isSessionId = store.state.wallet.sessionId
-            const walletInfos = store.state.wallet.walletInfos
-            if (isSessionId) {
-              next()
-            } else if (walletInfos && walletInfos.length > 0) {
-              next('/welcome-back/wallet-list')
-            } else {
-              next('/ftu/welcome')
-            }
-            // when the computer is blocked the client closes but it should not redirect to
-            // wallet not found if the wallet is not closed
-            api.wallet.client.ws.on('close', () => {
-              setTimeout(() => {
-                if (!api.wallet.client.ws.ready) {
-                  next('/wallet-not-found')
-                }
-              }, 1000)
-            })
-          } else {
-            let error = true
-            setTimeout(() => {
-              if (error) {
-                next('/wallet-not-found')
-              }
-            }, 3000)
-            api.wallet.client.ws.on('open', async () => {
-              error = false
-              await store.dispatch('getWalletInfos')
-              const polling = setInterval(async () => {
-                clearInterval(polling)
-                const walletInfos = store.state.wallet.walletInfos
-                if (walletInfos && walletInfos.length > 0) {
-                  next('/welcome-back/wallet-list')
-                } else {
-                  next('/ftu/welcome')
-                }
-              }, 5000)
-            })
-          }
+        beforeEnter(to, from, next) {
+          emit('ROUTER_BEFORE_ENTER_MAIN')
+          next()
         },
         children: [
           {
@@ -141,37 +100,10 @@ export default function createRouter({ api, store }) {
       },
       {
         path: '/wallet-not-found',
-        name: 'runWalletAlert',
+        name: 'walletNotFound',
         beforeEnter: (to, from, next) => {
-          if (api.wallet.client.ws.ready) {
-            const walletInfos = store.state.wallet.walletInfos
-            if (walletInfos.length > 0) {
-              next('/welcome-back/wallet-list')
-            } else {
-              next('/ftu/welcome')
-            }
-          } else {
-            let error = true
-            setTimeout(() => {
-              if (error) {
-                next()
-              }
-            }, 2000)
-
-            api.wallet.client.ws.on('open', async () => {
-              error = false
-              await store.dispatch('getWalletInfos')
-              const polling = setInterval(() => {
-                const walletInfos = store.state.wallet.walletInfos
-                clearInterval(polling)
-                if (walletInfos.length > 0) {
-                  next('/welcome-back/wallet-list')
-                } else {
-                  next('/ftu/welcome')
-                }
-              }, 2000)
-            })
-          }
+          emit('ROUTER_BEFORE_ENTER_WALLET_NOT_FOUND')
+          next()
         },
         component: WalletNotFound,
       },
@@ -179,7 +111,7 @@ export default function createRouter({ api, store }) {
         path: '/welcome-back',
         name: 'welcomeBack',
         component: WelcomeBack,
-        beforeEnter: redirectOnReload(api),
+        // beforeEnter: redirectOnReload(api),
         children: [
           {
             path: 'unlock/:id',
@@ -194,7 +126,7 @@ export default function createRouter({ api, store }) {
       {
         path: `/ftu`,
         name: 'ftu',
-        beforeEnter: redirectOnReload(api),
+        // beforeEnter: redirectOnReload(api),
         component: FirstTimeUsage,
         children: [
           {

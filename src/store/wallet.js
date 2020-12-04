@@ -34,6 +34,7 @@ export default function createModule({
   standardizeWitUnits,
   standardizeBalance,
   syncingTimeEstimator,
+  emitter,
 }) {
   return {
     state: {
@@ -99,7 +100,7 @@ export default function createModule({
       transactionsLength: 0,
       currentTransactionsPage: 1,
       txLabels: {},
-      walletInfos: null,
+      walletInfos: [],
       walletLocked: false,
       validatedPassword: false,
       fileInfo: null,
@@ -278,6 +279,7 @@ export default function createModule({
 
       setWalletInfos(state, { walletInfos }) {
         state.walletInfos = walletInfos
+        emitter.emit('VUEX_WALLET_SET_WALLET_INFOS')
       },
 
       lockWallet(state, id) {
@@ -426,6 +428,7 @@ export default function createModule({
         }
       },
       closeSession: async function(context) {
+        console.log('router', router)
         const request = await api.wallet.closeSession({
           wallet_id: context.state.walletId,
           session_id: context.state.sessionId,
@@ -828,6 +831,7 @@ export default function createModule({
         }
       },
       getWalletInfos: async function(context) {
+        console.log('REQUEST')
         const request = await api.wallet.getWalletInfos()
         if (request.result) {
           context.commit('setWalletInfos', { walletInfos: request.result })

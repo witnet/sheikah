@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions, mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 import Notification from '@/components/Notification'
 
 export default {
@@ -51,9 +51,6 @@ export default {
     ...mapMutations({
       checkNetworkStatus: 'checkNetworkStatus',
       deleteSession: 'deleteSession',
-    }),
-    ...mapActions({
-      getWalletInfos: 'getWalletInfos',
     }),
     pollData() {
       this.polling = setInterval(() => {

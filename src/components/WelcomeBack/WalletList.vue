@@ -66,7 +66,7 @@ export default {
       },
       sessionId: state => state.wallet.sessionId,
       unlockWalletError: state => state.wallet.errors.unlockWallet,
-      wallets: state => state.wallet.walletInfos,
+      walletInfos: state => state.wallet.walletInfos,
     }),
     lastWalletOpen() {
       const savedIndex = localStorage.getItem('walletIndex')
@@ -81,7 +81,8 @@ export default {
       }
     },
     walletOptions() {
-      return this.wallets.map((wallet, index) => {
+      console.log('wallets', this.walletInfos)
+      return this.walletInfos.map((wallet, index) => {
         return {
           primaryText: wallet.name,
           value: wallet.id,
@@ -101,10 +102,14 @@ export default {
         this.clearError({ error: this.unlockWalletError.name })
       }
     },
-  },
-  mounted() {
-    this.getWalletInfos()
-    this.currentWallet = this.walletOptions[this.lastWalletOpen]
+    walletOptions: {
+      immediate: true,
+      handler(val, oldVal) {
+        if (val.length && !this.currentWallet.value) {
+          this.currentWallet = this.walletOptions[this.lastWalletOpen]
+        }
+      },
+    },
   },
   methods: {
     ...mapActions({
