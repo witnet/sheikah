@@ -135,17 +135,17 @@ export default {
         label: [],
         amount: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { validator: isNumber, trigger: 'change' },
+          { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
-          { validator: maxNumber, trigger: 'change' },
+          { validator: maxNumber, trigger: 'blur' },
         ],
         fee: [
           { required: true, message: 'Required field', trigger: 'blur' },
-          { validator: isNumber, trigger: 'change' },
+          { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
-          { validator: maxNumber, trigger: 'change' },
+          { validator: maxNumber, trigger: 'blur' },
         ],
       },
     }
