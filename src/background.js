@@ -355,7 +355,9 @@ function main() {
   axios.get(LATEST_RELEASES_URL).then(async result => {
     const release = result.data.assets.find(
       asset =>
-        asset.browser_download_url.includes(arch) &&
+        asset.browser_download_url.includes(
+          arch === 'ia32' ? 'x86_64' : arch,
+        ) &&
         asset.browser_download_url.includes(
           platform === 'win32' ? 'windows' : platform,
         ),
