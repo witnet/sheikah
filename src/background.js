@@ -417,7 +417,9 @@ function main() {
         win.webContents.send('downloaded')
         await sleep(3000)
       }
-      runWallet()
+      if (!isBeingUpdated) {
+        runWallet()
+      }
     } else {
       status = STATUS.OS_NOT_SUPPORTED
       loadUrl(status)
@@ -437,30 +439,28 @@ async function runWallet() {
   const walletConfigurationPath = path.join(SHEIKAH_PATH, 'witnet.toml')
 
   console.info('... with witnet.toml from ' + walletConfigurationPath)
-  if (!isBeingUpdated) {
-    walletProcess = cp.spawn(
-      path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
-      ['-c', walletConfigurationPath, 'wallet', 'server'],
-      {
-        env: {
-          RUST_LOG: `witnet=${DEFAULT_WALLET_LOG_LEVEL}`,
-          ...process.env,
-        },
+  walletProcess = cp.spawn(
+    path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
+    ['-c', walletConfigurationPath, 'wallet', 'server'],
+    {
+      env: {
+        RUST_LOG: `witnet=${DEFAULT_WALLET_LOG_LEVEL}`,
+        ...process.env,
       },
-    )
+    },
+  )
 
-    walletProcess.stdout.on('data', async function(data) {
-      console.info('stdout: ' + data.toString())
-      status = STATUS.READY
-      win.webContents.send('loaded', [{ isDefaultWallet: true }])
-      await sleep(3000)
-      loadUrl(status)
-    })
+  walletProcess.stdout.on('data', async function(data) {
+    console.info('stdout: ' + data.toString())
+    status = STATUS.READY
+    win.webContents.send('loaded', [{ isDefaultWallet: true }])
+    await sleep(3000)
+    loadUrl(status)
+  })
 
-    walletProcess.stderr.on('data', function(data) {
-      console.info('stderr: ' + data.toString())
-    })
-  }
+  walletProcess.stderr.on('data', function(data) {
+    console.info('stderr: ' + data.toString())
+  })
 }
 
 async function sleep(t) {
@@ -494,6 +494,7 @@ autoUpdater.on('update-available', () => {
         })
     } else if (result.response === 1) {
       isBeingUpdated = false
+      runWallet()
     }
   })
 })
