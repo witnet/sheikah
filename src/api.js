@@ -207,6 +207,32 @@ export class MarketplaceApi {
   postTemplate() {}
 }
 
+export class LocalStorageApi {
+  _get(key) {
+    return JSON.parse(localStorage.getItem(key))
+  }
+
+  _set(key, item) {
+    return localStorage.setItem(key, JSON.stringify(item))
+  }
+
+  getWalletIndex() {
+    return this._get('walletIndex')
+  }
+
+  setWalletIndex(index) {
+    return this._set('walletIndex', index)
+  }
+
+  getNotificationsSettings() {
+    return this._get('notificationsSettings')
+  }
+
+  setNotificationsSettings(notifications) {
+    return this._set('notificationsSettings', notifications)
+  }
+}
+
 export function standardizeAddresses(response) {
   if (response && response.error) {
     return response

@@ -64,13 +64,13 @@ export default {
       walletId: state => {
         return state.wallet.walletId
       },
+      getWalletIndex: state => state.wallet.localStorage.getWalletIndex(),
       sessionId: state => state.wallet.sessionId,
       unlockWalletError: state => state.wallet.errors.unlockWallet,
       wallets: state => state.wallet.walletInfos,
     }),
     lastWalletOpen() {
-      const savedIndex = localStorage.getItem('walletIndex')
-      return savedIndex || 0
+      return this.getWalletIndex || 0
     },
     disableButton() {
       const passwordLength = this.password.split('').length
