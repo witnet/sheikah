@@ -1,5 +1,5 @@
 import router from '@/router'
-import { WalletApi, standardizeBalance } from '@/api'
+import { WalletApi, standardizeBalance, LocalStorageApi } from '@/api'
 import {
   calculateTimeAgo,
   createNotification,
@@ -26,6 +26,7 @@ import warning from '@/resources/svg/warning.png'
 export default {
   state: {
     api: new WalletApi(),
+    localStorage: new LocalStorageApi(),
     eventProcessor: new ProcessWalletEvent(),
     errors: {
       shutdown: null,
@@ -71,6 +72,12 @@ export default {
     xprvBackupPassword: null,
     seed: null,
     networkStatus: 'error',
+    notifications: {
+      block: true,
+      transactions: true,
+      payments: true,
+      syncronization: true,
+    },
     status: {
       currentState: NETWORK_STATUS.WAITING_FOR_NODE_TO_SYNC,
       progress: null,
@@ -125,6 +132,13 @@ export default {
     startSyncEstimator(state) {
       state.syncingTimeEstimator.start(Date.now())
     },
+    toggleNotification(state, name) {
+      state.notifications[name] = !state.notifications[name]
+      state.localStorage.setNotificationsSettings(state.notifications)
+    },
+    setNotifications(state, notifications) {
+      state.notifications = notifications
+    },
     addSyncEstimatorSample(state, { current, finish }) {
       state.syncingTimeEstimator.addSample({
         currentBlock: current,
@@ -169,7 +183,7 @@ export default {
     setWalletIndex(state, { walletIndex }) {
       const walletInfos = state.walletInfos
       state.walletIdx = walletIndex === -1 ? walletInfos.length : walletIndex
-      localStorage.setItem('walletIndex', state.walletIdx)
+      state.localStorage.setWalletIndex(state.walletIdx)
     },
     setLabels(state, { labels }) {
       state.txLabels = labels
@@ -476,14 +490,16 @@ export default {
       if (request.result) {
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
         context.commit('clearGeneratedTransaction')
-        createNotification({
-          title: 'Transaction succesfully sent',
-          body: `The transaction ${cropString(
-            transactionToSend.transaction_id,
-            12,
-            'middle',
-          )} has been sent succesfully into the Witnet network.\nIt should be written into a block soon.`,
-        })
+        if (context.state.notifications.transactions) {
+          createNotification({
+            title: 'Transaction succesfully sent',
+            body: `The transaction ${cropString(
+              transactionToSend.transaction_id,
+              12,
+              'middle',
+            )} has been sent succesfully into the Witnet network.\nIt should be written into a block soon.`,
+          })
+        }
       } else {
         context.commit('setError', {
           name: 'sendTransaction',
@@ -810,6 +826,13 @@ export default {
         }
       }
     },
+    getNotifications: async function(context) {
+      const notifications = context.state.localStorage.getNotificationsSettings()
+      const defaultNotifications = context.state.notifications
+      notifications
+        ? context.commit('setNotifications', notifications)
+        : context.commit('setNotifications', defaultNotifications)
+    },
     getWalletInfos: async function(context) {
       const request = await context.state.api.getWalletInfos()
       if (request.result) {
@@ -889,7 +912,10 @@ export default {
         balance.result.total,
         context.state.currency,
       )
-      if (event.type === 'POSITIVE') {
+      if (
+        event.type === 'POSITIVE' &&
+        context.state.notifications.transactions
+      ) {
         createNotification({
           title: `Received a payment of ${amount} ${context.state.currency}s`,
           body: `The total balance of your wallet is now ${total} ${context.state.currency}s.`,
@@ -901,11 +927,13 @@ export default {
       context.commit('stopSyncEstimator')
       const [start, finish] = event
       if (finish > start) {
-        createNotification({
-          title: 'Completed Wallet Synchronization',
-          body: `Synchronized ${finish -
-            start} blocks in total.\nYour wallet is now synchronized to the latest block in the chain (#${finish}).`,
-        })
+        if (context.state.notifications.syncronization) {
+          createNotification({
+            title: 'Completed Wallet Synchronization',
+            body: `Synchronized ${finish -
+              start} blocks in total.\nYour wallet is now synchronized to the latest block in the chain (#${finish}).`,
+          })
+        }
       }
     },
     syncProgress: async function(context, event) {
@@ -926,14 +954,16 @@ export default {
       context.commit('stopSyncEstimator')
       context.commit('startSyncEstimator')
       if (finish - start > 100) {
-        createNotification({
-          title: 'Starting Wallet Synchronization',
-          body: `Will synchronize ${finish -
-            start} blocks in total, starting with block #${start} up to the latest block in the chain (#${finish}).`,
-        })
+        if (context.state.notifications.syncronization) {
+          createNotification({
+            title: 'Starting Wallet Synchronization',
+            body: `Will synchronize ${finish -
+              start} blocks in total, starting with block #${start} up to the latest block in the chain (#${finish}).`,
+          })
+        }
       }
     },
-    retrieveWalletMovements: async function(context) {
+    retrieveWalletMovements: async function(context, event) {
       await context.dispatch('getTransactions')
       const balance = standardizeBalance({
         result: context.state.status.balance,
@@ -942,6 +972,19 @@ export default {
         balance,
       })
       context.dispatch('getAddresses')
+      if (event && context.state.notifications.block) {
+        if (Array.isArray(event)) {
+          createNotification({
+            title: `${event.length} blocks confirmed.`,
+            body: event.map(hash => hash),
+          })
+        } else {
+          createNotification({
+            title: `Received new epoch #${event.epoch}`,
+            body: event.block_hash,
+          })
+        }
+      }
     },
     processEvent: async function(context, rawEvent) {
       const eventProcessed = context.state.eventProcessor.processEvent(rawEvent)
@@ -953,7 +996,7 @@ export default {
         eventType === WALLET_EVENTS.BLOCK_CONSOLIDATE ||
         eventType === WALLET_EVENTS.BLOCK_ORPHAN
       ) {
-        context.dispatch('retrieveWalletMovements')
+        context.dispatch('retrieveWalletMovements', event)
       } else if (eventType === WALLET_EVENTS.MOVEMENT) {
         context.dispatch('nodeMovement', event)
       } else if (eventType === WALLET_EVENTS.SYNC_FINISH) {
