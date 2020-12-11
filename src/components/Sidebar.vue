@@ -64,21 +64,11 @@
             />
           </el-tooltip>
         </div>
-        <el-dropdown @command="handleCommand">
-          <div class="button-options" split-button type="primary" @click.stop>
-            <font-awesome-icon icon="cog" class="icon" />
-          </div>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item
-              v-for="(option, index) in settings"
-              :key="option.label"
-              v-observe-visibility="visibilityChanged"
-              :command="index"
-            >
-              {{ option.label }}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <font-awesome-icon
+          icon="cog"
+          class="icon"
+          @click="$router.push('/settings/general')"
+        />
       </div>
     </div>
     <ExportXprv v-if="isEncryptXprvVisible" @close="collapseSidebar" />
@@ -162,8 +152,6 @@ export default {
 @import '@/styles/_colors.scss';
 
 .sidebar-container {
-  position: absolute;
-
   .overlay {
     background-color: $grey-6;
     height: 100%;
@@ -185,8 +173,11 @@ export default {
     grid-template-rows: 70px max-content auto 70px;
     min-height: 100vh;
     overflow: hidden;
-    position: fixed;
     z-index: 20;
+
+    &:hover {
+      position: fixed;
+    }
 
     &.expanded {
       -webkit-transition: all 0.4s ease-in ease-out;

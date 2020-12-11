@@ -25,8 +25,10 @@ import DecryptXprv from '@/components/steps/DecryptXprv.vue'
 import WalletNotFound from '@/components/WalletNotFound.vue'
 import RepeatedWalletDisclaimer from '@/components/steps/RepeatedWalletDisclaimer.vue'
 import Setup from '@/views/Setup.vue'
+import Settings from '@/views/Settings.vue'
 
 import store from '@/store'
+import { SETTINGS_SECTIONS } from '@/constants'
 
 Vue.use(Router)
 function redirectOnReload(to, from, next) {
@@ -39,6 +41,30 @@ function redirectOnReload(to, from, next) {
 
 export default new Router({
   routes: [
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings,
+      // Settings view will pass as prop the settings that SettingsSection will render
+      children: [
+        {
+          name: SETTINGS_SECTIONS.GENERAL,
+          path: 'general',
+        },
+        {
+          name: SETTINGS_SECTIONS.ADVANCED,
+          path: 'advanced',
+        },
+        {
+          name: SETTINGS_SECTIONS.NOTIFICATIONS,
+          path: 'notifications',
+        },
+        {
+          name: SETTINGS_SECTIONS.ABOUT,
+          path: 'about',
+        },
+      ],
+    },
     {
       path: '/',
       name: 'main',

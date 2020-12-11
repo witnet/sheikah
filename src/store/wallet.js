@@ -179,6 +179,13 @@ export default {
         state.balance = balance
       }
     },
+    setCurrency(state, currency) {
+      if (Object.values(WIT_UNIT).includes(currency)) {
+        state.currency = currency
+      } else {
+        console.warn('[mutation setCurrency]: invalid currency')
+      }
+    },
     changeCurrency(state) {
       const unitsValues = Object.values(WIT_UNIT)
       const unitsKeys = Object.keys(WIT_UNIT)
