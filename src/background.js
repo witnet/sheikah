@@ -130,6 +130,14 @@ ipcMain.on('shutdown-finished', () => {
   app.exit()
 })
 
+ipcMain.on('close-wallet', () => {
+  win.hide()
+  if (walletProcess) {
+    kill(walletProcess.pid)
+  }
+  app.exit()
+})
+
 // check if the second instance in locked
 const lock = app.requestSingleInstanceLock()
 
@@ -486,7 +494,6 @@ autoUpdater.on('update-available', () => {
       autoUpdater
         .downloadUpdate()
         .then(path => {
-          win.webContents.send('log', `${path}`)
           console.log('Release path to download', path)
         })
         .catch(e => {
@@ -511,6 +518,24 @@ autoUpdater.on('update-downloaded', () => {
   }
   autoUpdater.quitAndInstall()
 })
+
+ipcMain.on('change-node-url', async (event, url) => {
+  await overwriteWalletDefaultConfigFile(url)
+  app.relaunch()
+  win.webContents.send('closeWallet')
+})
+
+// Overwrite wallet config file only when new version is downloaded
+function overwriteWalletDefaultConfigFile(url) {
+  const regex = /^node_url = ".*"$/gm
+  fs.writeFileSync(
+    path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
+    fs
+      .readFileSync(path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME))
+      .toString()
+      .replace(regex, `node_url = "${url}"\n`),
+  )
+}
 
 // Overwrite wallet config file only when new version is downloaded
 function overwriteWalletConfigFile() {
