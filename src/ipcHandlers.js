@@ -8,6 +8,15 @@ ipcRenderer.on('shutdown', async () => {
   ipcRenderer.send('shutdown-finished')
 })
 
+ipcRenderer.on('closeWallet', async () => {
+  await store.dispatch('shutdown')
+  ipcRenderer.send('close-wallet')
+})
+
+ipcRenderer.on('log', async (event, message) => {
+  console.log(message)
+})
+
 ipcRenderer.on('running', async (event, message) => {
   store.commit('setMessage', { message: 'Running wallet' })
 })
@@ -15,6 +24,10 @@ ipcRenderer.on('running', async (event, message) => {
 ipcRenderer.on('downloading', async () => {
   store.commit('setMessage', { message: 'Updating wallet backend' })
 })
+
+export function setLocalNodeUrl(url) {
+  ipcRenderer.send('change-node-url', url)
+}
 
 ipcRenderer.on('loaded', async (e, message) => {
   if (Array.isArray(message) && message[0].isDefaultWallet) {
