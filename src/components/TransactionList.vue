@@ -3,60 +3,61 @@
     <Fieldset
       title="Transactions"
       :subtitle="`${transactionsLength} transactions`"
-    />
-    <p class="title">
-      <span class="label">Transactions</span>
-      <span class="number" data-test="transactions-length"
-        >{{ transactionsLength }} transactions</span
-      >
-    </p>
-    <div class="list">
-      <Transaction
-        v-for="(transaction, index) in transactions"
-        :id="transaction.id"
-        :key="transaction.id"
-        :data-test="`transaction-${index}`"
-        :currency="currency"
-        :type="transaction.type"
-        :inputs="transaction.inputs"
-        :outputs="transaction.outputs"
-        :fee="transaction.fee"
-        :date="transaction.date"
-        :time-ago="transaction.timeAgo"
-        :label="transaction.label"
-        :amount="transaction.amount"
-        :block="transaction.block"
-        :epoch="transaction.epoch"
-        :witnesses="transaction.witnesses"
-        :rewards="transaction.rewards"
-        :rounds="transaction.rounds"
-        :state="transaction.currentStage"
-        :timelocked="transaction.timelocked"
-        :reveals="transaction.reveals"
-        :result="transaction.finalResult"
-        :address="transaction.address"
-        :transaction-type="transaction.transactionType"
-      />
-      <div
-        v-if="transactionsLength === 0"
-        class="no-transactions-container"
-        data-test="empty-transactions"
-      >
-        <p class="no-transactions-text">You don't have transactions</p>
-      </div>
-    </div>
-    <div
-      v-show="transactionsLength > itemsPerPage"
-      class="pagination-nav"
-      data-test="pagination"
     >
-      <el-pagination
-        layout="prev, pager, next"
-        :page-count="numberOfPages"
-        :current-page="currentPage"
-        @current-change="handleCurrentChange"
-      />
-    </div>
+      <p class="title">
+        <span class="label">Transactions</span>
+        <span class="number" data-test="transactions-length"
+          >{{ transactionsLength }} transactions</span
+        >
+      </p>
+      <div class="list">
+        <Transaction
+          v-for="(transaction, index) in transactions"
+          :id="transaction.id"
+          :key="transaction.id"
+          :data-test="`transaction-${index}`"
+          :currency="currency"
+          :type="transaction.type"
+          :inputs="transaction.inputs"
+          :outputs="transaction.outputs"
+          :fee="transaction.fee"
+          :date="transaction.date"
+          :time-ago="transaction.timeAgo"
+          :label="transaction.label"
+          :amount="transaction.amount"
+          :block="transaction.block"
+          :epoch="transaction.epoch"
+          :witnesses="transaction.witnesses"
+          :rewards="transaction.rewards"
+          :rounds="transaction.rounds"
+          :state="transaction.currentStage"
+          :timelocked="transaction.timelocked"
+          :reveals="transaction.reveals"
+          :result="transaction.finalResult"
+          :address="transaction.address"
+          :transaction-type="transaction.transactionType"
+        />
+        <div
+          v-if="transactionsLength === 0"
+          class="no-transactions-container"
+          data-test="empty-transactions"
+        >
+          <p class="no-transactions-text">You don't have transactions</p>
+        </div>
+      </div>
+      <div
+        v-show="transactionsLength > itemsPerPage"
+        class="pagination-nav"
+        data-test="pagination"
+      >
+        <el-pagination
+          layout="prev, pager, next"
+          :page-count="numberOfPages"
+          :current-page="currentPage"
+          @current-change="handleCurrentChange"
+        />
+      </div>
+    </Fieldset>
   </div>
 </template>
 
