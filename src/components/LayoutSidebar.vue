@@ -1,11 +1,7 @@
 <script>
-import Sidebar from '@/components/Sidebar.vue'
 // Layout that displays the sidebar next to the content provided
 export default {
   name: 'LayoutSidebar',
-  components: {
-    Sidebar,
-  },
   render(createElement) {
     return createElement(
       'div',
@@ -15,7 +11,7 @@ export default {
         },
       },
       [
-        createElement(Sidebar),
+        this.$slots.sidebar[0],
         createElement(
           'div',
           {
@@ -38,13 +34,14 @@ export default {
 
 .layout {
   display: grid;
+  grid-template-columns: auto 1fr;
   grid-template-rows: 1fr;
   min-height: 100vh;
 
   .content {
     background: $alpha-purple;
-    overflow-y: auto;
-    padding-left: 70px;
+    // overflow-y: auto;
+    // padding-left: 70px;
     position: relative;
   }
 }

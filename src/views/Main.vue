@@ -1,17 +1,23 @@
 <template>
   <LayoutSidebar data-test="main">
-    <router-view></router-view>
+    <template v-slot:sidebar>
+      <Sidebar />
+    </template>
+
+    <router-view />
   </LayoutSidebar>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import LayoutSidebar from '@/components/LayoutSidebar'
+import Sidebar from '@/components/Sidebar'
 
 export default {
   name: 'Main',
   components: {
     LayoutSidebar,
+    Sidebar,
   },
   created() {
     this.pollData()
