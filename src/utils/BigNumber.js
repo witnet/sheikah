@@ -17,4 +17,12 @@ export default class BigNumber {
   times(num) {
     return this.bigNumber.times(num)
   }
+
+  toFixed() {
+    return this.bigNumber.toFixed()
+  }
+
+  cmp(num) {
+    return this.bigNumber.cmp(num)
+  }
 }

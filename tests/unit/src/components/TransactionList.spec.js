@@ -64,7 +64,7 @@ function getData() {
     }),
     propsData: {
       transactions: getTransactionsMock(13),
-      transactionsLength: 87,
+      transactionsLength: '87',
       currency: 'nanoWit',
     },
     data() {
@@ -122,7 +122,7 @@ describe('Renders the correct elements when click is not triggered', () => {
       propsData: {
         transactions: [],
         currency: 'nanoWit',
-        transactionsLength: 0,
+        transactionsLength: '0',
       },
     })
 
@@ -136,7 +136,7 @@ describe('Renders the correct elements when click is not triggered', () => {
       propsData: {
         transactions: getTransactionsMock(3),
         currency: 'nanoWit',
-        transactionsLength: 3,
+        transactionsLength: '3',
       },
     })
 
@@ -148,7 +148,7 @@ describe('Renders the correct elements when click is not triggered', () => {
       propsData: {
         transactions: getTransactionsMock(3),
         currency: 'nanoWit',
-        transactionsLength: 3,
+        transactionsLength: '3',
       },
     })
 

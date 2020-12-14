@@ -216,7 +216,7 @@ export function standardizeAddresses(response) {
 
       return {
         receivedPayments: info.received_payments.length,
-        receivedAmount: new BigNumber(info.received_amount).toString(),
+        receivedAmount: info.received_amount,
         lastPaymentDate: new Date(Number(info.last_payment_date + '000')),
         firstPaymentDate: new Date(Number(info.first_payment_date + '000')),
         index: address.index,
@@ -261,24 +261,24 @@ export function standardizeTransactions(response) {
       type,
       inputs: inputs
         ? inputs.map(input => ({
-            value: new BigNumber(input.value).toString(),
+            value: input.value,
             address: input.address,
           }))
         : null,
       outputs: filteredOutputs.map(({ output, index }) => ({
-        value: new BigNumber(output.value).toString(),
+        value: output.value,
         address: output.address,
         timelock: output.time_lock,
         outputType: output.output_type,
         index: index,
       })),
-      fee: new BigNumber(miner_fee).toString(),
+      fee: miner_fee,
       date: changeDateFormat(timestamp),
       timestamp,
       label: '',
-      amount: new BigNumber(transaction.amount).toString(),
-      block: block.block_hash.toString(),
-      epoch: block.epoch.toString(),
+      amount: transaction.amount,
+      block: block.block_hash,
+      epoch: block.epoch,
       timelocked: outputs.some(
         output =>
           output.time_lock !== 0 &&
@@ -322,12 +322,11 @@ function computeTransactionAddress(inputs, outputs, type) {
 export function standardizeBalance(response) {
   if (!response.result) return response
   const balance = response.result.unconfirmed
-  // TODO(#1760): When the wallet is ready, it should receive the balance info as strings
   return {
     result: {
-      available: new BigNumber(balance.available).toString(),
-      locked: new BigNumber(balance.locked).toString(),
-      total: new BigNumber(balance.available).plus(balance.locked).toString(),
+      available: balance.available,
+      locked: balance.locked,
+      total: new BigNumber(balance.available).plus(balance.locked).toFixed(),
     },
   }
 }

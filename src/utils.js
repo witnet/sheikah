@@ -25,6 +25,18 @@ export function createNotification(notificationProps) {
   }
 }
 
+// validate Max number to send in transaction
+export function isGrtMaxNumber(value, unit) {
+  // 2**64 This is the max value of the u64 type in the wallet.
+  const maxNumber = '18446744073709551615'
+  return (
+    Number(value) &&
+    new BigNumber(standardizeWitUnits(value, WIT_UNIT.NANO, unit)).cmp(
+      new BigNumber(maxNumber),
+    ) === 1
+  )
+}
+
 // crop string to selected number of caracters
 export function cropString(string, caracters, position) {
   if (string) {
@@ -143,15 +155,14 @@ export function standardizeWitUnits(
     const num = new BigNumber(amount)
     const exponent = witUnitConversor[inputCurrency][outputCurrency]
     const result = num.times(new BigNumber(10).pow(exponent), 0)
-
     if (truncate === -1) {
-      return result.toString()
+      return result.toFixed()
     } else if (result.cmp(1) === -1) {
       // result < 1
       return result.toFixed()
     } else {
       return outputCurrency === WIT_UNIT.NANO
-        ? result.toString()
+        ? result.toFixed()
         : result.toFixed(truncate)
     }
   } else {

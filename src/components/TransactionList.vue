@@ -38,7 +38,7 @@
         :transaction-type="transaction.transactionType"
       />
       <div
-        v-if="transactionsLength === 0"
+        v-if="transactionsLength === '0'"
         class="no-transactions-container"
         data-test="empty-transactions"
       >
@@ -80,7 +80,7 @@ export default {
       required: true,
     },
     transactionsLength: {
-      type: Number,
+      type: String,
       required: true,
     },
   },

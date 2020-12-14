@@ -87,7 +87,7 @@ export default {
     title: '',
     radRequestResult: null,
     transactions: [],
-    transactionsLength: 0,
+    transactionsLength: '0',
     currentTransactionsPage: 1,
     txLabels: {},
     walletInfos: null,
@@ -520,38 +520,30 @@ export default {
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
         label,
-        fee: Number(
-          standardizeWitUnits(
-            parameters.fee,
-            WIT_UNIT.NANO,
-            context.state.currency,
-          ),
+        fee: standardizeWitUnits(
+          parameters.fee,
+          WIT_UNIT.NANO,
+          context.state.currency,
         ),
         request: {
           data_request: encodeDataRequest(request),
-          collateral: Number(
-            standardizeWitUnits(
-              parameters.collateral,
-              WIT_UNIT.NANO,
-              context.state.currency,
-            ),
+          collateral: standardizeWitUnits(
+            parameters.collateral,
+            WIT_UNIT.NANO,
+            context.state.currency,
           ),
-          witness_reward: Number(
-            standardizeWitUnits(
-              parameters.rewardFee,
-              WIT_UNIT.NANO,
-              context.state.currency,
-            ),
+          witness_reward: standardizeWitUnits(
+            parameters.rewardFee,
+            WIT_UNIT.NANO,
+            context.state.currency,
           ),
-          witnesses: Number(parameters.witnesses),
-          commit_and_reveal_fee: Number(
-            standardizeWitUnits(
-              parameters.commitAndRevealFee,
-              WIT_UNIT.NANO,
-              context.state.currency,
-            ),
+          witnesses: parameters.witnesses,
+          commit_and_reveal_fee: standardizeWitUnits(
+            parameters.commitAndRevealFee,
+            WIT_UNIT.NANO,
+            context.state.currency,
           ),
-          min_consensus_percentage: Number(parameters.minConsensusPercentage),
+          min_consensus_percentage: parameters.minConsensusPercentage,
         },
       }
       const req = await context.state.api.createDataRequest(data)
@@ -564,7 +556,7 @@ export default {
         context.commit('setError', {
           name: 'createDataRequest',
           error: req.error.message,
-          message: req.error.data[0][1],
+          message: req.error.data[0] ? req.error.data[0][1] : null,
         })
       }
     },
@@ -577,18 +569,14 @@ export default {
         outputs: [
           {
             address: address,
-            amount: parseInt(
-              standardizeWitUnits(
-                amount,
-                WIT_UNIT.NANO,
-                context.state.currency,
-              ),
+            amount: standardizeWitUnits(
+              amount,
+              WIT_UNIT.NANO,
+              context.state.currency,
             ),
           },
         ],
-        fee: parseInt(
-          standardizeWitUnits(fee, WIT_UNIT.NANO, context.state.currency),
-        ),
+        fee: standardizeWitUnits(fee, WIT_UNIT.NANO, context.state.currency),
         label,
       })
       if (request.result) {

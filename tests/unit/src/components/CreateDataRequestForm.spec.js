@@ -12,7 +12,7 @@ describe('CreateDataRequestForm.vue', () => {
               errors: {
                 createDataRequest: false,
               },
-              balance: { total: 400000000000 },
+              balance: { total: '400000000000' },
               currency: 'nanoWit',
             },
           },
@@ -64,7 +64,7 @@ describe('CreateDataRequestForm.vue', () => {
               errors: {
                 createDataRequest: false,
               },
-              balance: { total: 400000000000 },
+              balance: { total: '400000000000' },
               currency: 'nanoWit',
             },
           },
@@ -125,7 +125,7 @@ describe('CreateDataRequestForm.vue', () => {
                 errors: {
                   createDataRequest: true,
                 },
-                balance: { total: 400000000000 },
+                balance: { total: '400000000000' },
                 currency: 'nanoWit',
               },
             },
@@ -150,7 +150,7 @@ describe('CreateDataRequestForm.vue', () => {
                 errors: {
                   createDataRequest: false,
                 },
-                balance: { total: 400000000000 },
+                balance: { total: '400000000000' },
                 currency: 'nanoWit',
               },
             },
@@ -167,8 +167,6 @@ describe('CreateDataRequestForm.vue', () => {
     })
 
     it('should show an error if the input cannot be converted to number', async () => {
-      const spy = jest.spyOn(console, 'warn')
-
       const wrapper = mount(
         CreateDataRequestForm,
         createComponentMocks({
@@ -179,7 +177,7 @@ describe('CreateDataRequestForm.vue', () => {
                 errors: {
                   createDataRequest: false,
                 },
-                balance: { total: 400000000000 },
+                balance: { total: '400000000000' },
                 currency: 'nanoWit',
               },
             },
@@ -188,11 +186,13 @@ describe('CreateDataRequestForm.vue', () => {
       )
 
       wrapper.find('[data-test="commit-reveal-fee"]').setValue('hola')
-      wrapper.find('[data-test="create-data-request-submit"]').trigger('click')
-
-      expect(spy).toHaveBeenCalledWith('async-validator:', [
-        'commitAndRevealFee is required',
-      ])
+      wrapper.find('[data-test="collateral"]').setValue('10000000000')
+      await wrapper
+        .find('[data-test="create-data-request-submit"]')
+        .trigger('click')
+      expect(wrapper.find('.el-form-item__error').text()).toBe(
+        `This should be a number`,
+      )
     })
 
     it('should show an error if the input is less than 1 nanoWit', async () => {
@@ -206,7 +206,7 @@ describe('CreateDataRequestForm.vue', () => {
                 errors: {
                   createDataRequest: false,
                 },
-                balance: { total: 400000000000 },
+                balance: { total: '400000000000' },
                 currency: 'nanoWit',
               },
             },
@@ -236,7 +236,7 @@ describe('CreateDataRequestForm.vue', () => {
                 errors: {
                   createDataRequest: false,
                 },
-                balance: { total: 400000000000 },
+                balance: { total: '400000000000' },
                 currency: 'nanoWit',
               },
             },

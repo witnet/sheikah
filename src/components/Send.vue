@@ -70,7 +70,7 @@
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import FormInformation from '@/components/FormInformation.vue'
 import AppendCurrency from '@/components/AppendCurrency'
-import { standardizeWitUnits } from '@/utils'
+import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
 import { WIT_UNIT } from '@/constants'
 
 export default {
@@ -80,21 +80,18 @@ export default {
     FormInformation,
   },
   data() {
-    const integerNanoWit = (rule, value, callback) => {
-      const isNanoWit = this.currency === WIT_UNIT.NANO
-      if (isNanoWit && !Number.isInteger(Number(value))) {
-        callback(new Error('Only integer nanoWits values allowed'))
+    const maxNumber = (rule, value, callback) => {
+      if (isGrtMaxNumber(value, this.currency)) {
+        callback(new Error('This number is greater than the maximum'))
       } else {
         callback()
       }
     }
 
-    const maxNumber = (rule, value, callback) => {
-      if (
-        Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.currency)) >
-        Number.MAX_SAFE_INTEGER
-      ) {
-        callback(new Error('This number is greater than the maximum'))
+    const integerNanoWit = (rule, value, callback) => {
+      const isNanoWit = this.currency === WIT_UNIT.NANO
+      if (isNanoWit && !Number.isInteger(Number(value))) {
+        callback(new Error('Only integer nanoWits values allowed'))
       } else {
         callback()
       }

@@ -5,17 +5,14 @@
         <p class="entry">Amount</p>
         <Amount
           class="amount"
-          :amount="generatedTransaction.metadata.outputs[0].amount.toString()"
+          :amount="generatedTransaction.metadata.outputs[0].amount"
         />
         <p class="entry">To</p>
         <p class="value address">{{
           generatedTransaction.metadata.outputs[0].address
         }}</p>
         <p class="entry">Fee</p>
-        <Amount
-          class="amount"
-          :amount="generatedTransaction.metadata.fee.toString()"
-        />
+        <Amount class="amount" :amount="generatedTransaction.metadata.fee" />
       </div>
       <div v-else class="info">
         <p class="entry">Witnesses</p>

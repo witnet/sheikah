@@ -9,11 +9,7 @@
     width="max-content"
   >
     <el-form-item label="Witnesses" prop="witnesses">
-      <el-input
-        v-model="form.witnesses"
-        data-test="witnesses"
-        type="number"
-      ></el-input>
+      <el-input v-model="form.witnesses" data-test="witnesses"></el-input>
     </el-form-item>
 
     <el-form-item label="Collateral" prop="collateral">
@@ -29,7 +25,6 @@
       <el-input
         v-model="form.minConsensusPercentage"
         data-test="consensus"
-        type="number"
       ></el-input>
     </el-form-item>
 
@@ -46,11 +41,7 @@
     </el-form-item>
 
     <el-form-item label="Commit and reveal fee" prop="commitAndRevealFee">
-      <el-input
-        v-model="form.commitAndRevealFee"
-        data-test="commit-reveal-fee"
-        type="number"
-      >
+      <el-input v-model="form.commitAndRevealFee" data-test="commit-reveal-fee">
         <AppendCurrency slot="append" @change-currency="changeCurrency" />
       </el-input>
     </el-form-item>
@@ -78,7 +69,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import AppendCurrency from '@/components/AppendCurrency'
-import { standardizeWitUnits } from '@/utils'
+import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
 import { WIT_UNIT } from '@/constants'
 
 export default {
@@ -94,10 +85,7 @@ export default {
   },
   data() {
     const maxNumber = (rule, value, callback) => {
-      if (
-        Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.currency)) >
-        Number.MAX_SAFE_INTEGER
-      ) {
+      if (isGrtMaxNumber(value, this.currency)) {
         callback(new Error('This number is greater than the maximum'))
       } else {
         callback()
@@ -168,13 +156,13 @@ export default {
         [`${WIT_UNIT.NANO}`]: 0,
       },
       form: {
-        commitAndRevealFee: 1,
-        dataRequest: 1,
-        fee: 1,
-        minConsensusPercentage: 51,
-        rewardFee: 1,
-        witnesses: 3,
-        collateral: 1,
+        commitAndRevealFee: '1',
+        dataRequest: '1',
+        fee: '1',
+        minConsensusPercentage: '51',
+        rewardFee: '1',
+        witnesses: '3',
+        collateral: '1',
       },
       rules: {
         commitAndRevealFee: [
@@ -193,6 +181,7 @@ export default {
         dataRequest: [
           { required: true, message: 'Required field', trigger: 'blur' },
           { validator: isNumber, trigger: 'blur' },
+          { validator: maxNumber, trigger: 'blur' },
         ],
         fee: [
           { required: true, message: 'Required field', trigger: 'blur' },
