@@ -1,6 +1,5 @@
 <template>
   <div class="sidebar-container">
-    <div v-if="expanded" class="overlay" />
     <div
       :class="['sidebar', expanded ? 'expanded' : 'collapsed']"
       @mouseover="expandSidebar"
@@ -37,17 +36,6 @@
         >
           <font-awesome-icon class="icon" icon="code" />
           <span class="label">Data request</span>
-        </router-link>
-
-        <!-- Uncomment when marketplace is implemented -->
-        <!-- <router-link data-test="to-marketplace" class="link" to="/marketplace">
-          <font-awesome-icon class="icon" icon="shopping-bag" />
-          <span v-if="expanded" class="label">Marketplace</span>
-        </router-link> -->
-
-        <router-link data-test="to-community" class="link" to="/community">
-          <font-awesome-icon class="icon" icon="users" />
-          <span class="label">Community</span>
         </router-link>
       </div>
       <div class="settings">
@@ -152,19 +140,6 @@ export default {
 @import '@/styles/_colors.scss';
 
 .sidebar-container {
-  .overlay {
-    background-color: $grey-6;
-    height: 100%;
-    opacity: 0.5;
-    position: fixed;
-    -webkit-transition: all 0.4s ease-in ease-out;
-    -o-transition: all 0.4s ease-in ease-out;
-    -moz-transition: all 0.4s ease-in ease-out;
-    transition: opacity 0.4s ease;
-    width: 100%;
-    z-index: 20;
-  }
-
   .sidebar {
     background-color: $white;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -173,11 +148,8 @@ export default {
     grid-template-rows: 70px max-content auto 70px;
     min-height: 100vh;
     overflow: hidden;
+    position: fixed;
     z-index: 20;
-
-    &:hover {
-      position: fixed;
-    }
 
     &.expanded {
       -webkit-transition: all 0.4s ease-in ease-out;

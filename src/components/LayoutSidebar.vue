@@ -40,8 +40,7 @@ export default {
 
   .content {
     background: $alpha-purple;
-    // overflow-y: auto;
-    // padding-left: 70px;
+    padding-left: 70px;
     position: relative;
   }
 }

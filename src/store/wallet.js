@@ -20,6 +20,7 @@ import {
   WIT_UNIT,
   NETWORK_STATUS,
   TRANSACTIONS_LIMIT,
+  NOTIFICATIONS,
 } from '@/constants'
 import warning from '@/resources/svg/warning.png'
 
@@ -73,10 +74,10 @@ export default {
     seed: null,
     networkStatus: 'error',
     notifications: {
-      block: true,
-      transactions: true,
-      payments: true,
-      syncronization: true,
+      [NOTIFICATIONS.BLOCK.key]: true,
+      [NOTIFICATIONS.TRANSACTIONS.key]: true,
+      [NOTIFICATIONS.PAYMENTS.key]: true,
+      [NOTIFICATIONS.SYNCRONIZATION.key]: true,
     },
     status: {
       currentState: NETWORK_STATUS.WAITING_FOR_NODE_TO_SYNC,

@@ -1,10 +1,10 @@
 <template>
-  <el-dialog
+  <Card
+    class="card"
     title="Encrypt and export your xprv file"
-    :visible="true"
-    :show-close="false"
-    width="600px"
-    @close="closeAndClear"
+    :border="false"
+    shadow="thin"
+    :width="1000"
   >
     <a
       ref="download"
@@ -12,27 +12,25 @@
       :download="downloadName"
       style="display:none"
     ></a>
-    <div class="dialog-container">
-      <PasswordValidation
-        :error="createValidPasswordError"
-        :opening="openingLine"
-        :text="text"
-        @validate="encryptAndExport"
-        @input-password="setPassword"
-      />
-      <div class="submit">
-        <el-button
-          tabindex="5"
-          type="primary"
-          data-test="sign-send-btn"
-          @keydown.enter.esc.prevent="encryptAndExport"
-          @click="encryptAndExport"
-        >
-          Encrypt and export
-        </el-button>
-      </div>
+    <PasswordValidation
+      :error="createValidPasswordError"
+      :opening="openingLine"
+      :text="text"
+      @validate="encryptAndExport"
+      @input-password="setPassword"
+    />
+    <div class="submit">
+      <el-button
+        tabindex="5"
+        type="primary"
+        data-test="sign-send-btn"
+        @keydown.enter.esc.prevent="encryptAndExport"
+        @click="encryptAndExport"
+      >
+        Encrypt and export
+      </el-button>
     </div>
-  </el-dialog>
+  </Card>
 </template>
 
 <script>
@@ -40,11 +38,13 @@ import { EDITOR_EXPORT_FORMAT } from '@/constants'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import PasswordValidation from '@/components/PasswordValidation'
 import { createNotification } from '@/utils'
+import Card from '@/components/card/Card.vue'
 
 export default {
-  name: 'Send',
+  name: 'ExportXprv',
   components: {
     PasswordValidation,
+    Card,
   },
   data() {
     return {
@@ -96,11 +96,13 @@ export default {
         })
       }
     },
-    closeAndClear() {
+    clear() {
       if (this.createValidPasswordError) {
         this.clearError({ error: this.createValidPasswordError.name })
       }
-      this.$emit('close')
+    },
+    beforeDestroy() {
+      this.clear()
     },
     async encryptAndExport() {
       await this.validatePassword({
@@ -110,7 +112,7 @@ export default {
       if (this.validatedPassword) {
         await this.exportMasterKey({ password: this.password })
         await this.export(EDITOR_EXPORT_FORMAT.JSON)
-        this.closeAndClear()
+        this.clear()
       }
     },
   },
@@ -121,10 +123,6 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 @import '@/styles/scroll.scss';
-
-.dialog-container {
-  margin-right: 24px;
-}
 
 .label {
   color: $font-color-light;

@@ -84,8 +84,22 @@ export const GENESIS_EVENT_TIMESTAMP = 1602666000000
 // Syncing time estimador
 export const SYNCING_TIME_WINDOW_LENGTH = 100
 
+export const NOTIFICATIONS = {
+  BLOCK: { key: 'block', title: 'Block notifications' },
+  TRANSACTIONS: { key: 'transactions', title: 'Transactions notifications' },
+  PAYMENTS: { key: 'payments', title: 'Payments notifications' },
+  SYNCRONIZATION: {
+    key: 'syncronization',
+    title: 'Syncronization notifications',
+  },
+}
+
 export const SETTINGS = {
   CURRENCY: 'CURRENCY',
+  RESYNC: 'RESYNC',
+  EXPORT_XPRV: 'EXPORT_XPRV',
+  COMMUNITY: 'COMMUNITY',
+  NOTIFICATIONS: 'NOTIFICATIONS',
 }
 
 export const SETTINGS_SECTIONS = {
@@ -97,7 +111,7 @@ export const SETTINGS_SECTIONS = {
 
 export const SETTINGS_BY_SECTION = {
   GENERAL: [SETTINGS.CURRENCY],
-  ADVANCED: [],
-  NOTIFICATIONS: [],
-  ABOUT: [],
+  ADVANCED: [SETTINGS.EXPORT_XPRV, SETTINGS.RESYNC],
+  NOTIFICATIONS: [SETTINGS.NOTIFICATIONS],
+  ABOUT: [SETTINGS.COMMUNITY],
 }

@@ -43,7 +43,7 @@ export default {
     color: #444258;
     font-size: 24px;
     font-weight: 500;
-    margin: 16px 0;
+    margin: 24px 0;
     padding-left: 24px;
     width: 250px;
   }
@@ -57,6 +57,7 @@ export default {
       display: flex;
       flex-direction: column;
       height: 77px;
+      justify-content: center;
       padding: 8px 24px;
       width: 250px;
 
@@ -67,7 +68,7 @@ export default {
       }
 
       .name {
-        font-weight: 600;
+        font-weight: 500;
       }
 
       .description {

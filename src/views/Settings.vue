@@ -10,8 +10,14 @@
     <div class="content">
       <SettingsSection :settings="settings" />
     </div>
-
-    <font-awesome-icon class="icon cross" icon="times" @click="close" />
+    <div
+      class="close"
+      @mouseenter="hoverAction"
+      @mouseleave="mouseLeaveAction"
+      @click="close"
+    >
+      <img class="cross" :src="btnUrl" />
+    </div>
   </LayoutSidebar>
 </template>
 
@@ -31,9 +37,9 @@ export default {
     SettingsSection,
   },
   data() {
-    console.log(this.$store)
     return {
       previousRoute: '',
+      btnUrl: require('@/resources/svg/close-btn.svg'),
     }
   },
   computed: {
@@ -47,8 +53,11 @@ export default {
         NOTIFICATIONS: SETTINGS_BY_SECTION.NOTIFICATIONS,
         ABOUT: SETTINGS_BY_SECTION.ABOUT,
       }
-
-      return sectionsDictionary[this.$route.name]
+      if (this.$route.name) {
+        return sectionsDictionary[this.$route.name]
+      } else {
+        return []
+      }
     },
     sections() {
       const walletSections = ['Advanced']
@@ -89,6 +98,12 @@ export default {
     close() {
       this.$router.push(this.previousRoute)
     },
+    hoverAction() {
+      this.btnUrl = require('@/resources/svg/close-btn-light.svg')
+    },
+    mouseLeaveAction() {
+      this.btnUrl = require('@/resources/svg/close-btn.svg')
+    },
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -105,22 +120,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+
 .content {
-  padding: 64px 48px;
+  padding: 64px;
   width: 100%;
-  width: 584px;
+  width: 760px;
 }
 
-.cross {
-  color: rgba(155, 81, 224, 0.8);
+.close {
+  border: 2px solid $grey-2;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 32px;
+  height: 36px;
+  padding: 8px;
   position: fixed;
   right: 56px;
   top: 32px;
 
   &:hover {
-    color: rgba(155, 81, 224);
+    background-color: $grey-2;
+  }
+
+  .cross {
+    width: 16px;
   }
 }
 </style>

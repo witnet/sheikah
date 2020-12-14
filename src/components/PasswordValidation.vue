@@ -132,7 +132,7 @@ export default {
   &.password {
     display: flex;
     justify-content: space-between;
-    max-width: none;
+    max-width: 550px;
   }
 
   &.form-row:last-of-type {

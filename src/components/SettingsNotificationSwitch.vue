@@ -4,7 +4,6 @@
     class="notification"
     data-test="action-try"
     active-color="#b47de8"
-    :active-text="title"
   ></el-switch>
 </template>
 
