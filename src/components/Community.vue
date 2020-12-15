@@ -92,7 +92,7 @@ export default {
 
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 650px);
+  grid-template-columns: repeat(auto-fill, auto);
   justify-content: center;
   overflow: hidden;
 

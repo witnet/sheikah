@@ -603,7 +603,9 @@ export default {
         fee: standardizeWitUnits(fee, WIT_UNIT.NANO, context.state.currency),
         label,
       })
+      console.log(request)
       if (request.result) {
+        console.log(request.result)
         const generatedTransaction = request.result
         context.commit('setGeneratedTransaction', {
           transaction: generatedTransaction,

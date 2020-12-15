@@ -7,7 +7,7 @@
         :key="section.route"
         class="menu-item"
         :class="{ active: activeSection === section.route }"
-        @click="$router.push(section.route)"
+        @click="section.route !== activeSection ? $router.push(section.route) : null"
       >
         <p class="name">{{ section.name }}</p>
         <p class="description">{{ section.description }}</p>

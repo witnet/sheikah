@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <router-view />
+    <transition :name="transitionName">
+      <router-view />
+    </transition>
     <Notification />
-
     <ResyncConfirmation v-if="isResyncConfirmationVisible" />
   </div>
 </template>
@@ -21,6 +22,7 @@ export default {
     return {
       loading: true,
       polling: null,
+      transitionName: null,
     }
   },
   computed: {
@@ -32,8 +34,13 @@ export default {
     }),
   },
   watch: {
-    $route: function(from, to) {
+    $route: function(to, from) {
       this.loading = false
+      if (to.path.includes('/settings') || from.path.includes('/settings')) {
+        this.transitionName = 'zoom';
+      } else {
+        this.transitionName = null;
+      }
     },
   },
   async created() {
@@ -68,6 +75,31 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 @import '@/styles/app.global.scss';
+
+.zoom-enter-active {
+  animation: zoom .2s;
+}
+
+.zoom-leave-active {
+  animation: zoom .2s reverse;
+}
+
+@keyframes zoom {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale3d(1, 1, 1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
 
 .app {
   min-height: 100vh;

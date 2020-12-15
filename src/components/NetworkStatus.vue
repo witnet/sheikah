@@ -86,7 +86,7 @@
         </p>
         <p v-if="isSynced" data-test="last-block" class="text">
           Last block <span class="bold">#{{ lastSync }}</span>
-          <span v-if="timeAgo !== 0"> ({{ calculateTimeAgo(timeAgo) }})</span>
+          <span v-if="timeAgo && timeAgo !== 0"> ({{ calculateTimeAgo(timeAgo) }})</span>
         </p>
       </div>
     </transition>

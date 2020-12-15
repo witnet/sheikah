@@ -1,24 +1,24 @@
 <template>
-  <LayoutSidebar>
-    <template v-slot:sidebar>
-      <SettingsSidebar
-        class="sidebar"
-        :sections="sections"
-        :active-section="activeRoute.route"
-      />
-    </template>
-    <div class="content">
-      <SettingsSection :settings="settings" />
-    </div>
-    <div
-      class="close"
-      @mouseenter="hoverAction"
-      @mouseleave="mouseLeaveAction"
-      @click="close"
-    >
-      <img class="cross" :src="btnUrl" />
-    </div>
-  </LayoutSidebar>
+<LayoutSidebar>
+  <template v-slot:sidebar>
+    <SettingsSidebar
+      class="sidebar"
+      :sections="sections"
+      :active-section="activeRoute.route"
+    />
+  </template>
+  <div class="content">
+    <SettingsSection :settings="settings" />
+  </div>
+  <div
+    class="close"
+    @mouseenter="hoverAction"
+    @mouseleave="mouseLeaveAction"
+    @click="close"
+  >
+    <img class="cross" :src="btnUrl" />
+  </div>
+</LayoutSidebar>
 </template>
 
 <script>
@@ -34,7 +34,7 @@ export default {
   components: {
     SettingsSidebar,
     LayoutSidebar,
-    SettingsSection,
+    SettingsSection
   },
   data() {
     return {
@@ -123,7 +123,7 @@ export default {
 @import '@/styles/_colors.scss';
 
 .content {
-  padding: 64px;
+  padding: 64px 0;
   width: 100%;
   width: 760px;
 }

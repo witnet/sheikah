@@ -16,7 +16,7 @@ export default {
           'div',
           {
             attrs: {
-              class: 'content',
+              class: 'main',
             },
           },
           /** @slot Default slot will be rendered next to the sidebar */
@@ -38,7 +38,7 @@ export default {
   grid-template-rows: 1fr;
   min-height: 100vh;
 
-  .content {
+  .main {
     background: $alpha-purple;
     padding-left: 70px;
     position: relative;

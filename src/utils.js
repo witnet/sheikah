@@ -275,6 +275,7 @@ export function changeDateFormat(timestamp) {
 
 /// calculate the time passed from a given date
 export function calculateTimeAgo(date) {
+  console.log(date)
   const timestampLength = date.toString().length
   const d = timestampLength < 13 ? date + '000' : date
   const currentDate = new Date(Number(d))

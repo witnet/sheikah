@@ -10,6 +10,11 @@
         Sheikah keeps your Witnet wallet safe and helps you build, share and
         deploy data requests into the Witnet network.
       </p>
+      <font-awesome-icon
+        icon="cog"
+        class="icon"
+        @click="$router.push('/settings/general')"
+      />
     </div>
     <WalletSeedTypeSelection />
   </div>
@@ -71,6 +76,12 @@ export default {
     .row {
       margin-bottom: 24px;
       text-align: left;
+    }
+
+    .icon {
+      color: $alt-grey-5;
+      cursor: pointer;
+      font-size: 20px;
     }
 
     .title {
