@@ -1,7 +1,12 @@
 <template>
   <Card class="card" title="Default currency" :border="false" shadow="thin">
     <p class="text">Select the default currency</p>
-    <Select v-model="actualCurrency" type="big" :options="options" />
+    <Select
+      v-model="actualCurrency"
+      data-test="select-currency"
+      type="big"
+      :options="options"
+    />
   </Card>
 </template>
 

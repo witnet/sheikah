@@ -21,7 +21,7 @@
           ref="password"
           v-model="repeatedPassword"
           class="password"
-          data-test="password"
+          data-test="repeated-password"
           placeholder="Confirm password"
           show-password
           @keydown.enter.native="validate"

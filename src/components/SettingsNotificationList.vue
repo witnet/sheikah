@@ -9,9 +9,10 @@
     <div
       v-for="notification in notifications"
       :key="notification.key"
+      :data-test="notification.key"
       class="notification-border"
     >
-      <p>{{ notification.title }}</p>
+      <p :data-test="`title-${notification.key}`">{{ notification.title }}</p>
       <SettingsNotificationSwitch :title="notification.key" />
     </div>
   </Card>

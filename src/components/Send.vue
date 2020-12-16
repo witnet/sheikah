@@ -121,7 +121,7 @@ export default {
         address: '',
         label: '',
         amount: null,
-        fee: null,
+        fee: 1,
       },
       rules: {
         // address validation is updated on runtime according to the network

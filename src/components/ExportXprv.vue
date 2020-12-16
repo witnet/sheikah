@@ -23,7 +23,7 @@
       <el-button
         tabindex="5"
         type="primary"
-        data-test="sign-send-btn"
+        data-test="export-btn"
         @keydown.enter.esc.prevent="encryptAndExport"
         @click="encryptAndExport"
       >

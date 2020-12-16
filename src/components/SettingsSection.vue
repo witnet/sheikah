@@ -3,15 +3,29 @@
     <div v-for="setting in settings" :key="setting">
       <SettingsOptionCurrency
         v-if="setting === SETTINGS.CURRENCY"
+        data-test="settings-currency"
         class="setting"
       />
-      <ExportXprv v-if="setting === SETTINGS.EXPORT_XPRV" class="setting" />
+      <ExportXprv
+        v-if="setting === SETTINGS.EXPORT_XPRV"
+        data-test="settings-xprv"
+        class="setting"
+      />
       <SettingsNotificationList
         v-if="setting === SETTINGS.NOTIFICATIONS"
+        data-test="settings-notifications"
         class="setting"
       />
-      <Community v-if="setting === SETTINGS.COMMUNITY" class="setting" />
-      <SettingsResync v-if="setting === SETTINGS.RESYNC" class="setting" />
+      <Community
+        v-if="setting === SETTINGS.COMMUNITY"
+        data-test="settings-community"
+        class="setting"
+      />
+      <SettingsResync
+        v-if="setting === SETTINGS.RESYNC"
+        data-test="settings-resync"
+        class="setting"
+      />
     </div>
   </div>
 </template>

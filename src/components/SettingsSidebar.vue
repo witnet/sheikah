@@ -5,14 +5,17 @@
       <li
         v-for="section in sections"
         :key="section.route"
+        :data-test="`section-${section.name}`"
         class="menu-item"
         :class="{ active: activeSection === section.route }"
         @click="
           section.route !== activeSection ? $router.push(section.route) : null
         "
       >
-        <p class="name">{{ section.name }}</p>
-        <p class="description">{{ section.description }}</p>
+        <p class="name" :data-test="section.name">{{ section.name }}</p>
+        <p class="description" :data-test="section.description">{{
+          section.description
+        }}</p>
       </li>
     </ul>
   </div>

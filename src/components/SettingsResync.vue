@@ -8,9 +8,10 @@
     <div class="btn-container">
       <el-button
         :disabled="!isResyncButtonVisible"
+        data-test="resync-button"
         type="primary"
         class="resync"
-        @click="$store.commit('showResyncConfirmation')"
+        @click="showResyncConfirmation"
       >
         <font-awesome-icon class="icon" icon="sync-alt" />
         Resync
@@ -21,7 +22,7 @@
 
 <script>
 import Card from '@/components/card/Card.vue'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { NETWORK_STATUS } from '@/constants'
 
 export default {
@@ -39,6 +40,11 @@ export default {
           this.isNodeSynced)
       )
     },
+  },
+  methods: {
+    ...mapMutations({
+      showResyncConfirmation: 'showResyncConfirmation',
+    }),
   },
 }
 </script>
