@@ -231,6 +231,14 @@ export class LocalStorageApi {
   setNotificationsSettings(notifications) {
     return this._set('notificationsSettings', notifications)
   }
+
+  getCurrencySettings() {
+    return this._get('currencySettings')
+  }
+
+  setCurrencySettings(currency) {
+    return this._set('currencySettings', currency)
+  }
 }
 
 export function standardizeAddresses(response) {

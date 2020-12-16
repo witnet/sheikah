@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <div v-for="setting in settings" :key="setting">
       <SettingsOptionCurrency
         v-if="setting === SETTINGS.CURRENCY"
@@ -50,5 +50,7 @@ export default {
 <style scoped lang="scss">
 .setting {
   margin-bottom: 16px;
+  margin-left: 70px;
+  width: 600px;
 }
 </style>

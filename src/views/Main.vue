@@ -1,22 +1,17 @@
 <template>
-  <LayoutSidebar data-test="main">
-    <template v-slot:sidebar>
-      <Sidebar />
-    </template>
-
-    <router-view />
-  </LayoutSidebar>
+  <div class="layout">
+    <Sidebar />
+    <router-view class="main" />
+  </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import LayoutSidebar from '@/components/LayoutSidebar'
 import Sidebar from '@/components/Sidebar'
 
 export default {
   name: 'Main',
   components: {
-    LayoutSidebar,
     Sidebar,
   },
   created() {
@@ -43,3 +38,25 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import '@/styles/_colors.scss';
+@import '@/styles/theme.scss';
+
+.layout {
+  background: $alpha-purple;
+  display: grid;
+  grid-template-columns: 70px 1fr;
+}
+
+.sidebar {
+  grid-row-end: span 2;
+}
+
+.main {
+  background: $alpha-purple;
+  display: grid;
+  grid-column: 2;
+  min-height: 100vh;
+}
+</style>

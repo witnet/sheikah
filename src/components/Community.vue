@@ -4,7 +4,6 @@
       v-for="social in socials"
       :key="social.content"
       :data-test="social.url"
-      class="card"
       :url="social.url"
     >
       <template v-slot:header>
@@ -90,20 +89,10 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, auto);
-  justify-content: center;
-  overflow: hidden;
-
-  .card {
-    margin: 24px;
-  }
-}
-
 .community-link {
   color: $purple-4;
   cursor: pointer;
+  margin-bottom: 24px;
   text-decoration: none;
 
   &:hover,

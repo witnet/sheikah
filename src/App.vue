@@ -37,15 +37,16 @@ export default {
     $route: function(to, from) {
       this.loading = false
       if (to.path.includes('/settings') || from.path.includes('/settings')) {
-        this.transitionName = 'zoom';
+        this.transitionName = 'zoom'
       } else {
-        this.transitionName = null;
+        this.transitionName = null
       }
     },
   },
   async created() {
     this.pollData()
     this.getNotifications()
+    this.getCurrency()
     // Disable back and forward from keyboard and mouse buttons
     window.onpopstate = function(event) {
       event.stopImmediatePropagation()
@@ -62,6 +63,7 @@ export default {
     ...mapActions({
       getWalletInfos: 'getWalletInfos',
       getNotifications: 'getNotifications',
+      getCurrency: 'getCurrency',
     }),
     pollData() {
       this.polling = setInterval(() => {
@@ -77,11 +79,11 @@ export default {
 @import '@/styles/app.global.scss';
 
 .zoom-enter-active {
-  animation: zoom .2s;
+  animation: zoom 0.2s;
 }
 
 .zoom-leave-active {
-  animation: zoom .2s reverse;
+  animation: zoom 0.2s reverse;
 }
 
 @keyframes zoom {

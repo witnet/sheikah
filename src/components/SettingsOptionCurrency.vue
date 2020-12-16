@@ -9,7 +9,7 @@
 import Card from '@/components/card/Card.vue'
 import Select from '@/components/Select.vue'
 import { WIT_UNIT } from '@/constants'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'SettingsOptionCurrenty',
@@ -28,12 +28,17 @@ export default {
     }),
     actualCurrency: {
       set(val) {
-        return this.$store.commit('setCurrency', val.value)
+        this.changeDefaultCurrency(val.value)
       },
       get() {
         return { primaryText: this.currency, value: this.currency }
       },
     },
+  },
+  methods: {
+    ...mapMutations({
+      changeDefaultCurrency: 'changeDefaultCurrency',
+    }),
   },
 }
 </script>

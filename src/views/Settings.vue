@@ -1,24 +1,22 @@
 <template>
-<LayoutSidebar>
-  <template v-slot:sidebar>
+  <div class="settings-layout">
     <SettingsSidebar
       class="sidebar"
       :sections="sections"
       :active-section="activeRoute.route"
     />
-  </template>
-  <div class="content">
-    <SettingsSection :settings="settings" />
+    <div class="settings-content">
+      <SettingsSection :settings="settings" />
+      <div
+        class="close"
+        @mouseenter="hoverAction"
+        @mouseleave="mouseLeaveAction"
+        @click="close"
+      >
+        <img class="cross" :src="btnUrl" />
+      </div>
+    </div>
   </div>
-  <div
-    class="close"
-    @mouseenter="hoverAction"
-    @mouseleave="mouseLeaveAction"
-    @click="close"
-  >
-    <img class="cross" :src="btnUrl" />
-  </div>
-</LayoutSidebar>
 </template>
 
 <script>
@@ -26,15 +24,13 @@ import { mapState } from 'vuex'
 
 import { SETTINGS_BY_SECTION } from '@/constants'
 import SettingsSidebar from '@/components/SettingsSidebar'
-import LayoutSidebar from '@/components/LayoutSidebar.vue'
 import SettingsSection from '@/components/SettingsSection.vue'
 
 export default {
   name: 'Settings',
   components: {
     SettingsSidebar,
-    LayoutSidebar,
-    SettingsSection
+    SettingsSection,
   },
   data() {
     return {
@@ -122,10 +118,23 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
 
-.content {
-  padding: 64px 0;
-  width: 100%;
-  width: 760px;
+.settings-layout {
+  background: $alpha-purple;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+}
+
+.sidebar {
+  grid-row-end: span 2;
+}
+
+.settings-content {
+  display: grid;
+  grid-column: 2;
+  grid-template-columns: repeat(auto-fill, auto);
+  min-height: 100vh;
+  overflow: hidden;
+  padding-top: 64px;
 }
 
 .close {
@@ -133,9 +142,9 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   height: 36px;
+  left: 1140px;
   padding: 8px;
   position: fixed;
-  right: 56px;
   top: 32px;
 
   &:hover {

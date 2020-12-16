@@ -33,16 +33,20 @@ export default {
 @import '@/styles/theme.scss';
 
 .layout {
+  background: $alpha-purple;
   display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr;
-  min-height: 100vh;
+  grid-template-columns: 70px 1fr;
+}
 
-  .main {
-    background: $alpha-purple;
-    padding-left: 70px;
-    position: relative;
-  }
+.sidebar {
+  grid-row-end: span 2;
+}
+
+.main {
+  background: $alpha-purple;
+  display: grid;
+  grid-column: 2;
+  min-height: 100vh;
 }
 </style>
 

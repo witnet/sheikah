@@ -37,14 +37,14 @@ export default {
 .layout {
   display: grid;
   gap: 25px;
-  grid-template: 1fr / 1fr 350px;
-  overflow: auto;
+  grid-template-columns: 1fr 350px;
+  overflow-y: auto;
   padding: 25px;
 
   .col-right {
-    display: grid;
-    gap: 20px;
-    grid-template: auto 1fr / 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 }
 </style>

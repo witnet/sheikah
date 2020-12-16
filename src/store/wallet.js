@@ -137,6 +137,9 @@ export default {
       state.notifications[name] = !state.notifications[name]
       state.localStorage.setNotificationsSettings(state.notifications)
     },
+    setCurrency(state, currency) {
+      state.currency = currency
+    },
     setNotifications(state, notifications) {
       state.notifications = notifications
     },
@@ -194,9 +197,10 @@ export default {
         state.balance = balance
       }
     },
-    setCurrency(state, currency) {
+    changeDefaultCurrency(state, currency) {
       if (Object.values(WIT_UNIT).includes(currency)) {
         state.currency = currency
+        state.localStorage.setCurrencySettings(state.currency)
       } else {
         console.warn('[mutation setCurrency]: invalid currency')
       }
@@ -603,9 +607,7 @@ export default {
         fee: standardizeWitUnits(fee, WIT_UNIT.NANO, context.state.currency),
         label,
       })
-      console.log(request)
       if (request.result) {
-        console.log(request.result)
         const generatedTransaction = request.result
         context.commit('setGeneratedTransaction', {
           transaction: generatedTransaction,
@@ -823,6 +825,13 @@ export default {
           })
         }
       }
+    },
+    getCurrency: async function(context) {
+      const currency = context.state.localStorage.getCurrencySettings()
+      const defaultCurrency = context.state.currency
+      currency
+        ? context.commit('setCurrency', currency)
+        : context.commit('setCurrency', defaultCurrency)
     },
     getNotifications: async function(context) {
       const notifications = context.state.localStorage.getNotificationsSettings()

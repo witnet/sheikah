@@ -7,7 +7,9 @@
         :key="section.route"
         class="menu-item"
         :class="{ active: activeSection === section.route }"
-        @click="section.route !== activeSection ? $router.push(section.route) : null"
+        @click="
+          section.route !== activeSection ? $router.push(section.route) : null
+        "
       >
         <p class="name">{{ section.name }}</p>
         <p class="description">{{ section.description }}</p>
@@ -35,9 +37,13 @@ export default {
 <style lang="scss" scoped>
 .settings-sidebar {
   align-items: flex-end;
+  background: white;
   display: flex;
   flex-direction: column;
-  width: 337px;
+  min-height: 100vh;
+  position: fixed;
+  width: 400px;
+  z-index: 20;
 
   .title {
     color: #444258;

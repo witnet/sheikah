@@ -208,6 +208,8 @@ export default {
     grid-gap: 24px;
     grid-template-columns: repeat(auto-fill, 300px);
     margin: 0 32px;
+    min-height: 90vh;
+    overflow-y: auto;
 
     .add {
       align-items: center;
