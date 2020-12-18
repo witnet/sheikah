@@ -52,11 +52,9 @@
             />
           </el-tooltip>
         </div>
-        <font-awesome-icon
-          icon="cog"
-          class="icon"
-          @click="$router.push('/settings/general')"
-        />
+        <div class="icon-container" @click="$router.push('/settings/general')">
+          <font-awesome-icon icon="cog" class="icon" />
+        </div>
       </div>
     </div>
     <ExportXprv v-if="isEncryptXprvVisible" @close="collapseSidebar" />
@@ -241,7 +239,10 @@ export default {
       justify-items: center;
 
       .icon-container {
+        cursor: pointer;
         display: flex;
+        margin: -10px;
+        padding: 10px;
       }
 
       .exit-icon {

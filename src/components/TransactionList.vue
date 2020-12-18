@@ -16,7 +16,7 @@
           :id="transaction.id"
           :key="transaction.id"
           :data-test="`transaction-${index}`"
-          :currency="currency"
+          :unit="unit"
           :type="transaction.type"
           :inputs="transaction.inputs"
           :outputs="transaction.outputs"
@@ -72,7 +72,7 @@ export default {
     Transaction,
   },
   props: {
-    currency: {
+    unit: {
       type: String,
       required: true,
     },
@@ -175,7 +175,7 @@ export default {
 ### Example
 #### Empty
 ```jsx
-  <TransactionList :transactions="[]" currency="nanoWits" />
+  <TransactionList :transactions="[]" unit="nanoWits" />
 ```
 
 #### Without pagination
@@ -199,7 +199,7 @@ export default {
   }]
 
   <TransactionList
-    currency="nanoWits"
+    unit="nanoWits"
     :transactions="transactions"
   />
 ```
@@ -711,6 +711,6 @@ export default {
     transactionType: 'mint',
   }]
 
-  <TransactionList :transactions="transactions" currency="nanoWits" />
+  <TransactionList :transactions="transactions" unit="nanoWits" />
 ```
 </docs>

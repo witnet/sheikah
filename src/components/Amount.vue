@@ -1,16 +1,14 @@
 <template>
-  <div class="amount-container" data-test="amount" @click="callChangeCurrency">
+  <div class="amount-container" data-test="amount" @click="callChangeUnit">
     <span>
-      {{
-        formatNumber(standardizeWitUnits(amount, currency, WIT_UNIT.NANO, 2))
-      }}
+      {{ formatNumber(standardizeWitUnits(amount, unit, WIT_UNIT.NANO, 2)) }}
     </span>
     <span
-      data-test="currency"
-      class="currency"
-      :class="{ ['keep-dark']: currencyDark, ['keep-light']: currencyLight }"
+      data-test="unit"
+      class="unit"
+      :class="{ ['keep-dark']: unitDark, ['keep-light']: unitLight }"
     >
-      {{ currency }}
+      {{ unit }}
     </span>
   </div>
 </template>
@@ -27,11 +25,11 @@ export default {
       type: [String, Number],
       required: true,
     },
-    currencyLight: {
+    unitLight: {
       type: Boolean,
       default: false,
     },
-    currencyDark: {
+    unitDark: {
       type: Boolean,
       default: false,
     },
@@ -43,18 +41,18 @@ export default {
   },
   computed: {
     ...mapState({
-      currency: state => state.wallet.currency,
+      unit: state => state.wallet.unit,
     }),
   },
   methods: {
-    callChangeCurrency(e) {
-      this.changeCurrency()
+    callChangeUnit(e) {
+      this.changeUnit()
       e.stopPropagation()
     },
     standardizeWitUnits,
     formatNumber,
     cropString,
-    ...mapMutations(['changeCurrency']),
+    ...mapMutations(['changeUnit']),
   },
 }
 </script>
@@ -69,7 +67,7 @@ export default {
     cursor: pointer;
   }
 
-  .currency {
+  .unit {
     color: inherit;
     font-size: 13px;
     margin-left: 4px;

@@ -9,7 +9,7 @@
           alt=""
         />
         <Amount
-          :currency-dark="true"
+          :unit-dark="true"
           data-test="amount"
           class="amount"
           :class="[origin.toLowerCase()]"
@@ -60,7 +60,7 @@
           data-test="inputs-outputs"
           :fee="fee"
           :genesis="address === 'genesis'"
-          :currency="currency"
+          :unit="unit"
           :inputs="inputs"
           :outputs="outputs"
         />
@@ -84,7 +84,7 @@ export default {
     Amount,
   },
   props: {
-    currency: {
+    unit: {
       type: String,
       required: true,
     },
@@ -272,7 +272,7 @@ export default {
 
 ```jsx
   <Transaction
-    currency="nanoWits"
+    unit="nanoWits"
     :amount="123"
     block="511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f"
     :border="false"
@@ -293,7 +293,7 @@ export default {
 
 ```jsx
   <Transaction
-    currency="nanoWits"
+    unit="nanoWits"
     :timelocked="false"
     :amount="123"
     block="511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f"
@@ -315,7 +315,7 @@ export default {
 
 ```jsx
   <Transaction
-    currency="nanoWits"
+    unit="nanoWits"
     :timelocked="false"
     :amount="123"
     block="511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f"

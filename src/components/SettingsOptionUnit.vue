@@ -1,9 +1,9 @@
 <template>
-  <Card class="card" title="Default currency" :border="false" shadow="thin">
-    <p class="text">Select the default currency</p>
+  <Card class="card" title="Default unit" :border="false" shadow="thin">
+    <p class="text">Select the default unit</p>
     <Select
-      v-model="actualCurrency"
-      data-test="select-currency"
+      v-model="actualUnit"
+      data-test="select-unit"
       type="big"
       :options="options"
     />
@@ -29,20 +29,20 @@ export default {
   },
   computed: {
     ...mapState({
-      currency: state => state.wallet.currency,
+      unit: state => state.wallet.unit,
     }),
-    actualCurrency: {
+    actualUnit: {
       set(val) {
-        this.changeDefaultCurrency(val.value)
+        this.changeDefaultUnit(val.value)
       },
       get() {
-        return { primaryText: this.currency, value: this.currency }
+        return { primaryText: this.unit, value: this.unit }
       },
     },
   },
   methods: {
     ...mapMutations({
-      changeDefaultCurrency: 'changeDefaultCurrency',
+      changeDefaultUnit: 'changeDefaultUnit',
     }),
   },
 }

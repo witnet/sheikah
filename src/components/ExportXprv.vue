@@ -4,7 +4,6 @@
     title="Encrypt and export your xprv file"
     :border="false"
     shadow="thin"
-    :width="1000"
   >
     <a
       ref="download"
@@ -126,7 +125,6 @@ export default {
 
 .label {
   color: $font-color-light;
-  width: 100px;
 }
 
 .submit {

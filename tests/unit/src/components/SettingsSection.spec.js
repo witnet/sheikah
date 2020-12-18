@@ -2,19 +2,17 @@ import SettingsSection from '@/components/SettingsSection'
 
 describe('SettingsSection.vue', () => {
   describe('should render properly', () => {
-    it('should render the currency section', () => {
+    it('should render the unit section', () => {
       const wrapper = shallowMount(SettingsSection, {
         propsData: {
-          settings: ['CURRENCY'],
+          settings: ['UNIT'],
         },
       })
 
-      expect(wrapper.find('[data-test="settings-currency"]').exists()).toBe(
-        true,
-      )
+      expect(wrapper.find('[data-test="settings-unit"]').exists()).toBe(true)
     })
 
-    it('should render the currency section', () => {
+    it('should render the unit section', () => {
       const wrapper = shallowMount(SettingsSection, {
         propsData: {
           settings: ['COMMUNITY'],
@@ -26,7 +24,7 @@ describe('SettingsSection.vue', () => {
       )
     })
 
-    it('should render the currency section', () => {
+    it('should render the unit section', () => {
       const wrapper = shallowMount(SettingsSection, {
         propsData: {
           settings: ['NOTIFICATIONS'],
@@ -38,7 +36,7 @@ describe('SettingsSection.vue', () => {
       ).toBe(true)
     })
 
-    it('should render the currency section', () => {
+    it('should render the unit section', () => {
       const wrapper = shallowMount(SettingsSection, {
         propsData: {
           settings: ['EXPORT_XPRV', 'RESYNC'],

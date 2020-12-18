@@ -61,12 +61,12 @@ export default {
       const sections = [
         {
           name: 'General',
-          description: 'Language, appearence ...',
+          description: 'Default unit',
           route: '/settings/general',
         },
         {
           name: 'Advanced',
-          description: 'Node-Wallet connection ...',
+          description: 'Node-Wallet connection',
           route: '/settings/advanced',
         },
         {
@@ -121,7 +121,7 @@ export default {
 .settings-layout {
   background: $alpha-purple;
   display: grid;
-  grid-template-columns: 400px 1fr;
+  grid-template-columns: 30vw 1fr;
 }
 
 .sidebar {
@@ -135,6 +135,8 @@ export default {
   min-height: 100vh;
   overflow: hidden;
   padding-top: 64px;
+  position: relative;
+  width: 50vw;
 }
 
 .close {
@@ -142,9 +144,9 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   height: 36px;
-  left: 1140px;
   padding: 8px;
-  position: fixed;
+  position: absolute;
+  right: 0;
   top: 32px;
 
   &:hover {

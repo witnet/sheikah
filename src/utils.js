@@ -120,11 +120,11 @@ export function encodeAggregationTally(stage) {
 // Convert the received amount of nanoWits into selected unit
 export function standardizeWitUnits(
   amount,
-  outputCurrency,
-  inputCurrency = WIT_UNIT.NANO,
+  outputUnit,
+  inputUnit = WIT_UNIT.NANO,
   truncate = 2,
 ) {
-  // from input currency to output currency
+  // from input unit to output unit
   const witUnitConversor = {
     [`${WIT_UNIT.WIT}`]: {
       [`${WIT_UNIT.WIT}`]: 0,
@@ -153,7 +153,7 @@ export function standardizeWitUnits(
   }
   if (amount && amount !== '0') {
     const num = new BigNumber(amount)
-    const exponent = witUnitConversor[inputCurrency][outputCurrency]
+    const exponent = witUnitConversor[inputUnit][outputUnit]
     const result = num.times(new BigNumber(10).pow(exponent), 0)
     if (truncate === -1) {
       return result.toFixed()
@@ -161,7 +161,7 @@ export function standardizeWitUnits(
       // result < 1
       return result.toFixed()
     } else {
-      return outputCurrency === WIT_UNIT.NANO
+      return outputUnit === WIT_UNIT.NANO
         ? result.toFixed()
         : result.toFixed(truncate)
     }

@@ -13,7 +13,7 @@ describe('Addresses.vue', () => {
               index: 0,
               used: false,
               receivedAmount: '5000',
-              currency: 'nanoWits',
+              unit: 'nanoWits',
               lastPaymentDate: new Date(),
               firstPaymentDate: new Date(),
               payments: 0,
@@ -23,7 +23,7 @@ describe('Addresses.vue', () => {
               index: 0,
               used: true,
               receivedAmount: '5000',
-              currency: 'nanoWits',
+              unit: 'nanoWits',
               lastPaymentDate: new Date(),
               firstPaymentDate: new Date(),
               payments: 1,
@@ -40,7 +40,7 @@ describe('Addresses.vue', () => {
 
             wallet: {
               state: {
-                currency: 'nanoWit',
+                unit: 'nanoWit',
               },
             },
           },
@@ -59,7 +59,7 @@ describe('Addresses.vue', () => {
               index: 0,
               used: false,
               receivedAmount: '5000',
-              currency: 'nanoWits',
+              unit: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
               payments: 0,
@@ -69,7 +69,7 @@ describe('Addresses.vue', () => {
               index: 0,
               used: true,
               receivedAmount: '5000',
-              currency: 'nanoWits',
+              unit: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
               payments: 1,
@@ -85,7 +85,7 @@ describe('Addresses.vue', () => {
             },
             wallet: {
               state: {
-                currency: 'nanoWit',
+                unit: 'nanoWit',
               },
             },
           },
@@ -106,7 +106,7 @@ describe('Addresses.vue', () => {
               index: 0,
               used: false,
               receivedAmount: '5000',
-              currency: 'nanoWits',
+              unit: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
               payments: 0,
@@ -116,7 +116,7 @@ describe('Addresses.vue', () => {
               index: 0,
               used: true,
               receivedAmount: '5000',
-              currency: 'nanoWits',
+              unit: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
               payments: 1,
@@ -132,7 +132,7 @@ describe('Addresses.vue', () => {
             },
             wallet: {
               state: {
-                currency: 'nanoWit',
+                unit: 'nanoWit',
               },
             },
           },
@@ -155,7 +155,7 @@ describe('Addresses.vue', () => {
               index: 0,
               used: false,
               receivedAmount: '5000',
-              currency: 'nanoWits',
+              unit: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
               payments: 0,
@@ -165,7 +165,7 @@ describe('Addresses.vue', () => {
               index: 0,
               used: true,
               receivedAmount: '5000',
-              currency: 'nanoWits',
+              unit: 'nanoWits',
               firstPaymentDate: new Date(),
               lastPaymentDate: new Date(),
               payments: 1,
@@ -181,7 +181,7 @@ describe('Addresses.vue', () => {
             },
             wallet: {
               state: {
-                currency: 'nanoWit',
+                unit: 'nanoWit',
               },
             },
           },

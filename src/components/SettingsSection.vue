@@ -1,9 +1,9 @@
 <template>
   <div class="content">
     <div v-for="setting in settings" :key="setting">
-      <SettingsOptionCurrency
-        v-if="setting === SETTINGS.CURRENCY"
-        data-test="settings-currency"
+      <SettingsOptionUnit
+        v-if="setting === SETTINGS.UNIT"
+        data-test="settings-unit"
         class="setting"
       />
       <ExportXprv
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import SettingsOptionCurrency from '@/components/SettingsOptionCurrency'
+import SettingsOptionUnit from '@/components/SettingsOptionUnit'
 import SettingsNotificationList from '@/components/SettingsNotificationList'
 import SettingsResync from '@/components/SettingsResync'
 import ExportXprv from '@/components/ExportXprv'
@@ -41,7 +41,7 @@ import { SETTINGS } from '@/constants'
 export default {
   name: 'SettingsSection',
   components: {
-    SettingsOptionCurrency,
+    SettingsOptionUnit,
     ExportXprv,
     SettingsResync,
     Community,
@@ -62,9 +62,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .setting {
   margin-bottom: 16px;
-  margin-left: 70px;
-  width: 600px;
+  width: 40vw;
 }
 </style>

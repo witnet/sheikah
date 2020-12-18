@@ -149,7 +149,7 @@ export default {
   },
   computed: {
     ...mapState({
-      currency: state => state.wallet.currency,
+      unit: state => state.wallet.unit,
     }),
   },
   methods: {
@@ -282,7 +282,7 @@ export default {
         grid-column: col2-start;
         grid-row: row1-start;
 
-        .currency {
+        .unit {
           font-size: 14px;
         }
       }

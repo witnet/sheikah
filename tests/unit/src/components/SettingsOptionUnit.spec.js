@@ -1,21 +1,21 @@
-import SettingsOptionCurrency from '@/components/SettingsOptionCurrency'
+import SettingsOptionUnit from '@/components/SettingsOptionUnit'
 
 describe('SettingsNotificationsList.vue', () => {
-  describe('change currency', () => {
-    const changeDefaultCurrencyMock = jest.fn()
+  describe('change unit', () => {
+    const changeDefaultUnitMock = jest.fn()
 
-    it('should call the mutation to change the currency', async () => {
+    it('should call the mutation to change the unit', async () => {
       const wrapper = mount(
-        SettingsOptionCurrency,
+        SettingsOptionUnit,
         createComponentMocks({
           router: true,
           store: {
             wallet: {
               state: {
-                currency: 'nanoWit',
+                unit: 'nanoWit',
               },
               mutations: {
-                changeDefaultCurrency: changeDefaultCurrencyMock,
+                changeDefaultUnit: changeDefaultUnitMock,
               },
             },
           },
@@ -34,21 +34,21 @@ describe('SettingsNotificationsList.vue', () => {
 
       const option2Button = wrapper.find('[data-test="option-2"]')
       await option2Button.trigger('click')
-      expect(changeDefaultCurrencyMock).toHaveBeenCalled()
+      expect(changeDefaultUnitMock).toHaveBeenCalled()
     })
 
-    it('the default currency should be microWit on change', async () => {
+    it('the default unit should be microWit on change', async () => {
       const wrapper = mount(
-        SettingsOptionCurrency,
+        SettingsOptionUnit,
         createComponentMocks({
           router: true,
           store: {
             wallet: {
               state: {
-                currency: 'nanoWit',
+                unit: 'nanoWit',
               },
               mutations: {
-                changeDefaultCurrency: changeDefaultCurrencyMock,
+                changeDefaultUnit: changeDefaultUnitMock,
               },
             },
           },
@@ -72,18 +72,18 @@ describe('SettingsNotificationsList.vue', () => {
       )
     })
 
-    it('the default currency should be nanoWit on change', async () => {
+    it('the default unit should be nanoWit on change', async () => {
       const wrapper = mount(
-        SettingsOptionCurrency,
+        SettingsOptionUnit,
         createComponentMocks({
           router: true,
           store: {
             wallet: {
               state: {
-                currency: 'nanoWit',
+                unit: 'nanoWit',
               },
               mutations: {
-                changeDefaultCurrency: changeDefaultCurrencyMock,
+                changeDefaultUnit: changeDefaultUnitMock,
               },
             },
           },
@@ -107,18 +107,18 @@ describe('SettingsNotificationsList.vue', () => {
       )
     })
 
-    it('the default currency should be milliWit on change', async () => {
+    it('the default unit should be milliWit on change', async () => {
       const wrapper = mount(
-        SettingsOptionCurrency,
+        SettingsOptionUnit,
         createComponentMocks({
           router: true,
           store: {
             wallet: {
               state: {
-                currency: 'nanoWit',
+                unit: 'nanoWit',
               },
               mutations: {
-                changeDefaultCurrency: changeDefaultCurrencyMock,
+                changeDefaultUnit: changeDefaultUnitMock,
               },
             },
           },
@@ -142,18 +142,18 @@ describe('SettingsNotificationsList.vue', () => {
       )
     })
 
-    it('the default currency should be wit on change', async () => {
+    it('the default unit should be wit on change', async () => {
       const wrapper = mount(
-        SettingsOptionCurrency,
+        SettingsOptionUnit,
         createComponentMocks({
           router: true,
           store: {
             wallet: {
               state: {
-                currency: 'nanoWit',
+                unit: 'nanoWit',
               },
               mutations: {
-                changeDefaultCurrency: changeDefaultCurrencyMock,
+                changeDefaultUnit: changeDefaultUnitMock,
               },
             },
           },
@@ -173,7 +173,7 @@ describe('SettingsNotificationsList.vue', () => {
       const option2Button = wrapper.find('[data-test="option-0"]')
       await option2Button.trigger('click')
       expect(wrapper.find('[data-test="selected-option-primary"]').text()).toBe(
-        'wit',
+        'Wit',
       )
     })
   })

@@ -7,7 +7,7 @@ describe('Renders the correct elements', () => {
       store: {
         wallet: {
           state: {
-            currency: 'nanoWit',
+            unit: 'nanoWit',
           },
         },
       },
@@ -27,7 +27,7 @@ describe('Renders the correct elements', () => {
     ).toBe(true)
   })
 
-  it('shows the correct currency', () => {
-    expect(wrapper.find('[data-test="currency"]').text()).toEqual('nanoWit')
+  it('shows the correct unit', () => {
+    expect(wrapper.find('[data-test="unit"]').text()).toEqual('nanoWit')
   })
 })

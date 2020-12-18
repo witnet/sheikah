@@ -1,11 +1,11 @@
 import SettingsNotificationSwitch from '@/components/SettingsNotificationSwitch'
 
 describe('SettingsNotificationSwitch.vue', () => {
-  describe('change currency', () => {
+  describe('change unit', () => {
     const toggleNotificationMock = jest.fn()
     const getNotificationsMock = jest.fn()
 
-    it('should call the mutation to change the currency', async () => {
+    it('should call the mutation to change the unit', async () => {
       const wrapper = mount(SettingsNotificationSwitch, {
         propsData: {
           title: 'block',

@@ -23,7 +23,7 @@ describe('Renders the correct elements when the transaction type is value_transf
           address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
         },
       ],
-      currency: 'nanoWits',
+      unit: 'nanoWits',
     },
   })
 

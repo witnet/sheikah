@@ -10,7 +10,7 @@ describe('ExportXprv', () => {
       store: {
         wallet: {
           state: {
-            currency: 'nanoWit',
+            unit: 'nanoWit',
             xprv: 'x',
             validatedPassword: 'validatedPassword',
             errors: {

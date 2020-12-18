@@ -46,7 +46,7 @@ export default {
   async created() {
     this.pollData()
     this.getNotifications()
-    this.getCurrency()
+    this.getUnit()
     // Disable back and forward from keyboard and mouse buttons
     window.onpopstate = function(event) {
       event.stopImmediatePropagation()
@@ -63,7 +63,7 @@ export default {
     ...mapActions({
       getWalletInfos: 'getWalletInfos',
       getNotifications: 'getNotifications',
-      getCurrency: 'getCurrency',
+      getUnit: 'getUnit',
     }),
     pollData() {
       this.polling = setInterval(() => {

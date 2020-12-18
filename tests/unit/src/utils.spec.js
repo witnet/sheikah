@@ -202,7 +202,7 @@ describe('simplifyDrResult', () => {
 })
 
 describe('standardizeWitUnits', () => {
-  describe('return the value in selected currency', () => {
+  describe('return the value in selected unit', () => {
     describe('wit', () => {
       describe('to wit', () => {
         it('with decimal', () => {

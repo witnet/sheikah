@@ -1,7 +1,7 @@
 <template>
   <div class="table">
     <p class="label">Available</p>
-    <Amount :currency-light="true" class="amount" :amount="available" />
+    <Amount :unit-light="true" class="amount" :amount="available" />
     <p class="label"
       >Locked
       <el-tooltip trigger="hover" effect="light">
@@ -17,9 +17,9 @@
         </div>
       </el-tooltip>
     </p>
-    <Amount :currency-light="true" class="amount" :amount="locked" />
+    <Amount :unit-light="true" class="amount" :amount="locked" />
     <p class="label total">Total</p>
-    <Amount :currency-light="true" class="amount" :amount="total" />
+    <Amount :unit-light="true" class="amount" :amount="total" />
   </div>
 </template>
 
@@ -37,10 +37,10 @@ export default {
   },
   props: {
     /**
-     * Specify in which currency display wits
+     * Specify in which unit display wits
      * @values wit, microWit, nanoWit
      */
-    currency: {
+    unit: {
       type: String,
       required: true,
     },
@@ -131,7 +131,7 @@ export default {
     justify-self: end;
     width: max-content;
 
-    .currency {
+    .unit {
       font-size: 11px;
       font-weight: normal;
     }
@@ -152,7 +152,7 @@ export default {
     locked="10"
     available="40"
     total="50"
-    currency="nanoWit"
+    unit="nanoWit"
 
     :style="{ width: '300px' }"
   />

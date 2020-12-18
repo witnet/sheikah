@@ -5,18 +5,18 @@
         class="list"
         :transactions-length="transactionsLength"
         :transactions="transactions"
-        :currency="currency"
+        :unit="unit"
       />
     </template>
 
     <template v-slot:upperRight>
-      <Balance :total="total" :currency="currency" />
+      <Balance :total="total" :unit="unit" />
     </template>
 
     <template v-slot:bottomRight>
       <Addresses
         :addresses="addresses"
-        :currency="currency"
+        :unit="unit"
         @generate-address="() => generateAddress('')"
       />
     </template>
@@ -51,7 +51,7 @@ export default {
       addresses: state => {
         return Array.from(state.wallet.addresses)
       },
-      currency: state => state.wallet.currency,
+      unit: state => state.wallet.unit,
     }),
   },
   watch: {

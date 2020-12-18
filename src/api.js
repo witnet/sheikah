@@ -232,12 +232,12 @@ export class LocalStorageApi {
     return this._set('notificationsSettings', notifications)
   }
 
-  getCurrencySettings() {
-    return this._get('currencySettings')
+  getUnitSettings() {
+    return this._get('unitSettings')
   }
 
-  setCurrencySettings(currency) {
-    return this._set('currencySettings', currency)
+  setUnitSettings(unit) {
+    return this._set('unitSettings', unit)
   }
 }
 

@@ -4,7 +4,7 @@
       :available="available"
       :locked="locked"
       :total="total"
-      :currency="currency"
+      :unit="unit"
     />
     <BalanceButtons @receive="onReceive" @send="onSend" />
 
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     ...mapState({
-      currency: state => state.wallet.currency,
+      unit: state => state.wallet.unit,
       balance: state => {
         return state.wallet.balance
       },

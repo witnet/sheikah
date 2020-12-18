@@ -33,7 +33,7 @@ describe('Renders the correct elements when click is not triggered', () => {
       state: 'IN PROGRESS',
       transactionType: 'value_transfer',
       reveals: [],
-      currency: 'nanoWits',
+      unit: 'nanoWits',
     },
   })
 
@@ -108,7 +108,7 @@ describe('data request', () => {
         state: 'IN PROGRESS',
         transactionType: 'data_request',
         reveals: [],
-        currency: 'nanoWits',
+        unit: 'nanoWits',
       },
     })
 
@@ -173,7 +173,7 @@ describe('mint', () => {
         state: 'IN PROGRESS',
         transactionType: 'mint',
         reveals: [],
-        currency: 'nanoWits',
+        unit: 'nanoWits',
       },
     })
 

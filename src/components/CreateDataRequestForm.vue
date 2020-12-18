@@ -14,7 +14,7 @@
 
     <el-form-item label="Collateral" prop="collateral">
       <el-input v-model="form.collateral" data-test="collateral" type="number">
-        <AppendCurrency slot="append" @change-currency="changeCurrency" />
+        <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
     </el-form-item>
 
@@ -30,19 +30,19 @@
 
     <el-form-item label="Fee per weight unit" prop="fee">
       <el-input v-model="form.fee" data-test="dr-fee" type="number">
-        <AppendCurrency slot="append" @change-currency="changeCurrency" />
+        <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
     </el-form-item>
 
     <el-form-item label="Reward fee" prop="rewardFee">
       <el-input v-model="form.rewardFee" data-test="reward-fee" type="number">
-        <AppendCurrency slot="append" @change-currency="changeCurrency" />
+        <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
     </el-form-item>
 
     <el-form-item label="Commit and reveal fee" prop="commitAndRevealFee">
       <el-input v-model="form.commitAndRevealFee" data-test="commit-reveal-fee">
-        <AppendCurrency slot="append" @change-currency="changeCurrency" />
+        <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
     </el-form-item>
     <p
@@ -68,14 +68,14 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import AppendCurrency from '@/components/AppendCurrency'
 import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
+import AppendUnit from '@/components/AppendUnit'
 import { WIT_UNIT } from '@/constants'
 
 export default {
   name: 'CreateDataRequestForm',
   components: {
-    AppendCurrency,
+    AppendUnit,
   },
   props: {
     backWord: {
@@ -85,7 +85,7 @@ export default {
   },
   data() {
     const maxNumber = (rule, value, callback) => {
-      if (isGrtMaxNumber(value, this.currency)) {
+      if (isGrtMaxNumber(value, this.unit)) {
         callback(new Error('This number is greater than the maximum'))
       } else {
         callback()
@@ -93,7 +93,7 @@ export default {
     }
 
     const integerNanoWit = (rule, value, callback) => {
-      const isNanoWit = this.currency === WIT_UNIT.NANO
+      const isNanoWit = this.unit === WIT_UNIT.NANO
       if (isNanoWit && !Number.isInteger(Number(value))) {
         callback(new Error('Only integer nanoWits values allowed'))
       } else {
@@ -123,7 +123,7 @@ export default {
 
     const minCollateralAmount = (rule, value, callback) => {
       const isLessThanMin =
-        Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.currency)) <
+        Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.unit)) <
         1000000000
       if (isLessThanMin) {
         callback(new Error('The minimun collateral cannot be less than 1 wit'))
@@ -133,7 +133,7 @@ export default {
     }
 
     const minAmount = (rule, value, callback) => {
-      const isNanoWit = this.currency === WIT_UNIT.NANO
+      const isNanoWit = this.unit === WIT_UNIT.NANO
       if (isNanoWit && value < 1) {
         callback(new Error('The minimun fee cannot be less than 1 nanoWit'))
       } else {
@@ -218,7 +218,7 @@ export default {
         // TODO: change for available when wallet returns it
         return state.wallet.balance.total
       },
-      currency: state => state.wallet.currency,
+      unit: state => state.wallet.unit,
       createDataRequestError: state => state.wallet.errors.createDataRequest,
     }),
     fee() {
@@ -234,7 +234,7 @@ export default {
       },
       deep: true,
     },
-    currency(inputCurrency, outputCurrency) {
+    unit(inputUnit, outputUnit) {
       this.form = {
         backupWitnesses: this.form.backupWitnesses,
         commitAndRevealFee: this.form.commitAndRevealFee,
@@ -255,14 +255,14 @@ export default {
       clearError: 'clearError',
       setError: 'setError',
     }),
-    changeCurrency(prevCurrency, newCurrency) {
+    changeUnit(prevUnit, newUnit) {
       this.form = {
         backupWitnesses: this.form.backupWitnesses,
         commitAndRevealFee: this.form.commitAndRevealFee
           ? standardizeWitUnits(
               this.form.commitAndRevealFee,
-              newCurrency,
-              prevCurrency,
+              newUnit,
+              prevUnit,
               2,
             )
           : null,
@@ -270,25 +270,15 @@ export default {
         extraCommitRounds: this.form.extraCommitRounds,
         extraRevealRounds: this.form.extraRevealRounds,
         fee: this.form.fee
-          ? standardizeWitUnits(this.form.fee, newCurrency, prevCurrency, 2)
+          ? standardizeWitUnits(this.form.fee, newUnit, prevUnit, 2)
           : null,
         minConsensusPercentage: this.form.minConsensusPercentage,
         rewardFee: this.form.rewardFee
-          ? standardizeWitUnits(
-              this.form.rewardFee,
-              newCurrency,
-              prevCurrency,
-              2,
-            )
+          ? standardizeWitUnits(this.form.rewardFee, newUnit, prevUnit, 2)
           : null,
         witnesses: this.form.witnesses,
         collateral: this.form.collateral
-          ? standardizeWitUnits(
-              this.form.collateral,
-              newCurrency,
-              prevCurrency,
-              2,
-            )
+          ? standardizeWitUnits(this.form.collateral, newUnit, prevUnit, 2)
           : null,
       }
     },

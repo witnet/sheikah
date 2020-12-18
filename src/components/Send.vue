@@ -37,7 +37,7 @@
       <el-form-item label="Amount" prop="amount">
         <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
         <el-input v-model="form.amount" tabindex="3" data-test="tx-amount">
-          <AppendCurrency slot="append" @change-currency="changeCurrency" />
+          <AppendUnit slot="append" @change-unit="changeUnit" />
         </el-input>
       </el-form-item>
       <el-form-item label="fee per weight unit" prop="fee">
@@ -47,7 +47,7 @@
           tabindex="4"
           data-test="tx-fee"
         >
-          <AppendCurrency slot="append" @change-currency="changeCurrency" />
+          <AppendUnit slot="append" @change-unit="changeUnit" />
         </el-input>
       </el-form-item>
       <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
@@ -69,19 +69,19 @@
 <script>
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import FormInformation from '@/components/FormInformation.vue'
-import AppendCurrency from '@/components/AppendCurrency'
+import AppendUnit from '@/components/AppendUnit'
 import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
 import { WIT_UNIT } from '@/constants'
 
 export default {
   name: 'Send',
   components: {
-    AppendCurrency,
+    AppendUnit,
     FormInformation,
   },
   data() {
     const maxNumber = (rule, value, callback) => {
-      if (isGrtMaxNumber(value, this.currency)) {
+      if (isGrtMaxNumber(value, this.unit)) {
         callback(new Error('This number is greater than the maximum'))
       } else {
         callback()
@@ -89,7 +89,7 @@ export default {
     }
 
     const integerNanoWit = (rule, value, callback) => {
-      const isNanoWit = this.currency === WIT_UNIT.NANO
+      const isNanoWit = this.unit === WIT_UNIT.NANO
       if (isNanoWit && !Number.isInteger(Number(value))) {
         callback(new Error('Only integer nanoWits values allowed'))
       } else {
@@ -98,7 +98,7 @@ export default {
     }
 
     const minAmount = (rule, value, callback) => {
-      const isNanoWit = this.currency === WIT_UNIT.NANO
+      const isNanoWit = this.unit === WIT_UNIT.NANO
       if (isNanoWit && value < 1) {
         callback(new Error('The minimun fee cannot be less than 1 nanoWit'))
       } else {
@@ -121,7 +121,7 @@ export default {
         address: '',
         label: '',
         amount: null,
-        fee: 1,
+        fee: null,
       },
       rules: {
         // address validation is updated on runtime according to the network
@@ -157,7 +157,7 @@ export default {
       generatedTransaction: state => {
         return state.wallet.generatedTransaction
       },
-      currency: state => state.wallet.currency,
+      unit: state => state.wallet.unit,
       createVTTError: state => state.wallet.errors.createVTT,
     }),
     addressLength() {
@@ -199,15 +199,15 @@ export default {
       sendTransaction: 'sendTransaction',
       createVTT: 'createVTT',
     }),
-    changeCurrency(prevCurrency, newCurrency) {
+    changeUnit(prevUnit, newUnit) {
       this.form = {
         address: this.form.address ? this.form.address : '',
         label: '',
         amount: this.form.amount
-          ? standardizeWitUnits(this.form.amount, newCurrency, prevCurrency, 2)
+          ? standardizeWitUnits(this.form.amount, newUnit, prevUnit, 2)
           : null,
         fee: this.form.fee
-          ? standardizeWitUnits(this.form.fee, newCurrency, prevCurrency, 2)
+          ? standardizeWitUnits(this.form.fee, newUnit, prevUnit, 2)
           : null,
       }
     },

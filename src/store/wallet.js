@@ -60,8 +60,8 @@ export default {
     exportFileLink: '',
     checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
     mainnetReady: false,
-    currency: DEFAULT_WIT_UNIT,
-    prevCurrency: DEFAULT_WIT_UNIT,
+    unit: DEFAULT_WIT_UNIT,
+    prevUnit: DEFAULT_WIT_UNIT,
     balance: {},
     walletIdx: null,
     sessionId: null,
@@ -137,8 +137,8 @@ export default {
       state.notifications[name] = !state.notifications[name]
       state.localStorage.setNotificationsSettings(state.notifications)
     },
-    setCurrency(state, currency) {
-      state.currency = currency
+    setUnit(state, unit) {
+      state.unit = unit
     },
     setNotifications(state, notifications) {
       state.notifications = notifications
@@ -197,22 +197,21 @@ export default {
         state.balance = balance
       }
     },
-    changeDefaultCurrency(state, currency) {
-      if (Object.values(WIT_UNIT).includes(currency)) {
-        state.currency = currency
-        state.localStorage.setCurrencySettings(state.currency)
+    changeDefaultUnit(state, unit) {
+      if (Object.values(WIT_UNIT).includes(unit)) {
+        state.unit = unit
+        state.localStorage.setUnitSettings(state.unit)
       } else {
-        console.warn('[mutation setCurrency]: invalid currency')
+        console.warn('[mutation setUnit]: invalid unit')
       }
     },
-    changeCurrency(state) {
+    changeUnit(state) {
       const unitsValues = Object.values(WIT_UNIT)
       const unitsKeys = Object.keys(WIT_UNIT)
-      // Get index of the next currency
-      state.prevCurrency = state.currency
-      const index =
-        (unitsValues.indexOf(state.currency) + 1) % unitsValues.length
-      state.currency = WIT_UNIT[unitsKeys[index]]
+      // Get index of the next unit
+      state.prevUnit = state.unit
+      const index = (unitsValues.indexOf(state.unit) + 1) % unitsValues.length
+      state.unit = WIT_UNIT[unitsKeys[index]]
     },
     deleteSession(state) {
       state.sessionId = null
@@ -551,25 +550,25 @@ export default {
         fee: standardizeWitUnits(
           parameters.fee,
           WIT_UNIT.NANO,
-          context.state.currency,
+          context.state.unit,
         ),
         request: {
           data_request: encodeDataRequest(request),
           collateral: standardizeWitUnits(
             parameters.collateral,
             WIT_UNIT.NANO,
-            context.state.currency,
+            context.state.unit,
           ),
           witness_reward: standardizeWitUnits(
             parameters.rewardFee,
             WIT_UNIT.NANO,
-            context.state.currency,
+            context.state.unit,
           ),
           witnesses: parameters.witnesses,
           commit_and_reveal_fee: standardizeWitUnits(
             parameters.commitAndRevealFee,
             WIT_UNIT.NANO,
-            context.state.currency,
+            context.state.unit,
           ),
           min_consensus_percentage: parameters.minConsensusPercentage,
         },
@@ -600,11 +599,11 @@ export default {
             amount: standardizeWitUnits(
               amount,
               WIT_UNIT.NANO,
-              context.state.currency,
+              context.state.unit,
             ),
           },
         ],
-        fee: standardizeWitUnits(fee, WIT_UNIT.NANO, context.state.currency),
+        fee: standardizeWitUnits(fee, WIT_UNIT.NANO, context.state.unit),
         label,
       })
       if (request.result) {
@@ -826,12 +825,12 @@ export default {
         }
       }
     },
-    getCurrency: async function(context) {
-      const currency = context.state.localStorage.getCurrencySettings()
-      const defaultCurrency = context.state.currency
-      currency
-        ? context.commit('setCurrency', currency)
-        : context.commit('setCurrency', defaultCurrency)
+    getUnit: async function(context) {
+      const unit = context.state.localStorage.getUnitSettings()
+      const defaultUnit = context.state.unit
+      unit
+        ? context.commit('setUnit', unit)
+        : context.commit('setUnit', defaultUnit)
     },
     getNotifications: async function(context) {
       const notifications = context.state.localStorage.getNotificationsSettings()
@@ -914,18 +913,18 @@ export default {
         balance,
       })
       context.dispatch('getAddresses')
-      const amount = standardizeWitUnits(event.amount, context.state.currency)
+      const amount = standardizeWitUnits(event.amount, context.state.unit)
       const total = standardizeWitUnits(
         balance.result.total,
-        context.state.currency,
+        context.state.unit,
       )
       if (
         event.type === 'POSITIVE' &&
         context.state.notifications.transactions
       ) {
         createNotification({
-          title: `Received a payment of ${amount} ${context.state.currency}s`,
-          body: `The total balance of your wallet is now ${total} ${context.state.currency}s.`,
+          title: `Received a payment of ${amount} ${context.state.unit}s`,
+          body: `The total balance of your wallet is now ${total} ${context.state.unit}s.`,
         })
       }
     },

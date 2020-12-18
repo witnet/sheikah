@@ -38,7 +38,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },
@@ -65,7 +65,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },
@@ -92,7 +92,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },
@@ -130,7 +130,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },
@@ -162,7 +162,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },
@@ -185,7 +185,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },
@@ -219,7 +219,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },
@@ -246,7 +246,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },
@@ -275,7 +275,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },
@@ -307,7 +307,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },
@@ -334,7 +334,7 @@ describe('AddressInformation.vue', () => {
             store: {
               wallet: {
                 state: {
-                  currency: 'nanoWit',
+                  unit: 'nanoWit',
                 },
               },
             },

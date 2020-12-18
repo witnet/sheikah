@@ -50,7 +50,7 @@ function getData() {
       store: {
         wallet: {
           state: {
-            currency: 'nanoWit',
+            unit: 'nanoWit',
             currentTransactionsPage: 1,
           },
           mutations: {
@@ -65,7 +65,7 @@ function getData() {
     propsData: {
       transactions: getTransactionsMock(13),
       transactionsLength: '87',
-      currency: 'nanoWit',
+      unit: 'nanoWit',
     },
     data() {
       return {
@@ -121,7 +121,7 @@ describe('Renders the correct elements when click is not triggered', () => {
     const wrapper = shallowMount(TransactionList, {
       propsData: {
         transactions: [],
-        currency: 'nanoWit',
+        unit: 'nanoWit',
         transactionsLength: '0',
       },
     })
@@ -135,7 +135,7 @@ describe('Renders the correct elements when click is not triggered', () => {
     const wrapper = shallowMount(TransactionList, {
       propsData: {
         transactions: getTransactionsMock(3),
-        currency: 'nanoWit',
+        unit: 'nanoWit',
         transactionsLength: '3',
       },
     })
@@ -147,7 +147,7 @@ describe('Renders the correct elements when click is not triggered', () => {
     const wrapper = shallowMount(TransactionList, {
       propsData: {
         transactions: getTransactionsMock(3),
-        currency: 'nanoWit',
+        unit: 'nanoWit',
         transactionsLength: '3',
       },
     })

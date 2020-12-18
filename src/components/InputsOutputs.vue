@@ -48,7 +48,7 @@ export default {
     Amount,
   },
   props: {
-    currency: {
+    unit: {
       type: String,
       default: '',
     },
@@ -123,7 +123,7 @@ export default {
         grid-column: col2-start;
         grid-row: row1-start;
 
-        .currency {
+        .unit {
           color: $white;
           font-size: 13px;
         }

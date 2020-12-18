@@ -4,7 +4,7 @@
       <span class="bold">{{ opening }}</span> {{ text }}
     </p>
     <div class="form-row password">
-      <p>Create a password</p>
+      <p class="label">Create a password</p>
       <el-input
         v-model="password"
         v-focus
@@ -15,20 +15,18 @@
       />
     </div>
     <div ref="confirm" class="form-row password">
-      <p>Confirm your password</p>
-      <div class="col">
-        <el-input
-          ref="password"
-          v-model="repeatedPassword"
-          class="password"
-          data-test="repeated-password"
-          placeholder="Confirm password"
-          show-password
-          @keydown.enter.native="validate"
-        />
-        <div v-if="error" data-test="password-error-alert" class="error">
-          {{ error.message }}
-        </div>
+      <p class="label">Confirm your password</p>
+      <el-input
+        ref="password"
+        v-model="repeatedPassword"
+        class="password"
+        data-test="repeated-password"
+        placeholder="Confirm password"
+        show-password
+        @keydown.enter.native="validate"
+      />
+      <div v-if="error" data-test="password-error-alert" class="error">
+        {{ error.message }}
       </div>
     </div>
   </div>
@@ -123,24 +121,22 @@ export default {
 }
 
 .form-row {
-  align-items: center;
-  display: flex;
-  flex-flow: row nowrap;
-  margin-bottom: 24px;
-  max-width: 500px;
+  column-gap: 8px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin-bottom: 8px;
 
   &.password {
     display: flex;
     justify-content: space-between;
-    max-width: 550px;
+  }
+
+  .label {
+    width: 150px;
   }
 
   &.form-row:last-of-type {
     margin: 0;
-  }
-
-  .password {
-    width: 350px;
   }
 }
 

@@ -7,7 +7,7 @@ describe.skip('Balance.vue', () => {
         available: '1',
         locked: '10',
         total: '100',
-        currency: 'nanoWits',
+        unit: 'nanoWits',
       },
     })
 
@@ -31,7 +31,7 @@ describe.skip('Balance.vue', () => {
         available: '1',
         locked: '10',
         total: '100',
-        currency: 'nanoWits',
+        unit: 'nanoWits',
       },
     })
 
@@ -55,7 +55,7 @@ describe.skip('Balance.vue', () => {
         available: '1',
         locked: '10',
         total: '100',
-        currency: 'nanoWits',
+        unit: 'nanoWits',
       },
     })
 
