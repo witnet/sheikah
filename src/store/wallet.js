@@ -74,7 +74,7 @@ export default {
     seed: null,
     networkStatus: 'error',
     notifications: {
-      [NOTIFICATIONS.BLOCK.key]: true,
+      [NOTIFICATIONS.BLOCK.key]: false,
       [NOTIFICATIONS.TRANSACTIONS.key]: true,
       [NOTIFICATIONS.PAYMENTS.key]: true,
       [NOTIFICATIONS.SYNCRONIZATION.key]: true,
@@ -982,7 +982,7 @@ export default {
         if (Array.isArray(event)) {
           createNotification({
             title: `${event.length} blocks confirmed.`,
-            body: event.map(hash => hash),
+            body: `${event[0]} ... ${event[event.length - 1]}`,
           })
         } else {
           createNotification({
