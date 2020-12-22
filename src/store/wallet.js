@@ -146,8 +146,12 @@ export default {
       state.unit = unit
     },
     setLanguage(state, { language, i18n }) {
-      state.language = language
-      i18n.locale = LOCALES[state.language]
+      if (language) {
+        state.language = language
+        i18n.locale = LOCALES[state.language]
+      } else {
+        state.language = LANGUAGES[i18n.locale.toUpperCase()]
+      }
     },
     setNotifications(state, notifications) {
       state.notifications = notifications
@@ -852,14 +856,14 @@ export default {
     },
     getLanguage: async function(context, payload) {
       const language = context.state.localStorage.getLanguageSettings()
-      const defaultLanguage = context.state.language
+      // const defaultLanguage = context.state.language
       language
         ? context.commit('setLanguage', {
             language: language,
             i18n: payload.i18n,
           })
         : context.commit('setLanguage', {
-            language: defaultLanguage,
+            language: null,
             i18n: payload.i18n,
           })
     },
