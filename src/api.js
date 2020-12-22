@@ -239,6 +239,14 @@ export class LocalStorageApi {
   setUnitSettings(unit) {
     return this._set('unitSettings', unit)
   }
+
+  getLanguageSettings() {
+    return this._get('languageSettings')
+  }
+
+  setLanguageSettings(language) {
+    return this._set('languageSettings', language)
+  }
 }
 
 export function standardizeAddresses(response) {

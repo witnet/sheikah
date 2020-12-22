@@ -1,4 +1,5 @@
 import router from '@/router'
+// import i18n from '@/pluggins/i18n'
 import { WalletApi, standardizeBalance, LocalStorageApi } from '@/api'
 import {
   calculateTimeAgo,
@@ -21,6 +22,9 @@ import {
   NETWORK_STATUS,
   TRANSACTIONS_LIMIT,
   NOTIFICATIONS,
+  DEFAULT_LANGUAGE,
+  LANGUAGES,
+  LOCALES,
 } from '@/constants'
 import warning from '@/resources/svg/warning.png'
 
@@ -61,6 +65,7 @@ export default {
     checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
     mainnetReady: false,
     unit: DEFAULT_WIT_UNIT,
+    language: DEFAULT_LANGUAGE,
     prevUnit: DEFAULT_WIT_UNIT,
     balance: {},
     walletIdx: null,
@@ -140,6 +145,10 @@ export default {
     setUnit(state, unit) {
       state.unit = unit
     },
+    setLanguage(state, { language, i18n }) {
+      state.language = language
+      i18n.locale = LOCALES[state.language]
+    },
     setNotifications(state, notifications) {
       state.notifications = notifications
     },
@@ -195,6 +204,15 @@ export default {
     setBalance(state, { balance }) {
       if (balance) {
         state.balance = balance
+      }
+    },
+    changeLanguage(state, payload) {
+      if (Object.values(LANGUAGES).includes(payload.language)) {
+        state.language = payload.language
+        state.localStorage.setLanguageSettings(state.language)
+        payload.i18n.locale = LOCALES[state.language]
+      } else {
+        console.warn('[mutation setUnit]: invalid language')
       }
     },
     changeDefaultUnit(state, unit) {
@@ -831,6 +849,19 @@ export default {
       unit
         ? context.commit('setUnit', unit)
         : context.commit('setUnit', defaultUnit)
+    },
+    getLanguage: async function(context, payload) {
+      const language = context.state.localStorage.getLanguageSettings()
+      const defaultLanguage = context.state.language
+      language
+        ? context.commit('setLanguage', {
+            language: language,
+            i18n: payload.i18n,
+          })
+        : context.commit('setLanguage', {
+            language: defaultLanguage,
+            i18n: payload.i18n,
+          })
     },
     getNotifications: async function(context) {
       const notifications = context.state.localStorage.getNotificationsSettings()

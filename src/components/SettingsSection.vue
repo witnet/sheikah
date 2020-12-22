@@ -6,6 +6,11 @@
         data-test="settings-unit"
         class="setting"
       />
+      <SettingsLanguage
+        v-if="setting === SETTINGS.LANGUAGE"
+        data-test="settings-language"
+        class="setting"
+      />
       <ExportXprv
         v-if="setting === SETTINGS.EXPORT_XPRV"
         data-test="settings-xprv"
@@ -32,6 +37,7 @@
 
 <script>
 import SettingsOptionUnit from '@/components/SettingsOptionUnit'
+import SettingsLanguage from '@/components/SettingsLanguage'
 import SettingsNotificationList from '@/components/SettingsNotificationList'
 import SettingsResync from '@/components/SettingsResync'
 import ExportXprv from '@/components/ExportXprv'
@@ -46,6 +52,7 @@ export default {
     SettingsResync,
     Community,
     SettingsNotificationList,
+    SettingsLanguage,
   },
   props: {
     settings: {

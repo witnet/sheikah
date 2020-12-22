@@ -1,6 +1,5 @@
 {
   "name": "sheikah-witnet-wallet",
-  "productName": "Sheikah Witnet wallet",
   "version": "1.7.2",
   "private": true,
   "description": "A Witnet compatible desktop wallet interface and data requests development environment.",
@@ -8,34 +7,32 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit --config=jest.unit.config.js",
+    "test": "yarn test:unit",
+    "lint": "yarn lint:fix:eslint && yarn lint:fix:stylelint && yarn lint:fix:prettier",
     "ci": "yarn lint:check && yarn test && yarn electron:build --publish=never",
     "clean": "yarn clean-deps && rm -rf dist_electron",
     "clean-deps": "rm -rf node_modules",
     "electron:build": "vue-cli-service electron:build",
+    "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
     "electron:serve": "vue-cli-service electron:serve",
     "electron:serve:wallet": "vue-cli-service electron:serve --wallet",
-    "lint:eslint": "eslint",
-    "lint:stylelint": "stylelint",
-    "lint:prettier": "prettier --loglevel warn",
-    "lint:fix:eslint": "yarn lint:eslint --fix --ext .js,.vue .",
-    "lint:fix:stylelint": "yarn lint:stylelint --fix \"src/**/*.{vue,scss}\"",
-    "lint:fix:prettier": "yarn lint:prettier --write \"**/*.{js,json,css,scss,vue,html}\"",
-    "lint:check:eslint": "yarn lint:eslint --ext .js,.vue .",
-    "lint:check:stylelint": "yarn lint:stylelint \"src/**/*.{vue,scss}\"",
-    "lint:check:prettier": "yarn lint:prettier --check \"**/*.{js,json,css,scss,vue,html}\"",
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
     "lint:check": "yarn lint:check:eslint && yarn lint:check:prettier && yarn lint:check:stylelint",
-    "lint": "yarn lint:fix:eslint && yarn lint:fix:stylelint && yarn lint:fix:prettier",
+    "lint:check:eslint": "yarn lint:eslint --ext .js,.vue .",
+    "lint:check:prettier": "yarn lint:prettier --check \"**/*.{js,json,css,scss,vue,html}\"",
+    "lint:check:stylelint": "yarn lint:stylelint \"src/**/*.{vue,scss}\"",
+    "lint:eslint": "eslint",
+    "lint:fix:eslint": "yarn lint:eslint --fix --ext .js,.vue .",
+    "lint:fix:prettier": "yarn lint:prettier --write \"**/*.{js,json,css,scss,vue,html}\"",
+    "lint:fix:stylelint": "yarn lint:stylelint --fix \"src/**/*.{vue,scss}\"",
+    "lint:prettier": "prettier --loglevel warn",
+    "lint:stylelint": "stylelint",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
     "reinstall": "yarn clean-deps && yarn",
     "styleguide": "vue-cli-service styleguidist",
     "styleguide:build": "vue-cli-service styleguidist:build",
-    "test": "yarn test:unit",
-    "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten"
-  },
-  "gitHooks": {
-    "pre-commit": "cross-env PRE_COMMIT=true lint-staged"
+    "test:unit": "vue-cli-service test:unit --config=jest.unit.config.js"
   },
   "main": "background.js",
   "dependencies": {
@@ -58,6 +55,7 @@
     "tree-kill": "^1.2.2",
     "uuid": "^3.3.2",
     "vue": "^2.6.11",
+    "vue-i18n": "^8.22.2",
     "vue-json-tree": "^0.4.3",
     "vue-observe-visibility": "^0.4.6",
     "vue-router": "^3.0.3",
@@ -66,6 +64,7 @@
   },
   "devDependencies": {
     "@babel/compat-data": "7.9.0",
+    "@intlify/vue-i18n-loader": "^1.0.0",
     "@vue/cli-plugin-babel": "^4.2.2",
     "@vue/cli-plugin-eslint": "4.2.x",
     "@vue/cli-plugin-unit-jest": "^4.2.2",
@@ -98,13 +97,18 @@
     "stylelint-scss": "3.14.x",
     "vue-cli-plugin-electron-builder": "2.0.0-rc.4",
     "vue-cli-plugin-element": "^1.0.1",
+    "vue-cli-plugin-i18n": "^1.0.1",
     "vue-cli-plugin-styleguidist": "^4.17.0",
     "vue-template-compiler": "^2.5.21"
   },
   "bugs": {
     "url": "https://github.com/witnet/sheikah/issues"
   },
+  "gitHooks": {
+    "pre-commit": "cross-env PRE_COMMIT=true lint-staged"
+  },
   "license": "GPL-3.0",
+  "productName": "Sheikah Witnet wallet",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/witnet/sheikah.git"

@@ -23,6 +23,18 @@ export const SOURCES_WITH_REDUCED_DISCLAIMERS = [
   'founder',
 ]
 
+export const LANGUAGES = {
+  ES: 'Español',
+  EN: 'English',
+}
+
+export const LOCALES = {
+  [LANGUAGES.ES]: 'es',
+  [LANGUAGES.EN]: 'en',
+}
+
+export const DEFAULT_LANGUAGE = LANGUAGES.EN
+
 export const WIT_UNIT = {
   WIT: 'Wit',
   MILLI: 'milliWit',
@@ -100,6 +112,7 @@ export const SETTINGS = {
   EXPORT_XPRV: 'EXPORT_XPRV',
   COMMUNITY: 'COMMUNITY',
   NOTIFICATIONS: 'NOTIFICATIONS',
+  LANGUAGE: 'LANGUAGE',
 }
 
 export const SETTINGS_SECTIONS = {
