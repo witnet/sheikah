@@ -1,6 +1,6 @@
 import SettingsOptionUnit from '@/components/SettingsOptionUnit'
 
-describe('SettingsNotificationsList.vue', () => {
+describe('SettingsOptionUnit.vue', () => {
   describe('change unit', () => {
     const changeDefaultUnitMock = jest.fn()
 
