@@ -18,49 +18,34 @@
           data-test="add-source"
           @click="pushNewSource"
         >
-          Add another source
+          {{ $t('add_source') }}
         </el-button>
       </div>
     </template>
     <template v-slot:upperRight>
-      <Fieldset title="About data sources" type="help">
+      <Fieldset :title="$t('source_description_title')" type="help">
         <div>
           <p>
-            Data sources are each of the endpoints from which you want Witnet to
-            retrieve the data. Most times, these will be the URLs of public
-            APIs.
+            {{ $t('source_description[0]') }}
           </p>
           <p>
-            There is no limit to the number of sources in a single Witnet
-            request—although the more sources, the higher the fees will be.
+            {{ $t('source_description[1]') }}
           </p>
           <p>
-            In a later step, each source will be given a companion script that
-            lists operations that we want the witnesses to apply on the
-            retrieved data. This enables you to get the information of your
-            interest extracted out of larger data structures like JSON objects.
+            {{ $t('source_description[2]') }}
           </p>
         </div>
       </Fieldset>
     </template>
 
     <template v-slot:bottomRight>
-      <Fieldset title="Choose your sources carefully" type="help">
+      <Fieldset :title="$t('source_description_title_2')" type="help">
         <div>
           <p>
-            Data sources are each of the endpoints from which you want Witnet to
-            retrieve the data. Most times, these will be the URLs of public
-            APIs.
+            {{ $t('source_description[3]') }}
           </p>
           <p>
-            There is no limit to the number of sources in a single Witnet
-            request—although the more sources, the higher the fees will be.
-          </p>
-          <p>
-            In a later step, each source will be given a companion script that
-            lists operations that we want the witnesses to apply on the
-            retrieved data. This enables you to get the information of your
-            interest extracted out of larger data structures like JSON objects.
+            {{ $t('source_description[4]') }}
           </p>
         </div>
       </Fieldset>

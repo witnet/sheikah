@@ -1,11 +1,11 @@
 <template>
   <div class="unlock-wallet">
-    <p class="text">Insert a password to unlock wallet</p>
+    <p class="text">{{ this.$t('insert_password') }}</p>
     <div @keydown.enter.esc.prevent="unlock">
       <el-input
         v-model="password"
         data-test="password-input"
-        placeholder="Please input password"
+        :placeholder="$t('input_password')"
         show-password
       />
       <p
@@ -13,26 +13,27 @@
         data-test="password-error-alert"
         class="error"
       >
-        Invalid password
+        {{ this.$t('invalid_password') }}
       </p>
     </div>
     <div class="container-btn">
       <el-button
-        class="back-btn"
+        class="back-btn capitalize"
         type="text"
         data-test="unlock-wallet"
         @click="previousStep"
       >
-        Back
+        {{ this.$t('back') }}
       </el-button>
       <div class="unlock-btn" @keydown.enter.esc.prevent="unlock">
         <el-button
           ref="submit"
+          class="capitalize"
           data-test="unlock-wallet"
           type="primary"
           @click="unlock"
         >
-          Unlock
+          {{ this.$t('unlock') }}
         </el-button>
       </div>
     </div>

@@ -2,11 +2,10 @@
   <div class="container">
     <div class="alert">
       <div class="content">
-        <p class="title">Wallet disconnected</p>
+        <p class="title">{{ this.$t('wallet_disconnected') }}</p>
         <img class="icon" src="@/resources/svg/disconnected2.svg" />
         <p class="description">
-          There is a connection problem. The wallet or the node is not running
-          properly. For more information visit:
+          {{ this.$t('connection_problem') }}
         </p>
       </div>
       <div class="link-container">

@@ -56,7 +56,7 @@
       </div>
     </div>
     <div v-show="style !== 'marketplace'" class="sources">
-      <span class="number">{{ sources }}</span> sources
+      <span class="number">{{ sources }}</span> {{ $t('sources') }}
     </div>
   </div>
 </template>
@@ -116,8 +116,8 @@ export default {
             } else {
               this.setError({
                 name: 'syncing',
-                error: 'The wallet is not yet synced',
-                message: 'Wait till the synchronization is finished',
+                error: this.$t('syncing_error'),
+                message: this.$t('syncing_error_message'),
               })
             }
           },

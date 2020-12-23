@@ -5,6 +5,7 @@ import {
   calculateCurrentFocusAfterUndo,
   calculateCurrentFocusAfterRedo,
 } from '@/utils'
+import i18n from '@/plugins/i18n'
 import { Radon } from 'witnet-radon-js'
 import { EDITOR_STAGES, HISTORY_UPDATE_TYPE } from '@/constants'
 import {
@@ -140,9 +141,9 @@ export default {
     [CREATE_VARIABLE](state) {
       state.currentTemplate.variablesIndex += 1
       state.currentTemplate.variables.push({
-        key: 'my_var_' + state.currentTemplate.variablesIndex,
-        value:
-          'The default String that this variable will take if an user does not override it',
+        key:
+          i18n.t('variable_default_key') + state.currentTemplate.variablesIndex,
+        value: i18n.t('variable_default_value'),
         description: '',
         type: 'String',
       })
@@ -313,7 +314,7 @@ export default {
       })
     },
     [CREATE_TEMPLATE](state) {
-      const TEMPLATE_DEFAULT_NAME = 'New template'
+      const TEMPLATE_DEFAULT_NAME = i18n.t('template_default_name')
       const name = Object.values(state.templates).reduce(
         (acc, _, index, self) => {
           const isRepeatedName = self.find(template => template.name === acc)
@@ -365,8 +366,8 @@ export default {
         ]
       } else {
         createNotification({
-          title: `Invalid data request template`,
-          body: `The data request you are trying to import is malformed`,
+          title: i18n.t('import_dr_notification_title'),
+          body: i18n.t('import_dr_notification_body'),
         })
       }
     },
@@ -429,8 +430,8 @@ export default {
       if (isImportingTemplate && !isValidRadRequest(args.template.radRequest)) {
         // data request is invalid
         createNotification({
-          title: `Invalid data request template`,
-          body: `The data request you are trying to import is malformed`,
+          title: i18n.t('import_dr_notification_title'),
+          body: i18n.t('import_dr_notification_body'),
         })
       } else {
         const templateToSave = isImportingTemplate
@@ -468,7 +469,7 @@ export default {
           context.commit('setError', {
             name: 'saveItem',
             error: request.error,
-            message: 'An error occurred saving changes',
+            message: i18n.t('save_template_error_message'),
           })
         }
       }
@@ -485,7 +486,7 @@ export default {
         context.commit('setError', {
           name: 'getItem',
           error: request.error.message,
-          message: 'An error retrieving the templates list',
+          message: i18n.t('get_templates_error_message'),
         })
       }
     },
@@ -502,7 +503,7 @@ export default {
         context.commit('setError', {
           name: 'saveItem',
           error: request.error.message,
-          message: 'An error occurred deleting the template',
+          message: i18n.t('delete_template_error_message'),
         })
       }
     },

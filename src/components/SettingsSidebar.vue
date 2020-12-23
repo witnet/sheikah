@@ -1,6 +1,6 @@
 <template>
   <div class="settings-sidebar">
-    <div class="title">Settings</div>
+    <div class="title">{{ $t('settings') }}</div>
     <ul class="menu">
       <li
         v-for="section in sections"

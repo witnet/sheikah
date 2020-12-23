@@ -1,6 +1,6 @@
 <template>
-  <Card class="card" title="Default unit" :border="false" shadow="thin">
-    <p class="text">Select the default unit</p>
+  <Card class="card" :title="$t('default_unit')" :border="false" shadow="thin">
+    <p class="text">{{ this.$t('select_unit') }}</p>
     <Select
       v-model="actualUnit"
       data-test="select-unit"

@@ -65,27 +65,32 @@
           @click="$store.commit('showResyncConfirmation')"
         >
           <font-awesome-icon class="icon" icon="sync-alt" />
-          Resync
+          {{ this.$t('resync') }}
         </el-button>
 
         <p v-if="isSyncing" data-test="last-block" class="text">
-          <span class="bold">{{ lastBlock - lastSync }}</span> blocks left
+          <span class="bold">{{ lastBlock - lastSync }}</span>
+          {{ this.$t('blocks_left') }}
         </p>
         <p v-if="isSyncing" data-test="last-block" class="text">
-          Block <span class="bold">#{{ lastSync }}</span> of
+          {{ this.$t('block') }} <span class="bold">#{{ lastSync }}</span>
+          {{ this.$t('of') }}
           <span class="bold">#{{ lastBlock }}</span>
         </p>
         <p v-if="isSynced" data-test="node" class="text">
-          Connected to <span class="bold">{{ address }}</span>
+          {{ this.$t('connected_to') }} <span class="bold">{{ address }}</span>
         </p>
         <p v-else data-test="node" class="text">
-          Trying to connect to <span class="bold">{{ address }}</span>
+          {{ this.$t('trying_to_connect') }}
+          <span class="bold">{{ address }}</span>
         </p>
         <p v-if="network" data-test="network" class="text">
-          Tracking <span class="bold">{{ network }}</span> network
+          {{ this.$t('tracking_network[0]') }}
+          <span class="bold">{{ network }}</span>
+          {{ this.$t('tracking_network[1]') }}
         </p>
         <p v-if="isSynced" data-test="last-block" class="text">
-          Last block <span class="bold">#{{ lastSync }}</span>
+          {{ this.$t('last_block') }} <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo && timeAgo !== 0">
             ({{ calculateTimeAgo(timeAgo) }})</span
           >

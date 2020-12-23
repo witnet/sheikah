@@ -10,34 +10,40 @@
     </template>
 
     <template v-slot:upperRight>
-      <Fieldset title="What is a tally?" type="help">
+      <Fieldset :title="$t('tally_description_title')" type="help">
         <div>
           <p>
-            Tallies are really similar to aggregators, but instead of merging
-            multiple sources, they
-            <em>merge the results reported by multiple Witnet nodes</em>.
+            {{ $t('tally_description[0]') }}
+            <em>{{ $t('tally_description[1]') }}</em
+            >.
           </p>
         </div>
       </Fieldset>
     </template>
 
     <template v-slot:bottomRight>
-      <Fieldset title="The rules of tallies" type="help">
+      <Fieldset :title="$t('tally_rule_title')" type="help">
         <div>
-          <p>The rules for aggregators also apply here:</p>
+          <p>{{ $t('tally_rules_intro') }}</p>
           <p
-            >- Every Witnet request needs to have
-            <em>exactly one tally function</em>.</p
+            >- {{ $t('tally_rule_1[0]') }} <em>{{ $t('tally_rule_1[1]') }}</em
+            >.</p
           >
-          <p>- The tally must contain <em>zero, one or more filters</em>.</p>
-          <p>- The tally must contain <em>exactly one reducer</em>.</p>
           <p
-            >- Tallies
-            <em>merge the results reported by multiple witnessing nodes</em>.</p
+            >- {{ $t('tally_rule_2[0]') }}<em>{{ $t('tally_rule_2[1]') }}</em
+            >.</p
+          >
+          <p
+            >- {{ $t('tally_rule_3[0]') }}<em>{{ $t('tally_rule_3[1]') }}</em
+            >.</p
+          >
+          <p
+            >- {{ $t('tally_rule_4[0]') }} <em>{{ $t('tally_rule_4[1]') }}</em
+            >.</p
           >
           <p>
-            - Tallies are <em>executed by miners</em> and validated by every
-            node in the Witnet network.
+            - {{ $t('tally_rule_5[0]') }} <em>{{ $t('tally_rule_5[1]') }}</em>
+            {{ $t('tally_rule_5[2]') }}
           </p>
         </div>
       </Fieldset>

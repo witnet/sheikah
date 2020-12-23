@@ -1,10 +1,9 @@
 <template>
-  <Card class="card" title="Resync wallet" :border="false" shadow="thin">
+  <Card class="card" :title="$t('resync_wallet')" :border="false" shadow="thin">
     <p class="text">
-      <span class="bold">PLEASE NOTE: </span>Triggering a full wallet
-      resynchronization will wipe all locally stored information about balances,
-      movements, addresses and their metadata.</p
-    >
+      <span class="bold">{{ $t('please_note').toUpperCase() }}</span>
+      {{ $t('resynchronization_info') }}
+    </p>
     <div class="btn-container">
       <el-button
         :disabled="!isResyncButtonVisible"
@@ -14,7 +13,7 @@
         @click="showResyncConfirmation"
       >
         <font-awesome-icon class="icon" icon="sync-alt" />
-        Resync
+        {{ $t('resync') }}
       </el-button>
     </div>
   </Card>

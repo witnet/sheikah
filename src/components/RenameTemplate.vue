@@ -1,18 +1,20 @@
 <template>
   <div class="info">
-    <label class="label" data-test="name-label">Name</label>
+    <label class="label" data-test="name-label">{{ $t('name') }}</label>
     <el-input
       v-model="localName"
       data-test="template-name-input"
-      placeholder="Add a template name"
+      :placeholder="$t('template_name_placeholder')"
     />
-    <label class="label" data-test="description-label">Description</label>
+    <label class="label" data-test="description-label">{{
+      $t('description')
+    }}</label>
     <el-input
       v-model="localDescription"
       type="textarea"
       :rows="3"
       data-test="template-description-input"
-      placeholder="Add a description for this template"
+      :placeholder="$t('template_description_placeholder')"
     />
   </div>
 </template>

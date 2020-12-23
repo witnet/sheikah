@@ -60,23 +60,23 @@ export default {
 
       const sections = [
         {
-          name: 'General',
-          description: 'Default unit',
+          name: this.$t('settings_general'),
+          description: this.$t('settings_general_description'),
           route: '/settings/general',
         },
         {
-          name: 'Advanced',
-          description: 'Node-Wallet connection',
+          name: this.$t('settings_advance'),
+          description: this.$t('settings_advance_description'),
           route: '/settings/advanced',
         },
         {
-          name: 'Alerts',
-          description: 'Notifications',
+          name: this.$t('settings_alerts'),
+          description: this.$t('settings_alerts_description'),
           route: '/settings/notifications',
         },
         {
-          name: 'About',
-          description: 'Follow Witnet Foundation',
+          name: this.$t('settings_about'),
+          description: this.$t('settings_about_description'),
           route: '/settings/about',
         },
       ]

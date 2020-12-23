@@ -6,11 +6,12 @@
   <div v-else-if="address" class="information">
     <div class="header">
       <p class="caption">
-        Address <span class="number">#{{ index + 1 }}</span>
+        {{ this.$t('address') }}
+        <span class="number">#{{ index + 1 }}</span>
       </p>
       <el-tooltip
         v-if="!used && !copied"
-        content="Copy"
+        :content="$t('copy')"
         placement="bottom"
         effect="light"
       >
@@ -20,7 +21,7 @@
       </el-tooltip>
       <el-tooltip
         v-if="!used && copied"
-        content="Copied"
+        :content="$t('copied')"
         placement="bottom"
         effect="light"
       >
@@ -34,27 +35,35 @@
 
     <div v-if="!used" class="transactions">
       <Tag class="tag" color="green" text="NOT USED" />
-      <p class="description">Received <span class="bold">0 payments</span>.</p>
+      <p class="description"
+        >{{ this.$t('received') }}
+        <span class="bold">{{ this.$t('payment') }}</span
+        >.</p
+      >
     </div>
     <div v-else class="transactions">
       <Tag class="tag" color="red" text="USED" />
       <p class="description">
-        Received <span class="bold">{{ payments }} payments</span> totalling
-        <span class="bold"><Amount :amount="amount"/></span> from
-        <span class="bold">{{ formatDateVerbose(firstPaymentDate) }}</span> to
+        {{ this.$t('received') }}
+        <span class="bold">{{ payments }} {{ this.$t('payments') }} </span>
+        {{ this.$t('totalling') }}
+        <span class="bold"><Amount :amount="amount"/></span>
+        {{ this.$t('from') }}
+        <span class="bold">{{ formatDateVerbose(firstPaymentDate) }}</span>
+        {{ this.$t('to') }}
         <span class="bold">{{ formatDateVerbose(lastPaymentDate) }}</span
         >.
       </p>
     </div>
 
     <p class="help">
-      For privacy reasons, reusing addresses is highly discouraged.
-      <a class="link" href="#">Learn more></a>.
+      {{ this.$t('reusing_address_alert') }}
+      <a class="link" href="#">{{ this.$t('learn_more') }} ></a>.
     </p>
   </div>
 
   <div v-else class="information">
-    <p>You haven't generated addresses yet. Click above to generate one.</p>
+    <p>{{ this.$t('addresses_empty') }}</p>
   </div>
 </template>
 

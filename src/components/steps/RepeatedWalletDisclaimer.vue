@@ -11,9 +11,8 @@
       :next-step="nextStep"
     >
       <p
-        ><strong class="bold">PLEASE NOTE:</strong> this wallet has already been
-        imported into your Sheikah app. By re-importing this wallet into
-        Sheikah, you will overwrite your wallet's password.</p
+        ><strong class="bold">{{ $t('please_note').toUpperCase() }}</strong>
+        {{ $t('repeated_wallet_info') }}</p
       >
     </NavigationCard>
   </div>

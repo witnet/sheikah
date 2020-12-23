@@ -24,7 +24,7 @@
           <div class="banner" />
         </div>
         <div>
-          <p class="progress-title">We are preparing Sheikah</p>
+          <p class="progress-title">{{ this.$t('preparing_sheikah') }}</p>
           <p class="progress-subtitle">
             {{ format(percentage) }}
             <DotsLoading
@@ -83,11 +83,11 @@ export default {
     }),
     format(percentage) {
       if (percentage <= 80) {
-        return 'Updating wallet backend'
+        return this.$t('updating_wallet')
       } else if (percentage <= 90) {
-        return 'Running wallet'
+        return this.$t('running_wallet')
       } else if (percentage > 90) {
-        return 'Connecting to wallet backend'
+        return this.$t('connecting_to_wallet')
       }
     },
   },

@@ -1,22 +1,22 @@
 <template>
   <div>
     <div class="transaction-details">
-      <p class="label">Transaction ID</p>
+      <p class="label">{{ this.$t('transaction_id') }}</p>
       <p data-test="id" class="info click" @click="toggleNotificationId">{{
         id
       }}</p>
-      <p class="label">Block</p>
+      <p class="label">{{ this.$t('block') }}</p>
       <p
         data-test="block"
         class="info click"
         @click="toggleNotificationBlock"
         >{{ block }}</p
       >
-      <p class="label">Epoch</p>
+      <p class="label">{{ this.$t('epoch') }}</p>
       <p class="info">#{{ epoch }}</p>
-      <p class="label">Timestamp</p>
+      <p class="label">{{ this.$t('timestamp') }}</p>
       <p data-test="date" class="info">{{ date }}</p>
-      <p class="label">Timelocked</p>
+      <p class="label">{{ this.$t('timelocked') }}</p>
       <p data-test="timelocked" class="info">{{ timelocked ? 'Yes' : 'No' }}</p>
       <p
         v-if="
@@ -26,7 +26,7 @@
         data-test="witnesses-title"
         class="label"
       >
-        Witnessess
+        {{ this.$t('witnesses') }}
       </p>
       <p
         v-if="
@@ -36,7 +36,8 @@
         data-test="witnesses"
         class="info"
       >
-        {{ witnesses.min }}<span class="light"> as a minimum</span>
+        {{ witnesses.min
+        }}<span class="light">{{ this.$t('as_minimum') }} </span>
       </p>
       <p
         v-if="
@@ -46,7 +47,7 @@
         data-test="rewards-title"
         class="label"
       >
-        Rewards
+        {{ this.$t('rewards') }}
       </p>
       <p
         v-if="
@@ -56,9 +57,10 @@
         data-test="rewards"
         class="info"
       >
-        {{ rewards.witness }} <span class="light">for each witness </span>+
+        {{ rewards.witness }}
+        <span class="light">{{ this.$t('per_witness') }} </span>+
         {{ rewards.miners }}
-        <span class="light">in total for miners</span>
+        <span class="light">{{ this.$t('total_miner_reward') }}</span>
       </p>
       <p
         v-if="
@@ -68,7 +70,7 @@
         data-test="rounds-title"
         class="label"
       >
-        Rounds
+        {{ this.$t('rounds') }}
       </p>
       <p
         v-if="
@@ -78,17 +80,17 @@
         data-test="rounds"
         class="info"
       >
-        <span class="light">Maximum</span> {{ rounds.commit }}
-        <span class="light">commit rounds </span>+
+        <span class="light">{{ this.$t('maximum') }}</span> {{ rounds.commit }}
+        <span class="light">{{ this.$t('commit_rounds') }} </span>+
         {{ rounds.reveal }}
-        <span class="light">reveal rounds</span>
+        <span class="light">{{ this.$t('reveal_rounds') }}</span>
       </p>
       <p
         v-if="transactionType === 'data_request' || transactionType === 'tally'"
         data-test="current-stage-title"
         class="label"
       >
-        Current stage
+        {{ this.$t('current_stage') }}
       </p>
       <p
         v-if="transactionType === 'data_request' || transactionType === 'tally'"
@@ -105,7 +107,7 @@
         data-test="reveals-title"
         class="label"
       >
-        Reveals
+        {{ this.$t('reveals') }}
       </p>
       <div
         v-if="
@@ -138,7 +140,7 @@
         data-test="result-title"
         class="label"
       >
-        Final result
+        {{ this.$t('final_result') }}
       </p>
       <p
         v-if="transactionType === 'data_request' || transactionType === 'tally'"

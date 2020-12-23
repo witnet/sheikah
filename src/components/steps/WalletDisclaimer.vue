@@ -2,31 +2,24 @@
   <Disclaimer
     data-test="header-2"
     class="wallet-disclaimer"
-    title="Hey, listen!"
+    :title="$t('hey_listen')"
     :previous-step="previousStep"
     :next-step="nextStep"
-    previous-text="Back"
-    next-text="I will be careful, I promise!"
+    :previous-text="$t('back')"
+    :next-text="$t('disclaimer_next')"
   >
-    <p class="text bold">Please, read carefully before continue.</p>
+    <p class="text bold">{{ $t('wallet_disclaimer[0]') }}</p>
     <p class="text">
-      A wallet is an app that keeps your credentials safe and lets you interface
-      with the Witnet blockchain in many ways: from transferring Wit to someone
-      else to creating smart contracts.
+      {{ $t('wallet_disclaimer[1]') }}
     </p>
     <p class="text">
-      You should never share your seed phrase with anyone. We at Witnet do not
-      store your seed phrase and will never ask you to share it with us. If you
-      lose your seed phrase, you will permanently lose access to your wallet and
-      your funds.
+      {{ $t('wallet_disclaimer[2]') }}
     </p>
     <p class="text">
-      If someone finds or sees your seed phrase, they will have access to your
-      wallet and all of your funds.
+      {{ $t('wallet_disclaimer[3]') }}
     </p>
     <p class="text">
-      We recommend storing your seed phrase on paper somewhere safe. Do not
-      store it in a file on your computer or anywhere electronically.
+      {{ $t('wallet_disclaimer[4]') }}
     </p>
   </Disclaimer>
 </template>

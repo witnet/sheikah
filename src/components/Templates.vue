@@ -2,12 +2,12 @@
   <div class="templates" data-test="templates">
     <div class="templates-bar">
       <p class="title">
-        Data Request Templates
+        {{ this.$t('dr_templates') }}
         <span class="templates-number">{{ templates.length }}</span>
       </p>
       <el-button class="import-btn" type="primary" @click="importTemplate">
         <font-awesome-icon class="icon" icon="file-import" />
-        Import template
+        {{ this.$t('import_templates') }}
       </el-button>
     </div>
 
@@ -19,7 +19,7 @@
         @click="createTemplateAndRedirect"
       >
         <img class="add-btn" src="@/resources/svg/add.svg" />
-        <p class="text">Create a new template</p>
+        <p class="text">{{ this.$t('create_template') }}</p>
       </div>
       <TemplateCard
         v-for="template in paginatedTemplates"

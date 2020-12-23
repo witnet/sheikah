@@ -13,9 +13,9 @@ Vue.config.productionTip = false
 runApp()
 function runApp() {
   const vm = new Vue({
+    i18n,
     router,
     store,
-    i18n,
     render: h => h(App),
   }).$mount('#app')
 

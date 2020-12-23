@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="Create Value Transfer Transaction"
+    :title="$t('create_vtt_title')"
     :visible="true"
     :show-close="false"
     width="max-content"
@@ -24,23 +24,23 @@
       width="max-content"
       label-width="150px"
     >
-      <el-form-item label="Address" prop="address">
+      <el-form-item :label="$t('address')" prop="address">
         <el-input
           v-model="form.address"
           v-focus
           tabindex="1"
-          placeholder="Recipient address"
+          :placeholder="$t('address_placeholder')"
           data-test="tx-address"
           :maxlength="addressLength"
         />
       </el-form-item>
-      <el-form-item label="Amount" prop="amount">
+      <el-form-item :label="$t('amount')" prop="amount">
         <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
         <el-input v-model="form.amount" tabindex="3" data-test="tx-amount">
           <AppendUnit slot="append" @change-unit="changeUnit" />
         </el-input>
       </el-form-item>
-      <el-form-item label="fee per weight unit" prop="fee">
+      <el-form-item :label="$t('fee_per_weight_unit')" prop="fee">
         <el-input
           v-model="form.fee"
           type="number"
@@ -59,7 +59,7 @@
           @keydown.enter.esc.prevent="createVTT"
           @click="tryCreateVTT"
         >
-          Sign and send
+          {{ this.$t('sign_send') }}
         </el-button>
       </div>
     </el-form>
@@ -82,7 +82,7 @@ export default {
   data() {
     const maxNumber = (rule, value, callback) => {
       if (isGrtMaxNumber(value, this.unit)) {
-        callback(new Error('This number is greater than the maximum'))
+        callback(new Error(this.$t('validate_max_number')))
       } else {
         callback()
       }
@@ -91,7 +91,7 @@ export default {
     const integerNanoWit = (rule, value, callback) => {
       const isNanoWit = this.unit === WIT_UNIT.NANO
       if (isNanoWit && !Number.isInteger(Number(value))) {
-        callback(new Error('Only integer nanoWits values allowed'))
+        callback(new Error(this.$t('validate_integer_nano_wit')))
       } else {
         callback()
       }
@@ -100,7 +100,7 @@ export default {
     const minAmount = (rule, value, callback) => {
       const isNanoWit = this.unit === WIT_UNIT.NANO
       if (isNanoWit && value < 1) {
-        callback(new Error('The minimun fee cannot be less than 1 nanoWit'))
+        callback(new Error(this.$t('validate_min_amount')))
       } else {
         callback()
       }
@@ -108,7 +108,7 @@ export default {
 
     const isNumber = (rule, value, callback) => {
       if (!Number(value)) {
-        callback(new Error('This should be a number'))
+        callback(new Error(this.$t('validate_number')))
       } else {
         callback()
       }
@@ -126,19 +126,36 @@ export default {
       rules: {
         // address validation is updated on runtime according to the network
         address: [
-          { required: true, message: 'Required field', trigger: 'blur' },
-          { min: 42, max: 43, message: 'Length should be 43', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('required_field'),
+            trigger: 'blur',
+          },
+          {
+            min: 42,
+            max: 43,
+            message: this.$t('address_validation_default'),
+            trigger: 'blur',
+          },
         ],
         label: [],
         amount: [
-          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('required_field'),
+            trigger: 'blur',
+          },
           { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
           { validator: maxNumber, trigger: 'blur' },
         ],
         fee: [
-          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('required_field'),
+            trigger: 'blur',
+          },
           { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
@@ -176,11 +193,15 @@ export default {
     addressLength: {
       handler(len) {
         this.rules.address = [
-          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('required_field'),
+            trigger: 'blur',
+          },
           {
             min: len,
             max: len,
-            message: `Length should be ${len}`,
+            message: this.$t('address_length_validation', { variable: len }),
             trigger: 'blur',
           },
         ]

@@ -10,7 +10,7 @@
     :next-step="nextStep"
   >
     <p>
-      Please type your 12 word seed phrase.
+      {{ this.$t('wallet_import_seed') }}
     </p>
     <!-- maxlength = longest_mnemonic_length * words + whitespaces -->
     <!-- maxlength = 8 * 12 + 11 -->
@@ -30,8 +30,7 @@
       {{ mnemonicsError.message }}
     </p>
     <p class="paragraph">
-      Please ensure you do not add any extra spaces between words or at the
-      beginning or end of the phrase.
+      {{ this.$t('wallet_import_seed_info') }}
     </p>
   </NavigationCard>
 </template>

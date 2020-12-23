@@ -1,6 +1,10 @@
 <template>
   <!--  Emit click event to indicate a new address should be created -->
-  <el-tooltip content="Generate new address" placement="right" effect="light">
+  <el-tooltip
+    :content="$t('generate_address')"
+    placement="right"
+    effect="light"
+  >
     <button ref="btn" class="card" @click="$emit('click')">
       <font-awesome-icon class="icon" icon="plus" />
     </button>

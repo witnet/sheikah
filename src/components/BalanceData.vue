@@ -1,16 +1,16 @@
 <template>
   <div class="table">
-    <p class="label">Available</p>
+    <p class="label">{{ this.$t('available') }}</p>
     <Amount :unit-light="true" class="amount" :amount="available" />
     <p class="label"
-      >Locked
+      >{{ this.$t('locked_balance_label') }}
       <el-tooltip trigger="hover" effect="light">
         <font-awesome-icon class="info" icon="info-circle" />
         <div slot="content" class="info-message">
-          Locked Wits are tokens which belong to you. These tokens can't be
-          spent until a certain date. You can learn more about locked wits
+          {{ this.$t('locked_balance_tooltip[0]') }}
           <a class="link" :href="balanceLockedUrl" target="_blank"
-            >here<font-awesome-icon
+            >{{ this.$t('locked_balance_tooltip[1]') }}
+            <font-awesome-icon
               class="external-link"
               icon="external-link-alt"/></a
           >.
@@ -18,7 +18,7 @@
       </el-tooltip>
     </p>
     <Amount :unit-light="true" class="amount" :amount="locked" />
-    <p class="label total">Total</p>
+    <p class="label total">{{ this.$t('total_balance_label') }}</p>
     <Amount :unit-light="true" class="amount" :amount="total" />
   </div>
 </template>

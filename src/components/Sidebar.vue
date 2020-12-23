@@ -26,7 +26,7 @@
           to="/wallet/transactions"
         >
           <font-awesome-icon class="icon" icon="wallet" />
-          <span class="label">Transactions</span>
+          <span class="label capitalize">{{ $t('transactions') }}</span>
         </router-link>
 
         <router-link
@@ -35,13 +35,13 @@
           to="/request/templates"
         >
           <font-awesome-icon class="icon" icon="code" />
-          <span class="label">Data request</span>
+          <span class="label capitalize">{{ $t('data_request') }}</span>
         </router-link>
       </div>
       <div class="settings">
         <div class="icon-container" @click="closeSession">
           <el-tooltip
-            content="Go back to wallets list"
+            :content="$t('back_to_list')"
             placement="right"
             effect="light"
           >
@@ -82,12 +82,6 @@ export default {
       windowWidth: window.innerWidth,
       isEncryptXprvVisible: false,
       settingVisible: false,
-      settings: [
-        {
-          label: 'Export xprv',
-          action: () => this.exportXprv(),
-        },
-      ],
     }
   },
   computed: {

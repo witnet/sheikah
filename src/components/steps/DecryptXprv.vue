@@ -2,15 +2,14 @@
   <NavigationCard
     ref="navCard"
     class="wallet-encryption"
-    title="Decript your xprv"
-    previous-text="Back"
-    next-text="Next"
+    :title="$t('decrypt_xprv')"
+    :previous-text="$t('back')"
+    :next-text="$t('next')"
     :previous-step="prevStep"
     :next-step="nextStep"
   >
     <p class="paragraph">
-      Please, decrypt your xprv file with the password you used to export the
-      file.
+      {{ this.$t('decrypt_xprv_info') }}
     </p>
     <div ref="confirm" class="form-row password">
       <el-input
@@ -18,7 +17,7 @@
         v-model="password"
         class="password"
         data-test="password"
-        placeholder="Password"
+        :placeholder="$t('password')"
         show-password
         @keydown.enter.native="nextStep"
       />
@@ -87,8 +86,8 @@ export default {
     setError() {
       this.$store.commit('setError', {
         name: 'xprv',
-        error: 'Validation Error',
-        message: 'Upload a valid file',
+        error: this.$t('validation_error'),
+        message: this.$t('xprv_validation_message'),
       })
     },
     prevStep() {

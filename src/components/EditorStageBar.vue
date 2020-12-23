@@ -28,26 +28,41 @@ export default {
     return {
       stages: [
         {
-          label:
-            '<span>1. Enter Template <span class="bolder">Settings</span></span>',
+          label: `<span>1. ${this.$t(
+            'editor_stage_1[0]',
+          )} <span class="bolder">${this.$t(
+            'editor_stage_1[1]',
+          )}</span></span>`,
           name: EDITOR_STAGES.SETTINGS,
         },
         {
-          label:
-            '<span class="link">2. Select your <span class="bolder">Data Sources<span></span>',
+          label: `<span class="link">2. ${this.$t(
+            'editor_stage_2[0]',
+          )} <span class="bolder">${this.$t('editor_stage_2[1]')}<span></span>`,
           name: EDITOR_STAGES.SOURCES,
         },
         {
-          label:
-            '<span>3. Edit <span class="bolder">Source Scripts</span></span>',
+          label: `<span>3. ${this.$t(
+            'editor_stage_3[0]',
+          )} <span class="bolder">${this.$t(
+            'editor_stage_3[1]',
+          )}</span></span>`,
           name: EDITOR_STAGES.SCRIPTS,
         },
         {
-          label: '<span>4. Set <span class="bolder">Aggregator</span></span>',
+          label: `<span>4. ${this.$t(
+            'editor_stage_4[0]',
+          )} <span class="bolder">${this.$t(
+            'editor_stage_4[1]',
+          )}</span></span>`,
           name: EDITOR_STAGES.AGGREGATIONS,
         },
         {
-          label: '<span>5. Set <span class="bolder">Tally</span></span>',
+          label: `<span>5. ${this.$t(
+            'editor_stage_5[0]',
+          )} <span class="bolder">${this.$t(
+            'editor_stage_5[1]',
+          )}</span></span>`,
           name: EDITOR_STAGES.TALLY,
         },
       ],

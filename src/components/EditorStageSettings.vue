@@ -5,31 +5,24 @@
     </template>
 
     <template v-slot:upperRight>
-      <Fieldset title="What’s in a template?" type="help">
+      <Fieldset :title="$t('template_description_title')" type="help">
         <div>
           <p>
-            Templates enable smart contract developers to easily build, extend,
-            remix and share data requests thanks to the use of variables that
-            can be customized when deploying an instance of the template.
+            {{ $t('template_description[0]') }}
           </p>
           <p>
-            A template puts together multiple data sources plus one Aggregation
-            and one Tally function.
+            {{ $t('template_description[1]') }}
           </p>
         </div>
       </Fieldset>
     </template>
 
     <template v-slot:bottomRight>
-      <Fieldset title="About variables" type="help">
+      <Fieldset :title="$t('variables_description_title')" type="help">
         <div>
-          <p
-            >Variables need to be defined here before using them in source
-            scripts.</p
-          >
+          <p>{{ $t('variables_description[0]') }}</p>
           <p>
-            Inserting variables in Source Scripts and Aggregation or Tally
-            functions is as easy as writting.
+            {{ $t('variables_description[1]') }}
           </p>
         </div>
       </Fieldset>

@@ -11,17 +11,14 @@
     :disabled-next-button="!fileInfo"
   >
     <p class="text">
-      Please import your wallet's xprv.json file.
+      {{ this.$t('import_xprv[0]') }}
     </p>
     <p class="text">
-      You will have downloaded this file when exporting your wallet in Sheikah.
-      You do not have to open the file: simply drag and drop it into the box
-      below, or open the "click to import" link to select it from your device.
+      {{ this.$t('import_xprv[1]') }}
     </p>
     <p class="text">
-      <span class="bold"> Please Note:</span> this file contains your wallet's
-      private key. Do not share it with anyone, including members of the Witnet
-      community.
+      <span class="bold">{{ this.$t('please_note') }}</span>
+      {{ this.$t('import_xprv[2]') }}
     </p>
     <FileUploader
       :error-message="xprvError ? xprvError.message : ''"
@@ -33,8 +30,9 @@
       @file-validated="setFileInfo"
       @error-uploading-file="setError"
     >
-      Drag your <span class="upload">xprv</span> file here or
-      <span class="underline">click to import</span>
+      {{ this.$t('drag_xprv[0]') }} <span class="upload">xprv</span>
+      {{ this.$t('drag_xprv[1]') }}
+      <span class="underline">{{ this.$t('drag_xprv[2]') }}</span>
     </FileUploader>
   </NavigationCard>
 </template>
@@ -139,8 +137,8 @@ export default {
     setError() {
       this.$store.commit('setError', {
         name: 'xprv',
-        error: 'Validation Error',
-        message: 'Upload a valid file',
+        error: this.$t('validation_error'),
+        message: this.$t('xprv_validation_message'),
       })
     },
     importFile() {

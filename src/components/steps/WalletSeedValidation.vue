@@ -11,9 +11,9 @@
     :disabled-next-button="isNextButtonDisabled"
   >
     <p class="text">
-      Please type your 12 word <em>seed phrase</em> exactly as shown to you on
-      the previous screen. This will ensure that you have noted down your seed
-      phrase correctly.
+      {{ this.$t('seed_validation[0]') }}
+      <em>{{ this.$t('seed_validation[1]') }}</em
+      >{{ this.$t('seed_validation[2]') }}
     </p>
     <Input
       v-model="seed"
@@ -28,11 +28,10 @@
       data-test="mnemonics-error-alert"
       class="match-error"
     >
-      Mnemonics must match
+      {{ this.$t('seed_validation[3]') }}
     </p>
     <p class="text">
-      Please ensure you do not add any extra spaces between words or at the
-      beginning or end of the phrase.
+      {{ this.$t('seed_validation[4]') }}
     </p>
   </NavigationCard>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div class="variables-container">
     <div v-for="(variable, index) in variables" :key="index" class="variable">
-      <label class="label" data-test="name-label">Name</label>
+      <label class="label" data-test="name-label">{{ this.$t('name') }}</label>
       <div class="variable-key">
         <p class="variable-icon">$</p>
         <el-input
@@ -23,9 +23,11 @@
           "
         />
         <div v-show="errors[index]" class="error" data-test="error">
-          This key is repeated. Change the variable name before continue editing
+          {{ this.$t('repeated_variable_key') }}
         </div>
-        <label class="label" data-test="type-label">Data type</label>
+        <label class="label" data-test="type-label">{{
+          this.$t('data_type')
+        }}</label>
         <Select
           v-focus:[focusHandler(index,type)]
           data-test="select-type"
@@ -44,12 +46,14 @@
           "
         />
       </div>
-      <label class="label" data-test="value-label">Default value</label>
+      <label class="label" data-test="value-label">{{
+        this.$t('default_value')
+      }}</label>
       <el-input
         v-focus:[focusHandler(index,value)]
         class="variable-value"
         data-test="edit-var-value-input"
-        placeholder="The default String that this variable will take if an user does not override it"
+        :placeholder="this.$t('default_value_placeholder')"
         :value="variable.value"
         @input="
           val =>
@@ -63,12 +67,14 @@
             })
         "
       />
-      <label class="label" data-test="description-label">Description</label>
+      <label class="label" data-test="description-label">{{
+        this.$t('description')
+      }}</label>
       <el-input
         v-focus:[focusHandler(index,description)]
         class="variable-value"
         data-test="edit-var-description-input"
-        placeholder="Helps users of this template understand what this variable is used for"
+        :placeholder="$t('variables_description_placeholder')"
         :value="variable.description"
         @input="
           val =>
@@ -82,7 +88,11 @@
             })
         "
       />
-      <el-tooltip content="Delete variable" placement="right" effect="light">
+      <el-tooltip
+        :content="this.$t('delete_variable_tooltip')"
+        placement="right"
+        effect="light"
+      >
         <div
           class="delete"
           data-test="delete-var-btn"
@@ -98,7 +108,7 @@
         data-test="add-variable"
         src="@/resources/svg/add-operator.svg"
       />
-      <p class="add-operator-text">Click to create another variable</p>
+      <p class="add-operator-text">{{ this.$t('add_variable') }}</p>
     </div>
   </div>
 </template>

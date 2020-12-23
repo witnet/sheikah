@@ -48,29 +48,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <LayoutTwoColumns>
-    <template #left>
-      <div :style="{ background: '#E6D4F7', height: '50vh' }">
-        Main content
-      </div>
-    </template>
-
-    <template #upperRight>
-      <div :style="{ background: '#8AE5B1', height: '20vh'}">
-        Upper right
-      </div>
-    </template>
-
-    <template #bottomRight>
-      <div :style="{ background: '#FCF4D9' }">
-        Bottom right
-      </div>
-    </template>
-  </LayoutTwoColumns>
-```
-</docs>

@@ -1,13 +1,13 @@
 <template>
   <div class="transaction-list">
     <Fieldset
-      title="Transactions"
+      :title="$t('transactions')"
       :subtitle="`${transactionsLength} transactions`"
     >
       <p class="title">
-        <span class="label">Transactions</span>
+        <span class="label capitalize">{{ this.$t('transactions') }}</span>
         <span class="number" data-test="transactions-length"
-          >{{ transactionsLength }} transactions</span
+          >{{ transactionsLength }} {{ this.$t('transactions') }}</span
         >
       </p>
       <div class="list">
@@ -42,7 +42,9 @@
           class="no-transactions-container"
           data-test="empty-transactions"
         >
-          <p class="no-transactions-text">You don't have transactions</p>
+          <p class="no-transactions-text">{{
+            this.$t('transactions_empty')
+          }}</p>
         </div>
       </div>
       <div

@@ -1,3 +1,5 @@
+import i18n from '@/plugins/i18n'
+
 export const EDITOR_ALLOWED_PROTOCOLS = ['http', 'https']
 
 export const EDITOR_EXPORT_FORMAT = {
@@ -44,11 +46,11 @@ export const WIT_UNIT = {
 export const DEFAULT_WIT_UNIT = WIT_UNIT.WIT
 
 export const NETWORK_STATUS = {
-  NODE_DISCONNECTED: 'NODE DISCONNECTED',
-  SYNC_ERROR: 'SYNC ERROR',
-  SYNCED: 'SYNCED',
-  SYNCING: 'SYNCING',
-  WAITING_FOR_NODE_TO_SYNC: 'WAITING FOR NODE TO SYNC',
+  NODE_DISCONNECTED: i18n.t('node_disconnected'),
+  SYNC_ERROR: i18n.t('sync_error'),
+  SYNCED: i18n.t('synced'),
+  SYNCING: i18n.t('syncing'),
+  WAITING_FOR_NODE_TO_SYNC: i18n.t('waiting_for_node_to_sync'),
 }
 
 export const WALLET_EVENTS = {
@@ -67,10 +69,10 @@ export const WALLET_EVENTS = {
 // Generate address delay in ms
 export const GENERATE_ADDRESS_DELAY = 300
 
-export const TEMPLATE_EMPTY_DESCRIPTION = 'No description provided'
+export const TEMPLATE_EMPTY_DESCRIPTION = i18n.t('template_empty_description')
 
-export const TEXT_NOTIFICATION_COPY_BLOCK = 'Block hash copied'
-export const TEXT_NOTIFICATION_COPY_TX = 'Transaction ID copied'
+export const TEXT_NOTIFICATION_COPY_BLOCK = i18n.t('block_hash_copied')
+export const TEXT_NOTIFICATION_COPY_TX = i18n.t('tx_id_copied')
 
 export const HISTORY_UPDATE_TYPE = {
   DELETE_OPERATOR: 'DELETE_OPERATOR',
@@ -97,12 +99,15 @@ export const GENESIS_EVENT_TIMESTAMP = 1602666000000
 export const SYNCING_TIME_WINDOW_LENGTH = 100
 
 export const NOTIFICATIONS = {
-  BLOCK: { key: 'block', title: 'Block notifications' },
-  TRANSACTIONS: { key: 'transactions', title: 'Transactions notifications' },
-  PAYMENTS: { key: 'payments', title: 'Payments notifications' },
+  BLOCK: { key: 'block', title: i18n.t('block_notifications_title') },
+  TRANSACTIONS: {
+    key: 'transactions',
+    title: i18n.t('tx_notifications_title'),
+  },
+  PAYMENTS: { key: 'payments', title: i18n.t('payments_notifications_title') },
   SYNCRONIZATION: {
     key: 'syncronization',
-    title: 'Syncronization notifications',
+    title: i18n.t('syncronization_notifications_title'),
   },
 }
 

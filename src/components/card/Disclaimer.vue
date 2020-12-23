@@ -4,7 +4,7 @@
       <template v-slot:header>
         <div v-if="title" class="header">
           <div class="big-title">
-            <p class="title">DISCLAIMER</p>
+            <p class="title">{{ $t('disclaimer').toUpperCase() }}</p>
             {{ title }}
           </div>
           <font-awesome-icon class="icon" icon="file-signature" />
@@ -43,9 +43,7 @@
     </BaseCard>
     <div class="sub-title-container">
       <p class="sub-title">
-        By accepting these disclaimers, you commit to comply with the explained
-        restrictions and digitally sign your conformance using your Witnet
-        wallet.
+        {{ $t('disclaimer_info') }}
       </p>
     </div>
   </div>

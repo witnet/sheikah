@@ -1,7 +1,9 @@
 <template>
   <div class="inputs-outputs">
     <div class="box inputs">
-      <p data-test="inputs-title" class="title">INPUTS</p>
+      <p data-test="inputs-title" class="title">{{
+        this.$t('inputs').toUpperCase()
+      }}</p>
       <div v-for="(input, index) in inputs" :key="index" class="transaction">
         <p data-test="inputs-index" class="index"># {{ index }}</p>
         <Amount class="amount" data-test="inputs-value" :amount="input.value" />
@@ -9,7 +11,9 @@
       </div>
     </div>
     <div class="box outputs">
-      <p data-test="output-title" class="title">OUTPUTS</p>
+      <p data-test="output-title" class="title">{{
+        this.$t('outputs').toUpperCase()
+      }}</p>
       <div v-for="output in outputs" :key="output.index" class="transaction">
         <p :data-test="`output-index-${output.index}`" class="index"
           ># {{ output.index }}</p
@@ -30,7 +34,9 @@
         >
       </div>
       <div class="transaction">
-        <p data-test="fee-title" class="index">FEE</p>
+        <p data-test="fee-title" class="index">{{
+          this.$t('fee').toUpperCase()
+        }}</p>
         <Amount class="amount" :amount="fee" data-test="fee-amount" />
         <p class="address">{{ fee.address }}</p>
       </div>

@@ -14,56 +14,33 @@
       </div>
     </template>
     <template v-slot:upperRight>
-      <Fieldset title="About companion scripts" type="help">
+      <Fieldset :title="$t('scripts_description_title')" type="help">
         <div>
           <p>
-            Each source can have a companion script that lists operations that
-            we want the witnesses to apply on the retrieved data. This enables
-            you to get the information of your interest extracted out of larger
-            data structures like JSON objects.
+            {{ $t('scripts_description[0]') }}
           </p>
           <p>
-            The diversity of operators that you can use in companion scripts is
-            quite rich indeed: in addition to selecting specific pieces of data,
-            you can also transform those so they are uniform and can be compared
-            or aggregated together later in Step 3 of this editor.
+            {{ $t('scripts_description[1]') }}
           </p>
         </div>
       </Fieldset>
     </template>
 
     <template v-slot:bottomRight>
-      <Fieldset title="The rules of companion scripts" type="help">
+      <Fieldset :title="$t('scripts_rules_title')" type="help">
         <div>
+          <p>- {{ $t('scripts_rule_1') }}</p>
           <p
-            >- Each operator is applied on the output of the previous
-            operator.</p
+            >- {{ $t('scripts_rule_2[0]')
+            }}<em>{{ $t('scripts_rule_2[1]') }}</em
+            >{{ $t('scripts_rule_2[2]') }} <em>{{ $t('scripts_rule_2[3]') }}</em
+            >{{ $t('scripts_rule_2[4]') }}</p
           >
-          <p
-            >- Each script always start with a <em>String</em> or
-            <em>Bytes</em> value.</p
-          >
-          <p>
-            - Key-value data structures (roughly alike to Javascript objects,
-            Python dictionaries or Solidity mappings) are called Map.
-          </p>
-          <p
-            >- The final return type of a script is that of its last
-            operator.</p
-          >
-          <p>
-            - All source scripts in a single data request template must return
-            exactly the same type.
-          </p>
-          <p>
-            - Any operator arguments starting with a dollar sign ($) will be
-            interpreted as a variable that can be customized by the user when
-            deploying a new instance of this template.
-          </p>
-          <p
-            >- Default values for variables can be defined in Step 5 of this
-            editor.</p
-          >
+          <p> - {{ $t('scripts_rule_3') }} </p>
+          <p>- {{ $t('scripts_rule_4') }}</p>
+          <p> - {{ $t('scripts_rule_5') }} </p>
+          <p> - {{ $t('scripts_rule_6') }} </p>
+          <p>- {{ $t('scripts_rule_7') }}</p>
         </div>
       </Fieldset>
     </template>

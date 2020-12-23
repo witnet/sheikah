@@ -144,7 +144,7 @@ export default {
       localFile: this.file,
       fileName: this.file ? this.file.name : null,
       showDelete: false,
-      subtitle: `(Only ${this.acceptedFormat} files are allowed)`,
+      subtitle: this.$t('accepted_format', { variable: this.acceptedFormat }),
     }
   },
   computed: {

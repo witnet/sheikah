@@ -1,5 +1,4 @@
 import router from '@/router'
-// import i18n from '@/pluggins/i18n'
 import { WalletApi, standardizeBalance, LocalStorageApi } from '@/api'
 import {
   calculateTimeAgo,
@@ -8,6 +7,7 @@ import {
   encodeDataRequest,
   standardizeWitUnits,
 } from '@/utils'
+import i18n from '@/plugins/i18n'
 import SyncingTimeEstimator from '@/services/SyncingTimeEstimator'
 import ProcessWalletEvent from '@/services/ProcessWalletEvent'
 import formatMillisecondsDuration from '@/services/format/formatMillisecondsDuration'
@@ -261,8 +261,8 @@ export default {
         if (state.networkStatus === 'error') {
           this.commit('setError', {
             name: 'network',
-            error: 'The wallet or the node is not running properly',
-            message: 'connection error',
+            error: i18n.t('connection_error'),
+            message: i18n.t('connection_error_message'),
           })
         }
       }
@@ -323,7 +323,7 @@ export default {
 
     setError(state, { name, error, message }) {
       if (
-        error === 'Validation Error' ||
+        error === i18n.t('validation_error') ||
         name === 'uploadFile' ||
         name === 'mnemonics' ||
         name === 'xprv' ||
@@ -399,15 +399,15 @@ export default {
       if (passwordLength < 8 || repeatedPasswordLength < 8) {
         this.commit('setError', {
           name: 'createValidPassword',
-          error: 'Validation Error',
-          message: 'Password must be at least 8 characters',
+          error: i18n.t('validation_error'),
+          message: i18n.t('validate_password_length_message'),
         })
         state.validatedPassword = false
       } else if (password !== repeatedPassword) {
         this.commit('setError', {
           name: 'createValidPassword',
-          error: 'Validation Error',
-          message: 'Passwords must match',
+          error: i18n.t('validation_error'),
+          message: i18n.t('validate_password_match_message'),
         })
         state.validatedPassword = false
       } else {
@@ -475,7 +475,7 @@ export default {
         context.commit('setError', {
           name: 'closeSession',
           error: request.error.message,
-          message: 'An error occurred trying to close the session',
+          message: i18n.t('close_session_error_message'),
         })
       }
     },
@@ -492,7 +492,7 @@ export default {
         context.commit('setError', {
           name: 'exportXprv',
           error: request.error.message,
-          message: 'An error occurred exporting your xprv file',
+          message: i18n.t('export_xprv_error_message'),
         })
       }
     },
@@ -509,7 +509,7 @@ export default {
         context.commit('setError', {
           name: 'getItem',
           error: request.error.message,
-          message: 'An error occurred retrieving the label for the transaction',
+          message: i18n.t('get_labels_error_message'),
         })
       }
     },
@@ -525,19 +525,21 @@ export default {
         context.commit('clearGeneratedTransaction')
         if (context.state.notifications.transactions) {
           createNotification({
-            title: 'Transaction succesfully sent',
-            body: `The transaction ${cropString(
-              transactionToSend.transaction_id,
-              12,
-              'middle',
-            )} has been sent succesfully into the Witnet network.\nIt should be written into a block soon.`,
+            title: i18n.t('send_tx_notification_title'),
+            body: i18n.t('send_tx_notification_body', {
+              variable: cropString(
+                transactionToSend.transaction_id,
+                12,
+                'middle',
+              ),
+            }),
           })
         }
       } else {
         context.commit('setError', {
           name: 'sendTransaction',
           error: request.error.message,
-          message: 'An error occurred sending a request',
+          message: i18n.t('send_transaction_error_message'),
         })
         context.commit('clearGeneratedTransaction')
       }
@@ -559,7 +561,7 @@ export default {
         context.commit('setError', {
           name: 'saveItem',
           error: request.error.message,
-          message: 'An error occurred saving the label for your transaction',
+          message: i18n.t('save_label_error_message'),
         })
       }
     },
@@ -660,7 +662,7 @@ export default {
         context.commit('setError', {
           name: 'getAddresses',
           error: request.error.message,
-          message: 'An error occurred retrieving the addresses list',
+          message: i18n.t('get_addresses_error_message'),
         })
       }
     },
@@ -682,7 +684,7 @@ export default {
         context.commit('setError', {
           name: 'generateAddress',
           error: request.error.message,
-          message: 'An error occurred generating the address',
+          message: i18n.t('generate_address_error_message'),
         })
       }
     },
@@ -740,7 +742,7 @@ export default {
         context.commit('setError', {
           name: 'createMnemonics',
           error: request.error.message,
-          message: 'An error occurred creating the mnemonics',
+          message: i18n.t('create_mnemonics_error_message'),
         })
       }
     },
@@ -756,7 +758,9 @@ export default {
       if (request.error) {
         context.commit('setError', {
           name: importType,
-          error: `Invalid ${importType}`,
+          error: i18n.t('validate_imported_wallet_error', {
+            variable: importType,
+          }),
           message: request.error.data[0][1],
         })
       } else if (request.result.exist) {
@@ -790,7 +794,7 @@ export default {
         context.commit('setError', {
           name: 'createWallet',
           error: request.error.data[0][1],
-          message: 'An error occurred creating the wallet',
+          message: i18n.t('create_wallet_error_message'),
         })
         context.commit('clearSeed')
         context.commit('clearMnemonics')
@@ -821,7 +825,7 @@ export default {
         context.commit('setError', {
           name: 'getTransactions',
           error: request.error.message,
-          message: 'An error occurred getting the transactions',
+          message: i18n.t('get_tx_error_message'),
         })
       }
     },
@@ -842,7 +846,7 @@ export default {
           context.commit('setError', {
             name: 'getBalance',
             error: request.error.message,
-            message: 'An error occurred getting the balance',
+            message: i18n.t('get_balance_error_message'),
           })
         }
       }
@@ -882,7 +886,7 @@ export default {
         context.commit('setError', {
           name: 'getWalletInfos',
           error: request.error.message,
-          message: 'An error occurred trying to get the wallet info',
+          message: i18n.t('get_wallet_infos_error_message'),
         })
       }
     },
@@ -930,7 +934,7 @@ export default {
         context.commit('setError', {
           name: 'tryDataRequest',
           error: request.error.message,
-          message: 'An error occurred trying your data request',
+          message: i18n.t('try_dr_error_message'),
         })
       }
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
@@ -958,8 +962,12 @@ export default {
         context.state.notifications.transactions
       ) {
         createNotification({
-          title: `Received a payment of ${amount} ${context.state.unit}s`,
-          body: `The total balance of your wallet is now ${total} ${context.state.unit}s.`,
+          title: i18n.t('received_tx_notification_title', {
+            variable: `${amount} ${context.state.unit}s`,
+          }),
+          body: i18n.t('received_tx_notification_body', {
+            variable: `${total} ${context.state.unit}s`,
+          }),
         })
       }
     },
@@ -970,9 +978,11 @@ export default {
       if (finish > start) {
         if (context.state.notifications.syncronization) {
           createNotification({
-            title: 'Completed Wallet Synchronization',
-            body: `Synchronized ${finish -
-              start} blocks in total.\nYour wallet is now synchronized to the latest block in the chain (#${finish}).`,
+            title: i18n.t('synced_notification_title'),
+            body: i18n.t('synced_notification_body', {
+              range: `${finish - start}`,
+              finish: `(#${finish}).`,
+            }),
           })
         }
       }
@@ -997,9 +1007,12 @@ export default {
       if (finish - start > 100) {
         if (context.state.notifications.syncronization) {
           createNotification({
-            title: 'Starting Wallet Synchronization',
-            body: `Will synchronize ${finish -
-              start} blocks in total, starting with block #${start} up to the latest block in the chain (#${finish}).`,
+            title: i18n.t('sync_start_notification_title'),
+            body: i18n.t('sync_start_notification_body', {
+              range: `${finish - start}`,
+              start: `#${start}`,
+              finish: `(#${finish}).`,
+            }),
           })
         }
       }
@@ -1016,12 +1029,16 @@ export default {
       if (event && context.state.notifications.block) {
         if (Array.isArray(event)) {
           createNotification({
-            title: `${event.length} blocks confirmed.`,
+            title: i18n.t('blocks_confirmed_notification_title', {
+              variable: event.length,
+            }),
             body: `${event[0]} ... ${event[event.length - 1]}`,
           })
         } else {
           createNotification({
-            title: `Received new epoch #${event.epoch}`,
+            title: i18n.t('block_notification_title', {
+              variable: event.epoch,
+            }),
             body: event.block_hash,
           })
         }

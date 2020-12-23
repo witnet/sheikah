@@ -7,7 +7,7 @@
     <div class="border">
       <el-tooltip
         v-show="showDelete && !hideDelete"
-        content="Delete operator"
+        :content="$t('delete_operator')"
         placement="right"
         effect="light"
       >
@@ -17,7 +17,7 @@
           @click="deleteOperator"
         />
       </el-tooltip>
-      <p data-test="operator-label" class="label">Operator</p>
+      <p data-test="operator-label" class="label">{{ this.$t('operator') }}</p>
       <Select
         ref="operator"
         data-test="operator"
@@ -28,9 +28,9 @@
           option => updateOperatorAndVariables(selectedOption.id, option.value)
         "
       />
-      <p v-if="hasArguments" data-test="arguments-label" class="label"
-        >Arguments</p
-      >
+      <p v-if="hasArguments" data-test="arguments-label" class="label">{{
+        this.$t('arguments')
+      }}</p>
       <div v-if="hasArguments" data-test="has-arguments" class="with-arguments">
         <EditorOperatorArgument
           v-for="(argument, index) in selectedOperatorArguments"
@@ -57,7 +57,7 @@
             data-test="add-operator"
             src="@/resources/svg/add-operator.svg"
           />
-          <p class="add-operator-text">Click to add another operator</p>
+          <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
         </div>
       </div>
       <OperatorOutput

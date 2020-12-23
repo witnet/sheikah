@@ -2,13 +2,12 @@
   <div data-test="welcome-back" class="welcome-back">
     <div class="bar">
       <img class="row sheikah-icon" src="@/resources/svg/sheikah-icon.svg" />
-      <p v-if="walletInfos && walletInfos.length" class="row title"
-        >Welcome back to Sheikah!</p
-      >
-      <p v-else class="row title">Welcome to Sheikah!</p>
+      <p v-if="walletInfos && walletInfos.length" class="row title">{{
+        this.$t('welcome_back')
+      }}</p>
+      <p v-else class="row title">{{ this.$t('welcome') }}</p>
       <p class="row subtitle">
-        Sheikah keeps your Witnet wallet safe and helps you build, share and
-        deploy data requests into the Witnet network.
+        {{ this.$t('sheikah_description') }}
       </p>
       <div class="icon-container" @click="$router.push('/settings/general')">
         <font-awesome-icon icon="cog" class="icon" />

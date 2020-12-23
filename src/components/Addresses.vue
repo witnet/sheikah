@@ -1,5 +1,8 @@
 <template>
-  <Fieldset title="Addresses" :subtitle="`${addresses.length} addresses`">
+  <Fieldset
+    :title="$t('address', addresses.length)"
+    :subtitle="`${addresses.length} ${$t('address', addresses.length)}`"
+  >
     <div class="card" :class="{ active: isRadiantBorderActive }">
       <AddressList
         :addresses="addresses"

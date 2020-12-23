@@ -8,18 +8,18 @@
     label-width="200px"
     width="max-content"
   >
-    <el-form-item label="Witnesses" prop="witnesses">
+    <el-form-item :label="$t('witnesses')" prop="witnesses">
       <el-input v-model="form.witnesses" data-test="witnesses"></el-input>
     </el-form-item>
 
-    <el-form-item label="Collateral" prop="collateral">
+    <el-form-item :label="$t('collateral')" prop="collateral">
       <el-input v-model="form.collateral" data-test="collateral" type="number">
         <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
     </el-form-item>
 
     <el-form-item
-      label="Min Consensus Percentage"
+      :label="$t('min_consensus_percentage')"
       prop="minConsensusPercentage"
     >
       <el-input
@@ -28,19 +28,22 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Fee per weight unit" prop="fee">
+    <el-form-item :label="$t('fee_per_weight_unit')" prop="fee">
       <el-input v-model="form.fee" data-test="dr-fee" type="number">
         <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
     </el-form-item>
 
-    <el-form-item label="Reward fee" prop="rewardFee">
+    <el-form-item :label="$t('reward_fee')" prop="rewardFee">
       <el-input v-model="form.rewardFee" data-test="reward-fee" type="number">
         <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
     </el-form-item>
 
-    <el-form-item label="Commit and reveal fee" prop="commitAndRevealFee">
+    <el-form-item
+      :label="$t('commit_and_reveal_fee')"
+      prop="commitAndRevealFee"
+    >
       <el-input v-model="form.commitAndRevealFee" data-test="commit-reveal-fee">
         <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
@@ -60,7 +63,7 @@
         @keydown.enter.esc.prevent="createDataRequest"
         @click="createDataRequest"
       >
-        Continue
+        {{ $t('continue') }}
       </el-button>
     </div>
   </el-form>

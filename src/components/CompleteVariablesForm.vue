@@ -22,18 +22,18 @@
         "
       />
       <div v-show="errors[index]" class="error">
-        (This key is repeated. Change the variable name before continue editing)
+        ({{ this.$t('repeated_variable_key') }})
       </div>
     </div>
     <div class="submit">
-      <el-button @click="goBack">Cancel</el-button>
+      <el-button @click="goBack">{{ this.$t('cancel') }}</el-button>
       <el-button
         data-test="complete-variables-submit"
         type="primary"
         @keydown.enter.esc.prevent="nextStep"
         @click="nextStep"
       >
-        Continue
+        {{ this.$t('continue') }}
       </el-button>
     </div>
   </div>

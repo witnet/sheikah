@@ -19,7 +19,11 @@
           data-test="content-type-select"
         />
       </div>
-      <el-tooltip content="Delete source" placement="right" effect="light">
+      <el-tooltip
+        :content="$t('delete_source')"
+        placement="right"
+        effect="light"
+      >
         <div
           class="delete"
           data-test="delete-btn"

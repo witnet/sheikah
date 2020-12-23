@@ -1,7 +1,7 @@
 <template>
   <Card class="wallet-seed-type" data-test="header-1">
     <p class="text header">
-      Create, import, or recover a wallet
+      {{ this.$t('import_wallet') }}
     </p>
     <ul class="options">
       <li v-for="option in options" :key="option.name" class="option">
@@ -11,11 +11,11 @@
       </li>
       <li v-if="walletInfos && walletInfos.length" class="option">
         <el-button
-          class="big"
+          class="big capitalize"
           data-test="back"
           @click="redirectTo('/welcome-back/wallet-list')"
         >
-          Back
+          {{ this.$t('back') }}
         </el-button>
       </li>
     </ul>
@@ -35,15 +35,15 @@ export default {
     return {
       options: [
         {
-          name: 'Create a new Witnet wallet',
+          name: this.$t('create_new_wallet'),
           route: '/ftu/disclaimer',
         },
         {
-          name: 'Import a wallet from mnemonics',
+          name: this.$t('import_wallet_from_seed'),
           route: '/ftu/import-wallet',
         },
         {
-          name: 'Import a wallet from xprv',
+          name: this.$t('import_wallet_from_xprv'),
           route: '/ftu/import-xprv',
         },
       ],

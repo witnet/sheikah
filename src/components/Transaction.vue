@@ -27,13 +27,19 @@
           v-else-if="transactionType === 'data_request'"
           class="address-container"
         >
-          <p data-test="transaction-type" class="address">Data request</p>
+          <p data-test="transaction-type" class="address">{{
+            this.$t('data_request')
+          }}</p>
         </div>
         <div v-else-if="transactionType === 'tally'" class="address-container">
-          <p data-test="transaction-type" class="address">Tally</p>
+          <p data-test="transaction-type" class="address">{{
+            this.$t('tally')
+          }}</p>
         </div>
         <div v-if="transactionType === 'mint'" class="address-container">
-          <p data-test="transaction-type" class="address">Mint</p>
+          <p data-test="transaction-type" class="address">{{
+            this.$t('mint')
+          }}</p>
         </div>
 
         <div class="">

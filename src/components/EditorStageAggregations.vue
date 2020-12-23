@@ -11,41 +11,41 @@
     </template>
 
     <template v-slot:upperRight>
-      <Fieldset title="What is an aggregator?" type="help">
+      <Fieldset :title="$t('aggregator_description_title')" type="help">
         <div>
           <p>
-            Aggregators define how to reduce or
-            <em
-              >merge the result of multiple sources into a single data point</em
-            >. They are similar to Javascript's .reduce() method or the fold
-            higher-order function from many programming languages.
+            {{ $t('aggregations_description[0]') }}
+            <em>{{ $t('aggregations_description[1]') }} </em
+            >{{ $t('aggregations_description[2]') }}
           </p>
           <p>
-            In addition, aggregation functions give the chance to filter out any
-            outliers by using one or more statistical primitives.
+            {{ $t('aggregations_description[3]') }}
           </p>
         </div>
       </Fieldset>
     </template>
 
     <template v-slot:bottomRight>
-      <Fieldset title="The rules of aggregators" type="help">
+      <Fieldset :title="$t('aggregator_rules_title')" type="help">
         <div>
           <p
-            >- Every Witnet request needs to have
-            <em>exactly one aggregator</em> function.</p
+            >- {{ $t('aggregations_rule_1[0]') }}
+            <em>{{ $t('aggregations_rule_1[1]') }} </em
+            >{{ $t('aggregations_rule_1[2]') }}</p
           >
           <p
-            >- The aggregator must contain
-            <em>zero, one or more filters.</em></p
+            >- {{ $t('aggregations_rule_2[0]') }}
+            <em>{{ $t('aggregations_rule_2[1]') }}</em></p
           >
-          <p>- The aggregator must contain <em>exactly one reducer.</em></p>
-          <p>
-            - When a Witnet node gets a request assigned for resolution, it
-            retrieves every source, applies the source companion scripts on the
-            retrieved data, collects the results into an Array, and then apply
-            the aggregator on it, first running the <em>filters</em> and
-            eventually the <em>reducer.</em>
+          <p
+            >- {{ $t('aggregations_rule_3[0]')
+            }}<em> {{ $t('aggregations_rule_3[1]') }}</em></p
+          >
+          <p
+            >- {{ $t('aggregations_rule_4[0]') }}
+            <em>{{ $t('aggregations_rule_4[1]') }}</em>
+            {{ $t('aggregations_rule_4[2]')
+            }}<em>{{ $t('aggregations_rule_4[3]') }}</em>
           </p>
         </div>
       </Fieldset>

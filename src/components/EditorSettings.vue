@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Fieldset title="Basic template settings" :closable="false">
+    <Fieldset :title="$t('template_settings')" :closable="false">
       <Card class="card" shadow="thin" :border="false">
         <RenameTemplate
           :id="template.id"
@@ -9,7 +9,7 @@
         />
       </Card>
     </Fieldset>
-    <Fieldset class="variables" title="Variables" :closable="false">
+    <Fieldset class="variables" :title="$t('variables')" :closable="false">
       <Card class="card" shadow="thin" :border="false">
         <Variables />
       </Card>

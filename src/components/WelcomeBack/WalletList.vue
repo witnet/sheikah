@@ -1,7 +1,7 @@
 <template>
   <Card class="wallet-list">
     <p class="text header">
-      Unlock your wallet
+      {{ this.$t('unlock_wallet') }}
     </p>
     <div class="list">
       <div class="row wallets">
@@ -13,29 +13,30 @@
           v-focus
           class="big"
           data-test="password"
-          placeholder="Please input password"
+          :placeholder="$t('input_password')"
           show-password
           @keydown.enter.esc.prevent="unlock"
         />
         <p v-if="unlockWalletError" data-test="error-alert" class="error">
-          Invalid password
+          {{ this.$t('invalid_password') }}
         </p>
       </div>
       <div class="row" @keydown.enter.esc.prevent="unlock">
         <el-button
           ref="submit"
-          class="big"
+          class="big capitalize"
           data-test="unlock-wallet"
           type="primary"
           :disabled="disableButton"
           @click="unlock"
         >
-          Unlock
+          {{ this.$t('unlock') }}
         </el-button>
       </div>
       <div class="row">
         <el-button data-test="create-wallet" type="text" @click="nextStep">
-          Create, import or recover a wallet ></el-button
+          {{ this.$t('create_wallet') }}
+          ></el-button
         >
       </div>
     </div>

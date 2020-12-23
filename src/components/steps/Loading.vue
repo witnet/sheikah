@@ -1,9 +1,9 @@
 <template>
   <Card class="">
     <div class="card">
-      <p class="title">Sheikah is loading your wallet</p>
+      <p class="title">{{ this.$t('loading[0]') }}</p>
       <Spinner class="spinner" :active="true" />
-      <p class="description">This will take a few seconds</p>
+      <p class="description">{{ this.$t('loading[1]') }}</p>
     </div>
   </Card>
 </template>

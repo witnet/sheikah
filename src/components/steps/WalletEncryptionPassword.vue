@@ -35,9 +35,8 @@ export default {
       password: '',
       repeatedPassword: '',
       disabledNextButton: false,
-      openingLine: 'PLEASE NOTE:',
-      text:
-        'this password encrypts your Witnet wallet only on this computer. This is not your backup and you cannot restore your wallet with this password. Your 12 word seed phrase is still your ultimate recovery method.',
+      openingLine: this.$t('please_note').toUpperCase(),
+      text: this.$t('encrypt_wallet_info'),
     }
   },
   computed: {

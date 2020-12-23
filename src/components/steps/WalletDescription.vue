@@ -7,18 +7,15 @@
     :next-step="() => $router.push(nextRoute)"
   >
     <p class="paragraph">
-      Keep track of and describe your Witnet wallet by filling in the boxes
-      below.
+      {{ this.$t('wallet_description') }}
     </p>
     <div class="form-row password">
-      <p>
-        Name
+      <p class="capitalize">
+        {{ this.$t('name') }}
         <el-tooltip trigger="hover" effect="light">
           <font-awesome-icon class="info" icon="info-circle" />
           <div slot="content" class="info-message">
-            Give your wallet a name (e.g. "Main", "HODL", "For Smart
-            Contracts"). Note: Your wallet's title will be visible from your
-            wallet list in Sheikah's homepage
+            {{ this.$t('wallet_name_info') }}
           </div>
         </el-tooltip>
       </p>
@@ -26,14 +23,12 @@
       <el-input v-model="title" class="password" />
     </div>
     <div class="form-row password">
-      <p>
-        Description
+      <p class="capitalize">
+        {{ this.$t('description') }}
         <el-tooltip trigger="hover" effect="light">
           <font-awesome-icon class="info" icon="info-circle" />
           <div slot="content" class="info-message">
-            Let your future self know the main functions and details of the
-            wallet. Note: the description will be visible only after you open
-            your wallet
+            {{ this.$t('wallet_description_info') }}
           </div>
         </el-tooltip>
       </p>

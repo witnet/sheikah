@@ -24,7 +24,7 @@
             @click="addOperator"
           >
             <img class="add-operator" src="@/resources/svg/add-operator.svg" />
-            <p class="add-operator-text">Click to add an operator</p>
+            <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
           </div>
         </div>
         <OperatorOutput
@@ -41,7 +41,7 @@
     <ScriptInfo
       class="first description"
       :index="0"
-      :info="`Go to ${url} and retrieve the contents as a String.`"
+      :info="$t('script_header', { variable: url })"
     />
     <div class="operators">
       <div
@@ -72,14 +72,14 @@
     </div>
     <div class="script-footer">
       <p class="text">
-        Return and past into aggregator
+        {{ this.$t('return_script') }}
       </p>
     </div>
     <!-- FIXME: Update text when the aggregation and tally stages are ready to merge -->
     <ScriptInfo
       class="last description"
       :index="script.length + 1"
-      info="Return the resulting value and feed it to the Aggregator."
+      :info="$t('script_footer')"
     />
   </div>
 </template>

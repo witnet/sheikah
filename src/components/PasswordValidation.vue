@@ -4,24 +4,24 @@
       <span class="bold">{{ opening }}</span> {{ text }}
     </p>
     <div class="form-row password">
-      <p class="label">Create a password</p>
+      <p class="label">{{ this.$t('create_password') }}</p>
       <el-input
         v-model="password"
         v-focus
         class="password"
         data-test="password"
-        placeholder="Please input password"
+        :placeholder="$t('input_password')"
         show-password
       />
     </div>
     <div ref="confirm" class="form-row password">
-      <p class="label">Confirm your password</p>
+      <p class="label">{{ this.$t('confirm_password') }}</p>
       <el-input
         ref="password"
         v-model="repeatedPassword"
         class="password"
         data-test="repeated-password"
-        placeholder="Confirm password"
+        :placeholder="$t('confirm_password')"
         show-password
         @keydown.enter.native="validate"
       />

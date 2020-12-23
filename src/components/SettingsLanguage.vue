@@ -1,6 +1,6 @@
 <template>
-  <Card class="card" title="Language" :border="false" shadow="thin">
-    <p class="text">Select the language</p>
+  <Card class="card" :title="$t('language')" :border="false" shadow="thin">
+    <p class="text">{{ this.$t('select_language') }}</p>
     <Select
       v-model="actualLanguage"
       data-test="select-unit"

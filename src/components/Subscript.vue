@@ -12,7 +12,7 @@
             src="@/resources/svg/add-operator.svg"
             @click="addOperator"
           />
-          <p class="add-operator-text">Click to add an operator</p>
+          <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
         </div>
       </div>
     </div>

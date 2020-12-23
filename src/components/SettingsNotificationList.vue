@@ -1,7 +1,7 @@
 <template>
   <Card
     class="card"
-    title="Notifications"
+    :title="$t('notifications')"
     :border="false"
     shadow="thin"
     :padding="false"

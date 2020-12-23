@@ -19,7 +19,7 @@
       </router-link>
 
       <div class="current-template">
-        <p class="text">Editing template</p>
+        <p class="text">{{ this.$t('edit_template') }}</p>
         <p class="name">{{ template.name }}</p>
       </div>
     </div>
@@ -104,14 +104,14 @@ export default {
           type: 'selection',
           options: [
             {
-              text: 'Javascript file',
+              text: this.$t('export_js'),
               name: 'export-js',
               action: () => {
                 this.export(EDITOR_EXPORT_FORMAT.JS)
               },
             },
             {
-              text: 'Sheikah template',
+              text: this.$t('export_template'),
               name: 'export-template',
               action: () => {
                 this.export(EDITOR_EXPORT_FORMAT.JSON)
@@ -120,13 +120,13 @@ export default {
           ],
         },
         {
-          text: 'Deploy',
+          text: this.$t('deploy'),
           action: this.deployTemplate,
           name: 'deploy',
           type: 'button',
         },
         {
-          text: 'Try data request',
+          text: this.$t('try_data_request'),
           action: this.tryDataRequest,
           name: 'try',
           type: 'switch',
@@ -192,8 +192,8 @@ export default {
       } else {
         this.setError({
           name: 'syncing',
-          error: 'The wallet is not yet synced',
-          message: 'Wait till the synchronization is finished',
+          error: this.$t('syncing_error'),
+          message: this.$t('syncing_error_message'),
         })
       }
     },

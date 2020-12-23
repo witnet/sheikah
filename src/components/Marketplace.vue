@@ -2,10 +2,9 @@
   <div data-test="marketplace">
     <div class="header">
       <p class="title">
-        <span class="sheikah-title">Sheikah </span>Marketplace
-        <span class="subtitle"
-          >Hundreds of smart contracts ready to be deployed</span
-        >
+        <span class="sheikah-title">{{ this.$t('sheikah') }}</span
+        >{{ this.$t('marketplace') }}
+        <span class="subtitle">{{ this.$t('marketplace_subtitle') }}</span>
       </p>
     </div>
     <div class="row">
@@ -33,7 +32,7 @@
       <div class="col col-right">
         <div class="tags">
           <p class="title">
-            TAGS
+            {{ this.$t('tags').toUpperCase() }}
           </p>
         </div>
       </div>
@@ -52,7 +51,7 @@ export default {
   },
   data() {
     return {
-      tabs: [{ name: 'Marketplace', link: '/marketplace' }],
+      tabs: [{ name: this.$t('marketplace'), link: '/marketplace' }],
       currentPage: 1,
       itemsPerPage: 4,
     }

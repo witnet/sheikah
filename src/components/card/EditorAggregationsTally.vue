@@ -73,51 +73,51 @@ export default {
     },
     filtersTitle() {
       return this.stage === 'aggregation'
-        ? `Aggregation filters ${this.filtersLength}`
-        : `Tally filters ${this.filtersLength}`
+        ? this.$t('filters_title_aggregation', { variable: this.filtersLength })
+        : this.$t('filters_title_tally', { variable: this.filtersLength })
     },
     reducerTitle() {
       return this.stage === 'aggregation'
-        ? 'Aggregation reducer'
-        : 'Tally reducer'
+        ? this.$t('reducer_title_aggregation')
+        : this.$t('reducer_title_tally')
     },
     filtersHeader() {
       return this.stage === 'aggregation'
-        ? `From ${this.sources} sources and companion scripts`
-        : 'As many results as witnessing nodes'
+        ? this.$t('filters_header_aggregation', { variable: this.sources })
+        : this.$t('filters_header_tally')
     },
     filtersFooter() {
       return this.stage === 'aggregation'
-        ? 'Into aggregation reducer'
-        : 'Return results that pass the filters'
+        ? this.$t('filters_footer_aggregation')
+        : this.$t('filters_footer_tally')
     },
     filtersHeaderScriptInfo() {
       return this.stage === 'aggregation'
-        ? 'Collect the results from the source scripts.'
-        : 'Collect the results reported by as many witnessing nodes as required in the request'
+        ? this.$t('filters_header_script_info_aggregation')
+        : this.$t('filters_header_script_info_tally')
     },
     filtersFooterScriptInfo() {
       return this.stage === 'aggregation'
-        ? 'Feed into the Aggregator reducer below only the values that passed the Aggregator filters.'
-        : 'Feed into the Tally reducer below only the values that passed the Tally filters.'
+        ? this.$t('filters_footer_script_info_aggregation')
+        : this.$t('filters_footer_script_info_tally')
     },
     reducerHeader() {
       return this.stage === 'aggregation'
-        ? 'From aggregation filters'
-        : 'From tally filters'
+        ? this.$t('reducer_header_aggregation')
+        : this.$t('reducer_header_tally')
     },
     reducerFooter() {
       return this.stage === 'aggregation'
-        ? 'Return and report to the network'
-        : 'Return final data request result'
+        ? this.$t('reducer_footer_aggregation')
+        : this.$t('reducer_footer_tally')
     },
     reducerHeaderScriptInfo() {
-      return 'Collect the results that passed the filters above.'
+      return this.$t('reducer_header_script_info')
     },
     reducerFooterScriptInfo() {
       return this.stage === 'aggregation'
-        ? 'Cryptographically commit to the result, and eventually reveal it once all the witnesses have committed their own result.'
-        : 'Publish the result into a Tally function in a new block on the Witnet block chain.'
+        ? this.$t('reducer_footer_script_info_aggregation')
+        : this.$t('reducer_footer_script_info_tally')
     },
   },
 }

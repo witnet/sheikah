@@ -1,7 +1,7 @@
 <template>
   <Card
     class="card"
-    title="Encrypt and export your xprv file"
+    :title="$t('encrypt_xprv_title')"
     :border="false"
     shadow="thin"
   >
@@ -26,7 +26,7 @@
         @keydown.enter.esc.prevent="encryptAndExport"
         @click="encryptAndExport"
       >
-        Encrypt and export
+        {{ $t('encrypt_export') }}
       </el-button>
     </div>
   </Card>
@@ -51,9 +51,8 @@ export default {
       repeatedPassword: '',
       disabledNextButton: false,
       downloadName: 'xprv.json',
-      openingLine: 'PLEASE NOTE:',
-      text:
-        'this password encrypts your xprv file. You will be asked to type this password if you want to import this file as a backup.',
+      openingLine: this.$t('please_note').toUpperCase(),
+      text: this.$t('encrypt_xprv'),
     }
   },
   computed: {

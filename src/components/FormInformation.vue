@@ -2,30 +2,30 @@
   <div class="transaction-container">
     <div class="scroll">
       <div v-if="type === 'ValueTransfer'" class="info">
-        <p class="entry">Amount</p>
+        <p class="entry">{{ this.$t('amount') }}</p>
         <Amount
           class="amount"
           :amount="generatedTransaction.metadata.outputs[0].amount"
         />
-        <p class="entry">To</p>
+        <p class="entry">{{ this.$t('to') }}</p>
         <p class="value address">{{
           generatedTransaction.metadata.outputs[0].address
         }}</p>
-        <p class="entry">Fee</p>
+        <p class="entry">{{ this.$t('fee') }}</p>
         <Amount class="amount" :amount="generatedTransaction.metadata.fee" />
       </div>
       <div v-else class="info">
-        <p class="entry">Witnesses</p>
+        <p class="entry">{{ this.$t('witnesses') }}</p>
         <p class="value">{{ witnesses }}</p>
-        <p class="entry">Min Consensus Percentage</p>
+        <p class="entry">{{ this.$t('min_consensus_percentage') }}</p>
         <p class="value">{{ minConsensusPercentage }}</p>
-        <p class="entry">Data request fee</p>
+        <p class="entry">{{ this.$t('data_request_fee') }}</p>
         <Amount class="amount" :amount="fee" />
-        <p class="entry">Reward fee</p>
+        <p class="entry">{{ this.$t('reward_fee') }}</p>
         <Amount class="amount" :amount="rewardFee" />
-        <p class="entry">Commit and reveal fee</p>
+        <p class="entry">{{ this.$t('commit_reveal_fee') }}</p>
         <Amount class="amount" :amount="commitAndRevealFee" />
-        <p class="entry">Inputs</p>
+        <p class="entry">{{ this.$t('inputs') }}</p>
         <div data-test="advance-options" class="value-transfer">
           <div
             v-for="(input, index) in generatedTransaction.transaction[type].body
@@ -37,7 +37,7 @@
             <p class="output-pointer"> {{ input.output_pointer }}</p>
           </div>
         </div>
-        <p class="entry">Outputs</p>
+        <p class="entry">{{ this.$t('outputs') }}</p>
         <div data-test="advance-options" class="value-transfer">
           <div
             v-for="(output, index) in generatedTransaction.transaction[type]
@@ -53,7 +53,7 @@
       </div>
       <transition name="slide">
         <div v-if="isAdvancedVisible" class="info advanced">
-          <p class="entry">Bytes</p>
+          <p class="entry">{{ this.$t('bytes') }}</p>
           <p data-test="advance-options" class="address value">{{
             generatedTransaction.bytes
           }}</p>
@@ -68,7 +68,7 @@
         class="link"
         @click="toggleAdvanceOptions"
       >
-        Show less
+        {{ this.$t('show_less') }}
         <img class="icon" src="@/resources/svg/close.svg" />
       </el-button>
       <el-button
@@ -78,12 +78,12 @@
         type="text"
         @click="toggleAdvanceOptions"
       >
-        Show advanced
+        {{ this.$t('show_advance') }}
         <img class="icon" src="@/resources/svg/open.svg" />
       </el-button>
       <span slot="footer" class="dialog-footer">
         <el-button data-test="cancel-tx" @click="closeAndClear">
-          Cancel
+          {{ this.$t('cancel') }}
         </el-button>
         <el-button
           tabindex="2"
@@ -92,7 +92,7 @@
           @keydown.enter.esc.prevent="confirmTransaction"
           @click="confirmTransaction"
         >
-          Confirm
+          {{ this.$t('confirm') }}
         </el-button>
       </span>
     </div>

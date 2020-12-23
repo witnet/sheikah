@@ -1,5 +1,5 @@
 <template>
-  <Fieldset title="Balance">
+  <Fieldset :title="$t('balance')">
     <BalanceData
       :available="available"
       :locked="locked"
