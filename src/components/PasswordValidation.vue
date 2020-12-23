@@ -25,9 +25,9 @@
         show-password
         @keydown.enter.native="validate"
       />
-      <div v-if="error" data-test="password-error-alert" class="error">
-        {{ error.message }}
-      </div>
+    </div>
+    <div v-if="error" data-test="password-error-alert" class="error">
+      {{ error.message }}
     </div>
   </div>
 </template>
@@ -89,6 +89,9 @@ export default {
       }
       this.$emit('input-password', this.password, this.repeatedPassword)
     },
+  },
+  beforeDestroy() {
+    this.clearError({ error: this.error.name })
   },
   methods: {
     ...mapMutations({
