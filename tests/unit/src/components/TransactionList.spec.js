@@ -110,7 +110,7 @@ describe('Changes the current page when clicking next button in pagination', () 
 
 describe('Renders the correct elements when click is not triggered', () => {
   it('render the number of transactions', () => {
-    const wrapper = shallowMount(TransactionList, getData())
+    const wrapper = mount(TransactionList, getData())
 
     expect(wrapper.find('[data-test="transactions-length"]').text()).toBe(
       '87 transactions',
@@ -119,6 +119,7 @@ describe('Renders the correct elements when click is not triggered', () => {
 
   it('render empty state without transactions as prop', () => {
     const wrapper = shallowMount(TransactionList, {
+      ...i18n(),
       propsData: {
         transactions: [],
         unit: 'nanoWit',
@@ -133,6 +134,7 @@ describe('Renders the correct elements when click is not triggered', () => {
 
   it('should render less than 13 address', () => {
     const wrapper = shallowMount(TransactionList, {
+      ...i18n(),
       propsData: {
         transactions: getTransactionsMock(3),
         unit: 'nanoWit',
@@ -145,6 +147,7 @@ describe('Renders the correct elements when click is not triggered', () => {
 
   it('should not render the pagination with less than 13 address', () => {
     const wrapper = shallowMount(TransactionList, {
+      ...i18n(),
       propsData: {
         transactions: getTransactionsMock(3),
         unit: 'nanoWit',
@@ -157,13 +160,13 @@ describe('Renders the correct elements when click is not triggered', () => {
 
   describe('should render the pagination with more than 13 address', () => {
     it('should render pagination', () => {
-      const wrapper = shallowMount(TransactionList, getData())
+      const wrapper = mount(TransactionList, getData())
 
       expect(wrapper.findAllComponents(Transaction).length).toBe(13)
     })
 
     it('should render 15 addresses', () => {
-      const wrapper = shallowMount(TransactionList, getData())
+      const wrapper = mount(TransactionList, getData())
 
       expect(wrapper.find('[data-test="pagination"]').isVisible()).toBe(true)
     })

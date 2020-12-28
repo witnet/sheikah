@@ -4,6 +4,7 @@ describe('EditorSource.vue', () => {
   describe('should render correctly', () => {
     it('should contains a the title', () => {
       const wrapper = mount(EditorSource, {
+        ...i18n(),
         propsData: {
           index: 0,
           protocol: '',
@@ -17,6 +18,7 @@ describe('EditorSource.vue', () => {
 
     it('it should NOT contain subtitle if NO url', () => {
       const wrapper = mount(EditorSource, {
+        ...i18n(),
         propsData: {
           index: 0,
           protocol: '',
@@ -30,6 +32,7 @@ describe('EditorSource.vue', () => {
 
     it('it should NOT contain subtitle if NO valid url', () => {
       const wrapper = mount(EditorSource, {
+        ...i18n(),
         propsData: {
           index: 0,
           protocol: '',
@@ -43,6 +46,7 @@ describe('EditorSource.vue', () => {
 
     it('it should contains subtitle if a valid url', () => {
       const wrapper = mount(EditorSource, {
+        ...i18n(),
         propsData: {
           index: 0,
           protocol: 'HTTP-GET',
@@ -56,6 +60,7 @@ describe('EditorSource.vue', () => {
 
     it('should contains protocol select field', () => {
       const wrapper = mount(EditorSource, {
+        ...i18n(),
         propsData: {
           index: 0,
           protocol: 'HTTP-GET',
@@ -69,6 +74,7 @@ describe('EditorSource.vue', () => {
 
     it('should contains url input field', () => {
       const wrapper = mount(EditorSource, {
+        ...i18n(),
         propsData: {
           index: 0,
           protocol: 'HTTP-GET',
@@ -82,6 +88,7 @@ describe('EditorSource.vue', () => {
 
     it('should contains content-type select field', () => {
       const wrapper = mount(EditorSource, {
+        ...i18n(),
         propsData: {
           index: 0,
           protocol: 'HTTP-GET',

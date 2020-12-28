@@ -4,6 +4,7 @@ describe('Fieldset.vue', () => {
   it('should render the slot', () => {
     const slotContent = '<div>Test</div>'
     const { element } = shallowMount(Fieldset, {
+      ...i18n(),
       propsData: {
         title: 'title',
       },
@@ -18,6 +19,7 @@ describe('Fieldset.vue', () => {
     it('title', () => {
       const slotContent = '<div>Test</div>'
       const wrapper = shallowMount(Fieldset, {
+        ...i18n(),
         propsData: {
           title: 'title',
         },
@@ -36,6 +38,7 @@ describe('Fieldset.vue', () => {
     it('subtitle', () => {
       const slotContent = '<div>Test</div>'
       const wrapper = shallowMount(Fieldset, {
+        ...i18n(),
         propsData: {
           title: 'title',
           subtitle: 'subtitle',
@@ -55,6 +58,7 @@ describe('Fieldset.vue', () => {
     it('helper', () => {
       const slotContent = '<div>Test</div>'
       const wrapper = shallowMount(Fieldset, {
+        ...i18n(),
         propsData: {
           title: 'title',
           subtitle: 'subtitle',

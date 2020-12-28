@@ -71,6 +71,7 @@ module.exports = {
         shallowMountView: false,
         createComponentMocks: false,
         createModuleStore: false,
+        i18n: false,
       },
     },
   ],

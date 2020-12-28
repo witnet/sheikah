@@ -4,19 +4,19 @@ import Button from 'element-ui/lib/button'
 
 describe('ResyncConfirmation.vue', () => {
   it('should contain an element dialog component', () => {
-    const wrapper = shallowMount(ResyncConfirmation)
+    const wrapper = shallowMount(ResyncConfirmation, { ...i18n() })
 
     expect(wrapper.findComponent(Dialog).exists()).toBe(true)
   })
 
   it('should contain a visible element dialog component', () => {
-    const wrapper = shallowMount(ResyncConfirmation)
+    const wrapper = shallowMount(ResyncConfirmation, { ...i18n() })
 
     expect(wrapper.findComponent(Dialog).isVisible()).toBe(true)
   })
 
   it('should contain cancel button', () => {
-    const wrapper = shallowMount(ResyncConfirmation)
+    const wrapper = shallowMount(ResyncConfirmation, { ...i18n() })
 
     expect(
       wrapper
@@ -27,7 +27,7 @@ describe('ResyncConfirmation.vue', () => {
   })
 
   it('should contain confirm button', () => {
-    const wrapper = shallowMount(ResyncConfirmation)
+    const wrapper = shallowMount(ResyncConfirmation, { ...i18n() })
 
     expect(
       wrapper

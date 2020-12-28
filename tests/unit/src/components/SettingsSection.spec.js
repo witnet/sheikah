@@ -4,6 +4,7 @@ describe('SettingsSection.vue', () => {
   describe('should render properly', () => {
     it('should render the unit section', () => {
       const wrapper = shallowMount(SettingsSection, {
+        ...i18n(),
         propsData: {
           settings: ['UNIT'],
         },
@@ -14,6 +15,7 @@ describe('SettingsSection.vue', () => {
 
     it('should render the unit section', () => {
       const wrapper = shallowMount(SettingsSection, {
+        ...i18n(),
         propsData: {
           settings: ['COMMUNITY'],
         },
@@ -26,6 +28,7 @@ describe('SettingsSection.vue', () => {
 
     it('should render the unit section', () => {
       const wrapper = shallowMount(SettingsSection, {
+        ...i18n(),
         propsData: {
           settings: ['NOTIFICATIONS'],
         },
@@ -38,6 +41,7 @@ describe('SettingsSection.vue', () => {
 
     it('should render the unit section', () => {
       const wrapper = shallowMount(SettingsSection, {
+        ...i18n(),
         propsData: {
           settings: ['EXPORT_XPRV', 'RESYNC'],
         },

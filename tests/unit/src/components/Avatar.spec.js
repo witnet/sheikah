@@ -5,6 +5,7 @@ import Avatar from '@/components/Avatar.vue'
 describe('NetworkStatus', () => {
   it('should include the same image src as the given by props', () => {
     const wrapper = mount(Avatar, {
+      ...i18n(),
       propsData: {
         src: 'avatar_src',
         borderColor: 'green',
@@ -18,6 +19,7 @@ describe('NetworkStatus', () => {
 
   it('should include color class according to the borderColor prop', () => {
     const wrapper = mount(Avatar, {
+      ...i18n(),
       propsData: {
         src: 'avatar_src',
         borderColor: 'red',
@@ -31,6 +33,7 @@ describe('NetworkStatus', () => {
 
   it('should contains only status class if no borderClass is passed', () => {
     const wrapper = mount(Avatar, {
+      ...i18n(),
       propsData: {
         src: 'avatar_src',
       },

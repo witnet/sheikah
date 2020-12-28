@@ -5,6 +5,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import '@/plugins/element'
 import '@/fontAwesome'
+import i18n from '@/plugins/i18n'
 
 const vueTestUtils = require('@vue/test-utils')
 
@@ -47,7 +48,7 @@ global.createComponentMocks = ({ store, router, style, mocks, stubs }) => {
   // Use a local version of Vue, to avoid polluting the global
   // Vue and thereby affecting other tests.
   const localVue = vueTestUtils.createLocalVue()
-  const returnOptions = { localVue }
+  const returnOptions = { localVue, i18n }
 
   // https://vue-test-utils.vuejs.org/api/options.html#stubs
   returnOptions.stubs = stubs || {}
@@ -126,4 +127,10 @@ global.getNormalizedFormRules = function(wrapper) {
 
 global.sleep = function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+global.i18n = function() {
+  return {
+    i18n,
+  }
 }

@@ -7,6 +7,7 @@ import '../../../../src/fontAwesome'
 
 describe('Renders the correct elements when there is no file uploaded', () => {
   const wrapper = shallowMount(FileUploader, {
+    ...i18n(),
     propsData: {
       acceptedFormat: '.json',
       errorMessage: null,
@@ -53,6 +54,7 @@ describe('Renders the correct elements when there is no file uploaded', () => {
 
 describe('Renders the correct elements when there is a file uploaded', () => {
   const wrapper = shallowMount(FileUploader, {
+    ...i18n(),
     propsData: {
       acceptedFormat: '.json',
       errorMessage: null,
@@ -99,6 +101,7 @@ describe('Renders the correct elements when there is a file uploaded', () => {
 
 describe('Shows delete file button when showDelete is activated', () => {
   const wrapper = shallowMount(FileUploader, {
+    ...i18n(),
     propsData: {
       acceptedFormat: '.json',
       errorMessage: null,
@@ -122,6 +125,7 @@ describe('Upload file', () => {
     let localImageInputValue = ''
 
     const wrapper = shallowMount(FileUploader, {
+      ...i18n(),
       propsData: {
         acceptedFormat: '.json',
         errorMessage: null,
@@ -156,7 +160,7 @@ describe('Upload file', () => {
   })
 })
 describe('delete file when click on delete', () => {
-  const wrapper = mount(FileUploader)
+  const wrapper = mount(FileUploader, { ...i18n() })
 
   wrapper.setData({
     showDelete: false,
@@ -181,6 +185,7 @@ describe('delete file when click on delete', () => {
 })
 describe('show error when error', () => {
   const wrapper = shallowMount(FileUploader, {
+    ...i18n(),
     propsData: {
       acceptedFormat: '.json',
       errorMessage: 'An error',

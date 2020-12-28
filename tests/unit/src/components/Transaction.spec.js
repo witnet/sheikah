@@ -3,6 +3,7 @@ import '@/fontAwesome'
 
 describe('Renders the correct elements when click is not triggered', () => {
   const wrapper = shallowMount(Transaction, {
+    ...i18n(),
     propsData: {
       amount: '123',
       block: '511482fc9161cd17545561449c0d7aae19c9986e4119db355bb9637c7804003f',
@@ -77,6 +78,7 @@ describe('Renders the correct elements when click is not triggered', () => {
 describe('data request', () => {
   describe('Renders the correct elements when click is triggered', () => {
     const wrapper = shallowMount(Transaction, {
+      ...i18n(),
       propsData: {
         amount: '123',
         timelocked: false,
@@ -147,6 +149,7 @@ describe('data request', () => {
 describe('mint', () => {
   describe('Renders the correct elements when click is triggered', () => {
     const wrapper = shallowMount(Transaction, {
+      ...i18n(),
       propsData: {
         amount: '123',
         timelocked: false,

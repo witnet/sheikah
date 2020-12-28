@@ -1,7 +1,7 @@
 <template>
   <div class="variables-container">
     <div v-for="(variable, index) in variables" :key="index" class="variable">
-      <label class="label" data-test="name-label">{{ this.$t('name') }}</label>
+      <label class="label" data-test="name-label">{{ $t('name') }}</label>
       <div class="variable-key">
         <p class="variable-icon">$</p>
         <el-input
@@ -23,10 +23,10 @@
           "
         />
         <div v-show="errors[index]" class="error" data-test="error">
-          {{ this.$t('repeated_variable_key') }}
+          {{ $t('repeated_variable_key') }}
         </div>
         <label class="label" data-test="type-label">{{
-          this.$t('data_type')
+          $t('data_type')
         }}</label>
         <Select
           v-focus:[focusHandler(index,type)]
@@ -47,13 +47,13 @@
         />
       </div>
       <label class="label" data-test="value-label">{{
-        this.$t('default_value')
+        $t('default_value')
       }}</label>
       <el-input
         v-focus:[focusHandler(index,value)]
         class="variable-value"
         data-test="edit-var-value-input"
-        :placeholder="this.$t('default_value_placeholder')"
+        :placeholder="$t('default_value_placeholder')"
         :value="variable.value"
         @input="
           val =>
@@ -68,7 +68,7 @@
         "
       />
       <label class="label" data-test="description-label">{{
-        this.$t('description')
+        $t('description')
       }}</label>
       <el-input
         v-focus:[focusHandler(index,description)]
@@ -89,7 +89,7 @@
         "
       />
       <el-tooltip
-        :content="this.$t('delete_variable_tooltip')"
+        :content="$t('delete_variable_tooltip')"
         placement="right"
         effect="light"
       >
@@ -108,7 +108,7 @@
         data-test="add-variable"
         src="@/resources/svg/add-operator.svg"
       />
-      <p class="add-operator-text">{{ this.$t('add_variable') }}</p>
+      <p class="add-operator-text">{{ $t('add_variable') }}</p>
     </div>
   </div>
 </template>

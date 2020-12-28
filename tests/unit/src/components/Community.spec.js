@@ -3,7 +3,7 @@ import Community from '@/components/Community'
 describe('Community.vue', () => {
   describe('should render properly', () => {
     it('should render properly the card with the twitter link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, { ...i18n() })
       wrapper.setData({
         socials: [
           {
@@ -63,7 +63,7 @@ describe('Community.vue', () => {
     })
 
     it('should render properly the card with the discord link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, { ...i18n() })
       wrapper.setData({
         socials: [
           {
@@ -123,7 +123,7 @@ describe('Community.vue', () => {
     })
 
     it('should render properly the card with the discord link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, { ...i18n() })
       wrapper.setData({
         socials: [
           {
@@ -183,7 +183,7 @@ describe('Community.vue', () => {
     })
 
     it('should render properly the card with the medium link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, { ...i18n() })
       wrapper.setData({
         socials: [
           {
@@ -243,7 +243,7 @@ describe('Community.vue', () => {
     })
 
     it('should render properly the card with the mail link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, { ...i18n() })
       wrapper.setData({
         socials: [
           {
@@ -307,7 +307,7 @@ describe('Community.vue', () => {
     })
 
     it('should render properly the card with the telegram link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, { ...i18n() })
       wrapper.setData({
         socials: [
           {

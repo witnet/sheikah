@@ -5,7 +5,7 @@ import { formatDateVerbose } from '@/utils'
 describe('AddressInformation.vue', () => {
   describe('should render correctly', () => {
     it('empty state', () => {
-      const wrapper = mount(AddressInformation)
+      const wrapper = mount(AddressInformation, { ...i18n() })
       expect(wrapper.find('.information').text()).toBe(
         `You haven't generated addresses yet. Click above to generate one.`,
       )
@@ -13,6 +13,7 @@ describe('AddressInformation.vue', () => {
 
     it('loading state', () => {
       const wrapper = mount(AddressInformation, {
+        ...i18n(),
         propsData: {
           used: true,
           index: 0,

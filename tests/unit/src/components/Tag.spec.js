@@ -3,6 +3,7 @@ import Tag from '@/components/Tag'
 describe('Tag.vue', () => {
   it('should render the content passed by props', () => {
     const wrapper = shallowMount(Tag, {
+      ...i18n(),
       propsData: {
         color: 'green',
         text: 'SUCCESS',
@@ -14,6 +15,7 @@ describe('Tag.vue', () => {
 
   it('should contain the color class', () => {
     const wrapper = shallowMount(Tag, {
+      ...i18n(),
       propsData: {
         color: 'red',
         text: 'SUCCESS',

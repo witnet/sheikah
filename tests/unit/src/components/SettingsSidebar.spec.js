@@ -6,6 +6,7 @@ describe('SettingsSidebar.vue', () => {
       // const mockEditorUndo = jest.fn()
 
       const wrapper = shallowMount(SettingsSidebar, {
+        ...i18n(),
         propsData: {
           sections: [
             {
@@ -36,6 +37,7 @@ describe('SettingsSidebar.vue', () => {
 
     it('should render the Alerts section', () => {
       const wrapper = shallowMount(SettingsSidebar, {
+        ...i18n(),
         propsData: {
           sections: [
             {

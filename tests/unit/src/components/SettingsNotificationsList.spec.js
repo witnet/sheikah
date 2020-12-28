@@ -4,7 +4,7 @@ import SettingsNotificationsList from '@/components/SettingsNotificationList'
 describe('SettingsNotificationsList.vue', () => {
   describe('should render properly', () => {
     it('the block notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList)
+      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -13,7 +13,7 @@ describe('SettingsNotificationsList.vue', () => {
     })
 
     it('the transactions notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList)
+      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -22,7 +22,7 @@ describe('SettingsNotificationsList.vue', () => {
     })
 
     it('the payments notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList)
+      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -31,7 +31,7 @@ describe('SettingsNotificationsList.vue', () => {
     })
 
     it('the syncronization notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList)
+      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -42,7 +42,7 @@ describe('SettingsNotificationsList.vue', () => {
 
   describe('should render properly', () => {
     it('the title of the block notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList)
+      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -53,7 +53,7 @@ describe('SettingsNotificationsList.vue', () => {
     })
 
     it('the title of the transactions notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList)
+      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -64,7 +64,7 @@ describe('SettingsNotificationsList.vue', () => {
     })
 
     it('the title of the payments notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList)
+      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -75,7 +75,7 @@ describe('SettingsNotificationsList.vue', () => {
     })
 
     it('the title of the syncronization notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList)
+      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })

@@ -3,6 +3,7 @@ import Select from '@/components/Select'
 describe('Select.vue', () => {
   describe('should render properly', () => {
     const wrapper = shallowMount(Select, {
+      ...i18n(),
       propsData: {
         type: 'big',
         value: {
@@ -41,6 +42,7 @@ describe('Select.vue', () => {
   })
   describe('should render properly', () => {
     const wrapper = shallowMount(Select, {
+      ...i18n(),
       propsData: {
         type: 'big',
         value: {
@@ -91,6 +93,7 @@ describe('Select.vue', () => {
   })
   describe('delete file when click on delete', () => {
     const wrapper = mount(Select, {
+      ...i18n(),
       propsData: {
         type: 'big',
         value: {

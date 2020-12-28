@@ -3,6 +3,7 @@ import BalanceData from '@/components/BalanceData'
 describe.skip('Balance.vue', () => {
   it('should render the available amount', () => {
     const wrapper = shallowMount(BalanceData, {
+      ...i18n(),
       propsData: {
         available: '1',
         locked: '10',
@@ -27,6 +28,7 @@ describe.skip('Balance.vue', () => {
 
   it('should render the locked amount', () => {
     const wrapper = shallowMount(BalanceData, {
+      ...i18n(),
       propsData: {
         available: '1',
         locked: '10',
@@ -51,6 +53,7 @@ describe.skip('Balance.vue', () => {
 
   it('should render the total amount', () => {
     const wrapper = shallowMount(BalanceData, {
+      ...i18n(),
       propsData: {
         available: '1',
         locked: '10',

@@ -3,6 +3,7 @@ import ScriptInfo from '@/components/ScriptInfo.vue'
 describe('ScriptInfo.vue', () => {
   describe('should render correctly', () => {
     const wrapper = shallowMount(ScriptInfo, {
+      ...i18n(),
       propsData: {
         index: 0,
         info:

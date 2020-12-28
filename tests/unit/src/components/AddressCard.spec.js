@@ -4,6 +4,7 @@ describe('AddressCard.vue', () => {
   describe('should render correctly', () => {
     it('should be red if used', () => {
       const wrapper = mount(AddressCard, {
+        ...i18n(),
         propsData: {
           selected: false,
           used: true,
@@ -14,6 +15,7 @@ describe('AddressCard.vue', () => {
 
     it('should be green if not used', () => {
       const wrapper = mount(AddressCard, {
+        ...i18n(),
         propsData: {
           selected: false,
           used: false,
@@ -25,6 +27,7 @@ describe('AddressCard.vue', () => {
 
     it('should be selected prop is passed', () => {
       const wrapper = mount(AddressCard, {
+        ...i18n(),
         propsData: {
           selected: true,
           used: false,
@@ -36,6 +39,7 @@ describe('AddressCard.vue', () => {
 
     it('should not be selected if prop is nos passed', () => {
       const wrapper = mount(AddressCard, {
+        ...i18n(),
         propsData: {
           selected: false,
           used: false,
@@ -48,6 +52,7 @@ describe('AddressCard.vue', () => {
 
   it('should emit event on click', () => {
     const wrapper = mount(AddressCard, {
+      ...i18n(),
       propsData: {
         selected: false,
         used: false,
