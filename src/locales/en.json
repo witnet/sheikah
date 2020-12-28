@@ -184,7 +184,6 @@
   "sheikah_description": "Sheikah keeps your Witnet wallet safe and helps you build, share and deploy data requests into the Witnet network.",
   "disclaimer": "disclaimer",
   "disclaimer_info": "By accepting these disclaimers, you commit to comply with the explained restrictions and digitally sign your conformance using your Witnet wallet.",
-  "hello": "hello",
   "decrypt_xprv_info": "Please, decrypt your xprv file with the password you used to export the file.",
   "import_xprv": [
     "Please import your wallet's xprv.json file.",
