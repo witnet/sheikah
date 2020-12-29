@@ -45,6 +45,7 @@ export default {
   },
   async created() {
     this.pollData()
+    this.getTheme()
     this.getNotifications()
     this.getUnit()
     this.getLanguage({ i18n: this.$i18n })
@@ -64,6 +65,7 @@ export default {
     ...mapActions({
       getWalletInfos: 'getWalletInfos',
       getNotifications: 'getNotifications',
+      getTheme: 'getTheme',
       getUnit: 'getUnit',
       getLanguage: 'getLanguage',
     }),

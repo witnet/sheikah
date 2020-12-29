@@ -247,6 +247,16 @@ export class LocalStorageApi {
   setLanguageSettings(language) {
     return this._set('languageSettings', language)
   }
+
+  getThemeSettings() {
+    console.log('get theme settings', this._get('themeSettings'))
+    return this._get('themeSettings')
+  }
+
+  setThemeSettings(theme) {
+    console.log('set theme settings', theme)
+    return this._set('themeSettings', theme)
+  }
 }
 
 export function standardizeAddresses(response) {

@@ -15,6 +15,7 @@ import formatMillisecondsDuration from '@/services/format/formatMillisecondsDura
 import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import {
   DEFAULT_WIT_UNIT,
+  DEFAULT_THEME,
   GENESIS_EVENT_TIMESTAMP,
   GENERATE_ADDRESS_DELAY,
   WALLET_EVENTS,
@@ -25,6 +26,7 @@ import {
   DEFAULT_LANGUAGE,
   LANGUAGES,
   LOCALES,
+  THEMES,
 } from '@/constants'
 import warning from '@/resources/svg/warning.png'
 
@@ -64,6 +66,7 @@ export default {
     exportFileLink: '',
     checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
     mainnetReady: false,
+    darkMode: false,
     unit: DEFAULT_WIT_UNIT,
     language: DEFAULT_LANGUAGE,
     prevUnit: DEFAULT_WIT_UNIT,
@@ -142,6 +145,15 @@ export default {
       state.notifications[name] = !state.notifications[name]
       state.localStorage.setNotificationsSettings(state.notifications)
     },
+    toggleTheme(state) {
+      state.darkMode = !state.darkMode
+      if (state.darkMode) {
+        state.localStorage.setThemeSettings(THEMES.DARK)
+      } else {
+        console.log(THEMES.LIGHT)
+        state.localStorage.setThemeSettings(THEMES.LIGHT)
+      }
+    },
     setUnit(state, unit) {
       state.unit = unit
     },
@@ -151,6 +163,16 @@ export default {
         i18n.locale = LOCALES[state.language]
       } else {
         state.language = LANGUAGES[i18n.locale.toUpperCase()]
+      }
+    },
+    setTheme(state, theme) {
+      console.log('set theme', theme)
+      if (theme === THEMES.LIGHT) {
+        state.darkMode = false
+        document.documentElement.setAttribute('theme', THEMES.LIGHT)
+      } else {
+        state.darkMode = true
+        document.documentElement.setAttribute('theme', THEMES.DARK)
       }
     },
     setNotifications(state, notifications) {
@@ -871,6 +893,14 @@ export default {
             language: null,
             i18n: payload.i18n,
           })
+    },
+    getTheme: async function(context) {
+      const theme = context.state.localStorage.getThemeSettings()
+      console.log('get theme', theme)
+      const defaultTheme = DEFAULT_THEME
+      theme
+        ? context.commit('setTheme', theme)
+        : context.commit('setTheme', defaultTheme)
     },
     getNotifications: async function(context) {
       const notifications = context.state.localStorage.getNotificationsSettings()

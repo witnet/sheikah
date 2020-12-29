@@ -36,6 +36,11 @@ export const LOCALES = {
 }
 
 export const DEFAULT_LANGUAGE = LANGUAGES.EN
+export const THEMES = {
+  LIGHT: 'light',
+  DARK: 'dark',
+}
+export const DEFAULT_THEME = THEMES.LIGHT
 
 export const WIT_UNIT = {
   WIT: 'Wit',
@@ -43,6 +48,7 @@ export const WIT_UNIT = {
   MICRO: 'microWit',
   NANO: 'nanoWit',
 }
+
 export const DEFAULT_WIT_UNIT = WIT_UNIT.WIT
 
 export const NETWORK_STATUS = {
@@ -118,6 +124,7 @@ export const SETTINGS = {
   COMMUNITY: 'COMMUNITY',
   NOTIFICATIONS: 'NOTIFICATIONS',
   LANGUAGE: 'LANGUAGE',
+  APPEARANCE: 'APPEARANCE',
 }
 
 export const SETTINGS_SECTIONS = {
@@ -129,7 +136,7 @@ export const SETTINGS_SECTIONS = {
 
 export const SETTINGS_BY_SECTION = {
   // TODO: include SETTINGS.LASGUAGE within general settings section when the transalations are ready
-  GENERAL: [SETTINGS.UNIT],
+  GENERAL: [SETTINGS.UNIT, SETTINGS.APPEARANCE],
   ADVANCED: [SETTINGS.EXPORT_XPRV, SETTINGS.RESYNC],
   NOTIFICATIONS: [SETTINGS.NOTIFICATIONS],
   ABOUT: [SETTINGS.COMMUNITY],

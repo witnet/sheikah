@@ -56,7 +56,7 @@ export default {
 
 .welcome-back {
   align-items: center;
-  background-color: $alpha-purple;
+  background-color: var(--app-background-color);
   display: flex;
   height: 100vh;
   justify-content: center;
