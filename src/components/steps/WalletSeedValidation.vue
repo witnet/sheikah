@@ -103,7 +103,7 @@ export default {
 
 .seed {
   align-items: center;
-  border: $input_big-border;
+  border: var(--seed-big-border);
   border-radius: $input_big-border-radius;
   box-sizing: border-box;
   color: $input_big-color;

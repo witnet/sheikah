@@ -82,12 +82,12 @@ export default {
 @import '@/styles/_colors.scss';
 
 .info-message {
-  color: $alt-grey-5;
+  color: var(--text-medium-emphasis);
   font-size: 13px;
   max-width: 250px;
 
   .link {
-    color: $purple-2;
+    color: var(--balance-link-color);
     text-decoration: underline;
 
     .external-link {
@@ -98,7 +98,7 @@ export default {
 }
 
 .table {
-  background-color: $purple-5;
+  background-color: var(--balance-background);
   border-radius: 4px;
   box-shadow: 0 4px 4px rgb(155, 181, 224, 0.1);
   display: grid;
@@ -109,7 +109,7 @@ export default {
   width: 100%;
 
   .label {
-    color: $white;
+    color: var(--text-dark-background);
     font-size: 14px;
 
     &.total {
@@ -118,14 +118,14 @@ export default {
     }
 
     .info {
-      color: $white;
+      color: var(--text-dark-background);
       font-size: 13px;
       margin-left: 4px;
     }
   }
 
   .amount {
-    color: $white;
+    color: var(--text-dark-background);
     font-size: 16px;
     font-weight: bold;
     justify-self: end;

@@ -92,7 +92,7 @@ export default {
   row-gap: 16px;
 
   .label {
-    color: $grey-5;
+    color: var(--text-medium-emphasis);
     font-size: 14px;
   }
 }

@@ -1,5 +1,341 @@
 @import './colors';
 
+[theme='dark'] {
+  // community card
+  --community-card-background: #{$grey-dark-8};
+  --community-card-border: 1px solid #{$purple-1};
+  --community-card-title: #{$purple-1};
+  // default card
+  --card-background: #{$grey-dark-8};
+  --card-border: 1px solid #{$grey-dark-8};
+  --card-active-border: 1px solid #{$purple-1};
+  --navigation-card-header-background: #{$purple-1};
+  --template-card-marketplace-active-border: 1px solid rgb(255, 42, 127);
+  // navigation card
+  --navigation-card-background: #{$grey-dark-8};
+  --navigation-card-border: 1px solid #{$purple-1};
+  //
+  --reducer-color: #{$grey-dark-1};
+  // output box
+  --output-box: #{$grey-dark-10};
+  --output-icon: #{$grey-dark-1};
+  --output-icon-disabled: #{$grey-dark-4};
+  --output-icon-error: #{$red-2};
+  --output-label-color: #{$grey-dark-10};
+  // transactions
+  --transactions-negative: #{$red-3};
+  --transactions-positive: #{$green-3};
+  --transaction-details-color: #{$white};
+  --transaction-border: 0.5px solid #{$grey-dark-10};
+  --transaction-background: #{$grey-dark-8};
+  --transaction-details-background: #{$grey-dark-5};
+  --transaction-details-border: 1px solid #{$grey-dark-8};
+  --transaction-details-color: #{$grey-dark-1};
+  // network status
+  --network-status-border-synced: 2px solid #{$green-3};
+  --network-status-border-syncing: 2px solid #{$yellow-4};
+  --network-status-border-error: 2px solid #{$red-3};
+  --network-status-label-synced: #{$green-3};
+  --network-status-label-syncing: #{$yellow-3};
+  --network-status-label-error: #{$red-3};
+  // app
+  --app-background-color: #{$grey-dark-10};
+  // toolbar
+  --toolbar-background-color: #{$grey-dark-6};
+  // stagebar
+  --stagebar-background-color: #{$grey-dark-8};
+  --stage-toolbar-active-color: #{$grey-dark-10};
+  --stage-toolbar-border-left-color: #{$grey-dark-8};
+  --stage-toolbar-border-left-active-color: #{$grey-dark-10};
+  // sidebar
+  --sidebar-section-active-background: #{$grey-dark-10};
+  --sidebar-section-background: #{$grey-dark-7};
+  --sidebar-section-border: 4px solid #{$grey-dark-7};
+  --sidebar-border-hover: 4px solid #{$grey-dark-10};
+  --sidebar-active-border: 4px solid #{$purple-1};
+  --sidebar-inactive-border-hover: 4px solid #{$grey-dark-10};
+  --sidebar-settings-border: 1px solid #{$grey-dark-10};
+  // texts
+  --text-dark-background: #{$grey-dark-10};
+  --text-high-emphasis: #{$white};
+  --text-medium-emphasis: #{$grey-dark-1};
+  --text-low-emphasis: #{$grey-dark-3};
+  --text-disabled: #{$grey-dark-4};
+  // select
+  --select-background-color: #{$grey-dark-10};
+  --select-border: 1px solid #{$grey-dark-2};
+  --select-border-active: 1px solid #{$purple-1};
+  --select-option-background-active: #{$grey-dark-1};
+  // operator
+  --operator-border: 1px solid #{$white};
+  --script-operators-background: #{$grey-dark-1};
+  --script-operators-info-background: #{$grey-dark-11};
+  --script-operators-info-border: #{$grey-dark-11};
+  --operators-dashed-border: 1px dashed #{$white};
+  --operator-dashed-border: 1px dashed #{$grey-2};
+  // addresses
+  --addresses-info-background: #{$grey-dark-1};
+  --addresses-border: 1px solid #{$grey-dark-10};
+  --addresses-active-box-shadow: 0 0 6px 1px #{$purple-1};
+  --addresses-inactive-box-shadow: 0 0 0 0 #{$purple-1};
+  // input
+  --input-border: 1px solid #{$grey-dark-10};
+  --input-border-hover: #{$grey-dark-1};
+  --input-background: #{$grey-dark-10};
+  --input-border-color-active: #{$purple-1};
+  // seed
+  --seed-big-border: 2px dashed #{$grey-dark-1};
+  --seed-hover-border: 2px dashed #{$purple-2} !important;
+  --seed-hover-box-shadow: 0 1px 5px 0 #{$purple-1};
+  // drag and drop area
+  --drag-drop-area: 1px dashed #{$grey-dark-1};
+  --drag-drop-file-background-color: #{$grey-dark-5};
+  --drag-drop-area-focus: 1px dashed #{$purple-1};
+  // disclaimer
+  --disclaimer-background: #{$purple-1};
+  --disclaimer-border: 1px solid #{$purple-2};
+  // notification
+  --notification-border: 1px solid #{$grey-dark-10};
+  // element variables
+  --primary-color: #{$purple-1};
+  --color-success: #{$green-dark-1};
+  --switch-label-color: #{$white};
+  --switch-notification-label: #{$white};
+  // button dark
+  --button-dark-background: #{$grey-dark-10};
+  --button-dark-text: #{$purple-1};
+  --button-dark-border: #{$grey-dark-10};
+  --button-dark-border-hover: #{$grey-dark-10};
+  --button-dark-background-hover: #{$grey-dark-6};
+  --button-dark-text-hover: #{$purple-1};
+  --button-dark-background-active: #{$grey-dark-10};
+  --button-dark-border-active: #{$grey-dark-10};
+  --button-dark-text-active: #{$purple-1};
+  // button primary
+  --button-primary-background: #{$purple-1};
+  --button-primary-text: #{$grey-dark-10};
+  --button-primary-border: #{$purple-1};
+  --button-primary-background-hover: #{$purple-0};
+  --button-primary-text-hover: #{$grey-dark-10};
+  --button-primary-border-hover: #{$alt-purple-1};
+  --button-primary-background-active: #{$alt-purple-1};
+  --button-primary-border-active: #{$purple-1};
+  --button-primary-text-active: #{$grey-dark-10};
+  // button default
+  --button-default-text: #{$grey-dark-1};
+  --button-default-border: #{$purple-1};
+  --button-default-background-hover: #{$grey-dark-6};
+  --button-default-border-hover: #{$alt-purple-1};
+  --button-default-text-hover: #{$grey-dark-1};
+  // button default dark
+  --button-default-dark-background: #{$purple-1};
+  --button-default-dark-border: #{$grey-dark-10};
+  --button-default-dark-text: #{$grey-dark-10};
+  --button-default-dark-background-hover: #{$alt-purple-1};
+  --button-default-dark-border-hover: #{$grey-dark-10};
+  --button-default-dark-text-hover: #{$grey-dark-10};
+  --button-default-dark-background-active: #{$grey-dark-10};
+  --button-default-dark-border-active: #{$purple-1};
+  --button-default-dark-text-active: #{$purple-1};
+  // button text
+  --button-text-color: #{$purple-1};
+  --button-text-hover: #{$alt-purple-2};
+  // pagination
+  --marketplace-pagination-active: rgb(255, 42, 127);
+  --pagination-active: rgb(255, 42, 127);
+  --pagination-number: #{$grey-dark-1};
+  --pagination-number-active: #{$purple-1};
+  --pagination-button: #{$grey-dark-1};
+  --pagination-button-active: #{$purple-1};
+  // dropdown
+  --dropdown-background: #{$grey-dark-10};
+  --dropdown-text-hover: #{$purple-4};
+  --dropdown-marketplace-background: rgba(255, 183, 212, 0.246);
+  --dropdown-marketplace-text-hover: rgb(255, 42, 127);
+  // tooltip
+  --tooltip-background: #{$grey-dark-10};
+  --tooltip-border: 1px solid #{$grey-dark-1};
+  --tooltip-arrow-border: #{$grey-dark-1};
+  // loading
+  --loading-title: #{$purple-1};
+  --loading-description: #{$alt-purple-2};
+  // spinner
+  --spinner-border: 2px dotted #{$grey-dark-1};
+  --spinner-border-active: 3px solid #{$purple-1};
+  // balance
+  --balance-background: #{$purple-2};
+  --balance-link-color: #{$purple-2};
+}
+
+[theme='light'] {
+  // community card
+  --community-card-background: #{$white};
+  --community-card-border: 1px solid #{$purple-4};
+  --community-card-title: #{$purple-4};
+  // default card
+  --card-background: #{$white};
+  --card-border: 1px solid #{$grey-1};
+  --card-active-border: 1px solid #{$purple-3};
+  --card-shadow: 1px 2px 8px 0 rgba(207, 207, 207, 0.329);
+  --card-box-shadow: 0 4px 4px rgba(155, 81, 224, 0.1);
+  --template-card-marketplace-active-border: 1px solid rgb(255, 42, 127);
+  // navigation card
+  --navigation-card-header-background: #{$purple-4};
+  --navigation-card-background: #{$white};
+  --navigation-card-border: 1px solid #{$purple-4};
+  //
+  --reducer-color: #{$black};
+  // output-box
+  --output-box: #{$white};
+  --output-icon: #{$grey-5};
+  --output-icon-disabled: #{$grey-2};
+  --output-icon-error: #{$red-2};
+  --output-label-color: #{$white};
+  // transactions
+  --transactions-negative: #{$red-4};
+  --transactions-positive: #{$green-5};
+  --transaction-details-color: #{$grey-dark-1};
+  --transaction-border: 0.5px solid #{rgb(224, 224, 224)};
+  --transaction-background: #{$white};
+  --transaction-details-background: #{$alt-grey-5};
+  --transaction-details-border: 1px solid #{$grey-4};
+  // network status
+  --network-status-border-synced: 2px solid #{$green-5};
+  --network-status-border-syncing: 2px solid #{$yellow-4};
+  --network-status-border-error: 2px solid #{$red-3};
+  --network-status-label-synced: #{$green-5};
+  --network-status-label-syncing: #{$yellow-3};
+  --network-status-label-error: #{$red-3};
+  // app
+  --app-background-color: #{$alpha-purple};
+  // toolbar
+  --toolbar-background-color: #{$purple-5};
+  // stagebar
+  --stagebar-background-color: #{$purple-2};
+  --stage-toolbar-active-color: #{$purple-3};
+  --stage-toolbar-border-left-color: #{$purple-2};
+  --stage-toolbar-border-left-active-color: #{$purple-3};
+  // sidebar
+  --sidebar-section-active-background: #{$alpha-purple};
+  --sidebar-section-background: #{$white};
+  --sidebar-section-border: 4px solid #{$white};
+  --sidebar-border-hover: 4px solid #{$purple-0};
+  --sidebar-active-border: 4px solid #{$purple-4};
+  --sidebar-inactive-border-hover: 4px solid #{$purple-0};
+  --sidebar-settings-border: 1px solid #{$grey-1};
+  // texts
+  --text-dark-background: #{$white};
+  --text-high-emphasis: #{$alt-grey-5};
+  --text-medium-emphasis: #{$alt-grey-4};
+  --text-low-emphasis: #{$alt-grey-3};
+  --text-disabled: #{$alt-grey-2};
+  // select
+  --select-background-color: #{$white};
+  --select-border: 1px solid #{$grey-4};
+  --select-border-active: 1px solid #{$purple-4};
+  --select-option-background-active: #{$alpha-purple};
+  // operator
+  --operator-border: 1px solid #{$grey-4};
+  --script-operators-background: #{$white};
+  --script-operators-info-background: #{$yellow-0};
+  --script-operators-info-border: 1px solid #{$yellow-3};
+  --operators-dashed-border: 1px dashed #{$grey-2};
+  --default-box-shadow: 10px 10px 0 0 rgba(155, 81, 224, 0.103);
+  --operator-dashed-border: 1px dashed #{$grey-2};
+  // addresses
+  --addresses-info-background: #{$white};
+  --addresses-border: 1px solid #{$grey-1};
+  --addresses-active-box-shadow: 0 0 6px 1px #{$purple-2};
+  --addresses-inactive-box-shadow: 0 0 0 0 #{$purple-2};
+  // input
+  --input-border: 1px solid #{$grey-4};
+  --input-border-hover: #{$grey-5};
+  --input-border-color-active: #{$purple-4};
+  --input-background: #{$white};
+  // seed
+  --seed-big-border: 2px dashed #{$alt-grey-1};
+  --seed-hover-border: 2px dashed #{$purple-4} !important;
+  --seed-hover-box-shadow: 0 1px 5px 0 #{$purple-1};
+  // drag and drop area
+  --drag-drop-area: 1px dashed #{$grey-4};
+  --drag-drop-area-focus: 1px dashed #{$purple-4};
+  --drag-drop-file-background-color: #f5f7fa;
+  // disclaimer
+  --disclaimer-background: #{$purple-4};
+  --disclaimer-border: 1px solid #{$purple-3};
+  // notification
+  --notification-border: 1px solid #{$grey-1};
+  // element variables
+  --primary-color: #{$purple-4};
+  --color-success: #52c41a;
+  --switch-label-color: #{$white};
+  --switch-notification-label: #{$alt-grey-5};
+  // button text
+  --button-text-color: #{$purple-4};
+  --button-text-hover: #{$purple-3};
+  // button dark
+  --button-dark-background: #{$white};
+  --button-dark-text: #{$purple-4};
+  --button-dark-border: #{$white};
+  --button-dark-border-hover: #{$alpha-purple};
+  --button-dark-background-hover: #{$alpha-purple};
+  --button-dark-text-hover: #{$purple-3};
+  --button-dark-background-active: #{$white};
+  --button-dark-border-active: #{$white};
+  --button-dark-text-active: #{$purple-4};
+  // button primary
+  --button-primary-background: #{$purple-3};
+  --button-primary-text: #{$white};
+  --button-primary-border: #{$purple-4};
+  --button-primary-text-hover: #{$white};
+  --button-primary-background-hover: #{$purple-2};
+  --button-primary-border-hover: #{$purple-3};
+  --button-primary-background-active: #{$purple-3};
+  --button-primary-border-active: #{$purple-4};
+  --button-primary-text-active: #{$white};
+  // button default
+  --button-default-text: #{$alt-grey-3};
+  --button-default-background-hover: #{$alpha-purple};
+  --button-default-border: #{$grey-dark-0};
+  --button-default-border-hover: #{$alpha-purple};
+  --button-default-text-hover: #{$purple-3};
+  // button default dark
+  --button-default-dark-background: #{$purple-4};
+  --button-default-dark-border: #{$white};
+  --button-default-dark-text: #{$white};
+  --button-default-dark-background-hover: #{$purple-3};
+  --button-default-dark-border-hover: #{$white};
+  --button-default-dark-text-hover: #{$white};
+  --button-default-dark-background-active: #{$white};
+  --button-default-dark-border-active: #{$purple-4};
+  --button-default-dark-text-active: #{$purple-4};
+  // pagination
+  --marketplace-pagination-active: rgb(255, 42, 127);
+  --pagination-active: rgb(255, 42, 127);
+  --pagination-number: #{$alt-grey-5};
+  --pagination-number-active: #{$purple-4};
+  --pagination-button: #{$alt-grey-5};
+  --pagination-button-active: #{$purple-4};
+  // dropdown
+  --dropdown-background: #{$white};
+  --dropdown-text-hover: #{$purple-4};
+  --dropdown-marketplace-background: rgba(255, 183, 212, 0.246);
+  --dropdown-marketplace-text-hover: rgb(255, 42, 127);
+  // tooltip
+  --tooltip-background: #{$white};
+  --tooltip-border: 1px solid #{$grey-dark-9};
+  --tooltip-arrow-border: #{$grey-dark-9};
+  // loading
+  --loading-title: #{$purple-4};
+  --loading-description: #{$purple-6};
+  // spinner
+  --spinner-border: 2px dotted #{$alt-grey-5};
+  --spinner-border-active: 3px solid #{$purple-5};
+  // balance
+  --balance-background: #{$purple-5};
+  --balance-link-color: #{$purple-2};
+}
+
 // COMMON
 $default-box-shadow: 10px 10px 0 0 rgba(155, 81, 224, 0.103);
 $card-box-shadow: 0 4px 4px rgba(155, 81, 224, 0.1);
@@ -52,7 +388,6 @@ $select_border__active: 1px solid $purple-4;
 $input_border: 1px solid $grey-4;
 $input_border_color__active: $purple-4;
 $input_big-border-radius: 2px;
-$operator-dashed-border: 1px dashed $grey-2;
 $input_big-border: 2px dashed $alt-grey-1;
 $input_big-color: $alt-grey-2;
 $input_big-font-size: 22px;
@@ -61,6 +396,7 @@ $input_big-hover-box-shadow: $button_option-hover-box-shadow;
 $input_big-width: 100%;
 $drag_drop_area: 1px dashed $grey-4;
 $drag_drop_area_focus: 1px dashed $purple-4;
+$operator-dashed-border: 1px dashed $grey-2;
 
 // INPUT UNDERLINED
 $input_underlined-border: 1px solid $alt-grey-5;

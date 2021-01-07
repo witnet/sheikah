@@ -113,7 +113,7 @@ describe('Renders the correct elements when click is not triggered', () => {
     const wrapper = mount(TransactionList, getData())
 
     expect(wrapper.find('[data-test="transactions-length"]').text()).toBe(
-      '87 transactions',
+      'Transactions 87 transactions',
     )
   })
 

@@ -90,14 +90,19 @@ export default {
 @import '@/styles/theme.scss';
 
 .community-link {
-  color: $purple-4;
+  color: var(--community-card-title);
   cursor: pointer;
   margin-bottom: 24px;
   text-decoration: none;
 
-  .icon-social {
-    opacity: 0.1;
-    width: 100px;
+  &:hover,
+  :active {
+    color: var(--community-card-title);
   }
+}
+
+.icon-social {
+  opacity: 0.1;
+  width: 100px;
 }
 </style>

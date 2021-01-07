@@ -23,7 +23,7 @@ export default {
 @import '@/styles/_colors.scss';
 
 .json-tree-root {
-  background-color: white;
+  background-color: var(--tooltip-background);
   border-radius: 3px;
   margin: 2px 0;
   min-width: max-content;
@@ -31,14 +31,14 @@ export default {
 }
 
 .json-tree {
-  color: $alt-grey-3;
+  color: var(--text-medium-emphasis);
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
   line-height: 20px;
 }
 
 .json-tree-row:hover {
-  background-color: $alpha-purple;
+  background-color: var(--app-background-color);
 }
 
 .json-tree-key {
@@ -47,17 +47,17 @@ export default {
 
 .json-tree-ending {
   &.json-tree-paired {
-    background-color: $alpha-purple;
+    background-color: var(--app-background-color);
   }
 }
 
 .json-tree-value-string {
-  color: $alt-grey-6;
+  color: var(--text-high-emphasis);
   max-width: 300px;
   overflow-wrap: break-word;
 }
 
 .json-tree-value-boolean {
-  color: $alt-grey-6;
+  color: var(--text-high-emphasis);
 }
 </style>

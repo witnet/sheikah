@@ -14,7 +14,7 @@
   p {
     @extend %font16;
 
-    color: $font-color-dark;
+    color: var(--text-medium-emphasis);
   }
 
   textarea {
@@ -48,16 +48,4 @@
   .capitalize {
     text-transform: capitalize;
   }
-}
-
-:root {
-  --app-background-color: #f9f5fe;
-}
-
-[theme='dark'] {
-  --app-background-color: #2d2c3a;
-}
-
-[theme='light'] {
-  --app-background-color: #f9f5fe;
 }

@@ -12,6 +12,13 @@
         effect="light"
       >
         <img
+          v-if="darkMode"
+          class="delete"
+          src="@/resources/svg/delete-btn-dark.svg"
+          @click="deleteOperator"
+        />
+        <img
+          v-else
           class="delete"
           src="@/resources/svg/delete-btn.svg"
           @click="deleteOperator"
@@ -45,14 +52,36 @@
     <div class="operator-bottom">
       <div v-if="showOutputType" class="icon-container">
         <img
+          v-if="darkMode"
+          class="row sheikah-icon"
+          src="@/resources/svg/operator-arrow-dark.svg"
+        />
+        <img
+          v-else
           class="row sheikah-icon"
           src="@/resources/svg/operator-arrow.svg"
         />
       </div>
       <div v-else class="icon-container">
-        <img class="row sheikah-icon" src="@/resources/svg/long-arrow.svg" />
+        <img
+          v-if="darkMode"
+          class="row sheikah-icon"
+          src="@/resources/svg/long-arrow-dark.svg"
+        />
+        <img
+          v-else
+          class="row sheikah-icon"
+          src="@/resources/svg/long-arrow.svg"
+        />
         <div class="add-operator-container" @click="addOperator">
           <img
+            v-if="darkMode"
+            class="add-operator"
+            data-test="add-operator"
+            src="@/resources/svg/add-operator-dark.svg"
+          />
+          <img
+            v-else
             class="add-operator"
             data-test="add-operator"
             src="@/resources/svg/add-operator.svg"
@@ -143,6 +172,7 @@ export default {
     ...mapState({
       variables: state => state.rad.currentTemplate.variables,
       currentFocus: state => state.rad.currentFocus,
+      darkMode: state => state.wallet.darkMode,
     }),
     radonError() {
       return this.outputLabel === 'error' || !this.operatorOutput
@@ -316,7 +346,7 @@ export default {
   position: relative;
 
   .border {
-    border: $input_border;
+    border: var(--operator-border);
     border-radius: $input_big-border-radius;
     column-gap: 16px;
     display: grid;
@@ -335,7 +365,7 @@ export default {
     }
 
     .label {
-      color: $grey-5;
+      color: var(--text-medium-emphasis);
       font-size: 14px;
       font-weight: normal;
     }
@@ -409,7 +439,7 @@ export default {
       width: max-content;
 
       .add-operator-text {
-        color: $grey-4;
+        color: var(--text-low-emphasis);
         font-size: 12px;
         font-weight: medium;
         margin-left: 16px;

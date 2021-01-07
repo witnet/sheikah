@@ -9,12 +9,22 @@
       <div class="operator-bottom">
         <div class="icon-container">
           <img
-            v-if="emptyScript"
+            v-if="emptyScript && darkMode"
+            class="row sheikah-icon"
+            src="@/resources/svg/long-arrow-dark.svg"
+          />
+          <img
+            v-if="emptyScript && !darkMode"
             class="row sheikah-icon"
             src="@/resources/svg/long-arrow.svg"
           />
           <img
-            v-else
+            v-if="!emptyScript && darkMode"
+            class="row sheikah-icon"
+            src="@/resources/svg/operator-arrow-dark.svg"
+          />
+          <img
+            v-if="!emptyScript && !darkMode"
             class="row sheikah-icon"
             src="@/resources/svg/operator-arrow.svg"
           />
@@ -23,7 +33,18 @@
             class="add-operator-container"
             @click="addOperator"
           >
-            <img class="add-operator" src="@/resources/svg/add-operator.svg" />
+            <img
+              v-if="darkMode"
+              class="add-operator"
+              data-test="add-operator"
+              src="@/resources/svg/add-operator-dark.svg"
+            />
+            <img
+              v-else
+              class="add-operator"
+              data-test="add-operator"
+              src="@/resources/svg/add-operator.svg"
+            />
             <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
           </div>
         </div>
@@ -90,7 +111,7 @@ import { standardizeOperatorName } from '@/utils'
 import OperatorOutput from '@/components/OperatorOutput.vue'
 import ScriptInfo from '@/components/ScriptInfo'
 import RadonOperator from '@/components/RadonOperator'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'RadonScript',
@@ -134,6 +155,9 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      darkMode: state => state.wallet.darkMode,
+    }),
     emptyScript() {
       return this.script.length < 1
     },
@@ -214,15 +238,15 @@ export default {
 }
 
 .description {
-  border-left: 1px solid $yellow-3;
-  border-right: 1px solid $yellow-3;
+  border-left: var(--script-operators-info-border);
+  border-right: var(--script-operators-info-border);
 
   &.last {
-    border-bottom: 1px solid $yellow-3;
+    border-bottom: var(--script-operators-info-border);
   }
 
   &.first {
-    border-top: 1px solid $yellow-3;
+    border-top: var(--script-operators-info-border);
   }
 }
 
@@ -244,11 +268,11 @@ export default {
 
   .script-header {
     align-items: center;
-    border: $operator-dashed-border;
+    border: var(--operators-dashed-border);
     display: flex;
 
     .url {
-      color: $grey-3;
+      color: var(--text-low-emphasis);
       font-size: 14px;
       font-weight: medium;
       margin: 16px;
@@ -261,13 +285,13 @@ export default {
 }
 
 .script-footer {
-  border: $operator-dashed-border;
+  border: var(--operators-dashed-border);
   display: flex;
   height: min-content;
   margin: 0 16px 16px 16px;
 
   .text {
-    color: $grey-3;
+    color: var(--text-medium-emphasis);
     font-size: 14px;
     font-weight: medium;
     margin: 16px;
@@ -287,7 +311,7 @@ export default {
     width: max-content;
 
     .add-operator-text {
-      color: $grey-4;
+      color: var(--text-medium-emphasis);
       font-size: 12px;
       font-weight: medium;
       margin-left: 16px;

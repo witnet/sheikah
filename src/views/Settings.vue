@@ -13,7 +13,8 @@
         @mouseleave="mouseLeaveAction"
         @click="close"
       >
-        <img class="cross" :src="btnUrl" />
+        <img v-if="darkMode" class="cross" :src="btnUrlDark" />
+        <img v-else class="cross" :src="btnUrl" />
       </div>
     </div>
   </div>
@@ -35,12 +36,14 @@ export default {
   data() {
     return {
       previousRoute: '',
+      btnUrlDark: require('@/resources/svg/close-btn-dark.svg'),
       btnUrl: require('@/resources/svg/close-btn.svg'),
     }
   },
   computed: {
     ...mapState({
       sessionId: state => state.wallet.sessionId,
+      darkMode: state => state.wallet.darkMode,
     }),
     settings() {
       const sectionsDictionary = {
@@ -96,9 +99,11 @@ export default {
     },
     hoverAction() {
       this.btnUrl = require('@/resources/svg/close-btn-light.svg')
+      this.btnUrlDark = require('@/resources/svg/close-btn-light.svg')
     },
     mouseLeaveAction() {
       this.btnUrl = require('@/resources/svg/close-btn.svg')
+      this.btnUrlDark = require('@/resources/svg/close-btn-dark.svg')
     },
   },
   beforeRouteEnter(to, from, next) {
@@ -119,7 +124,7 @@ export default {
 @import '@/styles/_colors.scss';
 
 .settings-layout {
-  background: $alpha-purple;
+  background: var(--app-background-color);
   display: grid;
   grid-template-columns: 30vw 1fr;
 }

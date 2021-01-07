@@ -35,18 +35,32 @@
       </div>
       <div class="icon">
         <img
-          v-if="showAll"
+          v-if="showAll && darkMode"
           data-test="short-up"
           class="sort"
-          src="@/resources/svg/short-up.svg"
+          src="@/resources/svg/up-dark.svg"
           alt="sort-up"
         />
         <img
-          v-else
-          data-test="short-down"
+          v-if="showAll && !darkMode"
+          data-test="short-up"
           class="sort"
-          src="@/resources/svg/short-down.svg"
-          alt="sort-down"
+          src="@/resources/svg/up.svg"
+          alt="sort-up"
+        />
+        <img
+          v-if="!showAll && darkMode"
+          data-test="short-up"
+          class="sort"
+          src="@/resources/svg/down-dark.svg"
+          alt="sort-up"
+        />
+        <img
+          v-if="!showAll && !darkMode"
+          data-test="short-up"
+          class="sort"
+          src="@/resources/svg/down.svg"
+          alt="sort-up"
         />
       </div>
     </div>
@@ -133,6 +147,7 @@ export default {
       progress: state => state.wallet.status.progress,
       lastBlockTimestamp: state => state.wallet.status.lastBlockTimestamp,
       isNodeSynced: state => state.wallet.status.isNodeSynced,
+      darkMode: state => state.wallet.darkMode,
     }),
     currentState() {
       if (this.status.currentState === NETWORK_STATUS.NODE_DISCONNECTED) {
@@ -235,15 +250,15 @@ export default {
             margin-right: 8px;
 
             &.green {
-              color: $green-5;
+              color: var(--network-status-label-synced);
             }
 
             &.yellow {
-              color: $yellow-4;
+              color: var(--network-status-label-syncing);
             }
 
             &.red {
-              color: $red-3;
+              color: var(--network-status-label-error);
             }
           }
         }
@@ -279,7 +294,7 @@ export default {
     }
 
     .text {
-      color: $alt-grey-3;
+      color: var(--text-medium-emphasis);
       font-size: 14px;
       margin-bottom: 8px;
 
@@ -288,7 +303,7 @@ export default {
       }
 
       .bold {
-        color: $alt-grey-6;
+        color: var(--text-high-emphasis);
         font-weight: bold;
       }
     }

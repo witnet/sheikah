@@ -105,7 +105,7 @@ export default {
 @import '@/styles/_colors.scss';
 
 .card {
-  border: 1px solid $grey-1;
+  border: var(--addresses-border);
   border-radius: 4px;
   box-shadow: 0 0 0 0 $purple-2;
   overflow: hidden;

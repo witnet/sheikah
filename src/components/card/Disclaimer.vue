@@ -106,17 +106,17 @@ export default {
   position: relative;
 
   .card-navigation {
-    background: $purple-4;
-    border: 1px solid $purple-3;
+    background: var(--disclaimer-background);
+    border: var(--disclaimer-border);
     border-radius: 2px;
-    box-shadow: $default-box-shadow;
-    color: $white;
+    box-shadow: var(--default-box-shadow);
+    color: var(--text-dark-background);
     min-height: 400px;
     width: 600px;
 
     .header {
       align-items: center;
-      color: $white;
+      color: var(--text-dark-background);
       display: flex;
       font-size: 32px;
       font-weight: 500;
@@ -132,7 +132,7 @@ export default {
         margin-right: 8px;
 
         .title {
-          color: $white;
+          color: var(--text-dark-background);
           font-size: 14px;
           font-weight: 500;
           margin-bottom: 8px;
@@ -145,7 +145,7 @@ export default {
     }
 
     .content {
-      color: $white;
+      color: var(--text-dark-background);
       display: flex;
       flex-direction: column;
       font-size: 16px;
@@ -168,7 +168,7 @@ export default {
     max-width: 600px;
 
     .sub-title {
-      color: $grey-4;
+      color: var(--text-medium-emphasis);
       font-size: 14px;
       margin: 0 32px;
       text-align: center;

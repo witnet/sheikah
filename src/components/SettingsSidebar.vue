@@ -40,7 +40,7 @@ export default {
 <style lang="scss" scoped>
 .settings-sidebar {
   align-items: flex-end;
-  background: white;
+  background: var(--sidebar-section-background);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -49,7 +49,7 @@ export default {
   z-index: 20;
 
   .title {
-    color: #444258;
+    color: var(--text-high-emphasis);
     font-size: 24px;
     font-weight: 500;
     margin: 24px 0;
@@ -62,6 +62,7 @@ export default {
     flex-direction: column;
 
     .menu-item {
+      border-left: var(--sidebar-section-border);
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -70,10 +71,14 @@ export default {
       padding: 8px 24px;
       width: 250px;
 
-      &:hover,
+      &:hover {
+        background-color: var(--sidebar-section-active-background);
+        border-left: var(--sidebar-border-hover);
+      }
+
       &.active {
-        background: rgba(243, 233, 251, 0.5);
-        box-shadow: 3px 0 0 #9b51e0 inset;
+        background: var(--sidebar-section-active-background);
+        border-left: var(--sidebar-active-border);
       }
 
       .name {

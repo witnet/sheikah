@@ -23,7 +23,7 @@ export default {
 .type {
   background-color: inherit;
   border-radius: $input_big-border-radius;
-  color: $grey-5;
+  color: var(--text-medium-emphasis);
   font-size: 14px;
   font-weight: normal;
   margin-left: 8px;

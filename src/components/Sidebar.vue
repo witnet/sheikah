@@ -10,9 +10,23 @@
         class="brand"
         to="/wallet/transactions"
       >
-        <img class="sheikah-logo" src="@/resources/svg/sheikah-small.svg" />
+        <img
+          v-if="darkMode"
+          class="sheikah-logo"
+          src="@/resources/svg/sheikah-small-dark.svg"
+        />
+        <img
+          v-else
+          class="sheikah-logo"
+          src="@/resources/svg/sheikah-small.svg"
+        />
         <div class="sheikah-name">
-          <img class="name" src="@/resources/svg/sheikah.svg" />
+          <img
+            v-if="darkMode"
+            class="name"
+            src="@/resources/svg/sheikah-dark.svg"
+          />
+          <img v-else class="name" src="@/resources/svg/sheikah.svg" />
           <span class="version">{{ version }}</span>
         </div>
       </router-link>
@@ -46,6 +60,13 @@
             effect="light"
           >
             <img
+              v-if="darkMode"
+              class="exit-icon"
+              src="@/resources/svg/exit-icon-dark.svg"
+              alt="exit-icon"
+            />
+            <img
+              v-else
               class="exit-icon"
               src="@/resources/svg/exit-icon.svg"
               alt="exit-icon"
@@ -62,7 +83,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import NetworkStatus from '@/components/NetworkStatus.vue'
 import ExportXprv from '@/components/ExportXprv.vue'
 import { ObserveVisibility } from 'vue-observe-visibility'
@@ -85,6 +106,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      darkMode: state => state.wallet.darkMode,
+    }),
     version() {
       return `v${process.env.VUE_APP_VERSION || 0}`
     },
@@ -133,7 +157,7 @@ export default {
 
 .sidebar-container {
   .sidebar {
-    background-color: $white;
+    background-color: var(--sidebar-section-background);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     display: grid;
     font-family: 'Roboto';
@@ -176,7 +200,7 @@ export default {
         min-width: 100px;
 
         .version {
-          color: $grey-4;
+          color: var(--text-medium-emphasis);
           font-size: 13px;
           font-weight: 600;
           margin-left: 4px;
@@ -186,8 +210,8 @@ export default {
 
     .current-wallet {
       align-self: stretch;
-      border-bottom: $sidebar-settings-border;
-      border-top: $sidebar-settings-border;
+      border-bottom: var(--sidebar-settings-border);
+      border-top: var(--sidebar-settings-border);
       overflow: hidden;
     }
 
@@ -198,8 +222,8 @@ export default {
       overflow: hidden;
 
       .link {
-        border-left: $sidebar-inactive-border;
-        color: $sidebar-link-color;
+        border-left: var(--sidebar-section-border);
+        color: var(--text-medium-emphasis);
         display: flex;
         flex-wrap: none;
         font-size: $sidebar-link-font_size;
@@ -209,13 +233,13 @@ export default {
         text-decoration: none;
 
         &:hover {
-          background-color: $alpha-purple;
-          border-left: $sidebar-inactive-border-hover;
+          background-color: var(--sidebar-section-active-background);
+          border-left: var(--sidebar-border-hover);
         }
 
         &.router-link-active {
-          background-color: $alpha-purple;
-          border-left: $sidebar-active-border;
+          background-color: var(--sidebar-section-active-background);
+          border-left: var(--sidebar-active-border);
         }
 
         .icon {
@@ -226,7 +250,7 @@ export default {
 
     .settings {
       align-items: center;
-      border-top: $sidebar-settings-border;
+      border-top: var(--sidebar-settings-border);
       display: grid;
       font-size: $icon-settings-font_size;
       grid-template-columns: 70px 70px auto;
@@ -245,7 +269,7 @@ export default {
       }
 
       .icon {
-        color: $alt-grey-5;
+        color: var(--text-medium-emphasis);
         cursor: pointer;
         font-size: 20px;
       }

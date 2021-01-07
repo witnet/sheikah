@@ -253,7 +253,7 @@ export default {
 }
 
 .subscripts {
-  border: $input_border;
+  border: var(--input-border);
   border-radius: $input_big-border-radius;
 
   .empty {

@@ -69,7 +69,12 @@
         @click="toggleAdvanceOptions"
       >
         {{ this.$t('show_less') }}
-        <img class="icon" src="@/resources/svg/close.svg" />
+        <img
+          v-if="darkMode"
+          class="icon"
+          src="@/resources/svg/close-dark.svg"
+        />
+        <img v-else class="icon" src="@/resources/svg/close.svg" />
       </el-button>
       <el-button
         v-else
@@ -79,7 +84,8 @@
         @click="toggleAdvanceOptions"
       >
         {{ this.$t('show_advance') }}
-        <img class="icon" src="@/resources/svg/open.svg" />
+        <img v-if="darkMode" class="icon" src="@/resources/svg/open-dark.svg" />
+        <img v-else class="icon" src="'@/resources/svg/open.svg" />
       </el-button>
       <span slot="footer" class="dialog-footer">
         <el-button data-test="cancel-tx" @click="closeAndClear">
@@ -150,6 +156,7 @@ export default {
   computed: {
     ...mapState({
       unit: state => state.wallet.unit,
+      darkMode: state => state.wallet.darkMode,
     }),
   },
   methods: {
@@ -211,7 +218,7 @@ export default {
   }
 
   .info {
-    color: $alt-grey-5;
+    color: var(--text-medium-emphasis);
     column-gap: 24px;
     display: grid;
     grid-template-columns: 1fr 350px;
@@ -238,7 +245,7 @@ export default {
     }
 
     .entry {
-      color: $grey-4;
+      color: var(--text-medium-emphasis);
       font-size: 13px;
       font-weight: 600;
       text-align: right;

@@ -3,7 +3,12 @@
     <div class="alert">
       <div class="content">
         <p class="title">{{ this.$t('wallet_disconnected') }}</p>
-        <img class="icon" src="@/resources/svg/disconnected2.svg" />
+        <img
+          v-if="darkMode"
+          class="icon"
+          src="@/resources/svg/disconnected-dark.svg"
+        />
+        <img v-else class="icon" src="@/resources/svg/disconnected.svg" />
         <p class="description">
           {{ this.$t('connection_problem') }}
         </p>
@@ -22,8 +27,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'WalletNotFound',
+  computed: {
+    ...mapState({
+      darkMode: state => state.wallet.darkMode,
+    }),
+  },
 }
 </script>
 
@@ -33,7 +45,7 @@ export default {
 
 .container {
   align-items: center;
-  background-color: $alpha-purple;
+  background-color: var(--app-background-color);
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -43,7 +55,7 @@ export default {
     background-color: $yellow-0;
     border: 1px solid $grey-1;
     border-radius: 2px;
-    box-shadow: $card-box-shadow;
+    box-shadow: var(--card-box-shadow);
     overflow: hidden;
     width: 475px;
 
@@ -54,7 +66,7 @@ export default {
       padding: 16px;
 
       .title {
-        color: $alt-grey-5;
+        color: var(--text-medium-emphasis);
         font-size: 18px;
         font-weight: 500;
         padding-bottom: 16px;
@@ -65,7 +77,7 @@ export default {
       }
 
       .description {
-        color: $alt-grey-5;
+        color: var(--text-medium-emphasis);
         font-size: 16px;
       }
     }
@@ -77,7 +89,7 @@ export default {
       padding: 16px;
 
       .link {
-        color: $alt-grey-5;
+        color: var(--text-medium-emphasis);
         cursor: pointer;
         line-height: 1.5;
         text-decoration: none;

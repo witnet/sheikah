@@ -2,15 +2,20 @@
   <div class="radon-script">
     <div class="operator-bottom">
       <div v-if="emptyScript" class="icon-container">
-        <img
-          class="row sheikah-icon"
-          src="@/resources/svg/operator-arrow.svg"
-        />
-        <div class="add-operator-container">
+        <img v-if="darkMode" src="@/resources/svg/operator-arrow-dark.svg" />
+        <img v-else src="@/resources/svg/operator-arrow.svg" />
+        <div @click="addOperator">
           <img
+            v-if="darkMode"
             class="add-operator"
+            data-test="add-operator"
+            src="@/resources/svg/add-operator-dark.svg"
+          />
+          <img
+            v-else
+            class="add-operator"
+            data-test="add-operator"
             src="@/resources/svg/add-operator.svg"
-            @click="addOperator"
           />
           <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
         </div>
@@ -74,6 +79,7 @@ export default {
     ...mapState({
       subscriptIds: state => state.rad.subscriptIds,
       radRequestResult: state => state.rad.radRequestResult,
+      darkMode: state => state.wallet.darkMode,
     }),
     subscriptIndex() {
       return this.subscriptIds.findIndex(id => id === this.subscriptId)

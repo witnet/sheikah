@@ -238,12 +238,12 @@ export default {
   flex-direction: column;
   height: 100%;
   justify-content: center;
-  outline: $drag_drop_area;
+  outline: var(--drag-drop-area);
   padding: 50px;
   width: 100%;
 
   .sub-text {
-    color: $grey-3;
+    color: var(--text-low-emphasis);
     font-size: 14px;
     margin-bottom: 16px;
 
@@ -257,7 +257,7 @@ export default {
   }
 
   .icon-upload {
-    color: $grey-2;
+    color: var(--text-low-emphasis);
     font-size: 56px;
     margin-bottom: 16px;
   }
@@ -276,12 +276,12 @@ export default {
   }
 
   &:hover {
-    outline: $drag_drop_area_focus;
+    outline: var(--drag-drop-area-focus);
   }
 }
 
 .format-warning {
-  color: $grey-3;
+  color: var(--text-low-emphasis);
   font-size: 12px;
   margin-top: 8px;
 }
@@ -297,7 +297,7 @@ export default {
   padding: 4px;
 
   .icon-document {
-    color: $grey-3;
+    color: var(--text-low-emphasis);
     margin-left: 4px;
     margin-right: 8px;
   }
@@ -306,24 +306,24 @@ export default {
     align-items: center;
     border: 1px solid transparent;
     border-radius: 3px;
-    color: $grey-6;
+    color: var(--text-low-emphasis);
     display: flex;
     font-size: 14px;
     justify-content: center;
   }
 
   &:hover {
-    background-color: #f5f7fa;
+    background-color: var(--drag-drop-file-background-color);
     border-radius: 4px;
     transition: color 0.3s;
 
     .text {
-      color: $purple-6;
+      color: var(--text-medium-emphasis);
     }
   }
 
   .file-icon {
-    color: $grey-3;
+    color: var(--text-low-emphasis);
     font-size: 12px;
     margin-right: 8px;
   }

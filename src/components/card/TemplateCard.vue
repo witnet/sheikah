@@ -24,7 +24,8 @@
             src="@/resources/svg/options-marketplace.svg"
             alt=""
           />
-          <img v-else src="@/resources/svg/options.svg" alt="" />
+          <img v-else-if="darkMode" src="@/resources/svg/options-dark.svg" />
+          <img v-else src="@/resources/svg/options.svg" />
         </div>
         <el-dropdown-menu
           v-if="type === 'marketplace'"
@@ -136,6 +137,7 @@ export default {
   computed: {
     ...mapState({
       currentStatus: state => state.wallet.status.currentState,
+      darkMode: state => state.wallet.darkMode,
     }),
     style() {
       return this.type
@@ -175,7 +177,7 @@ export default {
 // Overwrite element UI styles
 .el-dropdown-menu__item:last-of-type:hover {
   background-color: $red-0 !important;
-  color: $red-5 !important;
+  color: $red-3 !important;
 }
 
 .el-dropdown {
@@ -184,10 +186,10 @@ export default {
 
 .card-layout {
   align-items: flex-start;
-  background-color: $white;
-  border: 1px solid $grey-1;
+  background-color: var(--card-background);
+  border: var(--card-border);
   border-radius: 2px;
-  box-shadow: 1px 2px 8px 0 rgba(207, 207, 207, 0.329);
+  box-shadow: var(--card-shadow);
   display: grid;
   grid-template-columns: 300px;
   grid-template-rows: 70px auto 30px;
@@ -198,12 +200,12 @@ export default {
     background: none;
 
     &:hover {
-      border: 1px solid rgb(255, 42, 127);
+      border: var(--card-active-border);
     }
   }
 
   &:hover {
-    border: 1px solid $purple-3;
+    border: var(--card-active-border);
     cursor: pointer;
   }
 
@@ -213,7 +215,7 @@ export default {
     margin: 24px 24px 0 24px;
 
     .title {
-      color: $grey-6;
+      color: var(--text-medium-emphasis);
       font-size: 16px;
       font-weight: bold;
       line-height: 1.5em;
@@ -237,7 +239,7 @@ export default {
     align-self: flex-start;
 
     .description {
-      color: $grey-5;
+      color: var(--text-medium-emphasis);
       font-size: 14px;
       font-style: italic;
       line-height: 1.5em;
@@ -247,13 +249,13 @@ export default {
   }
 
   .sources {
-    color: $grey-3;
+    color: var(--text-low-emphasis);
     font-size: 12px;
     margin-left: 24px;
     width: 250px;
 
     .number {
-      color: $grey-5;
+      color: var(--text-medium-emphasis);
       font-weight: bold;
     }
   }

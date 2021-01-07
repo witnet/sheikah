@@ -203,7 +203,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .border {
-  border-bottom: 1px solid $grey-1;
+  border-bottom: var(--transaction-border);
 
   &.locked {
     opacity: 0.6;
@@ -229,22 +229,22 @@ export default {
       font-weight: bold;
 
       &.from {
-        color: $green-5;
+        color: var(--transactions-positive);
       }
 
       &.to {
-        color: $red-4;
+        color: var(--transactions-negative);
       }
     }
 
     .address-container {
       align-items: center;
-      color: $alt-grey-5;
+      color: var(--text-medium-emphasis);
       display: flex;
       justify-content: center;
 
       .origin {
-        color: $grey-4;
+        color: var(--text-medium-emphasis);
         font-size: 12px;
         font-weight: 600;
         margin-right: 8px;
@@ -257,7 +257,7 @@ export default {
     }
 
     .date {
-      color: $grey-4;
+      color: var(--text-medium-emphasis);
       font-size: 12px;
       font-style: italic;
       font-weight: 600;

@@ -59,13 +59,13 @@ export default {
 
   .title {
     border: none;
-    color: $purple-4;
+    color: var(--loading-title);
     font-size: 24px;
     margin: 0 0 32px 0;
   }
 
   .description {
-    color: $purple-6;
+    color: var(--loading-description);
     font-size: 16px;
     margin: 32px 0 0 0;
   }

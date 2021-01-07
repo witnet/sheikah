@@ -72,7 +72,7 @@ export default {
       display: flex;
 
       .title {
-        color: $alt-grey-5;
+        color: var(--text-medium-emphasis);
         font-size: 16px;
         font-weight: medium;
 
@@ -82,7 +82,7 @@ export default {
       }
 
       .subtitle {
-        color: $grey-3;
+        color: var(--text-low-emphasis);
         font-style: italic;
         font-weight: medium;
         margin-left: 8px;
@@ -90,7 +90,7 @@ export default {
 
       .helper {
         align-self: center;
-        color: $alt-grey-5;
+        color: var(--text-medium-emphasis);
         font-size: 10px;
         font-style: italic;
         margin-left: 25px;
@@ -110,7 +110,7 @@ export default {
     // default style for paragraphs added in the slot
     // stylelint-disable-next-line
     ::v-deep p {
-      color: #66648c;
+      color: var(--text-low-emphasis);
       font-size: 13px;
       font-style: italic;
       font-weight: lighter;

@@ -77,15 +77,15 @@ export default {
 
 .card {
   .title {
-    color: $alt-grey-3;
+    color: var(--text-medium-emphasis);
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 8px;
   }
 
   .content {
-    background: $white;
-    border: 1px solid $grey-1;
+    background: var(--card-background);
+    border: var(--card-border);
     border-radius: 2px;
     display: flex;
     flex-direction: column;
@@ -97,15 +97,15 @@ export default {
     }
 
     &.border-purple {
-      border: 1px solid $purple-4;
+      border: var(--card-active-border);
     }
 
     &.shadow-thin {
-      box-shadow: $card-box-shadow;
+      box-shadow: var(--card-box-shadow);
     }
 
     &.shadow-fat {
-      box-shadow: $default-box-shadow;
+      box-shadow: var(--default-box-shadow);
     }
   }
 }

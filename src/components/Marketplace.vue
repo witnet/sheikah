@@ -93,7 +93,7 @@ export default {
 
   .title {
     border-bottom: 2px solid $purple-4;
-    color: $alt-grey-5;
+    color: var(--text-medium-emphasis);
     color: $purple-4;
     font-weight: bold;
     height: 64px;

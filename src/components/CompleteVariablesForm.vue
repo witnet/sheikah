@@ -112,12 +112,12 @@ export default {
     margin: 16px 0;
 
     .variable-value {
-      color: $alt-grey-3;
+      color: var(--text-medium-emphasis);
       font-size: 16px;
       overflow: hidden;
 
       &.label {
-        color: $purple-4;
+        color: var(--primary-color);
         font-weight: bold;
       }
     }
@@ -136,7 +136,7 @@ export default {
 
   .error {
     align-items: center;
-    color: $red-5;
+    color: $red-3;
     display: flex;
     padding-left: 16px;
   }

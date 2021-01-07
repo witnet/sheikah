@@ -26,8 +26,8 @@ export default {
 @import '@/styles/theme.scss';
 
 .info {
-  background-color: $yellow-0;
-  color: $grey-4;
+  background-color: var(--script-operators-info-background);
+  color: var(--text-medium-emphasis);
   display: grid;
   font-size: 13px;
   grid-template-columns: max-content 255px;

@@ -105,7 +105,7 @@ export default {
 
   .link-btn {
     align-items: center;
-    background: $purple-2;
+    background: var(--stagebar-background-color);
     color: $white;
     cursor: pointer;
     display: flex;
@@ -126,13 +126,13 @@ export default {
     &:active,
     .link-btn:active,
     &.active {
-      background: $purple-3;
+      background: var(--stage-toolbar-active-color);
       color: $white;
     }
 
     &.active::after,
     &:active::after {
-      border-left-color: $purple-3;
+      border-left-color: var(--stage-toolbar-border-left-active-color);
     }
   }
 
@@ -151,7 +151,7 @@ export default {
   .link-btn::after {
     border-bottom: 25px solid transparent;
     border-left: 17px solid;
-    border-left-color: $purple-2;
+    border-left-color: var(--stage-toolbar-border-left-color);
     border-top: 25px solid transparent;
     right: -17px;
   }

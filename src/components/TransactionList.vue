@@ -124,10 +124,10 @@ export default {
   grid-template-rows: max-content max-content 1fr;
 
   .list {
-    background-color: $white;
-    border: 0.5px solid rgb(224, 224, 224);
+    background-color: var(--transaction-background);
+    border: var(--transaction-border);
     border-radius: 4px;
-    box-shadow: $card-box-shadow;
+    box-shadow: var(--card-box-shadow);
     overflow: auto;
 
     .no-transactions-container {
@@ -137,7 +137,7 @@ export default {
       padding: 24px;
 
       .no-transactions-text {
-        color: $alt-grey-5;
+        color: var(--text-medium-emphasis);
         font-size: 16px;
         font-style: italic;
         font-weight: 400;

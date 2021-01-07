@@ -29,15 +29,15 @@ export default {
   width: 30px;
 
   &.green {
-    border: 2px solid $green-5;
+    border: var(--network-status-border-synced);
   }
 
   &.red {
-    border: 2px solid $red-3;
+    border: var(--network-status-border-error);
   }
 
   &.yellow {
-    border: 2px solid $yellow-3;
+    border: var(--network-status-border-syncing);
   }
 }
 </style>

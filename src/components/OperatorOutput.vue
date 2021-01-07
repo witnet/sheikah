@@ -165,7 +165,7 @@ export default {
   width: max-content;
 
   .label {
-    color: $white;
+    color: var(--output-label-color);
     padding: 0 4px;
   }
 
@@ -177,8 +177,8 @@ export default {
   }
 
   .filter {
-    background-color: $black;
-    color: $white;
+    background-color: var(--reducer-color);
+    color: var(--output-label-color);
     padding: 0 4px;
   }
 
@@ -189,8 +189,8 @@ export default {
   }
 
   &.reducer {
-    background-color: $black;
-    border: 1px solid $black;
+    background-color: var(--reducer-color);
+    border: 1px solid var(--reducer-color);
   }
 
   &.string {
@@ -280,7 +280,7 @@ export default {
 
   .output-box {
     align-items: center;
-    background: $white;
+    background: var(--output-box);
     cursor: pointer;
     display: flex;
     height: 24px;
@@ -288,18 +288,18 @@ export default {
     min-width: 44px;
 
     .icon {
-      color: $grey-5;
+      color: var(--output-icon);
 
       &.ban {
-        color: $grey-2;
+        color: var(--output-icon-disabled);
       }
 
       &.error {
-        color: $red-2;
+        color: var(--output-icon-error);
       }
 
       &.explicit-output {
-        color: $grey-5;
+        color: var(--output-icon);
         font-size: 14px;
         max-width: 150px;
         overflow: hidden;

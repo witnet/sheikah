@@ -31,7 +31,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .subtitle {
-  color: $font-color-dark;
+  color: var(--text-medium-emphasis);
   padding-bottom: 24px;
 }
 
@@ -39,7 +39,7 @@ export default {
   overflow-y: auto;
 
   .text {
-    color: $font-color-light;
+    color: var(--text-low-emphasis);
     padding-bottom: 8px;
 
     &:last-of-type {

@@ -84,6 +84,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .input {
+  background: transparent;
   box-sizing: border-box;
   display: inline-block;
   resize: none;
@@ -94,7 +95,7 @@ export default {
   }
 
   &.big {
-    border: $input_big-border;
+    border: var(--seed-big-border);
     border-radius: $input_big-border-radius;
     font-size: 22px;
     min-height: 80px;
@@ -103,8 +104,8 @@ export default {
 
     &:hover,
     &:focus {
-      border: $input_big-hover-border;
-      box-shadow: $input_big-hover-box-shadow;
+      border: var(--seed-hover-border);
+      box-shadow: var(--seed-hover-box-shadow);
       outline: 0;
       outline-color: transparent;
       outline-style: none;

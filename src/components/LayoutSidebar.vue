@@ -33,7 +33,7 @@ export default {
 @import '@/styles/theme.scss';
 
 .layout {
-  background: $alpha-purple;
+  background: var(--app-background-color);
   display: grid;
   grid-template-columns: 70px 1fr;
 }
@@ -43,7 +43,7 @@ export default {
 }
 
 .main {
-  background: $alpha-purple;
+  background: var(--app-background-color);
   display: grid;
   grid-column: 2;
   min-height: 100vh;

@@ -217,7 +217,7 @@ export default {
 
 .toolbar {
   align-items: center;
-  background-color: $purple-5;
+  background-color: var(--toolbar-background-color);
   display: flex;
   height: 70px;
   justify-content: space-between;
@@ -226,8 +226,9 @@ export default {
   width: 100%;
 
   .el-button--primary {
-    background: $purple-5;
+    background: var(--toolbar-background-color);
     border-color: $white;
+    color: $white;
   }
 
   .left {

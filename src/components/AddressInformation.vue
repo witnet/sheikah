@@ -170,7 +170,7 @@ export default {
 @import '@/styles/_colors.scss';
 
 .information {
-  background: $white;
+  background: var(--card-background);
   min-height: 200px;
   padding: 25px;
 
@@ -182,7 +182,7 @@ export default {
 
   .header {
     align-items: center;
-    color: $alt-grey-5;
+    color: var(--text-medium-emphasis);
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
@@ -226,7 +226,7 @@ export default {
       width: 24px;
 
       .icon {
-        color: $alt-grey-4;
+        color: $alt-grey-3;
         width: 11px;
       }
 
@@ -241,7 +241,7 @@ export default {
   }
 
   .address {
-    color: $alt-grey-5;
+    color: var(--text-medium-emphasis);
     font-family: 'Roboto Mono';
     font-size: 12px;
     font-style: italic;
@@ -258,7 +258,7 @@ export default {
     }
 
     .description {
-      color: $alt-grey-4;
+      color: var(--text-low-emphasis);
       font-size: 12px;
       line-height: 150%;
 
@@ -269,13 +269,13 @@ export default {
   }
 
   .help {
-    color: $alt-grey-5;
+    color: var(--text-medium-emphasis);
     font-size: 12px;
     font-style: italic;
     line-height: 150%;
 
     .link {
-      color: $alt-grey-5;
+      color: var(--text-medium-emphasis);
       font-weight: 500;
       text-decoration: underline;
     }

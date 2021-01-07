@@ -6,6 +6,7 @@
         <p class="variable-icon">$</p>
         <el-input
           v-focus:[focusHandler(index,key)]
+          class="key-input"
           data-test="edit-var-input"
           :value="keys[index]"
           :placeholder="keys[index]"
@@ -97,13 +98,19 @@
           data-test="delete-var-btn"
           @click="deleteVariable({ index })"
         >
-          <img src="@/resources/svg/close-btn.svg" />
+          <img v-if="darkMode" src="@/resources/svg/close-btn-dark.svg" />
+          <img v-else src="@/resources/svg/close-btn.svg" />
         </div>
       </el-tooltip>
     </div>
     <div class="img-container" @click="createVariable">
       <img
-        class="add-operator"
+        v-if="darkMode"
+        data-test="add-variable"
+        src="@/resources/svg/add-operator-dark.svg"
+      />
+      <img
+        v-else
         data-test="add-variable"
         src="@/resources/svg/add-operator.svg"
       />
@@ -143,6 +150,7 @@ export default {
     ...mapState({
       currentFocus: state => state.rad.currentFocus,
       variables: state => state.rad.currentTemplate.variables,
+      darkMode: state => state.wallet.darkMode,
     }),
     error() {
       return this.errorIndex !== -1
@@ -238,7 +246,7 @@ export default {
     row-gap: 16px;
 
     .label {
-      color: $grey-5;
+      color: var(--text-medium-emphasis);
       font-size: 14px;
       margin: 8px;
       padding-right: 5px;
@@ -258,7 +266,7 @@ export default {
       position: relative;
 
       .variable-icon {
-        color: $grey-4;
+        color: var(--text-medium-emphasis);
         font-weight: lighter;
         left: 8px;
         position: absolute;
@@ -287,7 +295,7 @@ export default {
     width: max-content;
 
     .add-operator-text {
-      color: $grey-4;
+      color: var(--text-medium-emphasis);
       font-size: 12px;
       font-weight: medium;
       margin-left: 16px;

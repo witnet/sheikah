@@ -99,15 +99,15 @@ export default {
 @import '@/styles/theme.scss';
 
 .card-navigation {
-  background-color: $white;
-  border: 1px solid $purple-4;
+  background-color: var(--navigation-card-background);
+  border: var(--navigation-card-border);
   border-radius: 2px;
-  box-shadow: $default-box-shadow;
+  box-shadow: var(--default-box-shadow);
 
   .header {
     align-items: center;
-    background: $purple-4;
-    color: $white;
+    background: var(--navigation-card-header-background);
+    color: var(--text-dark-background);
     display: flex;
     flex-flow: row nowrap;
     font-size: 24px;
@@ -117,7 +117,6 @@ export default {
   }
 
   .content {
-    background: $white;
     display: flex;
     flex-direction: column;
     font-size: 16px;

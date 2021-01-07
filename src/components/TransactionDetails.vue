@@ -250,14 +250,14 @@ export default {
   margin-top: 24px;
 
   .label {
-    color: $grey-4;
+    color: var(--text-low-emphasis);
     font-size: 12px;
     font-weight: bold;
     justify-self: right;
   }
 
   .info {
-    color: $alt-grey-5;
+    color: var(--text-medium-emphasis);
     font-size: 13px;
     justify-self: left;
 
@@ -266,7 +266,7 @@ export default {
     }
 
     .light {
-      color: $grey-4;
+      color: var(--text-medium-emphasis);
     }
 
     .reveal {

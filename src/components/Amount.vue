@@ -74,12 +74,12 @@ export default {
   }
 
   .keep-dark {
-    color: $alt-grey-5;
+    color: var(--text-medium-emphasis);
     font-weight: normal;
   }
 
   .keep-light {
-    color: $white;
+    color: var(--text-dark-background);
     font-weight: normal;
   }
 }

@@ -185,7 +185,7 @@ export default {
       margin: 16px 0 0 32px;
 
       .templates-number {
-        color: $grey-4;
+        color: var(--text-medium-emphasis);
         font-size: 14px;
         font-weight: normal;
         margin-left: 8px;
@@ -212,10 +212,10 @@ export default {
 
     .add {
       align-items: center;
-      background-color: $white;
-      border: 1px solid $grey-1;
+      background-color: var(--card-background);
+      border: var(--card-border);
       border-radius: 2px;
-      box-shadow: 1px 2px 8px 0 rgba(207, 207, 207, 0.329);
+      box-shadow: var(--card-shadow);
       display: flex;
       flex-direction: column;
       height: 300px;
@@ -227,14 +227,14 @@ export default {
       }
 
       .text {
-        color: $grey-3;
+        color: var(--text-medium-emphasis);
         font-size: 12px;
         font-style: italic;
         margin-top: 24px;
       }
 
       &:hover {
-        border: 1px solid $purple-4;
+        border: var(--card-active-border);
         cursor: pointer;
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <a :href="url" target="_blank" class="card-layout">
+  <a :href="url" target="_blank" class="card-layout community-link">
     <div class="clip">
       <div class="header">
         <slot name="header"></slot>
@@ -31,11 +31,11 @@ export default {
 @import '@/styles/theme.scss';
 
 .card-layout {
-  background: $white;
-  border: 1px solid $purple-4;
+  background: var(--community-card-background);
+  border: var(--community-card-border);
   border-radius: 2px;
-  box-shadow: $default-box-shadow;
-  color: $purple-4;
+  box-shadow: var(--default-box-shadow);
+  color: var(--community-card-title);
   cursor: pointer;
   display: flex;
   padding: 32px 0 0 32px;
@@ -43,7 +43,7 @@ export default {
 
   &:hover,
   :active {
-    color: $purple-4;
+    color: var(--community-card-title);
   }
 
   .clip {
@@ -58,12 +58,12 @@ export default {
     }
 
     .header {
-      color: $purple-4;
+      color: var(--community-card-title);
       font-size: 18px;
     }
 
     .content {
-      color: $alt-grey-5;
+      color: var(--text-medium-emphasis);
       line-height: 1.5em;
     }
 

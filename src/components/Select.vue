@@ -37,16 +37,28 @@
             />
             <div class="arrow">
               <img
-                v-if="areOptionsVisible"
+                v-if="areOptionsVisible && darkMode"
+                class="icon sort-up"
+                src="@/resources/svg/sort-up-dark.svg"
+                alt="sort-up-icon"
+              />
+              <img
+                v-if="!areOptionsVisible && darkMode"
+                class="icon sort-up"
+                src="@/resources/svg/sort-down-dark.svg"
+                alt="sort-up-icon"
+              />
+              <img
+                v-if="areOptionsVisible && !darkMode"
                 class="icon sort-up"
                 src="@/resources/svg/sort-up.svg"
                 alt="sort-up-icon"
               />
               <img
-                v-else
+                v-if="!areOptionsVisible && !darkMode"
+                class="icon sort-up"
                 src="@/resources/svg/sort-down.svg"
-                class="icon sort-down"
-                alt="sort-down-icon"
+                alt="sort-up-icon"
               />
             </div>
           </div>
@@ -113,6 +125,7 @@
 
 <script>
 import { standardizeOperatorName } from '@/utils'
+import { mapState } from 'vuex'
 import OperatorType from '@/components/OperatorType.vue'
 
 let resetKeysSoFarTimer
@@ -152,6 +165,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      darkMode: state => state.wallet.darkMode,
+    }),
     activeOptionIndex() {
       // TODO(#856): implement find for operator select, wait till the Radon Library is updated
       if (this.type === 'operator') {
@@ -296,11 +312,11 @@ export default {
 
   .selected-btn {
     align-items: center;
-    background: none;
-    border: $select_border;
+    background: var(--select-background-color);
+    border: var(--select-border);
     border-radius: 4px;
     box-sizing: border-box;
-    color: $alt-grey-5;
+    color: var(--text-medium-emphasis);
     cursor: pointer;
     display: flex;
     font-size: 14px;
@@ -365,7 +381,7 @@ export default {
   }
 
   .active {
-    border: $select_border__active;
+    border: var(--select-border-active);
     border-bottom: none;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -377,8 +393,8 @@ export default {
   }
 
   .options {
-    background: white;
-    border: $select_border__active;
+    background: var(--select-background-color);
+    border: var(--select-border-active);
     border-radius: 4px;
     border-top: 0;
     border-top: none;
@@ -405,8 +421,8 @@ export default {
 
     .option {
       align-items: center;
-      background: $white;
-      color: $alt-grey-5;
+      background: var(--select-background-color);
+      color: var(--text-medium-emphasis);
       cursor: pointer;
       display: flex;
       height: 40px;
@@ -434,11 +450,11 @@ export default {
       }
 
       &:hover {
-        background-color: $alpha-purple;
+        background-color: var(--select-option-background-active);
       }
 
       &.has-focus {
-        background-color: $alpha-purple;
+        background-color: var(--select-option-background-active);
       }
 
       .primary {

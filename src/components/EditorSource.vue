@@ -29,7 +29,8 @@
           data-test="delete-btn"
           @click="deleteSource({ index })"
         >
-          <img src="@/resources/svg/close-btn.svg" />
+          <img v-if="darkMode" src="@/resources/svg/close-btn-dark.svg" />
+          <img v-else src="@/resources/svg/close-btn.svg" />
         </div>
       </el-tooltip>
     </Card>
@@ -37,7 +38,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 import { UPDATE_SOURCE, DELETE_SOURCE } from '@/store/mutation-types'
 import { getDomainFromUrl } from '@/utils'
@@ -91,6 +92,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      darkMode: state => state.wallet.darkMode,
+    }),
     title() {
       return `Data Source #${this.index}`
     },
@@ -194,7 +198,7 @@ export default {
     row-gap: 22px;
 
     .label {
-      color: $grey-5;
+      color: var(--text-medium-emphasis);
       font-size: 14px;
     }
   }

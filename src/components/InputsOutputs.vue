@@ -86,21 +86,21 @@ export default {
 @import '@/styles/theme.scss';
 
 .inputs-outputs {
-  background-color: $alt-grey-5;
-  border: 1px solid $grey-4;
+  background-color: var(--transaction-details-background);
+  border: var(--transaction-details-border);
   display: grid;
   grid-template-columns: auto auto;
   margin-top: 24px;
 
   .inputs {
-    border-right: 1px solid $grey-4;
+    border-right: 1px solid var(--transaction-details-color);
   }
 
   .box {
     padding: 16px 32px;
 
     .title {
-      color: $white;
+      color: var(--transaction-details-color);
       font-size: 10px;
       font-weight: bold;
       margin-bottom: 16px;
@@ -114,7 +114,7 @@ export default {
       margin-bottom: 8px;
 
       .index {
-        color: $white;
+        color: var(--transaction-details-color);
         font-size: 13px;
         font-weight: 600;
         grid-area: index;
@@ -123,20 +123,20 @@ export default {
       }
 
       .amount {
-        color: $white;
+        color: var(--transaction-details-color);
         font-size: 13px;
         font-weight: 600;
         grid-column: col2-start;
         grid-row: row1-start;
 
         .unit {
-          color: $white;
+          color: var(--transaction-details-color);
           font-size: 13px;
         }
       }
 
       .address {
-        color: $white;
+        color: var(--transaction-details-color);
         font-size: 12px;
         font-style: italic;
         grid-column: col2-start;
@@ -144,7 +144,7 @@ export default {
       }
 
       .timelock {
-        color: $white;
+        color: var(--transaction-details-color);
         font-size: 12px;
         font-style: italic;
         grid-column: col2-start;

@@ -130,13 +130,13 @@ export default {
       }
 
       .progress-title {
-        color: $alt-grey-5;
+        color: var(--text-medium-emphasis);
         font-size: 24px;
         line-height: 1.3;
       }
 
       .progress-subtitle {
-        color: $alt-grey-5;
+        color: var(--text-medium-emphasis);
         display: flex;
         margin-top: 8px;
       }

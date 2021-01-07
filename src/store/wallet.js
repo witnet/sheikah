@@ -771,6 +771,7 @@ export default {
     },
 
     validateImportedWallet: async function(context, params) {
+      console.log(params)
       const importType = params.mnemonics ? 'mnemonics' : 'xprv'
       const request = await context.state.api.validateMnemonics({
         seed_source: importType,
