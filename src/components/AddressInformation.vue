@@ -6,7 +6,7 @@
   <div v-else-if="address" class="information">
     <div class="header">
       <p class="caption">
-        {{ this.$t('address') }}
+        {{ $t('address') }}
         <span class="number">#{{ index + 1 }}</span>
       </p>
       <el-tooltip

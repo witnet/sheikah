@@ -1,14 +1,13 @@
 <template>
   <div class="transaction-list">
-    <Fieldset
-      :title="$t('transactions')"
-      :subtitle="`${transactionsLength} transactions`"
-    >
+    <Fieldset>
       <p class="title">
         <span class="label capitalize">{{ this.$t('transactions') }}</span>
-        <span class="number" data-test="transactions-length"
-          >{{ transactionsLength }} {{ this.$t('transactions') }}</span
-        >
+        <span class="number" data-test="transactions-length">{{
+          this.$tc('transactions_count', transactionsLength, {
+            count: transactionsLength,
+          })
+        }}</span>
       </p>
       <div class="list">
         <Transaction

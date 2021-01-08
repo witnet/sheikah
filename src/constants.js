@@ -128,6 +128,7 @@ export const SETTINGS_SECTIONS = {
 }
 
 export const SETTINGS_BY_SECTION = {
+  // TODO: include SETTINGS.LASGUAGE within general settings section when the transalations are ready
   GENERAL: [SETTINGS.UNIT],
   ADVANCED: [SETTINGS.EXPORT_XPRV, SETTINGS.RESYNC],
   NOTIFICATIONS: [SETTINGS.NOTIFICATIONS],
