@@ -3,7 +3,19 @@ import Select from '@/components/Select'
 describe('Select.vue', () => {
   describe('should render properly', () => {
     const wrapper = shallowMount(Select, {
+<<<<<<< HEAD
       ...i18n(),
+=======
+      ...createComponentMocks({
+        store: {
+          wallet: {
+            state: {
+              darkMode: false,
+            },
+          },
+        },
+      }),
+>>>>>>> fix(tests): fix tests to include the darkMode state
       propsData: {
         type: 'big',
         value: {
@@ -42,7 +54,19 @@ describe('Select.vue', () => {
   })
   describe('should render properly', () => {
     const wrapper = shallowMount(Select, {
+<<<<<<< HEAD
       ...i18n(),
+=======
+      ...createComponentMocks({
+        store: {
+          wallet: {
+            state: {
+              darkMode: false,
+            },
+          },
+        },
+      }),
+>>>>>>> fix(tests): fix tests to include the darkMode state
       propsData: {
         type: 'big',
         value: {
@@ -93,7 +117,19 @@ describe('Select.vue', () => {
   })
   describe('delete file when click on delete', () => {
     const wrapper = mount(Select, {
+<<<<<<< HEAD
       ...i18n(),
+=======
+      ...createComponentMocks({
+        store: {
+          wallet: {
+            state: {
+              darkMode: false,
+            },
+          },
+        },
+      }),
+>>>>>>> fix(tests): fix tests to include the darkMode state
       propsData: {
         type: 'big',
         value: {

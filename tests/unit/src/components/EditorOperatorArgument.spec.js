@@ -1,6 +1,6 @@
 import EditorOperatorArgument from '@/components/EditorOperatorArgument'
 
-describe('RadonOperator.vue', () => {
+describe('EditorOperatorArgument.vue', () => {
   describe('should render properly when there is a select argument', () => {
     const state = {
       currentTemplate: {
@@ -8,7 +8,16 @@ describe('RadonOperator.vue', () => {
       },
     }
     const wrapper = mount(EditorOperatorArgument, {
-      ...createComponentMocks({ store: { rad: { state: state } } }),
+      ...createComponentMocks({
+        store: {
+          rad: { state: state },
+          wallet: {
+            state: {
+              darkMode: false,
+            },
+          },
+        },
+      }),
       propsData: {
         argument: {
           hierarchicalType: 'argument',
@@ -88,7 +97,16 @@ describe('RadonOperator.vue', () => {
       },
     }
     const wrapper = mount(EditorOperatorArgument, {
-      ...createComponentMocks({ store: { rad: { state: state } } }),
+      ...createComponentMocks({
+        store: {
+          rad: { state: state },
+          wallet: {
+            state: {
+              darkMode: false,
+            },
+          },
+        },
+      }),
       propsData: {
         argument: {
           hierarchicalType: 'argument',

@@ -5,6 +5,11 @@ describe('Variables.vue', () => {
     const wrapper = mount(Variables, {
       ...createComponentMocks({
         store: {
+          wallet: {
+            state: {
+              darkMode: false,
+            },
+          },
           rad: {
             state: {
               currentTemplate: {
@@ -96,6 +101,11 @@ describe('Variables.vue', () => {
     const wrapper = mount(Variables, {
       ...createComponentMocks({
         store: {
+          wallet: {
+            state: {
+              darkMode: false,
+            },
+          },
           rad: {
             state: {
               currentTemplate: {

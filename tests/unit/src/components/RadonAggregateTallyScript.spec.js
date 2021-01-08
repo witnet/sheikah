@@ -165,6 +165,11 @@ describe('RadonAggregateTallyScript.vue', () => {
       },
       ...createComponentMocks({
         store: {
+          wallet: {
+            state: {
+              darkMode: false,
+            },
+          },
           uiInteractions: {
             state: {
               generateRadRequestResultLoading: false,
@@ -364,6 +369,11 @@ describe('RadonAggregateTallyScript.vue', () => {
       },
       ...createComponentMocks({
         store: {
+          wallet: {
+            state: {
+              darkMode: false,
+            },
+          },
           uiInteractions: {
             state: {
               generateRadRequestResultLoading: false,

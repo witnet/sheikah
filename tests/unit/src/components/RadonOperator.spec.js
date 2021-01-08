@@ -10,10 +10,14 @@ describe('RadonOperator.vue', () => {
     const interactionsState = {
       generateRadRequestResultLoading: false,
     }
+    const walletState = {
+      darkMode: false,
+    }
     const wrapper = mount(RadonOperator, {
       ...createComponentMocks({
         store: {
           rad: { state: state },
+          wallet: { state: walletState },
           uiInteractions: { state: interactionsState },
         },
       }),
@@ -82,10 +86,14 @@ describe('RadonOperator.vue', () => {
     const interactionsState = {
       generateRadRequestResultLoading: false,
     }
+    const walletState = {
+      darkMode: false,
+    }
     const wrapper = mount(RadonOperator, {
       ...createComponentMocks({
         store: {
           rad: { state: state },
+          wallet: { state: walletState },
           uiInteractions: { state: interactionsState },
         },
       }),

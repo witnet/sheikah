@@ -52,6 +52,7 @@ function getData() {
           state: {
             unit: 'nanoWit',
             currentTransactionsPage: 1,
+            darkMode: false,
           },
           mutations: {
             setCurrentTransactionsPage: setCurrentTransactionsPageMutationMock,
@@ -112,7 +113,7 @@ describe('Renders the correct elements when click is not triggered', () => {
   it('render the number of transactions', () => {
     const wrapper = mount(TransactionList, getData())
 
-    expect(wrapper.find('[data-test="transactions-length"]').text()).toBe(
+    expect(wrapper.find('[data-test="transactions-length"]').text()).toContain(
       'Transactions 87 transactions',
     )
   })

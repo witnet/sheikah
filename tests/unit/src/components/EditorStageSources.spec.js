@@ -8,6 +8,11 @@ describe('EditorStageSources.vue', () => {
       const wrapper = mount(EditorStageSources, {
         ...createComponentMocks({
           store: {
+            wallet: {
+              state: {
+                darkMode: false,
+              },
+            },
             rad: {
               state: {
                 radRequest: {
@@ -40,6 +45,11 @@ describe('EditorStageSources.vue', () => {
       const wrapper = mount(EditorStageSources, {
         ...createComponentMocks({
           store: {
+            wallet: {
+              state: {
+                darkMode: false,
+              },
+            },
             rad: {
               state: {
                 radRequest: {
@@ -75,6 +85,11 @@ describe('EditorStageSources.vue', () => {
       const wrapper = mount(EditorStageSources, {
         ...createComponentMocks({
           store: {
+            wallet: {
+              state: {
+                darkMode: false,
+              },
+            },
             rad: {
               state: {
                 radRequest: {
@@ -100,6 +115,11 @@ describe('EditorStageSources.vue', () => {
     const wrapper = mount(EditorStageSources, {
       ...createComponentMocks({
         store: {
+          wallet: {
+            state: {
+              darkMode: false,
+            },
+          },
           rad: {
             state: {
               radRequest: {
