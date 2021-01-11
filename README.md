@@ -4,6 +4,7 @@
     <a href="https://github.com/witnet/sheikah/blob/master/LICENSE"><img src="https://img.shields.io/github/license/witnet/sheikah.svg" alt="GPLv3 Licensed" /></a>
     <a href="https://github.com/witnet/sheikah/graphs/contributors"><img src="https://img.shields.io/github/contributors/witnet/sheikah.svg" alt="GitHub contributors" /></a>
     <a href="https://github.com/witnet/sheikah/commits/dev"><img src="https://img.shields.io/github/last-commit/witnet/sheikah.svg" alt="Github last commit" /></a>
+    <a href="https://witnet.crowdin.com/sheikah-witnet-wallet"><img src="https://badges.crowdin.net/e/b5251f26e4f4f95a5e772859afa9e492/localized.svg" alt="Crowdin localization" /></a>
     <br /><br />
     <p><strong>Sheikah</strong> is a <a href="https://witnet.io/">Witnet</a> compatible desktop wallet and data requests development environment.</p>
 </div>
