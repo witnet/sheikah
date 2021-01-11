@@ -194,7 +194,7 @@ export default {
           this.fileName = file.name
           this.$emit('file-name', file.name)
           try {
-            const validated = this.validateFile(fileInfo)
+            const validated = await this.validateFile(fileInfo)
             if (validated) {
               /**
                * Emit the content of the file validated

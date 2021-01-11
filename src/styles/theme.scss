@@ -212,6 +212,8 @@
   --balance-background: #{$purple-dark};
   --balance-link-color: #{$purple-dark};
   --balance-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  // error
+  --error-color: #{$red-2};
 }
 
 [theme='light'] {
@@ -410,6 +412,8 @@
   --balance-background: #{$purple-5};
   --balance-link-color: #{$purple-2};
   --balance-box-shadow: 0 4px 4px rgb(155, 181, 224, 0.1);
+  // error
+  --error-color: #{$red-2};
 }
 
 // COMMON

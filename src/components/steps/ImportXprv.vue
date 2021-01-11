@@ -92,8 +92,7 @@ export default {
     }
   },
   created() {
-    this.validateXprv(this.fileInfo)
-    if (this.fileInfo) {
+    if (this.validateXprv(this.fileInfo)) {
       this.disabledNextButton = false
     }
   },
@@ -107,14 +106,16 @@ export default {
       validateImportedWallet: 'validateImportedWallet',
     }),
     updateName(name) {
+      this.clearXprvError()
       this.fileName = name
     },
     setFileInfo(file) {
       this.$store.commit('setXprvInfo', this.normalizeFile(file))
-      this.clearError()
     },
-    clearError() {
-      this.$store.commit('clearError', { error: 'xprv' })
+    clearXprvError() {
+      if (this.xprvError) {
+        this.clearError({ error: this.xprvError.name })
+      }
     },
     clearXprvInfo() {
       this.$store.commit('clearXprvInfo')
@@ -145,12 +146,8 @@ export default {
       this.$refs.fileInput.value = ''
       this.$refs.fileInput.click()
     },
-    async validateXprv(fileInfo) {
-      if (!this.xprvError) {
-        return true
-      } else {
-        return false
-      }
+    validateXprv(fileInfo) {
+      return fileInfo && !this.xprvError && fileInfo.master_key
     },
     nextStep() {
       this.$router.push(`/ftu/decrypt-xprv`)
@@ -193,7 +190,7 @@ export default {
 }
 
 .match-error {
-  color: $red-2;
+  color: var(--error-color);
 }
 
 .paragraph {
