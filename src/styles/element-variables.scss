@@ -7,26 +7,6 @@ $--color-primary: $purple-4;
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
-.el-switch {
-  .el-switch__label {
-    color: var(--switch-label-color);
-
-    &.is-active {
-      color: var(--switch-label-color);
-    }
-  }
-
-  &.notification {
-    .el-switch__label {
-      color: var(--switch-notification-label);
-
-      &.is-active {
-        color: var(--switch-notification-label);
-      }
-    }
-  }
-}
-
 .el-input {
   &.key-input {
     .el-input__inner {
@@ -150,10 +130,14 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     font-weight: bold;
 
     &.is-disabled {
+      background-color: var(--button-primary-background-disabled);
+      border-color: var(--button-primary-border-disabled);
       color: var(--button-primary-text);
 
       &:hover,
       &:focus {
+        background-color: var(--button-primary-background-disabled);
+        border-color: var(--button-primary-border-disabled);
         color: var(--button-primary-text-hover);
       }
     }
@@ -254,15 +238,18 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     }
 
     .el-pager li.active {
-      color: var(--marketplace-pagination-active);
+      background-color: var(--marketplace-pagination-active);
+      color: var(--pagination-number);
     }
 
     .el-pager li:hover {
-      color: var(--marketplace-pagination-active);
+      background-color: var(--marketplace-pagination-active);
+      color: var(--pagination-number);
     }
 
     button:hover {
-      color: var(--marketplace-pagination-active);
+      background-color: var(--marketplace-pagination-active);
+      color: var(--pagination-number);
     }
   }
 }
@@ -281,6 +268,47 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 }
 
 @import '~element-ui/packages/theme-chalk/src/index';
+
+.el-progress-bar {
+  .el-progress-bar__inner {
+    background-color: var(--progress-bar);
+  }
+
+  .el-progress-bar__outer {
+    background-color: var(--progress-color);
+  }
+}
+
+.el-switch {
+  .el-switch__label {
+    color: var(--switch-label-color);
+
+    &.is-active {
+      color: var(--switch-label-color);
+    }
+  }
+
+  .el-switch__core {
+    background: var(--switch-background);
+  }
+
+  &.is-checked {
+    .el-switch__core {
+      background-color: var(--switch-background-active);
+      border-color: var(--switch-background-active);
+    }
+  }
+
+  &.notification {
+    .el-switch__label {
+      color: var(--switch-notification-label);
+
+      &.is-active {
+        color: var(--switch-notification-label);
+      }
+    }
+  }
+}
 
 .el-popover {
   background: var(--tooltip-background);
@@ -306,26 +334,33 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   }
 
   .el-pager li.active {
-    background-color: inherit;
-    color: var(--pagination-number-active);
+    background-color: var(--pagination-number-active);
+    border-radius: 12%;
+    color: var(--pagination-number-active-text);
   }
 
   .el-pager li:hover {
-    color: var(--pagination-number-active);
+    background-color: var(--pagination-number-active);
+    border-radius: 12%;
+    color: var(--pagination-number-active-text);
+    opacity: 0.7;
   }
 
   .el-pager li {
     background-color: inherit;
+    margin: 4px;
   }
 
   .btn-next {
     background-color: var(--app-background-color);
     color: var(--pagination-button);
+    margin: 4px;
   }
 
   .btn-prev {
     background-color: var(--app-background-color);
     color: var(--pagination-button);
+    margin: 4px;
   }
 }
 

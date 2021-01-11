@@ -29,9 +29,9 @@ export default {
 .card {
   align-items: center;
   background: none;
-  border: 1px dashed rgb(102, 100, 140, 0.5);
+  border: var(--address-card-button-border);
   border-radius: 3px;
-  color: rgb(68, 66, 64, 0.5);
+  color: var(--address-card-button-color);
   cursor: pointer;
   display: flex;
   height: 40px;
@@ -41,13 +41,13 @@ export default {
 
   &:focus,
   &:hover {
-    border: 1px dashed rgb(170, 168, 189, 0.5);
-    color: rgb(170, 168, 189, 0.5);
+    border: var(--address-card-button-border-hover);
+    color: var(--address-card-button-color-hover);
   }
 
   &:active {
-    border: 1px dashed rgb(102, 100, 140, 0.5);
-    color: rgb(68, 66, 64, 0.5);
+    border: var(--address-card-button-border-active);
+    color: var(--address-card-button-color-active);
   }
 }
 </style>

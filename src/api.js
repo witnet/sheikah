@@ -249,12 +249,10 @@ export class LocalStorageApi {
   }
 
   getThemeSettings() {
-    console.log('get theme settings', this._get('themeSettings'))
     return this._get('themeSettings')
   }
 
   setThemeSettings(theme) {
-    console.log('set theme settings', theme)
     return this._set('themeSettings', theme)
   }
 }

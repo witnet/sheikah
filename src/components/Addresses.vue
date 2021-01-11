@@ -113,7 +113,7 @@ export default {
   width: 350px;
 
   &.active {
-    box-shadow: 0 0 6px 1px $purple-2;
+    box-shadow: var(--addresses-active-box-shadow);
   }
 }
 </style>

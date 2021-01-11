@@ -203,7 +203,7 @@ export default {
           color: var(--text-medium-emphasis);
           font-size: 13px;
           font-weight: 600;
-          margin-left: 4px;
+          margin-left: 8px;
         }
       }
     }

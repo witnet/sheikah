@@ -44,7 +44,7 @@ export default {
   user-select: none;
 
   &.green {
-    background: $green-3;
+    background: var(--tag-background);
   }
 
   &.red {

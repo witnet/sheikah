@@ -27,7 +27,9 @@
     font-family: 'Lucida Console', Monaco, monospace;
   }
 
+  html,
   body {
+    background-color: var(--app-background-color);
     font-family: $font-family;
   }
 

@@ -49,7 +49,6 @@
           v-else-if="tab.type === 'switch'"
           v-model="autoTryDataRequest"
           data-test="action-try"
-          active-color="#b47de8"
           class="center"
           active-text="Try data request"
         ></el-switch>

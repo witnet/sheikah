@@ -3,7 +3,6 @@
     <transition :name="transitionName">
       <router-view />
     </transition>
-    <div v-if="transitionName" class="layer" />
     <Notification />
     <ResyncConfirmation v-if="isResyncConfirmationVisible" />
   </div>
@@ -106,15 +105,6 @@ export default {
     opacity: 1;
     transform: none;
   }
-}
-
-.layer {
-  background-color: var(--app-background-color);
-  min-height: 100vh;
-  min-width: 100vw;
-  position: fixed;
-  top: 0;
-  z-index: -10;
 }
 
 .app {

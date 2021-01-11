@@ -52,8 +52,8 @@ export default {
   width: 100vw;
 
   .alert {
-    background-color: $yellow-0;
-    border: 1px solid $grey-1;
+    background-color: var(--alert-background);
+    border: var(--alert-border);
     border-radius: 2px;
     box-shadow: var(--card-box-shadow);
     overflow: hidden;
@@ -66,7 +66,7 @@ export default {
       padding: 16px;
 
       .title {
-        color: var(--text-medium-emphasis);
+        color: var(--alert-color-text);
         font-size: 18px;
         font-weight: 500;
         padding-bottom: 16px;
@@ -77,19 +77,19 @@ export default {
       }
 
       .description {
-        color: var(--text-medium-emphasis);
+        color: var(--alert-color-text);
         font-size: 16px;
       }
     }
 
     .link-container {
-      background-color: $white;
+      background-color: var(--alert-link-background);
       font-size: 14px;
       margin-top: 16px;
       padding: 16px;
 
       .link {
-        color: var(--text-medium-emphasis);
+        color: var(--alert-colot-link-text);
         cursor: pointer;
         line-height: 1.5;
         text-decoration: none;

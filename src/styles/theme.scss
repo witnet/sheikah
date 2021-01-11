@@ -1,19 +1,21 @@
 @import './colors';
 
 [theme='dark'] {
+  // tag
+  --tag-background: #{$green-dark};
   // community card
   --community-card-background: #{$grey-dark-8};
-  --community-card-border: 1px solid #{$purple-1};
-  --community-card-title: #{$purple-1};
+  --community-card-border: 1px solid #{$purple-dark};
+  --community-card-title: #{$purple-dark};
   // default card
   --card-background: #{$grey-dark-8};
   --card-border: 1px solid #{$grey-dark-8};
-  --card-active-border: 1px solid #{$purple-1};
-  --navigation-card-header-background: #{$purple-1};
+  --card-active-border: 1px solid #{$purple-dark};
+  --navigation-card-header-background: #{$purple-dark};
   --template-card-marketplace-active-border: 1px solid rgb(255, 42, 127);
   // navigation card
   --navigation-card-background: #{$grey-dark-8};
-  --navigation-card-border: 1px solid #{$purple-1};
+  --navigation-card-border: 1px solid #{$purple-dark};
   //
   --reducer-color: #{$grey-dark-1};
   // output box
@@ -23,8 +25,8 @@
   --output-icon-error: #{$red-2};
   --output-label-color: #{$grey-dark-10};
   // transactions
-  --transactions-negative: #{$red-3};
-  --transactions-positive: #{$green-3};
+  --transactions-negative: #{$red-2};
+  --transactions-positive: #{$green-dark};
   --transaction-details-color: #{$white};
   --transaction-border: 0.5px solid #{$grey-dark-10};
   --transaction-background: #{$grey-dark-8};
@@ -32,10 +34,10 @@
   --transaction-details-border: 1px solid #{$grey-dark-8};
   --transaction-details-color: #{$grey-dark-1};
   // network status
-  --network-status-border-synced: 2px solid #{$green-3};
+  --network-status-border-synced: 2px solid #{$green-dark};
   --network-status-border-syncing: 2px solid #{$yellow-4};
   --network-status-border-error: 2px solid #{$red-3};
-  --network-status-label-synced: #{$green-3};
+  --network-status-label-synced: #{$green-dark};
   --network-status-label-syncing: #{$yellow-3};
   --network-status-label-error: #{$red-3};
   // app
@@ -52,10 +54,9 @@
   --sidebar-section-background: #{$grey-dark-7};
   --sidebar-section-border: 4px solid #{$grey-dark-7};
   --sidebar-border-hover: 4px solid #{$grey-dark-10};
-  --sidebar-active-border: 4px solid #{$purple-1};
+  --sidebar-active-border: 4px solid #{$purple-dark};
   --sidebar-inactive-border-hover: 4px solid #{$grey-dark-10};
   --sidebar-settings-border: 1px solid #{$grey-dark-10};
-  // texts
   --text-dark-background: #{$grey-dark-10};
   --text-high-emphasis: #{$white};
   --text-medium-emphasis: #{$grey-dark-1};
@@ -64,92 +65,120 @@
   // select
   --select-background-color: #{$grey-dark-10};
   --select-border: 1px solid #{$grey-dark-2};
-  --select-border-active: 1px solid #{$purple-1};
-  --select-option-background-active: #{$grey-dark-1};
+  --select-border-active: 1px solid #{$purple-dark};
+  --select-option-background-active: #{$grey-dark-8};
   // operator
-  --operator-border: 1px solid #{$white};
+  --operator-border: 1px solid #{$grey-2};
   --script-operators-background: #{$grey-dark-1};
-  --script-operators-info-background: #{$grey-dark-11};
-  --script-operators-info-border: #{$grey-dark-11};
+  --script-operators-info-background: #{$grey-dark-8};
+  --script-operators-info-border: 1px solid #{$grey-dark-8};
   --operators-dashed-border: 1px dashed #{$white};
   --operator-dashed-border: 1px dashed #{$grey-2};
   // addresses
+  --address-card-border-used: 1px solid #{$red-2};
+  --address-card-border-not-used: 1px solid #{$green-dark};
+  --address-card-background: #{$green-dark};
   --addresses-info-background: #{$grey-dark-1};
-  --addresses-border: 1px solid #{$grey-dark-10};
-  --addresses-active-box-shadow: 0 0 6px 1px #{$purple-1};
-  --addresses-inactive-box-shadow: 0 0 0 0 #{$purple-1};
+  --addresses-border: 1px solid #{$grey-dark-1};
+  --addresses-active-box-shadow: 0 0 6px 1px #{$purple-dark};
+  --addresses-inactive-box-shadow: 0 0 0 0 #{$purple-dark};
+  --addresses-list-background: #{$grey-dark-8};
+  --address-card-button-border: 1px dashed #{$grey-dark-1};
+  --address-card-button-border-hover: 1px dashed #{$grey-dark-0};
+  --address-card-button-border-active: 1px dashed #{$grey-dark-2};
+  --address-card-button-color: #{$grey-dark-1};
+  --address-card-button-color-hover: #{$grey-dark-0};
+  --address-card-button-color-active: #{$grey-dark-2};
   // input
   --input-border: 1px solid #{$grey-dark-10};
   --input-border-hover: #{$grey-dark-1};
   --input-background: #{$grey-dark-10};
-  --input-border-color-active: #{$purple-1};
+  --input-border-color-active: #{$purple-dark};
   // seed
   --seed-big-border: 2px dashed #{$grey-dark-1};
-  --seed-hover-border: 2px dashed #{$purple-2} !important;
-  --seed-hover-box-shadow: 0 1px 5px 0 #{$purple-1};
+  --seed-hover-border: 2px dashed #{$purple-dark-3} !important;
+  --seed-hover-box-shadow: 0 1px 5px 0 #{$purple-dark};
   // drag and drop area
   --drag-drop-area: 1px dashed #{$grey-dark-1};
   --drag-drop-file-background-color: #{$grey-dark-5};
-  --drag-drop-area-focus: 1px dashed #{$purple-1};
+  --drag-drop-area-focus: 1px dashed #{$purple-dark};
   // disclaimer
-  --disclaimer-background: #{$purple-1};
-  --disclaimer-border: 1px solid #{$purple-2};
+  --disclaimer-background: #{$purple-dark};
+  --disclaimer-border: 1px solid #{$purple-dark-3};
   // notification
   --notification-border: 1px solid #{$grey-dark-10};
   // element variables
-  --primary-color: #{$purple-1};
+  --primary-color: #{$purple-dark};
   --color-success: #{$green-dark-1};
+  --switch-background: #{$grey-dark-8};
+  --switch-background-active: #{$purple-dark};
   --switch-label-color: #{$white};
   --switch-notification-label: #{$white};
+  // progress
+  --progress-bar: #{$purple-dark};
+  --progress-color: #{$grey-dark-1};
+  --progress-icon: #{$purple-dark};
+  // alert
+  --alert-background: #{$yellow-0};
+  --alert-border: 1px solid #{$grey-1};
+  --alert-link-background: #{$grey-dark-8};
+  --alert-color-text: #{$alt-grey-5};
+  --alert-colot-link-text: #{$grey-dark-1};
   // button dark
   --button-dark-background: #{$grey-dark-10};
-  --button-dark-text: #{$purple-1};
+  --button-dark-text: #{$purple-dark};
   --button-dark-border: #{$grey-dark-10};
   --button-dark-border-hover: #{$grey-dark-10};
   --button-dark-background-hover: #{$grey-dark-6};
-  --button-dark-text-hover: #{$purple-1};
+  --button-dark-text-hover: #{$purple-dark};
   --button-dark-background-active: #{$grey-dark-10};
   --button-dark-border-active: #{$grey-dark-10};
-  --button-dark-text-active: #{$purple-1};
+  --button-dark-text-active: #{$purple-dark};
   // button primary
-  --button-primary-background: #{$purple-1};
+  --button-primary-background: #{$purple-dark};
+  // option 1
+  // --button-primary-text: #{$grey-dark-1};
+  // option 2
   --button-primary-text: #{$grey-dark-10};
-  --button-primary-border: #{$purple-1};
-  --button-primary-background-hover: #{$purple-0};
+  --button-primary-border: #{$purple-dark};
+  --button-primary-background-hover: #{$purple-dark-1};
   --button-primary-text-hover: #{$grey-dark-10};
-  --button-primary-border-hover: #{$alt-purple-1};
-  --button-primary-background-active: #{$alt-purple-1};
-  --button-primary-border-active: #{$purple-1};
+  --button-primary-border-hover: #{$purple-dark-1};
+  --button-primary-background-active: #{$purple-dark-2};
+  --button-primary-border-active: #{$purple-dark-2};
   --button-primary-text-active: #{$grey-dark-10};
+  --button-primary-background-disabled: #{$purple-dark-2};
+  --button-primary-border-disabled: #{$purple-dark-2};
   // button default
-  --button-default-text: #{$grey-dark-1};
-  --button-default-border: #{$purple-1};
+  --button-default-text: #{$grey-dark-2};
+  --button-default-border: #{$purple-dark};
   --button-default-background-hover: #{$grey-dark-6};
-  --button-default-border-hover: #{$alt-purple-1};
+  --button-default-border-hover: #{$purple-dark-1};
   --button-default-text-hover: #{$grey-dark-1};
   // button default dark
-  --button-default-dark-background: #{$purple-1};
+  --button-default-dark-background: #{$purple-dark};
   --button-default-dark-border: #{$grey-dark-10};
   --button-default-dark-text: #{$grey-dark-10};
-  --button-default-dark-background-hover: #{$alt-purple-1};
+  --button-default-dark-background-hover: #{$purple-dark-1};
   --button-default-dark-border-hover: #{$grey-dark-10};
   --button-default-dark-text-hover: #{$grey-dark-10};
   --button-default-dark-background-active: #{$grey-dark-10};
-  --button-default-dark-border-active: #{$purple-1};
-  --button-default-dark-text-active: #{$purple-1};
+  --button-default-dark-border-active: #{$purple-dark-2};
+  --button-default-dark-text-active: #{$purple-dark-2};
   // button text
-  --button-text-color: #{$purple-1};
-  --button-text-hover: #{$alt-purple-2};
+  --button-text-color: #{$purple-dark};
+  --button-text-hover: #{$purple-dark-1};
   // pagination
   --marketplace-pagination-active: rgb(255, 42, 127);
   --pagination-active: rgb(255, 42, 127);
   --pagination-number: #{$grey-dark-1};
-  --pagination-number-active: #{$purple-1};
+  --pagination-number-active: #{$purple-dark};
+  --pagination-number-active-text: #{$grey-dark-10};
   --pagination-button: #{$grey-dark-1};
-  --pagination-button-active: #{$purple-1};
+  --pagination-button-active: #{$purple-dark};
   // dropdown
   --dropdown-background: #{$grey-dark-10};
-  --dropdown-text-hover: #{$purple-4};
+  --dropdown-text-hover: #{$purple-dark};
   --dropdown-marketplace-background: rgba(255, 183, 212, 0.246);
   --dropdown-marketplace-text-hover: rgb(255, 42, 127);
   // tooltip
@@ -157,17 +186,20 @@
   --tooltip-border: 1px solid #{$grey-dark-1};
   --tooltip-arrow-border: #{$grey-dark-1};
   // loading
-  --loading-title: #{$purple-1};
-  --loading-description: #{$alt-purple-2};
+  --loading-title: #{$purple-dark};
+  --loading-description: #{$purple-dark};
   // spinner
   --spinner-border: 2px dotted #{$grey-dark-1};
-  --spinner-border-active: 3px solid #{$purple-1};
+  --spinner-border-active: 3px solid #{$purple-dark};
   // balance
-  --balance-background: #{$purple-2};
-  --balance-link-color: #{$purple-2};
+  --balance-background: #{$purple-dark};
+  --balance-link-color: #{$purple-dark};
+  --balance-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 [theme='light'] {
+  // tag
+  --tag-background: #{$green-3};
   // community card
   --community-card-background: #{$white};
   --community-card-border: 1px solid #{$purple-4};
@@ -243,10 +275,20 @@
   --default-box-shadow: 10px 10px 0 0 rgba(155, 81, 224, 0.103);
   --operator-dashed-border: 1px dashed #{$grey-2};
   // addresses
+  --address-card-border-used: 1px solid #{$red-2};
+  --address-card-border-not-used: 1px solid #{$green-5};
+  --address-card-background: #{$green-3};
   --addresses-info-background: #{$white};
   --addresses-border: 1px solid #{$grey-1};
   --addresses-active-box-shadow: 0 0 6px 1px #{$purple-2};
   --addresses-inactive-box-shadow: 0 0 0 0 #{$purple-2};
+  --addresses-list-background: #{$orange-1};
+  --address-card-button-border: 1px dashed #{#66648c80};
+  --address-card-button-border-hover: 1px dashed #{#aaa8bd80};
+  --address-card-button-border-active: 1px dashed #{#66648c80};
+  --address-card-button-color: #{#44424080};
+  --address-card-button-color-hover: #{#aaa8bd80};
+  --address-card-button-color-active: #{#44424080};
   // input
   --input-border: 1px solid #{$grey-4};
   --input-border-hover: #{$grey-5};
@@ -270,6 +312,18 @@
   --color-success: #52c41a;
   --switch-label-color: #{$white};
   --switch-notification-label: #{$alt-grey-5};
+  --switch-background: #{$grey-dark-0};
+  --switch-background-active: #{$purple-2};
+  // progress
+  --progress-color: #{$grey-dark-0};
+  --progress-icon: #{$purple-4};
+  --progress-bar: #{$purple-4};
+  // alert
+  --alert-background: #{$yellow-0};
+  --alert-border: 1px solid #{$grey-1};
+  --alert-link-background: #{$white};
+  --alert-color-text: #{$alt-grey-5};
+  --alert-colot-link-text: #{$alt-grey-5};
   // button text
   --button-text-color: #{$purple-4};
   --button-text-hover: #{$purple-3};
@@ -293,6 +347,8 @@
   --button-primary-background-active: #{$purple-3};
   --button-primary-border-active: #{$purple-4};
   --button-primary-text-active: #{$white};
+  --button-primary-background-disabled: #{#c193ec};
+  --button-primary-border-disabled: #{#c193ec};
   // button default
   --button-default-text: #{$alt-grey-3};
   --button-default-background-hover: #{$alpha-purple};
@@ -314,6 +370,7 @@
   --pagination-active: rgb(255, 42, 127);
   --pagination-number: #{$alt-grey-5};
   --pagination-number-active: #{$purple-4};
+  --pagination-number-active-text: #{$white};
   --pagination-button: #{$alt-grey-5};
   --pagination-button-active: #{$purple-4};
   // dropdown
@@ -334,6 +391,7 @@
   // balance
   --balance-background: #{$purple-5};
   --balance-link-color: #{$purple-2};
+  --balance-box-shadow: 0 4px 4px rgb(155, 181, 224, 0.1);
 }
 
 // COMMON

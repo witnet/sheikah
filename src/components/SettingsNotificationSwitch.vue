@@ -3,7 +3,6 @@
     v-model="toggle"
     class="notification"
     data-test="action-try"
-    active-color="#b47de8"
   ></el-switch>
 </template>
 

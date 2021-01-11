@@ -150,7 +150,6 @@ export default {
       if (state.darkMode) {
         state.localStorage.setThemeSettings(THEMES.DARK)
       } else {
-        console.log(THEMES.LIGHT)
         state.localStorage.setThemeSettings(THEMES.LIGHT)
       }
     },
@@ -166,7 +165,6 @@ export default {
       }
     },
     setTheme(state, theme) {
-      console.log('set theme', theme)
       if (theme === THEMES.LIGHT) {
         state.darkMode = false
         document.documentElement.setAttribute('theme', THEMES.LIGHT)
@@ -771,7 +769,6 @@ export default {
     },
 
     validateImportedWallet: async function(context, params) {
-      console.log(params)
       const importType = params.mnemonics ? 'mnemonics' : 'xprv'
       const request = await context.state.api.validateMnemonics({
         seed_source: importType,
@@ -897,7 +894,6 @@ export default {
     },
     getTheme: async function(context) {
       const theme = context.state.localStorage.getThemeSettings()
-      console.log('get theme', theme)
       const defaultTheme = DEFAULT_THEME
       theme
         ? context.commit('setTheme', theme)

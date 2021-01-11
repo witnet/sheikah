@@ -67,7 +67,7 @@ export default {
   grid-template: auto / 1fr 1fr;
 
   .button {
-    box-shadow: 0 4px 4px rgb(155, 181, 224, 0.1);
+    box-shadow: var(--balance-box-shadow);
   }
 }
 </style>

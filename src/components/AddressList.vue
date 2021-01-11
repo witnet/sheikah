@@ -77,7 +77,7 @@ export default {
 
 .list {
   align-items: center;
-  background-color: $orange-1;
+  background-color: var(--addresses-list-background);
   border-bottom: 1px solid $grey-1;
   box-sizing: border-box;
   display: grid;

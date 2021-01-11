@@ -45,8 +45,8 @@ export default {
 @import '@/styles/_colors.scss';
 
 .card {
-  background: $green-3;
-  border: 1px solid $green-5;
+  background: var(--address-card-background);
+  border: var(--address-card-border-not-used);
   border-radius: 3px;
   cursor: pointer;
   height: 40px;
@@ -55,7 +55,7 @@ export default {
 
   .used {
     background: $red-2;
-    border: 1px solid $red-3;
+    border: var(--address-card-border-used);
   }
 
   .selected,

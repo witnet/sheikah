@@ -28,7 +28,13 @@
           <p class="progress-subtitle">
             {{ format(percentage) }}
             <DotsLoading
-              v-if="!synced"
+              v-if="!synced && darkMode"
+              color="#d6d6d6"
+              data-test="loading-spinner"
+              class="spinner"
+            />
+            <DotsLoading
+              v-if="!synced && !darkMode"
               color="#444258"
               data-test="loading-spinner"
               class="spinner"
@@ -59,6 +65,7 @@ export default {
       setupMessage: state => state.uiInteractions.setupMessage,
       client: state => state.wallet.api.client,
       progress: state => state.uiInteractions.setupProgress,
+      darkMode: state => state.wallet.darkMode,
     }),
     percentage() {
       if (this.setupMessage === 'Updating wallet backend') {
@@ -122,7 +129,7 @@ export default {
         justify-content: center;
 
         .icon {
-          color: $alpha-purple;
+          color: var(--app-background-color);
           font-size: 50px;
           position: absolute;
           z-index: 100;
@@ -144,15 +151,9 @@ export default {
   }
 }
 
-.el-progress-bar {
-  .el-progress-bar__outer {
-    background-color: $alpha-purple;
-  }
-}
-
 .banner {
-  background: $purple-4;
-  border: 4px solid $alpha-purple;
+  background: var(--progress-icon);
+  border: 4px solid var(--progress-icon);
   border-radius: 50%;
   height: 100px;
   overflow: hidden;

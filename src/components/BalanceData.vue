@@ -100,7 +100,7 @@ export default {
 .table {
   background-color: var(--balance-background);
   border-radius: 4px;
-  box-shadow: 0 4px 4px rgb(155, 181, 224, 0.1);
+  box-shadow: var(--balance-box-shadow);
   display: grid;
   grid-template: auto auto auto / auto 1fr;
   margin-bottom: 10px;
