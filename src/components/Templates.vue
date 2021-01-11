@@ -3,7 +3,6 @@
     <div class="templates-bar">
       <p class="title">
         {{ this.$t('dr_templates') }}
-        <span class="templates-number">{{ templates.length }}</span>
       </p>
       <el-button class="import-btn" type="primary" @click="importTemplate">
         <font-awesome-icon class="icon" icon="file-import" />
@@ -32,11 +31,14 @@
       />
     </div>
 
-    <div v-show="templates.length > templatesPerPage" class="pagination-nav">
+    <div
+      v-show="templates.length + 1 > templatesPerPage"
+      class="pagination-nav"
+    >
       <el-pagination
         :page-size="templatesPerPage"
         layout="prev, pager, next"
-        :total="templates.length"
+        :total="templates.length + 1"
         :current-page="currentPage"
         @current-change="handleCurrentChange"
       />
@@ -60,6 +62,7 @@
 import DeployDataRequest from '@/components/DeployDataRequest.vue'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
+import { TEMPLATES_PER_PAGE } from '@/constants'
 import TemplateCard from './card/TemplateCard'
 
 export default {
@@ -74,16 +77,21 @@ export default {
       tabs: [{ name: 'Templates', link: '/request/templates' }],
       dialogVisible: false,
       currentTemplate: null,
+      templatesPerPage: TEMPLATES_PER_PAGE,
     }
   },
   computed: {
-    templatesPerPage() {
-      return this.currentPage === 1 ? 8 : 9
-    },
     paginatedTemplates() {
       const from =
-        this.currentPage * this.templatesPerPage - this.templatesPerPage
-      const to = this.currentPage * this.templatesPerPage
+        this.currentPage === 1
+          ? 0
+          : this.currentPage * this.templatesPerPage - this.templatesPerPage - 1
+
+      const to =
+        this.currentPage === 1
+          ? this.templatesPerPage - 1
+          : this.currentPage * this.templatesPerPage - 1
+
       return this.templates.slice(from, to)
     },
     ...mapState({
