@@ -52,7 +52,7 @@ function getData() {
           state: {
             unit: 'nanoWit',
             currentTransactionsPage: 1,
-            darkMode: false,
+            theme: 'light',
           },
           mutations: {
             setCurrentTransactionsPage: setCurrentTransactionsPageMutationMock,

@@ -1,16 +1,7 @@
 <template>
   <div data-test="welcome-back" class="welcome-back">
     <div class="bar">
-      <img
-        v-if="darkMode"
-        class="row sheikah-icon"
-        src="@/resources/svg/sheikah-icon-dark.svg"
-      />
-      <img
-        v-else
-        class="row sheikah-icon"
-        src="@/resources/svg/sheikah-icon.svg"
-      />
+      <CustomIcon class-name="row sheikah-icon" :name="'sheikah-icon'" />
       <p class="row title">{{ this.$t('welcome_back') }}</p>
       <p class="row subtitle">
         {{ this.$t('sheikah_description') }}
@@ -25,13 +16,16 @@
 
 <script>
 import { mapState } from 'vuex'
+import CustomIcon from '@/components/CustomIcon'
 
 export default {
   name: 'WelcomeBack',
+  components: {
+    CustomIcon,
+  },
   computed: {
     ...mapState({
       status: state => state.wallet.networkStatus,
-      darkMode: state => state.wallet.darkMode,
     }),
   },
   watch: {

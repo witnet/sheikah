@@ -8,42 +8,25 @@
       </div>
       <div class="operator-bottom">
         <div class="icon-container">
-          <img
-            v-if="emptyScript && darkMode"
-            class="row sheikah-icon"
-            src="@/resources/svg/long-arrow-dark.svg"
+          <CustomIcon
+            v-if="emptyScript"
+            class-name="row sheikah-icon"
+            name="long-arrow"
           />
-          <img
-            v-if="emptyScript && !darkMode"
-            class="row sheikah-icon"
-            src="@/resources/svg/long-arrow.svg"
-          />
-          <img
-            v-if="!emptyScript && darkMode"
-            class="row sheikah-icon"
-            src="@/resources/svg/operator-arrow-dark.svg"
-          />
-          <img
-            v-if="!emptyScript && !darkMode"
-            class="row sheikah-icon"
-            src="@/resources/svg/operator-arrow.svg"
+          <CustomIcon
+            v-else
+            class-name="row sheikah-icon"
+            name="operator-arrow"
           />
           <div
             v-if="emptyScript"
             class="add-operator-container"
             @click="addOperator"
           >
-            <img
-              v-if="darkMode"
-              class="add-operator"
+            <CustomIcon
+              class-name="add-operator"
               data-test="add-operator"
-              src="@/resources/svg/add-operator-dark.svg"
-            />
-            <img
-              v-else
-              class="add-operator"
-              data-test="add-operator"
-              src="@/resources/svg/add-operator.svg"
+              name="add-operator"
             />
             <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
           </div>
@@ -111,11 +94,12 @@ import { standardizeOperatorName } from '@/utils'
 import OperatorOutput from '@/components/OperatorOutput.vue'
 import ScriptInfo from '@/components/ScriptInfo'
 import RadonOperator from '@/components/RadonOperator'
-import { mapMutations, mapState } from 'vuex'
+import CustomIcon from '@/components/CustomIcon'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'RadonScript',
-  components: { RadonOperator, ScriptInfo, OperatorOutput },
+  components: { RadonOperator, ScriptInfo, OperatorOutput, CustomIcon },
   props: {
     stage: {
       type: String,
@@ -155,9 +139,6 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      darkMode: state => state.wallet.darkMode,
-    }),
     emptyScript() {
       return this.script.length < 1
     },

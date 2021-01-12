@@ -1,14 +1,14 @@
 <template>
   <div class="transaction-list">
-    <Fieldset>
-      <p class="title">
-        <span class="label capitalize">{{ this.$t('transactions') }}</span>
-        <span class="number" data-test="transactions-length">{{
-          this.$tc('transactions_count', transactionsLength, {
-            count: transactionsLength,
-          })
-        }}</span>
-      </p>
+    <Fieldset
+      data-test="transactions-length"
+      :title="this.$t('transactions')"
+      :subtitle="
+        this.$tc('transactions_count', transactionsLength, {
+          count: transactionsLength,
+        })
+      "
+    >
       <div class="list">
         <Transaction
           v-for="(transaction, index) in transactions"

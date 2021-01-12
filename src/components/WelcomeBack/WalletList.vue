@@ -156,7 +156,8 @@ export default {
       }
 
       .error {
-        color: $red-3;
+        color: $red-2;
+        font-size: 14px;
         margin-top: 8px;
       }
     }

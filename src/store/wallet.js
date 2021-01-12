@@ -66,7 +66,7 @@ export default {
     exportFileLink: '',
     checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
     mainnetReady: false,
-    darkMode: false,
+    theme: null,
     unit: DEFAULT_WIT_UNIT,
     language: DEFAULT_LANGUAGE,
     prevUnit: DEFAULT_WIT_UNIT,
@@ -146,12 +146,12 @@ export default {
       state.localStorage.setNotificationsSettings(state.notifications)
     },
     toggleTheme(state) {
-      state.darkMode = !state.darkMode
-      if (state.darkMode) {
-        state.localStorage.setThemeSettings(THEMES.DARK)
+      if (state.theme === THEMES.DARK) {
+        state.theme = THEMES.LIGHT
       } else {
-        state.localStorage.setThemeSettings(THEMES.LIGHT)
+        state.theme = THEMES.DARK
       }
+      state.localStorage.setThemeSettings(state.theme)
     },
     setUnit(state, unit) {
       state.unit = unit
@@ -166,12 +166,11 @@ export default {
     },
     setTheme(state, theme) {
       if (theme === THEMES.LIGHT) {
-        state.darkMode = false
-        document.documentElement.setAttribute('theme', THEMES.LIGHT)
+        state.theme = THEMES.LIGHT
       } else {
-        state.darkMode = true
-        document.documentElement.setAttribute('theme', THEMES.DARK)
+        state.theme = THEMES.DARK
       }
+      document.documentElement.setAttribute('theme', state.theme)
     },
     setNotifications(state, notifications) {
       state.notifications = notifications
@@ -881,30 +880,35 @@ export default {
     },
     getLanguage: async function(context, payload) {
       const language = context.state.localStorage.getLanguageSettings()
-      // const defaultLanguage = context.state.language
-      language
-        ? context.commit('setLanguage', {
-            language: language,
-            i18n: payload.i18n,
-          })
-        : context.commit('setLanguage', {
-            language: null,
-            i18n: payload.i18n,
-          })
+      if (language) {
+        context.commit('setLanguage', {
+          language: language,
+          i18n: payload.i18n,
+        })
+      } else {
+        context.commit('setLanguage', {
+          language: null,
+          i18n: payload.i18n,
+        })
+      }
     },
     getTheme: async function(context) {
       const theme = context.state.localStorage.getThemeSettings()
       const defaultTheme = DEFAULT_THEME
-      theme
-        ? context.commit('setTheme', theme)
-        : context.commit('setTheme', defaultTheme)
+      if (theme) {
+        context.commit('setTheme', theme)
+      } else {
+        context.commit('setTheme', defaultTheme)
+      }
     },
     getNotifications: async function(context) {
       const notifications = context.state.localStorage.getNotificationsSettings()
       const defaultNotifications = context.state.notifications
-      notifications
-        ? context.commit('setNotifications', notifications)
-        : context.commit('setNotifications', defaultNotifications)
+      if (notifications) {
+        context.commit('setNotifications', notifications)
+      } else {
+        context.commit('setNotifications', defaultNotifications)
+      }
     },
     getWalletInfos: async function(context) {
       const request = await context.state.api.getWalletInfos()

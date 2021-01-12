@@ -7,7 +7,7 @@ describe('Variables.vue', () => {
         store: {
           wallet: {
             state: {
-              darkMode: false,
+              theme: 'light',
             },
           },
           rad: {
@@ -103,7 +103,7 @@ describe('Variables.vue', () => {
         store: {
           wallet: {
             state: {
-              darkMode: false,
+              theme: 'light',
             },
           },
           rad: {

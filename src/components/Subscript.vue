@@ -2,20 +2,12 @@
   <div class="radon-script">
     <div class="operator-bottom">
       <div v-if="emptyScript" class="icon-container">
-        <img v-if="darkMode" src="@/resources/svg/operator-arrow-dark.svg" />
-        <img v-else src="@/resources/svg/operator-arrow.svg" />
+        <CustomIcon name="operator-arrow" />
         <div @click="addOperator">
-          <img
-            v-if="darkMode"
-            class="add-operator"
+          <CustomIcon
+            class-name="add-operator"
             data-test="add-operator"
-            src="@/resources/svg/add-operator-dark.svg"
-          />
-          <img
-            v-else
-            class="add-operator"
-            data-test="add-operator"
-            src="@/resources/svg/add-operator.svg"
+            name="add-operator"
           />
           <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
         </div>
@@ -50,12 +42,14 @@
 
 <script>
 import { PUSH_OPERATOR, DELETE_OPERATOR } from '@/store/mutation-types'
+import CustomIcon from '@/components/CustomIcon'
 import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Subscript',
   components: {
     RadonOperator: () => import('@/components/RadonOperator'),
+    CustomIcon,
   },
   props: {
     script: {
@@ -79,7 +73,6 @@ export default {
     ...mapState({
       subscriptIds: state => state.rad.subscriptIds,
       radRequestResult: state => state.rad.radRequestResult,
-      darkMode: state => state.wallet.darkMode,
     }),
     subscriptIndex() {
       return this.subscriptIds.findIndex(id => id === this.subscriptId)

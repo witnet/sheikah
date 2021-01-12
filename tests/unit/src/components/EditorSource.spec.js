@@ -4,7 +4,7 @@ describe('EditorSource.vue', () => {
   describe('should render correctly', () => {
     it('should contains a the title', () => {
       const walletState = {
-        darkMode: false,
+        theme: 'light',
       }
       const wrapper = mount(EditorSource, {
         ...createComponentMocks({
@@ -25,7 +25,7 @@ describe('EditorSource.vue', () => {
 
     it('it should NOT contain subtitle if NO url', () => {
       const walletState = {
-        darkMode: false,
+        theme: 'light',
       }
       const wrapper = mount(EditorSource, {
         ...createComponentMocks({
@@ -46,7 +46,7 @@ describe('EditorSource.vue', () => {
 
     it('it should NOT contain subtitle if NO valid url', () => {
       const walletState = {
-        darkMode: false,
+        theme: 'light',
       }
       const wrapper = mount(EditorSource, {
         ...createComponentMocks({
@@ -67,7 +67,7 @@ describe('EditorSource.vue', () => {
 
     it('it should contains subtitle if a valid url', () => {
       const walletState = {
-        darkMode: false,
+        theme: 'light',
       }
       const wrapper = mount(EditorSource, {
         ...createComponentMocks({
@@ -88,7 +88,7 @@ describe('EditorSource.vue', () => {
 
     it('should contains protocol select field', () => {
       const walletState = {
-        darkMode: false,
+        theme: 'light',
       }
       const wrapper = mount(EditorSource, {
         ...createComponentMocks({
@@ -109,7 +109,7 @@ describe('EditorSource.vue', () => {
 
     it('should contains url input field', () => {
       const walletState = {
-        darkMode: false,
+        theme: 'light',
       }
       const wrapper = mount(EditorSource, {
         ...createComponentMocks({
@@ -130,7 +130,7 @@ describe('EditorSource.vue', () => {
 
     it('should contains content-type select field', () => {
       const walletState = {
-        darkMode: false,
+        theme: 'light',
       }
       const wrapper = mount(EditorSource, {
         ...createComponentMocks({

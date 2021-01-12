@@ -13,7 +13,7 @@ describe('EditorOperatorArgument.vue', () => {
           rad: { state: state },
           wallet: {
             state: {
-              darkMode: false,
+              theme: 'light',
             },
           },
         },
@@ -102,7 +102,7 @@ describe('EditorOperatorArgument.vue', () => {
           rad: { state: state },
           wallet: {
             state: {
-              darkMode: false,
+              theme: 'light',
             },
           },
         },

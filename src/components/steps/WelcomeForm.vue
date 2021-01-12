@@ -1,16 +1,7 @@
 <template>
   <div data-test="welcome-back" class="welcome-back">
     <div class="bar">
-      <img
-        v-if="darkMode"
-        class="row sheikah-icon"
-        src="@/resources/svg/sheikah-icon-dark.svg"
-      />
-      <img
-        v-else
-        class="row sheikah-icon"
-        src="@/resources/svg/sheikah-icon.svg"
-      />
+      <CustomIcon class-name="row sheikah-icon" name="sheikah-icon" />
       <p v-if="walletInfos && walletInfos.length" class="row title">{{
         this.$t('welcome_back')
       }}</p>
@@ -28,18 +19,19 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import CustomIcon from '@/components/CustomIcon'
 import WalletSeedTypeSelection from '@/components/steps/WalletSeedTypeSelection'
 
 export default {
   name: 'Welcome',
   components: {
     WalletSeedTypeSelection,
+    CustomIcon,
   },
   computed: {
     ...mapState({
       status: state => state.wallet.networkStatus,
       walletInfos: state => state.wallet.walletInfos,
-      darkMode: state => state.wallet.darkMode,
     }),
   },
   watch: {

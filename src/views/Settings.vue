@@ -13,8 +13,7 @@
         @mouseleave="mouseLeaveAction"
         @click="close"
       >
-        <img v-if="darkMode" class="cross" :src="btnUrlDark" />
-        <img v-else class="cross" :src="btnUrl" />
+        <CustomIcon class-name="cross" :name="btnUrl" />
       </div>
     </div>
   </div>
@@ -22,8 +21,8 @@
 
 <script>
 import { mapState } from 'vuex'
-
 import { SETTINGS_BY_SECTION } from '@/constants'
+import CustomIcon from '@/components/CustomIcon'
 import SettingsSidebar from '@/components/SettingsSidebar'
 import SettingsSection from '@/components/SettingsSection.vue'
 
@@ -32,18 +31,18 @@ export default {
   components: {
     SettingsSidebar,
     SettingsSection,
+    CustomIcon,
   },
   data() {
     return {
       previousRoute: '',
-      btnUrlDark: require('@/resources/svg/close-btn-dark.svg'),
-      btnUrl: require('@/resources/svg/close-btn.svg'),
+      btnUrlDark: 'close-btn-dark.svg',
+      btnUrl: 'close-btn',
     }
   },
   computed: {
     ...mapState({
       sessionId: state => state.wallet.sessionId,
-      darkMode: state => state.wallet.darkMode,
     }),
     settings() {
       const sectionsDictionary = {
@@ -98,12 +97,12 @@ export default {
       this.$router.push(this.previousRoute)
     },
     hoverAction() {
-      this.btnUrl = require('@/resources/svg/close-btn-light.svg')
-      this.btnUrlDark = require('@/resources/svg/close-btn-light.svg')
+      this.btnUrl = 'close-btn-light.svg'
+      this.btnUrlDark = 'close-btn-light.svg'
     },
     mouseLeaveAction() {
-      this.btnUrl = require('@/resources/svg/close-btn.svg')
-      this.btnUrlDark = require('@/resources/svg/close-btn-dark.svg')
+      this.btnUrl = 'close-btn'
+      this.btnUrlDark = 'close-btn-dark.svg'
     },
   },
   beforeRouteEnter(to, from, next) {

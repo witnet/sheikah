@@ -98,22 +98,12 @@
           data-test="delete-var-btn"
           @click="deleteVariable({ index })"
         >
-          <img v-if="darkMode" src="@/resources/svg/close-btn-dark.svg" />
-          <img v-else src="@/resources/svg/close-btn.svg" />
+          <CustomIcon name="close-btn" />
         </div>
       </el-tooltip>
     </div>
     <div class="img-container" @click="createVariable">
-      <img
-        v-if="darkMode"
-        data-test="add-variable"
-        src="@/resources/svg/add-operator-dark.svg"
-      />
-      <img
-        v-else
-        data-test="add-variable"
-        src="@/resources/svg/add-operator.svg"
-      />
+      <CustomIcon data-test="add-variable" name="add-operator" />
       <p class="add-operator-text">{{ $t('add_variable') }}</p>
     </div>
   </div>
@@ -126,12 +116,14 @@ import {
   DELETE_VARIABLE,
 } from '@/store/mutation-types'
 import { mapGetters, mapState, mapMutations } from 'vuex'
+import CustomIcon from '@/components/CustomIcon'
 import Select from '@/components/Select'
 
 export default {
   name: 'Variables',
   components: {
     Select,
+    CustomIcon,
   },
   data() {
     return {
@@ -150,7 +142,6 @@ export default {
     ...mapState({
       currentFocus: state => state.rad.currentFocus,
       variables: state => state.rad.currentTemplate.variables,
-      darkMode: state => state.wallet.darkMode,
     }),
     error() {
       return this.errorIndex !== -1
@@ -275,7 +266,7 @@ export default {
       }
 
       .error {
-        color: $red-3;
+        color: $red-2;
         font-size: 13px;
         margin: 8px 0;
       }

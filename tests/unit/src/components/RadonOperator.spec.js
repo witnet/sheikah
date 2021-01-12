@@ -11,7 +11,7 @@ describe('RadonOperator.vue', () => {
       generateRadRequestResultLoading: false,
     }
     const walletState = {
-      darkMode: false,
+      theme: 'light',
     }
     const wrapper = mount(RadonOperator, {
       ...createComponentMocks({
@@ -87,7 +87,7 @@ describe('RadonOperator.vue', () => {
       generateRadRequestResultLoading: false,
     }
     const walletState = {
-      darkMode: false,
+      theme: 'light',
     }
     const wrapper = mount(RadonOperator, {
       ...createComponentMocks({

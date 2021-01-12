@@ -10,7 +10,7 @@ describe('EditorStageSources.vue', () => {
           store: {
             wallet: {
               state: {
-                darkMode: false,
+                theme: 'light',
               },
             },
             rad: {
@@ -47,7 +47,7 @@ describe('EditorStageSources.vue', () => {
           store: {
             wallet: {
               state: {
-                darkMode: false,
+                theme: 'light',
               },
             },
             rad: {
@@ -87,7 +87,7 @@ describe('EditorStageSources.vue', () => {
           store: {
             wallet: {
               state: {
-                darkMode: false,
+                theme: 'light',
               },
             },
             rad: {
@@ -117,7 +117,7 @@ describe('EditorStageSources.vue', () => {
         store: {
           wallet: {
             state: {
-              darkMode: false,
+              theme: 'light',
             },
           },
           rad: {

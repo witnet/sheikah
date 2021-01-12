@@ -123,6 +123,7 @@ export default {
 
   .error {
     color: $red-2;
+    font-size: 14px;
     padding-top: 16px;
     position: absolute;
   }

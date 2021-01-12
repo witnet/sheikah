@@ -11,16 +11,9 @@
         placement="right"
         effect="light"
       >
-        <img
-          v-if="darkMode"
-          class="delete"
-          src="@/resources/svg/delete-btn-dark.svg"
-          @click="deleteOperator"
-        />
-        <img
-          v-else
-          class="delete"
-          src="@/resources/svg/delete-btn.svg"
+        <CustomIcon
+          class-name="delete"
+          name="delete-btn"
           @click="deleteOperator"
         />
       </el-tooltip>
@@ -51,40 +44,15 @@
     </div>
     <div class="operator-bottom">
       <div v-if="showOutputType" class="icon-container">
-        <img
-          v-if="darkMode"
-          class="row sheikah-icon"
-          src="@/resources/svg/operator-arrow-dark.svg"
-        />
-        <img
-          v-else
-          class="row sheikah-icon"
-          src="@/resources/svg/operator-arrow.svg"
-        />
+        <CustomIcon class-name="row sheikah-icon" name="operator-arrow" />
       </div>
       <div v-else class="icon-container">
-        <img
-          v-if="darkMode"
-          class="row sheikah-icon"
-          src="@/resources/svg/long-arrow-dark.svg"
-        />
-        <img
-          v-else
-          class="row sheikah-icon"
-          src="@/resources/svg/long-arrow.svg"
-        />
+        <CustomIcon class-name="row sheikah-icon" name="long-arrow" />
         <div class="add-operator-container" @click="addOperator">
-          <img
-            v-if="darkMode"
-            class="add-operator"
+          <CustomIcon
+            class-name="add-operator"
             data-test="add-operator"
-            src="@/resources/svg/add-operator-dark.svg"
-          />
-          <img
-            v-else
-            class="add-operator"
-            data-test="add-operator"
-            src="@/resources/svg/add-operator.svg"
+            name="add-operator"
           />
           <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
         </div>
@@ -106,6 +74,7 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 import EditorOperatorArgument from '@/components/EditorOperatorArgument.vue'
 import OperatorOutput from '@/components/OperatorOutput.vue'
 import Select from '@/components/Select'
+import CustomIcon from '@/components/CustomIcon'
 import {
   standardizeOperatorName,
   getNativeValueFromMarkupArgumentType,
@@ -124,6 +93,7 @@ export default {
     OperatorOutput,
     Select,
     EditorOperatorArgument,
+    CustomIcon,
   },
   props: {
     showOutputType: {
@@ -172,7 +142,6 @@ export default {
     ...mapState({
       variables: state => state.rad.currentTemplate.variables,
       currentFocus: state => state.rad.currentFocus,
-      darkMode: state => state.wallet.darkMode,
     }),
     radonError() {
       return this.outputLabel === 'error' || !this.operatorOutput

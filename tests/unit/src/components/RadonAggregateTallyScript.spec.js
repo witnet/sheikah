@@ -167,7 +167,7 @@ describe('RadonAggregateTallyScript.vue', () => {
         store: {
           wallet: {
             state: {
-              darkMode: false,
+              theme: 'light',
             },
           },
           uiInteractions: {
@@ -371,7 +371,7 @@ describe('RadonAggregateTallyScript.vue', () => {
         store: {
           wallet: {
             state: {
-              darkMode: false,
+              theme: 'light',
             },
           },
           uiInteractions: {

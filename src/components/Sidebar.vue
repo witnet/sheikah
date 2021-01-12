@@ -10,23 +10,9 @@
         class="brand"
         to="/wallet/transactions"
       >
-        <img
-          v-if="darkMode"
-          class="sheikah-logo"
-          src="@/resources/svg/sheikah-small-dark.svg"
-        />
-        <img
-          v-else
-          class="sheikah-logo"
-          src="@/resources/svg/sheikah-small.svg"
-        />
+        <CustomIcon class-name="sheikah-logo" name="sheikah-small" />
         <div class="sheikah-name">
-          <img
-            v-if="darkMode"
-            class="name"
-            src="@/resources/svg/sheikah-dark.svg"
-          />
-          <img v-else class="name" src="@/resources/svg/sheikah.svg" />
+          <CustomIcon class-name="name" name="sheikah" />
           <span class="version">{{ version }}</span>
         </div>
       </router-link>
@@ -59,18 +45,7 @@
             placement="right"
             effect="light"
           >
-            <img
-              v-if="darkMode"
-              class="exit-icon"
-              src="@/resources/svg/exit-icon-dark.svg"
-              alt="exit-icon"
-            />
-            <img
-              v-else
-              class="exit-icon"
-              src="@/resources/svg/exit-icon.svg"
-              alt="exit-icon"
-            />
+            <CustomIcon class-name="exit-icon" name="exit-icon" />
           </el-tooltip>
         </div>
         <div class="icon-container" @click="$router.push('/settings/general')">
@@ -83,9 +58,10 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import NetworkStatus from '@/components/NetworkStatus.vue'
 import ExportXprv from '@/components/ExportXprv.vue'
+import CustomIcon from '@/components/CustomIcon'
 import { ObserveVisibility } from 'vue-observe-visibility'
 
 export default {
@@ -93,6 +69,7 @@ export default {
   components: {
     NetworkStatus,
     ExportXprv,
+    CustomIcon,
   },
   directives: {
     ObserveVisibility,
@@ -106,9 +83,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      darkMode: state => state.wallet.darkMode,
-    }),
     version() {
       return `v${process.env.VUE_APP_VERSION || 0}`
     },

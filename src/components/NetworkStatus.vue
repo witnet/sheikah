@@ -34,33 +34,17 @@
         </div>
       </div>
       <div class="icon">
-        <img
-          v-if="showAll && darkMode"
+        <CustomIcon
+          v-if="showAll"
           data-test="short-up"
-          class="sort"
-          src="@/resources/svg/up-dark.svg"
-          alt="sort-up"
+          class-name="sort"
+          name="up"
         />
-        <img
-          v-if="showAll && !darkMode"
-          data-test="short-up"
-          class="sort"
-          src="@/resources/svg/up.svg"
-          alt="sort-up"
-        />
-        <img
-          v-if="!showAll && darkMode"
-          data-test="short-up"
-          class="sort"
-          src="@/resources/svg/down-dark.svg"
-          alt="sort-up"
-        />
-        <img
-          v-if="!showAll && !darkMode"
-          data-test="short-up"
-          class="sort"
-          src="@/resources/svg/down.svg"
-          alt="sort-up"
+        <CustomIcon
+          v-else
+          data-test="short-down"
+          class-name="sort"
+          name="down"
         />
       </div>
     </div>
@@ -118,6 +102,7 @@
 import { mapGetters, mapState } from 'vuex'
 import Avatar from '@/components/Avatar'
 import DotsLoading from '@/components/DotsLoading.vue'
+import CustomIcon from '@/components/CustomIcon'
 import { calculateTimeAgo } from '@/utils'
 import { NETWORK_STATUS } from '@/constants'
 
@@ -126,6 +111,7 @@ export default {
   components: {
     Avatar,
     DotsLoading,
+    CustomIcon,
   },
   props: {
     expanded: Boolean,
@@ -147,7 +133,6 @@ export default {
       progress: state => state.wallet.status.progress,
       lastBlockTimestamp: state => state.wallet.status.lastBlockTimestamp,
       isNodeSynced: state => state.wallet.status.isNodeSynced,
-      darkMode: state => state.wallet.darkMode,
     }),
     currentState() {
       if (this.status.currentState === NETWORK_STATUS.NODE_DISCONNECTED) {

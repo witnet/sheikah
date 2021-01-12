@@ -28,13 +28,13 @@
           <p class="progress-subtitle">
             {{ format(percentage) }}
             <DotsLoading
-              v-if="!synced && darkMode"
+              v-if="!synced && theme === THEMES.DARK"
               color="#d6d6d6"
               data-test="loading-spinner"
               class="spinner"
             />
             <DotsLoading
-              v-if="!synced && !darkMode"
+              v-if="!synced && theme === THEMES.LIGHT"
               color="#444258"
               data-test="loading-spinner"
               class="spinner"
@@ -53,6 +53,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { THEMES } from '@/constants'
 import DotsLoading from '@/components/DotsLoading.vue'
 
 export default {
@@ -60,12 +61,17 @@ export default {
   components: {
     DotsLoading,
   },
+  data() {
+    return {
+      THEMES,
+    }
+  },
   computed: {
     ...mapState({
       setupMessage: state => state.uiInteractions.setupMessage,
       client: state => state.wallet.api.client,
       progress: state => state.uiInteractions.setupProgress,
-      darkMode: state => state.wallet.darkMode,
+      theme: state => state.wallet.theme,
     }),
     percentage() {
       if (this.setupMessage === 'Updating wallet backend') {

@@ -1,39 +1,39 @@
 <template>
   <el-switch
-    v-model="toggle"
+    v-model="activeTheme"
     class="notification"
     data-test="action-try"
-    :active-text="activeTheme"
-    :inactive-text="inactiveTheme"
+    :active-text="THEMES.DARK"
+    :inactive-text="THEMES.LIGHT"
   ></el-switch>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
+import { THEMES } from '@/constants'
 
 export default {
-  name: 'NotificationsSettings',
+  name: 'ThemeSettings',
   data() {
     return {
-      activeTheme: 'Dark',
-      inactiveTheme: 'Light',
+      THEMES,
     }
   },
   computed: {
     ...mapState({
-      darkMode: state => state.wallet.darkMode,
+      theme: state => state.wallet.theme,
     }),
-    toggle: {
+    activeTheme: {
       set() {
         this.toggleTheme()
       },
       get() {
-        return this.darkMode
+        return this.theme === THEMES.DARK
       },
     },
   },
   watch: {
-    darkMode() {
+    theme() {
       this.getTheme()
     },
   },

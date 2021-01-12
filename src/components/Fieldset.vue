@@ -74,7 +74,7 @@ export default {
       .title {
         color: var(--text-medium-emphasis);
         font-size: 16px;
-        font-weight: medium;
+        font-weight: bold;
 
         &.help {
           font-size: 13px;

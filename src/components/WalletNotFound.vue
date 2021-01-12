@@ -3,12 +3,7 @@
     <div class="alert">
       <div class="content">
         <p class="title">{{ this.$t('wallet_disconnected') }}</p>
-        <img
-          v-if="darkMode"
-          class="icon"
-          src="@/resources/svg/disconnected-dark.svg"
-        />
-        <img v-else class="icon" src="@/resources/svg/disconnected.svg" />
+        <CustomIcon class-name="icon" name="disconnected" />
         <p class="description">
           {{ this.$t('connection_problem') }}
         </p>
@@ -27,14 +22,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import CustomIcon from '@/components/CustomIcon'
 
 export default {
   name: 'WalletNotFound',
-  computed: {
-    ...mapState({
-      darkMode: state => state.wallet.darkMode,
-    }),
+  components: {
+    CustomIcon,
   },
 }
 </script>

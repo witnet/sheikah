@@ -136,7 +136,7 @@ export default {
 
   .error {
     align-items: center;
-    color: $red-3;
+    color: $red-2;
     display: flex;
     padding-left: 16px;
   }

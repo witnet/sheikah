@@ -24,8 +24,7 @@
             src="@/resources/svg/options-marketplace.svg"
             alt=""
           />
-          <img v-else-if="darkMode" src="@/resources/svg/options-dark.svg" />
-          <img v-else src="@/resources/svg/options.svg" />
+          <CustomIcon v-else name="options" />
         </div>
         <el-dropdown-menu
           v-if="type === 'marketplace'"
@@ -68,9 +67,13 @@ import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import { cropString } from '@/utils'
 import { mapActions, mapMutations, mapState } from 'vuex'
 import { TEMPLATE_EMPTY_DESCRIPTION, NETWORK_STATUS } from '@/constants'
+import CustomIcon from '@/components/CustomIcon'
 
 export default {
   name: 'TemplateCard',
+  components: {
+    CustomIcon,
+  },
   props: {
     type: {
       type: [Number, String],
@@ -137,7 +140,6 @@ export default {
   computed: {
     ...mapState({
       currentStatus: state => state.wallet.status.currentState,
-      darkMode: state => state.wallet.darkMode,
     }),
     style() {
       return this.type

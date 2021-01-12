@@ -30,6 +30,31 @@ export const LANGUAGES = {
   EN: 'English',
 }
 
+export const CUSTOM_ICON_NAMES = [
+  'add-operator',
+  'add',
+  'close-btn',
+  'close-btn-light',
+  'close',
+  'delete-btn',
+  'disconnected',
+  'down',
+  'exit-icon',
+  'long-arrow',
+  'negative',
+  'open',
+  'operator-arrow',
+  'options-marketplace',
+  'options',
+  'positive',
+  'sheikah-icon',
+  'sheikah-small',
+  'sheikah',
+  'sort-down',
+  'sort-up',
+  'up',
+]
+
 export const LOCALES = {
   [LANGUAGES.ES]: 'es',
   [LANGUAGES.EN]: 'en',

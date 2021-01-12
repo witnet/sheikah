@@ -36,30 +36,12 @@
               :type="selectedOption.secondaryText"
             />
             <div class="arrow">
-              <img
-                v-if="areOptionsVisible && darkMode"
-                class="icon sort-up"
-                src="@/resources/svg/sort-up-dark.svg"
-                alt="sort-up-icon"
+              <CustomIcon
+                v-if="areOptionsVisible"
+                class-name="icon"
+                name="sort-up"
               />
-              <img
-                v-if="!areOptionsVisible && darkMode"
-                class="icon sort-up"
-                src="@/resources/svg/sort-down-dark.svg"
-                alt="sort-up-icon"
-              />
-              <img
-                v-if="areOptionsVisible && !darkMode"
-                class="icon sort-up"
-                src="@/resources/svg/sort-up.svg"
-                alt="sort-up-icon"
-              />
-              <img
-                v-if="!areOptionsVisible && !darkMode"
-                class="icon sort-up"
-                src="@/resources/svg/sort-down.svg"
-                alt="sort-up-icon"
-              />
+              <CustomIcon v-else class-name="icon" name="sort-down" />
             </div>
           </div>
         </div>
@@ -125,14 +107,15 @@
 
 <script>
 import { standardizeOperatorName } from '@/utils'
-import { mapState } from 'vuex'
 import OperatorType from '@/components/OperatorType.vue'
+import CustomIcon from '@/components/CustomIcon'
 
 let resetKeysSoFarTimer
 export default {
   name: 'Select',
   components: {
     OperatorType,
+    CustomIcon,
   },
   model: {
     event: 'input',
@@ -165,9 +148,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      darkMode: state => state.wallet.darkMode,
-    }),
     activeOptionIndex() {
       // TODO(#856): implement find for operator select, wait till the Radon Library is updated
       if (this.type === 'operator') {

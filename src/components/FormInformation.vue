@@ -69,12 +69,7 @@
         @click="toggleAdvanceOptions"
       >
         {{ this.$t('show_less') }}
-        <img
-          v-if="darkMode"
-          class="icon"
-          src="@/resources/svg/close-dark.svg"
-        />
-        <img v-else class="icon" src="@/resources/svg/close.svg" />
+        <CustomIcon class-name="icon" name="close" />
       </el-button>
       <el-button
         v-else
@@ -84,8 +79,7 @@
         @click="toggleAdvanceOptions"
       >
         {{ this.$t('show_advance') }}
-        <img v-if="darkMode" class="icon" src="@/resources/svg/open-dark.svg" />
-        <img v-else class="icon" src="'@/resources/svg/open.svg" />
+        <CustomIcon class-name="icon" name="open" />
       </el-button>
       <span slot="footer" class="dialog-footer">
         <el-button data-test="cancel-tx" @click="closeAndClear">
@@ -108,11 +102,13 @@
 <script>
 import { mapState } from 'vuex'
 import Amount from '@/components/Amount.vue'
+import CustomIcon from '@/components/CustomIcon'
 
 export default {
   name: 'Send',
   components: {
     Amount,
+    CustomIcon,
   },
   props: {
     generatedTransaction: {
@@ -156,7 +152,6 @@ export default {
   computed: {
     ...mapState({
       unit: state => state.wallet.unit,
-      darkMode: state => state.wallet.darkMode,
     }),
   },
   methods: {
