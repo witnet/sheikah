@@ -647,7 +647,7 @@ export default {
             ),
           },
         ],
-        fee: standardizeWitUnits(fee, WIT_UNIT.NANO, context.state.unit),
+        fee: standardizeWitUnits(fee, WIT_UNIT.NANO, WIT_UNIT.NANO),
         label,
       })
       if (request.result) {

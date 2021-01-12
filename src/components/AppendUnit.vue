@@ -1,5 +1,7 @@
 <template>
-  <div class="unit" @click="change">{{ unit }}</div>
+  <div class="unit" :class="{ static: staticUnit }" @click="change">
+    {{ staticUnit || unit }}
+  </div>
 </template>
 
 <script>
@@ -7,6 +9,16 @@ import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'AppendUnit',
+  props: {
+    blockUnit: {
+      type: Boolean,
+      default: false,
+    },
+    staticUnit: {
+      type: String,
+      default: '',
+    },
+  },
   computed: {
     ...mapState({
       unit: state => state.wallet.unit,
@@ -16,8 +28,10 @@ export default {
   methods: {
     ...mapMutations(['changeUnit']),
     change() {
-      this.changeUnit()
-      this.$emit('change-unit', this.prevUnit, this.unit)
+      if (!this.staticUnit) {
+        this.changeUnit()
+        this.$emit('change-unit', this.prevUnit, this.unit)
+      }
     },
   },
 }
@@ -27,5 +41,9 @@ export default {
 .unit {
   cursor: pointer;
   user-select: none;
+
+  &.static {
+    cursor: auto;
+  }
 }
 </style>

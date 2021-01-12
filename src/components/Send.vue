@@ -47,7 +47,7 @@
           tabindex="4"
           data-test="tx-fee"
         >
-          <AppendUnit slot="append" @change-unit="changeUnit" />
+          <AppendUnit slot="append" :static-unit="WIT_UNIT.NANO" />
         </el-input>
       </el-form-item>
       <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
@@ -56,7 +56,6 @@
           tabindex="5"
           type="primary"
           data-test="sign-send-btn"
-          @keydown.enter.esc.prevent="createVTT"
           @click="tryCreateVTT"
         >
           {{ this.$t('sign_send') }}
