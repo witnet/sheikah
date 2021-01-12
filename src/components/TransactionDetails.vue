@@ -16,8 +16,14 @@
       <p class="info">#{{ epoch }}</p>
       <p class="label">{{ this.$t('timestamp') }}</p>
       <p data-test="date" class="info">{{ date }}</p>
+      <p class="label">{{ this.$t('status') }}</p>
+      <p class="info">{{
+        confirmed ? this.$t('confirmed') : this.$t('pending-confirmation')
+      }}</p>
       <p class="label">{{ this.$t('timelocked') }}</p>
-      <p data-test="timelocked" class="info">{{ timelocked ? 'Yes' : 'No' }}</p>
+      <p data-test="timelocked" class="info">{{
+        timelocked ? this.$t('yes') : this.$t('no')
+      }}</p>
       <p
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
@@ -206,6 +212,10 @@ export default {
     reveals: {
       type: Array,
       default: null,
+    },
+    confirmed: {
+      type: Boolean,
+      default: false,
     },
     result: {
       type: String,

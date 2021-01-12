@@ -283,12 +283,14 @@ export function standardizeTransactions(response) {
   // TODO(#1760): When the wallet is ready, it should receive the transaction amount, fees, inputs and outputs values as a string
   if (!response.result) return response
   const transactions = response.result.transactions.map(transaction => {
+    console.log('transaction', transaction)
     const transactionType = Object.keys(transaction.transaction.data)[0]
     const { inputs, outputs } = transaction.transaction.data[transactionType]
     // eslint-disable-next-line camelcase
     const { hash, miner_fee, block, timestamp, data } = transaction.transaction
     const tally = data[transactionType].tally
     const type = transaction.type
+    const confirmed = transaction.transaction.confirmed
     const address = computeTransactionAddress(inputs, outputs, type)
     const filteredOutputs =
       address === 'genesis'
@@ -322,6 +324,7 @@ export function standardizeTransactions(response) {
         outputType: output.output_type,
         index: index,
       })),
+      confirmed,
       fee: miner_fee,
       date: changeDateFormat(timestamp),
       timestamp,

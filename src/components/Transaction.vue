@@ -42,8 +42,13 @@
           }}</p>
         </div>
 
-        <div>
+        <div v-if="confirmed">
           <p data-test="time-ago" class="date">{{ timeAgo }}</p>
+        </div>
+        <div v-else>
+          <p data-test="pending-confirmation" class="pending">{{
+            this.$t('pending-confirmation')
+          }}</p>
         </div>
       </div>
       <div v-if="showDetails">
@@ -52,6 +57,7 @@
           data-test="transaction-details"
           :transaction-type="transactionType"
           :block="block"
+          :confirmed="confirmed"
           :epoch="epoch"
           :date="date"
           :witnesses="witnesses"
@@ -138,6 +144,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    confirmed: {
+      type: Boolean,
+      default: false,
+    },
     type: {
       type: String,
       default: '',
@@ -208,6 +218,7 @@ export default {
   &.locked {
     opacity: 0.6;
   }
+}
 
   .transaction {
     align-items: center;
@@ -217,53 +228,66 @@ export default {
     grid-template-columns: max-content 1fr auto max-content;
     padding: 16px;
 
-    .amount,
-    .address {
-      align-items: center;
-      display: flex;
+  .amount,
+  .address {
+    align-items: center;
+    display: flex;
+  }
+
+  .amount {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+
+    &.from {
+      color: var(--transactions-positive);
     }
 
-    .amount {
-      display: block;
-      font-size: 16px;
-      font-weight: bold;
-
-      &.from {
-        color: var(--transactions-positive);
-      }
-
-      &.to {
-        color: var(--transactions-negative);
-      }
+    &.to {
+      color: var(--transactions-negative);
     }
+  }
 
-    .address-container {
-      align-items: center;
-      color: var(--text-medium-emphasis);
-      display: flex;
-      justify-content: center;
+  .address-container {
+    align-items: center;
+    color: var(--text-medium-emphasis);
+    display: flex;
+    justify-content: center;
 
-      .origin {
-        color: var(--text-medium-emphasis);
-        font-size: 12px;
-        font-weight: 600;
-        margin-right: 8px;
-      }
-
-      .address {
-        font-family: 'Roboto Mono';
-        font-size: 13px;
-      }
-    }
-
-    .date {
+    .origin {
       color: var(--text-medium-emphasis);
       font-size: 12px;
-      font-style: italic;
       font-weight: 600;
-      min-width: 100px;
-      text-align: right;
+      margin-right: 8px;
     }
+
+    .address {
+      font-family: 'Roboto Mono';
+      font-size: 13px;
+    }
+  }
+
+  .date {
+    color: $grey-4;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 600;
+    min-width: 100px;
+    text-align: right;
+  }
+
+  .pending {
+    color: $yellow-4;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 600;
+    min-width: 100px;
+    text-align: right;
+  }
+
+  .block {
+    color: $alt-grey-5;
+    font-size: 13px;
   }
 }
 </style>

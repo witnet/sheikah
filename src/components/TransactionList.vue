@@ -14,6 +14,7 @@
           v-for="(transaction, index) in transactions"
           :id="transaction.id"
           :key="transaction.id"
+          :confirmed="transaction.confirmed"
           :data-test="`transaction-${index}`"
           :unit="unit"
           :type="transaction.type"

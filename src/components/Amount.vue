@@ -1,7 +1,17 @@
 <template>
   <div class="amount-container" data-test="amount" @click="callChangeUnit">
-    <span>
-      {{ formatNumber(standardizeWitUnits(amount, unit, WIT_UNIT.NANO, 2)) }}
+    <el-tooltip
+      v-if="number.length > 19"
+      :content="number"
+      placement="right"
+      effect="light"
+    >
+      <span>
+        {{ cropString(number, 20) }}
+      </span>
+    </el-tooltip>
+    <span v-else>
+      {{ number }}
     </span>
     <span
       data-test="unit"
@@ -43,6 +53,11 @@ export default {
     ...mapState({
       unit: state => state.wallet.unit,
     }),
+    number() {
+      return this.formatNumber(
+        this.standardizeWitUnits(this.amount, this.unit, WIT_UNIT.NANO, 2),
+      )
+    },
   },
   methods: {
     callChangeUnit(e) {
