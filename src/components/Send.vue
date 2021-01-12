@@ -226,9 +226,7 @@ export default {
         amount: this.form.amount
           ? standardizeWitUnits(this.form.amount, newUnit, prevUnit, 2)
           : null,
-        fee: this.form.fee
-          ? standardizeWitUnits(this.form.fee, newUnit, prevUnit, 2)
-          : null,
+        fee: this.form.fee,
       }
     },
     clearSendForm() {

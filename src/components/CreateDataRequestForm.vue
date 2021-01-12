@@ -14,7 +14,11 @@
 
     <el-form-item :label="$t('collateral')" prop="collateral">
       <el-input v-model="form.collateral" data-test="collateral" type="number">
-        <AppendUnit slot="append" @change-unit="changeUnit" />
+        <AppendUnit
+          slot="append"
+          :static-unit="WIT_UNIT.WIT"
+          data-test="collateral-append"
+        />
       </el-input>
     </el-form-item>
 
@@ -29,14 +33,26 @@
     </el-form-item>
 
     <el-form-item :label="$t('fee_per_weight_unit')" prop="fee">
-      <el-input v-model="form.fee" data-test="dr-fee" type="number">
-        <AppendUnit slot="append" @change-unit="changeUnit" />
+      <el-input
+        v-model="form.fee"
+        data-test="fee-per-weight-unit"
+        type="number"
+      >
+        <AppendUnit
+          slot="append"
+          :static-unit="WIT_UNIT.NANO"
+          data-test="fee-per-weight-unit-append"
+        />
       </el-input>
     </el-form-item>
 
     <el-form-item :label="$t('reward_fee')" prop="rewardFee">
       <el-input v-model="form.rewardFee" data-test="reward-fee" type="number">
-        <AppendUnit slot="append" @change-unit="changeUnit" />
+        <AppendUnit
+          slot="append"
+          data-test="reward-fee-append"
+          :static-unit="WIT_UNIT.NANO"
+        />
       </el-input>
     </el-form-item>
 
@@ -45,7 +61,11 @@
       prop="commitAndRevealFee"
     >
       <el-input v-model="form.commitAndRevealFee" data-test="commit-reveal-fee">
-        <AppendUnit slot="append" @change-unit="changeUnit" />
+        <AppendUnit
+          slot="append"
+          data-test="commit-reveal-fee-append"
+          :static-unit="WIT_UNIT.NANO"
+        />
       </el-input>
     </el-form-item>
     <p
@@ -158,6 +178,7 @@ export default {
         [`${WIT_UNIT.MICRO}`]: 3,
         [`${WIT_UNIT.NANO}`]: 0,
       },
+      WIT_UNIT,
       form: {
         commitAndRevealFee: '1',
         dataRequest: '1',
@@ -258,33 +279,6 @@ export default {
       clearError: 'clearError',
       setError: 'setError',
     }),
-    changeUnit(prevUnit, newUnit) {
-      this.form = {
-        backupWitnesses: this.form.backupWitnesses,
-        commitAndRevealFee: this.form.commitAndRevealFee
-          ? standardizeWitUnits(
-              this.form.commitAndRevealFee,
-              newUnit,
-              prevUnit,
-              2,
-            )
-          : null,
-        dataRequest: this.form.dataRequest,
-        extraCommitRounds: this.form.extraCommitRounds,
-        extraRevealRounds: this.form.extraRevealRounds,
-        fee: this.form.fee
-          ? standardizeWitUnits(this.form.fee, newUnit, prevUnit, 2)
-          : null,
-        minConsensusPercentage: this.form.minConsensusPercentage,
-        rewardFee: this.form.rewardFee
-          ? standardizeWitUnits(this.form.rewardFee, newUnit, prevUnit, 2)
-          : null,
-        witnesses: this.form.witnesses,
-        collateral: this.form.collateral
-          ? standardizeWitUnits(this.form.collateral, newUnit, prevUnit, 2)
-          : null,
-      }
-    },
     goBack() {
       this.$emit('go-back')
     },

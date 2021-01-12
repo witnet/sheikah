@@ -591,28 +591,18 @@ export default {
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
         label,
-        fee: standardizeWitUnits(
-          parameters.fee,
-          WIT_UNIT.NANO,
-          context.state.unit,
-        ),
+        fee: standardizeWitUnits(parameters.fee, WIT_UNIT.NANO),
         request: {
           data_request: encodeDataRequest(request),
-          collateral: standardizeWitUnits(
-            parameters.collateral,
-            WIT_UNIT.NANO,
-            context.state.unit,
-          ),
+          collateral: standardizeWitUnits(parameters.collateral, WIT_UNIT.NANO),
           witness_reward: standardizeWitUnits(
             parameters.rewardFee,
             WIT_UNIT.NANO,
-            context.state.unit,
           ),
           witnesses: parameters.witnesses,
           commit_and_reveal_fee: standardizeWitUnits(
             parameters.commitAndRevealFee,
             WIT_UNIT.NANO,
-            context.state.unit,
           ),
           min_consensus_percentage: parameters.minConsensusPercentage,
         },
@@ -647,7 +637,7 @@ export default {
             ),
           },
         ],
-        fee: standardizeWitUnits(fee, WIT_UNIT.NANO, WIT_UNIT.NANO),
+        fee: standardizeWitUnits(fee, WIT_UNIT.NANO),
         label,
       })
       if (request.result) {

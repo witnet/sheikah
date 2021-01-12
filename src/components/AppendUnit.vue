@@ -10,10 +10,6 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'AppendUnit',
   props: {
-    blockUnit: {
-      type: Boolean,
-      default: false,
-    },
     staticUnit: {
       type: String,
       default: '',
