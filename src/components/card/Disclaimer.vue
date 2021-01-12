@@ -110,13 +110,13 @@ export default {
     border: var(--disclaimer-border);
     border-radius: 2px;
     box-shadow: var(--default-box-shadow);
-    color: var(--text-dark-background);
+    color: var(--disclaimer-text);
     min-height: 400px;
     width: 600px;
 
     .header {
       align-items: center;
-      color: var(--text-dark-background);
+      color: var(--disclaimer-text);
       display: flex;
       font-size: 32px;
       font-weight: 500;
@@ -132,7 +132,7 @@ export default {
         margin-right: 8px;
 
         .title {
-          color: var(--text-dark-background);
+          color: var(--disclaimer-text);
           font-size: 14px;
           font-weight: 500;
           margin-bottom: 8px;
@@ -145,7 +145,7 @@ export default {
     }
 
     .content {
-      color: var(--text-dark-background);
+      color: var(--disclaimer-text);
       display: flex;
       flex-direction: column;
       font-size: 16px;

@@ -103,6 +103,7 @@
   --drag-drop-file-background-color: #{$grey-dark-5};
   --drag-drop-area-focus: 1px dashed #{$purple-dark};
   // disclaimer
+  --disclaimer-text: #{$white};
   --disclaimer-background: #{$purple-dark};
   --disclaimer-border: 1px solid #{$purple-dark-3};
   // notification
@@ -125,20 +126,26 @@
   --alert-color-text: #{$alt-grey-5};
   --alert-colot-link-text: #{$grey-dark-1};
   // button dark
-  --button-dark-background: #{$grey-dark-10};
+  // --button-dark-background: #{$grey-dark-10};
+  // --button-dark-text: #{$purple-dark};
+  // --button-dark-border: #{$grey-dark-10};
+  // --button-dark-border-hover: #{$grey-dark-10};
+  // --button-dark-background-hover: #{$grey-dark-6};
+  // --button-dark-text-hover: #{$purple-dark};
+  // --button-dark-background-active: #{$grey-dark-10};
+  // --button-dark-border-active: #{$grey-dark-10};
+  // --button-dark-text-active: #{$purple-dark};
+  --button-dark-background: #{$white};
   --button-dark-text: #{$purple-dark};
-  --button-dark-border: #{$grey-dark-10};
-  --button-dark-border-hover: #{$grey-dark-10};
-  --button-dark-background-hover: #{$grey-dark-6};
+  --button-dark-border: #{$white};
+  --button-dark-border-hover: #{$alpha-purple};
+  --button-dark-background-hover: #{$alpha-purple};
   --button-dark-text-hover: #{$purple-dark};
-  --button-dark-background-active: #{$grey-dark-10};
-  --button-dark-border-active: #{$grey-dark-10};
-  --button-dark-text-active: #{$purple-dark};
+  --button-dark-background-active: #{$white};
+  --button-dark-border-active: #{$white};
+  --button-dark-text-active: #{$purple-4};
   // button primary
   --button-primary-background: #{$purple-dark};
-  // option 1
-  // --button-primary-text: #{$grey-dark-1};
-  // option 2
   --button-primary-text: #{$grey-dark-10};
   --button-primary-border: #{$purple-dark};
   --button-primary-background-hover: #{$purple-dark-1};
@@ -156,15 +163,25 @@
   --button-default-border-hover: #{$purple-dark-1};
   --button-default-text-hover: #{$grey-dark-1};
   // button default dark
+  // --button-default-dark-background: #{$purple-dark};
+  // --button-default-dark-border: #{$grey-dark-10};
+  // --button-default-dark-text: #{$grey-dark-10};
+  // --button-default-dark-background-hover: #{$purple-dark-1};
+  // --button-default-dark-border-hover: #{$grey-dark-10};
+  // --button-default-dark-text-hover: #{$grey-dark-10};
+  // --button-default-dark-background-active: #{$grey-dark-10};
+  // --button-default-dark-border-active: #{$purple-dark-2};
+  // --button-default-dark-text-active: #{$purple-dark-2};
+
   --button-default-dark-background: #{$purple-dark};
-  --button-default-dark-border: #{$grey-dark-10};
-  --button-default-dark-text: #{$grey-dark-10};
+  --button-default-dark-border: #{$white};
+  --button-default-dark-text: #{$white};
   --button-default-dark-background-hover: #{$purple-dark-1};
-  --button-default-dark-border-hover: #{$grey-dark-10};
-  --button-default-dark-text-hover: #{$grey-dark-10};
-  --button-default-dark-background-active: #{$grey-dark-10};
-  --button-default-dark-border-active: #{$purple-dark-2};
-  --button-default-dark-text-active: #{$purple-dark-2};
+  --button-default-dark-border-hover: #{$white};
+  --button-default-dark-text-hover: #{$white};
+  --button-default-dark-background-active: #{$white};
+  --button-default-dark-border-active: #{$purple-dark};
+  --button-default-dark-text-active: #{$purple-dark};
   // button text
   --button-text-color: #{$purple-dark};
   --button-text-hover: #{$purple-dark-1};
@@ -303,6 +320,7 @@
   --drag-drop-area-focus: 1px dashed #{$purple-4};
   --drag-drop-file-background-color: #f5f7fa;
   // disclaimer
+  --disclaimer-text: #{$white};
   --disclaimer-background: #{$purple-4};
   --disclaimer-border: 1px solid #{$purple-3};
   // notification

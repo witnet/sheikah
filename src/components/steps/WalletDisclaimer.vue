@@ -51,11 +51,11 @@ export default {
 @import '@/styles/theme.scss';
 
 .text {
-  color: var(--text-dark-background);
+  color: var(--disclaimer-text);
   margin-bottom: 8px;
 
   &.bold {
-    color: var(--text-dark-background);
+    color: var(--disclaimer-text);
     font-weight: bold;
     margin-bottom: 16px;
   }
