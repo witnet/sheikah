@@ -3,6 +3,7 @@
 /dist/**
 /dist_electron/**
 /tests/unit/coverage/**
+/src/locales/**
 
 .witnet-rust-testnet-*-wallet
 genesis_block.json
