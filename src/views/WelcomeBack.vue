@@ -10,6 +10,7 @@
         <font-awesome-icon icon="cog" class="icon" />
       </div>
     </div>
+    <Version />
     <router-view />
   </div>
 </template>
@@ -17,11 +18,13 @@
 <script>
 import { mapState } from 'vuex'
 import CustomIcon from '@/components/CustomIcon'
+import Version from '@/components/Version'
 
 export default {
   name: 'WelcomeBack',
   components: {
     CustomIcon,
+    Version,
   },
   computed: {
     ...mapState({

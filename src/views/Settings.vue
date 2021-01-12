@@ -15,6 +15,7 @@
       >
         <CustomIcon class-name="cross" :name="btnUrl" />
       </div>
+      <Version />
     </div>
   </div>
 </template>
@@ -24,6 +25,7 @@ import { mapState } from 'vuex'
 import { SETTINGS_BY_SECTION } from '@/constants'
 import CustomIcon from '@/components/CustomIcon'
 import SettingsSidebar from '@/components/SettingsSidebar'
+import Version from '@/components/Version'
 import SettingsSection from '@/components/SettingsSection.vue'
 
 export default {
@@ -32,6 +34,7 @@ export default {
     SettingsSidebar,
     SettingsSection,
     CustomIcon,
+    Version,
   },
   data() {
     return {

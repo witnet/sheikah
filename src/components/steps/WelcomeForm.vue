@@ -14,6 +14,7 @@
       </div>
     </div>
     <WalletSeedTypeSelection />
+    <Version />
   </div>
 </template>
 
@@ -21,12 +22,14 @@
 import { mapState, mapActions } from 'vuex'
 import CustomIcon from '@/components/CustomIcon'
 import WalletSeedTypeSelection from '@/components/steps/WalletSeedTypeSelection'
+import Version from '@/components/Version'
 
 export default {
   name: 'Welcome',
   components: {
     WalletSeedTypeSelection,
     CustomIcon,
+    Version,
   },
   computed: {
     ...mapState({

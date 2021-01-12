@@ -214,6 +214,8 @@
   --balance-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   // error
   --error-color: #{$red-2};
+  // version
+  --version-color: #{$grey-dark-3};
 }
 
 [theme='light'] {
@@ -414,6 +416,8 @@
   --balance-box-shadow: 0 4px 4px rgb(155, 181, 224, 0.1);
   // error
   --error-color: #{$red-2};
+  // version
+  --version-color: #{$alt-grey-3};
 }
 
 // COMMON
