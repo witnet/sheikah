@@ -45,10 +45,25 @@
         <div v-if="confirmed">
           <p data-test="time-ago" class="date">{{ timeAgo }}</p>
         </div>
+        <div v-else-if="!!Number(epoch)">
+          <el-tooltip placement="bottom" effect="light">
+            <div slot="content" class="info-message">
+              {{ $t('pending-confirmation-tooltip') }}
+            </div>
+            <p data-test="pending-confirmation" class="pending">{{
+              this.$t('pending-confirmation')
+            }}</p>
+          </el-tooltip>
+        </div>
         <div v-else>
-          <p data-test="pending-confirmation" class="pending">{{
-            this.$t('pending-confirmation')
-          }}</p>
+          <el-tooltip placement="bottom" effect="light">
+            <div slot="content" class="info-message">
+              {{ $t('pending-confirmation-tooltip') }}
+            </div>
+            <p data-test="sending-tx" class="pending">{{
+              this.$t('sending')
+            }}</p>
+          </el-tooltip>
         </div>
       </div>
       <div v-if="showDetails">
@@ -220,13 +235,13 @@ export default {
   }
 }
 
-  .transaction {
-    align-items: center;
-    cursor: pointer;
-    display: grid;
-    grid-column-gap: 24px;
-    grid-template-columns: max-content 1fr auto max-content;
-    padding: 16px;
+.transaction {
+  align-items: center;
+  cursor: pointer;
+  display: grid;
+  grid-column-gap: 24px;
+  grid-template-columns: max-content 1fr auto max-content;
+  padding: 16px;
 
   .amount,
   .address {
@@ -268,7 +283,7 @@ export default {
   }
 
   .date {
-    color: $grey-4;
+    color: var(--text-medium-emphasis);
     font-size: 12px;
     font-style: italic;
     font-weight: 600;
@@ -286,9 +301,13 @@ export default {
   }
 
   .block {
-    color: $alt-grey-5;
+    color: var(--text-medium-emphasis);
     font-size: 13px;
   }
+}
+
+.info-message {
+  max-width: 250px;
 }
 </style>
 

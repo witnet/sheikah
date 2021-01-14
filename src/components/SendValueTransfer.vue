@@ -66,7 +66,7 @@ export default {
       this.$emit('close')
     },
     confirmTransaction() {
-      this.sendTransaction({ label: this.form.label })
+      this.sendTransaction({ label: this.label })
       this.$emit('close')
     },
   },

@@ -148,6 +148,64 @@ describe('data request', () => {
   })
 })
 
+describe('Sending transaction', () => {
+  describe('Renders the correct elements when the transaction is being sent to the chain', () => {
+    const wrapper = shallowMount(Transaction, {
+      ...i18n(),
+      propsData: {
+        amount: '123',
+        confirmed: false,
+        timelocked: false,
+        epoch: '0',
+        block: '0000000',
+        border: true,
+        date: 'JAN 19, 1970 @ 10:00:31',
+        timeAgo: '33 minutes ago',
+        fee: '12',
+        id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
+        outputs: [
+          {
+            value: '123',
+            address: 'twit1vclrvjt7jf4jk8phyvxukctwsh0l0f8v9r8ffq',
+          },
+          {
+            value: 499999999865,
+            address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
+          },
+        ],
+        inputs: null,
+        type: 'POSITIVE',
+        state: 'IN PROGRESS',
+        transactionType: 'mint',
+        reveals: [],
+        unit: 'nanoWits',
+      },
+    })
+
+    wrapper.setData({
+      showDetails: true,
+    })
+
+    it('should render Pending confirmation label instead of time ago', () => {
+      expect(wrapper.find('[data-test="sending-tx"]').exists()).toBe(true)
+    })
+
+    it('should not find time ago alement', () => {
+      expect(wrapper.find('[data-test="time-ago"]').exists()).toBe(false)
+    })
+
+    it('should not find pending confirmation status', () => {
+      expect(wrapper.find('[data-test="pending-confirmation"]').exists()).toBe(
+        false,
+      )
+    })
+
+    it('should find time-ago element', () => {
+      expect(wrapper.find('[data-test="sending-tx"]').text()).toEqual('Sending')
+    })
+  })
+})
+
 describe('Pending transaction', () => {
   describe('Renders the correct elements when the transaction is not confirmed', () => {
     const wrapper = shallowMount(Transaction, {
