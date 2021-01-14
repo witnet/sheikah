@@ -9,7 +9,7 @@
     <BalanceButtons @receive="onReceive" @send="onSend" />
 
     <!-- Modal with Send form open when send button is clicked -->
-    <Send v-if="isSendVisible" @close="isSendVisible = false" />
+    <SendValueTransfer v-if="isSendVisible" @close="isSendVisible = false" />
   </Fieldset>
 </template>
 
@@ -19,7 +19,7 @@ import { mapState, mapMutations } from 'vuex'
 import BalanceButtons from '@/components/BalanceButtons'
 import BalanceData from '@/components/BalanceData'
 import Fieldset from '@/components/Fieldset'
-import Send from '@/components/Send'
+import SendValueTransfer from '@/components/SendValueTransfer'
 
 // Show available, locked and total amount.
 // It also includes buttons to trigger receive and send actions.
@@ -29,7 +29,7 @@ export default {
     BalanceButtons,
     BalanceData,
     Fieldset,
-    Send,
+    SendValueTransfer,
   },
   data() {
     return {

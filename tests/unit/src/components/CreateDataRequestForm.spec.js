@@ -413,7 +413,8 @@ describe('CreateDataRequestForm.vue', () => {
           },
         }),
       )
-      wrapper.find('[data-test="collateral"]').setValue('1')
+
+      wrapper.find('[data-test="collateral"]').setValue('0.1')
       await wrapper
         .find('[data-test="create-data-request-submit"]')
         .trigger('click')

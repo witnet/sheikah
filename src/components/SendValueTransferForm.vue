@@ -1,82 +1,64 @@
 <template>
-  <el-dialog
-    :title="$t('create_vtt_title')"
-    :visible="true"
-    :show-close="false"
+  <el-form
+    ref="send-form"
+    class="form"
+    data-test="tx-form"
+    :model="form"
+    label-position="left"
+    :rules="rules"
     width="max-content"
-    @close="closeAndClear"
+    label-width="150px"
   >
-    <FormInformation
-      v-if="generatedTransaction"
-      :generated-transaction="generatedTransaction"
-      type="ValueTransfer"
-      @close-clear="closeAndClear"
-      @send="confirmTransaction"
-    />
-    <el-form
-      v-else
-      ref="send-form"
-      class="form"
-      data-test="tx-form"
-      :model="form"
-      label-position="left"
-      :rules="rules"
-      width="max-content"
-      label-width="150px"
-    >
-      <el-form-item :label="$t('address')" prop="address">
-        <el-input
-          v-model="form.address"
-          v-focus
-          tabindex="1"
-          :placeholder="$t('address_placeholder')"
-          data-test="tx-address"
-          :maxlength="addressLength"
-        />
-      </el-form-item>
-      <el-form-item :label="$t('amount')" prop="amount">
-        <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
-        <el-input v-model="form.amount" tabindex="3" data-test="tx-amount">
-          <AppendUnit slot="append" @change-unit="changeUnit" />
-        </el-input>
-      </el-form-item>
-      <el-form-item :label="$t('fee_per_weight_unit')" prop="fee">
-        <el-input
-          v-model="form.fee"
-          type="number"
-          tabindex="4"
-          data-test="tx-fee"
-        >
-          <AppendUnit slot="append" :static-unit="WIT_UNIT.NANO" />
-        </el-input>
-      </el-form-item>
-      <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
-      <div class="submit">
-        <el-button
-          tabindex="5"
-          type="primary"
-          data-test="sign-send-btn"
-          @click="tryCreateVTT"
-        >
-          {{ this.$t('sign_send') }}
-        </el-button>
-      </div>
-    </el-form>
-  </el-dialog>
+    <el-form-item :label="$t('address')" prop="address">
+      <el-input
+        v-model="form.address"
+        v-focus
+        tabindex="1"
+        :placeholder="$t('address_placeholder')"
+        data-test="tx-address"
+        :maxlength="addressLength"
+      />
+    </el-form-item>
+    <el-form-item :label="$t('amount')" prop="amount">
+      <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
+      <el-input v-model="form.amount" tabindex="3" data-test="tx-amount">
+        <AppendUnit slot="append" @change-unit="changeUnit" />
+      </el-input>
+    </el-form-item>
+    <el-form-item :label="$t('fee_per_weight_unit')" prop="fee">
+      <el-input
+        v-model="form.fee"
+        type="number"
+        tabindex="4"
+        data-test="tx-fee"
+      >
+        <AppendUnit slot="append" :static-unit="WIT_UNIT.NANO" />
+      </el-input>
+    </el-form-item>
+    <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
+    <div class="submit">
+      <el-button
+        tabindex="5"
+        type="primary"
+        data-test="sign-send-btn"
+        @click="tryCreateVTT"
+      >
+        {{ this.$t('sign_send') }}
+      </el-button>
+    </div>
+  </el-form>
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
-import FormInformation from '@/components/FormInformation.vue'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import AppendUnit from '@/components/AppendUnit'
 import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
 import { WIT_UNIT } from '@/constants'
 
 export default {
-  name: 'Send',
+  name: 'SendValueTransferForm',
   components: {
     AppendUnit,
-    FormInformation,
   },
   data() {
     const maxNumber = (rule, value, callback) => {
@@ -166,13 +148,6 @@ export default {
   computed: {
     ...mapGetters(['network']),
     ...mapState({
-      availableBalance: state => {
-        // TODO: change for available when wallet returns it
-        return state.wallet.balance.total
-      },
-      generatedTransaction: state => {
-        return state.wallet.generatedTransaction
-      },
       unit: state => state.wallet.unit,
       createVTTError: state => state.wallet.errors.createVTT,
     }),
@@ -212,48 +187,20 @@ export default {
   methods: {
     ...mapMutations({
       clearError: 'clearError',
-      setError: 'setError',
       clearGeneratedTransaction: 'clearGeneratedTransaction',
-    }),
-    ...mapActions({
-      sendTransaction: 'sendTransaction',
-      createVTT: 'createVTT',
     }),
     changeUnit(prevUnit, newUnit) {
       this.form = {
-        address: this.form.address ? this.form.address : '',
-        label: '',
+        ...this.form,
         amount: this.form.amount
           ? standardizeWitUnits(this.form.amount, newUnit, prevUnit, 2)
           : null,
-        fee: this.form.fee,
       }
-    },
-    clearSendForm() {
-      this.form.address = ''
-      this.form.label = ''
-      this.form.amount = null
-      this.form.fee = null
-    },
-    closeAndClear() {
-      this.clearSendForm()
-      this.clearGeneratedTransaction()
-      if (this.createVTTError) {
-        this.clearError({ error: this.createVTTError.name })
-      }
-      this.$emit('close')
-    },
-    toggleAdvanceOptions() {
-      this.isAdvancedVisible = !this.isAdvancedVisible
-    },
-    confirmTransaction() {
-      this.sendTransaction({ label: this.form.label })
-      this.closeDialog()
     },
     tryCreateVTT() {
       this.$refs['send-form'].validate(valid => {
         if (valid) {
-          this.createVTT({
+          this.$emit('create-vtt', {
             label: this.form.label,
             address: this.form.address,
             amount: this.form.amount,

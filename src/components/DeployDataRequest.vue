@@ -8,18 +8,20 @@
     :top="generatedTransaction || showFillVariablesForm ? '6vh' : '15vh'"
     @close="closeAndClear"
   >
-    <ConfirmDataRequest
+    <GeneratedTransaction
       v-if="generatedTransaction"
       :commit-and-reveal-fee="commitAndRevealFee"
       :fee="fee"
-      :generated-transaction="generatedTransaction"
       :min-consensus-percentage="minConsensusPercentage"
       :reward-fee="rewardFee"
-      :timelock="timelock"
       :witnesses="witnesses"
-      @confirm-dr="confirmDataRequest"
-      @go-back="() => goBack('CONFIRM')"
+      :timelock="timelock"
+      :generated-transaction="generatedTransaction"
+      type="DataRequest"
+      @close-clear="goBack('CONFIRM')"
+      @send="confirmDataRequest"
     />
+
     <CreateDataRequestForm
       v-else-if="showFillVariablesForm"
       :back-word="variables.length ? 'Back' : 'Cancel'"
@@ -38,7 +40,7 @@
 import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import CreateDataRequestForm from '@/components/CreateDataRequestForm'
 import CompleteVariablesForm from '@/components/CompleteVariablesForm'
-import ConfirmDataRequest from '@/components/ConfirmDataRequest'
+import GeneratedTransaction from '@/components/GeneratedTransaction'
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 
 export default {
@@ -46,7 +48,7 @@ export default {
   components: {
     CreateDataRequestForm,
     CompleteVariablesForm,
-    ConfirmDataRequest,
+    GeneratedTransaction,
   },
   props: {
     template: {

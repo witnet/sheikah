@@ -146,8 +146,7 @@ export default {
 
     const minCollateralAmount = (rule, value, callback) => {
       const isLessThanMin =
-        Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.unit)) <
-        1000000000
+        Number(standardizeWitUnits(value, WIT_UNIT.WIT, WIT_UNIT.WIT)) < 1
       if (isLessThanMin) {
         callback(new Error('The minimun collateral cannot be less than 1 wit'))
       } else {

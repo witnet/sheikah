@@ -105,7 +105,7 @@ import Amount from '@/components/Amount.vue'
 import CustomIcon from '@/components/CustomIcon'
 
 export default {
-  name: 'Send',
+  name: 'Generatedtransaction',
   components: {
     Amount,
     CustomIcon,
