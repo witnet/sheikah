@@ -179,7 +179,7 @@
   "current_stage": "Current stage",
   "reveals": "Reveals",
   "final_result": "Final result",
-  "transactions": "transactions",
+  "transactions": "Transactions",
   "transactions_count": "0 transactions | 1 transaction | %{count} transactions",
   "transactions_empty": "You don't have transactions",
   "name": "Name",
