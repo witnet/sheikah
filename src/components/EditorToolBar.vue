@@ -5,7 +5,7 @@
         ref="download"
         :href="dataStr"
         :download="downloadName"
-        style="display:none"
+        style="display: none"
       ></a>
 
       <router-link

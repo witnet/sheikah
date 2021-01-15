@@ -36,7 +36,6 @@ export default {
   data() {
     return {
       previousRoute: '',
-      btnUrlDark: 'close-btn-dark.svg',
       btnUrl: 'close-btn',
     }
   },
@@ -97,12 +96,10 @@ export default {
       this.$router.push(this.previousRoute)
     },
     hoverAction() {
-      this.btnUrl = 'close-btn-light.svg'
-      this.btnUrlDark = 'close-btn-light.svg'
+      this.btnUrl = 'close-btn-light'
     },
     mouseLeaveAction() {
       this.btnUrl = 'close-btn'
-      this.btnUrlDark = 'close-btn-dark.svg'
     },
   },
   beforeRouteEnter(to, from, next) {

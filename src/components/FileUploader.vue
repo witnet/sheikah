@@ -95,7 +95,7 @@
       ref="download"
       :href="fileLink"
       :download="localFile.name"
-      style="display:none"
+      style="display: none"
     />
   </div>
 </template>
