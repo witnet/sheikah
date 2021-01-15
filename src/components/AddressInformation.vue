@@ -244,7 +244,6 @@ export default {
     color: var(--text-medium-emphasis);
     font-family: 'Roboto Mono';
     font-size: 12px;
-    font-style: italic;
     margin-bottom: 15px;
   }
 

@@ -251,8 +251,8 @@ export default {
       }
 
       .address {
+        font-family: 'Roboto Mono';
         font-size: 13px;
-        font-style: italic;
       }
     }
 
