@@ -150,8 +150,8 @@
     "The process of resynchronizing may take several minutes or hours, and after it is complete, all your balances movements and addresses should be restored.",
     "If the information in your wallet still looks inconsistent or corrupt after resynchronizing, it is recommended that you try to re-import your seed phrase from the 'Create, import or recover a wallet' menu that appears in the main Sheikah unlock screen."
   ],
-  "resyncronize": "Resynchronize",
-  "sign_send": "Sign and send",
+  "resyncronize": "Resincronizar",
+  "sign_send": "Firmar y enviar",
   "validate_max_number": "This number is greater than the maximum",
   "validate_integer_nano_wit": "Only integer nanoWits values allowed",
   "validate_min_amount": "The minimun fee cannot be less than 1 nanoWit",
