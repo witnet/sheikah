@@ -15,6 +15,7 @@ describe('Balance.vue', () => {
               balance: {
                 available: '1',
                 locked: '10',
+                unconfirmed: '0',
                 total: '100',
               },
               unit: WIT_UNIT.NANO,
@@ -38,6 +39,7 @@ describe('Balance.vue', () => {
                 balance: {
                   available: '1',
                   locked: '10',
+                  unconfirmed: '0',
                   total: '100',
                 },
                 unit: WIT_UNIT.NANO,
@@ -60,6 +62,7 @@ describe('Balance.vue', () => {
                 balance: {
                   available: '1',
                   locked: '10',
+                  unconfirmed: '0',
                   total: '100',
                 },
                 unit: 'nanoWits',
@@ -90,6 +93,7 @@ describe('Balance.vue', () => {
                 balance: {
                   available: '1',
                   locked: '10',
+                  unconfirmed: '0',
                   total: '100',
                 },
                 unit: WIT_UNIT.NANO,

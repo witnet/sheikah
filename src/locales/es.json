@@ -393,5 +393,6 @@
   "yes": "Yes",
   "no": "No",
   "pending-confirmation-tooltip": "This transaction is now in the block chain. However, for it to be considered final and irreversible, a majority of the network needs to confirm it. This normally takes no more than 15 minutes.",
-  "sending-tx-tooltip": "This transaction is waiting to be included in the block chain. Depending on the chosen priority and how clogged is the network, this may take from a few seconds to several hours."
+  "sending-tx-tooltip": "This transaction is waiting to be included in the block chain. Depending on the chosen priority and how clogged is the network, this may take from a few seconds to several hours.",
+  "unconfirmed": "Unconfirmed"
 }

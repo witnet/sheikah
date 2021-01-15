@@ -14,6 +14,10 @@ export default class BigNumber {
     return this.bigNumber.plus(num)
   }
 
+  minus(num) {
+    return this.bigNumber.minus(num)
+  }
+
   times(num) {
     return this.bigNumber.times(num)
   }

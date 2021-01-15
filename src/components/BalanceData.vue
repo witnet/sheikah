@@ -1,7 +1,12 @@
 <template>
   <div class="table">
     <p class="label">{{ this.$t('available') }}</p>
-    <Amount :unit-light="true" class="amount" :amount="available" />
+    <Amount
+      data-test="available"
+      :unit-light="true"
+      class="amount"
+      :amount="available"
+    />
     <p class="label"
       >{{ this.$t('locked_balance_label') }}
       <el-tooltip trigger="hover" effect="light">
@@ -17,9 +22,26 @@
         </div>
       </el-tooltip>
     </p>
-    <Amount :unit-light="true" class="amount" :amount="locked" />
+    <Amount
+      data-test="locked"
+      :unit-light="true"
+      class="amount"
+      :amount="locked"
+    />
+    <p class="label">{{ this.$t('unconfirmed') }}</p>
+    <Amount
+      data-test="unconfirmed"
+      :unit-light="true"
+      class="amount"
+      :amount="unconfirmed"
+    />
     <p class="label total">{{ this.$t('total_balance_label') }}</p>
-    <Amount :unit-light="true" class="amount" :amount="total" />
+    <Amount
+      data-test="total"
+      :unit-light="true"
+      class="amount"
+      :amount="total"
+    />
   </div>
 </template>
 
@@ -48,6 +70,13 @@ export default {
      * Available wits the user owns
      */
     available: {
+      type: String,
+      required: true,
+    },
+    /**
+     * Unconfirmed wits the user owns
+     */
+    unconfirmed: {
       type: String,
       required: true,
     },

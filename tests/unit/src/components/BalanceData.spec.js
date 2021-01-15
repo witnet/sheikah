@@ -1,78 +1,93 @@
 import BalanceData from '@/components/BalanceData'
 
-describe.skip('Balance.vue', () => {
+describe('Balance.vue', () => {
   it('should render the available amount', () => {
     const wrapper = shallowMount(BalanceData, {
-      ...i18n(),
+      ...createComponentMocks({
+        store: {
+          wallet: {
+            state: {
+              unit: 'nanoWits',
+            },
+          },
+        },
+      }),
       propsData: {
         available: '1',
         locked: '10',
+        unconfirmed: '0',
         total: '100',
         unit: 'nanoWits',
       },
     })
 
-    expect(
-      wrapper
-        .findAll('p')
-        .at(0)
-        .text(),
-    ).toBe('Available')
-    expect(
-      wrapper
-        .findAll('p')
-        .at(1)
-        .text(),
-    ).toBe('1 nanoWits')
+    expect(wrapper.find('[data-test="available"]').exists()).toBe(true)
   })
 
   it('should render the locked amount', () => {
     const wrapper = shallowMount(BalanceData, {
-      ...i18n(),
+      ...createComponentMocks({
+        store: {
+          wallet: {
+            state: {
+              unit: 'nanoWits',
+            },
+          },
+        },
+      }),
       propsData: {
         available: '1',
         locked: '10',
+        unconfirmed: '0',
         total: '100',
         unit: 'nanoWits',
       },
     })
 
-    expect(
-      wrapper
-        .findAll('p')
-        .at(2)
-        .text(),
-    ).toBe('Locked')
-    expect(
-      wrapper
-        .findAll('p')
-        .at(3)
-        .text(),
-    ).toBe('10 nanoWits')
+    expect(wrapper.find('[data-test="locked"]').exists()).toBe(true)
   })
 
   it('should render the total amount', () => {
     const wrapper = shallowMount(BalanceData, {
-      ...i18n(),
+      ...createComponentMocks({
+        store: {
+          wallet: {
+            state: {
+              unit: 'nanoWits',
+            },
+          },
+        },
+      }),
       propsData: {
         available: '1',
         locked: '10',
+        unconfirmed: '0',
         total: '100',
         unit: 'nanoWits',
       },
     })
+    expect(wrapper.find('[data-test="total"]').exists()).toBe(true)
+  })
 
-    expect(
-      wrapper
-        .findAll('p')
-        .at(4)
-        .text(),
-    ).toBe('Total')
-    expect(
-      wrapper
-        .findAll('p')
-        .at(5)
-        .text(),
-    ).toBe('100 nanoWits')
+  it('should render the unconfirmed amount', () => {
+    const wrapper = shallowMount(BalanceData, {
+      ...createComponentMocks({
+        store: {
+          wallet: {
+            state: {
+              unit: 'nanoWits',
+            },
+          },
+        },
+      }),
+      propsData: {
+        available: '1',
+        locked: '10',
+        unconfirmed: '0',
+        total: '100',
+        unit: 'nanoWits',
+      },
+    })
+    expect(wrapper.find('[data-test="unconfirmed"]').exists()).toBe(true)
   })
 })

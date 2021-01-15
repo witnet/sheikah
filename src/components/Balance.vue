@@ -5,9 +5,9 @@
       :locked="locked"
       :total="total"
       :unit="unit"
+      :unconfirmed="unconfirmed"
     />
     <BalanceButtons @receive="onReceive" @send="onSend" />
-
     <!-- Modal with Send form open when send button is clicked -->
     <SendValueTransfer v-if="isSendVisible" @close="isSendVisible = false" />
   </Fieldset>
@@ -44,6 +44,9 @@ export default {
       },
       available() {
         return this.balance.available || '0'
+      },
+      unconfirmed() {
+        return this.balance.unconfirmed || '0'
       },
       locked() {
         return this.balance.locked || '0'
