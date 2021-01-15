@@ -8,11 +8,17 @@
           :amount="generatedTransaction.metadata.outputs[0].amount"
         />
         <p class="entry">{{ this.$t('to') }}</p>
-        <p class="value address">{{
-          generatedTransaction.metadata.outputs[0].address
-        }}</p>
+        <Address
+          class="value address"
+          size="13px"
+          :value="generatedTransaction.metadata.outputs[0].address"
+        />
         <p class="entry">{{ this.$t('fee') }}</p>
-        <Amount class="amount" :amount="generatedTransaction.metadata.fee" />
+        <Amount
+          class="amount"
+          size="14px"
+          :amount="generatedTransaction.metadata.fee"
+        />
       </div>
       <div v-else class="info">
         <p class="entry">{{ this.$t('witnesses') }}</p>
@@ -47,7 +53,7 @@
           >
             <p class="index"> #{{ index }} </p>
             <Amount :amount="output.value" />
-            <p class="address"> {{ output.pkh }}</p>
+            <Address class="address" size="13px" :value="output.pkh" />
           </div>
         </div>
       </div>
@@ -101,12 +107,14 @@
 
 <script>
 import { mapState } from 'vuex'
+import Address from '@/components/Address.vue'
 import Amount from '@/components/Amount.vue'
 import CustomIcon from '@/components/CustomIcon'
 
 export default {
   name: 'Generatedtransaction',
   components: {
+    Address,
     Amount,
     CustomIcon,
   },
@@ -253,10 +261,6 @@ export default {
 
     .value {
       font-size: 14px;
-
-      &.address {
-        font-style: italic;
-      }
     }
 
     .value-transfer {
@@ -298,7 +302,6 @@ export default {
 
       .address {
         font-size: 14px;
-        font-style: italic;
         grid-column: col2-start;
         grid-row: row2-start;
       }

@@ -31,8 +31,7 @@
       </el-tooltip>
     </div>
 
-    <p v-if="address" class="address">{{ used ? blindAddress : address }}</p>
-
+    <Address class="address" :value="address" :blind="used" />
     <div v-if="!used" class="transactions">
       <Tag class="tag" color="green" text="NOT USED" />
       <p class="description"
@@ -70,6 +69,7 @@
 <script>
 import Amount from '@/components/Amount'
 import DotsLoading from '@/components/DotsLoading'
+import Address from '@/components/Address'
 import Tag from '@/components/Tag'
 import { formatDateVerbose, copyToClipboard } from '@/utils'
 /**
@@ -78,6 +78,7 @@ import { formatDateVerbose, copyToClipboard } from '@/utils'
 export default {
   name: 'AddressInformation',
   components: {
+    Address,
     Amount,
     DotsLoading,
     Tag,
@@ -241,9 +242,6 @@ export default {
   }
 
   .address {
-    color: var(--text-medium-emphasis);
-    font-family: 'Roboto Mono';
-    font-size: 12px;
     margin-bottom: 15px;
   }
 

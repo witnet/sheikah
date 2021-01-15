@@ -2,8 +2,17 @@ import Transaction from '@/components/Transaction.vue'
 import '@/fontAwesome'
 
 describe('Renders the correct elements when click is not triggered', () => {
-  const wrapper = shallowMount(Transaction, {
+  const wrapper = mount(Transaction, {
     ...i18n(),
+    ...createComponentMocks({
+      store: {
+        wallet: {
+          state: {
+            unit: 'nanoWit',
+          },
+        },
+      },
+    }),
     propsData: {
       amount: '123',
       confirmed: true,

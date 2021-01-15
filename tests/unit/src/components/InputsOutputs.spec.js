@@ -2,8 +2,17 @@ import InputsOutputs from '@/components/InputsOutputs.vue'
 import '@/fontAwesome'
 
 describe('Renders the correct elements when the transaction type is value_transfer', () => {
-  const wrapper = shallowMount(InputsOutputs, {
+  const wrapper = mount(InputsOutputs, {
     ...i18n(),
+    ...createComponentMocks({
+      store: {
+        wallet: {
+          state: {
+            unit: 'nanoWit',
+          },
+        },
+      },
+    }),
     propsData: {
       fee: '12',
       outputs: [

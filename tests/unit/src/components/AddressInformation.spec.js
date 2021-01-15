@@ -110,7 +110,7 @@ describe('AddressInformation.vue', () => {
         })
 
         expect(wrapper.find('.address').text()).toBe(
-          'twit1270yg7pkm2w9mlq ... wph3flrp862zw0ft',
+          'twit1270yg7pkm2w9m...zrwph3flrp862zw0ft',
         )
       })
 

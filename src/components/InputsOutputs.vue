@@ -7,7 +7,12 @@
       <div v-for="(input, index) in inputs" :key="index" class="transaction">
         <p data-test="inputs-index" class="index"># {{ index }}</p>
         <Amount class="amount" data-test="inputs-value" :amount="input.value" />
-        <p data-test="inputs-address" class="address">{{ input.address }}</p>
+        <Address
+          class="address"
+          :value="input.address"
+          size="11px"
+          data-test="inputs-address"
+        />
       </div>
     </div>
     <div class="box outputs">
@@ -23,9 +28,12 @@
           :amount="output.value"
           :data-test="`output-value-${output.index}`"
         />
-        <p :data-test="`output-address-${output.index}`" class="address">{{
-          output.address
-        }}</p>
+        <Address
+          class="address"
+          :value="output.address"
+          size="11px"
+          :data-test="`output-address-${output.index}`"
+        />
         <p
           v-if="output.timelock !== 0"
           :data-test="`output-timelock-${output.index}`"
@@ -38,7 +46,7 @@
           this.$t('fee').toUpperCase()
         }}</p>
         <Amount class="amount" :amount="fee" data-test="fee-amount" />
-        <p class="address">{{ fee.address }}</p>
+        <Address class="address" :value="fee.address" size="11px" />
       </div>
     </div>
   </div>
@@ -46,12 +54,14 @@
 
 <script>
 import Amount from '@/components/Amount.vue'
+import Address from '@/components/Address.vue'
 import { changeDateFormat } from '@/utils'
 
 export default {
   name: 'InputsOutputs',
   components: {
     Amount,
+    Address,
   },
   props: {
     unit: {
@@ -137,8 +147,6 @@ export default {
 
       .address {
         color: var(--transaction-details-color);
-        font-size: 12px;
-        font-style: italic;
         grid-column: col2-start;
         grid-row: row2-start;
       }

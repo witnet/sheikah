@@ -21,7 +21,8 @@
           class="address-container"
         >
           <p data-test="origin" class="origin">{{ origin }}</p>
-          <p data-test="address" class="address">{{ address }}</p>
+
+          <Address size="13px" :value="address" />
         </div>
         <div
           v-else-if="transactionType === 'data_request'"
@@ -101,14 +102,16 @@ import FrameOutside from '@/components/FrameOutside'
 import TransactionDetails from '@/components/TransactionDetails'
 import InputsOutputs from '@/components/InputsOutputs'
 import Amount from '@/components/Amount.vue'
+import Address from '@/components/Address.vue'
 
 export default {
   name: 'Transaction',
   components: {
-    FrameOutside,
-    TransactionDetails,
-    InputsOutputs,
+    Address,
     Amount,
+    FrameOutside,
+    InputsOutputs,
+    TransactionDetails,
   },
   props: {
     unit: {
@@ -260,6 +263,20 @@ export default {
 
     &.to {
       color: var(--transactions-negative);
+    }
+
+    .address-container {
+      align-items: center;
+      color: var(--text-medium-emphasis);
+      display: flex;
+      justify-content: center;
+
+      .origin {
+        color: var(--text-medium-emphasis);
+        font-size: 12px;
+        font-weight: 600;
+        margin-right: 8px;
+      }
     }
   }
 
