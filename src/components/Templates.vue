@@ -27,6 +27,7 @@
         :name="template.name"
         :sources="template.radRequest.retrieve.length"
         :description="template.description"
+        @delete-template="handleDeleteTemplate({ id: template.id })"
         @toggle-modal="displayModalCreateDR(template)"
       />
     </div>
@@ -127,6 +128,7 @@ export default {
     ...mapActions({
       getTemplates: 'getTemplates',
       saveTemplate: 'saveTemplate',
+      deleteTemplate: 'deleteTemplate',
     }),
     closeDeployModal() {
       this.dialogVisible = false
@@ -134,6 +136,12 @@ export default {
     createTemplateAndRedirect() {
       this.createTemplate()
       this.$router.push('/request/editor')
+    },
+    handleDeleteTemplate({ id }) {
+      if (this.paginatedTemplates.length === 1 && this.currentPage !== 1) {
+        this.currentPage -= 1
+      }
+      this.deleteTemplate({ id })
     },
     handleCurrentChange(val) {
       this.currentPage = val
@@ -215,7 +223,6 @@ export default {
     grid-gap: 24px;
     grid-template-columns: repeat(auto-fill, 300px);
     margin: 0 32px;
-    min-height: 90vh;
     overflow-y: auto;
 
     .add {

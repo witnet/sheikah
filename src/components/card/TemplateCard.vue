@@ -130,7 +130,7 @@ export default {
         {
           label: 'Delete',
           action: () => {
-            this.deleteTemplate({ id: this.id })
+            this.$emit('delete-template')
           },
         },
       ],

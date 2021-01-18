@@ -167,4 +167,4 @@ export const SETTINGS_BY_SECTION = {
   ABOUT: [SETTINGS.COMMUNITY],
 }
 
-export const TEMPLATES_PER_PAGE = 9
+export const TEMPLATES_PER_PAGE = 12
