@@ -44,8 +44,6 @@ export default {
 
 .main {
   background: var(--app-background-color);
-  display: grid;
-  grid-column: 2;
   min-height: 100vh;
 }
 </style>
