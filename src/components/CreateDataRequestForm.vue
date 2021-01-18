@@ -109,7 +109,7 @@ export default {
   data() {
     const maxNumber = (rule, value, callback) => {
       if (isGrtMaxNumber(value, this.unit)) {
-        callback(new Error('This number is greater than the maximum'))
+        callback(new Error(this.$t('create_dr_form_error_max_number')))
       } else {
         callback()
       }
@@ -118,7 +118,7 @@ export default {
     const integerNanoWit = (rule, value, callback) => {
       const isNanoWit = this.unit === WIT_UNIT.NANO
       if (isNanoWit && !Number.isInteger(Number(value))) {
-        callback(new Error('Only integer nanoWits values allowed'))
+        callback(new Error(this.$t('create_dr_form_error_integer_nanowit')))
       } else {
         callback()
       }
@@ -127,7 +127,7 @@ export default {
     const minConsensusPercentage = (rule, value, callback) => {
       if (value < 51) {
         callback(
-          new Error('The minimun consensus percentage cannot be less than 51'),
+          new Error(this.$t('create_dr_form_error_min_consensus_percentage')),
         )
       } else {
         callback()
@@ -137,7 +137,7 @@ export default {
     const maxConsensusPercentage = (rule, value, callback) => {
       if (value > 100) {
         callback(
-          new Error('The minimun consensus percentage cannot be more than 100'),
+          new Error(this.$t('create_dr_form_error_max_consensus_percentage')),
         )
       } else {
         callback()
@@ -148,7 +148,7 @@ export default {
       const isLessThanMin =
         Number(standardizeWitUnits(value, WIT_UNIT.WIT, WIT_UNIT.WIT)) < 1
       if (isLessThanMin) {
-        callback(new Error('The minimun collateral cannot be less than 1 wit'))
+        callback(new Error(this.$t('create_dr_form_error_min_collateral')))
       } else {
         callback()
       }
@@ -157,7 +157,7 @@ export default {
     const minAmount = (rule, value, callback) => {
       const isNanoWit = this.unit === WIT_UNIT.NANO
       if (isNanoWit && value < 1) {
-        callback(new Error('The minimun fee cannot be less than 1 nanoWit'))
+        callback(new Error(this.$t('create_dr_form_error_min_fee')))
       } else {
         callback()
       }
@@ -165,7 +165,7 @@ export default {
 
     const isNumber = (rule, value, callback) => {
       if (!Number(value)) {
-        callback(new Error('This should be a number'))
+        callback(new Error(this.$t('create_dr_form_error_is_number')))
       } else {
         callback()
       }
@@ -189,46 +189,74 @@ export default {
       },
       rules: {
         commitAndRevealFee: [
-          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('create_dr_form_error_required_field'),
+            trigger: 'blur',
+          },
           { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
           { validator: maxNumber, trigger: 'blur' },
         ],
         collateral: [
-          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('create_dr_form_error_required_field'),
+            trigger: 'blur',
+          },
           { validator: isNumber, trigger: 'blur' },
           { validator: minCollateralAmount, trigger: 'submit' },
           { validator: maxNumber, trigger: 'blur' },
         ],
         dataRequest: [
-          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('create_dr_form_error_required_field'),
+            trigger: 'blur',
+          },
           { validator: isNumber, trigger: 'blur' },
           { validator: maxNumber, trigger: 'blur' },
         ],
         fee: [
-          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('create_dr_form_error_required_field'),
+            trigger: 'blur',
+          },
           { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
           { validator: maxNumber, trigger: 'blur' },
         ],
         minConsensusPercentage: [
-          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('create_dr_form_error_required_field'),
+            trigger: 'blur',
+          },
           { validator: minAmount, trigger: 'submit' },
           { validator: minConsensusPercentage, trigger: 'blur' },
           { validator: maxConsensusPercentage, trigger: 'blur' },
           { validator: maxNumber, trigger: 'blur' },
         ],
         rewardFee: [
-          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('create_dr_form_error_required_field'),
+            trigger: 'blur',
+          },
           { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
           { validator: maxNumber, trigger: 'blur' },
         ],
         witnesses: [
-          { required: true, message: 'Required field', trigger: 'blur' },
+          {
+            required: true,
+            message: this.$t('create_dr_form_error_required_field'),
+            trigger: 'blur',
+          },
           { validator: isNumber, trigger: 'blur' },
           { validator: maxNumber, trigger: 'blur' },
         ],

@@ -24,7 +24,11 @@
 
     <CreateDataRequestForm
       v-else-if="showFillVariablesForm"
-      :back-word="variables.length ? 'Back' : 'Cancel'"
+      :back-word="
+        variables.length
+          ? this.$t('deploy_dr_back')
+          : this.$t('deploy_dr_cancel')
+      "
       @go-back="() => goBack('FORM')"
       @create-dr="createDR"
     />
@@ -73,11 +77,11 @@ export default {
   computed: {
     title() {
       if (this.generatedTransaction) {
-        return 'Confirm'
+        return this.$t('deploy_dr_title_confirm')
       } else if (this.showFillVariablesForm) {
-        return 'Fill all the fields to deploy a data request'
+        return this.$t('deploy_dr_title_fill_all')
       } else {
-        return 'Add custom values for the template variables'
+        return this.$t('deploy_dr_title_add_custom_values')
       }
     },
     showFillVariablesForm() {
