@@ -403,5 +403,18 @@
   "block_notifications_title": "Block notifications",
   "tx_notifications_title": "Transactions notifications",
   "payments_notifications_title": "Payments notifications",
-  "syncronization_notifications_title": "Syncronization notifications"
+  "syncronization_notifications_title": "Syncronization notifications",
+  "create_dr_form_error_max_number": "This number is greater than the maximum",
+  "create_dr_form_error_integer_nanowit": "Only integer nanoWits values allowed",
+  "create_dr_form_error_min_consensus_percentage": "The minimun consensus percentage cannot be less than 51",
+  "create_dr_form_error_max_consensus_percentage": "The minimun consensus percentage cannot be more than 100",
+  "create_dr_form_error_min_collateral": "The minimun collateral cannot be less than 1 wit",
+  "create_dr_form_error_min_fee": "The minimun fee cannot be less than 1 nanoWit",
+  "create_dr_form_error_is_number": "This should be a number",
+  "create_dr_form_error_required_field": "Required field",
+  "deploy_dr_title_confirm": "Confirm",
+  "deploy_dr_title_fill_all": "Fill all the fields to deploy a data request",
+  "deploy_dr_title_add_custom_values": "Add custom values for the template variables",
+  "deploy_dr_back": "Back",
+  "deploy_dr_cancel": "Cancel"
 }
