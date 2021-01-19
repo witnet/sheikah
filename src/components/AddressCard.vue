@@ -61,7 +61,7 @@ export default {
   .selected,
   &:hover {
     &::after {
-      border: 1px solid $alt-grey-5;
+      border: var(--address-card-selected-border-active);
       border-radius: 5px;
       bottom: -4px;
       content: ' ';

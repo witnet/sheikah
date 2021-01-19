@@ -86,6 +86,7 @@
   --address-card-button-border: 1px dashed #{$grey-dark-1};
   --address-card-button-border-hover: 1px dashed #{$grey-dark-0};
   --address-card-button-border-active: 1px dashed #{$grey-dark-2};
+  --address-card-selected-border-active: 1px solid #{$grey-dark-1};
   --address-card-button-color: #{$grey-dark-1};
   --address-card-button-color-hover: #{$grey-dark-0};
   --address-card-button-color-active: #{$grey-dark-2};
@@ -216,6 +217,8 @@
   --error-color: #{$red-2};
   // version
   --version-color: #{$grey-dark-3};
+  // pending state
+  --pending-state-color: #{$yellow-2};
 }
 
 [theme='light'] {
@@ -307,6 +310,7 @@
   --address-card-button-border: 1px dashed #{#66648c80};
   --address-card-button-border-hover: 1px dashed #{#aaa8bd80};
   --address-card-button-border-active: 1px dashed #{#66648c80};
+  --address-card-selected-border-active: 1px solid #{#44424080};
   --address-card-button-color: #{#44424080};
   --address-card-button-color-hover: #{#aaa8bd80};
   --address-card-button-color-active: #{#44424080};
@@ -418,6 +422,8 @@
   --error-color: #{$red-2};
   // version
   --version-color: #{$alt-grey-3};
+  // pending state
+  --pending-state-color: #{$yellow-4};
 }
 
 // COMMON

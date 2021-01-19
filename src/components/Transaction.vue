@@ -309,7 +309,7 @@ export default {
   }
 
   .pending {
-    color: $yellow-4;
+    color: var(--pending-state-color);
     font-size: 12px;
     font-style: italic;
     font-weight: 600;
