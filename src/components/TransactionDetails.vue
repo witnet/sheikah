@@ -18,7 +18,7 @@
       <p data-test="date" class="info">{{ date }}</p>
       <p class="label">{{ this.$t('status') }}</p>
       <p class="info">{{
-        confirmed ? this.$t('confirmed') : this.$t('pending-confirmation')
+        confirmed ? this.$t('confirmed') : this.$t('pending_confirmation')
       }}</p>
       <p class="label">{{ this.$t('timelocked') }}</p>
       <p data-test="timelocked" class="info">{{

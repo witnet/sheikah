@@ -374,28 +374,24 @@ function computeTransactionAddress(inputs, outputs, type) {
 export function standardizeBalance(response) {
   if (!response.result) return response
   const confirmedBalance = response.result.confirmed
-  const localBalance = response.result.local
   const unconfirmedBalance = response.result.unconfirmed
   const unconfirmedAccumulatedBalance = new BigNumber(
     unconfirmedBalance.available,
   )
     .plus(unconfirmedBalance.locked)
     .toFixed()
-  const totalAccumulatedBalance = new BigNumber(unconfirmedAccumulatedBalance)
-    .plus(localBalance)
-    .toFixed()
-  const totalAvailable = new BigNumber(confirmedBalance.available)
+  const totalConfirmed = new BigNumber(confirmedBalance.available)
     .plus(confirmedBalance.locked)
     .toFixed()
-
+  const totalUnconfirmed = new BigNumber(unconfirmedAccumulatedBalance)
+    .minus(totalConfirmed)
+    .toFixed()
   return {
     result: {
       available: confirmedBalance.available,
       locked: confirmedBalance.locked,
-      unconfirmed: new BigNumber(totalAccumulatedBalance)
-        .minus(totalAvailable)
-        .toFixed(),
-      total: totalAvailable,
+      unconfirmed: totalUnconfirmed,
+      total: new BigNumber(totalUnconfirmed).plus(totalConfirmed).toFixed(),
     },
   }
 }

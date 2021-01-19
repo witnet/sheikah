@@ -83,7 +83,7 @@ describe('Balance.vue', () => {
       propsData: {
         available: '1',
         locked: '10',
-        unconfirmed: '0',
+        unconfirmed: '10',
         total: '100',
         unit: 'nanoWits',
       },

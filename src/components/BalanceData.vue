@@ -7,7 +7,7 @@
       class="amount"
       :amount="available"
     />
-    <p class="label"
+    <p v-if="Number(locked)" class="label"
       >{{ this.$t('locked_balance_label') }}
       <el-tooltip trigger="hover" effect="light">
         <font-awesome-icon class="info" icon="info-circle" />
@@ -23,13 +23,15 @@
       </el-tooltip>
     </p>
     <Amount
+      v-if="Number(locked)"
       data-test="locked"
       :unit-light="true"
       class="amount"
       :amount="locked"
     />
-    <p class="label">{{ this.$t('unconfirmed') }}</p>
+    <p v-if="Number(unconfirmed)" class="label">{{ this.$t('unconfirmed') }}</p>
     <Amount
+      v-if="Number(unconfirmed)"
       data-test="unconfirmed"
       :unit-light="true"
       class="amount"
@@ -109,6 +111,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
+
+.fade-enter-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter {
+  opacity: 0;
+}
 
 .info-message {
   color: var(--text-medium-emphasis);
