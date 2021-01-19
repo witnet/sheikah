@@ -242,8 +242,8 @@ export default {
   align-items: center;
   cursor: pointer;
   display: grid;
-  grid-column-gap: 24px;
-  grid-template-columns: max-content 1fr auto max-content;
+  grid-column-gap: 16px;
+  grid-template-columns: max-content 180px 1fr 120px;
   padding: 16px;
 
   .amount,
