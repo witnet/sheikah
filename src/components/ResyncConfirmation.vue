@@ -13,13 +13,13 @@
     </div>
 
     <p class="text">
-      {{ this.$t('resync_confirmation[0]') }}
+      {{ this.$t('resync_confirmation_0') }}
     </p>
     <p class="text">
-      {{ this.$t('resync_confirmation[1]') }}
+      {{ this.$t('resync_confirmation_1') }}
     </p>
     <p class="text">
-      {{ this.$t('resync_confirmation[2]') }}
+      {{ this.$t('resync_confirmation_2') }}
     </p>
 
     <span slot="footer" class="dialog-footer">

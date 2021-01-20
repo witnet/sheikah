@@ -82,11 +82,12 @@
           {{ this.$t('trying_to_connect') }}
           <span class="bold">{{ address }}</span>
         </p>
-        <p v-if="network" data-test="network" class="text">
-          {{ this.$t('tracking_network[0]') }}
-          <span class="bold">{{ network }}</span>
-          {{ this.$t('tracking_network[1]') }}
-        </p>
+        <p
+          v-if="network"
+          data-test="network"
+          class="text"
+          v-html="this.$t('tracking_network', { network: network })"
+        />
         <p v-if="isSynced" data-test="last-block" class="text">
           {{ this.$t('last_block') }} <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo && timeAgo !== 0">
@@ -198,7 +199,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '@/styles/theme.scss';
 @import '@/styles/app.global.scss';
 
@@ -291,6 +292,11 @@ export default {
         color: var(--text-high-emphasis);
         font-weight: bold;
       }
+    }
+
+    .bold {
+      color: var(--text-high-emphasis);
+      font-weight: bold;
     }
   }
 

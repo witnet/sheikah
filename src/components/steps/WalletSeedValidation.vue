@@ -10,11 +10,7 @@
     :next-step="nextStep"
     :disabled-next-button="isNextButtonDisabled"
   >
-    <p class="text">
-      {{ this.$t('seed_validation[0]') }}
-      <em>{{ this.$t('seed_validation[1]') }}</em
-      >{{ this.$t('seed_validation[2]') }}
-    </p>
+    <p class="text" v-html="$t('seed_validation_0')" />
     <Input
       v-model="seed"
       type="big"
@@ -28,10 +24,10 @@
       data-test="mnemonics-error-alert"
       class="match-error"
     >
-      {{ this.$t('seed_validation[3]') }}
+      {{ this.$t('seed_validation_1') }}
     </p>
     <p class="text">
-      {{ this.$t('seed_validation[4]') }}
+      {{ this.$t('seed_validation_2') }}
     </p>
   </NavigationCard>
 </template>

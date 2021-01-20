@@ -12,41 +12,17 @@
 
     <template v-slot:upperRight>
       <Fieldset :title="$t('aggregator_description_title')" type="help">
-        <div>
-          <p>
-            {{ $t('aggregations_description[0]') }}
-            <em>{{ $t('aggregations_description[1]') }} </em
-            >{{ $t('aggregations_description[2]') }}
-          </p>
-          <p>
-            {{ $t('aggregations_description[3]') }}
-          </p>
-        </div>
+        <div v-html="$t('aggregations_description')" />
       </Fieldset>
     </template>
 
     <template v-slot:bottomRight>
       <Fieldset :title="$t('aggregator_rules_title')" type="help">
         <div>
-          <p
-            >- {{ $t('aggregations_rule_1[0]') }}
-            <em>{{ $t('aggregations_rule_1[1]') }} </em
-            >{{ $t('aggregations_rule_1[2]') }}</p
-          >
-          <p
-            >- {{ $t('aggregations_rule_2[0]') }}
-            <em>{{ $t('aggregations_rule_2[1]') }}</em></p
-          >
-          <p
-            >- {{ $t('aggregations_rule_3[0]')
-            }}<em> {{ $t('aggregations_rule_3[1]') }}</em></p
-          >
-          <p
-            >- {{ $t('aggregations_rule_4[0]') }}
-            <em>{{ $t('aggregations_rule_4[1]') }}</em>
-            {{ $t('aggregations_rule_4[2]')
-            }}<em>{{ $t('aggregations_rule_4[3]') }}</em>
-          </p>
+          <p v-html="$t('aggregations_rule_1')" />
+          <p v-html="$t('aggregations_rule_2')" />
+          <p v-html="$t('aggregations_rule_3')" />
+          <p v-html="$t('aggregations_rule_4')" />
         </div>
       </Fieldset>
     </template>

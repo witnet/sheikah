@@ -6,14 +6,12 @@
         v-for="stage in stages"
         :key="stage.name"
         :ref="`stage-${stage.name}`"
-        :data-test="`stage-${stage.name}`"
         class="link-btn"
         :class="{ active: currentStage === stage.name }"
         tabindex="0"
         @click="changeStage(stage.name)"
       >
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="stage.label" />
+        <span :data-test="`stage-${stage.name}`" v-html="stage.label" />
       </div>
     </div>
   </div>
@@ -28,41 +26,23 @@ export default {
     return {
       stages: [
         {
-          label: `<span>1. ${this.$t(
-            'editor_stage_1[0]',
-          )} <span class="bolder">${this.$t(
-            'editor_stage_1[1]',
-          )}</span></span>`,
+          label: this.$t('editor_stage_1'),
           name: EDITOR_STAGES.SETTINGS,
         },
         {
-          label: `<span class="link">2. ${this.$t(
-            'editor_stage_2[0]',
-          )} <span class="bolder">${this.$t('editor_stage_2[1]')}<span></span>`,
+          label: this.$t('editor_stage_2'),
           name: EDITOR_STAGES.SOURCES,
         },
         {
-          label: `<span>3. ${this.$t(
-            'editor_stage_3[0]',
-          )} <span class="bolder">${this.$t(
-            'editor_stage_3[1]',
-          )}</span></span>`,
+          label: this.$t('editor_stage_3'),
           name: EDITOR_STAGES.SCRIPTS,
         },
         {
-          label: `<span>4. ${this.$t(
-            'editor_stage_4[0]',
-          )} <span class="bolder">${this.$t(
-            'editor_stage_4[1]',
-          )}</span></span>`,
+          label: this.$t('editor_stage_4'),
           name: EDITOR_STAGES.AGGREGATIONS,
         },
         {
-          label: `<span>5. ${this.$t(
-            'editor_stage_5[0]',
-          )} <span class="bolder">${this.$t(
-            'editor_stage_5[1]',
-          )}</span></span>`,
+          label: this.$t('editor_stage_5'),
           name: EDITOR_STAGES.TALLY,
         },
       ],
