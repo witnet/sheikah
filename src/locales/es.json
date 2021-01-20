@@ -117,16 +117,16 @@
   "data_request_fee": "Data request fee",
   "reward_fee": "Reward fee",
   "commit_reveal_fee": "Commit and reveal fee",
-  "inputs": "Inputs",
-  "outputs": "Outputs",
+  "inputs": "Entradas",
+  "outputs": "Salidas",
   "bytes": "Bytes",
-  "show_less": "Show less",
-  "show_advance": "Show advanced",
-  "confirm": "Confirm",
+  "show_less": "Mostrar menos",
+  "show_advance": "Mostrar vista avanzada",
+  "confirm": "Aceptar",
   "sheikah": "Sheikah",
   "marketplace": "Marketplace",
-  "marketplace_subtitle": "Hundreds of smart contracts ready to be deployed",
-  "tags": "tags",
+  "marketplace_subtitle": "Cientos de contratos inteligentes listos para ser desplegados",
+  "tags": "etiquetas",
   "resync": "Resincronizar",
   "blocks_left": "bloques restantes",
   "block": "Bloque",
@@ -289,8 +289,8 @@
     "Data Sources"
   ],
   "editor_stage_3": [
-    "Edit",
-    "Source Scripts"
+    "Editar",
+    "Scripts fuente"
   ],
   "editor_stage_4": [
     "Set",
