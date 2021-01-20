@@ -12,9 +12,9 @@
       <el-tooltip trigger="hover" effect="light">
         <font-awesome-icon class="info" icon="info-circle" />
         <div slot="content" class="info-message">
-          {{ this.$t('locked_balance_tooltip[0]') }}
+          {{ this.$t('locked_balance_tooltip_0') }}
           <a class="link" :href="balanceLockedUrl" target="_blank"
-            >{{ this.$t('locked_balance_tooltip[1]') }}
+            >{{ this.$t('locked_balance_tooltip_1') }}
             <font-awesome-icon
               class="external-link"
               icon="external-link-alt"/></a

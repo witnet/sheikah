@@ -11,14 +11,14 @@
     :disabled-next-button="!fileInfo"
   >
     <p class="text">
-      {{ this.$t('import_xprv[0]') }}
+      {{ this.$t('import_xprv_0') }}
     </p>
     <p class="text">
-      {{ this.$t('import_xprv[1]') }}
+      {{ this.$t('import_xprv_1') }}
     </p>
     <p class="text">
       <span class="bold">{{ this.$t('please_note') }}</span>
-      {{ this.$t('import_xprv[2]') }}
+      {{ this.$t('import_xprv_2') }}
     </p>
     <FileUploader
       :error-message="xprvError ? xprvError.message : ''"
@@ -30,9 +30,7 @@
       @file-validated="setFileInfo"
       @error-uploading-file="setError"
     >
-      {{ this.$t('drag_xprv[0]') }} <span class="upload">xprv</span>
-      {{ this.$t('drag_xprv[1]') }}
-      <span class="underline">{{ this.$t('drag_xprv[2]') }}</span>
+      <p v-html="$t('drag_xprv')" />
     </FileUploader>
   </NavigationCard>
 </template>
@@ -162,16 +160,17 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
 
 .text {
   padding-bottom: 16px;
+}
 
-  .bold {
-    font-weight: 600;
-  }
+.bold {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .seed {

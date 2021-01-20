@@ -13,98 +13,37 @@
   "addresses_empty": "You haven't generated addresses yet. Click above to generate one.",
   "available": "Available",
   "locked_balance_label": "Locked",
-  "locked_balance_tooltip": [
-    "Locked Wits are tokens which belong to you. These tokens can't be spent until a certain date. You can learn more about locked wits",
-    "here"
-  ],
+  "locked_balance_tooltip_0": "Locked Wits are tokens which belong to you. These tokens can't be spent until a certain date. You can learn more about locked wits",
+  "locked_balance_tooltip_1": "here",
   "total_balance_label": "Total",
   "repeated_variable_key": "This key is repeated. Change the variable name before continue editing",
   "cancel": "Cancel",
   "continue": "Continue",
-  "aggregations_description": [
-    "Aggregators define how to reduce or",
-    "merge the result of multiple sources into a single data point.",
-    "They are similar to Javascript's .reduce() method or the fold higher-order function from many programming languages.",
-    "In addition, aggregation functions give the chance to filter out any outliers by using one or more statistical primitives."
-  ],
-  "aggregations_rule_1": [
-    "Every Witnet request needs to have",
-    "exactly one aggregator",
-    "function."
-  ],
-  "aggregations_rule_2": [
-    "The aggregator must contain",
-    "zero, one or more filters."
-  ],
-  "aggregations_rule_3": [
-    "The aggregator must contain",
-    "exactly one reducer."
-  ],
-  "aggregations_rule_4": [
-    "When a Witnet node gets a request assigned for resolution, it retrieves every source, applies the source companion scripts on the retrieved data, collects the results into an Array, and then apply the aggregator on it, first running the ",
-    "filters",
-    "and eventually the ",
-    "reducer."
-  ],
-  "scripts_description": [
-    "Each source can have a companion script that lists operations that we want the witnesses to apply on the retrieved data. This enables you to get the information of your interest extracted out of larger data structures like JSON objects.",
-    "The diversity of operators that you can use in companion scripts is quite rich indeed: in addition to selecting specific pieces of data, you can also transform those so they are uniform and can be compared or aggregated together later in Step 3 of this editor."
-  ],
+  "aggregations_description": "<p>Aggregators define how to reduce or <em> merge the result of multiple sources into a single data point. </em>They are similar to Javascript's .reduce() method or the fold higher-order function from many programming languages. </p> <p>In addition, aggregation functions give the chance to filter out any outliers by using one or more statistical primitives.</p>",
+  "aggregations_rule_1": "- Every Witnet request needs to have <em>exactly one aggregator </em>function.",
+  "aggregations_rule_2": "- The aggregator must contain <em>zero, one or more filters.</em>",
+  "aggregations_rule_3": "- The aggregator must contain<em> exactly one reducer.</em>",
+  "aggregations_rule_4": "- When a Witnet node gets a request assigned for resolution, it retrieves every source, applies the source companion scripts on the retrieved data, collects the results into an Array, and then apply the aggregator on it, first running the <em>filters </em>and eventually the<em> reducer.</em>",
+  "scripts_description": "<p>Each source can have a companion script that lists operations that we want the witnesses to apply on the retrieved data. This enables you to get the information of your interest extracted out of larger data structures like JSON objects.</p><p>The diversity of operators that you can use in companion scripts is quite rich indeed: in addition to selecting specific pieces of data, you can also transform those so they are uniform and can be compared or aggregated together later in Step 3 of this editor.</p>",
   "scripts_rule_1": "Each operator is applied on the output of the previous operator.",
-  "scripts_rule_2": [
-    "Each script always start with a ",
-    "String ",
-    "or",
-    "Bytes ",
-    "value."
-  ],
+  "scripts_rule_2": "- Each script always start with a <em>Each script always start with a </em>String  <em>or</em> Bytes value.",
   "scripts_rule_3": "Key-value data structures (roughly alike to Javascript objects, Python dictionaries or Solidity mappings) are called Map.",
   "scripts_rule_4": "The final return type of a script is that of its last operator.",
   "scripts_rule_5": "All source scripts in a single data request template must return exactly the same type.",
   "scripts_rule_6": "Any operator arguments starting with a dollar sign ($) will be interpreted as a variable that can be customized by the user when deploying a new instance of this template.",
   "scripts_rule_7": "Default values for variables can be defined in Step 5 of this editor.",
-  "template_description": [
-    "Templates enable smart contract developers to easily build, extend, remix and share data requests thanks to the use of variables that can be customized when deploying an instance of the template.",
-    "A template puts together multiple data sources plus one Aggregation and one Tally function."
-  ],
-  "variables_description": [
-    "Variables need to be defined here before using them in source scripts.",
-    "Inserting variables in Source Scripts and Aggregation or Tally functions is as easy as writting."
-  ],
+  "template_description": "<p>Templates enable smart contract developers to easily build, extend, remix and share data requests thanks to the use of variables that can be customized when deploying an instance of the template.</p><p>A template puts together multiple data sources plus one Aggregation and one Tally function.</p>",
+  "variables_description": "<p>Variables need to be defined here before using them in source scripts.</p><p>Inserting variables in Source Scripts and Aggregation or Tally functions is as easy as writting.</p>",
   "add_source": "Add another source",
-  "source_description": [
-    "Data sources are each of the endpoints from which you want Witnet to retrieve the data. Most times, these will be the URLs of public APIs.",
-    "There is no limit to the number of sources in a single Witnet request—although the more sources, the higher the fees will be.",
-    "In a later step, each source will be given a companion script that lists operations that we want the witnesses to apply on the retrieved data. This enables you to get the information of your interest extracted out of larger data structures like JSON objects.",
-    "Just like your friends—and your enemies—your data sources need to be chosen wisely. The Garbage In, Garbage Out principle really applies here. Regardless of the many checks-and-balances, well-designed incentives and security measures that the Witnet protocol implements, if the data sources in your Witnet requests are not reliable, either will your contracts be.",
-    "The more data sources and the more reliable they are, the more trust-mitigated your Witnet requests will become. That is, your contracts will be more resilient to downtime, failure or corruption of each separate source."
-  ],
-  "tally_description": [
-    "Tallies are really similar to aggregators, but instead of merging multiple sources, they",
-    "merge the results reported by multiple Witnet nodes"
-  ],
+  "source_description": "<p>Data sources are each of the endpoints from which you want Witnet to retrieve the data. Most times, these will be the URLs of public APIs.</p><p>There is no limit to the number of sources in a single Witnet request—although the more sources, the higher the fees will be.</p><p>In a later step, each source will be given a companion script that lists operations that we want the witnesses to apply on the retrieved data. This enables you to get the information of your interest extracted out of larger data structures like JSON objects.</p><p>Just like your friends—and your enemies—your data sources need to be chosen wisely. The Garbage In, Garbage Out principle really applies here. Regardless of the many checks-and-balances, well-designed incentives and security measures that the Witnet protocol implements, if the data sources in your Witnet requests are not reliable, either will your contracts be.</p><p>The more data sources and the more reliable they are, the more trust-mitigated your Witnet requests will become. That is, your contracts will be more resilient to downtime, failure or corruption of each separate source.</p>",
+  "source_description_2": "<p>Just like your friends—and your enemies—your data sources need to be chosen wisely. The Garbage In, Garbage Out principle really applies here. Regardless of the many checks-and-balances, well-designed incentives and security measures that the Witnet protocol implements, if the data sources in your Witnet requests are not reliable, either will your contracts be.</p><p>The more data sources and the more reliable they are, the more trust-mitigated your Witnet requests will become. That is, your contracts will be more resilient to downtime, failure or corruption of each separate source.</p>",
+  "tally_description": "Tallies are really similar to aggregators, but instead of merging multiple sources, they <em>merge the results reported by multiple Witnet nodes</em>.",
   "tally_rules_intro": "The rules for aggregators also apply here:",
-  "tally_rule_1": [
-    "Every Witnet request needs to have",
-    "exactly one tally function"
-  ],
-  "tally_rule_2": [
-    "The tally must contain ",
-    "zero, one or more filters"
-  ],
-  "tally_rule_3": [
-    "The tally must contain",
-    "exactly one reducer"
-  ],
-  "tally_rule_4": [
-    "Tallies",
-    "merge the results reported by multiple witnessing nodes"
-  ],
-  "tally_rule_5": [
-    "Tallies are ",
-    "executed by miners",
-    "and validated by every node in the Witnet network."
-  ],
+  "tally_rule_1": "- Every Witnet request needs to have <em>exactly one tally function</em>.",
+  "tally_rule_2": "- The tally must contain<em> zero, one or more filters</em>.",
+  "tally_rule_3": "- The tally must contain<em> exactly one reducer</em>.",
+  "tally_rule_4": "- Tallies<em> merge the results reported by multiple witnessing nodes</em>.",
+  "tally_rule_5": "- Tallies are <em>executed by miners</em> and validated by every node in the Witnet network.",
   "edit_template": "Editing template",
   "export_js": "Javascript file",
   "export_template": "Sheikah template",
@@ -133,10 +72,7 @@
   "of": "of",
   "connected_to": "Connected to",
   "trying_to_connect": "Trying to connect to",
-  "tracking_network": [
-    "Tracking",
-    "network"
-  ],
+  "tracking_network": "Tracking <span class=\"bold\"> %{network} </span> network",
   "last_block": "Last block",
   "create_password": "Create a password",
   "confirm_password": "Confirm your password",
@@ -145,11 +81,9 @@
   "arguments": "Arguments",
   "return_script": "Return and pass into aggregator",
   "warning": "Warning",
-  "resync_confirmation": [
-    "Triggering a full wallet resynchronization will wipe all locally stored information about balances, movements, addresses and their metadata. This may help recovering wallets that end up in an inconsistent or corrupt state.",
-    "The process of resynchronizing may take several minutes or hours, and after it is complete, all your balances movements and addresses should be restored.",
-    "If the information in your wallet still looks inconsistent or corrupt after resynchronizing, it is recommended that you try to re-import your seed phrase from the 'Create, import or recover a wallet' menu that appears in the main Sheikah unlock screen."
-  ],
+  "resync_confirmation_0": "Triggering a full wallet resynchronization will wipe all locally stored information about balances, movements, addresses and their metadata. This may help recovering wallets that end up in an inconsistent or corrupt state.",
+  "resync_confirmation_1": "The process of resynchronizing may take several minutes or hours, and after it is complete, all your balances movements and addresses should be restored.",
+  "resync_confirmation_2": "If the information in your wallet still looks inconsistent or corrupt after resynchronizing, it is recommended that you try to re-import your seed phrase from the 'Create, import or recover a wallet' menu that appears in the main Sheikah unlock screen.",
   "resyncronize": "Resynchronize",
   "sign_send": "Sign and send",
   "validate_max_number": "This number is greater than the maximum",
@@ -197,51 +131,32 @@
   "disclaimer": "disclaimer",
   "disclaimer_info": "By accepting these disclaimers, you commit to comply with the explained restrictions and digitally sign your conformance using your Witnet wallet.",
   "decrypt_xprv_info": "Please, decrypt your xprv file with the password you used to export the file.",
-  "import_xprv": [
-    "Please import your wallet's xprv.json file.",
-    "You will have downloaded this file when exporting your wallet in Sheikah. You do not have to open the file: simply drag and drop it into the box below, or open the 'click to import' link to select it from your device.",
-    "this file contains your wallet's private key. Do not share it with anyone, including members of the Witnet community."
-  ],
+  "import_xprv_0": "Please import your wallet's xprv.json file.",
+  "import_xprv_1": "You will have downloaded this file when exporting your wallet in Sheikah. You do not have to open the file: simply drag and drop it into the box below, or open the 'click to import' link to select it from your device.",
+  "import_xprv_2": "this file contains your wallet's private key. Do not share it with anyone, including members of the Witnet community.",
   "please_note": "Please Note:",
-  "drag_xprv": [
-    "Drag your",
-    "file here or",
-    "click to import"
-  ],
-  "loading": [
-    "Sheikah is loading your wallet",
-    "This will take a few seconds"
-  ],
+  "drag_xprv": "Drag your <span class=\"bold\">xprv</span> file here or <span class=\"bold\">click to import</span>",
+  "loading_0": "Sheikah is loading your wallet",
+  "loading_1": "This will take a few seconds",
   "wallet_description": "Keep track of and describe your Witnet wallet by filling in the boxes below.",
   "wallet_name_info": "Give your wallet a name (e.g. 'Main', 'HODL', 'For Smart Contracts'). Note: Your wallet's title will be visible from your wallet list in Sheikah's homepage",
   "wallet_description_info": "Let your future self know the main functions and details of the wallet. Note: the description will be visible only after you open your wallet",
-  "wallet_disclaimer": [
-    "Please, read carefully before continue.",
-    "A wallet is an app that keeps your credentials safe and lets you interface with the Witnet blockchain in many ways: from transferring Wit to someone else to creating smart contracts.",
-    "You should never share your seed phrase with anyone. We at Witnet do not store your seed phrase and will never ask you to share it with us. If you lose your seed phrase, you will permanently lose access to your wallet and your funds.",
-    "If someone finds or sees your seed phrase, they will have access to your wallet and all of your funds.",
-    "We recommend storing your seed phrase on paper somewhere safe. Do not store it in a file on your computer or anywhere electronically."
-  ],
+  "wallet_disclaimer_0": "Please, read carefully before continue.",
+  "wallet_disclaimer_1": "A wallet is an app that keeps your credentials safe and lets you interface with the Witnet blockchain in many ways: from transferring Wit to someone else to creating smart contracts.",
+  "wallet_disclaimer_2": "You should never share your seed phrase with anyone. We at Witnet do not store your seed phrase and will never ask you to share it with us. If you lose your seed phrase, you will permanently lose access to your wallet and your funds.",
+  "wallet_disclaimer_3": "If someone finds or sees your seed phrase, they will have access to your wallet and all of your funds.",
+  "wallet_disclaimer_4": "We recommend storing your seed phrase on paper somewhere safe. Do not store it in a file on your computer or anywhere electronically.",
   "wallet_import_seed": "Please type your 12 word seed phrase.",
   "wallet_import_seed_info": "Please ensure you do not add any extra spaces between words or at the beginning or end of the phrase.",
-  "wallet_seed_backup": [
-    "These 12 random words are your Witnet",
-    "seed phrase",
-    "They will allow you to recover your tokens if you uninstall Sheikah or forget your password:",
-    "Please write down these 12 words on a piece of paper and store them somewhere private and secure. You must write the complete words in the exact order they are presented to you.",
-    "Keeping your seed phrase secret is paramount. If someone gains access to these 12 words, they will be able to take and spend your tokens.",
-    "Do not store these words on a computer or an electronic device. It is your sole responsibility to store the paper with your seed phrase in a safe place",
-    "if you exit this setup or fail to write down or keep your seed phrase safe, we cannot help you access your wallet."
-  ],
+  "wallet_seed_backup_0": "These 12 random words are your Witnet<em>seed phrase</em>. They will allow you to recover your tokens if you uninstall Sheikah or forget your password:",
+  "wallet_seed_backup_1": "Please write down these 12 words on a piece of paper and store them somewhere private and secure. You must write the complete words in the exact order they are presented to you.",
+  "wallet_seed_backup_2": "Keeping your seed phrase secret is paramount. If someone gains access to these 12 words, they will be able to take and spend your tokens.",
+  "wallet_seed_backup_3": "Do not store these words on a computer or an electronic device. It is your sole responsibility to store the paper with your seed phrase in a safe place -<b class=\"bold\">if you exit this setup or fail to write down or keep your seed phrase safe, we cannot help you access your wallet.</b>",
   "import_wallet": "Create, import, or recover a wallet",
   "back": "Back",
-  "seed_validation": [
-    "Please type your 12 word",
-    "seed phrase",
-    "exactly as shown to you on the previous screen. This will ensure that you have noted down your seed phrase correctly.",
-    "Seed phrase must match",
-    "Please ensure you do not add any extra spaces between words or at the beginning or end of the phrase."
-  ],
+  "seed_validation_0": "Please type your 12 word <em>seed phrase</em> exactly as shown to you on the previous screen. This will ensure that you have noted down your seed phrase correctly.",
+  "seed_validation_1": "Seed phrase must match",
+  "seed_validation_2": "Please ensure you do not add any extra spaces between words or at the beginning or end of the phrase.",
   "welcome": "Welcome to Sheikah!",
   "insert_password": "Insert a password to unlock wallet",
   "invalid_password": "Invalid password",
@@ -280,26 +195,11 @@
   "fee_per_weight_unit": "Fee per weight unit",
   "commit_and_reveal_fee": "Commit and reveal fee",
   "sources": "sources",
-  "editor_stage_1": [
-    "Enter Template",
-    "Settings"
-  ],
-  "editor_stage_2": [
-    "Select your",
-    "Data Sources"
-  ],
-  "editor_stage_3": [
-    "Edit",
-    "Source Scripts"
-  ],
-  "editor_stage_4": [
-    "Set",
-    "Aggregator"
-  ],
-  "editor_stage_5": [
-    "Set",
-    "Tally"
-  ],
+  "editor_stage_1": "<span>1. Enter Template <span class=\"bolder\">Settings</span></span>",
+  "editor_stage_2": "<span>2. Select your <span class=\"bolder\">Data Sources</span></span>",
+  "editor_stage_3": "<span>3. Edit <span class=\"bolder\">Source Scripts</span></span>",
+  "editor_stage_4": "<span>4. Set <span class=\"bolder\">Aggregator</span></span>",
+  "editor_stage_5": "<span>5. Set <span class=\"bolder\">Tally</span></span>",
   "balance": "Balance",
   "template_settings": "Basic template settings",
   "variables": "Variables",
@@ -392,7 +292,7 @@
   "get_wallet_infos_error_message": "An error occurred trying to get the wallet info",
   "try_dr_error_message": "An error occurred trying your data request",
   "node_disconnected": "NODE DISCONNECTED",
-  "sync_error": "SYNC ERROR'",
+  "sync_error": "SYNC ERROR",
   "synced": "SYNCED",
   "syncing": "SYNCING",
   "waiting_for_node_to_sync": "WAITING FOR NODE TO SYNC",

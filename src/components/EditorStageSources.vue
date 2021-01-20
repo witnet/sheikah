@@ -24,30 +24,13 @@
     </template>
     <template v-slot:upperRight>
       <Fieldset :title="$t('source_description_title')" type="help">
-        <div>
-          <p>
-            {{ $t('source_description[0]') }}
-          </p>
-          <p>
-            {{ $t('source_description[1]') }}
-          </p>
-          <p>
-            {{ $t('source_description[2]') }}
-          </p>
-        </div>
+        <div v-html="$t('source_description')" />
       </Fieldset>
     </template>
 
     <template v-slot:bottomRight>
       <Fieldset :title="$t('source_description_title_2')" type="help">
-        <div>
-          <p>
-            {{ $t('source_description[3]') }}
-          </p>
-          <p>
-            {{ $t('source_description[4]') }}
-          </p>
-        </div>
+        <div v-html="$t('source_description_2')"> </div>
       </Fieldset>
     </template>
   </LayoutTwoColumns>

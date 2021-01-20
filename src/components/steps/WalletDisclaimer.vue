@@ -8,18 +8,18 @@
     :previous-text="$t('back')"
     :next-text="$t('disclaimer_next')"
   >
-    <p class="text bold">{{ $t('wallet_disclaimer[0]') }}</p>
+    <p class="text bold">{{ $t('wallet_disclaimer_0') }}</p>
     <p class="text">
-      {{ $t('wallet_disclaimer[1]') }}
+      {{ $t('wallet_disclaimer_1') }}
     </p>
     <p class="text">
-      {{ $t('wallet_disclaimer[2]') }}
+      {{ $t('wallet_disclaimer_2') }}
     </p>
     <p class="text">
-      {{ $t('wallet_disclaimer[3]') }}
+      {{ $t('wallet_disclaimer_3') }}
     </p>
     <p class="text">
-      {{ $t('wallet_disclaimer[4]') }}
+      {{ $t('wallet_disclaimer_4') }}
     </p>
   </Disclaimer>
 </template>
