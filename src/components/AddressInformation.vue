@@ -160,7 +160,7 @@ export default {
       this.copied = true
       setTimeout(() => {
         this.copied = false
-      }, 2000)
+      }, 5000)
     },
     formatDateVerbose,
   },
