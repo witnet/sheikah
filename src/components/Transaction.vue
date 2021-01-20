@@ -59,7 +59,7 @@
         <div v-else>
           <el-tooltip placement="bottom" effect="light">
             <div slot="content" class="info-message">
-              {{ $t('pending_confirmation_tooltip') }}
+              {{ $t('sending_tx_tooltip') }}
             </div>
             <p data-test="sending-tx" class="pending">{{
               this.$t('sending')

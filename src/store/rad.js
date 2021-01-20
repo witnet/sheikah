@@ -143,7 +143,7 @@ export default {
       state.currentTemplate.variables.push({
         key:
           i18n.t('variable_default_key') + state.currentTemplate.variablesIndex,
-        value: i18n.t('variable_default_value'),
+        value: '',
         description: '',
         type: 'String',
       })
