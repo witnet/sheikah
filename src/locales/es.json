@@ -144,7 +144,7 @@
   "operator": "Operator",
   "arguments": "Arguments",
   "return_script": "Return and pass into aggregator",
-  "warning": "Warning",
+  "warning": "Atención",
   "resync_confirmation": [
     "Triggering a full wallet resynchronization will wipe all locally stored information about balances, movements, addresses and their metadata. This may help recovering wallets that end up in an inconsistent or corrupt state.",
     "The process of resynchronizing may take several minutes or hours, and after it is complete, all your balances movements and addresses should be restored.",
@@ -301,9 +301,9 @@
     "Tally"
   ],
   "balance": "Balance",
-  "template_settings": "Basic template settings",
+  "template_settings": "Configuración básica del template",
   "variables": "Variables",
-  "aggregator_description_title": "What is an aggregator?",
+  "aggregator_description_title": "¿Qué es un agregador?",
   "aggregator_rules_title": "Las reglas de los agregadores",
   "scripts_description_title": "Sobre scripts de recogida de datos",
   "scripts_rules_title": "Las reglas de scripts de recogida de datos",
