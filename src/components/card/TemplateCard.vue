@@ -228,6 +228,8 @@ export default {
       border: none;
       display: block;
       height: min-content;
+      margin: -10px;
+      padding: 10px;
 
       &:focus,
       &:hover {
