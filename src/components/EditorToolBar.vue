@@ -19,7 +19,7 @@
       </router-link>
 
       <div class="current-template">
-        <p class="text">{{ this.$t('edit_template') }}</p>
+        <p>{{ this.$t('edit_template') }}</p>
         <p class="name">{{ template.name }}</p>
       </div>
     </div>

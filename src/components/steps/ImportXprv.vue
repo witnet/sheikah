@@ -30,7 +30,10 @@
       @file-validated="setFileInfo"
       @error-uploading-file="setError"
     >
-      <p v-html="$t('drag_xprv')" />
+      <i18n path="drag_xprv_0" tag="p">
+        <span class="bold">xprv</span>
+        <span class="bold">{{ $t('drag_xprv_1') }}</span>
+      </i18n>
     </FileUploader>
   </NavigationCard>
 </template>
@@ -160,7 +163,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/styles/theme.scss';
 @import '@/styles/_colors.scss';
 

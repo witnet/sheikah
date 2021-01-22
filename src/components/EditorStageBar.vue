@@ -11,7 +11,13 @@
         tabindex="0"
         @click="changeStage(stage.name)"
       >
-        <span :data-test="`stage-${stage.name}`" v-html="stage.label" />
+        <i18n
+          :path="stage.label[0]"
+          tag="span"
+          :data-test="`stage-${stage.name}`"
+        >
+          <span class="bolder">{{ $t(stage.label[1]) }}</span>
+        </i18n>
       </div>
     </div>
   </div>
@@ -26,23 +32,23 @@ export default {
     return {
       stages: [
         {
-          label: this.$t('editor_stage_1'),
+          label: ['editor_stage_1_0', 'editor_stage_1_1'],
           name: EDITOR_STAGES.SETTINGS,
         },
         {
-          label: this.$t('editor_stage_2'),
+          label: ['editor_stage_2_0', 'editor_stage_2_1'],
           name: EDITOR_STAGES.SOURCES,
         },
         {
-          label: this.$t('editor_stage_3'),
+          label: ['editor_stage_3_0', 'editor_stage_3_1'],
           name: EDITOR_STAGES.SCRIPTS,
         },
         {
-          label: this.$t('editor_stage_4'),
+          label: ['editor_stage_4_0', 'editor_stage_4_1'],
           name: EDITOR_STAGES.AGGREGATIONS,
         },
         {
-          label: this.$t('editor_stage_5'),
+          label: ['editor_stage_5_0', 'editor_stage_5_1'],
           name: EDITOR_STAGES.TALLY,
         },
       ],

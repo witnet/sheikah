@@ -28,7 +28,6 @@ module.exports = {
     'vue/dot-location': ['error', 'property'],
     'vue/eqeqeq': 'error',
     'vue/key-spacing': 'error',
-    'vue/no-v-html': 'off',
     'vue/keyword-spacing': 'error',
     'vue/no-boolean-default': ['error', 'default-false'],
     'vue/no-deprecated-scope-attribute': 'error',

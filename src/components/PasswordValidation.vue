@@ -91,7 +91,9 @@ export default {
     },
   },
   beforeDestroy() {
-    this.clearError({ error: this.error.name })
+    if (this.error) {
+      this.clearError({ error: this.error.name })
+    }
   },
   methods: {
     ...mapMutations({
