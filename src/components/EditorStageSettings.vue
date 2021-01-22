@@ -6,13 +6,19 @@
 
     <template v-slot:upperRight>
       <Fieldset :title="$t('template_description_title')" type="help">
-        <div v-html="$t('template_description')" />
+        <div>
+          <p>{{ $t('template_description_0') }}</p>
+          <p>{{ $t('template_description_1') }}</p>
+        </div>
       </Fieldset>
     </template>
 
     <template v-slot:bottomRight>
       <Fieldset :title="$t('variables_description_title')" type="help">
-        <div v-html="$t('variables_description')" />
+        <div>
+          <p>{{ $t('variables_description_0') }}</p>
+          <p>{{ $t('variables_description_1') }}</p>
+        </div>
       </Fieldset>
     </template>
   </LayoutTwoColumns>

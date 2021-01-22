@@ -10,7 +10,9 @@
     :next-step="nextStep"
     :disabled-next-button="isNextButtonDisabled"
   >
-    <p class="text" v-html="$t('seed_validation_0')" />
+    <i18n class="text" path="seed_validation_0_1" tag="p">
+      <em>{{ $t('seed_validation_0_2') }}</em>
+    </i18n>
     <Input
       v-model="seed"
       type="big"

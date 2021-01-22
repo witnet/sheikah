@@ -15,7 +15,10 @@
     </template>
     <template v-slot:upperRight>
       <Fieldset :title="$t('scripts_description_title')" type="help">
-        <div v-html="$t('scripts_description')" />
+        <div>
+          <p>{{ $t('scripts_description_1') }}</p>
+          <p>{{ $t('scripts_description_2') }}</p>
+        </div>
       </Fieldset>
     </template>
 
@@ -23,7 +26,10 @@
       <Fieldset :title="$t('scripts_rules_title')" type="help">
         <div>
           <p>- {{ $t('scripts_rule_1') }}</p>
-          <p v-html="$t('scripts_rule_2')" />
+          <i18n path="scripts_rule_2_0" tag="p">
+            <em>{{ $t('scripts_rule_2_1') }}</em>
+            <em>{{ $t('scripts_rule_2_2') }}</em>
+          </i18n>
           <p> - {{ $t('scripts_rule_3') }} </p>
           <p>- {{ $t('scripts_rule_4') }}</p>
           <p> - {{ $t('scripts_rule_5') }} </p>

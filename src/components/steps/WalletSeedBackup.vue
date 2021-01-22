@@ -8,7 +8,9 @@
     :previous-step="() => this.$router.push('/ftu/disclaimer')"
     :next-step="() => this.$router.push('/ftu/seed-validation')"
   >
-    <p class="paragraph-title" v-html="$t('wallet_seed_backup_0')" />
+    <i18n class="paragraph-title" path="wallet_seed_backup_0_1" tag="p">
+      <em>{{ $t('wallet_seed_backup_0_2') }}</em>
+    </i18n>
     <pre
       data-test="word-seed"
       class="seed"
@@ -21,7 +23,9 @@
     <p class="paragraph">
       {{ $t('wallet_seed_backup_2') }}
     </p>
-    <p class="paragraph" v-html="$t('wallet_seed_backup_3')" />
+    <i18n class="paragraph" path="wallet_seed_backup_3_1" tag="p">
+      <b class="bold">{{ $t('wallet_seed_backup_3_2') }}</b>
+    </i18n>
   </NavigationCard>
 </template>
 

@@ -82,12 +82,15 @@
           {{ this.$t('trying_to_connect') }}
           <span class="bold">{{ address }}</span>
         </p>
-        <p
+        <i18n
           v-if="network"
+          path="tracking_network"
+          tag="p"
           data-test="network"
           class="text"
-          v-html="this.$t('tracking_network', { network: network })"
-        />
+        >
+          <span class="bold">{{ network }}</span>
+        </i18n>
         <p v-if="isSynced" data-test="last-block" class="text">
           {{ this.$t('last_block') }} <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo && timeAgo !== 0">
@@ -199,7 +202,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/styles/theme.scss';
 @import '@/styles/app.global.scss';
 

@@ -12,7 +12,9 @@
     <template v-slot:upperRight>
       <Fieldset :title="$t('tally_description_title')" type="help">
         <div>
-          <p v-html="$t('tally_description')" />
+          <i18n path="tally_description_0" tag="p">
+            <em>{{ $t('tally_description_1') }}</em>
+          </i18n>
         </div>
       </Fieldset>
     </template>
@@ -21,11 +23,21 @@
       <Fieldset :title="$t('tally_rule_title')" type="help">
         <div>
           <p>{{ $t('tally_rules_intro') }}</p>
-          <p v-html="$t('tally_rule_1')" />
-          <p v-html="$t('tally_rule_2')" />
-          <p v-html="$t('tally_rule_3')" />
-          <p v-html="$t('tally_rule_4')" />
-          <p v-html="$t('tally_rule_5')" />
+          <i18n path="tally_rule_1_0" tag="p">
+            <em>{{ $t('tally_rule_1_1') }}</em>
+          </i18n>
+          <i18n path="tally_rule_2_0" tag="p">
+            <em>{{ $t('tally_rule_2_1') }}</em>
+          </i18n>
+          <i18n path="tally_rule_3_0" tag="p">
+            <em>{{ $t('tally_rule_3_1') }}</em>
+          </i18n>
+          <i18n path="tally_rule_4_0" tag="p">
+            <em>{{ $t('tally_rule_4_1') }}</em>
+          </i18n>
+          <i18n path="tally_rule_5_0" tag="p">
+            <em>{{ $t('tally_rule_5_1') }}</em>
+          </i18n>
         </div>
       </Fieldset>
     </template>
