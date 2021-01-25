@@ -219,6 +219,9 @@
   --version-color: #{$grey-dark-3};
   // pending state
   --pending-state-color: #{$yellow-2};
+  // scroll
+  --scroll-background: #{$grey-dark-8};
+  --scroll-background-thum: #{$grey-dark-6};
 }
 
 [theme='light'] {
@@ -424,6 +427,9 @@
   --version-color: #{$alt-grey-3};
   // pending state
   --pending-state-color: #{$yellow-4};
+  // scroll
+  --scroll-background: transparent;
+  --scroll-background-thum: #{$alpha-grey};
 }
 
 // COMMON

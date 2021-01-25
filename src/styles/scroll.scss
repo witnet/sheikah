@@ -1,10 +1,12 @@
+@import './theme';
+
 ::-webkit-scrollbar {
-  background: transparent;
+  background: var(--scroll-background);
   width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $alpha-grey;
+  background: var(--scroll-background-thum);
   -webkit-border-radius: 1ex;
   border-radius: 1ex;
 }
