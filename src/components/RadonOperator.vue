@@ -11,11 +11,9 @@
         placement="right"
         effect="light"
       >
-        <CustomIcon
-          class-name="delete"
-          name="delete-btn"
-          @click="deleteOperator"
-        />
+        <p class="delete" data-test="delete-operator" @click="deleteOperator">
+          <CustomIcon name="delete-btn" />
+        </p>
       </el-tooltip>
       <p data-test="operator-label" class="label">{{ this.$t('operator') }}</p>
       <Select
@@ -48,7 +46,11 @@
       </div>
       <div v-else class="icon-container">
         <CustomIcon class-name="row sheikah-icon" name="long-arrow" />
-        <div class="add-operator-container" @click="addOperator">
+        <div
+          class="add-operator-container"
+          data-test="add-operator"
+          @click="addOperator"
+        >
           <CustomIcon
             class-name="add-operator"
             data-test="add-operator"
@@ -329,7 +331,7 @@ export default {
       cursor: pointer;
       position: absolute;
       right: 8px;
-      top: 8px;
+      top: 4px;
       width: 10px;
     }
 
