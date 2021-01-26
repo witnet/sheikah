@@ -3,7 +3,7 @@
     <div class="alert">
       <div class="content">
         <p class="title">{{ this.$t('wallet_disconnected') }}</p>
-        <CustomIcon class-name="icon" name="disconnected" />
+        <img src="@/resources/svg/disconnected.svg" class="icon" />
         <p class="description">
           {{ this.$t('connection_problem') }}
         </p>
@@ -22,13 +22,8 @@
 </template>
 
 <script>
-import CustomIcon from '@/components/CustomIcon'
-
 export default {
   name: 'WalletNotFound',
-  components: {
-    CustomIcon,
-  },
 }
 </script>
 
