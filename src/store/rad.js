@@ -463,7 +463,7 @@ export default {
         if (request.result) {
           await context.dispatch('getTemplates')
           this.commit(SET_CURRENT_TEMPLATE, {
-            id: context.state.currentTemplate.id,
+            id: templateToSave.id,
           })
         } else {
           context.commit('setError', {
