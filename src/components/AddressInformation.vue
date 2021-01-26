@@ -2,7 +2,6 @@
   <div v-if="loading" class="information loading">
     <DotsLoading size="10px" />
   </div>
-
   <div v-else-if="address" class="information">
     <div class="header">
       <p class="caption">
@@ -60,7 +59,6 @@
       <a class="link" href="#">{{ this.$t('learn_more') }} ></a>.
     </p>
   </div>
-
   <div v-else class="information">
     <p>{{ this.$t('addresses_empty') }}</p>
   </div>

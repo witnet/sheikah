@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      selectedIndex: this.addresses.length ? this.addresses.length - 1 : 0,
+      selectedIndex: this.addresses.length ? this.addresses.length - 1 : -1,
     }
   },
   computed: {
