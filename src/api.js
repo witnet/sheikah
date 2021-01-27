@@ -375,15 +375,13 @@ export function standardizeBalance(response) {
   if (!response.result) return response
   const confirmedBalance = response.result.confirmed
   const unconfirmedBalance = response.result.unconfirmed
-  const unconfirmedAccumulatedBalance = new BigNumber(
-    unconfirmedBalance.available,
-  )
+  const totalBalance = new BigNumber(unconfirmedBalance.available)
     .plus(unconfirmedBalance.locked)
     .toFixed()
   const totalConfirmed = new BigNumber(confirmedBalance.available)
     .plus(confirmedBalance.locked)
     .toFixed()
-  const totalUnconfirmed = new BigNumber(unconfirmedAccumulatedBalance)
+  const totalUnconfirmed = new BigNumber(totalBalance)
     .minus(totalConfirmed)
     .toFixed()
   return {
@@ -391,7 +389,7 @@ export function standardizeBalance(response) {
       available: confirmedBalance.available,
       locked: confirmedBalance.locked,
       unconfirmed: totalUnconfirmed,
-      total: new BigNumber(totalUnconfirmed).plus(totalConfirmed).toFixed(),
+      total: totalBalance,
     },
   }
 }
