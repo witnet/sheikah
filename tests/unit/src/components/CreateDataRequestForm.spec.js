@@ -391,7 +391,7 @@ describe('CreateDataRequestForm.vue', () => {
         .trigger('click')
 
       expect(wrapper.find('.el-form-item__error').text()).toBe(
-        `The minimun fee cannot be less than 1 nanoWit`,
+        `The minimum fee cannot be less than 1 nanoWit`,
       )
     })
 
@@ -420,7 +420,7 @@ describe('CreateDataRequestForm.vue', () => {
         .trigger('click')
 
       expect(wrapper.find('.el-form-item__error').text()).toBe(
-        `The minimun collateral cannot be less than 1 wit`,
+        `The minimum collateral cannot be less than 1 wit`,
       )
     })
   })
