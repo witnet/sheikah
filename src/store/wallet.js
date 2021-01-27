@@ -594,7 +594,7 @@ export default {
         fee: standardizeWitUnits(parameters.fee, WIT_UNIT.NANO),
         request: {
           data_request: encodeDataRequest(request),
-          collateral: standardizeWitUnits(parameters.collateral, WIT_UNIT.NANO),
+          collateral: standardizeWitUnits(parameters.collateral, WIT_UNIT.NANO, WIT_UNIT.WIT),
           witness_reward: standardizeWitUnits(
             parameters.rewardFee,
             WIT_UNIT.NANO,
