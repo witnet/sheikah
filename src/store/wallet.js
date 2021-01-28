@@ -12,7 +12,6 @@ import SyncingTimeEstimator from '@/services/SyncingTimeEstimator'
 import ProcessWalletEvent from '@/services/ProcessWalletEvent'
 import formatMillisecondsDuration from '@/services/format/formatMillisecondsDuration'
 
-import { UPDATE_TEMPLATE } from '@/store/mutation-types'
 import {
   DEFAULT_WIT_UNIT,
   DEFAULT_THEME,
@@ -28,6 +27,7 @@ import {
   LOCALES,
   THEMES,
 } from '@/constants'
+import { SET_TEMPLATES, UPDATE_TEMPLATE } from '@/store/mutation-types'
 import warning from '@/resources/svg/warning.png'
 
 export default {
@@ -489,6 +489,7 @@ export default {
       if (request.result) {
         context.commit('stopSessionTimeout')
         context.commit('deleteSession')
+        context.commit(SET_TEMPLATES, { templates: {} })
         router.push('/welcome-back/wallet-list')
       } else {
         context.commit('setError', {
