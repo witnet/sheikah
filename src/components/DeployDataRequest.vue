@@ -10,10 +10,10 @@
   >
     <GeneratedTransaction
       v-if="generatedTransaction"
-      :commit-and-reveal-fee="commitAndRevealFee"
-      :fee="fee"
+      :commit-and-reveal-fee="totalCommitAndRevealFee"
+      :fee="generatedTransaction.fee"
       :min-consensus-percentage="minConsensusPercentage"
-      :reward-fee="rewardFee"
+      :reward-fee="totalRewardFee"
       :witnesses="witnesses"
       :timelock="timelock"
       :generated-transaction="generatedTransaction"
@@ -83,6 +83,12 @@ export default {
       } else {
         return this.$t('deploy_dr_title_add_custom_values')
       }
+    },
+    totalCommitAndRevealFee() {
+      return this.commitAndRevealFee * this.witnesses * 2
+    },
+    totalRewardFee() {
+      return this.rewardFee * this.witnesses
     },
     showFillVariablesForm() {
       return this.variablesUpdated || !this.variables.length
