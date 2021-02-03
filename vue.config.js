@@ -7,6 +7,12 @@ module.exports = {
         linux: {
           category: 'Network',
         },
+        mac: {
+          hardenedRuntime: true,
+          entitlements: 'build/entitlements.mac.plist',
+          entitlementsInherit: 'build/entitlements.mac.plist',
+          gatekeeperAssess: false,
+        },
       },
       nodeIntegration: true,
     },
