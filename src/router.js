@@ -100,12 +100,15 @@ export default new Router({
             }
           }, 3000)
           store.state.wallet.api.client.ws.on('open', async () => {
-            error = false
-            await store.dispatch('getWalletInfos')
             const polling = setInterval(async () => {
+              error = false
               clearInterval(polling)
+              await store.dispatch('getWalletInfos')
               const walletInfos = store.state.wallet.walletInfos
-              if (walletInfos && walletInfos.length > 0) {
+              const isSessionId = store.state.wallet.sessionId
+              if (isSessionId) {
+                next()
+              } else if (walletInfos && walletInfos.length > 0) {
                 next('/welcome-back/wallet-list')
               } else {
                 next('/ftu/welcome')
@@ -186,9 +189,9 @@ export default new Router({
             error = false
             await store.dispatch('getWalletInfos')
             const polling = setInterval(() => {
-              const walletInfos = store.state.wallet.walletInfos
               clearInterval(polling)
-              if (walletInfos.length > 0) {
+              const walletInfos = store.state.wallet.walletInfos
+              if (walletInfos && walletInfos.length > 0) {
                 next('/welcome-back/wallet-list')
               } else {
                 next('/ftu/welcome')
