@@ -43,7 +43,9 @@
       <Tag class="tag" color="red" text="USED" />
       <p class="description">
         {{ this.$t('received') }}
-        <span class="bold">{{ payments }} {{ this.$t('payments') }} </span>
+        <span class="bold">{{
+          $tc('payment', payments, { count: payments })
+        }}</span>
         {{ this.$t('totalling') }}
         <span class="bold"><Amount :amount="amount"/></span>
         {{ this.$t('from') }}

@@ -57,7 +57,7 @@
       </div>
     </div>
     <div v-show="style !== 'marketplace'" class="sources">
-      <span class="number">{{ sources }}</span> {{ $t('sources') }}
+      {{ $tc('sources', sources, { count: sources }) }}
     </div>
   </div>
 </template>
@@ -253,15 +253,10 @@ export default {
   }
 
   .sources {
-    color: var(--text-low-emphasis);
+    color: var(--text-medium-emphasis);
     font-size: 12px;
     margin-left: 24px;
     width: 250px;
-
-    .number {
-      color: var(--text-medium-emphasis);
-      font-weight: bold;
-    }
   }
 }
 </style>
