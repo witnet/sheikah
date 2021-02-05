@@ -445,6 +445,7 @@ export default {
       // Redirect to wallet list when the session has expired
       state.sessionTimeout = setTimeout(() => {
         router.push('/welcome-back/wallet-list')
+        this.commit('stopSessionTimeout')
       }, ms)
     },
     stopSessionTimeout(state) {
