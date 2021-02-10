@@ -26,14 +26,17 @@
       <Fieldset :title="$t('scripts_rules_title')" type="help">
         <div>
           <p>- {{ $t('scripts_rule_1') }}</p>
-          <i18n path="scripts_rule_2_0" tag="p">
-            <em>{{ $t('scripts_rule_2_1') }}</em>
-            <em>{{ $t('scripts_rule_2_2') }}</em>
-          </i18n>
-          <p> - {{ $t('scripts_rule_3') }} </p>
+          <p
+            >-
+            <i18n path="scripts_rule_2_0" tag="false">
+              <em>{{ $t('scripts_rule_2_1') }}</em>
+              <em>{{ $t('scripts_rule_2_2') }}</em>
+            </i18n>
+          </p>
+          <p>- {{ $t('scripts_rule_3') }}</p>
           <p>- {{ $t('scripts_rule_4') }}</p>
-          <p> - {{ $t('scripts_rule_5') }} </p>
-          <p> - {{ $t('scripts_rule_6') }} </p>
+          <p>- {{ $t('scripts_rule_5') }}</p>
+          <p>- {{ $t('scripts_rule_6') }}</p>
           <p>- {{ $t('scripts_rule_7') }}</p>
         </div>
       </Fieldset>
