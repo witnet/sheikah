@@ -185,7 +185,7 @@
   "name": "Nombre",
   "data_type": "Tipo de datos",
   "default_value": "Valor predeterminado",
-  "default_value_placeholder": "El String por defecto que tomará esta variable si un usuario no la sobreescribe",
+  "default_value_placeholder": "El String por defecto que tomará esta variable si un usuario no la sobrescribe",
   "description": "Descripción",
   "delete_variable_tooltip": "Eliminar variable",
   "add_variable": "Clic para crear otra variable",
