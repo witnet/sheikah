@@ -85,7 +85,7 @@
   ],
   "tally_rules_intro": "The rules for aggregators also apply here:",
   "tally_rule_1": [
-    "Every Witnet request needs to have",
+    "Toda data request en Witnet necesita tener",
     "exactly one tally function"
   ],
   "tally_rule_2": [
@@ -152,10 +152,10 @@
   ],
   "resyncronize": "Resincronizar",
   "sign_send": "Firmar y enviar",
-  "validate_max_number": "This number is greater than the maximum",
-  "validate_integer_nano_wit": "Only integer nanoWits values allowed",
+  "validate_max_number": "Este número es mayor que el máximo permitido",
+  "validate_integer_nano_wit": "Sólo están permitidos valores de nanoWits enteros",
   "validate_min_amount": "The minimum fee cannot be less than 1 nanoWit",
-  "validate_number": "This should be a number",
+  "validate_number": "Esto debería ser un número",
   "select_language": "Select the language",
   "select_unit": "Select the default unit",
   "dr_templates": "Data Request Templates",
@@ -185,7 +185,7 @@
   "name": "Nombre",
   "data_type": "Tipo de datos",
   "default_value": "Valor predeterminado",
-  "default_value_placeholder": "The default String that this variable will take if an user does not override it",
+  "default_value_placeholder": "El String por defecto que tomará esta variable si un usuario no la sobreescribe",
   "description": "Descripción",
   "delete_variable_tooltip": "Eliminar variable",
   "add_variable": "Clic para crear otra variable",
@@ -297,7 +297,7 @@
     "Agregador"
   ],
   "editor_stage_5": [
-    "Set",
+    "Añadir",
     "Tally"
   ],
   "balance": "Balance",
