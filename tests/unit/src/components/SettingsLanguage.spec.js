@@ -2,7 +2,7 @@ import SettingsLanguage from '@/components/SettingsLanguage'
 
 describe('SettingsLanguage.vue', () => {
   describe('change language', () => {
-    const changeLanguageMock = jest.fn()
+    const changeLocaleMock = jest.fn()
 
     it('should call the mutation to change the unit', async () => {
       const wrapper = mount(
@@ -15,24 +15,32 @@ describe('SettingsLanguage.vue', () => {
                 language: 'English',
               },
               mutations: {
-                changeLanguage: changeLanguageMock,
+                changeLocale: changeLocaleMock,
+              },
+              getters: {
+                language: () => {
+                  return 'English'
+                },
               },
             },
           },
         }),
       )
+
       wrapper.setData({
         options: [
           { primaryText: 'Español', value: 'Español' },
           { primaryText: 'English', value: 'English' },
         ],
       })
+
       const selectButton = wrapper.find('[data-test="select-btn"]')
       await selectButton.trigger('click')
 
       const option2Button = wrapper.find('[data-test="option-0"]')
       await option2Button.trigger('click')
-      expect(changeLanguageMock).toHaveBeenCalled()
+
+      expect(changeLocaleMock).toHaveBeenCalled()
     })
 
     it('the language should be English on change', async () => {
@@ -46,7 +54,12 @@ describe('SettingsLanguage.vue', () => {
                 language: 'English',
               },
               mutations: {
-                changeLanguage: changeLanguageMock,
+                changeLocale: changeLocaleMock,
+              },
+              getters: {
+                language: () => {
+                  return 'English'
+                },
               },
             },
           },
@@ -79,7 +92,12 @@ describe('SettingsLanguage.vue', () => {
                 language: 'English',
               },
               mutations: {
-                changeLanguage: changeLanguageMock,
+                changeLocale: changeLocaleMock,
+              },
+              getters: {
+                language: () => {
+                  return 'English'
+                },
               },
             },
           },

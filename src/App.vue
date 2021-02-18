@@ -48,7 +48,7 @@ export default {
     this.getTheme()
     this.getNotifications()
     this.getUnit()
-    this.getLanguage({ i18n: this.$i18n })
+    this.getLocale({ i18n: this.$i18n })
     // Disable back and forward from keyboard and mouse buttons
     window.onpopstate = function(event) {
       event.stopImmediatePropagation()
@@ -67,7 +67,7 @@ export default {
       getNotifications: 'getNotifications',
       getTheme: 'getTheme',
       getUnit: 'getUnit',
-      getLanguage: 'getLanguage',
+      getLocale: 'getLocale',
     }),
     pollData() {
       this.polling = setInterval(() => {

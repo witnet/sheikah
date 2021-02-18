@@ -25,11 +25,6 @@ export const SOURCES_WITH_REDUCED_DISCLAIMERS = [
   'founder',
 ]
 
-export const LANGUAGES = {
-  ES: 'Español',
-  EN: 'English',
-}
-
 export const CUSTOM_ICON_NAMES = [
   'add-operator',
   'add',
@@ -55,12 +50,18 @@ export const CUSTOM_ICON_NAMES = [
   'up',
 ]
 
-export const LOCALES = {
-  [LANGUAGES.ES]: 'es',
-  [LANGUAGES.EN]: 'en',
+export const LANGUAGES = {
+  es: { name: 'Español', locale: 'es' },
+  en: { name: 'English', locale: 'en' },
 }
 
-export const DEFAULT_LANGUAGE = LANGUAGES.EN
+export const LOCALES = {
+  es: 'es',
+  en: 'en',
+}
+
+export const DEFAULT_LOCALE = 'en'
+
 export const THEMES = {
   LIGHT: 'light',
   DARK: 'dark',
@@ -161,7 +162,7 @@ export const SETTINGS_SECTIONS = {
 
 export const SETTINGS_BY_SECTION = {
   // TODO: include SETTINGS.LASGUAGE within general settings section when the transalations are ready
-  GENERAL: [SETTINGS.UNIT, SETTINGS.APPEARANCE],
+  GENERAL: [SETTINGS.UNIT, SETTINGS.LANGUAGE, SETTINGS.APPEARANCE],
   ADVANCED: [SETTINGS.EXPORT_XPRV, SETTINGS.RESYNC],
   NOTIFICATIONS: [SETTINGS.NOTIFICATIONS],
   ABOUT: [SETTINGS.COMMUNITY],

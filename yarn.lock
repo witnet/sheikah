@@ -5151,6 +5151,11 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
+dlv@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/dlv/-/dlv-1.1.3.tgz#5c198a8a11453596e751494d49874bc7732f2e79"
+  integrity sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
+
 dmg-builder@22.8.0:
   version "22.8.0"
   resolved "https://registry.yarnpkg.com/dmg-builder/-/dmg-builder-22.8.0.tgz#2b17127837ed444db3086317eda5cf8912f6e6a9"
@@ -12732,6 +12737,14 @@ roarr@^2.15.3:
     semver-compare "^1.0.0"
     sprintf-js "^1.1.2"
 
+rosetta@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/rosetta/-/rosetta-1.1.0.tgz#41ecc0f3cb38ce34b981b0dcfca2f4c94721738c"
+  integrity sha512-3jQaCo2ySoDqLIPjy7+AvN3rluLfkG8A27hg0virL0gRAB5BJ3V35IBdkL/t6k1dGK0TVTyUEwXVUJsygyx4pA==
+  dependencies:
+    dlv "^1.1.3"
+    templite "^1.1.0"
+
 rpc-websockets@^4.3.5:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/rpc-websockets/-/rpc-websockets-4.6.1.tgz#589415223dff7669577e8a463694e1cdd0eb81bf"
@@ -13951,6 +13964,11 @@ temp-file@^3.3.7:
   dependencies:
     async-exit-hook "^2.0.1"
     fs-extra "^8.1.0"
+
+templite@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/templite/-/templite-1.1.0.tgz#4f2eab732234fdac996628427d72817b3a47ce06"
+  integrity sha512-DtXicIurbnJS5/eu3nMLLspt4bZ8F/811IpcI7DgSE63UhES6ld3CxoTcLXBuGhliYx2wMVmyNzHf3c7mqwIIA==
 
 term-size@^2.1.0:
   version "2.2.0"
@@ -15448,13 +15466,14 @@ with@^7.0.0:
     assert-never "^1.2.1"
     babel-walk "3.0.0-canary-5"
 
-witnet-radon-js@0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.8.1.tgz#f6f2d8b313dadd865f52658750fd30903cd8cb27"
-  integrity sha512-gO/X2wIx3meGMOSZoJW8hVeGnmcbjqYt3nQ3w8VL1CzWeqKSvdYCoDllSIIMmjlA1kM0RebBzD/uKcY0UTn/Wg==
+witnet-radon-js@0.8.4:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.8.4.tgz#aea3245a94bcb4dd56420016949adf3154e3c92c"
+  integrity sha512-cruud9vfjIWNHmWLS6GFZVfQlcdj5eTF21+yuXdFJPjzfrLgJNWyshl4x90DXsyeeOEV67n1mPcPC7h479UGcw==
   dependencies:
     json5 "^2.1.3"
     prettier "^2.0.5"
+    rosetta "^1.1.0"
 
 word-wrap@~1.2.3:
   version "1.2.3"

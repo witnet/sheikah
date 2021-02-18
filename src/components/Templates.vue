@@ -107,6 +107,7 @@ export default {
           .sort(
             (a, b) => parseInt(b.lastTimeOpened) - parseInt(a.lastTimeOpened),
           ),
+      locale: state => state.wallet.locale,
     }),
   },
   beforeMount() {
@@ -134,7 +135,7 @@ export default {
       this.dialogVisible = false
     },
     createTemplateAndRedirect() {
-      this.createTemplate()
+      this.createTemplate({ locale: this.locale })
       this.$router.push('/request/editor')
     },
     handleDeleteTemplate({ id }) {

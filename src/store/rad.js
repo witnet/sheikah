@@ -202,7 +202,7 @@ export default {
 
       state.radRequest = state.currentRadonMarkupInterpreter
     },
-    [EDITOR_REDO](state) {
+    [EDITOR_REDO](state, { locale }) {
       if (state.history[state.historyIndex + 1]) {
         state.historyIndex += 1
 
@@ -211,7 +211,7 @@ export default {
         state.currentTemplate =
           state.history[state.historyIndex].currentTemplate
         this.commit('setDataRequestChangedSinceSaved', { value: true })
-        state.currentRadonMarkupInterpreter = new Radon(rad)
+        state.currentRadonMarkupInterpreter = new Radon(rad, locale)
 
         state.currentFocus = calculateCurrentFocusAfterRedo(
           currentHistoryCheckpoint,
@@ -229,7 +229,7 @@ export default {
     clearCurrentFocus(state) {
       state.currentFocus = null
     },
-    [EDITOR_UNDO](state) {
+    [EDITOR_UNDO](state, { locale }) {
       if (state.history[state.historyIndex - 1]) {
         state.historyIndex = state.historyIndex - 1
         const { rad } = state.history[state.historyIndex]
@@ -238,7 +238,7 @@ export default {
         this.commit('setDataRequestChangedSinceSaved', { value: true })
         const previousHistoryCheckpoint = state.history[state.historyIndex]
 
-        state.currentRadonMarkupInterpreter = new Radon(rad)
+        state.currentRadonMarkupInterpreter = new Radon(rad, locale)
 
         if (state.historyIndex !== 0) {
           state.currentStage = previousHistoryCheckpoint.stage
@@ -313,7 +313,7 @@ export default {
         info: { scriptId },
       })
     },
-    [CREATE_TEMPLATE](state) {
+    [CREATE_TEMPLATE](state, { locale }) {
       const TEMPLATE_DEFAULT_NAME = i18n.t('template_default_name')
       const name = Object.values(state.templates).reduce(
         (acc, _, index, self) => {
@@ -355,7 +355,7 @@ export default {
           usedVariables: [],
         }
 
-        state.currentRadonMarkupInterpreter = new Radon(radRequest)
+        state.currentRadonMarkupInterpreter = new Radon(radRequest, locale)
         state.radRequest = state.currentRadonMarkupInterpreter
         state.history = [
           {
@@ -371,11 +371,14 @@ export default {
         })
       }
     },
-    [SET_CURRENT_TEMPLATE](state, { id }) {
+    [SET_CURRENT_TEMPLATE](state, { id, locale }) {
       this.autoTry = false
       const template = state.templates[id]
       state.currentTemplate = template
-      state.currentRadonMarkupInterpreter = new Radon(template.radRequest)
+      state.currentRadonMarkupInterpreter = new Radon(
+        template.radRequest,
+        locale,
+      )
       state.radRequest = state.currentRadonMarkupInterpreter
     },
     [DELETE_OPERATOR](state, { scriptId, operatorId }) {
@@ -417,6 +420,11 @@ export default {
         name,
         error,
         message,
+      }
+    },
+    updateDRLanguage(state, { locale }) {
+      if (state.currentRadonMarkupInterpreter) {
+        state.currentRadonMarkupInterpreter.setLocale(locale)
       }
     },
   },
@@ -464,6 +472,7 @@ export default {
           await context.dispatch('getTemplates')
           this.commit(SET_CURRENT_TEMPLATE, {
             id: templateToSave.id,
+            locale: context.rootState.wallet.locale,
           })
         } else {
           context.commit('setError', {

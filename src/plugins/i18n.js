@@ -21,7 +21,8 @@ Vue.use(VueI18n)
 // }
 
 export default new VueI18n({
-  locale: navigator.language || navigator.languages[0],
+  locale:
+    navigator.language.split('-')[0] || navigator.languages[0].split('-')[0],
   fallbackLocale: 'en',
   messages: {
     en: require('@/locales/en.json'),

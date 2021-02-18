@@ -638,7 +638,7 @@ describe('calculateCurrentFocusAfterUndo', () => {
               kind: 'HTTP-GET',
               url: 'asd',
               contentType: 'JSON API',
-              script: [112, [33, '', true]],
+              script: [112, 32],
             },
             {
               kind: 'HTTP-GET',
@@ -835,7 +835,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
                 kind: 'HTTP-GET',
                 url: '',
                 contentType: 'JSON API',
-                script: [112, [33, '', true], 16, 64],
+                script: [112, 34, 16, 64],
               },
             ],
             aggregate: { filters: [], reducer: 2 },
@@ -852,7 +852,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
               kind: 'HTTP-GET',
               url: '',
               contentType: 'JSON API',
-              script: [112, [33, '', true], 16],
+              script: [112, 34, 16],
             },
           ],
           aggregate: { filters: [], reducer: 2 },
@@ -866,7 +866,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
           variables,
         )
 
-        expect(id).toBe(7)
+        expect(id).toBe(5)
       })
 
       it('on aggregation tally stage', () => {
@@ -878,7 +878,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
                 kind: 'HTTP-GET',
                 url: '',
                 contentType: 'JSON API',
-                script: [112, [33, '', true], 16, 64],
+                script: [112, 34, 16, 64],
               },
             ],
             aggregate: {
@@ -902,7 +902,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
               kind: 'HTTP-GET',
               url: '',
               contentType: 'JSON API',
-              script: [112, [33, '', true], 16, 64],
+              script: [112, 34, 16, 64],
             },
           ],
           aggregate: {
@@ -923,7 +923,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
           variables,
         )
 
-        expect(id).toBe(12)
+        expect(id).toBe(10)
       })
     })
 
@@ -1063,7 +1063,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
             kind: 'HTTP-GET',
             url: '',
             contentType: 'JSON API',
-            script: [112, [33, '', true]],
+            script: [112, 34],
           },
           { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [114] },
         ],

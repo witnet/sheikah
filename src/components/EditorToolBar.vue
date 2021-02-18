@@ -139,6 +139,7 @@ export default {
       radRequest: state => state.rad.radRequest,
       autoTry: state => state.rad.autoTry,
       currentStatus: state => state.wallet.status.currentState,
+      locale: state => state.wallet.locale,
     }),
     dataStr() {
       return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
@@ -197,11 +198,11 @@ export default {
       }
     },
     editorUndo() {
-      this.undo()
+      this.undo({ locale: this.locale })
       this.$emit('undo-redo')
     },
     editorRedo() {
-      this.redo()
+      this.redo({ locale: this.locale })
       this.$emit('undo-redo')
     },
     handleCommand(action) {

@@ -22,7 +22,7 @@ import {
   NETWORK_STATUS,
   TRANSACTIONS_LIMIT,
   NOTIFICATIONS,
-  DEFAULT_LANGUAGE,
+  DEFAULT_LOCALE,
   LANGUAGES,
   LOCALES,
   THEMES,
@@ -68,7 +68,7 @@ export default {
     mainnetReady: false,
     theme: null,
     unit: DEFAULT_WIT_UNIT,
-    language: DEFAULT_LANGUAGE,
+    locale: DEFAULT_LOCALE,
     prevUnit: DEFAULT_WIT_UNIT,
     balance: {},
     walletIdx: null,
@@ -127,6 +127,11 @@ export default {
     estimatedTimeOfSync: state => {
       return formatMillisecondsDuration(state.syncingTimeEstimator.calculate())
     },
+    language: state => {
+      return Object.values(LANGUAGES).find(
+        language => language.locale === state.locale,
+      )
+    },
   },
   mutations: {
     setWalletOwner(status, { isDefaultWallet }) {
@@ -156,12 +161,12 @@ export default {
     setUnit(state, unit) {
       state.unit = unit
     },
-    setLanguage(state, { language, i18n }) {
-      if (language) {
-        state.language = language
-        i18n.locale = LOCALES[state.language]
+    setLanguage(state, { locale, i18n }) {
+      if (locale) {
+        state.locale = locale
+        i18n.locale = LOCALES[state.locale]
       } else {
-        state.language = LANGUAGES[i18n.locale.toUpperCase()]
+        state.locale = LANGUAGES[i18n.locale.toUpperCase()]
       }
     },
     setTheme(state, theme) {
@@ -229,11 +234,12 @@ export default {
         state.balance = balance
       }
     },
-    changeLanguage(state, payload) {
-      if (Object.values(LANGUAGES).includes(payload.language)) {
-        state.language = payload.language
-        state.localStorage.setLanguageSettings(state.language)
-        payload.i18n.locale = LOCALES[state.language]
+    changeLocale(state, { locale, i18n }) {
+      if (Object.keys(LOCALES).includes(locale)) {
+        state.locale = locale
+        state.localStorage.setLanguageSettings(locale)
+
+        i18n.locale = locale
       } else {
         console.warn('[mutation setUnit]: invalid language')
       }
@@ -874,16 +880,12 @@ export default {
         ? context.commit('setUnit', unit)
         : context.commit('setUnit', defaultUnit)
     },
-    getLanguage: async function(context, payload) {
-      const language = context.state.localStorage.getLanguageSettings()
-      if (language) {
+    getLocale: async function(context, payload) {
+      const locale = context.state.localStorage.getLanguageSettings()
+
+      if (locale) {
         context.commit('setLanguage', {
-          language: language,
-          i18n: payload.i18n,
-        })
-      } else {
-        context.commit('setLanguage', {
-          language: null,
+          locale: locale,
           i18n: payload.i18n,
         })
       }

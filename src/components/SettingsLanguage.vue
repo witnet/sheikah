@@ -14,7 +14,7 @@
 import Card from '@/components/card/Card.vue'
 import Select from '@/components/Select.vue'
 import { LANGUAGES } from '@/constants'
-import { mapState, mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'SettingsOptionCurrenty',
@@ -22,27 +22,33 @@ export default {
   data() {
     return {
       options: Object.values(LANGUAGES).map(language => ({
-        primaryText: language,
-        value: language,
+        primaryText: language.name,
+        value: language.locale,
       })),
     }
   },
   computed: {
-    ...mapState({
-      language: state => state.wallet.language,
+    ...mapGetters({
+      language: 'language',
     }),
     actualLanguage: {
       set(val) {
-        this.changeLanguage({ language: val.value, i18n: this.$i18n })
+        this.changeLocale({ locale: val.value, i18n: this.$i18n })
       },
       get() {
-        return { primaryText: this.language, value: this.language }
+        return { primaryText: this.language.name, value: this.language.locale }
       },
+    },
+  },
+  watch: {
+    language(val) {
+      this.updateDRLanguage(val)
     },
   },
   methods: {
     ...mapMutations({
-      changeLanguage: 'changeLanguage',
+      changeLocale: 'changeLocale',
+      updateDRLanguage: 'updateDRLanguage',
     }),
   },
 }

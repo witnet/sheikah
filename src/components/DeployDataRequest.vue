@@ -103,11 +103,13 @@ export default {
       networkStatus: state => state.wallet.networkStatus,
       createDataRequestError: state => state.wallet.errors.createDataRequest,
       sendTransactionError: state => state.wallet.errors.sendTransaction,
+      locale: state => state.wallet.locale,
     }),
   },
   created() {
     this.setCurrentTemplate({
       id: this.template.id,
+      locale: this.locale,
     })
   },
   methods: {

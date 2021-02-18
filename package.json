@@ -62,7 +62,7 @@
     "vue-observe-visibility": "^0.4.6",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
-    "witnet-radon-js": "0.8.1"
+    "witnet-radon-js": "0.8.4"
   },
   "devDependencies": {
     "@babel/compat-data": "7.9.0",

@@ -140,6 +140,7 @@ export default {
   computed: {
     ...mapState({
       currentStatus: state => state.wallet.status.currentState,
+      locale: state => state.wallet.locale,
     }),
     style() {
       return this.type
@@ -164,7 +165,7 @@ export default {
     },
     edit() {
       this.$router.push('/request/editor')
-      this.setCurrentTemplate({ id: this.id })
+      this.setCurrentTemplate({ id: this.id, locale: this.locale })
     },
     handleCommand(index) {
       this.options[index].action()
