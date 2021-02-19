@@ -297,7 +297,7 @@ describe('AddressInformation.vue', () => {
             .findAll('.bold')
             .at(0)
             .text(),
-        ).toBe('0 payments | 1 payment | %{count} payments')
+        ).toBe('0 payments')
       })
 
       it('should NOT render not used related information', () => {
