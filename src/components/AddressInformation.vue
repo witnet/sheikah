@@ -20,6 +20,8 @@
       </el-tooltip>
       <el-tooltip
         v-if="!used && copied"
+        v-model="copied"
+        manual
         :content="$t('copied')"
         placement="bottom"
         effect="light"
@@ -160,7 +162,7 @@ export default {
       this.copied = true
       setTimeout(() => {
         this.copied = false
-      }, 5000)
+      }, 3000)
     },
     formatDateVerbose,
   },
