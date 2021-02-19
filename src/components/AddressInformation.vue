@@ -37,7 +37,9 @@
       <Tag class="tag" color="green" text="NOT USED" />
       <p class="description"
         >{{ this.$t('received') }}
-        <span class="bold">{{ this.$t('payment') }}</span
+        <span class="bold">{{
+          $tc('payment', payments, { count: payments })
+        }}</span
         >.</p
       >
     </div>
