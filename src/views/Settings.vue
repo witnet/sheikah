@@ -60,7 +60,7 @@ export default {
       }
     },
     sections() {
-      const walletSections = ['Advanced']
+      const walletSections = [this.$t('settings_advance')]
 
       const sections = [
         {

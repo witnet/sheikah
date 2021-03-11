@@ -1,8 +1,8 @@
 <template>
   <NavigationCard
-    title="Identify your wallet"
-    previous-text="Back"
-    next-text="Next"
+    :title="$t('identify_wallet')"
+    :previous-text="$t('back')"
+    :next-text="$t('next')"
     :previous-step="() => $router.push(previousRoute)"
     :next-step="() => $router.push(nextRoute)"
   >

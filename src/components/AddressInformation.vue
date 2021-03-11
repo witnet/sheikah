@@ -34,9 +34,9 @@
 
     <Address class="address" :value="address" :blind="used" />
     <div v-if="!used" class="transactions">
-      <Tag class="tag" color="green" text="NOT USED" />
+      <Tag class="tag" color="green" :text="$t('not_used')" />
       <p class="description"
-        >{{ this.$t('received') }}
+        >{{ this.$tc('received', payments, { count: payments }) }}
         <span class="bold">{{
           $tc('payment', payments, { count: payments })
         }}</span
@@ -44,9 +44,9 @@
       >
     </div>
     <div v-else class="transactions">
-      <Tag class="tag" color="red" text="USED" />
+      <Tag class="tag" color="red" :text="$t('used')" />
       <p class="description">
-        {{ this.$t('received') }}
+        {{ this.$tc('received', payments, { count: payments }) }}
         <span class="bold">{{
           $tc('payment', payments, { count: payments })
         }}</span>

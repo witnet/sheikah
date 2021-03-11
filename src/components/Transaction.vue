@@ -12,7 +12,7 @@
           :unit-dark="true"
           data-test="amount"
           class="amount"
-          :class="[origin.toLowerCase()]"
+          :class="[origin]"
           :amount="amount"
         />
 
@@ -20,7 +20,9 @@
           v-if="transactionType === 'value_transfer'"
           class="address-container"
         >
-          <p data-test="origin" class="origin">{{ origin }}</p>
+          <p data-test="origin" class="origin">{{
+            origin === 'from' ? $t('from_id') : $t('to_id')
+          }}</p>
 
           <Address size="13px" :value="address" />
         </div>
@@ -210,7 +212,7 @@ export default {
   },
   computed: {
     origin() {
-      return this.type === 'POSITIVE' ? 'From' : 'To'
+      return this.type === 'POSITIVE' ? 'from' : 'to'
     },
     arrowIcon() {
       return this.type === 'POSITIVE'

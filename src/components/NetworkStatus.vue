@@ -94,7 +94,7 @@
         <p v-if="isSynced" data-test="last-block" class="text">
           {{ this.$t('last_block') }} <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo && timeAgo !== 0">
-            ({{ calculateTimeAgo(timeAgo) }})</span
+            ({{ calculateTimeAgo(timeAgo, locale) }})</span
           >
         </p>
       </div>
@@ -137,6 +137,7 @@ export default {
       progress: state => state.wallet.status.progress,
       lastBlockTimestamp: state => state.wallet.status.lastBlockTimestamp,
       isNodeSynced: state => state.wallet.status.isNodeSynced,
+      locale: state => state.wallet.locale,
     }),
     currentState() {
       if (this.status.currentState === NETWORK_STATUS.NODE_DISCONNECTED) {

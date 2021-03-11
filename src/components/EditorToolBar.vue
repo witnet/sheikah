@@ -50,7 +50,7 @@
           v-model="autoTryDataRequest"
           data-test="action-try"
           class="center"
-          active-text="Try data request"
+          :active-text="tab.text"
         ></el-switch>
 
         <el-dropdown v-else @command="handleCommand">
@@ -97,7 +97,7 @@ export default {
           type: 'button',
         },
         {
-          text: 'Export as',
+          text: this.$t('export_as'),
           action: this.exportTemplate,
           name: 'export',
           type: 'selection',

@@ -31,51 +31,44 @@ export default {
     return {
       socials: [
         {
-          header: 'Witnet Foundation Twitter account >',
-          content:
-            'Follow Witnet Foundation on Twitter to get daily updates on the progress of the project.',
+          header: this.$t('twitter_header'),
+          content: this.$t('twitter_content'),
           img: require('@/resources/svg/social/twitter.svg'),
           url: 'https://twitter.com/witnet_io',
         },
         {
-          header: 'Witnet Community on Discord >',
-          content:
-            'Join the official Witnet community Discrod room to discuss with the rest of the community and get direct support from the developers.',
+          header: this.$t('discord_header'),
+          content: this.$t('discord_content'),
           img: require('@/resources/svg/social/discord.svg'),
           url: 'https://discord.gg/X4uurfP',
         },
         {
-          header: 'Witnet Foundation official blog on Medium >',
-          content:
-            'Follow Witnet Foundation on Medium to read different articles stating our vision and future roadmap.',
+          header: this.$t('blog_header'),
+          content: this.$t('blog_content'),
           img: require('@/resources/svg/social/medium.svg'),
           url: 'https://medium.com/witnet',
         },
         {
-          header: 'Witnet Foundation contact email >',
-          content:
-            'You can write us directly for any inquiry not appropriate for any of the other channels.',
+          header: this.$t('email_header'),
+          content: this.$t('email_content'),
           img: require('@/resources/svg/social/email.svg'),
           url: 'mailto:info@witnet.foundation?subject=Witnet project',
         },
         {
-          header: 'Witnet Community on Telegram >',
-          content:
-            'Join other members of the Witnet Community at the official Telegram group.',
+          header: this.$t('telegram_header'),
+          content: this.$t('telegram_content'),
           img: require('@/resources/svg/social/telegram.svg'),
           url: 'https://t.me/witnetio',
         },
         {
-          header: 'Witnet GitHub repository >',
-          content:
-            'GitHub is where the Witnet protocol development takes place. Are you a programmer? Your contributions are more than welcome!',
+          header: this.$t('github_header'),
+          content: this.$t('github_content'),
           img: require('@/resources/svg/social/github.svg'),
           url: 'https://github.com/witnet',
         },
         {
-          header: 'Witnet Community subreddit >',
-          content:
-            'The space for linking articles, informal discussion, kitten pictures and occasional memes.',
+          header: this.$t('reddit_header'),
+          content: this.$t('reddit_content'),
           img: require('@/resources/svg/social/reddit.svg'),
           url: 'https://reddit.com/r/witnet',
         },

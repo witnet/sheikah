@@ -3,9 +3,9 @@
     ref="navCard"
     data-test="header-4"
     class="wallet-seed-validation"
-    title="Confirm your seed phrase"
-    previous-text="Back"
-    next-text="Next"
+    :title="$t('confirm_seed')"
+    :previous-text="$t('back')"
+    :next-text="$t('next')"
     :previous-step="previousStep"
     :next-step="nextStep"
   >

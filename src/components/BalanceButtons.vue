@@ -6,14 +6,14 @@
       class="button"
       data-test="btn-send"
       @click="onSend"
-      >Send</el-button
+      >{{ $t('send') }}</el-button
     >
     <el-button
       type="primary"
       class="button"
       data-test="btn-receive"
       @click="onReceive"
-      >Receive</el-button
+      >{{ $t('receive') }}</el-button
     >
   </div>
 </template>

@@ -2,9 +2,9 @@
   <NavigationCard
     ref="navCard"
     class="wallet-encryption"
-    title="Encrypt your wallet with a password"
-    previous-text="Back"
-    next-text="Next"
+    :title="$t('encrypt_wallet_password')"
+    :previous-text="$t('back')"
+    :next-text="$t('next')"
     :previous-step="() => $router.push(previousRoute)"
     :next-step="nextStep"
     :disabled-next-button="disabledNextButton"

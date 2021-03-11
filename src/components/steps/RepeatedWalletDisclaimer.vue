@@ -4,9 +4,9 @@
       ref="navCard"
       data-test="header-4"
       class="wallet-seed-validation"
-      title="Wallet already imported"
-      previous-text="Back"
-      next-text="Next"
+      :title="$t('wallet_imported')"
+      :previous-text="$t('back')"
+      :next-text="$t('next')"
       :previous-step="previousStep"
       :next-step="nextStep"
     >

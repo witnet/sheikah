@@ -24,7 +24,6 @@ import {
   NOTIFICATIONS,
   DEFAULT_LOCALE,
   LANGUAGES,
-  LOCALES,
   THEMES,
 } from '@/constants'
 import { SET_TEMPLATES, UPDATE_TEMPLATE } from '@/store/mutation-types'
@@ -164,9 +163,9 @@ export default {
     setLanguage(state, { locale, i18n }) {
       if (locale) {
         state.locale = locale
-        i18n.locale = LOCALES[state.locale]
+        i18n.locale = LANGUAGES[state.locale].locale
       } else {
-        state.locale = LANGUAGES[i18n.locale.toUpperCase()]
+        state.locale = LANGUAGES[i18n.locale].locale
       }
     },
     setTheme(state, theme) {
@@ -218,7 +217,7 @@ export default {
       state.transactionsLength = total
       state.transactions = transactions.map(transaction => ({
         ...transaction,
-        timeAgo: calculateTimeAgo(transaction.timestamp),
+        timeAgo: calculateTimeAgo(transaction.timestamp, state.locale),
       }))
     },
     setWalletIndex(state, { walletIndex }) {
@@ -235,7 +234,7 @@ export default {
       }
     },
     changeLocale(state, { locale, i18n }) {
-      if (Object.keys(LOCALES).includes(locale)) {
+      if (Object.keys(LANGUAGES).includes(locale)) {
         state.locale = locale
         state.localStorage.setLanguageSettings(locale)
 
@@ -633,7 +632,6 @@ export default {
         })
       }
     },
-
     createVTT: async function(context, { address, amount, fee, label }) {
       // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
       const request = await context.state.api.createVTT({
@@ -882,10 +880,14 @@ export default {
     },
     getLocale: async function(context, payload) {
       const locale = context.state.localStorage.getLanguageSettings()
-
       if (locale) {
         context.commit('setLanguage', {
           locale: locale,
+          i18n: payload.i18n,
+        })
+      } else {
+        context.commit('setLanguage', {
+          locale: payload.i18n.locale,
           i18n: payload.i18n,
         })
       }

@@ -1,6 +1,7 @@
 import BigNumber from '@/utils/BigNumber'
 import cbor from 'cbor'
 import { format, formatDistanceToNow } from 'date-fns'
+
 import uuidv4 from 'uuid/v4'
 import {
   WIT_UNIT,
@@ -10,6 +11,7 @@ import {
 } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import { Radon } from 'witnet-radon-js'
+import { LANGUAGES } from './constants'
 
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
@@ -274,11 +276,15 @@ export function changeDateFormat(timestamp) {
 }
 
 /// calculate the time passed from a given date
-export function calculateTimeAgo(date) {
+export function calculateTimeAgo(date, currentLocale) {
   const timestampLength = date.toString().length
   const d = timestampLength < 13 ? date + '000' : date
   const currentDate = new Date(Number(d))
-  return `${formatDistanceToNow(currentDate)} ago`
+  const formatedTime = formatDistanceToNow(currentDate, {
+    addSuffix: false,
+    locale: LANGUAGES[currentLocale].fnsLocale,
+  })
+  return `${formatedTime}`
 }
 
 export function formatNumber(num) {

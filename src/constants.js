@@ -1,4 +1,5 @@
 import i18n from '@/plugins/i18n'
+import { es, enGB } from 'date-fns/locale'
 
 export const EDITOR_ALLOWED_PROTOCOLS = ['http', 'https']
 
@@ -25,6 +26,13 @@ export const SOURCES_WITH_REDUCED_DISCLAIMERS = [
   'founder',
 ]
 
+export const LANGUAGES = {
+  es: { name: 'Español', locale: 'es', fnsLocale: es },
+  en: { name: 'English', locale: 'en', fnsLocale: enGB },
+}
+
+export const DEFAULT_LOCALE = 'en'
+
 export const CUSTOM_ICON_NAMES = [
   'add-operator',
   'add',
@@ -50,22 +58,11 @@ export const CUSTOM_ICON_NAMES = [
   'up',
 ]
 
-export const LANGUAGES = {
-  es: { name: 'Español', locale: 'es' },
-  en: { name: 'English', locale: 'en' },
-}
-
-export const LOCALES = {
-  es: 'es',
-  en: 'en',
-}
-
-export const DEFAULT_LOCALE = 'en'
-
 export const THEMES = {
   LIGHT: 'light',
   DARK: 'dark',
 }
+
 export const DEFAULT_THEME = THEMES.LIGHT
 
 export const WIT_UNIT = {
@@ -162,7 +159,7 @@ export const SETTINGS_SECTIONS = {
 
 export const SETTINGS_BY_SECTION = {
   // TODO: include SETTINGS.LASGUAGE within general settings section when the transalations are ready
-  GENERAL: [SETTINGS.UNIT, SETTINGS.LANGUAGE, SETTINGS.APPEARANCE],
+  GENERAL: [SETTINGS.UNIT, SETTINGS.APPEARANCE, SETTINGS.LANGUAGE],
   ADVANCED: [SETTINGS.EXPORT_XPRV, SETTINGS.RESYNC],
   NOTIFICATIONS: [SETTINGS.NOTIFICATIONS],
   ABOUT: [SETTINGS.COMMUNITY],

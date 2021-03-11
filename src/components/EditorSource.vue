@@ -2,7 +2,7 @@
   <Fieldset :title="title" :subtitle="subtitle" :closable="false">
     <Card class="card" shadow="thin" :border="false">
       <div class="form">
-        <label class="label">Protocol</label>
+        <label class="label">{{ $t('protocol') }}</label>
         <Select
           v-model="localProtocol"
           :disabled="true"
@@ -11,7 +11,7 @@
         />
         <label class="label">URL</label>
         <el-input ref="url" v-model="localUrl" data-test="url-input" />
-        <label class="label">Content-Type</label>
+        <label class="label">{{ $t('content_type') }}</label>
         <Select
           v-model="currentContentType"
           :disabled="true"

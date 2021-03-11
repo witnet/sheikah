@@ -7,7 +7,7 @@
     :padding="false"
   >
     <div class="notification-border">
-      <p>Change Sheikah theme</p>
+      <p>{{ $t('change_theme') }}</p>
       <SettingsThemeSwitch />
     </div>
   </Card>
