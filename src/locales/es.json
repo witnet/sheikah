@@ -36,7 +36,7 @@
   "scripts_rule_2_0": "Cada script siempre comienza con un {0} o {1}.",
   "scripts_rule_2_1": "String",
   "scripts_rule_2_2": "Bytes",
-  "scripts_rule_3": "Las estructuras de datos clave-valor (similar a objetos Javascript, diccionarios de Python o mapeos de Solicity) se llaman Map.",
+  "scripts_rule_3": "Las estructuras de datos clave-valor (similar a objetos Javascript, diccionarios de Python o mapeos de Solidity) se llaman Map.",
   "scripts_rule_4": "El tipo de retorno final de un script es el mismo que el de su último operador.",
   "scripts_rule_5": "Todos los \"source scripts\" de una data request deben devolver exactamente el mismo tipo.",
   "scripts_rule_6": "Cualquier argumento del operador que comience con un signo de dólar ($) será interpretado como una variable que puede ser personalizada por el usuario al desplegar una nueva instancia de esta plantilla.",
