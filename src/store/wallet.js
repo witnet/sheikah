@@ -656,9 +656,24 @@ export default {
           transaction: generatedTransaction,
         })
       } else {
-        let error = 'An error occured creating the transaction'
+        let error = i18n.t('vtt_error')
         if (request.error.data[0]) {
-          error = request.error.data[0][1]
+          const usableBalance = JSON.parse(request.error.data[0][0])
+          const availableBalance = context.state.balance.available
+          const unit = context.state.unit
+          if (
+            usableBalance &&
+            usableBalance.available_balance < availableBalance
+          ) {
+            error = i18n.t('vtt_balance_error', {
+              pending_balance: `${standardizeWitUnits(
+                availableBalance - usableBalance.available_balance,
+                unit,
+              )} ${unit}`,
+            })
+          } else {
+            error = request.error.data[0][1]
+          }
         } else if (request.error.data.cause) {
           error = request.error.data.cause
         }

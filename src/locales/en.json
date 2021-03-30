@@ -383,5 +383,7 @@
   "identify_wallet": "Identify your wallet",
   "encrypt_wallet_password": "Encrypt your wallet with a password",
   "import_xprv": "Import your xprv file",
-  "wallet_imported": "Wallet already imported"
+  "wallet_imported": "Wallet already imported",
+  "vtt_error": "An error occured creating the transaction",
+  "vtt_balance_error": "Your confirmed balance is insufficient to complete the transaction. Currently, your pending balance is %{pending_balance}. Please wait until the pending balance is confirmed before re-executing the transaction."
 }
