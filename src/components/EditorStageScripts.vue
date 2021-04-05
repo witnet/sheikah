@@ -7,7 +7,9 @@
           :key="index"
           class="script"
           :source="source"
-          :results="results ? results[index].partial_results : null"
+          :results="
+            results && results[index] ? results[index].partial_results : null
+          "
           :subscript-results="subscriptResults"
           :final-result="finalResult[index]"
         />
@@ -28,7 +30,7 @@
           <p>- {{ $t('scripts_rule_1') }}</p>
           <p
             >-
-            <i18n path="scripts_rule_2_0" tag="false">
+            <i18n path="scripts_rule_2_0">
               <em>{{ $t('scripts_rule_2_1') }}</em>
               <em>{{ $t('scripts_rule_2_2') }}</em>
             </i18n>

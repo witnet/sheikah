@@ -297,8 +297,10 @@ export function formatNumber(num) {
   return unit + decimals
 }
 
-export function formatDateVerbose(date) {
-  return format(date, 'MMM do yyyy')
+export function formatDateVerbose(date, currentLocale) {
+  return format(date, 'MMM do yyyy', {
+    locale: LANGUAGES[currentLocale].fnsLocale,
+  })
 }
 
 export function openInExternalApp(url) {

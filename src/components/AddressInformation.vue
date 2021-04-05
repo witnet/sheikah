@@ -53,9 +53,13 @@
         {{ this.$t('totalling') }}
         <span class="bold"><Amount :amount="amount"/></span>
         {{ this.$t('from') }}
-        <span class="bold">{{ formatDateVerbose(firstPaymentDate) }}</span>
+        <span class="bold">{{
+          formatDateVerbose(firstPaymentDate, locale)
+        }}</span>
         {{ this.$t('to') }}
-        <span class="bold">{{ formatDateVerbose(lastPaymentDate) }}</span
+        <span class="bold">{{
+          formatDateVerbose(lastPaymentDate, locale)
+        }}</span
         >.
       </p>
     </div>
@@ -76,6 +80,7 @@ import DotsLoading from '@/components/DotsLoading'
 import Address from '@/components/Address'
 import Tag from '@/components/Tag'
 import { formatDateVerbose, copyToClipboard } from '@/utils'
+import { mapState } from 'vuex'
 /**
  * Show the information of a given address
  */
@@ -151,6 +156,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      locale: state => state.wallet.locale,
+    }),
     blindAddress() {
       const start = this.address.slice(0, 20)
       const end = this.address.slice(-16)

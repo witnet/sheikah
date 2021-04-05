@@ -149,9 +149,7 @@ export default {
       display: flex;
       flex-direction: column;
       font-size: 16px;
-      max-height: 400px;
-      overflow-y: auto;
-      overflow-y: hidden;
+      max-height: max-content;
       padding: 32px 32px 0 32px;
     }
 

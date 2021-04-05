@@ -19,7 +19,6 @@ import {
   GENERATE_ADDRESS_DELAY,
   WALLET_EVENTS,
   WIT_UNIT,
-  NETWORK_STATUS,
   TRANSACTIONS_LIMIT,
   NOTIFICATIONS,
   DEFAULT_LOCALE,
@@ -87,7 +86,7 @@ export default {
       [NOTIFICATIONS.SYNCRONIZATION.key]: true,
     },
     status: {
-      currentState: NETWORK_STATUS.WAITING_FOR_NODE_TO_SYNC,
+      currentState: i18n.t('waiting_for_node_to_sync', { locale: i18n.locale }),
       progress: null,
       lastBlock: null,
       lastSync: null,
@@ -347,7 +346,7 @@ export default {
 
     setError(state, { name, error, message }) {
       if (
-        error === i18n.t('validation_error') ||
+        error === 'Validation Error' ||
         name === 'uploadFile' ||
         name === 'mnemonics' ||
         name === 'xprv' ||

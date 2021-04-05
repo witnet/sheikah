@@ -165,10 +165,6 @@ import {
   standardizeTransactionResult,
   copyToClipboard,
 } from '@/utils'
-import {
-  TEXT_NOTIFICATION_COPY_BLOCK,
-  TEXT_NOTIFICATION_COPY_TX,
-} from '@/constants'
 
 export default {
   name: 'TransactionDetails',
@@ -238,11 +234,11 @@ export default {
     ...mapActions(['notify']),
     toggleNotificationId(e) {
       copyToClipboard(e.target.innerText)
-      this.notify({ message: TEXT_NOTIFICATION_COPY_TX })
+      this.notify({ message: this.$t('tx_id_copied') })
     },
     toggleNotificationBlock(e) {
       copyToClipboard(e.target.innerText)
-      this.notify({ message: TEXT_NOTIFICATION_COPY_BLOCK })
+      this.notify({ message: this.$t('block_hash_copied') })
     },
   },
 }

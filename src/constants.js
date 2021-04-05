@@ -74,14 +74,6 @@ export const WIT_UNIT = {
 
 export const DEFAULT_WIT_UNIT = WIT_UNIT.WIT
 
-export const NETWORK_STATUS = {
-  NODE_DISCONNECTED: i18n.t('node_disconnected'),
-  SYNC_ERROR: i18n.t('sync_error'),
-  SYNCED: i18n.t('synced'),
-  SYNCING: i18n.t('syncing'),
-  WAITING_FOR_NODE_TO_SYNC: i18n.t('waiting_for_node_to_sync'),
-}
-
 export const WALLET_EVENTS = {
   BLOCK: 'Block',
   MOVEMENT: 'Movement',
@@ -97,11 +89,6 @@ export const WALLET_EVENTS = {
 
 // Generate address delay in ms
 export const GENERATE_ADDRESS_DELAY = 300
-
-export const TEMPLATE_EMPTY_DESCRIPTION = i18n.t('template_empty_description')
-
-export const TEXT_NOTIFICATION_COPY_BLOCK = i18n.t('block_hash_copied')
-export const TEXT_NOTIFICATION_COPY_TX = i18n.t('tx_id_copied')
 
 export const HISTORY_UPDATE_TYPE = {
   DELETE_OPERATOR: 'DELETE_OPERATOR',
@@ -128,15 +115,21 @@ export const GENESIS_EVENT_TIMESTAMP = 1602666000000
 export const SYNCING_TIME_WINDOW_LENGTH = 100
 
 export const NOTIFICATIONS = {
-  BLOCK: { key: 'block', title: i18n.t('block_notifications_title') },
+  BLOCK: {
+    key: 'block',
+    title: l => i18n.t('block_notifications_title', { locale: l }),
+  },
   TRANSACTIONS: {
     key: 'transactions',
-    title: i18n.t('tx_notifications_title'),
+    title: l => i18n.t('tx_notifications_title', { locale: l }),
   },
-  PAYMENTS: { key: 'payments', title: i18n.t('payments_notifications_title') },
+  PAYMENTS: {
+    key: 'payments',
+    title: l => i18n.t('payments_notifications_title', { locale: l }),
+  },
   SYNCRONIZATION: {
     key: 'syncronization',
-    title: i18n.t('syncronization_notifications_title'),
+    title: l => i18n.t('syncronization_notifications_title', { locale: l }),
   },
 }
 

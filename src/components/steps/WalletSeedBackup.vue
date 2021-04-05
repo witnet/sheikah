@@ -3,8 +3,8 @@
     data-test="header-3"
     class="wallet-seed-backup"
     title="Wallet seed phrase backup"
-    previous-text="Back"
-    next-text="Next"
+    :previous-text="$t('back')"
+    :next-text="$t('next')"
     :previous-step="() => this.$router.push('/ftu/disclaimer')"
     :next-step="() => this.$router.push('/ftu/seed-validation')"
   >

@@ -74,7 +74,7 @@
 
 <script>
 import { EDITOR_REDO, EDITOR_UNDO, CLEAR_HISTORY } from '@/store/mutation-types'
-import { EDITOR_EXPORT_FORMAT, NETWORK_STATUS } from '@/constants'
+import { EDITOR_EXPORT_FORMAT } from '@/constants'
 import { mapState, mapMutations } from 'vuex'
 import { deleteKey } from '@/utils'
 
@@ -187,7 +187,7 @@ export default {
       })
     },
     deployTemplate() {
-      if (this.currentStatus === NETWORK_STATUS.SYNCED) {
+      if (this.currentStatus === this.$t('synced')) {
         this.$emit('deploy')
       } else {
         this.setError({

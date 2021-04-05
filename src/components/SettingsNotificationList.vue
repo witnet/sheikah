@@ -12,7 +12,9 @@
       :data-test="notification.key"
       class="notification-border"
     >
-      <p :data-test="`title-${notification.key}`">{{ notification.title }}</p>
+      <p :data-test="`title-${notification.key}`">{{
+        notification.title(locale)
+      }}</p>
       <SettingsNotificationSwitch :title="notification.key" />
     </div>
   </Card>
@@ -22,6 +24,7 @@
 import Card from '@/components/card/Card.vue'
 import SettingsNotificationSwitch from '@/components/SettingsNotificationSwitch'
 import { NOTIFICATIONS } from '@/constants'
+import { mapState } from 'vuex'
 
 export default {
   name: 'SettingsNotificationsList',
@@ -30,6 +33,11 @@ export default {
     return {
       notifications: NOTIFICATIONS,
     }
+  },
+  computed: {
+    ...mapState({
+      locale: state => state.wallet.locale,
+    }),
   },
 }
 </script>

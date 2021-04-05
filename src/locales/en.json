@@ -386,5 +386,7 @@
   "wallet_imported": "Wallet already imported",
   "vtt_error": "An error occured creating the transaction",
   "vtt_balance_error": "Your confirmed balance is insufficient to complete the transaction. Currently, your pending balance is %{pending_balance}. Please wait until the pending balance is confirmed before re-executing the transaction.",
-  "appearance": "Appearance"
+  "appearance": "Appearance",
+  "edit": "Edit",
+  "delete": "Delete"
 }

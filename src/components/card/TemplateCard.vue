@@ -66,7 +66,6 @@
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import { cropString } from '@/utils'
 import { mapActions, mapMutations, mapState } from 'vuex'
-import { TEMPLATE_EMPTY_DESCRIPTION, NETWORK_STATUS } from '@/constants'
 import CustomIcon from '@/components/CustomIcon'
 
 export default {
@@ -100,7 +99,7 @@ export default {
     return {
       marketplaceOptions: [
         {
-          label: 'Deploy',
+          label: this.$t('deploy'),
           action: () => {
             console.log('This method should be implemented soon')
           },
@@ -108,15 +107,15 @@ export default {
       ],
       options: [
         {
-          label: 'Edit',
+          label: this.$t('edit'),
           action: () => {
             this.edit()
           },
         },
         {
-          label: 'Deploy',
+          label: this.$t('deploy'),
           action: () => {
-            if (this.currentStatus === NETWORK_STATUS.SYNCED) {
+            if (this.currentStatus === this.$t('synced')) {
               this.displayDeployModal()
             } else {
               this.setError({
@@ -128,7 +127,7 @@ export default {
           },
         },
         {
-          label: 'Delete',
+          label: this.$t('delete'),
           action: () => {
             this.$emit('delete-template')
           },
@@ -146,7 +145,7 @@ export default {
       return this.type
     },
     localDescription() {
-      return this.description || TEMPLATE_EMPTY_DESCRIPTION
+      return this.description || this.$t('template_empty_description')
     },
   },
   methods: {
