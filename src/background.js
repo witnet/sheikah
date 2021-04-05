@@ -516,8 +516,7 @@ autoUpdater.on('update-downloaded', () => {
     setImmediate(() => {
       autoUpdater.quitAndInstall()
     })
-  }
-  catch(err) {
+  } catch (err) {
     console.log(err)
   }
 })

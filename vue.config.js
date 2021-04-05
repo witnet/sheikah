@@ -5,6 +5,7 @@ module.exports = {
     electronBuilder: {
       builderOptions: {
         linux: {
+          target: ['AppImage'],
           category: 'Network',
         },
         mac: {
@@ -14,6 +15,12 @@ module.exports = {
           gatekeeperAssess: false,
         },
         afterSign: 'scripts/notarize.js',
+        publish: [
+          {
+            provider: 'github',
+            releaseType: 'draft',
+          },
+        ],
       },
       nodeIntegration: true,
     },

@@ -1,0 +1,40 @@
+name: Build
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy: 
+      matrix:
+        os: [
+          macos-latest, 
+          ubuntu-latest, 
+          windows-latest
+        ]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12.20.2
+      - name: Build Electron app
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SIGN: false
+        run: |
+          yarn
+          yarn electron:build --publish="never"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          # Artifact name
+          name: ${{ matrix.os }}-artifact
+          # Directory containing files to upload
+          path: dist_electron
