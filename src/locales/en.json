@@ -364,7 +364,7 @@
   "twitter_header": "Witnet Foundation Twitter account >",
   "twitter_content": "Follow Witnet Foundation on Twitter to get daily updates on the progress of the project.",
   "discord_header": "Witnet Community on Discord >",
-  "discord_content": "Join the official Witnet community Discrod room to discuss with the rest of the community and get direct support from the developers.",
+  "discord_content": "Join the official Witnet community Discord room to discuss with the rest of the community and get direct support from the developers.",
   "blog_header": "Witnet Foundation official blog on Medium >",
   "blog_content": "Follow Witnet Foundation on Medium to read different articles stating our vision and future roadmap.",
   "email_header": "Witnet Foundation contact email >",
@@ -385,5 +385,6 @@
   "import_xprv": "Import your xprv file",
   "wallet_imported": "Wallet already imported",
   "vtt_error": "An error occured creating the transaction",
-  "vtt_balance_error": "Your confirmed balance is insufficient to complete the transaction. Currently, your pending balance is %{pending_balance}. Please wait until the pending balance is confirmed before re-executing the transaction."
+  "vtt_balance_error": "Your confirmed balance is insufficient to complete the transaction. Currently, your pending balance is %{pending_balance}. Please wait until the pending balance is confirmed before re-executing the transaction.",
+  "appearance": "Appearance"
 }

@@ -1,7 +1,7 @@
 <template>
   <Card
     class="card"
-    title="Appearance"
+    :title="$t('appearance')"
     :border="false"
     shadow="thin"
     :padding="false"
