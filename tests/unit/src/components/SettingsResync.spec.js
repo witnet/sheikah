@@ -1,4 +1,5 @@
 import SettingsResync from '@/components/SettingsResync'
+import i18n from '@/plugins/i18n'
 
 describe('SettingsResync.vue', () => {
   describe('should render properly', () => {

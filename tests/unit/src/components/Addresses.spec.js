@@ -41,6 +41,7 @@ describe('Addresses.vue', () => {
             wallet: {
               state: {
                 unit: 'nanoWit',
+                locale: 'en',
               },
             },
           },
@@ -86,6 +87,7 @@ describe('Addresses.vue', () => {
             wallet: {
               state: {
                 unit: 'nanoWit',
+                locale: 'en',
               },
             },
           },
@@ -133,6 +135,7 @@ describe('Addresses.vue', () => {
             wallet: {
               state: {
                 unit: 'nanoWit',
+                locale: 'en',
               },
             },
           },
@@ -182,6 +185,7 @@ describe('Addresses.vue', () => {
             wallet: {
               state: {
                 unit: 'nanoWit',
+                locale: 'en',
               },
             },
           },

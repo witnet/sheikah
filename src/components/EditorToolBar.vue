@@ -19,7 +19,7 @@
       </router-link>
 
       <div class="current-template">
-        <p>{{ this.$t('edit_template') }}</p>
+        <p class="text">{{ this.$t('edit_template') }}</p>
         <p class="name">{{ template.name }}</p>
       </div>
     </div>
@@ -237,7 +237,6 @@ export default {
     .current-template {
       align-self: center;
 
-      .name,
       .text {
         color: $white;
         font-size: 14px;
@@ -245,6 +244,7 @@ export default {
       }
 
       .name {
+        color: $white;
         font-size: 16px;
         font-style: italic;
         font-weight: bold;

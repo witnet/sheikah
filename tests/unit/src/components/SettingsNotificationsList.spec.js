@@ -4,7 +4,18 @@ import SettingsNotificationsList from '@/components/SettingsNotificationList'
 describe('SettingsNotificationsList.vue', () => {
   describe('should render properly', () => {
     it('the block notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
+      const wrapper = shallowMount(SettingsNotificationsList, {
+        ...i18n(),
+        ...createComponentMocks({
+          store: {
+            wallet: {
+              state: {
+                locale: 'en',
+              },
+            },
+          },
+        }),
+      })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -13,7 +24,18 @@ describe('SettingsNotificationsList.vue', () => {
     })
 
     it('the transactions notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
+      const wrapper = shallowMount(SettingsNotificationsList, {
+        ...i18n(),
+        ...createComponentMocks({
+          store: {
+            wallet: {
+              state: {
+                locale: 'en',
+              },
+            },
+          },
+        }),
+      })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -22,7 +44,18 @@ describe('SettingsNotificationsList.vue', () => {
     })
 
     it('the payments notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
+      const wrapper = shallowMount(SettingsNotificationsList, {
+        ...i18n(),
+        ...createComponentMocks({
+          store: {
+            wallet: {
+              state: {
+                locale: 'en',
+              },
+            },
+          },
+        }),
+      })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -31,7 +64,18 @@ describe('SettingsNotificationsList.vue', () => {
     })
 
     it('the syncronization notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
+      const wrapper = shallowMount(SettingsNotificationsList, {
+        ...i18n(),
+        ...createComponentMocks({
+          store: {
+            wallet: {
+              state: {
+                locale: 'en',
+              },
+            },
+          },
+        }),
+      })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
@@ -42,46 +86,90 @@ describe('SettingsNotificationsList.vue', () => {
 
   describe('should render properly', () => {
     it('the title of the block notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
+      const wrapper = shallowMount(SettingsNotificationsList, {
+        ...i18n(),
+        ...createComponentMocks({
+          store: {
+            wallet: {
+              state: {
+                locale: 'en',
+              },
+            },
+          },
+        }),
+      })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
 
       expect(wrapper.find('[data-test="title-block"]').text()).toBe(
-        NOTIFICATIONS.BLOCK.title,
+        NOTIFICATIONS.BLOCK.title('en'),
       )
     })
 
     it('the title of the transactions notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
+      const wrapper = shallowMount(SettingsNotificationsList, {
+        ...i18n(),
+        ...createComponentMocks({
+          store: {
+            wallet: {
+              state: {
+                locale: 'en',
+              },
+            },
+          },
+        }),
+      })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
 
       expect(wrapper.find('[data-test="title-transactions"]').text()).toBe(
-        NOTIFICATIONS.TRANSACTIONS.title,
+        NOTIFICATIONS.TRANSACTIONS.title('en'),
       )
     })
 
     it('the title of the payments notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
+      const wrapper = shallowMount(SettingsNotificationsList, {
+        ...i18n(),
+        ...createComponentMocks({
+          store: {
+            wallet: {
+              state: {
+                locale: 'en',
+              },
+            },
+          },
+        }),
+      })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
 
       expect(wrapper.find('[data-test="title-payments"]').text()).toBe(
-        NOTIFICATIONS.PAYMENTS.title,
+        NOTIFICATIONS.PAYMENTS.title('en'),
       )
     })
 
     it('the title of the syncronization notification', () => {
-      const wrapper = shallowMount(SettingsNotificationsList, { ...i18n() })
+      const wrapper = shallowMount(SettingsNotificationsList, {
+        ...i18n(),
+        ...createComponentMocks({
+          store: {
+            wallet: {
+              state: {
+                locale: 'en',
+              },
+            },
+          },
+        }),
+      })
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
 
       expect(wrapper.find('[data-test="title-syncronization"]').text()).toBe(
-        NOTIFICATIONS.SYNCRONIZATION.title,
+        NOTIFICATIONS.SYNCRONIZATION.title('en'),
       )
     })
   })
