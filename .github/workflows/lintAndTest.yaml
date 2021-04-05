@@ -1,13 +1,9 @@
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+name: Run lint and test 
 
-  workflow_dispatch:
+on: pull_request
 
 jobs:
-  ci:
+  lint_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,4 +15,3 @@ jobs:
       - run: yarn install
       - run: yarn lint:check
       - run: yarn test 
-      - run: yarn electron:build --publish=never 

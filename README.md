@@ -111,3 +111,7 @@ When opening a pull request a job in [Travis](https://travis-ci.com/) will be fi
 
 If the application doesn't boot correctly and no error is reported in the terminal, try running `yarn reinstall` and try again.
 
+
+
+## Release
+Releases are created using [action-electron-builder](https://github.com/samuelmeuli/action-electron-builder). A new draft release will be publish naming a commit and a tag as v*.*.*
