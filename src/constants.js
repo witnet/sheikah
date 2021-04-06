@@ -1,4 +1,3 @@
-import i18n from '@/plugins/i18n'
 import { es, enGB } from 'date-fns/locale'
 
 export const EDITOR_ALLOWED_PROTOCOLS = ['http', 'https']
@@ -123,22 +122,10 @@ export const GENESIS_EVENT_TIMESTAMP = 1602666000000
 export const SYNCING_TIME_WINDOW_LENGTH = 100
 
 export const NOTIFICATIONS = {
-  BLOCK: {
-    key: 'block',
-    title: l => i18n.t('block_notifications_title', { locale: l }),
-  },
-  TRANSACTIONS: {
-    key: 'transactions',
-    title: l => i18n.t('tx_notifications_title', { locale: l }),
-  },
-  PAYMENTS: {
-    key: 'payments',
-    title: l => i18n.t('payments_notifications_title', { locale: l }),
-  },
-  SYNCRONIZATION: {
-    key: 'syncronization',
-    title: l => i18n.t('syncronization_notifications_title', { locale: l }),
-  },
+  BLOCK: 'block',
+  TRANSACTIONS: 'transactions',
+  PAYMENTS: 'payments',
+  SYNCRONIZATION: 'syncronization',
 }
 
 export const SETTINGS = {

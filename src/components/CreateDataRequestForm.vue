@@ -336,6 +336,8 @@ export default {
   .error {
     color: $red-2;
     font-size: 14px;
+    margin-bottom: 8px;
+    word-break: break-word;
   }
 }
 </style>

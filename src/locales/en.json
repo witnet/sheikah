@@ -251,7 +251,7 @@
   "hey_listen": "Hey, listen!",
   "disclaimer_next": "I will be careful, I promise!",
   "settings_general": "General",
-  "settings_general_description": "Default unit",
+  "settings_general_description": "Appearance, Language...",
   "settings_advance": "Advanced",
   "settings_advance_description": "Node-Wallet connection",
   "settings_alerts": "Alerts",
@@ -385,8 +385,10 @@
   "import_xprv": "Import your xprv file",
   "wallet_imported": "Wallet already imported",
   "vtt_error": "An error occured creating the transaction",
+  "dr_error": "An error occured creating the data request",
   "vtt_balance_error": "Your confirmed balance is insufficient to complete the transaction. Currently, your pending balance is %{pending_balance}. Please wait until the pending balance is confirmed before re-executing the transaction.",
   "appearance": "Appearance",
   "edit": "Edit",
-  "delete": "Delete"
+  "delete": "Delete",
+  "not_enough_balance": "Your wallet has not enough funds"
 }

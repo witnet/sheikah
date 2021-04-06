@@ -8,14 +8,14 @@
   >
     <div
       v-for="notification in notifications"
-      :key="notification.key"
-      :data-test="notification.key"
+      :key="notification"
+      :data-test="notification"
       class="notification-border"
     >
-      <p :data-test="`title-${notification.key}`">{{
-        notification.title(locale)
+      <p :data-test="`title-${notification}`">{{
+        notificationsTitle[notification]
       }}</p>
-      <SettingsNotificationSwitch :title="notification.key" />
+      <SettingsNotificationSwitch :title="notification" />
     </div>
   </Card>
 </template>
@@ -32,6 +32,14 @@ export default {
   data() {
     return {
       notifications: NOTIFICATIONS,
+      notificationsTitle: {
+        [NOTIFICATIONS.BLOCK]: this.$t('block_notifications_title'),
+        [NOTIFICATIONS.TRANSACTIONS]: this.$t('tx_notifications_title'),
+        [NOTIFICATIONS.PAYMENTS]: this.$t('payments_notifications_title'),
+        [NOTIFICATIONS.SYNCRONIZATION]: this.$t(
+          'syncronization_notifications_title',
+        ),
+      },
     }
   },
   computed: {

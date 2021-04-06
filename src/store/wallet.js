@@ -625,10 +625,36 @@ export default {
           transaction: generatedTransaction,
         })
       } else {
+        let error = i18n.t('dr_error')
+        if (req.error.data && req.error.data[0]) {
+          const usableBalance = JSON.parse(req.error.data[0][0])
+          const availableBalance = context.state.balance.available
+          const unit = context.state.unit
+          if (
+            usableBalance &&
+            usableBalance.available_balance < availableBalance
+          ) {
+            error = i18n.t('vtt_balance_error', {
+              pending_balance: `${standardizeWitUnits(
+                availableBalance - usableBalance.available_balance,
+                unit,
+              )} ${unit}`,
+            })
+          } else if (
+            usableBalance &&
+            `${usableBalance.available_balance}` === availableBalance
+          ) {
+            error = i18n.t('not_enough_balance')
+          } else {
+            error = req.error.data[0][1]
+          }
+        } else if (req.error.data.cause) {
+          error = req.error.data.cause
+        }
         context.commit('setError', {
           name: 'createDataRequest',
           error: req.error.message,
-          message: req.error.data[0] ? req.error.data[0][1] : null,
+          message: error,
         })
       }
     },
@@ -671,6 +697,11 @@ export default {
                 unit,
               )} ${unit}`,
             })
+          } else if (
+            usableBalance &&
+            `${usableBalance.available_balance}` === availableBalance
+          ) {
+            error = i18n.t('not_enough_balance')
           } else {
             error = request.error.data[0][1]
           }

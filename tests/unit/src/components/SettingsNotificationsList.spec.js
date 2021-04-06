@@ -103,7 +103,7 @@ describe('SettingsNotificationsList.vue', () => {
       })
 
       expect(wrapper.find('[data-test="title-block"]').text()).toBe(
-        NOTIFICATIONS.BLOCK.title('en'),
+        'Block notifications',
       )
     })
 
@@ -125,7 +125,7 @@ describe('SettingsNotificationsList.vue', () => {
       })
 
       expect(wrapper.find('[data-test="title-transactions"]').text()).toBe(
-        NOTIFICATIONS.TRANSACTIONS.title('en'),
+        'Transactions notifications',
       )
     })
 
@@ -145,9 +145,9 @@ describe('SettingsNotificationsList.vue', () => {
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
-
+      console.log(wrapper.find('[data-test="title-payments"]').text())
       expect(wrapper.find('[data-test="title-payments"]').text()).toBe(
-        NOTIFICATIONS.PAYMENTS.title('en'),
+        'Payments notifications',
       )
     })
 
@@ -169,7 +169,7 @@ describe('SettingsNotificationsList.vue', () => {
       })
 
       expect(wrapper.find('[data-test="title-syncronization"]').text()).toBe(
-        NOTIFICATIONS.SYNCRONIZATION.title('en'),
+        'Syncronization notifications',
       )
     })
   })
