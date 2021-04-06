@@ -13,6 +13,7 @@ module.exports = {
           entitlementsInherit: 'build/entitlements.mac.plist',
           gatekeeperAssess: false,
         },
+        afterSign: 'scripts/notarize.js',
       },
       nodeIntegration: true,
     },

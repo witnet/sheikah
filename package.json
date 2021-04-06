@@ -4,7 +4,6 @@
   "private": true,
   "description": "A Witnet compatible desktop wallet interface and data requests development environment.",
   "author": "Witnet Foundation <info@witnet.foundation>",
-  "afterSign": "scripts/notarize.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
