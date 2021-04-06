@@ -1,5 +1,5 @@
 import SettingsResync from '@/components/SettingsResync'
-import i18n from '@/plugins/i18n'
+import { NETWORK_STATUS } from '@/constants'
 
 describe('SettingsResync.vue', () => {
   describe('should render properly', () => {
@@ -14,7 +14,7 @@ describe('SettingsResync.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: i18n.t('synced', { locale: i18n.locale }),
+                  currentState: NETWORK_STATUS.SYNCED,
                   progress: 80,
                   lastBlock: '123456',
                   lastSync: 1605881425122,
@@ -47,9 +47,7 @@ describe('SettingsResync.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: i18n.t('waiting_for_node_to_sync', {
-                    locale: i18n.locale,
-                  }),
+                  currentState: NETWORK_STATUS.WAITING_FOR_NODE_TO_SYNC,
                   progress: 80,
                   lastBlock: '123456',
                   lastSync: 1605881425122,

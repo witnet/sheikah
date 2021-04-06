@@ -67,6 +67,7 @@ import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import { cropString } from '@/utils'
 import { mapActions, mapMutations, mapState } from 'vuex'
 import CustomIcon from '@/components/CustomIcon'
+import { NETWORK_STATUS } from '@/constants'
 
 export default {
   name: 'TemplateCard',
@@ -115,7 +116,7 @@ export default {
         {
           label: this.$t('deploy'),
           action: () => {
-            if (this.currentStatus === this.$t('synced')) {
+            if (this.currentStatus === NETWORK_STATUS.SYNCED) {
               this.displayDeployModal()
             } else {
               this.setError({

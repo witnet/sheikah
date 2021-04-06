@@ -1,5 +1,6 @@
 import EditorToolBar from '@/components/EditorToolBar'
 import { EDITOR_UNDO, EDITOR_REDO } from '@/store/mutation-types'
+import { NETWORK_STATUS } from '@/constants'
 
 describe('EditorToolBar.vue', () => {
   describe('should render properly', () => {
@@ -18,7 +19,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
             },
@@ -58,7 +59,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
             },
@@ -98,7 +99,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
             },
@@ -138,7 +139,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
             },
@@ -180,7 +181,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
             },
@@ -222,7 +223,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
             },
@@ -264,7 +265,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
             },
@@ -307,7 +308,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
             },
@@ -352,7 +353,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'NODE DISCONNECTED',
+                  currentState: NETWORK_STATUS.NODE_DISCONNECTED,
                 },
               },
             },
@@ -396,7 +397,7 @@ describe('EditorToolBar.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
             },

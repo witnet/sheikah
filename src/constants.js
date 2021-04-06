@@ -12,6 +12,14 @@ export const TRANSACTIONS_LIMIT = 13
 export const EDITOR_TRY_INTERVAL = 3000
 export const EDITOR_SAVE_INTERVAL = 3000
 
+export const NETWORK_STATUS = {
+  NODE_DISCONNECTED: 'node_disconnected',
+  SYNCED: 'synced',
+  SYNC_ERROR: 'sync_error',
+  SYNCING: 'syncing',
+  WAITING_FOR_NODE_TO_SYNC: 'waiting_for_node_to_sync',
+}
+
 export const EDITOR_STAGES = {
   SETTINGS: 'settings',
   SOURCES: 'sources',

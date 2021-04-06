@@ -24,6 +24,7 @@ import {
   DEFAULT_LOCALE,
   LANGUAGES,
   THEMES,
+  NETWORK_STATUS,
 } from '@/constants'
 import { SET_TEMPLATES, UPDATE_TEMPLATE } from '@/store/mutation-types'
 import warning from '@/resources/svg/warning.png'
@@ -86,7 +87,7 @@ export default {
       [NOTIFICATIONS.SYNCRONIZATION.key]: true,
     },
     status: {
-      currentState: i18n.t('waiting_for_node_to_sync', { locale: i18n.locale }),
+      currentState: NETWORK_STATUS.WAITING_FOR_NODE_TO_SYNC,
       progress: null,
       lastBlock: null,
       lastSync: null,

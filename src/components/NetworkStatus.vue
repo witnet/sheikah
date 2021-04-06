@@ -108,6 +108,7 @@ import Avatar from '@/components/Avatar'
 import DotsLoading from '@/components/DotsLoading.vue'
 import CustomIcon from '@/components/CustomIcon'
 import { calculateTimeAgo } from '@/utils'
+import { NETWORK_STATUS } from '@/constants'
 
 export default {
   name: 'NetworkStatus',
@@ -139,22 +140,22 @@ export default {
       locale: state => state.wallet.locale,
     }),
     currentState() {
-      if (this.status.currentState === this.$t('node_disconnected')) {
+      if (this.status.currentState === NETWORK_STATUS.NODE_DISCONNECTED) {
         return {
           label: this.$t('node_disconnected'),
           color: 'red',
         }
-      } else if (this.status.currentState === this.$t('sync_error')) {
+      } else if (this.status.currentState === NETWORK_STATUS.SYNC_ERROR) {
         return {
           label: this.$t('sync_error'),
           color: 'red',
         }
-      } else if (this.status.currentState === this.$t('synced')) {
+      } else if (this.status.currentState === NETWORK_STATUS.SYNCED) {
         return {
           label: this.$t('synced'),
           color: 'green',
         }
-      } else if (this.status.currentState === this.$t('syncing')) {
+      } else if (this.status.currentState === NETWORK_STATUS.SYNCING) {
         return {
           label: `${this.$t('syncing')} ${this.progress.toFixed(2)}%`,
           color: 'yellow',
@@ -168,22 +169,22 @@ export default {
     },
     isLoadingVisible() {
       return (
-        this.status.currentState === this.$t('syncing') ||
-        this.status.currentState === this.$t('waiting_for_node_to_sync')
+        this.status.currentState === NETWORK_STATUS.SYNCING ||
+        this.status.currentState === NETWORK_STATUS.WAITING_FOR_NODE_TO_SYNC
       )
     },
     isResyncButtonVisible() {
       return (
-        this.status.currentState === this.$t('synced') ||
-        (this.status.currentState === this.$t('sync_error') &&
+        this.status.currentState === NETWORK_STATUS.SYNCED ||
+        (this.status.currentState === NETWORK_STATUS.SYNC_ERROR &&
           this.isNodeSynced)
       )
     },
     isSyncing() {
-      return this.status.currentState === this.$t('syncing')
+      return this.status.currentState === NETWORK_STATUS.SYNCING
     },
     isSynced() {
-      return this.status.currentState === this.$t('synced')
+      return this.status.currentState === NETWORK_STATUS.SYNCED
     },
   },
   watch: {

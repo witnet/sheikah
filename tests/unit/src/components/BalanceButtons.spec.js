@@ -1,4 +1,5 @@
 import BalanceButtons from '@/components/BalanceButtons'
+import { NETWORK_STATUS } from '@/constants'
 
 describe('BalanceButtons.vue', () => {
   describe('should render receive and send buttons', () => {
@@ -67,7 +68,7 @@ describe('BalanceButtons.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
               mutations: {
@@ -101,7 +102,7 @@ describe('BalanceButtons.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
                 sendClicked: true,
               },
@@ -136,7 +137,7 @@ describe('BalanceButtons.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCING',
+                  currentState: NETWORK_STATUS.SYNCING,
                 },
               },
               mutations: {
@@ -171,7 +172,7 @@ describe('BalanceButtons.vue', () => {
             wallet: {
               state: {
                 status: {
-                  currentState: 'SYNCED',
+                  currentState: NETWORK_STATUS.SYNCED,
                 },
               },
             },

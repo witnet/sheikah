@@ -20,6 +20,7 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
+import { NETWORK_STATUS } from '@/constants'
 export default {
   name: 'BalanceButtons',
   computed: {
@@ -36,7 +37,7 @@ export default {
        * Emitted when send button is clicked
        * @event send
        */
-      if (this.currentStatus === this.$t('synced')) {
+      if (this.currentStatus === NETWORK_STATUS.SYNCED) {
         this.$emit('send')
       } else {
         this.setError({

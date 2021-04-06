@@ -1,5 +1,4 @@
-import { WALLET_EVENTS } from '@/constants'
-import i18n from '@/plugins/i18n'
+import { WALLET_EVENTS, NETWORK_STATUS } from '@/constants'
 
 export default class NetworkStatus {
   constructor() {
@@ -17,15 +16,15 @@ export default class NetworkStatus {
 
   getCurrentStatus() {
     if (this.isNodeDisconnected) {
-      return i18n.t('node_disconnected', { locale: i18n.locale })
+      return NETWORK_STATUS.NODE_DISCONNECTED
     } else if (this.syncError) {
-      return i18n.t('sync_error', { locale: i18n.locale })
+      return NETWORK_STATUS.SYNC_ERROR
     } else if (this.isWalletSynced && this.isNodeSynced) {
-      return i18n.t('synced', { locale: i18n.locale })
+      return NETWORK_STATUS.SYNCED
     } else if (this.isNodeSynced && !this.isWalletSynced) {
-      return i18n.t('syncing', { locale: i18n.locale })
+      return NETWORK_STATUS.SYNCING
     } else if (!this.isNodeSynced) {
-      return i18n.t('waiting_for_node_to_sync', { locale: i18n.locale })
+      return NETWORK_STATUS.WAITING_FOR_NODE_TO_SYNC
     }
   }
 

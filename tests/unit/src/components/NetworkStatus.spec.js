@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
 import '@/fontAwesome'
-import i18n from '@/plugins/i18n'
 import NetworkStatus from '@/components/NetworkStatus.vue'
 import Avatar from '@/components/Avatar.vue'
+import { NETWORK_STATUS } from '@/constants'
 
 describe('NetworkStatus', () => {
   describe('when is minimized', () => {
@@ -14,7 +14,7 @@ describe('NetworkStatus', () => {
               wallet: {
                 state: {
                   status: {
-                    currentState: i18n.t('synced', { locale: i18n.locale }),
+                    currentState: NETWORK_STATUS.SYNCED,
                     progress: 80,
                     lastBlock: '123456',
                     lastSync: 1605881425122,
@@ -87,7 +87,7 @@ describe('NetworkStatus', () => {
               wallet: {
                 state: {
                   status: {
-                    currentState: i18n.t('syncing', { locale: i18n.locale }),
+                    currentState: NETWORK_STATUS.SYNCING,
                     progress: 80,
                     lastBlock: '123456',
                     lastSync: 1605881425122,
@@ -160,7 +160,7 @@ describe('NetworkStatus', () => {
               wallet: {
                 state: {
                   status: {
-                    currentState: i18n.t('sync_error', { locale: i18n.locale }),
+                    currentState: NETWORK_STATUS.SYNC_ERROR,
                     progress: 80,
                     lastBlock: '123456',
                     lastSync: 1605881425122,
@@ -252,7 +252,7 @@ describe('NetworkStatus', () => {
               wallet: {
                 state: {
                   status: {
-                    currentState: i18n.t('synced', { locale: i18n.locale }),
+                    currentState: NETWORK_STATUS.SYNCED,
                     progress: 100,
                     lastBlock: '123456',
                     lastSync: 1605881425122,

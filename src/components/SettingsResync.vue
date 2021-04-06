@@ -22,6 +22,7 @@
 <script>
 import Card from '@/components/card/Card.vue'
 import { mapState, mapMutations } from 'vuex'
+import { NETWORK_STATUS } from '@/constants'
 
 export default {
   name: 'SettingsOptionCurrenty',
@@ -33,8 +34,8 @@ export default {
     }),
     isResyncButtonVisible() {
       return (
-        this.status.currentState === this.$t('synced') ||
-        (this.status.currentState === this.$t('sync_error') &&
+        this.status.currentState === NETWORK_STATUS.SYNCED ||
+        (this.status.currentState === NETWORK_STATUS.SYNC_ERROR &&
           this.isNodeSynced)
       )
     },
