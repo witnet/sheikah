@@ -627,7 +627,13 @@ export default {
       } else {
         let error = i18n.t('dr_error')
         if (req.error.data && req.error.data[0]) {
-          const usableBalance = JSON.parse(req.error.data[0][0])
+          let usableBalance = null
+          // FIXME: error has the following structure:["{\"available_balance\":0,\"total_balance\":0,\"transaction_value\":2397}","Wallet account has not enough balance"]
+          try {
+            usableBalance = JSON.parse(req.error.data[0][0])
+          } catch (e) {
+            usableBalance = null
+          }
           const availableBalance = context.state.balance.available
           const unit = context.state.unit
           if (
@@ -640,13 +646,8 @@ export default {
                 unit,
               )} ${unit}`,
             })
-          } else if (
-            usableBalance &&
-            `${usableBalance.available_balance}` === availableBalance
-          ) {
-            error = i18n.t('not_enough_balance')
           } else {
-            error = req.error.data[0][1]
+            error = i18n.t('not_enough_balance')
           }
         } else if (req.error.data.cause) {
           error = req.error.data.cause
@@ -684,7 +685,13 @@ export default {
       } else {
         let error = i18n.t('vtt_error')
         if (request.error.data[0]) {
-          const usableBalance = JSON.parse(request.error.data[0][0])
+          let usableBalance = null
+          // FIXME: error has the following structure:["{\"available_balance\":0,\"total_balance\":0,\"transaction_value\":2397}","Wallet account has not enough balance"]
+          try {
+            usableBalance = JSON.parse(request.error.data[0][0])
+          } catch (e) {
+            usableBalance = null
+          }
           const availableBalance = context.state.balance.available
           const unit = context.state.unit
           if (
@@ -697,13 +704,8 @@ export default {
                 unit,
               )} ${unit}`,
             })
-          } else if (
-            usableBalance &&
-            `${usableBalance.available_balance}` === availableBalance
-          ) {
-            error = i18n.t('not_enough_balance')
           } else {
-            error = request.error.data[0][1]
+            error = i18n.t('not_enough_balance')
           }
         } else if (request.error.data.cause) {
           error = request.error.data.cause
