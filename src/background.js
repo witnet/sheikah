@@ -512,7 +512,14 @@ autoUpdater.on('update-downloaded', () => {
   if (win != null) {
     win.close()
   }
-  autoUpdater.quitAndInstall()
+  try {
+    setImmediate(() => {
+      autoUpdater.quitAndInstall()
+    })
+  }
+  catch(err) {
+    console.log(err)
+  }
 })
 
 // Overwrite wallet config file only when new version is downloaded
