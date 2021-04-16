@@ -934,8 +934,11 @@ export default {
           i18n: payload.i18n,
         })
       } else {
+        const isLocalLanguage = Object.values(LANGUAGES).find(language => {
+          return language.locale === payload.i18n.locale
+        })
         context.commit('setLanguage', {
-          locale: payload.i18n.locale,
+          locale: isLocalLanguage ? payload.i18n.locale : 'en',
           i18n: payload.i18n,
         })
       }
