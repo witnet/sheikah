@@ -145,7 +145,6 @@ describe('SettingsNotificationsList.vue', () => {
       wrapper.setData({
         notifications: NOTIFICATIONS,
       })
-      console.log(wrapper.find('[data-test="title-payments"]').text())
       expect(wrapper.find('[data-test="title-payments"]').text()).toBe(
         'Payments notifications',
       )

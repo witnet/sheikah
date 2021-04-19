@@ -42,12 +42,7 @@ export default {
       total: state => state.wallet.balance,
       txLabels: state => state.wallet.txLabels,
       transactionsLength: state => state.wallet.transactionsLength,
-      transactions: state =>
-        state.wallet.transactions.sort(
-          (t1, t2) =>
-            t2.timestamp - t1.timestamp ||
-            Number(t1.outputs[0].timelock) - Number(t2.outputs[0].timelock),
-        ),
+      transactions: state => state.wallet.transactions,
       addresses: state => {
         return Array.from(state.wallet.addresses)
       },

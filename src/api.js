@@ -124,11 +124,51 @@ export class WalletApi {
     return this._callApiMethod('get')(params)
   }
 
-  getTransactions(params) {
-    return this._callApiMethod('get_transactions')(
-      params,
-      standardizeTransactions,
+  async getTransactions(params) {
+    const totalTransactions = (
+      await this._callApiMethod('get_transactions')(params)
+    ).result.total
+    const computedPagination = computeTransactionsPagination(
+      params.offset,
+      totalTransactions,
     )
+    // call 5 times getTransactions for the current page, the two before, and the two after
+    const getTransactionsCall = Array(computedPagination.numberOfpagesToGet)
+      .fill()
+      .map((x, index) => {
+        return this._callApiMethod('get_transactions')(
+          // change offset to adjust different pages
+          {
+            ...params,
+            offset:
+              params.offset +
+              13 * (index - 2 + computedPagination.computedIndex),
+          },
+          standardizeTransactions,
+        )
+      })
+    return Promise.all(getTransactionsCall)
+      .then(values => {
+        const request = {
+          result: {
+            total: values[0].result.total,
+            transactions: values.flatMap(x => x.result.transactions),
+          },
+        }
+        request.result.transactions.sort(
+          (t1, t2) =>
+            t2.timestamp - t1.timestamp ||
+            Number(t1.outputs[0].timelock) - Number(t2.outputs[0].timelock),
+        )
+        request.result.transactions = request.result.transactions.splice(
+          computedPagination.pageSection[0],
+          computedPagination.pageSection[1],
+        )
+        return request
+      })
+      .catch(err => {
+        console.log('ERROR', err)
+      })
   }
 
   getWalletInfos(params) {
@@ -347,6 +387,41 @@ export function standardizeTransactions(response) {
     }
   })
   return { result: { transactions, total: response.result.total } }
+}
+
+function computeTransactionsPagination(offset, totalTransactions) {
+  const pagePositionRules = {
+    first: {
+      numberOfpagesToGet: 3,
+      computedIndex: 2,
+      pageSection: [0, 13],
+    },
+    second: {
+      numberOfpagesToGet: 4,
+      computedIndex: 1,
+      pageSection: [13, 13],
+    },
+    default: {
+      numberOfpagesToGet: 5,
+      computedIndex: 0,
+      pageSection: [26, 13],
+    },
+    preLast: {
+      numberOfpagesToGet: 3,
+      computedIndex: 0,
+      pageSection: [26, 13],
+    },
+    last: {
+      numberOfpagesToGet: 4,
+      computedIndex: -1,
+      pageSection: [13, 13],
+    },
+  }
+  if (offset < 13) return pagePositionRules.first
+  if (offset < 26) return pagePositionRules.second
+  if (totalTransactions - offset < 13) return pagePositionRules.preLast
+  if (totalTransactions - offset < 26) return pagePositionRules.last
+  return pagePositionRules.default
 }
 
 function computeTransactionAddress(inputs, outputs, type) {
