@@ -169,10 +169,11 @@ export default new Router({
     {
       path: '/wallet-not-found',
       name: 'runWalletAlert',
-      beforeEnter: (to, from, next) => {
+      beforeEnter: async (to, from, next) => {
         if (store.state.wallet.api.client.ws.ready) {
+          await store.dispatch('getWalletInfos')
           const walletInfos = store.state.wallet.walletInfos
-          if (walletInfos.length > 0) {
+          if (walletInfos && walletInfos.length > 0) {
             next('/welcome-back/wallet-list')
           } else {
             next('/ftu/welcome')
