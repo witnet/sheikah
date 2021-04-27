@@ -34,7 +34,7 @@ program.option('-w, --wallet', 'Run witnet wallet for development')
 program.parse(process.argv)
 
 const osArch = os.arch()
-const arch = (osArch === 'x64' || osArch === 'arm64') ? 'x86_64' : osArch
+const arch = osArch === 'x64' || osArch === 'arm64' ? 'x86_64' : osArch
 const platform = os.platform()
 const URL_PUBLIC_WITNET_NODE = '52.166.178.145:21338'
 const SHEIKAH_PATH_BY_PLATFORM = {
@@ -445,13 +445,13 @@ async function runWallet() {
     path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
     ['-c', walletConfigurationPath, 'wallet', 'server'],
     {
+      argv0: osArch === 'arm64' ? 'arch -x86_64' : null,
       env: {
         RUST_LOG: `witnet=${DEFAULT_WALLET_LOG_LEVEL}`,
         ...process.env,
       },
     },
   )
-
   walletProcess.stdout.on('data', async function(data) {
     console.info('stdout: ' + data.toString())
     status = STATUS.READY
