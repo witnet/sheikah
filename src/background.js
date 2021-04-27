@@ -34,7 +34,7 @@ program.option('-w, --wallet', 'Run witnet wallet for development')
 program.parse(process.argv)
 
 const osArch = os.arch()
-const arch = osArch === 'x64' ? 'x86_64' : osArch
+const arch = (osArch === 'x64' || osArch === 'arm64') ? 'x86_64' : osArch
 const platform = os.platform()
 const URL_PUBLIC_WITNET_NODE = '52.166.178.145:21338'
 const SHEIKAH_PATH_BY_PLATFORM = {
