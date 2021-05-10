@@ -6,6 +6,7 @@
     <Notification />
     <ResyncConfirmation v-if="isResyncConfirmationVisible" />
     <LogoutModal v-if="sessionExpired" />
+    <DescriptionModal v-if="isWalletDescriptionVisible" />
   </div>
 </template>
 
@@ -13,12 +14,14 @@
 import { mapMutations, mapActions, mapState } from 'vuex'
 import Notification from '@/components/Notification'
 import LogoutModal from '@/components/LogoutModal'
+import DescriptionModal from '@/components/DescriptionModal.vue'
 
 export default {
   name: 'App',
   components: {
     Notification,
     LogoutModal,
+    DescriptionModal,
     ResyncConfirmation: () => import('@/components/ResyncConfirmation'),
   },
   data() {
@@ -37,6 +40,8 @@ export default {
       sessionExpired: state => state.uiInteractions.sessionExpired,
       sessionWillExpireSoon: state => state.wallet.sessionWillExpireSoon,
       isIdle: state => state.idleVue.isIdle,
+      isWalletDescriptionVisible: state =>
+        state.uiInteractions.isWalletDescriptionVisible,
     }),
   },
   watch: {

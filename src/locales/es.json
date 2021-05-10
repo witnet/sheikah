@@ -315,6 +315,7 @@
   "get_labels_error_message": "Se ha producido un error al recuperar la etiqueta para la transacción",
   "send_transaction_error_message": "Se ha producido un error al enviar la solicitud",
   "save_label_error_message": "Se ha producido un error al guardar la etiqueta de su transacción",
+  "save_description_error_message": "Se ha producido un error al guardar la descripción de tu wallet",
   "get_addresses_error_message": "Se ha producido un error al recuperar la lista de direcciones",
   "generate_address_error_message": "Se ha producido un error al generar la dirección",
   "create_mnemonics_error_message": "Se ha producido un error al crear la seed phrase",

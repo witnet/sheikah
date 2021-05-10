@@ -483,7 +483,6 @@ export function standardizeBalance(response) {
 
 function standardizeWalletInfos(response) {
   if (!response.result) return response
-
   return {
     result: response.result.infos.map((info, index) => ({
       ...info,

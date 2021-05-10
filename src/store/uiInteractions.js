@@ -11,6 +11,7 @@ export default {
     isResyncConfirmationVisible: false,
     sessionExpired: false,
     localStorage: new LocalStorageApi(),
+    isWalletDescriptionVisible: false,
   },
   mutations: {
     showResyncConfirmation(state) {
@@ -19,11 +20,17 @@ export default {
     showLogoutModal(state) {
       state.sessionExpired = true
     },
+    showDescriptionModal(state) {
+      state.isWalletDescriptionVisible = true
+    },
     closeResyncConfirmation(state) {
       state.isResyncConfirmationVisible = false
     },
     closeLogoutModal(state) {
       state.sessionExpired = false
+    },
+    closeDescriptionModal(state) {
+      state.isWalletDescriptionVisible = false
     },
     receiveTransactionClicked: function(state) {
       state.receiveTransactionClicked = true

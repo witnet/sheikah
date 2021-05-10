@@ -55,6 +55,14 @@
         data-test="detail-info"
         class="detail-info"
       >
+        <p
+          v-if="walletDescription"
+          class="text description bold"
+          @click="$store.commit('showDescriptionModal')"
+        >
+          {{ cropString(walletDescription, 100) }}
+        </p>
+
         <el-button
           v-if="isResyncButtonVisible"
           type="primary"
@@ -107,7 +115,7 @@ import { mapGetters, mapState } from 'vuex'
 import Avatar from '@/components/Avatar'
 import DotsLoading from '@/components/DotsLoading.vue'
 import CustomIcon from '@/components/CustomIcon'
-import { calculateTimeAgo } from '@/utils'
+import { calculateTimeAgo, cropString } from '@/utils'
 import { NETWORK_STATUS } from '@/constants'
 
 export default {
@@ -124,6 +132,7 @@ export default {
     return {
       showAll: false,
       timeAgo: this.status ? this.lastBlockTimestamp : null,
+      isWalletDescriptionVisible: false,
     }
   },
   computed: {
@@ -138,6 +147,9 @@ export default {
       lastBlockTimestamp: state => state.wallet.status.lastBlockTimestamp,
       isNodeSynced: state => state.wallet.status.isNodeSynced,
       locale: state => state.wallet.locale,
+      walletDescription: state => {
+        return state.wallet.unlockedWalletDescription
+      },
     }),
     currentState() {
       if (this.status.currentState === NETWORK_STATUS.NODE_DISCONNECTED) {
@@ -199,6 +211,13 @@ export default {
   },
   methods: {
     calculateTimeAgo,
+    cropString,
+    showDescription() {
+      this.isWalletDescriptionVisible = true
+    },
+    closeDescriptionModal() {
+      this.isWalletDescriptionVisible = false
+    },
   },
 }
 </script>
@@ -280,6 +299,14 @@ export default {
 
       .icon {
         font-size: 14px;
+      }
+    }
+
+    .description {
+      max-width: 300px;
+
+      &:hover {
+        cursor: pointer;
       }
     }
 

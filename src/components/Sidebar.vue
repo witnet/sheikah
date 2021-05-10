@@ -17,7 +17,11 @@
         </div>
       </router-link>
       <div class="current-wallet">
-        <NetworkStatus :window-width="windowWidth" :expanded="expanded" />
+        <NetworkStatus
+          :window-width="windowWidth"
+          :expanded="expanded"
+          @close="collapseSidebar"
+        />
       </div>
       <div class="link-list">
         <router-link

@@ -315,6 +315,7 @@
   "get_labels_error_message": "An error occurred retrieving the label for the transaction",
   "send_transaction_error_message": "An error occurred sending a request",
   "save_label_error_message": "An error occurred saving the label for your transaction",
+  "save_description_error_message": "An error occurred saving the description for your wallet",
   "get_addresses_error_message": "An error occurred retrieving the addresses list",
   "generate_address_error_message": "An error occurred generating the address",
   "create_mnemonics_error_message": "An error occurred creating the seed phrase",

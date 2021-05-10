@@ -38,7 +38,6 @@
         class="password"
         resize="none"
         :rows="3"
-        :maxlength="300"
       />
     </div>
   </NavigationCard>

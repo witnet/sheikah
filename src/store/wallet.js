@@ -110,6 +110,7 @@ export default {
     walletLocked: false,
     validatedPassword: false,
     fileInfo: null,
+    unlockedWalletDescription: null,
     areMnemonicsValid: false,
     isXprvValid: false,
     tokenGenerationEventOccurred:
@@ -338,9 +339,10 @@ export default {
     setBackupPassword(state, { result }) {
       Object.assign(state, { xprvBackupPassword: result })
     },
-    setWallet(state, { walletId, sessionId }) {
+    setWallet(state, { walletId, sessionId, description }) {
       state.walletId = walletId
       state.sessionId = sessionId
+      state.unlockedWalletDescription = description
     },
 
     setWalletInfos(state, { walletInfos }) {
@@ -529,6 +531,7 @@ export default {
       if (request.result) {
         context.commit('stopSessionTimeout')
         context.commit('deleteSession')
+        context.state.unlockedWalletDescription = null
         context.commit(SET_TEMPLATES, { templates: {} })
         router.push('/welcome-back/wallet-list')
       } else {
@@ -804,6 +807,7 @@ export default {
         context.commit('setWallet', {
           sessionId: request.result.session_id,
           walletId,
+          description: request.result.description,
         })
         const walletInfos = context.state.walletInfos
         const index = walletInfos.findIndex(wallet => wallet.id === walletId)
