@@ -448,10 +448,18 @@ export default {
     },
     startSessionTimeout(state, ms) {
       // Redirect to wallet list when the session has expired
+      // state.sessionTimeout = setTimeout(() => {
+      //   router.push('/welcome-back/wallet-list')
+      //   this.commit('stopSessionTimeout')
+      // }, ms)
+      // REMOVE: test timeout
       state.sessionTimeout = setTimeout(() => {
         router.push('/welcome-back/wallet-list')
         this.commit('stopSessionTimeout')
-      }, ms)
+        if (!state.localStorage.getSkipSessionExpirationInfo()) {
+          this.commit('showLogoutModal')
+        }
+      }, 1000)
     },
     stopSessionTimeout(state) {
       clearTimeout(state.sessionTimeout)

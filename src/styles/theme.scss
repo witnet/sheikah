@@ -222,6 +222,8 @@
   // scroll
   --scroll-background: #{$grey-dark-8};
   --scroll-background-thum: #{$grey-dark-6};
+  // info title
+  --info-title: #{$purple-dark-3};
 }
 
 [theme='light'] {
@@ -430,6 +432,8 @@
   // scroll
   --scroll-background: transparent;
   --scroll-background-thum: #{$alpha-grey};
+  // info title
+  --info-title: #{$purple-3};
 }
 
 // COMMON

@@ -82,6 +82,7 @@
   "show_less": "Show less",
   "show_advance": "Show advanced",
   "confirm": "Confirm",
+  "ok": "Ok",
   "sheikah": "Sheikah",
   "marketplace": "Marketplace",
   "marketplace_subtitle": "Hundreds of smart contracts ready to be deployed",
@@ -100,6 +101,8 @@
   "operator": "Operator",
   "arguments": "Arguments",
   "return_script": "Return and pass into aggregator",
+  "close_session_info_title": "Session expired",
+  "close_session_info_0": "Your wallet session has expired. In case your wallet was synchronizing, don´t worries, it will continue with its synchronization.",
   "warning": "Warning",
   "resync_confirmation_0": "Triggering a full wallet resynchronization will wipe all locally stored information about balances, movements, addresses and their metadata. This may help recovering wallets that end up in an inconsistent or corrupt state.",
   "resync_confirmation_1": "The process of resynchronizing may take several minutes or hours, and after it is complete, all your balances movements and addresses should be restored.",
@@ -390,5 +393,6 @@
   "appearance": "Appearance",
   "edit": "Edit",
   "delete": "Delete",
-  "not_enough_balance": "Your wallet has not enough funds"
+  "not_enough_balance": "Your wallet has not enough funds",
+  "not_show_again": "Don´t show this message again"
 }

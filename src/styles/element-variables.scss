@@ -271,6 +271,23 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import '~element-ui/packages/theme-chalk/src/index';
 
+.el-checkbox__label {
+  color: var(--text-medium-emphasis);
+}
+
+.el-checkbox {
+  &.is-checked {
+    .el-checkbox__label {
+      color: var(--info-title);
+    }
+
+    .el-checkbox__inner {
+      background-color: var(--info-title);
+      border-color: var(--info-title);
+    }
+  }
+}
+
 .el-progress-bar {
   .el-progress-bar__inner {
     background-color: var(--progress-bar);

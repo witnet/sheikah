@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { LocalStorageApi } from '@/api'
 
 export default {
   state: {
@@ -8,13 +9,21 @@ export default {
     setupMessage: 'Updating wallet backend',
     setupProgress: 0,
     isResyncConfirmationVisible: false,
+    sessionExpired: false,
+    localStorage: new LocalStorageApi(),
   },
   mutations: {
     showResyncConfirmation(state) {
       state.isResyncConfirmationVisible = true
     },
+    showLogoutModal(state) {
+      state.sessionExpired = true
+    },
     closeResyncConfirmation(state) {
       state.isResyncConfirmationVisible = false
+    },
+    closeLogoutModal(state) {
+      state.sessionExpired = false
     },
     receiveTransactionClicked: function(state) {
       state.receiveTransactionClicked = true
@@ -47,6 +56,9 @@ export default {
   actions: {
     notify(context, payload) {
       Vue.prototype.$notify(payload.message)
+    },
+    saveShowModalAgain(context, val) {
+      context.state.localStorage.setSkipSessionExpirationInfo(val)
     },
   },
 }

@@ -280,6 +280,14 @@ export class LocalStorageApi {
     return this._set('unitSettings', unit)
   }
 
+  getSkipSessionExpirationInfo() {
+    return this._get('skipSessionExpirationInfo')
+  }
+
+  setSkipSessionExpirationInfo(val) {
+    return this._set('skipSessionExpirationInfo', val)
+  }
+
   getLanguageSettings() {
     return this._get('languageSettings')
   }

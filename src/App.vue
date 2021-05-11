@@ -5,17 +5,20 @@
     </transition>
     <Notification />
     <ResyncConfirmation v-if="isResyncConfirmationVisible" />
+    <LogoutModal v-if="sessionExpired" />
   </div>
 </template>
 
 <script>
 import { mapMutations, mapActions, mapState } from 'vuex'
 import Notification from '@/components/Notification'
+import LogoutModal from '@/components/LogoutModal'
 
 export default {
   name: 'App',
   components: {
     Notification,
+    LogoutModal,
     ResyncConfirmation: () => import('@/components/ResyncConfirmation'),
   },
   data() {
@@ -31,6 +34,7 @@ export default {
         state.wallet.tokenGenerationEventOccurred,
       isResyncConfirmationVisible: state =>
         state.uiInteractions.isResyncConfirmationVisible,
+      sessionExpired: state => state.uiInteractions.sessionExpired,
     }),
   },
   watch: {
