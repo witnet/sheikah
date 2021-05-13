@@ -72,6 +72,7 @@ export default {
     balance: {},
     walletIdx: null,
     sessionId: null,
+    sessionExtended: false,
     walletId: null,
     addresses: [],
     generatedTransaction: null,
@@ -115,6 +116,8 @@ export default {
       new Date(GENESIS_EVENT_TIMESTAMP) < new Date(),
     isDefaultWallet: false,
     sessionTimeout: null,
+    sessionExpirationSecs: null,
+    sessionWillExpireSoon: false,
   },
   getters: {
     network: state => state.status.network,
@@ -133,6 +136,9 @@ export default {
     },
   },
   mutations: {
+    setExpirationSecs(state, { secs }) {
+      state.sessionExpirationSecs = secs
+    },
     setWalletOwner(status, { isDefaultWallet }) {
       status.isDefaultWallet = isDefaultWallet
     },
@@ -447,19 +453,25 @@ export default {
       }
     },
     startSessionTimeout(state, ms) {
-      // Redirect to wallet list when the session has expired
-      // state.sessionTimeout = setTimeout(() => {
-      //   router.push('/welcome-back/wallet-list')
-      //   this.commit('stopSessionTimeout')
-      // }, ms)
-      // REMOVE: test timeout
+      if (state.sessionExtended) {
+        state.sessionWillExpireSoon = false
+        state.sessionExtended = false
+        this.commit('stopSessionTimeout')
+      }
+
+      setTimeout(() => {
+        state.sessionWillExpireSoon = true
+      }, ms - 3000)
+
       state.sessionTimeout = setTimeout(() => {
+        state.sessionWillExpireSoon = false
         router.push('/welcome-back/wallet-list')
         this.commit('stopSessionTimeout')
+        this.commit('deleteSession')
         if (!state.localStorage.getSkipSessionExpirationInfo()) {
           this.commit('showLogoutModal')
         }
-      }, 1000)
+      }, ms)
     },
     stopSessionTimeout(state) {
       clearTimeout(state.sessionTimeout)
@@ -467,6 +479,20 @@ export default {
     },
   },
   actions: {
+    async refreshSession(context) {
+      const request = await context.state.api.refreshSession({
+        session_id: context.state.sessionId,
+      })
+      if (request.result.success) {
+        context.state.sessionExtended = true
+        context.commit(
+          'startSessionTimeout',
+          context.state.sessionExpirationSecs * 1000,
+        )
+      } else {
+        console.error('error while refreshing session', request.result)
+      }
+    },
     async setCurrentTransactionsPage(context, { page }) {
       await context.dispatch('getTransactions', { page })
       if (!context.state.errors.getTransactions) {
@@ -783,6 +809,9 @@ export default {
         const index = walletInfos.findIndex(wallet => wallet.id === walletId)
 
         context.commit('setWalletIndex', { walletIndex: index })
+        context.commit('setExpirationSecs', {
+          secs: request.result.session_expiration_secs,
+        })
         context.commit(
           'startSessionTimeout',
           request.result.session_expiration_secs * 1000,

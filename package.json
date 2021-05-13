@@ -49,6 +49,7 @@
     "electron-updater": "^4.3.5",
     "element-ui": "^2.4.5",
     "fs-extra": "^9.0.1",
+    "idle-vue": "^2.0.5",
     "progress-stream": "^2.0.0",
     "rpc-websockets": "^4.3.5",
     "tar": "^6.0.1",

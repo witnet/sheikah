@@ -35,9 +35,16 @@ export default {
       isResyncConfirmationVisible: state =>
         state.uiInteractions.isResyncConfirmationVisible,
       sessionExpired: state => state.uiInteractions.sessionExpired,
+      sessionWillExpireSoon: state => state.wallet.sessionWillExpireSoon,
+      isIdle: state => state.idleVue.isIdle,
     }),
   },
   watch: {
+    sessionWillExpireSoon(willExpire) {
+      if (willExpire && !this.isIdle) {
+        this.refreshSession()
+      }
+    },
     $route: function(to, from) {
       this.loading = false
       if (to.path.includes('/settings') || from.path.includes('/settings')) {
@@ -67,6 +74,7 @@ export default {
       deleteSession: 'deleteSession',
     }),
     ...mapActions({
+      refreshSession: 'refreshSession',
       getWalletInfos: 'getWalletInfos',
       getNotifications: 'getNotifications',
       getTheme: 'getTheme',

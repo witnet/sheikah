@@ -12,9 +12,11 @@
       <p class="title">{{ $t('close_session_info_title') }}</p>
     </div>
 
-    <p class="text">
-      {{ $t('close_session_info_0') }}
-    </p>
+    <i18n path="close_session_info_0" tag="p" class="text">
+      <span>{{
+        $tc('minutes', sessionExpirationMin, { count: sessionExpirationMin })
+      }}</span>
+    </i18n>
 
     <el-checkbox v-model="checked">{{ $t('not_show_again') }}</el-checkbox>
     <span slot="footer" class="dialog-footer">
@@ -24,7 +26,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'LogoutModal',
@@ -34,18 +36,16 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      sessionExpirationMin: state => state.wallet.sessionExpirationSecs / 60,
+    }),
     checked: {
       get() {
         return this.notShowModalAgain
       },
       set(val) {
-        if (val) {
-          this.avoidShowModalAgain = true
-          this.saveShowModalAgain(true)
-        } else {
-          this.avoidShowModalAgain = false
-          this.saveShowModalAgain(false)
-        }
+        this.avoidShowModalAgain = val
+        this.saveShowModalAgain(val)
         return this.avoidShowModalAgain
       },
     },

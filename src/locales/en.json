@@ -4,6 +4,7 @@
   "address": "Address",
   "received": "Received",
   "payment": "0 payments | 1 payment | %{count} payments",
+  "minutes": "0 minutes | 1 minute | %{count} minutes",
   "totalling": "totalling",
   "from": "from",
   "to": "to",
@@ -102,7 +103,7 @@
   "arguments": "Arguments",
   "return_script": "Return and pass into aggregator",
   "close_session_info_title": "Session expired",
-  "close_session_info_0": "Your wallet session has expired. In case your wallet was synchronizing, don´t worries, it will continue with its synchronization.",
+  "close_session_info_0": "Your wallet session has expired after {0} without activity. If your wallet was synchronizing the process will continue in the background until complete.",
   "warning": "Warning",
   "resync_confirmation_0": "Triggering a full wallet resynchronization will wipe all locally stored information about balances, movements, addresses and their metadata. This may help recovering wallets that end up in an inconsistent or corrupt state.",
   "resync_confirmation_1": "The process of resynchronizing may take several minutes or hours, and after it is complete, all your balances movements and addresses should be restored.",
@@ -394,5 +395,5 @@
   "edit": "Edit",
   "delete": "Delete",
   "not_enough_balance": "Your wallet has not enough funds",
-  "not_show_again": "Don´t show this message again"
+  "not_show_again": "Don't show this message again"
 }

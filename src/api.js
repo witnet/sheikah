@@ -186,6 +186,10 @@ export class WalletApi {
     return this._callApiMethod('import_seed')(params)
   }
 
+  refreshSession(params) {
+    return this._callApiMethod('refresh_session')(params)
+  }
+
   lockWallet(params) {
     return this._callApiMethod('lock_wallet')(params)
   }
