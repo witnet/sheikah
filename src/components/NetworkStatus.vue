@@ -83,7 +83,7 @@
           {{ this.$t('of') }}
           <span class="bold">#{{ lastBlock }}</span>
         </p>
-        <p v-if="isSynced" data-test="node" class="text">
+        <p v-if="address && !isNodeDisconnected" data-test="node" class="text">
           {{ this.$t('connected_to') }} <span class="bold">{{ address }}</span>
         </p>
         <p v-else data-test="node" class="text">
@@ -178,6 +178,9 @@ export default {
           color: 'yellow',
         }
       }
+    },
+    isNodeDisconnected() {
+      return this.status.currentState === NETWORK_STATUS.NODE_DISCONNECTED
     },
     isLoadingVisible() {
       return (
