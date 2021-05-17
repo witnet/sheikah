@@ -119,6 +119,7 @@ export default {
     sessionTimeout: null,
     sessionExpirationSecs: null,
     sessionWillExpireSoon: false,
+    birthDate: null,
   },
   getters: {
     network: state => state.status.network,
@@ -339,10 +340,14 @@ export default {
     setBackupPassword(state, { result }) {
       Object.assign(state, { xprvBackupPassword: result })
     },
-    setWallet(state, { walletId, sessionId, description }) {
+    setWallet(state, { walletId, sessionId, description, birthDate }) {
       state.walletId = walletId
       state.sessionId = sessionId
       state.unlockedWalletDescription = description
+      state.birthDate = birthDate
+    },
+    setBirthDate(state, { result }) {
+      Object.assign(state, { birthDate: result })
     },
 
     setWalletInfos(state, { walletInfos }) {
@@ -533,6 +538,7 @@ export default {
         context.commit('deleteSession')
         context.state.unlockedWalletDescription = null
         context.commit(SET_TEMPLATES, { templates: {} })
+        context.commit('setBirthDate', { result: null })
         router.push('/welcome-back/wallet-list')
       } else {
         context.commit('setError', {
@@ -808,11 +814,11 @@ export default {
         prefill: [1000, 2000, 3000],
       })
       if (request.result) {
-        // TODO(#706) We should receive a wallet structure instead a walletId
         context.commit('setWallet', {
           sessionId: request.result.session_id,
           walletId,
           description: request.result.description,
+          birthDate: request.result.birth_date,
         })
         const walletInfos = context.state.walletInfos
         const index = walletInfos.findIndex(wallet => wallet.id === walletId)
@@ -842,6 +848,7 @@ export default {
       })
       if (request.result) {
         context.commit('lockWallet', context.store.wallet.id)
+        context.commit('setBirthDate', { result: null })
       } else {
         context.commit('setError', 'lockWallet', request.error)
       }
@@ -883,6 +890,16 @@ export default {
     },
 
     createWallet: async function(context, params) {
+      let birthDate = null
+
+      const sourceType = params.sourceType
+
+      if (sourceType === 'xprv') {
+        birthDate = context.state.birthDate || 0
+      } else {
+        birthDate = Number.isInteger(birthDate) ? birthDate : null
+      }
+
       const request = await context.state.api.createWallet({
         overwrite: context.state.repeatedWallet,
         name: context.state.title,
@@ -891,8 +908,8 @@ export default {
         seed_source: params.sourceType,
         password: params.password,
         backup_password: params.backupPassword,
+        birth_date: birthDate,
       })
-
       context.commit('setWalletDescription', { title: '', description: '' })
       context.commit('setRepeatedWallet', { exist: null })
       if (request.result) {
@@ -907,7 +924,7 @@ export default {
       } else {
         context.commit('setError', {
           name: 'createWallet',
-          error: request.error.data[0][1],
+          error: request.error.data.cause || request.error.data[0][1],
           message: i18n.t('create_wallet_error_message'),
         })
         context.commit('clearSeed')

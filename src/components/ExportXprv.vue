@@ -37,6 +37,7 @@ import { EDITOR_EXPORT_FORMAT } from '@/constants'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import PasswordValidation from '@/components/PasswordValidation'
 import { createNotification } from '@/utils'
+import { buildXprvFile } from '@/services/buildXprvFile'
 import Card from '@/components/card/Card.vue'
 
 export default {
@@ -61,12 +62,11 @@ export default {
         state.wallet.errors.createValidPassword,
       xprv: state => state.wallet.xprv,
       validatedPassword: state => state.wallet.validatedPassword,
+      birthDate: state => state.wallet.birthDate,
     }),
     dataStr() {
       if (this.xprv) {
-        return `data:text/json;charset=utf-8,${encodeURIComponent(
-          JSON.stringify(this.xprv),
-        )}`
+        return buildXprvFile(this.xprv && this.xprv.master_key, this.birthDate)
       } else {
         return null
       }
