@@ -148,7 +148,7 @@ export default {
       isNodeSynced: state => state.wallet.status.isNodeSynced,
       locale: state => state.wallet.locale,
       walletDescription: state => {
-        return state.wallet.unlockedWalletDescription
+        return state.wallet.description
       },
     }),
     currentState() {

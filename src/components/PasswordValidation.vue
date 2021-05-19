@@ -3,12 +3,12 @@
     <p class="paragraph">
       <span class="bold">{{ opening }}</span> {{ text }}
     </p>
-    <div class="form-row password">
+    <div class="form-row">
       <p class="label">{{ this.$t('create_password') }}</p>
       <el-input
         v-model="password"
         v-focus
-        class="password"
+        class="input-password"
         data-test="password"
         :placeholder="$t('input_password')"
         show-password
@@ -19,7 +19,7 @@
       <el-input
         ref="password"
         v-model="repeatedPassword"
-        class="password"
+        class="input-password"
         data-test="repeated-password"
         :placeholder="$t('confirm_password')"
         show-password
@@ -126,18 +126,18 @@ export default {
 }
 
 .form-row {
+  align-self: center;
   column-gap: 8px;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr 3fr;
   margin-bottom: 8px;
 
-  &.password {
-    display: flex;
-    justify-content: space-between;
+  .input-password {
+    align-self: center;
   }
 
   .label {
-    width: 150px;
+    align-self: center;
   }
 
   &.form-row:last-of-type {

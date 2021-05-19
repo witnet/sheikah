@@ -24,7 +24,7 @@ export default {
   computed: {
     ...mapGetters(['unlockedWallet']),
     ...mapState({
-      walletDescription: state => state.wallet.unlockedWalletDescription,
+      walletDescription: state => state.wallet.description,
     }),
   },
   methods: {

@@ -18,6 +18,15 @@
       @validate="encryptAndExport"
       @input-password="setPassword"
     />
+    <div class="form-row">
+      <p class="">{{ $t('export_name_and_description')}}</p>
+      <el-switch
+        v-model="exportNameAndDescription"
+        data-test="action-try"
+        class="center"
+      ></el-switch>
+    </div>
+
     <div class="submit">
       <el-button
         tabindex="5"
@@ -54,6 +63,7 @@ export default {
       downloadName: 'xprv.json',
       openingLine: this.$t('please_note').toUpperCase(),
       text: this.$t('encrypt_xprv'),
+      exportNameAndDescription: false,
     }
   },
   computed: {
@@ -63,10 +73,14 @@ export default {
       xprv: state => state.wallet.xprv,
       validatedPassword: state => state.wallet.validatedPassword,
       birthDate: state => state.wallet.birthDate,
+      description: state => state.wallet.description,
+      name: state => state.wallet.title
     }),
     dataStr() {
       if (this.xprv) {
-        return buildXprvFile(this.xprv && this.xprv.master_key, this.birthDate)
+        const { name, description } = this.exportNameAndDescription ? { name: this.name, description: this.description } : { name: "", description: ""}
+
+        return buildXprvFile(this.xprv && this.xprv.master_key, this.birthDate, name, description)
       } else {
         return null
       }
@@ -130,5 +144,14 @@ export default {
   margin-top: 32px;
   text-align: right;
   width: 100%;
+}
+
+.form-row {
+  align-items: center;
+  column-gap: 8px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  justify-content: center;
+  margin: 8px 0;
 }
 </style>

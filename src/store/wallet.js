@@ -110,7 +110,6 @@ export default {
     walletLocked: false,
     validatedPassword: false,
     fileInfo: null,
-    unlockedWalletDescription: null,
     areMnemonicsValid: false,
     isXprvValid: false,
     tokenGenerationEventOccurred:
@@ -213,6 +212,13 @@ export default {
       state.computedVesting = computedVesting
     },
     setXprvInfo(state, info) {
+      if (info.data.name) {
+        state.title = info.data.name
+      }
+      if (info.data.description) {
+        state.description = info.data.description
+      }
+
       state.fileInfo = info
     },
     setExportFileLink(state, link) {
@@ -270,6 +276,8 @@ export default {
     deleteSession(state) {
       state.sessionId = null
       state.walletId = null
+      state.title = ""
+      state.description = ""
     },
     checkTokenGenerationEventDate(state) {
       const tokenGenerationEventDate = state.checkTokenGenerationEventDate
@@ -340,11 +348,12 @@ export default {
     setBackupPassword(state, { result }) {
       Object.assign(state, { xprvBackupPassword: result })
     },
-    setWallet(state, { walletId, sessionId, description, birthDate }) {
+    setWallet(state, { walletId, sessionId, description, name, birthDate }) {
       state.walletId = walletId
       state.sessionId = sessionId
-      state.unlockedWalletDescription = description
+      state.description = description
       state.birthDate = birthDate
+      state.title = name
     },
     setBirthDate(state, { result }) {
       Object.assign(state, { birthDate: result })
@@ -536,7 +545,7 @@ export default {
       if (request.result) {
         context.commit('stopSessionTimeout')
         context.commit('deleteSession')
-        context.state.unlockedWalletDescription = null
+        context.state.description = null
         context.commit(SET_TEMPLATES, { templates: {} })
         context.commit('setBirthDate', { result: null })
         router.push('/welcome-back/wallet-list')
@@ -819,6 +828,7 @@ export default {
           walletId,
           description: request.result.description,
           birthDate: request.result.birth_date,
+          name: request.result.name,
         })
         const walletInfos = context.state.walletInfos
         const index = walletInfos.findIndex(wallet => wallet.id === walletId)

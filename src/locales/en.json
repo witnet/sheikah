@@ -397,5 +397,6 @@
   "delete": "Delete",
   "not_enough_balance": "Your wallet has not enough funds",
   "not_show_again": "Don't show this message again",
+  "export_name_and_description": "Export name and description",
   "timelock": "Timelock"
 }
