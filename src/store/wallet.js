@@ -499,7 +499,7 @@ export default {
       const request = await context.state.api.refreshSession({
         session_id: context.state.sessionId,
       })
-      if (request.result.success) {
+      if (request.result && request.result.success) {
         context.state.sessionExtended = true
         context.commit(
           'startSessionTimeout',
