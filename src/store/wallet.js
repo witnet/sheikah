@@ -11,7 +11,7 @@ import i18n from '@/plugins/i18n'
 import SyncingTimeEstimator from '@/services/SyncingTimeEstimator'
 import ProcessWalletEvent from '@/services/ProcessWalletEvent'
 import formatMillisecondsDuration from '@/services/format/formatMillisecondsDuration'
-
+import { buildImportWalletBirthdate } from '@/services/birthDate'
 import {
   DEFAULT_WIT_UNIT,
   DEFAULT_THEME,
@@ -118,7 +118,7 @@ export default {
     sessionTimeout: null,
     sessionExpirationSecs: null,
     sessionWillExpireSoon: false,
-    birthDate: null,
+    birthDate: 'current',
   },
   getters: {
     network: state => state.status.network,
@@ -276,8 +276,8 @@ export default {
     deleteSession(state) {
       state.sessionId = null
       state.walletId = null
-      state.title = ""
-      state.description = ""
+      state.title = ''
+      state.description = ''
     },
     checkTokenGenerationEventDate(state) {
       const tokenGenerationEventDate = state.checkTokenGenerationEventDate
@@ -545,7 +545,6 @@ export default {
       if (request.result) {
         context.commit('stopSessionTimeout')
         context.commit('deleteSession')
-        context.state.description = null
         context.commit(SET_TEMPLATES, { templates: {} })
         context.commit('setBirthDate', { result: null })
         router.push('/welcome-back/wallet-list')
@@ -900,14 +899,26 @@ export default {
     },
 
     createWallet: async function(context, params) {
-      let birthDate = null
+      let birthDate
 
       const sourceType = params.sourceType
 
       if (sourceType === 'xprv') {
-        birthDate = context.state.birthDate || 0
+        // User is importing a wallet from xprv file
+        birthDate = context.state.birthDate
+          ? { imported: context.state.birthDate }
+          : null
+      } else if (context.state.birthDate === 'current') {
+        // User is creating a new wallet and birthDate has its default value
+        birthDate = 'current'
       } else {
-        birthDate = Number.isInteger(birthDate) ? birthDate : null
+        // User is importing the wallet form mnemonics and has selected a birthDate or has null value
+        const calculatedWalletBirthdate = buildImportWalletBirthdate(
+          context.state.birthDate ? new Date(context.state.birthDate) : null,
+        )
+        birthDate = calculatedWalletBirthdate
+          ? { imported: calculatedWalletBirthdate }
+          : null
       }
 
       const request = await context.state.api.createWallet({
@@ -921,7 +932,9 @@ export default {
         birth_date: birthDate,
       })
       context.commit('setWalletDescription', { title: '', description: '' })
+      context.commit('setBirthDate', { result: null })
       context.commit('setRepeatedWallet', { exist: null })
+
       if (request.result) {
         context.dispatch('unlockWallet', {
           walletId: request.result.wallet_id,

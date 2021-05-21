@@ -115,7 +115,6 @@ export default {
 .error {
   color: $red-2;
   font-size: 14px;
-  margin-top: 8px;
   min-width: 270px;
   position: absolute;
 }

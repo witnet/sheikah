@@ -229,6 +229,9 @@
   --date-picker-background: #{$grey-dark-10};
   --date-picker-border: 1px solid #{$grey-dark-1};
   --date-picker-selected-time: #{$purple-dark};
+  --disabled-picker-background: rgba(255, 255, 255, 0.1);
+  --disabled-picker-opacity: 0.3;
+  --picker-panel-background: transparent;
 }
 
 [theme='light'] {
@@ -444,6 +447,9 @@
   --date-picker-background: #{$white};
   --date-picker-border: 1px solid #e4e4e4;
   --date-picker-selected-time: #e4e4e4;
+  --disabled-picker-background: #f5f7fa;
+  --disabled-picker-opacity: 1;
+  --picker-panel-background: #fff;
 }
 
 // COMMON

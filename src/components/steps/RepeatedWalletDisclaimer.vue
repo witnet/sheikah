@@ -48,7 +48,7 @@ export default {
       if (this.isImportingXprv) {
         this.$router.push(`/ftu/wallet-description?xprv=true`)
       } else {
-        this.$router.push(`/ftu/wallet-description?import=true`)
+        this.$router.push(`/ftu/wallet-birthdate`)
       }
     },
     previousStep() {

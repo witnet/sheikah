@@ -100,7 +100,6 @@ export default {
         backupPassword: this.password,
       })
       if (!this.xprvError) {
-        // FIXME: unify calls and move logic into vuex
         this.setXprv({ result: this.fileInfo.data.master_key })
         this.setBackupPassword({ result: this.password })
         this.setBirthDate({ result: this.fileInfo.data.birth_date })

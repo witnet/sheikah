@@ -76,7 +76,7 @@ export default {
       if (this.isImportingMnemonics) {
         return '/ftu/import-wallet'
       } else if (this.isImportingXprv) {
-        return `/ftu/import-xprv`
+        return `/ftu/wallet-birthdate`
       } else {
         return '/ftu/seed-validation'
       }

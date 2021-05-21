@@ -361,7 +361,22 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 }
 
 .el-picker-panel {
+  background: var(--picker-panel-background);
   border: none;
+}
+
+.el-year-table td.disabled .cell {
+  background-color: var(--disabled-picker-background);
+  opacity: var(--disabled-picker-opacity);
+}
+
+.el-month-table td.disabled .cell {
+  background-color: var(--disabled-picker-background);
+  opacity: var(--disabled-picker-opacity);
+}
+
+.el-month-table td .cell {
+  color: var(--text-medium-emphasis);
 }
 
 .el-popper {
@@ -444,6 +459,13 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 .el-date-table td.available:hover {
   color: var(--button-text-color);
+}
+
+.el-date-table td.disabled {
+  div {
+    background-color: var(--disabled-picker-background);
+    opacity: var(--disabled-picker-opacity);
+  }
 }
 
 .el-date-table td.today span {

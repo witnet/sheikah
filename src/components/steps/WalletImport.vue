@@ -96,7 +96,7 @@ export default {
       if (this.repeatedWallet) {
         this.$router.push('/ftu/repeated-wallet')
       } else if (!this.mnemonicsError) {
-        this.$router.push(`/ftu/encryption-pass?import=true`)
+        this.$router.push(`/ftu/wallet-birthdate?import=true`)
       }
     },
     previousStep() {

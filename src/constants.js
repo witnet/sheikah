@@ -154,3 +154,10 @@ export const SETTINGS_BY_SECTION = {
 }
 
 export const TEMPLATES_PER_PAGE = 12
+
+export const BIRTH_DATE_DELAY_DAYS = 30
+
+// 2020-10-14 09:00:00
+export const GENESIS_TIMESTAMP = 1602666000000
+
+export const EPOCH_PERIOD = 45 * 1000

@@ -397,6 +397,8 @@
   "delete": "Delete",
   "not_enough_balance": "Your wallet has not enough funds",
   "not_show_again": "Don't show this message again",
-  "export_name_and_description": "Export name and description",
+  "export_name_and_description": "Include name and description",
+  "select_wallet_birth_date": "Select wallet creation date",
+  "wallet_birth_date_text": "By default, Sheikah will start looking for transactions from the genesis date. If remember when you created your wallet, you can specify it to start syncing from that date and boost up the synchronization speed.",
   "timelock": "Timelock"
 }

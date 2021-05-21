@@ -11,7 +11,7 @@ import {
 } from '@/constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import { Radon } from 'witnet-radon-js'
-import { LANGUAGES } from './constants'
+import { LANGUAGES, EPOCH_PERIOD, GENESIS_TIMESTAMP } from './constants'
 
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
@@ -563,4 +563,12 @@ export function calculateVesting(vestingInfo, amount, genesisDate) {
         amount: currentAmount,
       }
     })
+}
+
+export function subtractDaysToTimestamp(timestamp, days) {
+  return timestamp - days * 24 * 3600 * 1000
+}
+
+export function convertTimestampIntoEpoch(timestamp) {
+  return Math.floor((timestamp - GENESIS_TIMESTAMP) / EPOCH_PERIOD) - 1
 }

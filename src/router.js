@@ -26,6 +26,7 @@ import WalletNotFound from '@/components/WalletNotFound.vue'
 import RepeatedWalletDisclaimer from '@/components/steps/RepeatedWalletDisclaimer.vue'
 import Setup from '@/views/Setup.vue'
 import Settings from '@/views/Settings.vue'
+import WalletBirthdate from '@/components/steps/WalletBirthdate.vue'
 
 import store from '@/store'
 import { SETTINGS_SECTIONS } from '@/constants'
@@ -279,6 +280,11 @@ export default new Router({
           name: 'repeatedWallet',
           path: 'repeated-wallet',
           component: RepeatedWalletDisclaimer,
+        },
+        {
+          name: 'walletBirthDate',
+          path: 'wallet-birthdate',
+          component: WalletBirthdate,
         },
       ],
     },

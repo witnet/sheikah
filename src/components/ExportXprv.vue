@@ -19,7 +19,7 @@
       @input-password="setPassword"
     />
     <div class="form-row">
-      <p class="">{{ $t('export_name_and_description')}}</p>
+      <p class="">{{ $t('export_name_and_description') }}</p>
       <el-switch
         v-model="exportNameAndDescription"
         data-test="action-try"
@@ -74,13 +74,20 @@ export default {
       validatedPassword: state => state.wallet.validatedPassword,
       birthDate: state => state.wallet.birthDate,
       description: state => state.wallet.description,
-      name: state => state.wallet.title
+      name: state => state.wallet.title,
     }),
     dataStr() {
       if (this.xprv) {
-        const { name, description } = this.exportNameAndDescription ? { name: this.name, description: this.description } : { name: "", description: ""}
+        const { name, description } = this.exportNameAndDescription
+          ? { name: this.name, description: this.description }
+          : { name: '', description: '' }
 
-        return buildXprvFile(this.xprv && this.xprv.master_key, this.birthDate, name, description)
+        return buildXprvFile(
+          this.xprv && this.xprv.master_key,
+          this.birthDate,
+          name,
+          description,
+        )
       } else {
         return null
       }
@@ -152,6 +159,6 @@ export default {
   display: grid;
   grid-template-columns: 1fr 3fr;
   justify-content: center;
-  margin: 8px 0;
+  margin: 16px 0;
 }
 </style>

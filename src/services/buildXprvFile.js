@@ -3,8 +3,8 @@ export function buildXprvFile(masterKey, birthDate, name, description) {
     JSON.stringify({
       master_key: masterKey,
       birth_date: birthDate || 0,
-      name: name || "",
-      description: description || "",
+      name: name || '',
+      description: description || '',
     }),
   )}`
 }

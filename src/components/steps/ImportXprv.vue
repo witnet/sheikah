@@ -52,8 +52,6 @@ export default {
   data() {
     return {
       seed: '',
-      showError: '',
-      error: '',
       showDelete: false,
       fileName: '',
       disabledNextButton: true,

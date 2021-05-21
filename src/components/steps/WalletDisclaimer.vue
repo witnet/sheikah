@@ -34,9 +34,10 @@ export default {
     Disclaimer,
   },
   methods: {
-    ...mapMutations(['setWalletDescription']),
+    ...mapMutations(['setWalletDescription', 'setBirthDate']),
     previousStep() {
       this.setWalletDescription({ title: '', description: '' })
+      this.setBirthDate({ result: 'current' })
       this.$router.push('/ftu/welcome')
     },
     nextStep() {
