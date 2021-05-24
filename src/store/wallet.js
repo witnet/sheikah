@@ -696,8 +696,12 @@ export default {
         })
       }
     },
-    createVTT: async function(context, { address, amount, fee, label }) {
+    createVTT: async function(
+      context,
+      { address, amount, fee, label, timelock = 0 },
+    ) {
       // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
+      console.log(timelock)
       const request = await context.state.api.createVTT({
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
@@ -709,6 +713,7 @@ export default {
               WIT_UNIT.NANO,
               context.state.unit,
             ),
+            time_lock: Math.floor(timelock / 1000),
           },
         ],
         fee: standardizeWitUnits(fee, WIT_UNIT.NANO),

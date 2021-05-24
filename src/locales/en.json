@@ -396,5 +396,6 @@
   "edit": "Edit",
   "delete": "Delete",
   "not_enough_balance": "Your wallet has not enough funds",
-  "not_show_again": "Don't show this message again"
+  "not_show_again": "Don't show this message again",
+  "timelock": "Timelock"
 }

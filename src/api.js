@@ -96,8 +96,7 @@ export class WalletApi {
   }
 
   createVTT(params) {
-    const defaultParams = { time_lock: 0 }
-    return this._callApiMethod('create_vtt')({ ...defaultParams, ...params })
+    return this._callApiMethod('create_vtt')({ ...params })
   }
 
   createWallet(params) {

@@ -35,6 +35,16 @@
         <AppendUnit slot="append" :static-unit="WIT_UNIT.NANO" />
       </el-input>
     </el-form-item>
+    <el-form-item :label="$t('timelock')" prop="timelock">
+      <el-date-picker
+        v-model="form.timelock"
+        type="datetime"
+        placeholder="Select date and time"
+        tabindex="5"
+        :default-value="new Date()"
+        value-format="timestamp"
+      />
+    </el-form-item>
     <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
     <div class="submit">
       <el-button
@@ -103,6 +113,7 @@ export default {
         label: '',
         amount: null,
         fee: null,
+        timelock: null,
       },
       rules: {
         // address validation is updated on runtime according to the network
@@ -205,6 +216,7 @@ export default {
             address: this.form.address,
             amount: this.form.amount,
             fee: this.form.fee,
+            timelock: this.form.timelock,
           })
         }
       })

@@ -395,5 +395,6 @@
   "edit": "Editar",
   "delete": "Borrar",
   "not_enough_balance": "Tu wallet no tiene suficientes fondos",
-  "not_show_again": "No volver a mostrar este mensaje"
+  "not_show_again": "No volver a mostrar este mensaje",
+  "timelock": "Timelock"
 }

@@ -339,6 +339,129 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   }
 }
 
+// date picker
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  width: 100%;
+}
+
+.el-time-panel {
+  background-color: var(--tooltip-background);
+  color: var(--text-medium-emphasis);
+}
+
+.el-time-spinner__item:hover:not(.disabled):not(.active) {
+  background: var(--date-picker-selected-time);
+}
+
+.el-picker-panel__footer {
+  background: var(--date-picker-background);
+  border-top: var(--date-picker-border);
+  color: var(--text-medium-emphasis);
+}
+
+.el-picker-panel {
+  border: none;
+}
+
+.el-popper {
+  .popper__arrow {
+    display: none;
+  }
+}
+
+.el-picker-panel__body {
+  background: var(--tooltip-background);
+  color: var(--text-medium-emphasis);
+}
+
+.el-button.is-plain:hover,
+.el-button.is-plain:focus {
+  background-color: var(--button-primary-background-hover);
+  border-color: var(--button-primary-background-hover);
+  color: var(--button-primary-text-hover);
+}
+
+.el-time-spinner__item {
+  color: var(--text-medium-emphasis);
+}
+
+.el-time-spinner__item.active:not(.disabled) {
+  color: var(--text-high-emphasis);
+}
+
+.el-time-panel__btn.confirm {
+  color: var(--button-text-color);
+
+  &:hover,
+  &:focus {
+    color: var(--button-text-hover);
+  }
+}
+
+.el-time-panel__btn.cancel {
+  color: var(--button-text-color);
+
+  &:hover,
+  &:focus {
+    color: var(--button-text-hover);
+  }
+}
+
+.el-time-panel__content::after,
+.el-time-panel__content::before {
+  border-bottom: var(--date-picker-border);
+  border-top: var(--date-picker-border);
+}
+
+.el-year-table td.today .cell {
+  color: var(--active-color);
+}
+
+.el-year-table td .cell {
+  color: var(--text-medium-emphasis);
+
+  &:hover {
+    color: var(--active-color);
+  }
+
+  &:active {
+    color: var(--active-color);
+  }
+}
+
+.el-date-picker__header-label:hover {
+  color: var(--button-text-hover);
+}
+
+.el-picker-panel__icon-btn {
+  color: var(--text-medium-emphasis);
+
+  &:hover {
+    color: var(--active-color);
+  }
+}
+
+.el-date-table td.available:hover {
+  color: var(--button-text-color);
+}
+
+.el-date-table td.today span {
+  color: var(--button-text-hover);
+}
+
+.el-date-table td.current:not(.disabled) span {
+  background-color: var(--button-text-hover);
+}
+
+.el-date-picker__header-label {
+  color: var(--text-medium-emphasis);
+}
+
+.el-date-table th {
+  color: var(--text-medium-emphasis);
+}
+
 .el-pagination {
   .el-pager {
     color: var(--pagination-number);
