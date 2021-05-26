@@ -12,6 +12,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
 import electronLog from 'electron-log'
+import semver from 'semver'
 import {
   app,
   BrowserWindow,
@@ -391,24 +392,21 @@ function main() {
 
       let isLastestVersion = existConfigFile && existWitnetFile
       let isLatestVersionCompatible = true
+
       if (existVersionFile) {
         try {
           const versionFile = fs.readFileSync(
             path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
             'utf8',
           )
-          const currentVersionFirstDigit = versionFile
-            .split('-')[1]
-            .split('.')[0]
-          const latestVersionFirstDigit = latestReleaseVersion
-            .split('-')[1]
-            .split('.')[0]
+
+          isLatestVersionCompatible = semver.satisfies(
+            getVersionFromName(latestReleaseVersion),
+            `~${getVersionFromName(versionFile)}`,
+          )
 
           if (versionFile !== latestReleaseVersion) {
             isLastestVersion = false
-          }
-          if (currentVersionFirstDigit !== latestVersionFirstDigit) {
-            isLatestVersionCompatible = false
           }
         } catch (err) {
           return console.error(
@@ -531,6 +529,11 @@ autoUpdater.on('update-downloaded', () => {
     console.log(err)
   }
 })
+
+// Parse version name to get the version number witnet-1.2.1 => 1.2.1
+function getVersionFromName(name) {
+  return semver.valid(semver.coerce(name))
+}
 
 // Overwrite wallet config file only when new version is downloaded
 function overwriteWalletConfigFile() {
