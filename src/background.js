@@ -390,14 +390,25 @@ function main() {
       )
 
       let isLastestVersion = existConfigFile && existWitnetFile
+      let isLatestVersionCompatible = true
       if (existVersionFile) {
         try {
           const versionFile = fs.readFileSync(
             path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
             'utf8',
           )
+          const currentVersionFirstDigit = versionFile
+            .split('-')[1]
+            .split('.')[0]
+          const latestVersionFirstDigit = latestReleaseVersion
+            .split('-')[1]
+            .split('.')[0]
+
           if (versionFile !== latestReleaseVersion) {
             isLastestVersion = false
+          }
+          if (currentVersionFirstDigit !== latestVersionFirstDigit) {
+            isLatestVersionCompatible = false
           }
         } catch (err) {
           return console.error(
@@ -411,7 +422,7 @@ function main() {
       if (existConfigFile) console.info("Witnet's config file found")
       if (existVersionFile) console.info("Witnet's version file found")
 
-      if (!isLastestVersion) {
+      if (!isLastestVersion && isLatestVersionCompatible) {
         win.webContents.send('downloading')
         await sleep(2500)
         await downloadWalletRelease(releaseUrl, latestReleaseVersion)
