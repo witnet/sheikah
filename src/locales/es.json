@@ -301,7 +301,6 @@
   "block_notification_title": "Recibido nuevo epoch %{variable}",
   "syncing_error": "La wallet aún no está sincronizada",
   "syncing_error_message": "Espera hasta que finalice la sincronización",
-  "validation_error": "Error de validación",
   "xprv_validation_message": "Sube un archivo válido",
   "save_template_error_message": "Se ha producido un error al guardar los cambios",
   "get_templates_error_message": "Error al recuperar la lista de templates",

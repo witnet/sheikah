@@ -87,7 +87,7 @@ export default {
     setError() {
       this.$store.commit('setError', {
         name: 'xprv',
-        error: this.$t('validation_error'),
+        error: 'Validation Error',
         message: this.$t('xprv_validation_message'),
       })
     },

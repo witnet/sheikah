@@ -445,14 +445,14 @@ export default {
       if (passwordLength < 8 || repeatedPasswordLength < 8) {
         this.commit('setError', {
           name: 'createValidPassword',
-          error: i18n.t('validation_error'),
+          error: 'Validation Error',
           message: i18n.t('validate_password_length_message'),
         })
         state.validatedPassword = false
       } else if (password !== repeatedPassword) {
         this.commit('setError', {
           name: 'createValidPassword',
-          error: i18n.t('validation_error'),
+          error: 'Validation Error',
           message: i18n.t('validate_password_match_message'),
         })
         state.validatedPassword = false
