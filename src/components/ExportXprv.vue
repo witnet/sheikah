@@ -12,6 +12,7 @@
       style="display: none"
     ></a>
     <PasswordValidation
+      ref="password-validation"
       :error="createValidPasswordError"
       :opening="openingLine"
       :text="text"
@@ -116,6 +117,7 @@ export default {
       }
     },
     clear() {
+      this.$refs['password-validation'].clearInput()
       if (this.createValidPasswordError) {
         this.clearError({ error: this.createValidPasswordError.name })
       }

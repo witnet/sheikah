@@ -100,6 +100,10 @@ export default {
       validatePassword: 'validatePassword',
       clearError: 'clearError',
     }),
+    clearInput() {
+      this.password = ''
+      this.repeatedPassword = ''
+    },
     validate() {
       this.$emit('validate')
     },

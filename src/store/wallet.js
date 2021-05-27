@@ -715,7 +715,6 @@ export default {
       { address, amount, fee, label, timelock = 0 },
     ) {
       // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
-      console.log(timelock)
       const request = await context.state.api.createVTT({
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
