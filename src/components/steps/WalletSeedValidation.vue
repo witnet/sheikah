@@ -84,7 +84,7 @@ export default {
     },
     nextStep() {
       this.validateForm()
-      if (this.areMnemonicsValid) {
+      if (!this.isNextButtonDisabled) {
         this.$router.push('/ftu/wallet-description')
       }
     },
