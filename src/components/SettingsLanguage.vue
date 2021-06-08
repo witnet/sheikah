@@ -33,7 +33,7 @@ export default {
     }),
     actualLanguage: {
       set(val) {
-        this.changeLocale({ locale: val.value, i18n: this.$i18n })
+        this.changeLocale({ newLocale: val.value, i18n: this.$i18n })
       },
       get() {
         return { primaryText: this.language.name, value: this.language.locale }

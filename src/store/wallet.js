@@ -28,6 +28,7 @@ import {
 } from '@/constants'
 import { SET_TEMPLATES, UPDATE_TEMPLATE } from '@/store/mutation-types'
 import warning from '@/resources/svg/warning.png'
+import locale from 'element-ui/lib/locale'
 
 export default {
   state: {
@@ -247,15 +248,17 @@ export default {
         state.balance = balance
       }
     },
-    changeLocale(state, { locale, i18n }) {
-      if (Object.keys(LANGUAGES).includes(locale)) {
-        state.locale = locale
-        state.localStorage.setLanguageSettings(locale)
+    changeLocale(state, { newLocale, i18n }) {
+      if (Object.keys(LANGUAGES).includes(newLocale)) {
+        state.locale = newLocale
+        state.localStorage.setLanguageSettings(newLocale)
 
-        i18n.locale = locale
+        i18n.locale = newLocale
       } else {
         console.warn('[mutation setUnit]: invalid language')
       }
+      // Set element locale
+      locale.use(LANGUAGES[i18n.locale].elementLocale)
     },
     changeDefaultUnit(state, unit) {
       if (Object.values(WIT_UNIT).includes(unit)) {
@@ -1012,10 +1015,10 @@ export default {
         : context.commit('setUnit', defaultUnit)
     },
     getLocale: async function(context, payload) {
-      const locale = context.state.localStorage.getLanguageSettings()
-      if (locale) {
+      const localeFromStorage = context.state.localStorage.getLanguageSettings()
+      if (localeFromStorage) {
         context.commit('setLanguage', {
-          locale: locale,
+          locale: localeFromStorage,
           i18n: payload.i18n,
         })
       } else {
@@ -1027,6 +1030,8 @@ export default {
           i18n: payload.i18n,
         })
       }
+      // Set element locale
+      locale.use(LANGUAGES[payload.i18n.locale].elementLocale)
     },
     getTheme: async function(context) {
       const theme = context.state.localStorage.getThemeSettings()

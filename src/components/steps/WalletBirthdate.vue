@@ -15,7 +15,7 @@
       <el-date-picker
         v-model="birthDate"
         type="date"
-        placeholder="Pick a creation date"
+        :placeholder="$t('select_creation_date')"
         :picker-options="pickerOptions"
       >
       </el-date-picker>

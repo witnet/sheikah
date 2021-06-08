@@ -35,19 +35,46 @@
         <AppendUnit slot="append" :static-unit="WIT_UNIT.NANO" />
       </el-input>
     </el-form-item>
-    <el-form-item :label="$t('timelock')" prop="timelock">
-      <el-date-picker
-        v-model="form.timelock"
-        type="datetime"
-        placeholder="Select date and time"
-        tabindex="5"
-        :default-value="new Date()"
-        value-format="timestamp"
-      />
-    </el-form-item>
+    <transition name="slide">
+      <el-form-item
+        v-if="isAdvancedVisible"
+        :label="$t('timelock')"
+        prop="timelock"
+      >
+        <el-date-picker
+          v-model="form.timelock"
+          type="datetime"
+          :placeholder="$t('select_date')"
+          tabindex="5"
+          :default-value="new Date()"
+          value-format="timestamp"
+        />
+      </el-form-item>
+    </transition>
     <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
     <div class="submit">
       <el-button
+        v-if="isAdvancedVisible"
+        data-test="advance-options"
+        type="text"
+        class="link"
+        @click="toggleAdvanceOptions"
+      >
+        {{ this.$t('show_less') }}
+        <CustomIcon class-name="icon" name="close" />
+      </el-button>
+      <el-button
+        v-else
+        data-test="show-advance-options"
+        class="link"
+        type="text"
+        @click="toggleAdvanceOptions"
+      >
+        {{ this.$t('show_advance') }}
+        <CustomIcon class-name="icon" name="open" />
+      </el-button>
+      <el-button
+        class="send-btn"
         tabindex="5"
         type="primary"
         data-test="sign-send-btn"
@@ -64,11 +91,13 @@ import { mapState, mapMutations, mapGetters } from 'vuex'
 import AppendUnit from '@/components/AppendUnit'
 import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
 import { WIT_UNIT } from '@/constants'
+import CustomIcon from '@/components/CustomIcon'
 
 export default {
   name: 'SendValueTransferForm',
   components: {
     AppendUnit,
+    CustomIcon,
   },
   data() {
     const maxNumber = (rule, value, callback) => {
@@ -200,6 +229,9 @@ export default {
       clearError: 'clearError',
       clearGeneratedTransaction: 'clearGeneratedTransaction',
     }),
+    toggleAdvanceOptions() {
+      this.isAdvancedVisible = !this.isAdvancedVisible
+    },
     changeUnit(prevUnit, newUnit) {
       this.form = {
         ...this.form,
@@ -274,7 +306,26 @@ export default {
 }
 
 .submit {
+  display: flex;
+  flex-direction: column;
   text-align: right;
   width: 100%;
+
+  .link {
+    font-size: 14px;
+    text-align: left;
+
+    .icon {
+      width: 8px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .send-btn {
+    align-self: flex-end;
+  }
 }
 </style>

@@ -1,4 +1,6 @@
-import { es, enGB } from 'date-fns/locale'
+import { es as fnsEs, enGB } from 'date-fns/locale'
+import en from 'element-ui/lib/locale/lang/en'
+import es from 'element-ui/lib/locale/lang/es'
 
 export const EDITOR_ALLOWED_PROTOCOLS = ['http', 'https']
 
@@ -34,8 +36,8 @@ export const SOURCES_WITH_REDUCED_DISCLAIMERS = [
 ]
 
 export const LANGUAGES = {
-  es: { name: 'Español', locale: 'es', fnsLocale: es },
-  en: { name: 'English', locale: 'en', fnsLocale: enGB },
+  es: { name: 'Español', locale: 'es', fnsLocale: fnsEs, elementLocale: es },
+  en: { name: 'English', locale: 'en', fnsLocale: enGB, elementLocale: en },
 }
 
 export const DEFAULT_LOCALE = 'en'

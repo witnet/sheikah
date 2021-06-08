@@ -399,5 +399,7 @@
   "export_name_and_description": "Include name and description",
   "select_wallet_birth_date": "Select wallet creation date",
   "wallet_birth_date_text": "By default, Sheikah will start looking for transactions from the genesis date. If remember when you created your wallet, you can specify it to start syncing from that date and boost up the synchronization speed.",
-  "timelock": "Timelock"
+  "timelock": "Timelock",
+  "select_date": "Select date and time",
+  "select_creation_date": "Pick a creation date"
 }
