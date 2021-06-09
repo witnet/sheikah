@@ -94,7 +94,7 @@ export default {
     async nextStep() {
       await this.validateForm()
       if (this.repeatedWallet) {
-        this.$router.push('/ftu/repeated-wallet')
+        this.$router.push('/ftu/repeated-wallet?import=true')
       } else if (!this.mnemonicsError) {
         this.$router.push(`/ftu/wallet-birthdate?import=true`)
       }
