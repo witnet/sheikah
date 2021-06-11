@@ -82,10 +82,10 @@ export default {
     seed: null,
     networkStatus: 'error',
     notifications: {
-      [NOTIFICATIONS.BLOCK.key]: false,
-      [NOTIFICATIONS.TRANSACTIONS.key]: true,
-      [NOTIFICATIONS.PAYMENTS.key]: true,
-      [NOTIFICATIONS.SYNCRONIZATION.key]: true,
+      [NOTIFICATIONS.BLOCK]: false,
+      [NOTIFICATIONS.TRANSACTIONS]: true,
+      [NOTIFICATIONS.PAYMENTS]: true,
+      [NOTIFICATIONS.SYNCRONIZATION]: true,
     },
     status: {
       currentState: NETWORK_STATUS.WAITING_FOR_NODE_TO_SYNC,
@@ -601,7 +601,7 @@ export default {
       if (request.result) {
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
         context.commit('clearGeneratedTransaction')
-        if (context.state.notifications.transactions) {
+        if (context.state.notifications[NOTIFICATIONS.PAYMENTS]) {
           createNotification({
             title: i18n.t('send_tx_notification_title'),
             body: i18n.t('send_tx_notification_body', {
@@ -1127,7 +1127,7 @@ export default {
       )
       if (
         event.type === 'POSITIVE' &&
-        context.state.notifications.transactions
+        context.state.notifications[NOTIFICATIONS.TRANSACTIONS]
       ) {
         createNotification({
           title: i18n.t('received_tx_notification_title', {
@@ -1144,7 +1144,7 @@ export default {
       context.commit('stopSyncEstimator')
       const [start, finish] = event
       if (finish > start) {
-        if (context.state.notifications.syncronization) {
+        if (context.state.notifications[NOTIFICATIONS.SYNCRONIZATION]) {
           createNotification({
             title: i18n.t('synced_notification_title'),
             body: i18n.t('synced_notification_body', {
@@ -1173,7 +1173,7 @@ export default {
       context.commit('stopSyncEstimator')
       context.commit('startSyncEstimator')
       if (finish - start > 100) {
-        if (context.state.notifications.syncronization) {
+        if (context.state.notifications[NOTIFICATIONS.SYNCRONIZATION]) {
           createNotification({
             title: i18n.t('sync_start_notification_title'),
             body: i18n.t('sync_start_notification_body', {
@@ -1194,7 +1194,7 @@ export default {
         balance,
       })
       context.dispatch('getAddresses')
-      if (event && context.state.notifications.block) {
+      if (event && context.state.notifications[NOTIFICATIONS.BLOCK]) {
         if (Array.isArray(event)) {
           createNotification({
             title: i18n.t('blocks_confirmed_notification_title', {
