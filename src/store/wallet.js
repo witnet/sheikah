@@ -28,7 +28,7 @@ import {
 } from '@/constants'
 import { SET_TEMPLATES, UPDATE_TEMPLATE } from '@/store/mutation-types'
 import warning from '@/resources/svg/warning.png'
-import locale from 'element-ui/lib/locale'
+import elementLocale from 'element-ui/lib/locale'
 
 export default {
   state: {
@@ -258,7 +258,7 @@ export default {
         console.warn('[mutation setUnit]: invalid language')
       }
       // Set element locale
-      locale.use(LANGUAGES[i18n.locale].elementLocale)
+      elementLocale.use(LANGUAGES[i18n.locale].elementLocale)
     },
     changeDefaultUnit(state, unit) {
       if (Object.values(WIT_UNIT).includes(unit)) {
@@ -1031,7 +1031,7 @@ export default {
         })
       }
       // Set element locale
-      locale.use(LANGUAGES[payload.i18n.locale].elementLocale)
+      elementLocale.use(LANGUAGES[payload.i18n.locale].elementLocale)
     },
     getTheme: async function(context) {
       const theme = context.state.localStorage.getThemeSettings()

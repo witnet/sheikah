@@ -75,7 +75,7 @@
       </el-button>
       <el-button
         class="send-btn"
-        tabindex="5"
+        tabindex="6"
         type="primary"
         data-test="sign-send-btn"
         @click="tryCreateVTT"
@@ -314,6 +314,7 @@ export default {
   .link {
     font-size: 14px;
     text-align: left;
+    width: fit-content;
 
     .icon {
       width: 8px;
