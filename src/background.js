@@ -43,6 +43,7 @@ const SHEIKAH_PATH_BY_PLATFORM = {
   linux: path.join(os.homedir(), '.sheikah'),
   win32: path.join(os.homedir(), '.sheikah'),
 }
+const WITNET_RUST_VERSION = '1.2'
 const VERSION_FILE_NAME = '.version'
 const SHEIKAH_PATH = process.env.TRAVIS
   ? ''
@@ -402,7 +403,7 @@ function main() {
 
           isLatestVersionCompatible = semver.satisfies(
             getVersionFromName(latestReleaseVersion),
-            `~${getVersionFromName(versionFile)}`,
+            `~${WITNET_RUST_VERSION}`,
           )
 
           if (versionFile !== latestReleaseVersion) {
