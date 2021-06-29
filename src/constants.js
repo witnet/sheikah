@@ -1,6 +1,8 @@
 import { es as fnsEs, enGB } from 'date-fns/locale'
 import en from 'element-ui/lib/locale/lang/en'
 import es from 'element-ui/lib/locale/lang/es'
+import bitcoinPrice from '@/radExamples/bitcoinPrice.js'
+import ethPrice from '@/radExamples/ethPrice.js'
 
 export const EDITOR_ALLOWED_PROTOCOLS = ['http', 'https']
 
@@ -163,3 +165,16 @@ export const BIRTH_DATE_DELAY_DAYS = 30
 export const GENESIS_TIMESTAMP = 1602666000000
 
 export const EPOCH_PERIOD = 45 * 1000
+
+export const RAD_EXAMPLES = [
+  {
+    name: 'Bitcoin price',
+    description: 'Bitcoin price in USD',
+    radRequest: bitcoinPrice,
+  },
+  {
+    name: 'Eth price',
+    description: 'Eth price in USD',
+    radRequest: ethPrice,
+  },
+]

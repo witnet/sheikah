@@ -7,7 +7,7 @@ import {
 } from '@/utils'
 import i18n from '@/plugins/i18n'
 import { Radon } from 'witnet-radon-js'
-import { EDITOR_STAGES, HISTORY_UPDATE_TYPE } from '@/constants'
+import { EDITOR_STAGES, HISTORY_UPDATE_TYPE, RAD_EXAMPLES } from '@/constants'
 import {
   UPDATE_HISTORY,
   UPDATE_TEMPLATE,
@@ -63,6 +63,23 @@ export default {
     },
   },
   mutations: {
+    setDefaultTemplates: function(state, { locale }) {
+      RAD_EXAMPLES.forEach(example => {
+        const radRequest = {
+          retrieve: example.radRequest.data.data_request.retrieve,
+          aggregate: example.radRequest.data.data_request.aggregate,
+          tally: example.radRequest.data.data_request.tally,
+          timelock: example.radRequest.data.data_request.time_lock,
+        }
+        this.dispatch('saveTemplate', {
+          template: {
+            name: example.name,
+            description: example.description,
+            radRequest: new Radon(radRequest, locale).getMir(),
+          },
+        })
+      })
+    },
     setSubscriptId: function(state, { id }) {
       state.subscriptIds.push(id)
     },
@@ -434,7 +451,6 @@ export default {
       const isImportingTemplate = args ? !!args.template : null
       const date = Date.now()
       const templates = context.state.templates
-
       if (isImportingTemplate && !isValidRadRequest(args.template.radRequest)) {
         // data request is invalid
         createNotification({
