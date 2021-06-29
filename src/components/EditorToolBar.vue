@@ -164,6 +164,9 @@ export default {
       },
     },
   },
+  beforeDestroy() {
+    this.clear()
+  },
   methods: {
     ...mapMutations({
       undo: EDITOR_UNDO,
