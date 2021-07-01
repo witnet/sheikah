@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import Card from '@/components/card/Card.vue'
 import Spinner from '@/components/Spinner.vue'
 
@@ -21,6 +21,7 @@ export default {
   },
   computed: {
     ...mapState({
+      locale: state => state.wallet.locale,
       sessionId: state => state.wallet.sessionId,
       error: state =>
         state.wallet.errors.unlockWallet || state.wallet.errors.createWallet,
@@ -30,6 +31,7 @@ export default {
     sessionId(value) {
       if (value) {
         this.$router.push(`/wallet/transactions?session_id=${this.sessionId}`)
+        this.setDefaultTemplates({ locale: this.locale })
       }
     },
     error(value) {
@@ -39,6 +41,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      setDefaultTemplates: 'setDefaultTemplates',
+    }),
     goToFirstStep() {
       this.$router.push('/ftu/welcome')
     },

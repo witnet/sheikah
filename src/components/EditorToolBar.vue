@@ -156,13 +156,16 @@ export default {
         : 'data_request.js'
     },
     autoTryDataRequest: {
-      set() {
-        this.toggleTryDataRequest()
-      },
       get() {
         return this.autoTry
       },
+      set() {
+        this.toggleTryDataRequest()
+      },
     },
+  },
+  beforeDestroy() {
+    this.clear()
   },
   methods: {
     ...mapMutations({
