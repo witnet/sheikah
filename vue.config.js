@@ -8,6 +8,10 @@ module.exports = {
           target: ['AppImage'],
           category: 'Network',
         },
+        win: {
+          target: ['nsis'],
+          verifyUpdateCodeSignature: false,
+        },
         mac: {
           hardenedRuntime: true,
           entitlements: 'build/entitlements.mac.plist',
