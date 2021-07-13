@@ -9,16 +9,6 @@
     <p><strong>Sheikah</strong> is a <a href="https://witnet.io/">Witnet</a> compatible desktop wallet and data requests development environment.</p>
 </div>
 
-## Current status
-
-**Sheikah is still a *Technology Preview***. If you run it, you will find:
-
-- **Features that work**: wallets creation, seed phrase export, addresses generation and addresses listing.
-- **Features that are partially implemented**: transactions listing, data requests listing, data requests editor.
-- **Features that are still missing**: Sheikah Marketplace, data requests deployment and selection of full node to use as backend.
-
-All of these features will be made available along the first Witnet testnet during 2020 Q2.
-
 ## Installation
 
 ### Dependencies
@@ -35,23 +25,6 @@ Go to [releases](https://github.com/witnet/sheikah/releases) section and downloa
 
 This is a Web/Desktop application built with [Electron](https://electronjs.org/). When developing Sheikah, we support **Node CURRENT and LTS+**. It might work with another version but we do not guarantee it will do in the future.
 
-### Installing witnet-rust binary
-
-As Sheikah is still in development, you need to run manually the `witnet-node` and the `witnet-wallet` to make it work. The fastest way to achieve that is by running the 'witnet-rust' binary. There is a detailed explanation in this [post](https://medium.com/witnet/how-to-run-a-full-node-on-the-witnet-testnet-911986b8add3).
-
-Once this has been achieved, you can run a `witnet-node` and a `witnet-wallet`.
-
-#### witnet-node
-
-```bash
-./witnet node server
-```
-
-#### witnet-wallet
-
-```bash
-./witnet wallet server
-```
 
 ### Running Sheikah
 
@@ -66,7 +39,7 @@ cd sheikah
 yarn
 
 # launch development application
-yarn electron:serve
+yarn electron:serve:wallet
 ```
 
 ### Formatter
@@ -79,14 +52,8 @@ yarn electron:serve
 We use [Jest](https://facebook.github.io/jest/) for testing.
 
 ``` bash
-# run unit/e2e tests
-yarn test
-
-# run e2e tests
-yarn test:e2e
-
 # run unit tests
-yarn test:unit
+yarn test
 ```
 
 ### Build
@@ -99,9 +66,9 @@ To build the application run: `yarn electron:build`, the build files are written
 
 You can read the [contributing guide](https://github.com/witnet/sheikah/blob/master/.github/CONTRIBUTING.md)
 
-#### Travis (continuous integration)
+#### Github Actions (continuous integration)
 
-When opening a pull request a job in [Travis](https://travis-ci.com/) will be fired off to check the changes. To avoid wasting time waiting for Travis output we provide the command `yarn ci` that will perform almost the same checks but it'll run in your computer.
+When opening a pull request a job in [Github Actions](https://github.com/features/actions) will be fired off to check the changes. To avoid wasting time waiting for Github Actions output we provide the command `yarn ci` that will perform almost the same checks but it'll run in your computer.
 
 #### Troubleshooting
 
@@ -110,8 +77,6 @@ When opening a pull request a job in [Travis](https://travis-ci.com/) will be fi
 * Use `yarn reinstall` to remove all installed dependencies and install them again
 
 If the application doesn't boot correctly and no error is reported in the terminal, try running `yarn reinstall` and try again.
-
-
 
 ## Release
 Releases are created using [action-electron-builder](https://github.com/samuelmeuli/action-electron-builder). A new draft release will be publish naming a commit and a tag as v*.*.*
