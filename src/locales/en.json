@@ -401,5 +401,12 @@
   "wallet_birth_date_text": "By default, Sheikah will start looking for transactions from the genesis date. If remember when you created your wallet, you can specify it to start syncing from that date and boost up the synchronization speed.",
   "timelock": "Timelock",
   "select_date": "Select date and time",
-  "select_creation_date": "Pick a creation date"
+  "select_creation_date": "Pick a creation date",
+  "rename_wallet_title": "Rename your Witnet wallet",
+  "rename_modal_description": "Update your Witnet wallet's name and description. Right after confirming the changes the session will be closed",
+  "update_wallet": "Rename wallet",
+  "new_name": "New name:",
+  "new_description": "New description:",
+  "update_wallet_and_exit": "Confirm and exit",
+  "rename_confirmation_title": "Confirm the new name and description"
 }

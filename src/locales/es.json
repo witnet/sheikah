@@ -400,5 +400,12 @@
   "select_wallet_birth_date": "Seleccionar fecha de creación",
   "wallet_birth_date_text": "Por defecto, Sheikah empezará a buscar transacciones desde la fecha del genesis. Si recuerdas cuando creaste tu wallet, puedes especificarlo para empezar a sincronizar desde esa fecha y disminuir el tiempo de sincronización",
   "select_date": "Selecciona la fecha y la hora",
-  "select_creation_date": "Selecciona una fecha de creación"
+  "select_creation_date": "Selecciona una fecha de creación",
+  "rename_wallet_title": "Renombra tu wallet",
+  "rename_modal_description": "Actualiza el nombre y la descripción de tu wallet de Witnet. Al hacer clic en confirmar se cerrará la sesión.",
+  "update_wallet": "Actualizar",
+  "new_name": "Nuevo nombre:",
+  "new_description": "Nueva descripción:",
+  "update_wallet_and_exit": "Confirmar y salir",
+  "rename_confirmation_title": "Confirma el nuevo nombre y la nueva descripción para tu wallet"
 }

@@ -7,6 +7,7 @@
     <ResyncConfirmation v-if="isResyncConfirmationVisible" />
     <LogoutModal v-if="sessionExpired" />
     <DescriptionModal v-if="isWalletDescriptionVisible" />
+    <RenameConfirmation v-if="isWalletRenameVisible" />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import { mapMutations, mapActions, mapState } from 'vuex'
 import Notification from '@/components/Notification'
 import LogoutModal from '@/components/LogoutModal'
 import DescriptionModal from '@/components/DescriptionModal.vue'
+import RenameConfirmation from '@/components/RenameConfirmation.vue'
 
 export default {
   name: 'App',
@@ -22,6 +24,7 @@ export default {
     Notification,
     LogoutModal,
     DescriptionModal,
+    RenameConfirmation,
     ResyncConfirmation: () => import('@/components/ResyncConfirmation'),
   },
   data() {
@@ -42,6 +45,9 @@ export default {
       isIdle: state => state.idleVue.isIdle,
       isWalletDescriptionVisible: state =>
         state.uiInteractions.isWalletDescriptionVisible,
+      isWalletRenameVisible: state => {
+        return state.uiInteractions.isWalletRenameVisible
+      },
     }),
   },
   watch: {

@@ -307,6 +307,7 @@ export default {
 
     .description {
       max-width: 300px;
+      overflow-wrap: break-word;
 
       &:hover {
         cursor: pointer;

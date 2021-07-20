@@ -12,6 +12,7 @@ export default {
     sessionExpired: false,
     localStorage: new LocalStorageApi(),
     isWalletDescriptionVisible: false,
+    isWalletRenameVisible: false,
   },
   mutations: {
     showResyncConfirmation(state) {
@@ -23,6 +24,9 @@ export default {
     showDescriptionModal(state) {
       state.isWalletDescriptionVisible = true
     },
+    showRenameConfirmationModal(state) {
+      state.isWalletRenameVisible = true
+    },
     closeResyncConfirmation(state) {
       state.isResyncConfirmationVisible = false
     },
@@ -31,6 +35,9 @@ export default {
     },
     closeDescriptionModal(state) {
       state.isWalletDescriptionVisible = false
+    },
+    closeRenameConfirmationModal(state) {
+      state.isWalletRenameVisible = false
     },
     receiveTransactionClicked: function(state) {
       state.receiveTransactionClicked = true

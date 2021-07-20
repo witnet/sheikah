@@ -212,6 +212,10 @@ export class WalletApi {
   resync(params) {
     return this._callApiMethod('resync_wallet')(params)
   }
+
+  updateWallet(params) {
+    return this._callApiMethod('update_wallet')(params)
+  }
 }
 
 export class MarketplaceApi {

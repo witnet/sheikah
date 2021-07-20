@@ -102,6 +102,8 @@ export default {
     syncingTimeEstimator: new SyncingTimeEstimator(),
     description: '',
     title: '',
+    updatedDescription: '',
+    updatedTitle: '',
     radRequestResult: null,
     transactions: [],
     transactionsLength: '0',
@@ -138,6 +140,10 @@ export default {
     },
   },
   mutations: {
+    clearUpdatedWallet(state) {
+      state.updatedName = ''
+      state.updatedDescription = ''
+    },
     setExpirationSecs(state, { secs }) {
       state.sessionExpirationSecs = secs
     },
@@ -339,6 +345,10 @@ export default {
     clearDataRequestResult(state) {
       state.radRequestResult = null
     },
+    setWalletUpdate(state, { name, description }) {
+      state.updatedName = name
+      state.updatedDescription = description
+    },
     setSeed(state, { result }) {
       Object.assign(state, { seed: result })
     },
@@ -498,6 +508,23 @@ export default {
     },
   },
   actions: {
+    async updateWallet(context) {
+      const request = await context.state.api.updateWallet({
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
+        name: context.state.updatedName,
+        description: context.state.updatedDescription,
+      })
+      if (request.result) {
+        context.commit('clearUpdatedWallet')
+      } else {
+        context.commit('setError', {
+          name: 'closeSession',
+          error: request.error.message,
+          message: i18n.t('close_session_error_message'),
+        })
+      }
+    },
     async refreshSession(context) {
       const request = await context.state.api.refreshSession({
         session_id: context.state.sessionId,

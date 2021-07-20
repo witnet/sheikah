@@ -36,6 +36,11 @@
         data-test="settings-resync"
         class="setting"
       />
+      <RenameWallet
+        v-if="setting === SETTINGS.RENAME"
+        data-test="settings-rename"
+        class="setting"
+      />
     </div>
   </div>
 </template>
@@ -46,6 +51,7 @@ import SettingsLanguage from '@/components/SettingsLanguage'
 import SettingsNotificationList from '@/components/SettingsNotificationList'
 import SettingsAppearance from '@/components/SettingsAppearance'
 import SettingsResync from '@/components/SettingsResync'
+import RenameWallet from '@/components/RenameWallet'
 import ExportXprv from '@/components/ExportXprv'
 import Community from '@/components/Community'
 import { SETTINGS } from '@/constants'
@@ -60,6 +66,7 @@ export default {
     SettingsNotificationList,
     SettingsLanguage,
     SettingsAppearance,
+    RenameWallet,
   },
   props: {
     settings: {
