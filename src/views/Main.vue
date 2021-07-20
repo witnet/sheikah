@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import Sidebar from '@/components/Sidebar'
 
 export default {
@@ -17,7 +17,13 @@ export default {
   created() {
     this.pollData()
   },
+  beforeDestroy() {
+    this.closeModals()
+  },
   methods: {
+    ...mapMutations({
+      closeModals: 'closeAllModals',
+    }),
     ...mapActions({
       getBalance: 'getBalance',
       getTransactions: 'getTransactions',

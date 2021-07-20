@@ -8,9 +8,9 @@ export default {
     generateRadRequestResultLoading: false,
     setupMessage: 'Updating wallet backend',
     setupProgress: 0,
-    isResyncConfirmationVisible: false,
     sessionExpired: false,
     localStorage: new LocalStorageApi(),
+    isResyncConfirmationVisible: false,
     isWalletDescriptionVisible: false,
     isWalletRenameVisible: false,
   },
@@ -65,6 +65,11 @@ export default {
     },
     cleanMessage: function(state) {
       state.setupMessage = 'Updating wallet backend'
+    },
+    closeAllModals(state) {
+      state.isResyncConfirmationVisible = false
+      state.isWalletDescriptionVisible = false
+      state.isWalletRenameVisible = false
     },
   },
   actions: {

@@ -7,7 +7,7 @@
           class="amount"
           :amount="generatedTransaction.metadata.outputs[0].amount"
         />
-        <p class="entry">{{ this.$t('to') }}</p>
+        <p class="entry">{{ this.$t('to_id') }}</p>
         <Address
           class="value address"
           size="13px"

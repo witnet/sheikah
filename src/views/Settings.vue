@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { SETTINGS_BY_SECTION } from '@/constants'
 import CustomIcon from '@/components/CustomIcon'
 import SettingsSidebar from '@/components/SettingsSidebar'
@@ -94,7 +94,13 @@ export default {
       return this.sections.find(section => section.route === this.$route.path)
     },
   },
+  beforeDestroy() {
+    this.closeModals()
+  },
   methods: {
+    ...mapMutations({
+      closeModals: 'closeAllModals',
+    }),
     close() {
       this.$router.push(this.previousRoute)
     },

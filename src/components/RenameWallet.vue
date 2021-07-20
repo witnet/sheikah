@@ -6,7 +6,7 @@
     shadow="thin"
   >
     <p class="paragraph">
-      {{ this.$t('rename_wallet_description') }}
+      {{ this.$t('rename_modal_description') }}
     </p>
     <div class="form-row">
       <p class="label">
