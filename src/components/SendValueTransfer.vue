@@ -112,7 +112,7 @@ export default {
 
 .form {
   padding-right: 24px;
-  width: 600px;
+  width: 700px;
 }
 
 .transaction-container {

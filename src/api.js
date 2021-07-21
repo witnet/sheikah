@@ -119,6 +119,10 @@ export class WalletApi {
     return this._callApiMethod('get_balance')(params, standardizeBalance)
   }
 
+  getUtxoInfo(params) {
+    return this._callApiMethod('get_utxo_info')(params)
+  }
+
   getItem(params) {
     return this._callApiMethod('get')(params)
   }

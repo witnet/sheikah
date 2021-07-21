@@ -6,7 +6,7 @@
     :rules="rules"
     class="deploy-form"
     label-width="200px"
-    width="max-content"
+    width="800px"
   >
     <el-form-item :label="$t('witnesses')" prop="witnesses">
       <el-input v-model="form.witnesses" data-test="witnesses"></el-input>
@@ -34,7 +34,7 @@
 
     <el-form-item prop="fee">
       <div slot="label">
-        {{ this.$t('fee') }}
+        {{ feeType.text }}
         <el-tooltip trigger="hover" effect="light">
           <font-awesome-icon class="info" icon="info-circle" />
           <div slot="content" class="info-message">
@@ -54,13 +54,6 @@
         />
       </el-input>
     </el-form-item>
-
-    <el-switch
-      v-model="form.isWeightedFee"
-      :active-text="$t('weighted_fee')"
-      :inactive-text="$t('absolute_fee')"
-      class="switch"
-    ></el-switch>
 
     <el-form-item :label="$t('reward_fee')" prop="rewardFee">
       <el-input v-model="form.rewardFee" data-test="reward-fee" type="number">
@@ -84,6 +77,19 @@
         />
       </el-input>
     </el-form-item>
+    <transition name="slide">
+      <div v-if="isAdvancedVisible">
+        <el-form-item :label="$t('selected_utxos')" prop="Selected Utxos">
+          <UtxoList @change="checkedUtxosChange" />
+        </el-form-item>
+        <el-switch
+          v-model="form.isWeightedFee"
+          :active-text="$t('weighted_fee')"
+          :inactive-text="$t('absolute_fee')"
+          class="switch"
+        ></el-switch>
+      </div>
+    </transition>
     <p
       v-if="createDataRequestError"
       data-test="create-data-request-error"
@@ -91,30 +97,48 @@
       >{{ createDataRequestError.message }}</p
     >
     <div class="submit">
-      <el-button @click="goBack">{{ backWord }}</el-button>
-
       <el-button
-        data-test="create-data-request-submit"
-        type="primary"
-        @keydown.enter.esc.prevent="createDataRequest"
-        @click="createDataRequest"
+        v-if="isAdvancedVisible"
+        type="text"
+        class="link"
+        @click="toggleAdvanceOptions"
       >
-        {{ $t('continue') }}
+        {{ this.$t('show_less') }}
+        <CustomIcon class-name="icon" name="close" />
       </el-button>
+      <el-button v-else class="link" type="text" @click="toggleAdvanceOptions">
+        {{ this.$t('show_advance') }}
+        <CustomIcon class-name="icon" name="open" />
+      </el-button>
+      <div class="buttons-container">
+        <el-button @click="goBack">{{ backWord }}</el-button>
+        <el-button
+          data-test="create-data-request-submit"
+          type="primary"
+          @keydown.enter.esc.prevent="createDataRequest"
+          @click="createDataRequest"
+        >
+          {{ $t('continue') }}
+        </el-button>
+      </div>
     </div>
   </el-form>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
 import AppendUnit from '@/components/AppendUnit'
 import { WIT_UNIT } from '@/constants'
+import CustomIcon from '@/components/CustomIcon'
+import UtxoList from '@/components/UtxoList.vue'
 
 export default {
   name: 'CreateDataRequestForm',
   components: {
     AppendUnit,
+    UtxoList,
+    CustomIcon,
   },
   props: {
     backWord: {
@@ -194,6 +218,8 @@ export default {
         [`${WIT_UNIT.NANO}`]: 0,
       },
       WIT_UNIT,
+      checkedUtxos: [],
+      isAdvancedVisible: false,
       form: {
         commitAndRevealFee: '1',
         dataRequest: '1',
@@ -290,7 +316,15 @@ export default {
       createDataRequestError: state => state.wallet.errors.createDataRequest,
     }),
     feeType() {
-      return this.form.isWeightedFee ? 'weighted' : 'absolute'
+      return this.form.isWeightedFee
+        ? {
+            key: 'weighted',
+            text: this.$t('weighted_fee'),
+          }
+        : {
+            key: 'absolute',
+            text: this.$t('absolute_fee'),
+          }
     },
     fee() {
       return this.form.fee
@@ -318,17 +352,30 @@ export default {
         rewardFee: this.form.rewardFee,
         witnesses: this.form.witnesses,
         collateral: this.form.collateral,
+        utxos: this.checkedUtxos,
       }
     },
   },
+  created() {
+    this.getUtxoInfo()
+  },
   methods: {
     standardizeWitUnits,
+    ...mapActions({
+      getUtxoInfo: 'getUtxoInfo',
+    }),
     ...mapMutations({
       clearError: 'clearError',
       setError: 'setError',
     }),
+    toggleAdvanceOptions() {
+      this.isAdvancedVisible = !this.isAdvancedVisible
+    },
     goBack() {
       this.$emit('go-back')
+    },
+    checkedUtxosChange(value) {
+      this.checkedUtxos = value
     },
     createDataRequest() {
       this.$refs.form.validate(valid => {
@@ -340,11 +387,12 @@ export default {
             extraCommitRounds: this.form.extraCommitRounds,
             extraRevealRounds: this.form.extraRevealRounds,
             fee: this.form.fee,
-            feeType: this.feeType,
+            feeType: this.feeType.key,
             minConsensusPercentage: this.form.minConsensusPercentage,
             rewardFee: this.form.rewardFee,
             witnesses: this.form.witnesses,
             collateral: this.form.collateral,
+            utxos: this.checkedUtxos,
           })
         }
       })
@@ -366,10 +414,54 @@ export default {
     width: 100%;
   }
 
+  .slide-enter-active {
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s;
+    -webkit-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+  }
+
+  .slide-leave-active {
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s;
+    -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .slide-enter-to,
+  .slide-leave {
+    max-height: 100px;
+    overflow: hidden;
+  }
+
+  .slide-enter,
+  .slide-leave-to {
+    max-height: 0;
+    overflow: hidden;
+  }
+
   .submit {
     margin-top: 32px;
-    text-align: right;
     width: 100%;
+
+    .buttons-container {
+      text-align: right;
+    }
+
+    .link {
+      font-size: 14px;
+      grid-column-end: span 2;
+      text-align: left;
+      width: fit-content;
+
+      .icon {
+        width: 8px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
   .error {

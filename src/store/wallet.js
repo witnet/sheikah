@@ -46,6 +46,7 @@ export default {
       createValidPassword: null,
       mnemonics: null,
       xprv: null,
+      getUtxoInfo: null,
       getTransactions: null,
       getBalance: null,
       getWalletInfos: null,
@@ -62,6 +63,7 @@ export default {
       getItem: null,
       nodeSync: false,
     },
+    utxoInfo: [],
     repeatedWallet: null,
     exportFileLink: '',
     checkTokenGenerationEventDate: new Date(GENESIS_EVENT_TIMESTAMP),
@@ -227,6 +229,12 @@ export default {
     },
     setVesting(state, vesting) {
       state.vesting = vesting
+    },
+    setUtxoInfo(state, { utxoInfo }) {
+      state.utxoInfo = Object.entries(utxoInfo).sort(
+        (a1, a2) =>
+          a1[1].pkh.localeCompare(a2[1].pkh) || a1[1].amount - a2[1].amount,
+      )
     },
     setTransactions(state, { transactions, total }) {
       state.transactionsLength = total
@@ -654,6 +662,7 @@ export default {
         label,
         fee: standardizeWitUnits(parameters.fee, WIT_UNIT.NANO),
         fee_type: parameters.feeType,
+        selected_utxos: parameters.utxos,
         request: {
           data_request: encodeDataRequest(request),
           collateral: standardizeWitUnits(
@@ -673,8 +682,8 @@ export default {
           min_consensus_percentage: parameters.minConsensusPercentage,
         },
       }
+      console.log('create data request', data)
       const req = await context.state.api.createDataRequest(data)
-      console.log('Request----', req)
       if (req.result) {
         const generatedTransaction = req.result
         context.commit('setGeneratedTransaction', {
@@ -723,7 +732,7 @@ export default {
     },
     createVTT: async function(
       context,
-      { address, amount, fee, feeType, label, timelock = 0 },
+      { address, amount, fee, feeType, label, timelock = 0, utxos },
     ) {
       // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
       const request = await context.state.api.createVTT({
@@ -740,6 +749,7 @@ export default {
             time_lock: Math.floor(timelock / 1000),
           },
         ],
+        selected_utxos: utxos,
         fee_type: feeType,
         fee: standardizeWitUnits(fee, WIT_UNIT.NANO),
         label,
@@ -989,6 +999,23 @@ export default {
       } else {
         context.commit('setError', {
           name: 'getTransactions',
+          error: request.error.message,
+          message: i18n.t('get_tx_error_message'),
+        })
+      }
+    },
+
+    getUtxoInfo: async function(context) {
+      const request = await context.state.api.getUtxoInfo({
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
+      })
+      if (request.result) {
+        console.log('result', request.result)
+        context.commit('setUtxoInfo', { utxoInfo: request.result })
+      } else {
+        context.commit('setError', {
+          name: 'getUtxoInfo',
           error: request.error.message,
           message: i18n.t('get_tx_error_message'),
         })
