@@ -114,7 +114,7 @@
   --color-success: #{$green-dark-1};
   --switch-background: #{$grey-dark-8};
   --switch-background-active: #{$purple-dark};
-  --switch-label-color: #{$white};
+  --switch-label-color: #{$grey-dark-1};
   --switch-notification-label: #{$white};
   // progress
   --progress-bar: #{$purple-dark};
@@ -349,7 +349,7 @@
   // element variables
   --primary-color: #{$purple-4};
   --color-success: #52c41a;
-  --switch-label-color: #{$white};
+  --switch-label-color: #{$alt-grey-4};
   --switch-notification-label: #{$alt-grey-5};
   --switch-background: #{$grey-dark-0};
   --switch-background-active: #{$purple-2};
