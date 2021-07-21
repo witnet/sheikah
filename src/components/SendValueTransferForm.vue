@@ -46,8 +46,8 @@
     </el-form-item>
     <el-switch
       v-model="form.isWeightedFee"
-      active-text="Weighted fee"
-      inactive-text="Absolute fee"
+      :active-text="$t('weighted_fee')"
+      :inactive-text="$t('absolute_fee')"
       class="switch"
     ></el-switch>
     <transition name="slide">

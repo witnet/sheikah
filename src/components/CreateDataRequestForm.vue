@@ -32,7 +32,16 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item :label="$t('fee_per_weight_unit')" prop="fee">
+    <el-form-item prop="fee">
+      <div slot="label">
+        {{ this.$t('fee') }}
+        <el-tooltip trigger="hover" effect="light">
+          <font-awesome-icon class="info" icon="info-circle" />
+          <div slot="content" class="info-message">
+            {{ this.$t('fee_info') }}
+          </div>
+        </el-tooltip>
+      </div>
       <el-input
         v-model="form.fee"
         data-test="fee-per-weight-unit"
@@ -45,6 +54,13 @@
         />
       </el-input>
     </el-form-item>
+
+    <el-switch
+      v-model="form.isWeightedFee"
+      :active-text="$t('weighted_fee')"
+      :inactive-text="$t('absolute_fee')"
+      class="switch"
+    ></el-switch>
 
     <el-form-item :label="$t('reward_fee')" prop="rewardFee">
       <el-input v-model="form.rewardFee" data-test="reward-fee" type="number">
@@ -182,6 +198,7 @@ export default {
         commitAndRevealFee: '1',
         dataRequest: '1',
         fee: '1',
+        isWeightedFee: true,
         minConsensusPercentage: '51',
         rewardFee: '1',
         witnesses: '3',
@@ -272,6 +289,9 @@ export default {
       unit: state => state.wallet.unit,
       createDataRequestError: state => state.wallet.errors.createDataRequest,
     }),
+    feeType() {
+      return this.form.isWeightedFee ? 'weighted' : 'absolute'
+    },
     fee() {
       return this.form.fee
     },
@@ -293,6 +313,7 @@ export default {
         extraCommitRounds: this.form.extraCommitRounds,
         extraRevealRounds: this.form.extraRevealRounds,
         fee: this.form.fee,
+        isWeightedFee: this.form.isWeightedFee,
         minConsensusPercentage: this.form.minConsensusPercentage,
         rewardFee: this.form.rewardFee,
         witnesses: this.form.witnesses,
@@ -312,7 +333,19 @@ export default {
     createDataRequest() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          this.$emit('create-dr', { ...this.form })
+          this.$emit('create-dr', {
+            backupWitnesses: this.form.backupWitnesses,
+            commitAndRevealFee: this.form.commitAndRevealFee,
+            dataRequest: this.form.dataRequest,
+            extraCommitRounds: this.form.extraCommitRounds,
+            extraRevealRounds: this.form.extraRevealRounds,
+            fee: this.form.fee,
+            feeType: this.feeType,
+            minConsensusPercentage: this.form.minConsensusPercentage,
+            rewardFee: this.form.rewardFee,
+            witnesses: this.form.witnesses,
+            collateral: this.form.collateral,
+          })
         }
       })
     },
@@ -326,6 +359,12 @@ export default {
 
 .deploy-form {
   padding-right: 24px;
+
+  .switch {
+    justify-content: flex-end;
+    margin-bottom: 16px;
+    width: 100%;
+  }
 
   .submit {
     margin-top: 32px;
