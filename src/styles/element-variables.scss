@@ -326,11 +326,11 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 .el-switch {
   .el-switch__label {
-    color: var(--switch-label-color);
+    color: var(--text-low-emphasis);
     font-weight: 400;
 
     &.is-active {
-      color: var(--switch-background-active);
+      color: var(--text-medium-emphasis);
     }
   }
 
