@@ -414,5 +414,6 @@
   "delete_confirmation_1": "Borrar una wallet limpia los datos de tu lista de wallets disponibles. Tus transacciones y tu balance sólo podrán ser recuperados importando de nuevo tu seed phrase.",
   "delete_confirmation_2": "Si aún así quieres continuar, escribe el nombre de tu wallet, haz clic en 'Borrar' y volverás a tu lista de wallets aún disponibles.",
   "wallet_name": "Escribe el nombre de tu wallet",
-  "error_validating_delete": "El nombre escrito no coincide con el nombre de esta wallet"
+  "error_validating_delete": "El nombre escrito no coincide con el nombre de esta wallet",
+  "fee_info": "Por defecto, la tasa se calcula teniendo el cuenta el peso de la transacción. Para poder enviar una transacción con tasa absoluta selecciona 'Tasa absoluta' en el switch que aparece debajo."
 }

@@ -416,5 +416,6 @@
   "delete_confirmation_1": "Deleting a wallet removes your wallet data from your wallet list. Your transactions and balance can only be recover with your seed phrase.",
   "delete_confirmation_2": "If you still want to continue, please type your wallet's name, click confirm and you will be redirected to the wallet list.",
   "wallet_name": "Type your wallet's name",
-  "error_validating_delete": "The typed name does not match the name of the current wallet"
+  "error_validating_delete": "The typed name does not match the name of the current wallet",
+  "fee_info": "By default, 'Weighted fee' is selected. The amount of the fee will be calculated, taking into account the weight of the transaction. To set an absolute fee, you need to toggle 'Absolute fee' in the switch displayed below."
 }

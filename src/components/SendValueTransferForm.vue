@@ -25,7 +25,16 @@
         <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
     </el-form-item>
-    <el-form-item :label="$t('fee_per_weight_unit')" prop="fee">
+    <el-form-item prop="fee">
+      <div slot="label">
+        {{ this.$t('fee') }}
+        <el-tooltip trigger="hover" effect="light">
+          <font-awesome-icon class="info" icon="info-circle" />
+          <div slot="content" class="info-message">
+            {{ this.$t('fee_info') }}
+          </div>
+        </el-tooltip>
+      </div>
       <el-input
         v-model="form.fee"
         type="number"
@@ -35,6 +44,12 @@
         <AppendUnit slot="append" :static-unit="WIT_UNIT.NANO" />
       </el-input>
     </el-form-item>
+    <el-switch
+      v-model="form.isWeightedFee"
+      active-text="Weighted fee"
+      inactive-text="Absolute fee"
+      class="switch"
+    ></el-switch>
     <transition name="slide">
       <el-form-item
         v-if="isAdvancedVisible"
@@ -133,7 +148,7 @@ export default {
         callback()
       }
     }
-
+    // const FEE_TYPE = ['absolute', 'weighted']
     return {
       isAdvancedVisible: false,
       WIT_UNIT,
@@ -142,6 +157,7 @@ export default {
         label: '',
         amount: null,
         fee: null,
+        isWeightedFee: true,
         timelock: null,
       },
       rules: {
@@ -191,6 +207,9 @@ export default {
       unit: state => state.wallet.unit,
       createVTTError: state => state.wallet.errors.createVTT,
     }),
+    feeType() {
+      return this.form.isWeightedFee ? 'weighted' : 'absolute'
+    },
     addressLength() {
       return this.network && this.network.toLowerCase() === 'mainnet' ? 42 : 43
     },
@@ -248,6 +267,7 @@ export default {
             address: this.form.address,
             amount: this.form.amount,
             fee: this.form.fee,
+            feeType: this.feeType,
             timelock: this.form.timelock,
           })
         }
@@ -303,6 +323,12 @@ export default {
 .form {
   padding-right: 24px;
   width: 600px;
+}
+
+.switch {
+  justify-content: flex-end;
+  margin-bottom: 16px;
+  width: 100%;
 }
 
 .submit {

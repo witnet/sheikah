@@ -70,6 +70,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
       .el-form-item {
         .el-form-item__label {
           color: var(--text-medium-emphasis);
+          display: flex;
           line-height: 1.5;
           word-break: break-word;
         }
@@ -326,9 +327,10 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .el-switch {
   .el-switch__label {
     color: var(--switch-label-color);
+    font-weight: 400;
 
     &.is-active {
-      color: var(--switch-label-color);
+      color: var(--switch-background-active);
     }
   }
 
@@ -555,6 +557,10 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     color: var(--pagination-button);
     margin: 4px;
   }
+}
+
+.el-tooltip__popper {
+  max-width: 500px;
 }
 
 .el-tooltip__popper.is-light {
