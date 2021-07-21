@@ -653,6 +653,7 @@ export default {
         wallet_id: this.state.wallet.walletId,
         label,
         fee: standardizeWitUnits(parameters.fee, WIT_UNIT.NANO),
+        fee_type: parameters.feeType,
         request: {
           data_request: encodeDataRequest(request),
           collateral: standardizeWitUnits(
@@ -673,6 +674,7 @@ export default {
         },
       }
       const req = await context.state.api.createDataRequest(data)
+      console.log('Request----', req)
       if (req.result) {
         const generatedTransaction = req.result
         context.commit('setGeneratedTransaction', {
@@ -701,7 +703,13 @@ export default {
               )} ${unit}`,
             })
           } else {
-            error = i18n.t('not_enough_balance')
+            if (
+              req.error.data[0][1] === 'Wallet account has not enough balance'
+            ) {
+              error = i18n.t('not_enough_balance')
+            } else {
+              error = req.error.data[0][1]
+            }
           }
         } else if (req.error.data.cause) {
           error = req.error.data.cause
