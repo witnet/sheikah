@@ -401,5 +401,6 @@
   "wallet_birth_date_text": "By default, Sheikah will start looking for transactions from the genesis date. If remember when you created your wallet, you can specify it to start syncing from that date and boost up the synchronization speed.",
   "timelock": "Timelock",
   "select_date": "Select date and time",
-  "select_creation_date": "Pick a creation date"
+  "select_creation_date": "Pick a creation date",
+  "fee_info": "By default, 'Weighted fee' is selected. The amount of the fee will be calculated, taking into account the weight of the transaction. To set an absolute fee, you need to toggle 'Absolute fee' in the switch displayed below."
 }
