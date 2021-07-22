@@ -2,6 +2,7 @@ import CreateDataRequestForm from '@/components/CreateDataRequestForm'
 
 describe('CreateDataRequestForm.vue', () => {
   describe('should render properly the form items', () => {
+    const mockGetUtxoInfo = jest.fn()
     const wrapper = mount(
       CreateDataRequestForm,
       createComponentMocks({
@@ -9,11 +10,16 @@ describe('CreateDataRequestForm.vue', () => {
         store: {
           wallet: {
             state: {
+              utxoInfo: [],
               errors: {
                 createDataRequest: false,
+                getUtxoInfo: null,
               },
               balance: { total: '400000000000' },
               unit: 'nanoWit',
+            },
+            actions: {
+              getUtxoInfo: mockGetUtxoInfo,
             },
           },
         },
@@ -56,6 +62,7 @@ describe('CreateDataRequestForm.vue', () => {
   })
 
   describe('should change input value on update', () => {
+    const mockGetUtxoInfo = jest.fn()
     const wrapper = mount(
       CreateDataRequestForm,
       createComponentMocks({
@@ -63,11 +70,16 @@ describe('CreateDataRequestForm.vue', () => {
         store: {
           wallet: {
             state: {
+              utxoInfo: [],
               errors: {
+                getUtxoInfo: null,
                 createDataRequest: false,
               },
               balance: { total: '400000000000' },
               unit: 'nanoWit',
+            },
+            actions: {
+              getUtxoInfo: mockGetUtxoInfo,
             },
           },
         },
@@ -118,6 +130,7 @@ describe('CreateDataRequestForm.vue', () => {
   })
 
   describe('should not allow change wit unit when clicking on the unit append', () => {
+    const mockGetUtxoInfo = jest.fn()
     it('collateral field', async () => {
       const wrapper = mount(
         CreateDataRequestForm,
@@ -131,6 +144,9 @@ describe('CreateDataRequestForm.vue', () => {
                 },
                 balance: { total: '100000000000' },
                 unit: 'nanoWit',
+              },
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
               },
             },
           },
@@ -156,33 +172,8 @@ describe('CreateDataRequestForm.vue', () => {
                 balance: { total: '100000000000' },
                 unit: 'nanoWit',
               },
-            },
-          },
-        }),
-      )
-
-      await wrapper
-        .find('[data-test="fee-per-weight-unit-append"]')
-        .trigger('click')
-
-      expect(
-        wrapper.find('[data-test="fee-per-weight-unit-append"]').text(),
-      ).toBe(`nanoWit`)
-    })
-
-    it('fee per weight unit field', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                errors: {
-                  createDataRequest: false,
-                },
-                balance: { total: '100000000000' },
-                unit: 'nanoWit',
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
               },
             },
           },
@@ -211,6 +202,40 @@ describe('CreateDataRequestForm.vue', () => {
                 },
                 balance: { total: '100000000000' },
                 unit: 'nanoWit',
+              },
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
+              },
+            },
+          },
+        }),
+      )
+
+      await wrapper
+        .find('[data-test="fee-per-weight-unit-append"]')
+        .trigger('click')
+
+      expect(
+        wrapper.find('[data-test="fee-per-weight-unit-append"]').text(),
+      ).toBe(`nanoWit`)
+    })
+
+    it('fee per weight unit field', async () => {
+      const wrapper = mount(
+        CreateDataRequestForm,
+        createComponentMocks({
+          router: true,
+          store: {
+            wallet: {
+              state: {
+                errors: {
+                  createDataRequest: false,
+                },
+                balance: { total: '100000000000' },
+                unit: 'nanoWit',
+              },
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
               },
             },
           },
@@ -240,6 +265,9 @@ describe('CreateDataRequestForm.vue', () => {
                 balance: { total: '100000000000' },
                 unit: 'nanoWit',
               },
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
+              },
             },
           },
         }),
@@ -266,6 +294,9 @@ describe('CreateDataRequestForm.vue', () => {
                 balance: { total: '100000000000' },
                 unit: 'nanoWit',
               },
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
+              },
             },
           },
         }),
@@ -282,6 +313,7 @@ describe('CreateDataRequestForm.vue', () => {
   })
 
   describe('should show an error id there is a problem creating the data request', () => {
+    const mockGetUtxoInfo = jest.fn()
     it('should show the error', async () => {
       const wrapper = mount(
         CreateDataRequestForm,
@@ -296,6 +328,9 @@ describe('CreateDataRequestForm.vue', () => {
                 balance: { total: '400000000000' },
                 unit: 'nanoWit',
               },
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
+              },
             },
           },
         }),
@@ -307,6 +342,7 @@ describe('CreateDataRequestForm.vue', () => {
   })
 
   describe('should emit the event if the form has no errors', () => {
+    const mockGetUtxoInfo = jest.fn()
     it('should emit create data request event', async () => {
       const wrapper = mount(
         CreateDataRequestForm,
@@ -320,6 +356,9 @@ describe('CreateDataRequestForm.vue', () => {
                 },
                 balance: { total: '400000000000' },
                 unit: 'nanoWit',
+              },
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
               },
             },
           },
@@ -347,6 +386,9 @@ describe('CreateDataRequestForm.vue', () => {
                 },
                 balance: { total: '400000000000' },
                 unit: 'nanoWit',
+              },
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
               },
             },
           },
@@ -376,6 +418,9 @@ describe('CreateDataRequestForm.vue', () => {
                 },
                 balance: { total: '400000000000' },
                 unit: 'nanoWit',
+              },
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
               },
             },
           },
@@ -408,6 +453,9 @@ describe('CreateDataRequestForm.vue', () => {
                 },
                 balance: { total: '400000000000' },
                 unit: 'nanoWit',
+              },
+              actions: {
+                getUtxoInfo: mockGetUtxoInfo,
               },
             },
           },
