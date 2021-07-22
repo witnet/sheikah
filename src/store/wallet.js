@@ -682,7 +682,6 @@ export default {
           min_consensus_percentage: parameters.minConsensusPercentage,
         },
       }
-      console.log('create data request', data)
       const req = await context.state.api.createDataRequest(data)
       if (req.result) {
         const generatedTransaction = req.result
@@ -1011,7 +1010,6 @@ export default {
         session_id: context.state.sessionId,
       })
       if (request.result) {
-        console.log('result', request.result)
         context.commit('setUtxoInfo', { utxoInfo: request.result })
       } else {
         context.commit('setError', {
