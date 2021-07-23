@@ -173,7 +173,7 @@ describe('SettingsOptionUnit.vue', () => {
       const option2Button = wrapper.find('[data-test="option-0"]')
       await option2Button.trigger('click')
       expect(wrapper.find('[data-test="selected-option-primary"]').text()).toBe(
-        'Wit',
+        'wit',
       )
     })
   })

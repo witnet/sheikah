@@ -41,6 +41,11 @@
         data-test="settings-rename"
         class="setting"
       />
+      <DeleteWallet
+        v-if="setting === SETTINGS.DELETE"
+        data-test="settings-delete"
+        class="setting"
+      />
     </div>
   </div>
 </template>
@@ -52,6 +57,7 @@ import SettingsNotificationList from '@/components/SettingsNotificationList'
 import SettingsAppearance from '@/components/SettingsAppearance'
 import SettingsResync from '@/components/SettingsResync'
 import RenameWallet from '@/components/RenameWallet'
+import DeleteWallet from '@/components/DeleteWallet'
 import ExportXprv from '@/components/ExportXprv'
 import Community from '@/components/Community'
 import { SETTINGS } from '@/constants'
@@ -67,6 +73,7 @@ export default {
     SettingsLanguage,
     SettingsAppearance,
     RenameWallet,
+    DeleteWallet,
   },
   props: {
     settings: {

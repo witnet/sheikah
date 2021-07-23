@@ -1,7 +1,7 @@
 <template>
   <BaseCard class="card">
     <template v-if="title" v-slot:header>
-      <p class="title">{{ title }}</p>
+      <p class="title" :class="type">{{ title }}</p>
     </template>
 
     <template v-else v-slot:header>
@@ -9,7 +9,10 @@
     </template>
 
     <template v-slot:content>
-      <div class="content" :class="[shadowStyle, borderStyle, paddingStyle]">
+      <div
+        class="content"
+        :class="[shadowStyle, borderStyle, paddingStyle, type]"
+      >
         <slot></slot>
       </div>
     </template>
@@ -28,6 +31,10 @@ export default {
     title: {
       type: String,
       default: '',
+    },
+    type: {
+      type: String,
+      default: null,
     },
     width: {
       type: Number,
@@ -81,6 +88,10 @@ export default {
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 8px;
+
+    &.danger {
+      color: $red-2;
+    }
   }
 
   .content {
@@ -98,6 +109,10 @@ export default {
 
     &.border-purple {
       border: var(--card-active-border);
+    }
+
+    &.danger {
+      border: 1px solid $red-2;
     }
 
     &.shadow-thin {

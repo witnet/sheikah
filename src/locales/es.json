@@ -407,5 +407,12 @@
   "new_name": "Nuevo nombre:",
   "new_description": "Nueva descripción:",
   "rename_confirmation_title": "Confirma el nuevo nombre y la nueva descripción para tu wallet",
-  "update_wallet_error": "Se ha producido un error al renombrar tu wallet"
+  "update_wallet_error": "Se ha producido un error al renombrar tu wallet",
+  "delete_wallet": "Borrar wallet",
+  "delete_wallet_info": "Una vez tu wallet haya sido borrada, las direcciones los templates y los metadatos generados no podrán ser recuperados.",
+  "delete_confirmation_0": "Estás a punto de borrar tu wallet con nombre {0}",
+  "delete_confirmation_1": "Borrar una wallet limpia los datos de tu lista de wallets disponibles. Tus transacciones y tu balance sólo podrán ser recuperados importando de nuevo tu seed phrase.",
+  "delete_confirmation_2": "Si aún así quieres continuar, escribe el nombre de tu wallet, haz clic en 'Borrar' y volverás a tu lista de wallets aún disponibles.",
+  "wallet_name": "Escribe el nombre de tu wallet",
+  "error_validating_delete": "El nombre escrito no coincide con el nombre de esta wallet"
 }

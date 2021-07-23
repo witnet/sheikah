@@ -184,6 +184,12 @@ export default {
     value() {
       this.selectedOption = this.value
     },
+    options: {
+      deep: true,
+      handler(value) {
+        this.filteredOptions = value
+      },
+    },
   },
   methods: {
     scrollTop(next) {

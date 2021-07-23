@@ -532,6 +532,23 @@ export default {
         })
       }
     },
+    async deleteWallet(context) {
+      const request = await context.state.api.deleteWallet({
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
+      })
+      if (request.result) {
+        await context.dispatch('getWalletInfos')
+        context.commit('setWalletIndex', { walletIndex: 0 })
+        context.dispatch('closeSession')
+      } else {
+        context.commit('setError', {
+          name: 'closeSession',
+          error: request.error.message,
+          message: i18n.t('close_session_error_message'),
+        })
+      }
+    },
     async refreshSession(context) {
       const request = await context.state.api.refreshSession({
         session_id: context.state.sessionId,
@@ -584,7 +601,11 @@ export default {
         context.commit('deleteSession')
         context.commit(SET_TEMPLATES, { templates: {} })
         context.commit('setBirthDate', { result: null })
-        router.push('/welcome-back/wallet-list')
+        if (context.state.walletInfos.length > 0) {
+          router.push('/welcome-back/wallet-list')
+        } else {
+          router.push('/ftu/welcome')
+        }
       } else {
         context.commit('setError', {
           name: 'closeSession',

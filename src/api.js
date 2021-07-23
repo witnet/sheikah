@@ -123,6 +123,10 @@ export class WalletApi {
     return this._callApiMethod('get')(params)
   }
 
+  deleteWallet(params) {
+    return this._callApiMethod('delete_wallet')(params)
+  }
+
   async getTransactions(params) {
     const totalTransactions = (
       await this._callApiMethod('get_transactions')(params)

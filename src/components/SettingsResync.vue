@@ -12,7 +12,6 @@
         class="resync"
         @click="showResyncConfirmation"
       >
-        <font-awesome-icon class="icon" icon="sync-alt" />
         {{ $t('resync') }}
       </el-button>
     </div>

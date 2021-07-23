@@ -3,6 +3,8 @@
 
 $--color-success: #52c41a;
 $--color-primary: $purple-4;
+$--color-danger: $red-2;
+$--color-warning: $yellow-3;
 
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
@@ -180,6 +182,29 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
       background: var(--button-default-background-hover);
       border-color: var(--button-default-border-hover);
       color: var(--button-default-text-hover);
+    }
+  }
+
+  &.el-button--danger {
+    color: var(--button-primary-text);
+    font-weight: bold;
+
+    &.is-plain {
+      background: transparent;
+      border-color: $red-2;
+
+      &:hover,
+      &:focus {
+        background: transparent;
+        border-color: $red-2;
+        color: $red-2;
+        opacity: 0.7;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      color: var(--button-primary-text);
     }
   }
 }
