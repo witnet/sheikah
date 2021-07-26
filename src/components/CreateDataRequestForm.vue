@@ -79,9 +79,6 @@
     </el-form-item>
     <transition name="slide">
       <div v-if="isAdvancedVisible">
-        <el-form-item :label="$t('selected_utxos')" prop="Selected Utxos">
-          <UtxoList @change="checkedUtxosChange" />
-        </el-form-item>
         <el-switch
           v-model="form.isWeightedFee"
           :active-text="$t('weighted_fee')"
@@ -126,18 +123,16 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
 import AppendUnit from '@/components/AppendUnit'
 import { WIT_UNIT } from '@/constants'
 import CustomIcon from '@/components/CustomIcon'
-import UtxoList from '@/components/UtxoList.vue'
 
 export default {
   name: 'CreateDataRequestForm',
   components: {
     AppendUnit,
-    UtxoList,
     CustomIcon,
   },
   props: {
@@ -218,7 +213,6 @@ export default {
         [`${WIT_UNIT.NANO}`]: 0,
       },
       WIT_UNIT,
-      checkedUtxos: [],
       isAdvancedVisible: false,
       form: {
         commitAndRevealFee: '1',
@@ -352,18 +346,11 @@ export default {
         rewardFee: this.form.rewardFee,
         witnesses: this.form.witnesses,
         collateral: this.form.collateral,
-        utxos: this.checkedUtxos,
       }
     },
   },
-  created() {
-    this.getUtxoInfo()
-  },
   methods: {
     standardizeWitUnits,
-    ...mapActions({
-      getUtxoInfo: 'getUtxoInfo',
-    }),
     ...mapMutations({
       clearError: 'clearError',
       setError: 'setError',
@@ -374,25 +361,12 @@ export default {
     goBack() {
       this.$emit('go-back')
     },
-    checkedUtxosChange(value) {
-      this.checkedUtxos = value
-    },
     createDataRequest() {
       this.$refs.form.validate(valid => {
         if (valid) {
           this.$emit('create-dr', {
-            backupWitnesses: this.form.backupWitnesses,
-            commitAndRevealFee: this.form.commitAndRevealFee,
-            dataRequest: this.form.dataRequest,
-            extraCommitRounds: this.form.extraCommitRounds,
-            extraRevealRounds: this.form.extraRevealRounds,
-            fee: this.form.fee,
+            ...this.form,
             feeType: this.feeType.key,
-            minConsensusPercentage: this.form.minConsensusPercentage,
-            rewardFee: this.form.rewardFee,
-            witnesses: this.form.witnesses,
-            collateral: this.form.collateral,
-            utxos: this.checkedUtxos,
           })
         }
       })

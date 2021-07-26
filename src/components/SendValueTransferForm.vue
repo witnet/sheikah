@@ -151,10 +151,9 @@ export default {
         callback()
       }
     }
-    // const FEE_TYPE = ['absolute', 'weighted']
+
     return {
       checkedUtxos: [],
-      isIndeterminate: true,
       isAdvancedVisible: false,
       WIT_UNIT,
       form: {

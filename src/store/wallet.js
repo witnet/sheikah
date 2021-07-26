@@ -662,7 +662,6 @@ export default {
         label,
         fee: standardizeWitUnits(parameters.fee, WIT_UNIT.NANO),
         fee_type: parameters.feeType,
-        selected_utxos: parameters.utxos,
         request: {
           data_request: encodeDataRequest(request),
           collateral: standardizeWitUnits(
