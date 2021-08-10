@@ -45,9 +45,8 @@ export default {
       isIdle: state => state.idleVue.isIdle,
       isWalletDescriptionVisible: state =>
         state.uiInteractions.isWalletDescriptionVisible,
-      isWalletRenameVisible: state => {
-        return state.uiInteractions.isWalletRenameVisible
-      },
+      isWalletRenameVisible: state =>
+        state.uiInteractions.isWalletRenameVisible,
     }),
   },
   watch: {

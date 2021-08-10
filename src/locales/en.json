@@ -403,10 +403,11 @@
   "select_date": "Select date and time",
   "select_creation_date": "Pick a creation date",
   "rename_wallet_title": "Rename your Witnet wallet",
-  "rename_modal_description": "Update your Witnet wallet's name and description. Right after confirming the changes, the session will be closed.",
+  "rename_modal_description": "Confirm the new name and description of your Witnet wallet.",
   "update_wallet": "Rename wallet",
   "new_name": "New name:",
   "new_description": "New description:",
-  "update_wallet_and_exit": "Confirm and exit",
-  "rename_confirmation_title": "Confirm the new name and description"
+  "rename_confirmation_title": "Confirm name and description",
+  "wallet_updated_message": "Wallet's name and description updated",
+  "update_wallet_error": "There was an error renaming your wallet"
 }

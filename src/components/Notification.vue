@@ -1,7 +1,10 @@
 <template>
   <transition name="slide">
     <div v-if="toggle" class="notification">
-      <p class="message">{{ message }}</p>
+      <p class="message">
+        <font-awesome-icon class="icon" :icon="icon" :style="{ color }" />
+        {{ message }}
+      </p>
     </div>
   </transition>
 </template>
@@ -20,14 +23,18 @@ export default {
       message: '',
       // number of active triggered notifications
       counter: 0,
+      color: '',
+      icon: '',
     }
   },
   mounted() {
     Vue.prototype.$notify = this.show
   },
   methods: {
-    show(message) {
-      this.message = message
+    show(payload) {
+      this.message = payload.message
+      this.color = payload.color
+      this.icon = payload.icon
       this.toggle = true
       this.counter += 1
 
@@ -69,6 +76,7 @@ export default {
   background-color: $alt-grey-5;
   border-radius: 4px;
   bottom: 40px;
+  display: flex;
   left: 0;
   margin-left: auto;
   margin-right: auto;
@@ -80,6 +88,11 @@ export default {
     color: $white;
     font-size: 14px;
     padding: 4px 8px;
+
+    .icon {
+      color: $green-5;
+      margin-right: 8px;
+    }
   }
 }
 </style>

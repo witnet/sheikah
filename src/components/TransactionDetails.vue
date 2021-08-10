@@ -234,11 +234,19 @@ export default {
     ...mapActions(['notify']),
     toggleNotificationId(e) {
       copyToClipboard(e.target.innerText)
-      this.notify({ message: this.$t('tx_id_copied') })
+      this.notify({
+        message: this.$t('tx_id_copied'),
+        color: '#27ae60',
+        icon: 'check',
+      })
     },
     toggleNotificationBlock(e) {
       copyToClipboard(e.target.innerText)
-      this.notify({ message: this.$t('block_hash_copied') })
+      this.notify({
+        message: this.$t('block_hash_copied'),
+        color: '#27ae60',
+        icon: 'check',
+      })
     },
   },
 }

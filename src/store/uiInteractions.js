@@ -74,7 +74,7 @@ export default {
   },
   actions: {
     notify(context, payload) {
-      Vue.prototype.$notify(payload.message)
+      Vue.prototype.$notify(payload)
     },
     saveShowModalAgain(context, val) {
       context.state.localStorage.setSkipSessionExpirationInfo(val)

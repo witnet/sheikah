@@ -61,6 +61,7 @@ export default {
       saveItem: null,
       getItem: null,
       nodeSync: false,
+      updateWallet: null,
     },
     repeatedWallet: null,
     exportFileLink: '',
@@ -143,6 +144,9 @@ export default {
     clearUpdatedWallet(state) {
       state.updatedName = ''
       state.updatedDescription = ''
+    },
+    setUpdatedWallet(state) {
+      state.description = state.updatedDescription
     },
     setExpirationSecs(state, { secs }) {
       state.sessionExpirationSecs = secs
@@ -381,20 +385,19 @@ export default {
     },
 
     setError(state, { name, error, message }) {
+      state.errors[name] = {
+        name,
+        error,
+        message,
+      }
       if (
-        error === 'Validation Error' ||
-        name === 'uploadFile' ||
-        name === 'mnemonics' ||
-        name === 'xprv' ||
-        name === 'seed' ||
-        name === 'nodeSync'
+        error !== 'Validation Error' ||
+        name !== 'uploadFile' ||
+        name !== 'mnemonics' ||
+        name !== 'xprv' ||
+        name !== 'seed' ||
+        name !== 'nodeSync'
       ) {
-        state.errors[name] = {
-          name,
-          error,
-          message,
-        }
-      } else {
         const socketNotReady = error === 'socket not ready'
         const networkStatusError = state.networkStatus === 'error'
         if (networkStatusError || socketNotReady) {
@@ -516,12 +519,16 @@ export default {
         description: context.state.updatedDescription,
       })
       if (request.result) {
+        context.commit('setUpdatedWallet')
         context.commit('clearUpdatedWallet')
+        createNotification({
+          title: i18n.t('wallet_updated_message'),
+        })
       } else {
         context.commit('setError', {
-          name: 'closeSession',
+          name: 'updateWallet',
           error: request.error.message,
-          message: i18n.t('close_session_error_message'),
+          message: i18n.t('update_wallet_error'),
         })
       }
     },

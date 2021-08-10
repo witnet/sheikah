@@ -29,7 +29,7 @@
         data-test="export-btn"
         @click="renameWallet"
       >
-        {{ $t('update_wallet_and_exit') }}
+        {{ $t('confirm') }}
       </el-button>
     </div>
   </el-dialog>
@@ -44,19 +44,24 @@ export default {
     ...mapState({
       description: state => state.wallet.updatedDescription,
       name: state => state.wallet.updatedName,
+      updateWalletError: state => state.wallet.errors.updateWallet,
     }),
   },
   methods: {
     renameWallet() {
       this.updateWallet()
       this.close()
-      this.closeSession()
+      if (!this.updateWalletError) {
+        this.clearError({ error: 'updateWallet' })
+      }
     },
     ...mapActions({
       updateWallet: 'updateWallet',
       closeSession: 'closeSession',
+      notify: 'notify',
     }),
     ...mapMutations({
+      clearError: 'clearError',
       close: 'closeRenameConfirmationModal',
     }),
   },
