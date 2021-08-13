@@ -56,9 +56,6 @@
             value-format="timestamp"
           />
         </el-form-item>
-        <el-form-item :label="$t('selected_utxos')" prop="Selected Utxos">
-          <UtxoList @change="checkedUtxosChange" />
-        </el-form-item>
         <el-switch
           v-model="form.isWeightedFee"
           :active-text="$t('weighted_fee')"
@@ -103,19 +100,17 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import AppendUnit from '@/components/AppendUnit'
 import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
 import { WIT_UNIT } from '@/constants'
 import CustomIcon from '@/components/CustomIcon'
-import UtxoList from '@/components/UtxoList.vue'
 
 export default {
   name: 'SendValueTransferForm',
   components: {
     AppendUnit,
     CustomIcon,
-    UtxoList,
   },
   data() {
     const maxNumber = (rule, value, callback) => {
@@ -254,16 +249,10 @@ export default {
       immediate: true,
     },
   },
-  created() {
-    this.getUtxoInfo()
-  },
   methods: {
     ...mapMutations({
       clearError: 'clearError',
       clearGeneratedTransaction: 'clearGeneratedTransaction',
-    }),
-    ...mapActions({
-      getUtxoInfo: 'getUtxoInfo',
     }),
     toggleAdvanceOptions() {
       this.isAdvancedVisible = !this.isAdvancedVisible

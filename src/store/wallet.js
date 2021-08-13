@@ -708,7 +708,7 @@ export default {
         wallet_id: this.state.wallet.walletId,
         label,
         fee: standardizeWitUnits(parameters.fee, WIT_UNIT.NANO),
-        fee_type: parameters.feeType,
+        fee_type: parameters.feeType.key,
         request: {
           data_request: encodeDataRequest(request),
           collateral: standardizeWitUnits(
@@ -729,7 +729,6 @@ export default {
         },
       }
       const req = await context.state.api.createDataRequest(data)
-      console.log('Request----', req)
       if (req.result) {
         const generatedTransaction = req.result
         context.commit('setGeneratedTransaction', {
@@ -780,6 +779,7 @@ export default {
       context,
       { address, amount, fee, feeType, label, timelock = 0 },
     ) {
+      console.log('--feeType--', feeType)
       // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
       const request = await context.state.api.createVTT({
         session_id: this.state.wallet.sessionId,
@@ -795,7 +795,7 @@ export default {
             time_lock: Math.floor(timelock / 1000),
           },
         ],
-        fee_type: feeType,
+        fee_type: feeType.key,
         fee: standardizeWitUnits(fee, WIT_UNIT.NANO),
         label,
       })
