@@ -12,6 +12,7 @@ describe('Balance.vue', () => {
         store: {
           wallet: {
             state: {
+              utxoInfo: [],
               balance: {
                 available: '1',
                 locked: '10',
@@ -81,7 +82,7 @@ describe('Balance.vue', () => {
     })
 
     it('BalanceButtons event send should show the modal', async () => {
-      const wrapper = mount(
+      const wrapper = shallowMount(
         Balance,
         createComponentMocks({
           store: {

@@ -287,7 +287,8 @@ export default {
             address: this.form.address,
             amount: this.form.amount,
             fee: this.form.fee,
-            feeType: this.feeType,
+            utxos: this.checkedUtxos,
+            feeType: this.feeType.key,
             timelock: this.form.timelock,
           })
         }

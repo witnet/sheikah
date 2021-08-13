@@ -44,6 +44,83 @@ describe('areSoftEqualArrays', () => {
   })
 })
 
+describe('order alphabetically and by amount', () => {
+  it('should order alphabetically and by amount', () => {
+    const list = {
+      '0c6758e7c1ecc802fd33100c57b4db11b5c9c30f39369510390f453fe2291509:0': {
+        amount: '10000000000',
+        pkh: 'a',
+        time_lock: '0',
+      },
+      '2168c06914c62ee3c8a60eb10981f8643718df57463baa576628b0e3e26f7e2b:0': {
+        amount: '10000000000',
+        pkh: 'c',
+        time_lock: '0',
+      },
+      '2ced242a524500f0aca80c2140774d1540150d2ab96b29807c41ebc6aee72168:0': {
+        amount: '9999999990',
+        pkh: 'b',
+        time_lock: '0',
+      },
+      '60fa24e6daa2a9cd536a9de362d0418ecce9bd29f211df99640440cde3def171:0': {
+        amount: '6',
+        pkh: 'f',
+        time_lock: '0',
+      },
+      '7d03629698ea52da762297d301217bf0f88a627586d14e1fce81bad21a543beb:0': {
+        amount: '5',
+        pkh: 'f',
+        time_lock: '0',
+      },
+      'd06113e2a779c09a78fdfb93c9c933d044faceff0c3849442da1931a8093922d:0': {
+        amount: '1',
+        pkh: 'e',
+        time_lock: '0',
+      },
+      'd06113e2a779c09a78fdfb93c9c933d044faceff0c3849442da1931a8093922d:1': {
+        amount: '0',
+        pkh: 'e',
+        time_lock: '0',
+      },
+    }
+    const expected = [
+      [
+        '0c6758e7c1ecc802fd33100c57b4db11b5c9c30f39369510390f453fe2291509:0',
+        { amount: '10000000000', pkh: 'a', time_lock: '0' },
+      ],
+      [
+        '2ced242a524500f0aca80c2140774d1540150d2ab96b29807c41ebc6aee72168:0',
+        { amount: '9999999990', pkh: 'b', time_lock: '0' },
+      ],
+      [
+        '2168c06914c62ee3c8a60eb10981f8643718df57463baa576628b0e3e26f7e2b:0',
+        { amount: '10000000000', pkh: 'c', time_lock: '0' },
+      ],
+      [
+        'd06113e2a779c09a78fdfb93c9c933d044faceff0c3849442da1931a8093922d:1',
+        { amount: '0', pkh: 'e', time_lock: '0' },
+      ],
+      [
+        'd06113e2a779c09a78fdfb93c9c933d044faceff0c3849442da1931a8093922d:0',
+        { amount: '1', pkh: 'e', time_lock: '0' },
+      ],
+      [
+        '7d03629698ea52da762297d301217bf0f88a627586d14e1fce81bad21a543beb:0',
+        { amount: '5', pkh: 'f', time_lock: '0' },
+      ],
+      [
+        '60fa24e6daa2a9cd536a9de362d0418ecce9bd29f211df99640440cde3def171:0',
+        { amount: '6', pkh: 'f', time_lock: '0' },
+      ],
+    ]
+    const result = Object.entries(list).sort(
+      (a1, a2) =>
+        a1[1].pkh.localeCompare(a2[1].pkh) || a1[1].amount - a2[1].amount,
+    )
+    expect(result).toStrictEqual(expected)
+  })
+})
+
 describe('standardizeTransactionResult', () => {
   it('should end with "ago" copy', () => {
     const result =
