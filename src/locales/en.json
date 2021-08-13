@@ -402,6 +402,9 @@
   "timelock": "Timelock",
   "select_date": "Select date and time",
   "select_creation_date": "Pick a creation date",
+  "fee_info": "By default, 'Weighted fee' is selected. The amount of the fee will be calculated, taking into account the weight of the transaction. To set an absolute fee, you need to toggle 'Absolute fee' in the advance options below.",
+  "weighted_fee": "Fee per weight unit",
+  "absolute_fee": "Absolute fee",
   "fee_info": "By default, 'Weighted fee' is selected. The amount of the fee will be calculated, taking into account the weight of the transaction. To set an absolute fee, you need to toggle 'Absolute fee' in the switch displayed below.",
   "weighted_fee": "Weighted fee",
   "absolute_fee": "Absolute fee"

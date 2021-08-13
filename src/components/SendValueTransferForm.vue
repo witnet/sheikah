@@ -7,7 +7,7 @@
     label-position="left"
     :rules="rules"
     width="max-content"
-    label-width="150px"
+    label-width="200px"
   >
     <el-form-item :label="$t('address')" prop="address">
       <el-input
@@ -27,7 +27,7 @@
     </el-form-item>
     <el-form-item prop="fee">
       <div slot="label">
-        {{ this.$t('fee') }}
+        {{ feeType.text }}
         <el-tooltip trigger="hover" effect="light">
           <font-awesome-icon class="info" icon="info-circle" />
           <div slot="content" class="info-message">
@@ -44,27 +44,28 @@
         <AppendUnit slot="append" :static-unit="WIT_UNIT.NANO" />
       </el-input>
     </el-form-item>
-    <el-switch
-      v-model="form.isWeightedFee"
-      :active-text="$t('weighted_fee')"
-      :inactive-text="$t('absolute_fee')"
-      class="switch"
-    ></el-switch>
     <transition name="slide">
-      <el-form-item
-        v-if="isAdvancedVisible"
-        :label="$t('timelock')"
-        prop="timelock"
-      >
-        <el-date-picker
-          v-model="form.timelock"
-          type="datetime"
-          :placeholder="$t('select_date')"
-          tabindex="5"
-          :default-value="new Date()"
-          value-format="timestamp"
-        />
-      </el-form-item>
+      <div v-if="isAdvancedVisible">
+        <el-form-item :label="$t('timelock')" prop="timelock">
+          <el-date-picker
+            v-model="form.timelock"
+            type="datetime"
+            :placeholder="$t('select_date')"
+            tabindex="5"
+            :default-value="new Date()"
+            value-format="timestamp"
+          />
+        </el-form-item>
+        <el-form-item :label="$t('selected_utxos')" prop="Selected Utxos">
+          <UtxoList @change="checkedUtxosChange" />
+        </el-form-item>
+        <el-switch
+          v-model="form.isWeightedFee"
+          :active-text="$t('weighted_fee')"
+          :inactive-text="$t('absolute_fee')"
+          class="switch"
+        ></el-switch>
+      </div>
     </transition>
     <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
     <div class="submit">
@@ -102,17 +103,19 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import AppendUnit from '@/components/AppendUnit'
 import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
 import { WIT_UNIT } from '@/constants'
 import CustomIcon from '@/components/CustomIcon'
+import UtxoList from '@/components/UtxoList.vue'
 
 export default {
   name: 'SendValueTransferForm',
   components: {
     AppendUnit,
     CustomIcon,
+    UtxoList,
   },
   data() {
     const maxNumber = (rule, value, callback) => {
@@ -148,8 +151,9 @@ export default {
         callback()
       }
     }
-    // const FEE_TYPE = ['absolute', 'weighted']
+
     return {
+      checkedUtxos: [],
       isAdvancedVisible: false,
       WIT_UNIT,
       form: {
@@ -208,7 +212,15 @@ export default {
       createVTTError: state => state.wallet.errors.createVTT,
     }),
     feeType() {
-      return this.form.isWeightedFee ? 'weighted' : 'absolute'
+      return this.form.isWeightedFee
+        ? {
+            key: 'weighted',
+            text: this.$t('weighted_fee'),
+          }
+        : {
+            key: 'absolute',
+            text: this.$t('absolute_fee'),
+          }
     },
     addressLength() {
       return this.network && this.network.toLowerCase() === 'mainnet' ? 42 : 43
@@ -242,14 +254,22 @@ export default {
       immediate: true,
     },
   },
-
+  created() {
+    this.getUtxoInfo()
+  },
   methods: {
     ...mapMutations({
       clearError: 'clearError',
       clearGeneratedTransaction: 'clearGeneratedTransaction',
     }),
+    ...mapActions({
+      getUtxoInfo: 'getUtxoInfo',
+    }),
     toggleAdvanceOptions() {
       this.isAdvancedVisible = !this.isAdvancedVisible
+    },
+    checkedUtxosChange(value) {
+      this.checkedUtxos = value
     },
     changeUnit(prevUnit, newUnit) {
       this.form = {
