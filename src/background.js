@@ -43,7 +43,6 @@ const SHEIKAH_PATH_BY_PLATFORM = {
   linux: path.join(os.homedir(), '.sheikah'),
   win32: path.join(os.homedir(), '.sheikah'),
 }
-const WITNET_RUST_VERSION = '1.3'
 const VERSION_FILE_NAME = '.version'
 const SHEIKAH_PATH = process.env.TRAVIS
   ? ''
@@ -62,6 +61,7 @@ const WITNET_FILE_NAME = {
 const WITNET_CONFIG_FILE_NAME = 'witnet.toml'
 const LATEST_RELEASES_URL =
   'https://api.github.com/repos/witnet/witnet-rust/releases/latest'
+const WITNET_RUST_VERSION = '1.3.1'
 const STATUS = {
   OS_NOT_SUPPORTED: 'OS_NOT_SUPPORTED',
   WAIT: 'WAIT',
@@ -354,7 +354,14 @@ function loadUrl(status) {
 
 function main() {
   console.info('Fetching releases from: ' + LATEST_RELEASES_URL)
-  axios.get(LATEST_RELEASES_URL).then(async result => {
+  const existVersionFile = fs.existsSync(
+    path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
+  )
+  const releaseUrl = existVersionFile
+    ? LATEST_RELEASES_URL
+    : `https://api.github.com/repos/witnet/witnet-rust/releases/tags/${WITNET_RUST_VERSION}`
+
+  axios.get(releaseUrl).then(async result => {
     const release = result.data.assets.find(
       asset =>
         asset.browser_download_url.includes(
@@ -387,9 +394,6 @@ function main() {
       const existConfigFile = fs.existsSync(
         path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
       )
-      const existVersionFile = fs.existsSync(
-        path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
-      )
 
       let isLastestVersion = existConfigFile && existWitnetFile
       let isLatestVersionCompatible = true
@@ -400,7 +404,6 @@ function main() {
             path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
             'utf8',
           )
-
           isLatestVersionCompatible = semver.satisfies(
             getVersionFromName(latestReleaseVersion),
             `~${WITNET_RUST_VERSION}`,
