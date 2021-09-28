@@ -357,9 +357,7 @@ function main() {
   const existVersionFile = fs.existsSync(
     path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
   )
-  const releaseUrl = existVersionFile
-    ? LATEST_RELEASES_URL
-    : `https://api.github.com/repos/witnet/witnet-rust/releases/tags/${WITNET_RUST_VERSION}`
+  const releaseUrl = `https://api.github.com/repos/witnet/witnet-rust/releases/tags/${WITNET_RUST_VERSION}`
 
   axios.get(releaseUrl).then(async result => {
     const release = result.data.assets.find(
@@ -408,7 +406,10 @@ function main() {
             getVersionFromName(latestReleaseVersion),
             `~${WITNET_RUST_VERSION}`,
           )
-
+          console.info(
+            'Is wallet version compatible:',
+            isLatestVersionCompatible,
+          )
           if (versionFile !== latestReleaseVersion) {
             isLastestVersion = false
           }
