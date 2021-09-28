@@ -600,7 +600,7 @@ export default {
         context.commit('stopSessionTimeout')
         context.commit('deleteSession')
         context.commit(SET_TEMPLATES, { templates: {} })
-        context.commit('setBirthDate', { result: null })
+        context.commit('setBirthDate', { result: 'current' })
         if (context.state.walletInfos.length > 0) {
           router.push('/welcome-back/wallet-list')
         } else {
@@ -779,7 +779,6 @@ export default {
       context,
       { address, amount, fee, feeType, label, timelock = 0 },
     ) {
-      console.log('--feeType--', feeType)
       // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
       const request = await context.state.api.createVTT({
         session_id: this.state.wallet.sessionId,
@@ -923,7 +922,7 @@ export default {
       })
       if (request.result) {
         context.commit('lockWallet', context.store.wallet.id)
-        context.commit('setBirthDate', { result: null })
+        context.commit('setBirthDate', { result: 'current' })
       } else {
         context.commit('setError', 'lockWallet', request.error)
       }
@@ -968,7 +967,6 @@ export default {
       let birthDate
 
       const sourceType = params.sourceType
-
       if (sourceType === 'xprv') {
         // User is importing a wallet from xprv file
         birthDate = context.state.birthDate
@@ -986,7 +984,6 @@ export default {
           ? { imported: calculatedWalletBirthdate }
           : null
       }
-
       const request = await context.state.api.createWallet({
         overwrite: context.state.repeatedWallet,
         name: context.state.title,
@@ -998,7 +995,7 @@ export default {
         birth_date: birthDate,
       })
       context.commit('setWalletDescription', { title: '', description: '' })
-      context.commit('setBirthDate', { result: null })
+      context.commit('setBirthDate', { result: 'current' })
       context.commit('setRepeatedWallet', { exist: null })
 
       if (request.result) {
