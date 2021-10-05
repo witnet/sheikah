@@ -61,7 +61,7 @@ const WITNET_FILE_NAME = {
 const WITNET_CONFIG_FILE_NAME = 'witnet.toml'
 const LATEST_RELEASES_URL =
   'https://api.github.com/repos/witnet/witnet-rust/releases/latest'
-const WITNET_RUST_VERSION = '1.3.1'
+const WITNET_RUST_VERSION = '1.4.1'
 const STATUS = {
   OS_NOT_SUPPORTED: 'OS_NOT_SUPPORTED',
   WAIT: 'WAIT',
