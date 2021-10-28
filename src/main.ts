@@ -8,6 +8,8 @@ import './plugins/element.js'
 import './fontAwesome'
 import '@/directives'
 import '@/ipcHandlers'
+// TODO: delete
+declare var window: any
 
 Vue.config.productionTip = false
 

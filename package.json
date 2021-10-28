@@ -34,11 +34,12 @@
     "styleguide:build": "vue-cli-service styleguidist:build",
     "test:unit": "vue-cli-service test:unit --config=jest.unit.config.js"
   },
-  "main": "background.js",
+  "main": "background.ts",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/vue-fontawesome": "^0.1.6",
+    "@vue/cli-plugin-typescript": "^4.5.15",
     "axios": "^0.21.1",
     "big.js": "^5.2.2",
     "cbor": "^4.1.5",
@@ -55,6 +56,7 @@
     "semver": "^7.3.5",
     "tar": "^6.0.1",
     "tree-kill": "^1.2.2",
+    "typescript": "^4.4.4",
     "uuid": "^3.3.2",
     "vue": "^2.6.11",
     "vue-i18n": "^8.22.2",
