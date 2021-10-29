@@ -13,9 +13,9 @@ program.option('-w, --wallet', 'Run witnet wallet for development')
 program.parse(process.argv)
 
 app.start().then(() => {
-  console.log('::before check::')
   autoUpdater.init()
   autoUpdater.checkForUpdatesAndNotify()
+
   if (DEVELOPMENT) {
     if (program.wallet) {
       wallet.run()

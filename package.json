@@ -34,7 +34,7 @@
     "styleguide:build": "vue-cli-service styleguidist:build",
     "test:unit": "vue-cli-service test:unit --config=jest.unit.config.js"
   },
-  "main": "background.js",
+  "main": "background.ts",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",

@@ -127,8 +127,11 @@ export class AppManager {
     this.win.webContents.send('loaded', [{ isDefaultWallet: true }])
   }
 
-  // TODO: if error when closing window in autoUpdate win.close()
-  public closeWindow (event) {
+  public closeWindow() {
+    this.win.close()
+  }
+
+  public closeApp (event) {
     event.preventDefault()
     this.sendShutdownMessage()
   }
@@ -175,7 +178,7 @@ export class AppManager {
       this.win = null
     })
 
-    this.win.on('close', this.closeWindow.bind(this))
+    this.win.on('close', this.closeApp.bind(this))
   
     if (DEVELOPMENT) {
       const menu = Menu.buildFromTemplate([
