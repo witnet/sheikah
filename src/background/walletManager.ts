@@ -115,6 +115,10 @@ export class WalletManager {
     })
   }
 
+  public updateStatus(status) {
+    this.isBeingUpdated = status
+  }
+
   public async downloadWalletRelease(releaseUrl, version) {
     this.app.setStatus(STATUS.WAIT)
     const file = path.join(SHEIKAH_PATH, FILE_NAME[platform])

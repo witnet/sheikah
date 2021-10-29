@@ -1,6 +1,6 @@
 {
   "name": "sheikah-witnet-wallet",
-  "version": "1.10.0",
+  "version": "1.9.0",
   "private": true,
   "description": "A Witnet compatible desktop wallet interface and data requests development environment.",
   "author": "Witnet Foundation <info@witnet.foundation>",
@@ -34,7 +34,7 @@
     "styleguide:build": "vue-cli-service styleguidist:build",
     "test:unit": "vue-cli-service test:unit --config=jest.unit.config.js"
   },
-  "main": "background.ts",
+  "main": "background.js",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
@@ -109,7 +109,7 @@
     "vue-template-compiler": "^2.5.21"
   },
   "bugs": {
-    "url": "https://github.com/witnet/sheikah/issues"
+    "url": "https://github.com/gabaldon/sheikah/issues"
   },
   "gitHooks": {
     "pre-commit": "cross-env PRE_COMMIT=true lint-staged"
@@ -118,6 +118,6 @@
   "productName": "Sheikah Witnet wallet",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/witnet/sheikah.git"
+    "url": "git+https://github.com/gabaldon/sheikah.git"
   }
 }

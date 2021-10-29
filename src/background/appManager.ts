@@ -14,8 +14,6 @@ import {
   STATUS,
   STATUS_PATH
 } from './constants'
-// TODO: uncomment when autoUpdater class is implemented
-// import { AutoUpdater } from './autoUpdater'
 import path from 'path'
 declare const __static: string
 
@@ -61,7 +59,6 @@ export class AppManager {
     // Quit when all windows are closed.
     app.on('window-all-closed', function (event) {
       event.preventDefault()
-      console.log('all closed', this)
       this.sendShutdownMessage()
     })
 
@@ -130,6 +127,7 @@ export class AppManager {
     this.win.webContents.send('loaded', [{ isDefaultWallet: true }])
   }
 
+  // TODO: if error when closing window in autoUpdate win.close()
   public closeWindow (event) {
     event.preventDefault()
     this.sendShutdownMessage()
@@ -160,9 +158,6 @@ export class AppManager {
     }
   
     this.loadUrl(this.status)
-    // TODO: uncomment when autoUpdater class is implemented
-    // this.autoUpdater.autoDownload = false
-    // this.autoUpdater.checkForUpdatesAndNotify()
   
     this.win.webContents.on('did-finish-load', () => {
       // Disables zooming with pinch
@@ -179,11 +174,10 @@ export class AppManager {
     this.win.on('closed', () => {
       this.win = null
     })
-    console.log('before close', this)
 
     this.win.on('close', this.closeWindow.bind(this))
   
-    if (!DEVELOPMENT) {
+    if (DEVELOPMENT) {
       const menu = Menu.buildFromTemplate([
         {
           label: 'Menu',
@@ -192,7 +186,6 @@ export class AppManager {
               label: 'Quit',
               accelerator: 'CmdOrCtrl+Q',
               click: () => {
-                console.log('quit', this)
                 this.sendShutdownMessage()
               },
             },
