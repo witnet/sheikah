@@ -14,7 +14,7 @@
     "sourceMap": true,
     "allowJs": true,
     "baseUrl": ".",
-    "types": ["webpack", "webpack-env"],
+    "types": ["node", "jest", "webpack", "webpack-env"],
     "paths": {
       "@/*": ["src/*"],
       "*": ["src/typings/*"]
