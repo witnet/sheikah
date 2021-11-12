@@ -1,13 +1,15 @@
 import Vue from 'vue'
-import i18n from '@/plugins/i18n'
 import IdleVue from 'idle-vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import i18n from '@/plugins/i18n'
 import './plugins/element.js'
 import './fontAwesome'
 import '@/directives'
 import '@/ipcHandlers'
+// TODO: delete
+declare let window: any
 
 Vue.config.productionTip = false
 

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "target": "es2019",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "baseUrl": ".",
+    "types": ["webpack", "webpack-env"],
+    "paths": {
+      "@/*": ["src/*"],
+      "*": ["src/typings/*"]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "typeRoots": ["node_modules/@types", "src/typings"],
+    "outDir": "dist/"
+  },
+  "exclude": ["node_modules", "tests"],
+  "include": ["src//*.ts", "src//*.vue"]
+}

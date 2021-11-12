@@ -1,22 +1,27 @@
+const path = require('path')
+
 module.exports = {
   root: true,
   parserOptions: {
+    parser: '@typescript-eslint/parser',
     sourceType: 'script',
   },
+
+  plugins: ['import'],
+
   extends: [
-    // https://github.com/vuejs/eslint-plugin-vue#bulb-rules
+    '@vue/prettier',
+    '@vue/prettier/@typescript-eslint',
+    '@vue/typescript',
+    'plugin:import/errors',
+    'plugin:import/typescript',
+    'plugin:import/warnings',
     'plugin:vue/recommended',
-    // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-    'standard',
-    // https://github.com/prettier/eslint-config-prettier
-    'prettier',
-    'prettier/standard',
     'prettier/vue',
   ],
   rules: {
     'no-debugger': 'error',
     'no-multiple-empty-lines': ['error', { max: 1 }],
-    'import/no-relative-parent-imports': 'error',
     'import/order': 'error',
     'vue/array-bracket-spacing': 'error',
     'vue/arrow-spacing': 'error',
@@ -49,16 +54,6 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/**/*', 'tests/unit/**/*', 'tests/e2e/**/*'],
-      parserOptions: {
-        parser: 'babel-eslint',
-        sourceType: 'module',
-      },
-      env: {
-        browser: true,
-      },
-    },
-    {
       files: ['**/*.spec.js'],
       parserOptions: {
         parser: 'babel-eslint',
@@ -75,4 +70,16 @@ module.exports = {
       },
     },
   ],
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [['@', path.resolve(__dirname, 'src')]],
+        extensions: ['.vue', '.js', '.ts', '.d.ts'],
+      },
+    },
+    'vue-i18n': {
+      localeDir: path.resolve(__dirname, 'src', 'locales') + '/*.{json}',
+      messageSyntaxVersion: '^9.0.0',
+    },
+  },
 }
