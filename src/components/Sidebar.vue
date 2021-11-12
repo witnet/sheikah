@@ -63,10 +63,10 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { ObserveVisibility } from 'vue-observe-visibility'
 import NetworkStatus from '@/components/NetworkStatus.vue'
 import ExportXprv from '@/components/ExportXprv.vue'
 import CustomIcon from '@/components/CustomIcon'
-import { ObserveVisibility } from 'vue-observe-visibility'
 
 export default {
   name: 'Sidebar',
@@ -136,7 +136,7 @@ export default {
 .sidebar-container {
   .sidebar {
     background-color: var(--sidebar-section-background);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgb(0 0 0 / 10%);
     display: grid;
     font-family: 'Roboto';
     grid-template-rows: 70px max-content auto 70px;
@@ -146,17 +146,13 @@ export default {
     z-index: 20;
 
     &.expanded {
-      -webkit-transition: all 0.4s ease-in ease-out;
-      -o-transition: all 0.4s ease-in ease-out;
-      -moz-transition: all 0.4s ease-in ease-out;
+      transition: all 0.4s ease-in ease-out;
       transition: width 0.4s ease;
       width: 408px;
     }
 
     &.collapsed {
-      -webkit-transition: all 0.4s ease-in ease-out;
-      -o-transition: all 0.4s ease-in ease-out;
-      -moz-transition: all 0.4s ease-in ease-out;
+      transition: all 0.4s ease-in ease-out;
       transition: width 0.4s ease;
       width: 70px;
     }

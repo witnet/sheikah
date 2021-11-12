@@ -21,10 +21,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Card from '@/components/card/Card.vue'
 import SettingsNotificationSwitch from '@/components/SettingsNotificationSwitch'
 import { NOTIFICATIONS } from '@/constants'
-import { mapState } from 'vuex'
 
 export default {
   name: 'SettingsNotificationsList',

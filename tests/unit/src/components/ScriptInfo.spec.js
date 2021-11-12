@@ -6,8 +6,7 @@ describe('ScriptInfo.vue', () => {
       ...i18n(),
       propsData: {
         index: 0,
-        info:
-          'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+        info: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
       },
     })
 

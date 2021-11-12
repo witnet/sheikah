@@ -150,7 +150,7 @@ export default {
       flex-direction: column;
       font-size: 16px;
       max-height: max-content;
-      padding: 32px 32px 0 32px;
+      padding: 32px 32px 0;
     }
 
     .navigation-buttons {

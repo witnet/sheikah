@@ -19,12 +19,9 @@ describe('Renders the correct elements', () => {
   })
 
   it('shows the correct amount', () => {
-    expect(
-      wrapper
-        .find('[data-test="amount"]')
-        .text()
-        .includes('12'),
-    ).toBe(true)
+    expect(wrapper.find('[data-test="amount"]').text().includes('12')).toBe(
+      true,
+    )
   })
 
   it('shows the correct unit', () => {

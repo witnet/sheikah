@@ -72,10 +72,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import DotsLoading from '@/components/DotsLoading'
 import JsonTree from '@/components/JsonTree'
 import { simplifyDrResult } from '@/utils'
-import { mapState } from 'vuex'
 
 export default {
   name: 'OperatorOutput',

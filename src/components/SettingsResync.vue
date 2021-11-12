@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import Card from '@/components/card/Card.vue'
 import { mapState, mapMutations } from 'vuex'
+import Card from '@/components/card/Card.vue'
 import { NETWORK_STATUS } from '@/constants'
 
 export default {

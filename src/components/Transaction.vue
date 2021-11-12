@@ -31,18 +31,14 @@
           class="address-container"
         >
           <p data-test="transaction-type" class="address">{{
-            this.$t('data_request')
+            $t('data_request')
           }}</p>
         </div>
         <div v-else-if="transactionType === 'tally'" class="address-container">
-          <p data-test="transaction-type" class="address">{{
-            this.$t('tally')
-          }}</p>
+          <p data-test="transaction-type" class="address">{{ $t('tally') }}</p>
         </div>
         <div v-if="transactionType === 'mint'" class="address-container">
-          <p data-test="transaction-type" class="address">{{
-            this.$t('mint')
-          }}</p>
+          <p data-test="transaction-type" class="address">{{ $t('mint') }}</p>
         </div>
 
         <div v-if="confirmed">
@@ -54,7 +50,7 @@
               {{ $t('pending_confirmation_tooltip') }}
             </div>
             <p data-test="pending-confirmation" class="pending">{{
-              this.$t('pending_confirmation')
+              $t('pending_confirmation')
             }}</p>
           </el-tooltip>
         </div>
@@ -63,9 +59,7 @@
             <div slot="content" class="info-message">
               {{ $t('sending_tx_tooltip') }}
             </div>
-            <p data-test="sending-tx" class="pending">{{
-              this.$t('sending')
-            }}</p>
+            <p data-test="sending-tx" class="pending">{{ $t('sending') }}</p>
           </el-tooltip>
         </div>
       </div>
@@ -236,7 +230,7 @@ export default {
   border-bottom: var(--transaction-border);
 
   &.locked {
-    opacity: 0.6;
+    opacity: 60%;
   }
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="table">
-    <p class="label">{{ this.$t('available') }}</p>
+    <p class="label">{{ $t('available') }}</p>
     <Amount
       data-test="available"
       :unit-light="true"
@@ -8,13 +8,13 @@
       :amount="available"
     />
     <p v-if="Number(locked)" class="label"
-      >{{ this.$t('locked_balance_label') }}
+      >{{ $t('locked_balance_label') }}
       <el-tooltip trigger="hover" effect="light">
         <font-awesome-icon class="info" icon="info-circle" />
         <div slot="content" class="info-message">
           <i18n path="locked_balance_tooltip">
             <a class="link" :href="balanceLockedUrl" target="_blank"
-              >{{ this.$t('locked_balance_tooltip_here') }}
+              >{{ $t('locked_balance_tooltip_here') }}
               <font-awesome-icon class="external-link" icon="external-link-alt"
             /></a>
           </i18n>
@@ -28,7 +28,7 @@
       class="amount"
       :amount="locked"
     />
-    <p v-if="Number(unconfirmed)" class="label">{{ this.$t('unconfirmed') }}</p>
+    <p v-if="Number(unconfirmed)" class="label">{{ $t('unconfirmed') }}</p>
     <Amount
       v-if="Number(unconfirmed)"
       data-test="unconfirmed"
@@ -36,7 +36,7 @@
       class="amount"
       :amount="unconfirmed"
     />
-    <p class="label total">{{ this.$t('total_balance_label') }}</p>
+    <p class="label total">{{ $t('total_balance_label') }}</p>
     <Amount
       data-test="total"
       :unit-light="true"
@@ -120,7 +120,7 @@ export default {
 }
 
 .fade-enter {
-  opacity: 0;
+  opacity: 0%;
 }
 
 .info-message {

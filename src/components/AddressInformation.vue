@@ -36,7 +36,7 @@
     <div v-if="!used" class="transactions">
       <Tag class="tag" color="green" :text="$t('not_used')" />
       <p class="description"
-        >{{ this.$tc('received', payments, { count: payments }) }}
+        >{{ $tc('received', payments, { count: payments }) }}
         <span class="bold">{{
           $tc('payment', payments, { count: payments })
         }}</span
@@ -46,17 +46,17 @@
     <div v-else class="transactions">
       <Tag class="tag" color="red" :text="$t('used')" />
       <p class="description">
-        {{ this.$tc('received', payments, { count: payments }) }}
+        {{ $tc('received', payments, { count: payments }) }}
         <span class="bold">{{
           $tc('payment', payments, { count: payments })
         }}</span>
-        {{ this.$t('totalling') }}
-        <span class="bold"><Amount :amount="amount"/></span>
-        {{ this.$t('from') }}
+        {{ $t('totalling') }}
+        <span class="bold"><Amount :amount="amount" /></span>
+        {{ $t('from') }}
         <span class="bold">{{
           formatDateVerbose(firstPaymentDate, locale)
         }}</span>
-        {{ this.$t('to') }}
+        {{ $t('to') }}
         <span class="bold">{{
           formatDateVerbose(lastPaymentDate, locale)
         }}</span
@@ -65,22 +65,22 @@
     </div>
 
     <p class="help">
-      {{ this.$t('reusing_address_alert') }}
-      <a class="link" href="#">{{ this.$t('learn_more') }} ></a>.
+      {{ $t('reusing_address_alert') }}
+      <a class="link" href="#">{{ $t('learn_more') }} ></a>.
     </p>
   </div>
   <div v-else class="information">
-    <p>{{ this.$t('addresses_empty') }}</p>
+    <p>{{ $t('addresses_empty') }}</p>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Amount from '@/components/Amount'
 import DotsLoading from '@/components/DotsLoading'
 import Address from '@/components/Address'
 import Tag from '@/components/Tag'
 import { formatDateVerbose, copyToClipboard } from '@/utils'
-import { mapState } from 'vuex'
 /**
  * Show the information of a given address
  */

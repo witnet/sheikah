@@ -9,7 +9,7 @@
             data-test="add-operator"
             name="add-operator"
           />
-          <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
+          <p class="add-operator-text">{{ $t('add_operator') }}</p>
         </div>
       </div>
     </div>
@@ -41,9 +41,9 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex'
 import { PUSH_OPERATOR, DELETE_OPERATOR } from '@/store/mutation-types'
 import CustomIcon from '@/components/CustomIcon'
-import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Subscript',

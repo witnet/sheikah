@@ -2,18 +2,18 @@
   <div class="transaction-container">
     <div class="scroll">
       <div v-if="type === 'ValueTransfer'" class="info">
-        <p class="entry">{{ this.$t('amount') }}</p>
+        <p class="entry">{{ $t('amount') }}</p>
         <Amount
           class="amount"
           :amount="generatedTransaction.metadata.outputs[0].amount"
         />
-        <p class="entry">{{ this.$t('to_id') }}</p>
+        <p class="entry">{{ $t('to_id') }}</p>
         <Address
           class="value address"
           size="13px"
           :value="generatedTransaction.metadata.outputs[0].address"
         />
-        <p class="entry">{{ this.$t('fee') }}</p>
+        <p class="entry">{{ $t('fee') }}</p>
         <Amount
           class="amount"
           size="14px"
@@ -21,17 +21,17 @@
         />
       </div>
       <div v-else class="info">
-        <p class="entry">{{ this.$t('witnesses') }}</p>
+        <p class="entry">{{ $t('witnesses') }}</p>
         <p class="value">{{ witnesses }}</p>
-        <p class="entry">{{ this.$t('min_consensus_percentage') }}</p>
+        <p class="entry">{{ $t('min_consensus_percentage') }}</p>
         <p class="value">{{ minConsensusPercentage }}</p>
-        <p class="entry">{{ this.$t('data_request_fee') }}</p>
+        <p class="entry">{{ $t('data_request_fee') }}</p>
         <Amount class="amount" :amount="fee" />
-        <p class="entry">{{ this.$t('reward_fee') }}</p>
+        <p class="entry">{{ $t('reward_fee') }}</p>
         <Amount class="amount" :amount="rewardFee" />
-        <p class="entry">{{ this.$t('commit_reveal_fee') }}</p>
+        <p class="entry">{{ $t('commit_reveal_fee') }}</p>
         <Amount class="amount" :amount="commitAndRevealFee" />
-        <p class="entry">{{ this.$t('inputs') }}</p>
+        <p class="entry">{{ $t('inputs') }}</p>
         <div data-test="advance-options" class="value-transfer">
           <div
             v-for="(input, index) in generatedTransaction.transaction[type].body
@@ -43,7 +43,7 @@
             <p class="output-pointer"> {{ input.output_pointer }}</p>
           </div>
         </div>
-        <p class="entry">{{ this.$t('outputs') }}</p>
+        <p class="entry">{{ $t('outputs') }}</p>
         <div data-test="advance-options" class="value-transfer">
           <div
             v-for="(output, index) in generatedTransaction.transaction[type]
@@ -59,7 +59,7 @@
       </div>
       <transition name="slide">
         <div v-if="isAdvancedVisible" class="info advanced">
-          <p class="entry">{{ this.$t('bytes') }}</p>
+          <p class="entry">{{ $t('bytes') }}</p>
           <p data-test="advance-options" class="address value">{{
             generatedTransaction.bytes
           }}</p>
@@ -74,7 +74,7 @@
         class="link"
         @click="toggleAdvanceOptions"
       >
-        {{ this.$t('show_less') }}
+        {{ $t('show_less') }}
         <CustomIcon class-name="icon" name="close" />
       </el-button>
       <el-button
@@ -84,12 +84,12 @@
         type="text"
         @click="toggleAdvanceOptions"
       >
-        {{ this.$t('show_advance') }}
+        {{ $t('show_advance') }}
         <CustomIcon class-name="icon" name="open" />
       </el-button>
       <span slot="footer" class="dialog-footer">
         <el-button data-test="cancel-tx" @click="closeAndClear">
-          {{ this.$t('cancel') }}
+          {{ $t('cancel') }}
         </el-button>
         <el-button
           tabindex="2"
@@ -98,7 +98,7 @@
           @keydown.enter.esc.prevent="confirmTransaction"
           @click="confirmTransaction"
         >
-          {{ this.$t('confirm') }}
+          {{ $t('confirm') }}
         </el-button>
       </span>
     </div>
@@ -184,16 +184,12 @@ export default {
 @import '@/styles/scroll.scss';
 
 .slide-enter-active {
-  -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
-  -webkit-transition-timing-function: ease-in;
   transition-timing-function: ease-in;
 }
 
 .slide-leave-active {
-  -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
-  -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 

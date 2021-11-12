@@ -1,17 +1,19 @@
-import BigNumber from '@/utils/BigNumber'
 import cbor from 'cbor'
 import { format, formatDistanceToNow } from 'date-fns'
 
-import uuidv4 from 'uuid/v4'
+import { V4 as uuidv4 } from 'uuid'
+import { Radon } from 'witnet-radon-js'
 import {
+  LANGUAGES,
+  EPOCH_PERIOD,
+  GENESIS_TIMESTAMP,
   WIT_UNIT,
   EDITOR_ALLOWED_PROTOCOLS,
   HISTORY_UPDATE_TYPE,
   EDITOR_STAGES,
-} from '@/constants'
+} from './constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
-import { Radon } from 'witnet-radon-js'
-import { LANGUAGES, EPOCH_PERIOD, GENESIS_TIMESTAMP } from './constants'
+import BigNumber from '@/utils/BigNumber'
 
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
@@ -264,10 +266,7 @@ export function changeDateFormat(timestamp) {
   const t = timestampLength < 13 ? timestamp + '000' : timestamp
   const date = new Date(Math.floor(t))
   // let date = new Date(timestamp)
-  const formatedDate = date
-    .toString()
-    .split(' ')
-    .splice(1, 4)
+  const formatedDate = date.toString().split(' ').splice(1, 4)
   const month = formatedDate[0].toUpperCase()
   const day = formatedDate[1]
   const year = formatedDate[2]
@@ -307,8 +306,8 @@ export function openInExternalApp(url) {
   window.open(url, '_blank')
 }
 
-export function generateId(random) {
-  return random ? uuidv4(random) : uuidv4()
+export function generateId() {
+  return uuidv4()
 }
 
 // check if contains the same elements
@@ -343,7 +342,7 @@ export function formatSectionApiErrorsByRoute(routeName, errorsMap, apiErrors) {
 }
 
 export function copyToClipboard(str) {
-  const listener = function(ev) {
+  const listener = function (ev) {
     ev.preventDefault()
     ev.clipboardData.setData('text/plain', str)
   }
@@ -386,14 +385,8 @@ export function calculateCurrentFocusAfterUndo(
   markup,
   variables,
 ) {
-  const {
-    stage,
-    type,
-    scriptId,
-    index,
-    id,
-    variableField,
-  } = previousHistoryCheckpoint
+  const { stage, type, scriptId, index, id, variableField } =
+    previousHistoryCheckpoint
   const markupRetrieve = markup.retrieve
 
   if (
@@ -437,14 +430,8 @@ export function calculateCurrentFocusAfterRedo(
   markup,
   variables,
 ) {
-  const {
-    type,
-    stage,
-    scriptId,
-    index,
-    id,
-    variableField,
-  } = currentHistoryCheckpoint
+  const { type, stage, scriptId, index, id, variableField } =
+    currentHistoryCheckpoint
   const markupRetrieve = markup.retrieve
 
   if (

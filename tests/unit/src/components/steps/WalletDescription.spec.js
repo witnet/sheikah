@@ -1,5 +1,6 @@
-import WalletDescription from '@/components/steps/WalletDescription'
 import Input from 'element-ui/lib/input'
+
+import WalletDescription from '@/components/steps/WalletDescription'
 
 describe('WalletDescription.vue', () => {
   describe('title input', () => {
@@ -21,12 +22,7 @@ describe('WalletDescription.vue', () => {
         }),
       })
 
-      expect(
-        wrapper
-          .findAllComponents(Input)
-          .at(0)
-          .exists(),
-      ).toBe(true)
+      expect(wrapper.findAllComponents(Input).at(0).exists()).toBe(true)
     })
 
     it('should be text type', () => {
@@ -47,12 +43,7 @@ describe('WalletDescription.vue', () => {
         }),
       })
 
-      expect(
-        wrapper
-          .findAllComponents(Input)
-          .at(0)
-          .props().type,
-      ).toBe('text')
+      expect(wrapper.findAllComponents(Input).at(0).props().type).toBe('text')
     })
 
     it('should contain store value', () => {
@@ -73,12 +64,9 @@ describe('WalletDescription.vue', () => {
         }),
       })
 
-      expect(
-        wrapper
-          .findAllComponents(Input)
-          .at(0)
-          .props().value,
-      ).toBe('random text')
+      expect(wrapper.findAllComponents(Input).at(0).props().value).toBe(
+        'random text',
+      )
     })
 
     it('should call store update', async () => {
@@ -129,12 +117,7 @@ describe('WalletDescription.vue', () => {
         }),
       })
 
-      expect(
-        wrapper
-          .findAllComponents(Input)
-          .at(1)
-          .exists(),
-      ).toBe(true)
+      expect(wrapper.findAllComponents(Input).at(1).exists()).toBe(true)
     })
 
     it('should be text type', () => {
@@ -155,12 +138,9 @@ describe('WalletDescription.vue', () => {
         }),
       })
 
-      expect(
-        wrapper
-          .findAllComponents(Input)
-          .at(1)
-          .props().type,
-      ).toBe('textarea')
+      expect(wrapper.findAllComponents(Input).at(1).props().type).toBe(
+        'textarea',
+      )
     })
 
     it('should contain store value', () => {
@@ -177,12 +157,9 @@ describe('WalletDescription.vue', () => {
         }),
       })
 
-      expect(
-        wrapper
-          .findAllComponents(Input)
-          .at(1)
-          .props().value,
-      ).toBe('random description')
+      expect(wrapper.findAllComponents(Input).at(1).props().value).toBe(
+        'random description',
+      )
     })
 
     it('should call store update', async () => {

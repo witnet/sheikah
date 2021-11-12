@@ -258,10 +258,7 @@ export default {
       }, 500)
       this.keysSoFar += e.key
       const matchingOption = this.options.find(x =>
-        x.primaryText
-          .toString()
-          .toLowerCase()
-          .includes(this.keysSoFar),
+        x.primaryText.toString().toLowerCase().includes(this.keysSoFar),
       )
       const matchingOptions = this.options.filter(option =>
         option.primaryText
@@ -293,7 +290,7 @@ export default {
 
   &.disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: 50%;
   }
 
   .selected-btn {

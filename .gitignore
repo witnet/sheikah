@@ -31,3 +31,6 @@ yarn-error.log*
 #Electron-builder output
 /dist_electron
 witnet.toml
+
+#witnet-rust files
+genesis_block.json

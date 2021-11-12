@@ -5,8 +5,8 @@
     title="Wallet seed phrase backup"
     :previous-text="$t('back')"
     :next-text="$t('next')"
-    :previous-step="() => this.$router.push('/ftu/disclaimer')"
-    :next-step="() => this.$router.push('/ftu/seed-validation')"
+    :previous-step="() => $router.push('/ftu/disclaimer')"
+    :next-step="() => $router.push('/ftu/seed-validation')"
   >
     <i18n class="paragraph-title" path="wallet_seed_backup_0_1" tag="p">
       <em>{{ $t('wallet_seed_backup_0_2') }}</em>
@@ -57,16 +57,10 @@ export default {
       createMnemonics: 'createMnemonics',
     }),
     calculateFirstSentence() {
-      return this.seed
-        .split(' ')
-        .slice(0, 6)
-        .join(' ')
+      return this.seed.split(' ').slice(0, 6).join(' ')
     },
     calculateSecondSentence() {
-      return this.seed
-        .split(' ')
-        .slice(6)
-        .join(' ')
+      return this.seed.split(' ').slice(6).join(' ')
     },
   },
 }

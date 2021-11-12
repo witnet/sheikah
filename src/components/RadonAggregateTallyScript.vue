@@ -16,7 +16,7 @@
             @click="addOperator"
           >
             <CustomIcon name="add-operator" />
-            <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
+            <p class="add-operator-text">{{ $t('add_operator') }}</p>
           </div>
         </div>
         <OperatorOutput
@@ -99,13 +99,13 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import { PUSH_OPERATOR, DELETE_OPERATOR } from '@/store/mutation-types'
 import ScriptInfo from '@/components/ScriptInfo'
 import { standardizeOperatorName, selectInnerError } from '@/utils'
 import OperatorOutput from '@/components/OperatorOutput.vue'
 import RadonOperator from '@/components/RadonOperator'
 import CustomIcon from '@/components/CustomIcon'
-import { mapMutations } from 'vuex'
 
 export default {
   name: 'RadonAggregateTallyScript',
@@ -226,7 +226,7 @@ export default {
   grid-template-rows: min-content;
 
   .top {
-    margin: 16px 16px 0 16px;
+    margin: 16px 16px 0;
 
     .script-header {
       align-items: center;
@@ -304,7 +304,7 @@ export default {
     border: var(--operators-dashed-border);
     display: flex;
     height: min-content;
-    margin: 0 16px 16px 16px;
+    margin: 0 16px 16px;
 
     .text {
       color: var(--text-low-emphasis);

@@ -1,3 +1,4 @@
+import { Radon } from 'witnet-radon-js'
 import {
   areSoftEqualArrays,
   deleteKey,
@@ -10,7 +11,6 @@ import {
   encodeAggregationTally,
 } from '@/utils'
 import { WIT_UNIT } from '@/constants'
-import { Radon } from 'witnet-radon-js'
 
 describe('areSoftEqualArrays', () => {
   it('check if two sorted arrays contains the same items', () => {

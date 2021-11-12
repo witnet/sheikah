@@ -1,6 +1,6 @@
 <template>
   <Card class="card" :title="$t('language')" :border="false" shadow="thin">
-    <p class="text">{{ this.$t('select_language') }}</p>
+    <p class="text">{{ $t('select_language') }}</p>
     <Select
       v-model="actualLanguage"
       data-test="select-unit"
@@ -11,10 +11,10 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from 'vuex'
 import Card from '@/components/card/Card.vue'
 import Select from '@/components/Select.vue'
 import { LANGUAGES } from '@/constants'
-import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'SettingsOptionCurrenty',
@@ -57,7 +57,7 @@ export default {
 <style lang="scss" scoped>
 .card {
   .text {
-    margin: 0 0 16px 0;
+    margin: 0 0 16px;
   }
 }
 </style>

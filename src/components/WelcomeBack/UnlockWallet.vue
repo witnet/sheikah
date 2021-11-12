@@ -1,6 +1,6 @@
 <template>
   <div class="unlock-wallet">
-    <p class="text">{{ this.$t('insert_password') }}</p>
+    <p class="text">{{ $t('insert_password') }}</p>
     <div @keydown.enter.esc.prevent="unlock">
       <el-input
         v-model="password"
@@ -13,7 +13,7 @@
         data-test="password-error-alert"
         class="error"
       >
-        {{ this.$t('invalid_password') }}
+        {{ $t('invalid_password') }}
       </p>
     </div>
     <div class="container-btn">
@@ -23,7 +23,7 @@
         data-test="unlock-wallet"
         @click="previousStep"
       >
-        {{ this.$t('back') }}
+        {{ $t('back') }}
       </el-button>
       <div class="unlock-btn" @keydown.enter.esc.prevent="unlock">
         <el-button
@@ -33,7 +33,7 @@
           type="primary"
           @click="unlock"
         >
-          {{ this.$t('unlock') }}
+          {{ $t('unlock') }}
         </el-button>
       </div>
     </div>
@@ -61,7 +61,7 @@ export default {
     }),
   },
   watch: {
-    sessionId: function(newValue) {
+    sessionId: function (newValue) {
       if (newValue) {
         this.updateView()
       }
@@ -104,7 +104,7 @@ export default {
 
   .password-input {
     border: none;
-    border-bottom: 1px solid rgb(92, 91, 91);
+    border-bottom: 1px solid rgb(92 91 91);
     color: $black;
     font-size: 16px;
     margin-bottom: 8px;
@@ -112,7 +112,7 @@ export default {
 
     &:focus,
     &:hover {
-      box-shadow: 0 1px 0 0 rgba(114, 113, 113, 0.75);
+      box-shadow: 0 1px 0 0 rgb(114 113 113 / 75%);
       outline: none;
     }
 

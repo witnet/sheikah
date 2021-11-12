@@ -7,15 +7,15 @@
     :next-step="() => $router.push(nextRoute)"
   >
     <p class="paragraph">
-      {{ this.$t('wallet_description') }}
+      {{ $t('wallet_description') }}
     </p>
     <div class="form-row password">
       <p class="capitalize">
-        {{ this.$t('name') }}
+        {{ $t('name') }}
         <el-tooltip trigger="hover" effect="light">
           <font-awesome-icon class="info" icon="info-circle" />
           <div slot="content" class="info-message">
-            {{ this.$t('wallet_name_info') }}
+            {{ $t('wallet_name_info') }}
           </div>
         </el-tooltip>
       </p>
@@ -24,11 +24,11 @@
     </div>
     <div class="form-row password">
       <p class="capitalize">
-        {{ this.$t('description') }}
+        {{ $t('description') }}
         <el-tooltip trigger="hover" effect="light">
           <font-awesome-icon class="info" icon="info-circle" />
           <div slot="content" class="info-message">
-            {{ this.$t('wallet_description_info') }}
+            {{ $t('wallet_description_info') }}
           </div>
         </el-tooltip>
       </p>
@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import NavigationCard from '@/components/card/NavigationCard'
 import { mapMutations, mapState } from 'vuex'
+import NavigationCard from '@/components/card/NavigationCard'
 
 export default {
   name: 'WalletSeedBackup',

@@ -1,6 +1,6 @@
 <template>
   <Card class="card" :title="$t('default_unit')" :border="false" shadow="thin">
-    <p class="text">{{ this.$t('select_unit') }}</p>
+    <p class="text">{{ $t('select_unit') }}</p>
     <Select
       v-model="actualUnit"
       data-test="select-unit"
@@ -11,10 +11,10 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import Card from '@/components/card/Card.vue'
 import Select from '@/components/Select.vue'
 import { WIT_UNIT } from '@/constants'
-import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'SettingsOptionCurrenty',
@@ -51,7 +51,7 @@ export default {
 <style lang="scss" scoped>
 .card {
   .text {
-    margin: 0 0 16px 0;
+    margin: 0 0 16px;
   }
 }
 </style>

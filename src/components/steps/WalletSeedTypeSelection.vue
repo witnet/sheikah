@@ -1,7 +1,7 @@
 <template>
   <Card class="wallet-seed-type" data-test="header-1">
     <p class="text header">
-      {{ this.$t('import_wallet') }}
+      {{ $t('import_wallet') }}
     </p>
     <ul class="options">
       <li v-for="option in options" :key="option.name" class="option">
@@ -15,7 +15,7 @@
           data-test="back"
           @click="redirectTo('/welcome-back/wallet-list')"
         >
-          {{ this.$t('back') }}
+          {{ $t('back') }}
         </el-button>
       </li>
     </ul>
@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import Card from '@/components/card/Card'
 import { mapState } from 'vuex'
+import Card from '@/components/card/Card'
 
 export default {
   name: 'WalletSeedTypeSelection',

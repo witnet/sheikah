@@ -11,16 +11,16 @@ const vueTestUtils = require('@vue/test-utils')
 
 // Mock window properties not handled by jsdom
 Object.defineProperty(window, 'localStorage', {
-  value: (function() {
+  value: (function () {
     let store = {}
     return {
-      getItem: function(key) {
+      getItem: function (key) {
         return store[key] || null
       },
-      setItem: function(key, value) {
+      setItem: function (key, value) {
         store[key] = value.toString()
       },
-      clear: function() {
+      clear: function () {
         store = {}
       },
     }
@@ -29,7 +29,7 @@ Object.defineProperty(window, 'localStorage', {
 
 // Make console.warn throw, so that Jest tests fail
 const warn = console.error
-console.error = function(message) {
+console.error = function (message) {
   warn.apply(console, arguments)
   // NOTE: You can whitelist some `console.warn` messages here
   //       by returning if the `message` value is acceptable.
@@ -112,7 +112,7 @@ global.createComponentMocks = ({ store, router, style, mocks, stubs }) => {
 }
 
 // FIXME: https://github.com/witnet/sheikah/issues/1500
-global.getNormalizedFormRules = function(wrapper) {
+global.getNormalizedFormRules = function (wrapper) {
   const overwriteTriggerOnSubmitRule = rule =>
     rule.trigger === 'submit' ? { ...rule, trigger: 'change' } : rule
 
@@ -129,7 +129,7 @@ global.sleep = function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-global.i18n = function() {
+global.i18n = function () {
   return {
     i18n,
   }

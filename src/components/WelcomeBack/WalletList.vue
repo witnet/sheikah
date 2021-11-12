@@ -1,7 +1,7 @@
 <template>
   <Card class="wallet-list">
     <p class="text header">
-      {{ this.$t('unlock_wallet') }}
+      {{ $t('unlock_wallet') }}
     </p>
     <div class="list">
       <div class="row wallets">
@@ -18,7 +18,7 @@
           @keydown.enter.esc.prevent="unlock"
         />
         <p v-if="unlockWalletError" data-test="error-alert" class="error">
-          {{ this.$t('invalid_password') }}
+          {{ $t('invalid_password') }}
         </p>
       </div>
       <div class="row" @keydown.enter.esc.prevent="unlock">
@@ -30,12 +30,12 @@
           :disabled="disableButton"
           @click="unlock"
         >
-          {{ this.$t('unlock') }}
+          {{ $t('unlock') }}
         </el-button>
       </div>
       <div class="row">
         <el-button data-test="create-wallet" type="text" @click="nextStep">
-          {{ this.$t('create_wallet') }}
+          {{ $t('create_wallet') }}
           ></el-button
         >
       </div>
@@ -44,9 +44,9 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from 'vuex'
 import Select from '@/components/Select'
 import Card from '@/components/card/Card'
-import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'WalletList',
@@ -98,7 +98,7 @@ export default {
         this.currentWallet = this.walletOptions[this.lastWalletOpen]
       },
     },
-    sessionId: function(newValue) {
+    sessionId: function (newValue) {
       if (newValue) {
         this.updateView()
       }

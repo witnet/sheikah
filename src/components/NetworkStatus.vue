@@ -71,23 +71,23 @@
           @click="$store.commit('showResyncConfirmation')"
         >
           <font-awesome-icon class="icon" icon="sync-alt" />
-          {{ this.$t('resync') }}
+          {{ $t('resync') }}
         </el-button>
 
         <p v-if="isSyncing" data-test="last-block" class="text">
           <span class="bold">{{ lastBlock - lastSync }}</span>
-          {{ this.$t('blocks_left') }}
+          {{ $t('blocks_left') }}
         </p>
         <p v-if="isSyncing" data-test="last-block" class="text">
-          {{ this.$t('block') }} <span class="bold">#{{ lastSync }}</span>
-          {{ this.$t('of') }}
+          {{ $t('block') }} <span class="bold">#{{ lastSync }}</span>
+          {{ $t('of') }}
           <span class="bold">#{{ lastBlock }}</span>
         </p>
         <p v-if="address && !isNodeDisconnected" data-test="node" class="text">
-          {{ this.$t('connected_to') }} <span class="bold">{{ address }}</span>
+          {{ $t('connected_to') }} <span class="bold">{{ address }}</span>
         </p>
         <p v-else data-test="node" class="text">
-          {{ this.$t('trying_to_connect') }}
+          {{ $t('trying_to_connect') }}
           <span class="bold">{{ address }}</span>
         </p>
         <i18n
@@ -100,7 +100,7 @@
           <span class="bold">{{ network }}</span>
         </i18n>
         <p v-if="isSynced" data-test="last-block" class="text">
-          {{ this.$t('last_block') }} <span class="bold">#{{ lastSync }}</span>
+          {{ $t('last_block') }} <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo && timeAgo !== 0">
             ({{ calculateTimeAgo(timeAgo, locale) }})</span
           >
@@ -336,16 +336,12 @@ export default {
   }
 
   .slide-enter-active {
-    -webkit-transition-duration: 0.1s;
     transition-duration: 0.1s;
-    -webkit-transition-timing-function: ease-in;
     transition-timing-function: ease-in;
   }
 
   .slide-leave-active {
-    -webkit-transition-duration: 0.1s;
     transition-duration: 0.1s;
-    -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   }
 

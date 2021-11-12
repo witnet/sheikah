@@ -3,9 +3,9 @@
     <div class="left">
       <a
         ref="download"
+        class="none"
         :href="dataStr"
         :download="downloadName"
-        style="display: none"
       ></a>
 
       <router-link
@@ -19,7 +19,7 @@
       </router-link>
 
       <div class="current-template">
-        <p class="text">{{ this.$t('edit_template') }}</p>
+        <p class="text">{{ $t('edit_template') }}</p>
         <p class="name">{{ template.name }}</p>
       </div>
     </div>
@@ -73,9 +73,9 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import { EDITOR_REDO, EDITOR_UNDO, CLEAR_HISTORY } from '@/store/mutation-types'
 import { EDITOR_EXPORT_FORMAT, NETWORK_STATUS } from '@/constants'
-import { mapState, mapMutations } from 'vuex'
 import { deleteKey } from '@/utils'
 
 export default {
@@ -217,6 +217,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
+
+.none {
+  display: none;
+}
 
 .toolbar {
   align-items: center;

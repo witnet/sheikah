@@ -15,7 +15,7 @@
           <CustomIcon name="delete-btn" />
         </p>
       </el-tooltip>
-      <p data-test="operator-label" class="label">{{ this.$t('operator') }}</p>
+      <p data-test="operator-label" class="label">{{ $t('operator') }}</p>
       <Select
         ref="operator"
         data-test="operator"
@@ -27,7 +27,7 @@
         "
       />
       <p v-if="hasArguments" data-test="arguments-label" class="label">{{
-        this.$t('arguments')
+        $t('arguments')
       }}</p>
       <div v-if="hasArguments" data-test="has-arguments" class="with-arguments">
         <EditorOperatorArgument
@@ -56,7 +56,7 @@
             data-test="add-operator"
             name="add-operator"
           />
-          <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
+          <p class="add-operator-text">{{ $t('add_operator') }}</p>
         </div>
       </div>
       <OperatorOutput
@@ -418,6 +418,7 @@ export default {
     }
   }
 }
+
 @media (max-width: 1300px) {
   .radon-operator {
     .border {

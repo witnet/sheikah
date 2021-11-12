@@ -85,17 +85,17 @@
     </transition>
     <input
       ref="fileInput"
+      class="none"
       :accept="acceptedFormat"
-      :style="{ display: 'none' }"
       type="file"
       @change="readFile"
     />
     <a
       v-if="localFile"
       ref="download"
+      class="none"
       :href="fileLink"
       :download="localFile.name"
-      style="display: none"
     />
   </div>
 </template>
@@ -231,6 +231,10 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 
+.none {
+  display: none;
+}
+
 .drag-file-area {
   align-items: center;
   cursor: pointer;
@@ -338,7 +342,7 @@ export default {
 }
 
 .fade-enter {
-  opacity: 0;
+  opacity: 0%;
   transform: translateY(-10px);
 }
 

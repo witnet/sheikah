@@ -28,10 +28,10 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import Fieldset from '@/components/Fieldset'
 import AddressList from '@/components/AddressList'
 import AddressInformation from '@/components/AddressInformation'
-import { mapState, mapMutations } from 'vuex'
 
 /**
  * List all the addresses and show the information of the selected one

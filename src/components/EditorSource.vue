@@ -148,9 +148,8 @@ export default {
       set(val) {
         this.currentProtocol = val
         this.currentContentType = {
-          primaryText: this.contentTypeOptions[
-            this.currentProtocol.primaryText
-          ],
+          primaryText:
+            this.contentTypeOptions[this.currentProtocol.primaryText],
         }
         this.updateSource({
           index: this.index,

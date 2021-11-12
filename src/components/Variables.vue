@@ -110,12 +110,12 @@
 </template>
 
 <script>
+import { mapGetters, mapState, mapMutations } from 'vuex'
 import {
   UPDATE_VARIABLES,
   CREATE_VARIABLE,
   DELETE_VARIABLE,
 } from '@/store/mutation-types'
-import { mapGetters, mapState, mapMutations } from 'vuex'
 import CustomIcon from '@/components/CustomIcon'
 import Select from '@/components/Select'
 

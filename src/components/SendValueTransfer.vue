@@ -79,16 +79,12 @@ export default {
 @import '@/styles/scroll.scss';
 
 .slide-enter-active {
-  -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
-  -webkit-transition-timing-function: ease-in;
   transition-timing-function: ease-in;
 }
 
 .slide-leave-active {
-  -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
-  -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 

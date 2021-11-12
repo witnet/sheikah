@@ -10,7 +10,7 @@
     :next-step="nextStep"
   >
     <p>
-      {{ this.$t('wallet_import_seed') }}
+      {{ $t('wallet_import_seed') }}
     </p>
     <!-- maxlength = longest_mnemonic_length * words + whitespaces -->
     <!-- maxlength = 8 * 12 + 11 -->
@@ -30,7 +30,7 @@
       {{ mnemonicsError.message }}
     </p>
     <p class="paragraph">
-      {{ this.$t('wallet_import_seed_info') }}
+      {{ $t('wallet_import_seed_info') }}
     </p>
   </NavigationCard>
 </template>

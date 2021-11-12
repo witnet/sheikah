@@ -38,7 +38,7 @@
         <el-tooltip trigger="hover" effect="light">
           <font-awesome-icon class="info" icon="info-circle" />
           <div slot="content" class="info-message">
-            {{ this.$t('fee_info') }}
+            {{ $t('fee_info') }}
           </div>
         </el-tooltip>
       </div>
@@ -100,11 +100,11 @@
         class="link"
         @click="toggleAdvanceOptions"
       >
-        {{ this.$t('show_less') }}
+        {{ $t('show_less') }}
         <CustomIcon class-name="icon" name="close" />
       </el-button>
       <el-button v-else class="link" type="text" @click="toggleAdvanceOptions">
-        {{ this.$t('show_advance') }}
+        {{ $t('show_advance') }}
         <CustomIcon class-name="icon" name="open" />
       </el-button>
       <div class="buttons-container">
@@ -389,16 +389,12 @@ export default {
   }
 
   .slide-enter-active {
-    -webkit-transition-duration: 0.1s;
     transition-duration: 0.1s;
-    -webkit-transition-timing-function: ease-in;
     transition-timing-function: ease-in;
   }
 
   .slide-leave-active {
-    -webkit-transition-duration: 0.1s;
     transition-duration: 0.1s;
-    -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   }
 

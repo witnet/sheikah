@@ -2,9 +2,9 @@
   <div class="transaction-list">
     <Fieldset
       data-test="transactions-length"
-      :title="this.$t('transactions')"
+      :title="$t('transactions')"
       :subtitle="
-        this.$tc('transactions_count', transactionsLength, {
+        $tc('transactions_count', transactionsLength, {
           count: transactionsLength,
         })
       "
@@ -42,9 +42,7 @@
           class="no-transactions-container"
           data-test="empty-transactions"
         >
-          <p class="no-transactions-text">{{
-            this.$t('transactions_empty')
-          }}</p>
+          <p class="no-transactions-text">{{ $t('transactions_empty') }}</p>
         </div>
       </div>
       <div
@@ -65,9 +63,9 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { TRANSACTIONS_LIMIT } from '@/constants'
 import Transaction from './Transaction'
 import Fieldset from './Fieldset'
+import { TRANSACTIONS_LIMIT } from '@/constants'
 
 export default {
   name: 'TransactionList',
@@ -148,7 +146,7 @@ export default {
 
   .pagination-nav {
     align-self: flex-end;
-    padding: 16px 0 0 0;
+    padding: 16px 0 0;
     text-align: center;
   }
 }

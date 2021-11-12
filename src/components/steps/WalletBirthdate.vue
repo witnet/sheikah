@@ -9,7 +9,7 @@
     :next-step="nextStep"
   >
     <p class="paragraph">
-      {{ this.$t('wallet_birth_date_text') }}
+      {{ $t('wallet_birth_date_text') }}
     </p>
     <div ref="confirm" class="form-row password">
       <el-date-picker
@@ -41,7 +41,7 @@ export default {
       showError: '',
       error: '',
       pickerOptions: {
-        disabledDate: function(date) {
+        disabledDate: function (date) {
           return !isValidBirthDate(date, currentDate)
         },
       },

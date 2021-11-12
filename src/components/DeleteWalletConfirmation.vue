@@ -9,17 +9,17 @@
   >
     <div slot="title" class="title-container">
       <font-awesome-icon class="icon" icon="exclamation-triangle" />
-      <p class="title">{{ this.$t('warning') }}</p>
+      <p class="title">{{ $t('warning') }}</p>
     </div>
 
     <i18n path="delete_confirmation_0" tag="p" class="text">
       <span class="wallet-name">{{ unlockedWallet.name }}</span>
     </i18n>
     <p class="text">
-      {{ this.$t('delete_confirmation_1') }}
+      {{ $t('delete_confirmation_1') }}
     </p>
     <p class="text">
-      {{ this.$t('delete_confirmation_2') }}
+      {{ $t('delete_confirmation_2') }}
     </p>
     <el-input
       v-model="walletName"
@@ -32,10 +32,10 @@
     </p>
     <span slot="footer" class="dialog-footer">
       <el-button type="danger" plain @click="close">{{
-        this.$t('cancel')
+        $t('cancel')
       }}</el-button>
       <el-button type="danger" @click="callDelete">{{
-        this.$t('delete')
+        $t('delete')
       }}</el-button>
     </span>
   </el-dialog>

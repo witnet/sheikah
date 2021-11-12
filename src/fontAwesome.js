@@ -84,4 +84,4 @@ library.add(
   faUsers,
   faWallet,
 )
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('FontAwesomeIcon', FontAwesomeIcon)

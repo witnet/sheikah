@@ -142,12 +142,7 @@ describe('AddressInformation.vue', () => {
           }),
         })
 
-        expect(
-          wrapper
-            .findAll('.bold')
-            .at(0)
-            .text(),
-        ).toBe('2 payments')
+        expect(wrapper.findAll('.bold').at(0).text()).toBe('2 payments')
       })
 
       it('should render the first date', () => {
@@ -175,12 +170,9 @@ describe('AddressInformation.vue', () => {
           }),
         })
 
-        expect(
-          wrapper
-            .findAll('.bold')
-            .at(2)
-            .text(),
-        ).toBe(formatDateVerbose(date1, 'en'))
+        expect(wrapper.findAll('.bold').at(2).text()).toBe(
+          formatDateVerbose(date1, 'en'),
+        )
       })
 
       it('should render the first date', () => {
@@ -208,12 +200,9 @@ describe('AddressInformation.vue', () => {
           },
         })
 
-        expect(
-          wrapper
-            .findAll('.bold')
-            .at(3)
-            .text(),
-        ).toBe(formatDateVerbose(date2, 'en'))
+        expect(wrapper.findAll('.bold').at(3).text()).toBe(
+          formatDateVerbose(date2, 'en'),
+        )
       })
     })
 
@@ -301,12 +290,7 @@ describe('AddressInformation.vue', () => {
           },
         })
 
-        expect(
-          wrapper
-            .findAll('.bold')
-            .at(0)
-            .text(),
-        ).toBe('0 payments')
+        expect(wrapper.findAll('.bold').at(0).text()).toBe('0 payments')
       })
 
       it('should NOT render not used related information', () => {

@@ -11,12 +11,7 @@ describe('AddressCardButton.vue', () => {
     it('should render the icon', () => {
       const wrapper = mount(AddressCardButton, { ...i18n() })
 
-      expect(
-        wrapper
-          .find('.icon')
-          .classes()
-          .includes('fa-plus'),
-      ).toBe(true)
+      expect(wrapper.find('.icon').classes().includes('fa-plus')).toBe(true)
     })
   })
 })

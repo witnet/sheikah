@@ -28,7 +28,7 @@
               data-test="add-operator"
               name="add-operator"
             />
-            <p class="add-operator-text">{{ this.$t('add_operator') }}</p>
+            <p class="add-operator-text">{{ $t('add_operator') }}</p>
           </div>
         </div>
         <OperatorOutput
@@ -76,7 +76,7 @@
     </div>
     <div class="script-footer">
       <p class="text">
-        {{ this.$t('return_script') }}
+        {{ $t('return_script') }}
       </p>
     </div>
     <!-- FIXME: Update text when the aggregation and tally stages are ready to merge -->
@@ -89,13 +89,13 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import { PUSH_OPERATOR, DELETE_OPERATOR } from '@/store/mutation-types'
 import { standardizeOperatorName } from '@/utils'
 import OperatorOutput from '@/components/OperatorOutput.vue'
 import ScriptInfo from '@/components/ScriptInfo'
 import RadonOperator from '@/components/RadonOperator'
 import CustomIcon from '@/components/CustomIcon'
-import { mapMutations } from 'vuex'
 
 export default {
   name: 'RadonScript',
@@ -232,7 +232,7 @@ export default {
 }
 
 .top {
-  margin: 16px 16px 0 16px;
+  margin: 16px 16px 0;
 
   .operator-bottom {
     align-items: flex-start;
@@ -269,7 +269,7 @@ export default {
   border: var(--operators-dashed-border);
   display: flex;
   height: min-content;
-  margin: 0 16px 16px 16px;
+  margin: 0 16px 16px;
 
   .text {
     color: var(--text-medium-emphasis);

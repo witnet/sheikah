@@ -4,7 +4,7 @@
       <span class="bold">{{ opening }}</span> {{ text }}
     </p>
     <div class="form-row">
-      <p class="label">{{ this.$t('create_password') }}</p>
+      <p class="label">{{ $t('create_password') }}</p>
       <el-input
         v-model="password"
         v-focus
@@ -15,7 +15,7 @@
       />
     </div>
     <div ref="confirm" class="form-row password">
-      <p class="label">{{ this.$t('confirm_password') }}</p>
+      <p class="label">{{ $t('confirm_password') }}</p>
       <el-input
         ref="password"
         v-model="repeatedPassword"

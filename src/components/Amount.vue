@@ -24,9 +24,9 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import { WIT_UNIT } from '@/constants'
 import { standardizeWitUnits, cropString, formatNumber } from '@/utils'
-import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'Amount',

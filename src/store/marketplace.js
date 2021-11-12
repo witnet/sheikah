@@ -7,12 +7,12 @@ export default {
     templates: [],
   },
   mutations: {
-    setTemplates: async function(state, { templates }) {
+    setTemplates: async function (state, { templates }) {
       state.templates = templates
     },
   },
   actions: {
-    retrieveTemplates: async function(context, params) {
+    retrieveTemplates: async function (context, params) {
       const request = await marketplaceApi.getTemplates()
       if (request) {
         this.commit('setTemplates', { templates: request })

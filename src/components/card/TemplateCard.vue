@@ -63,9 +63,9 @@
 </template>
 
 <script>
+import { mapActions, mapMutations, mapState } from 'vuex'
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 import { cropString } from '@/utils'
-import { mapActions, mapMutations, mapState } from 'vuex'
 import CustomIcon from '@/components/CustomIcon'
 import { NETWORK_STATUS } from '@/constants'
 
@@ -215,7 +215,7 @@ export default {
   .option-btn {
     display: flex;
     justify-content: space-between;
-    margin: 24px 24px 0 24px;
+    margin: 24px 24px 0;
 
     .title {
       color: var(--text-medium-emphasis);

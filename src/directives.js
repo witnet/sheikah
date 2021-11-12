@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 Vue.directive('focus', {
-  update: function(el, binding) {
+  update: function (el, binding) {
     if (binding.arg === true) {
       if (el.getElementsByTagName('input')) {
         el.getElementsByTagName('input')[0].focus()
@@ -10,7 +10,7 @@ Vue.directive('focus', {
       }
     }
   },
-  inserted: function(el) {
+  inserted: function (el) {
     // It focus the element and add support for element ui inputs
     el.getElementsByTagName('input')
       ? el.getElementsByTagName('input')[0].focus()

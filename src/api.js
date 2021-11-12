@@ -238,10 +238,7 @@ export class MarketplaceApi {
   }
 
   _get(url) {
-    return axios
-      .get(url)
-      .then(this._handleResponse)
-      .catch(this._handleError)
+    return axios.get(url).then(this._handleResponse).catch(this._handleError)
   }
 
   getTemplates() {

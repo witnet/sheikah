@@ -50,8 +50,8 @@
       <div
         v-if="
           argument.selected.arguments &&
-            argument.selected.arguments.length > 0 &&
-            argument.selected.arguments[0].markupType === 'input'
+          argument.selected.arguments.length > 0 &&
+          argument.selected.arguments[0].markupType === 'input'
         "
         data-test="select-argument"
         class="input-container"
@@ -87,8 +87,8 @@
       <div
         v-if="
           argument.selected.arguments &&
-            argument.selected.arguments.length > 0 &&
-            argument.selected.arguments[0].markupType === 'script'
+          argument.selected.arguments.length > 0 &&
+          argument.selected.arguments[0].markupType === 'script'
         "
         class="subscripts"
       >
@@ -112,10 +112,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Select from '@/components/Select'
 import Subscript from '@/components/Subscript'
 import OperatorType from '@/components/OperatorType'
-import { mapState } from 'vuex'
 
 export default {
   name: 'EditorOperatorArgument',

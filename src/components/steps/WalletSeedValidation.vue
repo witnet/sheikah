@@ -26,10 +26,10 @@
       data-test="mnemonics-error-alert"
       class="match-error"
     >
-      {{ this.$t('seed_validation_1') }}
+      {{ $t('seed_validation_1') }}
     </p>
     <p class="text">
-      {{ this.$t('seed_validation_2') }}
+      {{ $t('seed_validation_2') }}
     </p>
   </NavigationCard>
 </template>

@@ -86,7 +86,7 @@ describe('formatDuration', () => {
 
       Array(SYNCING_TIME_WINDOW_LENGTH + 1)
         .fill(null)
-        .map((item, index) => {
+        .forEach((item, index) => {
           estimator.addSample({
             currentBlock: index * 50,
             lastBlock: index * 50 + 50,

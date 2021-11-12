@@ -1,101 +1,100 @@
 <template>
   <div>
     <div class="transaction-details">
-      <p class="label">{{ this.$t('transaction_id') }}</p>
+      <p class="label">{{ $t('transaction_id') }}</p>
       <a data-test="id" :href="txUrl" target="_blank" class="info click">
         {{ id }}
         <font-awesome-icon class="external-link" icon="external-link-alt" />
       </a>
-      <p class="label">{{ this.$t('block') }}</p>
+      <p class="label">{{ $t('block') }}</p>
       <a data-test="block" :href="blockUrl" target="_blank" class="info click">
         {{ block }}
         <font-awesome-icon class="external-link" icon="external-link-alt" />
       </a>
-      <p class="label">{{ this.$t('epoch') }}</p>
+      <p class="label">{{ $t('epoch') }}</p>
       <p class="info">#{{ epoch }}</p>
-      <p class="label">{{ this.$t('timestamp') }}</p>
+      <p class="label">{{ $t('timestamp') }}</p>
       <p data-test="date" class="info">{{ date }}</p>
-      <p class="label">{{ this.$t('status') }}</p>
+      <p class="label">{{ $t('status') }}</p>
       <p class="info">{{
-        confirmed ? this.$t('confirmed') : this.$t('pending_confirmation')
+        confirmed ? $t('confirmed') : $t('pending_confirmation')
       }}</p>
-      <p class="label">{{ this.$t('timelocked') }}</p>
+      <p class="label">{{ $t('timelocked') }}</p>
       <p data-test="timelocked" class="info">{{
-        timelocked ? this.$t('yes') : this.$t('no')
+        timelocked ? $t('yes') : $t('no')
       }}</p>
       <p
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
-            witnesses
+          witnesses
         "
         data-test="witnesses-title"
         class="label"
       >
-        {{ this.$t('witnesses') }}
+        {{ $t('witnesses') }}
       </p>
       <p
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
-            witnesses
+          witnesses
         "
         data-test="witnesses"
         class="info"
       >
-        {{ witnesses.min
-        }}<span class="light">{{ this.$t('as_minimum') }} </span>
+        {{ witnesses.min }}<span class="light">{{ $t('as_minimum') }} </span>
       </p>
       <p
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
-            rewards
+          rewards
         "
         data-test="rewards-title"
         class="label"
       >
-        {{ this.$t('rewards') }}
+        {{ $t('rewards') }}
       </p>
       <p
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
-            rewards
+          rewards
         "
         data-test="rewards"
         class="info"
       >
         {{ rewards.witness }}
-        <span class="light">{{ this.$t('per_witness') }} </span>+
+        <span class="light">{{ $t('per_witness') }} </span>+
         {{ rewards.miners }}
-        <span class="light">{{ this.$t('total_miner_reward') }}</span>
+        <span class="light">{{ $t('total_miner_reward') }}</span>
       </p>
       <p
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
-            rounds
+          rounds
         "
         data-test="rounds-title"
         class="label"
       >
-        {{ this.$t('rounds') }}
+        {{ $t('rounds') }}
       </p>
       <p
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
-            rounds
+          rounds
         "
         data-test="rounds"
         class="info"
       >
-        <span class="light">{{ this.$t('maximum') }}</span> {{ rounds.commit }}
-        <span class="light">{{ this.$t('commit_rounds') }} </span>+
+        <span class="light">{{ $t('maximum') }}</span> {{ rounds.commit }}
+        <span class="light">{{ $t('commit_rounds') }} </span>+
         {{ rounds.reveal }}
-        <span class="light">{{ this.$t('reveal_rounds') }}</span>
+        <span class="light">{{ $t('reveal_rounds') }}</span>
       </p>
       <p
         v-if="transactionType === 'data_request' || transactionType === 'tally'"
         data-test="current-stage-title"
         class="label"
       >
-        {{ this.$t('current_stage') }}
+        {{ $t('current_stage') }}
       </p>
       <p
         v-if="transactionType === 'data_request' || transactionType === 'tally'"
@@ -107,17 +106,17 @@
       <p
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
-            reveals
+          reveals
         "
         data-test="reveals-title"
         class="label"
       >
-        {{ this.$t('reveals') }}
+        {{ $t('reveals') }}
       </p>
       <div
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
-            reveals
+          reveals
         "
         class="info"
       >
@@ -140,12 +139,12 @@
       <p
         v-if="
           (transactionType === 'data_request' || transactionType === 'tally') &&
-            result
+          result
         "
         data-test="result-title"
         class="label"
       >
-        {{ this.$t('final_result') }}
+        {{ $t('final_result') }}
       </p>
       <p
         v-if="transactionType === 'data_request' || transactionType === 'tally'"

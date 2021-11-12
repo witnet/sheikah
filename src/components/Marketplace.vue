@@ -2,9 +2,9 @@
   <div data-test="marketplace">
     <div class="header">
       <p class="title">
-        <span class="sheikah-title">{{ this.$t('sheikah') }}</span
-        >{{ this.$t('marketplace') }}
-        <span class="subtitle">{{ this.$t('marketplace_subtitle') }}</span>
+        <span class="sheikah-title">{{ $t('sheikah') }}</span
+        >{{ $t('marketplace') }}
+        <span class="subtitle">{{ $t('marketplace_subtitle') }}</span>
       </p>
     </div>
     <div class="row">
@@ -32,7 +32,7 @@
       <div class="col col-right">
         <div class="tags">
           <p class="title">
-            {{ this.$t('tags').toUpperCase() }}
+            {{ $t('tags').toUpperCase() }}
           </p>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default {
 }
 
 .header {
-  background-color: rgb(255, 42, 127);
+  background-color: rgb(255 42 127);
   margin: 40px;
   padding: 48px 48px 48px 100px;
   text-align: left;
@@ -118,7 +118,7 @@ export default {
     font-size: 32px;
 
     .sheikah-title {
-      color: rgb(150, 5, 62);
+      color: rgb(150 5 62);
       font-weight: bold;
     }
 
@@ -144,7 +144,7 @@ export default {
   margin: 32px 0 32px 72px;
 
   .pagination {
-    padding: 16px 0 16px 0;
+    padding: 16px 0;
     text-align: center;
 
     &.el-pagination {

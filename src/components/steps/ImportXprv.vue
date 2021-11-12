@@ -11,14 +11,14 @@
     :disabled-next-button="!fileInfo"
   >
     <p class="text">
-      {{ this.$t('import_xprv_0') }}
+      {{ $t('import_xprv_0') }}
     </p>
     <p class="text">
-      {{ this.$t('import_xprv_1') }}
+      {{ $t('import_xprv_1') }}
     </p>
     <p class="text">
-      <span class="bold">{{ this.$t('please_note') }}</span>
-      {{ this.$t('import_xprv_2') }}
+      <span class="bold">{{ $t('please_note') }}</span>
+      {{ $t('import_xprv_2') }}
     </p>
     <FileUploader
       :error-message="xprvError ? xprvError.message : ''"

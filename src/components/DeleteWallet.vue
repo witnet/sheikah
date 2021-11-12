@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import Card from '@/components/card/Card.vue'
 import { mapMutations } from 'vuex'
+import Card from '@/components/card/Card.vue'
 
 export default {
   name: 'SettingsOptionCurrenty',

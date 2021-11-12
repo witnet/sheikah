@@ -9,23 +9,23 @@
   >
     <div slot="title" class="title-container">
       <font-awesome-icon class="icon" icon="exclamation-triangle" />
-      <p class="title">{{ this.$t('warning') }}</p>
+      <p class="title">{{ $t('warning') }}</p>
     </div>
 
     <p class="text">
-      {{ this.$t('resync_confirmation_0') }}
+      {{ $t('resync_confirmation_0') }}
     </p>
     <p class="text">
-      {{ this.$t('resync_confirmation_1') }}
+      {{ $t('resync_confirmation_1') }}
     </p>
     <p class="text">
-      {{ this.$t('resync_confirmation_2') }}
+      {{ $t('resync_confirmation_2') }}
     </p>
 
     <span slot="footer" class="dialog-footer">
-      <el-button @click="close">{{ this.$t('cancel') }}</el-button>
+      <el-button @click="close">{{ $t('cancel') }}</el-button>
       <el-button type="primary" @click="callResync">{{
-        this.$t('resyncronize')
+        $t('resyncronize')
       }}</el-button>
     </span>
   </el-dialog>

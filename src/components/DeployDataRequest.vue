@@ -25,9 +25,7 @@
     <CreateDataRequestForm
       v-else-if="showFillVariablesForm"
       :back-word="
-        variables.length
-          ? this.$t('deploy_dr_back')
-          : this.$t('deploy_dr_cancel')
+        variables.length ? $t('deploy_dr_back') : $t('deploy_dr_cancel')
       "
       @go-back="() => goBack('FORM')"
       @create-dr="createDR"
@@ -139,7 +137,7 @@ export default {
         this.variablesUpdated = false
       }
     },
-    closeAndClear: function() {
+    closeAndClear: function () {
       this.$emit('close')
       if (this.generatedTransaction) {
         this.clearGeneratedTransaction()

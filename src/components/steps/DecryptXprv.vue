@@ -9,7 +9,7 @@
     :next-step="nextStep"
   >
     <p class="paragraph">
-      {{ this.$t('decrypt_xprv_info') }}
+      {{ $t('decrypt_xprv_info') }}
     </p>
     <div ref="confirm" class="form-row password">
       <el-input

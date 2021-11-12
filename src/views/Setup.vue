@@ -6,7 +6,7 @@
           <font-awesome-icon
             v-if="
               setupMessage === 'Updating wallet backend' ||
-                setupMessage === 'wallet up to date'
+              setupMessage === 'wallet up to date'
             "
             class="icon"
             icon="wallet"
@@ -24,7 +24,7 @@
           <div class="banner" />
         </div>
         <div>
-          <p class="progress-title">{{ this.$t('preparing_sheikah') }}</p>
+          <p class="progress-title">{{ $t('preparing_sheikah') }}</p>
           <p class="progress-subtitle">
             {{ format(percentage) }}
             <DotsLoading

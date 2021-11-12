@@ -3,11 +3,11 @@
     <div class="bar">
       <CustomIcon class-name="row sheikah-icon" name="sheikah-icon" />
       <p v-if="walletInfos && walletInfos.length" class="row title">{{
-        this.$t('welcome_back')
+        $t('welcome_back')
       }}</p>
-      <p v-else class="row title">{{ this.$t('welcome') }}</p>
+      <p v-else class="row title">{{ $t('welcome') }}</p>
       <p class="row subtitle">
-        {{ this.$t('sheikah_description') }}
+        {{ $t('sheikah_description') }}
       </p>
       <div class="icon-container" @click="$router.push('/settings/general')">
         <font-awesome-icon icon="cog" class="icon" />

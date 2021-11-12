@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import Disclaimer from '@/components/card/Disclaimer'
 import { mapMutations } from 'vuex'
+import Disclaimer from '@/components/card/Disclaimer'
 
 export default {
   name: 'WalletDisclaimer',

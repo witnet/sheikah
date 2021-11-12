@@ -27,12 +27,7 @@ describe('Fieldset.vue', () => {
           default: slotContent,
         },
       })
-      expect(
-        wrapper
-          .findAll('p')
-          .at(0)
-          .isVisible(),
-      ).toBe(true)
+      expect(wrapper.findAll('p').at(0).isVisible()).toBe(true)
     })
 
     it('subtitle', () => {
@@ -47,12 +42,7 @@ describe('Fieldset.vue', () => {
           default: slotContent,
         },
       })
-      expect(
-        wrapper
-          .findAll('p')
-          .at(1)
-          .isVisible(),
-      ).toBe(true)
+      expect(wrapper.findAll('p').at(1).isVisible()).toBe(true)
     })
 
     it('helper', () => {
@@ -69,12 +59,7 @@ describe('Fieldset.vue', () => {
           default: slotContent,
         },
       })
-      expect(
-        wrapper
-          .findAll('p')
-          .at(2)
-          .isVisible(),
-      ).toBe(true)
+      expect(wrapper.findAll('p').at(2).isVisible()).toBe(true)
     })
   })
 })

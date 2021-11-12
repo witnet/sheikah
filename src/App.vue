@@ -61,7 +61,7 @@ export default {
         this.refreshSession()
       }
     },
-    $route: function(to, from) {
+    $route: function (to, from) {
       this.loading = false
       if (to.path.includes('/settings') || from.path.includes('/settings')) {
         this.transitionName = 'zoom'
@@ -77,7 +77,7 @@ export default {
     this.getUnit()
     this.getLocale({ i18n: this.$i18n })
     // Disable back and forward from keyboard and mouse buttons
-    window.onpopstate = function(event) {
+    window.onpopstate = function (event) {
       event.stopImmediatePropagation()
     }
   },
@@ -120,17 +120,17 @@ export default {
 
 @keyframes zoom {
   0% {
-    opacity: 0;
+    opacity: 0%;
     transform: scale3d(0.9, 0.9, 0.9);
   }
 
   50% {
-    opacity: 0.5;
+    opacity: 50%;
     transform: scale3d(1, 1, 1);
   }
 
   100% {
-    opacity: 1;
+    opacity: 100%;
     transform: none;
   }
 }

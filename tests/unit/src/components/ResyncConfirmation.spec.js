@@ -1,6 +1,7 @@
-import ResyncConfirmation from '@/components/ResyncConfirmation'
 import Dialog from 'element-ui/lib/dialog'
 import Button from 'element-ui/lib/button'
+
+import ResyncConfirmation from '@/components/ResyncConfirmation'
 
 describe('ResyncConfirmation.vue', () => {
   it('should contain an element dialog component', () => {
@@ -18,23 +19,13 @@ describe('ResyncConfirmation.vue', () => {
   it('should contain cancel button', () => {
     const wrapper = shallowMount(ResyncConfirmation, { ...i18n() })
 
-    expect(
-      wrapper
-        .findAllComponents(Button)
-        .at(0)
-        .text(),
-    ).toBe('Cancel')
+    expect(wrapper.findAllComponents(Button).at(0).text()).toBe('Cancel')
   })
 
   it('should contain confirm button', () => {
     const wrapper = shallowMount(ResyncConfirmation, { ...i18n() })
 
-    expect(
-      wrapper
-        .findAllComponents(Button)
-        .at(1)
-        .text(),
-    ).toBe('Resynchronize')
+    expect(wrapper.findAllComponents(Button).at(1).text()).toBe('Resynchronize')
   })
 
   it('should call cancel mutation on click cancel', async () => {
@@ -56,10 +47,7 @@ describe('ResyncConfirmation.vue', () => {
         },
       }),
     })
-    await wrapper
-      .findAllComponents(Button)
-      .at(0)
-      .trigger('click')
+    await wrapper.findAllComponents(Button).at(0).trigger('click')
 
     expect(closeMock).toHaveBeenCalled()
   })
@@ -84,10 +72,7 @@ describe('ResyncConfirmation.vue', () => {
       }),
     })
 
-    await wrapper
-      .findAllComponents(Button)
-      .at(1)
-      .trigger('click')
+    await wrapper.findAllComponents(Button).at(1).trigger('click')
 
     expect(resyncMock).toHaveBeenCalled()
   })
@@ -112,10 +97,7 @@ describe('ResyncConfirmation.vue', () => {
       }),
     })
 
-    await wrapper
-      .findAllComponents(Button)
-      .at(1)
-      .trigger('click')
+    await wrapper.findAllComponents(Button).at(1).trigger('click')
 
     expect(closeMock).toHaveBeenCalled()
   })

@@ -1,8 +1,6 @@
 import { shallowMount, mount } from '@vue/test-utils'
 import FileUploader from '@/components/FileUploader.vue'
-// eslint-disable-next-line import/no-relative-parent-imports
-import claimingFileSuccess from '../../../../TemplateExample'
-// eslint-disable-next-line import/no-relative-parent-imports
+import claimingFileSuccess from '@/TemplateExample.json'
 import '../../../../src/fontAwesome'
 
 describe('Renders the correct elements when there is no file uploaded', () => {

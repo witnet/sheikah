@@ -5,12 +5,7 @@
     :border="false"
     shadow="thin"
   >
-    <a
-      ref="download"
-      :href="dataStr"
-      :download="downloadName"
-      style="display: none"
-    ></a>
+    <a ref="download" class="none" :href="dataStr" :download="downloadName"></a>
     <PasswordValidation
       ref="password-validation"
       :error="createValidPasswordError"
@@ -43,8 +38,8 @@
 </template>
 
 <script>
-import { EDITOR_EXPORT_FORMAT } from '@/constants'
 import { mapState, mapMutations, mapActions } from 'vuex'
+import { EDITOR_EXPORT_FORMAT } from '@/constants'
 import PasswordValidation from '@/components/PasswordValidation'
 import { createNotification } from '@/utils'
 import { buildXprvFile } from '@/services/buildXprvFile'
@@ -144,6 +139,10 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 @import '@/styles/scroll.scss';
+
+.none {
+  display: none;
+}
 
 .label {
   color: $font-color-light;

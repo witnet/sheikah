@@ -47,9 +47,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns'
 import Fieldset from '@/components/Fieldset'
-import { mapState } from 'vuex'
 import EditorScript from '@/components/card/EditorScript.vue'
 
 export default {

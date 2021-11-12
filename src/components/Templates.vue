@@ -2,11 +2,11 @@
   <div class="templates" data-test="templates">
     <div class="templates-bar">
       <p class="title">
-        {{ this.$t('dr_templates') }}
+        {{ $t('dr_templates') }}
       </p>
       <el-button class="import-btn" type="primary" @click="importTemplate">
         <font-awesome-icon class="icon" icon="file-import" />
-        {{ this.$t('import_templates') }}
+        {{ $t('import_templates') }}
       </el-button>
     </div>
 
@@ -18,7 +18,7 @@
         @click="createTemplateAndRedirect"
       >
         <img class="add-btn" src="@/resources/svg/add.svg" />
-        <p class="text">{{ this.$t('create_template') }}</p>
+        <p class="text">{{ $t('create_template') }}</p>
       </div>
       <TemplateCard
         v-for="template in paginatedTemplates"
@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import DeployDataRequest from '@/components/DeployDataRequest.vue'
 import { mapState, mapActions, mapMutations } from 'vuex'
+import TemplateCard from './card/TemplateCard'
+import DeployDataRequest from '@/components/DeployDataRequest.vue'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
 import { TEMPLATES_PER_PAGE } from '@/constants'
-import TemplateCard from './card/TemplateCard'
 
 export default {
   name: 'Templates',
@@ -150,7 +150,7 @@ export default {
     toggleUpdated() {
       this.variablesUpdated = !this.variablesUpdated
     },
-    displayModalCreateDR: function(currentTemplate) {
+    displayModalCreateDR: function (currentTemplate) {
       this.dialogVisible = true
       this.currentTemplate = currentTemplate
     },
@@ -215,7 +215,7 @@ export default {
   }
 
   .pagination-nav {
-    padding: 16px 0 0 0;
+    padding: 16px 0 0;
     text-align: center;
   }
 

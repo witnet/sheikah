@@ -36,6 +36,17 @@ export default {
     CustomIcon,
     Version,
   },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      const isSettingsRoute = !!vm.sections.find(section =>
+        from.path.includes(section.route),
+      )
+
+      if (!isSettingsRoute) {
+        vm.previousRoute = from.path
+      }
+    })
+  },
   data() {
     return {
       previousRoute: '',
@@ -110,17 +121,6 @@ export default {
     mouseLeaveAction() {
       this.btnUrl = 'close-btn'
     },
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      const isSettingsRoute = !!vm.sections.find(section =>
-        from.path.includes(section.route),
-      )
-
-      if (!isSettingsRoute) {
-        vm.previousRoute = from.path
-      }
-    })
   },
 }
 </script>

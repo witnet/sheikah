@@ -36,8 +36,9 @@ describe('Address.vue', () => {
       },
     })
 
-    const addressFound = wrapper.find('[data-test="address"]').attributes()
-      .style
+    const addressFound = wrapper
+      .find('[data-test="address"]')
+      .attributes().style
     expect(addressFound).toBe('font-size: 12px;')
   })
 
@@ -50,8 +51,9 @@ describe('Address.vue', () => {
       },
     })
 
-    const addressFound = wrapper.find('[data-test="address"]').attributes()
-      .style
+    const addressFound = wrapper
+      .find('[data-test="address"]')
+      .attributes().style
 
     expect(addressFound).toBe('font-size: 14px;')
   })

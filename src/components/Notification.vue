@@ -64,12 +64,12 @@ export default {
 
 .slide-enter-to,
 .slide-leave {
-  opacity: 1;
+  opacity: 100%;
 }
 
 .slide-enter,
 .slide-leave-to {
-  opacity: 0;
+  opacity: 0%;
 }
 
 .notification {

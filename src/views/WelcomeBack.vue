@@ -2,9 +2,9 @@
   <div data-test="welcome-back" class="welcome-back">
     <div class="bar">
       <CustomIcon class-name="row sheikah-icon" :name="'sheikah-icon'" />
-      <p class="row title">{{ this.$t('welcome_back') }}</p>
+      <p class="row title">{{ $t('welcome_back') }}</p>
       <p class="row subtitle">
-        {{ this.$t('sheikah_description') }}
+        {{ $t('sheikah_description') }}
       </p>
       <div class="icon-container" @click="$router.push('/settings/general')">
         <font-awesome-icon icon="cog" class="icon" />

@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { UPDATE_VARIABLES } from '@/store/mutation-types'
 import { mapState, mapMutations, mapGetters } from 'vuex'
+import { UPDATE_VARIABLES } from '@/store/mutation-types'
 
 export default {
   name: 'CompleteVariablesForm',

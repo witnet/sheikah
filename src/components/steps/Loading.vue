@@ -1,9 +1,9 @@
 <template>
   <Card class="">
     <div class="card">
-      <p class="title">{{ this.$t('loading_0') }}</p>
+      <p class="title">{{ $t('loading_0') }}</p>
       <Spinner class="spinner" :active="true" />
-      <p class="description">{{ this.$t('loading_1') }}</p>
+      <p class="description">{{ $t('loading_1') }}</p>
     </div>
   </Card>
 </template>
@@ -66,13 +66,13 @@ export default {
     border: none;
     color: var(--loading-title);
     font-size: 24px;
-    margin: 0 0 32px 0;
+    margin: 0 0 32px;
   }
 
   .description {
     color: var(--loading-description);
     font-size: 16px;
-    margin: 32px 0 0 0;
+    margin: 32px 0 0;
   }
 
   .spinner {

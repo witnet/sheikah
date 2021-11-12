@@ -155,10 +155,7 @@ describe('AddressList.vue', () => {
         },
       })
 
-      wrapper
-        .findAllComponents(AddressCard)
-        .at(1)
-        .trigger('click')
+      wrapper.findAllComponents(AddressCard).at(1).trigger('click')
 
       await nextTick()
 

@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import { EDITOR_STAGES } from '@/constants'
 import { mapState } from 'vuex'
+import { EDITOR_STAGES } from '@/constants'
 export default {
   name: 'EditorStageBar',
   data() {
@@ -70,7 +70,7 @@ export default {
     this.unsubscribe()
   },
   methods: {
-    changeStage: function(stage) {
+    changeStage: function (stage) {
       this.current = stage
       return this.$emit('change-stage', stage)
     },

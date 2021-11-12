@@ -46,31 +46,31 @@ export default {
     closeRenameConfirmationModal(state) {
       state.isRenameWalletConfirmationVisible = false
     },
-    receiveTransactionClicked: function(state) {
+    receiveTransactionClicked(state) {
       state.receiveTransactionClicked = true
     },
-    clearTransactionClicked: function(state) {
+    clearTransactionClicked(state) {
       state.receiveTransactionClicked = false
     },
-    generateAddressLoading: function(state) {
+    generateAddressLoading(state) {
       state.generateAddressLoading = true
     },
-    generateRadRequestResultLoading: function(state) {
+    generateRadRequestResultLoading(state) {
       state.generateRadRequestResultLoading = true
     },
-    clearGenerateAddressLoading: function(state) {
+    clearGenerateAddressLoading(state) {
       state.generateAddressLoading = false
     },
-    clearGenerateRadRequestResultLoading: function(state) {
+    clearGenerateRadRequestResultLoading(state) {
       state.generateRadRequestResultLoading = false
     },
-    setMessage: function(state, { message }) {
+    setMessage(state, { message }) {
       state.setupMessage = message
     },
-    setProgress: function(state, { progress }) {
+    setProgress(state, { progress }) {
       state.setupProgress = progress
     },
-    cleanMessage: function(state) {
+    cleanMessage(state) {
       state.setupMessage = 'Updating wallet backend'
     },
     closeAllModals(state) {

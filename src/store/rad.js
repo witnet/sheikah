@@ -1,3 +1,5 @@
+import { Radon } from 'witnet-radon-js'
+import Vue from 'vue'
 import {
   createNotification,
   generateId,
@@ -6,7 +8,6 @@ import {
   calculateCurrentFocusAfterRedo,
 } from '@/utils'
 import i18n from '@/plugins/i18n'
-import { Radon } from 'witnet-radon-js'
 import { EDITOR_STAGES, HISTORY_UPDATE_TYPE, RAD_EXAMPLES } from '@/constants'
 import {
   UPDATE_HISTORY,
@@ -31,7 +32,6 @@ import {
   DELETE_VARIABLE,
   SET_CURRENT_STAGE,
 } from '@/store/mutation-types'
-import Vue from 'vue'
 
 export default {
   state: {
@@ -63,7 +63,7 @@ export default {
     },
   },
   mutations: {
-    setDefaultTemplates: function(state, { locale }) {
+    setDefaultTemplates: function (state, { locale }) {
       RAD_EXAMPLES.forEach(example => {
         const radRequest = {
           retrieve: example.radRequest.data.data_request.retrieve,
@@ -80,10 +80,10 @@ export default {
         })
       })
     },
-    setSubscriptId: function(state, { id }) {
+    setSubscriptId: function (state, { id }) {
       state.subscriptIds.push(id)
     },
-    clearSubscriptIds: function(state) {
+    clearSubscriptIds: function (state) {
       state.subscriptIds = []
     },
     setDataRequestChangedSinceSaved(state, payload) {
@@ -407,7 +407,7 @@ export default {
         info: { scriptId, operatorId },
       })
     },
-    renameTemplate: function(state, { id, name }) {
+    renameTemplate: function (state, { id, name }) {
       state.templates[id].name = name
       this.commit('setDataRequestChangedSinceSaved', { value: true })
       this.commit(UPDATE_HISTORY, {
@@ -416,7 +416,7 @@ export default {
         info: { currentTemplate: state.currentTemplate },
       })
     },
-    updateTemplateDescription: function(state, { id, description }) {
+    updateTemplateDescription: function (state, { id, description }) {
       state.templates[id].description = description
       this.commit('setDataRequestChangedSinceSaved', { value: true })
       this.commit(UPDATE_HISTORY, {
@@ -446,7 +446,7 @@ export default {
     },
   },
   actions: {
-    saveTemplate: async function(context, args) {
+    saveTemplate: async function (context, args) {
       context.commit('setDataRequestChangedSinceSaved', { value: false })
       const isImportingTemplate = args ? !!args.template : null
       const date = Date.now()
@@ -499,7 +499,7 @@ export default {
         }
       }
     },
-    getTemplates: async function(context, params) {
+    getTemplates: async function (context, params) {
       const request = await context.rootState.wallet.api.getItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
@@ -515,7 +515,7 @@ export default {
         })
       }
     },
-    deleteTemplate: async function(context, { id }) {
+    deleteTemplate: async function (context, { id }) {
       Vue.delete(context.state.templates, id)
       const request = await context.rootState.wallet.api.saveItem({
         wallet_id: context.rootState.wallet.walletId,
@@ -523,8 +523,7 @@ export default {
         key: 'templates',
         value: context.state.templates,
       })
-      if (request.result) {
-      } else {
+      if (!request.result) {
         context.commit('setError', {
           name: 'saveItem',
           error: request.error.message,
