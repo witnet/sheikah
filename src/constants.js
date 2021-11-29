@@ -118,6 +118,7 @@ export const HISTORY_UPDATE_TYPE = {
 export const EXTERNAL_URL = {
   BALANCE_LOCKED: 'https://witnet.io',
   SHEIKAH_WEBSITE: 'https://sheikah.app/',
+  WITNET_BLOCK_EXPLORER: 'https://witnet.network',
 }
 
 export const GENESIS_EVENT_TIMESTAMP = 1602666000000

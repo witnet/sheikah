@@ -6,12 +6,15 @@
         id
       }}</p>
       <p class="label">{{ this.$t('block') }}</p>
-      <p
+      <a
         data-test="block"
+        :href="blockExplorerUrl"
+        target="_blank"
         class="info click"
-        @click="toggleNotificationBlock"
-        >{{ block }}</p
       >
+        {{ block }}
+        <font-awesome-icon class="external-link" icon="external-link-alt" />
+      </a>
       <p class="label">{{ this.$t('epoch') }}</p>
       <p class="info">#{{ epoch }}</p>
       <p class="label">{{ this.$t('timestamp') }}</p>
@@ -160,6 +163,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { EXTERNAL_URL } from '@/constants'
 import {
   cropString,
   standardizeTransactionResult,
@@ -228,6 +232,11 @@ export default {
       notificationMessage: '',
     }
   },
+  computed: {
+    blockExplorerUrl() {
+      return `${EXTERNAL_URL.WITNET_BLOCK_EXPLORER}/search/${this.block}`
+    },
+  },
   methods: {
     cropString,
     standardizeTransactionResult,
@@ -274,6 +283,12 @@ export default {
     color: var(--text-medium-emphasis);
     font-size: 13px;
     justify-self: left;
+
+    .external-link {
+      color: var(--text-medium-emphasis);
+      font-size: 10px;
+      margin-left: 4px;
+    }
 
     &.click {
       cursor: pointer;
