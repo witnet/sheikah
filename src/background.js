@@ -37,7 +37,8 @@ program.parse(process.argv)
 const osArch = os.arch()
 const arch = osArch === 'x64' || osArch === 'arm64' ? 'x86_64' : osArch
 const platform = os.platform()
-const URL_PUBLIC_WITNET_NODE = '52.166.178.145:21338'
+const URL_PUBLIC_WITNET_NODE_0 = '52.166.178.145:21338'
+const URL_PUBLIC_WITNET_NODE_1 = '20.120.248.2:21338'
 const SHEIKAH_PATH_BY_PLATFORM = {
   darwin: path.join(os.homedir(), 'Desktop', '.sheikah'),
   linux: path.join(os.homedir(), '.sheikah'),
@@ -550,7 +551,7 @@ function overwriteWalletConfigFile() {
       .toString()
       .replace(
         'node_url = "127.0.0.1:21338"',
-        `node_url = "${URL_PUBLIC_WITNET_NODE}"\n`,
+        `node_url = ["${URL_PUBLIC_WITNET_NODE_0}","${URL_PUBLIC_WITNET_NODE_1}"]\n`,
       ),
   )
 }
