@@ -184,6 +184,7 @@ export default {
 
 .information {
   background: var(--card-background);
+  color: var(--text-medium-emphasis);
   min-height: 200px;
   padding: 25px;
 

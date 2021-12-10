@@ -110,7 +110,7 @@ export default {
   box-shadow: 0 0 0 0 $purple-2;
   overflow: hidden;
   transition: box-shadow 0.4s linear;
-  width: 350px;
+  width: 100%;
 
   &.active {
     box-shadow: var(--addresses-active-box-shadow);

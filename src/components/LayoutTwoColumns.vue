@@ -37,7 +37,7 @@ export default {
 .layout {
   display: grid;
   gap: 25px;
-  grid-template-columns: 1fr 350px;
+  grid-template-columns: 1fr 368px;
   overflow-y: auto;
   padding: 25px;
 

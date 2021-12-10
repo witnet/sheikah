@@ -2,16 +2,12 @@
   <div>
     <div class="transaction-details">
       <p class="label">{{ this.$t('transaction_id') }}</p>
-      <p data-test="id" class="info click" @click="toggleNotificationId">{{
-        id
-      }}</p>
+      <a data-test="id" :href="txUrl" target="_blank" class="info click">
+        {{ id }}
+        <font-awesome-icon class="external-link" icon="external-link-alt" />
+      </a>
       <p class="label">{{ this.$t('block') }}</p>
-      <a
-        data-test="block"
-        :href="blockExplorerUrl"
-        target="_blank"
-        class="info click"
-      >
+      <a data-test="block" :href="blockUrl" target="_blank" class="info click">
         {{ block }}
         <font-awesome-icon class="external-link" icon="external-link-alt" />
       </a>
@@ -233,8 +229,11 @@ export default {
     }
   },
   computed: {
-    blockExplorerUrl() {
+    blockUrl() {
       return `${EXTERNAL_URL.WITNET_BLOCK_EXPLORER}/search/${this.block}`
+    },
+    txUrl() {
+      return `${EXTERNAL_URL.WITNET_BLOCK_EXPLORER}/search/${this.id}`
     },
   },
   methods: {
