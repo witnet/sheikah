@@ -1,5 +1,5 @@
 <template>
-  <div v-if="address" class="address container">
+  <div v-if="address" data-test="address-container" class="address container">
     <p
       v-if="withoutLink"
       class="address"
@@ -16,8 +16,8 @@
       class="address"
       :style="{ fontSize: size }"
     >
-      {{ address }}
-      <font-awesome-icon class="external-link" icon="external-link-alt" />
+      {{ address
+      }}<font-awesome-icon class="external-link" icon="external-link-alt" />
     </a>
   </div>
 </template>
@@ -51,6 +51,7 @@ export default {
       return `${EXTERNAL_URL.WITNET_BLOCK_EXPLORER}/search/${this.value}`
     },
     address() {
+      console.log(this.blind ? this.blindAddress : this.value)
       return this.blind ? this.blindAddress : this.value
     },
     blindAddress() {

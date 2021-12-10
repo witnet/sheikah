@@ -19,6 +19,7 @@
         <div
           v-if="transactionType === 'value_transfer'"
           class="address-container"
+          data-test="address-container"
         >
           <p data-test="origin" class="origin">{{
             origin === 'from' ? $t('from_id') : $t('to_id')

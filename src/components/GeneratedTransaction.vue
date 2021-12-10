@@ -224,7 +224,7 @@ export default {
     color: var(--text-medium-emphasis);
     column-gap: 24px;
     display: grid;
-    grid-template-columns: 1fr 368px;
+    grid-template-columns: 1fr 360px;
     grid-template-rows: max-content;
     overflow-wrap: break-word;
     padding-right: 24px;

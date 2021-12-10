@@ -61,7 +61,7 @@ describe('Renders the correct elements when click is not triggered', () => {
   })
 
   it('finds the address element', () => {
-    expect(wrapper.find('[data-test="address"]').exists()).toBe(true)
+    expect(wrapper.find('[data-test="address-container"]').exists()).toBe(true)
   })
 
   it('does not find the data request element when the transaction type is value_transfer', () => {
