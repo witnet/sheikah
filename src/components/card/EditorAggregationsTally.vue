@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Fieldset :title="filtersTitle" :closable="false">
+    <Fieldset v-if="filtersSupported" :title="filtersTitle" :closable="false">
       <Card class="card" shadow="thin" :border="false" :padding="false">
         <RadonAggregateTallyScript
           :script="script"
@@ -62,6 +62,11 @@ export default {
     finalResult: {
       type: Object,
       default: null,
+    },
+    filtersSupported: {
+      type: Boolean,
+      // eslint-disable-next-line vue/no-boolean-default
+      default: true,
     },
     results: {
       type: Array,

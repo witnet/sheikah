@@ -51,7 +51,6 @@ export default {
       return `${EXTERNAL_URL.WITNET_BLOCK_EXPLORER}/search/${this.value}`
     },
     address() {
-      console.log(this.blind ? this.blindAddress : this.value)
       return this.blind ? this.blindAddress : this.value
     },
     blindAddress() {

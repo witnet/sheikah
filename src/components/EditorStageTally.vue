@@ -6,6 +6,7 @@
         stage="tally"
         :results="results ? results.partial_results : null"
         :final-result="finalResult"
+        :filters-supported="filtersSupported"
       />
     </template>
 
@@ -61,6 +62,8 @@ export default {
     ...mapState({
       tally: state => state.rad.radRequest.getMarkup().tally,
       radRequestResult: state => state.wallet.radRequestResult,
+      filtersSupported: state =>
+        state.rad.radRequest.getMarkup().retrieve[0].kind !== 'RNG',
     }),
     results() {
       return this.radRequestResult ? this.radRequestResult.result.tally : null

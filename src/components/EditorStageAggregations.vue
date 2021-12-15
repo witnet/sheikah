@@ -7,6 +7,7 @@
         :sources="sourcesLength"
         :results="results ? results.partial_results : null"
         :final-result="finalResult"
+        :filters-supported="filtersSupported"
       />
     </template>
 
@@ -61,6 +62,8 @@ export default {
       aggregations: state => state.rad.radRequest.getMarkup().aggregate,
       sourcesLength: state => state.rad.radRequest.getMarkup().retrieve.length,
       radRequestResult: state => state.wallet.radRequestResult,
+      filtersSupported: state =>
+        state.rad.radRequest.getMarkup().retrieve[0].kind !== 'RNG',
     }),
     results() {
       return this.radRequestResult

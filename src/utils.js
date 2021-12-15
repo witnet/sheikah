@@ -484,10 +484,10 @@ export function calculateCurrentFocusAfterRedo(
 }
 
 export function simplifyDrResult(input, radonType) {
-  if (input instanceof Array) {
+  if (input instanceof Array && radonType !== 'Bytes') {
     // Simplification of Array is the Array of its simplified values
     return input.map(value => simplifyDrResult(value))
-  } else if (typeof input === 'object') {
+  } else if (typeof input === 'object' && radonType !== 'Bytes') {
     const keys = Object.keys(input)
     if (keys.length > 0) {
       const isRadonType = Object.keys(input)[0].match(/Radon(.*)/)

@@ -7,12 +7,15 @@
           :key="sources[index].scriptId"
           :ref="`source-${index}`"
           class="source"
-          :url="source.url"
+          :url="source.url || ''"
+          :kind-options="source.kindOptions"
+          :content-type-options="source.contentTypeOptions"
           :protocol="source.kind"
           :content-type="source.contentType"
           :index="index"
         />
         <el-button
+          v-if="showAddSourceBtn"
           class="add-source"
           type="primary"
           data-test="add-source"
@@ -64,6 +67,12 @@ export default {
       },
       currentFocus: state => state.rad.currentFocus,
     }),
+    showAddSourceBtn() {
+      return (
+        (this.sources.length && this.sources[0].kind !== 'RNG') ||
+        this.sources.length <= 0
+      )
+    },
   },
   watch: {
     async currentFocus(val, oldVal) {

@@ -112,6 +112,7 @@ export default {
       return this.output &&
         (this.output.RadonInteger ||
           this.output.RadonFloat ||
+          this.output.RadonBytes ||
           this.output.RadonString ||
           this.output.RadonBoolean)
         ? Object.values(this.output)[0]

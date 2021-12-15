@@ -5,12 +5,17 @@
         <label class="label">{{ $t('protocol') }}</label>
         <Select
           v-model="localProtocol"
-          :disabled="true"
-          :options="[{ primaryText: 'HTTP-GET' }]"
+          :disabled="false"
+          :options="selectOptions"
           data-test="protocol-select"
         />
-        <label class="label">URL</label>
-        <el-input ref="url" v-model="localUrl" data-test="url-input" />
+        <label v-if="protocol !== 'RNG'" class="label">URL</label>
+        <el-input
+          v-if="protocol !== 'RNG'"
+          ref="url"
+          v-model="localUrl"
+          data-test="url-input"
+        />
         <label class="label">{{ $t('content_type') }}</label>
         <Select
           v-model="currentContentType"
@@ -76,6 +81,14 @@ export default {
       required: true,
       type: String,
     },
+    kindOptions: {
+      required: true,
+      type: Array,
+    },
+    contentTypeOptions: {
+      required: true,
+      type: Object,
+    },
     /**
      * Value to show in the content type field
      */
@@ -93,6 +106,11 @@ export default {
     }
   },
   computed: {
+    selectOptions() {
+      return this.kindOptions.map(kind => {
+        return { primaryText: kind }
+      })
+    },
     title() {
       return `Data Source #${this.index}`
     },
@@ -129,12 +147,17 @@ export default {
       },
       set(val) {
         this.currentProtocol = val
+        this.currentContentType = {
+          primaryText: this.contentTypeOptions[
+            this.currentProtocol.primaryText
+          ],
+        }
         this.updateSource({
           index: this.index,
           source: {
             protocol: val.primaryText,
             url: this.localUrl,
-            contentType: this.localContentType.primaryText,
+            contentType: this.currentContentType.primaryText,
           },
         })
       },
@@ -160,10 +183,10 @@ export default {
       this.currentUrl = val
     },
     protocol(val) {
-      this.currentProtocol = val
+      this.currentProtocol = { primaryText: val }
     },
     contentType(val) {
-      this.currentContentType = val
+      this.currentContentType = { primaryText: val }
     },
   },
   methods: {

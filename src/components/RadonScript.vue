@@ -6,7 +6,7 @@
           {{ url }} <span class="protocol">({{ protocol }})</span>
         </p>
       </div>
-      <div class="operator-bottom">
+      <div v-if="protocol !== 'RNG'" class="operator-bottom">
         <div class="icon-container">
           <CustomIcon
             v-if="emptyScript"
