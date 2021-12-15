@@ -17,6 +17,8 @@ describe('EditorSource.vue', () => {
           protocol: '',
           url: '',
           contentType: '',
+          kindOptions: ['HTTP-GET', 'RNG'],
+          contentTypeOptions: { http: 'JSON API', rng: 'Bytes' },
         },
       })
 
@@ -38,6 +40,8 @@ describe('EditorSource.vue', () => {
           protocol: '',
           url: '',
           contentType: '',
+          kindOptions: ['HTTP-GET', 'RNG'],
+          contentTypeOptions: { http: 'JSON API', rng: 'Bytes' },
         },
       })
 
@@ -59,6 +63,8 @@ describe('EditorSource.vue', () => {
           protocol: '',
           url: 'witnet.abcdefghij',
           contentType: '',
+          kindOptions: ['HTTP-GET', 'RNG'],
+          contentTypeOptions: { http: 'JSON API', rng: 'Bytes' },
         },
       })
 
@@ -80,6 +86,8 @@ describe('EditorSource.vue', () => {
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
           contentType: '',
+          kindOptions: ['HTTP-GET', 'RNG'],
+          contentTypeOptions: { http: 'JSON API', rng: 'Bytes' },
         },
       })
 
@@ -101,6 +109,8 @@ describe('EditorSource.vue', () => {
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
           contentType: '',
+          kindOptions: ['HTTP-GET', 'RNG'],
+          contentTypeOptions: { http: 'JSON API', rng: 'Bytes' },
         },
       })
 
@@ -122,13 +132,15 @@ describe('EditorSource.vue', () => {
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
           contentType: '',
+          kindOptions: ['HTTP-GET', 'RNG'],
+          contentTypeOptions: { http: 'JSON API', rng: 'Bytes' },
         },
       })
 
       expect(wrapper.find('[data-test="protocol-select"]').exists()).toBe(true)
     })
 
-    it('should contains content-type select field', () => {
+    it('should contain content-type select field', () => {
       const walletState = {
         theme: 'light',
       }
@@ -143,6 +155,8 @@ describe('EditorSource.vue', () => {
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
           contentType: 'JSON API',
+          kindOptions: ['HTTP-GET', 'RNG'],
+          contentTypeOptions: { http: 'JSON API', rng: 'Bytes' },
         },
       })
 
