@@ -15559,10 +15559,10 @@ with@^7.0.0:
     assert-never "^1.2.1"
     babel-walk "3.0.0-canary-5"
 
-witnet-radon-js@0.8.5:
-  version "0.8.5"
-  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.8.5.tgz#f20c28687785fcc4272a927a003d95e70730a450"
-  integrity sha512-qwdEalhoTohZ93F/VKUA33PMIbJppZmG8wZ99baUE/H4OcNN5yQJGVHb33h+P8FpMIxEqQyMiA6nKJfAcANDsA==
+witnet-radon-js@0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.9.1.tgz#6153947e376b7f488a1576f60b75ceb2632627ae"
+  integrity sha512-FtNmREUYoMsv0BGAhYHjzO/AXzKINjFYMRc3iM23IyPgcgO62hBy9bsXut7G6t6XaE3d10aM0+v/hz+7VIS0ew==
   dependencies:
     json5 "^2.1.3"
     prettier "^2.0.5"
