@@ -28,7 +28,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SIGN: false
         run: |
-          yarn
+          yarn install --network-timeout 1000000
           yarn electron:build --publish="never"
 
       - name: Upload artifact
