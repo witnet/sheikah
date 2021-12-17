@@ -154,7 +154,16 @@ describe('Upload file', () => {
         type: 'application/json',
       }),
     ])
+
     await localImageInput.trigger('change')
+
+    // await until file is loaded
+    await new Promise(resolve => {
+      setTimeout(() => {
+        expect(wrapper.vm.$data.localFile).toBeTruthy()
+        resolve()
+      }, 2000)
+    })
   })
 })
 describe('delete file when click on delete', () => {
