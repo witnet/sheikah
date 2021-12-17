@@ -128,5 +128,11 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/witnet/sheikah.git"
+  },
+  "volta": {
+    "node": "16.13.1"
+  },
+  "engines": {
+    "node": ">=16.0.0 <17"
   }
 }
