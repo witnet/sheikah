@@ -170,7 +170,7 @@ export class AppManager {
 
     this.win.on('close', this.closeApp.bind(this))
 
-    if (DEVELOPMENT) {
+    if (!DEVELOPMENT) {
       const menu = Menu.buildFromTemplate([
         {
           label: 'Menu',
