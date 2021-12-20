@@ -4,7 +4,7 @@
     @keydown.tab="tabKeyPressed = true"
     @blur.capture="handleBlur"
   >
-    <div class="select-box" :class="{ disabled }">
+    <div class="select-box">
       <button
         id="select-button"
         ref="button"
@@ -288,11 +288,6 @@ export default {
   position: relative;
   width: 100%;
 
-  &.disabled {
-    cursor: not-allowed;
-    opacity: 50%;
-  }
-
   .selected-btn {
     align-items: center;
     background: var(--select-background-color);
@@ -311,6 +306,7 @@ export default {
 
     &.disabled {
       cursor: not-allowed;
+      opacity: 0.5;
     }
 
     &.big {

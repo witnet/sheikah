@@ -118,11 +118,9 @@ export default {
       return getDomainFromUrl(this.url)
     },
     currentContentTypeOptions() {
-      return [
-        { primaryText: 'JSON API' },
-        { primaryText: 'Plain UTF-8 text' },
-        { primaryText: 'Binary file' },
-      ]
+      return Object.values(this.contentTypeOptions).map(option => {
+        return { primaryText: option }
+      })
     },
     localUrl: {
       get() {
