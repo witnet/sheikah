@@ -1,7 +1,7 @@
 import cbor from 'cbor'
 import { format, formatDistanceToNow } from 'date-fns'
 
-import { V4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import { Radon } from 'witnet-radon-js'
 import {
   LANGUAGES,
