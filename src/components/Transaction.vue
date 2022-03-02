@@ -230,7 +230,7 @@ export default {
   border-bottom: var(--transaction-border);
 
   &.locked {
-    opacity: 60%;
+    opacity: 0.6;
   }
 }
 

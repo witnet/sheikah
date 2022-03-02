@@ -94,7 +94,7 @@ export default {
         font-size: 10px;
         font-style: italic;
         margin-left: 25px;
-        opacity: 50%;
+        opacity: 0.5;
       }
     }
 

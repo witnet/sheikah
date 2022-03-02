@@ -199,7 +199,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
         background: transparent;
         border-color: $red-2;
         color: $red-2;
-        opacity: 70%;
+        opacity: 0.7;
       }
     }
 
@@ -539,7 +539,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     background-color: var(--pagination-number-active);
     border-radius: 12%;
     color: var(--pagination-number-active-text);
-    opacity: 70%;
+    opacity: 0.7;
   }
 
   .el-pager li {

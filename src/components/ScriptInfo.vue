@@ -31,7 +31,7 @@ export default {
   display: grid;
   font-size: 13px;
   grid-template-columns: max-content 255px;
-  opacity: 80%;
+  opacity: 0.8;
   overflow-wrap: break-word;
   padding: 16px;
 

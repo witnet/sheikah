@@ -95,7 +95,7 @@ export default {
 }
 
 .icon-social {
-  opacity: 10%;
+  opacity: 0.1;
   width: 100px;
 }
 </style>

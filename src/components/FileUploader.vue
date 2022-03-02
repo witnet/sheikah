@@ -342,7 +342,7 @@ export default {
 }
 
 .fade-enter {
-  opacity: 0%;
+  opacity: 0;
   transform: translateY(-10px);
 }
 

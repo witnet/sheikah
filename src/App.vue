@@ -120,17 +120,17 @@ export default {
 
 @keyframes zoom {
   0% {
-    opacity: 0%;
+    opacity: 0;
     transform: scale3d(0.9, 0.9, 0.9);
   }
 
   50% {
-    opacity: 50%;
+    opacity: 0.5;
     transform: scale3d(1, 1, 1);
   }
 
   100% {
-    opacity: 100%;
+    opacity: 1;
     transform: none;
   }
 }
