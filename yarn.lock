@@ -2029,12 +2029,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*":
-  version "14.6.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.6.4.tgz#a145cc0bb14ef9c4777361b7bbafa5cf8e3acb5a"
-  integrity sha512-Wk7nG1JSaMfMpoMJDKUsWYugliB2Vy55pdjLpmLixeyMi7HizW2I/9QoxsPCkXl3dO+ZOVqPumKaDUv5zJu2uQ==
-
-"@types/node@16.11.6":
+"@types/node@*", "@types/node@16.11.6":
   version "16.11.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.6.tgz#6bef7a2a0ad684cf6e90fcfe31cecabd9ce0a3ae"
   integrity sha512-ua7PgUoeQFjmWPcoo9khiPum3Pd60k4/2ZGXt18sm2Slk0W0xZTqt5Y0Ny1NyBiN1EVQ/+FaF9NcY4Qe6rwk5w==
@@ -6117,10 +6112,10 @@ electron-updater@^4.3.5:
     lodash.isequal "^4.5.0"
     semver "^7.3.2"
 
-electron@11.4.1:
-  version "11.4.1"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-11.4.1.tgz#9598530756221c20d8efec7746dd449f3933ee60"
-  integrity sha512-FaH15/yN5vSkKk4mieXemEl1AdQ9P+tsBVsgS+uTVa1agnHDcxMxyoPmtme8NsyLCgobVWHIwNtKD1jSADmzXA==
+electron@11.5.0:
+  version "11.5.0"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-11.5.0.tgz#f1650543b9d8f2047d3807755bdb120153ed210f"
+  integrity sha512-WjNDd6lGpxyiNjE3LhnFCAk/D9GIj1rU3GSDealVShhkkkPR3Vh4q8ErXGDl1OAO/faomVa10KoFPUN/pLbNxg==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"
