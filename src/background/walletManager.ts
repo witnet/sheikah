@@ -53,19 +53,24 @@ export class WalletManager {
     this.app = appManager
 
     this.existDirectory = fs.existsSync(SHEIKAH_PATH)
+  }
 
+  //  Start running the wallet release and download it when is necessary
+  public async run() {
     if (this.existDirectory) {
+      // Check if latest version is compatible or needs to be downloaded
       try {
         const versionName = fs.readFileSync(
           path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
           'utf8',
         )
         const installedVersion = getVersionFromName(versionName)
+        const latestWitnetRustVersion = await getLatestWitnetRustRelease()
         const isLatestVersionInstalled =
-          installedVersion === WITNET_RUST_VERSION
+          installedVersion === latestWitnetRustVersion
         const isCompatibleRelease = semver.satisfies(
           WITNET_RUST_VERSION,
-          `~${installedVersion}`,
+          `~${latestWitnetRustVersion}`,
         )
         this.needToDownloadWallet =
           isCompatibleRelease && !isLatestVersionInstalled
@@ -73,10 +78,6 @@ export class WalletManager {
         console.error('An error occured trying to read version file', err)
       }
     }
-  }
-
-  //  Start running the wallet release and download it when is necessary
-  public async run() {
     console.info(`Fetching release from: ${RELEASE_URL}`)
 
     const downloadUrl: string | undefined = await fetchReleaseDownloadUrl(
@@ -205,6 +206,13 @@ export class WalletManager {
       this.app.setWalletPid(this.walletProcess.pid)
     }
   }
+}
+
+async function getLatestWitnetRustRelease(): Promise<string> {
+  const result: AxiosResponse<any> = await axios.get(
+    'https://api.github.com/repos/witnet/witnet-rust/releases/latest',
+  )
+  return await result.data.tag_name
 }
 
 // Fetch the release information for the given system architecture and platform
