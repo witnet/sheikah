@@ -209,10 +209,18 @@ export class WalletManager {
 }
 
 async function getLatestWitnetRustRelease(): Promise<string> {
-  const result: AxiosResponse<any> = await axios.get(
-    'https://api.github.com/repos/witnet/witnet-rust/releases/latest',
-  )
-  return await result.data.tag_name
+  try {
+    const result: AxiosResponse<any> = await axios.get(
+      'https://api.github.com/repos/witnet/witnet-rust/releases/latest',
+    )
+    return await result.data.tag_name
+  } catch (err) {
+    console.log(
+      'There was an error getting the latest Witnet Rust Release name:',
+      err,
+    )
+    return ''
+  }
 }
 
 // Fetch the release information for the given system architecture and platform
