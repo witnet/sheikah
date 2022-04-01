@@ -57,6 +57,10 @@ export default {
     border: 1px solid $map;
   }
 
+  &.number {
+    border: 1px solid $number;
+  }
+
   &.null {
     border: 1px solid $null;
   }

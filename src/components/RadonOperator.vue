@@ -79,7 +79,6 @@ import Select from '@/components/Select'
 import CustomIcon from '@/components/CustomIcon'
 import {
   standardizeOperatorName,
-  getNativeValueFromMarkupArgumentType,
   standardizeOutputType,
   selectInnerError,
 } from '@/utils'
@@ -87,6 +86,7 @@ import {
   UPDATE_TEMPLATE,
   USED_VARIABLES,
   TOGGLE_VARIABLES,
+  DELETE_USED_VARIABLE,
 } from '@/store/mutation-types'
 
 export default {
@@ -144,6 +144,7 @@ export default {
     ...mapState({
       variables: state => state.rad.currentTemplate.variables,
       currentFocus: state => state.rad.currentFocus,
+      template: state => state.rad.currentTemplate,
     }),
     radonError() {
       return this.outputLabel === 'error' || !this.operatorOutput
@@ -233,6 +234,7 @@ export default {
       toggleVariables: TOGGLE_VARIABLES,
       updateTemplate: UPDATE_TEMPLATE,
       usedVariables: USED_VARIABLES,
+      deleteUsedVariable: DELETE_USED_VARIABLE,
     }),
     ...mapActions({
       tryDataRequest: 'tryDataRequest',
@@ -259,7 +261,7 @@ export default {
     },
     updateArgumentsAndVariables(input) {
       const id = input.id
-      const value = input.value
+      let value = input.value
       const type = input.type
 
       this.variableName = value
@@ -273,16 +275,19 @@ export default {
         this.usedVariables({
           id: id,
           variable: variableMatch.key,
-          value: getNativeValueFromMarkupArgumentType(
-            variableMatch.value,
-            type,
-          ),
+          value: variableMatch.value,
+          type: type,
         })
       } else {
+        this.template.usedVariables.map((variable, index) => {
+          if (variable.id === id) {
+            this.deleteUsedVariable({ index })
+          }
+        })
         this.toggleVariables({ hasVariables: false })
         this.updateTemplate({
           id,
-          value: getNativeValueFromMarkupArgumentType(value, type),
+          value: value,
         })
       }
     },
@@ -295,7 +300,7 @@ export default {
       }
       this.updateTemplate({
         id,
-        value: getNativeValueFromMarkupArgumentType(value, type),
+        value: value,
       })
     },
     scrollToCurrentFocus() {

@@ -58,6 +58,7 @@
       >
         <el-input
           :ref="argument.selected.arguments[0].id"
+          :type="inputType(argument.selected.arguments[0])"
           class="input-operator"
           data-test="argument-input"
           :placeholder="argument.selected.arguments[0].label"
@@ -230,6 +231,18 @@ export default {
     }
   },
   methods: {
+    inputType(input) {
+      if (input.value.chartAt(0) === '$') {
+        return 'text'
+      }
+      if (input.type.toLowerCase() === 'number') {
+        return 'number'
+      }
+      if (input.type.toLowerCase() === 'boolean') {
+        return 'boolean'
+      }
+      return 'text'
+    },
     scrollToCurrentFocus() {
       this.$refs[this.currentFocus].$el.scrollIntoView()
       this.$store.commit('clearCurrentFocus')

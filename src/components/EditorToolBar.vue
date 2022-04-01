@@ -74,7 +74,12 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { EDITOR_REDO, EDITOR_UNDO, CLEAR_HISTORY } from '@/store/mutation-types'
+import {
+  EDITOR_REDO,
+  EDITOR_UNDO,
+  CLEAR_HISTORY,
+  UPDATE_TEMPLATE,
+} from '@/store/mutation-types'
 import { EDITOR_EXPORT_FORMAT, NETWORK_STATUS } from '@/constants'
 import { deleteKey } from '@/utils'
 
@@ -83,6 +88,7 @@ export default {
   data() {
     return {
       exportFormat: EDITOR_EXPORT_FORMAT.JSON,
+      jsFile: null,
       tabs: [
         {
           icon: 'Redo changes',
@@ -142,13 +148,16 @@ export default {
       locale: state => state.wallet.locale,
     }),
     dataStr() {
-      return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
-        ? `data:text/json;charset=utf-8,${encodeURIComponent(
-            JSON.stringify(deleteKey(this.template, 'id')),
-          )}`
-        : `data:text/plain;charset=utf-8,${encodeURIComponent(
-            this.radRequest.getJs(),
-          )}`
+      if (this.exportFormat === EDITOR_EXPORT_FORMAT.JSON) {
+        return `data:text/json;charset=utf-8,${encodeURIComponent(
+          JSON.stringify(deleteKey(this.template, 'id')),
+        )}`
+      } else {
+        this.getJsFile()
+        return `data:text/plain;charset=utf-8,${encodeURIComponent(
+          this.jsFile,
+        )}`
+      }
     },
     downloadName() {
       return this.exportFormat === EDITOR_EXPORT_FORMAT.JSON
@@ -171,6 +180,7 @@ export default {
     ...mapMutations({
       undo: EDITOR_UNDO,
       redo: EDITOR_REDO,
+      updateTemplate: UPDATE_TEMPLATE,
       clearHistory: CLEAR_HISTORY,
       clearDataRequestResult: 'clearDataRequestResult',
       toggleTryDataRequest: 'toggleTryDataRequest',
@@ -181,6 +191,23 @@ export default {
       this.clearDataRequestResult()
       this.resetAutoTry()
       this.clearHistory()
+    },
+    getJsFile() {
+      this.template.usedVariables.forEach(variable => {
+        const id = variable.id
+        const value = variable.value
+        this.updateTemplate({ id, value, keepRecord: false })
+      })
+      this.jsFile = this.radRequest.getJs()
+      this.template.usedVariables.forEach(variable => {
+        const id = variable.id
+        const key = variable.variable
+        this.updateTemplate({
+          id,
+          value: '$' + key,
+          keepRecord: false,
+        })
+      })
     },
     export(format) {
       this.exportFormat = format

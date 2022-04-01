@@ -6,6 +6,7 @@ import {
   isValidRadRequest,
   calculateCurrentFocusAfterUndo,
   calculateCurrentFocusAfterRedo,
+  getNativeValueFromMarkupArgumentType,
 } from '@/utils'
 import i18n from '@/plugins/i18n'
 import { EDITOR_STAGES, HISTORY_UPDATE_TYPE, RAD_EXAMPLES } from '@/constants'
@@ -31,6 +32,7 @@ import {
   TOGGLE_VARIABLES,
   DELETE_VARIABLE,
   SET_CURRENT_STAGE,
+  DELETE_USED_VARIABLE,
 } from '@/store/mutation-types'
 
 export default {
@@ -109,7 +111,7 @@ export default {
       const usedVariables = state.currentTemplate.usedVariables.filter(
         x => x.variable === prevValue,
       )
-      if (state.hasVariables && usedVariables) {
+      if (usedVariables) {
         state.currentTemplate.variables[index] = {
           key: key,
           value: value,
@@ -121,7 +123,8 @@ export default {
           this.commit(USED_VARIABLES, {
             id: usedVariable.id,
             variable: key,
-            value,
+            value: value,
+            type: type,
           })
           this.commit(UPDATE_TEMPLATE, {
             id: usedVariable.id,
@@ -139,7 +142,6 @@ export default {
         }
         state.currentTemplate.variables = [...state.currentTemplate.variables]
       }
-
       this.commit(UPDATE_HISTORY, {
         mir: state.currentRadonMarkupInterpreter.getMir(),
         type: HISTORY_UPDATE_TYPE.UPDATE_VARIABLE,
@@ -170,23 +172,33 @@ export default {
         info: { currentTemplate: state.currentTemplate },
       })
     },
-    [USED_VARIABLES](state, { id, variable, value }) {
+    [DELETE_USED_VARIABLE](state, { index }) {
+      if (index === 0) {
+        state.currentTemplate.usedVariables.shift()
+      } else {
+        state.currentTemplate.usedVariables.splice(index, 1)
+      }
+      this.dispatch('saveTemplate')
+    },
+    [USED_VARIABLES](state, { id, variable, value, type }) {
+      const nativeValue = getNativeValueFromMarkupArgumentType(value, type)
       const usedVariable = state.currentTemplate.usedVariables.find(x => x.id)
       const hasSameId = state.currentTemplate.usedVariables.find(
         x => x.id === id,
       )
       if (usedVariable && !!hasSameId) {
         hasSameId.variable = variable
-        hasSameId.value = value
+        hasSameId.value = nativeValue
       } else {
         state.currentTemplate.usedVariables.push({
           id: id,
           variable: variable,
-          value: value,
+          value: nativeValue,
         })
         state.currentTemplate.usedVariables = [
           ...state.currentTemplate.usedVariables,
         ]
+        this.dispatch('saveTemplate')
       }
     },
     [CLEAR_HISTORY](state) {
@@ -208,14 +220,15 @@ export default {
         this.dispatch('tryDataRequest', { root: true })
       }
     },
-    [UPDATE_TEMPLATE](state, { id, value }) {
+    [UPDATE_TEMPLATE](state, { id, value, keepRecord = true }) {
       state.currentRadonMarkupInterpreter.update(id, value)
-
-      this.commit(UPDATE_HISTORY, {
-        mir: state.currentRadonMarkupInterpreter.getMir(),
-        type: HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE,
-        info: { id, value },
-      })
+      if (keepRecord) {
+        this.commit(UPDATE_HISTORY, {
+          mir: state.currentRadonMarkupInterpreter.getMir(),
+          type: HISTORY_UPDATE_TYPE.UPDATE_TEMPLATE,
+          info: { id, value },
+        })
+      }
 
       state.radRequest = state.currentRadonMarkupInterpreter
     },

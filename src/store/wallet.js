@@ -1154,7 +1154,7 @@ export default {
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
         const id = variable.id
         const value = variable.value
-        context.commit(UPDATE_TEMPLATE, { id, value })
+        context.commit(UPDATE_TEMPLATE, { id, value, keepRecord: false })
       })
       const request = await context.state.api.runRadRequest({
         rad_request: encodeDataRequest(
@@ -1174,7 +1174,11 @@ export default {
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
         const id = variable.id
         const key = variable.variable
-        context.commit(UPDATE_TEMPLATE, { id, value: '$' + key })
+        context.commit(UPDATE_TEMPLATE, {
+          id,
+          value: '$' + key,
+          keepRecord: false,
+        })
       })
     },
     nodeMovement: async function (context, event) {
