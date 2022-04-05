@@ -157,7 +157,6 @@ export default {
     }),
     ...mapActions({
       deleteTemplate: 'deleteTemplate',
-      tryDataRequest: 'tryDataRequest',
     }),
     displayDeployModal() {
       this.isDeployModalActivated = true

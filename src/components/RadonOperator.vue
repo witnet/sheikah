@@ -236,9 +236,6 @@ export default {
       usedVariables: USED_VARIABLES,
       deleteUsedVariable: DELETE_USED_VARIABLE,
     }),
-    ...mapActions({
-      tryDataRequest: 'tryDataRequest',
-    }),
     addOperator() {
       this.$emit('add-operator')
     },
@@ -263,20 +260,19 @@ export default {
       const id = input.id
       let value = input.value
       const type = input.type
-
       this.variableName = value
       this.toggleVariables({ hasVariables: true })
       if (this.hasVariables(value)) {
         const variableMatch = this.variables.find(x => x.key === value.slice(1))
-        this.updateTemplate({
-          id,
-          value: '$' + variableMatch.key,
-        })
         this.usedVariables({
           id: id,
           variable: variableMatch.key,
           value: variableMatch.value,
           type: type,
+        })
+        this.updateTemplate({
+          id,
+          value: '$' + variableMatch.key,
         })
       } else {
         this.template.usedVariables.map((variable, index) => {
