@@ -354,11 +354,17 @@ export function copyToClipboard(str) {
 // Get the native javascript type from the radon markup argument type
 // Map types are handled by witnet-radon-js library
 export function getNativeValueFromMarkupArgumentType(value, type) {
-  if (type.toLowerCase() === 'number') {
-    return Number(value)
-  }
-  if (type.toLowerCase() === 'boolean') {
-    return value === 'true'
+  if (type) {
+    if (
+      type.toLowerCase() === 'number' &&
+      Number(value) &&
+      value.slice(-1) !== '.'
+    ) {
+      return Number(value)
+    }
+    if (type.toLowerCase() === 'boolean') {
+      return value === 'true'
+    }
   }
   return value
 }

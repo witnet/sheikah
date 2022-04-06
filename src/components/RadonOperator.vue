@@ -81,6 +81,7 @@ import {
   standardizeOperatorName,
   standardizeOutputType,
   selectInnerError,
+  getNativeValueFromMarkupArgumentType,
 } from '@/utils'
 import {
   UPDATE_TEMPLATE,
@@ -258,7 +259,7 @@ export default {
     },
     updateArgumentsAndVariables(input) {
       const id = input.id
-      let value = input.value
+      const value = input.value
       const type = input.type
       this.variableName = value
       this.toggleVariables({ hasVariables: true })
@@ -283,7 +284,7 @@ export default {
         this.toggleVariables({ hasVariables: false })
         this.updateTemplate({
           id,
-          value: value,
+          value: getNativeValueFromMarkupArgumentType(value, type),
         })
       }
     },
@@ -291,12 +292,12 @@ export default {
       this.selected = {
         id: id,
         primaryText: value,
-        value: value,
+        value,
         secondaryText: 'boolean',
       }
       this.updateTemplate({
         id,
-        value: value,
+        value,
       })
     },
     scrollToCurrentFocus() {

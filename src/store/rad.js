@@ -173,11 +173,7 @@ export default {
       })
     },
     [DELETE_USED_VARIABLE](state, { index }) {
-      if (index === 0) {
-        state.currentTemplate.usedVariables.shift()
-      } else {
-        state.currentTemplate.usedVariables.splice(index, 1)
-      }
+      state.currentTemplate.usedVariables.splice(index, 1)
       this.dispatch('saveTemplate')
     },
     [USED_VARIABLES](state, { id, variable, value, type }) {

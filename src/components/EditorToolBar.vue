@@ -193,9 +193,7 @@ export default {
       this.clearHistory()
     },
     getJsFile() {
-      this.template.usedVariables.forEach(variable => {
-        const id = variable.id
-        const value = variable.value
+      this.template.usedVariables.forEach(({ value, id }) => {
         this.updateTemplate({ id, value, keepRecord: false })
       })
       this.jsFile = this.radRequest.getJs()
