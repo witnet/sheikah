@@ -197,12 +197,10 @@ export default {
         this.updateTemplate({ id, value, keepRecord: false })
       })
       this.jsFile = this.radRequest.getJs()
-      this.template.usedVariables.forEach(variable => {
-        const id = variable.id
-        const key = variable.variable
+      this.template.usedVariables.forEach(({ variable, id }) => {
         this.updateTemplate({
           id,
-          value: '$' + key,
+          value: '$' + variable,
           keepRecord: false,
         })
       })
