@@ -20,8 +20,8 @@ export const ARCH = ['x64', 'arm64'].includes(OS_ARCH) ? 'x86_64' : OS_ARCH
 export const DEVELOPMENT = process.env.NODE_ENV !== 'production'
 
 export const URLS_PUBLIC_WITNET_NODES = [
-  '52.166.178.145:21338',
   '20.120.248.2:21338',
+  '20.126.70.77:21338',
 ]
 
 export const SHEIKAH_PATH_BY_PLATFORM = {
