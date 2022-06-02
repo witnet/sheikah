@@ -2,6 +2,12 @@ import { autoUpdater } from 'electron-updater'
 import { BrowserWindow, dialog } from 'electron'
 import { WalletManager } from './walletManager'
 import { AppManager } from './appManager'
+import overwriteWalletConfigFile from './utils/overwriteWalletConfigFile'
+import {
+  SHEIKAH_PATH,
+  WITNET_CONFIG_FILE_NAME,
+  URLS_PUBLIC_WITNET_NODES,
+} from './constants'
 
 export class AutoUpdaterManager {
   public isBeingUpdated: boolean = false
@@ -34,6 +40,11 @@ export class AutoUpdaterManager {
       cancelId: 1, // bound to buttons array
     }
     this.wallet.setIsUpdating(true)
+    overwriteWalletConfigFile({
+      sheikahPath: SHEIKAH_PATH,
+      witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
+      publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
+    })
     dialog
       .showMessageBox(this.app.win as BrowserWindow, options)
       .then(result => {
