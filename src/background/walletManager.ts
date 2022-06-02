@@ -24,7 +24,7 @@ import {
 } from './constants'
 import { AppManager } from './appManager'
 import getVersionFromName from './utils/getVersionFromName'
-import overwriteWalletConfigFile from './utils/overwriteWalletConfigFile'
+import overwriteWitnetNodeConfiguration from './utils/overwriteWitnetNodeConfiguration'
 import sleep from './utils/sleep'
 
 interface GithubReleaseAsset {
@@ -251,7 +251,7 @@ async function decompressDarwinWallet(file: string) {
     process.chdir(currentCwd)
 
     await sleep(3000)
-    overwriteWalletConfigFile({
+    overwriteWitnetNodeConfiguration({
       sheikahPath: SHEIKAH_PATH,
       witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
       publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
@@ -276,7 +276,7 @@ async function decompressWin32Wallet(file: string) {
   )
   await sleep(3000)
 
-  overwriteWalletConfigFile({
+  overwriteWitnetNodeConfiguration({
     sheikahPath: SHEIKAH_PATH,
     witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
     publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
@@ -298,7 +298,7 @@ async function decompressLinuxWallet(file: string) {
   )
 
   await sleep(3000)
-  overwriteWalletConfigFile({
+  overwriteWitnetNodeConfiguration({
     sheikahPath: SHEIKAH_PATH,
     witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
     publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
