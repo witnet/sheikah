@@ -64,4 +64,4 @@ export const WITNET_RUST_VERSION = '1.5.0'
 
 export const DEFAULT_WALLET_LOG_LEVEL = 'error'
 
-export const RELEASE_URL = `https://api.github.com/repos/witnet/witnet-rust/releases/tags/${WITNET_RUST_VERSION}`
+export const RELEASE_BASE_URL = `https://api.github.com/repos/witnet/witnet-rust/releases/tags/`

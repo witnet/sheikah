@@ -20,7 +20,7 @@ import {
   ARCH,
   PLATFORM,
   OS_ARCH,
-  RELEASE_URL,
+  RELEASE_BASE_URL,
 } from './constants'
 import { AppManager } from './appManager'
 import getVersionFromName from './utils/getVersionFromName'
@@ -36,18 +36,19 @@ interface GithubTagInfo {
   assets: Array<GithubReleaseAsset>
 }
 
-const decompressWallet = {
-  win32: decompressWin32Wallet,
-  darwin: decompressDarwinWallet,
-  linux: decompressLinuxWallet,
-}[PLATFORM]
-
 export class WalletManager {
   public app: AppManager
   public isUpdating: boolean = false
   public walletProcess: cp.ChildProcessWithoutNullStreams | null = null
   private existDirectory: boolean
   private needToDownloadWallet: boolean = true
+  private latestWitnetRustVersion: string = WITNET_RUST_VERSION
+  private witnetRustVersion: string = WITNET_RUST_VERSION
+  private decompressWallet = {
+    win32: this.decompressWin32Wallet,
+    darwin: this.decompressDarwinWallet,
+    linux: this.decompressLinuxWallet,
+  }[PLATFORM]
 
   constructor(appManager: AppManager) {
     this.app = appManager
@@ -65,12 +66,12 @@ export class WalletManager {
           'utf8',
         )
         const installedVersion = getVersionFromName(versionName)
-        const latestWitnetRustVersion = await getLatestWitnetRustRelease()
+        this.latestWitnetRustVersion = await getLatestWitnetRustRelease()
         const isLatestVersionInstalled =
-          installedVersion === latestWitnetRustVersion
+          installedVersion === this.latestWitnetRustVersion
         const isCompatibleRelease = semver.satisfies(
-          WITNET_RUST_VERSION,
-          `~${latestWitnetRustVersion}`,
+          this.latestWitnetRustVersion,
+          `~${WITNET_RUST_VERSION}`,
         )
         this.needToDownloadWallet =
           isCompatibleRelease && !isLatestVersionInstalled
@@ -78,10 +79,15 @@ export class WalletManager {
         console.error('An error occured trying to read version file', err)
       }
     }
-    console.info(`Fetching release from: ${RELEASE_URL}`)
+    this.witnetRustVersion = this.needToDownloadWallet
+      ? this.latestWitnetRustVersion
+      : WITNET_RUST_VERSION
+    console.info(
+      `Fetching release from: ${RELEASE_BASE_URL}${this.witnetRustVersion}`,
+    )
 
     const downloadUrl: string | undefined = await fetchReleaseDownloadUrl(
-      RELEASE_URL,
+      `${RELEASE_BASE_URL}${this.witnetRustVersion}`,
       ARCH,
       PLATFORM,
     )
@@ -139,6 +145,75 @@ export class WalletManager {
     })
   }
 
+  // Decompress downloaded wallet release on macOS
+  private async decompressDarwinWallet(file: string) {
+    try {
+      const currentCwd = process.cwd()
+      process.chdir(SHEIKAH_PATH)
+      cp.execSync(`tar -xvf ${file}`)
+      process.chdir(currentCwd)
+
+      await sleep(3000)
+      overwriteWitnetNodeConfiguration({
+        sheikahPath: SHEIKAH_PATH,
+        witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
+        publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
+      })
+
+      fs.writeFileSync(
+        path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
+        this.witnetRustVersion,
+      )
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  // Decompress downloaded wallet release on windows
+  private async decompressWin32Wallet(file: string) {
+    tar.x({ file, sync: true })
+    fs.copyFileSync(WITNET_FILE_NAME, path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
+    fs.copyFileSync(
+      'witnet.toml',
+      path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
+    )
+    await sleep(3000)
+
+    overwriteWitnetNodeConfiguration({
+      sheikahPath: SHEIKAH_PATH,
+      witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
+      publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
+    })
+
+    fs.writeFileSync(
+      path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
+      this.witnetRustVersion,
+    )
+  }
+
+  // Decompress downloaded wallet release on linux
+  private async decompressLinuxWallet(file: string) {
+    tar.x({ file, sync: true })
+    fs.copyFileSync('witnet', path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
+    fs.copyFileSync(
+      'witnet.toml',
+      path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
+    )
+
+    await sleep(3000)
+    overwriteWitnetNodeConfiguration({
+      sheikahPath: SHEIKAH_PATH,
+      witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
+      publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
+    })
+
+    cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
+    fs.writeFileSync(
+      path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
+      this.witnetRustVersion,
+    )
+  }
+
   private async handleDownloadWalletResponse(response: AxiosResponse) {
     const walletCompressPath = path.join(
       SHEIKAH_PATH,
@@ -165,7 +240,7 @@ export class WalletManager {
     }
 
     console.info('Decompressing wallet release...')
-    decompressWallet(walletCompressPath)
+    this.decompressWallet(walletCompressPath)
     // remove compressed file
     fs.unlinkSync(walletCompressPath)
   }
@@ -213,7 +288,7 @@ async function getLatestWitnetRustRelease(): Promise<string> {
     const result: AxiosResponse<any> = await axios.get(
       'https://api.github.com/repos/witnet/witnet-rust/releases/latest',
     )
-    return await result.data.tag_name
+    return (await result.data.tag_name) || ''
   } catch (err) {
     console.log(
       'There was an error getting the latest Witnet Rust Release name:',
@@ -240,73 +315,4 @@ async function fetchReleaseDownloadUrl(
   )
 
   return release?.browser_download_url
-}
-
-// Decompress downloaded wallet release on macOS
-async function decompressDarwinWallet(file: string) {
-  try {
-    const currentCwd = process.cwd()
-    process.chdir(SHEIKAH_PATH)
-    cp.execSync(`tar -xvf ${file}`)
-    process.chdir(currentCwd)
-
-    await sleep(3000)
-    overwriteWitnetNodeConfiguration({
-      sheikahPath: SHEIKAH_PATH,
-      witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-      publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-    })
-
-    fs.writeFileSync(
-      path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
-      WITNET_RUST_VERSION,
-    )
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-// Decompress downloaded wallet release on windows
-async function decompressWin32Wallet(file: string) {
-  tar.x({ file, sync: true })
-  fs.copyFileSync(WITNET_FILE_NAME, path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
-  fs.copyFileSync(
-    'witnet.toml',
-    path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
-  )
-  await sleep(3000)
-
-  overwriteWitnetNodeConfiguration({
-    sheikahPath: SHEIKAH_PATH,
-    witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-    publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-  })
-
-  fs.writeFileSync(
-    path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
-    WITNET_RUST_VERSION,
-  )
-}
-
-// Decompress downloaded wallet release on linux
-async function decompressLinuxWallet(file: string) {
-  tar.x({ file, sync: true })
-  fs.copyFileSync('witnet', path.join(SHEIKAH_PATH, WITNET_FILE_NAME))
-  fs.copyFileSync(
-    'witnet.toml',
-    path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
-  )
-
-  await sleep(3000)
-  overwriteWitnetNodeConfiguration({
-    sheikahPath: SHEIKAH_PATH,
-    witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-    publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-  })
-
-  cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
-  fs.writeFileSync(
-    path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
-    WITNET_RUST_VERSION,
-  )
 }
