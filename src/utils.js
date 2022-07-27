@@ -357,7 +357,7 @@ export function getNativeValueFromMarkupArgumentType(value, type) {
   if (type) {
     if (
       type.toLowerCase() === 'number' &&
-      Number(value) &&
+      (Number(value) || Number(value) === 0) &&
       value.slice(-1) !== '.'
     ) {
       return Number(value)
