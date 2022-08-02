@@ -8,6 +8,8 @@
           :ref="`source-${index}`"
           class="source"
           :url="source.url || ''"
+          :headers="JSON.stringify(source.headers) || ''"
+          :body="JSON.stringify(source.body) || ''"
           :kind-options="source.kindOptions"
           :content-type-options="source.contentTypeOptions"
           :protocol="source.kind"

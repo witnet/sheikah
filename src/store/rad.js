@@ -298,6 +298,8 @@ export default {
       state.currentRadonMarkupInterpreter.updateSource(index, {
         kind: source.protocol,
         url: source.url,
+        body: source.body,
+        headers: source.headers,
         contentType: source.contentType,
       })
       state.radRequest = state.currentRadonMarkupInterpreter

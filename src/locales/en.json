@@ -337,6 +337,7 @@
   "payments_notifications_title": "Payments notifications",
   "syncronization_notifications_title": "Syncronization notifications",
   "create_dr_form_error_max_number": "This number is greater than the maximum",
+  "json_error": "El campo 'Headers' tiene que ser un JSON válido",
   "create_dr_form_error_integer_nanowit": "Only integer nanoWits values allowed",
   "create_dr_form_error_min_consensus_percentage": "The minimum consensus percentage cannot be less than 51",
   "create_dr_form_error_max_consensus_percentage": "The minimum consensus percentage cannot be more than 100",

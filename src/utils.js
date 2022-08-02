@@ -188,7 +188,17 @@ export function encodeDataRequest(radRequest) {
     timeLock: radRequest.timelock,
     time_lock: radRequest.timelock,
     retrieve: radRequest.retrieve.map(retrieve => {
-      return { ...retrieve, script: [...cbor.encode(retrieve.script)] }
+      // TODO: Add support for utf16
+      let utf8Encode = new TextEncoder()
+      return {
+        ...retrieve,
+        headers: Object.entries(retrieve.headers || {}),
+        // Only add body if it exists
+        ...(retrieve.body && {
+          body: [...utf8Encode.encode(retrieve.body)],
+        }),
+        script: [...cbor.encode(retrieve.script)],
+      }
     }),
     aggregate: encodeAggregationTally(radRequest.aggregate),
     tally: encodeAggregationTally(radRequest.tally),
@@ -374,6 +384,15 @@ export function isValidRadRequest(dr) {
     const radon = new Radon(dr)
     return radon.getMarkup() && radon.getMir() && radon.getJs()
   } catch (e) {
+    return false
+  }
+}
+
+export function isValidJson(string) {
+  try {
+    JSON.parse(string)
+    return true
+  } catch (err) {
     return false
   }
 }

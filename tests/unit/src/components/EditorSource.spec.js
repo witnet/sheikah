@@ -14,6 +14,8 @@ describe('EditorSource.vue', () => {
         }),
         propsData: {
           index: 0,
+          headers: '{}',
+          body: '{}',
           protocol: '',
           url: '',
           contentType: '',
@@ -37,6 +39,8 @@ describe('EditorSource.vue', () => {
         }),
         propsData: {
           index: 0,
+          headers: '{}',
+          body: '{}',
           protocol: '',
           url: '',
           contentType: '',
@@ -60,6 +64,8 @@ describe('EditorSource.vue', () => {
         }),
         propsData: {
           index: 0,
+          headers: '{}',
+          body: '{}',
           protocol: '',
           url: 'witnet.abcdefghij',
           contentType: '',
@@ -83,6 +89,8 @@ describe('EditorSource.vue', () => {
         }),
         propsData: {
           index: 0,
+          headers: '{}',
+          body: '{}',
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
           contentType: '',
@@ -106,6 +114,8 @@ describe('EditorSource.vue', () => {
         }),
         propsData: {
           index: 0,
+          headers: '{}',
+          body: '{}',
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
           contentType: '',
@@ -129,6 +139,8 @@ describe('EditorSource.vue', () => {
         }),
         propsData: {
           index: 0,
+          headers: '{}',
+          body: '{}',
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
           contentType: '',
@@ -152,6 +164,8 @@ describe('EditorSource.vue', () => {
         }),
         propsData: {
           index: 0,
+          headers: '{}',
+          body: '{}',
           protocol: 'HTTP-GET',
           url: 'www.witnet.io',
           contentType: 'JSON API',

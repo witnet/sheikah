@@ -1,29 +1,50 @@
 <template>
   <Fieldset :title="title" :subtitle="subtitle" :closable="false">
     <Card class="card" shadow="thin" :border="false">
-      <div class="form">
+      <el-form class="form" :rules="rules" :model="form">
         <label class="label">{{ $t('protocol') }}</label>
-        <Select
-          v-model="localProtocol"
-          :disabled="false"
-          :options="selectOptions"
-          data-test="protocol-select"
-        />
+        <el-form-item prop="localProtocol">
+          <Select
+            v-model="form.localProtocol"
+            :disabled="false"
+            :options="selectOptions"
+            data-test="protocol-select"
+          />
+        </el-form-item>
         <label v-if="protocol !== 'RNG'" class="label">URL</label>
-        <el-input
-          v-if="protocol !== 'RNG'"
-          ref="url"
-          v-model="localUrl"
-          data-test="url-input"
-        />
+        <el-form-item v-if="protocol !== 'RNG'" prop="localContentType">
+          <el-input ref="url" v-model="form.localUrl" data-test="url-input" />
+        </el-form-item>
+        <label v-if="protocol === 'HTTP-POST'" class="label">Headers</label>
+        <el-form-item v-if="protocol === 'HTTP-POST'" prop="localHeaders">
+          <el-input
+            ref="headers"
+            v-model="form.localHeaders"
+            type="textarea"
+            :rows="3"
+            data-test="headers-input"
+          />
+        </el-form-item>
+        <label v-if="protocol === 'HTTP-POST'" class="label">Body</label>
+        <el-form-item v-if="protocol === 'HTTP-POST'" prop="localBody">
+          <el-input
+            ref="body"
+            v-model="form.localBody"
+            type="textarea"
+            :rows="3"
+            data-test="body-input"
+          />
+        </el-form-item>
         <label class="label">{{ $t('content_type') }}</label>
-        <Select
-          v-model="currentContentType"
-          :disabled="true"
-          :options="currentContentTypeOptions"
-          data-test="content-type-select"
-        />
-      </div>
+        <el-form-item prop="localContentType">
+          <Select
+            v-model="form.localContentType"
+            :disabled="true"
+            :options="currentContentTypeOptions"
+            data-test="content-type-select"
+          />
+        </el-form-item>
+      </el-form>
       <el-tooltip
         :content="$t('delete_source')"
         placement="right"
@@ -45,7 +66,7 @@
 import { mapMutations } from 'vuex'
 
 import { UPDATE_SOURCE, DELETE_SOURCE } from '@/store/mutation-types'
-import { getDomainFromUrl } from '@/utils'
+import { getDomainFromUrl, isValidJson } from '@/utils'
 import Card from '@/components/card/Card'
 import Fieldset from '@/components/Fieldset'
 import Select from '@/components/Select'
@@ -85,6 +106,14 @@ export default {
       required: true,
       type: Array,
     },
+    headers: {
+      required: true,
+      type: String,
+    },
+    body: {
+      required: true,
+      type: String,
+    },
     contentTypeOptions: {
       required: true,
       type: Object,
@@ -99,10 +128,24 @@ export default {
     },
   },
   data() {
+    const areValidHeaders = (rule, value, callback) => {
+      if (!isValidJson(value)) {
+        callback(new Error(this.$t('json_error')))
+      } else {
+        callback()
+      }
+    }
     return {
-      currentProtocol: { primaryText: this.protocol || 'HTTP-GET' },
-      currentContentType: { primaryText: this.contentType || 'JSON API' },
-      currentUrl: this.url || '',
+      form: {
+        localProtocol: { primaryText: this.protocol || 'HTTP-GET' },
+        localContentType: { primaryText: this.contentType || 'JSON API' },
+        localUrl: this.url || '',
+        localHeaders: this.headers || '{}',
+        localBody: this.body || '',
+      },
+      rules: {
+        localHeaders: [{ validator: areValidHeaders, trigger: 'blur' }],
+      },
     }
   },
   computed: {
@@ -122,68 +165,33 @@ export default {
         return { primaryText: option }
       })
     },
-    localUrl: {
-      get() {
-        return this.currentUrl
-      },
-      set(val) {
-        this.currentUrl = val
-        this.updateSource({
-          index: this.index,
-          source: {
-            protocol: this.localProtocol.primaryText,
-            url: val,
-            contentType: this.localContentType.primaryText,
-          },
-        })
-        this.$refs.url.focus()
-      },
-    },
-    localProtocol: {
-      get() {
-        return this.currentProtocol
-      },
-      set(val) {
-        this.currentProtocol = val
-        this.currentContentType = {
-          primaryText:
-            this.contentTypeOptions[this.currentProtocol.primaryText],
-        }
-        this.updateSource({
-          index: this.index,
-          source: {
-            protocol: val.primaryText,
-            url: this.localUrl,
-            contentType: this.currentContentType.primaryText,
-          },
-        })
-      },
-    },
-    localContentType: {
-      get() {
-        return this.contentType
-      },
-      set(val) {
-        this.updateSource({
-          index: this.index,
-          source: {
-            protocol: this.localProtocol.primaryText,
-            url: this.localUrl,
-            contentType: val.primaryText,
-          },
-        })
-      },
-    },
   },
   watch: {
+    form: {
+      handler(val) {
+        this.updateSource({
+          index: this.index,
+          source: {
+            protocol: this.form.localProtocol.primaryText,
+            headers: isValidJson(this.form.localHeaders)
+              ? JSON.parse(this.form.localHeaders)
+              : {},
+            body: this.form.localBody,
+            url: this.form.localUrl,
+            contentType: this.form.localContentType.primaryText,
+          },
+        })
+      },
+      deep: true,
+    },
     url(val) {
-      this.currentUrl = val
+      this.form.currentUrl = val
     },
     protocol(val) {
-      this.currentProtocol = { primaryText: val }
+      this.form.currentProtocol = { primaryText: val }
     },
     contentType(val) {
-      this.currentContentType = { primaryText: val }
+      this.form.currentContentType = { primaryText: val }
     },
   },
   methods: {
