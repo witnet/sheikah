@@ -191,7 +191,9 @@ export function encodeDataRequest(radRequest) {
       // TODO: Add support for utf16
       let utf8Encode = new TextEncoder()
       return {
-        ...retrieve,
+        url: retrieve.url,
+        contentType: retrieve.contentType,
+        kind: retrieve.kind,
         headers: Object.entries(retrieve.headers || {}),
         // Only add body if it exists
         ...(retrieve.body && {
