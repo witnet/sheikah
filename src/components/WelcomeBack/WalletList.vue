@@ -92,12 +92,6 @@ export default {
     },
   },
   watch: {
-    wallets: {
-      deep: true,
-      handler() {
-        this.currentWallet = this.walletOptions[this.lastWalletOpen]
-      },
-    },
     sessionId: function (newValue) {
       if (newValue) {
         this.updateView()
