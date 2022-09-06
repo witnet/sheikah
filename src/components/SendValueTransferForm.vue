@@ -4,10 +4,9 @@
     class="form"
     data-test="tx-form"
     :model="form"
-    label-position="left"
+    label-position="top"
     :rules="rules"
     width="max-content"
-    label-width="200px"
   >
     <el-form-item :label="$t('address')" prop="address">
       <el-input
@@ -25,25 +24,6 @@
         <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
     </el-form-item>
-    <el-form-item prop="fee">
-      <div slot="label">
-        {{ feeType.text }}
-        <el-tooltip trigger="hover" effect="light">
-          <font-awesome-icon class="info" icon="info-circle" />
-          <div slot="content" class="info-message">
-            {{ $t('fee_info') }}
-          </div>
-        </el-tooltip>
-      </div>
-      <el-input
-        v-model="form.fee"
-        type="number"
-        tabindex="4"
-        data-test="tx-fee"
-      >
-        <AppendUnit slot="append" :static-unit="WIT_UNIT.NANO" />
-      </el-input>
-    </el-form-item>
     <transition name="slide">
       <div v-if="isAdvancedVisible">
         <el-form-item :label="$t('timelock')" prop="timelock">
@@ -56,12 +36,6 @@
             value-format="timestamp"
           />
         </el-form-item>
-        <el-switch
-          v-model="form.isWeightedFee"
-          :active-text="$t('weighted_fee')"
-          :inactive-text="$t('absolute_fee')"
-          class="switch"
-        ></el-switch>
       </div>
     </transition>
     <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
@@ -93,7 +67,7 @@
         data-test="sign-send-btn"
         @click="tryCreateVTT"
       >
-        {{ $t('sign_send') }}
+        {{ $t('continue') }}
       </el-button>
     </div>
   </el-form>
@@ -134,6 +108,17 @@ export default {
       const isNanoWit = this.unit === WIT_UNIT.NANO
       if (isNanoWit && value < 1) {
         callback(new Error(this.$t('validate_min_amount')))
+      } else {
+        callback()
+      }
+    }
+
+    const isGrtThanBalance = (rule, value, callback) => {
+      const validation =
+        Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.unit)) >
+        this.balance
+      if (validation) {
+        callback(new Error(this.$t('not_enough_balance')))
       } else {
         callback()
       }
@@ -181,17 +166,7 @@ export default {
             message: this.$t('required_field'),
             trigger: 'blur',
           },
-          { validator: isNumber, trigger: 'blur' },
-          { validator: minAmount, trigger: 'submit' },
-          { validator: integerNanoWit, trigger: 'submit' },
-          { validator: maxNumber, trigger: 'blur' },
-        ],
-        fee: [
-          {
-            required: true,
-            message: this.$t('required_field'),
-            trigger: 'blur',
-          },
+          { validator: isGrtThanBalance, trigger: 'blur' },
           { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
@@ -205,18 +180,8 @@ export default {
     ...mapState({
       unit: state => state.wallet.unit,
       createVTTError: state => state.wallet.errors.createVTT,
+      balance: state => state.wallet.balance.available,
     }),
-    feeType() {
-      return this.form.isWeightedFee
-        ? {
-            key: 'weighted',
-            text: this.$t('weighted_fee'),
-          }
-        : {
-            key: 'absolute',
-            text: this.$t('absolute_fee'),
-          }
-    },
     addressLength() {
       return this.network && this.network.toLowerCase() === 'mainnet' ? 42 : 43
     },
@@ -226,6 +191,8 @@ export default {
       handler(val) {
         if (this.createVTTError) {
           this.clearError({ error: this.createVTTError.name })
+        } else {
+          this.generatePosibleTransactions
         }
       },
       deep: true,
@@ -271,7 +238,7 @@ export default {
     tryCreateVTT() {
       this.$refs['send-form'].validate(valid => {
         if (valid) {
-          this.$emit('create-vtt', {
+          this.$emit('set-vtt-values', {
             label: this.form.label,
             address: this.form.address,
             amount: this.form.amount,

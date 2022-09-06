@@ -420,5 +420,10 @@
   "error_validating_delete": "The typed name does not match the name of the current wallet",
   "fee_info": "By default, 'Weighted fee' is selected. The amount of the fee will be calculated, taking into account the weight of the transaction. To set an absolute fee, you need to toggle 'Absolute fee' in the advance options below.",
   "weighted_fee": "Fee per weight unit",
-  "absolute_fee": "Absolute fee"
+  "absolute_fee": "Absolute fee",
+  "set_miner_fee": "Select fee",
+  "get_estimation_error_message": "Error estimating the miner fees",
+  "around": "Around",
+  "up_to": "Up to",
+  "less_than": "Less than"
 }

@@ -418,5 +418,9 @@
   "error_validating_delete": "El nombre escrito no coincide con el nombre de esta wallet",
   "fee_info": "Por defecto, la tasa se calcula teniendo el cuenta el peso de la transacción. Para poder enviar una transacción con tasa absoluta selecciona 'Tasa absoluta' en el switch que aparece debajo.",
   "weighted_fee": "Tasa por unidad de peso",
-  "absolute_fee": "Tasa absoluta"
+  "absolute_fee": "Tasa absoluta",
+  "get_estimation_error_message": "Error al generar la estimación de las fees",
+  "around": "Sobre",
+  "up_to": "Hasta",
+  "less_than": "Menos de"
 }

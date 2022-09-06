@@ -123,6 +123,10 @@ export class WalletApi {
     return this._callApiMethod('get')(params)
   }
 
+  getFeeEstimationReport(params) {
+    return this._callApiMethod('priority')(params)
+  }
+
   deleteWallet(params) {
     return this._callApiMethod('delete_wallet')(params)
   }

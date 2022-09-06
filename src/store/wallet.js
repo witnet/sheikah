@@ -62,6 +62,7 @@ export default {
       getItem: null,
       nodeSync: false,
       updateWallet: null,
+      getFeeEstimationReport: null,
     },
     repeatedWallet: null,
     exportFileLink: '',
@@ -75,6 +76,7 @@ export default {
     walletIdx: null,
     sessionId: null,
     sessionExtended: false,
+    feeEstimationReport: null,
     walletId: null,
     addresses: [],
     generatedTransaction: null,
@@ -221,6 +223,9 @@ export default {
     },
     setComputedVesting(state, computedVesting) {
       state.computedVesting = computedVesting
+    },
+    setFeeEstimationReport(state, report) {
+      state.feeEstimationReport = report
     },
     setXprvInfo(state, info) {
       if (info.data.name) {
@@ -391,13 +396,15 @@ export default {
         message,
       }
       if (
-        error !== 'Validation Error' ||
-        name !== 'uploadFile' ||
-        name !== 'mnemonics' ||
-        name !== 'xprv' ||
-        name !== 'seed' ||
-        name !== 'nodeSync'
+        name === 'uploadFile' ||
+        name === 'mnemonics' ||
+        name === 'xprv' ||
+        name === 'seed' ||
+        name === 'nodeSync' ||
+        error === 'Validation Error'
       ) {
+        return
+      } else {
         const socketNotReady = error === 'socket not ready'
         const networkStatusError = state.networkStatus === 'error'
         if (networkStatusError || socketNotReady) {
@@ -797,10 +804,7 @@ export default {
         label,
       })
       if (request.result) {
-        const generatedTransaction = request.result
-        context.commit('setGeneratedTransaction', {
-          transaction: generatedTransaction,
-        })
+        return request.result
       } else {
         let error = i18n.t('vtt_error')
         if (request.error.data[0]) {
@@ -836,7 +840,22 @@ export default {
         })
       }
     },
-
+    getFeeEstimationReport: async function (context) {
+      const request = await context.state.api.getFeeEstimationReport({
+        wallet_id: context.state.walletId,
+        session_id: context.state.sessionId,
+      })
+      if (request.result) {
+        context.commit('setFeeEstimationReport', { report: request.result })
+        this.commit('clearError', { error: 'getFeeEstimationReport' })
+      } else {
+        context.commit('setError', {
+          name: 'getFeeEstimationReport',
+          error: request.error.message,
+          message: i18n.t('get_estimation_error_message'),
+        })
+      }
+    },
     getAddresses: async function (context) {
       const request = await context.state.api.getAddresses({
         wallet_id: context.state.walletId,

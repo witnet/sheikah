@@ -1,5 +1,10 @@
 import cbor from 'cbor'
-import { format, formatDistanceToNow } from 'date-fns'
+import {
+  format,
+  formatDistanceToNow,
+  intervalToDuration,
+  formatDuration,
+} from 'date-fns'
 
 import { v4 as uuidv4 } from 'uuid'
 import { Radon } from 'witnet-radon-js'
@@ -11,6 +16,7 @@ import {
   EDITOR_ALLOWED_PROTOCOLS,
   HISTORY_UPDATE_TYPE,
   EDITOR_STAGES,
+  SECONDS_TO_NEXT_BLOCK,
 } from './constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import BigNumber from '@/utils/BigNumber'
@@ -38,6 +44,19 @@ export function isGrtMaxNumber(value, unit) {
     new BigNumber(standardizeWitUnits(value, WIT_UNIT.NANO, unit)).cmp(
       new BigNumber(maxNumber),
     ) === 1
+  )
+}
+
+// calculate formated time per block
+export function getTimeFromBlock(block, currentLocale) {
+  return formatDuration(
+    intervalToDuration({
+      start: 0,
+      end: block * SECONDS_TO_NEXT_BLOCK * 1000,
+    }),
+    {
+      locale: LANGUAGES[currentLocale].fnsLocale,
+    },
   )
 }
 
@@ -284,6 +303,14 @@ export function changeDateFormat(timestamp) {
   const year = formatedDate[2]
   const time = formatedDate[3]
   return `${month} ${day}, ${year} @ ${time}`
+}
+
+//convert to snake case
+export function convertToSnakeCase(value) {
+  const capitalLetterRegex = /[A-Z][a-z]+/g
+  const result =
+    value.match(capitalLetterRegex).map(string => string.toLowerCase()) || []
+  return result.join('_')
 }
 
 /// calculate the time passed from a given date

@@ -14,8 +14,13 @@
       @close-clear="closeAndClear"
       @send="confirmTransaction"
     />
-
-    <SendValueTransferForm v-else @create-vtt="createVttAndSaveLabel" />
+    <SetValueTransferFee
+      v-else-if="vttValues"
+      :vtt-values="vttValues"
+      @create-vtt="transaction => setGeneratedTransaction({ transaction })"
+      @clear-vtt-values="clearVttValues"
+    />
+    <SendValueTransferForm v-else @set-vtt-values="setVttValues" />
   </el-dialog>
 </template>
 
@@ -23,16 +28,19 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import GeneratedTransaction from '@/components/GeneratedTransaction.vue'
 import SendValueTransferForm from '@/components/SendValueTransferForm.vue'
+import SetValueTransferFee from '@/components/SetValueTransferFee.vue'
 
 export default {
   name: 'SendValueTransfer',
   components: {
     GeneratedTransaction,
     SendValueTransferForm,
+    SetValueTransferFee,
   },
   data() {
     return {
       label: '',
+      vttValues: null,
     }
   },
   computed: {
@@ -49,18 +57,20 @@ export default {
       clearError: 'clearError',
       setError: 'setError',
       clearGeneratedTransaction: 'clearGeneratedTransaction',
+      setGeneratedTransaction: 'setGeneratedTransaction',
     }),
     ...mapActions({
       sendTransaction: 'sendTransaction',
       createVTT: 'createVTT',
     }),
-    createVttAndSaveLabel(form) {
-      this.label = form.label
-      this.createVTT(form)
+    setVttValues(form) {
+      this.vttValues = form
+    },
+    clearVttValues() {
+      this.vttValues = null
     },
     closeAndClear() {
       this.clearGeneratedTransaction()
-      this.label = ''
       if (this.createVTTError) {
         this.clearError({ error: this.createVTTError.name })
       }
