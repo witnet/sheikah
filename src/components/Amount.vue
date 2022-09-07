@@ -43,6 +43,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    disableChange: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -61,8 +65,10 @@ export default {
   },
   methods: {
     callChangeUnit(e) {
-      this.changeUnit()
-      e.stopPropagation()
+      if (!this.disableChange) {
+        this.changeUnit()
+        e.stopPropagation()
+      }
     },
     standardizeWitUnits,
     formatNumber,

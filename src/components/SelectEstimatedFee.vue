@@ -16,6 +16,7 @@
         class="priority"
         data-test="fee"
         :unit-dark="true"
+        :disable-change="true"
         :amount="option.transaction.metadata.fee"
       />
       <p v-if="isDisabledFee(option)" class="error-message">
@@ -93,8 +94,8 @@ export default {
 
   .estimation {
     align-items: center;
-    background: var(--card-background);
-    border: var(--card-border);
+    background: var(--select-box-background);
+    border: var(--select-box-border);
     border-radius: 2px;
     cursor: pointer;
     display: grid;
@@ -128,11 +129,15 @@ export default {
     }
 
     &.selected {
-      border: var(--card-active-border);
+      border: var(--select-box-active-border);
+
+      .label {
+        color: var(--select-box-active-color);
+      }
     }
 
     &.disabled {
-      border: var(--address-card-border-used);
+      border: var(--select-box-error-border);
       cursor: not-allowed;
     }
   }
