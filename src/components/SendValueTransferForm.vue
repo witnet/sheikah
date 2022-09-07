@@ -77,6 +77,7 @@
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import AppendUnit from '@/components/AppendUnit'
 import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
+import FormValidation from '@/services/FormValidation'
 import { WIT_UNIT } from '@/constants'
 import CustomIcon from '@/components/CustomIcon'
 
@@ -87,51 +88,24 @@ export default {
     CustomIcon,
   },
   data() {
-    const maxNumber = (rule, value, callback) => {
-      if (isGrtMaxNumber(value, this.unit)) {
-        callback(new Error(this.$t('validate_max_number')))
-      } else {
-        callback()
-      }
-    }
-
-    const integerNanoWit = (rule, value, callback) => {
-      const isNanoWit = this.unit === WIT_UNIT.NANO
-      if (isNanoWit && !Number.isInteger(Number(value))) {
-        callback(new Error(this.$t('validate_integer_nano_wit')))
-      } else {
-        callback()
-      }
-    }
-
-    const minAmount = (rule, value, callback) => {
-      const isNanoWit = this.unit === WIT_UNIT.NANO
-      if (isNanoWit && value < 1) {
-        callback(new Error(this.$t('validate_min_amount')))
-      } else {
-        callback()
-      }
-    }
+    const formValidation = () =>
+      new FormValidation({ unit: this.unit, balance: this.availableBalance })
 
     const isGrtThanBalance = (rule, value, callback) => {
-      const validation =
-        Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.unit)) >
-        this.balance
-      if (validation) {
-        callback(new Error(this.$t('not_enough_balance')))
-      } else {
-        callback()
-      }
+      return formValidation().isGrtThanBalance(rule, value, callback)
     }
-
+    const maxNumber = (rule, value, callback) => {
+      return formValidation().maxNumber(rule, value, callback)
+    }
+    const integerNanoWit = (rule, value, callback) => {
+      return formValidation().integerNanoWit(rule, value, callback)
+    }
+    const minAmount = (rule, value, callback) => {
+      return formValidation().minAmount(rule, value, callback)
+    }
     const isNumber = (rule, value, callback) => {
-      if (!Number(value)) {
-        callback(new Error(this.$t('validate_number')))
-      } else {
-        callback()
-      }
+      return formValidation().isNumber(rule, value, callback)
     }
-
     return {
       checkedUtxos: [],
       isAdvancedVisible: false,
@@ -166,10 +140,16 @@ export default {
             message: this.$t('required_field'),
             trigger: 'blur',
           },
-          { validator: isGrtThanBalance, trigger: 'blur' },
+          {
+            validator: isGrtThanBalance,
+            trigger: 'blur',
+          },
           { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
-          { validator: integerNanoWit, trigger: 'submit' },
+          {
+            validator: integerNanoWit,
+            trigger: 'submit',
+          },
           { validator: maxNumber, trigger: 'blur' },
         ],
       },
@@ -180,7 +160,7 @@ export default {
     ...mapState({
       unit: state => state.wallet.unit,
       createVTTError: state => state.wallet.errors.createVTT,
-      balance: state => state.wallet.balance.available,
+      availableBalance: state => state.wallet.balance.available,
     }),
     addressLength() {
       return this.network && this.network.toLowerCase() === 'mainnet' ? 42 : 43

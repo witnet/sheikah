@@ -65,7 +65,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import AppendUnit from '@/components/AppendUnit'
-import { isGrtMaxNumber } from '@/utils'
+import FormValidation from '@/services/FormValidation'
 import { WIT_UNIT, FEE_TRAITS } from '@/constants'
 import SelectEstimatedFee from '@/components/SelectEstimatedFee'
 
@@ -82,38 +82,20 @@ export default {
     },
   },
   data() {
+    const formValidation = () =>
+      new FormValidation({ unit: this.unit, balance: this.availableBalance })
+
     const maxNumber = (rule, value, callback) => {
-      if (isGrtMaxNumber(value, this.unit)) {
-        callback(new Error(this.$t('validate_max_number')))
-      } else {
-        callback()
-      }
+      return formValidation().maxNumber(rule, value, callback)
     }
-
     const integerNanoWit = (rule, value, callback) => {
-      const isNanoWit = this.unit === WIT_UNIT.NANO
-      if (isNanoWit && !Number.isInteger(Number(value))) {
-        callback(new Error(this.$t('validate_integer_nano_wit')))
-      } else {
-        callback()
-      }
+      return formValidation().integerNanoWit(rule, value, callback)
     }
-
     const minAmount = (rule, value, callback) => {
-      const isNanoWit = this.unit === WIT_UNIT.NANO
-      if (isNanoWit && value < 1) {
-        callback(new Error(this.$t('validate_min_amount')))
-      } else {
-        callback()
-      }
+      return formValidation().minAmount(rule, value, callback)
     }
-
     const isNumber = (rule, value, callback) => {
-      if (!Number(value)) {
-        callback(new Error(this.$t('validate_number')))
-      } else {
-        callback()
-      }
+      return formValidation().isNumber(rule, value, callback)
     }
 
     return {
