@@ -1,5 +1,5 @@
 <template>
-  <div v-if="estimationOptions" class="estimation-table">
+  <div class="estimation-table">
     <div
       v-for="option in estimationOptions"
       :key="option.primaryText"

@@ -9,7 +9,7 @@
     width="max-content"
   >
     <p class="subtitle">{{ $t('set_miner_fee') }}</p>
-    <el-form-item prop="estimation">
+    <el-form-item v-if="estimationOptions" prop="estimation">
       <SelectEstimatedFee
         :selected-fee="selectedFee"
         :estimation-options="estimationOptions"
