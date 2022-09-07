@@ -201,13 +201,14 @@ export default {
     }),
     async getEstimatedTransactions() {
       const txRequests = FEE_TRAITS.map(async trait => {
+        const txResult = this.createVTT({
+          ...this.form,
+          fee: this.vttEstimationReport[trait].priority,
+          feeType: this.feeType,
+        })
         return {
           label: trait,
-          result: await this.createVTT({
-            ...this.form,
-            fee: this.vttEstimationReport[trait].priority,
-            feeType: this.feeType,
-          }),
+          result: await txResult,
         }
       })
       Promise.all(txRequests).then(result => {

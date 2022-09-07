@@ -838,6 +838,7 @@ export default {
           error: request.error.message,
           message: error,
         })
+        return { error: error }
       }
     },
     getFeeEstimationReport: async function (context) {

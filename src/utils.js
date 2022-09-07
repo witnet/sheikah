@@ -174,22 +174,26 @@ export function standardizeWitUnits(
       [`${WIT_UNIT.NANO}`]: 0,
     },
   }
-  if (amount && amount !== '0') {
-    const num = new BigNumber(amount)
-    const exponent = witUnitConversor[inputUnit][outputUnit]
-    const result = num.times(new BigNumber(10).pow(exponent), 0)
-    if (truncate === -1) {
-      return result.toFixed()
-    } else if (result.cmp(1) === -1) {
-      // result < 1
-      return result.toFixed()
+  try {
+    if (amount && amount !== '0') {
+      const num = new BigNumber(amount)
+      const exponent = witUnitConversor[inputUnit][outputUnit]
+      const result = num.times(new BigNumber(10).pow(exponent), 0)
+      if (truncate === -1) {
+        return result.toFixed()
+      } else if (result.cmp(1) === -1) {
+        // result < 1
+        return result.toFixed()
+      } else {
+        return outputUnit === WIT_UNIT.NANO
+          ? result.toFixed()
+          : result.toFixed(truncate)
+      }
     } else {
-      return outputUnit === WIT_UNIT.NANO
-        ? result.toFixed()
-        : result.toFixed(truncate)
+      return '0'
     }
-  } else {
-    return '0'
+  } catch (err) {
+    console.log(err)
   }
 }
 

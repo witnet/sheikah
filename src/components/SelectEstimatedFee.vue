@@ -20,7 +20,7 @@
         :amount="option.transaction.metadata.fee"
       />
       <p v-if="isDisabledFee(option)" class="error-message">
-        {{ $t('not_enough_balance') }}
+        {{ option.transaction.error }}
       </p>
       <p v-if="option.report" class="time">
         {{ getFormatedTime(option) }}
@@ -72,7 +72,7 @@ export default {
       return fee.label === this.selectedFee.label
     },
     isDisabledFee(fee) {
-      return fee.report && !fee.transaction
+      return fee.transaction && fee.transaction.error
     },
     selectFee(fee) {
       if (!this.isDisabledFee(fee)) {
@@ -126,6 +126,8 @@ export default {
     .error-message {
       color: var(--error-color);
       font-size: 12px;
+      justify-self: center;
+      line-height: 1.4;
     }
 
     &.selected {

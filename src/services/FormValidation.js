@@ -38,7 +38,6 @@ export default class FormValidation {
     const validation =
       Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.unit)) >
       this.balance
-    console.log('validation', this.balance, validation)
     if (validation) {
       callback(new Error(i18n.t('not_enough_balance')))
     } else {
