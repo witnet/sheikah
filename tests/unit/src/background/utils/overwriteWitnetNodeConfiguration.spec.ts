@@ -7,11 +7,11 @@ afterEach(() => {
 })
 
 describe('overwriteConfigFile', () => {
-  it('Should overwrite the configuration file according to the parameters given', () => {
+  it('Should overwrite the configuration with a single url according to the parameters given', () => {
     jest.spyOn(fs, 'writeFileSync').mockImplementation()
     jest
       .spyOn(fs, 'readFileSync')
-      .mockImplementation(() => 'node_url = "127.0.0.1:21338"')
+      .mockImplementation(() => 'node_url = "public_node_url3"')
 
     overwriteWitnetNodeConfiguration({
       sheikahPath: 'sheikah_path',
@@ -24,16 +24,16 @@ describe('overwriteConfigFile', () => {
     )
     expect(fs.writeFileSync).toBeCalledWith(
       'sheikah_path/witnet_config_file_name',
-      'node_url = ["public_node_url1","public_node_url2"]\n',
+      `node_url = [\"public_node_url1\",\"public_node_url2\"]`,
     )
   })
 
-  it('Should overwrite the outdated node urls', () => {
+  it('Should overwrite the configuration with several nodes according to the parameters given', () => {
     jest.spyOn(fs, 'writeFileSync').mockImplementation()
     jest
       .spyOn(fs, 'readFileSync')
       .mockImplementation(
-        () => 'node_url = ["52.166.178.145:21338","public_node_url2"]',
+        () => 'node_url = ["public_node_url3","public_node_url4"]',
       )
 
     overwriteWitnetNodeConfiguration({
@@ -47,7 +47,7 @@ describe('overwriteConfigFile', () => {
     )
     expect(fs.writeFileSync).toBeCalledWith(
       'sheikah_path/witnet_config_file_name',
-      'node_url = ["20.126.70.77:21338","public_node_url2"]',
+      `node_url = [\"public_node_url1\",\"public_node_url2\"]`,
     )
   })
 

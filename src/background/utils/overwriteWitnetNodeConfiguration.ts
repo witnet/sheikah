@@ -11,21 +11,22 @@ export function overwriteWitnetNodeConfiguration({
   witnetConfigFileName: string
   publicNodeUrls: Array<string>
 }) {
+  const replacement = `node_url = ${JSON.stringify(publicNodeUrls)}\n`
+    .replace("'", '')
+    .trim()
+  const nodeUrlUntilCharacter = (character: string) =>
+    new RegExp('node_url =([^;]*)' + character)
   try {
     fs.writeFileSync(
       path.join(sheikahPath, witnetConfigFileName),
-
       fs
         .readFileSync(path.join(sheikahPath, witnetConfigFileName))
         .toString()
-        .replace(
-          'node_url = "127.0.0.1:21338"',
-          `node_url = ${JSON.stringify(publicNodeUrls)}\n`.replace("'", ''),
-        )
-        .replace('52.166.178.145:21338', `20.126.70.77:21338`),
+        .replace(nodeUrlUntilCharacter('"'), replacement)
+        .replace(nodeUrlUntilCharacter(']'), replacement),
     )
   } catch (error) {
-    console.log('Error overwriting configuration file')
+    console.log('Error overwriting configuration file', error)
   }
 }
 
