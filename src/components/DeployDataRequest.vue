@@ -11,30 +11,26 @@
   >
     <GeneratedTransaction
       v-if="generatedTransaction"
-      :commit-and-reveal-fee="totalCommitAndRevealFee"
-      :fee="generatedTransaction.fee"
-      :min-consensus-percentage="minConsensusPercentage"
-      :reward-fee="totalRewardFee"
-      :witnesses="witnesses"
-      :timelock="timelock"
       :generated-transaction="generatedTransaction"
       type="DataRequest"
-      @close-clear="goBack('CONFIRM')"
+      @close-clear="closeAndClear"
       @send="confirmDataRequest"
     />
-
-    <CreateDataRequestForm
-      v-else-if="showFillVariablesForm"
-      :back-word="
-        variables.length ? $t('deploy_dr_back') : $t('deploy_dr_cancel')
-      "
-      @go-back="() => goBack('FORM')"
-      @create-dr="createDR"
-    />
     <CompleteVariablesForm
-      v-else
+      v-if="hasVariablesToComplete"
       @go-to-next-step="showCreateDataRequestForm"
-      @go-back="() => goBack('TEMPLATE_VARIABLES')"
+      @go-back="closeAndClear"
+    />
+    <CreateDataRequestForm
+      v-if="!hasVariablesToComplete && !drValues"
+      @go-back="closeAndClear"
+      @set-dr-values="setDrValues"
+    />
+    <SetFee
+      v-if="drValues && !generatedTransaction"
+      :dr-values="drValues"
+      @set-transaction="transaction => setGeneratedTransaction({ transaction })"
+      @go-back="closeAndClear"
     />
   </el-dialog>
 </template>
@@ -42,6 +38,7 @@
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import CreateDataRequestForm from '@/components/CreateDataRequestForm'
+import SetFee from '@/components/SetFee.vue'
 import CompleteVariablesForm from '@/components/CompleteVariablesForm'
 import GeneratedTransaction from '@/components/GeneratedTransaction'
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
@@ -52,6 +49,7 @@ export default {
     CreateDataRequestForm,
     CompleteVariablesForm,
     GeneratedTransaction,
+    SetFee,
   },
   props: {
     template: {
@@ -62,36 +60,11 @@ export default {
 
   data() {
     return {
-      currentTemplate: '',
+      drValues: null,
       variablesUpdated: false,
-      commitAndRevealFee: null,
-      fee: null,
-      minConsensusPercentage: null,
-      rewardFee: null,
-      timelock: null,
-      witnesses: null,
-      collateral: null,
     }
   },
   computed: {
-    title() {
-      if (this.generatedTransaction) {
-        return this.$t('deploy_dr_title_confirm')
-      } else if (this.showFillVariablesForm) {
-        return this.$t('deploy_dr_title_fill_all')
-      } else {
-        return this.$t('deploy_dr_title_add_custom_values')
-      }
-    },
-    totalCommitAndRevealFee() {
-      return this.commitAndRevealFee * this.witnesses * 2
-    },
-    totalRewardFee() {
-      return this.rewardFee * this.witnesses
-    },
-    showFillVariablesForm() {
-      return this.variablesUpdated || !this.variables.length
-    },
     ...mapGetters({
       variables: 'variablesKeys',
     }),
@@ -104,6 +77,26 @@ export default {
       sendTransactionError: state => state.wallet.errors.sendTransaction,
       locale: state => state.wallet.locale,
     }),
+    title() {
+      if (this.generatedTransaction) {
+        return this.$t('deploy_dr_title_confirm')
+      } else if (this.drValues) {
+        return this.$t('set_dr_miner_fee')
+      } else if (!this.hasVariablesToComplete) {
+        return this.$t('deploy_dr_title_fill_all')
+      } else {
+        return this.$t('deploy_dr_title_add_custom_values')
+      }
+    },
+    totalCommitAndRevealFee() {
+      return this.commitAndRevealFee * this.witnesses * 2
+    },
+    totalRewardFee() {
+      return this.rewardFee * this.witnesses
+    },
+    hasVariablesToComplete() {
+      return this.variables.length && !this.variablesUpdated
+    },
   },
   created() {
     this.setCurrentTemplate({
@@ -111,35 +104,43 @@ export default {
       locale: this.locale,
     })
   },
+  beforeDestroy() {
+    if (this.createDataRequestError) {
+      this.clearError({ error: this.createDataRequestError.name })
+    }
+  },
   methods: {
     ...mapMutations({
       clearGeneratedTransaction: 'clearGeneratedTransaction',
       clearError: 'clearError',
       setCurrentTemplate: SET_CURRENT_TEMPLATE,
+      setGeneratedTransaction: 'setGeneratedTransaction',
     }),
     ...mapActions({
       sendTransaction: 'sendTransaction',
       createDataRequest: 'createDataRequest',
     }),
-    goBack(from) {
-      if (from === 'CONFIRM') {
-        this.clearGeneratedTransaction()
-        if (this.sendTransactionError) {
-          this.clearError({ error: this.sendTransactionError.name })
-        }
-        if (this.createDataRequestError) {
-          this.clearError({ error: this.createDataRequestError.name })
-        }
-      } else if (from === 'TEMPLATE_VARIABLES') {
-        this.closeAndClear()
-      } else if (from === 'FORM' && !this.variables.length) {
-        this.closeAndClear()
-      } else {
-        this.variablesUpdated = false
+    setDrValues(form) {
+      this.drValues = {
+        ...form,
+        template: this.template,
       }
+    },
+    clearDrValues() {
+      this.drValues = null
+    },
+    showCreateDataRequestForm() {
+      this.variablesUpdated = true
+    },
+    confirmDataRequest() {
+      this.sendTransaction({ label: '' })
+      this.$emit('close', 'SENT')
     },
     closeAndClear: function () {
       this.$emit('close')
+      if (this.drValues) {
+        this.clearDrValues()
+      }
       if (this.generatedTransaction) {
         this.clearGeneratedTransaction()
       }
@@ -149,34 +150,7 @@ export default {
       if (this.createDataRequestError) {
         this.clearError({ error: this.createDataRequestError.name })
       }
-      this.currentTemplate = ''
-      this.variablesUpdated = false
-      this.commitAndRevealFee = null
-      this.fee = null
-      this.minConsensusPercentage = null
-      this.rewardFee = null
-      this.timelock = null
-      this.witnesses = null
-    },
-    showCreateDataRequestForm() {
-      this.variablesUpdated = true
-    },
-    createDR(parameters) {
-      this.commitAndRevealFee = parameters.commitAndRevealFee
-      this.fee = parameters.fee
-      this.minConsensusPercentage = parameters.minConsensusPercentage
-      this.rewardFee = parameters.rewardFee
-      this.timelock = this.template.radRequest.timelock
-      this.witnesses = parameters.witnesses
-      this.collateral = parameters.collateral
-      this.createDataRequest({
-        parameters: parameters,
-        request: this.template.radRequest,
-      })
-    },
-    confirmDataRequest() {
-      this.sendTransaction({ label: '' })
-      this.$emit('close', 'SENT')
+      this.drValues = null
     },
   },
 }

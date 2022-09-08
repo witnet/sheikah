@@ -38,12 +38,6 @@ describe('CreateDataRequestForm.vue', () => {
       expect(wrapper.find('[data-test="consensus"]').isVisible()).toBe(true)
     })
 
-    it('should render fee-per-weight-unit input', () => {
-      expect(
-        wrapper.find('[data-test="fee-per-weight-unit"]').isVisible(),
-      ).toBe(true)
-    })
-
     it('should render commit-reveal-fee input', () => {
       expect(wrapper.find('[data-test="reward-fee"]').isVisible()).toBe(true)
     })
@@ -95,13 +89,6 @@ describe('CreateDataRequestForm.vue', () => {
       )
     })
 
-    it('should change fee-per-weight-unit input value', () => {
-      wrapper.find('[data-test="fee-per-weight-unit"]').setValue('100')
-      expect(
-        wrapper.find('[data-test="fee-per-weight-unit"]').element.value,
-      ).toEqual('100')
-    })
-
     it('should change reward-fee input value', () => {
       wrapper.find('[data-test="reward-fee"]').setValue('100')
       expect(wrapper.find('[data-test="reward-fee"]').element.value).toEqual(
@@ -114,195 +101,6 @@ describe('CreateDataRequestForm.vue', () => {
       expect(
         wrapper.find('[data-test="commit-reveal-fee"]').element.value,
       ).toEqual('100')
-    })
-  })
-
-  describe('should not allow change wit unit when clicking on the unit append', () => {
-    it('collateral field', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                errors: {
-                  createDataRequest: false,
-                },
-                balance: { total: '100000000000' },
-                unit: 'nanoWit',
-              },
-            },
-          },
-        }),
-      )
-
-      await wrapper.find('[data-test="collateral-append"]').trigger('click')
-
-      expect(wrapper.find('[data-test="collateral-append"]').text()).toBe(`Wit`)
-    })
-
-    it('dr field', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                errors: {
-                  createDataRequest: false,
-                },
-                balance: { total: '100000000000' },
-                unit: 'nanoWit',
-              },
-            },
-          },
-        }),
-      )
-
-      await wrapper
-        .find('[data-test="fee-per-weight-unit-append"]')
-        .trigger('click')
-
-      expect(
-        wrapper.find('[data-test="fee-per-weight-unit-append"]').text(),
-      ).toBe(`nanoWit`)
-    })
-
-    it('fee per weight unit field', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                errors: {
-                  createDataRequest: false,
-                },
-                balance: { total: '100000000000' },
-                unit: 'nanoWit',
-              },
-            },
-          },
-        }),
-      )
-
-      await wrapper
-        .find('[data-test="fee-per-weight-unit-append"]')
-        .trigger('click')
-
-      expect(
-        wrapper.find('[data-test="fee-per-weight-unit-append"]').text(),
-      ).toBe(`nanoWit`)
-    })
-
-    it('fee per weight unit field', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                errors: {
-                  createDataRequest: false,
-                },
-                balance: { total: '100000000000' },
-                unit: 'nanoWit',
-              },
-            },
-          },
-        }),
-      )
-
-      await wrapper
-        .find('[data-test="fee-per-weight-unit-append"]')
-        .trigger('click')
-
-      expect(
-        wrapper.find('[data-test="fee-per-weight-unit-append"]').text(),
-      ).toBe(`nanoWit`)
-    })
-
-    it('reward fee field', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                errors: {
-                  createDataRequest: false,
-                },
-                balance: { total: '100000000000' },
-                unit: 'nanoWit',
-              },
-            },
-          },
-        }),
-      )
-
-      await wrapper.find('[data-test="reward-fee-append"]').trigger('click')
-
-      expect(wrapper.find('[data-test="reward-fee-append"]').text()).toBe(
-        `nanoWit`,
-      )
-    })
-
-    it('commit and reveal fee field', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                errors: {
-                  createDataRequest: false,
-                },
-                balance: { total: '100000000000' },
-                unit: 'nanoWit',
-              },
-            },
-          },
-        }),
-      )
-
-      await wrapper
-        .find('[data-test="commit-reveal-fee-append"]')
-        .trigger('click')
-
-      expect(
-        wrapper.find('[data-test="commit-reveal-fee-append"]').text(),
-      ).toBe(`nanoWit`)
-    })
-  })
-
-  describe('should show an error id there is a problem creating the data request', () => {
-    it('should show the error', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                errors: {
-                  createDataRequest: true,
-                },
-                balance: { total: '400000000000' },
-                unit: 'nanoWit',
-              },
-            },
-          },
-        }),
-      )
-      expect(
-        wrapper.find('[data-test="create-data-request-error"]').isVisible(),
-      ).toBe(true)
     })
   })
 
@@ -331,7 +129,7 @@ describe('CreateDataRequestForm.vue', () => {
         .find('[data-test="create-data-request-submit"]')
         .trigger('click')
 
-      expect(wrapper.emitted()['create-dr']).toBeTruthy()
+      expect(wrapper.emitted()['set-dr-values']).toBeTruthy()
     })
 
     it('should show an error if the input cannot be converted to number', async () => {
@@ -382,9 +180,7 @@ describe('CreateDataRequestForm.vue', () => {
         }),
       )
       wrapper.setData({ rules: getNormalizedFormRules(wrapper) })
-      wrapper
-        .find('[data-test="fee-per-weight-unit"]')
-        .setValue('0.000000000001')
+      wrapper.find('[data-test="commit-reveal-fee"]').setValue('0.000000000001')
       wrapper.find('[data-test="collateral"]').setValue('10000000000')
       await wrapper
         .find('[data-test="create-data-request-submit"]')

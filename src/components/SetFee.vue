@@ -3,14 +3,15 @@
     ref="send-form"
     class="form"
     data-test="tx-form"
-    :model="form"
+    :model="feeValues"
     label-position="left"
     :rules="rules"
     width="max-content"
   >
-    <p class="subtitle">{{ $t('set_miner_fee') }}</p>
     <el-form-item v-if="estimationOptions" prop="estimation">
       <SelectEstimatedFee
+        data-test="select-estimated-fee"
+        :is-dr-tx="!!drValues"
         :selected-fee="selectedFee"
         :estimation-options="estimationOptions"
         :is-custom="customFee"
@@ -20,7 +21,7 @@
     <el-form-item v-if="customFee" prop="fee">
       <el-input
         v-if="customFee"
-        v-model="form.fee"
+        v-model="feeValues.fee"
         type="number"
         tabindex="4"
         data-test="tx-fee"
@@ -31,32 +32,44 @@
     <transition name="slide">
       <div v-if="customFee">
         <el-switch
-          v-model="form.isWeightedFee"
+          v-model="feeValues.isWeightedFee"
+          data-test="fee-type-switch"
           :active-text="$t('weighted_fee')"
           :inactive-text="$t('absolute_fee')"
           class="switch"
         ></el-switch>
       </div>
     </transition>
-    <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
+    <p
+      v-if="customFee && createVTTError"
+      class="error"
+      data-test="create-vtt-error"
+      >{{ createVTTError.message }}</p
+    >
+    <p
+      v-if="customFee && createDataRequestError"
+      class="error"
+      data-test="create-dr-error"
+      >{{ createDataRequestError.message }}</p
+    >
     <div class="submit">
       <el-button
         class="send-btn"
         tabindex="6"
         type="secondary"
-        data-test="cleat-vtt-values"
-        @click="clearVttValues"
+        data-test="cancel"
+        @click="clearValues"
       >
-        {{ $t('back') }}
+        {{ $t('cancel') }}
       </el-button>
       <el-button
         class="send-btn"
         tabindex="7"
         type="primary"
-        data-test="sign-send-btn"
-        @click="tryCreateVTT"
+        data-test="continue"
+        @click="setTransaction"
       >
-        {{ $t('sign_send') }}
+        {{ $t('continue') }}
       </el-button>
     </div>
   </el-form>
@@ -78,7 +91,11 @@ export default {
   props: {
     vttValues: {
       type: Object,
-      required: true,
+      default: null,
+    },
+    drValues: {
+      type: Object,
+      default: null,
     },
   },
   data() {
@@ -97,19 +114,14 @@ export default {
     const isNumber = (rule, value, callback) => {
       return formValidation().isNumber(rule, value, callback)
     }
-
     return {
       customFee: false,
       selectedFee: {},
       WIT_UNIT,
       estimatedTransactions: null,
-      form: {
-        address: this.vttValues.address,
-        label: this.vttValues.label,
-        amount: this.vttValues.amount,
+      feeValues: {
         fee: null,
         isWeightedFee: true,
-        timelock: this.vttValues.timelock,
       },
       rules: {
         fee: [
@@ -130,29 +142,32 @@ export default {
     ...mapState({
       unit: state => state.wallet.unit,
       createVTTError: state => state.wallet.errors.createVTT,
+      createDataRequestError: state => state.wallet.errors.createDataRequest,
       feeEstimationReport: state => state.wallet.feeEstimationReport,
     }),
-    vttEstimationReport() {
+    formatedFeeEstimationReport() {
       if (this.feeEstimationReport) {
+        const { drt_stinky, drt_low, drt_medium, drt_high, drt_opulent } =
+          this.feeEstimationReport.report
         const { vtt_stinky, vtt_low, vtt_medium, vtt_high, vtt_opulent } =
           this.feeEstimationReport.report
         return {
-          stinky: vtt_stinky,
-          low: vtt_low,
-          medium: vtt_medium,
-          high: vtt_high,
-          opulent: vtt_opulent,
+          stinky: this.drValues ? drt_stinky : vtt_stinky,
+          low: this.drValues ? drt_low : vtt_low,
+          medium: this.drValues ? drt_medium : vtt_medium,
+          high: this.drValues ? drt_high : vtt_high,
+          opulent: this.drValues ? drt_opulent : vtt_opulent,
         }
       } else {
         return {}
       }
     },
     estimationOptions() {
-      if (this.estimatedTransactions && this.vttEstimationReport) {
+      if (this.estimatedTransactions && this.formatedFeeEstimationReport) {
         const result = FEE_TRAITS.reduce((acc, trait) => {
           acc.push({
             label: trait,
-            report: this.vttEstimationReport[trait],
+            report: this.formatedFeeEstimationReport[trait],
             transaction: this.estimatedTransactions
               ? this.estimatedTransactions[trait]
               : {},
@@ -165,7 +180,7 @@ export default {
       }
     },
     feeType() {
-      return this.form.isWeightedFee
+      return this.feeValues.isWeightedFee
         ? {
             key: 'weighted',
             text: this.$t('weighted_fee'),
@@ -174,16 +189,6 @@ export default {
             key: 'absolute',
             text: this.$t('absolute_fee'),
           }
-    },
-  },
-  watch: {
-    form: {
-      handler(val) {
-        if (this.createVTTError) {
-          this.clearError({ error: this.createVTTError.name })
-        }
-      },
-      deep: true,
     },
   },
   async mounted() {
@@ -197,18 +202,31 @@ export default {
     }),
     ...mapActions({
       getFeeEstimationReport: 'getFeeEstimationReport',
+      createDataRequest: 'createDataRequest',
       createVTT: 'createVTT',
     }),
     async getEstimatedTransactions() {
       const txRequests = FEE_TRAITS.map(async trait => {
-        const txResult = this.createVTT({
-          ...this.form,
-          fee: this.vttEstimationReport[trait].priority,
-          feeType: this.feeType,
-        })
+        let transaction
+        if (this.drValues) {
+          transaction = this.createDataRequest({
+            parameters: {
+              ...this.drValues,
+              fee: this.formatedFeeEstimationReport[trait].priority,
+              feeType: this.feeType,
+            },
+            request: this.drValues.template.radRequest,
+          })
+        } else {
+          transaction = this.createVTT({
+            ...this.vttValues,
+            fee: this.formatedFeeEstimationReport[trait].priority,
+            feeType: this.feeType,
+          })
+        }
         return {
           label: trait,
-          result: await txResult,
+          result: await transaction,
         }
       })
       Promise.all(txRequests).then(result => {
@@ -220,31 +238,54 @@ export default {
     },
     setFee(fee) {
       this.selectedFee = fee
-      this.form.fee = fee.transaction ? fee.transaction.metadata.fee : 1
+      if (this.drValues) {
+        this.feeValues.fee = fee.transaction ? fee.transaction.fee : 1
+      } else {
+        this.feeValues.fee = fee.transaction ? fee.transaction.metadata.fee : 1
+      }
       this.customFee = fee.label === 'custom'
     },
-    clearVttValues() {
+    clearValues() {
       if (this.createVTTError) {
         this.clearError({ error: this.createVTTError.name })
       }
-      this.$emit('clear-vtt-values')
+      if (this.createDataRequestError) {
+        this.clearError({ error: this.createDataRequestError.name })
+      }
+      this.$emit('go-back')
     },
-    async tryCreateVTT() {
+    async setTransaction() {
       this.$refs['send-form'].validate(async valid => {
-        if (valid && !this.createVTTError) {
-          this.$emit(
-            'create-vtt',
-            this.selectedFee.transaction
-              ? this.selectedFee.transaction
-              : await this.createVTT({
-                  label: this.form.label,
-                  address: this.form.address,
-                  amount: this.form.amount,
-                  fee: this.form.fee,
-                  feeType: this.feeType,
-                  timelock: this.form.timelock,
-                }),
-          )
+        if (valid && !this.createVTTError && !this.createDataRequestError) {
+          if (this.drValues) {
+            this.$emit(
+              'set-transaction',
+              this.selectedFee.transaction
+                ? this.selectedFee.transaction
+                : await this.createDataRequest({
+                    parameters: {
+                      ...this.drValues,
+                      fee: this.feeValues.fee,
+                      feeType: this.feeType,
+                    },
+                    request: this.drValues.template.radRequest,
+                  }),
+            )
+          } else {
+            this.$emit(
+              'set-transaction',
+              this.selectedFee.transaction
+                ? this.selectedFee.transaction
+                : await this.createVTT({
+                    label: this.vttValues.label,
+                    address: this.vttValues.address,
+                    amount: this.vttValues.amount,
+                    fee: this.feeValues.fee,
+                    feeType: this.feeType,
+                    timelock: this.vttValues.timelock,
+                  }),
+            )
+          }
         }
       })
     },

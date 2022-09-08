@@ -13,11 +13,11 @@
     </el-form-item>
 
     <el-form-item :label="$t('collateral')" prop="collateral">
-      <el-input v-model="form.collateral" data-test="collateral" type="number">
+      <el-input v-model="form.collateral" data-test="collateral">
         <AppendUnit
           slot="append"
-          :static-unit="WIT_UNIT.WIT"
           data-test="collateral-append"
+          @change-unit="changeUnit"
         />
       </el-input>
     </el-form-item>
@@ -32,35 +32,12 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item prop="fee">
-      <div slot="label">
-        {{ feeType.text }}
-        <el-tooltip trigger="hover" effect="light">
-          <font-awesome-icon class="info" icon="info-circle" />
-          <div slot="content" class="info-message">
-            {{ $t('fee_info') }}
-          </div>
-        </el-tooltip>
-      </div>
-      <el-input
-        v-model="form.fee"
-        data-test="fee-per-weight-unit"
-        type="number"
-      >
-        <AppendUnit
-          slot="append"
-          :static-unit="WIT_UNIT.NANO"
-          data-test="fee-per-weight-unit-append"
-        />
-      </el-input>
-    </el-form-item>
-
     <el-form-item :label="$t('reward_fee')" prop="rewardFee">
-      <el-input v-model="form.rewardFee" data-test="reward-fee" type="number">
+      <el-input v-model="form.rewardFee" data-test="reward-fee">
         <AppendUnit
           slot="append"
           data-test="reward-fee-append"
-          :static-unit="WIT_UNIT.NANO"
+          @change-unit="changeUnit"
         />
       </el-input>
     </el-form-item>
@@ -73,20 +50,10 @@
         <AppendUnit
           slot="append"
           data-test="commit-reveal-fee-append"
-          :static-unit="WIT_UNIT.NANO"
+          @change-unit="changeUnit"
         />
       </el-input>
     </el-form-item>
-    <transition name="slide">
-      <div v-if="isAdvancedVisible">
-        <el-switch
-          v-model="form.isWeightedFee"
-          :active-text="$t('weighted_fee')"
-          :inactive-text="$t('absolute_fee')"
-          class="switch"
-        ></el-switch>
-      </div>
-    </transition>
     <p
       v-if="createDataRequestError"
       data-test="create-data-request-error"
@@ -94,21 +61,8 @@
       >{{ createDataRequestError.message }}</p
     >
     <div class="submit">
-      <el-button
-        v-if="isAdvancedVisible"
-        type="text"
-        class="link"
-        @click="toggleAdvanceOptions"
-      >
-        {{ $t('show_less') }}
-        <CustomIcon class-name="icon" name="close" />
-      </el-button>
-      <el-button v-else class="link" type="text" @click="toggleAdvanceOptions">
-        {{ $t('show_advance') }}
-        <CustomIcon class-name="icon" name="open" />
-      </el-button>
       <div class="buttons-container">
-        <el-button @click="goBack">{{ backWord }}</el-button>
+        <el-button @click="goBack">{{ $t('cancel') }}</el-button>
         <el-button
           data-test="create-data-request-submit"
           type="primary"
@@ -124,94 +78,45 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
+import { standardizeWitUnits } from '@/utils'
 import AppendUnit from '@/components/AppendUnit'
 import { WIT_UNIT } from '@/constants'
-import CustomIcon from '@/components/CustomIcon'
+import FormValidation from '@/services/FormValidation'
 
 export default {
   name: 'CreateDataRequestForm',
   components: {
     AppendUnit,
-    CustomIcon,
-  },
-  props: {
-    backWord: {
-      type: String,
-      default: '',
-    },
   },
   data() {
+    const formValidation = () =>
+      new FormValidation({ unit: this.unit, balance: this.availableBalance })
+
+    const isGrtThanBalance = (rule, value, callback) => {
+      return formValidation().isGrtThanBalance(rule, value, callback)
+    }
     const maxNumber = (rule, value, callback) => {
-      if (isGrtMaxNumber(value, this.unit)) {
-        callback(new Error(this.$t('create_dr_form_error_max_number')))
-      } else {
-        callback()
-      }
+      return formValidation().maxNumber(rule, value, callback)
     }
-
     const integerNanoWit = (rule, value, callback) => {
-      const isNanoWit = this.unit === WIT_UNIT.NANO
-      if (isNanoWit && !Number.isInteger(Number(value))) {
-        callback(new Error(this.$t('create_dr_form_error_integer_nanowit')))
-      } else {
-        callback()
-      }
+      return formValidation().integerNanoWit(rule, value, callback)
     }
-
-    const minConsensusPercentage = (rule, value, callback) => {
-      if (value < 51) {
-        callback(
-          new Error(this.$t('create_dr_form_error_min_consensus_percentage')),
-        )
-      } else {
-        callback()
-      }
-    }
-
-    const maxConsensusPercentage = (rule, value, callback) => {
-      if (value > 100) {
-        callback(
-          new Error(this.$t('create_dr_form_error_max_consensus_percentage')),
-        )
-      } else {
-        callback()
-      }
-    }
-
-    const minCollateralAmount = (rule, value, callback) => {
-      const isLessThanMin =
-        Number(standardizeWitUnits(value, WIT_UNIT.WIT, WIT_UNIT.WIT)) < 1
-      if (isLessThanMin) {
-        callback(new Error(this.$t('create_dr_form_error_min_collateral')))
-      } else {
-        callback()
-      }
-    }
-
     const minAmount = (rule, value, callback) => {
-      const isNanoWit = this.unit === WIT_UNIT.NANO
-      if (isNanoWit && value < 1) {
-        callback(new Error(this.$t('create_dr_form_error_min_fee')))
-      } else {
-        callback()
-      }
+      return formValidation().minAmount(rule, value, callback)
     }
-
     const isNumber = (rule, value, callback) => {
-      if (!Number(value)) {
-        callback(new Error(this.$t('create_dr_form_error_is_number')))
-      } else {
-        callback()
-      }
+      return formValidation().isNumber(rule, value, callback)
     }
-
+    const minConsensusPercentage = (rule, value, callback) => {
+      return formValidation().minConsensusPercentage(rule, value, callback)
+    }
+    const maxConsensusPercentage = (rule, value, callback) => {
+      return formValidation().maxConsensusPercentage(rule, value, callback)
+    }
+    const minCollateralAmount = (rule, value, callback) => {
+      return formValidation().minCollateralAmount(rule, value, callback)
+    }
     return {
-      units: {
-        [`${WIT_UNIT.WIT}`]: 9,
-        [`${WIT_UNIT.MICRO}`]: 3,
-        [`${WIT_UNIT.NANO}`]: 0,
-      },
       WIT_UNIT,
       isAdvancedVisible: false,
       form: {
@@ -224,6 +129,11 @@ export default {
         witnesses: '3',
         collateral: '1',
       },
+      formValuesToStandardize: [
+        { key: 'collateral', unit: WIT_UNIT.WIT },
+        { key: 'rewardFee', unit: WIT_UNIT.NANO },
+        { key: 'commitAndRevealFee', unit: WIT_UNIT.NANO },
+      ],
       rules: {
         commitAndRevealFee: [
           {
@@ -232,9 +142,10 @@ export default {
             trigger: 'blur',
           },
           { validator: isNumber, trigger: 'blur' },
+          { validator: maxNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
-          { validator: maxNumber, trigger: 'blur' },
+          { validator: isGrtThanBalance, trigger: 'blur' },
         ],
         collateral: [
           {
@@ -245,6 +156,7 @@ export default {
           { validator: isNumber, trigger: 'blur' },
           { validator: minCollateralAmount, trigger: 'submit' },
           { validator: maxNumber, trigger: 'blur' },
+          { validator: isGrtThanBalance, trigger: 'blur' },
         ],
         dataRequest: [
           {
@@ -255,23 +167,13 @@ export default {
           { validator: isNumber, trigger: 'blur' },
           { validator: maxNumber, trigger: 'blur' },
         ],
-        fee: [
-          {
-            required: true,
-            message: this.$t('create_dr_form_error_required_field'),
-            trigger: 'blur',
-          },
-          { validator: isNumber, trigger: 'blur' },
-          { validator: minAmount, trigger: 'submit' },
-          { validator: integerNanoWit, trigger: 'submit' },
-          { validator: maxNumber, trigger: 'blur' },
-        ],
         minConsensusPercentage: [
           {
             required: true,
             message: this.$t('create_dr_form_error_required_field'),
             trigger: 'blur',
           },
+          { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: minConsensusPercentage, trigger: 'blur' },
           { validator: maxConsensusPercentage, trigger: 'blur' },
@@ -283,6 +185,7 @@ export default {
             message: this.$t('create_dr_form_error_required_field'),
             trigger: 'blur',
           },
+          { validator: isGrtThanBalance, trigger: 'blur' },
           { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
           { validator: integerNanoWit, trigger: 'submit' },
@@ -304,7 +207,7 @@ export default {
     ...mapState({
       availableBalance: state => {
         // TODO: change for available when wallet returns it
-        return state.wallet.balance.total
+        return state.wallet.balance.available
       },
       unit: state => state.wallet.unit,
       createDataRequestError: state => state.wallet.errors.createDataRequest,
@@ -333,21 +236,15 @@ export default {
       },
       deep: true,
     },
-    unit(inputUnit, outputUnit) {
-      this.form = {
-        backupWitnesses: this.form.backupWitnesses,
-        commitAndRevealFee: this.form.commitAndRevealFee,
-        dataRequest: this.form.dataRequest,
-        extraCommitRounds: this.form.extraCommitRounds,
-        extraRevealRounds: this.form.extraRevealRounds,
-        fee: this.form.fee,
-        isWeightedFee: this.form.isWeightedFee,
-        minConsensusPercentage: this.form.minConsensusPercentage,
-        rewardFee: this.form.rewardFee,
-        witnesses: this.form.witnesses,
-        collateral: this.form.collateral,
-      }
-    },
+  },
+  created() {
+    this.formValuesToStandardize.forEach(value => {
+      this.form[value.key] = standardizeWitUnits(
+        1,
+        this.unit,
+        value.unit,
+      ).toString()
+    })
   },
   methods: {
     standardizeWitUnits,
@@ -355,6 +252,25 @@ export default {
       clearError: 'clearError',
       setError: 'setError',
     }),
+    changeUnit(prevUnit, newUnit) {
+      this.form = {
+        ...this.form,
+        commitAndRevealFee: this.form.commitAndRevealFee
+          ? standardizeWitUnits(
+              this.form.commitAndRevealFee,
+              newUnit,
+              prevUnit,
+              2,
+            )
+          : null,
+        rewardFee: this.form.rewardFee
+          ? standardizeWitUnits(this.form.rewardFee, newUnit, prevUnit, 2)
+          : null,
+        collateral: this.form.collateral
+          ? standardizeWitUnits(this.form.collateral, newUnit, prevUnit, 2)
+          : null,
+      }
+    },
     toggleAdvanceOptions() {
       this.isAdvancedVisible = !this.isAdvancedVisible
     },
@@ -364,7 +280,7 @@ export default {
     createDataRequest() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          this.$emit('create-dr', {
+          this.$emit('set-dr-values', {
             ...this.form,
             feeType: this.feeType.key,
           })

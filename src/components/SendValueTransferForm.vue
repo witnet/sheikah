@@ -76,7 +76,7 @@
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import AppendUnit from '@/components/AppendUnit'
-import { standardizeWitUnits, isGrtMaxNumber } from '@/utils'
+import { standardizeWitUnits } from '@/utils'
 import FormValidation from '@/services/FormValidation'
 import { WIT_UNIT } from '@/constants'
 import CustomIcon from '@/components/CustomIcon'

@@ -719,26 +719,25 @@ export default {
           collateral: standardizeWitUnits(
             parameters.collateral,
             WIT_UNIT.NANO,
-            WIT_UNIT.WIT,
+            context.state.unit,
           ),
           witness_reward: standardizeWitUnits(
             parameters.rewardFee,
             WIT_UNIT.NANO,
+            context.state.unit,
           ),
           witnesses: parameters.witnesses,
           commit_and_reveal_fee: standardizeWitUnits(
             parameters.commitAndRevealFee,
             WIT_UNIT.NANO,
+            context.state.unit,
           ),
           min_consensus_percentage: parameters.minConsensusPercentage,
         },
       }
       const req = await context.state.api.createDataRequest(data)
       if (req.result) {
-        const generatedTransaction = req.result
-        context.commit('setGeneratedTransaction', {
-          transaction: generatedTransaction,
-        })
+        return req.result
       } else {
         let error = i18n.t('dr_error')
         if (req.error.data && req.error.data[0]) {
@@ -778,6 +777,7 @@ export default {
           error: req.error.message,
           message: error,
         })
+        return { error }
       }
     },
     createVTT: async function (

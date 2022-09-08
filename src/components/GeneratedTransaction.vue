@@ -22,15 +22,15 @@
       </div>
       <div v-else class="info">
         <p class="entry">{{ $t('witnesses') }}</p>
-        <p class="value">{{ witnesses }}</p>
+        <p class="value">{{ drOutput.witnesses }}</p>
         <p class="entry">{{ $t('min_consensus_percentage') }}</p>
-        <p class="value">{{ minConsensusPercentage }}</p>
+        <p class="value">{{ drOutput.min_consensus_percentage }}</p>
         <p class="entry">{{ $t('data_request_fee') }}</p>
-        <Amount class="amount" :amount="fee" />
+        <Amount class="amount" :amount="drFee" />
         <p class="entry">{{ $t('reward_fee') }}</p>
-        <Amount class="amount" :amount="rewardFee" />
+        <Amount class="amount" :amount="drOutput.witness_reward" />
         <p class="entry">{{ $t('commit_reveal_fee') }}</p>
-        <Amount class="amount" :amount="commitAndRevealFee" />
+        <Amount class="amount" :amount="drOutput.commit_and_reveal_fee" />
         <p class="entry">{{ $t('inputs') }}</p>
         <div data-test="advance-options" class="value-transfer">
           <div
@@ -127,30 +127,6 @@ export default {
       type: String,
       default: null,
     },
-    commitAndRevealFee: {
-      type: [Number, String],
-      default: null,
-    },
-    fee: {
-      type: [Number, String],
-      default: null,
-    },
-    minConsensusPercentage: {
-      type: [Number, String],
-      default: null,
-    },
-    rewardFee: {
-      type: [Number, String],
-      default: null,
-    },
-    witnesses: {
-      type: [Number, String],
-      default: null,
-    },
-    timelock: {
-      type: [Number, String],
-      default: null,
-    },
   },
   data() {
     return {
@@ -161,6 +137,12 @@ export default {
     ...mapState({
       unit: state => state.wallet.unit,
     }),
+    drOutput() {
+      return this.generatedTransaction.transaction.DataRequest.body.dr_output
+    },
+    drFee() {
+      return this.generatedTransaction.fee
+    },
   },
   methods: {
     closeAndClear() {

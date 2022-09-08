@@ -339,8 +339,8 @@
   "json_error": "Headers field should be a valid JSON",
   "create_dr_form_error_max_number": "Este número es mayor que el máximo permitido",
   "create_dr_form_error_integer_nanowit": "Sólo están permitidos valores de nanoWits enteros",
-  "create_dr_form_error_min_consensus_percentage": "El porcentaje de consenso mínimo no puede ser inferior a 51",
-  "create_dr_form_error_max_consensus_percentage": "El porcentaje de consenso mínimo no puede ser superior a 100",
+  "create_dr_form_error_min_consensus_percentage": "El porcentaje de consenso mínimo es 51",
+  "create_dr_form_error_max_consensus_percentage": "El porcentaje de consenso máximo es 100",
   "create_dr_form_error_min_collateral": "El colateral no puede ser inferior a 1 wit",
   "create_dr_form_error_min_fee": "La tasa mínima no puede ser inferior a 1 nanoWit",
   "create_dr_form_error_is_number": "Esto debería ser un número",
@@ -419,8 +419,11 @@
   "fee_info": "Por defecto, la tasa se calcula teniendo el cuenta el peso de la transacción. Para poder enviar una transacción con tasa absoluta selecciona 'Tasa absoluta' en el switch que aparece debajo.",
   "weighted_fee": "Tasa por unidad de peso",
   "absolute_fee": "Tasa absoluta",
-  "get_estimation_error_message": "Error al generar la estimación de las fees",
+  "set_vtt_miner_fee": "Selecciona la tasa para la transacción",
+  "set_dr_miner_fee": "Selecciona la tasa para la transacción de la Data Request",
+  "get_estimation_error_message": "Error al generar la estimación de las tasas",
   "around": "Sobre",
   "up_to": "Hasta",
-  "less_than": "Menos de"
+  "less_than": "Menos de",
+  "confirm_vtt_tx": "Confirma la transacción"
 }

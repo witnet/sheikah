@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="$t('create_vtt_title')"
+    :title="title"
     :visible="true"
     :show-close="true"
     :close-on-click-modal="false"
@@ -14,11 +14,11 @@
       @close-clear="closeAndClear"
       @send="confirmTransaction"
     />
-    <SetValueTransferFee
+    <SetFee
       v-else-if="vttValues"
       :vtt-values="vttValues"
-      @create-vtt="transaction => setGeneratedTransaction({ transaction })"
-      @clear-vtt-values="clearVttValues"
+      @set-transaction="transaction => setGeneratedTransaction({ transaction })"
+      @go-back="clearVttValues"
     />
     <SendValueTransferForm v-else @set-vtt-values="setVttValues" />
   </el-dialog>
@@ -28,14 +28,14 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import GeneratedTransaction from '@/components/GeneratedTransaction.vue'
 import SendValueTransferForm from '@/components/SendValueTransferForm.vue'
-import SetValueTransferFee from '@/components/SetValueTransferFee.vue'
+import SetFee from '@/components/SetFee.vue'
 
 export default {
   name: 'SendValueTransfer',
   components: {
     GeneratedTransaction,
     SendValueTransferForm,
-    SetValueTransferFee,
+    SetFee,
   },
   data() {
     return {
@@ -51,6 +51,20 @@ export default {
       unit: state => state.wallet.unit,
       createVTTError: state => state.wallet.errors.createVTT,
     }),
+    title() {
+      if (this.generatedTransaction) {
+        return this.$t('confirm_vtt_tx')
+      } else if (this.vttValues) {
+        return this.$t('set_vtt_miner_fee')
+      } else {
+        return this.$t('create_vtt_title')
+      }
+    },
+  },
+  beforeDestroy() {
+    if (this.createVTTError) {
+      this.clearError({ error: this.createVTTError.name })
+    }
   },
   methods: {
     ...mapMutations({

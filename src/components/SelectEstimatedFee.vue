@@ -8,16 +8,19 @@
         selected: isSelectedFee(option),
         disabled: isDisabledFee(option),
       }"
+      :data-test="`option-fee`"
       @click="selectFee(option)"
     >
       <p class="label capitalize">{{ option.label }}</p>
       <Amount
-        v-if="option.transaction && option.transaction.metadata"
+        v-if="option.transaction && !option.transaction.error"
         class="priority"
         data-test="fee"
         :unit-dark="true"
         :disable-change="true"
-        :amount="option.transaction.metadata.fee"
+        :amount="
+          isDrTx ? option.transaction.fee : option.transaction.metadata.fee
+        "
       />
       <p v-if="isDisabledFee(option)" class="error-message">
         {{ option.transaction.error }}
@@ -40,6 +43,10 @@ export default {
     Amount,
   },
   props: {
+    isDrTx: {
+      type: Boolean,
+      required: true,
+    },
     estimationOptions: {
       type: Array,
       required: true,
@@ -62,6 +69,7 @@ export default {
   methods: {
     getTimeFromBlock,
     getFormatedTime(option) {
+      console.log('selectEstimatedFee')
       const key = Object.keys(option.report.time_to_block)[0]
       return `${this.$t(convertToSnakeCase(key))} ${getTimeFromBlock(
         Object.values(option.report.time_to_block)[0],
