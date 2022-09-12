@@ -143,9 +143,14 @@ export default {
       unit: state => state.wallet.unit,
       createVTTError: state => state.wallet.errors.createVTT,
       createDataRequestError: state => state.wallet.errors.createDataRequest,
+      feeEstimationReportError: state =>
+        state.wallet.errors.getFeeEstimationReport,
       feeEstimationReport: state => state.wallet.feeEstimationReport,
     }),
     formatedFeeEstimationReport() {
+      if (this.feeEstimationReportError) {
+        this.clearValues()
+      }
       if (this.feeEstimationReport) {
         const { drt_stinky, drt_low, drt_medium, drt_high, drt_opulent } =
           this.feeEstimationReport.report
@@ -209,7 +214,7 @@ export default {
       const txRequests = FEE_TRAITS.map(async trait => {
         let transaction
         if (this.drValues) {
-          transaction = this.createDataRequest({
+          transaction = await this.createDataRequest({
             parameters: {
               ...this.drValues,
               fee: this.formatedFeeEstimationReport[trait].priority,
@@ -218,11 +223,23 @@ export default {
             request: this.drValues.template.radRequest,
           })
         } else {
-          transaction = this.createVTT({
+          transaction = await this.createVTT({
             ...this.vttValues,
             fee: this.formatedFeeEstimationReport[trait].priority,
             feeType: this.feeType,
           })
+        }
+        if (
+          this.createDataRequestError &&
+          this.createDataRequestError.error !== 'Validation Error'
+        ) {
+          this.clearValues()
+        }
+        if (
+          this.createVTTError &&
+          this.createVTTError.error !== 'Validation Error'
+        ) {
+          this.clearValues()
         }
         return {
           label: trait,

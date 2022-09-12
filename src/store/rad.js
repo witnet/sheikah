@@ -401,7 +401,16 @@ export default {
     },
     [SET_CURRENT_TEMPLATE](state, { id, locale }) {
       this.autoTry = false
-      const template = state.templates[id]
+      let template = state.templates[id]
+      // Allow old templates compatibility with new radon js versions
+      template.radRequest.retrieve = template.radRequest.retrieve.map(
+        source => {
+          return {
+            ...source,
+            kind: source.kind ? source.kind : source.kindOptions[0],
+          }
+        },
+      )
       state.currentTemplate = template
       state.currentRadonMarkupInterpreter = new Radon(
         template.radRequest,

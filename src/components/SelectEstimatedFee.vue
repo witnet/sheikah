@@ -69,7 +69,6 @@ export default {
   methods: {
     getTimeFromBlock,
     getFormatedTime(option) {
-      console.log('selectEstimatedFee')
       const key = Object.keys(option.report.time_to_block)[0]
       return `${this.$t(convertToSnakeCase(key))} ${getTimeFromBlock(
         Object.values(option.report.time_to_block)[0],
