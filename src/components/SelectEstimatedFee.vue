@@ -26,7 +26,7 @@
         {{ option.transaction.error }}
       </p>
       <p v-if="option.report" class="time">
-        {{ getFormatedTime(option) }}
+        {{ getTimeDuration(option.report.time_to_block, locale) }}
       </p>
     </div>
   </div>
@@ -35,7 +35,7 @@
 <script>
 import { mapState } from 'vuex'
 import Amount from '@/components/Amount.vue'
-import { getTimeFromBlock, convertToSnakeCase } from '@/utils'
+import { getTimeDuration } from '@/utils'
 
 export default {
   name: 'SelectEstimatedFee',
@@ -67,14 +67,7 @@ export default {
     },
   },
   methods: {
-    getTimeFromBlock,
-    getFormatedTime(option) {
-      const key = Object.keys(option.report.time_to_block)[0]
-      return `${this.$t(convertToSnakeCase(key))} ${getTimeFromBlock(
-        Object.values(option.report.time_to_block)[0],
-        this.locale,
-      )}`
-    },
+    getTimeDuration,
     isSelectedFee(fee) {
       return fee.label === this.selectedFee.label
     },

@@ -48,11 +48,11 @@ export function isGrtMaxNumber(value, unit) {
 }
 
 // calculate formated time per block
-export function getTimeFromBlock(block, currentLocale) {
+export function getTimeDuration(seconds, currentLocale) {
   return formatDuration(
     intervalToDuration({
       start: 0,
-      end: block * SECONDS_TO_NEXT_BLOCK * 1000,
+      end: seconds * 1000,
     }),
     {
       locale: LANGUAGES[currentLocale].fnsLocale,

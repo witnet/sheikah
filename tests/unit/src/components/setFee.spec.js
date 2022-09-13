@@ -1,69 +1,18 @@
 import SetFee from '@/components/SetFee'
+
 const FEE_ESTIMATION_REPORT_MOCK = {
-  jsonrpc: '2.0',
   report: {
-    drt_high: {
-      priority: 1275,
-      time_to_block: {
-        Around: 4,
-      },
-    },
-    drt_low: {
-      priority: 766,
-      time_to_block: {
-        Around: 4,
-      },
-    },
-    drt_medium: {
-      priority: 1005,
-      time_to_block: {
-        Around: 4,
-      },
-    },
-    drt_opulent: {
-      priority: 6922,
-      time_to_block: {
-        LessThan: 2,
-      },
-    },
-    drt_stinky: {
-      priority: 0,
-      time_to_block: {
-        UpTo: 496,
-      },
-    },
-    vtt_high: {
-      priority: 9153,
-      time_to_block: {
-        Around: 2,
-      },
-    },
-    vtt_low: {
-      priority: 6765,
-      time_to_block: {
-        Around: 2,
-      },
-    },
-    vtt_medium: {
-      priority: 7959,
-      time_to_block: {
-        Around: 2,
-      },
-    },
-    vtt_opulent: {
-      priority: 11000,
-      time_to_block: {
-        LessThan: 2,
-      },
-    },
-    vtt_stinky: {
-      priority: 0,
-      time_to_block: {
-        UpTo: 496,
-      },
-    },
+    drt_high: { priority: 0.4, time_to_block: 300 },
+    drt_low: { priority: 0.2, time_to_block: 3600 },
+    drt_medium: { priority: 0.3, time_to_block: 900 },
+    drt_opulent: { priority: 0.5, time_to_block: 60 },
+    drt_stinky: { priority: 0.1, time_to_block: 21600 },
+    vtt_high: { priority: 0.4, time_to_block: 300 },
+    vtt_low: { priority: 0.2, time_to_block: 3600 },
+    vtt_medium: { priority: 0.3, time_to_block: 900 },
+    vtt_opulent: { priority: 0.5, time_to_block: 60 },
+    vtt_stinky: { priority: 0.1, time_to_block: 21600 },
   },
-  id: '1',
 }
 const DR_VALUES_MOCK = {
   commitAndRevealFee: '0.000000001',
@@ -559,7 +508,7 @@ describe('SetFee.vue', () => {
       })
       await nextTick()
       expect(createDataRequestMock).toHaveBeenCalled()
-      await nextTick()
+      await sleep(1000)
       expect(wrapper.emitted()['go-back']).toBeTruthy()
     })
   })

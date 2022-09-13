@@ -712,7 +712,7 @@ export default {
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
         label,
-        fee: standardizeWitUnits(parameters.fee, WIT_UNIT.NANO),
+        fee: `${parseInt(standardizeWitUnits(parameters.fee, WIT_UNIT.NANO))}`,
         fee_type: parameters.feeType.key,
         request: {
           data_request: encodeDataRequest(request),
@@ -800,7 +800,7 @@ export default {
           },
         ],
         fee_type: feeType.key,
-        fee: standardizeWitUnits(fee, WIT_UNIT.NANO),
+        fee: `${parseInt(standardizeWitUnits(fee, WIT_UNIT.NANO))}`,
         label,
       })
       if (request.result) {

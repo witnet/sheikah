@@ -213,7 +213,7 @@ export default {
     async getEstimatedTransactions() {
       const txRequests = FEE_TRAITS.map(async trait => {
         let transaction
-        if (this.drValues) {
+        if (this.drValues && this.formatedFeeEstimationReport[trait]) {
           transaction = await this.createDataRequest({
             parameters: {
               ...this.drValues,
@@ -222,7 +222,8 @@ export default {
             },
             request: this.drValues.template.radRequest,
           })
-        } else {
+        }
+        if (this.vttValues && this.formatedFeeEstimationReport[trait]) {
           transaction = await this.createVTT({
             ...this.vttValues,
             fee: this.formatedFeeEstimationReport[trait].priority,
