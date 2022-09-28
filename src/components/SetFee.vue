@@ -40,18 +40,9 @@
         ></el-switch>
       </div>
     </transition>
-    <p
-      v-if="customFee && createVTTError"
-      class="error"
-      data-test="create-vtt-error"
-      >{{ createVTTError.message }}</p
-    >
-    <p
-      v-if="customFee && createDataRequestError"
-      class="error"
-      data-test="create-dr-error"
-      >{{ createDataRequestError.message }}</p
-    >
+    <p v-if="customFeeError" class="error" data-test="create-dr-error">{{
+      customFeeError
+    }}</p>
     <div class="submit">
       <el-button
         class="send-btn"
@@ -116,6 +107,8 @@ export default {
     return {
       customFee: false,
       selectedFee: {},
+      transactionToSend: null,
+      customFeeError: null,
       WIT_UNIT,
       estimatedTransactions: null,
       feeValues: {
@@ -147,9 +140,6 @@ export default {
       feeEstimationReport: state => state.wallet.feeEstimationReport,
     }),
     formatedFeeEstimationReport() {
-      if (this.feeEstimationReportError) {
-        this.clearValues()
-      }
       if (this.feeEstimationReport) {
         const { drt_stinky, drt_low, drt_medium, drt_high, drt_opulent } =
           this.feeEstimationReport.report
@@ -169,16 +159,29 @@ export default {
     estimationOptions() {
       if (this.estimatedTransactions && this.formatedFeeEstimationReport) {
         const result = FEE_TIERS.reduce((acc, tier) => {
+          const transactionResult = this.estimatedTransactions
+            ? this.estimatedTransactions[tier]
+            : {}
+          const estimationError = {
+            error: this.feeEstimationReportError?.message,
+          }
           acc.push({
             label: tier,
             report: this.formatedFeeEstimationReport[tier],
-            transaction: this.estimatedTransactions
-              ? this.estimatedTransactions[tier]
-              : {},
+            transaction: this.feeEstimationReportError
+              ? estimationError
+              : transactionResult,
           })
           return acc
         }, [])
-        return [...result, { label: 'custom' }]
+        const customOption = { label: 'custom' }
+        const estimatedOptions = [...result, customOption]
+        if (this.feeEstimationReportError) {
+          this.setFee(customOption)
+        } else {
+          this.setFee(estimatedOptions[0])
+        }
+        return estimatedOptions
       } else {
         return []
       }
@@ -193,6 +196,17 @@ export default {
             key: 'absolute',
             text: this.$t('absolute_fee'),
           }
+    },
+  },
+  watch: {
+    feeValues: {
+      handler: function () {
+        this.clearErrors()
+        if (this.customFee) {
+          this.customFeeError = null
+        }
+      },
+      deep: true,
     },
   },
   async mounted() {
@@ -244,55 +258,62 @@ export default {
         )
       })
     },
+    async customVttTransaction() {
+      return await this.createVTT({
+        label: this.vttValues.label,
+        address: this.vttValues.address,
+        amount: this.vttValues.amount,
+        fee: this.feeValues.fee,
+        feeType: this.feeType,
+        timelock: this.vttValues.timelock,
+      })
+    },
+    async customDrTransaction() {
+      return await this.createDataRequest({
+        parameters: {
+          ...this.drValues,
+          fee: this.feeValues.fee,
+          feeType: this.feeType,
+        },
+        request: this.drValues.template.radRequest,
+      })
+    },
     setFee(fee) {
       this.selectedFee = fee
-      if (this.drValues) {
+      const anyError = this.feeEstimationReportError || fee.transaction?.error
+      if (!anyError && this.drValues) {
         this.feeValues.fee = fee.transaction ? fee.transaction.fee : 1
-      } else {
+      } else if (!anyError && this.vttValues) {
         this.feeValues.fee = fee.transaction ? fee.transaction.metadata.fee : 1
       }
       this.customFee = fee.label === 'custom'
     },
-    clearValues() {
+    clearErrors() {
       if (this.createVTTError) {
         this.clearError({ error: this.createVTTError.name })
       } else if (this.createDataRequestError) {
         this.clearError({ error: this.createDataRequestError.name })
       }
+    },
+    clearValues() {
+      this.clearErrors()
       this.$emit('go-back')
     },
     async setTransaction() {
       this.$refs['send-form'].validate(async valid => {
-        if (valid && !this.createVTTError && !this.createDataRequestError) {
-          if (this.drValues) {
-            this.$emit(
-              'set-transaction',
-              this.selectedFee.transaction
-                ? this.selectedFee.transaction
-                : await this.createDataRequest({
-                    parameters: {
-                      ...this.drValues,
-                      fee: this.feeValues.fee,
-                      feeType: this.feeType,
-                    },
-                    request: this.drValues.template.radRequest,
-                  }),
-            )
-          } else {
-            this.$emit(
-              'set-transaction',
-              this.selectedFee.transaction
-                ? this.selectedFee.transaction
-                : await this.createVTT({
-                    label: this.vttValues.label,
-                    address: this.vttValues.address,
-                    amount: this.vttValues.amount,
-                    fee: this.feeValues.fee,
-                    feeType: this.feeType,
-                    timelock: this.vttValues.timelock,
-                  }),
-            )
-          }
+        const selectedTransaction = this.selectedFee?.transaction
+        if (selectedTransaction) {
+          this.transactionToSend = selectedTransaction
+        } else if (this.vttValues) {
+          this.transactionToSend = await this.customVttTransaction()
+        } else if (this.drValues) {
+          this.transactionToSend = await this.customDrTransaction()
+        }
+        if (this.customFee && this.transactionToSend.error) {
+          this.customFeeError = this.transactionToSend.error
+        }
+        if (valid && !this.transactionToSend.error) {
+          this.$emit('set-transaction', this.transactionToSend)
         }
       })
     },

@@ -2,7 +2,7 @@
   <div class="estimation-table">
     <div
       v-for="option in estimationOptions"
-      :key="option.primaryText"
+      :key="option.label"
       class="estimation"
       :class="{
         selected: isSelectedFee(option),
@@ -25,7 +25,7 @@
       <p v-if="isDisabledFee(option)" class="error-message">
         {{ option.transaction.error }}
       </p>
-      <p v-if="option.report" class="time">
+      <p v-if="option.report && option.report.time_to_block" class="time">
         {{ getTimeDuration(option.report.time_to_block, locale) }}
       </p>
     </div>
@@ -62,8 +62,10 @@ export default {
     }),
   },
   watch: {
-    estimationOptions() {
-      this.$emit('change', this.estimationOptions[0])
+    selectedFee(fee) {
+      if (this.isDisabledFee(fee)) {
+        this.$emit('change', { label: 'custom' })
+      }
     },
   },
   methods: {
@@ -129,6 +131,8 @@ export default {
       font-size: 12px;
       justify-self: center;
       line-height: 1.4;
+      padding: 4px 0;
+      word-break: break-word;
     }
 
     &.selected {
