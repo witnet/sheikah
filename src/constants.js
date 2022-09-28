@@ -15,7 +15,7 @@ export const TRANSACTIONS_LIMIT = 13
 export const EDITOR_TRY_INTERVAL = 3000
 export const EDITOR_SAVE_INTERVAL = 3000
 export const SECONDS_TO_NEXT_BLOCK = 45
-export const FEE_TRAITS = ['stinky', 'low', 'medium', 'high', 'opulent']
+export const FEE_TIERS = ['stinky', 'low', 'medium', 'high', 'opulent']
 
 export const NETWORK_STATUS = {
   NODE_DISCONNECTED: 'node_disconnected',

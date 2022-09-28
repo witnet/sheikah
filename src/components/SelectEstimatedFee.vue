@@ -111,6 +111,7 @@ export default {
     }
 
     .priority {
+      color: var(--text-medium-emphasis);
       font-weight: 500;
       justify-self: center;
     }

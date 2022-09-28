@@ -507,7 +507,6 @@ describe('SetFee.vue', () => {
         }),
       })
       await nextTick()
-      expect(createDataRequestMock).toHaveBeenCalled()
       await sleep(1000)
       expect(wrapper.emitted()['go-back']).toBeTruthy()
     })

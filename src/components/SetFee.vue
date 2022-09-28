@@ -56,7 +56,6 @@
       <el-button
         class="send-btn"
         tabindex="6"
-        type="secondary"
         data-test="cancel"
         @click="clearValues"
       >
@@ -79,7 +78,7 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import AppendUnit from '@/components/AppendUnit'
 import FormValidation from '@/services/FormValidation'
-import { WIT_UNIT, FEE_TRAITS } from '@/constants'
+import { WIT_UNIT, FEE_TIERS } from '@/constants'
 import SelectEstimatedFee from '@/components/SelectEstimatedFee'
 
 export default {
@@ -169,12 +168,12 @@ export default {
     },
     estimationOptions() {
       if (this.estimatedTransactions && this.formatedFeeEstimationReport) {
-        const result = FEE_TRAITS.reduce((acc, trait) => {
+        const result = FEE_TIERS.reduce((acc, tier) => {
           acc.push({
-            label: trait,
-            report: this.formatedFeeEstimationReport[trait],
+            label: tier,
+            report: this.formatedFeeEstimationReport[tier],
             transaction: this.estimatedTransactions
-              ? this.estimatedTransactions[trait]
+              ? this.estimatedTransactions[tier]
               : {},
           })
           return acc
@@ -211,47 +210,38 @@ export default {
       createVTT: 'createVTT',
     }),
     async getEstimatedTransactions() {
-      const txRequests = FEE_TRAITS.map(async trait => {
+      const txRequests = FEE_TIERS.map(async tier => {
         let transaction
-        if (this.drValues && this.formatedFeeEstimationReport[trait]) {
+        if (this.vttValues && this.formatedFeeEstimationReport[tier]) {
+          transaction = await this.createVTT({
+            ...this.vttValues,
+            fee: this.formatedFeeEstimationReport[tier].priority,
+            feeType: this.feeType,
+          })
+        } else if (this.drValues && this.formatedFeeEstimationReport[tier]) {
           transaction = await this.createDataRequest({
             parameters: {
               ...this.drValues,
-              fee: this.formatedFeeEstimationReport[trait].priority,
+              fee: this.formatedFeeEstimationReport[tier].priority,
               feeType: this.feeType,
             },
             request: this.drValues.template.radRequest,
           })
         }
-        if (this.vttValues && this.formatedFeeEstimationReport[trait]) {
-          transaction = await this.createVTT({
-            ...this.vttValues,
-            fee: this.formatedFeeEstimationReport[trait].priority,
-            feeType: this.feeType,
-          })
-        }
-        if (
-          this.createDataRequestError &&
-          this.createDataRequestError.error !== 'Validation Error'
-        ) {
-          this.clearValues()
-        }
-        if (
-          this.createVTTError &&
-          this.createVTTError.error !== 'Validation Error'
-        ) {
+        const anyError = this.createVTTError || this.createDataRequestError
+        if (anyError && anyError.error !== 'Validation Error') {
           this.clearValues()
         }
         return {
-          label: trait,
+          label: tier,
           result: await transaction,
         }
       })
       Promise.all(txRequests).then(result => {
-        this.estimatedTransactions = result.reduce((acc, tx) => {
-          acc[tx.label] = tx.result
-          return acc
-        }, {})
+        this.estimatedTransactions = result.reduce(
+          (acc, tx) => ({ ...acc, [tx.label]: tx.result }),
+          {},
+        )
       })
     },
     setFee(fee) {
@@ -266,8 +256,7 @@ export default {
     clearValues() {
       if (this.createVTTError) {
         this.clearError({ error: this.createVTTError.name })
-      }
-      if (this.createDataRequestError) {
+      } else if (this.createDataRequestError) {
         this.clearError({ error: this.createDataRequestError.name })
       }
       this.$emit('go-back')
