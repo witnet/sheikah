@@ -14,6 +14,34 @@ const FEE_ESTIMATION_REPORT_MOCK = {
     vtt_stinky: { priority: 0.1, time_to_block: 21600 },
   },
 }
+const ESTIMATED_OPTIONS = [
+  {
+    label: 'stinky',
+    report: { priority: 1, time_to_block: 21600 },
+    transaction: {},
+  },
+  {
+    label: 'low',
+    report: { priority: 1, time_to_block: 3600 },
+    transaction: {},
+  },
+  {
+    label: 'medium',
+    report: { priority: 1, time_to_block: 900 },
+    transaction: {},
+  },
+  {
+    label: 'high',
+    report: { priority: 1, time_to_block: 300 },
+    transaction: {},
+  },
+  {
+    label: 'opulent',
+    report: { priority: 1.9982227488151656, time_to_block: 60 },
+    transaction: {},
+  },
+  { label: 'custom' },
+]
 const DR_VALUES_MOCK = {
   commitAndRevealFee: '0.000000001',
   dataRequest: '1',
@@ -266,12 +294,6 @@ describe('SetFee.vue', () => {
     const getFeeEstimationReportMock = jest.fn()
 
     const wrapper = shallowMount(SetFee, {
-      data() {
-        return {
-          customFee: true,
-          selectedFee: {},
-        }
-      },
       ...createComponentMocks({
         store: {
           wallet: {
@@ -279,6 +301,7 @@ describe('SetFee.vue', () => {
               errors: {
                 createDataRequest: false,
                 createVttError: false,
+                feeEstimationReportError: true,
               },
               unit: 'nanoWit',
               feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
@@ -301,17 +324,22 @@ describe('SetFee.vue', () => {
       }),
     })
 
+    wrapper.setData({
+      customFee: true,
+      selectedFee: {},
+    })
+
     it('should render select-estimated-fee', () => {
       expect(
         wrapper.find('[data-test="select-estimated-fee"]').isVisible(),
       ).toBe(true)
     })
 
-    it('should not render custom fee input', () => {
+    it('should render custom fee input', () => {
       expect(wrapper.find('[data-test="tx-fee"]').isVisible()).toBe(true)
     })
 
-    it('should not render fee type switch', () => {
+    it('should render fee type switch', () => {
       expect(wrapper.find('[data-test="fee-type-switch"]').isVisible()).toBe(
         true,
       )
@@ -460,58 +488,6 @@ describe('SetFee.vue', () => {
     })
   })
 
-  describe('close modal if there is an error and it is NOT a validation error', () => {
-    it('it is NOT a validation error', async () => {
-      const createDataRequestMock = jest.fn()
-      const createVTTMock = jest.fn()
-      const clearErrorMock = jest.fn()
-      const clearGeneratedTransactionMock = jest.fn()
-      const getFeeEstimationReportMock = jest.fn()
-
-      const wrapper = mount(SetFee, {
-        data() {
-          return {
-            customFee: false,
-            selectedFee: {},
-          }
-        },
-        propsData: {
-          vttValues: {},
-          drValues: DR_VALUES_MOCK,
-        },
-        ...createComponentMocks({
-          store: {
-            wallet: {
-              state: {
-                locale: 'en',
-                errors: {
-                  createDataRequest: {
-                    error: 'Node error',
-                  },
-                  createVTT: false,
-                },
-                unit: 'nanoWit',
-                feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
-              },
-              mutations: {
-                clearError: clearErrorMock,
-                clearGeneratedTransaction: clearGeneratedTransactionMock,
-              },
-              actions: {
-                getFeeEstimationReport: getFeeEstimationReportMock,
-                createDataRequest: createDataRequestMock,
-                createVTT: createVTTMock,
-              },
-            },
-          },
-        }),
-      })
-      await nextTick()
-      await sleep(1000)
-      expect(wrapper.emitted()['go-back']).toBeTruthy()
-    })
-  })
-
   describe('validate and send selected fee', () => {
     it('emit the event if the form has no errors', async () => {
       const createDataRequestMock = jest.fn()
@@ -525,6 +501,9 @@ describe('SetFee.vue', () => {
           return {
             customFee: false,
             selectedFee: SELECTED_FEE_MOCK,
+            transactionToSend: {
+              result: {},
+            },
           }
         },
         propsData: {
@@ -539,6 +518,7 @@ describe('SetFee.vue', () => {
                 errors: {
                   createDataRequest: false,
                   createVTT: false,
+                  feeEstimationReportError: false,
                 },
                 unit: 'nanoWit',
                 feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
@@ -570,7 +550,14 @@ describe('SetFee.vue', () => {
         data() {
           return {
             customFee: false,
-            selectedFee: SELECTED_FEE_MOCK,
+            selectedFee: {
+              transaction: {
+                error: 'Error',
+              },
+            },
+            transactionToSend: {
+              error: 'Error',
+            },
           }
         },
         propsData: {

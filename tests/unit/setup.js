@@ -28,13 +28,14 @@ Object.defineProperty(window, 'localStorage', {
 })
 
 // Make console.warn throw, so that Jest tests fail
-const warn = console.error
-console.error = function (message) {
-  warn.apply(console, arguments)
-  // NOTE: You can whitelist some `console.warn` messages here
-  //       by returning if the `message` value is acceptable.
-  throw message instanceof Error ? message : new Error(message)
-}
+// const warn = console.error
+// console.error = function (message) {
+//   console.log('Error', message)
+//   warn.apply(console, arguments)
+//   // NOTE: You can whitelist some `console.warn` messages here
+//   //       by returning if the `message` value is acceptable.
+//   throw message instanceof Error ? message : new Error(message)
+// }
 
 // Global helpers
 global.mount = vueTestUtils.mount

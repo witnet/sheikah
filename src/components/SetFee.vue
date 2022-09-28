@@ -8,7 +8,7 @@
     :rules="rules"
     width="max-content"
   >
-    <el-form-item v-if="estimationOptions" prop="estimation">
+    <el-form-item v-if="estimationOptions.length" prop="estimation">
       <SelectEstimatedFee
         data-test="select-estimated-fee"
         :is-dr-tx="!!drValues"
@@ -18,9 +18,12 @@
         @change="setFee"
       />
     </el-form-item>
+    <div v-else class="loading">
+      <h3 class="title">{{ $t('estimating_fees') }}</h3>
+      <DotsLoading size="8px" />
+    </div>
     <el-form-item v-if="customFee" prop="fee">
       <el-input
-        v-if="customFee"
         v-model="feeValues.fee"
         type="number"
         tabindex="4"
@@ -43,7 +46,7 @@
     <p v-if="customFeeError" class="error" data-test="create-dr-error">{{
       customFeeError
     }}</p>
-    <div class="submit">
+    <div v-show="estimationOptions.length" class="submit">
       <el-button
         class="send-btn"
         tabindex="6"
@@ -71,12 +74,14 @@ import AppendUnit from '@/components/AppendUnit'
 import FormValidation from '@/services/FormValidation'
 import { WIT_UNIT, FEE_TIERS } from '@/constants'
 import SelectEstimatedFee from '@/components/SelectEstimatedFee'
+import DotsLoading from '@/components/DotsLoading'
 
 export default {
   name: 'SendValueTransferForm',
   components: {
     AppendUnit,
     SelectEstimatedFee,
+    DotsLoading,
   },
   props: {
     vttValues: {
@@ -159,29 +164,16 @@ export default {
     estimationOptions() {
       if (this.estimatedTransactions && this.formatedFeeEstimationReport) {
         const result = FEE_TIERS.reduce((acc, tier) => {
-          const transactionResult = this.estimatedTransactions
-            ? this.estimatedTransactions[tier]
-            : {}
-          const estimationError = {
-            error: this.feeEstimationReportError?.message,
-          }
           acc.push({
             label: tier,
             report: this.formatedFeeEstimationReport[tier],
-            transaction: this.feeEstimationReportError
-              ? estimationError
-              : transactionResult,
+            transaction: this.estimatedTransactions
+              ? this.estimatedTransactions[tier]
+              : {},
           })
           return acc
         }, [])
-        const customOption = { label: 'custom' }
-        const estimatedOptions = [...result, customOption]
-        if (this.feeEstimationReportError) {
-          this.setFee(customOption)
-        } else {
-          this.setFee(estimatedOptions[0])
-        }
-        return estimatedOptions
+        return [...result, { label: 'custom' }]
       } else {
         return []
       }
@@ -362,6 +354,22 @@ export default {
   .subtitle {
     font-size: 32;
     margin-bottom: 16px;
+  }
+}
+
+.loading {
+  color: $yellow-4;
+  display: grid;
+  font-size: 16px;
+  font-weight: bold;
+  grid-template-columns: max-content min-content;
+  grid-template-rows: max-content;
+  justify-content: flex-start;
+  justify-items: center;
+  margin-bottom: 32px;
+
+  .title {
+    margin-top: 8px;
   }
 }
 

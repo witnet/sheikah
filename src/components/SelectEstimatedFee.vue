@@ -8,7 +8,7 @@
         selected: isSelectedFee(option),
         disabled: isDisabledFee(option),
       }"
-      :data-test="`option-fee`"
+      :data-test="`option-fee-${option.label}`"
       @click="selectFee(option)"
     >
       <p class="label capitalize">{{ option.label }}</p>
@@ -22,7 +22,13 @@
           isDrTx ? option.transaction.fee : option.transaction.metadata.fee
         "
       />
-      <p v-if="isDisabledFee(option)" class="error-message">
+      <p
+        v-if="feeEstimationReportError && !isCustomFee(option)"
+        class="error-message"
+      >
+        {{ feeEstimationReportError.message }}
+      </p>
+      <p v-else-if="isDisabledFee(option)" class="error-message">
         {{ option.transaction.error }}
       </p>
       <p v-if="option.report && option.report.time_to_block" class="time">
@@ -59,6 +65,8 @@ export default {
   computed: {
     ...mapState({
       locale: state => state.wallet.locale,
+      feeEstimationReportError: state =>
+        state.wallet.errors.getFeeEstimationReport,
     }),
   },
   watch: {
@@ -68,10 +76,20 @@ export default {
       }
     },
   },
+  mounted() {
+    if (this.feeEstimationReportError) {
+      this.$emit('change', { label: 'custom' })
+    } else {
+      this.$emit('change', this.estimationOptions[0])
+    }
+  },
   methods: {
     getTimeDuration,
     isSelectedFee(fee) {
       return fee.label === this.selectedFee.label
+    },
+    isCustomFee(fee) {
+      return fee.label === 'custom'
     },
     isDisabledFee(fee) {
       return fee.transaction && fee.transaction.error

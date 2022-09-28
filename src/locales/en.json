@@ -427,6 +427,7 @@
   "around": "Around",
   "up_to": "Up to",
   "less_than": "Less than",
-  "confirm_vtt_tx": "Confirm value transfer transaction"
+  "confirm_vtt_tx": "Confirm value transfer transaction",
+  "estimating_fees": "Estimating fees"
 
 }
