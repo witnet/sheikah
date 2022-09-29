@@ -283,6 +283,7 @@ export default {
 }
 
 .label {
+  color: var(--text-medium-emphasis);
   margin-bottom: 16px;
 
   .info {

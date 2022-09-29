@@ -233,7 +233,7 @@
   --picker-panel-background: transparent;
   // select box
   --select-box-border: 1px solid #{$grey-dark-3};
-  --select-box-label: $grey-dark-3;
+  --select-box-label: #{$grey-dark-3};
   --select-box-background: #{$grey-dark-8};
   --select-box-active-border: 1px solid #{$purple-dark};
   --select-box-error-border: 1px solid #{$red-2};
@@ -458,7 +458,7 @@
   --picker-panel-background: #fff;
   // select box
   --select-box-border: 1px solid #{$grey-1};
-  --select-box-label: $grey-1;
+  --select-box-label: #{$grey-3};
   --select-box-background: #{$white};
   --select-box-active-border: 1px solid #{$purple-3};
   --select-box-error-border: 1px solid #{$red-2};
