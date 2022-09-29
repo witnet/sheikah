@@ -39,6 +39,26 @@ export const SOURCES_WITH_REDUCED_DISCLAIMERS = [
   'founder',
 ]
 
+export const VTT_DEFAULT_VALUES = {
+  address: '',
+  label: '',
+  amount: null,
+  fee: null,
+  isWeightedFee: true,
+  timelock: null,
+}
+
+export const DR_DEFAULT_VALUES = {
+  commitAndRevealFee: '1',
+  dataRequest: '1',
+  fee: '1',
+  isWeightedFee: true,
+  minConsensusPercentage: '51',
+  rewardFee: '1',
+  witnesses: '3',
+  collateral: '1',
+}
+
 export const LANGUAGES = {
   es: { name: 'Español', locale: 'es', fnsLocale: fnsEs, elementLocale: es },
   en: { name: 'English', locale: 'en', fnsLocale: enGB, elementLocale: en },

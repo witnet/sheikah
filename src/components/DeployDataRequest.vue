@@ -9,28 +9,29 @@
     :top="generatedTransaction || !hasVariablesToComplete ? '6vh' : '15vh'"
     @close="closeAndClear"
   >
-    <GeneratedTransaction
-      v-if="generatedTransaction"
-      :generated-transaction="generatedTransaction"
-      type="DataRequest"
-      @close-clear="closeAndClear"
-      @send="confirmDataRequest"
-    />
     <CompleteVariablesForm
-      v-if="hasVariablesToComplete"
+      v-if="stage === 0"
       @go-to-next-step="showCreateDataRequestForm"
       @go-back="closeAndClear"
     />
     <CreateDataRequestForm
-      v-if="!hasVariablesToComplete && !drValues"
+      v-if="stage === 1"
+      :dr-values="drValues"
+      @set-dr-values="setFormValues"
       @go-back="closeAndClear"
-      @set-dr-values="setDrValues"
     />
     <SetFee
-      v-if="drValues && !generatedTransaction"
+      v-if="stage === 2"
       :dr-values="drValues"
-      @set-transaction="transaction => setGeneratedTransaction({ transaction })"
-      @go-back="closeAndClear"
+      @set-transaction="setSelectedTransaction"
+      @go-back="goPrevStage"
+    />
+    <GeneratedTransaction
+      v-if="stage === 3"
+      :generated-transaction="generatedTransaction"
+      type="DataRequest"
+      @send="confirmDataRequest"
+      @close-clear="goPrevStage"
     />
   </el-dialog>
 </template>
@@ -60,8 +61,8 @@ export default {
 
   data() {
     return {
-      drValues: null,
       variablesUpdated: false,
+      stage: 0,
     }
   },
   computed: {
@@ -72,6 +73,7 @@ export default {
       generatedTransaction: state => {
         return state.wallet.generatedTransaction
       },
+      drValues: state => state.wallet.drValues,
       networkStatus: state => state.wallet.networkStatus,
       createDataRequestError: state => state.wallet.errors.createDataRequest,
       sendTransactionError: state => state.wallet.errors.sendTransaction,
@@ -103,6 +105,7 @@ export default {
       id: this.template.id,
       locale: this.locale,
     })
+    this.variables.length ? (this.stage = 0) : (this.stage = 1)
   },
   beforeDestroy() {
     if (this.createDataRequestError) {
@@ -115,22 +118,38 @@ export default {
       clearError: 'clearError',
       setCurrentTemplate: SET_CURRENT_TEMPLATE,
       setGeneratedTransaction: 'setGeneratedTransaction',
+      setDrValues: 'setDrValues',
+      clearDrValues: 'clearDrValues',
     }),
     ...mapActions({
       sendTransaction: 'sendTransaction',
       createDataRequest: 'createDataRequest',
     }),
-    setDrValues(form) {
-      this.drValues = {
-        ...form,
-        template: this.template,
+    setFormValues(form) {
+      this.setDrValues({
+        values: {
+          ...form,
+          template: this.template,
+        },
+      })
+      this.goNextStage()
+    },
+    setSelectedTransaction(transaction) {
+      this.setGeneratedTransaction({ transaction })
+      this.goNextStage()
+    },
+    goPrevStage() {
+      const firstStage = this.variables.length ? 0 : 1
+      if (this.stage > firstStage) {
+        this.stage -= 1
       }
     },
-    clearDrValues() {
-      this.drValues = null
+    goNextStage() {
+      this.stage += 1
     },
     showCreateDataRequestForm() {
       this.variablesUpdated = true
+      this.goNextStage()
     },
     confirmDataRequest() {
       this.sendTransaction({ label: '' })
@@ -150,7 +169,6 @@ export default {
       if (this.createDataRequestError) {
         this.clearError({ error: this.createDataRequestError.name })
       }
-      this.drValues = null
     },
   },
 }

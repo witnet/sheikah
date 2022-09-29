@@ -85,7 +85,7 @@ import { mapState, mapMutations, mapGetters } from 'vuex'
 import AppendUnit from '@/components/AppendUnit'
 import { standardizeWitUnits } from '@/utils'
 import FormValidation from '@/services/FormValidation'
-import { WIT_UNIT } from '@/constants'
+import { WIT_UNIT, VTT_DEFAULT_VALUES } from '@/constants'
 import CustomIcon from '@/components/CustomIcon'
 
 export default {
@@ -93,6 +93,12 @@ export default {
   components: {
     AppendUnit,
     CustomIcon,
+  },
+  props: {
+    vttValues: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     const formValidation = () =>
@@ -117,14 +123,7 @@ export default {
       checkedUtxos: [],
       isAdvancedVisible: false,
       WIT_UNIT,
-      form: {
-        address: '',
-        label: '',
-        amount: null,
-        fee: null,
-        isWeightedFee: true,
-        timelock: null,
-      },
+      form: VTT_DEFAULT_VALUES,
       rules: {
         // address validation is updated on runtime according to the network
         address: [
@@ -202,6 +201,10 @@ export default {
       },
       immediate: true,
     },
+  },
+  mounted() {
+    // Set saved values in store
+    this.form = this.vttValues
   },
   methods: {
     ...mapMutations({

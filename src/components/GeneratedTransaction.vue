@@ -89,7 +89,7 @@
       </el-button>
       <span slot="footer" class="dialog-footer">
         <el-button data-test="cancel-tx" @click="closeAndClear">
-          {{ $t('cancel') }}
+          {{ $t('back') }}
         </el-button>
         <el-button
           tabindex="2"

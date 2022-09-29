@@ -25,7 +25,9 @@ import {
   DEFAULT_LOCALE,
   LANGUAGES,
   THEMES,
+  DR_DEFAULT_VALUES,
   NETWORK_STATUS,
+  VTT_DEFAULT_VALUES,
 } from '@/constants'
 import { SET_TEMPLATES, UPDATE_TEMPLATE } from '@/store/mutation-types'
 import warning from '@/resources/svg/warning.png'
@@ -80,6 +82,9 @@ export default {
     walletId: null,
     addresses: [],
     generatedTransaction: null,
+    transactionOptions: null,
+    vttValues: { ...VTT_DEFAULT_VALUES },
+    drValues: { ...DR_DEFAULT_VALUES },
     mnemonics: null,
     xprv: null,
     xprvBackupPassword: null,
@@ -426,6 +431,24 @@ export default {
     },
     setGeneratedTransaction(state, { transaction }) {
       state.generatedTransaction = transaction
+    },
+    setVttValues(state, { values }) {
+      state.vttValues = values
+    },
+    setTransactionOptions(state, { values }) {
+      state.transactionOptions = values
+    },
+    setDrValues(state, { values }) {
+      state.drValues = values
+    },
+    clearTransactionOptions(state) {
+      state.transactionOptions = null
+    },
+    clearVttValues(state) {
+      state.vttValues = { ...VTT_DEFAULT_VALUES }
+    },
+    clearDrValues(state) {
+      state.drValues = { ...DR_DEFAULT_VALUES }
     },
     clearGeneratedTransaction(state) {
       state.generatedTransaction = null

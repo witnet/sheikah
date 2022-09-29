@@ -7,20 +7,24 @@
     width="max-content"
     @close="closeAndClear"
   >
-    <GeneratedTransaction
-      v-if="generatedTransaction"
-      :generated-transaction="generatedTransaction"
-      type="ValueTransfer"
-      @close-clear="closeAndClear"
-      @send="confirmTransaction"
+    <SendValueTransferForm
+      v-if="stage === 0"
+      :vtt-values="vttValues"
+      @set-vtt-values="setFormValues"
     />
     <SetFee
-      v-else-if="vttValues"
+      v-if="stage === 1"
       :vtt-values="vttValues"
-      @set-transaction="transaction => setGeneratedTransaction({ transaction })"
-      @go-back="clearVttValues"
+      @set-transaction="setSelectedTransaction"
+      @go-back="goPrevStage"
     />
-    <SendValueTransferForm v-else @set-vtt-values="setVttValues" />
+    <GeneratedTransaction
+      v-if="stage === 2"
+      :generated-transaction="generatedTransaction"
+      type="ValueTransfer"
+      @send="confirmTransaction"
+      @close-clear="goPrevStage"
+    />
   </el-dialog>
 </template>
 
@@ -40,7 +44,7 @@ export default {
   data() {
     return {
       label: '',
-      vttValues: null,
+      stage: 0,
     }
   },
   computed: {
@@ -48,6 +52,7 @@ export default {
       generatedTransaction: state => {
         return state.wallet.generatedTransaction
       },
+      vttValues: state => state.wallet.vttValues,
       unit: state => state.wallet.unit,
       createVTTError: state => state.wallet.errors.createVTT,
     }),
@@ -72,18 +77,28 @@ export default {
       setError: 'setError',
       clearGeneratedTransaction: 'clearGeneratedTransaction',
       setGeneratedTransaction: 'setGeneratedTransaction',
+      setVttValues: 'setVttValues',
+      clearVttValues: 'clearVttValues',
+      clearTransactionOptions: 'clearTransactionOptions',
     }),
     ...mapActions({
       sendTransaction: 'sendTransaction',
       createVTT: 'createVTT',
     }),
-    setVttValues(form) {
-      this.vttValues = form
+    setFormValues(form) {
+      this.stage = 1
+      this.setVttValues({ values: form })
     },
-    clearVttValues() {
-      this.vttValues = null
+    setSelectedTransaction(transaction) {
+      this.stage = 2
+      this.setGeneratedTransaction({ transaction })
+    },
+    goPrevStage() {
+      this.stage -= 1
     },
     closeAndClear() {
+      this.clearVttValues()
+      this.clearTransactionOptions()
       this.clearGeneratedTransaction()
       if (this.createVTTError) {
         this.clearError({ error: this.createVTTError.name })

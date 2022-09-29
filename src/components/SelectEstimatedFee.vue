@@ -139,7 +139,7 @@ export default {
 
     .recommended-tag {
       background: var(--card-background);
-      color: var(--text-medium-emphasis);
+      color: var(--select-box-label);
       font-size: 12px;
       left: 8px;
       padding: 0 4px;

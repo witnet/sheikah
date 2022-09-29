@@ -80,13 +80,19 @@
 import { mapState, mapMutations } from 'vuex'
 import { standardizeWitUnits } from '@/utils'
 import AppendUnit from '@/components/AppendUnit'
-import { WIT_UNIT } from '@/constants'
+import { WIT_UNIT, DR_DEFAULT_VALUES } from '@/constants'
 import FormValidation from '@/services/FormValidation'
 
 export default {
   name: 'CreateDataRequestForm',
   components: {
     AppendUnit,
+  },
+  props: {
+    drValues: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     const formValidation = () =>
@@ -119,16 +125,7 @@ export default {
     return {
       WIT_UNIT,
       isAdvancedVisible: false,
-      form: {
-        commitAndRevealFee: '1',
-        dataRequest: '1',
-        fee: '1',
-        isWeightedFee: true,
-        minConsensusPercentage: '51',
-        rewardFee: '1',
-        witnesses: '3',
-        collateral: '1',
-      },
+      form: DR_DEFAULT_VALUES,
       formValuesToStandardize: [
         { key: 'collateral', unit: WIT_UNIT.WIT },
         { key: 'rewardFee', unit: WIT_UNIT.NANO },
@@ -245,6 +242,8 @@ export default {
         value.unit,
       ).toString()
     })
+    // set dr values saved in store
+    this.form = this.drValues
   },
   methods: {
     standardizeWitUnits,
