@@ -5,12 +5,16 @@
       :key="option.label"
       class="estimation"
       :class="{
+        recommended: isRecommendedOption(option),
         selected: isSelectedFee(option),
         disabled: isDisabledFee(option),
       }"
       :data-test="`option-fee-${option.label}`"
       @click="selectFee(option)"
     >
+      <p v-if="isRecommendedOption(option)" class="recommended-tag">{{
+        $t('recommended')
+      }}</p>
       <p class="label capitalize">{{ option.label }}</p>
       <Amount
         v-if="option.transaction && !option.transaction.error"
@@ -62,6 +66,11 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      recommendedOption: this.estimationOptions[2],
+    }
+  },
   computed: {
     ...mapState({
       locale: state => state.wallet.locale,
@@ -80,13 +89,16 @@ export default {
     if (this.feeEstimationReportError) {
       this.$emit('change', { label: 'custom' })
     } else {
-      this.$emit('change', this.estimationOptions[0])
+      this.$emit('change', this.recommendedOption)
     }
   },
   methods: {
     getTimeDuration,
     isSelectedFee(fee) {
       return fee.label === this.selectedFee.label
+    },
+    isRecommendedOption(fee) {
+      return fee.label === this.recommendedOption.label
     },
     isCustomFee(fee) {
       return fee.label === 'custom'
@@ -123,6 +135,17 @@ export default {
     grid-template-columns: 100px 1fr 200px;
     justify-content: space-between;
     padding: 0 16px;
+    position: relative;
+
+    .recommended-tag {
+      background: var(--card-background);
+      color: var(--text-medium-emphasis);
+      font-size: 12px;
+      left: 8px;
+      padding: 0 4px;
+      position: absolute;
+      top: -14px;
+    }
 
     .label {
       font-weight: 500;
@@ -151,6 +174,10 @@ export default {
       line-height: 1.4;
       padding: 4px 0;
       word-break: break-word;
+    }
+
+    &.recommended {
+      border: 1px solid grey;
     }
 
     &.selected {

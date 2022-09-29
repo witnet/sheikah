@@ -426,5 +426,6 @@
   "up_to": "Hasta",
   "less_than": "Menos de",
   "confirm_vtt_tx": "Confirma la transacción",
-  "estimating_fees": "Estimando tasas"
+  "estimating_fees": "Estimando tasas",
+  "recommended": "Recomendada"
 }

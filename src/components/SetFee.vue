@@ -53,7 +53,7 @@
         data-test="cancel"
         @click="clearValues"
       >
-        {{ $t('cancel') }}
+        {{ $t('back') }}
       </el-button>
       <el-button
         class="send-btn"
