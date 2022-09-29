@@ -115,7 +115,6 @@ export default {
       transactionToSend: null,
       customFeeError: null,
       WIT_UNIT,
-      estimatedTransactions: null,
       feeValues: {
         fee: null,
         isWeightedFee: true,
@@ -143,6 +142,7 @@ export default {
       feeEstimationReportError: state =>
         state.wallet.errors.getFeeEstimationReport,
       feeEstimationReport: state => state.wallet.feeEstimationReport,
+      transactionOptions: state => state.wallet.transactionOptions,
     }),
     formatedFeeEstimationReport() {
       if (this.feeEstimationReport) {
@@ -162,13 +162,13 @@ export default {
       }
     },
     estimationOptions() {
-      if (this.estimatedTransactions && this.formatedFeeEstimationReport) {
+      if (this.transactionOptions && this.formatedFeeEstimationReport) {
         const result = FEE_TIERS.reduce((acc, tier) => {
           acc.push({
             label: tier,
             report: this.formatedFeeEstimationReport[tier],
-            transaction: this.estimatedTransactions
-              ? this.estimatedTransactions[tier]
+            transaction: this.transactionOptions
+              ? this.transactionOptions[tier]
               : {},
           })
           return acc
@@ -203,12 +203,15 @@ export default {
   },
   async mounted() {
     await this.getFeeEstimationReport()
-    await this.getEstimatedTransactions()
+    if (!this.transactionOptions) {
+      await this.getEstimatedTransactions()
+    }
   },
   methods: {
     ...mapMutations({
       clearError: 'clearError',
       clearGeneratedTransaction: 'clearGeneratedTransaction',
+      setTransactionOptions: 'setTransactionOptions',
     }),
     ...mapActions({
       getFeeEstimationReport: 'getFeeEstimationReport',
@@ -244,10 +247,12 @@ export default {
         }
       })
       Promise.all(txRequests).then(result => {
-        this.estimatedTransactions = result.reduce(
-          (acc, tx) => ({ ...acc, [tx.label]: tx.result }),
-          {},
-        )
+        this.setTransactionOptions({
+          values: result.reduce(
+            (acc, tx) => ({ ...acc, [tx.label]: tx.result }),
+            {},
+          ),
+        })
       })
     },
     async customVttTransaction() {
