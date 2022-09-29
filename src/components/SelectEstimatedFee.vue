@@ -176,10 +176,6 @@ export default {
       word-break: break-word;
     }
 
-    &.recommended {
-      border: 1px solid grey;
-    }
-
     &.selected {
       border: var(--select-box-active-border);
 

@@ -26,16 +26,23 @@
     </el-form-item>
     <transition name="slide">
       <div v-if="isAdvancedVisible">
-        <el-form-item :label="$t('timelock')" prop="timelock">
-          <el-date-picker
-            v-model="form.timelock"
-            type="datetime"
-            :placeholder="$t('select_date')"
-            tabindex="5"
-            :default-value="new Date()"
-            value-format="timestamp"
-          />
-        </el-form-item>
+        <div slot="label" class="label">
+          {{ $t('timelock') }}
+          <el-tooltip trigger="hover" effect="light">
+            <font-awesome-icon class="info" icon="info-circle" />
+            <div slot="content" class="info-message">
+              {{ $t('timelock_tooltip') }}
+            </div>
+          </el-tooltip>
+        </div>
+        <el-date-picker
+          v-model="form.timelock"
+          type="datetime"
+          :placeholder="$t('select_date')"
+          tabindex="5"
+          :default-value="new Date()"
+          value-format="timestamp"
+        />
       </div>
     </transition>
     <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
@@ -270,6 +277,15 @@ export default {
   font-size: 14px;
   margin-bottom: 8px;
   word-break: break-word;
+}
+
+.label {
+  margin-bottom: 16px;
+
+  .info {
+    font-size: 13px;
+    margin-left: 4px;
+  }
 }
 
 .form {
