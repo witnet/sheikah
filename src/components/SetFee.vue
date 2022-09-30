@@ -283,6 +283,7 @@ export default {
       } else if (!anyError && this.vttValues) {
         this.feeValues.fee = fee.transaction ? fee.transaction.metadata.fee : 1
       }
+      this.customFeeError = null
       this.customFee = fee.label === 'custom'
     },
     clearErrors() {
