@@ -12,9 +12,9 @@
       :data-test="`option-fee-${option.label}`"
       @click="selectFee(option)"
     >
-      <p v-if="isRecommendedOption(option)" class="recommended-tag">{{
-        $t('recommended')
-      }}</p>
+      <p v-if="isRecommendedOption(option)" class="recommended-tag"
+        >{{ $t('recommended') }}
+      </p>
       <p class="label capitalize">{{ option.label }}</p>
       <Amount
         v-if="option.transaction && !option.transaction.error"
@@ -104,7 +104,10 @@ export default {
       return fee.label === 'custom'
     },
     isDisabledFee(fee) {
-      return fee.transaction && fee.transaction.error
+      return (
+        (fee.transaction && fee.transaction.error) ||
+        (this.feeEstimationReportError && !this.isCustomFee(fee))
+      )
     },
     selectFee(fee) {
       if (!this.isDisabledFee(fee)) {

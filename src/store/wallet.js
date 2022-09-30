@@ -232,6 +232,9 @@ export default {
     setFeeEstimationReport(state, report) {
       state.feeEstimationReport = report
     },
+    clearEstimationReport(state, report) {
+      state.feeEstimationReport = null
+    },
     setXprvInfo(state, info) {
       if (info.data.name) {
         state.title = info.data.name
@@ -873,6 +876,7 @@ export default {
         context.commit('setFeeEstimationReport', { report: request.result })
         this.commit('clearError', { error: 'getFeeEstimationReport' })
       } else {
+        context.commit('clearEstimationReport')
         context.commit('setError', {
           name: 'getFeeEstimationReport',
           error: request.error.message,

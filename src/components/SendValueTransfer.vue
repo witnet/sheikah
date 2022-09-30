@@ -66,6 +66,9 @@ export default {
       }
     },
   },
+  mounted() {
+    this.clearValues()
+  },
   beforeDestroy() {
     if (this.createVTTError) {
       this.clearError({ error: this.createVTTError.name })
@@ -96,17 +99,20 @@ export default {
     goPrevStage() {
       this.stage -= 1
     },
-    closeAndClear() {
+    clearValues() {
       this.clearVttValues()
       this.clearTransactionOptions()
       this.clearGeneratedTransaction()
       if (this.createVTTError) {
         this.clearError({ error: this.createVTTError.name })
       }
+    },
+    closeAndClear() {
+      this.clearValues()
       this.$emit('close')
     },
-    confirmTransaction() {
-      this.sendTransaction({ label: this.label })
+    async confirmTransaction() {
+      await this.sendTransaction({ label: this.label })
       this.$emit('close')
     },
   },

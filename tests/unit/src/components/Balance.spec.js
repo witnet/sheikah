@@ -81,6 +81,10 @@ describe('Balance.vue', () => {
     })
 
     it('BalanceButtons event send should show the modal', async () => {
+      const clearVttValuesMock = jest.fn()
+      const clearTransactionOptionsMock = jest.fn()
+      const clearGeneratedTransactionMock = jest.fn()
+
       const wrapper = mount(
         Balance,
         createComponentMocks({
@@ -98,6 +102,11 @@ describe('Balance.vue', () => {
                 },
                 vttValues: DEFAULT_VTT_VALUES,
                 unit: WIT_UNIT.NANO,
+              },
+              mutations: {
+                clearVttValues: clearVttValuesMock,
+                clearTransactionOptions: clearTransactionOptionsMock,
+                clearGeneratedTransaction: clearGeneratedTransactionMock,
               },
               getters: {
                 network: () => 'mainnet',

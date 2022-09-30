@@ -151,9 +151,10 @@ export default {
       this.variablesUpdated = true
       this.goNextStage()
     },
-    confirmDataRequest() {
-      this.sendTransaction({ label: '' })
+    async confirmDataRequest() {
+      await this.sendTransaction({ label: '' })
       this.$emit('close', 'SENT')
+      this.closeAndClear()
     },
     closeAndClear: function () {
       this.$emit('close')
