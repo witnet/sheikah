@@ -2,7 +2,8 @@
   <el-dialog
     :title="$t('create_vtt_title')"
     :visible="true"
-    :show-close="false"
+    :show-close="true"
+    :close-on-click-modal="false"
     width="max-content"
     @close="closeAndClear"
   >

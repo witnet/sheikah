@@ -4,7 +4,8 @@
     title="Warning"
     width="30%"
     :visible="true"
-    :show-close="false"
+    :show-close="true"
+    :close-on-click-modal="false"
     @close="close"
   >
     <div slot="title" class="title-container">

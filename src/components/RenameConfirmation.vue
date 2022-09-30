@@ -3,7 +3,8 @@
     class="wallet-description"
     title="Wallet description"
     :visible="true"
-    :show-close="false"
+    :show-close="true"
+    :close-on-click-modal="false"
     @close="close"
   >
     <p slot="title" class="title"

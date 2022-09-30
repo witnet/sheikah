@@ -3,9 +3,10 @@
     class="dialog"
     :visible="true"
     :title="title"
-    :show-close="false"
-    width="700px"
-    :top="generatedTransaction || showFillVariablesForm ? '6vh' : '15vh'"
+    :show-close="true"
+    :close-on-click-modal="false"
+    width="max-content"
+    :top="generatedTransaction || !hasVariablesToComplete ? '6vh' : '15vh'"
     @close="closeAndClear"
   >
     <GeneratedTransaction
