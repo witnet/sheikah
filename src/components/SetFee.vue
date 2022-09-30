@@ -306,10 +306,10 @@ export default {
         } else if (this.drValues) {
           this.transactionToSend = await this.customDrTransaction()
         }
-        if (this.customFee && this.transactionToSend.error) {
+        if (this.customFee && this.transactionToSend?.error) {
           this.customFeeError = this.transactionToSend.error
         }
-        if (valid && !this.transactionToSend.error) {
+        if (valid && !this.transactionToSend?.error) {
           this.$emit('set-transaction', this.transactionToSend)
         }
       })

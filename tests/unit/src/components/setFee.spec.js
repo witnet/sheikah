@@ -1,4 +1,5 @@
 import SetFee from '@/components/SetFee'
+import { DEFAULT_VTT_VALUES } from '@/constants'
 
 const FEE_ESTIMATION_REPORT_MOCK = {
   report: {
@@ -235,6 +236,7 @@ describe('SetFee.vue', () => {
     const clearErrorMock = jest.fn()
     const clearGeneratedTransactionMock = jest.fn()
     const getFeeEstimationReportMock = jest.fn()
+    const setTransactionOptionsMock = jest.fn()
 
     const wrapper = shallowMount(SetFee, {
       data() {
@@ -251,12 +253,14 @@ describe('SetFee.vue', () => {
                 createDataRequest: false,
                 createVttError: false,
               },
+              transactionOptions: ESTIMATED_OPTIONS,
               unit: 'nanoWit',
               feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
             },
             mutations: {
               clearError: clearErrorMock,
               clearGeneratedTransaction: clearGeneratedTransactionMock,
+              setTransactionOptions: setTransactionOptionsMock,
             },
             actions: {
               getFeeEstimationReport: getFeeEstimationReportMock,
@@ -292,6 +296,7 @@ describe('SetFee.vue', () => {
     const clearErrorMock = jest.fn()
     const clearGeneratedTransactionMock = jest.fn()
     const getFeeEstimationReportMock = jest.fn()
+    const setTransactionOptionsMock = jest.fn()
 
     const wrapper = shallowMount(SetFee, {
       ...createComponentMocks({
@@ -303,12 +308,14 @@ describe('SetFee.vue', () => {
                 createVttError: false,
                 feeEstimationReportError: true,
               },
+              transactionOptions: ESTIMATED_OPTIONS,
               unit: 'nanoWit',
               feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
             },
             mutations: {
               clearError: clearErrorMock,
               clearGeneratedTransaction: clearGeneratedTransactionMock,
+              setTransactionOptions: setTransactionOptionsMock,
             },
             actions: {
               getFeeEstimationReport: getFeeEstimationReportMock,
@@ -353,6 +360,7 @@ describe('SetFee.vue', () => {
       const clearErrorMock = jest.fn()
       const clearGeneratedTransactionMock = jest.fn()
       const getFeeEstimationReportMock = jest.fn()
+      const setTransactionOptionsMock = jest.fn()
 
       const wrapper = shallowMount(SetFee, {
         data() {
@@ -373,12 +381,14 @@ describe('SetFee.vue', () => {
                   createDataRequest: true,
                   createVTT: false,
                 },
+                transactionOptions: ESTIMATED_OPTIONS,
                 unit: 'nanoWit',
                 feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
               },
               mutations: {
                 clearError: clearErrorMock,
                 clearGeneratedTransaction: clearGeneratedTransactionMock,
+                setTransactionOptions: setTransactionOptionsMock,
               },
               actions: {
                 getFeeEstimationReport: getFeeEstimationReportMock,
@@ -416,6 +426,7 @@ describe('SetFee.vue', () => {
                   createDataRequest: false,
                   createVTT: true,
                 },
+                transactionOptions: ESTIMATED_OPTIONS,
                 unit: 'nanoWit',
                 feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
               },
@@ -462,6 +473,7 @@ describe('SetFee.vue', () => {
                   createDataRequest: false,
                   createVTT: false,
                 },
+                transactionOptions: ESTIMATED_OPTIONS,
                 unit: 'nanoWit',
                 feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
               },
@@ -495,6 +507,7 @@ describe('SetFee.vue', () => {
       const clearErrorMock = jest.fn()
       const clearGeneratedTransactionMock = jest.fn()
       const getFeeEstimationReportMock = jest.fn()
+      const setTransactionOptionsMock = jest.fn()
 
       const wrapper = mount(SetFee, {
         data() {
@@ -507,8 +520,7 @@ describe('SetFee.vue', () => {
           }
         },
         propsData: {
-          vttValues: {},
-          drValues: DR_VALUES_MOCK,
+          vttValues: DEFAULT_VTT_VALUES,
         },
         ...createComponentMocks({
           store: {
@@ -520,12 +532,14 @@ describe('SetFee.vue', () => {
                   createVTT: false,
                   feeEstimationReportError: false,
                 },
+                transactionOptions: ESTIMATED_OPTIONS,
                 unit: 'nanoWit',
                 feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
               },
               mutations: {
                 clearError: clearErrorMock,
                 clearGeneratedTransaction: clearGeneratedTransactionMock,
+                setTransactionOptions: setTransactionOptionsMock,
               },
               actions: {
                 getFeeEstimationReport: getFeeEstimationReportMock,
@@ -545,6 +559,7 @@ describe('SetFee.vue', () => {
       const clearErrorMock = jest.fn()
       const clearGeneratedTransactionMock = jest.fn()
       const getFeeEstimationReportMock = jest.fn()
+      const setTransactionOptionsMock = jest.fn()
 
       const wrapper = mount(SetFee, {
         data() {
@@ -561,8 +576,7 @@ describe('SetFee.vue', () => {
           }
         },
         propsData: {
-          vttValues: {},
-          drValues: DR_VALUES_MOCK,
+          vttValues: DEFAULT_VTT_VALUES,
         },
         ...createComponentMocks({
           store: {
@@ -579,6 +593,7 @@ describe('SetFee.vue', () => {
               mutations: {
                 clearError: clearErrorMock,
                 clearGeneratedTransaction: clearGeneratedTransactionMock,
+                setTransactionOptions: setTransactionOptionsMock,
               },
               actions: {
                 getFeeEstimationReport: getFeeEstimationReportMock,

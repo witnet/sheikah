@@ -9,12 +9,12 @@
   >
     <SendValueTransferForm
       v-if="stage === 0"
-      :vtt-values="vttValues"
+      :vtt-values="vttValues ? vttValues : {}"
       @set-vtt-values="setFormValues"
     />
     <SetFee
       v-if="stage === 1"
-      :vtt-values="vttValues"
+      :vtt-values="vttValues ? vttValues : {}"
       @set-transaction="setSelectedTransaction"
       @go-back="goPrevStage"
     />

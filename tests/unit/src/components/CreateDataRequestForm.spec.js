@@ -1,10 +1,13 @@
 import CreateDataRequestForm from '@/components/CreateDataRequestForm'
+import { DR_DEFAULT_VALUES } from '@/constants'
 
 describe('CreateDataRequestForm.vue', () => {
   describe('should render properly the form items', () => {
-    const wrapper = mount(
-      CreateDataRequestForm,
-      createComponentMocks({
+    const wrapper = mount(CreateDataRequestForm, {
+      propsData: {
+        drValues: DR_DEFAULT_VALUES,
+      },
+      ...createComponentMocks({
         router: true,
         store: {
           wallet: {
@@ -18,7 +21,7 @@ describe('CreateDataRequestForm.vue', () => {
           },
         },
       }),
-    )
+    })
 
     it('should render create-data-request-submit button', () => {
       expect(
@@ -50,9 +53,11 @@ describe('CreateDataRequestForm.vue', () => {
   })
 
   describe('should change input value on update', () => {
-    const wrapper = mount(
-      CreateDataRequestForm,
-      createComponentMocks({
+    const wrapper = mount(CreateDataRequestForm, {
+      propsData: {
+        drValues: DR_DEFAULT_VALUES,
+      },
+      ...createComponentMocks({
         router: true,
         store: {
           wallet: {
@@ -66,7 +71,7 @@ describe('CreateDataRequestForm.vue', () => {
           },
         },
       }),
-    )
+    })
 
     it('should change witnesses input value', () => {
       wrapper.find('[data-test="witnesses"]').setValue('100')
@@ -106,9 +111,11 @@ describe('CreateDataRequestForm.vue', () => {
 
   describe('should emit the event if the form has no errors', () => {
     it('should emit create data request event', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
+      const wrapper = mount(CreateDataRequestForm, {
+        propsData: {
+          drValues: DR_DEFAULT_VALUES,
+        },
+        ...createComponentMocks({
           router: true,
           store: {
             wallet: {
@@ -122,7 +129,7 @@ describe('CreateDataRequestForm.vue', () => {
             },
           },
         }),
-      )
+      })
       wrapper.find('[data-test="commit-reveal-fee"]').setValue('1')
       wrapper.find('[data-test="collateral"]').setValue('10000000000')
       await wrapper
@@ -133,9 +140,11 @@ describe('CreateDataRequestForm.vue', () => {
     })
 
     it('should show an error if the input cannot be converted to number', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
+      const wrapper = mount(CreateDataRequestForm, {
+        propsData: {
+          drValues: DR_DEFAULT_VALUES,
+        },
+        ...createComponentMocks({
           router: true,
           store: {
             wallet: {
@@ -149,7 +158,7 @@ describe('CreateDataRequestForm.vue', () => {
             },
           },
         }),
-      )
+      })
 
       wrapper.find('[data-test="commit-reveal-fee"]').setValue('hola')
       wrapper.find('[data-test="collateral"]').setValue('10000000000')
@@ -162,9 +171,11 @@ describe('CreateDataRequestForm.vue', () => {
     })
 
     it('should show an error if the input is less than 1 nanoWit', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
+      const wrapper = mount(CreateDataRequestForm, {
+        propsData: {
+          drValues: DR_DEFAULT_VALUES,
+        },
+        ...createComponentMocks({
           router: true,
           store: {
             wallet: {
@@ -178,7 +189,7 @@ describe('CreateDataRequestForm.vue', () => {
             },
           },
         }),
-      )
+      })
       wrapper.setData({ rules: getNormalizedFormRules(wrapper) })
       wrapper.find('[data-test="commit-reveal-fee"]').setValue('0.000000000001')
       wrapper.find('[data-test="collateral"]').setValue('10000000000')
@@ -192,9 +203,11 @@ describe('CreateDataRequestForm.vue', () => {
     })
 
     it('should show an error if the collateral is less than 1 wit', async () => {
-      const wrapper = mount(
-        CreateDataRequestForm,
-        createComponentMocks({
+      const wrapper = mount(CreateDataRequestForm, {
+        propsData: {
+          drValues: DR_DEFAULT_VALUES,
+        },
+        ...createComponentMocks({
           router: true,
           store: {
             wallet: {
@@ -208,7 +221,7 @@ describe('CreateDataRequestForm.vue', () => {
             },
           },
         }),
-      )
+      })
 
       wrapper.find('[data-test="collateral"]').setValue('0.1')
       await wrapper
