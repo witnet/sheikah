@@ -239,7 +239,7 @@ export default {
         }
         const anyError = this.createVTTError || this.createDataRequestError
         if (anyError && anyError.error !== 'Validation Error') {
-          this.clearValues()
+          this.clearErrors()
         }
         return {
           label: tier,
