@@ -235,6 +235,8 @@ export default {
     },
   },
   created() {
+    // set dr values saved in store
+    this.form = this.drValues
     this.formValuesToStandardize.forEach(value => {
       this.form[value.key] = standardizeWitUnits(
         1,
@@ -242,8 +244,6 @@ export default {
         value.unit,
       ).toString()
     })
-    // set dr values saved in store
-    this.form = this.drValues
   },
   methods: {
     standardizeWitUnits,

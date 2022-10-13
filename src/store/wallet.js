@@ -683,7 +683,6 @@ export default {
         session_id: context.state.sessionId,
         transaction: transactionToSend.transaction,
       })
-
       if (request.result) {
         context.dispatch('saveLabel', { label, transaction: transactionToSend })
         context.commit('clearGeneratedTransaction')
@@ -738,8 +737,12 @@ export default {
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
         label,
-        fee: standardizeWitUnits(parameters.fee, WIT_UNIT.NANO),
-        fee_type: parameters.feeType.key,
+        fee: {
+          [parameters.feeType.key]: standardizeWitUnits(
+            parameters.fee,
+            WIT_UNIT.NANO,
+          ),
+        },
         request: {
           data_request: encodeDataRequest(request),
           collateral: standardizeWitUnits(
@@ -825,8 +828,9 @@ export default {
             time_lock: Math.floor(timelock / 1000),
           },
         ],
-        fee_type: feeType.key,
-        fee: standardizeWitUnits(fee, WIT_UNIT.NANO),
+        fee: {
+          [feeType.key]: standardizeWitUnits(fee, WIT_UNIT.NANO),
+        },
         label,
       })
       if (request.result) {

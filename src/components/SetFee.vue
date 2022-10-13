@@ -181,7 +181,7 @@ export default {
     feeType() {
       return this.feeValues.isWeightedFee
         ? {
-            key: 'weighted',
+            key: 'relative',
             text: this.$t('weighted_fee'),
           }
         : {

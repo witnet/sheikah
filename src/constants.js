@@ -56,7 +56,7 @@ export const DR_DEFAULT_VALUES = {
   minConsensusPercentage: '51',
   rewardFee: '1',
   witnesses: '3',
-  collateral: '1',
+  collateral: '1000000000',
 }
 
 export const LANGUAGES = {
