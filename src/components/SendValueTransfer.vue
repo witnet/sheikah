@@ -19,7 +19,7 @@
       @go-back="goPrevStage"
     />
     <GeneratedTransaction
-      v-if="stage === 2"
+      v-if="stage === 2 && generatedTransaction"
       :generated-transaction="generatedTransaction"
       type="ValueTransfer"
       @send="confirmTransaction"
@@ -113,7 +113,7 @@ export default {
     },
     async confirmTransaction() {
       await this.sendTransaction({ label: this.label })
-      this.$emit('close')
+      this.closeAndClear()
     },
   },
 }

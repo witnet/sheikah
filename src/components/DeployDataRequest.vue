@@ -27,7 +27,7 @@
       @go-back="goPrevStage"
     />
     <GeneratedTransaction
-      v-if="stage === 3"
+      v-if="stage === 3 && generatedTransaction"
       :generated-transaction="generatedTransaction"
       type="DataRequest"
       @send="confirmDataRequest"

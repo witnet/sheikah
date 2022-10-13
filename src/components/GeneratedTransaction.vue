@@ -154,7 +154,6 @@ export default {
     },
     confirmTransaction() {
       this.$emit('send')
-      this.closeAndClear()
     },
   },
 }
