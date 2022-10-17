@@ -79,6 +79,7 @@ export default {
       clearError: 'clearError',
       setError: 'setError',
       clearGeneratedTransaction: 'clearGeneratedTransaction',
+      clearSelectedFee: 'clearSelectedFee',
       setGeneratedTransaction: 'setGeneratedTransaction',
       setVttValues: 'setVttValues',
       clearVttValues: 'clearVttValues',
@@ -103,6 +104,7 @@ export default {
       this.clearVttValues()
       this.clearTransactionOptions()
       this.clearGeneratedTransaction()
+      this.clearSelectedFee()
       if (this.createVTTError) {
         this.clearError({ error: this.createVTTError.name })
       }

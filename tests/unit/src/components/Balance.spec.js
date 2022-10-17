@@ -84,6 +84,7 @@ describe('Balance.vue', () => {
       const clearVttValuesMock = jest.fn()
       const clearTransactionOptionsMock = jest.fn()
       const clearGeneratedTransactionMock = jest.fn()
+      const clearSelectedFeeMock = jest.fn()
 
       const wrapper = mount(
         Balance,
@@ -104,6 +105,7 @@ describe('Balance.vue', () => {
                 unit: WIT_UNIT.NANO,
               },
               mutations: {
+                clearSelectedFee: clearSelectedFeeMock,
                 clearVttValues: clearVttValuesMock,
                 clearTransactionOptions: clearTransactionOptionsMock,
                 clearGeneratedTransaction: clearGeneratedTransactionMock,

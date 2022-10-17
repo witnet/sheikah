@@ -115,6 +115,7 @@ export default {
   methods: {
     ...mapMutations({
       clearGeneratedTransaction: 'clearGeneratedTransaction',
+      clearSelectedFee: 'clearSelectedFee',
       clearError: 'clearError',
       setCurrentTemplate: SET_CURRENT_TEMPLATE,
       setGeneratedTransaction: 'setGeneratedTransaction',
@@ -164,6 +165,7 @@ export default {
       if (this.generatedTransaction) {
         this.clearGeneratedTransaction()
       }
+      this.clearSelectedFee()
       if (this.sendTransactionError) {
         this.clearError({ error: this.sendTransactionError.name })
       }

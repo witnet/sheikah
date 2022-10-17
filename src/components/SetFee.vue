@@ -111,12 +111,11 @@ export default {
     }
     return {
       customFee: false,
-      selectedFee: {},
       transactionToSend: null,
       customFeeError: null,
       WIT_UNIT,
       feeValues: {
-        fee: null,
+        fee: 1,
         isWeightedFee: true,
       },
       rules: {
@@ -143,6 +142,7 @@ export default {
         state.wallet.errors.getFeeEstimationReport,
       feeEstimationReport: state => state.wallet.feeEstimationReport,
       transactionOptions: state => state.wallet.transactionOptions,
+      selectedFee: state => state.wallet.selectedFee,
     }),
     formatedFeeEstimationReport() {
       if (this.feeEstimationReport) {
@@ -196,6 +196,7 @@ export default {
         this.clearErrors()
         if (this.customFee) {
           this.customFeeError = null
+          this.setSelectedCustomFee()
         }
       },
       deep: true,
@@ -203,6 +204,9 @@ export default {
   },
   async mounted() {
     await this.getFeeEstimationReport()
+    if (this.selectedFee?.label === 'custom' && this.selectedFee?.fee) {
+      this.feeValues = { ...this.selectedFee }
+    }
     if (!this.transactionOptions) {
       await this.getEstimatedTransactions()
     }
@@ -210,8 +214,8 @@ export default {
   methods: {
     ...mapMutations({
       clearError: 'clearError',
-      clearGeneratedTransaction: 'clearGeneratedTransaction',
       setTransactionOptions: 'setTransactionOptions',
+      setSelectedFee: 'setSelectedFee',
     }),
     ...mapActions({
       getFeeEstimationReport: 'getFeeEstimationReport',
@@ -275,16 +279,25 @@ export default {
         request: this.drValues.template.radRequest,
       })
     },
+    setSelectedCustomFee() {
+      this.setSelectedFee({
+        fee: {
+          label: 'custom',
+          fee: this.feeValues.fee,
+          isWeightedFee: this.feeValues.isWeightedFee,
+        },
+      })
+    },
     setFee(fee) {
-      this.selectedFee = fee
+      this.setSelectedFee({ fee })
       const anyError = this.feeEstimationReportError || fee.transaction?.error
       if (!anyError && this.drValues) {
         this.feeValues.fee = fee.transaction ? fee.transaction.fee : 1
       } else if (!anyError && this.vttValues) {
         this.feeValues.fee = fee.transaction ? fee.transaction.metadata.fee : 1
       }
-      this.customFeeError = null
       this.customFee = fee.label === 'custom'
+      this.customFeeError = null
     },
     clearErrors() {
       if (this.createVTTError) {

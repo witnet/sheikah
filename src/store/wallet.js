@@ -79,6 +79,7 @@ export default {
     sessionId: null,
     sessionExtended: false,
     feeEstimationReport: null,
+    selectedFee: {},
     walletId: null,
     addresses: [],
     generatedTransaction: null,
@@ -234,6 +235,12 @@ export default {
     },
     clearEstimationReport(state, report) {
       state.feeEstimationReport = null
+    },
+    setSelectedFee(state, { fee }) {
+      state.selectedFee = fee
+    },
+    clearSelectedFee(state) {
+      state.selectedFee = {}
     },
     setXprvInfo(state, info) {
       if (info.data.name) {

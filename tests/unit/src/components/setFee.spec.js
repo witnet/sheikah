@@ -242,7 +242,6 @@ describe('SetFee.vue', () => {
       data() {
         return {
           customFee: false,
-          selectedFee: {},
         }
       },
       ...createComponentMocks({
@@ -258,6 +257,7 @@ describe('SetFee.vue', () => {
               feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
             },
             mutations: {
+              selectedFee: jest.fn(() => {}),
               clearError: clearErrorMock,
               clearGeneratedTransaction: clearGeneratedTransactionMock,
               setTransactionOptions: setTransactionOptionsMock,
@@ -272,6 +272,7 @@ describe('SetFee.vue', () => {
         propsData: {
           vttValues: {},
           drValues: null,
+          selectedFee: {},
         },
       }),
     })
@@ -313,6 +314,7 @@ describe('SetFee.vue', () => {
               feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
             },
             mutations: {
+              selectedFee: jest.fn(() => {}),
               clearError: clearErrorMock,
               clearGeneratedTransaction: clearGeneratedTransactionMock,
               setTransactionOptions: setTransactionOptionsMock,
@@ -333,7 +335,6 @@ describe('SetFee.vue', () => {
 
     wrapper.setData({
       customFee: true,
-      selectedFee: {},
     })
 
     it('should render select-estimated-fee', () => {
@@ -366,7 +367,6 @@ describe('SetFee.vue', () => {
         data() {
           return {
             customFee: true,
-            selectedFee: {},
           }
         },
         propsData: {
@@ -386,6 +386,7 @@ describe('SetFee.vue', () => {
                 feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
               },
               mutations: {
+                selectedFee: jest.fn(() => {}),
                 clearError: clearErrorMock,
                 clearGeneratedTransaction: clearGeneratedTransactionMock,
                 setTransactionOptions: setTransactionOptionsMock,
@@ -415,7 +416,6 @@ describe('SetFee.vue', () => {
         data() {
           return {
             customFee: false,
-            selectedFee: {},
           }
         },
         ...createComponentMocks({
@@ -431,6 +431,7 @@ describe('SetFee.vue', () => {
                 feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
               },
               mutations: {
+                selectedFee: jest.fn(() => {}),
                 clearError: clearErrorMock,
                 clearGeneratedTransaction: clearGeneratedTransactionMock,
               },
@@ -462,7 +463,6 @@ describe('SetFee.vue', () => {
         data() {
           return {
             customFee: true,
-            selectedFee: {},
           }
         },
         ...createComponentMocks({
@@ -478,6 +478,7 @@ describe('SetFee.vue', () => {
                 feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
               },
               mutations: {
+                selectedFee: jest.fn(() => {}),
                 clearError: clearErrorMock,
                 clearGeneratedTransaction: clearGeneratedTransactionMock,
               },
@@ -508,12 +509,13 @@ describe('SetFee.vue', () => {
       const clearGeneratedTransactionMock = jest.fn()
       const getFeeEstimationReportMock = jest.fn()
       const setTransactionOptionsMock = jest.fn()
+      const setSelectedFee = jest.fn()
+      const selectedFeeMock = jest.fn(() => SELECTED_FEE_MOCK)
 
       const wrapper = mount(SetFee, {
         data() {
           return {
             customFee: false,
-            selectedFee: SELECTED_FEE_MOCK,
             transactionToSend: {
               result: {},
             },
@@ -521,6 +523,7 @@ describe('SetFee.vue', () => {
         },
         propsData: {
           vttValues: DEFAULT_VTT_VALUES,
+          estimatedFee: {},
         },
         ...createComponentMocks({
           store: {
@@ -537,6 +540,8 @@ describe('SetFee.vue', () => {
                 feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
               },
               mutations: {
+                selectedFee: selectedFeeMock,
+                setSelectedFee: setSelectedFee,
                 clearError: clearErrorMock,
                 clearGeneratedTransaction: clearGeneratedTransactionMock,
                 setTransactionOptions: setTransactionOptionsMock,
@@ -560,16 +565,16 @@ describe('SetFee.vue', () => {
       const clearGeneratedTransactionMock = jest.fn()
       const getFeeEstimationReportMock = jest.fn()
       const setTransactionOptionsMock = jest.fn()
+      const selectedFeeMock = jest.fn(() => ({
+        transaction: {
+          error: 'Error',
+        },
+      }))
 
       const wrapper = mount(SetFee, {
         data() {
           return {
             customFee: false,
-            selectedFee: {
-              transaction: {
-                error: 'Error',
-              },
-            },
             transactionToSend: {
               error: 'Error',
             },
@@ -577,6 +582,7 @@ describe('SetFee.vue', () => {
         },
         propsData: {
           vttValues: DEFAULT_VTT_VALUES,
+          estimatedFee: {},
         },
         ...createComponentMocks({
           store: {
@@ -591,6 +597,7 @@ describe('SetFee.vue', () => {
                 feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
               },
               mutations: {
+                selectedFee: selectedFeeMock,
                 clearError: clearErrorMock,
                 clearGeneratedTransaction: clearGeneratedTransactionMock,
                 setTransactionOptions: setTransactionOptionsMock,

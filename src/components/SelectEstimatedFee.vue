@@ -63,7 +63,7 @@ export default {
     },
     selectedFee: {
       type: Object,
-      required: true,
+      default: null,
     },
   },
   data() {
@@ -86,8 +86,10 @@ export default {
     },
   },
   mounted() {
-    if (this.feeEstimationReportError) {
+    if (this.feeEstimationReportError && this.selectedFee?.label !== 'custom') {
       this.$emit('change', { label: 'custom' })
+    } else if (this.selectedFee?.label) {
+      this.$emit('change', this.selectedFee)
     } else {
       this.$emit('change', this.recommendedOption)
     }
@@ -95,7 +97,7 @@ export default {
   methods: {
     getTimeDuration,
     isSelectedFee(fee) {
-      return fee.label === this.selectedFee.label
+      return fee.label === this.selectedFee?.label
     },
     isRecommendedOption(fee) {
       return fee.label === this.recommendedOption.label
