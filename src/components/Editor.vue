@@ -27,7 +27,7 @@ import EditorStageScripts from '@/components/EditorStageScripts'
 import EditorStageSettings from '@/components/EditorStageSettings'
 import EditorStageSources from '@/components/EditorStageSources'
 import EditorStageTally from '@/components/EditorStageTally'
-import DeployDataRequest from '@/components/DeployDataRequest.vue'
+import DeployDataRequest from '@/components/SendTransaction/DeployDataRequest.vue'
 import EditorStageBar from '@/components/EditorStageBar.vue'
 
 export default {

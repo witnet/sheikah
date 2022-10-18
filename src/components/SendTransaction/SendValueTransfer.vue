@@ -9,12 +9,12 @@
   >
     <SendValueTransferForm
       v-if="stage === 0"
-      :vtt-values="vttValues ? vttValues : {}"
+      :vtt-values="vttValues"
       @set-vtt-values="setFormValues"
     />
     <SetFee
       v-if="stage === 1"
-      :vtt-values="vttValues ? vttValues : {}"
+      :vtt-values="vttValues"
       @set-transaction="setSelectedTransaction"
       @go-back="goPrevStage"
     />
@@ -30,9 +30,9 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import GeneratedTransaction from '@/components/GeneratedTransaction.vue'
-import SendValueTransferForm from '@/components/SendValueTransferForm.vue'
-import SetFee from '@/components/SetFee.vue'
+import GeneratedTransaction from '@/components/SendTransaction/GeneratedTransaction.vue'
+import SendValueTransferForm from '@/components/SendTransaction/SendValueTransferForm.vue'
+import SetFee from '@/components/SendTransaction/SetFee.vue'
 
 export default {
   name: 'SendValueTransfer',

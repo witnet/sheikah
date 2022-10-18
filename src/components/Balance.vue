@@ -19,7 +19,7 @@ import { mapState, mapMutations } from 'vuex'
 import BalanceButtons from '@/components/BalanceButtons'
 import BalanceData from '@/components/BalanceData'
 import Fieldset from '@/components/Fieldset'
-import SendValueTransfer from '@/components/SendValueTransfer'
+import SendValueTransfer from '@/components/SendTransaction/SendValueTransfer'
 
 // Show available, locked and total amount.
 // It also includes buttons to trigger receive and send actions.

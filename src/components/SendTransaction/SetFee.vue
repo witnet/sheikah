@@ -73,7 +73,7 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 import AppendUnit from '@/components/AppendUnit'
 import FormValidation from '@/services/FormValidation'
 import { WIT_UNIT, FEE_TIERS } from '@/constants'
-import SelectEstimatedFee from '@/components/SelectEstimatedFee'
+import SelectEstimatedFee from '@/components/SendTransaction/SelectEstimatedFee'
 import DotsLoading from '@/components/DotsLoading'
 
 export default {

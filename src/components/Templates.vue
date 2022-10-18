@@ -62,7 +62,7 @@
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
 import TemplateCard from './card/TemplateCard'
-import DeployDataRequest from '@/components/DeployDataRequest.vue'
+import DeployDataRequest from '@/components/SendTransaction/DeployDataRequest.vue'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
 import { TEMPLATES_PER_PAGE } from '@/constants'
 

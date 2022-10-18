@@ -17,7 +17,7 @@
       </p>
       <p class="label capitalize">{{ option.label }}</p>
       <Amount
-        v-if="option.transaction && !option.transaction.error"
+        v-if="isTransactionGenerated(option)"
         class="priority"
         data-test="fee"
         :unit-dark="true"
@@ -35,7 +35,7 @@
       <p v-else-if="isDisabledFee(option)" class="error-message">
         {{ option.transaction.error }}
       </p>
-      <p v-if="option.report && option.report.time_to_block" class="time">
+      <p v-if="isReportGenerated(option)" class="time">
         {{ getTimeDuration(option.report.time_to_block, locale) }}
       </p>
     </div>
@@ -98,6 +98,12 @@ export default {
     getTimeDuration,
     isSelectedFee(fee) {
       return fee.label === this.selectedFee?.label
+    },
+    isTransactionGenerated(option) {
+      return option.transaction && !option.transaction.error
+    },
+    isReportGenerated(option) {
+      return option.report && option.report.time_to_block
     },
     isRecommendedOption(fee) {
       return fee.label === this.recommendedOption.label

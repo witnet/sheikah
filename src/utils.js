@@ -47,7 +47,7 @@ export function isGrtMaxNumber(value, unit) {
   )
 }
 
-// calculate formated time per block
+// calculate formated time per interval
 export function getTimeDuration(seconds, currentLocale) {
   return formatDuration(
     intervalToDuration({
@@ -307,14 +307,6 @@ export function changeDateFormat(timestamp) {
   const year = formatedDate[2]
   const time = formatedDate[3]
   return `${month} ${day}, ${year} @ ${time}`
-}
-
-//convert to snake case
-export function convertToSnakeCase(value) {
-  const capitalLetterRegex = /[A-Z][a-z]+/g
-  const result =
-    value.match(capitalLetterRegex).map(string => string.toLowerCase()) || []
-  return result.join('_')
 }
 
 /// calculate the time passed from a given date

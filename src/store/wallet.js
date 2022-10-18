@@ -411,29 +411,26 @@ export default {
         message,
       }
       if (
-        name === 'uploadFile' ||
-        name === 'mnemonics' ||
-        name === 'xprv' ||
-        name === 'seed' ||
-        name === 'nodeSync' ||
+        ['uploadFile', 'mnemonics', 'xprv', 'seed', 'nodeSync'].includes(
+          name,
+        ) ||
         error === 'Validation Error'
       ) {
         return
+      }
+      const socketNotReady = error === 'socket not ready'
+      const networkStatusError = state.networkStatus === 'error'
+      if (networkStatusError || socketNotReady) {
+        return ''
       } else {
-        const socketNotReady = error === 'socket not ready'
-        const networkStatusError = state.networkStatus === 'error'
-        if (networkStatusError || socketNotReady) {
-          return ''
-        } else {
-          // notification options
-          const notificationProps = {
-            title: error,
-            body: message,
-            icon: warning,
-          }
-          // create notification
-          createNotification(notificationProps)
+        // notification options
+        const notificationProps = {
+          title: error,
+          body: message,
+          icon: warning,
         }
+        // create notification
+        createNotification(notificationProps)
       }
     },
     clearError(state, { error }) {

@@ -38,10 +38,10 @@
 
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
-import CreateDataRequestForm from '@/components/CreateDataRequestForm'
-import SetFee from '@/components/SetFee.vue'
-import CompleteVariablesForm from '@/components/CompleteVariablesForm'
-import GeneratedTransaction from '@/components/GeneratedTransaction'
+import CreateDataRequestForm from '@/components/SendTransaction/CreateDataRequestForm'
+import SetFee from '@/components/SendTransaction/SetFee.vue'
+import CompleteVariablesForm from '@/components/SendTransaction/CompleteVariablesForm'
+import GeneratedTransaction from '@/components/SendTransaction/GeneratedTransaction'
 import { SET_CURRENT_TEMPLATE } from '@/store/mutation-types'
 
 export default {
