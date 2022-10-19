@@ -41,8 +41,10 @@ export default class FormValidation {
   }
 
   minAmount = (rule, value, callback) => {
-    const isNanoWit = this.unit === WIT_UNIT.NANO
-    if (isNanoWit && value < 1) {
+    const nanoWits = Number(
+      standardizeWitUnits(value, WIT_UNIT.NANO, this.unit),
+    )
+    if (nanoWits < 1) {
       callback(new Error(i18n.t('validate_min_amount')))
     } else {
       callback()
