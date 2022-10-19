@@ -112,7 +112,7 @@
   "sign_send": "Sign and send",
   "validate_max_number": "This number is greater than the maximum",
   "validate_integer_nano_wit": "Only integer nanoWits values allowed",
-  "validate_min_amount": "The minimum fee cannot be less than 1 nanoWit",
+  "validate_min_amount": "The amount cannot be less than 1 nanoWit",
   "validate_number": "This should be a number",
   "select_language": "Select the language",
   "select_unit": "Select the default unit",

@@ -23,12 +23,7 @@
       <DotsLoading size="8px" />
     </div>
     <el-form-item v-if="customFee" prop="fee">
-      <el-input
-        v-model="feeValues.fee"
-        type="number"
-        tabindex="4"
-        data-test="tx-fee"
-      >
+      <el-input v-model="feeValues.fee" tabindex="4" data-test="tx-fee">
         <AppendUnit slot="append" :static-unit="unit" />
       </el-input>
     </el-form-item>
@@ -108,9 +103,6 @@ export default {
     const integerNanoWitFee = (rule, value, callback) => {
       return formValidation().integerNanoWitFee(rule, value, callback)
     }
-    const minAmount = (rule, value, callback) => {
-      return formValidation().minAmount(rule, value, callback)
-    }
     const isNumber = (rule, value, callback) => {
       return formValidation().isNumber(rule, value, callback)
     }
@@ -120,7 +112,7 @@ export default {
       customFeeError: null,
       WIT_UNIT,
       feeValues: {
-        fee: 1,
+        fee: '0',
         isWeightedFee: true,
       },
       rules: {
@@ -131,7 +123,6 @@ export default {
             trigger: 'blur',
           },
           { validator: isNumber, trigger: 'blur' },
-          { validator: minAmount, trigger: 'submit' },
           {
             validator: integerNanoWitFee,
             trigger: 'submit',
@@ -304,9 +295,11 @@ export default {
       this.setSelectedFee({ fee })
       const anyError = this.feeEstimationReportError || fee.transaction?.error
       if (!anyError && this.drValues) {
-        this.feeValues.fee = fee.transaction ? fee.transaction.fee : 1
+        this.feeValues.fee = fee.transaction ? fee.transaction.fee : '0'
       } else if (!anyError && this.vttValues) {
-        this.feeValues.fee = fee.transaction ? fee.transaction.metadata.fee : 1
+        this.feeValues.fee = fee.transaction
+          ? fee.transaction.metadata.fee
+          : '0'
       }
       this.customFee = fee.label === 'custom'
       this.customFeeError = null
@@ -327,9 +320,9 @@ export default {
         const selectedTransaction = this.selectedFee?.transaction
         if (selectedTransaction) {
           this.transactionToSend = selectedTransaction
-        } else if (this.vttValues) {
+        } else if (valid && this.vttValues) {
           this.transactionToSend = await this.customVttTransaction()
-        } else if (this.drValues) {
+        } else if (valid && this.drValues) {
           this.transactionToSend = await this.customDrTransaction()
         }
         if (this.customFee && this.transactionToSend?.error) {

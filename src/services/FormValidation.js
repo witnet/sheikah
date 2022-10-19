@@ -61,8 +61,9 @@ export default class FormValidation {
   }
 
   isNumber = (rule, value, callback) => {
+    // Allow using commas in numbers in form despite big.js does not support it
     try {
-      new BigNumber(value)
+      new BigNumber(value.replace(',', '.'))
       callback()
     } catch (err) {
       callback(new Error(i18n.t('validate_number')))

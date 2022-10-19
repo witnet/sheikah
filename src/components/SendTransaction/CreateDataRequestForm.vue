@@ -13,7 +13,7 @@
     </el-form-item>
 
     <el-form-item :label="$t('collateral')" prop="collateral">
-      <el-input v-model="form.collateral" data-test="collateral" type="number">
+      <el-input v-model="form.collateral" data-test="collateral">
         <AppendUnit
           slot="append"
           data-test="collateral-append"
@@ -33,7 +33,7 @@
     </el-form-item>
 
     <el-form-item :label="$t('reward_fee')" prop="rewardFee">
-      <el-input v-model="form.rewardFee" data-test="reward-fee" type="number">
+      <el-input v-model="form.rewardFee" data-test="reward-fee">
         <AppendUnit
           slot="append"
           data-test="reward-fee-append"
@@ -46,11 +46,7 @@
       :label="$t('commit_and_reveal_fee')"
       prop="commitAndRevealFee"
     >
-      <el-input
-        v-model="form.commitAndRevealFee"
-        data-test="commit-reveal-fee"
-        type="number"
-      >
+      <el-input v-model="form.commitAndRevealFee" data-test="commit-reveal-fee">
         <AppendUnit
           slot="append"
           data-test="commit-reveal-fee-append"

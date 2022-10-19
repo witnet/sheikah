@@ -112,7 +112,7 @@
   "sign_send": "Firmar y enviar",
   "validate_max_number": "Este número es mayor que el máximo permitido",
   "validate_integer_nano_wit": "Sólo están permitidos valores de nanoWits enteros",
-  "validate_min_amount": "La tasa mínima no puede ser inferior a 1 nanoWit",
+  "validate_min_amount": "La cantidad no puede ser inferior a 1 nanoWit",
   "validate_number": "Esto debería ser un número",
   "select_language": "Selecciona el idioma",
   "select_unit": "Selecciona la unidad por defecto",

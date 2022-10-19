@@ -20,12 +20,7 @@
     </el-form-item>
     <el-form-item :label="$t('amount')" prop="amount">
       <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
-      <el-input
-        v-model="form.amount"
-        type="number"
-        tabindex="3"
-        data-test="tx-amount"
-      >
+      <el-input v-model="form.amount" tabindex="3" data-test="tx-amount">
         <AppendUnit slot="append" @change-unit="changeUnit" />
       </el-input>
     </el-form-item>
