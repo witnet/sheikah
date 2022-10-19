@@ -213,6 +213,9 @@ export default {
   methods: {
     ...mapMutations({
       clearError: 'clearError',
+      clearSelectedFee: 'clearSelectedFee',
+      clearTransactionOptions: 'clearTransactionOptions',
+      clearGeneratedTransaction: 'clearGeneratedTransaction',
       setTransactionOptions: 'setTransactionOptions',
       setSelectedFee: 'setSelectedFee',
     }),
@@ -313,6 +316,9 @@ export default {
     },
     clearValues() {
       this.clearErrors()
+      this.clearTransactionOptions()
+      this.clearGeneratedTransaction()
+      this.clearSelectedFee()
       this.$emit('go-back')
     },
     async setTransaction() {
