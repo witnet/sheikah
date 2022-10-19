@@ -13,7 +13,7 @@
     </el-form-item>
 
     <el-form-item :label="$t('collateral')" prop="collateral">
-      <el-input v-model="form.collateral" data-test="collateral">
+      <el-input v-model="form.collateral" data-test="collateral" type="number">
         <AppendUnit
           slot="append"
           data-test="collateral-append"
@@ -33,7 +33,7 @@
     </el-form-item>
 
     <el-form-item :label="$t('reward_fee')" prop="rewardFee">
-      <el-input v-model="form.rewardFee" data-test="reward-fee">
+      <el-input v-model="form.rewardFee" data-test="reward-fee" type="number">
         <AppendUnit
           slot="append"
           data-test="reward-fee-append"
@@ -46,7 +46,11 @@
       :label="$t('commit_and_reveal_fee')"
       prop="commitAndRevealFee"
     >
-      <el-input v-model="form.commitAndRevealFee" data-test="commit-reveal-fee">
+      <el-input
+        v-model="form.commitAndRevealFee"
+        data-test="commit-reveal-fee"
+        type="number"
+      >
         <AppendUnit
           slot="append"
           data-test="commit-reveal-fee-append"
@@ -96,7 +100,11 @@ export default {
   },
   data() {
     const formValidation = () =>
-      new FormValidation({ unit: this.unit, balance: this.availableBalance })
+      new FormValidation({
+        unit: this.unit,
+        balance: this.availableBalance,
+        feeType: this.feeType,
+      })
 
     const isGrtThanBalance = (rule, value, callback) => {
       return formValidation().isGrtThanBalance(rule, value, callback)

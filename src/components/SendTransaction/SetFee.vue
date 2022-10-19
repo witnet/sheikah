@@ -29,11 +29,11 @@
         tabindex="4"
         data-test="tx-fee"
       >
-        <AppendUnit slot="append" :static-unit="WIT_UNIT.NANO" />
+        <AppendUnit slot="append" :static-unit="unit" />
       </el-input>
     </el-form-item>
     <transition name="slide">
-      <div v-if="customFee">
+      <div v-if="customFee" class="switcher-row">
         <el-switch
           v-model="feeValues.isWeightedFee"
           data-test="fee-type-switch"
@@ -75,6 +75,7 @@ import FormValidation from '@/services/FormValidation'
 import { WIT_UNIT, FEE_TIERS } from '@/constants'
 import SelectEstimatedFee from '@/components/SendTransaction/SelectEstimatedFee'
 import DotsLoading from '@/components/DotsLoading'
+import { standardizeWitUnits } from '@/utils'
 
 export default {
   name: 'SendValueTransferForm',
@@ -95,13 +96,17 @@ export default {
   },
   data() {
     const formValidation = () =>
-      new FormValidation({ unit: this.unit, balance: this.availableBalance })
+      new FormValidation({
+        unit: this.unit,
+        balance: this.availableBalance,
+        feeType: this.feeType,
+      })
 
     const maxNumber = (rule, value, callback) => {
       return formValidation().maxNumber(rule, value, callback)
     }
-    const integerNanoWit = (rule, value, callback) => {
-      return formValidation().integerNanoWit(rule, value, callback)
+    const integerNanoWitFee = (rule, value, callback) => {
+      return formValidation().integerNanoWitFee(rule, value, callback)
     }
     const minAmount = (rule, value, callback) => {
       return formValidation().minAmount(rule, value, callback)
@@ -127,7 +132,10 @@ export default {
           },
           { validator: isNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
-          { validator: integerNanoWit, trigger: 'submit' },
+          {
+            validator: integerNanoWitFee,
+            trigger: 'submit',
+          },
           { validator: maxNumber, trigger: 'blur' },
         ],
       },
@@ -264,7 +272,7 @@ export default {
         label: this.vttValues.label,
         address: this.vttValues.address,
         amount: this.vttValues.amount,
-        fee: this.feeValues.fee,
+        fee: standardizeWitUnits(this.feeValues.fee, WIT_UNIT.NANO, this.unit),
         feeType: this.feeType,
         timelock: this.vttValues.timelock,
       })
@@ -273,7 +281,11 @@ export default {
       return await this.createDataRequest({
         parameters: {
           ...this.drValues,
-          fee: this.feeValues.fee,
+          fee: standardizeWitUnits(
+            this.feeValues.fee,
+            WIT_UNIT.NANO,
+            this.unit,
+          ),
           feeType: this.feeType,
         },
         request: this.drValues.template.radRequest,
@@ -392,10 +404,15 @@ export default {
   }
 }
 
-.switch {
+.switcher-row {
+  display: flex;
   justify-content: flex-end;
-  margin-bottom: 16px;
-  width: 100%;
+
+  .switch {
+    justify-content: flex-end;
+    margin-bottom: 16px;
+    width: max-content;
+  }
 }
 
 .submit {

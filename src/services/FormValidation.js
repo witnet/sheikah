@@ -4,14 +4,28 @@ import i18n from '@/plugins/i18n'
 import BigNumber from '@/utils/BigNumber'
 
 export default class FormValidation {
-  constructor({ unit, balance }) {
+  constructor({ unit, balance, feeType }) {
     this.unit = unit
+    this.feeType = feeType
     this.balance = balance
   }
 
   maxNumber = (rule, value, callback) => {
     if (isGrtMaxNumber(value, this.unit)) {
       callback(new Error(i18n.t('validate_max_number')))
+    } else {
+      callback()
+    }
+  }
+
+  integerNanoWitFee = (rule, value, callback) => {
+    const isNanoWit = this.unit === WIT_UNIT.NANO
+    if (
+      isNanoWit &&
+      this.feeType?.key === 'absolute' &&
+      !Number.isInteger(Number(value))
+    ) {
+      callback(new Error(i18n.t('validate_integer_nano_wit')))
     } else {
       callback()
     }

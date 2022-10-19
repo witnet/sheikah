@@ -824,10 +824,8 @@ export default {
         outputs: [
           {
             address: address,
-            amount: standardizeWitUnits(
-              amount,
-              WIT_UNIT.NANO,
-              context.state.unit,
+            amount: parseInt(
+              standardizeWitUnits(amount, WIT_UNIT.NANO, context.state.unit),
             ),
             time_lock: Math.floor(timelock / 1000),
           },

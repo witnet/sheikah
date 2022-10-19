@@ -139,37 +139,6 @@ describe('CreateDataRequestForm.vue', () => {
       expect(wrapper.emitted()['set-dr-values']).toBeTruthy()
     })
 
-    it('should show an error if the input cannot be converted to number', async () => {
-      const wrapper = mount(CreateDataRequestForm, {
-        propsData: {
-          drValues: DR_DEFAULT_VALUES,
-        },
-        ...createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                errors: {
-                  createDataRequest: false,
-                },
-                balance: { total: '400000000000' },
-                unit: 'nanoWit',
-              },
-            },
-          },
-        }),
-      })
-
-      wrapper.find('[data-test="commit-reveal-fee"]').setValue('hola')
-      wrapper.find('[data-test="collateral"]').setValue('10000000000')
-      await wrapper
-        .find('[data-test="create-data-request-submit"]')
-        .trigger('click')
-      expect(wrapper.find('.el-form-item__error').text()).toBe(
-        `This should be a number`,
-      )
-    })
-
     it('should show an error if the input is less than 1 nanoWit', async () => {
       const wrapper = mount(CreateDataRequestForm, {
         propsData: {
