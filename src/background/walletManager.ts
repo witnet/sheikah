@@ -75,6 +75,15 @@ export class WalletManager {
         )
         this.needToDownloadWallet =
           isCompatibleRelease && !isLatestVersionInstalled
+        if (isLatestVersionInstalled) {
+          console.info(
+            `Latest wallet version ${this.latestWitnetRustVersion} already installed`,
+          )
+        } else if (!this.needToDownloadWallet) {
+          console.info(
+            `Latest wallet version ${this.latestWitnetRustVersion} is not compatible with this version of sheikah, so it will not be installed`,
+          )
+        }
       } catch (err) {
         console.error('An error occured trying to read version file', err)
       }
@@ -82,9 +91,6 @@ export class WalletManager {
     this.witnetRustVersion = this.needToDownloadWallet
       ? this.latestWitnetRustVersion
       : WITNET_RUST_VERSION
-    console.info(
-      `Fetching release from: ${RELEASE_BASE_URL}${this.witnetRustVersion}`,
-    )
 
     const downloadUrl: string | undefined = await fetchReleaseDownloadUrl(
       `${RELEASE_BASE_URL}${this.witnetRustVersion}`,
@@ -125,6 +131,9 @@ export class WalletManager {
 
   // Download a wallet release from the url specified
   public async downloadWallet(releaseUrl: string) {
+    console.info(
+      `Fetching release from: ${RELEASE_BASE_URL}${this.witnetRustVersion}`,
+    )
     this.app.sendDownloadingMessage()
     await sleep(2500)
     this.app.setStatus(Status.Wait)
