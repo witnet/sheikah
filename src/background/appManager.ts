@@ -9,6 +9,8 @@ declare const __static: string
 export class AppManager {
   public status: Status
   public win: BrowserWindow | null = null
+  // Window with browser console detached from the main browser window
+  private devTools: BrowserWindow | null = null
   public createdProtocol: boolean = false
   private walletPid: number | null = null
 
@@ -200,10 +202,17 @@ export class AppManager {
   public loadUrl(status: Status) {
     if (this.win) {
       if (process.env.WEBPACK_DEV_SERVER_URL) {
+        if (!this.devTools) {
+          // Create a window for browser console as suggested in
+          // https://github.com/electron/electron/issues/20069#issuecomment-586642795
+          this.devTools = new BrowserWindow()
+        }
         // Load the url of the dev server if in development mode
         this.win.loadURL(
           `${process.env.WEBPACK_DEV_SERVER_URL}#/${STATUS_PATH[status]}`,
         )
+        this.win.webContents.setDevToolsWebContents(this.devTools.webContents)
+        this.win.webContents.openDevTools({ mode: 'detach' })
       } else {
         if (!this.createdProtocol) {
           createProtocol('app')
