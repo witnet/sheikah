@@ -8,6 +8,7 @@
       <button
         id="select-button"
         ref="button"
+        type="button"
         data-test="select-btn"
         aria-haspopup="listbox"
         aria-labelledby="select-label select-button"
