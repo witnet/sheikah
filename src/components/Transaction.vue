@@ -24,7 +24,8 @@
           <p data-test="origin" class="origin">{{
             origin === 'from' ? $t('from_id') : $t('to_id')
           }}</p>
-          <Address size="13px" :value="address" :without-link="true" />
+          <p v-if="address === 'miner'" class="address">{{ $t('miner') }}</p>
+          <Address v-else size="13px" :value="address" :without-link="true" />
         </div>
         <div
           v-else-if="transactionType === 'data_request'"

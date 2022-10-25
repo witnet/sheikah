@@ -165,7 +165,8 @@ export class WalletApi {
         request.result.transactions.sort(
           (t1, t2) =>
             t2.timestamp - t1.timestamp ||
-            Number(t1.outputs[0]?.timelock) - Number(t2.outputs[0]?.timelock),
+            Number(t1.outputs[0]?.timelock ?? 0) -
+              Number(t2.outputs[0]?.timelock ?? 0),
         )
         request.result.transactions = request.result.transactions.splice(
           computedPagination.pageSection[0],
