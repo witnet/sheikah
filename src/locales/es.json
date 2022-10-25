@@ -428,5 +428,6 @@
   "confirm_vtt_tx": "Confirma la transacción",
   "estimating_fees": "Estimando tasas",
   "recommended": "Recomendada",
-  "timelock_tooltip": "El destinatario no podrá gastar sus Wit coins antes de la fecha y hora seleccionada"
+  "timelock_tooltip": "El destinatario no podrá gastar sus Wit coins antes de la fecha y hora seleccionada",
+  "miner": "Minero"
 }

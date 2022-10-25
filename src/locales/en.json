@@ -430,5 +430,6 @@
   "confirm_vtt_tx": "Confirm value transfer transaction",
   "estimating_fees": "Estimating fees",
   "recommended": "Recommended",
-  "timelock_tooltip": "The recipient will not be able to spend the coins before this date and time"
+  "timelock_tooltip": "The recipient will not be able to spend the coins before this date and time",
+  "miner": "Miner"
 }
