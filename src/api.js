@@ -165,7 +165,7 @@ export class WalletApi {
         request.result.transactions.sort(
           (t1, t2) =>
             t2.timestamp - t1.timestamp ||
-            Number(t1.outputs[0].timelock) - Number(t2.outputs[0].timelock),
+            Number(t1.outputs[0]?.timelock) - Number(t2.outputs[0]?.timelock),
         )
         request.result.transactions = request.result.transactions.splice(
           computedPagination.pageSection[0],
@@ -459,6 +459,11 @@ function computeTransactionAddress(inputs, outputs, type) {
       return 'genesis'
     }
   } else {
+    // Data request transactions can have 0 outputs, in that case the displayed text is "Data request".
+    // Value transfer transactions can have 0 outputs, but they cannot be created using Sheikah. In that case the transaction is a donation to the miner, so the displayed text will be "to miner".
+    if (outputs.length === 0) {
+      return 'miner'
+    }
     // We are assumming that the first output is the address where we are
     // sending and the second is for the change. So if there are more than 2,
     // there are several addresses
