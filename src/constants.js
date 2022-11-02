@@ -1,8 +1,9 @@
 import { es as fnsEs, enGB } from 'date-fns/locale'
 import en from 'element-plus/dist/locale/en.mjs'
 import es from 'element-plus/dist/locale/es.mjs'
-import bitcoinPrice from '@/radExamples/bitcoinPrice.js'
-import ethPrice from '@/radExamples/ethPrice.js'
+// TODO: fix
+// import bitcoinPrice from '@/radExamples/bitcoinPrice.js'
+// import ethPrice from '@/radExamples/ethPrice.js'
 
 export const EDITOR_ALLOWED_PROTOCOLS = ['http', 'https']
 
@@ -201,11 +202,11 @@ export const RAD_EXAMPLES = [
   {
     name: 'Bitcoin price',
     description: 'Bitcoin price in USD',
-    radRequest: bitcoinPrice,
+    // radRequest: bitcoinPrice,
   },
   {
     name: 'Eth price',
     description: 'Eth price in USD',
-    radRequest: ethPrice,
+    // radRequest: ethPrice,
   },
 ]
