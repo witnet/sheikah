@@ -1,4 +1,4 @@
-import cbor from 'cbor'
+// import cbor from 'cbor'
 import {
   format,
   formatDistanceToNow,
@@ -132,7 +132,8 @@ export function encodeAggregationTally(stage) {
       return Array.isArray(filter)
         ? {
             op: filter[0],
-            args: filter.slice(1).length ? [...cbor.encode(args).values()] : [],
+            // TODO: make cbor work
+            args: filter.slice(1).length ? [/** ...cbor.encode(args).values() */] : [],
           }
         : { op: filter, args: [] }
     }),
