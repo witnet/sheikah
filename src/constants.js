@@ -1,6 +1,6 @@
 import { es as fnsEs, enGB } from 'date-fns/locale'
-import en from 'element-ui/lib/locale/lang/en'
-import es from 'element-ui/lib/locale/lang/es'
+import en from 'element-plus/dist/locale/en.mjs'
+import es from 'element-plus/dist/locale/es.mjs'
 import bitcoinPrice from '@/radExamples/bitcoinPrice.js'
 import ethPrice from '@/radExamples/ethPrice.js'
 
@@ -59,6 +59,7 @@ export const DR_DEFAULT_VALUES = {
   collateral: '1000000000',
 }
 
+// TODO: update locales to element-plus
 export const LANGUAGES = {
   es: { name: 'Español', locale: 'es', fnsLocale: fnsEs, elementLocale: es },
   en: { name: 'English', locale: 'en', fnsLocale: enGB, elementLocale: en },

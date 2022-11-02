@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter } from 'vue-router'
 import Community from '@/components/Community.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
@@ -31,7 +30,7 @@ import WalletBirthdate from '@/components/steps/WalletBirthdate.vue'
 import store from '@/store'
 import { SETTINGS_SECTIONS } from '@/constants'
 
-Vue.use(Router)
+// Vue.use(Router)
 function redirectOnReload(to, from, next) {
   if (store.state.wallet.api.client.ws.ready) {
     next()
@@ -40,7 +39,7 @@ function redirectOnReload(to, from, next) {
   }
 }
 
-export default new Router({
+export default createRouter({
   routes: [
     {
       path: '/settings',

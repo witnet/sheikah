@@ -1,28 +1,22 @@
 {
   "compilerOptions": {
-    "skipLibCheck": true,
-    "target": "es2019",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
-    "importHelpers": true,
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "experimentalDecorators": true,
+    "importHelpers": true,
+    "jsx": "preserve",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
-    "allowJs": true,
-    "baseUrl": ".",
-    "types": ["node", "jest", "webpack", "webpack-env"],
-    "paths": {
-      "@/*": ["src/*"],
-      "*": ["src/typings/*"]
-    },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "typeRoots": ["node_modules/@types", "src/typings"],
-    "outDir": "dist/"
+    "baseUrl": "./",
+    "strict": true,
+    "paths": {},
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules", "tests"],
-  "include": ["src//*.ts", "src//*.vue"]
+  "include": ["src"],
+  "references": [
+    { "path": "./tsconfig.node.json" }
+  ],
+  "types": ["element-plus/global"]
 }

@@ -1,34 +1,50 @@
-import Vue from 'vue'
-import IdleVue from 'idle-vue'
-import App from './App.vue'
+// import IdleVue from 'idle-vue'
 import router from './router'
 import store from './store'
-import i18n from '@/plugins/i18n'
-import './plugins/element.js'
-import './fontAwesome'
-import '@/directives'
-import '@/ipcHandlers'
-// TODO: delete
-declare let window: any
+import i18n from './plugins/i18n'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+// import './plugins/element.js'
+// import './fontAwesome'
+// import '@/directives'
+// import '@/ipcHandlers'
 
-Vue.config.productionTip = false
+// declare let window: any
 
-const eventsHub = new Vue()
-Vue.use(IdleVue, {
-  eventEmitter: eventsHub,
-  store,
-  idleTime: 900000,
-  startAtIdle: false,
-})
+// Vue.config.productionTip = false
 
-runApp()
-function runApp() {
-  const vm = new Vue({
-    i18n,
-    router,
-    store,
-    render: h => h(App),
-  }).$mount('#app')
+// const eventsHub = new Vue()
+// Vue.use(IdleVue, {
+//   eventEmitter: eventsHub,
+//   store,
+//   idleTime: 900000,
+//   startAtIdle: false,
+// })
 
-  window.vm = vm
-}
+// runApp()
+// function runApp() {
+//   const vm = new Vue({
+//     // i18n,
+//     router,
+//     store,
+//     render: h => h(App),
+//   }).$mount('#app')
+
+//   window.vm = vm
+// }
+
+
+import { createApp } from 'vue'
+import App from './App.vue'
+
+const app = createApp(App)
+  
+  app.use(ElementPlus)
+  app.use(router)
+  app.use(store)
+  app.use(i18n)
+
+  app.mount('#app')
+  .$nextTick(() => {
+    postMessage({ payload: 'removeLoading' }, '*')
+  })

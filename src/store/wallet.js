@@ -1,4 +1,4 @@
-import elementLocale from 'element-ui/lib/locale'
+// import elementLocale from 'element-plus/dist/locale'
 import router from '@/router'
 import { WalletApi, standardizeBalance, LocalStorageApi } from '@/api'
 import {
@@ -287,8 +287,9 @@ export default {
       } else {
         console.warn('[mutation setUnit]: invalid language')
       }
+      // TODO: change locale https://element-plus.org/en-US/guide/i18n.html#configprovider
       // Set element locale
-      elementLocale.use(LANGUAGES[i18n.locale].elementLocale)
+      // elementLocale.use(LANGUAGES[i18n.locale].elementLocale)
     },
     changeDefaultUnit(state, unit) {
       if (Object.values(WIT_UNIT).includes(unit)) {
