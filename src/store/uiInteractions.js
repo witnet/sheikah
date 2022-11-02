@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { LocalStorageApi } from '@/api'
 
 export default {
@@ -82,7 +81,8 @@ export default {
   },
   actions: {
     notify(context, payload) {
-      Vue.prototype.$notify(payload)
+      // TODO: replace vue prototype https://vuejs.org/api/application.html#app-config-globalproperties
+      // Vue.prototype.$notify(payload)
     },
     saveShowModalAgain(context, val) {
       context.state.localStorage.setSkipSessionExpirationInfo(val)

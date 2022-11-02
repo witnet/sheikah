@@ -1,5 +1,4 @@
 import { Radon } from 'witnet-radon-js'
-import Vue from 'vue'
 import {
   createNotification,
   generateId,
@@ -536,7 +535,8 @@ export default {
       }
     },
     deleteTemplate: async function (context, { id }) {
-      Vue.delete(context.state.templates, id)
+      // TODO: fix
+      // $vm.delete(context.state.templates, id)
       const request = await context.rootState.wallet.api.saveItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
