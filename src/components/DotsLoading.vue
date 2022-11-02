@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <div class="base-dots-loading" :style="{ margin: props.margin }">
     <div
       v-for="className in ['first', 'second', 'third']"

@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <span class="tag" :class="[props.color]">
     {{ props.text }}
   </span>
