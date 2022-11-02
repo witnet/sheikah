@@ -18,11 +18,12 @@
 </template>
 
 <script>
-import resizeMixin from '@/components/resizeMixin'
+// import resizeMixin from '@/components/resizeMixin.js'
 
 export default {
   name: 'Input',
-  mixins: [resizeMixin],
+  // TODO: fix mixing
+  // mixins: [resizeMixin],
   props: {
     maxlength: {
       type: Number,
