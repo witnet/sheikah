@@ -86,6 +86,8 @@ export default {
         font-style: italic;
         font-weight: medium;
         margin-left: 8px;
+        max-width: 650px;
+        overflow-wrap: break-word;
       }
 
       .helper {
