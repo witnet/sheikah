@@ -251,12 +251,15 @@ export default {
     align-items: center;
     border: var(--operators-dashed-border);
     display: flex;
+    position: relative;
 
     .url {
       color: var(--text-low-emphasis);
       font-size: 14px;
       font-weight: medium;
-      margin: 16px;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      padding: 16px;
 
       .protocol {
         font-size: 12px;
