@@ -20,6 +20,7 @@ class ApiClient {
     this.listeners = {}
     this.options = options || defaultOptions
     this.ws = new RPCWebsockets(this.options.url, { ...this.options })
+    console.log('++++++++++++++++++++++')
   }
 
   request(method, params) {
@@ -27,11 +28,13 @@ class ApiClient {
   }
 
   on(event, handler) {
+    console.log('-------------------------')
     // Prevents from subscribing to the same event more than once
     if (event in this.listeners) {
       return this.listeners[event]
     } else {
       const listener = this.ws.on([event], (...args) => {
+        console.log('event', event)
         handler(...args)
       })
       this.listeners[event] = listener
@@ -180,6 +183,7 @@ export class WalletApi {
   }
 
   getWalletInfos(params) {
+    console.log('inside get walletinffos')
     return this._callApiMethod('get_wallet_infos')(
       params,
       standardizeWalletInfos,

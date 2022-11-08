@@ -32,9 +32,11 @@ import {
 import { SET_TEMPLATES, UPDATE_TEMPLATE } from '@/store/mutation-types'
 import warning from '@/resources/svg/warning.png'
 
+
+const api = new WalletApi()
+
 export default {
   state: {
-    api: new WalletApi(),
     localStorage: new LocalStorageApi(),
     eventProcessor: new ProcessWalletEvent(),
     errors: {
@@ -1144,7 +1146,7 @@ export default {
         })
       }
       // Set element locale
-      elementLocale.use(LANGUAGES[payload.i18n.locale].elementLocale)
+      // elementLocale.use(LANGUAGES[payload.i18n.locale].elementLocale)
     },
     getTheme: async function (context) {
       const theme = context.state.localStorage.getThemeSettings()
@@ -1166,7 +1168,13 @@ export default {
       }
     },
     getWalletInfos: async function (context) {
-      const request = await context.state.api.getWalletInfos()
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+        }, 1000)
+      })
+      const request = await api.getWalletInfos()
+      console.log('request', request)
       if (request.result) {
         context.commit('setWalletInfos', { walletInfos: request.result })
       } else {

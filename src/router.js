@@ -1,4 +1,4 @@
-import { createRouter } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Community from '@/components/Community.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
@@ -40,6 +40,7 @@ function redirectOnReload(to, from, next) {
 }
 
 export default createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/settings',
@@ -70,12 +71,19 @@ export default createRouter({
       name: 'main',
       component: Main,
       beforeEnter: async (to, from, next) => {
-        const isReady = store.state.wallet.api.client.ws.ready
-
+        // const isReady = store.state.wallet.api.client.ws.ready
+        const cte = true
+        const isReady = false
+          console.log('isReady', isReady)
+          const request = await store.dispatch('getWalletInfos')
+          console.log('request', request)
+          // console.log('store', await store.state.wallet.api.getWalletInfos())
         if (isReady) {
-          await store.dispatch('getWalletInfos')
+          console.log('a')
+          console.log('b')
           const isSessionId = store.state.wallet.sessionId
           const walletInfos = store.state.wallet.walletInfos
+          console.log('c')
           if (isSessionId) {
             next()
           } else if (walletInfos && walletInfos.length > 0) {
@@ -83,29 +91,42 @@ export default createRouter({
           } else {
             next('/ftu/welcome')
           }
+          console.log('d')
+
           // when the computer is blocked the client closes but it should not redirect to
           // wallet not found if the wallet is not closed
           store.state.wallet.api.client.ws.on('close', () => {
+          console.log('e')
             setTimeout(() => {
+            console.log('f')
               if (!store.state.wallet.api.client.ws.ready) {
+            console.log('g')
                 next('/wallet-not-found')
               }
             }, 1000)
           })
         } else {
+          console.log('h')
           let error = true
-          setTimeout(() => {
+          const p = setTimeout(() => {
+            console.log('i')
             if (error) {
+              console.log('j')
               next('/wallet-not-found')
             }
           }, 3000)
+              console.log('k')
           store.state.wallet.api.client.ws.on('open', async () => {
+              console.log('l')
             const polling = setInterval(async () => {
+              console.log('m')
               error = false
               clearInterval(polling)
               await store.dispatch('getWalletInfos')
+              console.log('n')
               const walletInfos = store.state.wallet.walletInfos
               const isSessionId = store.state.wallet.sessionId
+              console.log('o')
               if (isSessionId) {
                 next()
               } else if (walletInfos && walletInfos.length > 0) {
@@ -113,8 +134,10 @@ export default createRouter({
               } else {
                 next('/ftu/welcome')
               }
+              console.log('p')
             }, 5000)
           })
+          await p
         }
       },
       children: [
@@ -170,6 +193,7 @@ export default createRouter({
       path: '/wallet-not-found',
       name: 'runWalletAlert',
       beforeEnter: async (to, from, next) => {
+        console.log('2')
         if (store.state.wallet.api.client.ws.ready) {
           await store.dispatch('getWalletInfos')
           const walletInfos = store.state.wallet.walletInfos
@@ -200,6 +224,8 @@ export default createRouter({
             }, 2000)
           })
         }
+
+        console.log('2.1')
       },
       component: WalletNotFound,
     },

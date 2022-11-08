@@ -122,8 +122,8 @@ async function createWindow() {
 //   app.whenReady().then(() => {})
 // }
 
-const walletManager = new WalletManager()
-walletManager.run()
+// const walletManager = new WalletManager()
+// walletManager.run()
 
 app.whenReady().then(createWindow)
 

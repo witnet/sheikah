@@ -1,7 +1,6 @@
 var import_electron = require("electron");
 var import_os = require("os");
 var import_path = require("path");
-var import_walletManager = require("../walletManager");
 process.env.DIST_ELECTRON = (0, import_path.join)(__dirname, "..");
 process.env.DIST = (0, import_path.join)(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = import_electron.app.isPackaged ? process.env.DIST : (0, import_path.join)(process.env.DIST_ELECTRON, "../public");
@@ -43,8 +42,6 @@ async function createWindow() {
     return { action: "deny" };
   });
 }
-const walletManager = new import_walletManager.WalletManager();
-walletManager.run();
 import_electron.app.whenReady().then(createWindow);
 import_electron.app.on("window-all-closed", () => {
   win = null;

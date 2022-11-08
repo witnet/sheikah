@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <transition :name="transitionName">
+    <!-- TODO: use transition -->
+    <!-- <transition :name="transitionName"> -->
       <router-view />
-    </transition>
+    <!-- </transition> -->
     <Notification />
     <ResyncConfirmation v-if="isResyncConfirmationVisible" />
     <LogoutModal v-if="sessionExpired" />
