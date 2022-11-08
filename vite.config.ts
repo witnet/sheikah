@@ -6,13 +6,24 @@ import { customStart } from 'vite-electron-plugin/plugin'
 import renderer from 'vite-plugin-electron-renderer'
 import pkg from './package.json'
 import path from 'path'
-
+import svgLoader from 'vite-svg-loader'
+import vueI18n from '@intlify/vite-plugin-vue-i18n'
+import { resolve, dirname } from 'node:path'
+import { fileURLToPath } from 'url'
 rmSync('dist-electron', { recursive: true, force: true })
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    vueI18n({
+      // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+      // compositionOnly: false,
+
+      // you need to set i18n resource including paths !
+      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
+      compositionOnly: false,
+    }),
+    svgLoader(),
     electron({
       include: ['electron'],
       transformOptions: {

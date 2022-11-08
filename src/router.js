@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { api } from './main'
+
 import Community from '@/components/Community.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
@@ -32,7 +34,7 @@ import { SETTINGS_SECTIONS } from '@/constants'
 
 // Vue.use(Router)
 function redirectOnReload(to, from, next) {
-  if (store.state.wallet.api.client.ws.ready) {
+  if (api.client.ws.ready) {
     next()
   } else {
     next('/')
@@ -71,19 +73,15 @@ export default createRouter({
       name: 'main',
       component: Main,
       beforeEnter: async (to, from, next) => {
-        // const isReady = store.state.wallet.api.client.ws.ready
-        const cte = true
-        const isReady = false
-          console.log('isReady', isReady)
-          const request = await store.dispatch('getWalletInfos')
-          console.log('request', request)
-          // console.log('store', await store.state.wallet.api.getWalletInfos())
-        if (isReady) {
-          console.log('a')
-          console.log('b')
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve()
+          }, 2000)
+        })
+
+        if (api.client.ws.ready) {
           const isSessionId = store.state.wallet.sessionId
           const walletInfos = store.state.wallet.walletInfos
-          console.log('c')
           if (isSessionId) {
             next()
           } else if (walletInfos && walletInfos.length > 0) {
@@ -91,42 +89,30 @@ export default createRouter({
           } else {
             next('/ftu/welcome')
           }
-          console.log('d')
 
           // when the computer is blocked the client closes but it should not redirect to
           // wallet not found if the wallet is not closed
-          store.state.wallet.api.client.ws.on('close', () => {
-          console.log('e')
+          api.client.ws.on('close', () => {
             setTimeout(() => {
-            console.log('f')
-              if (!store.state.wallet.api.client.ws.ready) {
-            console.log('g')
+              if (!api.client.ws.ready) {
                 next('/wallet-not-found')
               }
             }, 1000)
           })
         } else {
-          console.log('h')
           let error = true
           const p = setTimeout(() => {
-            console.log('i')
             if (error) {
-              console.log('j')
               next('/wallet-not-found')
             }
           }, 3000)
-              console.log('k')
-          store.state.wallet.api.client.ws.on('open', async () => {
-              console.log('l')
+          api.client.ws.on('open', async () => {
             const polling = setInterval(async () => {
-              console.log('m')
               error = false
               clearInterval(polling)
               await store.dispatch('getWalletInfos')
-              console.log('n')
               const walletInfos = store.state.wallet.walletInfos
               const isSessionId = store.state.wallet.sessionId
-              console.log('o')
               if (isSessionId) {
                 next()
               } else if (walletInfos && walletInfos.length > 0) {
@@ -134,7 +120,6 @@ export default createRouter({
               } else {
                 next('/ftu/welcome')
               }
-              console.log('p')
             }, 5000)
           })
           await p
@@ -193,8 +178,7 @@ export default createRouter({
       path: '/wallet-not-found',
       name: 'runWalletAlert',
       beforeEnter: async (to, from, next) => {
-        console.log('2')
-        if (store.state.wallet.api.client.ws.ready) {
+        if (api.client.ws.ready) {
           await store.dispatch('getWalletInfos')
           const walletInfos = store.state.wallet.walletInfos
           if (walletInfos && walletInfos.length > 0) {
@@ -210,7 +194,7 @@ export default createRouter({
             }
           }, 2000)
 
-          store.state.wallet.api.client.ws.on('open', async () => {
+          api.client.ws.on('open', async () => {
             error = false
             await store.dispatch('getWalletInfos')
             const polling = setInterval(() => {
@@ -224,8 +208,6 @@ export default createRouter({
             }, 2000)
           })
         }
-
-        console.log('2.1')
       },
       component: WalletNotFound,
     },

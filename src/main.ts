@@ -1,7 +1,10 @@
 // import IdleVue from 'idle-vue'
+import { WalletApi, LocalStorageWrapper } from './api'
 import router from './router'
 import store from './store'
 import i18n from './plugins/i18n'
+import ProcessWalletEvent from './services/ProcessWalletEvent'
+
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 // import './plugins/element.js'
@@ -33,6 +36,10 @@ import './fontAwesome'
 //   window.vm = vm
 // }
 
+const api = new WalletApi()
+const localStorageWrapper = new LocalStorageWrapper()
+const eventProcessor = new ProcessWalletEvent()
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -49,3 +56,5 @@ const app = createApp(App)
   .$nextTick(() => {
     postMessage({ payload: 'removeLoading' }, '*')
   })
+
+export { api, localStorageWrapper, eventProcessor }

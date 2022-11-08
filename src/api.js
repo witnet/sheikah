@@ -20,7 +20,6 @@ class ApiClient {
     this.listeners = {}
     this.options = options || defaultOptions
     this.ws = new RPCWebsockets(this.options.url, { ...this.options })
-    console.log('++++++++++++++++++++++')
   }
 
   request(method, params) {
@@ -28,7 +27,6 @@ class ApiClient {
   }
 
   on(event, handler) {
-    console.log('-------------------------')
     // Prevents from subscribing to the same event more than once
     if (event in this.listeners) {
       return this.listeners[event]
@@ -264,7 +262,7 @@ export class MarketplaceApi {
   postTemplate() {}
 }
 
-export class LocalStorageApi {
+export class LocalStorageWrapper {
   _get(key) {
     return JSON.parse(localStorage.getItem(key))
   }

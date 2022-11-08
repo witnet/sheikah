@@ -31,11 +31,15 @@ export default {
       theme: state => state.wallet.theme,
     }),
     url() {
-      if (this.theme === this.THEMES.DARK) {
-        return require(`@/resources/svg/${this.name}-dark.svg`)
-      } else {
-        return require(`@/resources/svg/${this.name}.svg`)
-      }
+      console.log('---->', this.name)
+      // @/resources/svg/sheikah-icon.svg
+      // /home/tommy/development/witnet/sheikah/src/resources/svg/sheikah-icon.svg
+      // TODO: fixme
+      // if (this.theme === this.THEMES.DARK) {
+      //   return require(`@/resources/svg/${this.name}-dark.svg`)
+      // } else {
+      //   return require(`@/resources/svg/${this.name}.svg`)
+      // }
     },
   },
 }
