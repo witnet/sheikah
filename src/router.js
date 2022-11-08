@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { api } from './main'
 import Community from '@/components/Community.vue'
 import DataRequest from '@/components/DataRequest.vue'
 import Editor from '@/components/Editor.vue'
@@ -33,7 +34,7 @@ import { SETTINGS_SECTIONS } from '@/constants'
 
 Vue.use(Router)
 function redirectOnReload(to, from, next) {
-  if (store.state.wallet.api.client.ws.ready) {
+  if (api.client.ws.ready) {
     next()
   } else {
     next('/')
@@ -71,7 +72,7 @@ export default new Router({
       name: 'main',
       component: Main,
       beforeEnter: async (to, from, next) => {
-        const isReady = store.state.wallet.api.client.ws.ready
+        const isReady = api.client.ws.ready
 
         if (isReady) {
           await store.dispatch('getWalletInfos')
@@ -86,9 +87,9 @@ export default new Router({
           }
           // when the computer is blocked the client closes but it should not redirect to
           // wallet not found if the wallet is not closed
-          store.state.wallet.api.client.ws.on('close', () => {
+          api.client.ws.on('close', () => {
             setTimeout(() => {
-              if (!store.state.wallet.api.client.ws.ready) {
+              if (!api.client.ws.ready) {
                 next('/wallet-not-found')
               }
             }, 1000)
@@ -100,7 +101,7 @@ export default new Router({
               next('/wallet-not-found')
             }
           }, 3000)
-          store.state.wallet.api.client.ws.on('open', async () => {
+          api.client.ws.on('open', async () => {
             const polling = setInterval(async () => {
               error = false
               clearInterval(polling)
@@ -171,7 +172,7 @@ export default new Router({
       path: '/wallet-not-found',
       name: 'runWalletAlert',
       beforeEnter: async (to, from, next) => {
-        if (store.state.wallet.api.client.ws.ready) {
+        if (api.client.ws.ready) {
           await store.dispatch('getWalletInfos')
           const walletInfos = store.state.wallet.walletInfos
           if (walletInfos && walletInfos.length > 0) {
@@ -187,7 +188,7 @@ export default new Router({
             }
           }, 2000)
 
-          store.state.wallet.api.client.ws.on('open', async () => {
+          api.client.ws.on('open', async () => {
             error = false
             await store.dispatch('getWalletInfos')
             const polling = setInterval(() => {
