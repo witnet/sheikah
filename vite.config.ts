@@ -16,12 +16,8 @@ export default defineConfig({
   plugins: [
     vue(),
     vueI18n({
-      // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-      // compositionOnly: false,
-
-      // you need to set i18n resource including paths !
-      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
       compositionOnly: false,
+      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
     }),
     svgLoader(),
     electron({
