@@ -7,8 +7,9 @@ $--color-danger: $red-2;
 $--color-warning: $yellow-3;
 
 /* icon font path, required */
-$--font-path: '~element-ui/lib/theme-chalk/fonts';
-
+// todo: should this be commented?
+// $--font-path: '~element-ui/lib/theme-chalk/fonts';
+// @import 'element-plus/packages/theme-chalk/src/index';
 .el-input {
   &.key-input {
     .el-input__inner {
