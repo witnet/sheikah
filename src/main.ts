@@ -8,9 +8,6 @@ import ProcessWalletEvent from './services/ProcessWalletEvent'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
-// import "~/styles/index.scss";
-// import 'uno.css'
-
 // import "@/styles/element-variables.scss";
 
 // import './plugins/element.js'

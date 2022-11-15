@@ -1,21 +1,21 @@
 $--colors: (
   "primary": (
-    "base": green,
+    "base": orange,
   ),
   "success": (
-    "base": #21ba45,
+    "base": orange,
   ),
   "warning": (
-    "base": #f2711c,
+    "base": orange,
   ),
   "danger": (
-    "base": #db2828,
+    "base": orange,
   ),
   "error": (
-    "base": #db2828,
+    "base": orange,
   ),
   "info": (
-    "base": #42b8dd,
+    "base": orange,
   ),
 );
 
@@ -40,3 +40,7 @@ $--colors: (
 
 // custom dark variables
 @use "./dark.scss";
+
+@use "../element-variables.scss";
+
+
