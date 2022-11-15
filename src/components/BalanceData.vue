@@ -12,7 +12,7 @@
       <el-tooltip trigger="hover" effect="light">
         <font-awesome-icon class="info" icon="info-circle" />
         <div slot="content" class="info-message">
-          <i18n-t keypath="locked_balance_tooltip">
+          <i18n-t keypath="locked_balance_tooltip" scope="global">
             <a class="link" :href="balanceLockedUrl" target="_blank"
               >{{ $t('locked_balance_tooltip_here') }}
               <font-awesome-icon class="external-link" icon="external-link-alt"

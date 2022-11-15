@@ -13,7 +13,7 @@
       <p class="title">{{ $t('warning') }}</p>
     </div>
 
-    <i18n-t keypath="delete_confirmation_0" tag="p" class="text">
+    <i18n-t keypath="delete_confirmation_0" tag="p" class="text" scope="global">
       <span class="wallet-name">{{ unlockedWallet.name }}</span>
     </i18n-t>
     <p class="text">

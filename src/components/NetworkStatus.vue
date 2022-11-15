@@ -96,6 +96,7 @@
           tag="p"
           data-test="network"
           class="text"
+          scope="global"
         >
           <span class="bold">{{ network }}</span>
         </i18n-t>

@@ -15,6 +15,7 @@
           :keypath="stage.label[0]"
           tag="span"
           :data-test="`stage-${stage.name}`"
+          scope="global"
         >
           <span class="bolder">{{ $t(stage.label[1]) }}</span>
         </i18n-t>

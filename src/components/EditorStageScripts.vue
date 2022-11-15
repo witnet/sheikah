@@ -30,7 +30,7 @@
           <p>- {{ $t('scripts_rule_1') }}</p>
           <p
             >-
-            <i18n-t keypath="scripts_rule_2_0">
+            <i18n-t keypath="scripts_rule_2_0" scope="global">
               <em>{{ $t('scripts_rule_2_1') }}</em>
               <em>{{ $t('scripts_rule_2_2') }}</em>
             </i18n-t>

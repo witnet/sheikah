@@ -30,7 +30,7 @@
       @file-validated="setFileInfo"
       @error-uploading-file="setError"
     >
-      <i18n-t keypath="drag_xprv_0" tag="p">
+      <i18n-t keypath="drag_xprv_0" tag="p" scope="global">
         <span class="bold">xprv</span>
         <span class="bold">{{ $t('drag_xprv_1') }}</span>
       </i18n-t>

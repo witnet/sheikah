@@ -10,7 +10,7 @@
     :next-step="nextStep"
     :disabled-next-button="isNextButtonDisabled"
   >
-    <i18n-t class="text" keypath="seed_validation_0_1" tag="p">
+    <i18n-t class="text" keypath="seed_validation_0_1" tag="p" scope="global">
       <em>{{ $t('seed_validation_0_2') }}</em>
     </i18n-t>
     <Input

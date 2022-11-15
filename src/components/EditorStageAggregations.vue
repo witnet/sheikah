@@ -14,7 +14,7 @@
     <template v-slot:upperRight>
       <Fieldset :title="$t('aggregator_description_title')" type="help">
         <div>
-          <i18n-t keypath="aggregations_description_0" tag="p">
+          <i18n-t keypath="aggregations_description_0" tag="p" scope="global">
             <em>{{ $t('aggregations_description_1') }}</em>
           </i18n-t>
           <p>{{ $t('aggregations_description_2') }}</p>
@@ -23,18 +23,18 @@
     </template>
 
     <template v-slot:bottomRight>
-      <Fieldset :title="$t('aggregator_rules_title')" type="help">
+      <Fieldset :title="$t('aggregator_rules_title')" type="help" scope="global">
         <div>
-          <i18n-t keypath="aggregations_rule_1_0" tag="p">
+          <i18n-t keypath="aggregations_rule_1_0" tag="p" scope="global">
             <em>{{ $t('aggregations_rule_1_1') }}</em>
           </i18n-t>
-          <i18n-t keypath="aggregations_rule_2_0" tag="p">
+          <i18n-t keypath="aggregations_rule_2_0" tag="p" scope="global">
             <em>{{ $t('aggregations_rule_2_1') }}</em>
           </i18n-t>
-          <i18n-t keypath="aggregations_rule_3_0" tag="p">
+          <i18n-t keypath="aggregations_rule_3_0" tag="p" scope="global">
             <em>{{ $t('aggregations_rule_3_1') }}</em>
           </i18n-t>
-          <i18n-t keypath="aggregations_rule_4_0" tag="p">
+          <i18n-t keypath="aggregations_rule_4_0" tag="p" scope="global">
             <em>{{ $t('aggregations_rule_4_1') }}</em>
             <em>{{ $t('aggregations_rule_4_2') }}</em>
           </i18n-t>
