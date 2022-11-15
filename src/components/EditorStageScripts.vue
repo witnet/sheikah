@@ -30,10 +30,10 @@
           <p>- {{ $t('scripts_rule_1') }}</p>
           <p
             >-
-            <i18n path="scripts_rule_2_0">
+            <i18n-t keypath="scripts_rule_2_0">
               <em>{{ $t('scripts_rule_2_1') }}</em>
               <em>{{ $t('scripts_rule_2_2') }}</em>
-            </i18n>
+            </i18n-t>
           </p>
           <p>- {{ $t('scripts_rule_3') }}</p>
           <p>- {{ $t('scripts_rule_4') }}</p>

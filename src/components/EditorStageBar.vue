@@ -11,13 +11,13 @@
         tabindex="0"
         @click="changeStage(stage.name)"
       >
-        <i18n
-          :path="stage.label[0]"
+        <i18n-t
+          :keypath="stage.label[0]"
           tag="span"
           :data-test="`stage-${stage.name}`"
         >
           <span class="bolder">{{ $t(stage.label[1]) }}</span>
-        </i18n>
+        </i18n-t>
       </div>
     </div>
   </div>

@@ -13,11 +13,11 @@
       <p class="title">{{ $t('close_session_info_title') }}</p>
     </div>
 
-    <i18n path="close_session_info_0" tag="p" class="text">
+    <i18n-t keypath="close_session_info_0" tag="p" class="text">
       <span>{{
         $tc('minutes', sessionExpirationMin, { count: sessionExpirationMin })
       }}</span>
-    </i18n>
+    </i18n-t>
 
     <el-checkbox v-model="checked">{{ $t('not_show_again') }}</el-checkbox>
     <span slot="footer" class="dialog-footer">

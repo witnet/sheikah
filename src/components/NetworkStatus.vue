@@ -90,15 +90,15 @@
           {{ $t('trying_to_connect') }}
           <span class="bold">{{ address }}</span>
         </p>
-        <i18n
+        <i18n-t
           v-if="network"
-          path="tracking_network"
+          keypath="tracking_network"
           tag="p"
           data-test="network"
           class="text"
         >
           <span class="bold">{{ network }}</span>
-        </i18n>
+        </i18n-t>
         <p v-if="isSynced" data-test="last-block" class="text">
           {{ $t('last_block') }} <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo && timeAgo !== 0">

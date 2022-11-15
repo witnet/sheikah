@@ -30,10 +30,10 @@
       @file-validated="setFileInfo"
       @error-uploading-file="setError"
     >
-      <i18n path="drag_xprv_0" tag="p">
+      <i18n-t keypath="drag_xprv_0" tag="p">
         <span class="bold">xprv</span>
         <span class="bold">{{ $t('drag_xprv_1') }}</span>
-      </i18n>
+      </i18n-t>
     </FileUploader>
   </NavigationCard>
 </template>

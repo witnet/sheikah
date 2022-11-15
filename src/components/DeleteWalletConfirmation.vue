@@ -13,9 +13,9 @@
       <p class="title">{{ $t('warning') }}</p>
     </div>
 
-    <i18n path="delete_confirmation_0" tag="p" class="text">
+    <i18n-t keypath="delete_confirmation_0" tag="p" class="text">
       <span class="wallet-name">{{ unlockedWallet.name }}</span>
-    </i18n>
+    </i18n-t>
     <p class="text">
       {{ $t('delete_confirmation_1') }}
     </p>

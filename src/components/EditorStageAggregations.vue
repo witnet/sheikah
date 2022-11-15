@@ -14,9 +14,9 @@
     <template v-slot:upperRight>
       <Fieldset :title="$t('aggregator_description_title')" type="help">
         <div>
-          <i18n path="aggregations_description_0" tag="p">
+          <i18n-t keypath="aggregations_description_0" tag="p">
             <em>{{ $t('aggregations_description_1') }}</em>
-          </i18n>
+          </i18n-t>
           <p>{{ $t('aggregations_description_2') }}</p>
         </div>
       </Fieldset>
@@ -25,19 +25,19 @@
     <template v-slot:bottomRight>
       <Fieldset :title="$t('aggregator_rules_title')" type="help">
         <div>
-          <i18n path="aggregations_rule_1_0" tag="p">
+          <i18n-t keypath="aggregations_rule_1_0" tag="p">
             <em>{{ $t('aggregations_rule_1_1') }}</em>
-          </i18n>
-          <i18n path="aggregations_rule_2_0" tag="p">
+          </i18n-t>
+          <i18n-t keypath="aggregations_rule_2_0" tag="p">
             <em>{{ $t('aggregations_rule_2_1') }}</em>
-          </i18n>
-          <i18n path="aggregations_rule_3_0" tag="p">
+          </i18n-t>
+          <i18n-t keypath="aggregations_rule_3_0" tag="p">
             <em>{{ $t('aggregations_rule_3_1') }}</em>
-          </i18n>
-          <i18n path="aggregations_rule_4_0" tag="p">
+          </i18n-t>
+          <i18n-t keypath="aggregations_rule_4_0" tag="p">
             <em>{{ $t('aggregations_rule_4_1') }}</em>
             <em>{{ $t('aggregations_rule_4_2') }}</em>
-          </i18n>
+          </i18n-t>
         </div>
       </Fieldset>
     </template>
