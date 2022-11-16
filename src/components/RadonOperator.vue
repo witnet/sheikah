@@ -20,7 +20,7 @@
         ref="operator"
         data-test="operator"
         type="operator"
-        :value="selectedOption"
+        :modelValue="selectedOption"
         :options="operatorOptions"
         @input="
           option => updateOperatorAndVariables(selectedOption.id, option.value)
