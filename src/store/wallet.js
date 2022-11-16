@@ -133,9 +133,14 @@ export default {
   getters: {
     network: state => state.status.network,
     unlockedWallet: state => {
-      return Number.isInteger(state.walletIdx)
+      const a = Number.isInteger(state.walletIdx)
         ? state.walletInfos[state.walletIdx]
         : null
+
+        console.log('state.walletIdx', state.walletIdx)
+        console.log('state.walletinfos', state.walletInfos)
+        console.log('unlockedwallet', a)
+        return a
     },
     estimatedTimeOfSync: state => {
       return formatMillisecondsDuration(state.syncingTimeEstimator.calculate())
@@ -265,7 +270,7 @@ export default {
     },
     setWalletIndex(state, { walletIndex }) {
       const walletInfos = state.walletInfos
-      state.walletIdx = walletIndex === -1 ? walletInfos.length : walletIndex
+      state.walletIdx = walletIndex === -1 ? walletInfos.length -1: walletIndex
       localStorageWrapper.setWalletIndex(state.walletIdx)
     },
     setLabels(state, { labels }) {

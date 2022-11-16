@@ -1,9 +1,11 @@
 <script>
+import { h } from 'vue'
+
 // Layout to display the two columns: a main content in the left and two sections in the right side
 export default {
   name: 'LayoutTwoColumns',
-  render(createElement) {
-    return createElement(
+  render() {
+    return h(
       'div',
       {
         attrs: {
@@ -13,7 +15,7 @@ export default {
       [
         // slot to render on the left side
         this.$slots.left,
-        createElement(
+        h(
           'div',
           {
             attrs: {

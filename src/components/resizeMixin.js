@@ -1,7 +1,7 @@
 /**
  * @mixin
  */
-module.exports = {
+export default {
   props: {
     /**
      * Set size of the element

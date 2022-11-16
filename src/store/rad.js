@@ -66,6 +66,7 @@ export default {
   mutations: {
     setDefaultTemplates: function (state, { locale }) {
       RAD_EXAMPLES.forEach(example => {
+        console.log('example', example)
         const radRequest = {
           retrieve: example.radRequest.data.data_request.retrieve,
           aggregate: example.radRequest.data.data_request.aggregate,
