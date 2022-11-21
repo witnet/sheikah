@@ -5,8 +5,7 @@ import { h } from 'vue'
 export default {
   name: 'LayoutTwoColumns',
   render() {
-    return h(
-      'div',
+    return h( 'div',
       {
         attrs: {
           class: 'layout',
@@ -14,7 +13,7 @@ export default {
       },
       [
         // slot to render on the left side
-        this.$slots.left,
+        this.$slots.left(),
         h(
           'div',
           {
@@ -24,9 +23,9 @@ export default {
           },
           [
             // slot to render on the upper right side
-            this.$slots.upperRight,
+            this.$slots.upperRight(),
             // slot to render on the bottom of the right side
-            this.$slots.bottomRight,
+            this.$slots.bottomRight(),
           ],
         ),
       ],

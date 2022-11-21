@@ -66,7 +66,7 @@
         <el-button
           v-if="isResyncButtonVisible"
           type="primary"
-          size="mini"
+          size="small"
           class="resync"
           @click="$store.commit('showResyncConfirmation')"
         >

@@ -128,6 +128,44 @@ $--color-warning: $yellow-3;
     width: 100%;
   }
 
+
+  &.el-button {
+    // background-color: var(--button-primary-background);
+    // border-color: var(--button-primary-border);
+    // color: var(--button-primary-text);
+    // font-size: 15px;
+    // font-weight: bold;
+
+    &.is-disabled {
+      // background-color: var(--button-primary-background-disabled);
+      // border-color: var(--button-primary-border-disabled);
+      // color: var(--button-primary-text);
+
+      &:hover,
+      &:focus {
+        // background-color: var(--button-primary-background-disabled);
+        // border-color: var(--button-primary-border-disabled);
+        // color: var(--button-primary-text-hover);
+      }
+    }
+
+    &:hover,
+    &:focus {
+      // background-color: var(--button-primary-background-hover);
+      // border-color: var(--button-primary-border-hover);
+      // color: var(--button-primary-text-hover);
+        background-color: --primary-color;
+    }
+
+    &:active {
+      // background-color: var(--button-primary-background-active);
+      // border-color: var(--button-primary-border-active);
+      // color: var(--button-primary-text-active);
+      // outline: none;
+    }
+  }
+
+
   &.el-button--primary {
     background-color: var(--button-primary-background);
     border-color: var(--button-primary-border);

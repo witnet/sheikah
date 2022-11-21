@@ -34,9 +34,9 @@
         </el-button>
       </div>
       <div class="row">
-        <el-button data-test="create-wallet" type="text" @click="nextStep">
+        <el-link data-test="create-wallet" @click="nextStep">
           {{ $t('create_wallet') }}
-          ></el-button
+          ></el-link
         >
       </div>
     </div>

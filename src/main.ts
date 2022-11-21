@@ -8,12 +8,12 @@ import ProcessWalletEvent from './services/ProcessWalletEvent'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
-// import "@/styles/element-variables.scss";
+import "~/styles/element-variables.scss";
 
 // import './plugins/element.js'
 import './fontAwesome'
 
-import "~/styles/index.scss";
+// import "~/styles/index.scss";
 import 'uno.css'
 
 // import '@/ipcHandlers'

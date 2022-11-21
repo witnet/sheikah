@@ -1,5 +1,6 @@
 <template>
   <div class="base-dots-loading" :style="{ margin: props.margin }">
+    --- {{ props }} ---
     <div
       v-for="className in ['first', 'second', 'third']"
       :key="className"

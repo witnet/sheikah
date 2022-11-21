@@ -67,26 +67,24 @@
       </transition>
     </div>
     <div class="confirm-advance-btn">
-      <el-button
+      <el-link
         v-if="isAdvancedVisible"
         data-test="advance-options"
-        type="text"
         class="link"
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_less') }}
         <CustomIcon class-name="icon" name="close" />
-      </el-button>
-      <el-button
+      </el-link>
+      <el-link
         v-else
         data-test="show-advance-options"
         class="link"
-        type="text"
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_advance') }}
         <CustomIcon class-name="icon" name="open" />
-      </el-button>
+      </el-link>
       <span slot="footer" class="dialog-footer">
         <el-button data-test="cancel-tx" @click="closeAndClear">
           {{ $t('back') }}

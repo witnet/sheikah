@@ -112,9 +112,11 @@ export default {
       this.isEncryptXprvVisible = true
     },
     expandSidebar() {
+      console.log('expand')
       this.expanded = true
     },
     collapseSidebar() {
+      console.log('collapse')
       this.isEncryptXprvVisible = false
       if (this.settingVisible) {
         this.expanded = true

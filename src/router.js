@@ -128,7 +128,7 @@ export default createRouter({
       children: [
         {
           alias: '',
-          name: 'wallet/',
+          name: 'wallet',
           path: 'wallet',
           component: Wallet,
           children: [
