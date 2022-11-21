@@ -32,7 +32,6 @@ export default {
       shutdown: 'shutdown',
     }),
     pollData() {
-      console.log('currentroute', this.$route)
       const currentRoute = this.$route.path
 
       const matchRoute =

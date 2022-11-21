@@ -24,7 +24,7 @@
             src="@/resources/svg/options-marketplace.svg"
             alt=""
           />
-          <CustomIcon v-else name="options" />
+          <CustomIcon v-else name="Options" />
         </div>
         <el-dropdown-menu
           v-if="type === 'marketplace'"

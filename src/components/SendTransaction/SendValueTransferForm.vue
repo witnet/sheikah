@@ -54,7 +54,7 @@
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_less') }}
-        <CustomIcon class-name="icon" name="close" />
+        <CustomIcon class-name="icon" name="Close" />
       </el-link>
       <el-link
         v-else
@@ -63,7 +63,7 @@
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_advance') }}
-        <CustomIcon class-name="icon" name="open" />
+        <CustomIcon class-name="icon" name="Open" />
       </el-link>
       <el-button
         class="send-btn"

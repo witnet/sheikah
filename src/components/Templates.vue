@@ -17,7 +17,8 @@
         class="add"
         @click="createTemplateAndRedirect"
       >
-        <img class="add-btn" src="@/resources/svg/add.svg" />
+        <!-- <img class="add-btn" src="@/resources/svg/add.svg" /> -->
+        <CustomIcon class="add-btn" name="add" />
         <p class="text">{{ $t('create_template') }}</p>
       </div>
       <TemplateCard

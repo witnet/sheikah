@@ -74,7 +74,7 @@
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_less') }}
-        <CustomIcon class-name="icon" name="close" />
+        <CustomIcon class-name="icon" name="Close" />
       </el-link>
       <el-link
         v-else
@@ -83,7 +83,7 @@
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_advance') }}
-        <CustomIcon class-name="icon" name="open" />
+        <CustomIcon class-name="icon" name="Open" />
       </el-link>
       <span slot="footer" class="dialog-footer">
         <el-button data-test="cancel-tx" @click="closeAndClear">

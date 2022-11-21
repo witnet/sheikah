@@ -3,7 +3,8 @@
     <div class="alert">
       <div class="content">
         <p class="title">{{ $t('wallet_disconnected') }}</p>
-        <img src="@/resources/svg/disconnected.svg" class="icon" />
+        <!-- <img src="@/resources/svg/disconnected.svg" class="icon" /> -->
+        <CustomIcon name="Disconnected" class="icon" />
         <p class="description">
           {{ $t('connection_problem') }}
         </p>

@@ -36,15 +36,15 @@
       <div class="icon">
         <CustomIcon
           v-if="showAll"
-          data-test="short-up"
+          data-test="shortUp"
           class-name="sort"
-          name="up"
+          name="Up"
         />
         <CustomIcon
           v-else
           data-test="short-down"
           class-name="sort"
-          name="down"
+          name="Down"
         />
       </div>
     </div>

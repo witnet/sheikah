@@ -103,7 +103,7 @@
       </el-tooltip>
     </div>
     <div class="img-container" @click="createVariable">
-      <CustomIcon data-test="add-variable" name="add-operator" />
+      <CustomIcon data-test="add-variable" name="AddOperator" />
       <p class="add-operator-text">{{ $t('add_variable') }}</p>
     </div>
   </div>

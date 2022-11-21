@@ -13,7 +13,8 @@
         {{ social.content }}
       </template>
       <template v-slot:icon-social>
-        <img class="icon-social" :src="social.img" alt="github icon" />
+        <CustomIcon :name="social.img" class="icon-social" />
+        <!-- <img class="icon-social" :src="social.img" alt="github icon" /> -->
       </template>
     </CommunityCard>
   </div>
@@ -33,43 +34,43 @@ export default {
         {
           header: this.$t('twitter_header'),
           content: this.$t('twitter_content'),
-          img: require('@/resources/svg/social/twitter.svg'),
+          img: 'Twitter',
           url: 'https://twitter.com/witnet_io',
         },
         {
           header: this.$t('discord_header'),
           content: this.$t('discord_content'),
-          img: require('@/resources/svg/social/discord.svg'),
+          img: 'Discord',
           url: 'https://discord.gg/X4uurfP',
         },
         {
           header: this.$t('blog_header'),
           content: this.$t('blog_content'),
-          img: require('@/resources/svg/social/medium.svg'),
+          img: 'Medium',
           url: 'https://medium.com/witnet',
         },
         {
           header: this.$t('email_header'),
           content: this.$t('email_content'),
-          img: require('@/resources/svg/social/email.svg'),
+          img: 'Email',
           url: 'mailto:info@witnet.foundation?subject=Witnet project',
         },
         {
           header: this.$t('telegram_header'),
           content: this.$t('telegram_content'),
-          img: require('@/resources/svg/social/telegram.svg'),
+          img: 'Telegram',
           url: 'https://t.me/witnetio',
         },
         {
           header: this.$t('github_header'),
           content: this.$t('github_content'),
-          img: require('@/resources/svg/social/github.svg'),
+          img: 'Github',
           url: 'https://github.com/witnet',
         },
         {
           header: this.$t('reddit_header'),
           content: this.$t('reddit_content'),
-          img: require('@/resources/svg/social/reddit.svg'),
+          img: 'Reddit',
           url: 'https://reddit.com/r/witnet',
         },
       ],

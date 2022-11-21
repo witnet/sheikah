@@ -18,7 +18,7 @@ import {
   EDITOR_STAGES,
   SECONDS_TO_NEXT_BLOCK,
 } from './constants'
-import sheikahIcon from '@/resources/svg/sheikah-small.svg'
+import sheikahIcon from '@/resources/svg/sheikah_small.svg'
 import BigNumber from '@/utils/BigNumber'
 
 // Create Notifications if notifications are supported

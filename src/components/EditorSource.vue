@@ -55,7 +55,7 @@
           data-test="delete-btn"
           @click="deleteSource({ index })"
         >
-          <CustomIcon name="close-btn" />
+          <CustomIcon name="CloseBtn" />
         </div>
       </el-tooltip>
     </Card>

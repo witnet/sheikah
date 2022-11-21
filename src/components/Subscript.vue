@@ -2,12 +2,12 @@
   <div class="radon-script">
     <div class="operator-bottom">
       <div v-if="emptyScript" class="icon-container">
-        <CustomIcon name="operator-arrow" />
+        <CustomIcon name="OperatorArrow" />
         <div @click="addOperator">
           <CustomIcon
             class-name="add-operator"
             data-test="add-operator"
-            name="add-operator"
+            name="AddOperator"
           />
           <p class="add-operator-text">{{ $t('add_operator') }}</p>
         </div>
