@@ -7,9 +7,7 @@ export default {
   render() {
     return h( 'div',
       {
-        attrs: {
           class: 'layout',
-        },
       },
       [
         // slot to render on the left side
@@ -17,9 +15,7 @@ export default {
         h(
           'div',
           {
-            attrs: {
               class: 'col-right',
-            },
           },
           [
             // slot to render on the upper right side
