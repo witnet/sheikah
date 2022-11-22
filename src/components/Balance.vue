@@ -9,7 +9,7 @@
     />
     <BalanceButtons @receive="onReceive" @send="onSend" />
     <!-- Modal with Send form open when send button is clicked -->
-    <SendValueTransfer v-if="isSendVisible" @close="isSendVisible = false" />
+    <SendValueTransfer v-if="isSendVisible" :visible="isSendVisible" @close="isSendVisible = false" />
   </Fieldset>
 </template>
 
@@ -64,6 +64,7 @@ export default {
       this.receiveTransactionClicked()
     },
     onSend() {
+      console.log('inside onSend')
       this.isSendVisible = true
     },
   },

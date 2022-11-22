@@ -13,7 +13,7 @@
         {{ social.content }}
       </template>
       <template v-slot:icon-social>
-        <CustomIcon :name="social.img" class="icon-social" />
+        <CustomIcon :name="social.img" className="icon-social" />
         <!-- <img class="icon-social" :src="social.img" alt="github icon" /> -->
       </template>
     </CommunityCard>
@@ -84,19 +84,21 @@ export default {
 @import '@/styles/theme.scss';
 
 .community-link {
-  color: var(--community-card-title);
+  fill: var(--community-card-title);
+  
   cursor: pointer;
   margin-bottom: 24px;
   text-decoration: none;
 
   &:hover,
   :active {
-    color: var(--community-card-title);
+    fill: var(--community-card-title);
   }
 }
 
 .icon-social {
   opacity: 0.1;
   width: 100px;
+  height: 100px;
 }
 </style>
