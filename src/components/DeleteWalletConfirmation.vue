@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    v-model="visible"
+    v-model="isDeleteWalletConfirmationVisibleLocal"
     class="delete"
     title="Warning"
     width="30%"
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'DeleteConfirmation',
@@ -53,16 +53,21 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      isDeleteWalletConfirmationVisible: state => {
+        return state.uiInteractions.isDeleteWalletConfirmationVisible
+      },
+    }),
     ...mapGetters(['unlockedWallet']),
     validateDelete() {
       return this.walletName === this.unlockedWallet.name
     },
-    localVisible: {
+    isDeleteWalletConfirmationVisibleLocal: {
       set() {
         this.$emit('close')
       },
       get() {
-        return this.visible
+        return this.isDeleteWalletConfirmationVisible
       },
     },
   },

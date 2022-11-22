@@ -3,15 +3,14 @@
     class="info"
     :title="$t('close_session_info_title')"
     width="30%"
-    :visible="true"
+    v-model="sessionExpiredLocal"
     :show-close="true"
-    :close-on-click-modal="false"
     @close="close"
   >
-    <div slot="title" class="title-container">
+    <template #header class="title-container">
       <font-awesome-icon class="icon" icon="info-circle" />
       <p class="title">{{ $t('close_session_info_title') }}</p>
-    </div>
+    </template>
 
     <i18n-t keypath="close_session_info_0" tag="p" class="text" scope="global">
       <span>{{
@@ -20,9 +19,9 @@
     </i18n-t>
 
     <el-checkbox v-model="checked">{{ $t('not_show_again') }}</el-checkbox>
-    <span slot="footer" class="dialog-footer">
+    <template #footer class="dialog-footer">
       <el-button type="primary" @click="close">{{ $t('ok') }}</el-button>
-    </span>
+    </template>
   </el-dialog>
 </template>
 
@@ -39,7 +38,16 @@ export default {
   computed: {
     ...mapState({
       sessionExpirationMin: state => state.wallet.sessionExpirationSecs / 60,
+      sessionExpired: state => state.uiInteractions.sessionExpired,
     }),
+    sessionExpiredLocal: {
+      get() {
+        return this.sessionExpired
+      },
+      set() {
+        this.close()
+      }
+    },
     checked: {
       get() {
         return this.notShowModalAgain

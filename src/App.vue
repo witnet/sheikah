@@ -6,10 +6,10 @@
     <!-- </transition> -->
     <Notification />
     <ResyncConfirmation />
-    <LogoutModal v-if="sessionExpired" />
+    <LogoutModal />
     <DescriptionModal />
-    <RenameConfirmation v-if="isRenameWalletConfirmationVisible" />
-    <DeleteWalletConfirmation v-if="isDeleteWalletConfirmationVisible" />
+    <RenameConfirmation />
+    <DeleteWalletConfirmation />
   </div>
 </template>
 
@@ -40,18 +40,8 @@ export default {
   },
   computed: {
     ...mapState({
-      tokenGenerationEventOccurred: state =>
-        state.wallet.tokenGenerationEventOccurred,
-      sessionExpired: state => state.uiInteractions.sessionExpired,
       sessionWillExpireSoon: state => state.wallet.sessionWillExpireSoon,
       isIdle: state => state.idleVue.isIdle,
-      isWalletDescriptionVisible: state =>
-        state.uiInteractions.isWalletDescriptionVisible,
-      isRenameWalletConfirmationVisible: state =>
-        state.uiInteractions.isRenameWalletConfirmationVisible,
-      isDeleteWalletConfirmationVisible: state => {
-        return state.uiInteractions.isDeleteWalletConfirmationVisible
-      },
     }),
   },
   watch: {
