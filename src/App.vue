@@ -5,9 +5,9 @@
       <router-view />
     <!-- </transition> -->
     <Notification />
-    <ResyncConfirmation v-if="isResyncConfirmationVisible" />
+    <ResyncConfirmation />
     <LogoutModal v-if="sessionExpired" />
-    <DescriptionModal v-if="isWalletDescriptionVisible" />
+    <DescriptionModal />
     <RenameConfirmation v-if="isRenameWalletConfirmationVisible" />
     <DeleteWalletConfirmation v-if="isDeleteWalletConfirmationVisible" />
   </div>
@@ -42,8 +42,6 @@ export default {
     ...mapState({
       tokenGenerationEventOccurred: state =>
         state.wallet.tokenGenerationEventOccurred,
-      isResyncConfirmationVisible: state =>
-        state.uiInteractions.isResyncConfirmationVisible,
       sessionExpired: state => state.uiInteractions.sessionExpired,
       sessionWillExpireSoon: state => state.wallet.sessionWillExpireSoon,
       isIdle: state => state.idleVue.isIdle,

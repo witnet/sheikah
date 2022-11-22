@@ -1,17 +1,16 @@
 <template>
   <el-dialog
+    v-model="visible"
     class="delete"
     title="Warning"
     width="30%"
-    :visible="true"
     :show-close="true"
-    :close-on-click-modal="false"
     @close="close"
   >
-    <div slot="title" class="title-container">
+    <template #header class="title-container">
       <font-awesome-icon class="icon" icon="exclamation-triangle" />
       <p class="title">{{ $t('warning') }}</p>
-    </div>
+    </template>
 
     <i18n-t keypath="delete_confirmation_0" tag="p" class="text" scope="global">
       <span class="wallet-name">{{ unlockedWallet.name }}</span>
@@ -26,19 +25,19 @@
       v-model="walletName"
       class="input"
       :placeholder="$t('wallet_name')"
-      @keydown.enter.native="callDelete"
+      @keydown.enter="callDelete"
     />
     <p class="error">
       {{ error }}
     </p>
-    <span slot="footer" class="dialog-footer">
+    <template #footer class="dialog-footer">
       <el-button type="danger" plain @click="close">{{
         $t('cancel')
       }}</el-button>
       <el-button type="danger" @click="callDelete">{{
         $t('delete')
       }}</el-button>
-    </span>
+    </template>
   </el-dialog>
 </template>
 
@@ -57,6 +56,14 @@ export default {
     ...mapGetters(['unlockedWallet']),
     validateDelete() {
       return this.walletName === this.unlockedWallet.name
+    },
+    localVisible: {
+      set() {
+        this.$emit('close')
+      },
+      get() {
+        return this.visible
+      },
     },
   },
   watch: {

@@ -3,15 +3,15 @@
     class="resync"
     title="Warning"
     width="30%"
-    :visible="true"
     :show-close="true"
     :close-on-click-modal="false"
     @close="close"
+    v-model="isResyncConfirmationVisibleLocal"
   >
-    <div slot="title" class="title-container">
+    <template #title class="title-container">
       <font-awesome-icon class="icon" icon="exclamation-triangle" />
       <p class="title">{{ $t('warning') }}</p>
-    </div>
+    </template>
 
     <p class="text">
       {{ $t('resync_confirmation_0') }}
@@ -23,17 +23,17 @@
       {{ $t('resync_confirmation_2') }}
     </p>
 
-    <span slot="footer" class="dialog-footer">
+    <template #footer class="dialog-footer">
       <el-button @click="close">{{ $t('cancel') }}</el-button>
       <el-button type="primary" @click="callResync">{{
         $t('resyncronize')
       }}</el-button>
-    </span>
+    </template>
   </el-dialog>
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'ResyncConfirmation',
@@ -47,6 +47,21 @@ export default {
       close: 'closeResyncConfirmation',
     }),
   },
+  computed: {
+    isResyncConfirmationVisibleLocal: {
+      get() {
+        return this.isResyncConfirmationVisible
+      },
+      set() {
+       this.close() 
+      }
+    },
+    ...mapState({
+      isResyncConfirmationVisible: state => {
+        return state.uiInteractions.isResyncConfirmationVisible
+      }
+    })
+  }
 }
 </script>
 
