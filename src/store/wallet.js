@@ -668,6 +668,7 @@ export default {
       }
     },
     getLabels: async function (context) {
+      console.log('getLabsl')
       const request = await api.getItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
