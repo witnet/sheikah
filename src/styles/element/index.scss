@@ -1,0 +1,256 @@
+$--colors: (
+  "primary": (
+    "base": #9b51e0,
+  ),
+  "success": (
+    "base": #52c41a,
+  ),
+  "warning": (
+    "base": #f2c94c,
+  ),
+  "danger": (
+    "base": #f08484,
+  ),
+  "error": (
+    "base": #f08484,
+  ),
+  "info": (
+    "base": yellow,
+  ),
+);
+
+
+// $border-radius: () !default;
+// $border-radius: map.merge(
+//   (
+//     'base': 4px,
+//     'small': 2px,
+//     'round': 20px,
+//     'circle': 100%,
+//   ),
+//   $border-radius
+// );
+
+
+// // Typography
+// $font-family: () !default;
+// $font-family: map.merge(
+//   (
+//     // default family
+//     '':
+//       "'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif"
+//   ),
+//   $font-family
+// );
+
+// $font-size: () !default;
+// $font-size: map.merge(
+//   (
+//     'extra-large': 20px,
+//     'large': 18px,
+//     'medium': 16px,
+//     'base': 14px,
+//     'small': 13px,
+//     'extra-small': 12px,
+//   ),
+//   $font-size
+// );
+
+// // Disable default
+// $disabled: () !default;
+// $disabled: map.merge(
+//   (
+//     'bg-color': getCssVar('fill-color', 'light'),
+//     'text-color': getCssVar('text-color', 'placeholder'),
+//     'border-color': getCssVar('border-color', 'light'),
+//   ),
+//   $disabled
+// );
+
+// $common-component-size: () !default;
+// $common-component-size: map.merge(
+//   (
+//     'large': 40px,
+//     'default': 32px,
+//     'small': 24px,
+//   ),
+//   $common-component-size
+// );
+
+
+// -------------------------------------------
+// $border-color: map.merge(
+//   (
+//     '': #dcdfe6,
+//     'light': #e4e7ed,
+//     'lighter': #ebeef5,
+//     'extra-light': #f2f6fc,
+//     'dark': #d4d7de,
+//     'darker': #cdd0d6,
+//   ),
+//   $border-color
+// );
+
+$--border-color: 
+  (
+    '': #8f8f8f, // $grey-dark-4 - grey-dark-10
+    'light':#8f8f8f,
+    'lighter': #8f8f8f,
+    'extra-light': #8f8f8f,
+    'dark': #8f8f8f,
+    'darker': #8f8f8f,
+  );
+
+// $fill-color: () !default;
+// $fill-color: map.merge(
+//   (
+//     '': #f0f2f5,
+//     'light': #f5f7fa,
+//     'lighter': #fafafa,
+//     'extra-light': #fafcff,
+//     'dark': #ebedf0,
+//     'darker': #e6e8eb,
+//     'blank': #ffffff,
+//   ),
+//   $fill-color
+// );
+$--fill-color: (
+    '': #f0f2f5,
+    'light': #f5f7fa,
+    'lighter': #fafafa,
+    'extra-light': #fafcff,
+    'dark': #ebedf0,
+    'darker': #e6e8eb,
+    'blank': #ffffff,
+);
+
+// $text-color: () !default;
+// $text-color: map.merge(
+//   (
+//     'primary': #303133,
+//     'regular': #606266,
+//     'secondary': #909399,
+//     'placeholder': #a8abb2,
+//     'disabled': #c0c4cc,
+//   ),
+//   $text-color
+// );
+
+$--text-color: (
+    'primary': #303133,
+    'regular': #606266,
+    'secondary': #909399,
+    'placeholder': #a8abb2,
+    'disabled': #c0c4cc,
+);
+
+// // Background
+// $bg-color: () !default;
+// $bg-color: map.merge(
+//   (
+//     '': #ffffff,
+//     'page': #f2f3f5,
+//     'overlay': #ffffff,
+//   ),
+//   $bg-color
+// );
+
+$--bg-color: (
+    '': #ffffff,
+    'page': #f2f3f5,
+    'overlay': #ffffff,
+);
+
+// $box-shadow: () !default;
+// $box-shadow: map.merge(
+//   (
+//     '': (
+//       0px 12px 32px 4px rgba(0, 0, 0, 0.04),
+//       0px 8px 20px rgba(0, 0, 0, 0.08),
+//     ),
+//     'light': (
+//       0px 0px 12px rgba(0, 0, 0, 0.12),
+//     ),
+//     'lighter': (
+//       0px 0px 6px rgba(0, 0, 0, 0.12),
+//     ),
+//     'dark': (
+//       0px 16px 48px 16px rgba(0, 0, 0, 0.08),
+//       0px 12px 32px rgba(0, 0, 0, 0.12),
+//       0px 8px 16px -8px rgba(0, 0, 0, 0.16),
+//     ),
+//   ),
+//   $box-shadow
+// );
+
+$--box-shadow: (
+    '': (
+      0px 12px 32px 4px rgba(0, 0, 0, 0.04),
+      0px 8px 20px rgba(0, 0, 0, 0.08),
+    ),
+    'light': (
+      0px 0px 12px rgba(0, 0, 0, 0.12),
+    ),
+    'lighter': (
+      0px 0px 6px rgba(0, 0, 0, 0.12),
+    ),
+    'dark': (
+      0px 16px 48px 16px rgba(0, 0, 0, 0.08),
+      0px 12px 32px rgba(0, 0, 0, 0.12),
+      0px 8px 16px -8px rgba(0, 0, 0, 0.16),
+    ),
+);
+
+// $overlay-color: () !default;
+// $overlay-color: map.merge(
+//   (
+//     '': rgba(0, 0, 0, 0.8),
+//     'light': rgba(0, 0, 0, 0.7),
+//     'lighter': rgba(0, 0, 0, 0.5),
+//   ),
+//   $overlay-color
+// );
+
+$--overlay-color: (
+    '': rgba(0, 0, 0, 0.8),
+    'light': rgba(0, 0, 0, 0.7),
+    'lighter': rgba(0, 0, 0, 0.5),
+);
+
+// $mask-color: () !default;
+// $mask-color: map.merge(
+//   (
+//     '': rgba(255, 255, 255, 0.9),
+//     'extra-light': rgba(255, 255, 255, 0.3),
+//   ),
+//   $mask-color
+// );
+$--mask-color: (
+  '': rgba(255, 255, 255, 0.9),
+  'extra-light': rgba(255, 255, 255, 0.3),
+);
+
+
+// we can add this to custom namespace, default is 'el'
+// @forward "element-plus/theme-chalk/src/mixins/config.scss" with (
+//   $namespace: "ep"
+// );
+
+// You should use them in scss, because we calculate it by sass.
+// comment next lines to use default color
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  // do not use same name, it will override.
+  $colors: $--colors,
+  // $button-padding-horizontal: ("default": 50px)
+  $border-color: $--border-color,
+);
+
+// if you want to import all
+// @use "element-plus/theme-chalk/src/index.scss" as *;
+
+// You can comment it to hide debug info.
+// @debug $--colors;
+
+// custom dark variables
+@use "./dark.scss";
+// @use "./_colors.scss";

@@ -5,12 +5,14 @@ import store from './store'
 import i18n from './plugins/i18n'
 import ProcessWalletEvent from './services/ProcessWalletEvent'
 
-import ElementPlus from 'element-plus'
+// import ElementPlus from 'element-plus'
 
 import './fontAwesome'
 
 import "~/styles/element-variables.scss";
-import "~/styles/index.scss";
+// import "~/styles/index.scss";
+// import 'uno.css
+import "~/styles/index.scss"
 import 'uno.css'
 
 // import '@/ipcHandlers'
@@ -49,7 +51,7 @@ import App from './App.vue'
 
 const app = createApp(App)
   
-  app.use(ElementPlus)
+  // app.use(ElementPlus)
   app.use(router)
   app.use(store)
   app.use(i18n)

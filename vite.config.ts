@@ -6,7 +6,7 @@ import { customStart } from 'vite-electron-plugin/plugin'
 import renderer from 'vite-plugin-electron-renderer'
 import pkg from './package.json'
 import path from 'path'
-import svgLoader from 'vite-svg-loader'
+// import svgLoader from 'vite-svg-loader'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'url'
@@ -32,6 +32,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         // additionalData: `@use "~/styles/element-variables.scss" as *;`,
+        additionalData: `@use "~/styles/element/index.scss" as *;`,
       },
     },
   },
@@ -66,14 +67,11 @@ export default defineConfig({
         transformerVariantGroup(),
       ]
     }),
-    // Components({
-    //   resolvers: [ElementPlusResolver()],
-    // }),
     vueI18n({
       compositionOnly: false,
       include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
     }),
-    svgLoader(),
+    // svgLoader(),
     electron({
       include: ['electron'],
       transformOptions: {
