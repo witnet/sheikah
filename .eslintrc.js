@@ -1,4 +1,3 @@
-console.log(5)
 const path = require('path')
 
 module.exports = {

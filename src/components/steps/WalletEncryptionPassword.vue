@@ -91,7 +91,6 @@ export default {
       this.$refs.password.focus()
     },
     nextStep() {
-      console.log('nextstep')
       this.validatePassword({
         password: this.password,
         repeatedPassword: this.repeatedPassword,

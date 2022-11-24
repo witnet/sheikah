@@ -64,7 +64,6 @@ export default {
       this.receiveTransactionClicked()
     },
     onSend() {
-      console.log('inside onSend')
       this.isSendVisible = true
     },
   },

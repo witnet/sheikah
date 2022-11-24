@@ -124,14 +124,13 @@ export default {
       theme: state => state.wallet.theme,
     }),
     url() {
-      let a
+      let url
       if (this.theme === this.THEMES.DARK) {
-        a=`${this.name}Dark`.trim()
+        url =`${this.name}Dark`.trim()
       } else {
-        a=`${this.name}`.trim()
+        url =`${this.name}`.trim()
       }
-      console.log(a)
-      return a
+      return url
     },
   },
 }

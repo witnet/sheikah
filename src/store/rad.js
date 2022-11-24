@@ -69,7 +69,6 @@ export default {
   mutations: {
     setDefaultTemplates: function (state, { locale }) {
       RAD_EXAMPLES.forEach(example => {
-        console.log('example', example)
         const radRequest = {
           retrieve: example.radRequest.data.data_request.retrieve,
           aggregate: example.radRequest.data.data_request.aggregate,
@@ -345,7 +344,6 @@ export default {
       })
     },
     [CREATE_TEMPLATE](state, context) {
-      console.log('context', context)
       const TEMPLATE_DEFAULT_NAME = i18n.global.tc('template_default_name')
       const name = Object.values(state.templates).reduce(
         (acc, _, index, self) => {
@@ -524,8 +522,6 @@ export default {
       }
     },
     getTemplates: async function (context, params) {
-      console.log('context-->', context.rootState.wallet)
-      console.log('wallet', wallet)
       const request = await api.getItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,

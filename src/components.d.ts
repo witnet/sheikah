@@ -3,8 +3,6 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 import '@vue/runtime-core'
 
-export {}
-
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Add: typeof import('./components/svg/Add.vue')['default']
@@ -182,3 +180,5 @@ declare module '@vue/runtime-core' {
     WelcomeForm: typeof import('./components/steps/WelcomeForm.vue')['default']
   }
 }
+
+export {}

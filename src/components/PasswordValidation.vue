@@ -76,31 +76,24 @@ export default {
       if (this.error) {
         this.clearError({ error: this.error.name })
       }
-      console.log('password 1')
       this.$emit('input-password', this.password, this.repeatedPassword)
-      console.log('password 2')
     },
     error(error) {
-      console.log('error 1')
       if (error) {
         this.$emit('disable-next-button')
       }
-      console.log('error 2')
     },
     repeatedPassword() {
-      console.log('repeatedpassword 1')
       if (this.error) {
         this.clearError({ error: this.error.name })
       }
       this.$emit('input-password', this.password, this.repeatedPassword)
-      console.log('repeatedpassword 2')
     },
   },
   beforeUnmount() {
     if (this.error) {
       this.clearError({ error: this.error.name })
     }
-    console.log('beore destroy 2')
   },
   methods: {
     ...mapMutations({
@@ -112,9 +105,7 @@ export default {
       this.repeatedPassword = ''
     },
     validate() {
-      console.log('validate 1')
       this.$emit('validate')
-      console.log('validate 2')
     },
   },
 }

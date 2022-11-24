@@ -32,7 +32,6 @@ export default {
     Card,
   },
   data() {
-    console.log('--------->', this.$i18n.tm('create_new_wallet'))
     return {
       options: [
         {

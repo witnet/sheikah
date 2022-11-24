@@ -61,9 +61,7 @@ export default {
   },
   watch: {
     seed(seed) {
-      console.log('1')
       this.validateForm()
-      console.log('2')
     },
   },
   methods: {
@@ -71,12 +69,10 @@ export default {
       validateMnemonics: 'validateMnemonics',
     }),
     validateForm() {
-      console.log('3')
       this.validateMnemonics({
         seed: this.seed,
         mnemonics: this.mnemonics,
       })
-      console.log('4')
       if (
         this.areMnemonicsValid &&
         this.seed.trim().length === this.mnemonics.trim().length
@@ -85,7 +81,6 @@ export default {
       } else {
         this.isNextButtonDisabled = true
       }
-      console.log('5')
     },
     nextStep() {
       this.validateForm()

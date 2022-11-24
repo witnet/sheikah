@@ -133,14 +133,10 @@ export default {
   getters: {
     network: state => state.status.network,
     unlockedWallet: state => {
-      const a = Number.isInteger(state.walletIdx)
+      return Number.isInteger(state.walletIdx)
         ? state.walletInfos[state.walletIdx]
         : null
 
-        console.log('state.walletIdx', state.walletIdx)
-        console.log('state.walletinfos', state.walletInfos)
-        console.log('unlockedwallet', a)
-        return a
     },
     estimatedTimeOfSync: state => {
       return formatMillisecondsDuration(state.syncingTimeEstimator.calculate())
@@ -668,7 +664,6 @@ export default {
       }
     },
     getLabels: async function (context) {
-      console.log('getLabsl')
       const request = await api.getItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
@@ -1173,7 +1168,6 @@ export default {
         }, 1000)
       })
       const request = await api.getWalletInfos()
-      console.log('request', request)
       if (request.result) {
         context.commit('setWalletInfos', { walletInfos: request.result })
       } else {
