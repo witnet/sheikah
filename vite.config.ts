@@ -104,6 +104,9 @@ export default defineConfig({
   build: {
     assetsDir: '', // #287
   },
+  define: {
+    '__APP_VERSION__': JSON.stringify(process.env.npm_package_version),
+  }
 })
 
 function debounce<Fn extends (...args: any[]) => void>(fn: Fn, delay = 299) {

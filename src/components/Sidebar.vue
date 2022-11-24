@@ -88,7 +88,7 @@ export default {
   },
   computed: {
     version() {
-      return `v${process.env.VUE_APP_VERSION || 0}`
+      return `v${__APP_VERSION__}`
     },
   },
   mounted() {
