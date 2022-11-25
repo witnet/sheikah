@@ -1,4 +1,5 @@
-import cbor from 'cbor'
+const cbor = require('cbor')
+
 import {
   format,
   formatDistanceToNow,
