@@ -1,14 +1,13 @@
 <template>
   <el-dialog
     class="resync"
-    title="Warning"
     width="30%"
     :show-close="true"
     :close-on-click-modal="false"
     @close="close"
     v-model="isResyncConfirmationVisibleLocal"
   >
-    <template #title class="title-container">
+    <template #header class="title-container">
       <font-awesome-icon class="icon" icon="exclamation-triangle" />
       <p class="title">{{ $t('warning') }}</p>
     </template>

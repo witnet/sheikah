@@ -26,20 +26,26 @@
           />
           <CustomIcon v-else name="Options" />
         </div>
-        <el-dropdown-menu
-          v-if="type === 'marketplace'"
-          slot="dropdown"
-          :class="style"
+
+        <template 
+            v-if="type === 'marketplace'"
+            #dropdown
         >
-          <el-dropdown-item
-            v-for="(option, index) in marketplaceOptions"
-            :key="option.label"
-            :command="index"
+          <el-dropdown-menu
+            :class="style"
           >
-            {{ option.label }}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-        <el-dropdown-menu v-else slot="dropdown" :class="style">
+            <el-dropdown-item
+              v-for="(option, index) in marketplaceOptions"
+              :key="option.label"
+              :command="index"
+            >
+              {{ option.label }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+
+        <template v-else #dropdown>
+        <el-dropdown-menu :class="style">
           <el-dropdown-item
             v-for="(option, index) in options"
             :key="option.label"
@@ -49,6 +55,8 @@
             {{ option.label }}
           </el-dropdown-item>
         </el-dropdown-menu>
+        </template>
+
       </el-dropdown>
     </div>
     <div data-test="edit-template" class="content">

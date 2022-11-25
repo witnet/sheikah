@@ -39,10 +39,12 @@ const preload = join(__dirname, '../preload/index.js')
 const url = process.env.VITE_DEV_SERVER_URL
 const indexHtml = join(process.env.DIST, 'index.html')
 
+console.log('process', process.env)
+
 async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
-    icon: join(process.env.PUBLIC, 'favicon.ico'),
+    icon: join(process.env.PUBLIC, 'favicon.png'),
     // TODO: set sheikah icon
     // icon: path.join(__static, 'icon.png'),
     webPreferences: {

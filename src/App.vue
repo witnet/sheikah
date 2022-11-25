@@ -1,16 +1,18 @@
 <template>
-  <div id="app">
-    <!-- TODO: use transition -->
-    <!-- <transition :name="transitionName"> -->
-      <router-view />
-    <!-- </transition> -->
-    <Notification />
-    <ResyncConfirmation />
-    <LogoutModal />
-    <DescriptionModal />
-    <RenameConfirmation />
-    <DeleteWalletConfirmation />
-  </div>
+  <el-config-provider namespace="el">
+    <div id="app">
+      <!-- TODO: use transition -->
+      <!-- <transition :name="transitionName"> -->
+        <router-view />
+      <!-- </transition> -->
+      <Notification />
+      <ResyncConfirmation />
+      <LogoutModal />
+      <DescriptionModal />
+      <RenameConfirmation />
+      <DeleteWalletConfirmation />
+    </div>
+  </el-config-provider>
 </template>
 
 <script>

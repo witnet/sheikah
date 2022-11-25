@@ -1,7 +1,6 @@
 <template>
   <el-dialog
     class="wallet-description"
-    title="Wallet description"
     :visible="true"
     v-model="isRenameWalletConfirmationVisibleLocal"
     :show-close="true"

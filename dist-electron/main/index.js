@@ -16,10 +16,11 @@ let win = null;
 const preload = (0, import_path.join)(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = (0, import_path.join)(process.env.DIST, "index.html");
+console.log("process", process.env);
 async function createWindow() {
   win = new import_electron.BrowserWindow({
     title: "Main window",
-    icon: (0, import_path.join)(process.env.PUBLIC, "favicon.ico"),
+    icon: (0, import_path.join)(process.env.PUBLIC, "favicon.png"),
     webPreferences: {
       preload,
       nodeIntegration: true,

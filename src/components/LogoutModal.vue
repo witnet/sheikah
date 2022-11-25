@@ -1,7 +1,6 @@
 <template>
   <el-dialog
     class="info"
-    :title="$t('close_session_info_title')"
     width="30%"
     v-model="sessionExpiredLocal"
     :show-close="true"
