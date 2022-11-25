@@ -85,7 +85,8 @@
         {{ $t('show_advance') }}
         <CustomIcon class-name="icon" name="Open" />
       </el-link>
-      <template #footer>
+      <!-- FIXME: should we use this slot? -->
+      <!-- <template #footer> -->
         <span class="dialog-footer">
           <el-button data-test="cancel-tx" @click="closeAndClear">
             {{ $t('back') }}
@@ -100,7 +101,7 @@
             {{ $t('confirm') }}
           </el-button>
         </span>
-      </template>
+      <!-- </template> -->
     </div>
   </div>
 </template>
