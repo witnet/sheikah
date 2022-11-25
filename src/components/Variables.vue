@@ -186,7 +186,7 @@ export default {
         return false
       }
     },
-    standardizeDataType(type) {
+    standardizeDataType() {
       return this.dataTypeOptions.find(type => type.primaryText === type)
     },
     updateKey({ index, key, value, description, type }) {

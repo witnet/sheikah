@@ -61,7 +61,7 @@ export default {
     }),
   },
   created() {
-    this.unsubscribe = this.$store.subscribe((mutation, state) => {
+    this.unsubscribe = this.$store.subscribe(mutation => {
       if (mutation.type === 'EDITOR_UNDO' || mutation.type === 'EDITOR_REDO') {
         this.$refs[`stage-${this.currentStage}`][0].focus()
       }

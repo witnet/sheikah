@@ -24,6 +24,7 @@ describe('overwriteConfigFile', () => {
     )
     expect(fs.writeFileSync).toBeCalledWith(
       'sheikah_path/witnet_config_file_name',
+      // eslint-disable-next-line no-useless-escape
       `node_url = [\"public_node_url1\",\"public_node_url2\"]`,
     )
   })
@@ -47,6 +48,7 @@ describe('overwriteConfigFile', () => {
     )
     expect(fs.writeFileSync).toBeCalledWith(
       'sheikah_path/witnet_config_file_name',
+      // eslint-disable-next-line no-useless-escape
       `node_url = [\"public_node_url1\",\"public_node_url2\"]`,
     )
   })

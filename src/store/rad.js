@@ -35,7 +35,7 @@ import {
 } from '@/store/mutation-types'
 import { api } from '@/main'
 
-import wallet from './wallet'
+// import wallet from './wallet'
 
 export default {
   state: {
@@ -163,7 +163,8 @@ export default {
       state.currentTemplate.variablesIndex += 1
       state.currentTemplate.variables.push({
         key:
-          i18n.global.tc('variable_default_key') + state.currentTemplate.variablesIndex,
+          i18n.global.tc('variable_default_key') +
+          state.currentTemplate.variablesIndex,
         value: '',
         description: '',
         type: 'String',
@@ -385,7 +386,10 @@ export default {
           usedVariables: [],
         }
 
-        state.currentRadonMarkupInterpreter = new Radon(radRequest, context.locale)
+        state.currentRadonMarkupInterpreter = new Radon(
+          radRequest,
+          context.locale,
+        )
         state.radRequest = state.currentRadonMarkupInterpreter
         state.history = [
           {
@@ -521,7 +525,7 @@ export default {
         }
       }
     },
-    getTemplates: async function (context, params) {
+    getTemplates: async function (context) {
       const request = await api.getItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
@@ -537,7 +541,7 @@ export default {
         })
       }
     },
-    deleteTemplate: async function (context, { id }) {
+    deleteTemplate: async function (context /*, { id }*/) {
       // TODO: fix
       // $vm.delete(context.state.templates, id)
       const request = await api.saveItem({

@@ -6,9 +6,11 @@
     :show-close="true"
     @close="close"
   >
-    <template #header class="title-container">
-      <font-awesome-icon class="icon" icon="info-circle" />
-      <p class="title">{{ $t('close_session_info_title') }}</p>
+    <template #header>
+      <div class="title-container">
+        <font-awesome-icon class="icon" icon="info-circle" />
+        <p class="title">{{ $t('close_session_info_title') }}</p>
+      </div>
     </template>
 
     <i18n-t keypath="close_session_info_0" tag="p" class="text" scope="global">
@@ -18,8 +20,10 @@
     </i18n-t>
 
     <el-checkbox v-model="checked">{{ $t('not_show_again') }}</el-checkbox>
-    <template #footer class="dialog-footer">
-      <el-button type="primary" @click="close">{{ $t('ok') }}</el-button>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button type="primary" @click="close">{{ $t('ok') }}</el-button>
+      </div>
     </template>
   </el-dialog>
 </template>
@@ -45,7 +49,7 @@ export default {
       },
       set() {
         this.close()
-      }
+      },
     },
     checked: {
       get() {

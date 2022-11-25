@@ -1,4 +1,4 @@
-// import cbor from 'cbor'
+import cbor from 'cbor'
 import {
   format,
   formatDistanceToNow,
@@ -16,7 +16,7 @@ import {
   EDITOR_ALLOWED_PROTOCOLS,
   HISTORY_UPDATE_TYPE,
   EDITOR_STAGES,
-  SECONDS_TO_NEXT_BLOCK,
+  // SECONDS_TO_NEXT_BLOCK,
 } from './constants'
 import sheikahIcon from '@/resources/svg/sheikah_small.svg'
 import BigNumber from '@/utils/BigNumber'
@@ -24,7 +24,7 @@ import BigNumber from '@/utils/BigNumber'
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
   if (window.Notification) {
-    Notification.requestPermission(permission => {
+    Notification.requestPermission(() => {
       return innerCreateNotification(notificationProps)
     })
   } else {
@@ -133,7 +133,7 @@ export function encodeAggregationTally(stage) {
         ? {
             op: filter[0],
             // TODO: make cbor work
-            args: filter.slice(1).length ? [/** ...cbor.encode(args).values() */] : [],
+            args: filter.slice(1).length ? [...cbor.encode(args).values()] : [],
           }
         : { op: filter, args: [] }
     }),
@@ -292,7 +292,7 @@ export function standardizeOutputType(name) {
   }
 }
 
-export function match(value, options, result) {
+export function match(value, options) {
   const search = options.find(x => x.options.includes(value))
   return search ? search.result : null
 }
@@ -559,7 +559,7 @@ export function createDownloadableLink(data) {
 }
 
 export async function sleep(t) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve()
     }, t)

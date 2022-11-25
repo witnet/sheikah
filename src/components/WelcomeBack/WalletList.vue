@@ -85,7 +85,7 @@ export default {
       }
     },
     walletOptions() {
-      return this.wallets.map((wallet, index) => {
+      return this.wallets.map(wallet => {
         return {
           primaryText: wallet.name,
           value: wallet.id,

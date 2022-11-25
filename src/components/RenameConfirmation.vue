@@ -6,9 +6,11 @@
     :show-close="true"
     @close="close"
   >
-    <template #header class="title"
-      ><font-awesome-icon class="icon" icon="cog" />
-      {{ $t('rename_confirmation_title') }}
+    <template #header>
+      <div class="title">
+        <font-awesome-icon class="icon" icon="cog" />
+        {{ $t('rename_confirmation_title') }}
+      </div>
     </template>
     <p class="text">
       {{ $t('rename_modal_description') }}
@@ -54,8 +56,8 @@ export default {
       },
       set() {
         this.close()
-      }
-    }
+      },
+    },
   },
   methods: {
     renameWallet() {

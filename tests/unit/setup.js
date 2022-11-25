@@ -55,7 +55,7 @@ global.createComponentMocks = ({ store, router, style, mocks, stubs }) => {
   // https://vue-test-utils.vuejs.org/api/options.html#mocks
   returnOptions.mocks = mocks || {}
   const mockedDirective = {
-    inserted(el, binding) {
+    inserted(el) {
       el.getElementsByTagName('input')
         ? el.getElementsByTagName('input')[0].focus()
         : el.focus()

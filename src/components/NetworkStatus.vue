@@ -209,7 +209,7 @@ export default {
         this.timeAgo = val.lastBlockTimestamp
       }
     },
-    expanded(expanded) {
+    expanded() {
       this.showAll = false
     },
   },

@@ -3,7 +3,7 @@
     <div id="app">
       <!-- TODO: use transition -->
       <!-- <transition :name="transitionName"> -->
-        <router-view />
+      <router-view />
       <!-- </transition> -->
       <Notification />
       <ResyncConfirmation />

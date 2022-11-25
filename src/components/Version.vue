@@ -7,7 +7,8 @@ export default {
   name: 'Version',
   computed: {
     version() {
-      return `v${ __APP_VERSION__ || 0}`
+      // eslint-disable-next-line no-undef
+      return `v${__APP_VERSION__ || 0}`
     },
   },
 }

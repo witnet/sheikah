@@ -88,6 +88,7 @@ export default {
   },
   computed: {
     version() {
+      // eslint-disable-next-line no-undef
       return `v${__APP_VERSION__}`
     },
   },
@@ -101,7 +102,7 @@ export default {
       closeSession: 'closeSession',
       shutdown: 'shutdown',
     }),
-    visibilityChanged(isVisible, entry) {
+    visibilityChanged(isVisible) {
       if (isVisible) {
         this.settingVisible = true
       } else {

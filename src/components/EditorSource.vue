@@ -168,7 +168,7 @@ export default {
   },
   watch: {
     form: {
-      handler(val) {
+      handler() {
         this.updateSource({
           index: this.index,
           source: {

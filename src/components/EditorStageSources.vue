@@ -77,7 +77,7 @@ export default {
     },
   },
   watch: {
-    async currentFocus(val, oldVal) {
+    async currentFocus(val) {
       if (val || Number.isInteger(val)) {
         // wait to render deleted stage
         await this.$nextTick()

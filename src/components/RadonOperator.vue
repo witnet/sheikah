@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import EditorOperatorArgument from '@/components/EditorOperatorArgument.vue'
 import OperatorOutput from '@/components/OperatorOutput.vue'
 import Select from '@/components/Select.vue'
@@ -288,7 +288,7 @@ export default {
         })
       }
     },
-    updateOperatorAndVariables(id, value, type) {
+    updateOperatorAndVariables(id, value) {
       this.selected = {
         id: id,
         primaryText: value,

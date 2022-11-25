@@ -53,7 +53,7 @@ export default defineConfig({
       ],
       dts: 'src/components.d.ts',
     }),
-      Unocss({
+    Unocss({
       presets: [
         presetUno(),
         presetAttributify(),
@@ -62,14 +62,14 @@ export default defineConfig({
           warn: true,
         }),
       ],
-      transformers: [
-        transformerDirectives(),
-        transformerVariantGroup(),
-      ]
+      transformers: [transformerDirectives(), transformerVariantGroup()],
     }),
     vueI18n({
       compositionOnly: false,
-      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
+      include: resolve(
+        dirname(fileURLToPath(import.meta.url)),
+        './src/locales/**',
+      ),
     }),
     // svgLoader(),
     electron({
@@ -79,7 +79,15 @@ export default defineConfig({
       },
       // Will start Electron via VSCode Debug
       plugins: process.env.VSCODE_DEBUG
-        ? [customStart(debounce(() => console.log(/* For `.vscode/.debug.script.mjs` */'[startup] Electron App')))]
+        ? [
+            customStart(
+              debounce(() =>
+                console.log(
+                  /* For `.vscode/.debug.script.mjs` */ '[startup] Electron App',
+                ),
+              ),
+            ),
+          ]
         : undefined,
     }),
     // Use Node.js API in the Renderer-process
@@ -91,22 +99,24 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
       '~/': `${pathSrc}/`,
-    }
+    },
   },
-  server: process.env.VSCODE_DEBUG ? (() => {
-    const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
-    return {
-      host: url.hostname,
-      port: +url.port,
-    }
-  })() : undefined,
+  server: process.env.VSCODE_DEBUG
+    ? (() => {
+        const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
+        return {
+          host: url.hostname,
+          port: +url.port,
+        }
+      })()
+    : undefined,
   clearScreen: false,
   build: {
     assetsDir: '', // #287
   },
   define: {
-    '__APP_VERSION__': JSON.stringify(process.env.npm_package_version),
-  }
+    __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+  },
 })
 
 function debounce<Fn extends (...args: any[]) => void>(fn: Fn, delay = 299) {

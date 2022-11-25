@@ -8,7 +8,12 @@
     :previous-step="() => $router.push('/ftu/disclaimer')"
     :next-step="() => $router.push('/ftu/seed-validation')"
   >
-    <i18n-t class="paragraph-title" keypath="wallet_seed_backup_0_1" tag="p" scope="global">
+    <i18n-t
+      class="paragraph-title"
+      keypath="wallet_seed_backup_0_1"
+      tag="p"
+      scope="global"
+    >
       <em>{{ $t('wallet_seed_backup_0_2') }}</em>
     </i18n-t>
     <pre
@@ -23,7 +28,12 @@
     <p class="paragraph">
       {{ $t('wallet_seed_backup_2') }}
     </p>
-    <i18n-t class="paragraph" keypath="wallet_seed_backup_3_1" tag="p" scope="global">
+    <i18n-t
+      class="paragraph"
+      keypath="wallet_seed_backup_3_1"
+      tag="p"
+      scope="global"
+    >
       <b class="bold">{{ $t('wallet_seed_backup_3_2') }}</b>
     </i18n-t>
   </NavigationCard>

@@ -60,7 +60,7 @@ export default {
     }),
   },
   watch: {
-    seed(seed) {
+    seed() {
       this.validateForm()
     },
   },

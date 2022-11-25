@@ -24,7 +24,9 @@
     </div>
     <el-form-item v-if="customFee" prop="fee">
       <el-input v-model="feeValues.fee" tabindex="4" data-test="tx-fee">
-        <AppendUnit slot="append" :static-unit="unit" />
+        <template #append>
+          <AppendUnit :static-unit="unit" />
+        </template>
       </el-input>
     </el-form-item>
     <transition name="slide">

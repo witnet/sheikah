@@ -21,18 +21,22 @@
     <el-form-item :label="$t('amount')" prop="amount">
       <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
       <el-input v-model="form.amount" tabindex="3" data-test="tx-amount">
-        <AppendUnit slot="append" @change-unit="changeUnit" />
+        <template #append>
+          <AppendUnit @change-unit="changeUnit" />
+        </template>
       </el-input>
     </el-form-item>
     <transition name="slide">
       <div v-if="isAdvancedVisible">
-        <div slot="label" class="label">
+        <div class="label">
           {{ $t('timelock') }}
           <el-tooltip trigger="hover" effect="light">
             <font-awesome-icon class="info" icon="info-circle" />
-            <div slot="content" class="info-message">
-              {{ $t('timelock_tooltip') }}
-            </div>
+            <template #content>
+              <div class="info-message">
+                {{ $t('timelock_tooltip') }}
+              </div>
+            </template>
           </el-tooltip>
         </div>
         <el-date-picker
@@ -176,7 +180,7 @@ export default {
   },
   watch: {
     form: {
-      handler(val) {
+      handler() {
         if (this.createVTTError) {
           this.clearError({ error: this.createVTTError.name })
         } else {

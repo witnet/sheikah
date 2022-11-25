@@ -87,16 +87,16 @@ export default {
     SortUp,
     Telegram,
     Up,
-    UpDark, 
-    SortUpDark, 
-    OpenDark, 
-    OperatorArrowDark, 
-    OptionsDark, 
-    SheikahDark, 
-    SheikahSmallDark, 
-    SortDownDark, 
-    LongArrowDark, 
-    DownDark, 
+    UpDark,
+    SortUpDark,
+    OpenDark,
+    OperatorArrowDark,
+    OptionsDark,
+    SheikahDark,
+    SheikahSmallDark,
+    SortDownDark,
+    LongArrowDark,
+    DownDark,
     ExitIconDark,
     Twitter,
     // TwitterDark
@@ -126,9 +126,9 @@ export default {
     url() {
       let url
       if (this.theme === this.THEMES.DARK) {
-        url =`${this.name}Dark`.trim()
+        url = `${this.name}Dark`.trim()
       } else {
-        url =`${this.name}`.trim()
+        url = `${this.name}`.trim()
       }
       return url
     },

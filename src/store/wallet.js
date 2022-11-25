@@ -136,7 +136,6 @@ export default {
       return Number.isInteger(state.walletIdx)
         ? state.walletInfos[state.walletIdx]
         : null
-
     },
     estimatedTimeOfSync: state => {
       return formatMillisecondsDuration(state.syncingTimeEstimator.calculate())
@@ -232,7 +231,7 @@ export default {
     setFeeEstimationReport(state, report) {
       state.feeEstimationReport = report
     },
-    clearEstimationReport(state, report) {
+    clearEstimationReport(state) {
       state.feeEstimationReport = null
     },
     setSelectedFee(state, { fee }) {
@@ -266,7 +265,8 @@ export default {
     },
     setWalletIndex(state, { walletIndex }) {
       const walletInfos = state.walletInfos
-      state.walletIdx = walletIndex === -1 ? walletInfos.length -1: walletIndex
+      state.walletIdx =
+        walletIndex === -1 ? walletInfos.length - 1 : walletIndex
       localStorageWrapper.setWalletIndex(state.walletIdx)
     },
     setLabels(state, { labels }) {
@@ -611,7 +611,7 @@ export default {
         }, 15000)
       }
     },
-    stopTransactionDateSync(context) {
+    stopTransactionDateSync() {
       clearInterval(this.transactionSync)
     },
     shutdown: async function (context) {
@@ -1126,7 +1126,7 @@ export default {
         ? context.commit('setUnit', unit)
         : context.commit('setUnit', defaultUnit)
     },
-    getLocale: async function (context, payload) {
+    getLocale: async function (context) {
       const localeFromStorage = localStorageWrapper.getLanguageSettings()
       if (localeFromStorage) {
         context.commit('setLanguage', {
@@ -1198,7 +1198,7 @@ export default {
         },
       )
     },
-    unsubscribeFromWalletNotifications: async function (context) {
+    unsubscribeFromWalletNotifications: async function () {
       await api.unsubscribeFromNotifications({
         session_id: this.state.wallet.sessionId,
       })

@@ -8,7 +8,7 @@ ipcRenderer.on('shutdown', async () => {
   ipcRenderer.send('shutdown-finished')
 })
 
-ipcRenderer.on('running', async (event, message) => {
+ipcRenderer.on('running', async () => {
   store.commit('setMessage', { message: 'Running wallet' })
 })
 

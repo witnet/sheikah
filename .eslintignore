@@ -1,6 +1,7 @@
 /build/
 /dist/
 /dist_electron/
+/dist-electron/
 /tests/unit/coverage/
 /src/locales/**
 

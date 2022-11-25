@@ -73,7 +73,7 @@ export default createRouter({
       name: 'main',
       component: Main,
       beforeEnter: async (to, from, next) => {
-        await new Promise((resolve) => {
+        await new Promise(resolve => {
           setTimeout(() => {
             resolve()
           }, 2000)

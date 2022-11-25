@@ -5,9 +5,10 @@ import { h } from 'vue'
 export default {
   name: 'LayoutTwoColumns',
   render() {
-    return h( 'div',
+    return h(
+      'div',
       {
-          class: 'layout',
+        class: 'layout',
       },
       [
         // slot to render on the left side
@@ -15,7 +16,7 @@ export default {
         h(
           'div',
           {
-              class: 'col-right',
+            class: 'col-right',
           },
           [
             // slot to render on the upper right side

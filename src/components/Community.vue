@@ -85,7 +85,7 @@ export default {
 
 .community-link {
   fill: var(--community-card-title);
-  
+
   cursor: pointer;
   margin-bottom: 24px;
   text-decoration: none;

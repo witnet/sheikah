@@ -6,9 +6,11 @@
     :show-close="true"
     @close="close"
   >
-    <template #header class="title-container">
-      <font-awesome-icon class="icon" icon="exclamation-triangle" />
-      <p class="title">{{ $t('warning') }}</p>
+    <template #header>
+      <div class="title-container">
+        <font-awesome-icon class="icon" icon="exclamation-triangle" />
+        <p class="title">{{ $t('warning') }}</p>
+      </div>
     </template>
 
     <i18n-t keypath="delete_confirmation_0" tag="p" class="text" scope="global">
@@ -29,13 +31,15 @@
     <p class="error">
       {{ error }}
     </p>
-    <template #footer class="dialog-footer">
-      <el-button type="danger" plain @click="close">{{
-        $t('cancel')
-      }}</el-button>
-      <el-button type="danger" @click="callDelete">{{
-        $t('delete')
-      }}</el-button>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button type="danger" plain @click="close">{{
+          $t('cancel')
+        }}</el-button>
+        <el-button type="danger" @click="callDelete">{{
+          $t('delete')
+        }}</el-button>
+      </div>
     </template>
   </el-dialog>
 </template>

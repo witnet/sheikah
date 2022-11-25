@@ -23,7 +23,11 @@
     </template>
 
     <template #bottomRight>
-      <Fieldset :title="$t('aggregator_rules_title')" type="help" scope="global">
+      <Fieldset
+        :title="$t('aggregator_rules_title')"
+        type="help"
+        scope="global"
+      >
         <div>
           <i18n-t keypath="aggregations_rule_1_0" tag="p" scope="global">
             <em>{{ $t('aggregations_rule_1_1') }}</em>

@@ -9,10 +9,10 @@ import ProcessWalletEvent from './services/ProcessWalletEvent'
 
 import './fontAwesome'
 
-import "~/styles/element-variables.scss";
+import '~/styles/element-variables.scss'
 // import "~/styles/index.scss";
 // import 'uno.css
-import "~/styles/index.scss"
+import '~/styles/index.scss'
 import 'uno.css'
 
 // import '@/ipcHandlers'
@@ -50,39 +50,35 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 const app = createApp(App)
-  
-  // app.use(ElementPlus)
-  app.use(router)
-  app.use(store)
-  app.use(i18n)
 
-  app.directive('focus', {
-    updated: function (el, binding) {
-      console.log('binding', binding)
-      if (binding.arg === "true") {
-        if (el.getElementsByTagName('input')) {
-          el.getElementsByTagName('input')[0].focus()
-        } else {
-          el.focus()
-        }
+// app.use(ElementPlus)
+app.use(router)
+app.use(store)
+app.use(i18n)
+
+app.directive('focus', {
+  updated: function (el, binding) {
+    console.log('binding', binding)
+    if (binding.arg === 'true') {
+      if (el.getElementsByTagName('input')) {
+        el.getElementsByTagName('input')[0].focus()
+      } else {
+        el.focus()
       }
-    },
-    mounted: function (el) {
-      // It focus the element and add support for element ui inputs
-      el.getElementsByTagName('input')
-        ? el.getElementsByTagName('input')[0].focus()
-        : el.focus()
-    },
-  })
+    }
+  },
+  mounted: function (el) {
+    // It focus the element and add support for element ui inputs
+    el.getElementsByTagName('input')
+      ? el.getElementsByTagName('input')[0].focus()
+      : el.focus()
+  },
+})
 
+app.component('font-awesome-icon', FontAwesomeIcon)
 
-
-
-  app.component('font-awesome-icon', FontAwesomeIcon)
-
-  app.mount('#app')
-  .$nextTick(() => {
-    postMessage({ payload: 'removeLoading' }, '*')
-  })
+app.mount('#app').$nextTick(() => {
+  postMessage({ payload: 'removeLoading' }, '*')
+})
 
 export { api, localStorageWrapper, eventProcessor }

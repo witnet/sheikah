@@ -10,7 +10,9 @@
 //
 process.env.DIST_ELECTRON = join(__dirname, '..')
 process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
-process.env.PUBLIC = app.isPackaged ? process.env.DIST : join(process.env.DIST_ELECTRON, '../public')
+process.env.PUBLIC = app.isPackaged
+  ? process.env.DIST
+  : join(process.env.DIST_ELECTRON, '../public')
 
 import { app, BrowserWindow, shell, ipcMain } from 'electron'
 import { release } from 'os'
@@ -58,33 +60,32 @@ async function createWindow() {
     autoHideMenuBar: true,
   })
 
-// TODO: Do we need this?
-// if (!DEVELOPMENT) {
-//   // Hide electron toolbar in production environment
-//   this.win.setMenuBarVisibility(false)
-//   const menu = Menu.buildFromTemplate([
-//     {
-//       label: 'Menu',
-//       submenu: [
-//         {
-//           label: 'Quit',
-//           accelerator: 'CmdOrCtrl+Q',
-//           click: () => {
-//             this.sendShutdownMessage()
-//           },
-//         },
-//         { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
-//         { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
-//         { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
-//         { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
-//         { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
-//         { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
-//       ],
-//     },
-//   ])
-//   Menu.setApplicationMenu(menu)
-// }
-
+  // TODO: Do we need this?
+  // if (!DEVELOPMENT) {
+  //   // Hide electron toolbar in production environment
+  //   this.win.setMenuBarVisibility(false)
+  //   const menu = Menu.buildFromTemplate([
+  //     {
+  //       label: 'Menu',
+  //       submenu: [
+  //         {
+  //           label: 'Quit',
+  //           accelerator: 'CmdOrCtrl+Q',
+  //           click: () => {
+  //             this.sendShutdownMessage()
+  //           },
+  //         },
+  //         { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
+  //         { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
+  //         { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+  //         { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
+  //         { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
+  //         { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+  //       ],
+  //     },
+  //   ])
+  //   Menu.setApplicationMenu(menu)
+  // }
 
   if (app.isPackaged) {
     win.loadFile(indexHtml)
@@ -106,7 +107,7 @@ async function createWindow() {
     if (url.startsWith('https:')) shell.openExternal(url)
     return { action: 'deny' }
   })
- 
+
   // TODO: Do we need this?
   // win.on('closed', () => {
   //   this.win = null
@@ -128,8 +129,6 @@ async function createWindow() {
 // walletManager.run()
 
 app.whenReady().then(createWindow)
-
-
 
 app.on('window-all-closed', () => {
   win = null
@@ -185,47 +184,44 @@ ipcMain.handle('open-win', (event, arg) => {
   }
 })
 
+function sendShutdownMessage() {
+  win?.webContents.send('shutdown')
+}
 
+function sendDownloadedMessage() {
+  win?.webContents.send('downloaded')
+}
 
-  function sendShutdownMessage() {
-    win?.webContents.send('shutdown')
-  }
+function sendDownloadingMessage() {
+  win?.webContents.send('downloading')
+}
 
-  function sendDownloadedMessage() {
-    win?.webContents.send('downloaded')
-  }
+function sendProgressMessage(progress: number) {
+  win?.webContents.send('progress', progress)
+}
 
-  function sendDownloadingMessage() {
-    win?.webContents.send('downloading')
-  }
+function sendRunningMessage() {
+  win?.webContents.send('running')
+}
 
-  function sendProgressMessage(progress: number) {
-    win?.webContents.send('progress', progress)
-  }
+function sendLoadedMessage() {
+  win?.webContents.send('loaded', [{ isDefaultWallet: true }])
+}
 
-  function sendRunningMessage() {
-    win?.webContents.send('running')
-  }
+function closeWindow() {
+  win.close()
+}
 
-  function sendLoadedMessage() {
-    win?.webContents.send('loaded', [{ isDefaultWallet: true }])
-  }
+// win.on('close', this.closeApp.bind(this))
+// function closeApp(event: Event) {
+//   event.preventDefault()
+//   this.sendShutdownMessage()
+// }
 
-  function closeWindow() {
-    win.close()
-  }
-
-  // win.on('close', this.closeApp.bind(this))
-  // function closeApp(event: Event) {
-  //   event.preventDefault()
-  //   this.sendShutdownMessage()
-  // }
-
-  // public setStatus(status: Status) {
-  //   this.status = status
-  //   this.loadUrl(status)
-  // }
-
+// public setStatus(status: Status) {
+//   this.status = status
+//   this.loadUrl(status)
+// }
 
 // // load a url if browser window is ready according to the current status
 // function loadUrl(status: Status) {

@@ -78,7 +78,7 @@ export class WalletApi {
   // This is overriding the native `client.subscribe` because it lacks support for `params`
   subscribeToNotifications(params, cb) {
     return this._callApiMethod('rpc.on')([params.session_id])
-      .then(_ => {
+      .then(() => {
         this.client.on('notifications', cb)
       })
       .catch(this._handleError)

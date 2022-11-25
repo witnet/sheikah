@@ -7,9 +7,11 @@
     @close="close"
     v-model="isResyncConfirmationVisibleLocal"
   >
-    <template #header class="title-container">
-      <font-awesome-icon class="icon" icon="exclamation-triangle" />
-      <p class="title">{{ $t('warning') }}</p>
+    <template #header>
+      <div class="title-container">
+        <font-awesome-icon class="icon" icon="exclamation-triangle" />
+        <p class="title">{{ $t('warning') }}</p>
+      </div>
     </template>
 
     <p class="text">
@@ -22,11 +24,13 @@
       {{ $t('resync_confirmation_2') }}
     </p>
 
-    <template #footer class="dialog-footer">
-      <el-button @click="close">{{ $t('cancel') }}</el-button>
-      <el-button type="primary" @click="callResync">{{
-        $t('resyncronize')
-      }}</el-button>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="close">{{ $t('cancel') }}</el-button>
+        <el-button type="primary" @click="callResync">{{
+          $t('resyncronize')
+        }}</el-button>
+      </div>
     </template>
   </el-dialog>
 </template>
@@ -52,15 +56,15 @@ export default {
         return this.isResyncConfirmationVisible
       },
       set() {
-       this.close() 
-      }
+        this.close()
+      },
     },
     ...mapState({
       isResyncConfirmationVisible: state => {
         return state.uiInteractions.isResyncConfirmationVisible
-      }
-    })
-  }
+      },
+    }),
+  },
 }
 </script>
 

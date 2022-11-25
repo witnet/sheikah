@@ -85,20 +85,22 @@
         {{ $t('show_advance') }}
         <CustomIcon class-name="icon" name="Open" />
       </el-link>
-      <span slot="footer" class="dialog-footer">
-        <el-button data-test="cancel-tx" @click="closeAndClear">
-          {{ $t('back') }}
-        </el-button>
-        <el-button
-          tabindex="2"
-          type="primary"
-          data-test="confirm-tx"
-          @keydown.enter.esc.prevent="confirmTransaction"
-          @click="confirmTransaction"
-        >
-          {{ $t('confirm') }}
-        </el-button>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button data-test="cancel-tx" @click="closeAndClear">
+            {{ $t('back') }}
+          </el-button>
+          <el-button
+            tabindex="2"
+            type="primary"
+            data-test="confirm-tx"
+            @keydown.enter.esc.prevent="confirmTransaction"
+            @click="confirmTransaction"
+          >
+            {{ $t('confirm') }}
+          </el-button>
+        </span>
+      </template>
     </div>
   </div>
 </template>

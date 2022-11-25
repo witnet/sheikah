@@ -159,7 +159,7 @@ export default {
     importTemplate() {
       this.$refs.fileInput.click()
     },
-    readFile(e) {
+    readFile() {
       const file = this.$refs.fileInput.files[0]
       const reader = new FileReader()
       reader.addEventListener(

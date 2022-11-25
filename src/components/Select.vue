@@ -199,7 +199,7 @@ export default {
         this.$refs.options.scrollTop = top
       }
     },
-    handleFocus(e) {
+    handleFocus() {
       this.areOptionsVisible = true
       if (this.$refs.button) {
         this.$refs.button.focus()

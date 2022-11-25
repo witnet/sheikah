@@ -33,8 +33,8 @@ export default {
       },
       set() {
         this.close()
-      }
-    }
+      },
+    },
   },
   methods: {
     ...mapMutations({
