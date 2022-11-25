@@ -6,13 +6,13 @@
       :data-test="social.url"
       :url="social.url"
     >
-      <template v-slot:header>
+      <template #header>
         {{ social.header }}
       </template>
-      <template v-slot:content>
+      <template #content>
         {{ social.content }}
       </template>
-      <template v-slot:icon-social>
+      <template #icon-social>
         <CustomIcon :name="social.img" className="icon-social" />
         <!-- <img class="icon-social" :src="social.img" alt="github icon" /> -->
       </template>

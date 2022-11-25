@@ -1,6 +1,6 @@
 <template>
   <LayoutTwoColumns>
-    <template v-slot:left>
+    <template #left>
       <EditorAggregationsTally
         :script="tally"
         stage="tally"
@@ -10,7 +10,7 @@
       />
     </template>
 
-    <template v-slot:upperRight>
+    <template #upperRight>
       <Fieldset :title="$t('tally_description_title')" type="help">
         <div>
           <i18n-t keypath="tally_description_0" tag="p" scope="global">
@@ -20,7 +20,7 @@
       </Fieldset>
     </template>
 
-    <template v-slot:bottomRight>
+    <template #bottomRight>
       <Fieldset :title="$t('tally_rule_title')" type="help">
         <div>
           <p>{{ $t('tally_rules_intro') }}</p>

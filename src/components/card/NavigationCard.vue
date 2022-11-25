@@ -1,12 +1,12 @@
 <template>
   <BaseCard class="card-navigation" :style="{ width: `${width}px` }">
-    <template v-slot:header>
+    <template #header>
       <div v-if="title" class="header">
         {{ title }}
       </div>
     </template>
 
-    <template v-slot:content>
+    <template #content>
       <div
         class="content"
         :class="{ 'full-padding': !nextStep && !previousStep }"
@@ -15,13 +15,13 @@
       </div>
     </template>
 
-    <template v-slot:alt-footer>
+    <template #alt-footer>
       <div class="alt-footer">
         <slot name="alt-footer"></slot>
       </div>
     </template>
 
-    <template v-slot:footer>
+    <template #footer>
       <div v-if="previousStep || nextStep" class="navigation-buttons">
         <el-button
           v-if="previousStep"

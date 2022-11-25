@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <BaseCard class="card-navigation">
-      <template v-slot:header>
+      <template #header>
         <div v-if="title" class="header">
           <div class="big-title">
             <p class="title">{{ $t('disclaimer').toUpperCase() }}</p>
@@ -11,13 +11,13 @@
         </div>
       </template>
 
-      <template v-slot:content>
+      <template #content>
         <div ref="disclaimer" class="content">
           <slot></slot>
         </div>
       </template>
 
-      <template v-if="previousStep || nextStep" v-slot:footer>
+      <template v-if="previousStep || nextStep" #footer>
         <div class="navigation-buttons">
           <el-button
             v-if="previousStep"

@@ -1,6 +1,6 @@
 <template>
   <LayoutTwoColumns>
-    <template v-slot:left>
+    <template #left>
       <div class="sources">
         <EditorSource
           v-for="(source, index) in sources"
@@ -27,7 +27,7 @@
         </el-button>
       </div>
     </template>
-    <template v-slot:upperRight>
+    <template #upperRight>
       <Fieldset :title="$t('source_description_title')" type="help">
         <div>
           <p>{{ $t('source_description_0') }}</p>
@@ -37,7 +37,7 @@
       </Fieldset>
     </template>
 
-    <template v-slot:bottomRight>
+    <template #bottomRight>
       <Fieldset :title="$t('source_description_title_2')" type="help">
         <div>
           <p>{{ $t('source_description_3') }}</p>

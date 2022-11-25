@@ -1,6 +1,6 @@
 <template>
   <LayoutTwoColumns>
-    <template v-slot:left>
+    <template #left>
       <EditorAggregationsTally
         :script="aggregations"
         stage="aggregation"
@@ -11,7 +11,7 @@
       />
     </template>
 
-    <template v-slot:upperRight>
+    <template #upperRight>
       <Fieldset :title="$t('aggregator_description_title')" type="help">
         <div>
           <i18n-t keypath="aggregations_description_0" tag="p" scope="global">
@@ -22,7 +22,7 @@
       </Fieldset>
     </template>
 
-    <template v-slot:bottomRight>
+    <template #bottomRight>
       <Fieldset :title="$t('aggregator_rules_title')" type="help" scope="global">
         <div>
           <i18n-t keypath="aggregations_rule_1_0" tag="p" scope="global">
