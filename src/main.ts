@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import i18n from './plugins/i18n'
 import ProcessWalletEvent from './services/ProcessWalletEvent'
+import { checkDisconnection } from './services/checkDisconnection'
 
 // import ElementPlus from 'element-plus'
 
@@ -58,7 +59,6 @@ app.use(i18n)
 
 app.directive('focus', {
   updated: function (el, binding) {
-    console.log('binding', binding)
     if (binding.arg === 'true') {
       if (el.getElementsByTagName('input')) {
         el.getElementsByTagName('input')[0].focus()
@@ -79,6 +79,7 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 
 app.mount('#app').$nextTick(() => {
   postMessage({ payload: 'removeLoading' }, '*')
+  checkDisconnection(router, store)
 })
 
 export { api, localStorageWrapper, eventProcessor }
