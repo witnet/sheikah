@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import { api } from './main'
 
 import Community from '@/components/Community.vue'
@@ -33,7 +33,7 @@ import { SETTINGS_SECTIONS } from '@/constants'
 
 // Vue.use(Router)
 function redirectOnReload(to, from, next) {
-  if (api.client.ws.ready) {
+  if (api.client.ws.ready || to.href.includes('setup')) {
     next()
   } else {
     next('/')
@@ -41,7 +41,7 @@ function redirectOnReload(to, from, next) {
 }
 
 export default createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/settings',
