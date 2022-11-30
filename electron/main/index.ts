@@ -17,13 +17,14 @@ process.env.PUBLIC = app.isPackaged
 import { app, BrowserWindow, shell, ipcMain } from 'electron'
 import { release } from 'os'
 import { join } from 'path'
+import { Status, STATUS_PATH } from '../constants'
 import { WalletManager } from '../walletManager'
+import kill from 'tree-kill'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
 
 // Set application name for Windows 10+ notifications
-if (process.platform === 'win32') app.setAppUserModelId(app.getName())
 
 if (!app.requestSingleInstanceLock()) {
   app.quit()
@@ -36,6 +37,8 @@ if (!app.requestSingleInstanceLock()) {
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let win: BrowserWindow | null = null
+let status: Status
+let walletPid
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.js')
 const url = process.env.VITE_DEV_SERVER_URL
@@ -88,14 +91,13 @@ async function createWindow() {
   if (app.isPackaged) {
     win.loadFile(indexHtml)
   } else {
-    win.loadURL(url)
+    loadUrl(Status.Wait)
     // Open devTool if the app is not packaged
     win.webContents.openDevTools()
   }
 
   // Test actively push message to the Electron-Renderer
   win.webContents.on('did-finish-load', () => {
-    win?.webContents.send('main-process-message', new Date().toLocaleString())
     // TODO: do we need this?
     // this.win?.webContents.setZoomFactor(1)
   })
@@ -123,10 +125,40 @@ async function createWindow() {
 //   app.whenReady().then(() => {})
 // }
 
-// const walletManager = new WalletManager()
-// walletManager.run()
+function setWalletPid(pid: number) {
+  walletPid = pid
+}
 
-app.whenReady().then(createWindow)
+export type Actions = {
+  sendShutdownMessage: () => unknown
+  sendDownloadedMessage: () => unknown
+  sendDownloadingMessage: () => unknown
+  sendProgressMessage: (p: number) => void
+  sendRunningMessage: () => unknown
+  sendLoadedMessage: () => unknown
+  closeWindow: () => unknown
+  setStatus: (status: Status) => unknown
+  setWalletPid: (pid: number) => unknown
+}
+
+const actions: Actions = {
+  sendShutdownMessage: sendShutdownMessage,
+  sendDownloadedMessage: sendDownloadedMessage,
+  sendDownloadingMessage: sendDownloadingMessage,
+  sendProgressMessage: sendProgressMessage,
+  sendRunningMessage: sendRunningMessage,
+  sendLoadedMessage: sendLoadedMessage,
+  closeWindow: closeWindow,
+  setStatus: setStatus,
+  setWalletPid: setWalletPid,
+}
+
+const walletManager = new WalletManager()
+walletManager.run(actions)
+
+app.whenReady().then(() => {
+  createWindow()
+})
 
 app.on('window-all-closed', () => {
   win = null
@@ -166,18 +198,18 @@ ipcMain.handle('open-win', (event, arg) => {
   })
 
   // TODO: should this be used?
-  // ipcMain.on('shutdown-finished', () => {
-  //   this.win?.hide()
-  //   if (this.walletPid) {
-  //     kill(this.walletPid)
-  //   }
-  //   app.exit()
-  // })
+  ipcMain.on('shutdown-finished', () => {
+    win?.hide()
+    if (walletPid) {
+      kill(walletPid)
+    }
+    app.exit()
+  })
 
   if (app.isPackaged) {
     childWindow.loadFile(indexHtml, { hash: arg })
   } else {
-    childWindow.loadURL(`${url}#${arg}`)
+    // childWindow.loadURL(`${url}#${arg}`)
     // childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 })
@@ -210,49 +242,27 @@ function closeWindow() {
   win.close()
 }
 
-// win.on('close', this.closeApp.bind(this))
-// function closeApp(event: Event) {
-//   event.preventDefault()
-//   this.sendShutdownMessage()
-// }
+win?.on('close', closeApp.bind(this))
+function closeApp(event: Event) {
+  event.preventDefault()
+  this.sendShutdownMessage()
+}
 
-// public setStatus(status: Status) {
-//   this.status = status
-//   this.loadUrl(status)
-// }
+function setStatus(s: Status) {
+  status = s
+  loadUrl(status)
+}
 
-// // load a url if browser window is ready according to the current status
-// function loadUrl(status: Status) {
-//   if (win) {
-//     if (process.env.WEBPACK_DEV_SERVER_URL) {
-//       // Load the url of the dev server if in development mode
-//       this.win.loadURL(
-//         `${process.env.WEBPACK_DEV_SERVER_URL}#/${STATUS_PATH[status]}`,
-//       )
-//     } else {
-//       // Load the index.html when not in development
-//       this.win.loadURL(`app://./index.html/#/${STATUS_PATH[status]}`)
-//     }
-//   }
-// }
-
-// ///////////////
-// import path from 'path'
-// import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron'
-// import kill from 'tree-kill'
-// import { DEVELOPMENT, Status, STATUS_PATH } from './constants'
-// declare const __static: string
-
-// export class AppManager {
-//   public status: Status
-//   public win: BrowserWindow | null = null
-//   private walletPid: number | null = null
-
-//   constructor() {
-//     this.status = DEVELOPMENT ? Status.Ready : Status.Wait
-//   }
-
-//   // Setter for walletPid attribute
-//   public setWalletPid(pid: number) {
-//     this.walletPid = pid
-//   }
+// load a url if browser window is ready according to the current status
+function loadUrl(status: Status) {
+  if (win) {
+    if (url) {
+      // Load the url of the dev server if in development mode
+      win.loadURL(`${url}#/${STATUS_PATH[status]}`)
+    } else {
+      // TODO: handle load url pro
+      // Load the index.html when not in development
+      // this.win.loadURL(`app://./index.html/#/${STATUS_PATH[status]}`)
+    }
+  }
+}

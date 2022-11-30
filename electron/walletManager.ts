@@ -23,6 +23,8 @@ import {
   RELEASE_BASE_URL,
 } from './constants'
 
+import { Actions } from './main/index'
+
 // Parse version name to get the version number witnet-1.2.1 => 1.2.1
 export function getVersionFromName(name: string): string | null {
   return semver.valid(semver.coerce(name))
@@ -92,7 +94,7 @@ export class WalletManager {
   }
 
   //  Start running the wallet release and download it when is necessary
-  public async run() {
+  public async run(actions: Actions) {
     if (this.existDirectory) {
       // Check if latest version is compatible or needs to be downloaded
       try {
@@ -144,17 +146,17 @@ export class WalletManager {
       }
 
       if (this.needToDownloadWallet) {
-        await this.downloadWallet(downloadUrl)
+        await this.downloadWallet(actions, downloadUrl)
       } else {
-        // this.app.sendDownloadedMessage()
+        actions.sendDownloadedMessage()
         await sleep(3000)
       }
 
       if (!this.isUpdating) {
-        this.runWallet()
+        this.runWallet(actions)
       }
     } else {
-      // this.app.setStatus(Status.OsNotSupported)
+      actions.setStatus(Status.OsNotSupported)
       console.info('Your OS is not supported yet')
     }
   }
@@ -165,19 +167,19 @@ export class WalletManager {
   }
 
   // Download a wallet release from the url specified
-  public async downloadWallet(releaseUrl: string) {
+  public async downloadWallet(actions: Actions, releaseUrl: string) {
     console.info(
       `Fetching release from: ${RELEASE_BASE_URL}${this.witnetRustVersion}`,
     )
-    // this.app.sendDownloadingMessage()
+    actions.sendDownloadingMessage()
     await sleep(2500)
-    // this.app.setStatus(Status.Wait)
+    actions.setStatus(Status.Wait)
     // FIXME: Remove promise and use async / await
     return new Promise<void>(resolve => {
       axios
         .get(releaseUrl, { responseType: 'stream' })
         .then(async response => {
-          this.handleDownloadWalletResponse(response)
+          this.handleDownloadWalletResponse(actions, response)
           resolve()
         })
         .catch(err => {
@@ -258,7 +260,10 @@ export class WalletManager {
     )
   }
 
-  private async handleDownloadWalletResponse(response: AxiosResponse) {
+  private async handleDownloadWalletResponse(
+    actions: Actions,
+    response: AxiosResponse,
+  ) {
     const walletCompressPath = path.join(
       SHEIKAH_PATH,
       WALLET_COMPRESS_FILE_NAME,
@@ -268,7 +273,7 @@ export class WalletManager {
       time: 100 /* ms */,
     })
     str.on('progress', (progress: number) => {
-      // this.app.sendProgressMessage(progress)
+      actions.sendProgressMessage(progress)
     })
     const pipeline = util.promisify(stream.pipeline)
     // Promise equivalent for response.data.pipe(writeStream)
@@ -292,7 +297,7 @@ export class WalletManager {
   }
 
   // Run Witnet wallet and load "ready" url
-  public async runWallet() {
+  public async runWallet(actions: Actions) {
     await sleep(3000)
     console.info('Running wallet...')
     // this.app.sendRunningMessage()
@@ -316,16 +321,16 @@ export class WalletManager {
       console.info('stdout: ' + data.toString())
       // this.app.sendLoadedMessage()
       await sleep(3000)
-      // this.app.setStatus(Status.Ready)
+      actions.setStatus(Status.Ready)
     })
 
     this.walletProcess?.stderr.on('data', function (data) {
       console.info('stderr: ' + data.toString())
     })
 
-    // if (this.walletProcess.pid) {
-    //   this.app.setWalletPid(this.walletProcess.pid)
-    // }
+    if (this.walletProcess.pid) {
+      actions.setWalletPid(this.walletProcess.pid)
+    }
   }
 }
 

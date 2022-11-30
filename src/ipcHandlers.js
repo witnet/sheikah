@@ -1,8 +1,6 @@
 import { ipcRenderer } from 'electron'
 import store from './store'
 
-ipcRenderer.send('app_version')
-
 ipcRenderer.on('shutdown', async () => {
   await store.dispatch('shutdown')
   ipcRenderer.send('shutdown-finished')

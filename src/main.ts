@@ -16,9 +16,7 @@ import '~/styles/element-variables.scss'
 import '~/styles/index.scss'
 import 'uno.css'
 
-// import '@/ipcHandlers'
-
-// declare let window: any
+import '@/ipcHandlers'
 
 // Vue.config.productionTip = false
 
@@ -29,18 +27,6 @@ import 'uno.css'
 //   idleTime: 900000,
 //   startAtIdle: false,
 // })
-
-// runApp()
-// function runApp() {
-//   const vm = new Vue({
-//     // i18n,
-//     router,
-//     store,
-//     render: h => h(App),
-//   }).$mount('#app')
-
-//   window.vm = vm
-// }
 
 const api = new WalletApi()
 const localStorageWrapper = new LocalStorageWrapper()
