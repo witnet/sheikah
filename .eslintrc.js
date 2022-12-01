@@ -20,6 +20,13 @@ module.exports = {
     'prettier/vue',
   ],
   rules: {
+    'import/extensions': [
+      'error',
+      {
+        vue: 'always',
+        js: 'ignorePackages',
+      },
+    ],
     'no-debugger': 'error',
     'no-multiple-empty-lines': ['error', { max: 1 }],
     'import/order': 'error',
