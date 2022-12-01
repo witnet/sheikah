@@ -23,7 +23,7 @@
 <script>
 import { mapState } from 'vuex'
 import Card from '@/components/card/Card.vue'
-import SettingsNotificationSwitch from '@/components/SettingsNotificationSwitch'
+import SettingsNotificationSwitch from '@/components/SettingsNotificationSwitch.vue'
 import { NOTIFICATIONS } from '@/constants'
 
 export default {

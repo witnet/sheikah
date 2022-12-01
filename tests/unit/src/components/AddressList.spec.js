@@ -1,6 +1,6 @@
-import AddressList from '@/components/AddressList'
-import AddressCardButton from '@/components/AddressCardButton'
-import AddressCard from '@/components/AddressCard'
+import AddressList from '@/components/AddressList.vue'
+import AddressCardButton from '@/components/AddressCardButton.vue'
+import AddressCard from '@/components/AddressCard.vue'
 
 describe('AddressList.vue', () => {
   describe('should render correctly the component', () => {

@@ -1,4 +1,4 @@
-import RadonOperator from '@/components/RadonOperator'
+import RadonOperator from '@/components/RadonOperator.vue'
 
 describe('RadonOperator.vue', () => {
   describe('should render properly when there is arguments', () => {

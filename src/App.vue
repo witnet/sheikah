@@ -14,8 +14,8 @@
 
 <script>
 import { mapMutations, mapActions, mapState } from 'vuex'
-import Notification from '@/components/Notification'
-import LogoutModal from '@/components/LogoutModal'
+import Notification from '@/components/Notification.vue'
+import LogoutModal from '@/components/LogoutModal.vue'
 import DescriptionModal from '@/components/DescriptionModal.vue'
 import RenameConfirmation from '@/components/RenameConfirmation.vue'
 import DeleteWalletConfirmation from '@/components/DeleteWalletConfirmation.vue'
@@ -28,7 +28,7 @@ export default {
     DescriptionModal,
     RenameConfirmation,
     DeleteWalletConfirmation,
-    ResyncConfirmation: () => import('@/components/ResyncConfirmation'),
+    ResyncConfirmation: () => import('@/components/ResyncConfirmation.vue'),
   },
   data() {
     return {

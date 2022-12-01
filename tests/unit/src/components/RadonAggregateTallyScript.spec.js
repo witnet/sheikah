@@ -1,4 +1,4 @@
-import RadonAggregateTallyScript from '@/components/RadonAggregateTallyScript'
+import RadonAggregateTallyScript from '@/components/RadonAggregateTallyScript.vue'
 
 describe('RadonAggregateTallyScript.vue', () => {
   describe('should render correctly when the type is filters', () => {

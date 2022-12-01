@@ -1,4 +1,4 @@
-import AddressCardButton from '@/components/AddressCardButton'
+import AddressCardButton from '@/components/AddressCardButton.vue'
 
 describe('AddressCardButton.vue', () => {
   describe('should render correctly', () => {

@@ -45,8 +45,8 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
-import Select from '@/components/Select'
-import Card from '@/components/card/Card'
+import Select from '@/components/Select.vue'
+import Card from '@/components/card/Card.vue'
 
 export default {
   name: 'WalletList',

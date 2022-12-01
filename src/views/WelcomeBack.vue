@@ -17,8 +17,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import CustomIcon from '@/components/CustomIcon'
-import Version from '@/components/Version'
+import CustomIcon from '@/components/CustomIcon.vue'
+import Version from '@/components/Version.vue'
 
 export default {
   name: 'WelcomeBack',

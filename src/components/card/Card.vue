@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import BaseCard from './BaseCard'
+import BaseCard from '@/components/card/BaseCard.vue'
 
 export default {
   name: 'Card',

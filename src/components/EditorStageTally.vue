@@ -48,8 +48,8 @@
 <script>
 import { mapState } from 'vuex'
 import EditorAggregationsTally from '@/components/card/EditorAggregationsTally.vue'
-import LayoutTwoColumns from '@/components/LayoutTwoColumns'
-import Fieldset from '@/components/Fieldset'
+import LayoutTwoColumns from '@/components/LayoutTwoColumns.vue'
+import Fieldset from '@/components/Fieldset.vue'
 
 export default {
   name: 'EditorStageTally',

@@ -1,4 +1,4 @@
-import RenameTemplate from '@/components/RenameTemplate'
+import RenameTemplate from '@/components/RenameTemplate.vue'
 
 describe('RadonOperator.vue', () => {
   describe('should render properly the rename template form', () => {

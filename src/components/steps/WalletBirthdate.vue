@@ -26,7 +26,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 
-import NavigationCard from '@/components/card/NavigationCard'
+import NavigationCard from '@/components/card/NavigationCard.vue'
 import { isValidBirthDate } from '@/services/birthDate'
 
 export default {

@@ -1,4 +1,4 @@
-import SettingsLanguage from '@/components/SettingsLanguage'
+import SettingsLanguage from '@/components/SettingsLanguage.vue'
 
 describe('SettingsLanguage.vue', () => {
   describe('change language', () => {

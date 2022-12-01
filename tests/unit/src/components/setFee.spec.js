@@ -1,4 +1,4 @@
-import SetFee from '@/components/SendTransaction/SetFee'
+import SetFee from '@/components/SendTransaction/SetFee.vue'
 import { DEFAULT_VTT_VALUES } from '@/constants'
 
 const FEE_ESTIMATION_REPORT_MOCK = {

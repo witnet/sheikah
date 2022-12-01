@@ -1,4 +1,4 @@
-import SettingsSection from '@/components/SettingsSection'
+import SettingsSection from '@/components/SettingsSection.vue'
 
 describe('SettingsSection.vue', () => {
   describe('should render properly', () => {

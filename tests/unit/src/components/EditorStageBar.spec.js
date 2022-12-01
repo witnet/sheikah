@@ -1,4 +1,4 @@
-import EditorStageBar from '@/components/EditorStageBar'
+import EditorStageBar from '@/components/EditorStageBar.vue'
 describe('EditorStageBar.vue', () => {
   describe('should render properly', () => {
     const wrapper = mount(

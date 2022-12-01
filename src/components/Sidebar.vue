@@ -66,7 +66,7 @@ import { mapActions } from 'vuex'
 import { ObserveVisibility } from 'vue-observe-visibility'
 import NetworkStatus from '@/components/NetworkStatus.vue'
 import ExportXprv from '@/components/ExportXprv.vue'
-import CustomIcon from '@/components/CustomIcon'
+import CustomIcon from '@/components/CustomIcon.vue'
 
 export default {
   name: 'Sidebar',

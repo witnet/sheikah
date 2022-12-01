@@ -40,7 +40,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import { EDITOR_EXPORT_FORMAT } from '@/constants'
-import PasswordValidation from '@/components/PasswordValidation'
+import PasswordValidation from '@/components/PasswordValidation.vue'
 import { createNotification } from '@/utils'
 import { buildXprvFile } from '@/services/buildXprvFile'
 import Card from '@/components/card/Card.vue'

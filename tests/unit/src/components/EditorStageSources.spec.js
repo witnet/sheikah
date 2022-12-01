@@ -1,6 +1,6 @@
-import EditorStageSources from '@/components/EditorStageSources'
-import EditorSource from '@/components/EditorSource'
-import Fieldset from '@/components/Fieldset'
+import EditorStageSources from '@/components/EditorStageSources.vue'
+import EditorSource from '@/components/EditorSource.vue'
+import Fieldset from '@/components/Fieldset.vue'
 
 describe('EditorStageSources.vue', () => {
   describe('should render correctly', () => {

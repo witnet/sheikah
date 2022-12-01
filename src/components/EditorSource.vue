@@ -67,10 +67,10 @@ import { mapMutations } from 'vuex'
 
 import { UPDATE_SOURCE, DELETE_SOURCE } from '@/store/mutation-types'
 import { getDomainFromUrl, isValidJson } from '@/utils'
-import Card from '@/components/card/Card'
-import Fieldset from '@/components/Fieldset'
-import Select from '@/components/Select'
-import CustomIcon from '@/components/CustomIcon'
+import Card from '@/components/card/Card.vue'
+import Fieldset from '@/components/Fieldset.vue'
+import Select from '@/components/Select.vue'
+import CustomIcon from '@/components/CustomIcon.vue'
 
 export default {
   name: 'EditorSource',

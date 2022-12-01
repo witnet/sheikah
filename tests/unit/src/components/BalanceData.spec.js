@@ -1,4 +1,4 @@
-import BalanceData from '@/components/BalanceData'
+import BalanceData from '@/components/BalanceData.vue'
 
 describe('Balance.vue', () => {
   it('should render the available amount', () => {

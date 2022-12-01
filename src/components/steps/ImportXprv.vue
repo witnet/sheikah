@@ -40,8 +40,8 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import FileUploader from '@/components/FileUploader'
-import NavigationCard from '@/components/card/NavigationCard'
+import FileUploader from '@/components/FileUploader.vue'
+import NavigationCard from '@/components/card/NavigationCard.vue'
 
 export default {
   name: 'ImportXprv',

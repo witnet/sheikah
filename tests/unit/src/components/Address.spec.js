@@ -1,4 +1,4 @@
-import Address from '@/components/Address'
+import Address from '@/components/Address.vue'
 
 describe('Address.vue', () => {
   it('Should include the address passed', () => {

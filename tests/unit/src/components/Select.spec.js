@@ -1,4 +1,4 @@
-import Select from '@/components/Select'
+import Select from '@/components/Select.vue'
 
 describe('Select.vue', () => {
   describe('should render properly', () => {

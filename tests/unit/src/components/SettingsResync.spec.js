@@ -1,4 +1,4 @@
-import SettingsResync from '@/components/SettingsResync'
+import SettingsResync from '@/components/SettingsResync.vue'
 import { NETWORK_STATUS } from '@/constants'
 
 describe('SettingsResync.vue', () => {

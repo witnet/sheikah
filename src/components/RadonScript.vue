@@ -93,9 +93,9 @@ import { mapMutations } from 'vuex'
 import { PUSH_OPERATOR, DELETE_OPERATOR } from '@/store/mutation-types'
 import { standardizeOperatorName } from '@/utils'
 import OperatorOutput from '@/components/OperatorOutput.vue'
-import ScriptInfo from '@/components/ScriptInfo'
-import RadonOperator from '@/components/RadonOperator'
-import CustomIcon from '@/components/CustomIcon'
+import ScriptInfo from '@/components/ScriptInfo.vue'
+import RadonOperator from '@/components/RadonOperator.vue'
+import CustomIcon from '@/components/CustomIcon.vue'
 
 export default {
   name: 'RadonScript',

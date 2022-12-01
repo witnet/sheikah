@@ -1,4 +1,4 @@
-import EditorSource from '@/components/EditorSource'
+import EditorSource from '@/components/EditorSource.vue'
 
 describe('EditorSource.vue', () => {
   describe('should render correctly', () => {

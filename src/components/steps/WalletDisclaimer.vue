@@ -26,7 +26,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import Disclaimer from '@/components/card/Disclaimer'
+import Disclaimer from '@/components/card/Disclaimer.vue'
 
 export default {
   name: 'WalletDisclaimer',

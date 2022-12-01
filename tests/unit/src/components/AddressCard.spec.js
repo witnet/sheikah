@@ -1,4 +1,4 @@
-import AddressCard from '@/components/AddressCard'
+import AddressCard from '@/components/AddressCard.vue'
 
 describe('AddressCard.vue', () => {
   describe('should render correctly', () => {

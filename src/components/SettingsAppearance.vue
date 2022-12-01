@@ -15,7 +15,7 @@
 
 <script>
 import Card from '@/components/card/Card.vue'
-import SettingsThemeSwitch from '@/components/SettingsThemeSwitch'
+import SettingsThemeSwitch from '@/components/SettingsThemeSwitch.vue'
 
 export default {
   name: 'SettingsNotificationsList',

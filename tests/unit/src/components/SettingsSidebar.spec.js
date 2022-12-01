@@ -1,4 +1,4 @@
-import SettingsSidebar from '@/components/SettingsSidebar'
+import SettingsSidebar from '@/components/SettingsSidebar.vue'
 
 describe('SettingsSidebar.vue', () => {
   describe('should render properly', () => {

@@ -51,9 +51,9 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import { ADD_SOURCE } from '@/store/mutation-types'
-import LayoutTwoColumns from '@/components/LayoutTwoColumns'
-import Fieldset from '@/components/Fieldset'
-import EditorSource from '@/components/EditorSource'
+import LayoutTwoColumns from '@/components/LayoutTwoColumns.vue'
+import Fieldset from '@/components/Fieldset.vue'
+import EditorSource from '@/components/EditorSource.vue'
 
 export default {
   name: 'EditorStageSources',

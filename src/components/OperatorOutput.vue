@@ -73,8 +73,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import DotsLoading from '@/components/DotsLoading'
-import JsonTree from '@/components/JsonTree'
+import DotsLoading from '@/components/DotsLoading.vue'
+import JsonTree from '@/components/JsonTree.vue'
 import { simplifyDrResult } from '@/utils'
 
 export default {

@@ -112,9 +112,9 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar.vue'
 import DotsLoading from '@/components/DotsLoading.vue'
-import CustomIcon from '@/components/CustomIcon'
+import CustomIcon from '@/components/CustomIcon.vue'
 import { calculateTimeAgo, cropString } from '@/utils'
 import { NETWORK_STATUS } from '@/constants'
 

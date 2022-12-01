@@ -109,7 +109,7 @@
 import { mapState } from 'vuex'
 import Address from '@/components/Address.vue'
 import Amount from '@/components/Amount.vue'
-import CustomIcon from '@/components/CustomIcon'
+import CustomIcon from '@/components/CustomIcon.vue'
 
 export default {
   name: 'Generatedtransaction',

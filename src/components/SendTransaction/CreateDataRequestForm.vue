@@ -79,7 +79,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { standardizeWitUnits } from '@/utils'
-import AppendUnit from '@/components/AppendUnit'
+import AppendUnit from '@/components/AppendUnit.vue'
 import { WIT_UNIT, DR_DEFAULT_VALUES } from '@/constants'
 import FormValidation from '@/services/FormValidation'
 

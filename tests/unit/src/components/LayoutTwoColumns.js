@@ -1,4 +1,4 @@
-import LayoutTwoColumns from '@/components/LayoutTwoColumns'
+import LayoutTwoColumns from '@/components/LayoutTwoColumns.vue'
 
 describe('LayoutTwoColumns.vue', () => {
   it('render the left slot', () => {

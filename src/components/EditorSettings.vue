@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import Card from '@/components/card/Card'
-import Fieldset from '@/components/Fieldset'
-import Variables from '@/components/Variables'
-import RenameTemplate from '@/components/RenameTemplate'
+import Card from '@/components/card/Card.vue'
+import Fieldset from '@/components/Fieldset.vue'
+import Variables from '@/components/Variables.vue'
+import RenameTemplate from '@/components/RenameTemplate.vue'
 
 export default {
   name: 'EditorSettings',

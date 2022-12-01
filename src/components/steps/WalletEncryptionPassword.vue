@@ -21,8 +21,8 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import NavigationCard from '@/components/card/NavigationCard'
-import PasswordValidation from '@/components/PasswordValidation'
+import NavigationCard from '@/components/card/NavigationCard.vue'
+import PasswordValidation from '@/components/PasswordValidation.vue'
 
 export default {
   name: 'WalletEncryptionPassword',

@@ -1,4 +1,4 @@
-import Fieldset from '@/components/Fieldset'
+import Fieldset from '@/components/Fieldset.vue'
 
 describe('Fieldset.vue', () => {
   it('should render the slot', () => {

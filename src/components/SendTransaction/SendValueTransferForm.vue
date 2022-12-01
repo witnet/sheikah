@@ -82,11 +82,11 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import AppendUnit from '@/components/AppendUnit'
+import AppendUnit from '@/components/AppendUnit.vue'
 import { standardizeWitUnits } from '@/utils'
 import FormValidation from '@/services/FormValidation'
 import { WIT_UNIT, VTT_DEFAULT_VALUES } from '@/constants'
-import CustomIcon from '@/components/CustomIcon'
+import CustomIcon from '@/components/CustomIcon.vue'
 
 export default {
   name: 'SendValueTransferForm',

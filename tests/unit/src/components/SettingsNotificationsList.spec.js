@@ -1,5 +1,5 @@
 import { NOTIFICATIONS } from '@/constants'
-import SettingsNotificationsList from '@/components/SettingsNotificationList'
+import SettingsNotificationsList from '@/components/SettingsNotificationList.vue'
 
 describe('SettingsNotificationsList.vue', () => {
   describe('should render properly', () => {

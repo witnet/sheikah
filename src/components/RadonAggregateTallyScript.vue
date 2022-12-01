@@ -101,11 +101,11 @@
 <script>
 import { mapMutations } from 'vuex'
 import { PUSH_OPERATOR, DELETE_OPERATOR } from '@/store/mutation-types'
-import ScriptInfo from '@/components/ScriptInfo'
+import ScriptInfo from '@/components/ScriptInfo.vue'
 import { standardizeOperatorName, selectInnerError } from '@/utils'
 import OperatorOutput from '@/components/OperatorOutput.vue'
-import RadonOperator from '@/components/RadonOperator'
-import CustomIcon from '@/components/CustomIcon'
+import RadonOperator from '@/components/RadonOperator.vue'
+import CustomIcon from '@/components/CustomIcon.vue'
 
 export default {
   name: 'RadonAggregateTallyScript',

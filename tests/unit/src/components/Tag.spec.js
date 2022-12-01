@@ -1,4 +1,4 @@
-import Tag from '@/components/Tag'
+import Tag from '@/components/Tag.vue'
 
 describe('Tag.vue', () => {
   it('should render the content passed by props', () => {
