@@ -75,8 +75,8 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import EditorOperatorArgument from '@/components/EditorOperatorArgument.vue'
 import OperatorOutput from '@/components/OperatorOutput.vue'
-import Select from '@/components/Select'
-import CustomIcon from '@/components/CustomIcon'
+import Select from '@/components/Select.vue'
+import CustomIcon from '@/components/CustomIcon.vue'
 import {
   standardizeOperatorName,
   standardizeOutputType,

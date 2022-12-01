@@ -51,15 +51,15 @@
 </template>
 
 <script>
-import SettingsOptionUnit from '@/components/SettingsOptionUnit'
-import SettingsLanguage from '@/components/SettingsLanguage'
-import SettingsNotificationList from '@/components/SettingsNotificationList'
-import SettingsAppearance from '@/components/SettingsAppearance'
-import SettingsResync from '@/components/SettingsResync'
-import RenameWallet from '@/components/RenameWallet'
-import DeleteWallet from '@/components/DeleteWallet'
-import ExportXprv from '@/components/ExportXprv'
-import Community from '@/components/Community'
+import SettingsOptionUnit from '@/components/SettingsOptionUnit.vue'
+import SettingsLanguage from '@/components/SettingsLanguage.vue'
+import SettingsNotificationList from '@/components/SettingsNotificationList.vue'
+import SettingsAppearance from '@/components/SettingsAppearance.vue'
+import SettingsResync from '@/components/SettingsResync.vue'
+import RenameWallet from '@/components/RenameWallet.vue'
+import DeleteWallet from '@/components/DeleteWallet.vue'
+import ExportXprv from '@/components/ExportXprv.vue'
+import Community from '@/components/Community.vue'
 import { SETTINGS } from '@/constants'
 
 export default {

@@ -46,9 +46,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import LayoutTwoColumns from '@/components/LayoutTwoColumns'
+import LayoutTwoColumns from '@/components/LayoutTwoColumns.vue'
 import EditorAggregationsTally from '@/components/card/EditorAggregationsTally.vue'
-import Fieldset from '@/components/Fieldset'
+import Fieldset from '@/components/Fieldset.vue'
 
 export default {
   name: 'EditorStageAggregations',

@@ -36,8 +36,8 @@
 
 <script>
 import RadonAggregateTallyScript from '@/components/RadonAggregateTallyScript.vue'
-import Card from '@/components/card/Card'
-import Fieldset from '@/components/Fieldset'
+import Card from '@/components/card/Card.vue'
+import Fieldset from '@/components/Fieldset.vue'
 
 export default {
   name: 'EditorAggregationsTally',

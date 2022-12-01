@@ -1,5 +1,5 @@
-import AddressInformation from '@/components/AddressInformation'
-import DotsLoading from '@/components/DotsLoading'
+import AddressInformation from '@/components/AddressInformation.vue'
+import DotsLoading from '@/components/DotsLoading.vue'
 import { formatDateVerbose } from '@/utils'
 
 describe('AddressInformation.vue', () => {

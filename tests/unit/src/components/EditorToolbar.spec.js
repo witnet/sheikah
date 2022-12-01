@@ -1,4 +1,4 @@
-import EditorToolBar from '@/components/EditorToolBar'
+import EditorToolBar from '@/components/EditorToolBar.vue'
 import { EDITOR_UNDO, EDITOR_REDO } from '@/store/mutation-types'
 import { NETWORK_STATUS } from '@/constants'
 

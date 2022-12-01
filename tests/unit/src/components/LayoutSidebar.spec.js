@@ -1,5 +1,5 @@
-import LayoutSidebar from '@/components/LayoutSidebar'
-import Sidebar from '@/components/Sidebar'
+import LayoutSidebar from '@/components/LayoutSidebar.vue'
+import Sidebar from '@/components/Sidebar.vue'
 
 describe.skip('LayoutSidebar.vue', () => {
   it('render the slot', () => {

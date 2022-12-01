@@ -25,10 +25,10 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Balance from '@/components/Balance'
-import TransactionList from '@/components/TransactionList'
-import Addresses from '@/components/Addresses'
-import LayoutTwoColumns from '@/components/LayoutTwoColumns'
+import Balance from '@/components/Balance.vue'
+import TransactionList from '@/components/TransactionList.vue'
+import Addresses from '@/components/Addresses.vue'
+import LayoutTwoColumns from '@/components/LayoutTwoColumns.vue'
 export default {
   name: 'Transactions',
   components: {

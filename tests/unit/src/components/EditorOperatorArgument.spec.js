@@ -1,4 +1,4 @@
-import EditorOperatorArgument from '@/components/EditorOperatorArgument'
+import EditorOperatorArgument from '@/components/EditorOperatorArgument.vue'
 
 describe('EditorOperatorArgument.vue', () => {
   describe('should render properly when there is a select argument', () => {

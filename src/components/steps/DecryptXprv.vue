@@ -30,7 +30,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import NavigationCard from '@/components/card/NavigationCard'
+import NavigationCard from '@/components/card/NavigationCard.vue'
 
 export default {
   name: 'DecryptXprv',

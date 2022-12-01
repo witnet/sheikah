@@ -1,4 +1,4 @@
-import CreateDataRequestForm from '@/components/SendTransaction/CreateDataRequestForm'
+import CreateDataRequestForm from '@/components/SendTransaction/CreateDataRequestForm.vue'
 import { DR_DEFAULT_VALUES } from '@/constants'
 
 describe('CreateDataRequestForm.vue', () => {

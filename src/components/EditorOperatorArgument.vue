@@ -113,9 +113,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import Select from '@/components/Select'
-import Subscript from '@/components/Subscript'
-import OperatorType from '@/components/OperatorType'
+import Select from '@/components/Select.vue'
+import Subscript from '@/components/Subscript.vue'
+import OperatorType from '@/components/OperatorType.vue'
 
 export default {
   name: 'EditorOperatorArgument',

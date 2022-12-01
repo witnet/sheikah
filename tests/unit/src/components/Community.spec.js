@@ -1,4 +1,4 @@
-import Community from '@/components/Community'
+import Community from '@/components/Community.vue'
 
 describe('Community.vue', () => {
   describe('should render properly', () => {

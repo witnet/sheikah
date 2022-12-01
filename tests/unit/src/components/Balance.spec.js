@@ -1,7 +1,7 @@
-import Balance from '@/components/Balance'
-import BalanceData from '@/components/BalanceData'
-import BalanceButtons from '@/components/BalanceButtons'
-import SendValueTransfer from '@/components/SendTransaction/SendValueTransfer'
+import Balance from '@/components/Balance.vue'
+import BalanceData from '@/components/BalanceData.vue'
+import BalanceButtons from '@/components/BalanceButtons.vue'
+import SendValueTransfer from '@/components/SendTransaction/SendValueTransfer.vue'
 import { WIT_UNIT, DEFAULT_VTT_VALUES } from '@/constants'
 
 describe('Balance.vue', () => {

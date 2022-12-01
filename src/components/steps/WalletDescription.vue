@@ -45,7 +45,7 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-import NavigationCard from '@/components/card/NavigationCard'
+import NavigationCard from '@/components/card/NavigationCard.vue'
 
 export default {
   name: 'WalletSeedBackup',

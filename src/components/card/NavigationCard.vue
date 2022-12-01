@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import BaseCard from '@/components/card/BaseCard'
+import BaseCard from '@/components/card/BaseCard.vue'
 export default {
   name: 'NavigationCard',
   components: {

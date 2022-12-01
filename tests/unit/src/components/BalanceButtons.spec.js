@@ -1,4 +1,4 @@
-import BalanceButtons from '@/components/BalanceButtons'
+import BalanceButtons from '@/components/BalanceButtons.vue'
 import { NETWORK_STATUS } from '@/constants'
 
 describe('BalanceButtons.vue', () => {

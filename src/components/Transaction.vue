@@ -95,9 +95,9 @@
 </template>
 
 <script>
-import FrameOutside from '@/components/FrameOutside'
-import TransactionDetails from '@/components/TransactionDetails'
-import InputsOutputs from '@/components/InputsOutputs'
+import FrameOutside from '@/components/FrameOutside.vue'
+import TransactionDetails from '@/components/TransactionDetails.vue'
+import InputsOutputs from '@/components/InputsOutputs.vue'
 import Amount from '@/components/Amount.vue'
 import Address from '@/components/Address.vue'
 

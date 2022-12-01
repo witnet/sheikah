@@ -7,7 +7,7 @@
 
 <script>
 import { mapActions, mapMutations } from 'vuex'
-import Sidebar from '@/components/Sidebar'
+import Sidebar from '@/components/Sidebar.vue'
 
 export default {
   name: 'Main',

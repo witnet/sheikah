@@ -109,7 +109,7 @@
 <script>
 import { standardizeOperatorName } from '@/utils'
 import OperatorType from '@/components/OperatorType.vue'
-import CustomIcon from '@/components/CustomIcon'
+import CustomIcon from '@/components/CustomIcon.vue'
 
 let resetKeysSoFarTimer
 export default {

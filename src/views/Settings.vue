@@ -23,9 +23,9 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { SETTINGS_BY_SECTION } from '@/constants'
-import CustomIcon from '@/components/CustomIcon'
-import SettingsSidebar from '@/components/SettingsSidebar'
-import Version from '@/components/Version'
+import CustomIcon from '@/components/CustomIcon.vue'
+import SettingsSidebar from '@/components/SettingsSidebar.vue'
+import Version from '@/components/Version.vue'
 import SettingsSection from '@/components/SettingsSection.vue'
 
 export default {

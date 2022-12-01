@@ -24,7 +24,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import Card from '@/components/card/Card'
+import Card from '@/components/card/Card.vue'
 
 export default {
   name: 'WalletSeedTypeSelection',

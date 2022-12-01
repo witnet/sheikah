@@ -38,7 +38,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 
-import NavigationCard from '@/components/card/NavigationCard'
+import NavigationCard from '@/components/card/NavigationCard.vue'
 import Input from '@/components/Input.vue'
 
 export default {

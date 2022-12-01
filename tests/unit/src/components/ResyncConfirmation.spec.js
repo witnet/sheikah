@@ -1,7 +1,7 @@
 import Dialog from 'element-ui/lib/dialog'
 import Button from 'element-ui/lib/button'
 
-import ResyncConfirmation from '@/components/ResyncConfirmation'
+import ResyncConfirmation from '@/components/ResyncConfirmation.vue'
 
 describe('ResyncConfirmation.vue', () => {
   it('should contain an element dialog component', () => {

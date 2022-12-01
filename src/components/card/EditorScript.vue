@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import RadonScript from '@/components/RadonScript'
-import Card from '@/components/card/Card'
-import Fieldset from '@/components/Fieldset'
+import RadonScript from '@/components/RadonScript.vue'
+import Card from '@/components/card/Card.vue'
+import Fieldset from '@/components/Fieldset.vue'
 
 export default {
   name: 'EditorScript',

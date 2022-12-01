@@ -1,4 +1,4 @@
-import SettingsNotificationSwitch from '@/components/SettingsNotificationSwitch'
+import SettingsNotificationSwitch from '@/components/SettingsNotificationSwitch.vue'
 
 describe('SettingsNotificationSwitch.vue', () => {
   describe('change unit', () => {

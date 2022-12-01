@@ -1,4 +1,4 @@
-import SettingsOptionUnit from '@/components/SettingsOptionUnit'
+import SettingsOptionUnit from '@/components/SettingsOptionUnit.vue'
 
 describe('SettingsOptionUnit.vue', () => {
   describe('change unit', () => {

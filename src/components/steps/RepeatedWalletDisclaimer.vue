@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import NavigationCard from '@/components/card/NavigationCard'
+import NavigationCard from '@/components/card/NavigationCard.vue'
 
 export default {
   name: 'WalletAlreadyImported',

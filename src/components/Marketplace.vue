@@ -42,7 +42,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import TemplateCard from './card/TemplateCard'
+import TemplateCard from '@/components/card/TemplateCard.vue'
 
 export default {
   name: 'Marketplace',

@@ -63,8 +63,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import Transaction from './Transaction'
-import Fieldset from './Fieldset'
+import Transaction from '@/components/Transaction.vue'
+import Fieldset from '@/components/Fieldset.vue'
 import { TRANSACTIONS_LIMIT } from '@/constants'
 
 export default {

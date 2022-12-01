@@ -116,8 +116,8 @@ import {
   CREATE_VARIABLE,
   DELETE_VARIABLE,
 } from '@/store/mutation-types'
-import CustomIcon from '@/components/CustomIcon'
-import Select from '@/components/Select'
+import CustomIcon from '@/components/CustomIcon.vue'
+import Select from '@/components/Select.vue'
 
 export default {
   name: 'Variables',

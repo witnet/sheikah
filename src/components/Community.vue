@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import CommunityCard from './card/CommunityCard'
+import CommunityCard from '@/components/card/CommunityCard.vue'
 
 export default {
   name: 'Community',

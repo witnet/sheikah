@@ -1,6 +1,6 @@
 import Input from 'element-ui/lib/input'
 
-import WalletDescription from '@/components/steps/WalletDescription'
+import WalletDescription from '@/components/steps/WalletDescription.vue'
 
 describe('WalletDescription.vue', () => {
   describe('title input', () => {

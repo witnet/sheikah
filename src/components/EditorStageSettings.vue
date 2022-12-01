@@ -26,9 +26,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import LayoutTwoColumns from '@/components/LayoutTwoColumns'
-import EditorSettings from '@/components/EditorSettings'
-import Fieldset from '@/components/Fieldset'
+import LayoutTwoColumns from '@/components/LayoutTwoColumns.vue'
+import EditorSettings from '@/components/EditorSettings.vue'
+import Fieldset from '@/components/Fieldset.vue'
 
 export default {
   name: 'EditorStageSettings',

@@ -1,6 +1,6 @@
-import Addresses from '@/components/Addresses'
-import AddressList from '@/components/AddressList'
-import AddressInformation from '@/components/AddressInformation'
+import Addresses from '@/components/Addresses.vue'
+import AddressList from '@/components/AddressList.vue'
+import AddressInformation from '@/components/AddressInformation.vue'
 
 describe('Addresses.vue', () => {
   describe('should render correctly', () => {

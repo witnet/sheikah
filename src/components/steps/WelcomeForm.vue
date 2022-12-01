@@ -20,9 +20,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import CustomIcon from '@/components/CustomIcon'
-import WalletSeedTypeSelection from '@/components/steps/WalletSeedTypeSelection'
-import Version from '@/components/Version'
+import CustomIcon from '@/components/CustomIcon.vue'
+import WalletSeedTypeSelection from '@/components/steps/WalletSeedTypeSelection.vue'
+import Version from '@/components/Version.vue'
 
 export default {
   name: 'Welcome',
