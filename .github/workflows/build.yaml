@@ -9,7 +9,9 @@ jobs:
     strategy: 
       matrix:
         os: [
-          macos-latest, 
+          # FIXME: uncomment macos when vue3 upgrade is merged: 
+          # https://github.com/witnet/sheikah/pull/1829
+          # macos-latest, 
           ubuntu-latest, 
           windows-latest
         ]
