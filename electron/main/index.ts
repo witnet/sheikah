@@ -14,7 +14,7 @@ process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
   : join(process.env.DIST_ELECTRON, '../public')
 
-import { app, BrowserWindow, shell, ipcMain } from 'electron'
+import { app, BrowserWindow, shell, ipcMain, Menu } from 'electron'
 import { release } from 'os'
 import { join } from 'path'
 import { Status, STATUS_PATH } from '../constants'
@@ -61,32 +61,31 @@ async function createWindow() {
     autoHideMenuBar: true,
   })
 
-  // TODO: Do we need this?
-  // if (!DEVELOPMENT) {
-  //   // Hide electron toolbar in production environment
-  //   this.win.setMenuBarVisibility(false)
-  //   const menu = Menu.buildFromTemplate([
-  //     {
-  //       label: 'Menu',
-  //       submenu: [
-  //         {
-  //           label: 'Quit',
-  //           accelerator: 'CmdOrCtrl+Q',
-  //           click: () => {
-  //             this.sendShutdownMessage()
-  //           },
-  //         },
-  //         { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
-  //         { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
-  //         { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
-  //         { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
-  //         { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
-  //         { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
-  //       ],
-  //     },
-  //   ])
-  //   Menu.setApplicationMenu(menu)
-  // }
+  if (!process.env.VITE_DEV_SERVER_URL) {
+    // Hide electron toolbar in production environment
+    this.win.setMenuBarVisibility(false)
+    const menu = Menu.buildFromTemplate([
+      {
+        label: 'Menu',
+        submenu: [
+          {
+            label: 'Quit',
+            accelerator: 'CmdOrCtrl+Q',
+            click: () => {
+              this.sendShutdownMessage()
+            },
+          },
+          { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
+          { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
+          { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+          { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
+          { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
+          { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+        ],
+      },
+    ])
+    Menu.setApplicationMenu(menu)
+  }
 
   if (app.isPackaged) {
     win.loadFile(indexHtml)
@@ -98,8 +97,7 @@ async function createWindow() {
 
   // Test actively push message to the Electron-Renderer
   win.webContents.on('did-finish-load', () => {
-    // TODO: do we need this?
-    // this.win?.webContents.setZoomFactor(1)
+    win?.webContents.setZoomFactor(1)
   })
 
   // Make all links open with the browser, not with the application
@@ -108,17 +106,14 @@ async function createWindow() {
     return { action: 'deny' }
   })
 
-  // TODO: Do we need this?
-  // win.on('closed', () => {
-  //   this.win = null
-  // })
+  win.on('closed', () => {
+    win = null
+  })
 }
 
 // TODO: Do we need this?
-
 // // check if the second instance in locked
 // const lock = app.requestSingleInstanceLock()
-
 // if (!lock) {
 //   app.quit()
 // } else {
@@ -164,11 +159,11 @@ app.on('window-all-closed', () => {
   win = null
   if (process.platform !== 'darwin') app.quit()
 })
-// TODO: review this
-//     app.on('window-all-closed', (event: Event) => {
-//       event.preventDefault()
-//       this.sendShutdownMessage()
-//     })
+
+app.on('window-all-closed', (event: Event) => {
+  event.preventDefault()
+  sendShutdownMessage()
+})
 
 app.on('second-instance', () => {
   if (win) {
@@ -197,7 +192,6 @@ ipcMain.handle('open-win', (event, arg) => {
     },
   })
 
-  // TODO: should this be used?
   ipcMain.on('shutdown-finished', () => {
     win?.hide()
     if (walletPid) {
@@ -209,6 +203,7 @@ ipcMain.handle('open-win', (event, arg) => {
   if (app.isPackaged) {
     childWindow.loadFile(indexHtml, { hash: arg })
   } else {
+    // TODO
     // childWindow.loadURL(`${url}#${arg}`)
     // childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
   }
