@@ -32,7 +32,6 @@ class ApiClient {
       return this.listeners[event]
     } else {
       const listener = this.ws.on([event], (...args) => {
-        console.log('event', event)
         handler(...args)
       })
       this.listeners[event] = listener
@@ -181,7 +180,6 @@ export class WalletApi {
   }
 
   getWalletInfos(params) {
-    console.log('inside get walletinffos')
     return this._callApiMethod('get_wallet_infos')(
       params,
       standardizeWalletInfos,
@@ -249,7 +247,6 @@ export class MarketplaceApi {
   }
 
   getTemplates() {
-    console.log('getTemplates')
     return this._get(`${this.baseUrl}/templates`)
   }
 
@@ -265,7 +262,6 @@ export class MarketplaceApi {
 
 export class LocalStorageWrapper {
   _get(key) {
-    console.log('localstoragewraper')
     return JSON.parse(localStorage.getItem(key))
   }
 

@@ -31,7 +31,6 @@ export async function checkDisconnection(router: Router, store: Store<any>) {
         })
       } else {
         api.client.ws.on('open', async () => {
-          console.log(1)
           const polling = setInterval(async () => {
             clearInterval(polling)
             await store.dispatch('getWalletInfos')
@@ -45,7 +44,6 @@ export async function checkDisconnection(router: Router, store: Store<any>) {
               router.push('/ftu/welcome')
             }
           }, 2000)
-          console.log(2)
         })
         router.push('/wallet-not-found')
       }

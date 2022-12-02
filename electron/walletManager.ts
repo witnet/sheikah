@@ -280,8 +280,6 @@ export class WalletManager {
     await pipeline(response.data, str, fs.createWriteStream(walletCompressPath))
     console.info('witnet release downloaded succesfully')
 
-    console.log('walletcompresspath', walletCompressPath)
-
     const existWitnetFile = fs.existsSync(
       path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
     )

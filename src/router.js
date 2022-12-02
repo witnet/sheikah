@@ -31,7 +31,6 @@ import WalletBirthdate from '@/components/steps/WalletBirthdate.vue'
 
 import { SETTINGS_SECTIONS } from '@/constants'
 
-// Vue.use(Router)
 function redirectOnReload(to, from, next) {
   if (api.client.ws.ready || to.href.includes('setup')) {
     next()
@@ -71,38 +70,6 @@ export default createRouter({
       path: '/',
       name: 'main',
       component: Main,
-      // beforeEnter: async (to, from, next) => {
-      // if (api.client.ws.ready) {
-      //   const isSessionId = store.state.wallet.sessionId
-      //   const walletInfos = store.state.wallet.walletInfos
-      //   if (isSessionId) {
-      //     next()
-      //   } else if (walletInfos && walletInfos.length > 0) {
-      //     next('/welcome-back/wallet-list')
-      //   } else {
-      //     next('/ftu/welcome')
-      //   }
-
-      //   // when the computer is blocked the client closes but it should not redirect to
-      //   // wallet not found if the wallet is not closed
-      //   api.client.ws.on('close', () => {
-      //     setTimeout(() => {
-      //       if (!api.client.ws.ready) {
-      //         next('/wallet-not-found')
-      //       }
-      //     }, 1000)
-      //   })
-      // } else {
-      //   console.log('3')
-      //   // let error = true
-      //   setTimeout(() => {
-      //       next('/wallet-not-found')
-      //   }, 3000)
-      //   console.log('before')
-
-      //   next('/wallet-not-found')
-      // }
-      // },
       children: [
         {
           alias: '',
@@ -155,41 +122,6 @@ export default createRouter({
     {
       path: '/wallet-not-found',
       name: 'runWalletAlert',
-      // beforeEnter: async (to, from, next) => {
-      //   const t = Date.now()
-      //   if (api.client.ws.ready) {
-      //     await store.dispatch('getWalletInfos')
-      //     const walletInfos = store.state.wallet.walletInfos
-      //     if (walletInfos && walletInfos.length > 0) {
-      //       next('/welcome-back/wallet-list')
-      //     } else {
-      //       next('/ftu/welcome')
-      //     }
-      //   } else {
-      //     let error = true
-      //     setTimeout(() => {
-      //       if (error) {
-      //         next()
-      //       }
-      //     }, 2000)
-
-      //     api.client.ws.on('open', async () => {
-      //       error = false
-      //       await store.dispatch('getWalletInfos')
-      //       const polling = setInterval(() => {
-      //         clearInterval(polling)
-      //         const walletInfos = store.state.wallet.walletInfos
-      //         if (walletInfos && walletInfos.length > 0) {
-      //           next('/welcome-back/wallet-list')
-      //         } else {
-      //           next('/ftu/welcome')
-      //         }
-      //       }, 2000)
-      //     })
-      //   }
-
-      //   console.log('Inside wallet-not-found', Date.now() - t)
-      // },
       component: WalletNotFound,
     },
     {
