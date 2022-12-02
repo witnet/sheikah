@@ -113,7 +113,7 @@ export default {
   beforeMount() {
     this.getTemplates()
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.saveItemError) {
       this.clearError({ error: this.saveItemError.name })
     }

@@ -64,7 +64,7 @@ export default {
       this.clearDeleteWalletError()
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.error = null
   },
   methods: {

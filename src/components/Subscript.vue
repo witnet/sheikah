@@ -84,7 +84,7 @@ export default {
   created() {
     this.setSubscriptId({ id: this.subscriptId })
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.clearSubscriptIds()
   },
   methods: {

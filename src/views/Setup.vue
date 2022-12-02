@@ -87,7 +87,7 @@ export default {
       }
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.cleanMessage()
   },
   methods: {

@@ -117,7 +117,7 @@ export default {
         this.clearError({ error: this.createValidPasswordError.name })
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.clear()
     },
     async encryptAndExport() {

@@ -81,7 +81,7 @@ export default {
       event.stopImmediatePropagation()
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     clearInterval(this.polling)
   },
   methods: {

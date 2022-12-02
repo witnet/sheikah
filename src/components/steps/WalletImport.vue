@@ -72,7 +72,7 @@ export default {
       }
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.mnemonicsError) {
       this.clearError({ error: this.mnemonicsError.name })
     }

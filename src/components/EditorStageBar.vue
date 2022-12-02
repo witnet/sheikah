@@ -66,7 +66,7 @@ export default {
       }
     })
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.unsubscribe()
   },
   methods: {
