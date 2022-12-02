@@ -65,7 +65,7 @@ export default {
     // TODO: place this methods in the correct place when the generated transaction from the wallet is ready
     this.$store.dispatch('getLabels')
   },
-  destroyed() {
+  unmounted() {
     this.$store.dispatch('stopTransactionDateSync')
   },
   methods: {
