@@ -105,7 +105,7 @@ export default {
       return this.sections.find(section => section.route === this.$route.path)
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.closeModals()
   },
   methods: {

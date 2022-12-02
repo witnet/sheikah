@@ -10,7 +10,7 @@ export default {
 
     document.addEventListener(`click`, listener)
     document.addEventListener(`focus`, listener, true)
-    this.$once(`hook:beforeDestroy`, () => {
+    this.$once(`hook:beforeUnmount`, () => {
       document.removeEventListener(`click`, listener)
       document.removeEventListener(`focus`, listener, true)
     })

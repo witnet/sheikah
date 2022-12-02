@@ -17,7 +17,7 @@ export default {
   created() {
     this.pollData()
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.closeModals()
   },
   methods: {

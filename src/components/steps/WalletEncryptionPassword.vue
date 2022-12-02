@@ -67,7 +67,7 @@ export default {
       }
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.createValidPasswordError) {
       this.clearError({ error: this.createValidPasswordError.name })
     }

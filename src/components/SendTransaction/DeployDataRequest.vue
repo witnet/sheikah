@@ -107,7 +107,7 @@ export default {
     })
     this.variables.length ? (this.stage = 0) : (this.stage = 1)
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.createDataRequestError) {
       this.clearError({ error: this.createDataRequestError.name })
     }

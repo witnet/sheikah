@@ -57,7 +57,7 @@ export default {
       fileInfo: state => state.wallet.fileInfo,
     }),
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.xprvError) {
       this.clearXprvInfo()
     }

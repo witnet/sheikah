@@ -69,7 +69,7 @@ export default {
   mounted() {
     this.clearValues()
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.createVTTError) {
       this.clearError({ error: this.createVTTError.name })
     }

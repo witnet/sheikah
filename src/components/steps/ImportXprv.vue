@@ -85,7 +85,7 @@ export default {
       this.disabledNextButton = !info
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.xprvError) {
       this.clearError({ error: this.xprvError.name })
     }

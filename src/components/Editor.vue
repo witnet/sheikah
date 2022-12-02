@@ -73,7 +73,7 @@ export default {
       }
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     clearInterval(this.tryInterval)
     clearInterval(this.saveInterval)
   },

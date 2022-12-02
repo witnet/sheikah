@@ -162,7 +162,7 @@ export default {
       this.keys = this.variablesKeys
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.commit('clearCurrentFocus')
   },
   methods: {

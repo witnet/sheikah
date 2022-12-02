@@ -90,7 +90,7 @@ export default {
       this.$emit('input-password', this.password, this.repeatedPassword)
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.error) {
       this.clearError({ error: this.error.name })
     }
