@@ -117,35 +117,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-#### Default
-
-```jsx
-  <Addresses :addresses="[{
-    address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-    index: 0,
-    used: false,
-    receivedAmount: 5000,
-    firstPaymentDate: new Date(),
-    lastPaymentDate: new Date(),
-    payments: 0,
-  },
-  {
-    address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
-    index: 0,
-    used: true,
-    receivedAmount: 5000,
-    firstPaymentDate: new Date(),
-    lastPaymentDate: new Date(),
-    payments: 1,
-  }]" />
-```
-
-#### Empty
-
-```jsx
-  <Addresses :addresses="[]" />
-```
-</docs>

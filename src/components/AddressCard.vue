@@ -73,22 +73,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Examples
-
-#### Not Used
-```jsx
-  <AddressCard :used="false" />
-```
-
-#### Used
-```jsx
-  <AddressCard :used="true" />
-```
-
-#### Selected
-```jsx
-  <AddressCard :used="false" :selected="true" />
-```
-</docs>

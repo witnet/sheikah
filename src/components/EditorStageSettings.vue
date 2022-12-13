@@ -44,11 +44,3 @@ export default {
   },
 }
 </script>
-
-<docs>
-### Example
-```jsx
-
-  <EditorStageSettings />
-```
-</docs>

@@ -69,14 +69,3 @@ export default {
   },
 }
 </script>
-
-<docs>
-Balance component. Show available, locked and total amount. It also includes buttons to trigger receive and send actions.
-
-### Example
-
-```jsx
-  <Balance :style="{ width: '300px' }"/>
-```
-
-</docs>

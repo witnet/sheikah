@@ -52,18 +52,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Examples
-
-#### Green
-```jsx
-  <Tag color="green" text="SUCCESS" />
-```
-
-#### Red
-```jsx
-  <Tag color="red" text="ERROR" />
-```
-
-</docs>

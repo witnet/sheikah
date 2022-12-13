@@ -444,28 +444,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-#### Operator select
-
-```jsx
-  <Select
-    type="big"
-    :value="{
-      primaryText: 'option 1',
-    }"
-    :options="[{primaryText: 'option 1'},{primaryText: 'option 2'}]"
-  />
-```
-#### Big Select
-
-```jsx
-  <Select
-    :value="{
-      primaryText: 'option 1',
-    }"
-    :options="[{primaryText: 'option 1'},{primaryText: 'option 2'}]"
-  />
-```
-</docs>

@@ -71,14 +71,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <BalanceButtons
-    :style="{ width: '300px' }"
-  />
-```
-
-</docs>

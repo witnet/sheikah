@@ -129,11 +129,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <EditorStageSources />
-```
-</docs>

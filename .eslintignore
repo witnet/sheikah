@@ -2,7 +2,6 @@
 /dist/
 /dist_electron/
 /tests/unit/coverage/
-/styleguide/
 /src/locales/**
 
 .witnet-rust-testnet-*-wallet

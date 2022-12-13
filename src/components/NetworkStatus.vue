@@ -358,30 +358,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <NetworkStatus
-    :expanded="true"
-    status="Block"
-    node="node"
-    lastBlock="last-block"
-  />
-```
-```jsx
-  <NetworkStatus
-    :expanded="true"
-    status="Unknown"
-  />
-```
-```jsx
-  <NetworkStatus
-    :expanded="true"
-    status="SyncProgress"
-    node="node"
-    lastBlock="last-block"
-  />
-```
-</docs>
