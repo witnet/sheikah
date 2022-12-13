@@ -311,11 +311,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <EditorToolBar />
-
-</docs>

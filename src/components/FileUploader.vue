@@ -352,32 +352,3 @@ export default {
   margin-top: 8px;
 }
 </style>
-
-<docs>
-#### Upload component:
-
-#### Basic usage
-```js
-<FileUploader
-  acceptedFormat=".json"
-  errorMessage="Upload a valid file"
-  :validateFile="()=> true"
->
-  Drag your <span class="upload">participant_proof.json</span> file here or
-  <span class="underline">click to import</span>
-</FileUploader>
-```
-
-#### Show error when validation file
-```js
-<FileUploader
-  acceptedFormat=".json"
-  errorMessage="Upload a valid file"
-  :validateFile="() => false"
->
-  Drag your <span class="upload">participant_proof.json</span> file here or
-  <span class="underline">click to import</span>
-</FileUploader>
-```
-
-</docs>

@@ -30,8 +30,6 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
     "reinstall": "yarn clean-deps && yarn",
-    "styleguide": "vue-cli-service styleguidist",
-    "styleguide:build": "vue-cli-service styleguidist:build",
     "test:unit": "vue-cli-service test:unit --config=jest.unit.config.js"
   },
   "main": "background.js",
@@ -114,7 +112,6 @@
     "vue-cli-plugin-electron-builder": "2.1.1",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-cli-plugin-i18n": "^1.0.1",
-    "vue-cli-plugin-styleguidist": "^4.17.0",
     "vue-template-compiler": "^2.6.14"
   },
   "bugs": {

@@ -51,11 +51,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <AddressCardButton />
-```
-</docs>

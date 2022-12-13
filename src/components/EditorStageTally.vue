@@ -74,10 +74,3 @@ export default {
   },
 }
 </script>
-
-<docs>
-### Example
-```jsx
-  <EditorStageTally />
-```
-</docs>

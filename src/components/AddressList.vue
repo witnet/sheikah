@@ -95,33 +95,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <AddressList
-    :style="{ width: '350px' }"
-    :addresses="[ {
-      address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft',
-      index: 0,
-      used: false,
-      amount: 5000,
-      unit: 'nanoWits',
-      firstPaymentDate: new Date(),
-      lastPaymentDate: new Date(),
-      payments: 0,
-    },
-    {
-      address: 'twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0fa',
-      index: 0,
-      used: false,
-      amount: 5000,
-      unit: 'nanoWits',
-      firstPaymentDate: new Date(),
-      lastPaymentDate: new Date(),
-      payments: 1,
-    }]"
-  />
-```
-</docs>

@@ -148,13 +148,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <EditorStageBar
-    initialStage="retrieve"
-  />
-```
-</docs>

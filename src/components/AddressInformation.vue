@@ -292,29 +292,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-#### Default
-```jsx
-  <AddressInformation
-    :style="{ width: '350px' }"
-    :index="0"
-    :used="false"
-    address="twit1270yg7pkm2w9mlq56r0mzrwph3flrp862zw0ft"
-    :amount="5000"
-    :firstPaymentDate="new Date()"
-    :lastPaymentDate="new Date()"
-    :payments="0"
-  />
-```
-
-#### Empty
-```jsx
-  <AddressInformation
-    :style="{ width: '350px' }"
-    :used="false"
-  />
-```
-</docs>

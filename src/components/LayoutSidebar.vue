@@ -47,15 +47,3 @@ export default {
   min-height: 100vh;
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <LayoutSidebar>
-    <div :style="{ background: '#E6D4F7', height: '100%' }">
-      <p>I'm next to the sidebar</p>
-    </div>
-  </LayoutSidebar>
-```
-</docs>

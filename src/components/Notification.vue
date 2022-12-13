@@ -96,11 +96,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <Notification />
-```
-</docs>

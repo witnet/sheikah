@@ -120,29 +120,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Examples
-
-#### Default
-```jsx
-  <Fieldset
-    title="title"
-    subtitle="subtitle"
-    helper="helper"
-  >
-    <div :style="{ width: '200px', height: '100px' }">Content</div>
-  </Fieldset>
-```
-
-#### Text
-```jsx
-  <Fieldset
-    title="title"
-    type="text"
-  >
-    <p :style="{ width: '200px', height: '100px' }">Text content</p>
-  </Fieldset>
-```
-
-</docs>

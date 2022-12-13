@@ -100,10 +100,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-```jsx
-  <EditorStageScripts />
-```
-</docs>

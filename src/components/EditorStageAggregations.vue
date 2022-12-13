@@ -76,10 +76,3 @@ export default {
   },
 }
 </script>
-
-<docs>
-### Example
-```jsx
-  <EditorStageAggregations />
-```
-</docs>

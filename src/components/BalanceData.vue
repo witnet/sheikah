@@ -185,19 +185,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Example
-
-```jsx
-  <BalanceData
-    locked="10"
-    available="40"
-    total="50"
-    unit="nanoWit"
-
-    :style="{ width: '300px' }"
-  />
-```
-
-</docs>

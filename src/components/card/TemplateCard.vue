@@ -260,17 +260,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-### Examples
-
-#### Template Card
-```jsx
-  <TemplateCard
-    name="Template"
-    description="Description"
-    :sources="1"
-    id="0"
-  />
-```
-</docs>
