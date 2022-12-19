@@ -9,9 +9,7 @@ jobs:
     strategy: 
       matrix:
         os: [
-          # FIXME: uncomment macos when vue3 upgrade is merged: 
-          # https://github.com/witnet/sheikah/pull/1829
-          # macos-latest, 
+          macos-latest, 
           ubuntu-latest, 
           windows-latest
         ]
@@ -24,6 +22,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.14.0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '2.7' 
+
       - name: Build Electron app
         shell: bash
         env:
