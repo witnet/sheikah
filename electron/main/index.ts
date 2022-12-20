@@ -15,6 +15,7 @@ import { app, BrowserWindow, shell, ipcMain, Menu } from 'electron'
 import { WalletManager } from '../walletManager'
 import { IPC_ACTIONS } from '../ipc/ipcActions'
 import { AutoUpdaterManager } from '../autoUpdaterManager'
+import overwriteWitnetNodeConfiguration from '../utils/overwriteWitnetNodeConfiguration'
 
 const { SHUTDOWN, SHUTDOWN_FINISHED } = IPC_ACTIONS.Window
 
@@ -63,6 +64,7 @@ async function createWindow() {
     autoHideMenuBar: true,
   })
 
+  overwriteWitnetNodeConfiguration()
   walletManager = new WalletManager(win?.webContents)
   walletManager.run(actions)
 

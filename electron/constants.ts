@@ -24,6 +24,13 @@ export const URLS_PUBLIC_WITNET_NODES = [
   '3.21.74.162:21338',
 ]
 
+export const OLD_WITNET_NODE_IPS: Array<string> = [
+  '20.120.248.2:21338',
+  '20.126.70.77:21338',
+  '52.166.178.145:21338',
+  '20.103.108.57:21338',
+]
+
 export const SHEIKAH_PATH_BY_PLATFORM = {
   darwin: path.join(os.homedir(), 'Desktop', '.sheikah'),
   linux: path.join(os.homedir(), '.sheikah'),
