@@ -15,7 +15,6 @@ import {
   WITNET_CONFIG_FILE_NAME,
   WALLET_COMPRESS_FILE_NAME,
   Status,
-  URLS_PUBLIC_WITNET_NODES,
   DEFAULT_WALLET_LOG_LEVEL,
   ARCH,
   PLATFORM,
@@ -163,11 +162,7 @@ export class WalletManager {
       process.chdir(currentCwd)
 
       await sleep(3000)
-      overwriteWitnetNodeConfiguration({
-        sheikahPath: SHEIKAH_PATH,
-        witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-        publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-      })
+      overwriteWitnetNodeConfiguration()
 
       fs.writeFileSync(
         path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
@@ -188,11 +183,7 @@ export class WalletManager {
     )
     await sleep(3000)
 
-    overwriteWitnetNodeConfiguration({
-      sheikahPath: SHEIKAH_PATH,
-      witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-      publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-    })
+    overwriteWitnetNodeConfiguration()
 
     fs.writeFileSync(
       path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
@@ -210,11 +201,7 @@ export class WalletManager {
     )
 
     await sleep(3000)
-    overwriteWitnetNodeConfiguration({
-      sheikahPath: SHEIKAH_PATH,
-      witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-      publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-    })
+    overwriteWitnetNodeConfiguration()
 
     cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
     fs.writeFileSync(
