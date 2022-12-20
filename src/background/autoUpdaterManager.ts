@@ -40,11 +40,6 @@ export class AutoUpdaterManager {
       cancelId: 1, // bound to buttons array
     }
     this.wallet.setIsUpdating(true)
-    overwriteWitnetNodeConfiguration({
-      sheikahPath: SHEIKAH_PATH,
-      witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-      publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-    })
     dialog
       .showMessageBox(this.app.win as BrowserWindow, options)
       .then(result => {
@@ -65,6 +60,11 @@ export class AutoUpdaterManager {
   }
 
   private closeWindowAndRestart() {
+    overwriteWitnetNodeConfiguration({
+      sheikahPath: SHEIKAH_PATH,
+      witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
+      publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
+    })
     if (this.wallet.walletProcess) {
       this.wallet.walletProcess.kill(9)
     }
