@@ -15,6 +15,7 @@ import {
   WITNET_CONFIG_FILE_NAME,
   WALLET_COMPRESS_FILE_NAME,
   URLS_PUBLIC_WITNET_NODES,
+  Status,
   DEFAULT_WALLET_LOG_LEVEL,
   ARCH,
   PLATFORM,
@@ -22,6 +23,7 @@ import {
   RELEASE_BASE_URL,
 } from './constants'
 import { IPC_ACTIONS } from './ipc/ipcActions'
+import overwriteWitnetNodeConfiguration from './utils/overwriteWitnetNodeConfiguration'
 
 const {
   SET_RUNNING_STATUS,
@@ -37,35 +39,6 @@ import { Actions } from './main/index'
 // Parse version name to get the version number witnet-1.2.1 => 1.2.1
 export function getVersionFromName(name: string): string | null {
   return semver.valid(semver.coerce(name))
-}
-
-// Replace witnet nodes urls in witnet configuration file
-export function overwriteWitnetNodeConfiguration({
-  sheikahPath,
-  witnetConfigFileName,
-  publicNodeUrls,
-}: {
-  sheikahPath: string
-  witnetConfigFileName: string
-  publicNodeUrls: Array<string>
-}) {
-  const replacement = `node_url = ${JSON.stringify(publicNodeUrls)}\n`
-    .replace("'", '')
-    .trim()
-  const nodeUrlUntilCharacter = (character: string) =>
-    new RegExp('node_url =([^;]*)' + character)
-  try {
-    fs.writeFileSync(
-      path.join(sheikahPath, witnetConfigFileName),
-      fs
-        .readFileSync(path.join(sheikahPath, witnetConfigFileName))
-        .toString()
-        .replace(nodeUrlUntilCharacter('"'), replacement)
-        .replace(nodeUrlUntilCharacter(']'), replacement),
-    )
-  } catch (error) {
-    console.log('Error overwriting configuration file', error)
-  }
 }
 
 export default async function sleep(t: number) {
@@ -206,11 +179,7 @@ export class WalletManager {
       process.chdir(currentCwd)
 
       await sleep(3000)
-      overwriteWitnetNodeConfiguration({
-        sheikahPath: SHEIKAH_PATH,
-        witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-        publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-      })
+      overwriteWitnetNodeConfiguration()
 
       fs.writeFileSync(
         path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
@@ -231,11 +200,7 @@ export class WalletManager {
     )
     await sleep(3000)
 
-    overwriteWitnetNodeConfiguration({
-      sheikahPath: SHEIKAH_PATH,
-      witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-      publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-    })
+    overwriteWitnetNodeConfiguration()
 
     fs.writeFileSync(
       path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
@@ -253,11 +218,7 @@ export class WalletManager {
     )
 
     await sleep(3000)
-    overwriteWitnetNodeConfiguration({
-      sheikahPath: SHEIKAH_PATH,
-      witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-      publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-    })
+    overwriteWitnetNodeConfiguration()
 
     cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
     fs.writeFileSync(
