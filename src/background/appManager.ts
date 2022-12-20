@@ -4,6 +4,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import kill from 'tree-kill'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { DEVELOPMENT, Status, STATUS_PATH } from './constants'
+import overwriteWitnetNodeConfiguration from './utils/overwriteWitnetNodeConfiguration'
 declare const __static: string
 
 export class AppManager {
@@ -144,6 +145,8 @@ export class AppManager {
       },
       autoHideMenuBar: true,
     })
+
+    overwriteWitnetNodeConfiguration()
 
     if (!DEVELOPMENT) {
       // Hide electron toolbar in production environment
