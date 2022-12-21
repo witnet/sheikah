@@ -19,14 +19,17 @@ type NodeConfig = {
   oldWitnetNodes: Array<string>
 }
 
+const defaultConfig = {
+  sheikahPath: SHEIKAH_PATH,
+  witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
+  publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
+  oldWitnetNodes: OLD_WITNET_NODE_IPS,
+}
+
 // Replace witnet nodes urls in witnet configuration file
 export function overwriteWitnetNodeConfiguration(
-  config: NodeConfig = {
-    sheikahPath: SHEIKAH_PATH,
-    witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
-    publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-    oldWitnetNodes: OLD_WITNET_NODE_IPS,
-  },
+  force: Boolean = false,
+  config: NodeConfig = defaultConfig,
 ) {
   const {
     sheikahPath,
@@ -35,6 +38,13 @@ export function overwriteWitnetNodeConfiguration(
     oldWitnetNodes,
   }: NodeConfig = config
   try {
+    const existFile = fs.existsSync(
+      path.join(sheikahPath, witnetConfigFileName),
+    )
+    if (!existFile) {
+      console.log(`File ${sheikahPath}/${witnetConfigFileName} not found`)
+      return
+    }
     const configFile = fs
       .readFileSync(path.join(sheikahPath, witnetConfigFileName))
       .toString()
@@ -45,14 +55,16 @@ export function overwriteWitnetNodeConfiguration(
     const currentNodeUrls: string =
       nodeUrlConfigLine.match(nodeUrlsRegex)?.[0] || ''
     const configNodeIps: Array<string> | undefined = currentNodeUrls
+      .replaceAll(' ', '')
       .replaceAll('"', '')
       .split(',')
     if (
-      configNodeIps &&
-      existIntersection({
-        oldWitnetNodes: oldWitnetNodes,
-        currentNodeConfiguration: configNodeIps,
-      })
+      force ||
+      (configNodeIps &&
+        existIntersection({
+          oldWitnetNodes: oldWitnetNodes,
+          currentNodeConfiguration: configNodeIps,
+        }))
     ) {
       const replacement = `node_url = ${JSON.stringify(publicNodeUrls)}\n`
         .replace("'", '')

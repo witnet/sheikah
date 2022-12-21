@@ -9,13 +9,14 @@ afterEach(() => {
 describe('overwriteConfigFile', () => {
   it('Should overwrite config only if there is an old witnet node ip', () => {
     jest.spyOn(fs, 'writeFileSync').mockImplementation()
+    jest.spyOn(fs, 'existsSync').mockImplementation(() => true)
     jest
       .spyOn(fs, 'readFileSync')
       .mockImplementation(
         () =>
           'string from toml \nnode_url = ["public_node_url_old","public_node_url4"]',
       )
-    overwriteWitnetNodeConfiguration({
+    overwriteWitnetNodeConfiguration(false, {
       sheikahPath: 'sheikah_path',
       publicNodeUrls: ['public_node_url1', 'public_node_url2'],
       witnetConfigFileName: 'witnet_config_file_name',
@@ -32,12 +33,13 @@ describe('overwriteConfigFile', () => {
 
   it('Should overwrite config if there is only one old witnet node ip', () => {
     jest.spyOn(fs, 'writeFileSync').mockImplementation()
+    jest.spyOn(fs, 'existsSync').mockImplementation(() => true)
     jest
       .spyOn(fs, 'readFileSync')
       .mockImplementation(
         () => 'string from toml \nnode_url = "public_node_url_old"',
       )
-    overwriteWitnetNodeConfiguration({
+    overwriteWitnetNodeConfiguration(false, {
       sheikahPath: 'sheikah_path',
       publicNodeUrls: ['public_node_url1', 'public_node_url2'],
       witnetConfigFileName: 'witnet_config_file_name',
@@ -54,10 +56,11 @@ describe('overwriteConfigFile', () => {
 
   it('Should not overwrite if there is no old nodes in the config file', () => {
     jest.spyOn(fs, 'writeFileSync').mockImplementation()
+    jest.spyOn(fs, 'existsSync').mockImplementation(() => true)
     jest
       .spyOn(fs, 'readFileSync')
       .mockImplementation(() => 'node_url = "public_node_url_personal"')
-    overwriteWitnetNodeConfiguration({
+    overwriteWitnetNodeConfiguration(false, {
       sheikahPath: 'sheikah_path',
       publicNodeUrls: ['public_node_url1', 'public_node_url2'],
       witnetConfigFileName: 'witnet_config_file_name',
@@ -71,9 +74,10 @@ describe('overwriteConfigFile', () => {
 
   it("Should handle error if read file doesn't exists", () => {
     jest.spyOn(fs, 'writeFileSync').mockImplementation()
+    jest.spyOn(fs, 'existsSync').mockImplementation(() => true)
     jest.spyOn(fs, 'readFileSync').mockImplementation()
 
-    overwriteWitnetNodeConfiguration({
+    overwriteWitnetNodeConfiguration(false, {
       sheikahPath: 'sheikah_path',
       publicNodeUrls: ['public_node_url1', 'public_node_url2'],
       witnetConfigFileName: 'witnet_config_file_name',
