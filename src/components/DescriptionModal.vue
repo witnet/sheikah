@@ -1,13 +1,15 @@
 <template>
   <el-dialog
-    class="wallet-description"
     v-model="isWalletDescriptionVisibleLocal"
+    class="wallet-description"
     :show-close="true"
     @close="close"
   >
-    <template #header class="title-container">
-      <img class="avatar" :src="unlockedWallet.image" alt="avatar" />
-      <p class="title">{{ unlockedWallet.name }}</p>
+    <template #header>
+      <div class="title-container">
+        <img class="avatar" :src="unlockedWallet.image" alt="avatar" />
+        <p class="title">{{ unlockedWallet.name }}</p>
+      </div>
     </template>
     <p class="text">
       {{ walletDescription }}

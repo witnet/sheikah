@@ -13,7 +13,7 @@
         {{ social.content }}
       </template>
       <template #icon-social>
-        <CustomIcon :name="social.img" className="icon-social" />
+        <CustomIcon :name="social.img" class-name="icon-social" />
         <!-- <img class="icon-social" :src="social.img" alt="github icon" /> -->
       </template>
     </CommunityCard>

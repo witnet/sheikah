@@ -2,6 +2,7 @@
   <div class="network-status">
     <div class="header" @click="showAll = !showAll">
       <Avatar
+        v-if="unlockedWallet && unlockedWallet.image"
         data-test="status-avatar"
         :border-color="currentState.color"
         :src="unlockedWallet.image"

@@ -3,6 +3,7 @@
   <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
   <svg
+    id="svg1400"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:cc="http://creativecommons.org/ns#"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -14,18 +15,18 @@
     height="32"
     viewBox="0 0 8.4666659 8.4666659"
     version="1.1"
-    id="svg1400"
     inkscape:version="0.92.2 5c3e80d, 2017-08-06"
     sodipodi:docname="reddit.svg"
   >
     <defs id="defs1394" />
     <g
+      id="layer1"
       inkscape:label="Layer 1"
       inkscape:groupmode="layer"
-      id="layer1"
       transform="translate(0,-288.53334)"
     >
       <circle
+        id="path835"
         style="
           opacity: 1;
           fill: none;
@@ -40,7 +41,6 @@
           stroke-opacity: 1;
           paint-order: markers fill stroke;
         "
-        id="path835"
         cx="4.2333331"
         cy="292.76666"
         r="3.9422915"

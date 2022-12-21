@@ -1,8 +1,8 @@
 <template>
   <el-dialog
+    v-model="sessionExpiredLocal"
     class="info"
     width="30%"
-    v-model="sessionExpiredLocal"
     :show-close="true"
     @close="close"
   >

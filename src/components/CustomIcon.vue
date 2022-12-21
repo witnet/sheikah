@@ -1,5 +1,5 @@
 <template>
-  <component :class="className" :is="url" />
+  <component :is="url" :class="className" />
 </template>
 
 <script>

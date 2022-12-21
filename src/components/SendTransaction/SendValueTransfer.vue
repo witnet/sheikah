@@ -1,8 +1,8 @@
 <template>
   <el-dialog
+    v-model="localVisible"
     :title="title"
     :show-close="true"
-    v-model="localVisible"
     width="max-content"
     @close="closeAndClear"
   >

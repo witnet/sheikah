@@ -31,7 +31,7 @@
         <Select
           v-focus:[focusHandler(index,type)]
           data-test="select-type"
-          :modelValue="{ primaryText: variable.type }"
+          :model-value="{ primaryText: variable.type }"
           :options="dataTypeOptions"
           @input="
             val =>

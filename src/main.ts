@@ -61,7 +61,7 @@ app.directive('focus', {
   },
 })
 
-app.component('font-awesome-icon', FontAwesomeIcon)
+app.component('FontAwesomeIcon', FontAwesomeIcon)
 
 app.mount('#app').$nextTick(() => {
   postMessage({ payload: 'removeLoading' }, '*')

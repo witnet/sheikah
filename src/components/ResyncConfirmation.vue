@@ -1,11 +1,11 @@
 <template>
   <el-dialog
+    v-model="isResyncConfirmationVisibleLocal"
     class="resync"
     width="30%"
     :show-close="true"
     :close-on-click-modal="false"
     @close="close"
-    v-model="isResyncConfirmationVisibleLocal"
   >
     <template #header>
       <div class="title-container">

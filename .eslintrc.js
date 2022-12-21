@@ -14,21 +14,21 @@ module.exports = {
   },
   plugins: ['import'],
   extends: [
-    "plugin:vue/vue3-recommended",
+    'plugin:vue/vue3-recommended',
     'eslint:recommended',
     '@vue/eslint-config-typescript',
     '@vue/eslint-config-prettier',
   ],
-//   extends: [
-//     '@vue/prettier',
-//     '@vue/prettier/@typescript-eslint',
-//     '@vue/typescript',
-//     'plugin:import/errors',
-//     'plugin:import/typescript',
-//     'plugin:import/warnings',
-//     'plugin:vue/recommended',
-//     'prettier/vue',
-//   ],
+  //   extends: [
+  //     '@vue/prettier',
+  //     '@vue/prettier/@typescript-eslint',
+  //     '@vue/typescript',
+  //     'plugin:import/errors',
+  //     'plugin:import/typescript',
+  //     'plugin:import/warnings',
+  //     'plugin:vue/recommended',
+  //     'prettier/vue',
+  //   ],
   parserOptions: {
     ecmaVersion: 'latest',
     // parser: '@typescript-eslint/parser',
@@ -46,6 +46,7 @@ module.exports = {
     ],
     'vue/multi-word-component-names': 0,
     'vue/no-reserved-component-names': 0,
+    'vue/require-explicit-emits': 0,
   },
   settings: {
     'import/resolver': {
@@ -59,22 +60,22 @@ module.exports = {
       messageSyntaxVersion: '^9.0.0',
     },
   },
-    overrides: [
-      {
-        files: ['**/*.spec.js'],
-        // parserOptions: {
-        //   parser: 'babel-eslint',
-        //   sourceType: 'module',
-        // },
-        env: { jest: true },
-        globals: {
-          mount: false,
-          shallowMount: false,
-          shallowMountView: false,
-          createComponentMocks: false,
-          createModuleStore: false,
-          i18n: false,
-        },
+  overrides: [
+    {
+      files: ['**/*.spec.js'],
+      // parserOptions: {
+      //   parser: 'babel-eslint',
+      //   sourceType: 'module',
+      // },
+      env: { jest: true },
+      globals: {
+        mount: false,
+        shallowMount: false,
+        shallowMountView: false,
+        createComponentMocks: false,
+        createModuleStore: false,
+        i18n: false,
       },
-    ],
+    },
+  ],
 }
