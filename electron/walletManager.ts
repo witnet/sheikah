@@ -179,7 +179,6 @@ export class WalletManager {
       process.chdir(currentCwd)
 
       await sleep(3000)
-      overwriteWitnetNodeConfiguration()
 
       fs.writeFileSync(
         path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
@@ -200,8 +199,6 @@ export class WalletManager {
     )
     await sleep(3000)
 
-    overwriteWitnetNodeConfiguration()
-
     fs.writeFileSync(
       path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
       this.witnetRustVersion,
@@ -218,7 +215,6 @@ export class WalletManager {
     )
 
     await sleep(3000)
-    overwriteWitnetNodeConfiguration()
 
     cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
     fs.writeFileSync(
@@ -266,6 +262,10 @@ export class WalletManager {
   public async runWallet(actions: Actions) {
     await sleep(3000)
     console.info('Running wallet...')
+    if (!this.existDirectory) {
+      // Is first time running Sheikah
+      overwriteWitnetNodeConfiguration(true)
+    }
     this.webContents.send(SET_RUNNING_STATUS)
     await sleep(3000)
 
