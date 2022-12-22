@@ -57,6 +57,7 @@ export class WalletManager {
 
   //  Start running the wallet release and download it when is necessary
   public async run() {
+    this.latestWitnetRustVersion = await getLatestWitnetRustRelease()
     if (this.existDirectory) {
       // Check if latest version is compatible or needs to be downloaded
       try {
@@ -65,7 +66,6 @@ export class WalletManager {
           'utf8',
         )
         const installedVersion = getVersionFromName(versionName)
-        this.latestWitnetRustVersion = await getLatestWitnetRustRelease()
         const isLatestVersionInstalled =
           installedVersion === this.latestWitnetRustVersion
         const isCompatibleRelease = semver.satisfies(
