@@ -177,9 +177,8 @@ export class WalletManager {
       process.chdir(SHEIKAH_PATH)
       cp.execSync(`tar -xvf ${file}`)
       process.chdir(currentCwd)
-
       await sleep(3000)
-
+      overwriteWitnetNodeConfiguration(true)
       fs.writeFileSync(
         path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
         this.witnetRustVersion,
@@ -198,7 +197,7 @@ export class WalletManager {
       path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
     )
     await sleep(3000)
-
+    overwriteWitnetNodeConfiguration(true)
     fs.writeFileSync(
       path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
       this.witnetRustVersion,
@@ -213,9 +212,8 @@ export class WalletManager {
       'witnet.toml',
       path.join(SHEIKAH_PATH, WITNET_CONFIG_FILE_NAME),
     )
-
     await sleep(3000)
-
+    overwriteWitnetNodeConfiguration(true)
     cp.execSync(`chmod 777 ${path.join(SHEIKAH_PATH, WITNET_FILE_NAME)}`)
     fs.writeFileSync(
       path.join(SHEIKAH_PATH, VERSION_FILE_NAME),
