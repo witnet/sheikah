@@ -116,6 +116,25 @@ $--color-warning: $yellow-3;
   &.el-button--primary {
     font-size: 15px;
     font-weight: bold;
+    background-color: var(--button-primary-background);
+    border-color: var(--button-primary-border);
+    color: var(--button-primary-text);
+    font-size: 15px;
+    font-weight: bold;
+
+    &.is-disabled {
+      background-color: var(--button-primary-background-disabled);
+      border-color: var(--button-primary-border-disabled);
+      color: var(--button-primary-text);
+
+      &:hover,
+      &:focus {
+        background-color: var(--button-primary-background-disabled);
+        border-color: var(--button-primary-border-disabled);
+        color: var(--button-primary-text-hover);
+      }
+    }
+    
 
     &:active {
       outline: none;
