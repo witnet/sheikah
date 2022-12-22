@@ -61,6 +61,11 @@ $--color-warning: $yellow-3;
 // @import 'element-plus/packages/theme-chalk/src/index';
 
 .el-input {
+
+ .el-input__wrapper {
+   background-color: var(--input-background);
+ }
+
   &.key-input {
     .el-input__inner {
       padding-left: 24px;
