@@ -79,7 +79,6 @@ export class WalletManager {
 
   //  Start running the wallet release and download it when is necessary
   public async run(actions: Actions) {
-    this.latestWitnetRustVersion = await getLatestWitnetRustRelease()
     if (this.existDirectory) {
       this.latestWitnetRustVersion = await getLatestWitnetRustRelease()
       // Check if latest version is compatible or needs to be downloaded
