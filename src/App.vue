@@ -9,6 +9,7 @@
     <DescriptionModal v-if="isWalletDescriptionVisible" />
     <RenameConfirmation v-if="isRenameWalletConfirmationVisible" />
     <DeleteWalletConfirmation v-if="isDeleteWalletConfirmationVisible" />
+    <ExportXprvModal v-if="isExportXprvQrVisible" />
   </div>
 </template>
 
@@ -19,6 +20,7 @@ import LogoutModal from '@/components/LogoutModal.vue'
 import DescriptionModal from '@/components/DescriptionModal.vue'
 import RenameConfirmation from '@/components/RenameConfirmation.vue'
 import DeleteWalletConfirmation from '@/components/DeleteWalletConfirmation.vue'
+import ExportXprvModal from '@/components/ExportXprvModal.vue'
 
 export default {
   name: 'App',
@@ -29,6 +31,7 @@ export default {
     RenameConfirmation,
     DeleteWalletConfirmation,
     ResyncConfirmation: () => import('@/components/ResyncConfirmation.vue'),
+    ExportXprvModal,
   },
   data() {
     return {
@@ -52,6 +55,9 @@ export default {
         state.uiInteractions.isRenameWalletConfirmationVisible,
       isDeleteWalletConfirmationVisible: state => {
         return state.uiInteractions.isDeleteWalletConfirmationVisible
+      },
+      isExportXprvQrVisible: state => {
+        return state.uiInteractions.isExportXprvQrVisible
       },
     }),
   },

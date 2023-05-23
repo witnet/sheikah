@@ -4,6 +4,7 @@ describe('ExportXprv', () => {
   const exportMasterKeyMock = jest.fn()
   const clearErrorMock = jest.fn()
   const validatePasswordMock = jest.fn()
+  const showExportXprvQrVisibleMock = jest.fn()
 
   const wrapper = mount(ExportXprv, {
     ...createComponentMocks({
@@ -25,6 +26,7 @@ describe('ExportXprv', () => {
           mutations: {
             validatePassword: validatePasswordMock,
             clearError: clearErrorMock,
+            showExportXprvQrVisible: showExportXprvQrVisibleMock,
           },
         },
       },

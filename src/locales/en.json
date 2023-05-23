@@ -431,5 +431,9 @@
   "estimating_fees": "Estimating fees",
   "recommended": "Recommended",
   "timelock_tooltip": "The recipient will not be able to spend the coins before this date and time",
-  "miner": "Miner"
+  "miner": "Miner",
+  "export_xprv_modal_title": "Export XPRV",
+  "export_xprv_modal_warning": "You can use this QR code to import your wallet in {0}. Make sure you are the only person who can see this QR before showing it.",
+  "export_xprv_modal_show_qr": "Show QR",
+  "export_xprv_modal_hide_qr": "Hide QR"
 }

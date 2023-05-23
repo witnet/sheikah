@@ -29,6 +29,16 @@
         type="primary"
         data-test="export-btn"
         @keydown.enter.esc.prevent="encryptAndExport"
+        @click="showQR"
+      >
+        Show QR
+      </el-button>
+
+      <el-button
+        tabindex="5"
+        type="primary"
+        data-test="export-btn"
+        @keydown.enter.esc.prevent="encryptAndExport"
         @click="encryptAndExport"
       >
         {{ $t('encrypt_export') }}
@@ -60,6 +70,7 @@ export default {
       openingLine: this.$t('please_note').toUpperCase(),
       text: this.$t('encrypt_xprv'),
       exportNameAndDescription: false,
+      showXprvQrModal: false,
     }
   },
   computed: {
@@ -94,6 +105,8 @@ export default {
     ...mapMutations({
       clearError: 'clearError',
       validatePassword: 'validatePassword',
+      showExportXprvQrVisible: 'showExportXprvQrVisible',
+      closeExportXprvQrVisible: 'closeExportXprvQrVisible',
     }),
     ...mapActions({
       exportMasterKey: 'exportMasterKey',
@@ -129,6 +142,16 @@ export default {
         await this.exportMasterKey({ password: this.password })
         await this.export(EDITOR_EXPORT_FORMAT.JSON)
         this.clear()
+      }
+    },
+    async showQR() {
+      await this.validatePassword({
+        password: this.password,
+        repeatedPassword: this.repeatedPassword,
+      })
+      if (this.validatedPassword) {
+        this.showExportXprvQrVisible()
+        await this.exportMasterKey({ password: this.password })
       }
     },
   },
