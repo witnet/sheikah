@@ -4202,12 +4202,7 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001124:
-  version "1.0.30001489"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001489.tgz"
-  integrity sha512-x1mgZEXK8jHIfAxm+xgdpHpk50IN3z3q3zP261/WS+uvePxW8izXuCu6AHz0lkuYTlATDehiZ/tNyYBdSQsOUQ==
-
-caniuse-lite@^1.0.30001274:
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001124, caniuse-lite@^1.0.30001274:
   version "1.0.30001489"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001489.tgz"
   integrity sha512-x1mgZEXK8jHIfAxm+xgdpHpk50IN3z3q3zP261/WS+uvePxW8izXuCu6AHz0lkuYTlATDehiZ/tNyYBdSQsOUQ==
@@ -15228,10 +15223,10 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-witnet-radon-js@0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.10.0.tgz#076a4caca0717c69c1d3432848efcc995b74a691"
-  integrity sha512-pDexU+3TUSiwEfDw3MZfiT12cv67NSKh4XX1zunpENOpctIxjzdMEmWmgJklYK5aMogEmbsd269Gj05SaFvNgA==
+witnet-radon-js@0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/witnet-radon-js/-/witnet-radon-js-0.11.0.tgz#79c8951ca4865afffd3004a7ba7f4b4a3fea2227"
+  integrity sha512-EGv73vkqyCm/u3ZNmda0DP9BEqzNBkQhOfIllhgzsdPqDDJ2toowFb8TC25kVpbzgeuEBCoDSSxU3lfE4JLD6A==
   dependencies:
     json5 "2.2.1"
     prettier "2.7.1"

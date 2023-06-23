@@ -62,7 +62,7 @@
     "vue-qr": "^4.0.9",
     "vue-router": "3.5.3",
     "vuex": "3.6.2",
-    "witnet-radon-js": "0.10.0",
+    "witnet-radon-js": "0.11.0",
     "witnet-requests": "git+https://github.com/witnet/witnet-requests-js"
   },
   "devDependencies": {
