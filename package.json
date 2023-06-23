@@ -51,7 +51,7 @@
     "idle-vue": "^2.0.5",
     "progress-stream": "2.0.0",
     "rpc-websockets": "^4.3.5",
-    "semver": "7.3.5",
+    "semver": "7.5.2",
     "tar": "6.1.11",
     "tree-kill": "1.2.2",
     "uuid": "8.3.2",
