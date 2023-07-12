@@ -735,7 +735,7 @@ export default {
     },
     createDataRequest: async function (
       context,
-      { label, parameters, request },
+      { label, parameters, request, preview = false },
     ) {
       // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
       const data = {
@@ -768,6 +768,7 @@ export default {
           ),
           min_consensus_percentage: parameters.minConsensusPercentage,
         },
+        preview,
       }
       const req = await api.createDataRequest(data)
       if (req.result) {
@@ -816,7 +817,7 @@ export default {
     },
     createVTT: async function (
       context,
-      { address, amount, fee, feeType, label, timelock = 0 },
+      { address, amount, fee, feeType, label, timelock = 0, preview = false },
     ) {
       // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
       const request = await api.createVTT({
@@ -835,6 +836,7 @@ export default {
           [feeType.key]: standardizeWitUnits(fee, WIT_UNIT.NANO),
         },
         label,
+        preview,
       })
       if (request.result) {
         return request.result
