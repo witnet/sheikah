@@ -232,6 +232,7 @@ export default {
             ...this.vttValues,
             fee: this.formatedFeeEstimationReport[tier].priority,
             feeType: this.feeType,
+            preview: true,
           })
         } else if (this.drValues && this.formatedFeeEstimationReport[tier]) {
           transaction = await this.createDataRequest({
@@ -241,6 +242,7 @@ export default {
               feeType: this.feeType,
             },
             request: this.drValues.template.radRequest,
+            preview: true,
           })
         }
         const anyError = this.createVTTError || this.createDataRequestError
