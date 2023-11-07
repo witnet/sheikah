@@ -1,11 +1,12 @@
-import { rmSync } from 'fs'
+import { rmSync } from 'node:fs'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import electron from 'vite-electron-plugin'
-import { customStart } from 'vite-electron-plugin/plugin'
+import electron from 'vite-plugin-electron'
+// import { customStart } from 'vite-electron-plugin/plugin'
 import renderer from 'vite-plugin-electron-renderer'
 import pkg from './package.json'
 import path from 'path'
+import { notBundle } from 'vite-plugin-electron/plugin'
 // import svgLoader from 'vite-svg-loader'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 import { resolve, dirname } from 'node:path'
@@ -26,22 +27,30 @@ import {
 rmSync('dist-electron', { recursive: true, force: true })
 const pathSrc = path.resolve(__dirname, 'src')
 
+
 // https://vitejs.dev/config/
-export default defineConfig({
-  css: {
-    preprocessorOptions: {
-      scss: {
-        // additionalData: `@use "~/styles/element-variables.scss" as *;`,
-        additionalData: `@use "~/styles/element/index.scss" as *;`,
+export default defineConfig(({ command }) => {
+  rmSync('dist-electron', { recursive: true, force: true })
+
+  const isServe = command === 'serve'
+  const isBuild = command === 'build'
+  const sourcemap = isServe || !!process.env.VSCODE_DEBUG
+
+  return {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // additionalData: `@use "~/styles/element-variables.scss" as *;`,
+          additionalData: `@use "~/styles/element/index.scss" as *;`,
+        },
       },
     },
-  },
-  plugins: [
-    vue(),
+    plugins: [
+      vue(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
-    Components({
+        Components({
       // allow auto load markdown components under `./src/components/`
       extensions: ['vue', 'md'],
       // allow auto import and register components used in markdown
@@ -71,58 +80,77 @@ export default defineConfig({
         './src/locales/**',
       ),
     }),
+
     // svgLoader(),
-    electron({
-      include: ['electron'],
-      transformOptions: {
-        sourcemap: !!process.env.VSCODE_DEBUG,
-      },
-      // Will start Electron via VSCode Debug
-      plugins: process.env.VSCODE_DEBUG
-        ? [
-            customStart(
-              debounce(() =>
-                console.log(
-                  /* For `.vscode/.debug.script.mjs` */ '[startup] Electron App',
-                ),
-              ),
-            ),
-          ]
-        : undefined,
-    }),
-    // Use Node.js API in the Renderer-process
-    renderer({
-      nodeIntegration: true,
-    }),
-  ],
+      electron([
+        {
+          // Main process entry file of the Electron App.
+          entry: 'electron/main/index.ts',
+          onstart({ startup }) {
+            if (process.env.VSCODE_DEBUG) {
+              console.log(/* For `.vscode/.debug.script.mjs` */'[startup] Electron App')
+            } else {
+              startup()
+            }
+          },
+          vite: {
+            build: {
+              sourcemap,
+              minify: isBuild,
+              outDir: 'dist-electron/main',
+              rollupOptions: {
+                // Some third-party Node.js libraries may not be built correctly by Vite, especially `C/C++` addons,
+                // we can use `external` to exclude them to ensure they work correctly.
+                // Others need to put them in `dependencies` to ensure they are collected into `app.asar` after the app is built.
+                // Of course, this is not absolute, just this way is relatively simple. :)
+                external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
+              },
+            },
+            plugins: [
+              // This is just an option to improve build performance, it's non-deterministic!
+              // e.g. `import log from 'electron-log'` -> `const log = require('electron-log')`
+              isServe && notBundle(),
+            ],
+          },
+        },
+        {
+          entry: 'electron/preload/index.ts',
+          onstart({ reload }) {
+            // Notify the Renderer process to reload the page when the Preload scripts build is complete,
+            // instead of restarting the entire Electron App.
+            reload()
+          },
+          vite: {
+            build: {
+              sourcemap: sourcemap ? 'inline' : undefined, // #332
+              minify: isBuild,
+              outDir: 'dist-electron/preload',
+              rollupOptions: {
+                external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
+              },
+            },
+            plugins: [
+              isServe && notBundle(),
+            ],
+          },
+        }
+      ]),
+      // Use Node.js API in the Renderer process
+      renderer(),
+    ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
       '~/': `${pathSrc}/`,
     },
   },
-  server: process.env.VSCODE_DEBUG
-    ? (() => {
-        const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
-        return {
-          host: url.hostname,
-          port: +url.port,
-        }
-      })()
-    : undefined,
-  clearScreen: false,
-  build: {
-    assetsDir: '', // #287
-  },
-  define: {
-    __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
-  },
+    server: process.env.VSCODE_DEBUG && (() => {
+      const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
+      return {
+        host: url.hostname,
+        port: +url.port,
+      }
+    })(),
+    clearScreen: false,
+  }
 })
-
-function debounce<Fn extends (...args: any[]) => void>(fn: Fn, delay = 299) {
-  let t: NodeJS.Timeout
-  return ((...args) => {
-    clearTimeout(t)
-    t = setTimeout(() => fn(...args), delay)
-  }) as Fn
-}

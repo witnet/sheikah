@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "useDefineForClassFields": true,
+    "moduleResolution": "Node",
     "importHelpers": true,
     "jsx": "preserve",
     "esModuleInterop": true,
@@ -12,7 +13,9 @@
     "strict": true,
     "paths": {},
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
   "include": ["src"],
   "references": [
