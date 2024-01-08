@@ -8,13 +8,21 @@ import pkg from './package.json'
 import path from 'path'
 import { notBundle } from 'vite-plugin-electron/plugin'
 // import svgLoader from 'vite-svg-loader'
-import vueI18n from '@intlify/vite-plugin-vue-i18n'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'url'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 
+// import Unocss from 'unocss/vite'
+// import {
+//   presetAttributify,
+//   presetIcons,
+//   presetUno,
+//   transformerDirectives,
+//   transformerVariantGroup,
+// } from 'unocss'
 import Unocss from 'unocss/vite'
 import {
   presetAttributify,
@@ -23,6 +31,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+
 
 rmSync('dist-electron', { recursive: true, force: true })
 const pathSrc = path.resolve(__dirname, 'src')
@@ -47,41 +56,47 @@ export default defineConfig(({ command }) => {
     },
     plugins: [
       vue(),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-        Components({
-      // allow auto load markdown components under `./src/components/`
-      extensions: ['vue', 'md'],
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      resolvers: [
-        ElementPlusResolver({
-          importStyle: 'sass',
-        }),
-      ],
-      dts: 'src/components.d.ts',
-    }),
-    Unocss({
-      presets: [
-        presetUno(),
-        presetAttributify(),
-        presetIcons({
-          scale: 1.2,
-          warn: true,
-        }),
-      ],
-      transformers: [transformerDirectives(), transformerVariantGroup()],
-    }),
-    vueI18n({
-      compositionOnly: false,
-      include: resolve(
-        dirname(fileURLToPath(import.meta.url)),
-        './src/locales/**',
-      ),
-    }),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        // allow auto load markdown components under `./src/components/`
+        extensions: ['vue', 'md'],
+        // allow auto import and register components used in markdown
+        include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+        resolvers: [
+          ElementPlusResolver({
+            importStyle: 'sass',
+          }),
+        ],
+        dts: 'src/components.d.ts',
+      }),
+      // TODO: could we remove unocss?
+      // https://github.com/antfu/unocss
+      // see unocss.config.ts for config
+      Unocss({
+        presets: [
+          presetUno(),
+          presetAttributify(),
+          presetIcons({
+            scale: 1.2,
+            warn: true,
+          }),
+        ],
+        transformers: [
+          transformerDirectives(),
+          transformerVariantGroup(),
+        ]
+      }),
+      VueI18nPlugin ({
+        compositionOnly: false,
+        include: resolve(
+          dirname(fileURLToPath(import.meta.url)),
+          './src/locales/**',
+        ),
+      }),
 
-    // svgLoader(),
+      // svgLoader(),
       electron([
         {
           // Main process entry file of the Electron App.
