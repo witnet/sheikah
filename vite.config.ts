@@ -1,7 +1,7 @@
 import { rmSync } from 'node:fs'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import electron from 'vite-plugin-electron'
+import electron from 'vite-plugin-electron/simple'
 // import { customStart } from 'vite-electron-plugin/plugin'
 import renderer from 'vite-plugin-electron-renderer'
 import pkg from './package.json'
@@ -10,19 +10,11 @@ import { notBundle } from 'vite-plugin-electron/plugin'
 // import svgLoader from 'vite-svg-loader'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import { resolve, dirname } from 'node:path'
-import { fileURLToPath } from 'url'
+import { fileURLToPath, URL } from 'url'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 
-// import Unocss from 'unocss/vite'
-// import {
-//   presetAttributify,
-//   presetIcons,
-//   presetUno,
-//   transformerDirectives,
-//   transformerVariantGroup,
-// } from 'unocss'
 import Unocss from 'unocss/vite'
 import {
   presetAttributify,
@@ -32,10 +24,10 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-rmSync('dist-electron', { recursive: true, force: true })
 const pathSrc = path.resolve(__dirname, 'src')
-
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
@@ -97,9 +89,10 @@ export default defineConfig(({ command }) => {
       }),
 
       // svgLoader(),
-      electron([
-        {
-          // Main process entry file of the Electron App.
+
+      electron({
+        main: {
+          // Shortcut of `build.lib.entry`
           entry: 'electron/main/index.ts',
           onstart({ startup }) {
             if (process.env.VSCODE_DEBUG) {
@@ -121,20 +114,12 @@ export default defineConfig(({ command }) => {
                 external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
               },
             },
-            plugins: [
-              // This is just an option to improve build performance, it's non-deterministic!
-              // e.g. `import log from 'electron-log'` -> `const log = require('electron-log')`
-              isServe && notBundle(),
-            ],
           },
         },
-        {
-          entry: 'electron/preload/index.ts',
-          onstart({ reload }) {
-            // Notify the Renderer process to reload the page when the Preload scripts build is complete,
-            // instead of restarting the entire Electron App.
-            reload()
-          },
+        preload: {
+          // Shortcut of `build.rollupOptions.input`.
+          // Preload scripts may contain Web assets, so use the `build.rollupOptions.input` instead `build.lib.entry`.
+          input: 'electron/preload/index.ts',
           vite: {
             build: {
               sourcemap: sourcemap ? 'inline' : undefined, // #332
@@ -144,20 +129,23 @@ export default defineConfig(({ command }) => {
                 external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
               },
             },
-            plugins: [
-              isServe && notBundle(),
-            ],
           },
-        }
-      ]),
+        },
+        // Ployfill the Electron and Node.js API for Renderer process.
+        // If you want use Node.js in Renderer process, the `nodeIntegration` needs to be enabled in the Main process.
+        // See 👉 https://github.com/electron-vite/vite-plugin-electron-renderer
+        renderer: {},
+      }),
+
       // Use Node.js API in the Renderer process
       renderer(),
     ],
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      '~/': `${pathSrc}/`,
-    },
+    alias: [
+      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+
+     { find: '~/', replacement: `${pathSrc}/` }
+    ],
   },
     server: process.env.VSCODE_DEBUG && (() => {
       const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
