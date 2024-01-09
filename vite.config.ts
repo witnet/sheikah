@@ -14,6 +14,7 @@ import { fileURLToPath, URL } from 'url'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import packageJson from './package.json'
 
 import Unocss from 'unocss/vite'
 import {
@@ -24,8 +25,8 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const pathSrc = path.resolve(__dirname, 'src')
 
@@ -75,12 +76,9 @@ export default defineConfig(({ command }) => {
             warn: true,
           }),
         ],
-        transformers: [
-          transformerDirectives(),
-          transformerVariantGroup(),
-        ]
+        transformers: [transformerDirectives(), transformerVariantGroup()],
       }),
-      VueI18nPlugin ({
+      VueI18nPlugin({
         compositionOnly: false,
         include: resolve(
           dirname(fileURLToPath(import.meta.url)),
@@ -96,7 +94,9 @@ export default defineConfig(({ command }) => {
           entry: 'electron/main/index.ts',
           onstart({ startup }) {
             if (process.env.VSCODE_DEBUG) {
-              console.log(/* For `.vscode/.debug.script.mjs` */'[startup] Electron App')
+              console.log(
+                /* For `.vscode/.debug.script.mjs` */ '[startup] Electron App',
+              )
             } else {
               startup()
             }
@@ -111,7 +111,9 @@ export default defineConfig(({ command }) => {
                 // we can use `external` to exclude them to ensure they work correctly.
                 // Others need to put them in `dependencies` to ensure they are collected into `app.asar` after the app is built.
                 // Of course, this is not absolute, just this way is relatively simple. :)
-                external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
+                external: Object.keys(
+                  'dependencies' in pkg ? pkg.dependencies : {},
+                ),
               },
             },
           },
@@ -126,7 +128,9 @@ export default defineConfig(({ command }) => {
               minify: isBuild,
               outDir: 'dist-electron/preload',
               rollupOptions: {
-                external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
+                external: Object.keys(
+                  'dependencies' in pkg ? pkg.dependencies : {},
+                ),
               },
             },
           },
@@ -140,20 +144,28 @@ export default defineConfig(({ command }) => {
       // Use Node.js API in the Renderer process
       renderer(),
     ],
-  resolve: {
-    alias: [
-      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+    define: {
+      __APP_VERSION__: JSON.stringify(packageJson.version),
+    },
+    resolve: {
+      alias: [
+        {
+          find: '@',
+          replacement: fileURLToPath(new URL('./src', import.meta.url)),
+        },
 
-     { find: '~/', replacement: `${pathSrc}/` }
-    ],
-  },
-    server: process.env.VSCODE_DEBUG && (() => {
-      const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
-      return {
-        host: url.hostname,
-        port: +url.port,
-      }
-    })(),
+        { find: '~/', replacement: `${pathSrc}/` },
+      ],
+    },
+    server:
+      process.env.VSCODE_DEBUG &&
+      (() => {
+        const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
+        return {
+          host: url.hostname,
+          port: +url.port,
+        }
+      })(),
     clearScreen: false,
   }
 })

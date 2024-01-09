@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { changeDateFormat, getAvatarUrl } from '@/utils'
 import BigNumber from '@/utils/BigNumber'
-const RPCWebsockets = require('rpc-websockets').Client
+import { Client as RPCWebsockets } from 'rpc-websockets'
 
 const defaultOptions = {
   url: 'ws://localhost:11212',
@@ -229,7 +229,7 @@ export class WalletApi {
 
 export class MarketplaceApi {
   baseUrl =
-    process.env.marketplaceUrl ||
+    import.meta.env.marketplaceUrl ||
     'https://witnet-marketplace-api-test.herokuapp.com'
 
   _handleResponse(response) {

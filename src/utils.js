@@ -1,4 +1,4 @@
-const cbor = require('cbor')
+import { encode } from 'cbor2'
 
 import {
   format,
@@ -134,7 +134,7 @@ export function encodeAggregationTally(stage) {
       return Array.isArray(filter)
         ? {
             op: filter[0],
-            args: filter.slice(1).length ? [...cbor.encode(args).values()] : [],
+            args: filter.slice(1).length ? [...encode(args).values()] : [],
           }
         : { op: filter, args: [] }
     }),
@@ -224,7 +224,7 @@ export function encodeDataRequest(radRequest) {
         ...(retrieve.body && {
           body: [...utf8Encode.encode(retrieve.body)],
         }),
-        script: [...cbor.encode(retrieve.script)],
+        script: [...encode(retrieve.script)],
       }
     }),
     aggregate: encodeAggregationTally(radRequest.aggregate),
