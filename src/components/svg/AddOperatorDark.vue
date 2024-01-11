@@ -1,5 +1,5 @@
-<template
-  ><svg
+<template>
+  <svg
     width="16"
     height="16"
     viewBox="0 0 16 16"
@@ -11,5 +11,6 @@
       fill="#37D279"
     />
     <path d="M4 8H12" stroke="#2D2C3A" stroke-width="2" />
-    <path d="M8 4V12" stroke="#2D2C3A" stroke-width="2" /></svg
-></template>
+    <path d="M8 4V12" stroke="#2D2C3A" stroke-width="2" />
+  </svg>
+</template>

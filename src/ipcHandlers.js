@@ -3,7 +3,7 @@ import store from './store'
 
 window.ipcRenderer.on('shutdown', async () => {
   await store.dispatch('shutdown')
-  ipcRenderer.send('shutdown-finished')
+  window.ipcRenderer.send('shutdown-finished')
 })
 
 window.ipcRenderer.on('running', async () => {

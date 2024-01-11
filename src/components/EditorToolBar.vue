@@ -57,14 +57,16 @@
           <el-button type="primary" data-test="export-selection">
             {{ tab.text }} <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item
-              v-for="option in tab.options"
-              :key="option.text"
-              :command="option.action"
-              :data-test="option.name"
-              >{{ option.text }}</el-dropdown-item
-            >
+          <el-dropdown-menu>
+            <template #dropdown>
+              <el-dropdown-item
+                v-for="option in tab.options"
+                :key="option.text"
+                :command="option.action"
+                :data-test="option.name"
+                >{{ option.text }}</el-dropdown-item
+              >
+            </template>
           </el-dropdown-menu>
         </el-dropdown>
       </span>

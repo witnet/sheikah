@@ -1,5 +1,5 @@
-<template
-  ><svg
+<template>
+  <svg
     width="12"
     height="8"
     viewBox="0 0 12 8"
@@ -12,5 +12,6 @@
       stroke="#D6D6D6"
       stroke-width="0.5"
       stroke-linejoin="round"
-    /></svg
-></template>
+    />
+  </svg>
+</template>

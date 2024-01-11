@@ -8,11 +8,11 @@
 // ├─┬ dist
 // │ └── index.html    > Electron-Renderer
 //
-import { fileURLToPath } from 'node:url';
-import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url'
+import { dirname } from 'node:path'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 process.env.DIST_ELECTRON = join(__dirname, '..')
 process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
 process.env.PUBLIC = app.isPackaged
@@ -36,7 +36,6 @@ if (!app.requestSingleInstanceLock()) {
   app.quit()
   process.exit(0)
 }
-
 
 // Remove electron security warnings
 // This warning only shows in development mode

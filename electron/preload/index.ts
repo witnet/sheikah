@@ -23,8 +23,10 @@ function withPrototype(obj: Record<string, any>) {
 }
 
 // --------- Preload scripts loading ---------
-function domReady(condition: DocumentReadyState[] = ['complete', 'interactive']) {
-  return new Promise((resolve) => {
+function domReady(
+  condition: DocumentReadyState[] = ['complete', 'interactive'],
+) {
+  return new Promise(resolve => {
     if (condition.includes(document.readyState)) {
       resolve(true)
     } else {
@@ -110,7 +112,7 @@ function useLoading() {
 const { appendLoading, removeLoading } = useLoading()
 domReady().then(appendLoading)
 
-window.onmessage = (ev) => {
+window.onmessage = ev => {
   ev.data.payload === 'removeLoading' && removeLoading()
 }
 

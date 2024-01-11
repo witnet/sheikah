@@ -1,5 +1,5 @@
-<template
-  ><svg
+<template>
+  <svg
     width="46"
     height="36"
     viewBox="0 0 46 36"
@@ -56,5 +56,6 @@
       transform="matrix(0 -1 -1 0 22 36)"
       stroke="#666578"
       stroke-width="2"
-    /></svg
-></template>
+    />
+  </svg>
+</template>

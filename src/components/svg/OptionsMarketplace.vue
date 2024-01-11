@@ -1,5 +1,5 @@
-<template
-  ><svg
+<template>
+  <svg
     width="4"
     height="18"
     viewBox="0 0 4 18"
@@ -34,5 +34,6 @@
       <clipPath id="clip0">
         <rect width="3.74576" height="17.4068" fill="white" />
       </clipPath>
-    </defs></svg
-></template>
+    </defs>
+  </svg>
+</template>

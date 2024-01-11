@@ -1,5 +1,5 @@
-<template
-  ><svg
+<template>
+  <svg
     width="4"
     height="16"
     viewBox="0 0 4 16"
@@ -17,5 +17,6 @@
     <path
       d="M2 16C3.10457 16 4 15.1046 4 14C4 12.8954 3.10457 12 2 12C0.89543 12 0 12.8954 0 14C0 15.1046 0.89543 16 2 16Z"
       fill="#9478DD"
-    /></svg
-></template>
+    />
+  </svg>
+</template>

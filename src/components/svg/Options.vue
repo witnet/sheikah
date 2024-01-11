@@ -1,5 +1,5 @@
-<template
-  ><svg
+<template>
+  <svg
     width="4"
     height="16"
     viewBox="0 0 4 16"
@@ -8,5 +8,6 @@
   >
     <circle cx="2" cy="2" r="2" fill="#9C53E0" />
     <circle cx="2" cy="8" r="2" fill="#9C53E0" />
-    <circle cx="2" cy="14" r="2" fill="#9C53E0" /></svg
-></template>
+    <circle cx="2" cy="14" r="2" fill="#9C53E0" />
+  </svg>
+</template>

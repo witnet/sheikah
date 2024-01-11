@@ -1,5 +1,5 @@
-<template
-  ><svg
+<template>
+  <svg
     width="14"
     height="9"
     viewBox="0 0 14 9"
@@ -16,5 +16,6 @@
       stroke="#8280A4"
       stroke-opacity="0.5"
       stroke-linejoin="round"
-    /></svg
-></template>
+    />
+  </svg>
+</template>
