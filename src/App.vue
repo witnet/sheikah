@@ -1,8 +1,10 @@
 <template>
-  <div id="app">
-    <transition :name="transitionName">
+  <el-config-provider namespace="el">
+    <div id="app">
+      <!-- TODO: use transition -->
+      <!-- <transition :name="transitionName"> -->
       <router-view />
-    </transition>
+    <!-- </transition> -->
     <Notification />
     <ResyncConfirmation v-if="isResyncConfirmationVisible" />
     <LogoutModal v-if="sessionExpired" />
@@ -11,6 +13,7 @@
     <DeleteWalletConfirmation v-if="isDeleteWalletConfirmationVisible" />
     <ExportXprvModal v-if="isExportXprvQrVisible" />
   </div>
+  </el-config-provider>
 </template>
 
 <script>
@@ -42,11 +45,6 @@ export default {
   },
   computed: {
     ...mapState({
-      tokenGenerationEventOccurred: state =>
-        state.wallet.tokenGenerationEventOccurred,
-      isResyncConfirmationVisible: state =>
-        state.uiInteractions.isResyncConfirmationVisible,
-      sessionExpired: state => state.uiInteractions.sessionExpired,
       sessionWillExpireSoon: state => state.wallet.sessionWillExpireSoon,
       isIdle: state => state.idleVue.isIdle,
       isWalletDescriptionVisible: state =>
@@ -111,7 +109,6 @@ export default {
   },
 }
 </script>
-
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 @import '@/styles/app.global.scss';

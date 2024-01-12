@@ -21,18 +21,22 @@
     <el-form-item :label="$t('amount')" prop="amount">
       <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
       <el-input v-model="form.amount" tabindex="3" data-test="tx-amount">
-        <AppendUnit slot="append" @change-unit="changeUnit" />
+        <template #append>
+          <AppendUnit @change-unit="changeUnit" />
+        </template>
       </el-input>
     </el-form-item>
     <transition name="slide">
       <div v-if="isAdvancedVisible">
-        <div slot="label" class="label">
+        <div class="label">
           {{ $t('timelock') }}
           <el-tooltip trigger="hover" effect="light">
             <font-awesome-icon class="info" icon="info-circle" />
-            <div slot="content" class="info-message">
-              {{ $t('timelock_tooltip') }}
-            </div>
+            <template #content>
+              <div class="info-message">
+                {{ $t('timelock_tooltip') }}
+              </div>
+            </template>
           </el-tooltip>
         </div>
         <el-date-picker
@@ -47,26 +51,24 @@
     </transition>
     <p v-if="createVTTError" class="error">{{ createVTTError.message }}</p>
     <div class="submit">
-      <el-button
+      <el-link
         v-if="isAdvancedVisible"
         data-test="advance-options"
-        type="text"
         class="link"
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_less') }}
-        <CustomIcon class-name="icon" name="close" />
-      </el-button>
-      <el-button
+        <CustomIcon class-name="icon" name="Close" />
+      </el-link>
+      <el-link
         v-else
         data-test="show-advance-options"
         class="link"
-        type="text"
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_advance') }}
-        <CustomIcon class-name="icon" name="open" />
-      </el-button>
+        <CustomIcon class-name="icon" name="Open" />
+      </el-link>
       <el-button
         class="send-btn"
         tabindex="6"
@@ -178,7 +180,7 @@ export default {
   },
   watch: {
     form: {
-      handler(val) {
+      handler() {
         if (this.createVTTError) {
           this.clearError({ error: this.createVTTError.name })
         } else {

@@ -40,9 +40,9 @@
               <CustomIcon
                 v-if="areOptionsVisible"
                 class-name="icon"
-                name="sort-up"
+                name="SortUp"
               />
-              <CustomIcon v-else class-name="icon" name="sort-down" />
+              <CustomIcon v-else class-name="icon" name="SortDown" />
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@ export default {
       type: Array,
       required: true,
     },
-    value: {
+    modelValue: {
       type: Object,
       required: true,
     },
@@ -145,7 +145,7 @@ export default {
       areOptionsVisible: false,
       keysSoFar: '',
       filteredOptions: this.options,
-      selectedOption: this.value,
+      selectedOption: this.modelValue,
     }
   },
   computed: {
@@ -182,8 +182,8 @@ export default {
     },
   },
   watch: {
-    value() {
-      this.selectedOption = this.value
+    modelValue() {
+      this.selectedOption = this.modelValue
     },
     options: {
       deep: true,
@@ -199,7 +199,7 @@ export default {
         this.$refs.options.scrollTop = top
       }
     },
-    handleFocus(e) {
+    handleFocus() {
       this.areOptionsVisible = true
       if (this.$refs.button) {
         this.$refs.button.focus()
@@ -207,7 +207,7 @@ export default {
     },
     selectOption(option) {
       this.selectedOption = option
-      this.$emit('input', this.selectedOption)
+      this.$emit('update:modelValue', this.selectedOption)
       this.reset()
     },
     handleBlur(e) {
@@ -240,16 +240,16 @@ export default {
     },
     setupFocus() {
       if (!this.selectedOption) {
-        this.$emit('input', this.filteredOptions[0])
+        this.$emit('update:modelValue', this.filteredOptions[0])
       }
     },
     selectPrevOption() {
       this.selectedOption = this.filteredOptions[this.prevOptionIndex]
-      this.$emit('input', this.selectedOption)
+      this.$emit('update:modelValue', this.selectedOption)
     },
     selectNextOption() {
       this.selectedOption = this.filteredOptions[this.nextOptionIndex]
-      this.$emit('input', this.selectedOption)
+      this.$emit('update:modelValue', this.selectedOption)
     },
     search(e) {
       clearTimeout(resetKeysSoFarTimer)

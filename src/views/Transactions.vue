@@ -1,6 +1,6 @@
 <template>
   <LayoutTwoColumns data-test="transactions">
-    <template v-slot:left>
+    <template #left>
       <TransactionList
         class="list"
         :transactions-length="transactionsLength"
@@ -9,11 +9,11 @@
       />
     </template>
 
-    <template v-slot:upperRight>
+    <template #upperRight>
       <Balance :total="total" :unit="unit" />
     </template>
 
-    <template v-slot:bottomRight>
+    <template #bottomRight>
       <Addresses
         :addresses="addresses"
         :unit="unit"

@@ -1,16 +1,16 @@
 <template>
   <el-dialog
+    v-model="isWalletDescriptionVisibleLocal"
     class="wallet-description"
-    title="Wallet description"
-    :visible="true"
     :show-close="true"
-    :close-on-click-modal="false"
     @close="close"
   >
-    <div slot="title" class="title-container">
-      <img class="avatar" :src="unlockedWallet.image" alt="avatar" />
-      <p class="title">{{ unlockedWallet.name }}</p>
-    </div>
+    <template #header>
+      <div class="title-container">
+        <img class="avatar" :src="unlockedWallet.image" alt="avatar" />
+        <p class="title">{{ unlockedWallet.name }}</p>
+      </div>
+    </template>
     <p class="text">
       {{ walletDescription }}
     </p>
@@ -26,7 +26,17 @@ export default {
     ...mapGetters(['unlockedWallet']),
     ...mapState({
       walletDescription: state => state.wallet.description,
+      isWalletDescriptionVisible: state =>
+        state.uiInteractions.isWalletDescriptionVisible,
     }),
+    isWalletDescriptionVisibleLocal: {
+      get() {
+        return this.isWalletDescriptionVisible
+      },
+      set() {
+        this.close()
+      },
+    },
   },
   methods: {
     ...mapMutations({

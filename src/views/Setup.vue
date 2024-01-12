@@ -69,7 +69,6 @@ export default {
   computed: {
     ...mapState({
       setupMessage: state => state.uiInteractions.setupMessage,
-      client: state => state.wallet.api.client,
       progress: state => state.uiInteractions.setupProgress,
       theme: state => state.wallet.theme,
     }),

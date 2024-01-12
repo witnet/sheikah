@@ -29,7 +29,7 @@ yarn-error.log*
 *.sw?
 
 #Electron-builder output
-/dist_electron
+/dist-electron
 witnet.toml
 
 #witnet-rust files

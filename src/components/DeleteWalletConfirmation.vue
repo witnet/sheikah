@@ -1,21 +1,21 @@
 <template>
   <el-dialog
+    v-model="isDeleteWalletConfirmationVisibleLocal"
     class="delete"
-    title="Warning"
     width="30%"
-    :visible="true"
     :show-close="true"
-    :close-on-click-modal="false"
     @close="close"
   >
-    <div slot="title" class="title-container">
-      <font-awesome-icon class="icon" icon="exclamation-triangle" />
-      <p class="title">{{ $t('warning') }}</p>
-    </div>
+    <template #header>
+      <div class="title-container">
+        <font-awesome-icon class="icon" icon="exclamation-triangle" />
+        <p class="title">{{ $t('warning') }}</p>
+      </div>
+    </template>
 
-    <i18n path="delete_confirmation_0" tag="p" class="text">
+    <i18n-t keypath="delete_confirmation_0" tag="p" class="text" scope="global">
       <span class="wallet-name">{{ unlockedWallet.name }}</span>
-    </i18n>
+    </i18n-t>
     <p class="text">
       {{ $t('delete_confirmation_1') }}
     </p>
@@ -26,24 +26,26 @@
       v-model="walletName"
       class="input"
       :placeholder="$t('wallet_name')"
-      @keydown.enter.native="callDelete"
+      @keydown.enter="callDelete"
     />
     <p class="error">
       {{ error }}
     </p>
-    <span slot="footer" class="dialog-footer">
-      <el-button type="danger" plain @click="close">{{
-        $t('cancel')
-      }}</el-button>
-      <el-button type="danger" @click="callDelete">{{
-        $t('delete')
-      }}</el-button>
-    </span>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button type="danger" plain @click="close">{{
+          $t('cancel')
+        }}</el-button>
+        <el-button type="danger" @click="callDelete">{{
+          $t('delete')
+        }}</el-button>
+      </div>
+    </template>
   </el-dialog>
 </template>
 
 <script>
-import { mapActions, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'DeleteConfirmation',
@@ -54,9 +56,22 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      isDeleteWalletConfirmationVisible: state => {
+        return state.uiInteractions.isDeleteWalletConfirmationVisible
+      },
+    }),
     ...mapGetters(['unlockedWallet']),
     validateDelete() {
       return this.walletName === this.unlockedWallet.name
+    },
+    isDeleteWalletConfirmationVisibleLocal: {
+      set() {
+        this.$emit('close')
+      },
+      get() {
+        return this.isDeleteWalletConfirmationVisible
+      },
     },
   },
   watch: {

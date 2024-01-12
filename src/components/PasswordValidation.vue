@@ -23,7 +23,7 @@
         data-test="repeated-password"
         :placeholder="$t('confirm_password')"
         show-password
-        @keydown.enter.native="validate"
+        @keydown.enter="validate"
       />
     </div>
     <div v-if="error" data-test="password-error-alert" class="error">

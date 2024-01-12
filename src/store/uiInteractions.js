@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import { LocalStorageApi } from '@/api'
+import { localStorageWrapper } from '@/main'
 
 export default {
   state: {
@@ -9,7 +8,6 @@ export default {
     setupMessage: 'Updating wallet backend',
     setupProgress: 0,
     sessionExpired: false,
-    localStorage: new LocalStorageApi(),
     isResyncConfirmationVisible: false,
     isWalletDescriptionVisible: false,
     isRenameWalletConfirmationVisible: false,
@@ -89,10 +87,11 @@ export default {
   },
   actions: {
     notify(context, payload) {
-      Vue.prototype.$notify(payload)
+      // TODO: replace vue prototype https://vuejs.org/api/application.html#app-config-globalproperties
+      // Vue.prototype.$notify(payload)
     },
-    saveShowModalAgain(context, val) {
-      context.state.localStorage.setSkipSessionExpirationInfo(val)
+    saveShowModalAgain(_context, val) {
+      localStorageWrapper.setSkipSessionExpirationInfo(val)
     },
   },
 }

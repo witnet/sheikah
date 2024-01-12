@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 /**
  * Notification component that appears when called
  */
@@ -28,7 +26,8 @@ export default {
     }
   },
   mounted() {
-    Vue.prototype.$notify = this.show
+    // TODO: https://vuejs.org/api/application.html#app-config-globalproperties
+    // Vue.prototype.$notify = this.show
   },
   methods: {
     show(payload) {

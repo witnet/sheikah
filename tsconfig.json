@@ -1,28 +1,27 @@
 {
   "compilerOptions": {
-    "skipLibCheck": true,
-    "target": "es2019",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
+    "target": "ESNext",
+    "module": "ESNext",
+    "useDefineForClassFields": true,
+    "moduleResolution": "Node",
     "importHelpers": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "experimentalDecorators": true,
+    "jsx": "preserve",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
-    "allowJs": true,
-    "baseUrl": ".",
-    "types": ["node", "jest", "webpack", "webpack-env"],
+    "baseUrl": "./",
+    "strict": true,
     "paths": {
-      "@/*": ["src/*"],
-      "*": ["src/typings/*"]
+      "@/*": ["./src/*"],
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "typeRoots": ["node_modules/@types", "src/typings"],
-    "outDir": "dist/"
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
-  "exclude": ["node_modules", "tests"],
-  "include": ["src//*.ts", "src//*.vue"]
+  "include": ["src"],
+  "references": [
+    { "path": "./tsconfig.node.json" }
+  ],
+  "types": ["element-plus/global"]
 }

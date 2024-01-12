@@ -17,14 +17,13 @@
       </p>
     </div>
     <div class="container-btn">
-      <el-button
+      <el-link
         class="back-btn capitalize"
-        type="text"
         data-test="unlock-wallet"
         @click="previousStep"
       >
         {{ $t('back') }}
-      </el-button>
+      </el-link>
       <div class="unlock-btn" @keydown.enter.esc.prevent="unlock">
         <el-button
           ref="submit"

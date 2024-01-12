@@ -111,7 +111,7 @@ export default {
   .help {
     // default style for paragraphs added in the slot
     // stylelint-disable-next-line
-    ::v-deep p {
+    :v-deep(p) {
       color: var(--text-low-emphasis);
       font-size: 13px;
       font-style: italic;

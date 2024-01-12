@@ -1,0 +1,92 @@
+// only scss variables
+
+$--colors: (
+  "primary": (
+    "base": #9b51e0,
+  ),
+  "success": (
+    "base": #52c41a,
+  ),
+  "warning": (
+    "base": #f2c94c,
+  ),
+  "danger": (
+    "base": #f08484,
+  ),
+  "error": (
+    "base": #f08484,
+  ),
+  "info": (
+    "base": yellow,
+  ),
+);
+
+$--border-color: 
+  (
+    '': #8f8f8f, // $grey-dark-4 - grey-dark-10
+    'light':#8f8f8f,
+    'lighter': #8f8f8f,
+    'extra-light': #8f8f8f,
+    'dark': #8f8f8f,
+    'darker': #8f8f8f,
+  );
+
+$--fill-color: (
+    '': #f0f2f5,
+    'light': #f5f7fa,
+    'lighter': #fafafa,
+    'extra-light': #fafcff,
+    'dark': #ebedf0,
+    'darker': #e6e8eb,
+    'blank': #ffffff,
+);
+
+$--text-color: (
+    'primary': #303133,
+    'regular': #606266,
+    'secondary': #909399,
+    'placeholder': #a8abb2,
+    'disabled': #c0c4cc,
+);
+
+$--bg-color: (
+    '': #ffffff,
+    'page': #f2f3f5,
+    'overlay': #ffffff,
+);
+
+// $--box-shadow: (
+//     '': (
+//       0px 12px 32px 4px rgba(0, 0, 0, 0.04),
+//       0px 8px 20px rgba(0, 0, 0, 0.08),
+//     ),
+//     'light': (
+//       0px 0px 12px rgba(0, 0, 0, 0.12),
+//     ),
+//     'lighter': (
+//       0px 0px 6px rgba(0, 0, 0, 0.12),
+//     ),
+//     'dark': (
+//       0px 16px 48px 16px rgba(0, 0, 0, 0.08),
+//       0px 12px 32px rgba(0, 0, 0, 0.12),
+//       0px 8px 16px -8px rgba(0, 0, 0, 0.16),
+//     ),
+// );
+
+// $--overlay-color: (
+//     '': rgba(0, 0, 0, 0.8),
+//     'light': rgba(0, 0, 0, 0.7),
+//     'lighter': rgba(0, 0, 0, 0.5),
+// );
+
+// $--mask-color: (
+//   '': rgba(255, 255, 255, 0.9),
+//   'extra-light': rgba(255, 255, 255, 0.3),
+// );
+
+
+
+
+@forward "element-plus/theme-chalk/src/dark/var.scss" with (
+  $colors: $--colors
+);

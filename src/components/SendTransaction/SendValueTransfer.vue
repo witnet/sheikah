@@ -1,9 +1,8 @@
 <template>
   <el-dialog
+    v-model="localVisible"
     :title="title"
-    :visible="true"
     :show-close="true"
-    :close-on-click-modal="false"
     width="max-content"
     @close="closeAndClear"
   >
@@ -41,6 +40,12 @@ export default {
     SendValueTransferForm,
     SetFee,
   },
+  props: {
+    visible: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data() {
     return {
       label: '',
@@ -48,6 +53,14 @@ export default {
     }
   },
   computed: {
+    localVisible: {
+      set() {
+        this.$emit('close')
+      },
+      get() {
+        return this.visible
+      },
+    },
     ...mapState({
       generatedTransaction: state => {
         return state.wallet.generatedTransaction

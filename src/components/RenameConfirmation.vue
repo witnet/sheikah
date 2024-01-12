@@ -1,16 +1,17 @@
 <template>
   <el-dialog
+    v-model="isRenameWalletConfirmationVisibleLocal"
     class="wallet-description"
-    title="Wallet description"
     :visible="true"
     :show-close="true"
-    :close-on-click-modal="false"
     @close="close"
   >
-    <p slot="title" class="title"
-      ><font-awesome-icon class="icon" icon="cog" />
-      {{ $t('rename_confirmation_title') }}</p
-    >
+    <template #header>
+      <div class="title">
+        <font-awesome-icon class="icon" icon="cog" />
+        {{ $t('rename_confirmation_title') }}
+      </div>
+    </template>
     <p class="text">
       {{ $t('rename_modal_description') }}
     </p>
@@ -46,7 +47,17 @@ export default {
       description: state => state.wallet.updatedDescription,
       name: state => state.wallet.updatedName,
       updateWalletError: state => state.wallet.errors.updateWallet,
+      isRenameWalletConfirmationVisible: state =>
+        state.uiInteractions.isRenameWalletConfirmationVisible,
     }),
+    isRenameWalletConfirmationVisibleLocal: {
+      get() {
+        return this.isRenameWalletConfirmationVisible
+      },
+      set() {
+        this.close()
+      },
+    },
   },
   methods: {
     renameWallet() {

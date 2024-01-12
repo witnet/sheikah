@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { changeDateFormat, getAvatarUrl } from '@/utils'
 import BigNumber from '@/utils/BigNumber'
-const RPCWebsockets = require('rpc-websockets').Client
+import { Client as RPCWebsockets } from 'rpc-websockets'
 
 const defaultOptions = {
   url: 'ws://localhost:11212',
@@ -77,7 +77,7 @@ export class WalletApi {
   // This is overriding the native `client.subscribe` because it lacks support for `params`
   subscribeToNotifications(params, cb) {
     return this._callApiMethod('rpc.on')([params.session_id])
-      .then(_ => {
+      .then(() => {
         this.client.on('notifications', cb)
       })
       .catch(this._handleError)
@@ -229,7 +229,7 @@ export class WalletApi {
 
 export class MarketplaceApi {
   baseUrl =
-    process.env.marketplaceUrl ||
+    import.meta.env.marketplaceUrl ||
     'https://witnet-marketplace-api-test.herokuapp.com'
 
   _handleResponse(response) {
@@ -260,7 +260,7 @@ export class MarketplaceApi {
   postTemplate() {}
 }
 
-export class LocalStorageApi {
+export class LocalStorageWrapper {
   _get(key) {
     return JSON.parse(localStorage.getItem(key))
   }

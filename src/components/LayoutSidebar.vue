@@ -11,7 +11,7 @@ export default {
         },
       },
       [
-        this.$slots.sidebar[0],
+        this.$slots.sidebar()[0],
         createElement(
           'div',
           {

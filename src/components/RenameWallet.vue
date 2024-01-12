@@ -13,9 +13,11 @@
         {{ $t('name') }}
         <el-tooltip trigger="hover" effect="light">
           <font-awesome-icon class="info" icon="info-circle" />
-          <div slot="content" class="info-message">
-            {{ $t('wallet_name_info') }}
-          </div>
+          <template #content>
+            <div class="info-message">
+              {{ $t('wallet_name_info') }}
+            </div>
+          </template>
         </el-tooltip>
       </p>
 
@@ -26,9 +28,11 @@
         {{ $t('description') }}
         <el-tooltip trigger="hover" effect="light">
           <font-awesome-icon class="info" icon="info-circle" />
-          <div slot="content" class="info-message">
-            {{ $t('wallet_description_info') }}
-          </div>
+          <template #content>
+            <div class="info-message">
+              {{ $t('wallet_description_info') }}
+            </div>
+          </template>
         </el-tooltip>
       </p>
       <el-input

@@ -17,7 +17,8 @@
         class="add"
         @click="createTemplateAndRedirect"
       >
-        <img class="add-btn" src="@/resources/svg/add.svg" />
+        <!-- <img class="add-btn" src="@/resources/svg/add.svg" /> -->
+        <CustomIcon class="add-btn" name="add" />
         <p class="text">{{ $t('create_template') }}</p>
       </div>
       <TemplateCard
@@ -62,6 +63,7 @@
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
 import TemplateCard from '@/components/card/TemplateCard.vue'
+
 import DeployDataRequest from '@/components/SendTransaction/DeployDataRequest.vue'
 import { CREATE_TEMPLATE } from '@/store/mutation-types'
 import { TEMPLATES_PER_PAGE } from '@/constants'
@@ -157,7 +159,7 @@ export default {
     importTemplate() {
       this.$refs.fileInput.click()
     },
-    readFile(e) {
+    readFile() {
       const file = this.$refs.fileInput.files[0]
       const reader = new FileReader()
       reader.addEventListener(

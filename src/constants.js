@@ -1,8 +1,10 @@
+// todo: ensure this works
 import { es as fnsEs, enGB } from 'date-fns/locale'
-import en from 'element-ui/lib/locale/lang/en'
-import es from 'element-ui/lib/locale/lang/es'
-import bitcoinPrice from '@/radExamples/bitcoinPrice.js'
-import ethPrice from '@/radExamples/ethPrice.js'
+import en from 'element-plus/dist/locale/en.mjs'
+import es from 'element-plus/dist/locale/es.mjs'
+// TODO: fix
+// import bitcoinPrice from '@/radExamples/bitcoinPrice.js'
+// import ethPrice from '@/radExamples/ethPrice.js'
 
 export const EDITOR_ALLOWED_PROTOCOLS = ['http', 'https']
 
@@ -59,6 +61,7 @@ export const DR_DEFAULT_VALUES = {
   collateral: '1000000000',
 }
 
+// TODO: update locales to element-plus
 export const LANGUAGES = {
   es: { name: 'Español', locale: 'es', fnsLocale: fnsEs, elementLocale: es },
   en: { name: 'English', locale: 'en', fnsLocale: enGB, elementLocale: en },
@@ -67,28 +70,35 @@ export const LANGUAGES = {
 export const DEFAULT_LOCALE = 'en'
 
 export const CUSTOM_ICON_NAMES = [
-  'add-operator',
-  'add',
-  'close-btn',
-  'close-btn-light',
-  'close',
-  'delete-btn',
-  'disconnected',
-  'down',
-  'exit-icon',
-  'long-arrow',
-  'negative',
-  'open',
-  'operator-arrow',
-  'options-marketplace',
-  'options',
-  'positive',
-  'sheikah-icon',
-  'sheikah-small',
-  'sheikah',
-  'sort-down',
-  'sort-up',
-  'up',
+  'AddOperator',
+  'Add',
+  'CloseBtn',
+  'CloseBtnLight',
+  'Close',
+  'DeleteBtn',
+  'Disconnected',
+  'Down',
+  'ExitIcon',
+  'LongArrow',
+  'Negative',
+  'Open',
+  'OperatorArrow',
+  'OptionsMarketplace',
+  'Options',
+  'Positive',
+  'SheikahIcon',
+  'SheikahSmall',
+  'Sheikah',
+  'SortDown',
+  'SortUp',
+  'Up',
+  'Email',
+  'Telegram',
+  'Discord',
+  'Github',
+  'Twitter',
+  'Medium',
+  'Reddit',
 ]
 
 export const THEMES = {
@@ -200,11 +210,11 @@ export const RAD_EXAMPLES = [
   {
     name: 'Bitcoin price',
     description: 'Bitcoin price in USD',
-    radRequest: bitcoinPrice,
+    // radRequest: bitcoinPrice,
   },
   {
     name: 'Eth price',
     description: 'Eth price in USD',
-    radRequest: ethPrice,
+    // radRequest: ethPrice,
   },
 ]

@@ -17,21 +17,21 @@
         trigger="hover"
         :content="stringifiedOutput"
       >
-        <p
-          v-if="explicitOutput"
-          slot="reference"
-          data-test="output"
-          class="icon explicit-output"
-        >
-          {{ explicitOutput }}
-        </p>
-        <font-awesome-icon
-          v-else-if="stringifiedOutput"
-          slot="reference"
-          data-test="output"
-          class="icon"
-          icon="eye"
-        />
+        <template #reference>
+          <p
+            v-if="explicitOutput"
+            data-test="output"
+            class="icon explicit-output"
+          >
+            {{ explicitOutput }}
+          </p>
+          <font-awesome-icon
+            v-else-if="stringifiedOutput"
+            data-test="output"
+            class="icon"
+            icon="eye"
+          />
+        </template>
 
         <JsonTree :data="simplifyDrResult(output)" />
       </el-popover>
@@ -43,12 +43,13 @@
         trigger="hover"
         content="Click 'Try Data Request' to see the partial result"
       >
-        <font-awesome-icon
-          slot="reference"
-          data-test="empty-output"
-          class="icon ban"
-          icon="eye-slash"
-        />
+        <template #reference>
+          <font-awesome-icon
+            data-test="empty-output"
+            class="icon ban"
+            icon="eye-slash"
+          />
+        </template>
       </el-popover>
       <!-- Error when trying data request-->
       <el-popover
@@ -60,12 +61,13 @@
         trigger="hover"
         :content="error"
       >
-        <font-awesome-icon
-          slot="reference"
-          data-test="error"
-          class="icon error"
-          icon="exclamation-triangle"
-        />
+        <template #reference>
+          <font-awesome-icon
+            data-test="error"
+            class="icon error"
+            icon="exclamation-triangle"
+          />
+        </template>
       </el-popover>
     </div>
   </div>

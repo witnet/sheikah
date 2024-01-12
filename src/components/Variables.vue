@@ -31,7 +31,7 @@
         <Select
           v-focus:[focusHandler(index,type)]
           data-test="select-type"
-          :value="{ primaryText: variable.type }"
+          :model-value="{ primaryText: variable.type }"
           :options="dataTypeOptions"
           @input="
             val =>
@@ -103,7 +103,7 @@
       </el-tooltip>
     </div>
     <div class="img-container" @click="createVariable">
-      <CustomIcon data-test="add-variable" name="add-operator" />
+      <CustomIcon data-test="add-variable" name="AddOperator" />
       <p class="add-operator-text">{{ $t('add_variable') }}</p>
     </div>
   </div>
@@ -186,7 +186,7 @@ export default {
         return false
       }
     },
-    standardizeDataType(type) {
+    standardizeDataType() {
       return this.dataTypeOptions.find(type => type.primaryText === type)
     },
     updateKey({ index, key, value, description, type }) {

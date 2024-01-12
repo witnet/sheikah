@@ -19,7 +19,7 @@
         data-test="password"
         :placeholder="$t('password')"
         show-password
-        @keydown.enter.native="nextStep"
+        @keydown.enter="nextStep"
       />
       <div v-if="xprvError" data-test="password-error-alert" class="error">
         {{ xprvError.message }}

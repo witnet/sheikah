@@ -1,5 +1,4 @@
 import { Radon } from 'witnet-radon-js'
-import Vue from 'vue'
 import {
   createNotification,
   generateId,
@@ -34,6 +33,9 @@ import {
   SET_CURRENT_STAGE,
   DELETE_USED_VARIABLE,
 } from '@/store/mutation-types'
+import { api } from '@/main'
+
+// import wallet from './wallet'
 
 export default {
   state: {
@@ -161,7 +163,8 @@ export default {
       state.currentTemplate.variablesIndex += 1
       state.currentTemplate.variables.push({
         key:
-          i18n.t('variable_default_key') + state.currentTemplate.variablesIndex,
+          i18n.global.tc('variable_default_key') +
+          state.currentTemplate.variablesIndex,
         value: '',
         description: '',
         type: 'String',
@@ -341,8 +344,8 @@ export default {
         info: { scriptId },
       })
     },
-    [CREATE_TEMPLATE](state, { locale }) {
-      const TEMPLATE_DEFAULT_NAME = i18n.t('template_default_name')
+    [CREATE_TEMPLATE](state, context) {
+      const TEMPLATE_DEFAULT_NAME = i18n.global.tc('template_default_name')
       const name = Object.values(state.templates).reduce(
         (acc, _, index, self) => {
           const isRepeatedName = self.find(template => template.name === acc)
@@ -383,7 +386,10 @@ export default {
           usedVariables: [],
         }
 
-        state.currentRadonMarkupInterpreter = new Radon(radRequest, locale)
+        state.currentRadonMarkupInterpreter = new Radon(
+          radRequest,
+          context.locale,
+        )
         state.radRequest = state.currentRadonMarkupInterpreter
         state.history = [
           {
@@ -394,8 +400,8 @@ export default {
         ]
       } else {
         createNotification({
-          title: i18n.t('import_dr_notification_title'),
-          body: i18n.t('import_dr_notification_body'),
+          title: i18n.global.tc('import_dr_notification_title'),
+          body: i18n.global.tc('import_dr_notification_body'),
         })
       }
     },
@@ -474,8 +480,8 @@ export default {
       if (isImportingTemplate && !isValidRadRequest(args.template.radRequest)) {
         // data request is invalid
         createNotification({
-          title: i18n.t('import_dr_notification_title'),
-          body: i18n.t('import_dr_notification_body'),
+          title: i18n.global.tc('import_dr_notification_title'),
+          body: i18n.global.tc('import_dr_notification_body'),
         })
       } else {
         const templateToSave = isImportingTemplate
@@ -498,7 +504,7 @@ export default {
         }
         templates[templateToSave.id] = templateToSave
 
-        const request = await context.rootState.wallet.api.saveItem({
+        const request = await api.saveItem({
           wallet_id: context.rootState.wallet.walletId,
           session_id: context.rootState.wallet.sessionId,
           key: 'templates',
@@ -514,13 +520,13 @@ export default {
           context.commit('setError', {
             name: 'saveItem',
             error: request.error,
-            message: i18n.t('save_template_error_message'),
+            message: i18n.global.tc('save_template_error_message'),
           })
         }
       }
     },
-    getTemplates: async function (context, params) {
-      const request = await context.rootState.wallet.api.getItem({
+    getTemplates: async function (context) {
+      const request = await api.getItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
         key: 'templates',
@@ -531,13 +537,14 @@ export default {
         context.commit('setError', {
           name: 'getItem',
           error: request.error.message,
-          message: i18n.t('get_templates_error_message'),
+          message: i18n.global.tc('get_templates_error_message'),
         })
       }
     },
-    deleteTemplate: async function (context, { id }) {
-      Vue.delete(context.state.templates, id)
-      const request = await context.rootState.wallet.api.saveItem({
+    deleteTemplate: async function (context /*, { id }*/) {
+      // TODO: fix
+      // $vm.delete(context.state.templates, id)
+      const request = await api.saveItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
         key: 'templates',
@@ -547,7 +554,7 @@ export default {
         context.commit('setError', {
           name: 'saveItem',
           error: request.error.message,
-          message: i18n.t('delete_template_error_message'),
+          message: i18n.global.tc('delete_template_error_message'),
         })
       }
     },

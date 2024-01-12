@@ -14,11 +14,9 @@
 
     <el-form-item :label="$t('collateral')" prop="collateral">
       <el-input v-model="form.collateral" data-test="collateral">
-        <AppendUnit
-          slot="append"
-          data-test="collateral-append"
-          @change-unit="changeUnit"
-        />
+        <template #append>
+          <AppendUnit data-test="collateral-append" @change-unit="changeUnit" />
+        </template>
       </el-input>
     </el-form-item>
 
@@ -34,11 +32,9 @@
 
     <el-form-item :label="$t('reward_fee')" prop="rewardFee">
       <el-input v-model="form.rewardFee" data-test="reward-fee">
-        <AppendUnit
-          slot="append"
-          data-test="reward-fee-append"
-          @change-unit="changeUnit"
-        />
+        <template #append>
+          <AppendUnit data-test="reward-fee-append" @change-unit="changeUnit" />
+        </template>
       </el-input>
     </el-form-item>
 
@@ -47,11 +43,12 @@
       prop="commitAndRevealFee"
     >
       <el-input v-model="form.commitAndRevealFee" data-test="commit-reveal-fee">
-        <AppendUnit
-          slot="append"
-          data-test="commit-reveal-fee-append"
-          @change-unit="changeUnit"
-        />
+        <template #append>
+          <AppendUnit
+            data-test="commit-reveal-fee-append"
+            @change-unit="changeUnit"
+          />
+        </template>
       </el-input>
     </el-form-item>
     <p
@@ -230,7 +227,7 @@ export default {
   },
   watch: {
     form: {
-      handler(val) {
+      handler() {
         if (this.createDataRequestError) {
           this.clearError({ error: this.createDataRequestError.name })
         }

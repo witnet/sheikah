@@ -1,14 +1,14 @@
 <template>
   <BaseCard class="card">
-    <template v-if="title" v-slot:header>
+    <template v-if="title" #header>
       <p class="title" :class="type">{{ title }}</p>
     </template>
 
-    <template v-else v-slot:header>
+    <template v-else #header>
       <slot name="header"></slot>
     </template>
 
-    <template v-slot:content>
+    <template #content>
       <div
         class="content"
         :class="[shadowStyle, borderStyle, paddingStyle, type]"

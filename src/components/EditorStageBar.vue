@@ -11,13 +11,14 @@
         tabindex="0"
         @click="changeStage(stage.name)"
       >
-        <i18n
-          :path="stage.label[0]"
+        <i18n-t
+          :keypath="stage.label[0]"
           tag="span"
           :data-test="`stage-${stage.name}`"
+          scope="global"
         >
           <span class="bolder">{{ $t(stage.label[1]) }}</span>
-        </i18n>
+        </i18n-t>
       </div>
     </div>
   </div>
@@ -60,7 +61,7 @@ export default {
     }),
   },
   created() {
-    this.unsubscribe = this.$store.subscribe((mutation, state) => {
+    this.unsubscribe = this.$store.subscribe(mutation => {
       if (mutation.type === 'EDITOR_UNDO' || mutation.type === 'EDITOR_REDO') {
         this.$refs[`stage-${this.currentStage}`][0].focus()
       }
@@ -103,7 +104,7 @@ export default {
     padding: 0 24px;
     position: relative;
     // stylelint-disable-next-line
-    ::v-deep .bolder {
+    :v-deep(bolder) {
       font-size: 15px;
       font-weight: 500;
     }

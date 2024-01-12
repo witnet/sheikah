@@ -47,9 +47,11 @@
         </div>
         <div v-else-if="!!Number(epoch)">
           <el-tooltip placement="bottom" effect="light">
-            <div slot="content" class="info-message">
-              {{ $t('pending_confirmation_tooltip') }}
-            </div>
+            <template #content>
+              <div class="info-message">
+                {{ $t('pending_confirmation_tooltip') }}
+              </div>
+            </template>
             <p data-test="pending-confirmation" class="pending">{{
               $t('pending_confirmation')
             }}</p>
@@ -57,9 +59,11 @@
         </div>
         <div v-else>
           <el-tooltip placement="bottom" effect="light">
-            <div slot="content" class="info-message">
-              {{ $t('sending_tx_tooltip') }}
-            </div>
+            <template #content>
+              <div class="info-message">
+                {{ $t('sending_tx_tooltip') }}
+              </div>
+            </template>
             <p data-test="sending-tx" class="pending">{{ $t('sending') }}</p>
           </el-tooltip>
         </div>

@@ -12,7 +12,7 @@ export default {
     },
   },
   actions: {
-    retrieveTemplates: async function (context, params) {
+    retrieveTemplates: async function () {
       const request = await marketplaceApi.getTemplates()
       if (request) {
         this.commit('setTemplates', { templates: request })

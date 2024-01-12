@@ -34,9 +34,9 @@
         </el-button>
       </div>
       <div class="row">
-        <el-button data-test="create-wallet" type="text" @click="nextStep">
+        <el-link data-test="create-wallet" @click="nextStep">
           {{ $t('create_wallet') }}
-          ></el-button
+          ></el-link
         >
       </div>
     </div>
@@ -45,6 +45,7 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
+import { localStorageWrapper } from '@/main'
 import Select from '@/components/Select.vue'
 import Card from '@/components/card/Card.vue'
 
@@ -65,11 +66,13 @@ export default {
       walletId: state => {
         return state.wallet.walletId
       },
-      getWalletIndex: state => state.wallet.localStorage.getWalletIndex(),
       sessionId: state => state.wallet.sessionId,
       unlockWalletError: state => state.wallet.errors.unlockWallet,
       wallets: state => state.wallet.walletInfos,
     }),
+    getWalletIndex() {
+      return localStorageWrapper.getWalletIndex()
+    },
     lastWalletOpen() {
       return this.getWalletIndex || 0
     },
@@ -82,7 +85,7 @@ export default {
       }
     },
     walletOptions() {
-      return this.wallets.map((wallet, index) => {
+      return this.wallets.map(wallet => {
         return {
           primaryText: wallet.name,
           value: wallet.id,

@@ -32,7 +32,8 @@ export default {
       shutdown: 'shutdown',
     }),
     pollData() {
-      const currentRoute = this.$router.currentRoute.path
+      const currentRoute = this.$route.path
+
       const matchRoute =
         currentRoute.startsWith('/welcome-back') ||
         currentRoute.startsWith('/ftu')

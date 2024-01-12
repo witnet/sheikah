@@ -3,6 +3,7 @@
     :ref="`input${Date.now()}`"
     v-model="inputValue"
     data-test="textarea"
+    v-bind="$attrs"
     class="input"
     :class="{
       big: type === 'big',
@@ -11,17 +12,17 @@
       autoresize,
     }"
     :placeholder="placeholder"
-    :type="nativeType"
-    :maxlength="maxlength"
     @keydown.enter.esc.prevent="toogleGoNextItem"
   />
 </template>
 
 <script>
-import resizeMixin from '@/components/resizeMixin'
+import resizeMixin from '@/components/resizeMixin.js'
 
 export default {
+  // inheritAttrs: false,
   name: 'Input',
+  // TODO: fix mixing
   mixins: [resizeMixin],
   props: {
     maxlength: {
@@ -40,7 +41,7 @@ export default {
       type: [Number, String],
       default: '',
     },
-    value: {
+    modelValue: {
       type: String,
       required: true,
     },
@@ -51,10 +52,10 @@ export default {
   computed: {
     inputValue: {
       get() {
-        return this.value
+        return this.modelValue
       },
       set(inputValue) {
-        this.$emit('input', inputValue)
+        this.$emit('update:modelValue', inputValue)
       },
     },
   },

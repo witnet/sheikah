@@ -1,14 +1,13 @@
-import Vue from 'vue'
-import VueI18n from 'vue-i18n'
+import { createI18n } from 'vue-i18n'
+import en from '@/locales/en.json'
+import es from '@/locales/es.json'
 
-Vue.use(VueI18n)
-
-export default new VueI18n({
+export default new createI18n({
   locale:
     navigator.language.split('-')[0] || navigator.languages[0].split('-')[0],
   fallbackLocale: 'en',
   messages: {
-    en: require('@/locales/en.json'),
-    es: require('@/locales/es.json'),
+    en,
+    es,
   },
 })

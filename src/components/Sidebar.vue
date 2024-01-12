@@ -10,9 +10,9 @@
         class="brand"
         to="/wallet/transactions"
       >
-        <CustomIcon class-name="sheikah-logo" name="sheikah-small" />
+        <CustomIcon class-name="sheikah-logo" name="SheikahSmall" />
         <div class="sheikah-name">
-          <CustomIcon class-name="name" name="sheikah" />
+          <CustomIcon class-name="name" name="Sheikah" />
           <span class="version">{{ version }}</span>
         </div>
       </router-link>
@@ -49,7 +49,7 @@
             placement="right"
             effect="light"
           >
-            <CustomIcon class-name="exit-icon" name="exit-icon" />
+            <CustomIcon class-name="exit-icon" name="ExitIcon" />
           </el-tooltip>
         </div>
         <div class="icon-container" @click="$router.push('/settings/general')">
@@ -88,7 +88,8 @@ export default {
   },
   computed: {
     version() {
-      return `v${process.env.VUE_APP_VERSION || 0}`
+      // eslint-disable-next-line no-undef
+      return `v${__APP_VERSION__}`
     },
   },
   mounted() {
@@ -101,7 +102,7 @@ export default {
       closeSession: 'closeSession',
       shutdown: 'shutdown',
     }),
-    visibilityChanged(isVisible, entry) {
+    visibilityChanged(isVisible) {
       if (isVisible) {
         this.settingVisible = true
       } else {

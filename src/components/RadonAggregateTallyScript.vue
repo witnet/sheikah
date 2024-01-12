@@ -8,14 +8,14 @@
       </div>
       <div class="operator-bottom">
         <div class="icon-container">
-          <CustomIcon v-if="emptyScript" name="long-arrow" />
-          <CustomIcon v-else name="operator-arrow" />
+          <CustomIcon v-if="emptyScript" name="LongArrow" />
+          <CustomIcon v-else name="OperatorArrow" />
           <div
             v-if="emptyScript"
             class="add-operator-container"
             @click="addOperator"
           >
-            <CustomIcon name="add-operator" />
+            <CustomIcon name="AddOperator" />
             <p class="add-operator-text">{{ $t('add_operator') }}</p>
           </div>
         </div>

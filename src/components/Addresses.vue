@@ -73,7 +73,7 @@ export default {
     },
   },
   watch: {
-    isRadiantBorderActive(val, oldVal) {
+    isRadiantBorderActive(val) {
       if (val) {
         setTimeout(() => {
           this.clearTransactionClicked()

@@ -1,6 +1,6 @@
 <template>
   <LayoutTwoColumns>
-    <template v-slot:left>
+    <template #left>
       <div class="scripts">
         <EditorScript
           v-for="(source, index) in sources"
@@ -15,7 +15,7 @@
         />
       </div>
     </template>
-    <template v-slot:upperRight>
+    <template #upperRight>
       <Fieldset :title="$t('scripts_description_title')" type="help">
         <div>
           <p>{{ $t('scripts_description_1') }}</p>
@@ -24,16 +24,16 @@
       </Fieldset>
     </template>
 
-    <template v-slot:bottomRight>
+    <template #bottomRight>
       <Fieldset :title="$t('scripts_rules_title')" type="help">
         <div>
           <p>- {{ $t('scripts_rule_1') }}</p>
           <p
             >-
-            <i18n path="scripts_rule_2_0">
+            <i18n-t keypath="scripts_rule_2_0" scope="global">
               <em>{{ $t('scripts_rule_2_1') }}</em>
               <em>{{ $t('scripts_rule_2_2') }}</em>
-            </i18n>
+            </i18n-t>
           </p>
           <p>- {{ $t('scripts_rule_3') }}</p>
           <p>- {{ $t('scripts_rule_4') }}</p>

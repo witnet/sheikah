@@ -15,6 +15,7 @@
       >
         <CustomIcon class-name="cross" :name="btnUrl" />
       </div>
+      {{ btnUrl }}
       <Version />
     </div>
   </div>
@@ -50,7 +51,7 @@ export default {
   data() {
     return {
       previousRoute: '',
-      btnUrl: 'close-btn',
+      btnUrl: 'CloseBtn',
     }
   },
   computed: {
@@ -116,10 +117,10 @@ export default {
       this.$router.push(this.previousRoute)
     },
     hoverAction() {
-      this.btnUrl = 'close-btn-light'
+      this.btnUrl = 'CloseBtnLight'
     },
     mouseLeaveAction() {
-      this.btnUrl = 'close-btn'
+      this.btnUrl = 'CloseBtn'
     },
   },
 }

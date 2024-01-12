@@ -1,6 +1,5 @@
 import TransactionList from '@/components/TransactionList.vue'
 import Transaction from '@/components/Transaction.vue'
-// eslint-disable-next-line import/no-relative-parent-imports
 const setCurrentTransactionsPageActionMock = jest.fn()
 const setCurrentTransactionsPageMutationMock = jest.fn()
 

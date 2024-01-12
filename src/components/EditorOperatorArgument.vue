@@ -36,7 +36,7 @@
     >
       <Select
         :ref="argument.id"
-        :value="selectedArgumentValue"
+        :model-value="selectedArgumentValue"
         :options="argumentOptions"
         @input="
           value =>

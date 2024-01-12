@@ -1,7 +1,9 @@
-import cbor from 'cbor'
+import { encode } from 'cbor2'
+
 import {
   format,
   formatDistanceToNow,
+  // todo: ensure is working
   intervalToDuration,
   formatDuration,
 } from 'date-fns'
@@ -16,7 +18,7 @@ import {
   EDITOR_ALLOWED_PROTOCOLS,
   HISTORY_UPDATE_TYPE,
   EDITOR_STAGES,
-  SECONDS_TO_NEXT_BLOCK,
+  // SECONDS_TO_NEXT_BLOCK,
 } from './constants'
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import BigNumber from '@/utils/BigNumber'
@@ -24,7 +26,7 @@ import BigNumber from '@/utils/BigNumber'
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
   if (window.Notification) {
-    Notification.requestPermission(permission => {
+    Notification.requestPermission(() => {
       return innerCreateNotification(notificationProps)
     })
   } else {
@@ -132,7 +134,7 @@ export function encodeAggregationTally(stage) {
       return Array.isArray(filter)
         ? {
             op: filter[0],
-            args: filter.slice(1).length ? [...cbor.encode(args).values()] : [],
+            args: filter.slice(1).length ? [...encode(args).values()] : [],
           }
         : { op: filter, args: [] }
     }),
@@ -222,7 +224,7 @@ export function encodeDataRequest(radRequest) {
         ...(retrieve.body && {
           body: [...utf8Encode.encode(retrieve.body)],
         }),
-        script: [...cbor.encode(retrieve.script)],
+        script: [...encode(retrieve.script)],
       }
     }),
     aggregate: encodeAggregationTally(radRequest.aggregate),
@@ -291,7 +293,7 @@ export function standardizeOutputType(name) {
   }
 }
 
-export function match(value, options, result) {
+export function match(value, options) {
   const search = options.find(x => x.options.includes(value))
   return search ? search.result : null
 }
@@ -558,7 +560,7 @@ export function createDownloadableLink(data) {
 }
 
 export async function sleep(t) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve()
     }, t)

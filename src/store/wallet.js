@@ -1,6 +1,7 @@
-import elementLocale from 'element-ui/lib/locale'
+// import elementLocale from 'element-plus/dist/locale'
+import { api, localStorageWrapper, eventProcessor } from '@/main'
 import router from '@/router'
-import { WalletApi, standardizeBalance, LocalStorageApi } from '@/api'
+import { standardizeBalance } from '@/api'
 import {
   calculateTimeAgo,
   createNotification,
@@ -8,9 +9,7 @@ import {
   encodeDataRequest,
   standardizeWitUnits,
 } from '@/utils'
-import i18n from '@/plugins/i18n'
 import SyncingTimeEstimator from '@/services/SyncingTimeEstimator'
-import ProcessWalletEvent from '@/services/ProcessWalletEvent'
 import formatMillisecondsDuration from '@/services/format/formatMillisecondsDuration'
 import { buildImportWalletBirthdate } from '@/services/birthDate'
 import {
@@ -31,12 +30,11 @@ import {
 } from '@/constants'
 import { SET_TEMPLATES, UPDATE_TEMPLATE } from '@/store/mutation-types'
 import warning from '@/resources/svg/warning.png'
+import i18n from '@/plugins/i18n'
+const { t } = i18n.global
 
 export default {
   state: {
-    api: new WalletApi(),
-    localStorage: new LocalStorageApi(),
-    eventProcessor: new ProcessWalletEvent(),
     errors: {
       shutdown: null,
       signDisclaimer: null,
@@ -173,7 +171,7 @@ export default {
     },
     toggleNotification(state, name) {
       state.notifications[name] = !state.notifications[name]
-      state.localStorage.setNotificationsSettings(state.notifications)
+      localStorageWrapper.setNotificationsSettings(state.notifications)
     },
     toggleTheme(state) {
       if (state.theme === THEMES.DARK) {
@@ -181,12 +179,12 @@ export default {
       } else {
         state.theme = THEMES.DARK
       }
-      state.localStorage.setThemeSettings(state.theme)
+      localStorageWrapper.setThemeSettings(state.theme)
     },
     setUnit(state, unit) {
       state.unit = unit
     },
-    setLanguage(state, { locale, i18n }) {
+    setLanguage(state, { locale }) {
       if (locale) {
         state.locale = locale
         i18n.locale = LANGUAGES[state.locale].locale
@@ -233,7 +231,7 @@ export default {
     setFeeEstimationReport(state, report) {
       state.feeEstimationReport = report
     },
-    clearEstimationReport(state, report) {
+    clearEstimationReport(state) {
       state.feeEstimationReport = null
     },
     setSelectedFee(state, { fee }) {
@@ -267,8 +265,9 @@ export default {
     },
     setWalletIndex(state, { walletIndex }) {
       const walletInfos = state.walletInfos
-      state.walletIdx = walletIndex === -1 ? walletInfos.length : walletIndex
-      state.localStorage.setWalletIndex(state.walletIdx)
+      state.walletIdx =
+        walletIndex === -1 ? walletInfos.length - 1 : walletIndex
+      localStorageWrapper.setWalletIndex(state.walletIdx)
     },
     setLabels(state, { labels }) {
       state.txLabels = labels
@@ -278,22 +277,23 @@ export default {
         state.balance = balance
       }
     },
-    changeLocale(state, { newLocale, i18n }) {
+    changeLocale(state, { newLocale }) {
       if (Object.keys(LANGUAGES).includes(newLocale)) {
         state.locale = newLocale
-        state.localStorage.setLanguageSettings(newLocale)
+        localStorageWrapper.setLanguageSettings(newLocale)
 
         i18n.locale = newLocale
       } else {
         console.warn('[mutation setUnit]: invalid language')
       }
+      // TODO: change locale https://element-plus.org/en-US/guide/i18n.html#configprovider
       // Set element locale
-      elementLocale.use(LANGUAGES[i18n.locale].elementLocale)
+      // elementLocale.use(LANGUAGES[i18n.locale].elementLocale)
     },
     changeDefaultUnit(state, unit) {
       if (Object.values(WIT_UNIT).includes(unit)) {
         state.unit = unit
-        state.localStorage.setUnitSettings(state.unit)
+        localStorageWrapper.setUnitSettings(state.unit)
       } else {
         console.warn('[mutation setUnit]: invalid unit')
       }
@@ -320,7 +320,7 @@ export default {
       }
     },
     checkNetworkStatus(state) {
-      if (state.api.client.ws.ready) {
+      if (api.client.ws.ready) {
         state.networkStatus = 'synced'
         this.commit('clearError', { error: 'network' })
         if (state.errors.length) {
@@ -334,8 +334,8 @@ export default {
         if (state.networkStatus === 'error') {
           this.commit('setError', {
             name: 'network',
-            error: i18n.t('connection_error'),
-            message: i18n.t('connection_error_message'),
+            error: t('connection_error'),
+            message: t('connection_error_message'),
           })
         }
       }
@@ -494,14 +494,14 @@ export default {
         this.commit('setError', {
           name: 'createValidPassword',
           error: 'Validation Error',
-          message: i18n.t('validate_password_length_message'),
+          message: t('validate_password_length_message'),
         })
         state.validatedPassword = false
       } else if (password !== repeatedPassword) {
         this.commit('setError', {
           name: 'createValidPassword',
           error: 'Validation Error',
-          message: i18n.t('validate_password_match_message'),
+          message: t('validate_password_match_message'),
         })
         state.validatedPassword = false
       } else {
@@ -532,7 +532,7 @@ export default {
         router.push('/welcome-back/wallet-list')
         this.commit('stopSessionTimeout')
         this.commit('deleteSession')
-        if (!state.localStorage.getSkipSessionExpirationInfo()) {
+        if (!localStorageWrapper.getSkipSessionExpirationInfo()) {
           this.commit('showLogoutModal')
         }
       }, ms)
@@ -544,7 +544,7 @@ export default {
   },
   actions: {
     async updateWallet(context) {
-      const request = await context.state.api.updateWallet({
+      const request = await api.updateWallet({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
         name: context.state.updatedName,
@@ -554,18 +554,18 @@ export default {
         context.commit('setUpdatedWallet')
         context.commit('clearUpdatedWallet')
         createNotification({
-          title: i18n.t('wallet_updated_message'),
+          title: t('wallet_updated_message'),
         })
       } else {
         context.commit('setError', {
           name: 'updateWallet',
           error: request.error.message,
-          message: i18n.t('update_wallet_error'),
+          message: t('update_wallet_error'),
         })
       }
     },
     async deleteWallet(context) {
-      const request = await context.state.api.deleteWallet({
+      const request = await api.deleteWallet({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
       })
@@ -577,12 +577,12 @@ export default {
         context.commit('setError', {
           name: 'closeSession',
           error: request.error.message,
-          message: i18n.t('close_session_error_message'),
+          message: t('close_session_error_message'),
         })
       }
     },
     async refreshSession(context) {
-      const request = await context.state.api.refreshSession({
+      const request = await api.refreshSession({
         session_id: context.state.sessionId,
       })
       if (request.result && request.result.success) {
@@ -611,20 +611,20 @@ export default {
         }, 15000)
       }
     },
-    stopTransactionDateSync(context) {
+    stopTransactionDateSync() {
       clearInterval(this.transactionSync)
     },
     shutdown: async function (context) {
       if (context.state.isDefaultWallet) {
         // don't handle the response in client because the wallet is being closed.
         // This is handled in background.js when 'exit' event is emitted
-        context.state.api.shutdown({
+        api.shutdown({
           session_id: context.state.sessionId,
         })
       }
     },
     closeSession: async function (context) {
-      const request = await context.state.api.closeSession({
+      const request = await api.closeSession({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
       })
@@ -642,12 +642,12 @@ export default {
         context.commit('setError', {
           name: 'closeSession',
           error: request.error.message,
-          message: i18n.t('close_session_error_message'),
+          message: t('close_session_error_message'),
         })
       }
     },
     exportMasterKey: async function (context, { password }) {
-      const request = await context.state.api.exportMasterKey({
+      const request = await api.exportMasterKey({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
         password,
@@ -659,12 +659,12 @@ export default {
         context.commit('setError', {
           name: 'exportXprv',
           error: request.error.message,
-          message: i18n.t('export_xprv_error_message'),
+          message: t('export_xprv_error_message'),
         })
       }
     },
     getLabels: async function (context) {
-      const request = await context.state.api.getItem({
+      const request = await api.getItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
         key: `${context.rootState.wallet.walletId}_labels`,
@@ -676,13 +676,13 @@ export default {
         context.commit('setError', {
           name: 'getItem',
           error: request.error.message,
-          message: i18n.t('get_labels_error_message'),
+          message: t('get_labels_error_message'),
         })
       }
     },
     sendTransaction: async function (context, { label }) {
       const transactionToSend = context.state.generatedTransaction
-      const request = await context.state.api.sendTransaction({
+      const request = await api.sendTransaction({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
         transaction: transactionToSend.transaction,
@@ -692,8 +692,8 @@ export default {
         context.commit('clearGeneratedTransaction')
         if (context.state.notifications[NOTIFICATIONS.PAYMENTS]) {
           createNotification({
-            title: i18n.t('send_tx_notification_title'),
-            body: i18n.t('send_tx_notification_body', {
+            title: t('send_tx_notification_title'),
+            body: t('send_tx_notification_body', {
               variable: cropString(
                 transactionToSend.transaction_id,
                 12,
@@ -706,7 +706,7 @@ export default {
         context.commit('setError', {
           name: 'sendTransaction',
           error: request.error.message,
-          message: i18n.t('send_transaction_error_message'),
+          message: t('send_transaction_error_message'),
         })
         context.commit('clearGeneratedTransaction')
       }
@@ -715,7 +715,7 @@ export default {
       const transactionId = transaction.transactionId
       context.state.txLabels[transactionId] = { label }
       const txLabels = context.state.txLabels
-      const request = await context.state.api.saveItem({
+      const request = await api.saveItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
         key: `${context.rootState.wallet.walletId}_labels`,
@@ -728,7 +728,7 @@ export default {
         context.commit('setError', {
           name: 'saveItem',
           error: request.error.message,
-          message: i18n.t('save_label_error_message'),
+          message: t('save_label_error_message'),
         })
       }
     },
@@ -769,11 +769,11 @@ export default {
         },
         preview,
       }
-      const req = await context.state.api.createDataRequest(data)
+      const req = await api.createDataRequest(data)
       if (req.result) {
         return req.result
       } else {
-        let error = i18n.t('dr_error')
+        let error = t('dr_error')
         if (req.error.data && req.error.data[0]) {
           let usableBalance = null
           // FIXME: error has the following structure:["{\"available_balance\":0,\"total_balance\":0,\"transaction_value\":2397}","Wallet account has not enough balance"]
@@ -788,7 +788,7 @@ export default {
             usableBalance &&
             usableBalance.available_balance < availableBalance
           ) {
-            error = i18n.t('vtt_balance_error', {
+            error = t('vtt_balance_error', {
               pending_balance: `${standardizeWitUnits(
                 availableBalance - usableBalance.available_balance,
                 unit,
@@ -798,7 +798,7 @@ export default {
             if (
               req.error.data[0][1] === 'Wallet account has not enough balance'
             ) {
-              error = i18n.t('not_enough_balance')
+              error = t('not_enough_balance')
             } else {
               error = req.error.data[0][1]
             }
@@ -819,7 +819,7 @@ export default {
       { address, amount, fee, feeType, label, timelock = 0, preview = false },
     ) {
       // TODO(#1760): When the wallet is ready, the generated transaction values should be strings
-      const request = await context.state.api.createVTT({
+      const request = await api.createVTT({
         session_id: this.state.wallet.sessionId,
         wallet_id: this.state.wallet.walletId,
         outputs: [
@@ -840,7 +840,7 @@ export default {
       if (request.result) {
         return request.result
       } else {
-        let error = i18n.t('vtt_error')
+        let error = t('vtt_error')
         if (request.error.data[0]) {
           let usableBalance = null
           // FIXME: error has the following structure:["{\"available_balance\":0,\"total_balance\":0,\"transaction_value\":2397}","Wallet account has not enough balance"]
@@ -855,14 +855,14 @@ export default {
             usableBalance &&
             usableBalance.available_balance < availableBalance
           ) {
-            error = i18n.t('vtt_balance_error', {
+            error = t('vtt_balance_error', {
               pending_balance: `${standardizeWitUnits(
                 availableBalance - usableBalance.available_balance,
                 unit,
               )} ${unit}`,
             })
           } else {
-            error = i18n.t('not_enough_balance')
+            error = t('not_enough_balance')
           }
         } else if (request.error.data.cause) {
           error = request.error.data.cause
@@ -876,7 +876,7 @@ export default {
       }
     },
     getFeeEstimationReport: async function (context) {
-      const request = await context.state.api.getFeeEstimationReport({
+      const request = await api.getFeeEstimationReport({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
       })
@@ -888,12 +888,12 @@ export default {
         context.commit('setError', {
           name: 'getFeeEstimationReport',
           error: request.error.message,
-          message: i18n.t('get_estimation_error_message'),
+          message: t('get_estimation_error_message'),
         })
       }
     },
     getAddresses: async function (context) {
-      const request = await context.state.api.getAddresses({
+      const request = await api.getAddresses({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
       })
@@ -904,14 +904,14 @@ export default {
         context.commit('setError', {
           name: 'getAddresses',
           error: request.error.message,
-          message: i18n.t('get_addresses_error_message'),
+          message: t('get_addresses_error_message'),
         })
       }
     },
     generateAddress: async function (context, { label, external = true }) {
       context.commit('generateAddressLoading', null, { root: true })
 
-      const request = await context.state.api.generateAddress({
+      const request = await api.generateAddress({
         label,
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
@@ -926,14 +926,14 @@ export default {
         context.commit('setError', {
           name: 'generateAddress',
           error: request.error.message,
-          message: i18n.t('generate_address_error_message'),
+          message: t('generate_address_error_message'),
         })
       }
     },
 
     unlockWallet: async function (context, { walletId, password }) {
       context.commit('deleteSession')
-      const request = await context.state.api.unlockWallet({
+      const request = await api.unlockWallet({
         wallet_id: walletId,
         password,
         session_id: '1',
@@ -969,7 +969,7 @@ export default {
     },
 
     lockWallet: async function (context, { walletId, wipe }) {
-      const request = await context.state.api.lockWallet({
+      const request = await api.lockWallet({
         wallet_id: walletId,
         wipe,
       })
@@ -982,7 +982,7 @@ export default {
     },
 
     createMnemonics: async function (context) {
-      const request = await context.state.api.createMnemonics({ length: 12 })
+      const request = await api.createMnemonics({ length: 12 })
 
       if (request.result) {
         context.commit('setMnemonics', request.result.mnemonics)
@@ -990,14 +990,14 @@ export default {
         context.commit('setError', {
           name: 'createMnemonics',
           error: request.error.message,
-          message: i18n.t('create_mnemonics_error_message'),
+          message: t('create_mnemonics_error_message'),
         })
       }
     },
 
     validateImportedWallet: async function (context, params) {
       const importType = params.mnemonics ? 'mnemonics' : 'xprv'
-      const request = await context.state.api.validateMnemonics({
+      const request = await api.validateMnemonics({
         seed_source: importType,
         seed_data: params[importType],
         backup_password: params.backupPassword ? params.backupPassword : null,
@@ -1006,7 +1006,7 @@ export default {
       if (request.error) {
         context.commit('setError', {
           name: importType,
-          error: i18n.t('validate_imported_wallet_error', {
+          error: t('validate_imported_wallet_error', {
             variable: importType,
           }),
           message: request.error.data[0][1],
@@ -1037,7 +1037,7 @@ export default {
           ? { imported: calculatedWalletBirthdate }
           : null
       }
-      const request = await context.state.api.createWallet({
+      const request = await api.createWallet({
         overwrite: context.state.repeatedWallet,
         name: context.state.title,
         description: context.state.description,
@@ -1064,7 +1064,7 @@ export default {
         context.commit('setError', {
           name: 'createWallet',
           error: request.error.data.cause || request.error.data[0][1],
-          message: i18n.t('create_wallet_error_message'),
+          message: t('create_wallet_error_message'),
         })
         context.commit('clearSeed')
         context.commit('clearMnemonics')
@@ -1081,7 +1081,7 @@ export default {
         ? payload.page
         : context.state.currentTransactionsPage
       const offset = (currentPage - 1) * TRANSACTIONS_LIMIT
-      const request = await context.state.api.getTransactions({
+      const request = await api.getTransactions({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
         limit: TRANSACTIONS_LIMIT,
@@ -1095,13 +1095,13 @@ export default {
         context.commit('setError', {
           name: 'getTransactions',
           error: request.error.message,
-          message: i18n.t('get_tx_error_message'),
+          message: t('get_tx_error_message'),
         })
       }
     },
 
     getBalance: async function (context) {
-      const request = await context.state.api.getBalance({
+      const request = await api.getBalance({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
       })
@@ -1116,39 +1116,37 @@ export default {
           context.commit('setError', {
             name: 'getBalance',
             error: request.error.message,
-            message: i18n.t('get_balance_error_message'),
+            message: t('get_balance_error_message'),
           })
         }
       }
     },
     getUnit: async function (context) {
-      const unit = context.state.localStorage.getUnitSettings()
+      const unit = localStorageWrapper.getUnitSettings()
       const defaultUnit = context.state.unit
       unit
         ? context.commit('setUnit', unit)
         : context.commit('setUnit', defaultUnit)
     },
-    getLocale: async function (context, payload) {
-      const localeFromStorage = context.state.localStorage.getLanguageSettings()
+    getLocale: async function (context) {
+      const localeFromStorage = localStorageWrapper.getLanguageSettings()
       if (localeFromStorage) {
         context.commit('setLanguage', {
           locale: localeFromStorage,
-          i18n: payload.i18n,
         })
       } else {
         const isLocalLanguage = Object.values(LANGUAGES).find(language => {
-          return language.locale === payload.i18n.locale
+          return language.locale === i18n.locale
         })
         context.commit('setLanguage', {
-          locale: isLocalLanguage ? payload.i18n.locale : 'en',
-          i18n: payload.i18n,
+          locale: isLocalLanguage ? i18n.locale : 'en',
         })
       }
       // Set element locale
-      elementLocale.use(LANGUAGES[payload.i18n.locale].elementLocale)
+      // elementLocale.use(LANGUAGES[payload.i18n.locale].elementLocale)
     },
     getTheme: async function (context) {
-      const theme = context.state.localStorage.getThemeSettings()
+      const theme = localStorageWrapper.getThemeSettings()
       const defaultTheme = DEFAULT_THEME
       if (theme) {
         context.commit('setTheme', theme)
@@ -1157,8 +1155,7 @@ export default {
       }
     },
     getNotifications: async function (context) {
-      const notifications =
-        context.state.localStorage.getNotificationsSettings()
+      const notifications = localStorageWrapper.getNotificationsSettings()
       const defaultNotifications = context.state.notifications
       if (notifications) {
         context.commit('setNotifications', notifications)
@@ -1167,19 +1164,24 @@ export default {
       }
     },
     getWalletInfos: async function (context) {
-      const request = await context.state.api.getWalletInfos()
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+        }, 1000)
+      })
+      const request = await api.getWalletInfos()
       if (request.result) {
         context.commit('setWalletInfos', { walletInfos: request.result })
       } else {
         context.commit('setError', {
           name: 'getWalletInfos',
           error: request.error.message,
-          message: i18n.t('get_wallet_infos_error_message'),
+          message: t('get_wallet_infos_error_message'),
         })
       }
     },
     subscribeToWalletNotifications: async function (context) {
-      await context.state.api.subscribeToNotifications(
+      await api.subscribeToNotifications(
         { session_id: this.state.wallet.sessionId },
         ([notifications]) => {
           if (notifications.events.length > 0) {
@@ -1190,17 +1192,16 @@ export default {
               })
             }
           } else {
-            const eventProcessed =
-              context.state.eventProcessor.processNotification(
-                notifications.status,
-              )
+            const eventProcessed = eventProcessor.processNotification(
+              notifications.status,
+            )
             context.commit('setStatus', eventProcessed)
           }
         },
       )
     },
-    unsubscribeFromWalletNotifications: async function (context) {
-      await context.state.api.unsubscribeFromNotifications({
+    unsubscribeFromWalletNotifications: async function () {
+      await api.unsubscribeFromNotifications({
         session_id: this.state.wallet.sessionId,
       })
     },
@@ -1211,7 +1212,7 @@ export default {
         const value = variable.value
         context.commit(UPDATE_TEMPLATE, { id, value, keepRecord: false })
       })
-      const request = await context.state.api.runRadRequest({
+      const request = await api.runRadRequest({
         rad_request: encodeDataRequest(
           context.rootState.rad.currentRadonMarkupInterpreter.getMir(),
         ),
@@ -1223,7 +1224,7 @@ export default {
         context.commit('setError', {
           name: 'tryDataRequest',
           error: request.error.message,
-          message: i18n.t('try_dr_error_message'),
+          message: t('try_dr_error_message'),
         })
       }
       context.rootState.rad.currentTemplate.usedVariables.forEach(variable => {
@@ -1255,10 +1256,10 @@ export default {
         context.state.notifications[NOTIFICATIONS.TRANSACTIONS]
       ) {
         createNotification({
-          title: i18n.t('received_tx_notification_title', {
+          title: t('received_tx_notification_title', {
             variable: `${amount} ${context.state.unit}s`,
           }),
-          body: i18n.t('received_tx_notification_body', {
+          body: t('received_tx_notification_body', {
             variable: `${total} ${context.state.unit}s`,
           }),
         })
@@ -1271,8 +1272,8 @@ export default {
       if (finish > start) {
         if (context.state.notifications[NOTIFICATIONS.SYNCRONIZATION]) {
           createNotification({
-            title: i18n.t('synced_notification_title'),
-            body: i18n.t('synced_notification_body', {
+            title: t('synced_notification_title'),
+            body: t('synced_notification_body', {
               range: `${finish - start}`,
               finish: `(#${finish}).`,
             }),
@@ -1300,8 +1301,8 @@ export default {
       if (finish - start > 100) {
         if (context.state.notifications[NOTIFICATIONS.SYNCRONIZATION]) {
           createNotification({
-            title: i18n.t('sync_start_notification_title'),
-            body: i18n.t('sync_start_notification_body', {
+            title: t('sync_start_notification_title'),
+            body: t('sync_start_notification_body', {
               range: `${finish - start}`,
               start: `#${start}`,
               finish: `(#${finish}).`,
@@ -1322,14 +1323,14 @@ export default {
       if (event && context.state.notifications[NOTIFICATIONS.BLOCK]) {
         if (Array.isArray(event)) {
           createNotification({
-            title: i18n.t('blocks_confirmed_notification_title', {
+            title: t('blocks_confirmed_notification_title', {
               variable: event.length,
             }),
             body: `${event[0]} ... ${event[event.length - 1]}`,
           })
         } else {
           createNotification({
-            title: i18n.t('block_notification_title', {
+            title: t('block_notification_title', {
               variable: event.epoch,
             }),
             body: event.block_hash,
@@ -1338,7 +1339,7 @@ export default {
       }
     },
     processEvent: async function (context, rawEvent) {
-      const eventProcessed = context.state.eventProcessor.processEvent(rawEvent)
+      const eventProcessed = eventProcessor.processEvent(rawEvent)
       const { eventType, event } = eventProcessed
       context.commit('setStatus', eventProcessed)
 
@@ -1359,7 +1360,7 @@ export default {
       }
     },
     resync(context) {
-      context.state.api.resync({
+      api.resync({
         wallet_id: context.state.walletId,
         session_id: context.state.sessionId,
       })

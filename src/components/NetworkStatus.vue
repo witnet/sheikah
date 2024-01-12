@@ -2,6 +2,7 @@
   <div class="network-status">
     <div class="header" @click="showAll = !showAll">
       <Avatar
+        v-if="unlockedWallet && unlockedWallet.image"
         data-test="status-avatar"
         :border-color="currentState.color"
         :src="unlockedWallet.image"
@@ -36,15 +37,15 @@
       <div class="icon">
         <CustomIcon
           v-if="showAll"
-          data-test="short-up"
+          data-test="shortUp"
           class-name="sort"
-          name="up"
+          name="Up"
         />
         <CustomIcon
           v-else
           data-test="short-down"
           class-name="sort"
-          name="down"
+          name="Down"
         />
       </div>
     </div>
@@ -66,7 +67,7 @@
         <el-button
           v-if="isResyncButtonVisible"
           type="primary"
-          size="mini"
+          size="small"
           class="resync"
           @click="$store.commit('showResyncConfirmation')"
         >
@@ -90,15 +91,16 @@
           {{ $t('trying_to_connect') }}
           <span class="bold">{{ address }}</span>
         </p>
-        <i18n
+        <i18n-t
           v-if="network"
-          path="tracking_network"
+          keypath="tracking_network"
           tag="p"
           data-test="network"
           class="text"
+          scope="global"
         >
           <span class="bold">{{ network }}</span>
-        </i18n>
+        </i18n-t>
         <p v-if="isSynced" data-test="last-block" class="text">
           {{ $t('last_block') }} <span class="bold">#{{ lastSync }}</span>
           <span v-if="timeAgo && timeAgo !== 0">
@@ -208,7 +210,7 @@ export default {
         this.timeAgo = val.lastBlockTimestamp
       }
     },
-    expanded(expanded) {
+    expanded() {
       this.showAll = false
     },
   },

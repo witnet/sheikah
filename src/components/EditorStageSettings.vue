@@ -1,10 +1,10 @@
 <template>
   <LayoutTwoColumns>
-    <template v-slot:left>
+    <template #left>
       <EditorSettings :template="currentTemplate" />
     </template>
 
-    <template v-slot:upperRight>
+    <template #upperRight>
       <Fieldset :title="$t('template_description_title')" type="help">
         <div>
           <p>{{ $t('template_description_0') }}</p>
@@ -13,7 +13,7 @@
       </Fieldset>
     </template>
 
-    <template v-slot:bottomRight>
+    <template #bottomRight>
       <Fieldset :title="$t('variables_description_title')" type="help">
         <div>
           <p>{{ $t('variables_description_0') }}</p>
