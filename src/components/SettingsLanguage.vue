@@ -10,48 +10,36 @@
   </Card>
 </template>
 
-<script>
-import { mapMutations, mapGetters } from 'vuex'
+<script setup>
+import { useStore } from 'vuex'
+import { localStorageWrapper } from '@/main'
 import Card from '@/components/card/Card.vue'
 import Select from '@/components/Select.vue'
 import { LANGUAGES } from '@/constants'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
-export default {
-  name: 'SettingsOptionCurrenty',
-  components: { Card, Select },
-  data() {
-    return {
-      options: Object.values(LANGUAGES).map(language => ({
-        primaryText: language.name,
-        value: language.locale,
-      })),
-    }
+const { locale } = useI18n()
+const store = useStore()
+
+const options = computed(() =>
+  Object.values(LANGUAGES).map(language => ({
+    primaryText: language.name,
+    value: language.locale,
+  })),
+)
+
+const actualLanguage = computed({
+  get: () => ({
+    primaryText: LANGUAGES[locale.value].name,
+    value: LANGUAGES[locale.value].locale,
+  }),
+  set: val => {
+    locale.value = val.value
+    localStorageWrapper.setLanguageSettings(val.value)
+    store.commit('updateDRLanguage', val)
   },
-  computed: {
-    ...mapGetters({
-      language: 'language',
-    }),
-    actualLanguage: {
-      set(val) {
-        this.changeLocale({ newLocale: val.value, i18n: this.$i18n })
-      },
-      get() {
-        return { primaryText: this.language.name, value: this.language.locale }
-      },
-    },
-  },
-  watch: {
-    language(val) {
-      this.updateDRLanguage(val)
-    },
-  },
-  methods: {
-    ...mapMutations({
-      changeLocale: 'changeLocale',
-      updateDRLanguage: 'updateDRLanguage',
-    }),
-  },
-}
+})
 </script>
 
 <style lang="scss" scoped>

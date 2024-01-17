@@ -59,7 +59,7 @@
       </div>
     </div>
     <div v-show="style !== 'marketplace'" class="sources">
-      {{ $tc('sources', sources, { count: sources }) }}
+      {{ $t('sources', sources, { count: sources }) }}
     </div>
   </div>
 </template>

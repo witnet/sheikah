@@ -1,4 +1,3 @@
-// import elementLocale from 'element-plus/dist/locale'
 import { api, localStorageWrapper, eventProcessor } from '@/main'
 import router from '@/router'
 import { standardizeBalance } from '@/api'
@@ -31,7 +30,7 @@ import {
 import { SET_TEMPLATES, UPDATE_TEMPLATE } from '@/store/mutation-types'
 import warning from '@/resources/svg/warning.png'
 import i18n from '@/plugins/i18n'
-const { t } = i18n.global
+const { t, locale } = i18n.global
 
 export default {
   state: {
@@ -140,11 +139,6 @@ export default {
     estimatedTimeOfSync: state => {
       return formatMillisecondsDuration(state.syncingTimeEstimator.calculate())
     },
-    language: state => {
-      return Object.values(LANGUAGES).find(
-        language => language.locale === state.locale,
-      )
-    },
   },
   mutations: {
     clearUpdatedWallet(state) {
@@ -187,9 +181,9 @@ export default {
     setLanguage(state, { locale }) {
       if (locale) {
         state.locale = locale
-        i18n.locale = LANGUAGES[state.locale].locale
+        locale.value = LANGUAGES[state.locale].locale
       } else {
-        state.locale = LANGUAGES[i18n.locale].locale
+        state.locale = LANGUAGES[locale].locale
       }
     },
     setTheme(state, theme) {
@@ -277,18 +271,16 @@ export default {
         state.balance = balance
       }
     },
-    changeLocale(state, { newLocale }) {
-      if (Object.keys(LANGUAGES).includes(newLocale)) {
-        state.locale = newLocale
-        localStorageWrapper.setLanguageSettings(newLocale)
-
-        i18n.locale = newLocale
+    setInitialLocale() {
+      const localeFromStorage = localStorageWrapper.getLanguageSettings()
+      if (localeFromStorage) {
+        locale.value = localeFromStorage
       } else {
-        console.warn('[mutation setUnit]: invalid language')
+        const isLocalLanguage = Object.values(LANGUAGES).find(language => {
+          return language.locale === locale.value
+        })
+        locale.value = isLocalLanguage ? locale.value : 'en'
       }
-      // TODO: change locale https://element-plus.org/en-US/guide/i18n.html#configprovider
-      // Set element locale
-      // elementLocale.use(LANGUAGES[i18n.locale].elementLocale)
     },
     changeDefaultUnit(state, unit) {
       if (Object.values(WIT_UNIT).includes(unit)) {
@@ -320,6 +312,7 @@ export default {
       }
     },
     checkNetworkStatus(state) {
+      console.log('CHECK NETWORK STATUS')
       if (api.client.ws.ready) {
         state.networkStatus = 'synced'
         this.commit('clearError', { error: 'network' })
@@ -1128,23 +1121,23 @@ export default {
         ? context.commit('setUnit', unit)
         : context.commit('setUnit', defaultUnit)
     },
-    getLocale: async function (context) {
-      const localeFromStorage = localStorageWrapper.getLanguageSettings()
-      if (localeFromStorage) {
-        context.commit('setLanguage', {
-          locale: localeFromStorage,
-        })
-      } else {
-        const isLocalLanguage = Object.values(LANGUAGES).find(language => {
-          return language.locale === i18n.locale
-        })
-        context.commit('setLanguage', {
-          locale: isLocalLanguage ? i18n.locale : 'en',
-        })
-      }
-      // Set element locale
-      // elementLocale.use(LANGUAGES[payload.i18n.locale].elementLocale)
-    },
+    // getLocale: async function (context) {
+    //   const localeFromStorage = localStorageWrapper.getLanguageSettings()
+    //   if (localeFromStorage) {
+    //     context.commit('setLanguage', {
+    //       locale: localeFromStorage,
+    //     })
+    //   } else {
+    //     const isLocalLanguage = Object.values(LANGUAGES).find(language => {
+    //       return language.locale === i18n.locale
+    //     })
+    //     context.commit('setLanguage', {
+    //       locale: isLocalLanguage ? i18n.locale : 'en',
+    //     })
+    //   }
+    //   Set element locale
+    //   elementLocale.use(LANGUAGES[payload.i18n.locale].elementLocale)
+    // },
     getTheme: async function (context) {
       const theme = localStorageWrapper.getThemeSettings()
       const defaultTheme = DEFAULT_THEME

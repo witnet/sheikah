@@ -36,9 +36,9 @@
     <div v-if="!used" class="transactions">
       <Tag class="tag" color="green" :text="$t('not_used')" />
       <p class="description"
-        >{{ $tc('received', payments, { count: payments }) }}
+        >{{ $t('received', payments, { count: payments }) }}
         <span class="bold">{{
-          $tc('payment', payments, { count: payments })
+          $t('payment', payments, { count: payments })
         }}</span
         >.</p
       >
@@ -46,9 +46,9 @@
     <div v-else class="transactions">
       <Tag class="tag" color="red" :text="$t('used')" />
       <p class="description">
-        {{ $tc('received', payments, { count: payments }) }}
+        {{ $t('received', payments, { count: payments }) }}
         <span class="bold">{{
-          $tc('payment', payments, { count: payments })
+          $t('payment', payments, { count: payments })
         }}</span>
         {{ $t('totalling') }}
         <span class="bold"><Amount :amount="amount" /></span>
