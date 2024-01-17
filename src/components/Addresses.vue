@@ -2,7 +2,7 @@
   <Fieldset
     :title="$t('addresses')"
     :subtitle="
-      $tc('address_count', addresses.length, { count: addresses.length })
+      $t('address_count', addresses.length, { count: addresses.length })
     "
   >
     <div class="card" :class="{ active: isRadiantBorderActive }">

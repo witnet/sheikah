@@ -15,7 +15,7 @@
 
     <i18n-t keypath="close_session_info_0" tag="p" class="text" scope="global">
       <span>{{
-        $tc('minutes', sessionExpirationMin, { count: sessionExpirationMin })
+        $t('minutes', sessionExpirationMin, { count: sessionExpirationMin })
       }}</span>
     </i18n-t>
 

@@ -6,7 +6,7 @@ import i18n from './plugins/i18n'
 import ProcessWalletEvent from './services/ProcessWalletEvent'
 import { checkDisconnection } from './services/checkDisconnection'
 
-// import ElementPlus from 'element-plus'
+import ElementPlus from 'element-plus'
 
 import './fontAwesome'
 
@@ -42,6 +42,7 @@ const app = createApp(App)
 app.use(router)
 app.use(store)
 app.use(i18n)
+app.use(ElementPlus)
 
 app.directive('focus', {
   updated: function (el, binding) {

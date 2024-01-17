@@ -6,6 +6,8 @@ export default new createI18n({
   locale:
     navigator.language.split('-')[0] || navigator.languages[0].split('-')[0],
   fallbackLocale: 'en',
+  legacy: false,
+  globalInjection: true,
   messages: {
     en,
     es,

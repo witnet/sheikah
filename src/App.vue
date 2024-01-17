@@ -1,5 +1,8 @@
 <template>
-  <el-config-provider namespace="el">
+  <el-config-provider
+    namespace="el"
+    :locale="LANGUAGES[$i18n.locale as LocaleCodes].elementLocale"
+  >
     <div id="app">
       <!-- TODO: use transition -->
       <!-- <transition :name="transitionName"> -->
@@ -15,85 +18,65 @@
   </el-config-provider>
 </template>
 
-<script>
-import { mapMutations, mapActions, mapState } from 'vuex'
+<script setup lang="ts">
+// import { mapMutations, mapActions, mapState } from 'vuex'
+import { useStore } from 'vuex'
+import { ElConfigProvider } from 'element-plus'
 import Notification from '@/components/Notification.vue'
 import LogoutModal from '@/components/LogoutModal.vue'
 import DescriptionModal from '@/components/DescriptionModal.vue'
 import RenameConfirmation from '@/components/RenameConfirmation.vue'
 import DeleteWalletConfirmation from '@/components/DeleteWalletConfirmation.vue'
+import { ref, watch, onMounted, onBeforeUnmount, type Ref, toRefs } from 'vue'
+import { LANGUAGES } from '@/constants'
+import { useRoute } from 'vue-router'
+// import { useI18n } from 'vue-i18n'
+import { type LocaleCodes } from '@/types'
+// import { localStorageWrapper } from '@/main'
 
-export default {
-  name: 'App',
-  components: {
-    Notification,
-    LogoutModal,
-    DescriptionModal,
-    RenameConfirmation,
-    DeleteWalletConfirmation,
-    ResyncConfirmation: () => import('@/components/ResyncConfirmation.vue'),
-  },
-  data() {
-    return {
-      loading: true,
-      polling: null,
-      transitionName: null,
-    }
-  },
-  computed: {
-    ...mapState({
-      sessionWillExpireSoon: state => state.wallet.sessionWillExpireSoon,
-      isIdle: state => state.idleVue.isIdle,
-    }),
-  },
-  watch: {
-    sessionWillExpireSoon(willExpire) {
-      if (willExpire && !this.isIdle) {
-        this.refreshSession()
-      }
-    },
-    $route: function (to, from) {
-      this.loading = false
-      if (to.path.includes('/settings') || from.path.includes('/settings')) {
-        this.transitionName = 'zoom'
-      } else {
-        this.transitionName = null
-      }
-    },
-  },
-  async created() {
-    this.pollData()
-    this.getTheme()
-    this.getNotifications()
-    this.getUnit()
-    this.getLocale({ i18n: this.$i18n })
-    // Disable back and forward from keyboard and mouse buttons
-    window.onpopstate = function (event) {
-      event.stopImmediatePropagation()
-    }
-  },
-  beforeUnmount() {
-    clearInterval(this.polling)
-  },
-  methods: {
-    ...mapMutations({
-      checkNetworkStatus: 'checkNetworkStatus',
-      deleteSession: 'deleteSession',
-    }),
-    ...mapActions({
-      refreshSession: 'refreshSession',
-      getWalletInfos: 'getWalletInfos',
-      getNotifications: 'getNotifications',
-      getTheme: 'getTheme',
-      getUnit: 'getUnit',
-      getLocale: 'getLocale',
-    }),
-    pollData() {
-      this.polling = setInterval(() => {
-        this.checkNetworkStatus()
-      }, 3000)
-    },
-  },
+const loading = ref(true)
+const polling = ref()
+const transitionName: Ref<null | string> = ref(null)
+const route = useRoute()
+// const { locale } = useI18n()
+
+const store = useStore()
+console.log('aaaaas start!!!')
+console.log(store)
+
+const { sessionWillExpireSoon, isIdle } = toRefs(store.state.wallet)
+
+watch(sessionWillExpireSoon, willExpire => {
+  if (willExpire && !isIdle.value) {
+    store.commit('refreshSession')
+  }
+})
+watch(route, (to, from) => {
+  loading.value = false
+  if (to.path.includes('/settings') || from.path.includes('/settings')) {
+    transitionName.value = 'zoom'
+  } else {
+    transitionName.value = null
+  }
+})
+onMounted(() => {
+  pollData()
+  store.dispatch('getTheme')
+  store.dispatch('getNotifications')
+  store.dispatch('getUnit')
+  store.commit('setInitialLocale')
+  // Disable back and forward from keyboard and mouse buttons
+  window.onpopstate = function (event) {
+    event.stopImmediatePropagation()
+  }
+})
+onBeforeUnmount(() => {
+  clearInterval(polling.value)
+})
+const pollData = () => {
+  polling.value = setInterval(() => {
+    store.commit('checkNetworkStatus')
+  }, 3000)
 }
 </script>
 <style lang="scss">

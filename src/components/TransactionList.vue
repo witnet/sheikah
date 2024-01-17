@@ -4,7 +4,7 @@
       data-test="transactions-length"
       :title="$t('transactions')"
       :subtitle="
-        $tc('transactions_count', transactionsLength, {
+        $t('transactions_count', transactionsLength, {
           count: transactionsLength,
         })
       "
