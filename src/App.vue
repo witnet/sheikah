@@ -20,7 +20,6 @@
 </template>
 
 <script setup lang="ts">
-// import { mapMutations, mapActions, mapState } from 'vuex'
 import { useStore } from 'vuex'
 import { ElConfigProvider } from 'element-plus'
 import Notification from '@/components/Notification.vue'
@@ -31,25 +30,21 @@ import DeleteWalletConfirmation from '@/components/DeleteWalletConfirmation.vue'
 import { ref, watch, onMounted, onBeforeUnmount, type Ref, toRefs } from 'vue'
 import { LANGUAGES } from '@/constants'
 import { useRoute } from 'vue-router'
-// import { useI18n } from 'vue-i18n'
 import { type LocaleCodes } from '@/types'
-// import { localStorageWrapper } from '@/main'
+import { useIdle } from '@vueuse/core'
 
 const loading = ref(true)
-const polling = ref()
 const transitionName: Ref<null | string> = ref(null)
 const route = useRoute()
-// const { locale } = useI18n()
+const polling = ref()
 
 const store = useStore()
-console.log('aaaaas start!!!')
-console.log(store)
-
-const { sessionWillExpireSoon, isIdle } = toRefs(store.state.wallet)
+const { idle } = useIdle(5 * 50 * 1000) // 5 min
+const { sessionWillExpireSoon } = toRefs(store.state.wallet)
 
 watch(sessionWillExpireSoon, willExpire => {
-  if (willExpire && !isIdle.value) {
-    store.commit('refreshSession')
+  if (willExpire && !idle.value) {
+    store.dispatch('refreshSession')
   }
 })
 watch(route, (to, from) => {

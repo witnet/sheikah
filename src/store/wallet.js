@@ -251,10 +251,11 @@ export default {
       state.vesting = vesting
     },
     setTransactions(state, { transactions, total }) {
+      console.log(`LOCALE ${locale.value}`)
       state.transactionsLength = total
       state.transactions = transactions.map(transaction => ({
         ...transaction,
-        timeAgo: calculateTimeAgo(transaction.timestamp, state.locale),
+        timeAgo: calculateTimeAgo(transaction.timestamp, locale.value),
       }))
     },
     setWalletIndex(state, { walletIndex }) {
@@ -312,7 +313,6 @@ export default {
       }
     },
     checkNetworkStatus(state) {
-      console.log('CHECK NETWORK STATUS')
       if (api.client.ws.ready) {
         state.networkStatus = 'synced'
         this.commit('clearError', { error: 'network' })

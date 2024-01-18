@@ -1,32 +1,17 @@
-// import IdleVue from 'idle-vue'
 import { WalletApi, LocalStorageWrapper } from './api'
 import router from './router'
 import store from './store'
 import i18n from './plugins/i18n'
 import ProcessWalletEvent from './services/ProcessWalletEvent'
 import { checkDisconnection } from './services/checkDisconnection'
-
 import ElementPlus from 'element-plus'
-
 import './fontAwesome'
-
 import '~/styles/element-variables.scss'
 // import "~/styles/index.scss";
 // import 'uno.css
 import '~/styles/index.scss'
 import 'uno.css'
-
 import '@/ipcHandlers'
-
-// Vue.config.productionTip = false
-
-// const eventsHub = new Vue()
-// Vue.use(IdleVue, {
-//   eventEmitter: eventsHub,
-//   store,
-//   idleTime: 900000,
-//   startAtIdle: false,
-// })
 
 const api = new WalletApi()
 const localStorageWrapper = new LocalStorageWrapper()
@@ -38,7 +23,6 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-// app.use(ElementPlus)
 app.use(router)
 app.use(store)
 app.use(i18n)
