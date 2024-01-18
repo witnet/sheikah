@@ -53,9 +53,11 @@ const indexHtml = join(process.env.DIST, 'index.html')
 async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
-    icon: join(process.env.PUBLIC, 'favicon.png'),
-    // TODO: set sheikah icon
-    // icon: path.join(__static, 'icon.png'),
+    icon: join(process.env.PUBLIC, '/icon.png'),
+    width: 1280,
+    height: 720,
+    minWidth: 1280,
+    minHeight: 720,
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
