@@ -251,7 +251,6 @@ export default {
       state.vesting = vesting
     },
     setTransactions(state, { transactions, total }) {
-      console.log(`LOCALE ${locale.value}`)
       state.transactionsLength = total
       state.transactions = transactions.map(transaction => ({
         ...transaction,
@@ -1078,6 +1077,7 @@ export default {
         limit: TRANSACTIONS_LIMIT,
         offset,
       })
+      console.log(`Request!! ${request}`)
       if (request.result) {
         context.commit('setTransactions', request.result)
         context.dispatch('getBalance')

@@ -3,46 +3,44 @@
     <Fieldset
       data-test="transactions-length"
       :title="$t('transactions')"
-      :subtitle="
-        $t('transactions_count', transactionsLength, {
-          count: transactionsLength,
-        })
-      "
+      :subtitle="transactionsLength"
     >
       <div class="list">
-        <Transaction
-          v-for="(transaction, index) in transactions"
-          :id="transaction.id"
-          :key="transaction.id"
-          :confirmed="transaction.confirmed"
-          :data-test="`transaction-${index}`"
-          :unit="unit"
-          :type="transaction.type"
-          :inputs="transaction.inputs"
-          :outputs="transaction.outputs"
-          :fee="transaction.fee"
-          :date="transaction.date"
-          :time-ago="transaction.timeAgo"
-          :label="transaction.label"
-          :amount="transaction.amount"
-          :block="transaction.block"
-          :epoch="transaction.epoch"
-          :witnesses="transaction.witnesses"
-          :rewards="transaction.rewards"
-          :rounds="transaction.rounds"
-          :state="transaction.currentStage"
-          :timelocked="transaction.timelocked"
-          :reveals="transaction.reveals"
-          :result="transaction.finalResult"
-          :address="transaction.address"
-          :transaction-type="transaction.transactionType"
-        />
         <div
-          v-if="transactionsLength === '0'"
+          v-if="transactionsLength == '0'"
           class="no-transactions-container"
           data-test="empty-transactions"
         >
           <p class="no-transactions-text">{{ $t('transactions_empty') }}</p>
+        </div>
+        <div v-else>
+          <Transaction
+            v-for="(transaction, index) in transactions"
+            :id="transaction.id"
+            :key="transaction.id"
+            :confirmed="transaction.confirmed"
+            :data-test="`transaction-${index}`"
+            :unit="unit"
+            :type="transaction.type"
+            :inputs="transaction.inputs"
+            :outputs="transaction.outputs"
+            :fee="transaction.fee"
+            :date="transaction.date"
+            :time-ago="transaction.timeAgo"
+            :label="transaction.label"
+            :amount="transaction.amount"
+            :block="transaction.block"
+            :epoch="transaction.epoch"
+            :witnesses="transaction.witnesses"
+            :rewards="transaction.rewards"
+            :rounds="transaction.rounds"
+            :state="transaction.currentStage"
+            :timelocked="transaction.timelocked"
+            :reveals="transaction.reveals"
+            :result="transaction.finalResult"
+            :address="transaction.address"
+            :transaction-type="transaction.transactionType"
+          />
         </div>
       </div>
       <div
