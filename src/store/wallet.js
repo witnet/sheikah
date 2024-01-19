@@ -1091,6 +1091,7 @@ export default {
         limit: TRANSACTIONS_LIMIT,
         offset,
       })
+      console.log(`Request!! ${request}`)
       if (request.result) {
         context.commit('setTransactions', request.result)
         context.dispatch('getBalance')
