@@ -1,4 +1,5 @@
 import { rmSync } from 'node:fs'
+import svgLoader from 'vite-svg-loader'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import electron from 'vite-plugin-electron/simple'
@@ -61,6 +62,21 @@ export default defineConfig(({ command }) => {
           }),
         ],
         dts: 'src/components.d.ts',
+      }),
+      svgLoader({
+        svgoConfig: {
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  removeViewBox: false,
+                  cleanupIds: false,
+                },
+              },
+            },
+          ],
+        },
       }),
       // TODO: could we remove unocss?
       // https://github.com/antfu/unocss

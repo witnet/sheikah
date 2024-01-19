@@ -101,5 +101,8 @@
   },
   "volta": {
     "node": "20.9.0"
+  },
+  "devDependencies": {
+    "vite-svg-loader": "^5.1.0"
   }
 }

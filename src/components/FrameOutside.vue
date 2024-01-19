@@ -5,7 +5,7 @@
 </template>
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref } from 'vue'
-const emit = defineEmits(['custom'])
+const emit = defineEmits(['click'])
 const listener = ref()
 const el = ref()
 

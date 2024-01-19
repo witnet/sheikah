@@ -2,12 +2,7 @@
   <FrameOutside @click="hideDetails" @focus="hideDetails">
     <div class="border" :class="{ locked: timelocked }">
       <div class="transaction" @click="showDetails = !showDetails">
-        <img
-          data-test="negative-positive"
-          class="icon"
-          :src="arrowIcon"
-          alt=""
-        />
+        <arrowIcon data-test="negative-positive" class="icon" />
         <Amount
           :unit-dark="true"
           data-test="amount"
@@ -98,133 +93,109 @@
   </FrameOutside>
 </template>
 
-<script>
-import FrameOutside from '@/components/FrameOutside.vue'
-import TransactionDetails from '@/components/TransactionDetails.vue'
-import InputsOutputs from '@/components/InputsOutputs.vue'
-import Amount from '@/components/Amount.vue'
-import Address from '@/components/Address.vue'
+<script setup lang="ts">
+import { ref, computed, type Ref } from 'vue'
+import PositiveIcon from '@/resources/svg/positive.svg'
+import NegativeIcon from '@/resources/svg/negative.svg'
 
-export default {
-  name: 'Transaction',
-  components: {
-    Address,
-    Amount,
-    FrameOutside,
-    InputsOutputs,
-    TransactionDetails,
+const showDetails: Ref<boolean> = ref(false)
+
+const props = defineProps({
+  unit: {
+    type: String,
+    required: true,
   },
-  props: {
-    unit: {
-      type: String,
-      required: true,
-    },
-    amount: {
-      type: String,
-      required: true,
-    },
-    timelocked: {
-      type: Boolean,
-      required: true,
-    },
-    block: {
-      type: String,
-      required: true,
-    },
-    epoch: {
-      type: String,
-      required: true,
-    },
-    date: {
-      type: String,
-      required: true,
-    },
-    timeAgo: {
-      type: String,
-      default: '',
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    fee: {
-      type: String,
-      required: true,
-    },
-    id: {
-      type: String,
-      required: true,
-    },
-    outputs: {
-      type: Array,
-      required: true,
-    },
-    inputs: {
-      type: Array,
-      default: () => [],
-    },
-    confirmed: {
-      type: Boolean,
-      default: false,
-    },
-    type: {
-      type: String,
-      default: '',
-    },
-    witnesses: {
-      type: Object,
-      default: null,
-    },
-    rewards: {
-      type: Object,
-      default: null,
-    },
-    rounds: {
-      type: Object,
-      default: null,
-    },
-    state: {
-      type: String,
-      default: '',
-    },
-    reveals: {
-      type: Array,
-      default: null,
-    },
-    result: {
-      type: String,
-      default: '',
-    },
-    address: {
-      type: String,
-      default: '',
-    },
-    transactionType: {
-      type: String,
-      default: '',
-    },
+  amount: {
+    type: String,
+    required: true,
   },
-  data() {
-    return {
-      showDetails: false,
-    }
+  timelocked: {
+    type: Boolean,
+    required: true,
   },
-  computed: {
-    origin() {
-      return this.type === 'POSITIVE' ? 'from' : 'to'
-    },
-    arrowIcon() {
-      return this.type === 'POSITIVE'
-        ? require('@/resources/svg/positive.svg')
-        : require('@/resources/svg/negative.svg')
-    },
+  block: {
+    type: String,
+    required: true,
   },
-  methods: {
-    hideDetails() {
-      this.showDetails = false
-    },
+  epoch: {
+    type: String,
+    required: true,
   },
-}
+  date: {
+    type: String,
+    required: true,
+  },
+  timeAgo: {
+    type: String,
+    default: '',
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  fee: {
+    type: String,
+    required: true,
+  },
+  id: {
+    type: String,
+    required: true,
+  },
+  outputs: {
+    type: Array,
+    required: true,
+  },
+  inputs: {
+    type: Array,
+    default: () => [],
+  },
+  confirmed: {
+    type: Boolean,
+    default: false,
+  },
+  type: {
+    type: String,
+    default: '',
+  },
+  witnesses: {
+    type: Object,
+    default: null,
+  },
+  rewards: {
+    type: Object,
+    default: null,
+  },
+  rounds: {
+    type: Object,
+    default: null,
+  },
+  state: {
+    type: String,
+    default: '',
+  },
+  reveals: {
+    type: Array,
+    default: null,
+  },
+  result: {
+    type: String,
+    default: '',
+  },
+  address: {
+    type: String,
+    default: '',
+  },
+  transactionType: {
+    type: String,
+    default: '',
+  },
+})
+
+const hideDetails = () => (showDetails.value = false)
+const origin = computed(() => (props.type === 'POSITIVE' ? 'from' : 'to'))
+const arrowIcon = computed(() =>
+  props.type === 'POSITIVE' ? PositiveIcon : NegativeIcon,
+)
 </script>
 
 <style lang="scss" scoped>
