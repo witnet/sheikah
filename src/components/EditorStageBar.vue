@@ -104,7 +104,7 @@ export default {
     padding: 0 24px;
     position: relative;
     // stylelint-disable-next-line
-    :v-deep(bolder) {
+    .bolder {
       font-size: 15px;
       font-weight: 500;
     }

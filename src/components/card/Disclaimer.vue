@@ -104,6 +104,7 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
+  align-items: center;
 
   .card-navigation {
     background: var(--disclaimer-background);

@@ -5,8 +5,10 @@
         {{ $t('dr_templates') }}
       </p>
       <el-button class="import-btn" type="primary" @click="importTemplate">
-        <font-awesome-icon class="icon" icon="file-import" />
-        {{ $t('import_templates') }}
+        <div class="import-btn-content">
+          <font-awesome-icon class="icon" icon="file-import" />
+          {{ $t('import_templates') }}
+        </div>
       </el-button>
     </div>
 
@@ -213,6 +215,10 @@ export default {
 
     .import-btn {
       margin: 0 16px 0 auto;
+      .import-btn-content {
+        display: flex;
+        gap: 4px;
+      }
     }
   }
 

@@ -2,27 +2,40 @@
   <!--  Emit click event to indicate a new address should be created -->
   <el-tooltip
     :content="$t('generate_address')"
+    :visible="
+      isRadiantBorderActive ||
+      (addAddress && addAddress.classList.contains('active'))
+    "
     placement="right"
     effect="light"
   >
-    <button ref="btn" class="card" @click="$emit('click')">
+    <button
+      ref="addAddress"
+      class="card"
+      :class="{ active: isRadiantBorderActive }"
+      @click="$emit('click')"
+    >
       <font-awesome-icon class="icon" icon="plus" />
     </button>
   </el-tooltip>
 </template>
 
-<script>
-/**
- * Button that helps generate Addresses.
- */
-export default {
-  name: 'AddressCardButton',
-  methods: {
-    focus() {
-      this.$refs.btn.focus()
-    },
-  },
-}
+<script setup lang="ts">
+import { useStore } from 'vuex'
+import { computed, watch, ref, type Ref } from 'vue'
+const store = useStore()
+const addAddress: Ref<HTMLButtonElement | undefined> = ref()
+const isRadiantBorderActive = computed(
+  () => store.state.uiInteractions.receiveTransactionClicked,
+)
+watch(isRadiantBorderActive, val => {
+  if (val) {
+    addAddress.value?.focus()
+  } else {
+    addAddress.value?.classList.remove('active')
+    addAddress.value?.blur()
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -43,6 +56,11 @@ export default {
   &:hover {
     border: var(--address-card-button-border-hover);
     color: var(--address-card-button-color-hover);
+  }
+
+  .active {
+    border: var(--address-card-button-border-focus);
+    border-radius: 3px;
   }
 
   &:active {

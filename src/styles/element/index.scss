@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $--colors: (
   'primary': (
     'base': #9b51e0,
@@ -97,11 +99,34 @@ $--mask-color: (
 
 // You should use them in scss, because we calculate it by sass.
 // comment next lines to use default color
+$key: (
+  'bg-color': red,
+  'shadow': none,
+  'empty-color': pink,
+  'max-height': 274px,
+  'padding': 6px 0,
+  'empty-padding': 10px 0,
+  'header-padding': 10px,
+  'footer-padding': 10px,
+  'border': 1px solid red,
+);
+// $select-dropdown: () !default;
+// $dropdown: () !default;
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   // do not use same name, it will override.
   $colors: $--colors,
   // $button-padding-horizontal: ("default": 50px)
-  $border-color: $--border-color
+  $border-color: $--border-color,
+  // $select-dropdown: map.merge($key, $select-dropdown),
+  // $dropdown: map.merge(
+  //   (
+  //     'menu-box-shadow': pink,
+  //     'menuItem-hover-fill': red,
+  //     'menuItem-hover-color': red,
+  //     'menu-index': 10,
+  //   ),
+  //   $dropdown
+  // ),
 );
 
 // if you want to import all

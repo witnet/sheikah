@@ -49,7 +49,7 @@
           v-else-if="tab.type === 'switch'"
           v-model="autoTryDataRequest"
           data-test="action-try"
-          class="center"
+          class="center dark"
           :active-text="tab.text"
         ></el-switch>
 
@@ -57,8 +57,8 @@
           <el-button type="primary" data-test="export-selection">
             {{ tab.text }} <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
-          <el-dropdown-menu>
-            <template #dropdown>
+          <template #dropdown>
+            <el-dropdown-menu>
               <el-dropdown-item
                 v-for="option in tab.options"
                 :key="option.text"
@@ -66,8 +66,8 @@
                 :data-test="option.name"
                 >{{ option.text }}</el-dropdown-item
               >
-            </template>
-          </el-dropdown-menu>
+            </el-dropdown-menu>
+          </template>
         </el-dropdown>
       </span>
     </div>
@@ -242,7 +242,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/_colors.scss';
-
 .none {
   display: none;
 }

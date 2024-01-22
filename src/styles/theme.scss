@@ -1,6 +1,15 @@
 @import './colors';
 
 [theme='dark'] {
+  --el-color-primary: #{$purple-dark};
+  --el-border-color: #{$grey-dark-10};
+  --el-text-color-regular: #{$white};
+  --link-text-color: #{$purple-dark};
+  --el-bg-color: #{$grey-dark-10};
+  --el-border-color-light: #{--dropdown-background};
+  --el-bg-color-overlay: #{--dropdown-background};
+  --el-fill-color-blank: #{--app-background-color};
+
   // tag
   --tag-background: #{$green-dark};
   // community card
@@ -86,6 +95,7 @@
   --address-card-button-border-hover: 1px dashed #{$grey-dark-0};
   --address-card-button-border-active: 1px dashed #{$grey-dark-2};
   --address-card-selected-border-active: 1px solid #{$grey-dark-1};
+  --address-card-button-border-focus: 2px solid #{$orange-2};
   --address-card-button-color: #{$grey-dark-1};
   --address-card-button-color-hover: #{$grey-dark-0};
   --address-card-button-color-active: #{$grey-dark-2};
@@ -112,6 +122,7 @@
   --primary-color: #{$purple-dark};
   --color-success: #{$green-dark-1};
   --switch-background: #{$grey-dark-8};
+  --switch-border: #{$white};
   --switch-background-active: #{$purple-dark};
   --switch-label-color: #{$grey-dark-1};
   --switch-notification-label: #{$white};
@@ -126,15 +137,6 @@
   --alert-color-text: #{$alt-grey-5};
   --alert-colot-link-text: #{$grey-dark-1};
   // button dark
-  // --button-dark-background: #{$grey-dark-10};
-  // --button-dark-text: #{$purple-dark};
-  // --button-dark-border: #{$grey-dark-10};
-  // --button-dark-border-hover: #{$grey-dark-10};
-  // --button-dark-background-hover: #{$grey-dark-6};
-  // --button-dark-text-hover: #{$purple-dark};
-  // --button-dark-background-active: #{$grey-dark-10};
-  // --button-dark-border-active: #{$grey-dark-10};
-  // --button-dark-text-active: #{$purple-dark};
   --button-dark-background: #{$white};
   --button-dark-text: #{$purple-dark};
   --button-dark-border: #{$white};
@@ -159,29 +161,35 @@
   // button default
   --button-default-text: #{$grey-dark-2};
   --button-default-border: #{$purple-dark};
+  --button-default-background: #{$grey-dark-8};
   --button-default-background-hover: #{$grey-dark-6};
   --button-default-border-hover: #{$purple-dark-1};
   --button-default-text-hover: #{$grey-dark-1};
+  --button-default-text-hover: #{$grey-dark-2};
+  --button-default-text-hover: #{$grey-dark-1};
+  --button-default-text-active: #{$white};
+  --button-default-border-active: #{$white};
+  --button-default-background-active: #{$grey-dark-6};
   // button default dark
-  // --button-default-dark-background: #{$purple-dark};
-  // --button-default-dark-border: #{$grey-dark-10};
-  // --button-default-dark-text: #{$grey-dark-10};
-  // --button-default-dark-background-hover: #{$purple-dark-1};
-  // --button-default-dark-border-hover: #{$grey-dark-10};
-  // --button-default-dark-text-hover: #{$grey-dark-10};
-  // --button-default-dark-background-active: #{$grey-dark-10};
-  // --button-default-dark-border-active: #{$purple-dark-2};
-  // --button-default-dark-text-active: #{$purple-dark-2};
-
-  --button-default-dark-background: #{$purple-dark};
-  --button-default-dark-border: #{$white};
-  --button-default-dark-text: #{$white};
-  --button-default-dark-background-hover: #{$purple-dark-1};
-  --button-default-dark-border-hover: #{$white};
-  --button-default-dark-text-hover: #{$white};
-  --button-default-dark-background-active: #{$white};
-  --button-default-dark-border-active: #{$purple-dark};
-  --button-default-dark-text-active: #{$purple-dark};
+  --button-dark-background: #{$purple-dark};
+  --button-dark-border: #{$white};
+  --button-dark-text: #{$white};
+  --button-dark-background-hover: #{$purple-dark-1};
+  --button-dark-border-hover: #{$white};
+  --button-dark-text-hover: #{$white};
+  --button-dark-background-active: #{$white};
+  --button-dark-border-active: #{$purple-dark};
+  --button-dark-text-active: #{$purple-dark};
+  // button default dark primary
+  --button-primary-dark-background: #{$white};
+  --button-primary-dark-border: #{$purple-dark-1};
+  --button-primary-dark-text: #{$purple-dark-1};
+  --button-primary-dark-background-hover: #{$purple-dark-1};
+  --button-primary-dark-border-hover: #{$white};
+  --button-primary-dark-text-hover: #{$white};
+  --button-primary-dark-background-active: #{$white};
+  --button-primary-dark-border-active: #{$purple-dark};
+  --button-primary-dark-text-active: #{$purple-dark};
   // button text
   --button-text-color: #{$purple-dark};
   --button-text-hover: #{$purple-dark-1};
@@ -241,6 +249,15 @@
 }
 
 [theme='light'] {
+  --el-color-primary: #{$purple-3};
+  --el-border-color: #{$grey-4};
+  --el-text-color-regular: #{$alt-grey-5};
+  --link-text-color: #{$purple-3};
+  --el-bg-color: #{$white};
+  --el-border-color-light: #{--dropdown-background};
+  --el-bg-color-overlay: #{--dropdown-background};
+  --el-fill-color-blank: #{--app-background-color};
+
   // tag
   --tag-background: #{$green-3};
   // community card
@@ -301,7 +318,7 @@
   // texts
   --text-dark-background: #{$white};
   --text-high-emphasis: #{$alt-grey-5};
-  --text-medium-emphasis: #{$alt-grey-4};
+  --text-medium-emphasis: #{$alt-grey-4-alt};
   --text-low-emphasis: #{$alt-grey-3};
   --text-disabled: #{$alt-grey-2};
   // select
@@ -328,6 +345,7 @@
   --addresses-list-background: #{$orange-1};
   --address-card-button-border: 1px dashed #{#66648c80};
   --address-card-button-border-hover: 1px dashed #{#aaa8bd80};
+  --address-card-button-border-focus: 2px solid #{$orange-2};
   --address-card-button-border-active: 1px dashed #{#66648c80};
   --address-card-selected-border-active: 1px solid #{#44424080};
   --address-card-button-color: #{#44424080};
@@ -356,6 +374,7 @@
   --primary-color: #{$purple-4};
   --color-success: #52c41a;
   --switch-label-color: #{$alt-grey-4};
+  --switch-border: #{$grey-dark-0};
   --switch-notification-label: #{$alt-grey-5};
   --switch-background: #{$grey-dark-0};
   --switch-background-active: #{$purple-2};
