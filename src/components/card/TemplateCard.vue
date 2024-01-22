@@ -8,9 +8,11 @@
           placement="bottom"
           effect="light"
         >
-          <div ref="input">
-            {{ cropString(name, 40) }}
-          </div>
+          <template #content>
+            <div ref="input">
+              {{ cropString(name, 40) }}
+            </div>
+          </template>
         </el-tooltip>
         <div v-else>
           {{ name }}
@@ -18,7 +20,13 @@
       </div>
 
       <el-dropdown @command="handleCommand">
-        <div class="button-options" split-button type="primary" @click.stop>
+        <div
+          class="button-options"
+          split-button
+          type="primary"
+          aria-expanded="true"
+          @click.stop
+        >
           <img
             v-if="type === 'marketplace'"
             src="@/resources/svg/options-marketplace.svg"
@@ -44,6 +52,7 @@
             <el-dropdown-item
               v-for="(option, index) in options"
               :key="option.label"
+              class="el-dropdown-menu__item"
               :data-test="`template-${option.label}`"
               :command="index"
             >

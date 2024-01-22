@@ -1,6 +1,7 @@
 <template>
   <div
     tabindex="0"
+    class="select"
     @keydown.tab="tabKeyPressed = true"
     @blur.capture="handleBlur"
   >
@@ -283,7 +284,9 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/theme.scss';
 @import '@/styles/fonts.scss';
-
+.select {
+  width: 100%;
+}
 .select-box {
   min-width: 170px;
   position: relative;

@@ -38,6 +38,7 @@ export default {
   color: var(--community-card-title);
   cursor: pointer;
   display: flex;
+  justify-content: center;
   padding: 32px 0 0 32px;
   text-decoration: none;
 
