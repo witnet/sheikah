@@ -38,7 +38,7 @@
             type="primary"
             :data-test="`action-${tab.name}`"
             :class="tab.class"
-            @click="tab.action"
+            @click="handleCommand(tab.action)"
           >
             <font-awesome-icon v-if="tab.icon" class="icon" :icon="tab.name" />
             <span v-else>{{ tab.text }}</span>
@@ -94,47 +94,43 @@ export default {
       tabs: [
         {
           icon: 'Redo changes',
-          action: this.editorRedo,
+          action: 'editorRedo',
           name: 'redo',
           type: 'button',
         },
         {
           icon: 'Undo changes',
-          action: this.editorUndo,
+          action: 'editorUndo',
           name: 'undo',
           type: 'button',
         },
         {
           text: this.$t('export_as'),
-          action: this.exportTemplate,
+          action: 'exportTemplate',
           name: 'export',
           type: 'selection',
           options: [
             {
               text: this.$t('export_js'),
               name: 'export-js',
-              action: () => {
-                this.export(EDITOR_EXPORT_FORMAT.JS)
-              },
+              action: 'exportJs',
             },
             {
               text: this.$t('export_template'),
               name: 'export-template',
-              action: () => {
-                this.export(EDITOR_EXPORT_FORMAT.JSON)
-              },
+              action: 'exportJson',
             },
           ],
         },
         {
           text: this.$t('deploy'),
-          action: this.deployTemplate,
+          action: 'deployTemplate',
           name: 'deploy',
           type: 'button',
         },
         {
           text: this.$t('try_data_request'),
-          action: this.tryDataRequest,
+          action: 'tryDataRequest',
           name: 'try',
           type: 'switch',
         },
@@ -207,6 +203,12 @@ export default {
         })
       })
     },
+    exportJson() {
+      this.export(EDITOR_EXPORT_FORMAT.JSON)
+    },
+    exportJs() {
+      this.export(EDITOR_EXPORT_FORMAT.JS)
+    },
     export(format) {
       this.exportFormat = format
       // wait for computed props update according to exportFormat
@@ -234,7 +236,7 @@ export default {
       this.$emit('undo-redo')
     },
     handleCommand(action) {
-      action()
+      this[action]()
     },
   },
 }

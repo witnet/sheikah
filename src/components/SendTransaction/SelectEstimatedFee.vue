@@ -134,6 +134,7 @@ export default {
 .estimation-table {
   display: grid;
   grid-gap: 16px;
+  width: 100%;
 
   .estimation {
     align-items: center;

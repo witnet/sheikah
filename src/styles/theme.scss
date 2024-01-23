@@ -5,10 +5,12 @@
   --el-border-color: #{$grey-dark-10};
   --el-text-color-regular: #{$white};
   --link-text-color: #{$purple-dark};
-  --el-bg-color: #{$grey-dark-10};
+  --el-bg-color: #{$grey-dark-8};
   --el-border-color-light: #{--dropdown-background};
   --el-bg-color-overlay: #{--dropdown-background};
   --el-fill-color-blank: #{--app-background-color};
+  --el-text-color-primary: #{--text-high-emphasis};
+  --el-text-color-primary: #{var(--text-high-emphasis)};
 
   // tag
   --tag-background: #{$green-dark};
@@ -257,6 +259,7 @@
   --el-border-color-light: #{--dropdown-background};
   --el-bg-color-overlay: #{--dropdown-background};
   --el-fill-color-blank: #{--app-background-color};
+  --el-text-color-primary: #{var(--text-high-emphasis)};
 
   // tag
   --tag-background: #{$green-3};

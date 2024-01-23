@@ -382,7 +382,6 @@ export default {
 }
 
 .form {
-  padding-right: 24px;
   width: 600px;
 
   .subtitle {

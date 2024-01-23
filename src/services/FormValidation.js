@@ -2,6 +2,7 @@ import { WIT_UNIT } from '@/constants'
 import { isGrtMaxNumber, standardizeWitUnits } from '@/utils'
 import i18n from '@/plugins/i18n'
 import BigNumber from '@/utils/BigNumber'
+const { t } = i18n.global
 
 export default class FormValidation {
   constructor({ unit, balance, feeType }) {
@@ -12,7 +13,7 @@ export default class FormValidation {
 
   maxNumber = (rule, value, callback) => {
     if (isGrtMaxNumber(value, this.unit)) {
-      callback(new Error(i18n.t('validate_max_number')))
+      callback(new Error(t('validate_max_number')))
     } else {
       callback()
     }
@@ -25,7 +26,7 @@ export default class FormValidation {
       this.feeType?.key === 'absolute' &&
       !Number.isInteger(Number(value))
     ) {
-      callback(new Error(i18n.t('validate_integer_nano_wit')))
+      callback(new Error(t('validate_integer_nano_wit')))
     } else {
       callback()
     }
@@ -34,7 +35,7 @@ export default class FormValidation {
   integerNanoWit = (rule, value, callback) => {
     const isNanoWit = this.unit === WIT_UNIT.NANO
     if (isNanoWit && !Number.isInteger(Number(value))) {
-      callback(new Error(i18n.t('validate_integer_nano_wit')))
+      callback(new Error(t('validate_integer_nano_wit')))
     } else {
       callback()
     }
@@ -45,7 +46,7 @@ export default class FormValidation {
       standardizeWitUnits(value, WIT_UNIT.NANO, this.unit),
     )
     if (nanoWits < 1) {
-      callback(new Error(i18n.t('validate_min_amount')))
+      callback(new Error(t('validate_min_amount')))
     } else {
       callback()
     }
@@ -56,7 +57,7 @@ export default class FormValidation {
       Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.unit)) >
       this.balance
     if (validation) {
-      callback(new Error(i18n.t('not_enough_balance')))
+      callback(new Error(t('not_enough_balance')))
     } else {
       callback()
     }
@@ -68,15 +69,13 @@ export default class FormValidation {
       new BigNumber(value.replace(',', '.'))
       callback()
     } catch (err) {
-      callback(new Error(i18n.t('validate_number')))
+      callback(new Error(t('validate_number')))
     }
   }
 
   minConsensusPercentage = (rule, value, callback) => {
     if (value < 51) {
-      callback(
-        new Error(i18n.t('create_dr_form_error_min_consensus_percentage')),
-      )
+      callback(new Error(t('create_dr_form_error_min_consensus_percentage')))
     } else {
       callback()
     }
@@ -84,9 +83,7 @@ export default class FormValidation {
 
   maxConsensusPercentage = (rule, value, callback) => {
     if (value > 100) {
-      callback(
-        new Error(i18n.t('create_dr_form_error_max_consensus_percentage')),
-      )
+      callback(new Error(t('create_dr_form_error_max_consensus_percentage')))
     } else {
       callback()
     }
@@ -96,7 +93,7 @@ export default class FormValidation {
     const isLessThanMin =
       Number(standardizeWitUnits(value, WIT_UNIT.WIT, WIT_UNIT.WIT)) < 1
     if (isLessThanMin) {
-      callback(new Error(i18n.t('create_dr_form_error_min_collateral')))
+      callback(new Error(t('create_dr_form_error_min_collateral')))
     } else {
       callback()
     }

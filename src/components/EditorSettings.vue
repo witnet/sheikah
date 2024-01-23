@@ -69,7 +69,6 @@ export default {
     column-gap: 10px;
     display: grid;
     grid-template: repeat(3, auto) / 130px 1fr;
-    row-gap: 22px;
 
     .label {
       color: var(--text-medium-emphasis);
