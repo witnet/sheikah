@@ -58,7 +58,7 @@
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_less') }}
-        <CustomIcon class-name="icon" name="Close" />
+        <CustomIcon class-name="icon" name="close" />
       </el-link>
       <el-link
         v-else
@@ -67,7 +67,7 @@
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_advance') }}
-        <CustomIcon class-name="icon" name="Open" />
+        <CustomIcon class-name="icon" name="open" />
       </el-link>
       <el-button
         class="send-btn"
@@ -299,7 +299,6 @@ export default {
 }
 
 .form {
-  padding-right: 24px;
   width: 600px;
 }
 
@@ -314,6 +313,7 @@ export default {
   flex-direction: column;
   text-align: right;
   width: 100%;
+  margin-top: 24px;
 
   .link {
     font-size: 14px;

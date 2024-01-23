@@ -41,9 +41,9 @@
               <CustomIcon
                 v-if="areOptionsVisible"
                 class-name="icon"
-                name="SortUp"
+                name="sort-up"
               />
-              <CustomIcon v-else class-name="icon" name="SortDown" />
+              <CustomIcon v-else class-name="icon" name="sort-down" />
             </div>
           </div>
         </div>

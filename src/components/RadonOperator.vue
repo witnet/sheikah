@@ -12,7 +12,7 @@
         effect="light"
       >
         <p class="delete" data-test="delete-operator" @click="deleteOperator">
-          <CustomIcon name="DeleteBtn" />
+          <CustomIcon name="selete-btn" />
         </p>
       </el-tooltip>
       <p data-test="operator-label" class="label">{{ $t('operator') }}</p>
@@ -42,10 +42,10 @@
     </div>
     <div class="operator-bottom">
       <div v-if="showOutputType" class="icon-container">
-        <CustomIcon class-name="row sheikah-icon" name="OperatorArrow" />
+        <CustomIcon class-name="row sheikah-icon" name="operator-arrow" />
       </div>
       <div v-else class="icon-container">
-        <CustomIcon class-name="row sheikah-icon" name="LongArrow" />
+        <CustomIcon class-name="row sheikah-icon" name="long-arrow" />
         <div
           class="add-operator-container"
           data-test="add-operator"
@@ -54,7 +54,7 @@
           <CustomIcon
             class-name="add-operator"
             data-test="add-operator"
-            name="AddOperator"
+            name="add-operator"
           />
           <p class="add-operator-text">{{ $t('add_operator') }}</p>
         </div>
