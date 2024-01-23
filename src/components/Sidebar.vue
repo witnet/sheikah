@@ -10,9 +10,9 @@
         class="brand"
         to="/wallet/transactions"
       >
-        <CustomIcon class-name="sheikah-logo" name="SheikahSmall" />
+        <CustomIcon class-name="sheikah-logo" name="sheikah-small" />
         <div class="sheikah-name">
-          <CustomIcon class-name="name" name="Sheikah" />
+          <CustomIcon class-name="name" name="sheikah" />
           <span class="version">{{ version }}</span>
         </div>
       </router-link>
@@ -49,7 +49,7 @@
             placement="right"
             effect="light"
           >
-            <CustomIcon class-name="exit-icon" name="ExitIcon" />
+            <CustomIcon class-name="exit-icon" name="exit-icon" />
           </el-tooltip>
         </div>
         <div class="icon-container" @click="$router.push('/settings/general')">

@@ -74,7 +74,7 @@
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_less') }}
-        <CustomIcon class-name="icon" name="Close" />
+        <CustomIcon class-name="icon" name="close" />
       </el-link>
       <el-link
         v-else
@@ -205,9 +205,12 @@ export default {
     grid-template-columns: 1fr 360px;
     grid-template-rows: max-content;
     overflow-wrap: break-word;
-    padding-right: 24px;
     row-gap: 24px;
     width: 100%;
+
+    &.advanced {
+      margin-bottom: 24px;
+    }
 
     &:first-of-type {
       margin-bottom: 24px;
@@ -289,13 +292,13 @@ export default {
   .confirm-advance-btn {
     display: flex;
     flex-direction: column;
-    padding-right: 24px;
     text-align: right;
     width: 100%;
+    row-gap: 24px;
 
     .link {
+      width: max-content;
       font-size: 14px;
-      margin-top: 16px;
       text-align: left;
 
       .icon {

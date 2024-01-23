@@ -39,13 +39,13 @@
           v-if="showAll"
           data-test="shortUp"
           class-name="sort"
-          name="Up"
+          name="up"
         />
         <CustomIcon
           v-else
           data-test="short-down"
           class-name="sort"
-          name="Down"
+          name="down"
         />
       </div>
     </div>

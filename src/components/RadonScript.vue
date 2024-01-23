@@ -11,12 +11,12 @@
           <CustomIcon
             v-if="emptyScript"
             class-name="row sheikah-icon"
-            name="LongArrow"
+            name="long-arrow"
           />
           <CustomIcon
             v-else
             class-name="row sheikah-icon"
-            name="OperatorArrow"
+            name="operator-arrow"
           />
           <div
             v-if="emptyScript"
@@ -26,7 +26,7 @@
             <CustomIcon
               class-name="add-operator"
               data-test="add-operator"
-              name="AddOperator"
+              name="add-operator"
             />
             <p class="add-operator-text">{{ $t('add_operator') }}</p>
           </div>

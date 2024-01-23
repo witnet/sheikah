@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       previousRoute: '',
-      btnUrl: 'CloseBtn',
+      btnUrl: 'close-btn',
     }
   },
   computed: {

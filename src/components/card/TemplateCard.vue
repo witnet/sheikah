@@ -32,7 +32,7 @@
             src="@/resources/svg/options-marketplace.svg"
             alt=""
           />
-          <CustomIcon v-else name="Options" />
+          <CustomIcon v-else name="options" />
         </div>
 
         <template v-if="type === 'marketplace'" #dropdown>
