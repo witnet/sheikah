@@ -14,7 +14,7 @@ onMounted(() => {
     if (e.target === el.value || el.value.contains(e.target)) {
       return
     }
-    emit(e.type, e)
+    emit('click', e)
   }
 
   document.addEventListener(`click`, listener.value)

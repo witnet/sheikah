@@ -44,6 +44,12 @@ $--el-input-border-color: red;
 // @import 'element-plus/packages/theme-chalk/src/index';
 
 .el-input {
+  .el-input-group__append {
+    background-color: var(--el-bg-color);
+    border: none;
+    color: var(--text-high-emphasis);
+  }
+
   .el-input__wrapper {
     padding: 4px 16px;
     background-color: var(--input-background);
@@ -75,7 +81,7 @@ $--el-input-border-color: red;
 }
 
 .el-form-item {
-  margin-bottom: 0px;
+  // margin-bottom: 0px;
   .el-form-item {
     .el-form-item__content {
       width: 100%;

@@ -141,7 +141,6 @@ export const CUSTOM_DARK_ICON_NAMES = [
   'reddit',
 ]
 
-
 export const THEMES = {
   LIGHT: 'light',
   DARK: 'dark',

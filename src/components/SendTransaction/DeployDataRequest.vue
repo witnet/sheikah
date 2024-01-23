@@ -1,7 +1,7 @@
 <template>
   <el-dialog
+    v-model="dialogVisible"
     class="dialog"
-    :visible="true"
     :title="title"
     :show-close="true"
     :close-on-click-modal="false"
@@ -63,6 +63,7 @@ export default {
     return {
       variablesUpdated: false,
       stage: 0,
+      dialogVisible: true,
     }
   },
   computed: {

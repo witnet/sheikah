@@ -163,7 +163,7 @@ export default {
       state.currentTemplate.variablesIndex += 1
       state.currentTemplate.variables.push({
         key:
-          i18n.global.tc('variable_default_key') +
+          i18n.global.t('variable_default_key') +
           state.currentTemplate.variablesIndex,
         value: '',
         description: '',
@@ -345,7 +345,7 @@ export default {
       })
     },
     [CREATE_TEMPLATE](state, context) {
-      const TEMPLATE_DEFAULT_NAME = i18n.global.tc('template_default_name')
+      const TEMPLATE_DEFAULT_NAME = i18n.global.t('template_default_name')
       const name = Object.values(state.templates).reduce(
         (acc, _, index, self) => {
           const isRepeatedName = self.find(template => template.name === acc)
@@ -400,8 +400,8 @@ export default {
         ]
       } else {
         createNotification({
-          title: i18n.global.tc('import_dr_notification_title'),
-          body: i18n.global.tc('import_dr_notification_body'),
+          title: i18n.global.t('import_dr_notification_title'),
+          body: i18n.global.t('import_dr_notification_body'),
         })
       }
     },
@@ -480,8 +480,8 @@ export default {
       if (isImportingTemplate && !isValidRadRequest(args.template.radRequest)) {
         // data request is invalid
         createNotification({
-          title: i18n.global.tc('import_dr_notification_title'),
-          body: i18n.global.tc('import_dr_notification_body'),
+          title: i18n.global.t('import_dr_notification_title'),
+          body: i18n.global.t('import_dr_notification_body'),
         })
       } else {
         const templateToSave = isImportingTemplate
@@ -520,7 +520,7 @@ export default {
           context.commit('setError', {
             name: 'saveItem',
             error: request.error,
-            message: i18n.global.tc('save_template_error_message'),
+            message: i18n.global.t('save_template_error_message'),
           })
         }
       }
@@ -537,13 +537,13 @@ export default {
         context.commit('setError', {
           name: 'getItem',
           error: request.error.message,
-          message: i18n.global.tc('get_templates_error_message'),
+          message: i18n.global.t('get_templates_error_message'),
         })
       }
     },
-    deleteTemplate: async function (context /*, { id }*/) {
-      // TODO: fix
-      // $vm.delete(context.state.templates, id)
+    deleteTemplate: async function (context, { id }) {
+      delete context.state.templates[id]
+      context.commit(SET_TEMPLATES, { templates: context.state.templates })
       const request = await api.saveItem({
         wallet_id: context.rootState.wallet.walletId,
         session_id: context.rootState.wallet.sessionId,
@@ -554,7 +554,7 @@ export default {
         context.commit('setError', {
           name: 'saveItem',
           error: request.error.message,
-          message: i18n.global.tc('delete_template_error_message'),
+          message: i18n.global.t('delete_template_error_message'),
         })
       }
     },
