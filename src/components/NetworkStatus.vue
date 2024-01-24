@@ -301,8 +301,10 @@ export default {
     .resync {
       margin-bottom: 10px;
       width: min-content;
+      display: flex;
 
       .icon {
+        margin-right: 4px;
         font-size: 14px;
       }
     }

@@ -36,6 +36,7 @@ $--el-input-border-color: red;
 .el-button {
   padding: 12px;
   height: max-content;
+  display: flex;
 }
 
 /* icon font path, required */
@@ -79,16 +80,6 @@ $--el-input-border-color: red;
     background-color: var(--input-background);
   }
 }
-
-.el-form-item {
-  // margin-bottom: 0px;
-  .el-form-item {
-    .el-form-item__content {
-      width: 100%;
-    }
-  }
-}
-
 .el-dialog__wrapper {
   .el-dialog {
     .el-dialog__header {
@@ -98,16 +89,14 @@ $--el-input-border-color: red;
 
     .el-dialog__body {
       padding: 16px 24px;
-
-      .el-form-item {
-        .el-form-item__label {
-          display: flex;
-          line-height: 1.5;
-          word-break: break-word;
-        }
-      }
     }
   }
+}
+
+.el-form-item__error {
+  position: relative;
+  margin-top: 4px;
+  top: 0;
 }
 
 .el-button {
