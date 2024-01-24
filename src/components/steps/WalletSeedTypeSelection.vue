@@ -12,7 +12,6 @@
       <li v-if="walletInfos && walletInfos.length" class="option">
         <el-button
           class="big capitalize"
-          type="secondary"
           data-test="back"
           @click="redirectTo('/welcome-back/wallet-list')"
         >

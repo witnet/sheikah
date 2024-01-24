@@ -132,11 +132,9 @@ export default {
     box-sizing: border-box;
     padding: 32px;
     text-align: right;
-
-    .button,
-    .default {
-      margin-right: 8px;
-    }
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: flex-end;
   }
 }
 </style>

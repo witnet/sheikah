@@ -296,8 +296,6 @@ export default {
 @import '@/styles/theme.scss';
 
 .deploy-form {
-  padding-right: 24px;
-
   .switch {
     justify-content: flex-end;
     margin-bottom: 16px;
@@ -332,6 +330,9 @@ export default {
 
     .buttons-container {
       text-align: right;
+      display: grid;
+      grid-template-columns: max-content max-content;
+      justify-content: flex-end;
     }
 
     .link {
