@@ -5,9 +5,9 @@
   >
     <div id="app">
       <!-- TODO: use transition -->
-      <!-- <transition :name="transitionName"> -->
-      <router-view />
-      <!-- </transition> -->
+      <transition :name="transitionName">
+        <router-view />
+      </transition>
       <Notification />
       <ResyncConfirmation />
       <LogoutModal />
@@ -33,7 +33,7 @@ import { type LocaleCodes } from '@/types'
 import { useIdle } from '@vueuse/core'
 
 const loading = ref(true)
-const transitionName: Ref<null | string> = ref(null)
+const transitionName: Ref<string> = ref('no-transition')
 const route = useRoute()
 const polling = ref()
 
@@ -51,7 +51,7 @@ watch(route, (to, from) => {
   if (to.path.includes('/settings') || from.path.includes('/settings')) {
     transitionName.value = 'zoom'
   } else {
-    transitionName.value = null
+    transitionName.value = 'no-transition'
   }
 })
 onMounted(() => {
