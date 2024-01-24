@@ -6,13 +6,13 @@
   >
     <div class="border">
       <el-tooltip
-        v-show="showDelete && !hideDelete"
+        v-if="showDelete && !hideDelete"
         :content="$t('delete_operator')"
         placement="right"
         effect="light"
       >
         <p class="delete" data-test="delete-operator" @click="deleteOperator">
-          <CustomIcon name="selete-btn" />
+          <CustomIcon name="close-btn" />
         </p>
       </el-tooltip>
       <p data-test="operator-label" class="label">{{ $t('operator') }}</p>
@@ -22,7 +22,7 @@
         type="operator"
         :model-value="selectedOption"
         :options="operatorOptions"
-        @input="
+        @update:model-value="
           option => updateOperatorAndVariables(selectedOption.id, option.value)
         "
       />

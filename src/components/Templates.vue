@@ -53,7 +53,7 @@
       @change="readFile"
     />
     <DeployDataRequest
-      v-if="dialogVisible"
+      v-if="dialogVisible && currentTemplate"
       :template="currentTemplate"
       :visible="dialogVisible"
       @close="closeDeployModal"
@@ -123,9 +123,9 @@ const handleDeleteTemplate = ({ id }: { id: string }) => {
 const handleCurrentChange = (val: number) => {
   currentPage.value = val
 }
-const displayModalCreateDR = (currentTemplate: any) => {
+const displayModalCreateDR = (templateToSet: any) => {
   dialogVisible.value = true
-  currentTemplate.value = currentTemplate
+  currentTemplate.value = templateToSet
 }
 const fileInput = ref()
 const readFile = () => {

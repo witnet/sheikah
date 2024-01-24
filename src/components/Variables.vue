@@ -33,7 +33,7 @@
           data-test="select-type"
           :model-value="{ primaryText: variable.type }"
           :options="dataTypeOptions"
-          @input="
+          @update:model-value="
             val =>
               updateVariables({
                 index,
@@ -190,11 +190,11 @@ export default {
       return this.dataTypeOptions.find(type => type.primaryText === type)
     },
     updateKey({ index, key, value, description, type }) {
-      this.$set(this.keys, index, key)
+      this.keys[index] = key
       if (this.isRepeated(key) && !this.isRepeatedIndex(key, index)) {
-        this.$set(this.errors, index, true)
+        this.errors[index] = true
       } else {
-        this.$set(this.errors, index, false)
+        this.errors[index] = false
         this.updateVariables({
           index,
           key,
