@@ -38,7 +38,7 @@
         :ref="argument.id"
         :model-value="selectedArgumentValue"
         :options="argumentOptions"
-        @input="
+        @update:model-value="
           value =>
             updateTemplateAndVariables({
               id: argument.id,
