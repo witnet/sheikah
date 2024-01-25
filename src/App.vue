@@ -5,9 +5,11 @@
   >
     <div id="app">
       <!-- TODO: use transition -->
-      <transition :name="transitionName">
-        <router-view />
-      </transition>
+      <router-view v-slot="{ Component }">
+        <transition :name="transitionName">
+          <component :is="Component" />
+        </transition>
+      </router-view>
       <Notification />
       <ResyncConfirmation />
       <LogoutModal />

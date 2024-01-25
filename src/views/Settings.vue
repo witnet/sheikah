@@ -116,10 +116,10 @@ export default {
       this.$router.push(this.previousRoute)
     },
     hoverAction() {
-      this.btnUrl = 'CloseBtnLight'
+      this.btnUrl = 'close-btn-light'
     },
     mouseLeaveAction() {
-      this.btnUrl = 'CloseBtn'
+      this.btnUrl = 'close-btn'
     },
   },
 }
