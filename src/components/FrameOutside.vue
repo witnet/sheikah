@@ -1,22 +1,27 @@
-<script>
-export default {
-  mounted() {
-    const listener = e => {
-      if (e.target === this.$el || this.$el.contains(e.target)) {
-        return
-      }
-      this.$emit(e.type, e)
-    }
+<template>
+  <div ref="el">
+    <slot />
+  </div>
+</template>
+<script setup lang="ts">
+import { onMounted, onBeforeUnmount, ref } from 'vue'
+const emit = defineEmits(['custom'])
+const listener = ref()
+const el = ref()
 
-    document.addEventListener(`click`, listener)
-    document.addEventListener(`focus`, listener, true)
-    this.$once(`hook:beforeUnmount`, () => {
-      document.removeEventListener(`click`, listener)
-      document.removeEventListener(`focus`, listener, true)
-    })
-  },
-  render() {
-    return this.$slots.default()[0]
-  },
-}
+onMounted(() => {
+  listener.value = (e: any) => {
+    if (e.target === el.value || el.value.contains(e.target)) {
+      return
+    }
+    emit(e.type, e)
+  }
+
+  document.addEventListener(`click`, listener.value)
+  document.addEventListener(`focus`, listener.value, true)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener(`click`, listener.value)
+  document.removeEventListener(`focus`, listener.value, true)
+})
 </script>

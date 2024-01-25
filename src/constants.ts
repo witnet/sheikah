@@ -1,8 +1,8 @@
 // todo: ensure this works
 import { es as fnsEs, enGB } from 'date-fns/locale'
-import en from 'element-plus/dist/locale/en.mjs'
-import es from 'element-plus/dist/locale/es.mjs'
-// TODO: fix
+import en from 'element-plus/dist/locale/en.js'
+import es from 'element-plus/dist/locale/es.js'
+import { LanguageDictionary, LocaleCodes } from '@/types'
 // import bitcoinPrice from '@/radExamples/bitcoinPrice.js'
 // import ethPrice from '@/radExamples/ethPrice.js'
 
@@ -62,9 +62,19 @@ export const DR_DEFAULT_VALUES = {
 }
 
 // TODO: update locales to element-plus
-export const LANGUAGES = {
-  es: { name: 'Español', locale: 'es', fnsLocale: fnsEs, elementLocale: es },
-  en: { name: 'English', locale: 'en', fnsLocale: enGB, elementLocale: en },
+export const LANGUAGES: LanguageDictionary = {
+  [LocaleCodes.es]: {
+    name: 'Español',
+    locale: 'es',
+    fnsLocale: fnsEs,
+    elementLocale: es,
+  },
+  [LocaleCodes.en]: {
+    name: 'English',
+    locale: 'en',
+    fnsLocale: enGB,
+    elementLocale: en,
+  },
 }
 
 export const DEFAULT_LOCALE = 'en'

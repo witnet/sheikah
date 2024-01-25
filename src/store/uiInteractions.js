@@ -86,7 +86,7 @@ export default {
     },
   },
   actions: {
-    notify(context, payload) {
+    notify() {
       // TODO: replace vue prototype https://vuejs.org/api/application.html#app-config-globalproperties
       // Vue.prototype.$notify(payload)
     },
