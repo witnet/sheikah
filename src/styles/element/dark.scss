@@ -1,58 +1,58 @@
 // only scss variables
 
 $--colors: (
-  "primary": (
-    "base": #9b51e0,
+  'primary': (
+    'base': #9b51e0,
   ),
-  "success": (
-    "base": #52c41a,
+  'success': (
+    'base': #52c41a,
   ),
-  "warning": (
-    "base": #f2c94c,
+  'warning': (
+    'base': #f2c94c,
   ),
-  "danger": (
-    "base": #f08484,
+  'danger': (
+    'base': #f08484,
   ),
-  "error": (
-    "base": #f08484,
+  'error': (
+    'base': #f08484,
   ),
-  "info": (
-    "base": yellow,
+  'info': (
+    'base': yellow,
   ),
 );
 
-$--border-color: 
-  (
-    '': #8f8f8f, // $grey-dark-4 - grey-dark-10
-    'light':#8f8f8f,
-    'lighter': #8f8f8f,
-    'extra-light': #8f8f8f,
-    'dark': #8f8f8f,
-    'darker': #8f8f8f,
-  );
+$--border-color: (
+  '': #8f8f8f,
+  // $grey-dark-4 - grey-dark-10
+  'light': #8f8f8f,
+  'lighter': #8f8f8f,
+  'extra-light': #8f8f8f,
+  'dark': #8f8f8f,
+  'darker': #8f8f8f,
+);
 
 $--fill-color: (
-    '': #f0f2f5,
-    'light': #f5f7fa,
-    'lighter': #fafafa,
-    'extra-light': #fafcff,
-    'dark': #ebedf0,
-    'darker': #e6e8eb,
-    'blank': #ffffff,
+  '': #f0f2f5,
+  'light': #f5f7fa,
+  'lighter': #fafafa,
+  'extra-light': #fafcff,
+  'dark': #ebedf0,
+  'darker': #e6e8eb,
+  'blank': #ffffff,
 );
 
 $--text-color: (
-    'primary': #303133,
-    'regular': #606266,
-    'secondary': #909399,
-    'placeholder': #a8abb2,
-    'disabled': #c0c4cc,
+  'primary': #303133,
+  'regular': #606266,
+  'secondary': #909399,
+  'placeholder': #a8abb2,
+  'disabled': #c0c4cc,
 );
 
 $--bg-color: (
-    '': #ffffff,
-    'page': #f2f3f5,
-    'overlay': #ffffff,
+  '': #ffffff,
+  'page': #f2f3f5,
+  'overlay': #ffffff,
 );
 
 // $--box-shadow: (
@@ -84,9 +84,6 @@ $--bg-color: (
 //   'extra-light': rgba(255, 255, 255, 0.3),
 // );
 
-
-
-
-@forward "element-plus/theme-chalk/src/dark/var.scss" with (
+@forward 'element-plus/theme-chalk/src/dark/var.scss' with (
   $colors: $--colors
 );

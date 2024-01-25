@@ -1,33 +1,33 @@
 $--colors: (
-  "primary": (
-    "base": #9b51e0,
+  'primary': (
+    'base': #9b51e0,
   ),
-  "success": (
-    "base": #52c41a,
+  'success': (
+    'base': #52c41a,
   ),
-  "warning": (
-    "base": #f2c94c,
+  'warning': (
+    'base': #f2c94c,
   ),
-  "danger": (
-    "base": #f08484,
+  'danger': (
+    'base': #f08484,
   ),
-  "error": (
-    "base": #f08484,
+  'error': (
+    'base': #f08484,
   ),
-  "info": (
-    "base": yellow,
+  'info': (
+    'base': yellow,
   ),
 );
 
-$--border-color: 
-  (
-    '': #8f8f8f, // $grey-dark-4 - grey-dark-10
-    'light':#8f8f8f,
-    'lighter': #8f8f8f,
-    'extra-light': #8f8f8f,
-    'dark': #8f8f8f,
-    'darker': #8f8f8f,
-  );
+$--border-color: (
+  '': #8f8f8f,
+  // $grey-dark-4 - grey-dark-10
+  'light': #8f8f8f,
+  'lighter': #8f8f8f,
+  'extra-light': #8f8f8f,
+  'dark': #8f8f8f,
+  'darker': #8f8f8f,
+);
 
 // $--fill-color: (
 //     '': #f0f2f5,
@@ -72,9 +72,9 @@ $--border-color:
 // );
 
 $--overlay-color: (
-    '': rgba(0, 0, 0, 0.8),
-    'light': rgba(0, 0, 0, 0.7),
-    'lighter': rgba(0, 0, 0, 0.5),
+  '': rgba(0, 0, 0, 0.8),
+  'light': rgba(0, 0, 0, 0.7),
+  'lighter': rgba(0, 0, 0, 0.5),
 );
 
 // $mask-color: () !default;
@@ -90,7 +90,6 @@ $--mask-color: (
   'extra-light': rgba(255, 255, 255, 0.3),
 );
 
-
 // we can add this to custom namespace, default is 'el'
 // @forward "element-plus/theme-chalk/src/mixins/config.scss" with (
 //   $namespace: "ep"
@@ -98,11 +97,11 @@ $--mask-color: (
 
 // You should use them in scss, because we calculate it by sass.
 // comment next lines to use default color
-@forward "element-plus/theme-chalk/src/common/var.scss" with (
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
   // do not use same name, it will override.
   $colors: $--colors,
   // $button-padding-horizontal: ("default": 50px)
-  $border-color: $--border-color,
+  $border-color: $--border-color
 );
 
 // if you want to import all
@@ -112,5 +111,5 @@ $--mask-color: (
 // @debug $--colors;
 
 // custom dark variables
-@use "./dark.scss";
+@use './dark.scss';
 // @use "./_colors.scss";

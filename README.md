@@ -25,10 +25,9 @@ Go to [releases](https://github.com/witnet/sheikah/releases) section and downloa
 
 This is a Web/Desktop application built with [Electron](https://electronjs.org/). When developing Sheikah, we support **Node CURRENT and LTS+**. It might work with another version but we do not guarantee it will do in the future.
 
-
 ### Running Sheikah
 
-``` bash
+```bash
 # clone the repository
 git clone git@github.com:witnet/sheikah.git
 
@@ -44,14 +43,14 @@ yarn electron:serve:wallet
 
 ### Formatter
 
-* Verify files are correctly formatted with `yarn lint`
-* Repair lint errors with (**this operation modifies your files!**) `yarn lint!`
+- Verify files are correctly formatted with `yarn lint`
+- Repair lint errors with (**this operation modifies your files!**) `yarn lint!`
 
 ### Test
 
 We use [Jest](https://facebook.github.io/jest/) for testing.
 
-``` bash
+```bash
 # run unit tests
 yarn test
 ```
@@ -72,11 +71,12 @@ When opening a pull request a job in [Github Actions](https://github.com/feature
 
 #### Troubleshooting
 
-* Use `yarn clean` to remove the contents of the build directory (`dist_electron`)
-* Use `yarn clean-deps` to remove all installed dependencies
-* Use `yarn reinstall` to remove all installed dependencies and install them again
+- Use `yarn clean` to remove the contents of the build directory (`dist_electron`)
+- Use `yarn clean-deps` to remove all installed dependencies
+- Use `yarn reinstall` to remove all installed dependencies and install them again
 
 If the application doesn't boot correctly and no error is reported in the terminal, try running `yarn reinstall` and try again.
 
 ## Release
-Releases are created using [action-electron-builder](https://github.com/samuelmeuli/action-electron-builder). A new draft release will be publish naming a commit and a tag as v*.*.*
+
+Releases are created using [action-electron-builder](https://github.com/samuelmeuli/action-electron-builder). A new draft release will be publish naming a commit and a tag as v*.*.\*
