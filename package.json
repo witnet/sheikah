@@ -34,7 +34,7 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
     "reinstall": "yarn clean-deps && yarn",
-    "test:unit": "vue-cli-service test:unit --config=jest.unit.config.js"
+    "test:unit": "vitest"
   },
   "main": "dist-electron/main/index.js",
   "dependencies": {
@@ -104,6 +104,9 @@
     "node": "20.9.0"
   },
   "devDependencies": {
-    "vite-svg-loader": "^5.1.0"
+    "@vue/test-utils": "^2.4.3",
+    "jsdom": "^24.0.0",
+    "vite-svg-loader": "^5.1.0",
+    "vitest": "^1.1.3"
   }
 }
