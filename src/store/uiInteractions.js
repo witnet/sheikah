@@ -53,9 +53,6 @@ export default {
     },
     receiveTransactionClicked(state) {
       state.receiveTransactionClicked = true
-      console.log(
-        `receive transaction clicked ${state.receiveTransactionClicked}`,
-      )
     },
     clearTransactionClicked(state) {
       state.receiveTransactionClicked = false

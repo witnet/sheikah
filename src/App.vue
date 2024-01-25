@@ -38,7 +38,7 @@ import { useIdle } from '@vueuse/core'
 const loading = ref(true)
 const transitionName: Ref<string> = ref('no-transition')
 const route = useRoute()
-const polling = ref()
+let polling: null | ReturnType<typeof setInterval>
 
 const store = useStore()
 const { idle } = useIdle(5 * 50 * 1000) // 5 min
@@ -69,10 +69,12 @@ onMounted(() => {
   }
 })
 onBeforeUnmount(() => {
-  clearInterval(polling.value)
+  if (polling) {
+    clearInterval(polling)
+  }
 })
 const pollData = () => {
-  polling.value = setInterval(() => {
+  polling = setInterval(() => {
     store.commit('checkNetworkStatus')
   }, 3000)
 }
