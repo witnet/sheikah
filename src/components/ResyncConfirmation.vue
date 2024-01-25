@@ -40,16 +40,6 @@ import { mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'ResyncConfirmation',
-  methods: {
-    callResync() {
-      this.resync()
-      this.close()
-    },
-    ...mapActions(['resync']),
-    ...mapMutations({
-      close: 'closeResyncConfirmation',
-    }),
-  },
   computed: {
     isResyncConfirmationVisibleLocal: {
       get() {
@@ -63,6 +53,16 @@ export default {
       isResyncConfirmationVisible: state => {
         return state.uiInteractions.isResyncConfirmationVisible
       },
+    }),
+  },
+  methods: {
+    callResync() {
+      this.resync()
+      this.close()
+    },
+    ...mapActions(['resync']),
+    ...mapMutations({
+      close: 'closeResyncConfirmation',
     }),
   },
 }
