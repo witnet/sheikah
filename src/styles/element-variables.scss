@@ -54,17 +54,15 @@ $--color-warning: $yellow-3;
   }
 }
 
-
 /* icon font path, required */
 // todo: should this be commented?
 // $--font-path: '~element-ui/lib/theme-chalk/fonts';
 // @import 'element-plus/packages/theme-chalk/src/index';
 
 .el-input {
-
- .el-input__wrapper {
-   background-color: var(--input-background);
- }
+  .el-input__wrapper {
+    background-color: var(--input-background);
+  }
 
   &.key-input {
     .el-input__inner {
@@ -134,13 +132,12 @@ $--color-warning: $yellow-3;
         color: var(--button-primary-text-hover);
       }
     }
-    
 
     &:active {
       outline: none;
     }
   }
-  
+
   &.el-button--danger {
     font-weight: bold;
 

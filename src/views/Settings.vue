@@ -15,7 +15,6 @@
       >
         <CustomIcon class-name="cross" :name="btnUrl" />
       </div>
-      {{ btnUrl }}
       <Version />
     </div>
   </div>

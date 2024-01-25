@@ -44,6 +44,7 @@ declare module 'idle-vue' {
   }
   // In case you want to vue.extend format
   module 'vue/types/options' {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface ComponentOptions<V extends Vue> {
       onIdle?: () => void
       onActive?: () => void
