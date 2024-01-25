@@ -51,18 +51,22 @@ export default createRouter({
         {
           name: SETTINGS_SECTIONS.GENERAL,
           path: 'general',
+          component: Settings,
         },
         {
           name: SETTINGS_SECTIONS.ADVANCED,
           path: 'advanced',
+          component: Settings,
         },
         {
           name: SETTINGS_SECTIONS.NOTIFICATIONS,
           path: 'notifications',
+          component: Settings,
         },
         {
           name: SETTINGS_SECTIONS.ABOUT,
           path: 'about',
+          component: Settings,
         },
       ],
     },
