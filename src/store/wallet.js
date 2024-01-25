@@ -276,9 +276,9 @@ export default {
       if (localeFromStorage) {
         locale.value = localeFromStorage
       } else {
-        const isLocalLanguage = Object.values(LANGUAGES).find(language => {
-          return language.locale === locale.value
-        })
+        const isLocalLanguage = Object.values(LANGUAGES).find(
+          language => language.locale === locale.value,
+        )
         locale.value = isLocalLanguage ? locale.value : 'en'
       }
     },
@@ -1118,23 +1118,6 @@ export default {
         ? context.commit('setUnit', unit)
         : context.commit('setUnit', defaultUnit)
     },
-    // getLocale: async function (context) {
-    //   const localeFromStorage = localStorageWrapper.getLanguageSettings()
-    //   if (localeFromStorage) {
-    //     context.commit('setLanguage', {
-    //       locale: localeFromStorage,
-    //     })
-    //   } else {
-    //     const isLocalLanguage = Object.values(LANGUAGES).find(language => {
-    //       return language.locale === i18n.locale
-    //     })
-    //     context.commit('setLanguage', {
-    //       locale: isLocalLanguage ? i18n.locale : 'en',
-    //     })
-    //   }
-    //   Set element locale
-    //   elementLocale.use(LANGUAGES[payload.i18n.locale].elementLocale)
-    // },
     getTheme: async function (context) {
       const theme = localStorageWrapper.getThemeSettings()
       const defaultTheme = DEFAULT_THEME
