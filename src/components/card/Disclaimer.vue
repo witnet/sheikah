@@ -157,7 +157,7 @@ export default {
     .navigation-buttons {
       box-sizing: border-box;
       display: grid;
-      grid-template-columns: max-content;
+      grid-template-columns: max-content max-content;
       justify-content: flex-end;
       padding: 32px;
       text-align: right;
