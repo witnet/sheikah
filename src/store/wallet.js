@@ -132,6 +132,9 @@ export default {
   getters: {
     network: state => state.status.network,
     unlockedWallet: state => {
+      console.log('unlockedWallet -----')
+      console.log(state.walletInfos)
+      console.log(state.walletIdx)
       return Number.isInteger(state.walletIdx)
         ? state.walletInfos[state.walletIdx]
         : null
@@ -259,8 +262,12 @@ export default {
     },
     setWalletIndex(state, { walletIndex }) {
       const walletInfos = state.walletInfos
-      state.walletIdx =
-        walletIndex === -1 ? walletInfos.length - 1 : walletIndex
+      if(walletInfos.length > 0) {
+        state.walletIdx =
+          walletIndex === -1 ? walletInfos.length - 1 : walletIndex
+      } else {
+        state.walletIdx = 0
+      }
       localStorageWrapper.setWalletIndex(state.walletIdx)
     },
     setLabels(state, { labels }) {
@@ -922,6 +929,7 @@ export default {
     },
 
     unlockWallet: async function (context, { walletId, password }) {
+      debugger
       context.commit('deleteSession')
       const request = await api.unlockWallet({
         wallet_id: walletId,
