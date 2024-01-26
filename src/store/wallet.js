@@ -947,9 +947,13 @@ export default {
           birthDate: request.result.birth_date,
           name: request.result.name,
         })
-        const walletInfos = context.state.walletInfos
-        const index = walletInfos.findIndex(wallet => wallet.id === walletId)
-
+        let walletInfos = context.state.walletInfos
+        let index = walletInfos.findIndex(wallet => wallet.id === walletId)
+        if (index === -1) {
+          await context.dispatch('getWalletInfos')
+          walletInfos = context.state.walletInfos
+          index = walletInfos.findIndex(wallet => wallet.id === walletId)
+        }
         context.commit('setWalletIndex', { walletIndex: index })
         context.commit('setExpirationSecs', {
           secs: request.result.session_expiration_secs,

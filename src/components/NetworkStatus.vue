@@ -7,7 +7,7 @@
         :border-color="currentState.color"
         :src="unlockedWallet.image"
       />
-      <div class="wallet-info">
+      <div v-if="unlockedWallet && unlockedWallet.name" class="wallet-info">
         <p data-test="wallet-name" class="current-wallet-name">
           {{ unlockedWallet.name }}
         </p>
