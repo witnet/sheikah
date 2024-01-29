@@ -8,9 +8,9 @@
           v-focus:[focusHandler(index,key)]
           class="key-input"
           data-test="edit-var-input"
-          :value="keys[index]"
+          :model-value="keys[index]"
           :placeholder="keys[index]"
-          @input="
+          @update:model-value="
             key =>
               updateKey({
                 index,
@@ -54,8 +54,8 @@
         class="variable-value"
         data-test="edit-var-value-input"
         :placeholder="$t('default_value_placeholder')"
-        :value="variable.value"
-        @input="
+        :model-value="variable.value"
+        @update:model-value="
           val =>
             updateVariables({
               index,
@@ -75,8 +75,8 @@
         class="variable-value"
         data-test="edit-var-description-input"
         :placeholder="$t('variables_description_placeholder')"
-        :value="variable.description"
-        @input="
+        :model-value="variable.description"
+        @update:model-value="
           val =>
             updateVariables({
               index,

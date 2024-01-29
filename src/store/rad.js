@@ -8,6 +8,7 @@ import {
   getNativeValueFromMarkupArgumentType,
 } from '@/utils'
 import i18n from '@/plugins/i18n'
+const { locale } = i18n.global
 import { EDITOR_STAGES, HISTORY_UPDATE_TYPE, RAD_EXAMPLES } from '@/constants'
 import {
   UPDATE_HISTORY,
@@ -67,7 +68,7 @@ export default {
     },
   },
   mutations: {
-    setDefaultTemplates: function (state, { locale }) {
+    setDefaultTemplates: function () {
       RAD_EXAMPLES.forEach(example => {
         const radRequest = {
           retrieve: example.radRequest.data.data_request.retrieve,
