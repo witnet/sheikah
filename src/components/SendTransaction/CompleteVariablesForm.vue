@@ -9,8 +9,8 @@
         data-test="variable-value-input"
         class="variable-value"
         :placeholder="variable.value"
-        :value="variable.value"
-        @input="
+        :model-value="variable.value"
+        @update:model-value="
           val =>
             updateVariables({
               index,

@@ -31,7 +31,7 @@ export default {
     sessionId(value) {
       if (value) {
         this.$router.push(`/wallet/transactions?session_id=${this.sessionId}`)
-        // this.setDefaultTemplates({ locale: this.locale })
+        this.setDefaultTemplates()
       }
     },
     error(value) {

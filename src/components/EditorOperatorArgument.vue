@@ -10,8 +10,8 @@
         :maxlength="60"
         class="input-operator"
         :placeholder="argument.label"
-        :value="argumentValue"
-        @input="
+        :model-value="argumentValue"
+        @update:model-value="
           value =>
             updateTemplateAndVariables({
               id: argument.id,
@@ -61,12 +61,12 @@
           class="input-operator"
           data-test="argument-input"
           :placeholder="argument.selected.arguments[0].label"
-          :value="
+          :model-value="
             argument.selected.arguments
               ? argument.selected.arguments[0].value.toString()
               : ''
           "
-          @input="
+          @update:model-value="
             value =>
               updateTemplateAndVariables({
                 id: argument.selected.arguments[0].id,
@@ -236,6 +236,7 @@ export default {
     },
     // FIXME(#19): fix update select argument in radon.js library
     updateTemplateAndVariables(updater) {
+      console.log(updater)
       this.$emit('update', updater)
     },
   },

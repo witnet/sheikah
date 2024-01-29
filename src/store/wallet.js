@@ -262,7 +262,7 @@ export default {
     },
     setWalletIndex(state, { walletIndex }) {
       const walletInfos = state.walletInfos
-      if(walletInfos.length > 0) {
+      if (walletInfos.length > 0) {
         state.walletIdx =
           walletIndex === -1 ? walletInfos.length - 1 : walletIndex
       } else {
@@ -931,7 +931,6 @@ export default {
     },
 
     unlockWallet: async function (context, { walletId, password }) {
-      debugger
       context.commit('deleteSession')
       const request = await api.unlockWallet({
         wallet_id: walletId,
