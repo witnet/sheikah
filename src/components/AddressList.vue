@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-type Address = {
+interface CanBeUsed {
   used: boolean
 }
 
@@ -25,7 +25,7 @@ const props = defineProps({
    * Addresses generated
    */
   addresses: {
-    type: Array<Address>,
+    type: Array<CanBeUsed>,
     required: true,
   },
   /**
