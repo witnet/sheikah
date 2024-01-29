@@ -132,13 +132,6 @@ export const CUSTOM_DARK_ICON_NAMES = [
   'sort-down',
   'sort-up',
   'up',
-  'email',
-  'telegram',
-  'discord',
-  'github',
-  'twitter',
-  'medium',
-  'reddit',
 ]
 
 export const THEMES = {
