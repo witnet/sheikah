@@ -36,8 +36,6 @@ import {
 } from '@/store/mutation-types'
 import { api } from '@/main'
 
-// import wallet from './wallet'
-
 export default {
   state: {
     errors: {
@@ -68,7 +66,7 @@ export default {
     },
   },
   mutations: {
-    setDefaultTemplates: function () {
+    setDefaultTemplates() {
       RAD_EXAMPLES.forEach(example => {
         const radRequest = {
           retrieve: example.radRequest.data.data_request.retrieve,

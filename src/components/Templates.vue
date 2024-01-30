@@ -79,7 +79,7 @@ const { locale } = toRefs(store.state.wallet)
 
 const templatesAdapted = computed(() => {
   return Object.entries(templates.value)
-    .map((template: any) => {
+    .map((template: [string, any]) => {
       return {
         id: template[0],
         ...template[1],
@@ -127,7 +127,7 @@ const displayModalCreateDR = (templateToSet: any) => {
   dialogVisible.value = true
   currentTemplate.value = templateToSet
 }
-const fileInput = ref()
+const fileInput = ref('')
 const readFile = () => {
   const file = fileInput.value.files[0]
   const reader = new FileReader()

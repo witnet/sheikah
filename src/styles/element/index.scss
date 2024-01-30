@@ -107,23 +107,11 @@ $key: (
   'footer-padding': 10px,
   'border': 1px solid red,
 );
-// $select-dropdown: () !default;
-// $dropdown: () !default;
+
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   // do not use same name, it will override.
   $colors: $--colors,
-  // $button-padding-horizontal: ("default": 50px)
-  $border-color: $--border-color,
-  // $select-dropdown: map.merge($key, $select-dropdown),
-  // $dropdown: map.merge(
-  //   (
-  //     'menu-box-shadow': pink,
-  //     'menuItem-hover-fill': red,
-  //     'menuItem-hover-color': red,
-  //     'menu-index': 10,
-  //   ),
-  //   $dropdown
-  // ),
+  $border-color: $--border-color
 );
 
 // if you want to import all
