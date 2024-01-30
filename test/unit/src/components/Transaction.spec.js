@@ -2,14 +2,15 @@ import Transaction from '@/components/Transaction.vue'
 import '@/fontAwesome'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import i18n from '@/plugins/i18n'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
 
 describe('Renders the correct elements when click is not triggered', () => {
-  const mockStore = createMockStore({
-    wallet: {
-      state: {
-        unit: 'nanoWit',
+  const mockStore = createMocks({
+    storeModules: {
+      wallet: {
+        state: {
+          unit: 'nanoWit',
+        },
       },
     },
   })
@@ -47,13 +48,12 @@ describe('Renders the correct elements when click is not triggered', () => {
       reveals: [],
       unit: 'nanoWits',
     },
-    global: {
-      plugins: [mockStore],
+    data() {
+      return {
+        showDetails: false,
+      }
     },
-  })
-
-  wrapper.setData({
-    showDetails: false,
+    ...mockStore,
   })
 
   test('finds negative or positive icon', () => {
@@ -91,7 +91,16 @@ describe('Renders the correct elements when click is not triggered', () => {
 
 describe('data request', () => {
   describe('Renders the correct elements when click is triggered', () => {
-    const wrapper = shallowMount(Transaction, {
+    const mockStore = createMocks({
+      storeModules: {
+        wallet: {
+          state: {
+            unit: 'nanoWit',
+          },
+        },
+      },
+    })
+    const wrapper = mount(Transaction, {
       props: {
         amount: '123',
         confirmed: true,
@@ -126,13 +135,12 @@ describe('data request', () => {
         reveals: [],
         unit: 'nanoWits',
       },
-      global: {
-        plugins: [i18n],
+      data() {
+        return {
+          showDetails: true,
+        }
       },
-    })
-
-    wrapper.setData({
-      showDetails: true,
+      ...mockStore,
     })
 
     test('finds negative or positive icon', () => {
@@ -165,7 +173,16 @@ describe('data request', () => {
 
 describe('Sending transaction', () => {
   describe('Renders the correct elements when the transaction is being sent to the chain', () => {
-    const wrapper = shallowMount(Transaction, {
+    const mockStore = createMocks({
+      storeModules: {
+        wallet: {
+          state: {
+            unit: 'nanoWit',
+          },
+        },
+      },
+    })
+    const wrapper = mount(Transaction, {
       props: {
         amount: '123',
         confirmed: false,
@@ -194,13 +211,12 @@ describe('Sending transaction', () => {
         reveals: [],
         unit: 'nanoWits',
       },
-      global: {
-        plugins: [i18n],
+      data() {
+        return {
+          showDetails: true,
+        }
       },
-    })
-
-    wrapper.setData({
-      showDetails: true,
+      ...mockStore,
     })
 
     test('should render Pending confirmation label instead of time ago', () => {
@@ -225,7 +241,16 @@ describe('Sending transaction', () => {
 
 describe('Pending transaction', () => {
   describe('Renders the correct elements when the transaction is not confirmed', () => {
-    const wrapper = shallowMount(Transaction, {
+    const mockStore = createMocks({
+      storeModules: {
+        wallet: {
+          state: {
+            unit: 'nanoWit',
+          },
+        },
+      },
+    })
+    const wrapper = mount(Transaction, {
       props: {
         amount: '123',
         confirmed: false,
@@ -255,13 +280,12 @@ describe('Pending transaction', () => {
         reveals: [],
         unit: 'nanoWits',
       },
-      global: {
-        plugins: [i18n],
+      data() {
+        return {
+          showDetails: true,
+        }
       },
-    })
-
-    wrapper.setData({
-      showDetails: true,
+      ...mockStore,
     })
 
     test('should render Pending confirmation label instead of time ago', () => {
@@ -284,7 +308,12 @@ describe('Pending transaction', () => {
 
 describe('mint', () => {
   describe('Renders the correct elements when click is triggered', () => {
-    const wrapper = shallowMount(Transaction, {
+    const wrapper = mount(Transaction, {
+      data() {
+        return {
+          showDetails: true,
+        }
+      },
       props: {
         amount: '123',
         confirmed: true,
@@ -314,13 +343,15 @@ describe('mint', () => {
         reveals: [],
         unit: 'nanoWits',
       },
-      global: {
-        plugins: [i18n],
-      },
-    })
-
-    wrapper.setData({
-      showDetails: true,
+      ...createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              unit: 'nanoWit',
+            },
+          },
+        },
+      }),
     })
 
     test('should finds negative or positive icon', () => {

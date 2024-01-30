@@ -12,10 +12,15 @@
     <button
       ref="addAddress"
       class="card"
+      data-test="address-card-button"
       :class="{ active: isRadiantBorderActive }"
       @click="$emit('click')"
     >
-      <font-awesome-icon class="icon" icon="plus" />
+      <font-awesome-icon
+        class="icon"
+        data-test="address-card-plus-icon"
+        icon="plus"
+      />
     </button>
   </el-tooltip>
 </template>

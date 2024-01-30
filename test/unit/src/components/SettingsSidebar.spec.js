@@ -1,7 +1,7 @@
 import SettingsSidebar from '@/components/SettingsSidebar.vue'
 import { mount, shallowMount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import i18n from '@/plugins/i18n'
+import { createMocks } from '../../utils'
 
 describe('SettingsSidebar.vue', () => {
   describe('should render properly', () => {
@@ -27,9 +27,7 @@ describe('SettingsSidebar.vue', () => {
           ],
           activeSection: '/settings/general',
         },
-        global: {
-          plugins: [i18n],
-        },
+        ...createMocks(),
       })
 
       expect(wrapper.find('[data-test="General"]').text()).toBe('General')
@@ -40,9 +38,7 @@ describe('SettingsSidebar.vue', () => {
 
     test('should render the Alerts section', () => {
       const wrapper = shallowMount(SettingsSidebar, {
-        global: {
-          plugins: [i18n],
-        },
+        ...createMocks(),
         props: {
           sections: [
             {
@@ -93,10 +89,7 @@ describe('SettingsSidebar.vue', () => {
           ],
           activeSection: '/settings/general',
         },
-        global: {
-          router: true,
-          plugins: [i18n],
-        },
+        ...createMocks(),
       })
       expect(
         wrapper.find('[data-test="section-Alerts"]').classes('active'),
@@ -131,10 +124,7 @@ describe('SettingsSidebar.vue', () => {
           ],
           activeSection: '/settings/notifications',
         },
-        global: {
-          router: true,
-          plugins: [i18n],
-        },
+        ...createMocks(),
       })
       expect(
         wrapper.find('[data-test="section-Alerts"]').classes('active'),
@@ -169,10 +159,7 @@ describe('SettingsSidebar.vue', () => {
           ],
           activeSection: '/settings/about',
         },
-        global: {
-          router: true,
-          plugins: [i18n],
-        },
+        ...createMocks(),
       })
       expect(
         wrapper.find('[data-test="section-Alerts"]').classes('active'),

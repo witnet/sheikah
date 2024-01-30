@@ -9,7 +9,7 @@
       :selected="selected === index"
       @click="() => selectAddress(index)"
     />
-    <AddressCardButton @click="$emit('generate-address')" />
+    <AddressCardButton @click="generateAddress" />
   </div>
 </template>
 
@@ -43,6 +43,10 @@ const isMaxHeightExceeded = computed(() => {
   // FIXME: calculate a the height in a more agnostic way
   return props.addresses.length > 26
 })
+
+const generateAddress = () => {
+  emits('generate-address')
+}
 
 const selectAddress = (index: number) => {
   emits('select-address', index)

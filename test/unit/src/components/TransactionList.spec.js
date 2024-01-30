@@ -2,8 +2,8 @@ import TransactionList from '@/components/TransactionList.vue'
 import Transaction from '@/components/Transaction.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test, vi } from 'vitest'
-import i18n from '@/plugins/i18n'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
+import { ElPagination } from 'element-plus'
 const setCurrentTransactionsPageActionMock = vi.fn()
 const setCurrentTransactionsPageMutationMock = vi.fn()
 
@@ -47,29 +47,34 @@ function getTransactionsMock(num) {
   return transactionsMock
 }
 
-function getData() {
-  const mockStore = createMockStore({
-    wallet: {
-      state: {
-        unit: 'nanoWit',
-        currentTransactionsPage: 1,
-        theme: 'light',
-      },
-      mutations: {
-        setCurrentTransactionsPage: setCurrentTransactionsPageMutationMock,
-      },
-      actions: {
-        setCurrentTransactionsPage: setCurrentTransactionsPageActionMock,
+function getData(number, propsTxNumber) {
+  const mockStore = createMocks({
+    stubs: {
+      Transaction: propsTxNumber ? true : false,
+      'font-awesome-icon': true,
+      'el-pagination': ElPagination,
+    },
+    storeModules: {
+      wallet: {
+        state: {
+          unit: 'nanoWit',
+          currentTransactionsPage: 1,
+          theme: 'light',
+        },
+        mutations: {
+          setCurrentTransactionsPage: setCurrentTransactionsPageMutationMock,
+        },
+        actions: {
+          setCurrentTransactionsPage: setCurrentTransactionsPageActionMock,
+        },
       },
     },
   })
   return {
-    global: {
-      plugins: [i18n, mockStore],
-    },
+    ...mockStore,
     props: {
-      transactions: getTransactionsMock(13),
-      transactionsLength: '87',
+      transactions: propsTxNumber ? getTransactionsMock(propsTxNumber) : [],
+      transactionsLength: number ? number.toString() : '0',
       unit: 'nanoWit',
     },
     data() {
@@ -82,7 +87,7 @@ function getData() {
 
 describe('Changes the current page when clicking next button in pagination', () => {
   test('setCurrentTransactionsPage action is called when clicking next button', async () => {
-    const wrapper = mount(TransactionList, getData())
+    const wrapper = mount(TransactionList, getData(87, 13))
 
     const pageButton = wrapper.find('.btn-next')
     await pageButton.trigger('click')
@@ -91,7 +96,7 @@ describe('Changes the current page when clicking next button in pagination', () 
   })
 
   test('the current page changes when clicking the next button', async () => {
-    const wrapper = mount(TransactionList, getData())
+    const wrapper = mount(TransactionList, getData(87, 13))
 
     for (let i = 2; i < 7; i++) {
       const pageButton = wrapper.find('.btn-next')
@@ -102,7 +107,7 @@ describe('Changes the current page when clicking next button in pagination', () 
   })
 
   test('the current page changes when clicking the next button', async () => {
-    const wrapper = mount(TransactionList, getData())
+    const wrapper = mount(TransactionList, getData(87, 13))
 
     for (let i = 2; i < 8; i++) {
       const pageButton = wrapper.find('.btn-next')
@@ -115,20 +120,16 @@ describe('Changes the current page when clicking next button in pagination', () 
 
 describe('Renders the correct elements when click is not triggered', () => {
   test('render the number of transactions', () => {
-    const wrapper = mount(TransactionList, getData())
+    const wrapper = mount(TransactionList, getData(87, 13))
 
     expect(wrapper.find('[data-test="transactions-length"]').text()).toContain(
-      'Transactions 87 transactions',
+      'Transactions87',
     )
   })
 
   test('render empty state without transactions as prop', () => {
-    const wrapper = shallowMount(TransactionList, {
-      props: {
-        transactions: [],
-        unit: 'nanoWit',
-        transactionsLength: '0',
-      },
+    const wrapper = mount(TransactionList, {
+      ...getData(0, 0),
     })
 
     expect(wrapper.find('[data-test="empty-transactions"]').isVisible()).toBe(
@@ -137,38 +138,26 @@ describe('Renders the correct elements when click is not triggered', () => {
   })
 
   test('should render less than 13 address', () => {
-    const wrapper = shallowMount(TransactionList, {
-      props: {
-        transactions: getTransactionsMock(3),
-        unit: 'nanoWit',
-        transactionsLength: '3',
-      },
-    })
+    const wrapper = mount(TransactionList, getData(3, 3))
 
     expect(wrapper.findAllComponents(Transaction).length).toBe(3)
   })
 
   test('should not render the pagination with less than 13 address', () => {
-    const wrapper = shallowMount(TransactionList, {
-      props: {
-        transactions: getTransactionsMock(3),
-        unit: 'nanoWit',
-        transactionsLength: '3',
-      },
-    })
+    const wrapper = mount(TransactionList, getData(3, 3))
 
     expect(wrapper.find('[data-test="pagination"]').isVisible()).toBe(false)
   })
 
   describe('should render the pagination with more than 13 address', () => {
     test('should render pagination', () => {
-      const wrapper = mount(TransactionList, getData())
+      const wrapper = mount(TransactionList, getData(87, 13))
 
       expect(wrapper.findAllComponents(Transaction).length).toBe(13)
     })
 
     test('should render 15 addresses', () => {
-      const wrapper = mount(TransactionList, getData())
+      const wrapper = mount(TransactionList, getData(87, 13))
 
       expect(wrapper.find('[data-test="pagination"]').isVisible()).toBe(true)
     })

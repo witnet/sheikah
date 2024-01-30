@@ -1,15 +1,23 @@
 import OperatorOutput from '@/components/OperatorOutput.vue'
 import { shallowMount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
+import { ElPopover } from 'element-plus'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 describe('OperatorOutput.vue', () => {
   describe('should render correctly when there is an output and there is no error', () => {
-    const mockStore = createMockStore({
-      uiInteractions: {
-        state: {
-          generateRadRequestResultLoading: false,
+    const mockStore = createMocks({
+      storeModules: {
+        uiInteractions: {
+          state: {
+            generateRadRequestResultLoading: false,
+          },
         },
+      },
+      stubs: {
+        'font-awesome-icon': true,
+        'el-popover': ElPopover,
       },
     })
     const wrapper = shallowMount(OperatorOutput, {
@@ -22,9 +30,7 @@ describe('OperatorOutput.vue', () => {
         filter: false,
         error: null,
       },
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
     })
 
     test('should not find the filter output label', () => {
@@ -35,7 +41,7 @@ describe('OperatorOutput.vue', () => {
       expect(wrapper.find('[data-test="label"]').text()).toBe('string')
     })
 
-    test('should find the output icon', () => {
+    test('should find the output icon', async () => {
       expect(wrapper.find('[data-test="output"]').exists()).toBe(true)
     })
 
@@ -48,11 +54,17 @@ describe('OperatorOutput.vue', () => {
     })
   })
   describe('should render correctly when there is not an output', () => {
-    const mockStore = createMockStore({
-      uiInteractions: {
-        state: {
-          generateRadRequestResultLoading: false,
+    const mockStore = createMocks({
+      storeModules: {
+        uiInteractions: {
+          state: {
+            generateRadRequestResultLoading: false,
+          },
         },
+      },
+      stubs: {
+        'el-popover': ElPopover,
+        'font-awesome-icon': FontAwesomeIcon,
       },
     })
     const wrapper = shallowMount(OperatorOutput, {
@@ -62,9 +74,7 @@ describe('OperatorOutput.vue', () => {
         filter: false,
         error: null,
       },
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
     })
 
     test('should not find the filter output label', () => {
@@ -88,11 +98,17 @@ describe('OperatorOutput.vue', () => {
     })
   })
   describe('should render correctly when there is an error', () => {
-    const mockStore = createMockStore({
-      uiInteractions: {
-        state: {
-          generateRadRequestResultLoading: false,
+    const mockStore = createMocks({
+      storeModules: {
+        uiInteractions: {
+          state: {
+            generateRadRequestResultLoading: false,
+          },
         },
+      },
+      stubs: {
+        'el-popover': ElPopover,
+        'font-awesome-icon': FontAwesomeIcon,
       },
     })
     const wrapper = shallowMount(OperatorOutput, {
@@ -102,9 +118,7 @@ describe('OperatorOutput.vue', () => {
         filter: false,
         error: 'error',
       },
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
     })
 
     test('should not find the filter output label', () => {
@@ -128,11 +142,17 @@ describe('OperatorOutput.vue', () => {
     })
   })
   describe('should render correctly when the output is a filter', () => {
-    const mockStore = createMockStore({
-      uiInteractions: {
-        state: {
-          generateRadRequestResultLoading: false,
+    const mockStore = createMocks({
+      storeModules: {
+        uiInteractions: {
+          state: {
+            generateRadRequestResultLoading: false,
+          },
         },
+      },
+      stubs: {
+        'el-popover': ElPopover,
+        'font-awesome-icon': FontAwesomeIcon,
       },
     })
     const wrapper = shallowMount(OperatorOutput, {
@@ -142,12 +162,10 @@ describe('OperatorOutput.vue', () => {
         filter: true,
         error: null,
       },
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
     })
 
-    test('should not find the filter output label', () => {
+    test('should find the filter output label', () => {
       expect(wrapper.find('[data-test="filter-output"]').exists()).toBe(true)
     })
 
@@ -159,11 +177,11 @@ describe('OperatorOutput.vue', () => {
       expect(wrapper.find('[data-test="output"]').exists()).toBe(false)
     })
 
-    test('should find the error icon', () => {
+    test('should not find the error icon', () => {
       expect(wrapper.find('[data-test="error"]').exists()).toBe(false)
     })
 
-    test('should not find the empty output icon', () => {
+    test('should find the empty output icon', () => {
       expect(wrapper.find('[data-test="empty-output"]').exists()).toBe(true)
     })
   })

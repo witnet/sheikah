@@ -25,7 +25,10 @@ export default {
   name: 'BalanceButtons',
   computed: {
     ...mapState({
-      currentStatus: state => state.wallet.status.currentState,
+      status: state => {
+        console.log('ddddddddstate')
+        return state.wallet.status
+      },
     }),
   },
   methods: {
@@ -33,11 +36,12 @@ export default {
       setError: 'setError',
     }),
     onSend(e) {
+      console.log(this.status)
       /**
        * Emitted when send button is clicked
        * @event send
        */
-      if (this.currentStatus === NETWORK_STATUS.SYNCED) {
+      if (this.status.currentState === NETWORK_STATUS.SYNCED) {
         this.$emit('send')
       } else {
         this.setError({

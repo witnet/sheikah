@@ -25,8 +25,10 @@
 
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="close">{{ $t('cancel') }}</el-button>
-        <el-button type="primary" @click="callResync">{{
+        <el-button data-test="resync-cancel-btn" @click="close">{{
+          $t('cancel')
+        }}</el-button>
+        <el-button type="primary" data-test="resync-btn" @click="callResync">{{
           $t('resyncronize')
         }}</el-button>
       </div>

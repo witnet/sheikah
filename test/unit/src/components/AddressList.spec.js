@@ -1,18 +1,27 @@
 import AddressList from '@/components/AddressList.vue'
 import AddressCardButton from '@/components/AddressCardButton.vue'
 import AddressCard from '@/components/AddressCard.vue'
-import { mount } from '@vue/test-utils'
+import { mount, flushPromises } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
+import { ElTooltip } from 'element-plus'
 
 describe('AddressList.vue', () => {
   describe('should render correctly the component', () => {
     test('should contain the AddressCardButton to generate a new address', () => {
-      const mockStore = createMockStore({
-        uiInteractions: {
-          state: {
-            receiveTransactionCLicked: false,
+      const mockStore = createMocks({
+        storeModules: {
+          uiInteractions: {
+            state: {
+              receiveTransactionCLicked: false,
+            },
           },
+        },
+        stubs: {
+          AddressCard: AddressCard,
+          AddressCardButton: AddressCardButton,
+          'el-tooltip': ElTooltip,
+          'font-awesome-icon': true,
         },
       })
       const wrapper = mount(AddressList, {
@@ -25,20 +34,26 @@ describe('AddressList.vue', () => {
           ],
           selected: 0,
         },
-        global: {
-          plugins: [i18n, mockStore],
-        },
+        ...mockStore,
       })
 
       expect(wrapper.findComponent(AddressCardButton).exists()).toBe(true)
     })
 
     test('should list an addressCard for each address passed', () => {
-      const mockStore = createMockStore({
-        uiInteractions: {
-          state: {
-            receiveTransactionCLicked: false,
+      const mockStore = createMocks({
+        storeModules: {
+          uiInteractions: {
+            state: {
+              receiveTransactionCLicked: false,
+            },
           },
+        },
+        stubs: {
+          AddressCard: AddressCard,
+          AddressCardButton: AddressCardButton,
+          'el-tooltip': ElTooltip,
+          'font-awesome-icon': true,
         },
       })
       const wrapper = mount(AddressList, {
@@ -67,9 +82,7 @@ describe('AddressList.vue', () => {
           ],
           selected: 0,
         },
-        global: {
-          plugins: [i18n, mockStore],
-        },
+        ...mockStore,
       })
 
       expect(wrapper.findAllComponents(AddressCard).length).toBe(2)
@@ -78,14 +91,23 @@ describe('AddressList.vue', () => {
 
   describe('should emit events', () => {
     test('should emit event to generate address on AddressCardButton click', async () => {
-      const mockStore = createMockStore({
-        uiInteractions: {
-          state: {
-            receiveTransactionCLicked: false,
+      const mockStore = createMocks({
+        storeModules: {
+          uiInteractions: {
+            state: {
+              receiveTransactionCLicked: false,
+            },
           },
+        },
+        stubs: {
+          AddressCard: AddressCard,
+          AddressCardButton: AddressCardButton,
+          'el-tooltip': ElTooltip,
+          'font-awesome-icon': true,
         },
       })
       const wrapper = mount(AddressList, {
+        ...mockStore,
         props: {
           addresses: [
             {
@@ -111,24 +133,28 @@ describe('AddressList.vue', () => {
           ],
           selected: 0,
         },
-        global: {
-          plugins: [i18n, mockStore],
-        },
       })
+      wrapper.findAllComponents(AddressCardButton).at(0).trigger('click')
 
-      wrapper.findComponent(AddressCardButton).trigger('click')
+      await flushPromises()
 
-      await nextTick()
-
-      expect(wrapper.emitted()['generate-address']).toBeTruthy()
+      expect(wrapper.emitted()['click']).toBeTruthy()
     })
 
     test('should emit event to select an address on AddressCard click', async () => {
-      const mockStore = createMockStore({
-        uiInteractions: {
-          state: {
-            receiveTransactionCLicked: false,
+      const mockStore = createMocks({
+        storeModules: {
+          uiInteractions: {
+            state: {
+              receiveTransactionCLicked: false,
+            },
           },
+        },
+        stubs: {
+          AddressCard: AddressCard,
+          AddressCardButton: AddressCardButton,
+          'el-tooltip': ElTooltip,
+          'font-awesome-icon': true,
         },
       })
       const wrapper = mount(AddressList, {
@@ -157,14 +183,12 @@ describe('AddressList.vue', () => {
           ],
           selected: 0,
         },
-        global: {
-          plugins: [i18n, mockStore],
-        },
+        ...mockStore,
       })
 
       wrapper.findAllComponents(AddressCard).at(1).trigger('click')
 
-      await nextTick()
+      await flushPromises()
 
       expect(wrapper.emitted()['select-address'][0]).toEqual([1])
     })

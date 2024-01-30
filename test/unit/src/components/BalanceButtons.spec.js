@@ -1,63 +1,42 @@
 import BalanceButtons from '@/components/BalanceButtons.vue'
 import { NETWORK_STATUS } from '@/constants'
-import { mount } from '@vue/test-utils'
 import { describe, expect, test, vi } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
+import { mount, flushPromises } from '@vue/test-utils'
 
 describe('BalanceButtons.vue', () => {
   describe('should render receive and send buttons', () => {
     test('send', () => {
-      const mockStore = createMockStore({
+      const mockState = {
+        status: {
+          synced: true,
+          currentState: NETWORK_STATUS.SYNCED,
+        },
+      }
+      const storeModules = {
         wallet: {
-          state: {
-            status: {
-              isWalletsynced: true,
-            },
-            sendClicked: true,
-          },
+          state: mockState,
         },
-        uiInteractions: {
-          state: {
-            receiveTransactionClicked: true,
-          },
-        },
-      })
-      const wrapper = shallowMount(
-        BalanceButtons,
-        {
-          global: {
-            plugins: [mockStore]
-          }
-        }
-      )
+      }
+      const wrapper = mount(BalanceButtons, createMocks({ storeModules }))
 
       expect(wrapper.find('[data-test="btn-send"]').isVisible()).toBe(true)
     })
 
     test('receive', () => {
-      const mockStore = createMockStore({
+      const mockState = {
+        walletStatus: {
+          synced: true,
+          currentState: NETWORK_STATUS.SYNCED,
+        },
+        sendClicked: true,
+      }
+      const storeModules = {
         wallet: {
-          state: {
-            walletStatus: {
-              synced: true,
-            },
-            sendClicked: true,
-          },
+          state: mockState,
         },
-        uiInteractions: {
-          state: {
-            receiveTransactionClicked: true,
-          },
-        },
-      })
-      const wrapper = shallowMount(
-        BalanceButtons,
-        {
-          global: {
-            plugins: [mockStore]
-          }
-        }
-      )
+      }
+      const wrapper = mount(BalanceButtons, createMocks({ storeModules }))
 
       expect(wrapper.find('[data-test="btn-receive"]').isVisible()).toBe(true)
     })
@@ -67,72 +46,57 @@ describe('BalanceButtons.vue', () => {
     test('send', async () => {
       const setError = vi.fn()
       const sendTransactionClickedMock = vi.fn()
-      const mockStore = createMockStore({
+      const mockState = {
+        status: {
+          synced: true,
+          currentState: NETWORK_STATUS.SYNCED,
+        },
+      }
+      const storeModules = {
         wallet: {
-          state: {
-            status: {
-              currentState: NETWORK_STATUS.SYNCED,
-            },
-          },
+          state: mockState,
           mutations: {
             setError: setError,
+            sendTransactionClickedMock: sendTransactionClickedMock,
           },
         },
-        uiInteractions: {
-          state: {
-            sendTransactionClicked: true,
-          },
-          mutations: {
-            sendTransactionClicked: sendTransactionClickedMock,
-          },
-        },
-      })
+      }
       const wrapper = mount(
         BalanceButtons,
-        {
-          global: {
-            plugins: [i18n, mockStore],
-          },
-        },
+        createMocks({
+          storeModules,
+        }),
       )
       const tryButton = wrapper.find('[data-test="btn-send"]')
       await tryButton.trigger('click')
-      await nextTick()
+      await flushPromises()
 
-      expect(wrapper.emitted().send).toBeTruthy()
+      console.log(wrapper.emitted())
+
+      expect(wrapper.emitted()['send']).toBeTruthy()
     })
 
-    test('receive', done => {
-      const mockStore = createMockStore({
+    test('receive', async () => {
+      const mockState = {
+        status: {
+          synced: true,
+          currentState: NETWORK_STATUS.SYNCED,
+        },
+      }
+      const storeModules = {
         wallet: {
-          state: {
-            status: {
-              currentState: NETWORK_STATUS.SYNCED,
-            },
-            sendClicked: true,
-          },
+          state: mockState,
         },
-        uiInteractions: {
-          state: {
-            receiveTransactionClicked: true,
-          },
-        },
-      })
-      const wrapper = shallowMount(
+      }
+      const wrapper = mount(
         BalanceButtons,
-        {
-          global: {
-            pluggins: [mockStore]
-          }
-        }
+        createMocks({ storeModules, stubs: { 'el-button': true } }),
       )
+      const tryButton = wrapper.find('[data-test="btn-receive"]')
+      await tryButton.trigger('click')
+      await flushPromises()
 
-      wrapper.find('[data-test="btn-receive"]').trigger('click')
-
-      nextTick(() => {
-        expect(wrapper.emitted()).toBeTruthy()
-        done()
-      })
+      expect(wrapper.emitted()['receive']).toBeTruthy()
     })
   })
 
@@ -140,72 +104,53 @@ describe('BalanceButtons.vue', () => {
     test('send', async () => {
       const setError = vi.fn()
       const sendTransactionClickedMock = vi.fn()
-      const mockStore = createComponentMocks({
+      const mockState = {
+        status: {
+          synced: false,
+          currentState: NETWORK_STATUS.SYNCING,
+        },
+      }
+      const storeModules = {
         wallet: {
-          state: {
-            status: {
-              currentState: NETWORK_STATUS.SYNCING,
-            },
-          },
+          state: mockState,
           mutations: {
             setError: setError,
+            sendTransactionClickedMock: sendTransactionClickedMock,
           },
         },
-        uiInteractions: {
-          state: {
-            sendTransactionClicked: true,
-          },
-          mutations: {
-            sendTransactionClicked: sendTransactionClickedMock,
-          },
-        },
-      })
+      }
       const wrapper = mount(
         BalanceButtons,
-        {
-          global: {
-            plugins: [mockStore]
-          }
-        }
+        createMocks({
+          storeModules,
+        }),
       )
 
       const tryButton = wrapper.find('[data-test="btn-send"]')
       await tryButton.trigger('click')
-      await nextTick()
+      await flushPromises()
 
-      expect(wrapper.emitted().send).toBeFalsy()
+      expect(wrapper.emitted()['send']).toBeFalsy()
     })
 
-    test('receive', done => {
-      const mockStore = createMockStore({
+    test('receive', async () => {
+      const mockState = {
+        status: {
+          synced: false,
+          currentState: NETWORK_STATUS.SYNCED,
+        },
+      }
+      const storeModules = {
         wallet: {
-          state: {
-            status: {
-              currentState: NETWORK_STATUS.SYNCED,
-            },
-          },
+          state: mockState,
         },
-        uiInteractions: {
-          state: {
-            receiveTransactionClicked: true,
-          },
-        },
-      })
-      const wrapper = shallowMount(
-        BalanceButtons,
-        {
-          global: {
-            pluggins: [mockStore]
-          }
-        }
-      )
+      }
+      const wrapper = mount(BalanceButtons, createMocks({ storeModules }))
 
-      wrapper.find('[data-test="btn-receive"]').trigger('click')
-
-      nextTick(() => {
-        expect(wrapper.emitted()).toBeTruthy()
-        done()
-      })
+      const tryButton = wrapper.find('[data-test="btn-receive"]')
+      await tryButton.trigger('click')
+      await flushPromises()
+      expect(wrapper.emitted()['receive']).toBeTruthy()
     })
   })
 })

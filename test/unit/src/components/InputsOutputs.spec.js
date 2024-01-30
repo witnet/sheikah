@@ -2,21 +2,20 @@ import InputsOutputs from '@/components/InputsOutputs.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
 import '@/fontAwesome'
-import i18n from '@/plugins/i18n'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
 
 describe('Renders the correct elements when the transaction type is value_transfer', () => {
-  const mockStore = createMockStore({
-    wallet: {
-      state: {
-        unit: 'nanoWit',
+  const mockStore = createMocks({
+    storeModules: {
+      wallet: {
+        state: {
+          unit: 'nanoWit',
+        },
       },
     },
   })
   const wrapper = mount(InputsOutputs, {
-    global: {
-      plugins: [i18n, mockStore],
-    },
+    ...mockStore,
     props: {
       fee: '12',
       outputs: [

@@ -2,20 +2,20 @@ import Amount from '@/components/Amount.vue'
 import '@/fontAwesome'
 import { shallowMount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
 
 describe('Renders the correct elements', () => {
-  const mockStore = createMockStore({
-    wallet: {
-      state: {
-        unit: 'nanoWit',
+  const mockStore = createMocks({
+    storeModules: {
+      wallet: {
+        state: {
+          unit: 'nanoWit',
+        },
       },
     },
   })
   const wrapper = shallowMount(Amount, {
-    global: {
-      plugins: [mockStore],
-    },
+    ...mockStore,
     props: {
       amount: '12',
       keep: true,

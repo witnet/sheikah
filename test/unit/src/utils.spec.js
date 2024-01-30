@@ -1,45 +1,44 @@
-import { Radon } from 'witnet-radon-js'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
+import { Radon } from 'wtestnet-radon-js'
+import { describe, expect, test } from 'vtestest'
 import {
   areSoftEqualArrays,
   deleteKey,
   getDomainFromUrl,
-  standardizeWitUnits,
+  standardizeWtestUntests,
   standardizeTransactionResult,
   calculateCurrentFocusAfterUndo,
   calculateCurrentFocusAfterRedo,
   simplifyDrResult,
   encodeAggregationTally,
 } from '@/utils'
-import { WIT_UNIT } from '@/constants'
+import { Wtest_UNtest } from '@/constants'
 
 describe('areSoftEqualArrays', () => {
-  it('check if two sorted arrays contains the same items', () => {
+  test('check if two sorted arrays contains the same testems', () => {
     const arr1 = [1, 2, 3, 4, 5]
     const arr2 = [1, 2, 3, 4, 5]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(true)
   })
 
-  it('check if two unsorted arrays contains the same items', () => {
+  test('check if two unsorted arrays contains the same testems', () => {
     const arr1 = [1, 3, 5, 4, 2]
     const arr2 = [5, 2, 3, 4, 1]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(true)
   })
 
-  it('check if two different arrays contains the same items', () => {
+  test('check if two different arrays contains the same testems', () => {
     const arr1 = [1, 2, 3, 4, 5]
     const arr2 = [1, 2, 3, 4, 6]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
   })
 
-  it('check if two different arrays with repeated items contains the same items', () => {
+  test('check if two different arrays wtesth repeated testems contains the same testems', () => {
     const arr1 = [1, 3, 5, 4, 5]
     const arr2 = [5, 2, 3, 4, 1]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
   })
 
-  it('check if two different sized arrays contains the same items', () => {
+  test('check if two different sized arrays contains the same testems', () => {
     const arr1 = [1, 3, 5, 4]
     const arr2 = [5, 2, 3, 4, 1]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
@@ -47,7 +46,7 @@ describe('areSoftEqualArrays', () => {
 })
 
 describe('standardizeTransactionResult', () => {
-  it('should end with "ago" copy', () => {
+  test('should end wtesth "ago" copy', () => {
     const result =
       'RadonTypes::RadonString("0000000000000000000a55ab43b096575bf281f35d68807c52a0202582c15947")'
     const expected =
@@ -58,39 +57,39 @@ describe('standardizeTransactionResult', () => {
 })
 
 describe('getDomainFromUrl', () => {
-  it('should work url with protocol', () => {
-    const url = 'http://witnet.io'
+  test('should work url wtesth protocol', () => {
+    const url = 'http://wtestnet.io'
 
-    expect(getDomainFromUrl(url)).toBe('witnet.io')
+    expect(getDomainFromUrl(url)).toBe('wtestnet.io')
   })
 
-  it('should work without protocol', () => {
-    const url = 'witnet.io'
+  test('should work wtesthout protocol', () => {
+    const url = 'wtestnet.io'
 
-    expect(getDomainFromUrl(url)).toBe('witnet.io')
+    expect(getDomainFromUrl(url)).toBe('wtestnet.io')
   })
 
-  it('should work with subdomain', () => {
-    const url = 'http://docs.witnet.io'
+  test('should work wtesth subdomain', () => {
+    const url = 'http://docs.wtestnet.io'
 
-    expect(getDomainFromUrl(url)).toBe('docs.witnet.io')
+    expect(getDomainFromUrl(url)).toBe('docs.wtestnet.io')
   })
 
-  it('should NOT work without tld', () => {
-    const url = 'http://witnet'
+  test('should NOT work wtesthout tld', () => {
+    const url = 'http://wtestnet'
 
     expect(getDomainFromUrl(url)).toBe('')
   })
 
-  it('should NOT work with invalid tld', () => {
-    const url = 'http://witnet.abcdefghij'
+  test('should NOT work wtesth invalid tld', () => {
+    const url = 'http://wtestnet.abcdefghij'
 
     expect(getDomainFromUrl(url)).toBe('')
   })
 })
 
 describe('simplifyDrResult', () => {
-  it('with object', () => {
+  test('wtesth object', () => {
     const drResult = {
       RadonMap: {
         AUD: {
@@ -128,7 +127,7 @@ describe('simplifyDrResult', () => {
     expect(drResultSimplified).toStrictEqual(simplifyDrResult(drResult))
   })
 
-  it('with array', () => {
+  test('wtesth array', () => {
     const drResult = [
       {
         RadonMap: {
@@ -203,190 +202,218 @@ describe('simplifyDrResult', () => {
   })
 })
 
-describe('standardizeWitUnits', () => {
-  describe('return the value in selected unit', () => {
-    describe('wit', () => {
-      describe('to wit', () => {
-        it('with decimal', () => {
+describe('standardizeWtestUntests', () => {
+  describe('return the value in selected untest', () => {
+    describe('wtest', () => {
+      describe('to wtest', () => {
+        test('wtesth decimal', () => {
           const expected = '0.00004'
 
-          const result = standardizeWitUnits(
+          const result = standardizeWtestUntests(
             '0.00004',
-            WIT_UNIT.WIT,
-            WIT_UNIT.WIT,
+            Wtest_UNtest.Wtest,
+            Wtest_UNtest.Wtest,
           )
 
           expect(result).toBe(expected)
         })
 
-        it('without decimal', () => {
+        test('wtesthout decimal', () => {
           const expected = '1.00'
 
-          const result = standardizeWitUnits('1', WIT_UNIT.WIT, WIT_UNIT.WIT)
-
-          expect(result).toBe(expected)
-        })
-      })
-
-      describe('to microWit', () => {
-        it('with decimal', () => {
-          const expected = '400000.00'
-
-          const result = standardizeWitUnits(
-            '0.4',
-            WIT_UNIT.MICRO,
-            WIT_UNIT.WIT,
-          )
-
-          expect(result).toBe(expected)
-        })
-
-        it('without decimal', () => {
-          const expected = '400000.00'
-
-          const result = standardizeWitUnits(
-            '0.4',
-            WIT_UNIT.MICRO,
-            WIT_UNIT.WIT,
+          const result = standardizeWtestUntests(
+            '1',
+            Wtest_UNtest.Wtest,
+            Wtest_UNtest.Wtest,
           )
 
           expect(result).toBe(expected)
         })
       })
 
-      describe('to nanoWit', () => {
-        it('with decimal', () => {
+      describe('to microWtest', () => {
+        test('wtesth decimal', () => {
+          const expected = '400000.00'
+
+          const result = standardizeWtestUntests(
+            '0.4',
+            Wtest_UNtest.MICRO,
+            Wtest_UNtest.Wtest,
+          )
+
+          expect(result).toBe(expected)
+        })
+
+        test('wtesthout decimal', () => {
+          const expected = '400000.00'
+
+          const result = standardizeWtestUntests(
+            '0.4',
+            Wtest_UNtest.MICRO,
+            Wtest_UNtest.Wtest,
+          )
+
+          expect(result).toBe(expected)
+        })
+      })
+
+      describe('to nanoWtest', () => {
+        test('wtesth decimal', () => {
           const expected = '100000000'
 
-          const result = standardizeWitUnits('0.1', WIT_UNIT.NANO, WIT_UNIT.WIT)
+          const result = standardizeWtestUntests(
+            '0.1',
+            Wtest_UNtest.NANO,
+            Wtest_UNtest.Wtest,
+          )
 
           expect(result).toBe(expected)
         })
 
-        it('without decimal', () => {
+        test('wtesthout decimal', () => {
           const expected = '1000000000'
 
-          const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.WIT)
+          const result = standardizeWtestUntests(
+            '1',
+            Wtest_UNtest.NANO,
+            Wtest_UNtest.Wtest,
+          )
 
           expect(result).toBe(expected)
         })
       })
     })
 
-    describe('microWit', () => {
-      describe('to wit', () => {
-        it('with decimal', () => {
+    describe('microWtest', () => {
+      describe('to wtest', () => {
+        test('wtesth decimal', () => {
           const expected = '0.0000011'
 
-          const result = standardizeWitUnits(
+          const result = standardizeWtestUntests(
             '1.1',
-            WIT_UNIT.WIT,
-            WIT_UNIT.MICRO,
+            Wtest_UNtest.Wtest,
+            Wtest_UNtest.MICRO,
           )
 
           expect(result).toBe(expected)
         })
 
-        it('without decimal', () => {
+        test('wtesthout decimal', () => {
           const expected = '1.00'
 
-          const result = standardizeWitUnits(
+          const result = standardizeWtestUntests(
             '1000000',
-            WIT_UNIT.WIT,
-            WIT_UNIT.MICRO,
+            Wtest_UNtest.Wtest,
+            Wtest_UNtest.MICRO,
           )
 
           expect(result).toBe(expected)
         })
       })
 
-      describe('to microWit', () => {
-        it('with decimal', () => {
+      describe('to microWtest', () => {
+        test('wtesth decimal', () => {
           const expected = '0.1'
 
-          const result = standardizeWitUnits(
+          const result = standardizeWtestUntests(
             '0.1',
-            WIT_UNIT.MICRO,
-            WIT_UNIT.MICRO,
+            Wtest_UNtest.MICRO,
+            Wtest_UNtest.MICRO,
             5,
           )
 
           expect(result).toBe(expected)
         })
 
-        it('without decimal', () => {
+        test('wtesthout decimal', () => {
           const expected = '1.00'
 
-          const result = standardizeWitUnits(
+          const result = standardizeWtestUntests(
             '1',
-            WIT_UNIT.MICRO,
-            WIT_UNIT.MICRO,
+            Wtest_UNtest.MICRO,
+            Wtest_UNtest.MICRO,
           )
 
           expect(result).toBe(expected)
         })
       })
 
-      describe('to nanoWit', () => {
-        it('with decimal', () => {
+      describe('to nanoWtest', () => {
+        test('wtesth decimal', () => {
           const expected = '100'
 
-          const result = standardizeWitUnits(
+          const result = standardizeWtestUntests(
             '0.1',
-            WIT_UNIT.NANO,
-            WIT_UNIT.MICRO,
+            Wtest_UNtest.NANO,
+            Wtest_UNtest.MICRO,
           )
 
           expect(result).toBe(expected)
         })
 
-        it('without decimal', () => {
+        test('wtesthout decimal', () => {
           const expected = '1000'
 
-          const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.MICRO)
+          const result = standardizeWtestUntests(
+            '1',
+            Wtest_UNtest.NANO,
+            Wtest_UNtest.MICRO,
+          )
 
           expect(result).toBe(expected)
         })
       })
     })
 
-    describe('nanoWit', () => {
-      describe('to wit', () => {
-        it('without decimal', () => {
+    describe('nanoWtest', () => {
+      describe('to wtest', () => {
+        test('wtesthout decimal', () => {
           const expected = '0.000000001'
 
-          const result = standardizeWitUnits('1', WIT_UNIT.WIT, WIT_UNIT.NANO)
+          const result = standardizeWtestUntests(
+            '1',
+            Wtest_UNtest.Wtest,
+            Wtest_UNtest.NANO,
+          )
 
           expect(result).toBe(expected)
         })
       })
 
-      describe('to microWit', () => {
-        it('with decimal', () => {
+      describe('to microWtest', () => {
+        test('wtesth decimal', () => {
           const expected = '0.0001'
 
-          const result = standardizeWitUnits(
+          const result = standardizeWtestUntests(
             '0.1',
-            WIT_UNIT.MICRO,
-            WIT_UNIT.NANO,
+            Wtest_UNtest.MICRO,
+            Wtest_UNtest.NANO,
           )
 
           expect(result).toBe(expected)
         })
 
-        it('without decimal', () => {
+        test('wtesthout decimal', () => {
           const expected = '0.001'
 
-          const result = standardizeWitUnits('1', WIT_UNIT.MICRO, WIT_UNIT.NANO)
+          const result = standardizeWtestUntests(
+            '1',
+            Wtest_UNtest.MICRO,
+            Wtest_UNtest.NANO,
+          )
 
           expect(result).toBe(expected)
         })
       })
 
-      it('to nanoWit', () => {
+      test('to nanoWtest', () => {
         const expected = '1'
 
-        const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.NANO)
+        const result = standardizeWtestUntests(
+          '1',
+          Wtest_UNtest.NANO,
+          Wtest_UNtest.NANO,
+        )
 
         expect(result).toBe(expected)
       })
@@ -395,14 +422,14 @@ describe('standardizeWitUnits', () => {
 })
 
 describe('deleteKey', () => {
-  it('delete if the key is found', () => {
+  test('delete if the key is found', () => {
     const result = deleteKey({ a: 'a', b: 'b', c: 'c' }, 'b')
     const expected = { a: 'a', c: 'c' }
 
     expect(result).toStrictEqual(expected)
   })
 
-  it('should not change if key is not found', () => {
+  test('should not change if key is not found', () => {
     const entry = { a: 'a', b: 'b', c: 'c' }
     const result = deleteKey(entry, 'd')
     const expected = { a: 'a', b: 'b', c: 'c' }
@@ -410,7 +437,7 @@ describe('deleteKey', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  it('should not mutate the object', () => {
+  test('should not mutate the object', () => {
     const entry = { a: 'a', b: 'b', c: 'c' }
 
     deleteKey(entry, 'b')
@@ -422,7 +449,7 @@ describe('deleteKey', () => {
 describe('calculateCurrentFocusAfterUndo', () => {
   describe('should work for all HISTORY_UPDATE_TYPEs', () => {
     describe('DELETE_OPERATOR', () => {
-      it('on retrieve stage', () => {
+      test('on retrieve stage', () => {
         const historyCheckpoint = {
           type: 'DELETE_OPERATOR',
           scriptId: 2,
@@ -454,7 +481,7 @@ describe('calculateCurrentFocusAfterUndo', () => {
         expect(id).toBe('void')
       })
 
-      it('on aggragation or tally stage', () => {
+      test('on aggragation or tally stage', () => {
         const historyCheckpoint = {
           rad: {
             timelock: 0,
@@ -506,7 +533,7 @@ describe('calculateCurrentFocusAfterUndo', () => {
       })
     })
     describe('PUSH_OPERATOR', () => {
-      it('on retrieve stage', () => {
+      test('on retrieve stage', () => {
         const historyCheckpoint = {
           rad: {
             timelock: 0,
@@ -548,7 +575,7 @@ describe('calculateCurrentFocusAfterUndo', () => {
       })
     })
 
-    it('DELETE_SOURCE', () => {
+    test('DELETE_SOURCE', () => {
       const historyCheckpoint = {
         rad: {
           timelock: 0,
@@ -587,7 +614,7 @@ describe('calculateCurrentFocusAfterUndo', () => {
       expect(id).toBe(0)
     })
 
-    it('ADD_SOURCE', () => {
+    test('ADD_SOURCE', () => {
       const historyCheckpoint = {
         rad: {
           timelock: 0,
@@ -631,7 +658,7 @@ describe('calculateCurrentFocusAfterUndo', () => {
       expect(id).toBe(1)
     })
 
-    it('UPDATE_TEMPLATE', () => {
+    test('UPDATE_TEMPLATE', () => {
       const historyCheckpoint = {
         rad: {
           timelock: 0,
@@ -687,7 +714,7 @@ describe('calculateCurrentFocusAfterUndo', () => {
       expect(id).toBe(4)
     })
 
-    it('UPDATE_SOURCE', () => {
+    test('UPDATE_SOURCE', () => {
       const historyCheckpoint = {
         rad: {
           timelock: 0,
@@ -738,16 +765,16 @@ describe('calculateCurrentFocusAfterUndo', () => {
 
       expect(id).toBe(0)
     })
-    // it('UPDATE_VARIABLE', () => {})
-    // it('ADD_VARIABLE', () => {})
-    // it('DELETE_VARIABLE', () => {})
+    // test('UPDATE_VARIABLE', () => {})
+    // test('ADD_VARIABLE', () => {})
+    // test('DELETE_VARIABLE', () => {})
   })
 })
 
 describe('calculateCurrentFocusAfterRedo', () => {
   describe('should work for all HISTORY_UPDATE_TYPEs', () => {
     describe('DELETE_OPERATOR', () => {
-      it('on retrieve stage', () => {
+      test('on retrieve stage', () => {
         const historyCheckpoint = {
           rad: {
             timelock: 0,
@@ -786,7 +813,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
         expect(id).toBe('void')
       })
 
-      it('on aggragation or tally stage', () => {
+      test('on aggragation or tally stage', () => {
         const historyCheckpoint = {
           rad: {
             timelock: 0,
@@ -828,7 +855,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
     })
 
     describe('PUSH_OPERATOR', () => {
-      it('on retrieve stage', () => {
+      test('on retrieve stage', () => {
         const historyCheckpoint = {
           rad: {
             timelock: 0,
@@ -871,7 +898,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
         expect(id).toBe(5)
       })
 
-      it('on aggregation tally stage', () => {
+      test('on aggregation tally stage', () => {
         const historyCheckpoint = {
           rad: {
             timelock: 0,
@@ -929,7 +956,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
       })
     })
 
-    it('DELETE_SOURCE', () => {
+    test('DELETE_SOURCE', () => {
       const historyCheckpoint = {
         rad: {
           timelock: 0,
@@ -992,7 +1019,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
       expect(id).toBe(5)
     })
 
-    it('ADD_SOURCE', () => {
+    test('ADD_SOURCE', () => {
       const historyCheckpoint = {
         rad: {
           timelock: 0,
@@ -1031,7 +1058,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
       expect(id).toBe(0)
     })
 
-    it('UPDATE_TEMPLATE', () => {
+    test('UPDATE_TEMPLATE', () => {
       const historyCheckpoint = {
         rad: {
           timelock: 0,
@@ -1084,7 +1111,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
       expect(id).toBe(11)
     })
 
-    it('UPDATE_SOURCE', () => {
+    test('UPDATE_SOURCE', () => {
       const historyCheckpoint = {
         rad: {
           timelock: 0,
@@ -1129,14 +1156,14 @@ describe('calculateCurrentFocusAfterRedo', () => {
       expect(id).toBe(0)
     })
 
-    // it('UPDATE_VARIABLE', () => {})
-    // it('ADD_VARIABLE', () => {})
-    // it('DELETE_VARIABLE', () => {})
+    // test('UPDATE_VARIABLE', () => {})
+    // test('ADD_VARIABLE', () => {})
+    // test('DELETE_VARIABLE', () => {})
   })
 })
 
 describe('encodeAggregationTally', () => {
-  it('without filter argument', () => {
+  test('wtesthout filter argument', () => {
     const expected = {
       filters: [
         {
@@ -1155,7 +1182,7 @@ describe('encodeAggregationTally', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  it('with a single filter argument', () => {
+  test('wtesth a single filter argument', () => {
     const expected = {
       filters: [
         {

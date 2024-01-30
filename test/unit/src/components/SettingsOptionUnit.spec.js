@@ -1,28 +1,34 @@
 import SettingsOptionUnit from '@/components/SettingsOptionUnit.vue'
+import Select from '@/components/Select.vue'
+import { THEMES } from '@/constants'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test, vi } from 'vitest'
+import { createMocks } from '../../utils'
 
 describe('SettingsOptionUnit.vue', () => {
   describe('change unit', () => {
     const changeDefaultUnitMock = vi.fn()
 
     test('should call the mutation to change the unit', async () => {
-      const wrapper = mount(
-        SettingsOptionUnit,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                unit: 'nanoWit',
-              },
-              mutations: {
-                changeDefaultUnit: changeDefaultUnitMock,
-              },
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              unit: 'nanoWit',
+            },
+            mutations: {
+              changeDefaultUnit: changeDefaultUnitMock,
             },
           },
-        }),
-      )
+        },
+        stubs: {
+          Select: Select,
+          CustomIcon: true,
+        },
+      })
+      const wrapper = mount(SettingsOptionUnit, {
+        ...mockStore,
+      })
       wrapper.setData({
         options: [
           { primaryText: 'wit', value: 'wit' },
@@ -40,22 +46,25 @@ describe('SettingsOptionUnit.vue', () => {
     })
 
     test('the default unit should be microWit on change', async () => {
-      const wrapper = mount(
-        SettingsOptionUnit,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                unit: 'nanoWit',
-              },
-              mutations: {
-                changeDefaultUnit: changeDefaultUnitMock,
-              },
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              unit: 'nanoWit',
+            },
+            mutations: {
+              changeDefaultUnit: changeDefaultUnitMock,
             },
           },
-        }),
-      )
+        },
+        stubs: {
+          Select: Select,
+          CustomIcon: true,
+        },
+      })
+      const wrapper = mount(SettingsOptionUnit, {
+        ...mockStore,
+      })
       wrapper.setData({
         options: [
           { primaryText: 'wit', value: 'wit' },
@@ -75,22 +84,25 @@ describe('SettingsOptionUnit.vue', () => {
     })
 
     test('the default unit should be nanoWit on change', async () => {
-      const wrapper = mount(
-        SettingsOptionUnit,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                unit: 'nanoWit',
-              },
-              mutations: {
-                changeDefaultUnit: changeDefaultUnitMock,
-              },
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              unit: 'nanoWit',
+            },
+            mutations: {
+              changeDefaultUnit: changeDefaultUnitMock,
             },
           },
-        }),
-      )
+        },
+        stubs: {
+          Select: Select,
+          CustomIcon: true,
+        },
+      })
+      const wrapper = mount(SettingsOptionUnit, {
+        ...mockStore,
+      })
       wrapper.setData({
         options: [
           { primaryText: 'wit', value: 'wit' },
@@ -110,22 +122,26 @@ describe('SettingsOptionUnit.vue', () => {
     })
 
     test('the default unit should be milliWit on change', async () => {
-      const wrapper = mount(
-        SettingsOptionUnit,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                unit: 'nanoWit',
-              },
-              mutations: {
-                changeDefaultUnit: changeDefaultUnitMock,
-              },
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              unit: 'nanoWit',
+              theme: THEMES.DARK,
+            },
+            mutations: {
+              changeDefaultUnit: changeDefaultUnitMock,
             },
           },
-        }),
-      )
+        },
+        stubs: {
+          Select: Select,
+          CustomIcon: true,
+        },
+      })
+      const wrapper = mount(SettingsOptionUnit, {
+        ...mockStore,
+      })
       wrapper.setData({
         options: [
           { primaryText: 'wit', value: 'wit' },
@@ -145,22 +161,25 @@ describe('SettingsOptionUnit.vue', () => {
     })
 
     test('the default unit should be wit on change', async () => {
-      const wrapper = mount(
-        SettingsOptionUnit,
-        createComponentMocks({
-          router: true,
-          store: {
-            wallet: {
-              state: {
-                unit: 'nanoWit',
-              },
-              mutations: {
-                changeDefaultUnit: changeDefaultUnitMock,
-              },
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              unit: 'nanoWit',
+            },
+            mutations: {
+              changeDefaultUnit: changeDefaultUnitMock,
             },
           },
-        }),
-      )
+        },
+        stubs: {
+          Select: Select,
+          CustomIcon: true,
+        },
+      })
+      const wrapper = mount(SettingsOptionUnit, {
+        ...mockStore,
+      })
       wrapper.setData({
         options: [
           { primaryText: 'wit', value: 'wit' },

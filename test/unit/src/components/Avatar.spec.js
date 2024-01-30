@@ -1,8 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-
+import { createMocks } from '../../utils'
 import Avatar from '@/components/Avatar.vue'
-import i18n from '@/plugins/i18n'
 
 describe('NetworkStatus', () => {
   test('should include the same image src as the given by props', () => {
@@ -11,9 +10,7 @@ describe('NetworkStatus', () => {
         src: 'avatar_src',
         borderColor: 'green',
       },
-      global: {
-        plugins: [i18n],
-      },
+      ...createMocks(),
     })
 
     const src = wrapper.find('img').attributes().src
@@ -27,9 +24,7 @@ describe('NetworkStatus', () => {
         src: 'avatar_src',
         borderColor: 'red',
       },
-      global: {
-        plugins: [i18n],
-      },
+      ...createMocks(),
     })
 
     const redBorderedImage = wrapper.find('.red')
@@ -42,9 +37,7 @@ describe('NetworkStatus', () => {
       props: {
         src: 'avatar_src',
       },
-      global: {
-        plugins: [i18n],
-      },
+      ...createMocks(),
     })
 
     const image = wrapper.find('img')

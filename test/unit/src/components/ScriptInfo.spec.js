@@ -1,7 +1,7 @@
 import ScriptInfo from '@/components/ScriptInfo.vue'
 import { shallowMount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import i18n from '@/plugins/i18n'
+import { createMocks } from '../../utils'
 
 describe('ScriptInfo.vue', () => {
   describe('should render correctly', () => {
@@ -10,9 +10,7 @@ describe('ScriptInfo.vue', () => {
         index: 0,
         info: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
       },
-      global: {
-        plugins: [i18n],
-      },
+      ...createMocks(),
     })
 
     test('finds the index', () => {

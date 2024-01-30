@@ -1,23 +1,27 @@
 import RenameTemplate from '@/components/RenameTemplate.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
+import { ElInput } from 'element-plus'
 
 describe('RadonOperator.vue', () => {
   describe('should render properly the rename template form', () => {
-    const mockStore = createMockStore({
-      rad: {
-        mutations: {
-          renameTemplate: () => {},
-          updateTemplateDescription: () => {},
-          clearCurrentFocus: () => {},
+    const mockStore = createMocks({
+      storeModules: {
+        rad: {
+          mutations: {
+            renameTemplate: () => {},
+            updateTemplateDescription: () => {},
+            clearCurrentFocus: () => {},
+          },
         },
+      },
+      stubs: {
+        'el-input': ElInput,
       },
     })
     const wrapper = mount(RenameTemplate, {
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       props: {
         name: 'Name',
         description: 'Description',

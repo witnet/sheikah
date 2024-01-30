@@ -1,25 +1,22 @@
 import EditorStageBar from '@/components/EditorStageBar.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
 
 describe('EditorStageBar.vue', () => {
   describe('should render properly', () => {
-    const mockStore = createMockStore({
-      rad: {
-        state: {
-          currentStage: 'settings',
+    const mockStore = createMocks({
+      storeModules: {
+        rad: {
+          state: {
+            currentStage: 'settings',
+          },
         },
       },
     })
-    const wrapper = mount(
-      EditorStageBar,
-      {
-        global: {
-          plugins: [i18n, mockStore],
-        },
-      },
-    )
+    const wrapper = mount(EditorStageBar, {
+      ...mockStore,
+    })
 
     test('should render the settings stage btn', () => {
       expect(wrapper.find('[data-test="stage-settings"]').text()).toBe(

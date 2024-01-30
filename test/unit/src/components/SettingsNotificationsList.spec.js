@@ -2,38 +2,32 @@ import { NOTIFICATIONS } from '@/constants'
 import SettingsNotificationsList from '@/components/SettingsNotificationList.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import i18n from '@/plugins/i18n'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
 
 describe('SettingsNotificationsList.vue', () => {
-  const mockStore = createMockStore({
-    wallet: {
-      state: {
-        locale: 'en',
+  const mockStore = createMocks({
+    storeModules: {
+      wallet: {
+        state: {
+          locale: 'en',
+        },
       },
+    },
+    stubs: {
+      SettingsNotificationSwitch: true,
     },
   })
   describe('should render properly', () => {
     test('the block notification', () => {
       const wrapper = mount(SettingsNotificationsList, {
-        global: {
-          plugins: [i18n, mockStore],
-          stubs: {
-            SettingsNotificationSwitch: true,
-          },
-        },
+        ...mockStore,
       })
       expect(wrapper.find('[data-test="block"]').isVisible()).toBe(true)
     })
 
     test('the transactions notification', () => {
       const wrapper = mount(SettingsNotificationsList, {
-        global: {
-          plugins: [i18n, mockStore],
-          stubs: {
-            SettingsNotificationSwitch: true,
-          },
-        },
+        ...mockStore,
       })
       wrapper.setData({
         notifications: NOTIFICATIONS,
@@ -44,12 +38,7 @@ describe('SettingsNotificationsList.vue', () => {
 
     test('the payments notification', () => {
       const wrapper = mount(SettingsNotificationsList, {
-        global: {
-          plugins: [i18n, mockStore],
-          stubs: {
-            SettingsNotificationSwitch: true,
-          },
-        },
+        ...mockStore,
       })
       wrapper.setData({
         notifications: NOTIFICATIONS,
@@ -60,12 +49,7 @@ describe('SettingsNotificationsList.vue', () => {
 
     test('the syncronization notification', () => {
       const wrapper = mount(SettingsNotificationsList, {
-        global: {
-          plugins: [i18n, mockStore],
-          stubs: {
-            SettingsNotificationSwitch: true,
-          },
-        },
+        ...mockStore,
       })
       wrapper.setData({
         notifications: NOTIFICATIONS,
@@ -78,12 +62,7 @@ describe('SettingsNotificationsList.vue', () => {
   describe('should render properly', () => {
     test('the title of the block notification', () => {
       const wrapper = mount(SettingsNotificationsList, {
-        global: {
-          plugins: [i18n, mockStore],
-          stubs: {
-            SettingsNotificationSwitch: true,
-          },
-        },
+        ...mockStore,
       })
       wrapper.setData({
         notifications: NOTIFICATIONS,
@@ -96,12 +75,7 @@ describe('SettingsNotificationsList.vue', () => {
 
     test('the title of the transactions notification', () => {
       const wrapper = mount(SettingsNotificationsList, {
-        global: {
-          plugins: [i18n, mockStore],
-          stubs: {
-            SettingsNotificationSwitch: true,
-          },
-        },
+        ...mockStore,
       })
       wrapper.setData({
         notifications: NOTIFICATIONS,
@@ -114,12 +88,7 @@ describe('SettingsNotificationsList.vue', () => {
 
     test('the title of the payments notification', () => {
       const wrapper = mount(SettingsNotificationsList, {
-        global: {
-          plugins: [i18n, mockStore],
-          stubs: {
-            SettingsNotificationSwitch: true,
-          },
-        },
+        ...mockStore,
       })
       wrapper.setData({
         notifications: NOTIFICATIONS,
@@ -131,12 +100,7 @@ describe('SettingsNotificationsList.vue', () => {
 
     test('the title of the syncronization notification', () => {
       const wrapper = mount(SettingsNotificationsList, {
-        global: {
-          plugins: [i18n, mockStore],
-          stubs: {
-            SettingsNotificationSwitch: true,
-          },
-        },
+        ...mockStore,
       })
       wrapper.setData({
         notifications: NOTIFICATIONS,

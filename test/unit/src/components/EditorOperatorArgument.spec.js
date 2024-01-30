@@ -1,14 +1,27 @@
 import EditorOperatorArgument from '@/components/EditorOperatorArgument.vue'
+import OperatorType from '@/components/OperatorType.vue'
+import Select from '@/components/Select.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
+import { ElInput } from 'element-plus'
+
 const getMockedStore = ({ state }) => {
-  return createMockStore({
-    rad: { state: state },
-    wallet: {
-      state: {
-        theme: 'light',
+  return createMocks({
+    storeModules: {
+      rad: { state: state },
+      wallet: {
+        state: {
+          theme: 'light',
+        },
       },
+    },
+    stubs: {
+      'el-input': ElInput,
+      OperatorType: OperatorType,
+      Select: Select,
+      Subscript: true,
+      CustomIcon: true,
     },
   })
 }
@@ -22,9 +35,7 @@ describe('EditorOperatorArgument.vue', () => {
     }
     const mockStore = getMockedStore(state)
     const wrapper = mount(EditorOperatorArgument, {
-      global: {
-        plugins: [i18n, mockStore],
-      },
+      ...mockStore,
       props: {
         argument: {
           hierarchicalType: 'argument',
@@ -105,9 +116,7 @@ describe('EditorOperatorArgument.vue', () => {
     }
     const mockStore = getMockedStore(state)
     const wrapper = mount(EditorOperatorArgument, {
-      global: {
-        plugins: [i18n, mockStore],
-      },
+      ...mockStore,
       props: {
         argument: {
           hierarchicalType: 'argument',

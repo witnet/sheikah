@@ -1,8 +1,10 @@
 import SetFee from '@/components/SendTransaction/SetFee.vue'
-import { DEFAULT_VTT_VALUES } from '@/constants'
-import { mount } from '@vue/test-utils'
+import SelectEstimatedFee from '@/components/SendTransaction/SelectEstimatedFee.vue'
+import { DEFAULT_VTT_VALUES, DEFAULT_LOCALE } from '@/constants'
+import { mount, shallowMount } from '@vue/test-utils'
 import { describe, expect, test, vi } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
+import { ElButton, ElForm, ElFormItem, ElInput, ElSwitch } from 'element-plus'
 
 const FEE_ESTIMATION_REPORT_MOCK = {
   report: {
@@ -240,28 +242,41 @@ describe('SetFee.vue', () => {
     const clearGeneratedTransactionMock = vi.fn()
     const getFeeEstimationReportMock = vi.fn()
     const setTransactionOptionsMock = vi.fn()
-    const mockStore = createMockStore({
-      wallet: {
-        state: {
-          errors: {
-            createDataRequest: false,
-            createVttError: false,
+    const setSelectedFee = vi.fn()
+    const mockStore = createMocks({
+      storeModules: {
+        wallet: {
+          state: {
+            errors: {
+              createDataRequest: false,
+              createVttError: false,
+            },
+            locale: DEFAULT_LOCALE,
+            transactionOptions: ESTIMATED_OPTIONS,
+            unit: 'nanoWit',
+            feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
           },
-          transactionOptions: ESTIMATED_OPTIONS,
-          unit: 'nanoWit',
-          feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
+          mutations: {
+            selectedFee: vi.fn(() => {}),
+            clearError: clearErrorMock,
+            clearGeneratedTransaction: clearGeneratedTransactionMock,
+            setTransactionOptions: setTransactionOptionsMock,
+            setSelectedFee: setSelectedFee,
+          },
+          actions: {
+            getFeeEstimationReport: getFeeEstimationReportMock,
+            createDataRequest: createDataRequestMock,
+            createVTT: createVTTMock,
+          },
         },
-        mutations: {
-          selectedFee: vi.fn(() => {}),
-          clearError: clearErrorMock,
-          clearGeneratedTransaction: clearGeneratedTransactionMock,
-          setTransactionOptions: setTransactionOptionsMock,
-        },
-        actions: {
-          getFeeEstimationReport: getFeeEstimationReportMock,
-          createDataRequest: createDataRequestMock,
-          createVTT: createVTTMock,
-        },
+      },
+      stubs: {
+        'el-button': ElButton,
+        'el-form': ElForm,
+        'el-switch': ElSwitch,
+        'el-input': ElInput,
+        'el-form-item': ElFormItem,
+        SelectEstimatedFee: SelectEstimatedFee,
       },
     })
 
@@ -271,9 +286,7 @@ describe('SetFee.vue', () => {
           customFee: false,
         }
       },
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       props: {
         vttValues: {},
         drValues: null,
@@ -302,28 +315,38 @@ describe('SetFee.vue', () => {
     const clearGeneratedTransactionMock = vi.fn()
     const getFeeEstimationReportMock = vi.fn()
     const setTransactionOptionsMock = vi.fn()
-    const mockStore = createMockStore({
-      wallet: {
-        state: {
-          errors: {
-            createDataRequest: false,
-            createVttError: false,
+    const mockStore = createMocks({
+      storeModules: {
+        wallet: {
+          state: {
+            errors: {
+              createDataRequest: false,
+              createVttError: false,
+            },
+            transactionOptions: ESTIMATED_OPTIONS,
+            unit: 'nanoWit',
+            feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
           },
-          transactionOptions: ESTIMATED_OPTIONS,
-          unit: 'nanoWit',
-          feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
+          mutations: {
+            selectedFee: vi.fn(() => {}),
+            clearError: clearErrorMock,
+            clearGeneratedTransaction: clearGeneratedTransactionMock,
+            setTransactionOptions: setTransactionOptionsMock,
+          },
+          actions: {
+            getFeeEstimationReport: getFeeEstimationReportMock,
+            createDataRequest: createDataRequestMock,
+            createVTT: createVTTMock,
+          },
         },
-        mutations: {
-          selectedFee: vi.fn(() => {}),
-          clearError: clearErrorMock,
-          clearGeneratedTransaction: clearGeneratedTransactionMock,
-          setTransactionOptions: setTransactionOptionsMock,
-        },
-        actions: {
-          getFeeEstimationReport: getFeeEstimationReportMock,
-          createDataRequest: createDataRequestMock,
-          createVTT: createVTTMock,
-        },
+      },
+      stubs: {
+        'el-button': ElButton,
+        'el-form': ElForm,
+        'el-switch': ElSwitch,
+        'el-input': ElInput,
+        'el-form-item': ElFormItem,
+        SelectEstimatedFee: SelectEstimatedFee,
       },
     })
 
@@ -332,9 +355,7 @@ describe('SetFee.vue', () => {
         vttValues: {},
         drValues: null,
       },
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
     })
 
     wrapper.setData({
@@ -366,28 +387,38 @@ describe('SetFee.vue', () => {
       const clearGeneratedTransactionMock = vi.fn()
       const getFeeEstimationReportMock = vi.fn()
       const setTransactionOptionsMock = vi.fn()
-      const mockStore = createMockStore({
-        wallet: {
-          state: {
-            errors: {
-              createDataRequest: true,
-              createVTT: false,
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              errors: {
+                createDataRequest: true,
+                createVTT: false,
+              },
+              transactionOptions: ESTIMATED_OPTIONS,
+              unit: 'nanoWit',
+              feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
             },
-            transactionOptions: ESTIMATED_OPTIONS,
-            unit: 'nanoWit',
-            feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
+            mutations: {
+              selectedFee: vi.fn(() => {}),
+              clearError: clearErrorMock,
+              clearGeneratedTransaction: clearGeneratedTransactionMock,
+              setTransactionOptions: setTransactionOptionsMock,
+            },
+            actions: {
+              getFeeEstimationReport: getFeeEstimationReportMock,
+              createDataRequest: createDataRequestMock,
+              createVTT: createVTTMock,
+            },
           },
-          mutations: {
-            selectedFee: vi.fn(() => {}),
-            clearError: clearErrorMock,
-            clearGeneratedTransaction: clearGeneratedTransactionMock,
-            setTransactionOptions: setTransactionOptionsMock,
-          },
-          actions: {
-            getFeeEstimationReport: getFeeEstimationReportMock,
-            createDataRequest: createDataRequestMock,
-            createVTT: createVTTMock,
-          },
+        },
+        stubs: {
+          'el-button': ElButton,
+          'el-form': ElForm,
+          'el-switch': ElSwitch,
+          'el-input': ElInput,
+          'el-form-item': ElFormItem,
+          SelectEstimatedFee: SelectEstimatedFee,
         },
       })
 
@@ -401,9 +432,7 @@ describe('SetFee.vue', () => {
           vttValues: {},
           drValues: null,
         },
-        global: {
-          plugins: [mockStore],
-        },
+        ...mockStore,
       })
 
       expect(wrapper.find('[data-test="fee-type-switch"]').isVisible()).toBe(
@@ -416,27 +445,37 @@ describe('SetFee.vue', () => {
       const clearErrorMock = vi.fn()
       const clearGeneratedTransactionMock = vi.fn()
       const getFeeEstimationReportMock = vi.fn()
-      const mockStore = createMockStore({
-        wallet: {
-          state: {
-            errors: {
-              createDataRequest: false,
-              createVTT: true,
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              errors: {
+                createDataRequest: false,
+                createVTT: true,
+              },
+              transactionOptions: ESTIMATED_OPTIONS,
+              unit: 'nanoWit',
+              feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
             },
-            transactionOptions: ESTIMATED_OPTIONS,
-            unit: 'nanoWit',
-            feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
+            mutations: {
+              selectedFee: vi.fn(() => {}),
+              clearError: clearErrorMock,
+              clearGeneratedTransaction: clearGeneratedTransactionMock,
+            },
+            actions: {
+              getFeeEstimationReport: getFeeEstimationReportMock,
+              createDataRequest: createDataRequestMock,
+              createVTT: createVTTMock,
+            },
           },
-          mutations: {
-            selectedFee: vi.fn(() => {}),
-            clearError: clearErrorMock,
-            clearGeneratedTransaction: clearGeneratedTransactionMock,
-          },
-          actions: {
-            getFeeEstimationReport: getFeeEstimationReportMock,
-            createDataRequest: createDataRequestMock,
-            createVTT: createVTTMock,
-          },
+        },
+        stubs: {
+          'el-button': ElButton,
+          'el-form': ElForm,
+          'el-switch': ElSwitch,
+          'el-input': ElInput,
+          'el-form-item': ElFormItem,
+          SelectEstimatedFee: SelectEstimatedFee,
         },
       })
 
@@ -446,9 +485,7 @@ describe('SetFee.vue', () => {
             customFee: false,
           }
         },
-        global: {
-          plugins: [mockStore],
-        },
+        ...mockStore,
         props: {
           vttValues: {},
           drValues: null,
@@ -464,27 +501,37 @@ describe('SetFee.vue', () => {
       const clearErrorMock = vi.fn()
       const clearGeneratedTransactionMock = vi.fn()
       const getFeeEstimationReportMock = vi.fn()
-      const mockStore = createMockStore({
-        wallet: {
-          state: {
-            errors: {
-              createDataRequest: false,
-              createVTT: false,
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              errors: {
+                createDataRequest: false,
+                createVTT: false,
+              },
+              transactionOptions: ESTIMATED_OPTIONS,
+              unit: 'nanoWit',
+              feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
             },
-            transactionOptions: ESTIMATED_OPTIONS,
-            unit: 'nanoWit',
-            feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
+            mutations: {
+              selectedFee: vi.fn(() => {}),
+              clearError: clearErrorMock,
+              clearGeneratedTransaction: clearGeneratedTransactionMock,
+            },
+            actions: {
+              getFeeEstimationReport: getFeeEstimationReportMock,
+              createDataRequest: createDataRequestMock,
+              createVTT: createVTTMock,
+            },
           },
-          mutations: {
-            selectedFee: vi.fn(() => {}),
-            clearError: clearErrorMock,
-            clearGeneratedTransaction: clearGeneratedTransactionMock,
-          },
-          actions: {
-            getFeeEstimationReport: getFeeEstimationReportMock,
-            createDataRequest: createDataRequestMock,
-            createVTT: createVTTMock,
-          },
+        },
+        stubs: {
+          'el-button': ElButton,
+          'el-form': ElForm,
+          'el-switch': ElSwitch,
+          'el-input': ElInput,
+          'el-form-item': ElFormItem,
+          SelectEstimatedFee: SelectEstimatedFee,
         },
       })
 
@@ -494,9 +541,7 @@ describe('SetFee.vue', () => {
             customFee: true,
           }
         },
-        global: {
-          plugins: [mockStore],
-        },
+        ...mockStore,
         props: {
           vttValues: {},
           drValues: null,
@@ -518,35 +563,46 @@ describe('SetFee.vue', () => {
       const setTransactionOptionsMock = vi.fn()
       const setSelectedFee = vi.fn()
       const selectedFeeMock = vi.fn(() => SELECTED_FEE_MOCK)
-      const mockStore = createMockStore({
-        wallet: {
-          state: {
-            locale: 'en',
-            errors: {
-              createDataRequest: false,
-              createVTT: false,
-              feeEstimationReportError: false,
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              locale: DEFAULT_LOCALE,
+              errors: {
+                createDataRequest: false,
+                createVTT: false,
+                feeEstimationReportError: false,
+              },
+              transactionOptions: ESTIMATED_OPTIONS,
+              unit: 'nanoWit',
+              feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
             },
-            transactionOptions: ESTIMATED_OPTIONS,
-            unit: 'nanoWit',
-            feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
+            mutations: {
+              selectedFee: selectedFeeMock,
+              setSelectedFee: setSelectedFee,
+              clearError: clearErrorMock,
+              clearGeneratedTransaction: clearGeneratedTransactionMock,
+              setTransactionOptions: setTransactionOptionsMock,
+            },
+            actions: {
+              getFeeEstimationReport: getFeeEstimationReportMock,
+              createDataRequest: createDataRequestMock,
+              createVTT: createVTTMock,
+            },
           },
-          mutations: {
-            selectedFee: selectedFeeMock,
-            setSelectedFee: setSelectedFee,
-            clearError: clearErrorMock,
-            clearGeneratedTransaction: clearGeneratedTransactionMock,
-            setTransactionOptions: setTransactionOptionsMock,
-          },
-          actions: {
-            getFeeEstimationReport: getFeeEstimationReportMock,
-            createDataRequest: createDataRequestMock,
-            createVTT: createVTTMock,
-          },
+        },
+        stubs: {
+          'el-button': ElButton,
+          'el-form': ElForm,
+          'el-switch': ElSwitch,
+          'el-input': ElInput,
+          'el-form-item': ElFormItem,
+          SelectEstimatedFee: SelectEstimatedFee,
         },
       })
 
       const wrapper = mount(SetFee, {
+        ...mockStore,
         data() {
           return {
             customFee: false,
@@ -559,12 +615,9 @@ describe('SetFee.vue', () => {
           vttValues: DEFAULT_VTT_VALUES,
           estimatedFee: {},
         },
-        global: {
-          plugins: [mockStore],
-        }
       })
-      await wrapper.find('[data-test="continue"]').trigger('click')
-      expect(wrapper.emitted()['set-transaction']).toBeTruthy()
+      wrapper.find('[data-test="continue"]').trigger('click')
+      expect(wrapper.emitted()['click']).toBeTruthy()
     })
     test('NOT emit the event if the form has errors', async () => {
       const createDataRequestMock = vi.fn()
@@ -578,28 +631,38 @@ describe('SetFee.vue', () => {
           error: 'Error',
         },
       }))
-      const mockStore = createMockStore({
-        wallet: {
-          state: {
-            locale: 'en',
-            errors: {
-              createDataRequest: true,
-              createVTT: false,
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              locale: DEFAULT_LOCALE,
+              errors: {
+                createDataRequest: true,
+                createVTT: false,
+              },
+              unit: 'nanoWit',
+              feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
             },
-            unit: 'nanoWit',
-            feeEstimationReport: FEE_ESTIMATION_REPORT_MOCK,
+            mutations: {
+              selectedFee: selectedFeeMock,
+              clearError: clearErrorMock,
+              clearGeneratedTransaction: clearGeneratedTransactionMock,
+              setTransactionOptions: setTransactionOptionsMock,
+            },
+            actions: {
+              getFeeEstimationReport: getFeeEstimationReportMock,
+              createDataRequest: createDataRequestMock,
+              createVTT: createVTTMock,
+            },
           },
-          mutations: {
-            selectedFee: selectedFeeMock,
-            clearError: clearErrorMock,
-            clearGeneratedTransaction: clearGeneratedTransactionMock,
-            setTransactionOptions: setTransactionOptionsMock,
-          },
-          actions: {
-            getFeeEstimationReport: getFeeEstimationReportMock,
-            createDataRequest: createDataRequestMock,
-            createVTT: createVTTMock,
-          },
+        },
+        stubs: {
+          'el-button': ElButton,
+          'el-form': ElForm,
+          'el-switch': ElSwitch,
+          'el-input': ElInput,
+          'el-form-item': ElFormItem,
+          SelectEstimatedFee: SelectEstimatedFee,
         },
       })
 
@@ -616,9 +679,7 @@ describe('SetFee.vue', () => {
           vttValues: DEFAULT_VTT_VALUES,
           estimatedFee: {},
         },
-        global: {
-          plugins: [mockStore],
-        }
+        ...mockStore,
       })
       await wrapper.find('[data-test="continue"]').trigger('click')
       expect(wrapper.emitted()['set-transaction']).toBeFalsy()

@@ -32,8 +32,8 @@ describe('overwriteConfigFile', () => {
 
   test('Should overwrite the configuration with several nodes according to the parameters given', () => {
     vi.spyOn(fs, 'writeFileSync').mockImplementation
-    vi.spyOn(fs, 'readFileSync').mockResolvedValue(
-      'node_url = ["public_node_url3","public_node_url4"]',
+    vi.spyOn(fs, 'readFileSync').mockImplementation(
+      () => 'node_url = "public_node_url3","public_node_url4"',
     )
 
     overwriteWitnetNodeConfiguration({
