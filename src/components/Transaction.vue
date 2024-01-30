@@ -44,7 +44,7 @@
         <div v-if="confirmed">
           <p data-test="time-ago" class="date">{{ timeAgo }}</p>
         </div>
-        <div v-else-if="!!Number(epoch)">
+        <div v-else-if="!!Number(epoch)" data-test="pending-confirmation">
           <el-tooltip placement="bottom" effect="light">
             <template #content>
               <div class="info-message">

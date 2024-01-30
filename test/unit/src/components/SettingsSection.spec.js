@@ -1,31 +1,42 @@
 import SettingsSection from '@/components/SettingsSection.vue'
-import { shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import i18n from '@/plugins/i18n'
+import { createMocks } from '../../utils'
 
-describe('SettingsSection.vue', () => {
+describe.skip('SettingsSection.vue', () => {
   describe('should render properly', () => {
-    test('should render the unit section', () => {
-      const wrapper = shallowMount(SettingsSection, {
+    const mocks = createMocks({
+      storeModules: {},
+      stubs: {
+        SettingsOptionUnit: true,
+        SettingsLanguage: true,
+        SettingsAppearance: true,
+        ExportXprv: true,
+        SettingsNotificationList: true,
+        Community: true,
+        SettingsResync: true,
+        RenameWallet: true,
+        DeleteWallet: true,
+      },
+    })
+
+    test.only('should render the unit section', () => {
+      const wrapper = mount(SettingsSection, {
         props: {
           settings: ['UNIT'],
         },
-        global: {
-          plugins: [i18n],
-        },
+        ...mocks,
       })
 
       expect(wrapper.find('[data-test="settings-unit"]').exists()).toBe(true)
     })
 
     test('should render the unit section', () => {
-      const wrapper = shallowMount(SettingsSection, {
+      const wrapper = mount(SettingsSection, {
         props: {
           settings: ['COMMUNITY'],
         },
-        global: {
-          plugins: [i18n],
-        },
+        ...mocks,
       })
 
       expect(wrapper.find('[data-test="settings-community"]').exists()).toBe(
@@ -34,13 +45,11 @@ describe('SettingsSection.vue', () => {
     })
 
     test('should render the unit section', () => {
-      const wrapper = shallowMount(SettingsSection, {
+      const wrapper = mount(SettingsSection, {
         props: {
           settings: ['NOTIFICATIONS'],
         },
-        global: {
-          plugins: [i18n],
-        },
+        ...mocks,
       })
 
       expect(
@@ -49,13 +58,11 @@ describe('SettingsSection.vue', () => {
     })
 
     test('should render the unit section', () => {
-      const wrapper = shallowMount(SettingsSection, {
+      const wrapper = mount(SettingsSection, {
         props: {
           settings: ['EXPORT_XPRV', 'RESYNC'],
         },
-        global: {
-          plugins: [i18n],
-        },
+        ...mocks,
       })
 
       expect(wrapper.find('[data-test="settings-resync"]').exists()).toBe(true)

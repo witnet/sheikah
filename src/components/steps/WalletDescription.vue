@@ -38,6 +38,7 @@
       </p>
       <el-input
         v-model="description"
+        data-test="description-input"
         type="textarea"
         class="password"
         resize="none"

@@ -1,16 +1,12 @@
 import Community from '@/components/Community.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import i18n from '@/plugins/i18n'
+import { createMocks } from '../../utils'
 
 describe('Community.vue', () => {
   describe('should render properly', () => {
     test('should render properly the card with the twitter link', async () => {
-      const wrapper = mount(Community, {
-        global: {
-          plugins: [i18n],
-        },
-      })
+      const wrapper = mount(Community, createMocks({ storeModules: {} }))
       wrapper.setData({
         socials: [
           {
@@ -70,7 +66,7 @@ describe('Community.vue', () => {
     })
 
     test('should render properly the card with the discord link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, createMocks({ storeModules: {} }))
       wrapper.setData({
         socials: [
           {
@@ -130,7 +126,7 @@ describe('Community.vue', () => {
     })
 
     test('should render properly the card with the discord link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, createMocks({ storeModules: {} }))
       wrapper.setData({
         socials: [
           {
@@ -190,7 +186,7 @@ describe('Community.vue', () => {
     })
 
     test('should render properly the card with the medium link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, createMocks({ storeModules: {} }))
       wrapper.setData({
         socials: [
           {
@@ -250,7 +246,7 @@ describe('Community.vue', () => {
     })
 
     test('should render properly the card with the mail link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, createMocks({ storeModules: {} }))
       wrapper.setData({
         socials: [
           {
@@ -314,7 +310,7 @@ describe('Community.vue', () => {
     })
 
     test('should render properly the card with the telegram link', async () => {
-      const wrapper = mount(Community)
+      const wrapper = mount(Community, createMocks({ storeModules: {} }))
       wrapper.setData({
         socials: [
           {

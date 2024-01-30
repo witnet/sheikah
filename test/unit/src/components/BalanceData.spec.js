@@ -1,13 +1,15 @@
 import BalanceData from '@/components/BalanceData.vue'
 import { shallowMount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
 
 describe('Balance.vue', () => {
-  const mockStore = createMockStore({
-    wallet: {
-      state: {
-        unit: 'nanoWits',
+  const mockStore = createMocks({
+    storeModules: {
+      wallet: {
+        state: {
+          unit: 'nanoWits',
+        },
       },
     },
   })
@@ -20,9 +22,7 @@ describe('Balance.vue', () => {
         total: '100',
         unit: 'nanoWits',
       },
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
     })
 
     expect(wrapper.find('[data-test="available"]').exists()).toBe(true)
@@ -37,9 +37,7 @@ describe('Balance.vue', () => {
         total: '100',
         unit: 'nanoWits',
       },
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
     })
 
     expect(wrapper.find('[data-test="locked"]').exists()).toBe(true)
@@ -54,9 +52,7 @@ describe('Balance.vue', () => {
         total: '100',
         unit: 'nanoWits',
       },
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
     })
     expect(wrapper.find('[data-test="total"]').exists()).toBe(true)
   })
@@ -70,9 +66,7 @@ describe('Balance.vue', () => {
         total: '100',
         unit: 'nanoWits',
       },
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
     })
     expect(wrapper.find('[data-test="unconfirmed"]').exists()).toBe(true)
   })

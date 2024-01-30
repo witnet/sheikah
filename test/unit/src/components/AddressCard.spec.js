@@ -1,7 +1,7 @@
 import AddressCard from '@/components/AddressCard.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import i18n from '@/plugins/i18n'
+import { createMocks } from '../../utils'
 
 describe('AddressCard.vue', () => {
   describe('should render correctly', () => {
@@ -11,9 +11,7 @@ describe('AddressCard.vue', () => {
           selected: false,
           used: true,
         },
-        global: {
-          plugins: [i18n],
-        },
+        ...createMocks(),
       })
       expect(wrapper.find('.used').exists()).toBe(true)
     })
@@ -24,9 +22,7 @@ describe('AddressCard.vue', () => {
           selected: false,
           used: false,
         },
-        global: {
-          plugins: [i18n],
-        },
+        ...createMocks(),
       })
 
       expect(wrapper.find('.card').classes()).toEqual(['card'])
@@ -38,9 +34,7 @@ describe('AddressCard.vue', () => {
           selected: true,
           used: false,
         },
-        global: {
-          plugins: [i18n],
-        },
+        ...createMocks(),
       })
 
       expect(wrapper.find('.selected').exists()).toBe(true)

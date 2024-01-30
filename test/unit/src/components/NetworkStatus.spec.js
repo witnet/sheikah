@@ -3,44 +3,54 @@ import NetworkStatus from '@/components/NetworkStatus.vue'
 import Avatar from '@/components/Avatar.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
+import { shallowMount } from '@vue/test-utils'
 import { NETWORK_STATUS } from '@/constants'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
+import { ElButton } from 'element-plus'
 
 describe('NetworkStatus', () => {
   describe('when is minimized', () => {
     describe('and is synced', () => {
-      const mockStore = createMockStore({
-        wallet: {
-          state: {
-            status: {
-              currentState: NETWORK_STATUS.SYNCED,
-              progress: 80,
-              lastBlock: '123456',
-              lastSync: 1605881425122,
-              lastBlockTimestamp: 1605881425122,
-              address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
-              isNodeSynced: true,
-              balance: '123456789',
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              status: {
+                currentState: NETWORK_STATUS.SYNCED,
+                progress: 80,
+                lastBlock: '123456',
+                lastSync: 1605881425122,
+                lastBlockTimestamp: 1605881425122,
+                address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
+                isNodeSynced: true,
+                balance: '123456789',
+              },
+              errors: {},
             },
-            errors: {},
+            getters: {
+              network: () => 'mainnet',
+              estimatedTimeOfSync: () => '00:32:22',
+              unlockedWallet: () => ({
+                id: '1',
+                name: 'wallet_1',
+                description: 'description',
+                image: 'wallet_img',
+              }),
+            },
           },
-          getters: {
-            network: () => 'mainnet',
-            estimatedTimeOfSync: () => '00:32:22',
-            unlockedWallet: () => ({
-              id: '1',
-              name: 'wallet_1',
-              description: 'description',
-              image: 'wallet_img',
-            }),
-          },
+        },
+        stubs: {
+          'el-button': ElButton,
+          'i18n-t': true,
+          'font-awesome-icon': true,
+          Avatar: Avatar,
+          CustomIcon: true,
+          DotsLoading: true,
         },
       })
       function getMinimizedSyncedData() {
         return {
-          global: {
-            plugins: [mockStore],
-          },
+          ...mockStore,
           props: {
             expanded: false,
           },
@@ -51,7 +61,7 @@ describe('NetworkStatus', () => {
         test('should include Avatar', () => {
           const wrapper = mount(NetworkStatus, getMinimizedSyncedData())
 
-          expect(wrapper.findComponent(Avatar))
+          expect(wrapper.findComponent(Avatar).exists())
         })
 
         describe('should pass correct props to Avatar', () => {
@@ -83,38 +93,42 @@ describe('NetworkStatus', () => {
     })
 
     describe('and is syncing', () => {
-      const mockStore = createMockStore({
-        wallet: {
-          state: {
-            status: {
-              currentState: NETWORK_STATUS.SYNCING,
-              progress: 80,
-              lastBlock: '123456',
-              lastSync: 1605881425122,
-              lastBlockTimestamp: 1605881425122,
-              address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
-              isNodeSynced: true,
-              balance: '123456789',
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              theme: 'light',
+              status: {
+                currentState: NETWORK_STATUS.SYNCING,
+                progress: 80,
+                lastBlock: '123456',
+                lastSync: 1605881425122,
+                lastBlockTimestamp: 1605881425122,
+                address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
+                isNodeSynced: true,
+                balance: '123456789',
+              },
+              errors: {},
             },
-            errors: {},
+            getters: {
+              network: () => 'mainnet',
+              estimatedTimeOfSync: () => '00:32:22',
+              unlockedWallet: () => ({
+                id: '1',
+                name: 'wallet_1',
+                description: 'description',
+                image: 'wallet_img',
+              }),
+            },
           },
-          getters: {
-            network: () => 'mainnet',
-            estimatedTimeOfSync: () => '00:32:22',
-            unlockedWallet: () => ({
-              id: '1',
-              name: 'wallet_1',
-              description: 'description',
-              image: 'wallet_img',
-            }),
-          },
+        },
+        stubs: {
+          CustomIcon: true,
         },
       })
       function getMinimizedSyncingData() {
         return {
-          global: {
-            plugins: [mockStore],
-          },
+          ...mockStore,
           props: {
             expanded: false,
           },
@@ -157,37 +171,42 @@ describe('NetworkStatus', () => {
     })
 
     describe('and exist sync error', () => {
-      const mockStore = createMockStore({
-        wallet: {
-          state: {
-            status: {
-              currentState: NETWORK_STATUS.SYNC_ERROR,
-              progress: 80,
-              lastBlock: '123456',
-              lastSync: 1605881425122,
-              lastBlockTimestamp: 1605881425122,
-              address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
-              isNodeSynced: true,
-              balance: '123456789',
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              theme: 'light',
+              status: {
+                currentState: NETWORK_STATUS.SYNC_ERROR,
+                progress: 80,
+                lastBlock: '123456',
+                lastSync: 1605881425122,
+                lastBlockTimestamp: 1605881425122,
+                address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
+                isNodeSynced: true,
+                balance: '123456789',
+              },
+            },
+            getters: {
+              network: () => 'mainnet',
+              estimatedTimeOfSync: () => '00:32:22',
+              unlockedWallet: () => ({
+                id: '1',
+                name: 'wallet_1',
+                description: 'description',
+                image: 'wallet_img',
+              }),
             },
           },
-          getters: {
-            network: () => 'mainnet',
-            estimatedTimeOfSync: () => '00:32:22',
-            unlockedWallet: () => ({
-              id: '1',
-              name: 'wallet_1',
-              description: 'description',
-              image: 'wallet_img',
-            }),
-          },
+        },
+        stubs: {
+          CustomIcon: true,
+          'el-button': ElButton,
         },
       })
       function getMinimizedSyncErrorData() {
         return {
-          global: {
-            plugins: [mockStore],
-          },
+          ...mockStore,
           props: {
             expanded: false,
           },
@@ -250,38 +269,42 @@ describe('NetworkStatus', () => {
 
   describe('when is closed', () => {
     describe('and is synced', () => {
-      const mockStore = createMockStore({
-        wallet: {
-          state: {
-            status: {
-              currentState: NETWORK_STATUS.SYNCED,
-              progress: 100,
-              lastBlock: '123456',
-              lastSync: 1605881425122,
-              lastBlockTimestamp: 1605881425122,
-              address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
-              isNodeSynced: true,
-              balance: '123456789',
+      const mockStore = createMocks({
+        storeModules: {
+          wallet: {
+            state: {
+              theme: 'light',
+              status: {
+                currentState: NETWORK_STATUS.SYNCED,
+                progress: 100,
+                lastBlock: '123456',
+                lastSync: 1605881425122,
+                lastBlockTimestamp: 1605881425122,
+                address: 'twit1syp754tutlpnqf4a492dssrv3lqtwqxjp4nq44',
+                isNodeSynced: true,
+                balance: '123456789',
+              },
+              errors: {},
             },
-            errors: {},
+            getters: {
+              network: () => 'mainnet',
+              estimatedTimeOfSync: () => '00:32:22',
+              unlockedWallet: () => ({
+                id: '1',
+                name: 'wallet_1',
+                description: 'description',
+                image: 'wallet_img',
+              }),
+            },
           },
-          getters: {
-            network: () => 'mainnet',
-            estimatedTimeOfSync: () => '00:32:22',
-            unlockedWallet: () => ({
-              id: '1',
-              name: 'wallet_1',
-              description: 'description',
-              image: 'wallet_img',
-            }),
-          },
+        },
+        stubs: {
+          CustomIcon: true,
         },
       })
       function getClosedSyncedData() {
         return {
-          global: {
-            plugins: [mockStore],
-          },
+          ...mockStore,
           props: {
             expanded: true,
           },

@@ -3,14 +3,15 @@ import DotsLoading from '@/components/DotsLoading.vue'
 import { formatDateVerbose } from '@/utils'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import i18n from '@/plugins/i18n'
-import { createStore } from 'vuex'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
 
 describe('AddressInformation.vue', () => {
   describe('should render correctly', () => {
     test('empty state', () => {
-      const wrapper = mount(AddressInformation)
+      const wrapper = mount(
+        AddressInformation,
+        createMocks({ storeModules: {} }),
+      )
       expect(wrapper.find('.information').text()).toBe(
         `You haven't generated addresses yet. Click above to generate one.`,
       )
@@ -29,9 +30,7 @@ describe('AddressInformation.vue', () => {
           lastDate: new Date(),
           loading: true,
         },
-        global: {
-          plugins: [i18n],
-        },
+        ...createMocks(),
       })
 
       expect(wrapper.findComponent(DotsLoading).exists()).toBe(true)
@@ -41,11 +40,13 @@ describe('AddressInformation.vue', () => {
       test('should render red tag', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -59,9 +60,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.find('.tag').classes('red')).toBe(true)
@@ -70,11 +69,13 @@ describe('AddressInformation.vue', () => {
       test('should NOT render copy button', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -88,9 +89,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.find('.copy').exists()).toBe(false)
@@ -99,11 +98,13 @@ describe('AddressInformation.vue', () => {
       test('should render hidden address', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -117,9 +118,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.find('.address').text()).toBe(
@@ -130,11 +129,13 @@ describe('AddressInformation.vue', () => {
       test('should render payment number', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -148,9 +149,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.findAll('.bold').at(0).text()).toBe('2 payments')
@@ -159,11 +158,13 @@ describe('AddressInformation.vue', () => {
       test('should render the first date', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -177,9 +178,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.findAll('.bold').at(2).text()).toBe(
@@ -190,11 +189,13 @@ describe('AddressInformation.vue', () => {
       test('should render the first date', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -208,9 +209,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.findAll('.bold').at(3).text()).toBe(
@@ -223,11 +222,13 @@ describe('AddressInformation.vue', () => {
       test('should render red tag', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -241,9 +242,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.find('.tag').classes('green')).toBe(true)
@@ -252,11 +251,13 @@ describe('AddressInformation.vue', () => {
       test('should render address', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -270,9 +271,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.find('.address').text()).toBe(
@@ -283,11 +282,13 @@ describe('AddressInformation.vue', () => {
       test('should render payment number', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -301,9 +302,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.findAll('.bold').at(0).text()).toBe('0 payments')
@@ -312,11 +311,13 @@ describe('AddressInformation.vue', () => {
       test('should NOT render not used related information', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -330,9 +331,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.findAll('.bold').length).toBe(1)
@@ -341,11 +340,13 @@ describe('AddressInformation.vue', () => {
       test('should render copy button', () => {
         const date1 = new Date()
         const date2 = new Date()
-        const mockStore = createMockStore({
-          wallet: {
-            state: {
-              unit: 'nanoWit',
-              locale: 'en',
+        const mockStore = createMocks({
+          storeModules: {
+            wallet: {
+              state: {
+                unit: 'nanoWit',
+                locale: 'en',
+              },
             },
           },
         })
@@ -359,9 +360,7 @@ describe('AddressInformation.vue', () => {
             firstPaymentDate: date1,
             lastPaymentDate: date2,
           },
-          global: {
-            plugins: [i18n, mockStore],
-          },
+          ...mockStore,
         })
 
         expect(wrapper.find('.copy').exists()).toBe(true)

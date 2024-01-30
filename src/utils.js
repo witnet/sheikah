@@ -57,7 +57,9 @@ export function getTimeDuration(seconds, currentLocale) {
       end: seconds * 1000,
     }),
     {
-      locale: LANGUAGES[currentLocale].fnsLocale,
+      locale: LANGUAGES[currentLocale]
+        ? LANGUAGES[currentLocale].fnsLocale
+        : null,
     },
   )
 }

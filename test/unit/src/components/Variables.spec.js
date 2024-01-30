@@ -1,45 +1,52 @@
 import Variables from '@/components/Variables.vue'
+import Select from '@/components/Select.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
+import { ElInput } from 'element-plus'
 
 describe('Variables.vue', () => {
   describe('should render properly the rename template form', () => {
-    const mockStore = createMockStore({
-      wallet: {
-        state: {
-          theme: 'light',
-        },
-      },
-      rad: {
-        state: {
-          currentTemplate: {
-            variables: [
-              {
-                description:
-                  'Helps users of this template understand what this variable is used for',
-                key: 'my_var_0',
-                type: 'Boolean',
-                value:
-                  'The default String that this variable will take if an user does not override it',
-              },
-            ],
+    const mockStore = createMocks({
+      storeModules: {
+        wallet: {
+          state: {
+            theme: 'light',
           },
         },
-        getters: {
-          variablesKeys: () => {},
+        rad: {
+          state: {
+            currentTemplate: {
+              variables: [
+                {
+                  description:
+                    'Helps users of this template understand what this variable is used for',
+                  key: 'my_var_0',
+                  type: 'Boolean',
+                  value:
+                    'The default String that this variable will take if an user does not override it',
+                },
+              ],
+            },
+          },
+          getters: {
+            variablesKeys: () => {},
+          },
+          mutations: {
+            DELETE_VARIABLE: () => {},
+            CREATE_VARIABLE: () => {},
+            UPDATE_VARIABLES: () => {},
+          },
         },
-        mutations: {
-          DELETE_VARIABLE: () => {},
-          CREATE_VARIABLE: () => {},
-          UPDATE_VARIABLES: () => {},
-        },
+      },
+      stubs: {
+        'el-input': ElInput,
+        Select: Select,
+        CustomIcon: true,
       },
     })
     const wrapper = mount(Variables, {
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       data() {
         return {
           errors: [],
@@ -102,41 +109,46 @@ describe('Variables.vue', () => {
     })
   })
   describe('should update the inputs on trigger', () => {
-    const mockStore = createMockStore({
-      wallet: {
-        state: {
-          theme: 'light',
-        },
-      },
-      rad: {
-        state: {
-          currentTemplate: {
-            variables: [
-              {
-                description:
-                  'Helps users of this template understand what this variable is used for',
-                key: 'my_var_0',
-                type: 'Boolean',
-                value:
-                  'The default String that this variable will take if an user does not override it',
-              },
-            ],
+    const mockStore = createMocks({
+      storeModules: {
+        wallet: {
+          state: {
+            theme: 'light',
           },
         },
-        getters: {
-          variablesKeys: () => {},
+        rad: {
+          state: {
+            currentTemplate: {
+              variables: [
+                {
+                  description:
+                    'Helps users of this template understand what this variable is used for',
+                  key: 'my_var_0',
+                  type: 'Boolean',
+                  value:
+                    'The default String that this variable will take if an user does not override it',
+                },
+              ],
+            },
+          },
+          getters: {
+            variablesKeys: () => {},
+          },
+          mutations: {
+            DELETE_VARIABLE: () => {},
+            CREATE_VARIABLE: () => {},
+            UPDATE_VARIABLES: () => {},
+          },
         },
-        mutations: {
-          DELETE_VARIABLE: () => {},
-          CREATE_VARIABLE: () => {},
-          UPDATE_VARIABLES: () => {},
-        },
+      },
+      stubs: {
+        'el-input': ElInput,
+        Select: Select,
+        CustomIcon: true,
       },
     })
     const wrapper = mount(Variables, {
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       data() {
         return {
           errors: [],

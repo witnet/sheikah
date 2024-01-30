@@ -2,7 +2,7 @@ import TransactionDetails from '@/components/TransactionDetails.vue'
 import '@/fontAwesome'
 import { shallowMount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import i18n from '@/plugins/i18n'
+import { createMocks } from '../../utils'
 
 describe('Renders the correct elements when the transaction type is value_transfer', () => {
   const wrapper = shallowMount(TransactionDetails, {
@@ -14,9 +14,7 @@ describe('Renders the correct elements when the transaction type is value_transf
       id: '600338d94f4ef28281fbe37d5c82cf721d677f88f256be12cfae6498ed972109',
       transactionType: 'value_transfer',
     },
-    global: {
-      plugins: [i18n],
-    },
+    ...createMocks(),
   })
 
   test('finds the id element', () => {
@@ -133,9 +131,7 @@ describe('Renders the correct elements when the transaction type is data_request
       transactionType: 'data_request',
       state: 'IN PROGRESS',
     },
-    global: {
-      plugins: [i18n],
-    },
+    ...createMocks(),
   })
 
   test('finds the id element', () => {
@@ -264,9 +260,7 @@ describe('Renders the correct elements when the transaction type is data_request
       ],
       result: 'RadonInteger(52)',
     },
-    global: {
-      plugins: [i18n],
-    },
+    ...createMocks(),
   })
 
   test('finds the id element', () => {
@@ -393,9 +387,7 @@ describe('adds the correct class to reveal icon when all the reveals are in cons
         { in_consensus: true, address: 'address', result: 'result' },
       ],
     },
-    global: {
-      plugins: [i18n],
-    },
+    ...createMocks(),
   })
 
   test('finds the not-consensed class', () => {

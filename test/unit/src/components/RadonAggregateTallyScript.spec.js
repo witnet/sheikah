@@ -1,33 +1,39 @@
 import RadonAggregateTallyScript from '@/components/RadonAggregateTallyScript.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
 
 describe('RadonAggregateTallyScript.vue', () => {
   describe('should render correctly when the type is filters', () => {
-    const mockStore = createMockStore({
-      wallet: {
-        state: {
-          theme: 'light',
+    const mockStore = createMocks({
+      storeModules: {
+        wallet: {
+          state: {
+            theme: 'light',
+          },
         },
-      },
-      uiInteractions: {
-        state: {
-          generateRadRequestResultLoading: false,
+        uiInteractions: {
+          state: {
+            generateRadRequestResultLoading: false,
+          },
         },
-      },
-      rad: {
-        state: {
-          currentTemplate: {
-            variables: [{}],
+        rad: {
+          state: {
+            currentTemplate: {
+              variables: [{}],
+            },
           },
         },
       },
+      stubs: {
+        CustomIcon: true,
+        OperatorOutput: true,
+        ScriptInfo: true,
+        RadonOperator: true,
+      },
     })
     const wrapper = mount(RadonAggregateTallyScript, {
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       props: {
         type: 'filters',
         header: 'a',
@@ -210,29 +216,35 @@ describe('RadonAggregateTallyScript.vue', () => {
   })
 
   describe('should render correctly', () => {
-    const mockStore = createMockStore({
-      wallet: {
-        state: {
-          theme: 'light',
+    const mockStore = createMocks({
+      storeModules: {
+        wallet: {
+          state: {
+            theme: 'light',
+          },
         },
-      },
-      uiInteractions: {
-        state: {
-          generateRadRequestResultLoading: false,
+        uiInteractions: {
+          state: {
+            generateRadRequestResultLoading: false,
+          },
         },
-      },
-      rad: {
-        state: {
-          currentTemplate: {
-            variables: [{}],
+        rad: {
+          state: {
+            currentTemplate: {
+              variables: [{}],
+            },
           },
         },
       },
+      stubs: {
+        CustomIcon: true,
+        OperatorOutput: true,
+        ScriptInfo: true,
+        RadonOperator: true,
+      },
     })
     const wrapper = mount(RadonAggregateTallyScript, {
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       props: {
         type: 'reducer',
         header: 'c',

@@ -3,27 +3,29 @@ import AddressList from '@/components/AddressList.vue'
 import AddressInformation from '@/components/AddressInformation.vue'
 import { mount, flushPromises } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
-import i18n from '@/plugins/i18n'
+import { createMocks } from '../../utils'
 
 describe('Addresses.vue', () => {
   describe('should render correctly', () => {
     test('should render AddressList', () => {
-      const mockStore = createMockStore({
-        uiInteractions: {
-          state: {
-            receiveTransactionClicked: false,
-            generateAddressLoading: false,
+      const mockStore = createMocks({
+        storeModules: {
+          uiInteractions: {
+            state: {
+              receiveTransactionClicked: false,
+              generateAddressLoading: false,
+            },
           },
-        },
-        wallet: {
-          state: {
-            unit: 'nanoWit',
-            locale: 'en',
+          wallet: {
+            state: {
+              unit: 'nanoWit',
+              locale: 'en',
+            },
           },
         },
       })
       const wrapper = mount(Addresses, {
+        ...mockStore,
         props: {
           addresses: [
             {
@@ -47,9 +49,6 @@ describe('Addresses.vue', () => {
               payments: 1,
             },
           ],
-        },
-        global: {
-          plugins: [mockStore, i18n],
         },
       })
 
@@ -57,16 +56,18 @@ describe('Addresses.vue', () => {
     })
 
     test('should render AddressInformation', () => {
-      const mockStore = createMockStore({
-        uiInteractions: {
-          state: {
-            receiveTransactionClicked: false,
+      const mockStore = createMocks({
+        storeModules: {
+          uiInteractions: {
+            state: {
+              receiveTransactionClicked: false,
+            },
           },
-        },
-        wallet: {
-          state: {
-            unit: 'nanoWit',
-            locale: 'en',
+          wallet: {
+            state: {
+              unit: 'nanoWit',
+              locale: 'en',
+            },
           },
         },
       })
@@ -95,9 +96,7 @@ describe('Addresses.vue', () => {
             },
           ],
         },
-        global: {
-          plugins: [i18n, mockStore],
-        },
+        ...mockStore,
       })
 
       expect(wrapper.findComponent(AddressInformation).exists()).toBe(true)
@@ -106,16 +105,18 @@ describe('Addresses.vue', () => {
 
   describe('should handle events correctly', () => {
     test('should handle generate-address event', async () => {
-      const mockStore = createMockStore({
-        uiInteractions: {
-          state: {
-            receiveTransactionClicked: false,
+      const mockStore = createMocks({
+        storeModules: {
+          uiInteractions: {
+            state: {
+              receiveTransactionClicked: false,
+            },
           },
-        },
-        wallet: {
-          state: {
-            unit: 'nanoWit',
-            locale: 'en',
+          wallet: {
+            state: {
+              unit: 'nanoWit',
+              locale: 'en',
+            },
           },
         },
       })
@@ -144,9 +145,7 @@ describe('Addresses.vue', () => {
             },
           ],
         },
-        global: {
-          plugins: [i18n, mockStore],
-        },
+        ...mockStore,
       })
 
       wrapper.findComponent(AddressList).vm.$emit('generate-address')
@@ -157,16 +156,18 @@ describe('Addresses.vue', () => {
     })
 
     test('should handle select-address event', async () => {
-      const mockStore = createMockStore({
-        uiInteractions: {
-          state: {
-            receiveTransactionClicked: false,
+      const mockStore = createMocks({
+        storeModules: {
+          uiInteractions: {
+            state: {
+              receiveTransactionClicked: false,
+            },
           },
-        },
-        wallet: {
-          state: {
-            unit: 'nanoWit',
-            locale: 'en',
+          wallet: {
+            state: {
+              unit: 'nanoWit',
+              locale: 'en',
+            },
           },
         },
       })
@@ -195,9 +196,7 @@ describe('Addresses.vue', () => {
             },
           ],
         },
-        global: {
-          plugins: [i18n, mockStore],
-        },
+        ...mockStore,
       })
 
       wrapper.findComponent(AddressList).vm.$emit('select-address', 0)

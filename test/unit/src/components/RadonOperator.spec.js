@@ -1,7 +1,8 @@
 import RadonOperator from '@/components/RadonOperator.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
+import { ElTooltip } from 'element-plus'
 
 describe('RadonOperator.vue', () => {
   describe('should render properly when there is arguments', () => {
@@ -16,15 +17,21 @@ describe('RadonOperator.vue', () => {
     const walletState = {
       theme: 'light',
     }
-    const mockStore = createMockStore({
-      rad: { state: state },
-      wallet: { state: walletState },
-      uiInteractions: { state: interactionsState },
+    const mockStore = createMocks({
+      storeModules: {
+        rad: { state: state },
+        wallet: { state: walletState },
+        uiInteractions: { state: interactionsState },
+      },
+      stubs: {
+        CustomIcon: true,
+        EditorOperatorArgument: true,
+        'el-tooltip': ElTooltip,
+        OperatorOutput: true,
+      },
     })
     const wrapper = mount(RadonOperator, {
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       props: {
         scriptId: 8,
         sourceIndex: 0,
@@ -93,15 +100,21 @@ describe('RadonOperator.vue', () => {
     const walletState = {
       theme: 'light',
     }
-    const mockStore = createMockStore({
-      rad: { state: state },
-      wallet: { state: walletState },
-      uiInteractions: { state: interactionsState },
+    const mockStore = createMocks({
+      storeModules: {
+        rad: { state: state },
+        wallet: { state: walletState },
+        uiInteractions: { state: interactionsState },
+      },
+      stubs: {
+        CustomIcon: true,
+        EditorOperatorArgument: true,
+        'el-tooltip': ElTooltip,
+        OperatorOutput: true,
+      },
     })
     const wrapper = mount(RadonOperator, {
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       props: {
         sourceIndex: 0,
         scriptId: 8,
@@ -159,15 +172,26 @@ describe('RadonOperator.vue', () => {
     const walletState = {
       theme: 'light',
     }
-    const mockStore = createMockStore({
-      rad: { state: state },
-      wallet: { state: walletState },
-      uiInteractions: { state: interactionsState },
+    const mockStore = createMocks({
+      storeModules: {
+        rad: { state: state },
+        wallet: { state: walletState },
+        uiInteractions: { state: interactionsState },
+      },
+      stubs: {
+        CustomIcon: true,
+        EditorOperatorArgument: true,
+        'el-tooltip': ElTooltip,
+        OperatorOutput: true,
+      },
     })
     const wrapper = mount(RadonOperator, {
-      global: {
-        plugins: [mockStore],
+      data() {
+        return {
+          showDelete: true,
+        }
       },
+      ...mockStore,
       props: {
         showOutputType: false,
         sourceIndex: 0,
@@ -197,8 +221,7 @@ describe('RadonOperator.vue', () => {
     })
 
     test('should emit an event to remove the operator', async () => {
-      await wrapper.find('[data-test="delete-operator"]').trigger('click')
-
+      wrapper.find('[data-test="delete-operator"]').trigger('click')
       expect(wrapper.emitted()['delete-operator']).toBeTruthy()
     })
 

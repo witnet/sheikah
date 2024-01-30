@@ -1,24 +1,27 @@
 import Select from '@/components/Select.vue'
 import { mount, shallowMount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { createMockStore } from '../../utils'
+import { createMocks } from '../../utils'
 
 describe('Select.vue', () => {
-  const mockStore = createMockStore({
-    wallet: {
-      state: {
-        theme: 'light',
+  const mockStore = createMocks({
+    storeModules: {
+      wallet: {
+        state: {
+          theme: 'light',
+        },
       },
+    },
+    stubs: {
+      CustomIcon: true,
     },
   })
   describe('should render properly', () => {
     const wrapper = shallowMount(Select, {
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       props: {
         type: 'big',
-        value: {
+        modelValue: {
           primaryText: 'option 1',
           secondaryText: 'option value 1',
         },
@@ -54,12 +57,10 @@ describe('Select.vue', () => {
   })
   describe('should render properly', () => {
     const wrapper = shallowMount(Select, {
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       props: {
         type: 'big',
-        value: {
+        modelValue: {
           primaryText: 'option 1',
           secondaryText: 'option value 1',
         },
@@ -107,12 +108,10 @@ describe('Select.vue', () => {
   })
   describe('delete file when click on delete', () => {
     const wrapper = mount(Select, {
-      global: {
-        plugins: [mockStore],
-      },
+      ...mockStore,
       props: {
         type: 'big',
-        value: {
+        modelValue: {
           primaryText: 'option 1',
           secondaryText: 'option value 1',
         },

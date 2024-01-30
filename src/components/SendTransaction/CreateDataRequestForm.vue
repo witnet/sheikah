@@ -280,6 +280,10 @@ export default {
     createDataRequest() {
       this.$refs.form.validate(valid => {
         if (valid) {
+          /**
+           * Emitted when createDataRequest button is clicked
+           * @event set-dr-values
+           */
           this.$emit('set-dr-values', {
             ...this.form,
             feeType: this.feeType.key,

@@ -159,6 +159,7 @@ declare module 'vue' {
     Telegram: typeof import('./components/svg/Telegram.vue')['default']
     TemplateCard: typeof import('./components/card/TemplateCard.vue')['default']
     Templates: typeof import('./components/Templates.vue')['default']
+    TestEmit: typeof import('./components/TestEmit.vue')['default']
     Transaction: typeof import('./components/Transaction.vue')['default']
     TransactionDetails: typeof import('./components/TransactionDetails.vue')['default']
     TransactionList: typeof import('./components/TransactionList.vue')['default']

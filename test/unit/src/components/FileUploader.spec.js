@@ -3,7 +3,7 @@ import FileUploader from '@/components/FileUploader.vue'
 import claimingFileSuccess from '@/TemplateExample.json'
 import { describe, expect, test, vi } from 'vitest'
 import '../../../../src/fontAwesome'
-import i18n from '@/plugins/i18n'
+import { createMocks } from '../../utils'
 
 describe('Renders the correct elements when there is no file uploaded', () => {
   const wrapper = shallowMount(FileUploader, {
@@ -13,6 +13,7 @@ describe('Renders the correct elements when there is no file uploaded', () => {
       file: null,
       validateFile: () => {},
     },
+    ...createMocks(),
   })
   wrapper.setData({
     showDelete: false,
@@ -59,6 +60,7 @@ describe('Renders the correct elements when there is a file uploaded', () => {
       file: claimingFileSuccess,
       validateFile: () => {},
     },
+    ...createMocks(),
   })
   wrapper.setData({
     showDelete: false,
@@ -105,6 +107,7 @@ describe('Shows delete file button when showDelete is activated', () => {
       file: claimingFileSuccess,
       validateFile: () => {},
     },
+    ...createMocks(),
   })
   wrapper.setData({
     showDelete: true,
@@ -128,11 +131,12 @@ describe('Upload file', () => {
         file: undefined,
         validateFile: () => true,
       },
+      ...createMocks(),
     })
 
     const localImageInput = wrapper.find('input[type="file"]')
     const localImageInputFilesGet = vi.fn()
-    const localImageInputValueGet = jest
+    const localImageInputValueGet = vi
       .fn()
       .mockReturnValue(localImageInputValue)
     const localImageInputValueSet = vi.fn().mockImplementation(v => {
@@ -166,9 +170,7 @@ describe('Upload file', () => {
 })
 describe('delete file when click on delete', () => {
   const wrapper = mount(FileUploader, {
-    global: {
-      plugins: [i18n],
-    },
+    ...createMocks(),
   })
 
   wrapper.setData({
@@ -200,6 +202,7 @@ describe('show error when error', () => {
       file: undefined,
       validateFile: () => false,
     },
+    ...createMocks(),
   })
 
   wrapper.setData({

@@ -12,22 +12,19 @@
       <el-popover
         v-if="showOutput"
         popper-class="result"
+        data-test="output"
         :visible-arrow="false"
         placement="top-start"
         trigger="hover"
         :content="stringifiedOutput"
       >
         <template #reference>
-          <p
-            v-if="explicitOutput"
-            data-test="output"
-            class="icon explicit-output"
-          >
+          <p v-if="explicitOutput" class="icon explicit-output">
+            >
             {{ explicitOutput }}
           </p>
           <font-awesome-icon
             v-else-if="stringifiedOutput"
-            data-test="output"
             class="icon"
             icon="eye"
           />
@@ -38,22 +35,20 @@
       <!-- Empty state of the operator output -->
       <el-popover
         v-if="showEmptyState"
+        data-test="empty-output"
         placement="top-start"
         :visible-arrow="false"
         trigger="hover"
         content="Click 'Try Data Request' to see the partial result"
       >
         <template #reference>
-          <font-awesome-icon
-            data-test="empty-output"
-            class="icon ban"
-            icon="eye-slash"
-          />
+          <font-awesome-icon class="icon ban" icon="eye-slash" />
         </template>
       </el-popover>
       <!-- Error when trying data request-->
       <el-popover
-        v-if="showError"
+        v-else-if="showError"
+        data-test="error"
         placement="top-start"
         :visible-arrow="false"
         popper-class="error"
@@ -62,11 +57,7 @@
         :content="error"
       >
         <template #reference>
-          <font-awesome-icon
-            data-test="error"
-            class="icon error"
-            icon="exclamation-triangle"
-          />
+          <font-awesome-icon class="icon error" icon="exclamation-triangle" />
         </template>
       </el-popover>
     </div>
@@ -124,6 +115,8 @@ export default {
       return JSON.stringify(this.output)
     },
     showOutput() {
+      console.log(this.output)
+      console.log('show output', this.output && !this.error && !this.loading)
       return this.output && !this.error && !this.loading
     },
     showEmptyState() {
