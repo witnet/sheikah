@@ -132,9 +132,6 @@ export default {
   getters: {
     network: state => state.status.network,
     unlockedWallet: state => {
-      console.log('unlockedWallet -----')
-      console.log(state.walletInfos)
-      console.log(state.walletIdx)
       return Number.isInteger(state.walletIdx)
         ? state.walletInfos[state.walletIdx]
         : null

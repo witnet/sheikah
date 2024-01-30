@@ -2,7 +2,11 @@
   <FrameOutside @click="hideDetails" @focus="hideDetails">
     <div class="border" :class="{ locked: timelocked }">
       <div class="transaction" @click="showDetails = !showDetails">
-        <arrowIcon data-test="negative-positive" class="icon" />
+        <CustomIcon
+          data-test="negative-positive"
+          class="icon"
+          :name="iconName"
+        />
         <Amount
           :unit-dark="true"
           data-test="amount"
@@ -95,8 +99,6 @@
 
 <script setup lang="ts">
 import { ref, computed, type Ref } from 'vue'
-import PositiveIcon from '@/resources/svg/positive.svg'
-import NegativeIcon from '@/resources/svg/negative.svg'
 
 const showDetails: Ref<boolean> = ref(false)
 
@@ -193,8 +195,8 @@ const props = defineProps({
 
 const hideDetails = () => (showDetails.value = false)
 const origin = computed(() => (props.type === 'POSITIVE' ? 'from' : 'to'))
-const arrowIcon = computed(() =>
-  props.type === 'POSITIVE' ? PositiveIcon : NegativeIcon,
+const iconName = computed(() =>
+  props.type === 'POSITIVE' ? 'positive' : 'negative',
 )
 </script>
 

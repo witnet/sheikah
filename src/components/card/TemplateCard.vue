@@ -27,10 +27,9 @@
           aria-expanded="true"
           @click.stop
         >
-          <img
+          <CustomIcon
             v-if="type === 'marketplace'"
-            src="@/resources/svg/options-marketplace.svg"
-            alt=""
+            name="options-marketplace"
           />
           <CustomIcon v-else name="options" />
         </div>

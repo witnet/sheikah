@@ -79,29 +79,32 @@ export const LANGUAGES: LanguageDictionary = {
 
 export const DEFAULT_LOCALE = 'en'
 
-export const CUSTOM_ICON_NAMES = [
+export const CUSTOM_DARK_ICON_NAMES = [
   'add-operator',
   'add',
   'close-btn',
   'close-btn-light',
   'close',
-  'delete-btn',
-  'disconnected',
   'down',
   'exit-icon',
   'long-arrow',
-  'negative',
   'open',
   'operator-arrow',
   'options-marketplace',
   'options',
-  'positive',
   'sheikah-icon',
   'sheikah-small',
   'sheikah',
   'sort-down',
   'sort-up',
   'up',
+]
+
+export const CUSTOM_ICON_NAMES = [
+  ...CUSTOM_DARK_ICON_NAMES,
+  'disconnected',
+  'positive',
+  'negative',
   'email',
   'telegram',
   'discord',
@@ -109,29 +112,6 @@ export const CUSTOM_ICON_NAMES = [
   'twitter',
   'medium',
   'reddit',
-]
-export const CUSTOM_DARK_ICON_NAMES = [
-  'add-operator',
-  'add',
-  'close-btn',
-  'close-btn-light',
-  'close',
-  'delete-btn',
-  'down',
-  'exit-icon',
-  'long-arrow',
-  'negative',
-  'open',
-  'operator-arrow',
-  'options-marketplace',
-  'options',
-  'positive',
-  'sheikah-icon',
-  'sheikah-small',
-  'sheikah',
-  'sort-down',
-  'sort-up',
-  'up',
 ]
 
 export const THEMES = {
