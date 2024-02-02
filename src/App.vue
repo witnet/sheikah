@@ -41,7 +41,7 @@ const route = useRoute()
 let polling: null | ReturnType<typeof setInterval>
 
 const store = useStore()
-const { idle } = useIdle(5 * 50 * 1000) // 5 min
+const { idle } = useIdle(5 * 60 * 1000) // 5 min
 const { sessionWillExpireSoon } = toRefs(store.state.wallet)
 
 watch(sessionWillExpireSoon, willExpire => {
