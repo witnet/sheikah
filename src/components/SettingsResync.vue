@@ -57,6 +57,8 @@ export default {
     margin-top: 32px;
     text-align: right;
     width: 100%;
+    display: flex;
+    justify-content: flex-end;
   }
 }
 </style>

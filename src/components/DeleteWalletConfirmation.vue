@@ -2,7 +2,6 @@
   <el-dialog
     v-model="isDeleteWalletConfirmationVisibleLocal"
     class="delete"
-    width="30%"
     :show-close="true"
     @close="close"
   >
