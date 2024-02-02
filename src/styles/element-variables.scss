@@ -142,6 +142,16 @@ $--el-input-border-color: red;
     }
   }
 
+  &.el-button--danger {
+    background-color: var(--output-icon-error);
+    border-color: var(--output-icon-error);
+    color: var(--button-primary-text);
+    &.is-plain {
+      color: var(--button-default-text);
+      border-color: var(--output-icon-error);
+    }
+  }
+
   &.el-button--primary {
     font-size: 15px;
     font-weight: bold;
