@@ -127,6 +127,7 @@ export default {
     sessionTimeout: null,
     sessionExpirationSecs: null,
     sessionWillExpireSoon: false,
+    willExpireSoonTimeout: null,
     birthDate: 'current',
   },
   getters: {
@@ -516,26 +517,29 @@ export default {
       if (state.sessionExtended) {
         state.sessionWillExpireSoon = false
         state.sessionExtended = false
-        this.commit('stopSessionTimeout')
+        this.commit('stopSessionTimer')
       }
 
-      setTimeout(() => {
-        state.sessionWillExpireSoon = true
-      }, ms - 3000)
-
-      state.sessionTimeout = setTimeout(() => {
-        state.sessionWillExpireSoon = false
-        router.push('/welcome-back/wallet-list')
-        this.commit('stopSessionTimeout')
-        this.commit('deleteSession')
-        if (!localStorageWrapper.getSkipSessionExpirationInfo()) {
-          this.commit('showLogoutModal')
-        }
-      }, ms)
+      if (!state.willExpireSoonTimeout && !state.sessionTimeout) {
+        state.willExpireSoonTimeout = setTimeout(() => {
+          state.sessionWillExpireSoon = true
+        }, ms - 5000)
+        state.sessionTimeout = setTimeout(() => {
+          state.sessionWillExpireSoon = false
+          router.push('/welcome-back/wallet-list')
+          this.commit('stopSessionTimer')
+          this.commit('deleteSession')
+          if (!localStorageWrapper.getSkipSessionExpirationInfo()) {
+            this.commit('showLogoutModal')
+          }
+        }, ms)
+      }
     },
-    stopSessionTimeout(state) {
+    stopSessionTimer(state) {
       clearTimeout(state.sessionTimeout)
+      clearTimeout(state.willExpireSoonTimeout)
       state.sessionTimeout = null
+      state.willExpireSoonTimeout = null
     },
   },
   actions: {
@@ -625,7 +629,7 @@ export default {
         session_id: context.state.sessionId,
       })
       if (request.result) {
-        context.commit('stopSessionTimeout')
+        context.commit('stopSessionTimer')
         context.commit('deleteSession')
         context.commit(SET_TEMPLATES, { templates: {} })
         context.commit('setBirthDate', { result: 'current' })
