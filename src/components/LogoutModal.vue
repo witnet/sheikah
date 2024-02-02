@@ -2,7 +2,6 @@
   <el-dialog
     v-model="sessionExpiredLocal"
     class="info"
-    width="30%"
     :show-close="true"
     @close="close"
   >
@@ -45,6 +44,7 @@ export default {
     }),
     sessionExpiredLocal: {
       get() {
+        console.log('session EXPIRED!!')
         return this.sessionExpired
       },
       set() {
@@ -53,7 +53,7 @@ export default {
     },
     checked: {
       get() {
-        return this.notShowModalAgain
+        return this.avoidShowModalAgain
       },
       set(val) {
         this.avoidShowModalAgain = val
