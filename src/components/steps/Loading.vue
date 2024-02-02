@@ -31,7 +31,8 @@ export default {
     sessionId(value) {
       if (value) {
         this.$router.push(`/wallet/transactions?session_id=${this.sessionId}`)
-        this.setDefaultTemplates()
+        // TODO: uncomment when witnet-request-js is compatible with esm
+        // this.setDefaultTemplates()
       }
     },
     error(value) {
