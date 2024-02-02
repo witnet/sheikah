@@ -290,6 +290,14 @@ $--el-input-border-color: red;
   }
 }
 
+.el-checkbox {
+  .el-checkbox__input {
+    .el-checkbox__inner {
+      border: 1px solid var(--text-high-emphasis);
+    }
+  }
+}
+
 .el-link {
   --el-link-text-color: var(--link-text-color);
 }

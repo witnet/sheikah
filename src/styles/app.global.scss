@@ -52,3 +52,8 @@ img {
 .capitalize {
   text-transform: capitalize;
 }
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+}
