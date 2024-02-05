@@ -3,7 +3,12 @@ import { vi } from 'vitest'
 import ElementPlus from 'element-plus'
 import { createStore } from 'vuex'
 
-export const createMocks = ({ storeModules = {}, stubs, router } = {}) => {
+export const createMocks = ({
+  storeModules = {},
+  stubs,
+  router,
+  slots,
+} = {}) => {
   const queryParams = router?.queryParams
   const pushMock = router?.pushMock ?? vi.fn()
   const mockStore = createStore({
@@ -23,5 +28,6 @@ export const createMocks = ({ storeModules = {}, stubs, router } = {}) => {
         $router: { push: pushMock },
       },
     },
+    slots: { ...slots },
   }
 }
