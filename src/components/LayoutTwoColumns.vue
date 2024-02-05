@@ -20,9 +20,9 @@ export default {
           },
           [
             // slot to render on the upper right side
-            this.$slots.upperRight(),
+            this.$slots.upperRight && this.$slots.upperRight(),
             // slot to render on the bottom of the right side
-            this.$slots.bottomRight(),
+            this.$slots.bottomRight && this.$slots.bottomRight(),
           ],
         ),
       ],
