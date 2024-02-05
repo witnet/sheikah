@@ -120,7 +120,6 @@ export default {
   color: $red-2;
   font-size: 14px;
   min-width: 270px;
-  position: relative;
   margin-top: 16px;
 }
 
