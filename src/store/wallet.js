@@ -1141,7 +1141,8 @@ export default {
       }
     },
     getNotifications: async function (context) {
-      const notifications = context.state.localStorage.getNotificationsSettings()
+      const notifications =
+        context.state.localStorage.getNotificationsSettings()
       const defaultNotifications = context.state.notifications
       if (notifications) {
         context.commit('setNotifications', notifications)

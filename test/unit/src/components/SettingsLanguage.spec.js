@@ -11,7 +11,7 @@ describe('SettingsLanguage.vue', () => {
     const data = () => ({
       options: [
         { primaryText: 'Español', value: 'Español' },
-        { primaryText: 'English', value: 'English' }
+        { primaryText: 'English', value: 'English' },
       ],
     })
 
@@ -128,5 +128,5 @@ describe('SettingsLanguage.vue', () => {
         'Español',
       )
     })
- })
+  })
 })

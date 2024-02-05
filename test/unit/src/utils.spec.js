@@ -1,17 +1,17 @@
-import { Radon } from 'wtestnet-radon-js'
-import { describe, expect, test } from 'vtestest'
+import { Radon } from 'witnet-radon-js'
+import { describe, expect, test } from 'vitest'
 import {
   areSoftEqualArrays,
   deleteKey,
   getDomainFromUrl,
-  standardizeWtestUntests,
+  standardizeWitUnits,
   standardizeTransactionResult,
   calculateCurrentFocusAfterUndo,
   calculateCurrentFocusAfterRedo,
   simplifyDrResult,
   encodeAggregationTally,
 } from '@/utils'
-import { Wtest_UNtest } from '@/constants'
+import { WIT_UNIT } from '@/constants'
 
 describe('areSoftEqualArrays', () => {
   test('check if two sorted arrays contains the same testems', () => {
@@ -32,7 +32,7 @@ describe('areSoftEqualArrays', () => {
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
   })
 
-  test('check if two different arrays wtesth repeated testems contains the same testems', () => {
+  test('check if two different arrays WITh repeated testems contains the same testems', () => {
     const arr1 = [1, 3, 5, 4, 5]
     const arr2 = [5, 2, 3, 4, 1]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
@@ -46,7 +46,7 @@ describe('areSoftEqualArrays', () => {
 })
 
 describe('standardizeTransactionResult', () => {
-  test('should end wtesth "ago" copy', () => {
+  test('should end WITh "ago" copy', () => {
     const result =
       'RadonTypes::RadonString("0000000000000000000a55ab43b096575bf281f35d68807c52a0202582c15947")'
     const expected =
@@ -57,39 +57,39 @@ describe('standardizeTransactionResult', () => {
 })
 
 describe('getDomainFromUrl', () => {
-  test('should work url wtesth protocol', () => {
-    const url = 'http://wtestnet.io'
+  test('should work url WITh protocol', () => {
+    const url = 'http://WITnet.io'
 
-    expect(getDomainFromUrl(url)).toBe('wtestnet.io')
+    expect(getDomainFromUrl(url)).toBe('WITnet.io')
   })
 
-  test('should work wtesthout protocol', () => {
-    const url = 'wtestnet.io'
+  test('should work WIThout protocol', () => {
+    const url = 'WITnet.io'
 
-    expect(getDomainFromUrl(url)).toBe('wtestnet.io')
+    expect(getDomainFromUrl(url)).toBe('WITnet.io')
   })
 
-  test('should work wtesth subdomain', () => {
-    const url = 'http://docs.wtestnet.io'
+  test('should work WITh subdomain', () => {
+    const url = 'http://docs.WITnet.io'
 
-    expect(getDomainFromUrl(url)).toBe('docs.wtestnet.io')
+    expect(getDomainFromUrl(url)).toBe('docs.WITnet.io')
   })
 
-  test('should NOT work wtesthout tld', () => {
-    const url = 'http://wtestnet'
+  test('should NOT work WIThout tld', () => {
+    const url = 'http://WITnet'
 
     expect(getDomainFromUrl(url)).toBe('')
   })
 
-  test('should NOT work wtesth invalid tld', () => {
-    const url = 'http://wtestnet.abcdefghij'
+  test('should NOT work WITh invalid tld', () => {
+    const url = 'http://WITnet.abcdefghij'
 
     expect(getDomainFromUrl(url)).toBe('')
   })
 })
 
 describe('simplifyDrResult', () => {
-  test('wtesth object', () => {
+  test('WITh object', () => {
     const drResult = {
       RadonMap: {
         AUD: {
@@ -127,7 +127,7 @@ describe('simplifyDrResult', () => {
     expect(drResultSimplified).toStrictEqual(simplifyDrResult(drResult))
   })
 
-  test('wtesth array', () => {
+  test('WITh array', () => {
     const drResult = [
       {
         RadonMap: {
@@ -202,218 +202,190 @@ describe('simplifyDrResult', () => {
   })
 })
 
-describe('standardizeWtestUntests', () => {
+describe('standardizeWitUnits', () => {
   describe('return the value in selected untest', () => {
-    describe('wtest', () => {
-      describe('to wtest', () => {
-        test('wtesth decimal', () => {
+    describe('WIT', () => {
+      describe('to WIT', () => {
+        test('WITh decimal', () => {
           const expected = '0.00004'
 
-          const result = standardizeWtestUntests(
+          const result = standardizeWitUnits(
             '0.00004',
-            Wtest_UNtest.Wtest,
-            Wtest_UNtest.Wtest,
+            WIT_UNIT.WIT,
+            WIT_UNIT.WIT,
           )
 
           expect(result).toBe(expected)
         })
 
-        test('wtesthout decimal', () => {
+        test('WIThout decimal', () => {
           const expected = '1.00'
 
-          const result = standardizeWtestUntests(
-            '1',
-            Wtest_UNtest.Wtest,
-            Wtest_UNtest.Wtest,
+          const result = standardizeWitUnits('1', WIT_UNIT.WIT, WIT_UNIT.WIT)
+
+          expect(result).toBe(expected)
+        })
+      })
+
+      describe('to microWIT', () => {
+        test('WITh decimal', () => {
+          const expected = '400000.00'
+
+          const result = standardizeWitUnits(
+            '0.4',
+            WIT_UNIT.MICRO,
+            WIT_UNIT.WIT,
+          )
+
+          expect(result).toBe(expected)
+        })
+
+        test('WIThout decimal', () => {
+          const expected = '400000.00'
+
+          const result = standardizeWitUnits(
+            '0.4',
+            WIT_UNIT.MICRO,
+            WIT_UNIT.WIT,
           )
 
           expect(result).toBe(expected)
         })
       })
 
-      describe('to microWtest', () => {
-        test('wtesth decimal', () => {
-          const expected = '400000.00'
-
-          const result = standardizeWtestUntests(
-            '0.4',
-            Wtest_UNtest.MICRO,
-            Wtest_UNtest.Wtest,
-          )
-
-          expect(result).toBe(expected)
-        })
-
-        test('wtesthout decimal', () => {
-          const expected = '400000.00'
-
-          const result = standardizeWtestUntests(
-            '0.4',
-            Wtest_UNtest.MICRO,
-            Wtest_UNtest.Wtest,
-          )
-
-          expect(result).toBe(expected)
-        })
-      })
-
-      describe('to nanoWtest', () => {
-        test('wtesth decimal', () => {
+      describe('to nanoWIT', () => {
+        test('WITh decimal', () => {
           const expected = '100000000'
 
-          const result = standardizeWtestUntests(
-            '0.1',
-            Wtest_UNtest.NANO,
-            Wtest_UNtest.Wtest,
-          )
+          const result = standardizeWitUnits('0.1', WIT_UNIT.NANO, WIT_UNIT.WIT)
 
           expect(result).toBe(expected)
         })
 
-        test('wtesthout decimal', () => {
+        test('WIThout decimal', () => {
           const expected = '1000000000'
 
-          const result = standardizeWtestUntests(
-            '1',
-            Wtest_UNtest.NANO,
-            Wtest_UNtest.Wtest,
-          )
+          const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.WIT)
 
           expect(result).toBe(expected)
         })
       })
     })
 
-    describe('microWtest', () => {
-      describe('to wtest', () => {
-        test('wtesth decimal', () => {
+    describe('microWIT', () => {
+      describe('to WIT', () => {
+        test('WITh decimal', () => {
           const expected = '0.0000011'
 
-          const result = standardizeWtestUntests(
+          const result = standardizeWitUnits(
             '1.1',
-            Wtest_UNtest.Wtest,
-            Wtest_UNtest.MICRO,
+            WIT_UNIT.WIT,
+            WIT_UNIT.MICRO,
           )
 
           expect(result).toBe(expected)
         })
 
-        test('wtesthout decimal', () => {
+        test('WIThout decimal', () => {
           const expected = '1.00'
 
-          const result = standardizeWtestUntests(
+          const result = standardizeWitUnits(
             '1000000',
-            Wtest_UNtest.Wtest,
-            Wtest_UNtest.MICRO,
+            WIT_UNIT.WIT,
+            WIT_UNIT.MICRO,
           )
 
           expect(result).toBe(expected)
         })
       })
 
-      describe('to microWtest', () => {
-        test('wtesth decimal', () => {
+      describe('to microWIT', () => {
+        test('WITh decimal', () => {
           const expected = '0.1'
 
-          const result = standardizeWtestUntests(
+          const result = standardizeWitUnits(
             '0.1',
-            Wtest_UNtest.MICRO,
-            Wtest_UNtest.MICRO,
+            WIT_UNIT.MICRO,
+            WIT_UNIT.MICRO,
             5,
           )
 
           expect(result).toBe(expected)
         })
 
-        test('wtesthout decimal', () => {
+        test('WIThout decimal', () => {
           const expected = '1.00'
 
-          const result = standardizeWtestUntests(
+          const result = standardizeWitUnits(
             '1',
-            Wtest_UNtest.MICRO,
-            Wtest_UNtest.MICRO,
+            WIT_UNIT.MICRO,
+            WIT_UNIT.MICRO,
           )
 
           expect(result).toBe(expected)
         })
       })
 
-      describe('to nanoWtest', () => {
-        test('wtesth decimal', () => {
+      describe('to nanoWIT', () => {
+        test('WITh decimal', () => {
           const expected = '100'
 
-          const result = standardizeWtestUntests(
+          const result = standardizeWitUnits(
             '0.1',
-            Wtest_UNtest.NANO,
-            Wtest_UNtest.MICRO,
+            WIT_UNIT.NANO,
+            WIT_UNIT.MICRO,
           )
 
           expect(result).toBe(expected)
         })
 
-        test('wtesthout decimal', () => {
+        test('WIThout decimal', () => {
           const expected = '1000'
 
-          const result = standardizeWtestUntests(
-            '1',
-            Wtest_UNtest.NANO,
-            Wtest_UNtest.MICRO,
-          )
+          const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.MICRO)
 
           expect(result).toBe(expected)
         })
       })
     })
 
-    describe('nanoWtest', () => {
-      describe('to wtest', () => {
-        test('wtesthout decimal', () => {
+    describe('nanoWIT', () => {
+      describe('to WIT', () => {
+        test('WIThout decimal', () => {
           const expected = '0.000000001'
 
-          const result = standardizeWtestUntests(
-            '1',
-            Wtest_UNtest.Wtest,
-            Wtest_UNtest.NANO,
-          )
+          const result = standardizeWitUnits('1', WIT_UNIT.WIT, WIT_UNIT.NANO)
 
           expect(result).toBe(expected)
         })
       })
 
-      describe('to microWtest', () => {
-        test('wtesth decimal', () => {
+      describe('to microWIT', () => {
+        test('WITh decimal', () => {
           const expected = '0.0001'
 
-          const result = standardizeWtestUntests(
+          const result = standardizeWitUnits(
             '0.1',
-            Wtest_UNtest.MICRO,
-            Wtest_UNtest.NANO,
+            WIT_UNIT.MICRO,
+            WIT_UNIT.NANO,
           )
 
           expect(result).toBe(expected)
         })
 
-        test('wtesthout decimal', () => {
+        test('WIThout decimal', () => {
           const expected = '0.001'
 
-          const result = standardizeWtestUntests(
-            '1',
-            Wtest_UNtest.MICRO,
-            Wtest_UNtest.NANO,
-          )
+          const result = standardizeWitUnits('1', WIT_UNIT.MICRO, WIT_UNIT.NANO)
 
           expect(result).toBe(expected)
         })
       })
 
-      test('to nanoWtest', () => {
+      test('to nanoWIT', () => {
         const expected = '1'
 
-        const result = standardizeWtestUntests(
-          '1',
-          Wtest_UNtest.NANO,
-          Wtest_UNtest.NANO,
-        )
+        const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.NANO)
 
         expect(result).toBe(expected)
       })
@@ -1163,7 +1135,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
 })
 
 describe('encodeAggregationTally', () => {
-  test('wtesthout filter argument', () => {
+  test('WIThout filter argument', () => {
     const expected = {
       filters: [
         {
@@ -1182,7 +1154,7 @@ describe('encodeAggregationTally', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  test('wtesth a single filter argument', () => {
+  test('WITh a single filter argument', () => {
     const expected = {
       filters: [
         {
