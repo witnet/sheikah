@@ -83,7 +83,7 @@
         @click="toggleAdvanceOptions"
       >
         {{ $t('show_advance') }}
-        <CustomIcon class-name="icon" name="Open" />
+        <CustomIcon class-name="icon" name="open" />
       </el-link>
       <!-- FIXME: should we use this slot? -->
       <!-- <template #footer> -->
