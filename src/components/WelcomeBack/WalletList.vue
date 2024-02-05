@@ -45,7 +45,6 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
-import { localStorageWrapper } from '@/main'
 import Select from '@/components/Select.vue'
 import Card from '@/components/card/Card.vue'
 
@@ -69,9 +68,10 @@ export default {
       sessionId: state => state.wallet.sessionId,
       unlockWalletError: state => state.wallet.errors.unlockWallet,
       wallets: state => state.wallet.walletInfos,
+      localStorage: state => state.wallet.localStorage,
     }),
     getWalletIndex() {
-      return localStorageWrapper.getWalletIndex()
+      return this.localStorage.getWalletIndex()
     },
     lastWalletOpen() {
       return this.getWalletIndex || 0

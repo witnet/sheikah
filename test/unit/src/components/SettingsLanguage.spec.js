@@ -3,20 +3,29 @@ import Select from '@/components/Select.vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test, vi } from 'vitest'
 import { createMocks } from '../../utils'
+import { LocalStorageWrapper } from '@/api'
 
-describe.skip('SettingsLanguage.vue', () => {
+describe('SettingsLanguage.vue', () => {
   describe('change language', () => {
-    const changeLocaleMock = vi.fn()
+    const updateDRLanguage = vi.fn()
+    const data = () => ({
+      options: [
+        { primaryText: 'Español', value: 'Español' },
+        { primaryText: 'English', value: 'English' }
+      ],
+    })
 
-    test.only('should call the mutation to change the unit', async () => {
+    test('should call the mutation to change the unit', async () => {
       const mockStore = createMocks({
         storeModules: {
           wallet: {
             state: {
               language: 'English',
+              locale: 'en',
+              localStorage: new LocalStorageWrapper(),
             },
             mutations: {
-              changeLocale: changeLocaleMock,
+              updateDRLanguage: updateDRLanguage,
             },
             getters: {
               language: () => {
@@ -27,20 +36,12 @@ describe.skip('SettingsLanguage.vue', () => {
         },
         stubs: {
           Select: Select,
-        },
-        mocks: {
-          '@/main': { localStorageWrapper: vi.fn() },
+          CustomIcon: true,
         },
       })
       const wrapper = mount(SettingsLanguage, {
+        data,
         ...mockStore,
-      })
-
-      wrapper.setData({
-        options: [
-          { primaryText: 'Español', value: 'Español' },
-          { primaryText: 'English', value: 'English' },
-        ],
       })
 
       const selectButton = wrapper.find('[data-test="select-btn"]')
@@ -49,7 +50,7 @@ describe.skip('SettingsLanguage.vue', () => {
       const option2Button = wrapper.find('[data-test="option-0"]')
       await option2Button.trigger('click')
 
-      expect(changeLocaleMock).toHaveBeenCalled()
+      expect(updateDRLanguage).toHaveBeenCalled()
     })
 
     test('the language should be English on change', async () => {
@@ -58,9 +59,11 @@ describe.skip('SettingsLanguage.vue', () => {
           wallet: {
             state: {
               language: 'English',
+              locale: 'en',
+              localStorage: new LocalStorageWrapper(),
             },
             mutations: {
-              changeLocale: changeLocaleMock,
+              updateDRLanguage: updateDRLanguage,
             },
             getters: {
               language: () => {
@@ -71,19 +74,12 @@ describe.skip('SettingsLanguage.vue', () => {
         },
         stubs: {
           Select: Select,
-        },
-        mocks: {
-          '@/main': { localStorageWrapper: vi.fn() },
+          CustomIcon: true,
         },
       })
       const wrapper = mount(SettingsLanguage, {
         ...mockStore,
-      })
-      wrapper.setData({
-        options: [
-          { primaryText: 'Español', value: 'Español' },
-          { primaryText: 'English', value: 'English' },
-        ],
+        data,
       })
       const selectButton = wrapper.find('[data-test="select-btn"]')
       await selectButton.trigger('click')
@@ -101,9 +97,11 @@ describe.skip('SettingsLanguage.vue', () => {
           wallet: {
             state: {
               language: 'English',
+              locale: 'en',
+              localStorage: new LocalStorageWrapper(),
             },
             mutations: {
-              changeLocale: changeLocaleMock,
+              updateDRLanguage: updateDRLanguage,
             },
             getters: {
               language: () => {
@@ -114,19 +112,12 @@ describe.skip('SettingsLanguage.vue', () => {
         },
         stubs: {
           Select: Select,
-        },
-        mocks: {
-          '@/main': { localStorageWrapper: vi.fn() },
+          CustomIcon: true,
         },
       })
       const wrapper = mount(SettingsLanguage, {
         ...mockStore,
-      })
-      wrapper.setData({
-        options: [
-          { primaryText: 'Español', value: 'Español' },
-          { primaryText: 'English', value: 'English' },
-        ],
+        data,
       })
       const selectButton = wrapper.find('[data-test="select-btn"]')
       await selectButton.trigger('click')
@@ -137,5 +128,5 @@ describe.skip('SettingsLanguage.vue', () => {
         'Español',
       )
     })
-  })
+ })
 })

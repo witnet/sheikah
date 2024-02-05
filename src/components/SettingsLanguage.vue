@@ -12,15 +12,15 @@
 
 <script setup>
 import { useStore } from 'vuex'
-import { localStorageWrapper } from '@/main'
 import Card from '@/components/card/Card.vue'
 import Select from '@/components/Select.vue'
 import { LANGUAGES } from '@/constants'
 import { useI18n } from 'vue-i18n'
-import { computed } from 'vue'
+import { computed, toRefs } from 'vue'
 
 const { locale } = useI18n()
 const store = useStore()
+const { localStorage } = toRefs(store.state.wallet)
 
 const options = computed(() =>
   Object.values(LANGUAGES).map(language => ({
@@ -36,7 +36,7 @@ const actualLanguage = computed({
   }),
   set: val => {
     locale.value = val.value
-    localStorageWrapper.setLanguageSettings(val.value)
+    localStorage.value.setLanguageSettings(val.value)
     store.commit('updateDRLanguage', val)
   },
 })
