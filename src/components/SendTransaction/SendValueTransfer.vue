@@ -72,7 +72,7 @@ export default {
     title() {
       if (this.generatedTransaction) {
         return this.$t('confirm_vtt_tx')
-      } else if (this.vttValues) {
+      } else if (this.stage === 1) {
         return this.$t('set_vtt_miner_fee')
       } else {
         return this.$t('create_vtt_title')
@@ -168,7 +168,7 @@ export default {
 }
 
 .form {
-  width: 600px;
+  width: 500px;
 }
 
 .transaction-container {
