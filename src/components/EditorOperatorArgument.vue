@@ -236,7 +236,6 @@ export default {
     },
     // FIXME(#19): fix update select argument in radon.js library
     updateTemplateAndVariables(updater) {
-      console.log(updater)
       this.$emit('update', updater)
     },
   },

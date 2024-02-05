@@ -44,7 +44,6 @@ export default {
     }),
     sessionExpiredLocal: {
       get() {
-        console.log('session EXPIRED!!')
         return this.sessionExpired
       },
       set() {
