@@ -1,20 +1,16 @@
-import { WalletApi, LocalStorageWrapper } from './api'
-import router from './router'
-import store from './store'
-import i18n from './plugins/i18n'
+import { WalletApi } from '@/api'
+import router from '@/router'
+import store from '@/store'
+import i18n from '@/plugins/i18n'
 import ProcessWalletEvent from './services/ProcessWalletEvent'
 import { checkDisconnection } from './services/checkDisconnection'
 import ElementPlus from 'element-plus'
 import './fontAwesome'
-import '~/styles/element-variables.scss'
-// import "~/styles/index.scss";
-// import 'uno.css
-import '~/styles/index.scss'
-import 'uno.css'
+import '@/styles/element-variables.scss'
+import '@/styles/index.scss'
 import '@/ipcHandlers'
 
 const api = new WalletApi()
-const localStorageWrapper = new LocalStorageWrapper()
 const eventProcessor = new ProcessWalletEvent()
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -53,4 +49,4 @@ app.mount('#app').$nextTick(() => {
   checkDisconnection(router, store)
 })
 
-export { api, localStorageWrapper, eventProcessor }
+export { api, eventProcessor }

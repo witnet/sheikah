@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
 import { createMocks } from '../../utils'
 
-describe.skip('SettingsSection.vue', () => {
+describe('SettingsSection.vue', () => {
   describe('should render properly', () => {
     const mocks = createMocks({
       storeModules: {},
@@ -20,7 +20,7 @@ describe.skip('SettingsSection.vue', () => {
       },
     })
 
-    test.only('should render the unit section', () => {
+    test('should render the unit section', () => {
       const wrapper = mount(SettingsSection, {
         props: {
           settings: ['UNIT'],

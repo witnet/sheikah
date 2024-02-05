@@ -15,15 +15,6 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import packageJson from './package.json'
 
-import Unocss from 'unocss/vite'
-import {
-  presetAttributify,
-  presetIcons,
-  presetUno,
-  transformerDirectives,
-  transformerVariantGroup,
-} from 'unocss'
-
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -77,20 +68,6 @@ export default defineConfig(({ command }) => {
             },
           ],
         },
-      }),
-      // TODO: could we remove unocss?
-      // https://github.com/antfu/unocss
-      // see unocss.config.ts for config
-      Unocss({
-        presets: [
-          presetUno(),
-          presetAttributify(),
-          presetIcons({
-            scale: 1.2,
-            warn: true,
-          }),
-        ],
-        transformers: [transformerDirectives(), transformerVariantGroup()],
       }),
       VueI18nPlugin({
         compositionOnly: false,
