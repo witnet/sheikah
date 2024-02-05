@@ -382,8 +382,6 @@ export default {
 }
 
 .form {
-  width: 600px;
-
   .subtitle {
     font-size: 32;
     margin-bottom: 16px;

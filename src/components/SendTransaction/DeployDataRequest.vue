@@ -1,11 +1,11 @@
 <template>
   <el-dialog
-    :value="true"
+    v-model="modalVisible"
     class="dialog"
     :title="title"
     :show-close="true"
     :close-on-click-modal="false"
-    width="max-content"
+    width="500"
     :top="generatedTransaction || !hasVariablesToComplete ? '6vh' : '15vh'"
     @close="closeAndClear"
   >
@@ -63,6 +63,7 @@ export default {
     return {
       variablesUpdated: false,
       stage: 0,
+      modalVisible: true,
     }
   },
   computed: {
@@ -82,7 +83,7 @@ export default {
     title() {
       if (this.generatedTransaction) {
         return this.$t('deploy_dr_title_confirm')
-      } else if (this.drValues) {
+      } else if (this.stage === 2) {
         return this.$t('set_dr_miner_fee')
       } else if (!this.hasVariablesToComplete) {
         return this.$t('deploy_dr_title_fill_all')

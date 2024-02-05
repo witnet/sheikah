@@ -144,7 +144,7 @@ export default {
     cursor: pointer;
     display: grid;
     grid-gap: 8px;
-    grid-template-columns: 100px 1fr 200px;
+    grid-template-columns: 100px 1fr max-content;
     justify-content: space-between;
     padding: 0 16px;
     position: relative;
@@ -173,6 +173,8 @@ export default {
 
     .time {
       color: var(--text-medium-emphasis);
+      min-width: 100px;
+      text-align: right;
       font-size: 12px;
       font-style: italic;
       font-weight: 600;
