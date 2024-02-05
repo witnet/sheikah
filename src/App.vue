@@ -4,7 +4,6 @@
     :locale="LANGUAGES[$i18n.locale as LocaleCodes].elementLocale"
   >
     <div id="app">
-      <!-- TODO: use transition -->
       <router-view v-slot="{ Component }">
         <transition :name="transitionName">
           <component :is="Component" />
