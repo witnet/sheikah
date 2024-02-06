@@ -35,8 +35,9 @@ export default class SyncingTimeEstimator {
       if (this.window.length === this.size) {
         this.window.shift()
       }
-
-      this.window.push(timeToSync)
+      if (timeToSync != Infinity && !isNaN(timeToSync)) {
+        this.window.push(timeToSync)
+      }
 
       this.previousTime = currentTimestamp
       this.previousBlock = currentBlock

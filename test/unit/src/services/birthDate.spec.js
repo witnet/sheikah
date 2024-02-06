@@ -1,7 +1,7 @@
 import { buildImportWalletBirthdate } from '@/services/birthDate'
 import { describe, expect, test } from 'vitest'
 
-describe.only('birthDate', () => {
+describe('birthDate', () => {
   test('return 30 days less than the provided date', () => {
     const date = new Date('2020-12-31')
 
@@ -20,7 +20,7 @@ describe.only('birthDate', () => {
     expect(birthDate).toBe(null)
   })
 
-  it.only('return null if the date is in the future', () => {
+  test('return null if the date is in the future', () => {
     // date 3 days in the future
     const date = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
 
