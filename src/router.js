@@ -10,7 +10,6 @@ import Loading from '@/components/steps/Loading.vue'
 import Marketplace from '@/components/Marketplace.vue'
 import Templates from '@/components/Templates.vue'
 import Transactions from '@/views/Transactions.vue'
-import UnlockWallet from '@/components/WelcomeBack/UnlockWallet.vue'
 import Wallet from '@/components/Wallet.vue'
 import WalletDisclaimer from '@/components/steps/WalletDisclaimer.vue'
 import WalletEncryptionPassword from '@/components/steps/WalletEncryptionPassword.vue'
@@ -134,10 +133,6 @@ export default createRouter({
       component: WelcomeBack,
       beforeEnter: redirectOnReload,
       children: [
-        {
-          path: 'unlock/:id',
-          component: UnlockWallet,
-        },
         {
           path: 'wallet-list',
           component: WalletList,
