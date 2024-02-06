@@ -596,8 +596,8 @@ export default {
         console.error('error while refreshing session', request.result)
       }
     },
-    async setCurrentTransactionsPage(context, { page }) {
-      await context.dispatch('getTransactions', { page })
+    setCurrentTransactionsPage(context, { page }) {
+      context.dispatch('getTransactions', { page })
       if (!context.state.errors.getTransactions) {
         context.commit('setCurrentTransactionPage', { page })
       }
@@ -866,7 +866,7 @@ export default {
         } else if (request.error.data.cause) {
           error = request.error.data.cause
         }
-        await context.commit('setError', {
+        context.commit('setError', {
           name: 'createVTT',
           error: request.error.message,
           message: error,
@@ -1224,8 +1224,8 @@ export default {
         })
       })
     },
-    nodeMovement: async function (context, event) {
-      await context.dispatch('getTransactions')
+    nodeMovement: function (context, event) {
+      context.dispatch('getTransactions')
       const balance = standardizeBalance({
         result: context.state.status.balance,
       })
@@ -1268,7 +1268,7 @@ export default {
         }
       }
     },
-    syncProgress: async function (context, event) {
+    syncProgress: function (context, event) {
       if (!context.state.syncingTimeEstimator.hasStarted()) {
         context.commit('startSyncEstimator')
       }
@@ -1298,8 +1298,8 @@ export default {
         }
       }
     },
-    retrieveWalletMovements: async function (context, event) {
-      await context.dispatch('getTransactions')
+    retrieveWalletMovements: function (context, event) {
+      context.dispatch('getTransactions')
       const balance = standardizeBalance({
         result: context.state.status.balance,
       })
@@ -1325,7 +1325,7 @@ export default {
         }
       }
     },
-    processEvent: async function (context, rawEvent) {
+    processEvent: function (context, rawEvent) {
       const eventProcessed = eventProcessor.processEvent(rawEvent)
       const { eventType, event } = eventProcessed
       context.commit('setStatus', eventProcessed)
