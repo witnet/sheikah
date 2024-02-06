@@ -1,6 +1,7 @@
 import SyncingTimeEstimator from '@/services/SyncingTimeEstimator'
 import { SYNCING_TIME_WINDOW_LENGTH } from '@/constants'
 import { describe, expect, test } from 'vitest'
+import { sleep } from '../../utils'
 
 describe('formatDuration', () => {
   describe('should start method initialize the estimator', () => {
@@ -60,26 +61,6 @@ describe('formatDuration', () => {
       expect(estimator.window.length).toBe(0)
     })
 
-    test.skip('should remove oldest value if size is reached', () => {
-      const estimator = new SyncingTimeEstimator()
-      estimator.start()
-      estimator.addSample({ currentBlock: 1, lastBlock: 50 })
-      Array(SYNCING_TIME_WINDOW_LENGTH - 1)
-        .fill(null)
-        .map((_, index) =>
-          estimator.addSample({
-            currentBlock: (index + 1) * 50,
-            lastBlock: (index + 1) * 50 + 50,
-          }),
-        )
-
-      const oldestSample = estimator.window[0]
-      estimator.addSample({ currentBlock: 101 * 50, lastBlock: 101 * 50 + 50 })
-      console.log(estimator.window)
-
-      expect(estimator.window[0] !== oldestSample).toBe(true)
-    })
-
     test('should keep max size after add a greater number of more samples', () => {
       const estimator = new SyncingTimeEstimator()
       estimator.start()
@@ -95,25 +76,53 @@ describe('formatDuration', () => {
 
       expect(estimator.window.length).toBe(100)
     })
+
+    test('should remove oldest value if size is reached', async () => {
+      const estimator = new SyncingTimeEstimator()
+      estimator.start()
+
+      const mockWindow = Array(SYNCING_TIME_WINDOW_LENGTH + 1).fill(null)
+      for (const index of mockWindow.keys()) {
+        await sleep(index * 2)
+        estimator.addSample({
+          currentBlock: index * 50,
+          lastBlock: index * 50 + 50,
+        })
+      }
+      const oldestSample = estimator.window?.[0]
+      console.log(oldestSample)
+      estimator.addSample({ currentBlock: 101 * 50, lastBlock: 101 * 50 + 50 })
+      console.log(estimator.window[0])
+      expect(estimator.window[0] !== oldestSample).toBe(true)
+    }, 30000)
   })
 
   describe('calculate method returns the average of the calculated samples', () => {
-    test.skip('should calculate the average if samples have been added', () => {
+    test('should calculate the average if samples have been added', async () => {
       const estimator = new SyncingTimeEstimator()
       estimator.start()
-      estimator.addSample({ currentBlock: 50, lastBlock: 100 })
-      const average = estimator.calculate()
 
-      expect(average).toBe(0)
-    })
-
-    test.skip('should return 0 if no samples have been added', () => {
-      const estimator = new SyncingTimeEstimator()
-      estimator.start()
+      const mockWindow = Array(SYNCING_TIME_WINDOW_LENGTH + 1).fill(null)
+      for (const index of mockWindow.keys()) {
+        await sleep(index * 2)
+        estimator.addSample({
+          currentBlock: index * 50,
+          lastBlock: index * 50 + 50,
+        })
+      }
 
       const average = estimator.calculate()
 
       expect(average).toBeTruthy()
+    }, 30000)
+
+    test('should return 0 if no samples have been added', () => {
+      const estimator = new SyncingTimeEstimator()
+      estimator.start()
+
+      const average = estimator.calculate()
+
+      expect(average).toBe(0)
     })
   })
 
