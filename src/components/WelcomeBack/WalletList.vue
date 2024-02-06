@@ -103,6 +103,7 @@ export default {
     password() {
       if (this.unlockWalletError) {
         this.clearError({ error: this.unlockWalletError.name })
+        this.sent = false
       }
     },
   },
@@ -122,11 +123,13 @@ export default {
       this.$router.push('/ftu/welcome')
     },
     unlock() {
-      this.unlockWallet({
-        walletId: this.currentWallet.value,
-        password: this.password,
-      })
-      this.sent = true
+      if (!this.sent) {
+        this.unlockWallet({
+          walletId: this.currentWallet.value,
+          password: this.password,
+        })
+        this.sent = true
+      }
     },
     updateView() {
       this.$router.push({ name: 'transactions', query: { id: this.sessionId } })
