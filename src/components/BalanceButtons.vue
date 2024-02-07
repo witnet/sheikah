@@ -25,10 +25,7 @@ export default {
   name: 'BalanceButtons',
   computed: {
     ...mapState({
-      status: state => {
-        console.log('ddddddddstate')
-        return state.wallet.status
-      },
+      status: state => state.wallet.status,
     }),
   },
   methods: {
@@ -36,7 +33,6 @@ export default {
       setError: 'setError',
     }),
     onSend(e) {
-      console.log(this.status)
       /**
        * Emitted when send button is clicked
        * @event send

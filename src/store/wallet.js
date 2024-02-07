@@ -1,6 +1,6 @@
 import { api, eventProcessor } from '@/main'
 import router from '@/router'
-import { LocalStorageWrapper, standardizeBalance } from '@/api'
+import { standardizeBalance } from '@/api'
 import {
   calculateTimeAgo,
   createNotification,
@@ -11,6 +11,7 @@ import {
 import SyncingTimeEstimator from '@/services/SyncingTimeEstimator'
 import formatMillisecondsDuration from '@/services/format/formatMillisecondsDuration'
 import { buildImportWalletBirthdate } from '@/services/birthDate'
+import localStorageWrapper from '@/services/localStorageWrapper'
 import {
   DEFAULT_WIT_UNIT,
   DEFAULT_THEME,
@@ -34,7 +35,6 @@ const { t, locale } = i18n.global
 
 export default {
   state: {
-    localStorage: new LocalStorageWrapper(),
     errors: {
       shutdown: null,
       signDisclaimer: null,
@@ -167,7 +167,7 @@ export default {
     },
     toggleNotification(state, name) {
       state.notifications[name] = !state.notifications[name]
-      state.localStorage.setNotificationsSettings(state.notifications)
+      localStorageWrapper.setNotificationsSettings(state.notifications)
     },
     toggleTheme(state) {
       if (state.theme === THEMES.DARK) {
@@ -175,7 +175,7 @@ export default {
       } else {
         state.theme = THEMES.DARK
       }
-      state.localStorage.setThemeSettings(state.theme)
+      localStorageWrapper.setThemeSettings(state.theme)
     },
     setUnit(state, unit) {
       state.unit = unit
@@ -267,7 +267,7 @@ export default {
       } else {
         state.walletIdx = 0
       }
-      state.localStorage.setWalletIndex(state.walletIdx)
+      localStorageWrapper.setWalletIndex(state.walletIdx)
     },
     setLabels(state, { labels }) {
       state.txLabels = labels
@@ -277,8 +277,8 @@ export default {
         state.balance = balance
       }
     },
-    setInitialLocale(state) {
-      const localeFromStorage = state.localStorage.getLanguageSettings()
+    setInitialLocale() {
+      const localeFromStorage = localStorageWrapper.getLanguageSettings()
       if (localeFromStorage) {
         locale.value = localeFromStorage
       } else {
@@ -291,7 +291,7 @@ export default {
     changeDefaultUnit(state, unit) {
       if (Object.values(WIT_UNIT).includes(unit)) {
         state.unit = unit
-        state.localStorage.setUnitSettings(state.unit)
+        localStorageWrapper.setUnitSettings(state.unit)
       } else {
         console.warn('[mutation setUnit]: invalid unit')
       }
@@ -530,7 +530,7 @@ export default {
           router.push('/welcome-back/wallet-list')
           this.commit('stopSessionTimer')
           this.commit('deleteSession')
-          if (!state.localStorage.getSkipSessionExpirationInfo()) {
+          if (!localStorageWrapper.getSkipSessionExpirationInfo()) {
             this.commit('showLogoutModal')
           }
         }, ms)
@@ -1125,14 +1125,14 @@ export default {
       }
     },
     getUnit: async function (context) {
-      const unit = context.state.localStorage.getUnitSettings()
+      const unit = localStorageWrapper.getUnitSettings()
       const defaultUnit = context.state.unit
       unit
         ? context.commit('setUnit', unit)
         : context.commit('setUnit', defaultUnit)
     },
     getTheme: async function (context) {
-      const theme = context.state.localStorage.getThemeSettings()
+      const theme = localStorageWrapper.getThemeSettings()
       const defaultTheme = DEFAULT_THEME
       if (theme) {
         context.commit('setTheme', theme)
@@ -1141,8 +1141,7 @@ export default {
       }
     },
     getNotifications: async function (context) {
-      const notifications =
-        context.state.localStorage.getNotificationsSettings()
+      const notifications = localStorageWrapper.getNotificationsSettings()
       const defaultNotifications = context.state.notifications
       if (notifications) {
         context.commit('setNotifications', notifications)
