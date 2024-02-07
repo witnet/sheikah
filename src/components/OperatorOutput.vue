@@ -20,7 +20,6 @@
       >
         <template #reference>
           <p v-if="explicitOutput" class="icon explicit-output">
-            >
             {{ explicitOutput }}
           </p>
           <font-awesome-icon

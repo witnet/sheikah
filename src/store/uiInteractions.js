@@ -1,8 +1,7 @@
-import { LocalStorageWrapper } from '@/api'
+import localStorageWrapper from '@/services/localStorageWrapper'
 
 export default {
   state: {
-    localStorage: new LocalStorageWrapper(),
     receiveTransactionClicked: false,
     generateAddressLoading: false,
     generateRadRequestResultLoading: false,
@@ -92,7 +91,7 @@ export default {
       // Vue.prototype.$notify(payload)
     },
     saveShowModalAgain(context, val) {
-      context.state.localStorage.setSkipSessionExpirationInfo(val)
+      localStorageWrapper.setSkipSessionExpirationInfo(val)
     },
   },
 }
