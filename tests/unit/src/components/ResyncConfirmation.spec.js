@@ -1,5 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils'
-import { describe, expect, test, vi } from 'vitest'
+
 import ResyncConfirmation from '@/components/ResyncConfirmation.vue'
 
 import { ElButton, ElDialog } from 'element-plus'
@@ -14,6 +14,8 @@ describe('ResyncConfirmation.vue', () => {
     stubs: {
       'el-dialog': ElDialog,
       'el-button': ElButton,
+      teleport: true,
+      template: true,
     },
   })
   test('should contain an element dialog component', () => {
@@ -31,7 +33,7 @@ describe('ResyncConfirmation.vue', () => {
     )
   })
 
-  // Skip until we find a way to make components inside element ui templates visible
+  // TODO: Skip until we find a way to make components inside element ui templates visible
   test.skip('should contain confirm button', () => {
     const wrapper = mount(ResyncConfirmation, mockStore)
 
@@ -40,7 +42,7 @@ describe('ResyncConfirmation.vue', () => {
     )
   })
 
-  // Skip until we find a way to make components inside element ui templates visible
+  // TODO: Skip until we find a way to make components inside element ui templates visible
   test.skip('should call cancel mutation on click cancel', async () => {
     const closeMock = vi.fn()
     const resyncMock = vi.fn()
@@ -67,7 +69,7 @@ describe('ResyncConfirmation.vue', () => {
     expect(closeMock).toHaveBeenCalled()
   })
 
-  // Skip until we find a way to make components inside element ui templates visible
+  // TODO: Skip until we find a way to make components inside element ui templates visible
   test.skip('should call resync action mutation on click confirm', async () => {
     const closeMock = vi.fn()
     const resyncMock = vi.fn()

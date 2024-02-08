@@ -1,7 +1,7 @@
 import { shallowMount, mount } from '@vue/test-utils'
 import FileUploader from '@/components/FileUploader.vue'
 import claimingFileSuccess from '@/TemplateExample.json'
-import { describe, expect, test, vi } from 'vitest'
+
 import '../../../../src/fontAwesome'
 
 describe('Renders the correct elements when there is no file uploaded', () => {

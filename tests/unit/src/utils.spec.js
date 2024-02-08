@@ -58,31 +58,31 @@ describe('standardizeTransactionResult', () => {
 
 describe('getDomainFromUrl', () => {
   test('should work url with protocol', () => {
-    const url = 'http://WITnet.io'
+    const url = 'http://witnet.io'
 
-    expect(getDomainFromUrl(url)).toBe('WITnet.io')
+    expect(getDomainFromUrl(url)).toBe('witnet.io')
   })
 
   test('should work without protocol', () => {
-    const url = 'WITnet.io'
+    const url = 'witnet.io'
 
-    expect(getDomainFromUrl(url)).toBe('WITnet.io')
+    expect(getDomainFromUrl(url)).toBe('witnet.io')
   })
 
   test('should work with subdomain', () => {
-    const url = 'http://docs.WITnet.io'
+    const url = 'http://docs.witnet.io'
 
-    expect(getDomainFromUrl(url)).toBe('docs.WITnet.io')
+    expect(getDomainFromUrl(url)).toBe('docs.witnet.io')
   })
 
   test('should NOT work without tld', () => {
-    const url = 'http://WITnet'
+    const url = 'http://witnet'
 
     expect(getDomainFromUrl(url)).toBe('')
   })
 
   test('should NOT work with invalid tld', () => {
-    const url = 'http://WITnet.abcdefghij'
+    const url = 'http://witnet.abcdefghij'
 
     expect(getDomainFromUrl(url)).toBe('')
   })
@@ -203,7 +203,7 @@ describe('simplifyDrResult', () => {
 })
 
 describe('standardizeWitUnits', () => {
-  describe('return the value in selected untest', () => {
+  describe('return the value in selected unit', () => {
     describe('WIT', () => {
       describe('to WIT', () => {
         test('with decimal', () => {
@@ -1128,9 +1128,9 @@ describe('calculateCurrentFocusAfterRedo', () => {
       expect(id).toBe(0)
     })
 
-    // test('UPDATE_VARIABLE', () => {})
-    // test('ADD_VARIABLE', () => {})
-    // test('DELETE_VARIABLE', () => {})
+    test.todo('UPDATE_VARIABLE', () => {})
+    test.todo('ADD_VARIABLE', () => {})
+    test.todo('DELETE_VARIABLE', () => {})
   })
 })
 

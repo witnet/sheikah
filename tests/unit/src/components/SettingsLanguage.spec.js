@@ -1,8 +1,6 @@
 import SettingsLanguage from '@/components/SettingsLanguage.vue'
 import Select from '@/components/Select.vue'
 
-import { describe, expect, test, vi } from 'vitest'
-
 import { LocalStorageWrapper } from '@/api'
 
 describe('SettingsLanguage.vue', () => {

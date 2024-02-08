@@ -1,9 +1,7 @@
 import '@/fontAwesome'
 import NetworkStatus from '@/components/NetworkStatus.vue'
 import Avatar from '@/components/Avatar.vue'
-
 import { NETWORK_STATUS } from '@/constants'
-
 import { ElButton } from 'element-plus'
 
 describe('NetworkStatus', () => {

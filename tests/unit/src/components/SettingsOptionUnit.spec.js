@@ -2,8 +2,6 @@ import SettingsOptionUnit from '@/components/SettingsOptionUnit.vue'
 import Select from '@/components/Select.vue'
 import { THEMES } from '@/constants'
 
-import { describe, expect, test, vi } from 'vitest'
-
 describe('SettingsOptionUnit.vue', () => {
   describe('change unit', () => {
     const changeDefaultUnitMock = vi.fn()

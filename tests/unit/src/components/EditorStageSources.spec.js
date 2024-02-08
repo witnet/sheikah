@@ -2,8 +2,6 @@ import EditorStageSources from '@/components/EditorStageSources.vue'
 import EditorSource from '@/components/EditorSource.vue'
 import Fieldset from '@/components/Fieldset.vue'
 
-import { describe, expect, test, vi } from 'vitest'
-
 describe('EditorStageSources.vue', () => {
   describe('should render correctly', () => {
     test('should render as much sources as there are in the store', () => {

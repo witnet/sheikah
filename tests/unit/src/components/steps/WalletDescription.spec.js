@@ -218,7 +218,6 @@ describe('WalletDescription.vue', () => {
 
       descriptionInput.setValue('new description')
       await flushPromises()
-      console.log(setWalletDescription.mock.calls)
       expect(setWalletDescription.mock.calls[0][1].description).toBe(
         'new description',
       )
