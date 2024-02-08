@@ -9,7 +9,7 @@ afterEach(() => {
 
 describe('overwriteConfigFile', () => {
   test('Should overwrite the configuration with a single url according to the parameters given', () => {
-    vi.spyOn(fs, 'writeFileSync').mockImplementation
+    vi.spyOn(fs, 'writeFileSync')
     vi.spyOn(fs, 'readFileSync').mockImplementation(
       () => 'node_url = "public_node_url3"',
     )
@@ -31,7 +31,7 @@ describe('overwriteConfigFile', () => {
   })
 
   test('Should overwrite the configuration with several nodes according to the parameters given', () => {
-    vi.spyOn(fs, 'writeFileSync').mockImplementation
+    vi.spyOn(fs, 'writeFileSync')
     vi.spyOn(fs, 'readFileSync').mockImplementation(
       () => 'node_url = "public_node_url3","public_node_url4"',
     )
@@ -52,7 +52,7 @@ describe('overwriteConfigFile', () => {
   })
 
   test("Should handle error if read file doesn't exists", () => {
-    vi.spyOn(fs, 'writeFileSync').mockImplementation
+    vi.spyOn(fs, 'writeFileSync')
     vi.spyOn(fs, 'readFileSync').mockImplementation
 
     overwriteWitnetNodeConfiguration(false, {

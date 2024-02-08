@@ -88,9 +88,7 @@ describe('formatDuration', () => {
         })
       }
       const oldestSample = estimator.window?.[0]
-      console.log(oldestSample)
       estimator.addSample({ currentBlock: 101 * 50, lastBlock: 101 * 50 + 50 })
-      console.log(estimator.window[0])
       expect(estimator.window[0] !== oldestSample).toBe(true)
     }, 30000)
   })

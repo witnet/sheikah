@@ -47,7 +47,7 @@ describe('AddressCardButton.vue', () => {
       )
       const btn = wrapper.find('[data-test="address-card-button"]')
       await btn.trigger('click')
-      expect(wrapper.emitted().click).toBeTruthy
+      expect(wrapper.emitted().click).toBeTruthy()
     })
   })
 })

@@ -22,6 +22,7 @@ describe('CreateDataRequestForm.vue', () => {
       'el-form': ElForm,
       'el-form-item': ElFormItem,
       AppendUnit: true,
+      teleport: true,
     },
   })
   describe('should render properly the form items', () => {
@@ -121,7 +122,7 @@ describe('CreateDataRequestForm.vue', () => {
       await flushPromises()
       expect(wrapper.emitted()['set-dr-values']).toBeTruthy()
     })
-
+    // TODO: Skip until being able to access to element plus input error
     test.skip('should show an error if the input cannot be converted to number', async () => {
       const wrapper = mount(CreateDataRequestForm, {
         props: {
@@ -136,13 +137,12 @@ describe('CreateDataRequestForm.vue', () => {
       await submitBtn.trigger('click')
       await flushPromises()
       await flushPromises()
-      const error = wrapper.find('.el-form-item__error')
-      console.log(error)
       expect(wrapper.find('.el-form-item__error').text()).toBe(
         `This should be a number`,
       )
     })
 
+    // TODO: Skip until being able to access to element plus input error
     test.skip('should show an error if the input is less than 1 nanoWit', async () => {
       const wrapper = mount(CreateDataRequestForm, {
         props: {
@@ -161,6 +161,7 @@ describe('CreateDataRequestForm.vue', () => {
       )
     })
 
+    // TODO: Skip until being able to access to element plus input error
     test.skip('should show an error if the collateral is less than 1 wit', async () => {
       const wrapper = mount(CreateDataRequestForm, {
         props: {

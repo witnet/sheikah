@@ -1,6 +1,5 @@
 import BalanceButtons from '@/components/BalanceButtons.vue'
 import { NETWORK_STATUS } from '@/constants'
-import { describe, expect, test, vi } from 'vitest'
 
 describe('BalanceButtons.vue', () => {
   describe('should render receive and send buttons', () => {
@@ -68,8 +67,6 @@ describe('BalanceButtons.vue', () => {
       const tryButton = wrapper.find('[data-test="btn-send"]')
       await tryButton.trigger('click')
       await flushPromises()
-
-      console.log(wrapper.emitted())
 
       expect(wrapper.emitted()['send']).toBeTruthy()
     })
