@@ -9,7 +9,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
   },
-  root: path.resolve(__dirname, './test/unit'),
+  root: path.resolve(__dirname, './tests/unit'),
   resolve: {
     alias: [
       {
