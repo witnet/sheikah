@@ -1,7 +1,4 @@
 import SettingsSection from '@/components/SettingsSection.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('SettingsSection.vue', () => {
   describe('should render properly', () => {

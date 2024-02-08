@@ -1,7 +1,5 @@
 import SyncingTimeEstimator from '@/services/SyncingTimeEstimator'
 import { SYNCING_TIME_WINDOW_LENGTH } from '@/constants'
-import { describe, expect, test } from 'vitest'
-import { sleep } from '../../utils'
 
 describe('formatDuration', () => {
   describe('should start method initialize the estimator', () => {

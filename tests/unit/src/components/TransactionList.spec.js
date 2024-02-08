@@ -1,8 +1,8 @@
 import TransactionList from '@/components/TransactionList.vue'
 import Transaction from '@/components/Transaction.vue'
-import { mount } from '@vue/test-utils'
+
 import { describe, expect, test, vi } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElPagination } from 'element-plus'
 const setCurrentTransactionsPageActionMock = vi.fn()
 const setCurrentTransactionsPageMutationMock = vi.fn()

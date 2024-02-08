@@ -1,6 +1,3 @@
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 import Avatar from '@/components/Avatar.vue'
 
 describe('NetworkStatus', () => {

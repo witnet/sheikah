@@ -1,8 +1,6 @@
 import CreateDataRequestForm from '@/components/SendTransaction/CreateDataRequestForm.vue'
 import { DR_DEFAULT_VALUES } from '@/constants'
-import { mount, flushPromises } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElButton, ElForm, ElFormItem, ElInput } from 'element-plus'
 
 describe('CreateDataRequestForm.vue', () => {

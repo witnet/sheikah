@@ -1,8 +1,6 @@
 import InputsOutputs from '@/components/InputsOutputs.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
+
 import '@/fontAwesome'
-import { createMocks } from '../../utils'
 
 describe('Renders the correct elements when the transaction type is value_transfer', () => {
   const mockStore = createMocks({

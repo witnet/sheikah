@@ -1,5 +1,4 @@
 import { buildImportWalletBirthdate } from '@/services/birthDate'
-import { describe, expect, test } from 'vitest'
 
 describe('birthDate', () => {
   test('return 30 days less than the provided date', () => {

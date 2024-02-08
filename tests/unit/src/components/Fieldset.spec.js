@@ -1,6 +1,4 @@
 import Fieldset from '@/components/Fieldset.vue'
-import { shallowMount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
 
 describe('Fieldset.vue', () => {
   test('should render the slot', () => {

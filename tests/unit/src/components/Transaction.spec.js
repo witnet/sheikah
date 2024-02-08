@@ -1,8 +1,5 @@
 import Transaction from '@/components/Transaction.vue'
 import '@/fontAwesome'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('Renders the correct elements when click is not triggered', () => {
   const mockStore = createMocks({

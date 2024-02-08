@@ -1,5 +1,4 @@
 import { getVersionFromName } from '../../../../../electron/walletManager'
-import { describe, expect, test } from 'vitest'
 
 describe('getVersionFromName', () => {
   test('should return version x.y.z from the release name', () => {

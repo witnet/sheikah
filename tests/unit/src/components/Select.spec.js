@@ -1,7 +1,4 @@
 import Select from '@/components/Select.vue'
-import { mount, shallowMount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('Select.vue', () => {
   const mockStore = createMocks({

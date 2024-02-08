@@ -1,9 +1,6 @@
 import AddressInformation from '@/components/AddressInformation.vue'
 import DotsLoading from '@/components/DotsLoading.vue'
 import { formatDateVerbose } from '@/utils'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('AddressInformation.vue', () => {
   describe('should render correctly', () => {

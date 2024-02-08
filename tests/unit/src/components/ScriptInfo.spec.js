@@ -1,7 +1,4 @@
 import ScriptInfo from '@/components/ScriptInfo.vue'
-import { shallowMount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('ScriptInfo.vue', () => {
   describe('should render correctly', () => {

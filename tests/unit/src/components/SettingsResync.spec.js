@@ -1,8 +1,8 @@
 import SettingsResync from '@/components/SettingsResync.vue'
 import { NETWORK_STATUS } from '@/constants'
-import { mount } from '@vue/test-utils'
+
 import { describe, expect, test, vi } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElButton } from 'element-plus'
 
 describe('SettingsResync.vue', () => {

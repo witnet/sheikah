@@ -1,7 +1,4 @@
 import Community from '@/components/Community.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('Community.vue', () => {
   describe('should render properly', () => {

@@ -1,8 +1,5 @@
 import TransactionDetails from '@/components/TransactionDetails.vue'
 import '@/fontAwesome'
-import { shallowMount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('Renders the correct elements when the transaction type is value_transfer', () => {
   const wrapper = shallowMount(TransactionDetails, {

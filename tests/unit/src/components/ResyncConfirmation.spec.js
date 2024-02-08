@@ -1,7 +1,7 @@
 import { flushPromises, mount } from '@vue/test-utils'
 import { describe, expect, test, vi } from 'vitest'
 import ResyncConfirmation from '@/components/ResyncConfirmation.vue'
-import { createMocks } from '../../utils'
+
 import { ElButton, ElDialog } from 'element-plus'
 
 describe('ResyncConfirmation.vue', () => {

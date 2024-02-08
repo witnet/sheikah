@@ -1,7 +1,4 @@
 import LayoutTwoColumns from '@/components/LayoutTwoColumns.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('LayoutTwoColumns.vue', () => {
   const leftSlot = '<div>Left</div>'

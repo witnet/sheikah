@@ -1,7 +1,4 @@
 import Tag from '@/components/Tag.vue'
-import { shallowMount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('Tag.vue', () => {
   test('should render the content passed by props', () => {

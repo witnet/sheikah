@@ -1,7 +1,7 @@
 import SettingsNotificationSwitch from '@/components/SettingsNotificationSwitch.vue'
-import { mount } from '@vue/test-utils'
+
 import { describe, expect, test, vi } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElSwitch } from 'element-plus'
 
 describe('SettingsNotificationSwitch.vue', () => {

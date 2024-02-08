@@ -1,7 +1,4 @@
 import BalanceData from '@/components/BalanceData.vue'
-import { shallowMount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('Balance.vue', () => {
   const mockStore = createMocks({

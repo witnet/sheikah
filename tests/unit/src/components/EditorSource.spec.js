@@ -1,7 +1,5 @@
 import EditorSource from '@/components/EditorSource.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElFormItem, ElInput } from 'element-plus'
 
 describe('EditorSource.vue', () => {

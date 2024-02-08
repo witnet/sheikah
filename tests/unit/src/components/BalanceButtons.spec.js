@@ -1,8 +1,6 @@
 import BalanceButtons from '@/components/BalanceButtons.vue'
 import { NETWORK_STATUS } from '@/constants'
 import { describe, expect, test, vi } from 'vitest'
-import { createMocks } from '../../utils'
-import { mount, flushPromises } from '@vue/test-utils'
 
 describe('BalanceButtons.vue', () => {
   describe('should render receive and send buttons', () => {

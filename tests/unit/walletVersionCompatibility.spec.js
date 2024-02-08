@@ -1,5 +1,4 @@
 import semver from 'semver'
-import { describe, expect, test } from 'vitest'
 
 describe('Semver', () => {
   describe('should check wallet version compatibiltesty', () => {

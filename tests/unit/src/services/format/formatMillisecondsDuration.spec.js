@@ -1,5 +1,4 @@
 import formatDuration from '@/services/format/formatMillisecondsDuration'
-import { describe, expect, test } from 'vitest'
 
 describe('formatMillisecondsDuration format seconds as hh:mm:ss', () => {
   test('should show seconds', () => {

@@ -1,9 +1,7 @@
 import EditorOperatorArgument from '@/components/EditorOperatorArgument.vue'
 import OperatorType from '@/components/OperatorType.vue'
 import Select from '@/components/Select.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElInput } from 'element-plus'
 
 const getMockedStore = ({ state }) => {

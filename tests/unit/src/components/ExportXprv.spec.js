@@ -1,9 +1,9 @@
 import ExportXprv from '@/components/ExportXprv.vue'
 import Card from '@/components/card/Card.vue'
 import PasswordValidation from '@/components/PasswordValidation.vue'
-import { mount } from '@vue/test-utils'
+
 import { describe, expect, test, vi } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElButton, ElInput, ElSwitch } from 'element-plus'
 
 describe('ExportXprv', () => {
