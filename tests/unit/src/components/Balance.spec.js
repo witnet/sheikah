@@ -2,10 +2,9 @@ import Balance from '@/components/Balance.vue'
 import BalanceData from '@/components/BalanceData.vue'
 import BalanceButtons from '@/components/BalanceButtons.vue'
 import SendValueTransfer from '@/components/SendTransaction/SendValueTransfer.vue'
-import { mount, flushPromises } from '@vue/test-utils'
+
 import { describe, expect, test, vi } from 'vitest'
 import { WIT_UNIT, DEFAULT_VTT_VALUES } from '@/constants'
-import { createMocks } from '../../utils'
 
 describe('Balance.vue', () => {
   const mockStore = createMocks({

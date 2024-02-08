@@ -1,8 +1,5 @@
 import Amount from '@/components/Amount.vue'
 import '@/fontAwesome'
-import { shallowMount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('Renders the correct elements', () => {
   const mockStore = createMocks({

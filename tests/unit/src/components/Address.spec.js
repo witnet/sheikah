@@ -1,6 +1,4 @@
 import Address from '@/components/Address.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
 
 describe('Address.vue', () => {
   test('Should include the address passed', () => {

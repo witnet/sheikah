@@ -1,7 +1,5 @@
 import OperatorOutput from '@/components/OperatorOutput.vue'
-import { shallowMount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElPopover } from 'element-plus'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 

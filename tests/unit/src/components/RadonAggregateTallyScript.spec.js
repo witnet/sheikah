@@ -1,7 +1,4 @@
 import RadonAggregateTallyScript from '@/components/RadonAggregateTallyScript.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('RadonAggregateTallyScript.vue', () => {
   describe('should render correctly when the type is filters', () => {

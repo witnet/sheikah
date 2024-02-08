@@ -1,9 +1,6 @@
 import Addresses from '@/components/Addresses.vue'
 import AddressList from '@/components/AddressList.vue'
 import AddressInformation from '@/components/AddressInformation.vue'
-import { mount, flushPromises } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('Addresses.vue', () => {
   describe('should render correctly', () => {

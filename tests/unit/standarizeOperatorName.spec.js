@@ -1,5 +1,4 @@
 import { standardizeOperatorName } from '@/utils'
-import { describe, expect, test } from 'vitest'
 
 describe('standardizeOperatorName', () => {
   test('works when no argument is provided', () => {

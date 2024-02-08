@@ -1,9 +1,8 @@
 import EditorStageSources from '@/components/EditorStageSources.vue'
 import EditorSource from '@/components/EditorSource.vue'
 import Fieldset from '@/components/Fieldset.vue'
-import { mount } from '@vue/test-utils'
+
 import { describe, expect, test, vi } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('EditorStageSources.vue', () => {
   describe('should render correctly', () => {

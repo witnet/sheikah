@@ -1,8 +1,5 @@
 import { NOTIFICATIONS } from '@/constants'
 import SettingsNotificationsList from '@/components/SettingsNotificationList.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('SettingsNotificationsList.vue', () => {
   const mockStore = createMocks({

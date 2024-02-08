@@ -1,9 +1,9 @@
 import SetFee from '@/components/SendTransaction/SetFee.vue'
 import SelectEstimatedFee from '@/components/SendTransaction/SelectEstimatedFee.vue'
 import { DEFAULT_VTT_VALUES, DEFAULT_LOCALE } from '@/constants'
-import { mount, shallowMount } from '@vue/test-utils'
+
 import { describe, expect, test, vi } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElButton, ElForm, ElFormItem, ElInput, ElSwitch } from 'element-plus'
 
 const FEE_ESTIMATION_REPORT_MOCK = {

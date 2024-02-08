@@ -1,5 +1,5 @@
 import { Radon } from 'witnet-radon-js'
-import { describe, expect, test } from 'vitest'
+
 import {
   areSoftEqualArrays,
   deleteKey,

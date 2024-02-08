@@ -1,7 +1,5 @@
 import RadonOperator from '@/components/RadonOperator.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElTooltip } from 'element-plus'
 
 describe('RadonOperator.vue', () => {

@@ -1,8 +1,6 @@
 module.exports = {
-  env: {
-    jest: true,
-  },
   globals: {
+    vi: true,
     mount: false,
     shallowMount: false,
     createComponentMocks: false,
@@ -10,6 +8,11 @@ module.exports = {
     nextTick: false,
     getNormalizedFormRules: false,
     sleep: false,
+    createMocks: true,
+    describe: true,
+    expect: true,
+    test: true,
+    flushPromises: true,
   },
   rules: {},
 }

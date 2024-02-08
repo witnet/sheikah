@@ -1,8 +1,4 @@
-import { mount, flushPromises } from '@vue/test-utils'
-import { describe, expect, test, vi } from 'vitest'
-
 import WalletDescription from '@/components/steps/WalletDescription.vue'
-import { createMocks } from '../../../utils'
 import { ElButton, ElInput, ElTooltip } from 'element-plus'
 
 describe('WalletDescription.vue', () => {
@@ -289,7 +285,7 @@ describe('WalletDescription.vue', () => {
     })
 
     describe('import flow', () => {
-      it('should go to encrypt pass route on click next step', async () => {
+      test('should go to encrypt pass route on click next step', async () => {
         const pushMock = vi.fn()
         const mockStore = createMocks({
           storeModules: {
@@ -318,7 +314,7 @@ describe('WalletDescription.vue', () => {
         expect(pushMock.mock.calls[0][0]).toBe('/ftu/import-wallet')
       })
 
-      it('should go to encrypt pass route on click next step', async () => {
+      test('should go to encrypt pass route on click next step', async () => {
         const pushMock = vi.fn()
         const mockStore = createMocks({
           storeModules: {

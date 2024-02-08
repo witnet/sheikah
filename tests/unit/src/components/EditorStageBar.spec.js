@@ -1,7 +1,4 @@
 import EditorStageBar from '@/components/EditorStageBar.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('EditorStageBar.vue', () => {
   describe('should render properly', () => {

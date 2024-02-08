@@ -1,7 +1,4 @@
 import AddressCard from '@/components/AddressCard.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
 
 describe('AddressCard.vue', () => {
   describe('should render correctly', () => {

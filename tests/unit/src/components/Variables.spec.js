@@ -1,8 +1,6 @@
 import Variables from '@/components/Variables.vue'
 import Select from '@/components/Select.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElInput } from 'element-plus'
 
 describe('Variables.vue', () => {

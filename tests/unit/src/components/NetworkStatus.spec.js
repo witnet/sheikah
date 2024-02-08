@@ -1,11 +1,9 @@
 import '@/fontAwesome'
 import NetworkStatus from '@/components/NetworkStatus.vue'
 import Avatar from '@/components/Avatar.vue'
-import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { shallowMount } from '@vue/test-utils'
+
 import { NETWORK_STATUS } from '@/constants'
-import { createMocks } from '../../utils'
+
 import { ElButton } from 'element-plus'
 
 describe('NetworkStatus', () => {
@@ -253,17 +251,17 @@ describe('NetworkStatus', () => {
     describe('and node is disconnected', () => {
       describe('should show an avatar', () => {
         describe('should show an avatar', () => {
-          it.todo('should include Avatar')
+          test.todo('should include Avatar')
 
           describe('should pass correct props to Avatar', () => {
-            it.todo('should pass sync with value syncing')
+            test.todo('should pass sync with value syncing')
 
-            it.todo('should pass prop src')
+            test.todo('should pass prop src')
           })
         })
       })
 
-      it.todo('should hide information detils')
+      test.todo('should hide information detils')
     })
   })
 
@@ -367,14 +365,14 @@ describe('NetworkStatus', () => {
         test('should include Avatar', () => {})
 
         describe('should pass correct props to Avatar', () => {
-          it.todo('should pass borderColor with value yellow')
+          test.todo('should pass borderColor with value yellow')
 
           test('should pass prop src', () => {})
         })
       })
 
-      it.todo('should show the wallet name')
-      it.todo('should show sync label with percentage')
+      test.todo('should show the wallet name')
+      test.todo('should show sync label with percentage')
     })
 
     describe('and exists sync error', () => {
@@ -382,14 +380,14 @@ describe('NetworkStatus', () => {
         test('should include Avatar', () => {})
 
         describe('should pass correct props to Avatar', () => {
-          it.todo('should pass borderColor with value red')
+          test.todo('should pass borderColor with value red')
 
-          it.todo('should pass prop src')
+          test.todo('should pass prop src')
         })
       })
 
-      it.todo('should show the wallet name')
-      it.todo('should show sync error label')
+      test.todo('should show the wallet name')
+      test.todo('should show sync error label')
     })
 
     describe('and node is disconnected', () => {
@@ -397,14 +395,14 @@ describe('NetworkStatus', () => {
         test('should include Avatar', () => {})
 
         describe('should pass correct props to Avatar', () => {
-          it.todo('should pass borderColor with value red')
+          test.todo('should pass borderColor with value red')
 
-          it.todo('should pass prop src')
+          test.todo('should pass prop src')
         })
       })
 
-      it.todo('should show wallet disconnected as label')
-      it.todo('should show the wallet name')
+      test.todo('should show wallet disconnected as label')
+      test.todo('should show the wallet name')
     })
   })
 
@@ -414,22 +412,22 @@ describe('NetworkStatus', () => {
         test('should include Avatar', () => {})
 
         describe('should pass correct props to Avatar', () => {
-          it.todo('should pass borderColor with value green')
+          test.todo('should pass borderColor with value green')
 
-          it.todo('should pass prop src')
+          test.todo('should pass prop src')
         })
       })
 
-      it.todo('should show the wallet name')
-      it.todo('should show synced as label')
-      it.todo('should show RESYNC button')
-      it.todo('should show wallet url')
-      it.todo('should show network connected at')
-      it.todo('should show current block')
+      test.todo('should show the wallet name')
+      test.todo('should show synced as label')
+      test.todo('should show RESYNC button')
+      test.todo('should show wallet url')
+      test.todo('should show network connected at')
+      test.todo('should show current block')
 
       describe('should NOT show block information', () => {
-        it.todo('should NOT show blocks left previous getting error')
-        it.todo('should NOT synched blocks previous error')
+        test.todo('should NOT show blocks left previous getting error')
+        test.todo('should NOT synched blocks previous error')
       })
     })
 
@@ -438,23 +436,23 @@ describe('NetworkStatus', () => {
         test('should include Avatar', () => {})
 
         describe('should pass correct props to Avatar', () => {
-          it.todo('should pass borderColor with value yellow')
+          test.todo('should pass borderColor with value yellow')
 
-          it.todo('should pass prop src')
+          test.todo('should pass prop src')
         })
       })
 
-      it.todo('should show the wallet name')
-      it.todo('should show syncing label')
-      it.todo('should show ETA')
-      it.todo('should show percentage')
-      it.todo('should show RESYNC button')
+      test.todo('should show the wallet name')
+      test.todo('should show syncing label')
+      test.todo('should show ETA')
+      test.todo('should show percentage')
+      test.todo('should show RESYNC button')
 
-      it.todo('should show wallet url')
-      it.todo('should show network connected at')
+      test.todo('should show wallet url')
+      test.todo('should show network connected at')
       describe('should show block information', () => {
-        it.todo('should show blocks left')
-        it.todo('should show synched blocks')
+        test.todo('should show blocks left')
+        test.todo('should show synched blocks')
       })
     })
 
@@ -463,23 +461,23 @@ describe('NetworkStatus', () => {
         test('should include Avatar', () => {})
 
         describe('should pass correct props to Avatar', () => {
-          it.todo('should pass borderColor with value red')
+          test.todo('should pass borderColor with value red')
 
-          it.todo('should pass prop src')
+          test.todo('should pass prop src')
         })
       })
 
-      it.todo('should show the wallet name')
-      it.todo('should show syncing label')
-      it.todo('should hide ETA')
-      it.todo('should show percentage')
-      it.todo('should show RESYNC button if node synced')
-      it.todo('should hide RESYNC button if node is not synced')
-      it.todo('should show wallet url')
-      it.todo('should show network connected at')
+      test.todo('should show the wallet name')
+      test.todo('should show syncing label')
+      test.todo('should hide ETA')
+      test.todo('should show percentage')
+      test.todo('should show RESYNC button if node synced')
+      test.todo('should hide RESYNC button if node is not synced')
+      test.todo('should show wallet url')
+      test.todo('should show network connected at')
       describe('should show block information', () => {
-        it.todo('should show blocks left previous getting error')
-        it.todo('should show synched blocks previous error')
+        test.todo('should show blocks left previous getting error')
+        test.todo('should show synched blocks previous error')
       })
     })
 
@@ -488,19 +486,19 @@ describe('NetworkStatus', () => {
         test('should include Avatar', () => {})
 
         describe('should pass correct props to Avatar', () => {
-          it.todo('should pass borderColor with value red')
+          test.todo('should pass borderColor with value red')
 
-          it.todo('should pass prop src')
+          test.todo('should pass prop src')
         })
       })
 
-      it.todo('should show wallet disconnected as label')
-      it.todo('should show the wallet name')
-      it.todo('should show wallet url')
+      test.todo('should show wallet disconnected as label')
+      test.todo('should show the wallet name')
+      test.todo('should show wallet url')
 
       describe('should NOT show block information', () => {
-        it.todo('should NOT show blocks left previous getting error')
-        it.todo('should NOT synched blocks previous error')
+        test.todo('should NOT show blocks left previous getting error')
+        test.todo('should NOT synched blocks previous error')
       })
     })
   })

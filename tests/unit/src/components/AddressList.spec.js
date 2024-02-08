@@ -1,9 +1,7 @@
 import AddressList from '@/components/AddressList.vue'
 import AddressCardButton from '@/components/AddressCardButton.vue'
 import AddressCard from '@/components/AddressCard.vue'
-import { mount, flushPromises } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { ElTooltip } from 'element-plus'
 
 describe('AddressList.vue', () => {

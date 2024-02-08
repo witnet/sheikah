@@ -1,8 +1,8 @@
 import SettingsLanguage from '@/components/SettingsLanguage.vue'
 import Select from '@/components/Select.vue'
-import { mount } from '@vue/test-utils'
+
 import { describe, expect, test, vi } from 'vitest'
-import { createMocks } from '../../utils'
+
 import { LocalStorageWrapper } from '@/api'
 
 describe('SettingsLanguage.vue', () => {

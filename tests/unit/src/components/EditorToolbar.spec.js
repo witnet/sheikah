@@ -1,9 +1,9 @@
 import EditorToolBar from '@/components/EditorToolBar.vue'
 import { EDITOR_UNDO, EDITOR_REDO } from '@/store/mutation-types'
 import { NETWORK_STATUS } from '@/constants'
-import { mount, flushPromises } from '@vue/test-utils'
+
 import { describe, expect, test, vi } from 'vitest'
-import { createMocks } from '../../utils'
+
 import {
   ElButton,
   ElDropdown,
