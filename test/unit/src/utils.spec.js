@@ -14,31 +14,31 @@ import {
 import { WIT_UNIT } from '@/constants'
 
 describe('areSoftEqualArrays', () => {
-  test('check if two sorted arrays contains the same testems', () => {
+  test('check if two sorted arrays contains the same items', () => {
     const arr1 = [1, 2, 3, 4, 5]
     const arr2 = [1, 2, 3, 4, 5]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(true)
   })
 
-  test('check if two unsorted arrays contains the same testems', () => {
+  test('check if two unsorted arrays contains the same items', () => {
     const arr1 = [1, 3, 5, 4, 2]
     const arr2 = [5, 2, 3, 4, 1]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(true)
   })
 
-  test('check if two different arrays contains the same testems', () => {
+  test('check if two different arrays contains the same items', () => {
     const arr1 = [1, 2, 3, 4, 5]
     const arr2 = [1, 2, 3, 4, 6]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
   })
 
-  test('check if two different arrays WITh repeated testems contains the same testems', () => {
+  test('check if two different arrays with repeated items contains the same items', () => {
     const arr1 = [1, 3, 5, 4, 5]
     const arr2 = [5, 2, 3, 4, 1]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
   })
 
-  test('check if two different sized arrays contains the same testems', () => {
+  test('check if two different sized arrays contains the same items', () => {
     const arr1 = [1, 3, 5, 4]
     const arr2 = [5, 2, 3, 4, 1]
     expect(areSoftEqualArrays(arr1, arr2)).toBe(false)
@@ -46,7 +46,7 @@ describe('areSoftEqualArrays', () => {
 })
 
 describe('standardizeTransactionResult', () => {
-  test('should end WITh "ago" copy', () => {
+  test('should end with "ago" copy', () => {
     const result =
       'RadonTypes::RadonString("0000000000000000000a55ab43b096575bf281f35d68807c52a0202582c15947")'
     const expected =
@@ -57,31 +57,31 @@ describe('standardizeTransactionResult', () => {
 })
 
 describe('getDomainFromUrl', () => {
-  test('should work url WITh protocol', () => {
+  test('should work url with protocol', () => {
     const url = 'http://WITnet.io'
 
     expect(getDomainFromUrl(url)).toBe('WITnet.io')
   })
 
-  test('should work WIThout protocol', () => {
+  test('should work without protocol', () => {
     const url = 'WITnet.io'
 
     expect(getDomainFromUrl(url)).toBe('WITnet.io')
   })
 
-  test('should work WITh subdomain', () => {
+  test('should work with subdomain', () => {
     const url = 'http://docs.WITnet.io'
 
     expect(getDomainFromUrl(url)).toBe('docs.WITnet.io')
   })
 
-  test('should NOT work WIThout tld', () => {
+  test('should NOT work without tld', () => {
     const url = 'http://WITnet'
 
     expect(getDomainFromUrl(url)).toBe('')
   })
 
-  test('should NOT work WITh invalid tld', () => {
+  test('should NOT work with invalid tld', () => {
     const url = 'http://WITnet.abcdefghij'
 
     expect(getDomainFromUrl(url)).toBe('')
@@ -89,7 +89,7 @@ describe('getDomainFromUrl', () => {
 })
 
 describe('simplifyDrResult', () => {
-  test('WITh object', () => {
+  test('with object', () => {
     const drResult = {
       RadonMap: {
         AUD: {
@@ -127,7 +127,7 @@ describe('simplifyDrResult', () => {
     expect(drResultSimplified).toStrictEqual(simplifyDrResult(drResult))
   })
 
-  test('WITh array', () => {
+  test('with array', () => {
     const drResult = [
       {
         RadonMap: {
@@ -206,7 +206,7 @@ describe('standardizeWitUnits', () => {
   describe('return the value in selected untest', () => {
     describe('WIT', () => {
       describe('to WIT', () => {
-        test('WITh decimal', () => {
+        test('with decimal', () => {
           const expected = '0.00004'
 
           const result = standardizeWitUnits(
@@ -218,7 +218,7 @@ describe('standardizeWitUnits', () => {
           expect(result).toBe(expected)
         })
 
-        test('WIThout decimal', () => {
+        test('without decimal', () => {
           const expected = '1.00'
 
           const result = standardizeWitUnits('1', WIT_UNIT.WIT, WIT_UNIT.WIT)
@@ -228,7 +228,7 @@ describe('standardizeWitUnits', () => {
       })
 
       describe('to microWIT', () => {
-        test('WITh decimal', () => {
+        test('with decimal', () => {
           const expected = '400000.00'
 
           const result = standardizeWitUnits(
@@ -240,7 +240,7 @@ describe('standardizeWitUnits', () => {
           expect(result).toBe(expected)
         })
 
-        test('WIThout decimal', () => {
+        test('without decimal', () => {
           const expected = '400000.00'
 
           const result = standardizeWitUnits(
@@ -254,7 +254,7 @@ describe('standardizeWitUnits', () => {
       })
 
       describe('to nanoWIT', () => {
-        test('WITh decimal', () => {
+        test('with decimal', () => {
           const expected = '100000000'
 
           const result = standardizeWitUnits('0.1', WIT_UNIT.NANO, WIT_UNIT.WIT)
@@ -262,7 +262,7 @@ describe('standardizeWitUnits', () => {
           expect(result).toBe(expected)
         })
 
-        test('WIThout decimal', () => {
+        test('without decimal', () => {
           const expected = '1000000000'
 
           const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.WIT)
@@ -274,7 +274,7 @@ describe('standardizeWitUnits', () => {
 
     describe('microWIT', () => {
       describe('to WIT', () => {
-        test('WITh decimal', () => {
+        test('with decimal', () => {
           const expected = '0.0000011'
 
           const result = standardizeWitUnits(
@@ -286,7 +286,7 @@ describe('standardizeWitUnits', () => {
           expect(result).toBe(expected)
         })
 
-        test('WIThout decimal', () => {
+        test('without decimal', () => {
           const expected = '1.00'
 
           const result = standardizeWitUnits(
@@ -300,7 +300,7 @@ describe('standardizeWitUnits', () => {
       })
 
       describe('to microWIT', () => {
-        test('WITh decimal', () => {
+        test('with decimal', () => {
           const expected = '0.1'
 
           const result = standardizeWitUnits(
@@ -313,7 +313,7 @@ describe('standardizeWitUnits', () => {
           expect(result).toBe(expected)
         })
 
-        test('WIThout decimal', () => {
+        test('without decimal', () => {
           const expected = '1.00'
 
           const result = standardizeWitUnits(
@@ -327,7 +327,7 @@ describe('standardizeWitUnits', () => {
       })
 
       describe('to nanoWIT', () => {
-        test('WITh decimal', () => {
+        test('with decimal', () => {
           const expected = '100'
 
           const result = standardizeWitUnits(
@@ -339,7 +339,7 @@ describe('standardizeWitUnits', () => {
           expect(result).toBe(expected)
         })
 
-        test('WIThout decimal', () => {
+        test('without decimal', () => {
           const expected = '1000'
 
           const result = standardizeWitUnits('1', WIT_UNIT.NANO, WIT_UNIT.MICRO)
@@ -351,7 +351,7 @@ describe('standardizeWitUnits', () => {
 
     describe('nanoWIT', () => {
       describe('to WIT', () => {
-        test('WIThout decimal', () => {
+        test('without decimal', () => {
           const expected = '0.000000001'
 
           const result = standardizeWitUnits('1', WIT_UNIT.WIT, WIT_UNIT.NANO)
@@ -361,7 +361,7 @@ describe('standardizeWitUnits', () => {
       })
 
       describe('to microWIT', () => {
-        test('WITh decimal', () => {
+        test('with decimal', () => {
           const expected = '0.0001'
 
           const result = standardizeWitUnits(
@@ -373,7 +373,7 @@ describe('standardizeWitUnits', () => {
           expect(result).toBe(expected)
         })
 
-        test('WIThout decimal', () => {
+        test('without decimal', () => {
           const expected = '0.001'
 
           const result = standardizeWitUnits('1', WIT_UNIT.MICRO, WIT_UNIT.NANO)
@@ -1135,7 +1135,7 @@ describe('calculateCurrentFocusAfterRedo', () => {
 })
 
 describe('encodeAggregationTally', () => {
-  test('WIThout filter argument', () => {
+  test('without filter argument', () => {
     const expected = {
       filters: [
         {
@@ -1154,7 +1154,7 @@ describe('encodeAggregationTally', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  test('WITh a single filter argument', () => {
+  test('with a single filter argument', () => {
     const expected = {
       filters: [
         {

@@ -114,8 +114,6 @@ export default {
       return JSON.stringify(this.output)
     },
     showOutput() {
-      console.log(this.output)
-      console.log('show output', this.output && !this.error && !this.loading)
       return this.output && !this.error && !this.loading
     },
     showEmptyState() {

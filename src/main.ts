@@ -4,7 +4,6 @@ import store from '@/store'
 import i18n from '@/plugins/i18n'
 import ProcessWalletEvent from './services/ProcessWalletEvent'
 import { checkDisconnection } from './services/checkDisconnection'
-import { LocalStorageWrapper } from '@/api'
 import ElementPlus from 'element-plus'
 import './fontAwesome'
 import '@/styles/element-variables.scss'
@@ -13,7 +12,6 @@ import '@/ipcHandlers'
 
 const api = new WalletApi()
 const eventProcessor = new ProcessWalletEvent()
-const localStorageWrapper = new LocalStorageWrapper()
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createApp } from 'vue'
@@ -21,7 +19,6 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-app.provide('localStorageWrapper', localStorageWrapper)
 app.use(router)
 app.use(store)
 app.use(i18n)
