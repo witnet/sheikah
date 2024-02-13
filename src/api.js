@@ -15,11 +15,17 @@ class ApiClient {
   listeners
   options
   ws
+  ready
 
   constructor(options) {
     this.listeners = {}
     this.options = options || defaultOptions
     this.ws = new RPCWebsockets(this.options.url, { ...this.options })
+    this.ready = false
+
+    this.ws.on('open', () => {
+      this.ready = true
+    })
   }
 
   request(method, params) {
