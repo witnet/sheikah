@@ -127,9 +127,9 @@ const displayModalCreateDR = (templateToSet: any) => {
   dialogVisible.value = true
   currentTemplate.value = templateToSet
 }
-const fileInput = ref('')
+const fileInput = ref<HTMLInputElement | null>(null)
 const readFile = () => {
-  const file = fileInput.value.files[0]
+  const file = fileInput.value?.files?.[0]
   const reader = new FileReader()
   reader.addEventListener(
     'load',
@@ -142,7 +142,7 @@ const readFile = () => {
           store.commmit('saveTemplate', { template })
 
           // clear file input to be able to try to load the same file twitce
-          fileInput.value = ''
+          fileInput.value = null
         }
       } catch (error) {
         console.log('Error parsing json')
@@ -150,11 +150,13 @@ const readFile = () => {
     },
     false,
   )
-  reader.readAsText(file)
+  if (file) {
+    reader.readAsText(file)
+  }
 }
 
 const importTemplate = () => {
-  fileInput.value.click()
+  fileInput.value?.click()
 }
 </script>
 
