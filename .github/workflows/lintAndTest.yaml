@@ -7,11 +7,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v2.1.2
+      - uses: actions/setup-node@v4
         with:
           node-version: '20.11.0'
-      - run: yarn install --network-timeout 1000000
-      - run: yarn lint:check
-      - run: yarn test 
+
+      - uses: pnpm/action-setup@v3
+          with:
+            version: 8
+
+      - run: pnpm install
+      - run: pnpm lint:check
+      - run: pnpm test

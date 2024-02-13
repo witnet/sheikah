@@ -16,16 +16,20 @@ jobs:
           macos-latest, 
           ubuntu-latest, 
           windows-latest
-          ]
+        ]
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
+      
+      - uses: pnpm/action-setup@v3
+          with:
+            version: 8
       
       - name: Build & release Electron app
         shell: bash
@@ -39,12 +43,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SIGN: true
         run: |
-          yarn install --network-timeout 1000000
-          yarn electron:build --publish="always"
+          pnpm install
+          pnpm build
       - name: Upload artifact
         uses: actions/upload-artifact@v1.0.0
         with:
           # Artifact name
           name: ${{ matrix.os }}-artifact
           # Directory containing files to upload
-          path: dist_electron
+          path: release/**/*

@@ -9,6 +9,7 @@ witnet
 /tests/e2e/screenshots/
 sheikah-darwin-x64
 /src/components.d.ts
+/release
 
 # local env files
 .env
