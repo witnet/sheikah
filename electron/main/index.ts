@@ -2,14 +2,19 @@
 //
 // ├─┬ dist-electron
 // │ ├─┬ main
-// │ │ └── index.js    > Electron-Main
+// │ │ └── index.ts    > Electron-Main
 // │ └─┬ preload
-// │   └── index.js    > Preload-Scripts
+// │   └── index.ts    > Preload-Scripts
 // ├─┬ dist
 // │ └── index.html    > Electron-Renderer
 //
 import { fileURLToPath } from 'node:url'
-import { dirname } from 'node:path'
+import { join, dirname } from 'node:path'
+import { release } from 'os'
+import { app, BrowserWindow, shell, ipcMain, Menu } from 'electron'
+import kill from 'tree-kill'
+import { Status, STATUS_PATH } from '../constants'
+import { WalletManager } from '../walletManager'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -18,13 +23,6 @@ process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
 process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
   : join(process.env.DIST_ELECTRON, '../public')
-
-import { app, BrowserWindow, shell, ipcMain, Menu } from 'electron'
-import { release } from 'os'
-import { join } from 'path'
-import { Status, STATUS_PATH } from '../constants'
-import { WalletManager } from '../walletManager'
-import kill from 'tree-kill'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
