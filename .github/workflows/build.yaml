@@ -6,40 +6,34 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
 
-    strategy: 
+    strategy:
       matrix:
         os: [
-          macos-latest, 
-          ubuntu-latest, 
+          macos-latest,
+          ubuntu-latest,
           windows-latest
         ]
 
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v2
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
 
-      - uses: actions/setup-python@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
         with:
+          version: 8
           python-version: '3.11'
 
-      - name: Build Electron app
+      - name: Build
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SIGN: false
         run: |
-          yarn install --network-timeout 1000000
-          yarn electron:build --publish="never"
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          # Artifact name
-          name: ${{ matrix.os }}-artifact
-          # Directory containing files to upload
-          path: dist_electron
+          pnpm install
+          pnpm build --publish="never"
