@@ -1,13 +1,12 @@
 import { Router } from 'vue-router'
 import { api } from '../main'
-import { Store } from 'vuex'
 
-export async function checkDisconnection(router: Router, store: Store<any>) {
+export async function checkDisconnection(router: Router, store: any) {
   const foo = async () => {
     const currentRoute = router.currentRoute.value
     const isWalletNotFound = currentRoute.name === 'runWalletAlert'
     if (isWalletNotFound) {
-      if (api.client.ws.ready) {
+      if (api.client.ready) {
         const isSessionId = store.state.wallet.sessionId
         const walletInfos = store.state.wallet.walletInfos
         if (isSessionId) {
@@ -22,7 +21,7 @@ export async function checkDisconnection(router: Router, store: Store<any>) {
         // wallet not found if the wallet is not closed
         api.client.ws.on('close', () => {
           setTimeout(() => {
-            if (!api.client.ws.ready) {
+            if (!api.client.ready) {
               if (!isWalletNotFound) {
                 router.push('/wallet-not-found')
               }
@@ -50,7 +49,7 @@ export async function checkDisconnection(router: Router, store: Store<any>) {
     }
 
     if (!isWalletNotFound) {
-      if (api.client.ws.ready) {
+      if (api.client.ready) {
         const isSessionId = store.state.wallet.sessionId
         const walletInfos = store.state.wallet.walletInfos
         if (isSessionId) {
@@ -65,7 +64,7 @@ export async function checkDisconnection(router: Router, store: Store<any>) {
         // wallet not found if the wallet is not closed
         api.client.ws.on('close', () => {
           setTimeout(() => {
-            if (!api.client.ws.ready) {
+            if (!api.client.ready) {
               if (!isWalletNotFound) {
                 router.push('/wallet-not-found')
               }
