@@ -16,8 +16,8 @@ import kill from 'tree-kill'
 import { Status, STATUS_PATH } from '../constants'
 import { WalletManager } from '../walletManager'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+globalThis.__filename = fileURLToPath(import.meta.url)
+globalThis.__dirname = dirname(__filename)
 process.env.DIST_ELECTRON = join(__dirname, '..')
 process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
 process.env.PUBLIC = app.isPackaged
