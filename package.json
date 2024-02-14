@@ -41,7 +41,7 @@
     "url": "https://github.com/witnet/sheikah/issues"
   },
   "license": "GPL-3.0",
-  "productName": "Sheikah Witnet wallet",
+  "productName": "Sheikah-Witnet-wallet",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/witnet/sheikah.git"
