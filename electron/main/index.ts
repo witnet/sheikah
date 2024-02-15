@@ -70,7 +70,7 @@ async function createWindow() {
 
   if (!process.env.VITE_DEV_SERVER_URL) {
     // Hide electron toolbar in production environment
-    this.win.setMenuBarVisibility(false)
+    win.setMenuBarVisibility(false)
     const menu = Menu.buildFromTemplate([
       {
         label: 'Menu',
@@ -79,7 +79,7 @@ async function createWindow() {
             label: 'Quit',
             accelerator: 'CmdOrCtrl+Q',
             click: () => {
-              this.sendShutdownMessage()
+              sendShutdownMessage()
             },
           },
           { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
@@ -244,10 +244,14 @@ function closeWindow() {
   win.close()
 }
 
-win?.on('close', closeApp.bind(this))
+win?.on('close', closeApp)
+
 function closeApp(event: Event) {
-  event.preventDefault()
-  this.sendShutdownMessage()
+  // FIXME: no event is received
+  if (event) {
+    event.preventDefault()
+  }
+  sendShutdownMessage()
 }
 
 function setStatus(s: Status) {
