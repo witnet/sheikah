@@ -247,6 +247,7 @@ function closeWindow() {
 win?.on('close', closeApp)
 
 function closeApp(event: Event) {
+  console.log(`IS EVENT RECEIVED ? ${event}`)
   // FIXME: no event is received
   if (event) {
     event.preventDefault()
@@ -266,6 +267,7 @@ function loadUrl(status: Status) {
       // Load the url of the dev server if in development mode
       win.loadURL(`${url}#/${STATUS_PATH[status]}`)
     } else {
+      win.loadURL(`app://${indexHtml}/#/${STATUS_PATH[status]}`)
       // TODO: handle load url pro
       // Load the index.html when not in development
       // this.win.loadURL(`app://./index.html/#/${STATUS_PATH[status]}`)
