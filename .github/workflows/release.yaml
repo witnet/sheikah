@@ -1,37 +1,38 @@
-name: Release a draft release 
+name: Release Draft
 
-on: 
-  push: 
+on:
+  push:
     tags:
       - '*'
 
 jobs:
-  release:
+  Build:
     runs-on: ${{ matrix.os }}
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
 
-    strategy: 
+    strategy:
       matrix:
         os: [
-          macos-latest, 
-          ubuntu-latest, 
+          macos-latest,
+          ubuntu-latest,
           windows-latest
         ]
 
     steps:
-      - name: Check out Git repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js, NPM and Yarn
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
-      
-      - uses: pnpm/action-setup@v3
-          with:
-            version: 8
-      
-      - name: Build & release Electron app
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Build
         shell: bash
         env:
           # macOS Code signing certificates
@@ -44,11 +45,28 @@ jobs:
           SIGN: true
         run: |
           pnpm install
-          pnpm build
+          pnpm build --publish="never"
+
       - name: Upload artifact
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v4
         with:
-          # Artifact name
           name: ${{ matrix.os }}-artifact
-          # Directory containing files to upload
-          path: release/**/*
+          path: |
+            release/**/*
+            !release/**/*.blockmap
+
+  Draft:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*artifact"
+          path: release
+
+      - name: Create Draft
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "release/**/*.exe,release/**/*.AppImage,release/**/*.dmg,release/**/*.snap"
+          draft: true
