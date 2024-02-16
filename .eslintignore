@@ -7,3 +7,4 @@
 /src/components.d.ts
 .witnet-rust-testnet-*-wallet
 genesis_block.json
+auto-imports.d.ts
