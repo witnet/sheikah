@@ -1,6 +1,6 @@
 {
   "name": "sheikah-witnet-wallet",
-  "version": "1.9.6",
+  "version": "1.11.5",
   "type": "module",
   "private": true,
   "description": "A Witnet compatible desktop wallet interface and data requests development environment.",
@@ -44,7 +44,7 @@
   "productName": "Sheikah-Witnet-wallet",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gabaldon/sheikah.git"
+    "url": "git+https://github.com/witnet/sheikah.git"
   },
   "volta": {
     "node": "20.9.0"

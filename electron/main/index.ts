@@ -247,7 +247,6 @@ function closeWindow() {
 win?.on('close', closeApp)
 
 function closeApp(event: Event) {
-  console.log(`IS EVENT RECEIVED ? ${event}`)
   // FIXME: no event is received
   if (event) {
     event.preventDefault()
