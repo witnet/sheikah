@@ -13,7 +13,12 @@
         @mouseleave="mouseLeaveAction"
         @click="close"
       >
-        <CustomIcon class-name="cross" :name="btnUrl" />
+        <CustomIcon
+          v-if="!showLightIcon"
+          class-name="cross"
+          :name="'close-btn'"
+        />
+        <CustomIcon v-else :name="'close-btn-light'" />
       </div>
       <Version />
     </div>
@@ -50,7 +55,7 @@ export default {
   data() {
     return {
       previousRoute: '',
-      btnUrl: 'close-btn',
+      showLightIcon: false,
     }
   },
   computed: {
@@ -116,10 +121,10 @@ export default {
       this.$router.push(this.previousRoute)
     },
     hoverAction() {
-      this.btnUrl = 'close-btn-light'
+      this.showLightIcon = true
     },
     mouseLeaveAction() {
-      this.btnUrl = 'close-btn'
+      this.showLightIcon = false
     },
   },
 }
@@ -150,13 +155,17 @@ export default {
 }
 
 .close {
-  border: 2px solid $grey-2;
+  border: 1px solid $grey-2;
   border-radius: 50%;
   cursor: pointer;
   height: 36px;
+  width: 36px;
   padding: 8px;
   position: absolute;
   right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 32px;
 
   &:hover {
