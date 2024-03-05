@@ -29,14 +29,22 @@ import RenameConfirmation from '@/components/RenameConfirmation.vue'
 import DeleteWalletConfirmation from '@/components/DeleteWalletConfirmation.vue'
 import { ref, watch, onMounted, onBeforeUnmount, type Ref, toRefs } from 'vue'
 import { LANGUAGES } from '@/constants'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { type LocaleCodes } from '@/types'
 import { useIdle } from '@vueuse/core'
 
 const loading = ref(true)
 const transitionName: Ref<string> = ref('no-transition')
 const route = useRoute()
+const router = useRouter()
 let polling: null | ReturnType<typeof setInterval>
+import {
+  onDownloadedStatus,
+  onRunningStatus,
+  onLoadedStatus,
+  onDownloadProgress,
+  onOSNotSupported,
+} from '@/ipc/ipcEvents'
 
 const store = useStore()
 const { idle } = useIdle(5 * 60 * 1000) // 5 min
@@ -65,6 +73,25 @@ onMounted(() => {
   window.onpopstate = function (event) {
     event.stopImmediatePropagation()
   }
+  //TODO: move to a service
+  onDownloadProgress((progress: any) => {
+    store.commit('setProgress', { progress: progress.percentage })
+  })
+  onDownloadedStatus(() => {
+    store.commit('setMessage', { message: 'wallet up to date' })
+  })
+  onLoadedStatus((message: any) => {
+    if (Array.isArray(message) && message[0].isDefaultWallet) {
+      store.commit('setWalletOwner', { isDefaultWallet: true })
+    }
+    store.commit('setMessage', { message: 'loaded' })
+  })
+  onRunningStatus(() => {
+    store.commit('setMessage', { message: 'Running wallet' })
+  })
+  onOSNotSupported(() => {
+    router.push('/wallet-not-found')
+  })
 })
 onBeforeUnmount(() => {
   if (polling) {
