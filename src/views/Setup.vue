@@ -12,7 +12,7 @@
             icon="wallet"
           />
           <font-awesome-icon
-            v-if="setupMessage === 'Running wallet'"
+            v-if="setupMessage === 'Running wallet' || !setupMessage"
             class="icon"
             icon="cogs"
           />

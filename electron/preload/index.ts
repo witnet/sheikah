@@ -9,6 +9,7 @@ const {
   SET_DOWNLOAD_PROGRESS,
   SET_LOADED_STATUS,
   SET_OS_NOT_SUPPORTED,
+  SHUTDOWN_FINISHED,
 } = IPC_ACTIONS.Window
 
 // --------- Expose some API to the Renderer process ---------
@@ -153,5 +154,8 @@ contextBridge.exposeInMainWorld('ipcAPI', {
   },
   onOSNotSupported: (fn: any) => {
     ipcRenderer.on(SET_OS_NOT_SUPPORTED, (event, ...args) => fn(...args))
+  },
+  sendShutdownFinished: () => {
+    ipcRenderer.send(SHUTDOWN_FINISHED)
   },
 })
