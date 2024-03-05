@@ -68,5 +68,5 @@ jobs:
       - name: Create Draft
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "release/**/*.exe,release/**/*.AppImage,release/**/*.dmg,release/**/*.snap"
+          artifacts: "release/**/*.exe,release/**/*.AppImage,release/**/*.dmg,release/**/*.snap,release/**/*.zip,release/**/*.yml"
           draft: true

@@ -17,5 +17,6 @@ interface Window {
     onLoadedStatus: (fn: any) => void
     onDownloadProgress: (fn: any) => void
     onOSNotSupported: (fn: any) => void
+    sendShutdownFinished: () => void
   }
 }

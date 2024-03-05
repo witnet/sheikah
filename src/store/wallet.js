@@ -619,7 +619,7 @@ export default {
       if (context.state.isDefaultWallet) {
         // don't handle the response in client because the wallet is being closed.
         // This is handled in background.js when 'exit' event is emitted
-        api.shutdown({
+        await api.shutdown({
           session_id: context.state.sessionId,
         })
       }

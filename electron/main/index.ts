@@ -12,11 +12,11 @@ import { fileURLToPath } from 'node:url'
 import { join, dirname } from 'node:path'
 import { release } from 'os'
 import { app, BrowserWindow, shell, ipcMain, Menu } from 'electron'
-import kill from 'tree-kill'
 import { WalletManager } from '../walletManager'
 import { IPC_ACTIONS } from '../ipc/ipcActions'
+import { AutoUpdaterManager } from '../autoUpdaterManager'
 
-const { SHUTDOWN } = IPC_ACTIONS.Window
+const { SHUTDOWN, SET_MESSAGE, SHUTDOWN_FINISHED } = IPC_ACTIONS.Window
 
 globalThis.__filename = fileURLToPath(import.meta.url)
 globalThis.__dirname = dirname(__filename)
@@ -44,6 +44,7 @@ if (!app.requestSingleInstanceLock()) {
 
 let win: BrowserWindow | null = null
 let walletPid
+let walletManager: WalletManager
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.mjs')
 const url = process.env.VITE_DEV_SERVER_URL
@@ -63,32 +64,35 @@ async function createWindow() {
     autoHideMenuBar: true,
   })
 
-  new WalletManager(win?.webContents).run(actions)
+  walletManager = new WalletManager(win?.webContents)
+  walletManager.run(actions)
+  win?.webContents.send(SET_MESSAGE)
 
   if (!process.env.VITE_DEV_SERVER_URL) {
     // Hide electron toolbar in production environment
     // win.setMenuBarVisibility(false)
-    // const menu = Menu.buildFromTemplate([
-    //   {
-    //     label: 'Menu',
-    //     submenu: [
-    //       {
-    //         label: 'Quit',
-    //         accelerator: 'CmdOrCtrl+Q',
-    //         click: () => {
-    //           win.webContents.send(SHUTDOWN)
-    //         },
-    //       },
-    //       { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
-    //       { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
-    //       { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
-    //       { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
-    //       { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
-    //       { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
-    //     ],
-    //   },
-    // ])
-    // Menu.setApplicationMenu(menu)
+    win.webContents.openDevTools()
+    const menu = Menu.buildFromTemplate([
+      {
+        label: 'Menu',
+        submenu: [
+          {
+            label: 'Quit',
+            accelerator: 'CmdOrCtrl+Q',
+            click: () => {
+              win.webContents.send(SHUTDOWN)
+            },
+          },
+          { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
+          { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
+          { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+          { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
+          { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
+          { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+        ],
+      },
+    ])
+    Menu.setApplicationMenu(menu)
   }
 
   if (app.isPackaged) {
@@ -98,6 +102,10 @@ async function createWindow() {
     // Open devTool if the app is not packaged
     win.webContents.openDevTools()
   }
+
+  win.once('ready-to-show', () => {
+    new AutoUpdaterManager(walletManager, win).run(actions)
+  })
 
   // Test actively push message to the Electron-Renderer
   win.webContents.on('did-finish-load', () => {
@@ -121,12 +129,18 @@ function setWalletPid(pid: number) {
 
 export type Actions = {
   closeWindow: () => unknown
+  relaunch: () => unknown
   setWalletPid: (pid: number) => unknown
+  quitApp: () => unknown
+  killWalletProcess: () => unknown
 }
 
 const actions: Actions = {
+  relaunch: relaunch,
   closeWindow: closeWindow,
   setWalletPid: setWalletPid,
+  quitApp: quitApp,
+  killWalletProcess: killWalletProcess,
 }
 
 app.whenReady().then(() => {
@@ -152,6 +166,11 @@ app.on('second-instance', () => {
   }
 })
 
+ipcMain.on(SHUTDOWN_FINISHED, () => {
+  actions.killWalletProcess()
+  actions.quitApp()
+})
+
 app.on('activate', () => {
   const allWindows = BrowserWindow.getAllWindows()
   if (allWindows.length) {
@@ -172,11 +191,8 @@ ipcMain.handle('open-win', (event, arg) => {
   })
 
   ipcMain.on('shutdown-finished', () => {
-    win?.hide()
-    if (walletPid) {
-      kill(walletPid)
-    }
-    app.exit()
+    actions.killWalletProcess()
+    actions.quitApp()
   })
 
   if (app.isPackaged) {
@@ -190,6 +206,20 @@ ipcMain.handle('open-win', (event, arg) => {
 
 function closeWindow() {
   win.close()
+}
+
+function killWalletProcess() {
+  if (walletManager.walletProcess) {
+    walletManager.walletProcess.kill(9)
+  }
+}
+
+function quitApp() {
+  app.quit()
+}
+
+function relaunch() {
+  app.relaunch()
 }
 
 win?.on('close', closeApp)
