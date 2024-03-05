@@ -5,7 +5,7 @@ export default {
     receiveTransactionClicked: false,
     generateAddressLoading: false,
     generateRadRequestResultLoading: false,
-    setupMessage: 'Updating wallet backend',
+    setupMessage: null,
     setupProgress: 0,
     sessionExpired: false,
     isResyncConfirmationVisible: false,

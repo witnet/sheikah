@@ -21,6 +21,16 @@ import {
   OS_ARCH,
   RELEASE_BASE_URL,
 } from './constants'
+import { IPC_ACTIONS } from './ipc/ipcActions'
+
+const {
+  SET_RUNNING_STATUS,
+  SET_DOWNLOADED_STATUS,
+  SET_DOWNLOADING_STATUS,
+  SET_LOADED_STATUS,
+  SET_DOWNLOAD_PROGRESS,
+  SET_OS_NOT_SUPPORTED,
+} = IPC_ACTIONS.Window
 
 import { Actions } from './main/index'
 
@@ -76,6 +86,7 @@ interface GithubTagInfo {
 }
 
 export class WalletManager {
+  public webContents: Electron.WebContents | null
   public isUpdating: boolean = false
   public walletProcess: cp.ChildProcessWithoutNullStreams | null = null
   private existDirectory: boolean
@@ -88,7 +99,8 @@ export class WalletManager {
     linux: this.decompressLinuxWallet,
   }[PLATFORM]
 
-  constructor() {
+  constructor(webContents: Electron.WebContents | null) {
+    this.webContents = webContents
     this.existDirectory = fs.existsSync(SHEIKAH_PATH)
   }
 
@@ -147,7 +159,7 @@ export class WalletManager {
       if (this.needToDownloadWallet) {
         await this.downloadWallet(actions, downloadUrl)
       } else {
-        actions.sendDownloadedMessage()
+        this.webContents.send(SET_DOWNLOADED_STATUS)
         await sleep(3000)
       }
 
@@ -155,7 +167,7 @@ export class WalletManager {
         this.runWallet(actions)
       }
     } else {
-      actions.setStatus(Status.OsNotSupported)
+      this.webContents.send(SET_OS_NOT_SUPPORTED)
       console.info('Your OS is not supported yet')
     }
   }
@@ -170,9 +182,8 @@ export class WalletManager {
     console.info(
       `Fetching release from: ${RELEASE_BASE_URL}${this.witnetRustVersion}`,
     )
-    actions.sendDownloadingMessage()
+    this.webContents.send(SET_DOWNLOADING_STATUS)
     await sleep(2500)
-    actions.setStatus(Status.Wait)
     // FIXME: Remove promise and use async / await
     return new Promise<void>(resolve => {
       axios
@@ -254,7 +265,7 @@ export class WalletManager {
       time: 100 /* ms */,
     })
     str.on('progress', (progress: number) => {
-      actions.sendProgressMessage(progress)
+      this.webContents.send(SET_DOWNLOAD_PROGRESS, progress)
     })
     const pipeline = util.promisify(stream.pipeline)
     // Promise equivalent for response.data.pipe(writeStream)
@@ -283,7 +294,7 @@ export class WalletManager {
       // Is first time running Sheikah
       overwriteWitnetNodeConfiguration(true)
     }
-    // this.app.sendRunningMessage()
+    this.webContents.send(SET_RUNNING_STATUS)
     await sleep(3000)
 
     const walletConfigurationPath = path.join(SHEIKAH_PATH, 'witnet.toml')
@@ -302,9 +313,8 @@ export class WalletManager {
     )
     this.walletProcess?.stdout.on('data', async data => {
       console.info('stdout: ' + data.toString())
-      // this.app.sendLoadedMessage()
+      this.webContents.send(SET_LOADED_STATUS, [{ isDefaultWallet: true }])
       await sleep(3000)
-      actions.setStatus(Status.Ready)
     })
 
     this.walletProcess?.stderr.on('data', function (data) {

@@ -76,18 +76,23 @@ export async function checkDisconnection(router: Router, store: any) {
           const polling = setInterval(async () => {
             clearInterval(polling)
             await store.dispatch('getWalletInfos')
+            const walletLoaded =
+              store.state.uiInteractions.setupMessage == null ||
+              store.state.uiInteractions.setupMessage === 'loaded'
             const walletInfos = store.state.wallet.walletInfos
             const isSessionId = store.state.wallet.sessionId
-            if (isSessionId) {
-              router.back()
-            } else if (walletInfos && walletInfos.length > 0) {
-              router.push('/welcome-back/wallet-list')
-            } else {
-              router.push('/ftu/welcome')
+            if (walletLoaded) {
+              if (isSessionId) {
+                router.back()
+              } else if (walletInfos && walletInfos.length > 0) {
+                router.push('/welcome-back/wallet-list')
+              } else {
+                router.push('/ftu/welcome')
+              }
             }
           }, 2000)
         })
-        router.push('/wallet-not-found')
+        router.push('/setup')
       }
     }
   }

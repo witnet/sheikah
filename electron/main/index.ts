@@ -13,8 +13,10 @@ import { join, dirname } from 'node:path'
 import { release } from 'os'
 import { app, BrowserWindow, shell, ipcMain, Menu } from 'electron'
 import kill from 'tree-kill'
-import { Status, STATUS_PATH } from '../constants'
 import { WalletManager } from '../walletManager'
+import { IPC_ACTIONS } from '../ipc/ipcActions'
+
+const { SHUTDOWN } = IPC_ACTIONS.Window
 
 globalThis.__filename = fileURLToPath(import.meta.url)
 globalThis.__dirname = dirname(__filename)
@@ -41,7 +43,6 @@ if (!app.requestSingleInstanceLock()) {
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let win: BrowserWindow | null = null
-let status: Status
 let walletPid
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.mjs')
@@ -58,46 +59,42 @@ async function createWindow() {
     minHeight: 720,
     webPreferences: {
       preload,
-      // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
-      // Consider using contextBridge.exposeInMainWorld
-      // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
-      // todo: fix
-      // nodeIntegration: true,
-      // contextIsolation: false,
     },
     autoHideMenuBar: true,
   })
 
+  new WalletManager(win?.webContents).run(actions)
+
   if (!process.env.VITE_DEV_SERVER_URL) {
     // Hide electron toolbar in production environment
-    win.setMenuBarVisibility(false)
-    const menu = Menu.buildFromTemplate([
-      {
-        label: 'Menu',
-        submenu: [
-          {
-            label: 'Quit',
-            accelerator: 'CmdOrCtrl+Q',
-            click: () => {
-              sendShutdownMessage()
-            },
-          },
-          { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
-          { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
-          { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
-          { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
-          { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
-          { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
-        ],
-      },
-    ])
-    Menu.setApplicationMenu(menu)
+    // win.setMenuBarVisibility(false)
+    // const menu = Menu.buildFromTemplate([
+    //   {
+    //     label: 'Menu',
+    //     submenu: [
+    //       {
+    //         label: 'Quit',
+    //         accelerator: 'CmdOrCtrl+Q',
+    //         click: () => {
+    //           win.webContents.send(SHUTDOWN)
+    //         },
+    //       },
+    //       { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: () => {} },
+    //       { label: 'ZoomOut', accelerator: 'CmdOrCtrl+-', click: () => {} },
+    //       { label: 'ZoomIn', accelerator: 'CmdOrCtrl+Plus', click: () => {} },
+    //       { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
+    //       { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
+    //       { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+    //     ],
+    //   },
+    // ])
+    // Menu.setApplicationMenu(menu)
   }
 
   if (app.isPackaged) {
     win.loadFile(indexHtml)
   } else {
-    loadUrl(Status.Wait)
+    loadUrl()
     // Open devTool if the app is not packaged
     win.webContents.openDevTools()
   }
@@ -118,45 +115,19 @@ async function createWindow() {
   })
 }
 
-// TODO: Do we need this?
-// // check if the second instance in locked
-// const lock = app.requestSingleInstanceLock()
-// if (!lock) {
-//   app.quit()
-// } else {
-//   app.whenReady().then(() => {})
-// }
-
 function setWalletPid(pid: number) {
   walletPid = pid
 }
 
 export type Actions = {
-  sendShutdownMessage: () => unknown
-  sendDownloadedMessage: () => unknown
-  sendDownloadingMessage: () => unknown
-  sendProgressMessage: (p: number) => void
-  sendRunningMessage: () => unknown
-  sendLoadedMessage: () => unknown
   closeWindow: () => unknown
-  setStatus: (status: Status) => unknown
   setWalletPid: (pid: number) => unknown
 }
 
 const actions: Actions = {
-  sendShutdownMessage: sendShutdownMessage,
-  sendDownloadedMessage: sendDownloadedMessage,
-  sendDownloadingMessage: sendDownloadingMessage,
-  sendProgressMessage: sendProgressMessage,
-  sendRunningMessage: sendRunningMessage,
-  sendLoadedMessage: sendLoadedMessage,
   closeWindow: closeWindow,
-  setStatus: setStatus,
   setWalletPid: setWalletPid,
 }
-
-const walletManager = new WalletManager()
-walletManager.run(actions)
 
 app.whenReady().then(() => {
   createWindow()
@@ -169,7 +140,8 @@ app.on('window-all-closed', () => {
 
 app.on('window-all-closed', (event: Event) => {
   event.preventDefault()
-  sendShutdownMessage()
+  win?.webContents.send(SHUTDOWN)
+  // window.electron.sendShutdownMessage()
 })
 
 app.on('second-instance', () => {
@@ -216,30 +188,6 @@ ipcMain.handle('open-win', (event, arg) => {
   }
 })
 
-function sendShutdownMessage() {
-  win?.webContents.send('shutdown')
-}
-
-function sendDownloadedMessage() {
-  win?.webContents.send('downloaded')
-}
-
-function sendDownloadingMessage() {
-  win?.webContents.send('downloading')
-}
-
-function sendProgressMessage(progress: number) {
-  win?.webContents.send('progress', progress)
-}
-
-function sendRunningMessage() {
-  win?.webContents.send('running')
-}
-
-function sendLoadedMessage() {
-  win?.webContents.send('loaded', [{ isDefaultWallet: true }])
-}
-
 function closeWindow() {
   win.close()
 }
@@ -251,25 +199,19 @@ function closeApp(event: Event) {
   if (event) {
     event.preventDefault()
   }
-  sendShutdownMessage()
-}
-
-function setStatus(s: Status) {
-  status = s
-  loadUrl(status)
+  win?.webContents.send(SHUTDOWN)
+  // window.electron.sendShutdownMessage()
 }
 
 // load a url if browser window is ready according to the current status
-function loadUrl(status: Status) {
+function loadUrl() {
   if (win) {
     if (url) {
       // Load the url of the dev server if in development mode
-      win.loadURL(`${url}#/${STATUS_PATH[status]}`)
+      win.loadURL(url)
     } else {
-      win.loadURL(`app://${indexHtml}/#/${STATUS_PATH[status]}`)
-      // TODO: handle load url pro
       // Load the index.html when not in development
-      // this.win.loadURL(`app://./index.html/#/${STATUS_PATH[status]}`)
+      win.loadURL(`app://${indexHtml}`)
     }
   }
 }

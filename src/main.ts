@@ -8,8 +8,6 @@ import ElementPlus from 'element-plus'
 import './fontAwesome'
 import '@/styles/element-variables.scss'
 import '@/styles/index.scss'
-import '@/ipcHandlers'
-
 const api = new WalletApi()
 const eventProcessor = new ProcessWalletEvent()
 
