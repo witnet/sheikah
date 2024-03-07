@@ -28,13 +28,13 @@
           <p class="progress-subtitle">
             {{ format(percentage) }}
             <DotsLoading
-              v-if="!synced && theme === THEMES.DARK"
+              v-if="theme === THEMES.DARK"
               color="#d6d6d6"
               data-test="loading-spinner"
               class="spinner"
             />
             <DotsLoading
-              v-if="!synced && theme === THEMES.LIGHT"
+              v-if="theme === THEMES.LIGHT"
               color="#444258"
               data-test="loading-spinner"
               class="spinner"

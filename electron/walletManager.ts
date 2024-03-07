@@ -164,7 +164,7 @@ export class WalletManager {
       }
 
       if (!this.isUpdating) {
-        this.runWallet(actions)
+        this.runWallet()
       }
     } else {
       this.webContents.send(SET_OS_NOT_SUPPORTED)
@@ -287,7 +287,7 @@ export class WalletManager {
   }
 
   // Run Witnet wallet and load "ready" url
-  public async runWallet(actions: Actions) {
+  public async runWallet() {
     await sleep(3000)
     console.info('Running wallet...')
     if (!this.existDirectory) {
@@ -320,10 +320,6 @@ export class WalletManager {
     this.walletProcess?.stderr.on('data', function (data) {
       console.info('stderr: ' + data.toString())
     })
-
-    if (this.walletProcess.pid) {
-      actions.setWalletPid(this.walletProcess.pid)
-    }
   }
 }
 
