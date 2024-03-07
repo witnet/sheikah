@@ -16,7 +16,7 @@ import { WalletManager } from '../walletManager'
 import { IPC_ACTIONS } from '../ipc/ipcActions'
 import { AutoUpdaterManager } from '../autoUpdaterManager'
 
-const { SHUTDOWN, SET_MESSAGE, SHUTDOWN_FINISHED } = IPC_ACTIONS.Window
+const { SHUTDOWN, SHUTDOWN_FINISHED } = IPC_ACTIONS.Window
 
 globalThis.__filename = fileURLToPath(import.meta.url)
 globalThis.__dirname = dirname(__filename)
@@ -43,7 +43,6 @@ if (!app.requestSingleInstanceLock()) {
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let win: BrowserWindow | null = null
-let walletPid
 let walletManager: WalletManager
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.mjs')
@@ -66,12 +65,10 @@ async function createWindow() {
 
   walletManager = new WalletManager(win?.webContents)
   walletManager.run(actions)
-  win?.webContents.send(SET_MESSAGE)
 
   if (!process.env.VITE_DEV_SERVER_URL) {
     // Hide electron toolbar in production environment
-    // win.setMenuBarVisibility(false)
-    win.webContents.openDevTools()
+    win.setMenuBarVisibility(false)
     const menu = Menu.buildFromTemplate([
       {
         label: 'Menu',
@@ -123,14 +120,9 @@ async function createWindow() {
   })
 }
 
-function setWalletPid(pid: number) {
-  walletPid = pid
-}
-
 export type Actions = {
   closeWindow: () => unknown
   relaunch: () => unknown
-  setWalletPid: (pid: number) => unknown
   quitApp: () => unknown
   killWalletProcess: () => unknown
 }
@@ -138,7 +130,6 @@ export type Actions = {
 const actions: Actions = {
   relaunch: relaunch,
   closeWindow: closeWindow,
-  setWalletPid: setWalletPid,
   quitApp: quitApp,
   killWalletProcess: killWalletProcess,
 }
@@ -155,7 +146,6 @@ app.on('window-all-closed', () => {
 app.on('window-all-closed', (event: Event) => {
   event.preventDefault()
   win?.webContents.send(SHUTDOWN)
-  // window.electron.sendShutdownMessage()
 })
 
 app.on('second-instance', () => {

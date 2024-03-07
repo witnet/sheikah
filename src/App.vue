@@ -32,22 +32,13 @@ import { LANGUAGES } from '@/constants'
 import { useRoute, useRouter } from 'vue-router'
 import { type LocaleCodes } from '@/types'
 import { useIdle } from '@vueuse/core'
+import { listenIpcMainEvents } from '@/services/handleIpcEvents'
 
 const loading = ref(true)
 const transitionName: Ref<string> = ref('no-transition')
 const route = useRoute()
 const router = useRouter()
 let polling: null | ReturnType<typeof setInterval>
-import {
-  onDownloadedStatus,
-  onRunningStatus,
-  onLoadedStatus,
-  onDownloadProgress,
-  onOSNotSupported,
-  onMessage,
-  onShutdown,
-} from '@/ipc/ipcEvents'
-import { sendShutdownFinished } from '@/ipc/ipcMessages'
 
 const store = useStore()
 const { idle } = useIdle(5 * 60 * 1000) // 5 min
@@ -76,32 +67,7 @@ onMounted(() => {
   window.onpopstate = function (event) {
     event.stopImmediatePropagation()
   }
-  //TODO: move to a service
-  onShutdown(async () => {
-    await store.dispatch('shutdown')
-    sendShutdownFinished()
-  })
-  onMessage((message: string) => {
-    console.log('Message from Auto Updater', message)
-  })
-  onDownloadProgress((progress: any) => {
-    store.commit('setProgress', { progress: progress.percentage })
-  })
-  onDownloadedStatus(() => {
-    store.commit('setMessage', { message: 'wallet up to date' })
-  })
-  onLoadedStatus((message: any) => {
-    if (Array.isArray(message) && message[0].isDefaultWallet) {
-      store.commit('setWalletOwner', { isDefaultWallet: true })
-    }
-    store.commit('setMessage', { message: 'loaded' })
-  })
-  onRunningStatus(() => {
-    store.commit('setMessage', { message: 'Running wallet' })
-  })
-  onOSNotSupported(() => {
-    router.push('/wallet-not-found')
-  })
+  listenIpcMainEvents({ store, router })
 })
 onBeforeUnmount(() => {
   if (polling) {
