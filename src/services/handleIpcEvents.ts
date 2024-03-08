@@ -25,6 +25,7 @@ export function listenIpcMainEvents({
     console.log('Message from Main process:', message)
   })
   onDownloadProgress((progress: any) => {
+    store.commit('setMessage', { message: 'Updating wallet backend' })
     store.commit('setProgress', { progress: progress.percentage })
   })
   onDownloadedStatus(() => {

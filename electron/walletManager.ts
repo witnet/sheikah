@@ -164,7 +164,7 @@ export class WalletManager {
       }
 
       if (!this.isUpdating) {
-        this.runWallet()
+        this.runWallet(actions)
       }
     } else {
       this.webContents.send(SET_OS_NOT_SUPPORTED)
@@ -183,22 +183,18 @@ export class WalletManager {
       `Fetching release from: ${RELEASE_BASE_URL}${this.witnetRustVersion}`,
     )
     this.webContents.send(SET_DOWNLOADING_STATUS)
-    await sleep(2500)
-    // FIXME: Remove promise and use async / await
-    return new Promise<void>(resolve => {
-      axios
-        .get(releaseUrl, { responseType: 'stream' })
-        .then(async response => {
-          this.handleDownloadWalletResponse(actions, response)
-          resolve()
-        })
-        .catch(err => {
-          console.error(
-            'An error happened while trying to download the wallet',
-            err,
-          )
-        })
-    })
+    try {
+      const response: AxiosResponse = await axios.get(releaseUrl, {
+        responseType: 'stream',
+      })
+      await sleep(2500)
+      await this.handleDownloadWalletResponse(response)
+    } catch (err) {
+      console.error(
+        'An error happened while trying to download the wallet',
+        err,
+      )
+    }
   }
 
   // Decompress downloaded wallet release on macOS
@@ -252,10 +248,7 @@ export class WalletManager {
     )
   }
 
-  private async handleDownloadWalletResponse(
-    actions: Actions,
-    response: AxiosResponse,
-  ) {
+  private async handleDownloadWalletResponse(response: AxiosResponse) {
     const walletCompressPath = path.join(
       SHEIKAH_PATH,
       WALLET_COMPRESS_FILE_NAME,
@@ -281,13 +274,17 @@ export class WalletManager {
     }
 
     console.info('Decompressing wallet release...')
-    this.decompressWallet(walletCompressPath)
+    await this.decompressWallet(walletCompressPath)
     // remove compressed file
     fs.unlinkSync(walletCompressPath)
   }
 
+  public killWalletProcess() {
+    this.walletProcess.kill('SIGKILL')
+  }
+
   // Run Witnet wallet and load "ready" url
-  public async runWallet() {
+  public async runWallet(actions: Actions) {
     await sleep(3000)
     console.info('Running wallet...')
     if (!this.existDirectory) {
@@ -300,17 +297,19 @@ export class WalletManager {
     const walletConfigurationPath = path.join(SHEIKAH_PATH, 'witnet.toml')
 
     console.info('... with witnet.toml from ' + walletConfigurationPath)
-    this.walletProcess = cp.spawn(
-      path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
-      ['-c', walletConfigurationPath, 'wallet', 'server'],
-      {
-        argv0: OS_ARCH === 'arm64' ? 'arch -x86_64' : undefined,
-        env: {
-          RUST_LOG: `witnet=${DEFAULT_WALLET_LOG_LEVEL}`,
-          ...process.env,
+    if (!this.walletProcess) {
+      this.walletProcess = cp.spawn(
+        path.join(SHEIKAH_PATH, WITNET_FILE_NAME),
+        ['-c', walletConfigurationPath, 'wallet', 'server'],
+        {
+          argv0: OS_ARCH === 'arm64' ? 'arch -x86_64' : undefined,
+          env: {
+            RUST_LOG: `witnet=${DEFAULT_WALLET_LOG_LEVEL}`,
+            ...process.env,
+          },
         },
-      },
-    )
+      )
+    }
     this.walletProcess?.stdout.on('data', async data => {
       console.info('stdout: ' + data.toString())
       this.webContents.send(SET_LOADED_STATUS, [{ isDefaultWallet: true }])
@@ -319,6 +318,10 @@ export class WalletManager {
 
     this.walletProcess?.stderr.on('data', function (data) {
       console.info('stderr: ' + data.toString())
+    })
+
+    this.walletProcess.on('exit', () => {
+      actions.quitApp()
     })
   }
 }
