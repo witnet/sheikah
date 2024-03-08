@@ -69,7 +69,7 @@ export default {
       state.setupProgress = progress
     },
     cleanMessage(state) {
-      state.setupMessage = 'Updating wallet backend'
+      state.setupMessage = null
     },
     closeAllModals(state) {
       state.isResyncConfirmationVisible = false

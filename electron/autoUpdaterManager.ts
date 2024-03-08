@@ -17,7 +17,8 @@ export class AutoUpdaterManager {
     console.log('running auto updater...')
     autoUpdater.checkForUpdatesAndNotify()
     autoUpdater.on('update-available', () => {
-      this.showDialog()
+      this.wallet.setIsUpdating(true)
+      this.showDialog(actions)
     })
     autoUpdater.on('error', err => {
       console.log('Error in auto-updater. ' + err)
@@ -29,7 +30,7 @@ export class AutoUpdaterManager {
     autoUpdater.autoDownload = false
   }
 
-  showDialog() {
+  showDialog(actions: Actions) {
     const options = {
       type: 'info',
       title: 'DOClever',
@@ -38,7 +39,6 @@ export class AutoUpdaterManager {
       defaultId: 0, // bound to buttons array
       cancelId: 1, // bound to buttons array
     } as MessageBoxOptions
-    this.wallet.setIsUpdating(true)
     dialog.showMessageBox(this.win, options).then(result => {
       if (result.response === 0) {
         autoUpdater
@@ -51,13 +51,15 @@ export class AutoUpdaterManager {
           })
       } else if (result.response === 1) {
         this.wallet.setIsUpdating(false)
-        this.wallet.runWallet()
+        this.wallet.runWallet(actions)
       }
     })
   }
 
   private closeWindowAndRestart(actions: Actions) {
-    actions.killWalletProcess()
+    if (this.wallet.walletProcess) {
+      this.wallet.killWalletProcess()
+    }
     autoUpdater.quitAndInstall(false, true)
     if (this.win == null) {
       actions.relaunch()

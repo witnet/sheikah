@@ -69,6 +69,7 @@ async function createWindow() {
   if (!process.env.VITE_DEV_SERVER_URL) {
     // Hide electron toolbar in production environment
     win.setMenuBarVisibility(false)
+    win.webContents.openDevTools()
     const menu = Menu.buildFromTemplate([
       {
         label: 'Menu',
@@ -124,27 +125,19 @@ export type Actions = {
   closeWindow: () => unknown
   relaunch: () => unknown
   quitApp: () => unknown
-  killWalletProcess: () => unknown
 }
 
 const actions: Actions = {
   relaunch: relaunch,
   closeWindow: closeWindow,
   quitApp: quitApp,
-  killWalletProcess: killWalletProcess,
 }
 
 app.whenReady().then(() => {
   createWindow()
 })
 
-app.on('window-all-closed', () => {
-  win = null
-  if (process.platform !== 'darwin') app.quit()
-})
-
-app.on('window-all-closed', (event: Event) => {
-  event.preventDefault()
+app.on('before-quit', () => {
   win?.webContents.send(SHUTDOWN)
 })
 
@@ -157,8 +150,11 @@ app.on('second-instance', () => {
 })
 
 ipcMain.on(SHUTDOWN_FINISHED, () => {
-  actions.killWalletProcess()
-  actions.quitApp()
+  if (walletManager.walletProcess) {
+    walletManager.killWalletProcess()
+  } else {
+    actions.quitApp()
+  }
 })
 
 app.on('activate', () => {
@@ -180,11 +176,6 @@ ipcMain.handle('open-win', (event, arg) => {
     },
   })
 
-  ipcMain.on('shutdown-finished', () => {
-    actions.killWalletProcess()
-    actions.quitApp()
-  })
-
   if (app.isPackaged) {
     childWindow.loadFile(indexHtml, { hash: arg })
   } else {
@@ -198,29 +189,12 @@ function closeWindow() {
   win.close()
 }
 
-function killWalletProcess() {
-  if (walletManager.walletProcess) {
-    walletManager.walletProcess.kill(9)
-  }
-}
-
 function quitApp() {
   app.quit()
 }
 
 function relaunch() {
   app.relaunch()
-}
-
-win?.on('close', closeApp)
-
-function closeApp(event: Event) {
-  // FIXME: no event is received
-  if (event) {
-    event.preventDefault()
-  }
-  win?.webContents.send(SHUTDOWN)
-  // window.electron.sendShutdownMessage()
 }
 
 // load a url if browser window is ready according to the current status
