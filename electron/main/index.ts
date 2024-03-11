@@ -128,9 +128,9 @@ export type Actions = {
 }
 
 const actions: Actions = {
-  relaunch: relaunch,
+  relaunch,
   closeWindow: closeWindow,
-  quitApp: quitApp,
+  quitApp,
 }
 
 app.whenReady().then(() => {

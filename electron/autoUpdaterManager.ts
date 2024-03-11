@@ -33,7 +33,7 @@ export class AutoUpdaterManager {
   showDialog(actions: Actions) {
     const options = {
       type: 'info',
-      title: 'DOClever',
+      title: 'Sheikah update',
       message: `There is a new Sheikah version`,
       buttons: ['Download and install', 'Cancel'],
       defaultId: 0, // bound to buttons array
