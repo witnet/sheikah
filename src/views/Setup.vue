@@ -4,23 +4,16 @@
       <div class="header">
         <div class="filling-icon">
           <font-awesome-icon
-            v-if="
-              setupMessage === 'Updating wallet backend' ||
-              setupMessage === 'wallet up to date'
-            "
+            v-if="isWalletUpdating || isWalletUpToDate"
             class="icon"
             icon="wallet"
           />
           <font-awesome-icon
-            v-if="setupMessage === 'Running wallet' || !setupMessage"
+            v-if="isWalletRunning || !setupMessage"
             class="icon"
             icon="cogs"
           />
-          <font-awesome-icon
-            v-if="setupMessage === 'loaded'"
-            class="icon"
-            icon="check"
-          />
+          <font-awesome-icon v-if="isWalletLoaded" class="icon" icon="check" />
           <div class="banner" />
         </div>
         <div>
@@ -28,13 +21,13 @@
           <p class="progress-subtitle">
             {{ format(percentage) }}
             <DotsLoading
-              v-if="theme === THEMES.DARK"
+              v-if="isThemeDark"
               color="#d6d6d6"
               data-test="loading-spinner"
               class="spinner"
             />
             <DotsLoading
-              v-if="theme === THEMES.LIGHT"
+              v-if="isThemeLight"
               color="#444258"
               data-test="loading-spinner"
               class="spinner"
@@ -51,61 +44,64 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapMutations } from 'vuex'
+<script setup lang="ts">
 import { THEMES } from '@/constants'
 import DotsLoading from '@/components/DotsLoading.vue'
 import { checkDisconnection } from '@/services/checkDisconnection'
+import { SetupMessages } from '@/types'
+import { useStore } from 'vuex'
+import { watch, computed, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
-export default {
-  name: 'WalletNotFound',
-  components: {
-    DotsLoading,
-  },
-  data() {
-    return {
-      THEMES,
-    }
-  },
-  computed: {
-    ...mapState({
-      setupMessage: state => state.uiInteractions.setupMessage,
-      progress: state => state.uiInteractions.setupProgress,
-      theme: state => state.wallet.theme,
-    }),
-    percentage() {
-      if (this.setupMessage === 'Updating wallet backend') {
-        return Math.round(this.progress * 0.8)
-      } else if (this.setupMessage === 'wallet up to date') {
-        return 80
-      } else if (this.setupMessage === 'Running wallet') {
-        return 90
-      } else if (this.setupMessage === 'loaded') {
-        return 100
-      } else {
-        return 0
-      }
-    },
-  },
-  watch: {
-    percentage(val) {
-      val === 100 ? checkDisconnection(this.$router, this.$store) : null
-    },
-  },
-  methods: {
-    ...mapMutations({
-      cleanMessage: 'cleanMessage',
-    }),
-    format(percentage) {
-      if (percentage <= 80) {
-        return this.$t('updating_wallet')
-      } else if (percentage <= 90) {
-        return this.$t('running_wallet')
-      } else if (percentage > 90) {
-        return this.$t('connecting_to_wallet')
-      }
-    },
-  },
+const store = useStore()
+const router = useRouter()
+const { t } = useI18n()
+
+const { setupMessage, setupProgress } = toRefs(store.state.uiInteractions)
+const { theme } = toRefs(store.state.wallet)
+
+const isWalletRunning = computed(
+  () => setupMessage.value === SetupMessages.runningWallet,
+)
+const isWalletLoaded = computed(
+  () => setupMessage.value === SetupMessages.loaded,
+)
+const isWalletUpToDate = computed(
+  () => setupMessage.value === SetupMessages.walletUpToDate,
+)
+const isWalletUpdating = computed(
+  () => setupMessage.value === SetupMessages.updatingWalletBackend,
+)
+const isThemeLight = computed(
+  () => store.state.uiInteractions.theme === THEMES.LIGHT,
+)
+const isThemeDark = computed(() => theme.value === THEMES.DARK)
+const percentage = computed(() => {
+  if (isWalletUpdating.value) {
+    return Math.round(setupProgress.value * 0.8)
+  } else if (isWalletUpToDate.value) {
+    return 80
+  } else if (isWalletRunning.value) {
+    return 90
+  } else if (isWalletLoaded.value) {
+    return 100
+  } else {
+    return 0
+  }
+})
+watch(percentage, val => {
+  return val === 100 ? checkDisconnection(router, store) : null
+})
+
+function format(percentage: number) {
+  if (percentage <= 80) {
+    return t('updating_wallet')
+  } else if (percentage <= 90) {
+    return t('running_wallet')
+  } else if (percentage > 90) {
+    return t('connecting_to_wallet')
+  }
 }
 </script>
 

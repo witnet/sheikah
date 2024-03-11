@@ -1,5 +1,6 @@
 import { Router } from 'vue-router'
 import { api } from '../main'
+import { SetupMessages } from '@/types'
 
 export async function checkDisconnection(router: Router, store: any) {
   const foo = async () => {
@@ -78,7 +79,7 @@ export async function checkDisconnection(router: Router, store: any) {
             await store.dispatch('getWalletInfos')
             const walletLoaded =
               store.state.uiInteractions.setupMessage == null ||
-              store.state.uiInteractions.setupMessage === 'loaded'
+              store.state.uiInteractions.setupMessage === SetupMessages.loaded
             const walletInfos = store.state.wallet.walletInfos
             const isSessionId = store.state.wallet.sessionId
             if (walletLoaded) {

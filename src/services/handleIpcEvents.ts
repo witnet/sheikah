@@ -9,6 +9,7 @@ import {
 } from '@/ipc/ipcEvents'
 import { sendShutdownFinished } from '@/ipc/ipcMessages'
 import { Router } from 'vue-router'
+import { SetupMessages } from '@/types'
 
 export function listenIpcMainEvents({
   store,
@@ -25,20 +26,20 @@ export function listenIpcMainEvents({
     console.log('Message from Main process:', message)
   })
   onDownloadProgress((progress: any) => {
-    store.commit('setMessage', { message: 'Updating wallet backend' })
+    store.commit('setMessage', { message: SetupMessages.updatingWalletBackend })
     store.commit('setProgress', { progress: progress.percentage })
   })
   onDownloadedStatus(() => {
-    store.commit('setMessage', { message: 'wallet up to date' })
+    store.commit('setMessage', { message: SetupMessages.walletUpToDate })
   })
   onLoadedStatus((message: any) => {
     if (Array.isArray(message) && message[0].isDefaultWallet) {
       store.commit('setWalletOwner', { isDefaultWallet: true })
     }
-    store.commit('setMessage', { message: 'loaded' })
+    store.commit('setMessage', { message: SetupMessages.loaded })
   })
   onRunningStatus(() => {
-    store.commit('setMessage', { message: 'Running wallet' })
+    store.commit('setMessage', { message: SetupMessages.runningWallet })
   })
   onOSNotSupported(() => {
     router.push('/wallet-not-found')
