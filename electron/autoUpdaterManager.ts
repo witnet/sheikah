@@ -21,7 +21,7 @@ export class AutoUpdaterManager {
       this.showDialog(actions)
     })
     autoUpdater.on('error', err => {
-      console.log('Error in auto-updater. ' + err)
+      console.log('Error in auto-updater ' + err)
     })
     autoUpdater.on('update-downloaded', () => {
       this.closeWindowAndRestart(actions)
