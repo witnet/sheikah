@@ -20,8 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "ipc/*": ["./src/ipc/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],
