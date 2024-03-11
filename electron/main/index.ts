@@ -16,6 +16,7 @@ import { WalletManager } from '../walletManager'
 import { IPC_ACTIONS } from '../ipc/ipcActions'
 import { AutoUpdaterManager } from '../autoUpdaterManager'
 import overwriteWitnetNodeConfiguration from '../utils/overwriteWitnetNodeConfiguration'
+import { SHEIKAH_PATH } from '../constants'
 
 const { SHUTDOWN, SHUTDOWN_FINISHED } = IPC_ACTIONS.Window
 
@@ -89,6 +90,14 @@ async function createWindow() {
           { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
           { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
           { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+          {
+            label: 'Clean Data & Relaunch',
+            click: () => {
+              walletManager.clearWalletFiles(SHEIKAH_PATH)
+              win.webContents.send(SHUTDOWN)
+              actions.relaunch()
+            },
+          },
         ],
       },
     ])
