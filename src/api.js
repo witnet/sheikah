@@ -1,6 +1,7 @@
 import { changeDateFormat, getAvatarUrl } from '@/utils'
 import BigNumber from '@/utils/BigNumber'
 import { Client as RPCWebsockets } from 'rpc-websockets'
+import { TRANSACTIONS_LIMIT } from '@/constants'
 
 const defaultOptions = {
   url: 'ws://localhost:11212',
@@ -140,10 +141,11 @@ export class WalletApi {
     const totalTransactions = (
       await this._callApiMethod('get_transactions')(params)
     ).result.total
-    const computedPagination = computeTransactionsPagination(
-      params.offset,
+    const computedPagination = computeTransactionsPagination({
+      offset: params.offset,
       totalTransactions,
-    )
+      itemsPerPage: TRANSACTIONS_LIMIT,
+    })
     // call 5 times getTransactions for the current page, the two before, and the two after
     const getTransactionsCall = Array(computedPagination.numberOfpagesToGet)
       .fill()
@@ -382,7 +384,14 @@ export function standardizeTransactions(response) {
   return { result: { transactions, total: response.result.total } }
 }
 
-function computeTransactionsPagination(offset, totalTransactions) {
+function computeTransactionsPagination({
+  offset,
+  totalTransactions,
+  itemsPerPage,
+}) {
+  const totalPages = Math.ceil(totalTransactions / itemsPerPage)
+  const numberOfTxInLastPage =
+    itemsPerPage - (itemsPerPage * totalPages - totalTransactions)
   const pagePositionRules = {
     first: {
       numberOfpagesToGet: 3,
@@ -410,10 +419,13 @@ function computeTransactionsPagination(offset, totalTransactions) {
       pageSection: [13, 13],
     },
   }
-  if (offset < 13) return pagePositionRules.first
-  if (offset < 26) return pagePositionRules.second
-  if (totalTransactions - offset < 13) return pagePositionRules.preLast
-  if (totalTransactions - offset < 26) return pagePositionRules.last
+
+  if (offset < itemsPerPage) return pagePositionRules.first
+  if (offset < itemsPerPage * 2) return pagePositionRules.second
+  if (totalTransactions - offset < itemsPerPage)
+    return pagePositionRules.preLast
+  if (totalTransactions - numberOfTxInLastPage < itemsPerPage * 2)
+    return pagePositionRules.last
   return pagePositionRules.default
 }
 
