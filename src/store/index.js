@@ -2,7 +2,6 @@ import { createStore } from 'vuex'
 
 import radModule from './rad'
 import walletModule from './wallet'
-import marketplaceModule from './marketplace'
 import uiInteractionsModule from './uiInteractions'
 
 export const storeInput = {
@@ -10,7 +9,6 @@ export const storeInput = {
     uiInteractions: uiInteractionsModule,
     rad: radModule,
     wallet: walletModule,
-    marketplace: marketplaceModule,
   },
 }
 

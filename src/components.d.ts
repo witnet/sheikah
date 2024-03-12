@@ -98,7 +98,6 @@ declare module 'vue' {
     LogoutModal: typeof import('./components/LogoutModal.vue')['default']
     LongArrow: typeof import('./components/svg/LongArrow.vue')['default']
     LongArrowDark: typeof import('./components/svg/LongArrowDark.vue')['default']
-    Marketplace: typeof import('./components/Marketplace.vue')['default']
     Medium: typeof import('./components/svg/Medium.vue')['default']
     NavigationCard: typeof import('./components/card/NavigationCard.vue')['default']
     Negative: typeof import('./components/svg/Negative.vue')['default']

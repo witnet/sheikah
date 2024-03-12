@@ -27,26 +27,9 @@
           aria-expanded="true"
           @click.stop
         >
-          <CustomIcon
-            v-if="type === 'marketplace'"
-            name="options-marketplace"
-          />
-          <CustomIcon v-else name="options" />
+          <CustomIcon name="options" />
         </div>
-
-        <template v-if="type === 'marketplace'" #dropdown>
-          <el-dropdown-menu :class="style">
-            <el-dropdown-item
-              v-for="(option, index) in marketplaceOptions"
-              :key="option.label"
-              :command="index"
-            >
-              {{ option.label }}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-
-        <template v-else #dropdown>
+        <template #dropdown>
           <el-dropdown-menu :class="style">
             <el-dropdown-item
               v-for="(option, index) in options"
@@ -66,7 +49,7 @@
         {{ cropString(localDescription, 120) }}
       </div>
     </div>
-    <div v-show="style !== 'marketplace'" class="sources">
+    <div class="sources">
       {{ $t('sources', sources, { count: sources }) }}
     </div>
   </div>
@@ -108,14 +91,6 @@ export default {
   },
   data() {
     return {
-      marketplaceOptions: [
-        {
-          label: this.$t('deploy'),
-          action: () => {
-            console.log('This method should be implemented soon')
-          },
-        },
-      ],
       options: [
         {
           label: this.$t('edit'),
@@ -207,14 +182,6 @@ export default {
   grid-template-rows: 70px auto 30px;
   height: 300px;
   width: 300px;
-
-  &.marketplace {
-    background: none;
-
-    &:hover {
-      border: var(--card-active-border);
-    }
-  }
 
   &:hover {
     border: var(--card-active-border);

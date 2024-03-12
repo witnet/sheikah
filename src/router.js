@@ -7,7 +7,6 @@ import Editor from '@/components/Editor.vue'
 import FirstTimeUsage from '@/views/FirstTimeUsage.vue'
 import Main from '@/views/Main.vue'
 import Loading from '@/components/steps/Loading.vue'
-import Marketplace from '@/components/Marketplace.vue'
 import Templates from '@/components/Templates.vue'
 import Transactions from '@/views/Transactions.vue'
 import Wallet from '@/components/Wallet.vue'
@@ -108,11 +107,6 @@ export default createRouter({
           name: 'community',
           path: 'community',
           component: Community,
-        },
-        {
-          name: 'marketplace',
-          path: 'marketplace',
-          component: Marketplace,
         },
       ],
     },
