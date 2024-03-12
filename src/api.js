@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { changeDateFormat, getAvatarUrl } from '@/utils'
 import BigNumber from '@/utils/BigNumber'
 import { Client as RPCWebsockets } from 'rpc-websockets'
@@ -231,39 +230,6 @@ export class WalletApi {
   updateWallet(params) {
     return this._callApiMethod('update_wallet')(params)
   }
-}
-
-export class MarketplaceApi {
-  baseUrl =
-    import.meta.env.marketplaceUrl ||
-    'https://witnet-marketplace-api-test.herokuapp.com'
-
-  _handleResponse(response) {
-    if (response && response.data) {
-      return response.data
-    }
-  }
-
-  _handleError(error) {
-    return { error }
-  }
-
-  _get(url) {
-    return axios.get(url).then(this._handleResponse).catch(this._handleError)
-  }
-
-  getTemplates() {
-    return this._get(`${this.baseUrl}/templates`)
-  }
-
-  getTemplate(id) {
-    return axios
-      .get(`${this.baseUrl}/templates/${id}`)
-      .then(this._handleResponse)
-      .catch(this._handleError)
-  }
-
-  postTemplate() {}
 }
 
 export class LocalStorageWrapper {

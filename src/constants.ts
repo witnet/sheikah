@@ -90,7 +90,6 @@ export const CUSTOM_DARK_ICON_NAMES = [
   'long-arrow',
   'open',
   'operator-arrow',
-  'options-marketplace',
   'options',
   'sheikah-icon',
   'sheikah-small',

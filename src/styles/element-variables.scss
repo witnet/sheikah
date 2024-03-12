@@ -238,29 +238,6 @@ $--el-input-border-color: red;
   }
 }
 
-.marketplace {
-  &.el-pagination {
-    .el-pager {
-      color: var(--pagination-number);
-    }
-
-    .el-pager li.active {
-      background-color: var(--marketplace-pagination-active);
-      color: var(--pagination-number);
-    }
-
-    .el-pager li:hover {
-      background-color: var(--marketplace-pagination-active);
-      color: var(--pagination-number);
-    }
-
-    button:hover {
-      background-color: var(--marketplace-pagination-active);
-      color: var(--pagination-number);
-    }
-  }
-}
-
 .upload-container {
   margin-left: 32px;
   margin-right: 32px;

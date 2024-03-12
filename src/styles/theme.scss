@@ -24,7 +24,6 @@
   --card-border: 1px solid #{$grey-dark-8};
   --card-active-border: 1px solid #{$purple-dark};
   --navigation-card-header-background: #{$purple-dark};
-  --template-card-marketplace-active-border: 1px solid rgb(255 42 127);
   // navigation card
   --navigation-card-background: #{$grey-dark-8};
   --navigation-card-border: 1px solid #{$purple-dark};
@@ -197,7 +196,6 @@
   --button-text-color: #{$purple-dark};
   --button-text-hover: #{$purple-dark-1};
   // pagination
-  --marketplace-pagination-active: rgb(255 42 127);
   --pagination-active: rgb(255 42 127);
   --pagination-number: #{$grey-dark-1};
   --pagination-number-active: #{$purple-dark};
@@ -207,8 +205,6 @@
   // dropdown
   --dropdown-background: #{$grey-dark-10};
   --dropdown-text-hover: #{$purple-dark};
-  --dropdown-marketplace-background: rgb(255 183 212 / 24.6%);
-  --dropdown-marketplace-text-hover: rgb(255 42 127);
   // tooltip
   --tooltip-background: #{$grey-dark-10};
   --tooltip-border: 1px solid #{$grey-dark-1};
@@ -275,7 +271,6 @@
   --card-active-border: 1px solid #{$purple-3};
   --card-shadow: 1px 2px 8px 0 rgb(207 207 207 / 32.9%);
   --card-box-shadow: 0 4px 4px rgb(155 81 224 / 10%);
-  --template-card-marketplace-active-border: 1px solid rgb(255 42 127);
   // navigation card
   --navigation-card-header-background: #{$purple-4};
   --navigation-card-background: #{$white};
@@ -435,8 +430,6 @@
   --button-default-dark-border-active: #{$purple-4};
   --button-default-dark-text-active: #{$purple-4};
   // pagination
-  --marketplace-pagination-active: rgb(255 42 127);
-  --pagination-active: rgb(255 42 127);
   --pagination-number: #{$alt-grey-5};
   --pagination-number-active: #{$purple-4};
   --pagination-number-active-text: #{$white};
@@ -445,8 +438,6 @@
   // dropdown
   --dropdown-background: #{$white};
   --dropdown-text-hover: #{$purple-4};
-  --dropdown-marketplace-background: rgb(255 183 212 / 24.6%);
-  --dropdown-marketplace-text-hover: rgb(255 42 127);
   // tooltip
   --tooltip-background: #{$white};
   --tooltip-border: 1px solid #{$grey-dark-9};
