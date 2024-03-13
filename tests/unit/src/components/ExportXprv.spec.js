@@ -8,6 +8,7 @@ describe('ExportXprv', () => {
   const exportMasterKeyMock = vi.fn()
   const clearErrorMock = vi.fn()
   const validatePasswordMock = vi.fn()
+  const showExportXprvQrVisibleMock = vi.fn()
   const mockStore = createMocks({
     storeModules: {
       wallet: {
@@ -27,6 +28,7 @@ describe('ExportXprv', () => {
         mutations: {
           validatePassword: validatePasswordMock,
           clearError: clearErrorMock,
+          showExportXprvQrVisible: showExportXprvQrVisibleMock,
         },
       },
     },

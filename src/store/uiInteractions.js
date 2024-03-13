@@ -12,8 +12,15 @@ export default {
     isWalletDescriptionVisible: false,
     isRenameWalletConfirmationVisible: false,
     isDeleteWalletConfirmationVisible: false,
+    isExportXprvQrVisible: false,
   },
   mutations: {
+    showExportXprvQrVisible(state) {
+      state.isExportXprvQrVisible = true
+    },
+    closeExportXprvQrVisible(state) {
+      state.isExportXprvQrVisible = false
+    },
     showResyncConfirmation(state) {
       state.isResyncConfirmationVisible = true
     },

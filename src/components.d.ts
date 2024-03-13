@@ -82,6 +82,7 @@ declare module 'vue' {
     ExitIcon: typeof import('./components/svg/ExitIcon.vue')['default']
     ExitIconDark: typeof import('./components/svg/ExitIconDark.vue')['default']
     ExportXprv: typeof import('./components/ExportXprv.vue')['default']
+    ExportXprvModal: typeof import('./components/ExportXprvModal.vue')['default']
     Fieldset: typeof import('./components/Fieldset.vue')['default']
     FileUploader: typeof import('./components/FileUploader.vue')['default']
     FrameOutside: typeof import('./components/FrameOutside.vue')['default']

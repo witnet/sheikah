@@ -427,5 +427,9 @@
   "estimating_fees": "Estimando tasas",
   "recommended": "Recomendada",
   "timelock_tooltip": "El destinatario no podrá gastar sus Wit coins antes de la fecha y hora seleccionada",
-  "miner": "Minero"
+  "miner": "Minero",
+  "export_xprv_modal_title": "Exportar XPRV",
+  "export_xprv_modal_warning": "Puedes utilizar este código QR para importar tu wallet en {0}. Asegúrese que es la única persona que puede ver este QR antes de mostrarlo.",
+  "export_xprv_modal_show_qr": "Mostrar QR",
+  "export_xprv_modal_hide_qr": "Ocultar QR"
 }
