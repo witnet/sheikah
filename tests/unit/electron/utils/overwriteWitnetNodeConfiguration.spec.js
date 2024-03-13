@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import { describe, expect, test, vi, afterEach } from 'vitest'
 
-import { overwriteWitnetNodeConfiguration } from '../../../../electron/walletManager'
+import { overwriteWitnetNodeConfiguration } from '../../../../electron/utils/overwriteWitnetNodeConfiguration'
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -26,7 +26,7 @@ describe('overwriteConfigFile', () => {
     )
     expect(fs.writeFileSync).toBeCalledWith(
       'sheikah_path/witnet_config_file_name',
-      `string from toml \nnode_url = [\"public_node_url1\",\"public_node_url2\"]`,
+      `string from toml \nnode_url = ["public_node_url1","public_node_url2"]`,
     )
   })
 
@@ -47,7 +47,7 @@ describe('overwriteConfigFile', () => {
     )
     expect(fs.writeFileSync).toBeCalledWith(
       'sheikah_path/witnet_config_file_name',
-      `string from toml \nnode_url = [\"public_node_url1\",\"public_node_url2\"]`,
+      `string from toml \nnode_url = ["public_node_url1","public_node_url2"]`,
     )
   })
 

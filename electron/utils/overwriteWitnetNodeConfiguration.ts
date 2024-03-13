@@ -10,7 +10,7 @@ import { existIntersection } from './existIntersection'
 
 const nodeUrlConfigRegex = /node_url =([^;]*)]|node_url =([^;]*)"/
 
-const nodeUrlsRegex = /g\[([^;]*)\]|\"([^;]*)\"/
+const nodeUrlsRegex = /g\[([^;]*)\]|"([^;]*)"/
 
 type NodeConfig = {
   sheikahPath: string
