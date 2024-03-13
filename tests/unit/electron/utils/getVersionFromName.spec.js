@@ -1,4 +1,4 @@
-import { getVersionFromName } from '../../../../../electron/walletManager'
+import { getVersionFromName } from '../../../../electron/walletManager'
 
 describe('getVersionFromName', () => {
   test('should return version x.y.z from the release name', () => {
