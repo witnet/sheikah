@@ -1,27 +1,42 @@
 <template>
   <el-dialog
+    v-model="modalVisible"
     class="info"
-    :title="$t('close_session_info_title')"
-    width="50%"
-    :visible="true"
     :show-close="true"
-    :close-on-click-modal="false"
     @close="close"
   >
-    <div slot="title" class="title-container">
-      <font-awesome-icon class="icon" icon="info-circle" />
-      <p class="title">{{ $t('export_xprv_modal_title') }}</p>
-    </div>
+    <template #header>
+      <div class="title-container">
+        <font-awesome-icon class="icon" icon="info-circle" />
+        <p class="title">{{ $t('export_xprv_modal_title') }}</p>
+      </div>
+    </template>
 
     <div class="content">
-      <i18n path="export_xprv_modal_warning" tag="p" class="warning">
+      <i18n-t
+        keypath="export_xprv_modal_warning"
+        scope="global"
+        tag="p"
+        class="warning"
+      >
         <a class="link" href="#" target="_blank">myWitWallet</a>
-      </i18n>
-
+      </i18n-t>
       <div class="qr" :class="{ blur: !isQrVisible }">
-        <VueQr :text="xprv.master_key" :size="225" />
+        <QRCodeVue3
+          v-if="masterKey"
+          :value="masterKey"
+          :width="225"
+          :height="225"
+          :dots-options="{
+            type: 'dots',
+            color: '#2d2c3a',
+          }"
+          :background-options="{ color: '#ffffff' }"
+          :corners-square-options="{ type: 'dot', color: '#2d2c3a' }"
+          :corners-dot-options="{ type: undefined, color: '#2d2c3a' }"
+        />
       </div>
-      <el-button class="show" type="secondary" @click="toggleQR">{{
+      <el-button class="show" @click="toggleQR">{{
         !isQrVisible
           ? $t('export_xprv_modal_show_qr')
           : $t('export_xprv_modal_hide_qr')
@@ -30,48 +45,24 @@
   </el-dialog>
 </template>
 
-<script>
-import { mapActions, mapMutations, mapState } from 'vuex'
-import VueQr from 'vue-qr'
+<script setup lang="ts">
+import QRCodeVue3 from 'qrcode-vue3'
+import { ref, toRefs, computed } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
-  name: 'LogoutModal',
-  components: {
-    VueQr,
-  },
-  data() {
-    return {
-      avoidShowModalAgain: false,
-      isQrVisible: false,
-    }
-  },
-  computed: {
-    ...mapState({
-      sessionExpirationMin: state => state.wallet.sessionExpirationSecs / 60,
-      xprv: state => state.wallet.xprv,
-    }),
-    checked: {
-      get() {
-        return this.notShowModalAgain
-      },
-      set(val) {
-        this.avoidShowModalAgain = val
-        this.saveShowModalAgain(val)
-        return this.avoidShowModalAgain
-      },
-    },
-  },
-  methods: {
-    ...mapMutations({
-      close: 'closeExportXprvQrVisible',
-    }),
-    ...mapActions({
-      saveShowModalAgain: 'saveShowModalAgain',
-    }),
-    toggleQR() {
-      this.isQrVisible = !this.isQrVisible
-    },
-  },
+const isQrVisible = ref(false)
+const modalVisible = ref(true)
+const store = useStore()
+
+const { xprv } = toRefs(store.state.wallet)
+const masterKey = computed(() => (xprv.value ? xprv.value.master_key : null))
+
+function close() {
+  store.commit('closeExportXprvQrVisible')
+}
+
+function toggleQR() {
+  isQrVisible.value = !isQrVisible.value
 }
 </script>
 
@@ -100,7 +91,6 @@ export default {
     align-items: center;
     display: flex;
     flex-direction: column;
-    margin-bottom: 16px;
 
     .warning {
       margin-bottom: 16px;
@@ -114,6 +104,7 @@ export default {
 
     .qr {
       height: 225px;
+      margin-top: 16px;
       margin-bottom: 16px;
       width: 225px;
 
