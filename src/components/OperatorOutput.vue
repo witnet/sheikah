@@ -17,6 +17,7 @@
         placement="top-start"
         trigger="hover"
         :content="stringifiedOutput"
+        width="max-content"
       >
         <template #reference>
           <p v-if="explicitOutput" class="icon explicit-output">
