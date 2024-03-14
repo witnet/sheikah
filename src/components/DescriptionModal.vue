@@ -50,14 +50,16 @@ export default {
 @import '@/styles/_colors.scss';
 
 .wallet-description {
+  .title {
+    color: var(--info-title);
+    font-size: 32px;
+    line-height: 1.5;
+  }
+
   .title-container {
     align-items: center;
+    color: var(--info-title);
     display: flex;
-
-    .title {
-      font-size: 32px;
-      line-height: 1.5;
-    }
 
     .avatar {
       margin-right: 16px;

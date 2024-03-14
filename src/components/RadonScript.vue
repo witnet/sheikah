@@ -290,6 +290,7 @@ export default {
     bottom: 24px;
     cursor: pointer;
     display: flex;
+    align-items: center;
     left: -4px;
     position: absolute;
     width: max-content;
