@@ -431,5 +431,6 @@
   "export_xprv_modal_title": "Exportar XPRV",
   "export_xprv_modal_warning": "Puedes utilizar este código QR para importar tu wallet en {0}. Asegúrese que es la única persona que puede ver este QR antes de mostrarlo.",
   "export_xprv_modal_show_qr": "Mostrar QR",
-  "export_xprv_modal_hide_qr": "Ocultar QR"
+  "export_xprv_modal_hide_qr": "Ocultar QR",
+  "wallet_updated_message": "Nombre y descripción de la wallet actualizado"
 }
