@@ -24,7 +24,7 @@ export const URLS_PUBLIC_WITNET_NODES = [
   '3.21.74.162:21338',
 ]
 
-export const OLD_WITNET_NODE_IPS: Array<string> = [
+export const LEGACY_CONFIGURATION_WITNET_NODE_IPS: Array<string> = [
   '20.120.248.2:21338',
   '20.126.70.77:21338',
   '52.166.178.145:21338',

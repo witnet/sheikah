@@ -99,9 +99,7 @@ export default {
         xprv: this.fileInfo.data.master_key,
         backupPassword: this.password,
       })
-      console.log('error xprv', this.xprvError)
       if (!this.xprvError) {
-        console.log('decrypt', this.fileInfo.data.master_key)
         this.setXprv({ result: this.fileInfo.data.master_key })
         this.setBackupPassword({ result: this.password })
         this.setBirthDate({ result: this.fileInfo.data.birth_date })
