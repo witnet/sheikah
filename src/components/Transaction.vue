@@ -3,9 +3,16 @@
     <div class="border" :class="{ locked: timelocked }">
       <div class="transaction" @click="showDetails = !showDetails">
         <CustomIcon
+          v-if="isPositive"
           data-test="negative-positive"
           class="icon"
-          :name="iconName"
+          name="positive"
+        />
+        <CustomIcon
+          v-else
+          data-test="negative-positive"
+          class="icon"
+          name="negative"
         />
         <Amount
           :unit-dark="true"
@@ -194,10 +201,8 @@ const props = defineProps({
 })
 
 const hideDetails = () => (showDetails.value = false)
-const origin = computed(() => (props.type === 'POSITIVE' ? 'from' : 'to'))
-const iconName = computed(() =>
-  props.type === 'POSITIVE' ? 'positive' : 'negative',
-)
+const isPositive = computed(() => props.type === 'POSITIVE')
+const origin = computed(() => (isPositive.value ? 'from' : 'to'))
 </script>
 
 <style lang="scss" scoped>

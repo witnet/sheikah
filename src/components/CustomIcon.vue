@@ -1,5 +1,5 @@
 <template>
-  <customIcon :class="className" />
+  <component :is="icon" />
 </template>
 
 <script setup lang="ts">
@@ -22,19 +22,19 @@ const props = defineProps({
     },
   },
 })
-const customIcon = defineAsyncComponent(
-  () => import(`@/resources/svg/${url.value}.svg`),
+const isDarkTheme = computed(() => theme.value === THEMES.DARK)
+const isDarkIconSupported = computed(() =>
+  CUSTOM_DARK_ICON_NAMES.includes(props.name),
 )
-const url = computed(() => {
-  let url
-  if (
-    theme.value === THEMES.DARK &&
-    CUSTOM_DARK_ICON_NAMES.includes(props.name)
-  ) {
-    url = `${props.name}-dark`.trim()
+const icon = computed(() => {
+  if (isDarkTheme.value && isDarkIconSupported.value) {
+    return defineAsyncComponent(
+      () => import(`@/resources/svg/${`${props.name}-dark`.trim()}.svg`),
+    )
   } else {
-    url = `${props.name}`.trim()
+    return defineAsyncComponent(
+      () => import(`@/resources/svg/${`${props.name}`.trim()}.svg`),
+    )
   }
-  return url
 })
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div data-test="welcome-back" class="welcome-back">
     <div class="bar">
-      <CustomIcon class-name="row sheikah-icon" name="sheikah-icon" />
+      <CustomIcon class="row sheikah-icon" name="sheikah-icon" />
       <p class="row title">{{ $t('welcome_back') }}</p>
       <p class="row subtitle">
         {{ $t('sheikah_description') }}
