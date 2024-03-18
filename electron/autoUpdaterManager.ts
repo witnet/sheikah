@@ -14,7 +14,7 @@ export class AutoUpdaterManager {
   }
 
   public run(actions: Actions) {
-    console.log('running auto updater...')
+    console.log('Checking for updates...')
     autoUpdater.checkForUpdatesAndNotify()
     autoUpdater.on('update-available', () => {
       this.wallet.setIsUpdating(true)

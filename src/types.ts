@@ -16,8 +16,8 @@ export interface LanguageDictionary {
 }
 
 export enum SetupMessages {
-  runningWallet = 'Running wallet',
-  updatingWalletBackend = 'Updating wallet backend',
-  walletUpToDate = 'Wallet up to date',
-  loaded = 'Loaded',
+  runningWallet,
+  updatingWalletBackend,
+  walletUpToDate,
+  loaded,
 }

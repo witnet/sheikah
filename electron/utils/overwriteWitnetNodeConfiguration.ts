@@ -4,7 +4,7 @@ import {
   SHEIKAH_PATH,
   WITNET_CONFIG_FILE_NAME,
   URLS_PUBLIC_WITNET_NODES,
-  OLD_WITNET_NODE_IPS,
+  LEGACY_CONFIGURATION_WITNET_NODE_IPS,
 } from '../constants'
 import { existIntersection } from './existIntersection'
 
@@ -23,7 +23,7 @@ const defaultConfig = {
   sheikahPath: SHEIKAH_PATH,
   witnetConfigFileName: WITNET_CONFIG_FILE_NAME,
   publicNodeUrls: URLS_PUBLIC_WITNET_NODES,
-  oldWitnetNodes: OLD_WITNET_NODE_IPS,
+  oldWitnetNodes: LEGACY_CONFIGURATION_WITNET_NODE_IPS,
 }
 
 // Replace witnet nodes urls in witnet configuration file
