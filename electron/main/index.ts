@@ -72,7 +72,6 @@ async function createWindow() {
   if (!process.env.VITE_DEV_SERVER_URL) {
     // Hide electron toolbar in production environment
     win.setMenuBarVisibility(false)
-    win.webContents.openDevTools()
     const menu = Menu.buildFromTemplate([
       {
         label: 'Menu',
