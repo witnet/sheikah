@@ -46,6 +46,11 @@
         data-test="settings-delete"
         class="setting"
       />
+      <DeleteWalletFiles
+        v-if="setting === SETTINGS.DELETE_FILES"
+        data-test="settings-delete"
+        class="setting"
+      />
     </div>
   </div>
 </template>
@@ -58,6 +63,7 @@ import SettingsAppearance from '@/components/SettingsAppearance.vue'
 import SettingsResync from '@/components/SettingsResync.vue'
 import RenameWallet from '@/components/RenameWallet.vue'
 import DeleteWallet from '@/components/DeleteWallet.vue'
+import DeleteWalletFiles from '@/components/DeleteWalletFiles.vue'
 import ExportXprv from '@/components/ExportXprv.vue'
 import Community from '@/components/Community.vue'
 import { SETTINGS } from '@/constants'
@@ -74,6 +80,7 @@ export default {
     SettingsAppearance,
     RenameWallet,
     DeleteWallet,
+    DeleteWalletFiles,
   },
   props: {
     settings: {

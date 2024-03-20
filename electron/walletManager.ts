@@ -59,6 +59,7 @@ interface GithubTagInfo {
 export class WalletManager {
   public webContents: Electron.WebContents | null
   public isUpdating: boolean = false
+  public relaunch: boolean = false
   public walletProcess: cp.ChildProcessWithoutNullStreams | null = null
   private existDirectory: boolean
   private needToDownloadWallet: boolean = true
@@ -146,6 +147,10 @@ export class WalletManager {
   // Setter for isUpdating attribute
   public setIsUpdating(status: boolean) {
     this.isUpdating = status
+  }
+
+  public setRelaunch(status: boolean) {
+    this.relaunch = status
   }
 
   // Download a wallet release from the url specified
@@ -312,7 +317,12 @@ export class WalletManager {
     })
 
     this.walletProcess.on('exit', () => {
-      actions.quitApp()
+      if (this.relaunch) {
+        actions.quitApp()
+        actions.relaunch()
+      } else {
+        actions.quitApp()
+      }
     })
   }
 }

@@ -1,3 +1,3 @@
-const { sendShutdownFinished } = window['ipcAPI']
+const { sendShutdownFinished, sendClearWalletFiles } = window['ipcAPI']
 
-export { sendShutdownFinished }
+export { sendShutdownFinished, sendClearWalletFiles }

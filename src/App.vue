@@ -15,6 +15,7 @@
       <DescriptionModal />
       <RenameConfirmation />
       <DeleteWalletConfirmation />
+      <DeleteWalletFilesModal />
       <ExportXprvModal v-if="isExportXprvQrVisible" />
     </div>
   </el-config-provider>
@@ -28,6 +29,7 @@ import LogoutModal from '@/components/LogoutModal.vue'
 import DescriptionModal from '@/components/DescriptionModal.vue'
 import RenameConfirmation from '@/components/RenameConfirmation.vue'
 import DeleteWalletConfirmation from '@/components/DeleteWalletConfirmation.vue'
+import DeleteWalletFilesModal from '@/components/DeleteWalletFilesModal.vue'
 import ExportXprvModal from '@/components/ExportXprvModal.vue'
 import { ref, watch, onMounted, onBeforeUnmount, type Ref, toRefs } from 'vue'
 import { LANGUAGES } from '@/constants'

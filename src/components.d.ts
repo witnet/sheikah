@@ -41,6 +41,8 @@ declare module 'vue' {
     DeleteBtnDark: typeof import('./components/svg/DeleteBtnDark.vue')['default']
     DeleteWallet: typeof import('./components/DeleteWallet.vue')['default']
     DeleteWalletConfirmation: typeof import('./components/DeleteWalletConfirmation.vue')['default']
+    DeleteWalletFiles: typeof import('./components/DeleteWalletFiles.vue')['default']
+    DeleteWalletFilesModal: typeof import('./components/DeleteWalletFilesModal.vue')['default']
     DeployDataRequest: typeof import('./components/SendTransaction/DeployDataRequest.vue')['default']
     DescriptionModal: typeof import('./components/DescriptionModal.vue')['default']
     Disclaimer: typeof import('./components/card/Disclaimer.vue')['default']

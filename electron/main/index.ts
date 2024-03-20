@@ -18,7 +18,7 @@ import { AutoUpdaterManager } from '../autoUpdaterManager'
 import overwriteWitnetNodeConfiguration from '../utils/overwriteWitnetNodeConfiguration'
 import { SHEIKAH_PATH } from '../constants'
 
-const { SHUTDOWN, SHUTDOWN_FINISHED } = IPC_ACTIONS.Window
+const { SHUTDOWN, SHUTDOWN_FINISHED, CLEAR_WALLET_FILES } = IPC_ACTIONS.Window
 
 globalThis.__filename = fileURLToPath(import.meta.url)
 globalThis.__dirname = dirname(__filename)
@@ -71,7 +71,6 @@ async function createWindow() {
 
   if (!process.env.VITE_DEV_SERVER_URL) {
     // Hide electron toolbar in production environment
-    win.setMenuBarVisibility(false)
     const menu = Menu.buildFromTemplate([
       {
         label: 'Menu',
@@ -89,18 +88,11 @@ async function createWindow() {
           { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
           { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
           { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
-          {
-            label: 'Clean Data & Relaunch',
-            click: () => {
-              walletManager.clearWalletFiles(SHEIKAH_PATH)
-              win.webContents.send(SHUTDOWN)
-              actions.relaunch()
-            },
-          },
         ],
       },
     ])
     Menu.setApplicationMenu(menu)
+    win.setMenuBarVisibility(false)
   }
 
   if (app.isPackaged) {
@@ -165,6 +157,12 @@ ipcMain.on(SHUTDOWN_FINISHED, () => {
   } else {
     actions.quitApp()
   }
+})
+
+ipcMain.on(CLEAR_WALLET_FILES, () => {
+  walletManager.setRelaunch(true)
+  walletManager.clearWalletFiles(SHEIKAH_PATH)
+  win.webContents.send(SHUTDOWN)
 })
 
 app.on('activate', () => {

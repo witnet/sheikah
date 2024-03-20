@@ -433,5 +433,11 @@
   "export_xprv_modal_title": "Export XPRV",
   "export_xprv_modal_warning": "You can use this QR code to import your wallet in {0}. Make sure you are the only person who can see this QR before showing it.",
   "export_xprv_modal_show_qr": "Show QR",
-  "export_xprv_modal_hide_qr": "Hide QR"
+  "export_xprv_modal_hide_qr": "Hide QR",
+  "delete_wallet_files_info": "This action resets the wallet backend, your wallet storage will not be changed. Once the reset action is complete, the Sheikah application will be closed and the latest version of the wallet backend will be downloaded.",
+  "delete_wallet_files_action": "Reset",
+  "reset_wallet_files": "Reset wallet backend",
+  "delete_files_confirmation_0": "Resetting the wallet backend will delete the wallet backend files",
+  "delete_files_confirmation_1": "The Sheikah application will be closed immediately. When the application is opened again, all wallet backend files will be downloaded again",
+  "delete_files_confirmation_2": "If you still want to reset the wallet backend files, click the 'Reset' button."
 }

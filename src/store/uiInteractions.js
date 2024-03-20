@@ -12,6 +12,7 @@ export default {
     isWalletDescriptionVisible: false,
     isRenameWalletConfirmationVisible: false,
     isDeleteWalletConfirmationVisible: false,
+    isDeleteWalletFilesModalVisible: false,
     isExportXprvQrVisible: false,
   },
   mutations: {
@@ -33,6 +34,9 @@ export default {
     showDeleteWalletModal(state) {
       state.isDeleteWalletConfirmationVisible = true
     },
+    showDeleteWalletFilesModal(state) {
+      state.isDeleteWalletFilesModalVisible = true
+    },
     showRenameConfirmationModal(state) {
       state.isRenameWalletConfirmationVisible = true
     },
@@ -41,6 +45,9 @@ export default {
     },
     closeDeleteWalletConfirmation(state) {
       state.isDeleteWalletConfirmationVisible = false
+    },
+    closeDeleteWalletFilesModal(state) {
+      state.isDeleteWalletFilesModalVisible = false
     },
     closeLogoutModal(state) {
       state.sessionExpired = false

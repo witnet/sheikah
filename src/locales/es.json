@@ -432,5 +432,11 @@
   "export_xprv_modal_warning": "Puedes utilizar este código QR para importar tu wallet en {0}. Asegúrese que es la única persona que puede ver este QR antes de mostrarlo.",
   "export_xprv_modal_show_qr": "Mostrar QR",
   "export_xprv_modal_hide_qr": "Ocultar QR",
-  "wallet_updated_message": "Nombre y descripción de la wallet actualizado"
+  "wallet_updated_message": "Nombre y descripción de la wallet actualizado",
+  "delete_wallet_files_info": "Esta acción restablece el backend de Sheikah, el estado del wallet no se verá alterado. Una vez finalizada la acción de restablecimiento, la aplicación de Sheikah se cerrará y se descargará la última versión del backend de Sheikah.",
+  "delete_wallet_files_action": "Restablecer",
+  "reset_wallet_files": "Restablecer el backend de Sheikah",
+  "delete_files_confirmation_0": "Restablecer el backend de Sheikah eliminará todos los archivos relacionados.",
+  "delete_files_confirmation_1": "La aplicación de Sheikah se cerrará inmediatamente. Al abrir la aplicación nuevamente, se descargarán todos los archivos de nuevo.",
+  "delete_files_confirmation_2": "Si aún deseas restablecer los archivos del backend de Sheikah, haz clic en el botón 'Restablecer'."
 }
