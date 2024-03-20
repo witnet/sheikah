@@ -18,5 +18,6 @@ interface Window {
     onDownloadProgress: (fn: any) => void
     onOSNotSupported: (fn: any) => void
     sendShutdownFinished: () => void
+    sendClearWalletFiles: () => void
   }
 }

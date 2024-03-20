@@ -10,6 +10,7 @@ const {
   SET_LOADED_STATUS,
   SET_OS_NOT_SUPPORTED,
   SHUTDOWN_FINISHED,
+  CLEAR_WALLET_FILES,
 } = IPC_ACTIONS.Window
 
 // --------- Expose some API to the Renderer process ---------
@@ -196,5 +197,8 @@ contextBridge.exposeInMainWorld('ipcAPI', {
   },
   sendShutdownFinished: () => {
     ipcRenderer.send(SHUTDOWN_FINISHED)
+  },
+  sendClearWalletFiles: () => {
+    ipcRenderer.send(CLEAR_WALLET_FILES)
   },
 })
