@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
+import { sendClearWalletFiles } from '@/ipc/ipcMessages'
 
 export default {
   name: 'DeleteConfirmation',
@@ -72,9 +73,9 @@ export default {
     this.error = null
   },
   methods: {
-    ...mapActions({
-      deleteWalletFiles: 'deleteWalletFiles',
-    }),
+    deleteWalletFiles() {
+      sendClearWalletFiles()
+    },
     ...mapMutations({
       close: 'closeDeleteWalletFilesModal',
     }),

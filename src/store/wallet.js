@@ -1,7 +1,6 @@
 import { api, eventProcessor } from '@/main'
 import router from '@/router'
 import { standardizeBalance } from '@/api'
-import { sendClearWalletFiles } from '@/ipc/ipcMessages'
 import {
   calculateTimeAgo,
   createNotification,
@@ -565,9 +564,6 @@ export default {
           message: t('update_wallet_error'),
         })
       }
-    },
-    deleteWalletFiles() {
-      sendClearWalletFiles()
     },
     async deleteWallet(context) {
       const request = await api.deleteWallet({

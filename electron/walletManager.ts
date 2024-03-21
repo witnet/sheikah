@@ -305,7 +305,7 @@ export class WalletManager {
     this.walletProcess.on('exit', () => {
       if (this.relaunch) {
         actions.quitApp()
-        // actions.relaunch()
+        actions.relaunch()
       } else {
         actions.quitApp()
       }
