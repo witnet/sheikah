@@ -8,7 +8,7 @@
         <slot name="content"></slot>
       </div>
       <div class="icon-container">
-        <slot name="icon-social"></slot>
+        <slot class="icon" name="icon-social"></slot>
       </div>
     </div>
   </a>
@@ -39,8 +39,8 @@ export default {
   cursor: pointer;
   display: flex;
   justify-content: center;
-  padding: 32px 0 0 32px;
   text-decoration: none;
+  padding: 32px 0 0 32px;
 
   &:hover,
   :active {
