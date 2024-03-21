@@ -11,6 +11,7 @@ describe('SettingsSection.vue', () => {
         ExportXprv: true,
         SettingsNotificationList: true,
         Community: true,
+        CustomIcon: true,
         SettingsResync: true,
         RenameWallet: true,
         DeleteWallet: true,
