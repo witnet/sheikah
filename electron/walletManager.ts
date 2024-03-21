@@ -175,21 +175,7 @@ export class WalletManager {
 
   public clearWalletFiles(pathToClear: string) {
     if (fs.existsSync(pathToClear)) {
-      const items = fs.readdirSync(pathToClear, { withFileTypes: true })
-
-      for (const item of items) {
-        const itemPath = path.resolve(pathToClear, item.name)
-
-        if (fs.existsSync(itemPath)) {
-          if (item.isDirectory()) {
-            this.clearWalletFiles(itemPath)
-          } else if (item.isFile()) {
-            fs.unlinkSync(itemPath)
-          }
-        }
-      }
-
-      fs.rmdirSync(pathToClear)
+      fs.rmdirSync(pathToClear, { recursive: true })
     }
   }
 
@@ -319,7 +305,7 @@ export class WalletManager {
     this.walletProcess.on('exit', () => {
       if (this.relaunch) {
         actions.quitApp()
-        actions.relaunch()
+        // actions.relaunch()
       } else {
         actions.quitApp()
       }
