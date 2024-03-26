@@ -66,7 +66,7 @@
 
     <p class="help">
       {{ $t('reusing_address_alert') }}
-      <a class="link" href="#">{{ $t('learn_more') }} ></a>.
+      <!-- <a class="link" target="_blank" href="#">{{ $t('learn_more') }} ></a>. -->
     </p>
   </div>
   <div v-else class="information">
