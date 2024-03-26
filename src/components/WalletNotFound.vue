@@ -10,12 +10,8 @@
         </p>
       </div>
       <div class="link-container">
-        <a
-          class="link"
-          href="https://github.com/witnet/witnet-rust/tree/master/wallet"
-          target="_blank"
-        >
-          https://github.com/witnet/witnet-rust/tree/master/wallet
+        <a class="link" href="https://discord.gg/witnet" target="_blank">
+          Witnet Community Discord Server
         </a>
       </div>
     </div>
@@ -76,12 +72,13 @@ export default {
       font-size: 14px;
       margin-top: 16px;
       padding: 16px;
+      display: flex;
+      flex-direction: column;
 
       .link {
         color: var(--alert-colot-link-text);
         cursor: pointer;
         line-height: 1.5;
-        text-decoration: none;
       }
     }
   }
