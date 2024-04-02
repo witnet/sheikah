@@ -41,6 +41,7 @@ jobs:
           # macOS notarization API key
           APPLEID: ${{ secrets.APPLEID }}
           APPLEIDPASS: ${{ secrets.APPLEIDPASSWORD }}
+          APPLETEAMID: ${{ secrets.APPLETEAMID }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SIGN: true
         run: |
