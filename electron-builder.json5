@@ -17,6 +17,7 @@
       "default"
     ]
   },
+  "afterSign": "scripts/notarize.cjs",
   "win": {
     "target": [
       {
