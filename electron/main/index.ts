@@ -79,6 +79,7 @@ async function createWindow() {
             label: 'Quit',
             accelerator: 'CmdOrCtrl+Q',
             click: () => {
+              walletManager.setForceQuit(true)
               win.webContents.send(SHUTDOWN)
             },
           },
@@ -118,6 +119,11 @@ async function createWindow() {
     return { action: 'deny' }
   })
 
+  win.on('close', () => {
+    walletManager.setForceQuit(true)
+    win?.webContents.send(SHUTDOWN)
+  })
+
   win.on('closed', () => {
     win = null
   })
@@ -140,6 +146,7 @@ app.whenReady().then(() => {
 })
 
 app.on('before-quit', () => {
+  walletManager.setForceQuit(true)
   win?.webContents.send(SHUTDOWN)
 })
 
@@ -161,6 +168,7 @@ ipcMain.on(SHUTDOWN_FINISHED, () => {
 
 ipcMain.on(CLEAR_WALLET_FILES, () => {
   walletManager.setRelaunch(true)
+  walletManager.setForceQuit(true)
   walletManager.clearWalletFiles(SHEIKAH_PATH)
   win.webContents.send(SHUTDOWN)
 })
