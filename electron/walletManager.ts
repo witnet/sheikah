@@ -60,6 +60,7 @@ export class WalletManager {
   public webContents: Electron.WebContents | null
   public isUpdating: boolean = false
   public relaunch: boolean = false
+  public forceQuit: boolean = false
   public walletProcess: cp.ChildProcessWithoutNullStreams | null = null
   private existDirectory: boolean
   private needToDownloadWallet: boolean = true
@@ -151,6 +152,10 @@ export class WalletManager {
 
   public setRelaunch(status: boolean) {
     this.relaunch = status
+  }
+
+  public setForceQuit(status: boolean) {
+    this.forceQuit = status
   }
 
   // Download a wallet release from the url specified
@@ -303,11 +308,11 @@ export class WalletManager {
     })
 
     this.walletProcess.on('exit', () => {
-      if (this.relaunch) {
+      if (this.forceQuit) {
         actions.quitApp()
-        actions.relaunch()
-      } else {
-        actions.quitApp()
+        if (this.relaunch) {
+          actions.relaunch()
+        }
       }
     })
   }
