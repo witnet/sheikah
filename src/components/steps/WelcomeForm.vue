@@ -1,7 +1,7 @@
 <template>
   <div data-test="welcome-back" class="welcome-back">
     <div class="bar">
-      <CustomIcon class-name="row sheikah-icon" name="sheikah-icon" />
+      <CustomIcon class="row sheikah-icon" name="sheikah-icon" />
       <p v-if="walletInfos && walletInfos.length" class="row title">{{
         $t('welcome_back')
       }}</p>
@@ -80,9 +80,14 @@ export default {
       text-align: left;
     }
 
+    .icon-container {
+      cursor: pointer;
+      margin: -10px;
+      padding: 10px;
+    }
+
     .icon {
       color: var(--text-medium-emphasis);
-      cursor: pointer;
       font-size: 20px;
     }
 
