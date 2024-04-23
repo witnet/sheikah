@@ -169,8 +169,8 @@ ipcMain.on(SHUTDOWN_FINISHED, () => {
 ipcMain.on(CLEAR_WALLET_FILES, () => {
   walletManager.setRelaunch(true)
   walletManager.setForceQuit(true)
-  walletManager.clearWalletFiles(SHEIKAH_PATH)
-  win.webContents.send(SHUTDOWN)
+  walletManager.setClearWalletFiles(true)
+  walletManager.killWalletProcess()
 })
 
 app.on('activate', () => {
@@ -210,7 +210,17 @@ function quitApp() {
 }
 
 function relaunch() {
-  app.relaunch()
+  const options = {
+    args: process.argv.slice(1).concat(['--relaunch']),
+    execPath: process.execPath,
+  }
+  if (app.isPackaged && process.env.APPIMAGE) {
+    // Allow relaunch with AppImage
+    options.execPath = process.env.APPIMAGE
+    options.args.unshift('--appimage-extract-and-run')
+  }
+  app.relaunch(options)
+  app.exit(0)
 }
 
 // load a url if browser window is ready according to the current status
