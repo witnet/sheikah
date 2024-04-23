@@ -67,7 +67,7 @@ export const STATUS_PATH = {
 
 export const WITNET_CONFIG_FILE_NAME = 'witnet.toml'
 
-export const WITNET_RUST_VERSION = '1.5.6'
+export const WITNET_RUST_VERSION = '1.7.1'
 
 export const DEFAULT_WALLET_LOG_LEVEL = 'error'
 
