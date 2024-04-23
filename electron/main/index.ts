@@ -16,7 +16,6 @@ import { WalletManager } from '../walletManager'
 import { IPC_ACTIONS } from '../ipc/ipcActions'
 import { AutoUpdaterManager } from '../autoUpdaterManager'
 import overwriteWitnetNodeConfiguration from '../utils/overwriteWitnetNodeConfiguration'
-import { SHEIKAH_PATH } from '../constants'
 
 const { SHUTDOWN, SHUTDOWN_FINISHED, CLEAR_WALLET_FILES } = IPC_ACTIONS.Window
 
