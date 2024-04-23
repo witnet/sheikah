@@ -59,6 +59,7 @@ interface GithubTagInfo {
 export class WalletManager {
   public webContents: Electron.WebContents | null
   public isUpdating: boolean = false
+  public clearFiles: boolean = false
   public relaunch: boolean = false
   public forceQuit: boolean = false
   public walletProcess: cp.ChildProcessWithoutNullStreams | null = null
@@ -158,6 +159,10 @@ export class WalletManager {
     this.forceQuit = status
   }
 
+  public setClearWalletFiles(status: boolean) {
+    this.clearFiles = status
+  }
+
   // Download a wallet release from the url specified
   public async downloadWallet(actions: Actions, releaseUrl: string) {
     console.info(
@@ -180,7 +185,7 @@ export class WalletManager {
 
   public clearWalletFiles(pathToClear: string) {
     if (fs.existsSync(pathToClear)) {
-      fs.rmdirSync(pathToClear, { recursive: true })
+      fs.rmSync(pathToClear, { recursive: true, force: true })
     }
   }
 
@@ -308,11 +313,14 @@ export class WalletManager {
     })
 
     this.walletProcess.on('exit', () => {
+      if (this.clearFiles) {
+        this.clearWalletFiles(SHEIKAH_PATH)
+      }
       if (this.forceQuit) {
-        actions.quitApp()
         if (this.relaunch) {
           actions.relaunch()
         }
+        actions.quitApp()
       }
     })
   }
