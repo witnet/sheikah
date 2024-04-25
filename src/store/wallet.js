@@ -552,6 +552,7 @@ export default {
         description: context.state.updatedDescription,
       })
       if (request.result) {
+        await context.dispatch('getWalletInfos')
         context.commit('setUpdatedWallet')
         context.commit('clearUpdatedWallet')
         createNotification({
