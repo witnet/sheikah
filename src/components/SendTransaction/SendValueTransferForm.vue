@@ -43,9 +43,8 @@
           v-model="form.timelock"
           type="datetime"
           :placeholder="$t('select_date')"
-          tabindex="5"
-          :default-value="new Date()"
-          value-format="timestamp"
+          :default-time="new Date()"
+          value-format="x"
         />
       </div>
     </transition>

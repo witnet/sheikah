@@ -294,14 +294,6 @@ $--el-input-border-color: red;
   width: 100%;
 }
 
-.el-picker-panel__footer {
-  border-top: var(--date-picker-border);
-
-  .el-button--text {
-    display: none;
-  }
-}
-
 .el-picker-panel {
   border: none;
 }
@@ -324,10 +316,39 @@ $--el-input-border-color: red;
   }
 }
 
+.el-picker-panel__footer {
+  border-top: var(--date-picker-border);
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px;
+
+  .el-button--text {
+    display: none;
+  }
+}
+
 .el-time-panel__content::after,
 .el-time-panel__content::before {
   border-bottom: var(--date-picker-border);
   border-top: var(--date-picker-border);
+}
+
+.el-time-panel__content {
+  background-color: var(--date-picker-background);
+}
+.el-time-panel__footer {
+  background-color: var(--date-picker-background);
+}
+.el-time-spinner__item {
+  background-color: var(--date-picker-background);
+  &.is-active:not(.is-disabled) {
+    background-color: var(--el-color-primary);
+    color: $white;
+  }
+  &:hover {
+    background: var(--card-background);
+    color: var(--el-text-color-regular);
+  }
 }
 
 .el-date-table td.disabled {
