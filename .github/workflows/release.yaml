@@ -66,6 +66,9 @@ jobs:
           pattern: "*artifact"
           path: release
 
+      - name: Rename Release Files
+        run: find release -type f -name "*_*" | while read file; do mv "$file" "${file//_/-}"; done
+
       - name: Create Draft
         uses: ncipollo/release-action@v1
         with:
