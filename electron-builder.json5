@@ -13,6 +13,8 @@
   ],
   "mac": {
     "artifactName": "${productName}-${version}.${ext}",
+    "entitlements": "build/entitlements.mac.plist",
+    "entitlementsInherit": "build/entitlements.mac.plist",
     "target": [
       "default"
     ]
