@@ -50,9 +50,9 @@
     "node": "20.9.0"
   },
   "devDependencies": {
+    "@electron/notarize": "^2.3.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
-    "@electron/notarize": "^2.3.0",
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "@intlify/unplugin-vue-i18n": "^3.0.1",
     "@rushstack/eslint-patch": "^1.10.1",
@@ -71,6 +71,7 @@
     "electron": "^29.1.6",
     "electron-builder": "^24.13.3",
     "electron-devtools-installer": "^3.2.0",
+    "electron-log": "^5.1.2",
     "electron-updater": "^6.1.8",
     "element-plus": "^2.6.3",
     "eslint": "^8.57.0",

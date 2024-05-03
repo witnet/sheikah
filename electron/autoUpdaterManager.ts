@@ -2,6 +2,7 @@ import { autoUpdater } from 'electron-updater'
 import { BrowserWindow, MessageBoxOptions, dialog } from 'electron'
 import { WalletManager } from './walletManager'
 import { Actions } from './main'
+import log from 'electron-log/main'
 
 export class AutoUpdaterManager {
   public isBeingUpdated: boolean = false
@@ -15,6 +16,8 @@ export class AutoUpdaterManager {
 
   public run(actions: Actions) {
     console.log('Checking for updates...')
+    log.transports.file.level = 'info'
+    autoUpdater.logger = log
     autoUpdater.checkForUpdatesAndNotify()
     autoUpdater.on('update-available', () => {
       this.wallet.setIsUpdating(true)
