@@ -2,7 +2,7 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  "appId": "YourAppID",
+  "appId": "com.electron.sheikah-witnet-wallet",
   "asar": true,
   "directories": {
     "output": "release/${version}"
