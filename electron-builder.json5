@@ -15,6 +15,7 @@
     "artifactName": "${productName}-${version}.${ext}",
     "entitlements": "build/entitlements.mac.plist",
     "entitlementsInherit": "build/entitlements.mac.plist",
+    hardenedRuntime: true,
     "target": [
       "default"
     ]
