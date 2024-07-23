@@ -8,7 +8,6 @@ import {
   formatDuration,
 } from 'date-fns'
 
-import { v4 as uuidv4 } from 'uuid'
 import { Radon } from 'witnet-radon-js'
 import {
   LANGUAGES,
@@ -346,7 +345,7 @@ export function openInExternalApp(url) {
 }
 
 export function generateId() {
-  return uuidv4()
+  return crypto.randomUUID()
 }
 
 // check if contains the same elements
