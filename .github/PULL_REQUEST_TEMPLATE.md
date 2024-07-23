@@ -8,7 +8,7 @@ Thank you for contributing to sheikah! :)
 - [ ] I have read and understood [CONTRIBUTING][cont] document.
 - [ ] I have read and understood [STYLEGUIDE][style] document.
 - [ ] I have included tests for the changes in my PR. If not, I have included a rationale for why I haven't.
-- [ ] My code is formatted and is accepted by `yarn lint`.
+- [ ] My code is formatted and is accepted by `pnpm lint`.
 - [ ] **I understand my PR may be closed if it becomes obvious I didn't actually perform all of these steps.**
 
 # Why this change is necessary and useful

@@ -1,9 +1,9 @@
 module.exports = {
-  '*.js': ['yarn lint:eslint', 'yarn lint:prettier'],
+  '*.js': ['pnpm lint:eslint', 'pnpm lint:prettier'],
   '{!(package)*.json,.!(browserslist)*rc}': [
-    'yarn lint:prettier --parser json',
+    'pnpm lint:prettier --parser json',
   ],
-  'package.json': ['yarn lint:prettier'],
-  '*.vue': ['yarn lint:eslint', 'yarn lint:stylelint', 'yarn lint:prettier'],
-  '*.scss': ['yarn lint:stylelint', 'yarn lint:prettier'],
+  'package.json': ['pnpm lint:prettier'],
+  '*.vue': ['pnpm lint:eslint', 'pnpm lint:stylelint', 'pnpm lint:prettier'],
+  '*.scss': ['pnpm lint:stylelint', 'pnpm lint:prettier'],
 }
