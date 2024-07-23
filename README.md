@@ -35,16 +35,16 @@ git clone git@github.com:witnet/sheikah.git
 cd sheikah
 
 # install application dependencies
-yarn
+pnpm install
 
 # launch development application
-yarn electron:serve:wallet
+pnpm dev
 ```
 
 ### Formatter
 
-- Verify files are correctly formatted with `yarn lint`
-- Repair lint errors with (**this operation modifies your files!**) `yarn lint!`
+- Verify files are correctly formatted with `pnpm lint:check`
+- Repair lint errors with (**this operation modifies your files!**) `pnpm lint`
 
 ### Test
 
@@ -52,14 +52,14 @@ We use [Jest](https://facebook.github.io/jest/) for testing.
 
 ```bash
 # run unit tests
-yarn test
+pnpm test
 ```
 
 ### Build
 
 #### Production
 
-To build the application run: `yarn electron:build`, the build files are written to `dist_electron` directory.
+To build the application run: `pnpm build`, the build files are written to `dist_electron` directory.
 
 ### Contributing
 
@@ -67,15 +67,15 @@ You can read the [contributing guide](https://github.com/witnet/sheikah/blob/mas
 
 #### Github Actions (continuous integration)
 
-When opening a pull request a job in [Github Actions](https://github.com/features/actions) will be fired off to check the changes. To avoid wasting time waiting for Github Actions output we provide the command `yarn ci` that will perform almost the same checks but it'll run in your computer.
+When opening a pull request a job in [Github Actions](https://github.com/features/actions) will be fired off to check the changes. To avoid wasting time waiting for Github Actions output we provide the command `pnpm ci` that will perform almost the same checks but it'll run in your computer.
 
 #### Troubleshooting
 
-- Use `yarn clean` to remove the contents of the build directory (`dist_electron`)
-- Use `yarn clean-deps` to remove all installed dependencies
-- Use `yarn reinstall` to remove all installed dependencies and install them again
+- Use `pnpm clean` to remove the contents of the build directory (`dist_electron`)
+- Use `pnpm clean-deps` to remove all installed dependencies
+- Use `pnpm reinstall` to remove all installed dependencies and install them again
 
-If the application doesn't boot correctly and no error is reported in the terminal, try running `yarn reinstall` and try again.
+If the application doesn't boot correctly and no error is reported in the terminal, try running `pnpm reinstall` and try again.
 
 ## Release
 
