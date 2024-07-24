@@ -30,7 +30,7 @@
     "lint:eslint": "eslint",
     "lint:fix:eslint": "pnpm lint:eslint --fix --ext .js,.ts,.vue .",
     "lint:fix:prettier": "pnpm lint:prettier --write \"**/*.{ts,js,json,css,scss,vue,html}\"",
-    "lint:prettier": "prettier --loglevel warn",
+    "lint:prettier": "prettier --log-level warn",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
     "reinstall": "pnpm clean-deps && pnpm",

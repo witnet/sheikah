@@ -1,4 +1,4 @@
-name: Run lint and test 
+name: Run lint and test
 
 on: pull_request
 

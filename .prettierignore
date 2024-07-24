@@ -4,7 +4,7 @@
 /dist_electron/**
 /tests/unit/coverage/**
 /src/locales/**
-auto-import.d.ts
-
+*auto-imports.d.ts
 .witnet-rust-testnet-*-wallet
 genesis_block.json
+pnpm-lock.yaml

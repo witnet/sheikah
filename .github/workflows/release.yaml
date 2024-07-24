@@ -12,11 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [
-          macos-latest,
-          ubuntu-latest,
-          windows-latest
-        ]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
       - name: Checkout
@@ -63,11 +59,11 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          pattern: "*artifact"
+          pattern: '*artifact'
           path: release
 
       - name: Create Draft
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "release/**/*.exe,release/**/*.AppImage,release/**/*.dmg,release/**/*.snap,release/**/*.zip,release/**/*.yml"
+          artifacts: 'release/**/*.exe,release/**/*.AppImage,release/**/*.dmg,release/**/*.snap,release/**/*.zip,release/**/*.yml'
           draft: true
