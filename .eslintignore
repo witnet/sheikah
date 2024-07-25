@@ -6,5 +6,6 @@
 /src/locales/**
 *auto-imports.d.ts
 *components.d.ts
+*vite-env.d.ts
 .witnet-rust-testnet-*-wallet
 genesis_block.json
