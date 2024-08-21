@@ -243,7 +243,6 @@ export default {
 
     .operator-bottom {
       align-items: flex-start;
-      justify-content: center;
       display: flex;
 
       .icon-container {

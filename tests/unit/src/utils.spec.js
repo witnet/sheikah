@@ -420,6 +420,28 @@ describe('deleteKey', () => {
 
 describe('calculateCurrentFocusAfterUndo', () => {
   describe('should work for all HISTORY_UPDATE_TYPEs', () => {
+    describe('update CONTENT TYPE', () => {
+      test('on retrieve stage', () => {
+        const mir = {
+          timelock: 0,
+          retrieve: [
+            { kind: 'HTTP-GET', url: '', contentType: 'JSON API', script: [] },
+            {
+              kind: 'HTTP-GET',
+              url: '',
+              contentType: 'JSON API',
+              script: [114],
+            },
+          ],
+          aggregate: { filters: [], reducer: 2 },
+          tally: { filters: [], reducer: 2 },
+        }
+        const radon = new Radon(mir)
+        radon.updateSource(0, { kind: 3, contentType: 'Binary file' })
+        const markup = radon.getMarkup()
+        expect(markup.retrieve[0].contentType).toBe('Binary file')
+      })
+    })
     describe('DELETE_OPERATOR', () => {
       test('on retrieve stage', () => {
         const historyCheckpoint = {
