@@ -15,6 +15,19 @@ export interface LanguageDictionary {
   [LocaleCodes.es]: CustomLocale
 }
 
+export enum ContentType {
+  JsonApi = 'JSON API',
+  BinaryFile = 'Binary file',
+  Unknown = 'Unknown',
+}
+
+export enum Kind {
+  HttpGet = 'HTTP-GET',
+  HttpPost = 'HTTP-POST',
+  Rng = 'RNG',
+  Head = 'Head',
+}
+
 export enum SetupMessages {
   runningWallet,
   updatingWalletBackend,

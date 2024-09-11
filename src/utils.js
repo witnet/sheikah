@@ -23,6 +23,13 @@ import {
 import sheikahIcon from '@/resources/svg/sheikah-small.svg'
 import BigNumber from '@/utils/BigNumber'
 
+export function revertObject(obj) {
+  const newObject = {}
+  Object.keys(obj).forEach(key => {
+    newObject[obj[key]] = key
+  })
+  return newObject
+}
 // Create Notifications if notifications are supported
 export function createNotification(notificationProps) {
   if (window.Notification) {
@@ -208,7 +215,6 @@ export function getTimeToSync(startingTime, currentBlock, finalBlock) {
 
   return timeToSync - timeToCurrentBlock
 }
-
 export function encodeDataRequest(radRequest) {
   return {
     // TODO: Use only one timelock argument when the wallet standarize calls
@@ -220,7 +226,7 @@ export function encodeDataRequest(radRequest) {
       return {
         url: retrieve.url,
         contentType: retrieve.contentType,
-        kind: retrieve.kind,
+        kind: retrieve.kindOptions[retrieve.kind],
         headers: Object.entries(retrieve.headers || {}),
         // Only add body if it exists
         ...(retrieve.body && {

@@ -54,7 +54,6 @@ const request = new Witnet.Request()
   .setTally(tally) // Set the tally function
   .setQuorum(100, 70) // Set witness count
   .setFees(10, 1) // Set economic incentives
-  .schedule(0) // Make this request immediately solvable
 
 // Do not forget to export the request object
 export { request as default }

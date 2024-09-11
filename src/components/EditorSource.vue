@@ -11,12 +11,12 @@
             data-test="protocol-select"
           />
         </el-form-item>
-        <label v-if="protocol !== 'RNG'" class="label">URL</label>
-        <el-form-item v-if="protocol !== 'RNG'" prop="localContentType">
+        <label v-if="!isRng" class="label">URL</label>
+        <el-form-item v-if="!isRng" prop="localContentType">
           <el-input ref="url" v-model="form.localUrl" data-test="url-input" />
         </el-form-item>
-        <label v-if="protocol === 'HTTP-POST'" class="label">Headers</label>
-        <el-form-item v-if="protocol === 'HTTP-POST'" prop="localHeaders">
+        <label v-if="isPostRequest" class="label">Headers</label>
+        <el-form-item v-if="isPostRequest" prop="localHeaders">
           <el-input
             ref="headers"
             v-model="form.localHeaders"
@@ -25,8 +25,8 @@
             data-test="headers-input"
           />
         </el-form-item>
-        <label v-if="protocol === 'HTTP-POST'" class="label">Body</label>
-        <el-form-item v-if="protocol === 'HTTP-POST'" prop="localBody">
+        <label v-if="isPostRequest" class="label">Body</label>
+        <el-form-item v-if="isPostRequest" prop="localBody">
           <el-input
             ref="body"
             v-model="form.localBody"
@@ -50,11 +50,7 @@
         placement="right"
         effect="light"
       >
-        <div
-          class="delete"
-          data-test="delete-btn"
-          @click="deleteSource({ index })"
-        >
+        <div class="delete" data-test="delete-btn" @click="deleteSource(index)">
           <CustomIcon name="close-btn" />
         </div>
       </el-tooltip>
@@ -62,145 +58,158 @@
   </Fieldset>
 </template>
 
-<script>
-import { mapMutations } from 'vuex'
-
+<script setup lang="ts">
+import { useStore } from 'vuex'
+import { computed, reactive, watch, toRefs } from 'vue'
+import { Kind, ContentType } from '@/types'
+import { useI18n } from 'vue-i18n'
 import { UPDATE_SOURCE, DELETE_SOURCE } from '@/store/mutation-types'
+import { getIndexFromProtocolKind } from '@/utils/protocolDictionary'
 import { getDomainFromUrl, isValidJson } from '@/utils'
 import Card from '@/components/card/Card.vue'
 import Fieldset from '@/components/Fieldset.vue'
 import Select from '@/components/Select.vue'
 import CustomIcon from '@/components/CustomIcon.vue'
+const store = useStore()
+const { t } = useI18n()
+const props = defineProps({
+  /**
+   * Index of the source by creation date
+   */
+  index: {
+    required: true,
+    type: Number,
+  },
+  /**
+   * Value to show in the protocol field
+   */
+  protocol: {
+    required: true,
+    type: String,
+  },
+  /**
+   * Protocol value as integer
+   */
+  protocolIndex: {
+    required: true,
+    type: Number,
+  },
+  /**
+   * Value to show in the url field
+   */
+  url: {
+    required: true,
+    type: String,
+  },
+  kindOptions: {
+    required: true,
+    type: Object,
+  },
+  headers: {
+    required: true,
+    type: String,
+  },
+  body: {
+    required: true,
+    type: String,
+  },
+  contentTypeOptions: {
+    required: true,
+    type: Object,
+  },
+  /**
+   * Value to show in the content type field
+   */
+  // FIXME: Support other content types and protocol options
+  contentType: {
+    required: true,
+    type: String,
+  },
+})
 
-export default {
-  name: 'EditorSource',
-  components: {
-    Fieldset,
-    Card,
-    Select,
-    CustomIcon,
-  },
-  props: {
-    /**
-     * Index of the source by creation date
-     */
-    index: {
-      required: true,
-      type: Number,
-    },
-    /**
-     * Value to show in the protocol field
-     */
-    protocol: {
-      required: true,
-      type: String,
-    },
-    /**
-     * Value to show in the url field
-     */
-    url: {
-      required: true,
-      type: String,
-    },
-    kindOptions: {
-      required: true,
-      type: Array,
-    },
-    headers: {
-      required: true,
-      type: String,
-    },
-    body: {
-      required: true,
-      type: String,
-    },
-    contentTypeOptions: {
-      required: true,
-      type: Object,
-    },
-    /**
-     * Value to show in the content type field
-     */
-    // FIXME: Support other content types and protocol options
-    contentType: {
-      required: true,
-      type: String,
-    },
-  },
-  data() {
-    const areValidHeaders = (rule, value, callback) => {
-      if (!isValidJson(value)) {
-        callback(new Error(this.$t('json_error')))
-      } else {
-        callback()
-      }
-    }
-    return {
-      form: {
-        localProtocol: { primaryText: this.protocol || 'HTTP-GET' },
-        localContentType: { primaryText: this.contentType || 'JSON API' },
-        localUrl: this.url || '',
-        localHeaders: this.headers || '{}',
-        localBody: this.body || '',
-      },
-      rules: {
-        localHeaders: [{ validator: areValidHeaders, trigger: 'blur' }],
-      },
-    }
-  },
-  computed: {
-    selectOptions() {
-      return this.kindOptions.map(kind => {
-        return { primaryText: kind }
-      })
-    },
-    title() {
-      return `Data Source #${this.index}`
-    },
-    subtitle() {
-      return getDomainFromUrl(this.url)
-    },
-    currentContentTypeOptions() {
-      return Object.values(this.contentTypeOptions).map(option => {
-        return { primaryText: option }
-      })
-    },
-  },
-  watch: {
-    form: {
-      handler() {
-        this.updateSource({
-          index: this.index,
-          source: {
-            protocol: this.form.localProtocol.primaryText,
-            headers: isValidJson(this.form.localHeaders)
-              ? JSON.parse(this.form.localHeaders)
-              : {},
-            body: this.form.localBody,
-            url: this.form.localUrl,
-            contentType: this.form.localContentType.primaryText,
-          },
-        })
-      },
-      deep: true,
-    },
-    url(val) {
-      this.form.currentUrl = val
-    },
-    protocol(val) {
-      this.form.currentProtocol = { primaryText: val }
-    },
-    contentType(val) {
-      this.form.currentContentType = { primaryText: val }
-    },
-  },
-  methods: {
-    ...mapMutations({
-      deleteSource: DELETE_SOURCE,
-      updateSource: UPDATE_SOURCE,
-    }),
-  },
+const areValidHeaders = (_rule: any, value: any, callback: any) => {
+  if (!isValidJson(value)) {
+    callback(new Error(t('json_error')))
+  } else {
+    callback()
+  }
 }
+
+const form = reactive({
+  localProtocol: {
+    primaryText: props.protocol || Kind.HttpGet,
+  },
+  localContentType: {
+    primaryText: props.contentType || ContentType.JsonApi,
+  },
+  localUrl: props.url || '',
+  localHeaders: props.headers || '{}',
+  localBody: props.body || '',
+})
+const { localContentType, localProtocol } = toRefs(form)
+const { contentType, protocol } = toRefs(props)
+const rules = reactive({
+  localHeaders: [{ validator: areValidHeaders, trigger: 'blur' }],
+})
+
+const selectOptions = computed(() => {
+  return Object.values(props.kindOptions).map(kind => {
+    return { primaryText: kind }
+  })
+})
+const title = computed(() => {
+  return `Data Source #${props.index}`
+})
+const subtitle = computed(() => {
+  return getDomainFromUrl(props.url)
+})
+const currentContentTypeOptions = computed(() => {
+  return Object.values(props.contentTypeOptions).map(option => {
+    return { primaryText: option }
+  })
+})
+const isRng = computed(() => {
+  return props.protocol === Kind.Rng
+})
+const isPostRequest = computed(() => {
+  return props.protocol === Kind.HttpPost
+})
+
+const deleteSource = (index: number) => store.commit(DELETE_SOURCE, { index })
+const updateSource = ({ index, source }: { index: number; source: any }) => {
+  store.commit(UPDATE_SOURCE, { index, source })
+}
+
+watch(
+  () => form,
+  value => {
+    updateSource({
+      index: props.index,
+      source: {
+        protocol: getIndexFromProtocolKind(
+          props.kindOptions,
+          value.localProtocol.primaryText,
+        ),
+        headers: isValidJson(value.localHeaders)
+          ? JSON.parse(form.localHeaders)
+          : {},
+        body: value.localBody,
+        url: value.localUrl,
+        contentType: value.localContentType.primaryText,
+      },
+    })
+  },
+  { deep: true },
+)
+
+watch(contentType, val => {
+  localContentType.value = { primaryText: val }
+})
+watch(protocol, val => {
+  localProtocol.value = {
+    primaryText: val,
+  }
+})
 </script>
 
 <style scoped lang="scss">

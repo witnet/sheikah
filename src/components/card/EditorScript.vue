@@ -3,7 +3,7 @@
     <Card shadow="thin" :border="false" :padding="false">
       <RadonScript
         :url="source.url"
-        :protocol="source.kind"
+        :protocol="source.kindOptions[source.kind]"
         :script="source.script"
         stage="retrieve"
         :source-index="source.index"

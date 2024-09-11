@@ -6,7 +6,7 @@
           {{ url }} <span class="protocol">({{ protocol }})</span>
         </p>
       </div>
-      <div v-if="protocol !== 'RNG'" class="operator-bottom">
+      <div v-if="!isRng" class="operator-bottom">
         <div class="icon-container">
           <CustomIcon
             v-if="emptyScript"
@@ -96,6 +96,7 @@ import OperatorOutput from '@/components/OperatorOutput.vue'
 import ScriptInfo from '@/components/ScriptInfo.vue'
 import RadonOperator from '@/components/RadonOperator.vue'
 import CustomIcon from '@/components/CustomIcon.vue'
+import { Kind } from '@/types'
 
 export default {
   name: 'RadonScript',
@@ -172,6 +173,9 @@ export default {
       } else {
         return null
       }
+    },
+    isRng() {
+      return this.protocol === Kind.Rng
     },
   },
   methods: {
