@@ -110,9 +110,15 @@ importers:
       progress-stream:
         specifier: ^2.0.0
         version: 2.0.0
+<<<<<<< HEAD
       qrcode.vue:
         specifier: ^3.5.0
         version: 3.6.0(vue@3.5.12(typescript@5.7.3))
+=======
+      qrcode-vue3:
+        specifier: 1.6.8
+        version: 1.6.8
+>>>>>>> 83737815 (fix: avoid type error in `qrcode-vue3`)
       rpc-websockets:
         specifier: ^7.11.2
         version: 7.11.2
@@ -168,8 +174,13 @@ importers:
         specifier: ^4.4.5
         version: 4.5.0(vue@3.5.12(typescript@5.7.3))
       vue-tsc:
+<<<<<<< HEAD
         specifier: ^2.1.6
         version: 2.2.0(typescript@5.7.3)
+=======
+        specifier: ^2.0.28
+        version: 2.1.6(typescript@5.6.2)
+>>>>>>> 83737815 (fix: avoid type error in `qrcode-vue3`)
       vuex:
         specifier: ^4.1.0
         version: 4.1.0(vue@3.5.12(typescript@5.7.3))
@@ -3047,10 +3058,18 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
+<<<<<<< HEAD
   qrcode.vue@3.6.0:
     resolution: {integrity: sha512-vQcl2fyHYHMjDO1GguCldJxepq2izQjBkDEEu9NENgfVKP6mv/e2SU62WbqYHGwTgWXLhxZ1NCD1dAZKHQq1fg==}
     peerDependencies:
       vue: ^3.0.0
+=======
+  qrcode-generator@1.4.4:
+    resolution: {integrity: sha512-HM7yY8O2ilqhmULxGMpcHSF1EhJJ9yBj8gvDEuZ6M+KGJ0YY2hKpnXvRD+hZPLrDVck3ExIGhmPtSdcjC+guuw==}
+
+  qrcode-vue3@1.6.8:
+    resolution: {integrity: sha512-LtMnwKWi58ZqHbXBcsTF/VxDYhI6RrBIrDQw8fbDVlO8p5tJBZa7TaIaVYLY937vKO2WCEBmOKksGlpm5ccEIg==}
+>>>>>>> 83737815 (fix: avoid type error in `qrcode-vue3`)
 
   qs@6.5.3:
     resolution: {integrity: sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==}
@@ -7170,7 +7189,13 @@ snapshots:
 
   punycode@2.3.1: {}
 
+<<<<<<< HEAD
   qrcode.vue@3.6.0(vue@3.5.12(typescript@5.7.3)):
+=======
+  qrcode-generator@1.4.4: {}
+
+  qrcode-vue3@1.6.8:
+>>>>>>> 83737815 (fix: avoid type error in `qrcode-vue3`)
     dependencies:
       vue: 3.5.12(typescript@5.7.3)
 
