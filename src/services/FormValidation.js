@@ -52,6 +52,45 @@ export default class FormValidation {
     }
   }
 
+  decimalsValidated = value => {
+    if (!new RegExp(/^\d+\.?\d{1,9}$/).test(value)) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  hasDecimals = value => {
+    return value && value.includes('.')
+  }
+
+  amountValidated = value => {
+    const splitted = value.split('.')
+    console.log(splitted)
+    if (value.split('.').length != 2 || value.split('.')[1] === '') {
+      false
+    } else {
+      return true
+    }
+  }
+
+  isDecimalAmountValid = (rule, value, callback) => {
+    const witAmount = standardizeWitUnits(value, WIT_UNIT.WIT, this.unit)
+    // Check if the amount has decimals
+    if (this.hasDecimals(witAmount)) {
+      // Check if the decimal amount is valid
+      if (!this.amountValidated(witAmount))
+        callback(new Error(t('amount_error')))
+      // Check if the amount has more than nine decimals
+      if (!this.decimalsValidated(witAmount)) {
+        callback(new Error(t('decimals_error')))
+      }
+      callback()
+    } else {
+      callback()
+    }
+  }
+
   isGrtThanBalance = (rule, value, callback) => {
     const validation =
       Number(standardizeWitUnits(value, WIT_UNIT.NANO, this.unit)) >

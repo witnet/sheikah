@@ -103,6 +103,9 @@ export default {
     const isGrtThanBalance = (rule, value, callback) => {
       return formValidation().isGrtThanBalance(rule, value, callback)
     }
+    const isDecimalAmountValid = (rule, value, callback) => {
+      return formValidation.isDecimalAmountValid(rule, value, callback)
+    }
     const maxNumber = (rule, value, callback) => {
       return formValidation().maxNumber(rule, value, callback)
     }
@@ -140,6 +143,10 @@ export default {
             message: this.$t('create_dr_form_error_required_field'),
             trigger: 'blur',
           },
+          {
+            validator: isDecimalAmountValid,
+            trigger: 'blur',
+          },
           { validator: isNumber, trigger: 'blur' },
           { validator: maxNumber, trigger: 'blur' },
           { validator: minAmount, trigger: 'submit' },
@@ -150,6 +157,10 @@ export default {
           {
             required: true,
             message: this.$t('create_dr_form_error_required_field'),
+            trigger: 'blur',
+          },
+          {
+            validator: isDecimalAmountValid,
             trigger: 'blur',
           },
           { validator: isNumber, trigger: 'blur' },
@@ -182,6 +193,10 @@ export default {
           {
             required: true,
             message: this.$t('create_dr_form_error_required_field'),
+            trigger: 'blur',
+          },
+          {
+            validator: isDecimalAmountValid,
             trigger: 'blur',
           },
           { validator: isGrtThanBalance, trigger: 'blur' },
