@@ -22,18 +22,12 @@
         <a class="link" href="#" target="_blank">myWitWallet</a>
       </i18n-t>
       <div class="qr" :class="{ blur: !isQrVisible }">
-        <QRCodeVue3
+        <QrcodeVue
           v-if="masterKey"
           :value="masterKey"
-          :width="225"
-          :height="225"
-          :dots-options="{
-            type: 'dots',
-            color: '#2d2c3a',
-          }"
-          :background-options="{ color: '#ffffff' }"
-          :corners-square-options="{ type: 'dot', color: '#2d2c3a' }"
-          :corners-dot-options="{ type: undefined, color: '#2d2c3a' }"
+          :size="225"
+          foreground="#8327d8"
+          :background="qrcodeBg"
         />
       </div>
       <el-button class="show" @click="toggleQR">{{
@@ -46,15 +40,19 @@
 </template>
 
 <script setup lang="ts">
-import QRCodeVue3 from 'qrcode-vue3'
-import { ref, toRefs, computed } from 'vue'
+import QrcodeVue from 'qrcode.vue'
+import { THEMES } from '@/constants'
+
+import { ref, toRefs, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 
 const isQrVisible = ref(false)
+const isDark = computed(() => theme.value === THEMES.DARK)
+const qrcodeBg = computed(() => (isDark.value ? '#3e3d4a' : '#ffffff'))
 const modalVisible = ref(true)
 const store = useStore()
 
-const { xprv } = toRefs(store.state.wallet)
+const { xprv, theme } = toRefs(store.state.wallet)
 const masterKey = computed(() => (xprv.value ? xprv.value.master_key : null))
 
 function close() {
@@ -64,6 +62,7 @@ function close() {
 function toggleQR() {
   isQrVisible.value = !isQrVisible.value
 }
+onMounted(() => store.dispatch('getTheme'))
 </script>
 
 <style lang="scss" scoped>
@@ -105,7 +104,7 @@ function toggleQR() {
     .qr {
       height: 225px;
       margin-top: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
       width: 225px;
 
       &.blur {
