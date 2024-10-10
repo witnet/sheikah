@@ -63,7 +63,7 @@
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/test-utils": "^2.4.5",
     "@vueuse/core": "^10.9.0",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.20",
     "axios": "^1.6.8",
     "big.js": "^6.2.1",
     "cbor2": "^1.2.2",
