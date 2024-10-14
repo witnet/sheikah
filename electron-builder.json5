@@ -22,6 +22,7 @@
   },
   "afterSign": "scripts/notarize.cjs",
   "win": {
+    "verifyUpdateCodeSignature": false,
     "target": [
       {
         "target": "nsis",
