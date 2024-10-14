@@ -781,7 +781,7 @@ export default {
           // FIXME: error has the following structure:["{\"available_balance\":0,\"total_balance\":0,\"transaction_value\":2397}","Wallet account has not enough balance"]
           try {
             usableBalance = JSON.parse(req.error.data[0][0])
-          } catch (e) {
+          } catch {
             usableBalance = null
           }
           const availableBalance = context.state.balance.available
@@ -848,7 +848,7 @@ export default {
           // FIXME: error has the following structure:["{\"available_balance\":0,\"total_balance\":0,\"transaction_value\":2397}","Wallet account has not enough balance"]
           try {
             usableBalance = JSON.parse(request.error.data[0][0])
-          } catch (e) {
+          } catch {
             usableBalance = null
           }
           const availableBalance = context.state.balance.available
@@ -1076,9 +1076,11 @@ export default {
         context.commit('clearMnemonics')
         context.commit('clearXprvInfo')
         context.commit('clearXprvBackupPassword')
-        params.sourceType === 'mnemonics'
-          ? router.push('/ftu/import-wallet')
-          : router.push('/ftu/import-xprv')
+        if (params.sourceType === 'mnemonics') {
+          router.push('/ftu/import-wallet')
+        } else {
+          router.push('/ftu/import-xprv')
+        }
       }
     },
 
@@ -1130,9 +1132,11 @@ export default {
     getUnit: async function (context) {
       const unit = localStorageWrapper.getUnitSettings()
       const defaultUnit = context.state.unit
-      unit
-        ? context.commit('setUnit', unit)
-        : context.commit('setUnit', defaultUnit)
+      if (unit) {
+        context.commit('setUnit', unit)
+      } else {
+        context.commit('setUnit', defaultUnit)
+      }
     },
     getTheme: async function (context) {
       const theme = localStorageWrapper.getThemeSettings()

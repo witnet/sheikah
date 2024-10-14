@@ -182,8 +182,6 @@ export default {
       handler() {
         if (this.createVTTError) {
           this.clearError({ error: this.createVTTError.name })
-        } else {
-          this.generatePosibleTransactions
         }
       },
       deep: true,

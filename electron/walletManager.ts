@@ -48,7 +48,6 @@ export default async function sleep(t: number) {
 }
 
 interface GithubReleaseAsset {
-  // eslint-disable-next-line camelcase
   browser_download_url: string
 }
 

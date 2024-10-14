@@ -106,7 +106,11 @@ export default {
       id: this.template.id,
       locale: this.locale,
     })
-    this.variables.length ? (this.stage = 0) : (this.stage = 1)
+    if (this.variables.length) {
+      this.stage = 0
+    } else {
+      this.stage = 1
+    }
   },
   beforeUnmount() {
     if (this.createDataRequestError) {

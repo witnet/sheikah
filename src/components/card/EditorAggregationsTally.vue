@@ -65,7 +65,6 @@ export default {
     },
     filtersSupported: {
       type: Boolean,
-      // eslint-disable-next-line vue/no-boolean-default
       default: true,
     },
     results: {

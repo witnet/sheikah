@@ -218,7 +218,11 @@ export default {
     },
     toggleOptions() {
       if (!this.disabled) {
-        this.areOptionsVisible ? this.hideOptions() : this.showOptions()
+        if (this.areOptionsVisible) {
+          this.hideOptions()
+        } else {
+          this.showOptions()
+        }
       }
     },
     async showOptions() {

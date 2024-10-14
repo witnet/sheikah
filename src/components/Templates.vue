@@ -144,7 +144,7 @@ const readFile = () => {
           // clear file input to be able to try to load the same file twitce
           fileInput.value = null
         }
-      } catch (error) {
+      } catch {
         console.log('Error parsing json')
       }
     },

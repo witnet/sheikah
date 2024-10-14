@@ -100,7 +100,6 @@ export default {
   },
   props: {
     showOutputType: {
-      // eslint-disable-next-line vue/no-boolean-default
       default: true,
       type: Boolean,
     },

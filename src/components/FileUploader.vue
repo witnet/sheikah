@@ -210,7 +210,7 @@ export default {
               this.$emit('error-uploading-file')
               this.error = true
             }
-          } catch (error) {
+          } catch {
             /**
              * Nofity file uploaded is not valid
              */

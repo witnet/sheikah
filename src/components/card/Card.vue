@@ -46,7 +46,6 @@ export default {
     },
     padding: {
       type: Boolean,
-      // eslint-disable-next-line vue/no-boolean-default
       default: true,
     },
     shadow: {
@@ -55,7 +54,6 @@ export default {
     },
     border: {
       type: Boolean,
-      // eslint-disable-next-line vue/no-boolean-default
       default: true,
     },
   },

@@ -97,9 +97,11 @@ export default {
     },
     toggleTryDataRequest(state) {
       state.autoTry = !state.autoTry
-      state.autoTry
-        ? this.dispatch('tryDataRequest')
-        : this.commit('clearDataRequestResult')
+      if (state.autoTry) {
+        this.dispatch('tryDataRequest')
+      } else {
+        this.commit('clearDataRequestResult')
+      }
     },
     [SET_CURRENT_STAGE](state, { stage }) {
       state.currentStage = stage

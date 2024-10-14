@@ -68,7 +68,7 @@ export default class FormValidation {
     try {
       new BigNumber(value.replace(',', '.'))
       callback()
-    } catch (err) {
+    } catch {
       callback(new Error(t('validate_number')))
     }
   }

@@ -28,7 +28,7 @@ const defaultConfig = {
 
 // Replace witnet nodes urls in witnet configuration file
 export function overwriteWitnetNodeConfiguration(
-  force: Boolean = false,
+  force: boolean = false,
   config: NodeConfig = defaultConfig,
 ) {
   const {

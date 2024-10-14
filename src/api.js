@@ -320,7 +320,6 @@ export function standardizeTransactions(response) {
   const transactions = response.result.transactions.map(transaction => {
     const transactionType = Object.keys(transaction.transaction.data)[0]
     const { inputs, outputs } = transaction.transaction.data[transactionType]
-    // eslint-disable-next-line camelcase
     const { hash, miner_fee, block, timestamp, data } = transaction.transaction
     const tally = data[transactionType].tally
     const type = transaction.type

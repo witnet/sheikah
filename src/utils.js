@@ -411,7 +411,7 @@ export function isValidRadRequest(dr) {
   try {
     const radon = new Radon(dr)
     return radon.getMarkup() && radon.getMir() && radon.getJs()
-  } catch (e) {
+  } catch {
     return false
   }
 }
@@ -420,7 +420,7 @@ export function isValidJson(string) {
   try {
     JSON.parse(string)
     return true
-  } catch (err) {
+  } catch {
     return false
   }
 }
