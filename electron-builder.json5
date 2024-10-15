@@ -12,13 +12,22 @@
     "dist"
   ],
   "mac": {
+    "asarUnpack": [
+      "**/*.node"
+    ],
     "artifactName": "${productName}-${version}.${ext}",
     "entitlements": "build/entitlements.mac.plist",
     "entitlementsInherit": "build/entitlements.mac.plist",
-    hardenedRuntime: true,
-    "target": [
-      "default"
-    ]
+    "hardenedRuntime": true,
+    "target": {
+      target: "default",
+      arch: ["universal"],
+    },
+    "gatekeeperAssess": true,
+    "notarize": false,
+  },
+  "dmg": {
+    "sign": false
   },
   "afterSign": "scripts/notarize.cjs",
   "win": {
