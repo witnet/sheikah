@@ -34,6 +34,7 @@ export default defineConfig(({ command }) => {
         scss: {
           // additionalData: `@use "~/styles/element-variables.scss" as *;`,
           additionalData: `@use "~/styles/element/index.scss" as *;`,
+          api: 'modern',
         },
       },
     },
