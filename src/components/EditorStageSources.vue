@@ -12,7 +12,8 @@
           :body="JSON.stringify(source.body) || ''"
           :kind-options="source.kindOptions"
           :content-type-options="source.contentTypeOptions"
-          :protocol="source.kind"
+          :protocol="source.kindOptions[source.kind]"
+          :protocol-index="Number(source.kind)"
           :content-type="source.contentType"
           :index="index"
         />
@@ -48,70 +49,58 @@
   </LayoutTwoColumns>
 </template>
 
-<script>
-import { mapMutations, mapState } from 'vuex'
+<script lang="ts" setup>
+import { useStore } from 'vuex'
+import { computed, watch, onMounted, nextTick, toRefs, reactive } from 'vue'
 import { ADD_SOURCE } from '@/store/mutation-types'
+import { Kind } from '@/types'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns.vue'
 import Fieldset from '@/components/Fieldset.vue'
 import EditorSource from '@/components/EditorSource.vue'
+import { getIndexFromProtocolKind } from '@/utils/protocolDictionary'
+const store = useStore()
+const sources = computed(() => store.state.rad.radRequest.getMarkup().retrieve)
+let sourceRefs: { [key: string]: any } = reactive({})
+const currentFocus = computed(() => store.state.rad.currentFocus)
+const firstSource = computed(() => sources.value[0])
+const isRng = computed(() => {
+  return (
+    firstSource.value.kind ===
+    getIndexFromProtocolKind(firstSource.value.kindOptions, Kind.Rng)
+  )
+})
+const showAddSourceBtn = computed(() => {
+  return (sources.value.length && !isRng.value) || sources.value.length <= 0
+})
+watch(currentFocus, async val => {
+  if (val || Number.isInteger(val)) {
+    // wait to render deleted stage
+    await nextTick()
 
-export default {
-  name: 'EditorStageSources',
-  components: {
-    EditorSource,
-    Fieldset,
-    LayoutTwoColumns,
-  },
-  computed: {
-    ...mapState({
-      sources: state => {
-        return state.rad.radRequest.getMarkup().retrieve
-      },
-      currentFocus: state => state.rad.currentFocus,
-    }),
-    showAddSourceBtn() {
-      return (
-        (this.sources.length && this.sources[0].kind !== 'RNG') ||
-        this.sources.length <= 0
-      )
-    },
-  },
-  watch: {
-    async currentFocus(val) {
-      if (val || Number.isInteger(val)) {
-        // wait to render deleted stage
-        await this.$nextTick()
-
-        const refs = this.$refs[`source-${val}`]
-        if (refs && refs.length) {
-          await this.$nextTick()
-
-          refs[0].$el.scrollIntoView()
-          this.$store.commit('clearCurrentFocus')
-        }
-      }
-    },
-  },
-  async mounted() {
-    const refs = this.$refs[`source-${this.currentFocus}`]
-
+    const refs: any = sourceRefs[`source-${val}`]
     if (refs && refs.length) {
-      await this.$nextTick()
+      await nextTick()
 
       refs[0].$el.scrollIntoView()
-      this.$store.commit('clearCurrentFocus')
+      store.commit('clearCurrentFocus')
     }
-  },
-  methods: {
-    ...mapMutations({
-      addSource: ADD_SOURCE,
-      clearDataRequestResult: 'clearDataRequestResult',
-    }),
-    pushNewSource() {
-      this.addSource()
-    },
-  },
-}
+  }
+})
+
+onMounted(async () => {
+  sources.value.forEach((_source: any, index: number) => {
+    sourceRefs[`source-${index}`] = `source-${index}`
+  })
+  sourceRefs = toRefs(sourceRefs)
+  const refs = sourceRefs[`source-${currentFocus.value}`]
+  if (sourceRefs && Object.values(sourceRefs).length && refs) {
+    await nextTick()
+    refs[0].$el.scrollIntoView()
+    store.commit('clearCurrentFocus')
+  }
+})
+
+const pushNewSource = () => store.commit(ADD_SOURCE)
 </script>
 
 <style scoped lang="scss">

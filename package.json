@@ -105,7 +105,7 @@
     "vue-router": "^4.4.5",
     "vue-tsc": "^2.1.6",
     "vuex": "^4.1.0",
-    "witnet-radon-js": "^0.11.0",
+    "witnet-radon-js": "^2.0.2",
     "witnet-requests": "^0.9.13"
   }
 }

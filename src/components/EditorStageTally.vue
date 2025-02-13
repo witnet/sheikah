@@ -45,32 +45,31 @@
   </LayoutTwoColumns>
 </template>
 
-<script>
-import { mapState } from 'vuex'
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 import EditorAggregationsTally from '@/components/card/EditorAggregationsTally.vue'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns.vue'
 import Fieldset from '@/components/Fieldset.vue'
+import { Kind } from '@/types'
+import { getIndexFromProtocolKind } from '@/utils/protocolDictionary'
+const store = useStore()
 
-export default {
-  name: 'EditorStageTally',
-  components: {
-    Fieldset,
-    LayoutTwoColumns,
-    EditorAggregationsTally,
-  },
-  computed: {
-    ...mapState({
-      tally: state => state.rad.radRequest.getMarkup().tally,
-      radRequestResult: state => state.wallet.radRequestResult,
-      filtersSupported: state =>
-        state.rad.radRequest.getMarkup().retrieve[0].kind !== 'RNG',
-    }),
-    results() {
-      return this.radRequestResult ? this.radRequestResult.result.tally : null
-    },
-    finalResult() {
-      return this.results ? this.results.result : null
-    },
-  },
-}
+const tally = computed(() => store.state.rad.radRequest.getMarkup().tally)
+const radRequestResult = computed(() => store.state.wallet.radRequestResult)
+const firstSource = computed(
+  () => store.state.rad.radRequest.getMarkup().retrieve[0],
+)
+const filtersSupported = computed(() => {
+  return (
+    firstSource.value.kind !==
+    getIndexFromProtocolKind(firstSource.value.kindOptions, Kind.Rng)
+  )
+})
+const results = computed(() =>
+  radRequestResult.value ? radRequestResult.value.result.tally : null,
+)
+const finalResult = computed(() =>
+  results.value ? results.value.result : null,
+)
 </script>

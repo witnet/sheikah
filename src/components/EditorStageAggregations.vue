@@ -48,35 +48,34 @@
   </LayoutTwoColumns>
 </template>
 
-<script>
-import { mapState } from 'vuex'
+<script lang="ts" setup>
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 import LayoutTwoColumns from '@/components/LayoutTwoColumns.vue'
 import EditorAggregationsTally from '@/components/card/EditorAggregationsTally.vue'
 import Fieldset from '@/components/Fieldset.vue'
+import { Kind } from '@/types'
+import { getIndexFromProtocolKind } from '@/utils/protocolDictionary'
 
-export default {
-  name: 'EditorStageAggregations',
-  components: {
-    Fieldset,
-    LayoutTwoColumns,
-    EditorAggregationsTally,
-  },
-  computed: {
-    ...mapState({
-      aggregations: state => state.rad.radRequest.getMarkup().aggregate,
-      sourcesLength: state => state.rad.radRequest.getMarkup().retrieve.length,
-      radRequestResult: state => state.wallet.radRequestResult,
-      filtersSupported: state =>
-        state.rad.radRequest.getMarkup().retrieve[0].kind !== 'RNG',
-    }),
-    results() {
-      return this.radRequestResult
-        ? this.radRequestResult.result.aggregate
-        : null
-    },
-    finalResult() {
-      return this.results ? this.results.result : null
-    },
-  },
-}
+const store = useStore()
+const aggregations = computed(
+  () => store.state.rad.radRequest.getMarkup().aggregate,
+)
+const sourcesLength = computed(
+  () => store.state.rad.radRequest.getMarkup().retrieve.length,
+)
+const radRequestResult = computed(() => store.state.wallet.radRequestResult)
+const filtersSupported = computed(() => {
+  const firstSource = store.state.rad.radRequest.getMarkup().retrieve[0]
+  return (
+    firstSource.kind !==
+    getIndexFromProtocolKind(firstSource.kindOptions, Kind.Rng)
+  )
+})
+const results = computed(() => {
+  return radRequestResult.value ? radRequestResult.value.result.aggregate : null
+})
+const finalResult = computed(() => {
+  return results.value ? results.value.result : null
+})
 </script>
