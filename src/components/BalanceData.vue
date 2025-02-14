@@ -32,6 +32,14 @@
       class="amount"
       :amount="locked"
     />
+    <p v-if="Number(staked)" class="label">{{ $t('staked_balance_label') }}</p>
+    <Amount
+      v-if="Number(staked)"
+      data-test="staked"
+      :unit-light="true"
+      class="amount"
+      :amount="staked"
+    />
     <p v-if="Number(unconfirmed)" class="label">{{ $t('unconfirmed') }}</p>
     <Amount
       v-if="Number(unconfirmed)"
@@ -75,6 +83,13 @@ export default {
      * Available wits the user owns
      */
     available: {
+      type: String,
+      required: true,
+    },
+    /**
+     * Staked balance
+     */
+    staked: {
       type: String,
       required: true,
     },

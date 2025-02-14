@@ -35,10 +35,17 @@
           :data-test="`output-address-${output.index}`"
         />
         <p
-          v-if="output.timelock !== 0"
+          v-if="
+            (output.timelock && output.timelock !== 0) ||
+            (output['time_lock'] && output['time_lock'] !== 0)
+          "
           :data-test="`output-timelock-${output.index}`"
           class="timelock"
-          >{{ changeDateFormat(Number(`${output.timelock}000`)) }}</p
+          >{{
+            changeDateFormat(
+              Number(`${output.timelock ?? output['time_lock']}000`),
+            )
+          }}</p
         >
       </div>
       <div class="transaction">

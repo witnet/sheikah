@@ -3,6 +3,7 @@
     <BalanceData
       :available="available"
       :locked="locked"
+      :staked="staked"
       :total="total"
       :unit="unit"
       :unconfirmed="unconfirmed"
@@ -48,6 +49,9 @@ export default {
       },
       available() {
         return this.balance.available || '0'
+      },
+      staked() {
+        return this.balance.staked || '0'
       },
       unconfirmed() {
         return this.balance.unconfirmed || '0'

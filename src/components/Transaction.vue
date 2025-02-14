@@ -34,6 +34,20 @@
           <Address v-else size="13px" :value="address" :without-link="true" />
         </div>
         <div
+          v-if="transactionType === 'stake'"
+          class="address-container"
+          data-test="address-container"
+        >
+          <p class="address">{{ $t('stake') }}</p>
+        </div>
+        <div
+          v-if="transactionType === 'unstake'"
+          class="address-container"
+          data-test="address-container"
+        >
+          <p class="address">{{ $t('unstake') }}</p>
+        </div>
+        <div
           v-else-if="transactionType === 'data_request'"
           class="address-container"
         >

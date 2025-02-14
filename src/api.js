@@ -172,8 +172,8 @@ export class WalletApi {
         request.result.transactions.sort(
           (t1, t2) =>
             t2.timestamp - t1.timestamp ||
-            Number(t1.outputs[0]?.timelock ?? 0) -
-              Number(t2.outputs[0]?.timelock ?? 0),
+            Number(t1.outputs[0]?.timelock ?? t1.change?.timelock ?? 0) -
+              Number(t2.outputs[0]?.timelock ?? t2.change?.timelock ?? 0),
         )
         request.result.transactions = request.result.transactions.splice(
           computedPagination.pageSection[0],
@@ -325,22 +325,56 @@ export function standardizeTransactions(response) {
     const type = transaction.type
     const confirmed = transaction.transaction.confirmed
     const address = computeTransactionAddress(inputs, outputs, type)
-    const filteredOutputs =
-      address === 'genesis'
-        ? outputs
-            .map((output, index) => {
+    let standardizeOutputs = []
+    let transactionAmount = 0
+    let filteredOutputs = null
+    let timelocked = false
+    let change = null
+
+    if (transactionType === 'stake') {
+      change = transaction.transaction.data.stake.change
+      standardizeOutputs.push(change)
+      transactionAmount = transaction.amount
+      timelocked =
+        change.time_lock !== 0 && Date.now() <= Number(`${change.time_lock}000`)
+    } else if (transactionType === 'unstake') {
+      const withdrawal = transaction.transaction.data.unstake.withdrawal
+      standardizeOutputs.push(withdrawal)
+      transactionAmount = withdrawal.value
+      timelocked =
+        withdrawal.time_lock !== 0 &&
+        Date.now() <= Number(`${withdrawal.time_lock}000`)
+    } else {
+      filteredOutputs =
+        address === 'genesis'
+          ? outputs
+              .map((output, index) => {
+                return {
+                  output,
+                  index,
+                }
+              })
+              .filter(({ output }) => output.output_type !== 'OTHER')
+          : outputs.map((output, index) => {
               return {
                 output,
                 index,
               }
             })
-            .filter(({ output }) => output.output_type !== 'OTHER')
-        : outputs.map((output, index) => {
-            return {
-              output,
-              index,
-            }
-          })
+      transactionAmount = transaction.amount
+      standardizeOutputs = filteredOutputs.map(({ output, index }) => ({
+        value: output.value,
+        address: output.address,
+        timelock: output.time_lock,
+        outputType: output.output_type,
+        index: index,
+      }))
+      timelocked = outputs.some(
+        output =>
+          output.time_lock !== 0 &&
+          Date.now() <= Number(`${output.time_lock}000`),
+      )
+    }
     return {
       id: hash,
       type,
@@ -350,26 +384,16 @@ export function standardizeTransactions(response) {
             address: input.address,
           }))
         : null,
-      outputs: filteredOutputs.map(({ output, index }) => ({
-        value: output.value,
-        address: output.address,
-        timelock: output.time_lock,
-        outputType: output.output_type,
-        index: index,
-      })),
+      outputs: standardizeOutputs,
       confirmed,
       fee: miner_fee,
       date: changeDateFormat(timestamp),
       timestamp,
       label: '',
-      amount: transaction.amount,
+      amount: transactionAmount,
       block: block.block_hash,
       epoch: block.epoch,
-      timelocked: outputs.some(
-        output =>
-          output.time_lock !== 0 &&
-          Date.now() <= Number(`${output.time_lock}000`),
-      ),
+      timelocked,
       witnesses: null,
       address,
       rewards: null,
@@ -438,6 +462,8 @@ function computeTransactionAddress(inputs, outputs, type) {
       return 'several addresses'
     } else if (inputs && inputs.length > 0) {
       return inputs[0].address
+    } else if (!outputs) {
+      return 'unstake'
     } else {
       // inputs.length == 0: assume this is a genesis transaction
       return 'genesis'
@@ -445,13 +471,17 @@ function computeTransactionAddress(inputs, outputs, type) {
   } else {
     // Data request transactions can have 0 outputs, in that case the displayed text is "Data request".
     // Value transfer transactions can have 0 outputs, but they cannot be created using Sheikah. In that case the transaction is a donation to the miner, so the displayed text will be "to miner".
-    if (outputs.length === 0) {
+    if (outputs && outputs.length === 0) {
       return 'miner'
     }
     // We are assumming that the first output is the address where we are
     // sending and the second is for the change. So if there are more than 2,
     // there are several addresses
-    return outputs.length > 2 ? 'several addresses' : outputs[0].address
+    if (outputs) {
+      return outputs.length > 2 ? 'several addresses' : outputs[0].address
+    } else {
+      return 'stake'
+    }
   }
 }
 
@@ -460,18 +490,21 @@ export function standardizeBalance(response) {
   const confirmedBalance = response.result.confirmed
   const unconfirmedBalance = response.result.unconfirmed
   const totalBalance = new BigNumber(unconfirmedBalance.available)
+    .plus(unconfirmedBalance.staked)
     .plus(unconfirmedBalance.locked)
     .toFixed()
   const totalConfirmed = new BigNumber(confirmedBalance.available)
     .plus(confirmedBalance.locked)
     .toFixed()
   const totalUnconfirmed = new BigNumber(totalBalance)
+    .minus(unconfirmedBalance.staked)
     .minus(totalConfirmed)
     .toFixed()
   return {
     result: {
       available: confirmedBalance.available,
       locked: confirmedBalance.locked,
+      staked: confirmedBalance.staked,
       unconfirmed: totalUnconfirmed,
       total: totalBalance,
     },
