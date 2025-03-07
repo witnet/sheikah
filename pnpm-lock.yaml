@@ -22,7 +22,7 @@ importers:
         version: 3.0.8(@fortawesome/fontawesome-svg-core@6.7.2)(vue@3.5.12(typescript@5.7.3))
       '@intlify/unplugin-vue-i18n':
         specifier: ^3.0.1
-        version: 3.0.1(rollup@4.30.1)(vue-i18n@9.14.2(vue@3.5.12(typescript@5.7.3)))
+        version: 3.0.1(rollup@4.30.1)(vue-i18n@9.14.3(vue@3.5.12(typescript@5.7.3)))
       '@rushstack/eslint-patch':
         specifier: ^1.10.4
         version: 1.10.5
@@ -67,7 +67,7 @@ importers:
         version: 33.4.0
       electron-builder:
         specifier: ^25.1.8
-        version: 25.1.8(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8))
+        version: 25.1.8(electron-builder-squirrel-windows@25.1.8)
       electron-devtools-installer:
         specifier: ^3.2.0
         version: 3.2.1
@@ -156,8 +156,8 @@ importers:
         specifier: 3.5.12
         version: 3.5.12(typescript@5.7.3)
       vue-i18n:
-        specifier: ^9.14.1
-        version: 9.14.2(vue@3.5.12(typescript@5.7.3))
+        specifier: ^9.14.3
+        version: 9.14.3(vue@3.5.12(typescript@5.7.3))
       vue-json-tree:
         specifier: ^0.4.3
         version: 0.4.3
@@ -510,16 +510,24 @@ packages:
       vue-i18n:
         optional: true
 
-  '@intlify/core-base@9.14.2':
-    resolution: {integrity: sha512-DZyQ4Hk22sC81MP4qiCDuU+LdaYW91A6lCjq8AWPvY3+mGMzhGDfOCzvyR6YBQxtlPjFqMoFk9ylnNYRAQwXtQ==}
+  '@intlify/core-base@9.14.3':
+    resolution: {integrity: sha512-nbJ7pKTlXFnaXPblyfiH6awAx1C0PWNNuqXAR74yRwgi5A/Re/8/5fErLY0pv4R8+EHj3ZaThMHdnuC/5OBa6g==}
     engines: {node: '>= 16'}
 
   '@intlify/message-compiler@9.14.2':
     resolution: {integrity: sha512-YsKKuV4Qv4wrLNsvgWbTf0E40uRv+Qiw1BeLQ0LAxifQuhiMe+hfTIzOMdWj/ZpnTDj4RSZtkXjJM7JDiiB5LQ==}
     engines: {node: '>= 16'}
 
+  '@intlify/message-compiler@9.14.3':
+    resolution: {integrity: sha512-ANwC226BQdd+MpJ36rOYkChSESfPwu3Ss2Faw0RHTOknYLoHTX6V6e/JjIKVDMbzs0/H/df/rO6yU0SPiWHqNg==}
+    engines: {node: '>= 16'}
+
   '@intlify/shared@9.14.2':
     resolution: {integrity: sha512-uRAHAxYPeF+G5DBIboKpPgC/Waecd4Jz8ihtkpJQD5ycb5PwXp0k/+hBGl5dAjwF7w+l74kz/PKA8r8OK//RUw==}
+    engines: {node: '>= 16'}
+
+  '@intlify/shared@9.14.3':
+    resolution: {integrity: sha512-hJXz9LA5VG7qNE00t50bdzDv8Z4q9fpcL81wj4y4duKavrv0KM8YNLTwXNEFINHjTsfrG9TXvPuEjVaAvZ7yWg==}
     engines: {node: '>= 16'}
 
   '@intlify/unplugin-vue-i18n@3.0.1':
@@ -2568,6 +2576,7 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.isplainobject@4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
@@ -3755,8 +3764,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  vue-i18n@9.14.2:
-    resolution: {integrity: sha512-JK9Pm80OqssGJU2Y6F7DcM8RFHqVG4WkuCqOZTVsXkEzZME7ABejAUqUdA931zEBedc4thBgSUWxeQh4uocJAQ==}
+  vue-i18n@9.14.3:
+    resolution: {integrity: sha512-C+E0KE8ihKjdYCQx8oUkXX+8tBItrYNMnGJuzEPevBARQFUN2tKez6ZVOvBrWH0+KT5wEk3vOWjNk7ygb2u9ig==}
     engines: {node: '>= 16'}
     peerDependencies:
       vue: ^3.0.0
@@ -4224,7 +4233,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.1': {}
 
-  '@intlify/bundle-utils@7.5.1(vue-i18n@9.14.2(vue@3.5.12(typescript@5.7.3)))':
+  '@intlify/bundle-utils@7.5.1(vue-i18n@9.14.3(vue@3.5.12(typescript@5.7.3)))':
     dependencies:
       '@intlify/message-compiler': 9.14.2
       '@intlify/shared': 9.14.2
@@ -4237,23 +4246,30 @@ snapshots:
       source-map-js: 1.2.1
       yaml-eslint-parser: 1.2.3
     optionalDependencies:
-      vue-i18n: 9.14.2(vue@3.5.12(typescript@5.7.3))
+      vue-i18n: 9.14.3(vue@3.5.12(typescript@5.7.3))
 
-  '@intlify/core-base@9.14.2':
+  '@intlify/core-base@9.14.3':
     dependencies:
-      '@intlify/message-compiler': 9.14.2
-      '@intlify/shared': 9.14.2
+      '@intlify/message-compiler': 9.14.3
+      '@intlify/shared': 9.14.3
 
   '@intlify/message-compiler@9.14.2':
     dependencies:
       '@intlify/shared': 9.14.2
       source-map-js: 1.2.1
 
+  '@intlify/message-compiler@9.14.3':
+    dependencies:
+      '@intlify/shared': 9.14.3
+      source-map-js: 1.2.1
+
   '@intlify/shared@9.14.2': {}
 
-  '@intlify/unplugin-vue-i18n@3.0.1(rollup@4.30.1)(vue-i18n@9.14.2(vue@3.5.12(typescript@5.7.3)))':
+  '@intlify/shared@9.14.3': {}
+
+  '@intlify/unplugin-vue-i18n@3.0.1(rollup@4.30.1)(vue-i18n@9.14.3(vue@3.5.12(typescript@5.7.3)))':
     dependencies:
-      '@intlify/bundle-utils': 7.5.1(vue-i18n@9.14.2(vue@3.5.12(typescript@5.7.3)))
+      '@intlify/bundle-utils': 7.5.1(vue-i18n@9.14.3(vue@3.5.12(typescript@5.7.3)))
       '@intlify/shared': 9.14.2
       '@rollup/pluginutils': 5.1.4(rollup@4.30.1)
       '@vue/compiler-sfc': 3.5.13
@@ -4266,7 +4282,7 @@ snapshots:
       source-map-js: 1.2.1
       unplugin: 1.16.1
     optionalDependencies:
-      vue-i18n: 9.14.2(vue@3.5.12(typescript@5.7.3))
+      vue-i18n: 9.14.3(vue@3.5.12(typescript@5.7.3))
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -4891,7 +4907,7 @@ snapshots:
 
   app-builder-bin@5.0.0-alpha.10: {}
 
-  app-builder-lib@25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@25.1.8))(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8)):
+  app-builder-lib@25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8):
     dependencies:
       '@develar/schema-utils': 2.6.5
       '@electron/notarize': 2.5.0
@@ -5486,7 +5502,7 @@ snapshots:
 
   dmg-builder@25.1.8(electron-builder-squirrel-windows@25.1.8):
     dependencies:
-      app-builder-lib: 25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@25.1.8))(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8))
+      app-builder-lib: 25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8)
       builder-util: 25.1.7
       builder-util-runtime: 9.2.10
       fs-extra: 10.1.0
@@ -5565,7 +5581,7 @@ snapshots:
 
   electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8):
     dependencies:
-      app-builder-lib: 25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@25.1.8))(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8))
+      app-builder-lib: 25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8)
       archiver: 5.3.2
       builder-util: 25.1.7
       fs-extra: 10.1.0
@@ -5574,9 +5590,9 @@ snapshots:
       - dmg-builder
       - supports-color
 
-  electron-builder@25.1.8(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8)):
+  electron-builder@25.1.8(electron-builder-squirrel-windows@25.1.8):
     dependencies:
-      app-builder-lib: 25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@25.1.8))(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8))
+      app-builder-lib: 25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8)
       builder-util: 25.1.7
       builder-util-runtime: 9.2.10
       chalk: 4.1.2
@@ -8012,10 +8028,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vue-i18n@9.14.2(vue@3.5.12(typescript@5.7.3)):
+  vue-i18n@9.14.3(vue@3.5.12(typescript@5.7.3)):
     dependencies:
-      '@intlify/core-base': 9.14.2
-      '@intlify/shared': 9.14.2
+      '@intlify/core-base': 9.14.3
+      '@intlify/shared': 9.14.3
       '@vue/devtools-api': 6.6.4
       vue: 3.5.12(typescript@5.7.3)
 
