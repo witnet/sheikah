@@ -26,15 +26,6 @@
           isDrTx ? option.transaction.fee : option.transaction.metadata.fee
         "
       />
-      <p
-        v-if="feeEstimationReportError && !isCustomFee(option)"
-        class="error-message"
-      >
-        {{ feeEstimationReportError.message }}
-      </p>
-      <p v-else-if="isDisabledFee(option)" class="error-message">
-        {{ option.transaction.error }}
-      </p>
       <p v-if="isReportGenerated(option)" class="time">
         {{ getTimeDuration(option.report.time_to_block, locale) }}
       </p>
@@ -199,7 +190,7 @@ export default {
     }
 
     &.disabled {
-      border: var(--select-box-error-border);
+      opacity: 0.6;
       cursor: not-allowed;
     }
   }

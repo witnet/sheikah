@@ -1,6 +1,6 @@
 <template>
   <el-form
-    ref="send-form"
+    ref="sendForm"
     class="form"
     data-test="tx-form"
     :model="form"
@@ -8,17 +8,17 @@
     :rules="rules"
     width="max-content"
   >
-    <el-form-item :label="$t('address')" prop="address">
+    <el-form-item :label="t('address')" prop="address">
       <el-input
         v-model="form.address"
         v-focus
         tabindex="1"
-        :placeholder="$t('address_placeholder')"
+        :placeholder="t('address_placeholder')"
         data-test="tx-address"
         :maxlength="addressLength"
       />
     </el-form-item>
-    <el-form-item :label="$t('amount')" prop="amount">
+    <el-form-item :label="t('amount')" prop="amount">
       <!-- FIXME(#1188): create InputWit component after assess how to pass Element validation between transparent wrapper -->
       <el-input v-model="form.amount" tabindex="3" data-test="tx-amount">
         <template #append>
@@ -29,12 +29,12 @@
     <transition name="slide">
       <div v-if="isAdvancedVisible">
         <div class="label">
-          {{ $t('timelock') }}
+          {{ t('timelock') }}
           <el-tooltip trigger="hover" effect="light">
             <font-awesome-icon class="info" icon="info-circle" />
             <template #content>
               <div class="info-message">
-                {{ $t('timelock_tooltip') }}
+                {{ t('timelock_tooltip') }}
               </div>
             </template>
           </el-tooltip>
@@ -42,7 +42,7 @@
         <el-date-picker
           v-model="form.timelock"
           type="datetime"
-          :placeholder="$t('select_date')"
+          :placeholder="t('select_date')"
           :default-time="new Date()"
           value-format="x"
         />
@@ -56,7 +56,7 @@
         class="link"
         @click="toggleAdvanceOptions"
       >
-        {{ $t('show_less') }}
+        {{ t('show_less') }}
         <CustomIcon class-name="icon" name="close" />
       </el-link>
       <el-link
@@ -65,7 +65,7 @@
         class="link"
         @click="toggleAdvanceOptions"
       >
-        {{ $t('show_advance') }}
+        {{ t('show_advance') }}
         <CustomIcon class-name="icon" name="open" />
       </el-link>
       <el-button
@@ -75,180 +75,183 @@
         data-test="sign-send-btn"
         @click="tryCreateVTT"
       >
-        {{ $t('continue') }}
+        {{ t('continue') }}
       </el-button>
     </div>
   </el-form>
 </template>
 
-<script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+<script setup lang="ts">
+import { useStore } from 'vuex'
+import { computed, onMounted, reactive, ref, watch, toRefs } from 'vue'
+import { useI18n } from 'vue-i18n'
 import AppendUnit from '@/components/AppendUnit.vue'
 import { standardizeWitUnits } from '@/utils'
 import FormValidation from '@/services/FormValidation'
-import { WIT_UNIT, VTT_DEFAULT_VALUES } from '@/constants'
+import { VTT_DEFAULT_VALUES, WIT_UNIT } from '@/constants'
 import CustomIcon from '@/components/CustomIcon.vue'
 
-export default {
-  name: 'SendValueTransferForm',
-  components: {
-    AppendUnit,
-    CustomIcon,
+const store = useStore()
+const { t } = useI18n()
+const props = defineProps({
+  vttValues: {
+    type: Object,
+    required: true,
   },
-  props: {
-    vttValues: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
-    const formValidation = () =>
-      new FormValidation({
-        unit: this.unit,
-        balance: this.availableBalance,
-        feeType: this.feeType,
-      })
+})
+const addressLength = computed(() => {
+  return network.value && network.value.toLowerCase() === 'mainnet' ? 42 : 43
+})
 
-    const isGrtThanBalance = (rule, value, callback) => {
-      return formValidation().isGrtThanBalance(rule, value, callback)
-    }
-    const maxNumber = (rule, value, callback) => {
-      return formValidation().maxNumber(rule, value, callback)
-    }
-    const integerNanoWit = (rule, value, callback) => {
-      return formValidation().integerNanoWit(rule, value, callback)
-    }
-    const minAmount = (rule, value, callback) => {
-      return formValidation().minAmount(rule, value, callback)
-    }
-    const isNumber = (rule, value, callback) => {
-      return formValidation().isNumber(rule, value, callback)
-    }
-    return {
-      checkedUtxos: [],
-      isAdvancedVisible: false,
-      WIT_UNIT,
-      form: VTT_DEFAULT_VALUES,
-      rules: {
-        // address validation is updated on runtime according to the network
-        address: [
-          {
-            required: true,
-            message: this.$t('required_field'),
-            trigger: 'blur',
-          },
-          {
-            min: 42,
-            max: 43,
-            message: this.$t('address_validation_default'),
-            trigger: 'blur',
-          },
-        ],
-        label: [],
-        amount: [
-          {
-            required: true,
-            message: this.$t('required_field'),
-            trigger: 'blur',
-          },
-          {
-            validator: isGrtThanBalance,
-            trigger: 'blur',
-          },
-          { validator: isNumber, trigger: 'blur' },
-          { validator: minAmount, trigger: 'submit' },
-          {
-            validator: integerNanoWit,
-            trigger: 'submit',
-          },
-          { validator: maxNumber, trigger: 'blur' },
-        ],
-      },
-    }
-  },
-  computed: {
-    ...mapGetters(['network']),
-    ...mapState({
-      unit: state => state.wallet.unit,
-      createVTTError: state => state.wallet.errors.createVTT,
-      availableBalance: state => state.wallet.balance.available,
-    }),
-    addressLength() {
-      return this.network && this.network.toLowerCase() === 'mainnet' ? 42 : 43
-    },
-  },
-  watch: {
-    form: {
-      handler() {
-        if (this.createVTTError) {
-          this.clearError({ error: this.createVTTError.name })
-        }
-      },
-      deep: true,
-    },
-    addressLength: {
-      handler(len) {
-        this.rules.address = [
-          {
-            required: true,
-            message: this.$t('required_field'),
-            trigger: 'blur',
-          },
-          {
-            min: len,
-            max: len,
-            message: this.$t('address_length_validation', { variable: len }),
-            trigger: 'blur',
-          },
-        ]
-      },
-      immediate: true,
-    },
-  },
-  mounted() {
-    // Set saved values in store
-    this.form = this.vttValues
-  },
-  methods: {
-    ...mapMutations({
-      clearError: 'clearError',
-      clearGeneratedTransaction: 'clearGeneratedTransaction',
-    }),
-    toggleAdvanceOptions() {
-      this.isAdvancedVisible = !this.isAdvancedVisible
-    },
-    checkedUtxosChange(value) {
-      this.checkedUtxos = value
-    },
-    changeUnit(prevUnit, newUnit) {
-      this.form = {
-        ...this.form,
-        amount: this.form.amount
-          ? standardizeWitUnits(this.form.amount, newUnit, prevUnit, 2)
-          : null,
-      }
-    },
-    tryCreateVTT() {
-      this.$refs['send-form'].validate(valid => {
-        if (valid) {
-          this.$emit('set-vtt-values', {
-            label: this.form.label,
-            address: this.form.address,
-            amount: this.form.amount,
-            fee: this.form.fee,
-            feeType: this.feeType,
-            timelock: this.form.timelock,
-          })
-        }
-      })
-    },
-    closeDialog() {
-      this.isAdvancedVisible = false
-      this.$emit('close')
-    },
-    standardizeWitUnits,
-  },
+const network = computed(() => store.getters.network)
+const unit = computed(() => store.state.wallet.unit)
+const createVTTError = computed(() => store.state.wallet.errors.createVTT)
+const availableBalance = computed(() => store.state.wallet.balance.available)
+const formValidation = new FormValidation({
+  unit: unit.value,
+  balance: availableBalance.value,
+  feeType: null,
+})
+const isGrtThanBalance = (rule: any, value: any, callback: any) => {
+  return formValidation.isGrtThanBalance(rule, value, callback)
 }
+const isDecimalAmountValid = (rule: any, value: any, callback: any) => {
+  return formValidation.isDecimalAmountValid(rule, value, callback)
+}
+const maxNumber = (rule: any, value: any, callback: any) => {
+  return formValidation.maxNumber(rule, value, callback)
+}
+const integerNanoWit = (rule: any, value: any, callback: any) => {
+  return formValidation.integerNanoWit(rule, value, callback)
+}
+const minAmount = (rule: any, value: any, callback: any) => {
+  return formValidation.minAmount(rule, value, callback)
+}
+const isNumber = (rule: any, value: any, callback: any) => {
+  return formValidation.isNumber(rule, value, callback)
+}
+
+const sendForm = ref()
+const isAdvancedVisible = ref(false)
+const form = reactive(VTT_DEFAULT_VALUES)
+const { amount } = toRefs(form)
+const rules = ref({
+  address: [
+    {
+      required: true,
+      message: t('required_field'),
+      trigger: 'blur',
+    },
+    {
+      min: 42,
+      max: 43,
+      message: t('address_validation_default'),
+      trigger: 'blur',
+    },
+  ],
+  label: [],
+  amount: [
+    {
+      required: true,
+      message: t('required_field'),
+      trigger: 'blur',
+    },
+    {
+      validator: isDecimalAmountValid,
+      trigger: 'blur',
+    },
+    {
+      validator: isGrtThanBalance,
+      trigger: 'blur',
+    },
+    { validator: isNumber, trigger: 'blur' },
+    { validator: minAmount, trigger: 'submit' },
+    {
+      validator: integerNanoWit,
+      trigger: 'submit',
+    },
+    { validator: maxNumber, trigger: 'blur' },
+  ],
+})
+const emits = defineEmits(['set-vtt-values', 'close'])
+
+const clearError = ({ error }: { error: string }) =>
+  store.commit('clearError', { error })
+
+function toggleAdvanceOptions() {
+  isAdvancedVisible.value = !isAdvancedVisible.value
+}
+
+function changeUnit(prevUnit: any, newUnit: any) {
+  amount.value = form.amount
+    ? standardizeWitUnits(form.amount, newUnit, prevUnit, 2)
+    : null
+}
+function tryCreateVTT() {
+  sendForm.value.validate((valid: boolean) => {
+    if (valid) {
+      emits('set-vtt-values', {
+        label: form.label,
+        address: form.address,
+        amount: form.amount,
+        fee: form.fee,
+        timelock: form.timelock,
+      })
+    }
+  })
+}
+
+onMounted(() => {
+  console.log(props.vttValues)
+  form.address = props.vttValues.address
+  form.amount = props.vttValues.value
+  form.timelock = props.vttValues.timelock
+})
+
+watch(
+  form,
+  () => {
+    if (createVTTError.value) {
+      clearError({ error: createVTTError.value.name })
+    }
+  },
+  { deep: true },
+)
+
+watch(amount, (newAmount, oldAmount) => {
+  const witAmount = standardizeWitUnits(newAmount, WIT_UNIT.WIT, unit.value, -1)
+  if (
+    formValidation.hasDecimals(newAmount) &&
+    formValidation.amountValidated(newAmount)
+  ) {
+    const isValid = formValidation.decimalsValidated(witAmount)
+    if (!isValid) {
+      amount.value = oldAmount
+    }
+  }
+})
+
+watch(
+  addressLength,
+  len => {
+    rules.value.address = [
+      {
+        required: true,
+        message: t('required_field'),
+        trigger: 'blur',
+      },
+      {
+        min: len,
+        max: len,
+        message: t('address_length_validation', { variable: len }),
+        trigger: 'blur',
+      },
+    ]
+  },
+  {
+    immediate: true,
+  },
+)
 </script>
 
 <style lang="scss" scoped>

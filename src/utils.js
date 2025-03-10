@@ -179,10 +179,19 @@ export function standardizeWitUnits(
   }
   try {
     if (amount && amount !== '0') {
-      const num = new BigNumber(amount)
+      let num = new BigNumber(amount)
+      const isNonFixedZeroAmount =
+        truncate === -1 && num.toString() === '0' && amount.includes('.')
+      // Allow converting zero amount with decimals to allow validation
+      if (isNonFixedZeroAmount) {
+        num = new BigNumber(amount.slice(0, -1) + '1')
+      }
       const exponent = witUnitConversor[inputUnit][outputUnit]
       const result = num.times(new BigNumber(10).pow(exponent), 0)
-      if (truncate === -1) {
+      if (isNonFixedZeroAmount) {
+        // Zero amount result with decimals to allow validation
+        return result.toFixed().slice(0, -1) + '0'
+      } else if (truncate === -1) {
         return result.toFixed()
       } else if (result.cmp(1) === -1) {
         // result < 1
